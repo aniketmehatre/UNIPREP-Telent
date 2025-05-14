@@ -26,12 +26,6 @@ export const appRoutes: Routes = [
 		path: "landing",
 		loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule)
 	},
-	{
-		path: 'contact-us',
-		loadComponent: () => import('./pages/landing/contact-us/contact-us.component').then(c => c.ContactUsComponent)
-	},
-	{ path: "pricing", component: PricingComponent },
-
 	{ path: "students", component: CoBrandedComponent },
 	{ path: "students/login", component: LoginComponent },
 	{ path: "register", component: RegistrationComponent },
