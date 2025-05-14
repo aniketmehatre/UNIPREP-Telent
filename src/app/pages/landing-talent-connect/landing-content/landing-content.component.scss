@@ -1,4 +1,5 @@
 // Main container with background
+$orange: #f0780e;
 :host {
   font-family: 'Poppins', sans-serif;
 }
@@ -605,6 +606,10 @@ background: linear-gradient(90deg,#161616 60%,  #1A1D30 100%);
   position: relative;
 }
 
+::ng-deep .p-timeline-event-connector {
+  width: 6px !important;
+  background-color: $orange !important;
+}
 .timeline-icon {
   width: 60px;
   height: 60px;
@@ -621,9 +626,10 @@ background: linear-gradient(90deg,#161616 60%,  #1A1D30 100%);
 
 .timeline-content {
   background-color: transparent;
-  border-radius: 8px;
-  max-width: 450px;
+  padding: 20px;
+    margin-bottom: 70px;
 }
+
 
 .timeline-title {
   font-size: 24px;

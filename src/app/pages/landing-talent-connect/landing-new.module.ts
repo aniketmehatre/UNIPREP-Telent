@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LandingNewComponent } from './landing-new.component';
 import { LandingFooterComponent } from '../landing/landing-footer/landing-footer.component';
+import { TimelineModule } from 'primeng/timeline';
 
 const routes: Routes = [
   {
@@ -51,7 +52,7 @@ const routes: Routes = [
     DialogModule,
     RouterModule.forChild(routes),
     ScrollTopModule,
-    LandingFooterComponent
+    LandingFooterComponent,
   ],
   declarations: [LandingNewComponent],
   providers: [MessageService, AuthService],

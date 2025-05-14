@@ -163,11 +163,8 @@
 
     <section class="timeline-section">
         <div class="container">
-            <div class="timeline-container">
-                <div class="timeline-line"></div>
-
-                <div *ngFor="let step of steps" class="timeline-item">
-                    <!-- ICON IN CENTER -->
+            <p-timeline [value]="steps" class="w-full md:w-80" align="alternate">
+                <ng-template #marker let-step>
                     <div class="timeline-icon-ball">
                         <div class="timeline-icon-container">
                             <div class="timeline-icon">
@@ -175,34 +172,28 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- CONTENT -->
-                    <div class="row mt-5" [ngClass]="{'flex-row-reverse gap-2': step.alignment === 'right'}">
-                        <div class="col-md-6"
-                            [ngClass]="{'text-end mx-2': step.alignment === 'left', 'text-start  mx-2': step.alignment === 'right'}">
-                            <div class="timeline-content px-4 py-3"
-                                [ngClass]="{'ms-auto': step.alignment === 'left', 'me-auto': step.alignment === 'right'}">
-                                <h3 class="timeline-title fw-bold"
-                                    [ngClass]="{'text-end': step.alignment === 'left', 'text-start': step.alignment === 'right'}">
-                                    <span class="text-orange mx-3 me-3">&nbsp;{{ step.title }}</span>
-                                </h3>
-                                <p class="timeline-description">{{ step.description }}</p>
-                            </div>
-                        </div>
+                </ng-template>
+                <ng-template #content let-step>
+                    <div class="timeline-content">
+                            <h3 class="timeline-title fw-bold mx-3">
+                                <span class="text-orange">&nbsp;{{ step.title }}</span>
+                            </h3>
+                            <p class="timeline-description">{{ step.description }}</p>
                     </div>
-                </div>
-            </div>
+                </ng-template>
+            </p-timeline>
         </div>
     </section>
 
 
     <!-- Section 3: CTA -->
-<section class="cta-section text-center mt-5 py-5">
-    <div class="cta-container mx-auto rounded-4">
-        <h1 class="display-4 fw-bold text-orange mb-3">Ready to Be Found by the Right Employer?</h1>
-        <p class="lead text-white fs-2 mb-4">Hire the right talent — faster, smarter,<br> and without spending a penny
-        </p>
-        <button class="btn btn-outline-orange btn-lg px-5" routerLink="/register">Start Now</button>
-    </div>
-</section>
+    <section class="cta-section text-center mt-5 py-5">
+        <div class="cta-container mx-auto rounded-4">
+            <h1 class="display-4 fw-bold text-orange mb-3">Ready to Be Found by the Right Employer?</h1>
+            <p class="lead text-white fs-2 mb-4">Hire the right talent — faster, smarter,<br> and without spending a
+                penny
+            </p>
+            <button class="btn btn-outline-orange btn-lg px-5" routerLink="/register">Start Now</button>
+        </div>
+    </section>
 </div>

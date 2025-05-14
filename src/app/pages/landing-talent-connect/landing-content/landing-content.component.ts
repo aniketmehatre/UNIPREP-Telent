@@ -4,71 +4,74 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { ScrollTopModule } from 'primeng/scrolltop';
+import { TimelineModule } from 'primeng/timeline';
 
 @Component({
   selector: 'uni-landing-content',
   imports: [ScrollTopModule,
-              CommonModule,
-          FormsModule,
-          ReactiveFormsModule,
-          DialogModule,
-          RouterModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DialogModule,
+    RouterModule,
+    TimelineModule
+
   ],
   templateUrl: './landing-content.component.html',
   styleUrl: './landing-content.component.scss'
 })
 export class LandingContentComponent implements OnInit, AfterViewInit {
-scrollThresholdPerCard = 150; // How much scroll per card stack
-totalStackScrollHeight = 0;
- @ViewChild('cardStack') cardStackElement!: ElementRef;
- @ViewChild("videoPlayer")
+  scrollThresholdPerCard = 150; // How much scroll per card stack
+  totalStackScrollHeight = 0;
+  @ViewChild('cardStack') cardStackElement!: ElementRef;
+  @ViewChild("videoPlayer")
   videoPlayer!: ElementRef;
-    welcomevideoLink: string = `https://api.uniprep.ai/uniprepapi/storage/app/public/Landing/welcome.mp4`;
-    isPlaying = false;
- steps = [
+  welcomevideoLink: string = `https://api.uniprep.ai/uniprepapi/storage/app/public/Landing/welcome.mp4`;
+  isPlaying = false;
+  steps = [
     {
       id: 1,
-     title: 'Sign Up and Build Your Career  Profile',
-     description: 'Create a professional profile to showcase your skills, experience, and aspirations.',
-     icon: 'fa-solid fa-user-pen',
-     alignment: 'right',
-   },
-   {
-     id: 2,
-     title: 'Discover Local, National & Global-Opportunities',
-     description: 'Explore job openings from employers around the world across industries.',
-     icon: 'fa-solid fa-globe',
-     alignment: 'left',
-   },
-   {
-     id: 3,
-     title: 'Apply to Roles that Match Your Goals',
-     description: 'Advertise your open positions to a wide pool of candidates at no cost. Post job vacancies effortlessly and start receiving applications immediately.',
-     icon: 'fa-solid fa-file-arrow-up',
-     alignment: 'right',
-   },
-   {
-     id: 4,
-     title: 'Stand Out and Get Shortlisted',
-     description: 'Browse through a diverse pool of qualified candidates to find your ideal match. Utilize advanced search filters to narrow down candidates based on your specific needs.',
-     icon: 'fa-solid fa-user-check',
-     alignment: 'left',
-   },
-   {
-     id: 5,
-     title: 'Connect & Interview with Employers',
-     description: 'Engage directly with companies through the platform for interviews and assessments.',
-     icon: 'fa-solid fa-handshake',
-     alignment: 'right',
-   },
-   {
-     id: 6,
-     title: 'Secure Your Next Opportunity',
-     description: 'Land your ideal role and take the next step in your professional journey.',
-     icon: 'fa-solid fa-trophy',
-     alignment: 'left',
-   },
- ];
+      title: 'Sign Up and Build Your Career Profile',
+      description: 'Create a professional profile to showcase your skills, experience, and aspirations.',
+      icon: 'fa-solid fa-user-pen',
+      alignment: 'right',
+    },
+    {
+      id: 2,
+      title: 'Discover Local, National & Global-Opportunities',
+      description: 'Explore job openings from employers around the world across industries.',
+      icon: 'fa-solid fa-globe',
+      alignment: 'left',
+    },
+    {
+      id: 3,
+      title: 'Apply to Roles that Match Your Goals',
+      description: 'Advertise your open positions to a wide pool of candidates at no cost. Post job vacancies effortlessly and start receiving applications immediately.',
+      icon: 'fa-solid fa-file-arrow-up',
+      alignment: 'right',
+    },
+    {
+      id: 4,
+      title: 'Stand Out and Get Shortlisted',
+      description: 'Browse through a diverse pool of qualified candidates to find your ideal match. Utilize advanced search filters to narrow down candidates based on your specific needs.',
+      icon: 'fa-solid fa-user-check',
+      alignment: 'left',
+    },
+    {
+      id: 5,
+      title: 'Connect & Interview with Employers',
+      description: 'Engage directly with companies through the platform for interviews and assessments.',
+      icon: 'fa-solid fa-handshake',
+      alignment: 'right',
+    },
+    {
+      id: 6,
+      title: 'Secure Your Next Opportunity',
+      description: 'Land your ideal role and take the next step in your professional journey.',
+      icon: 'fa-solid fa-trophy',
+      alignment: 'left',
+    },
+  ];
 
   employerTypes = [
     {
@@ -152,7 +155,7 @@ totalStackScrollHeight = 0;
       ]
     },
   ]
-  
+
   templateCardFeatures = [
     {
       icon: 'fa-solid fa-wand-magic-sparkles',
@@ -209,21 +212,21 @@ totalStackScrollHeight = 0;
   }
 
   ngAfterViewInit() {
-  this.totalStackScrollHeight = this.templateCardFeatures.length * this.scrollThresholdPerCard;
-}
+    this.totalStackScrollHeight = this.templateCardFeatures.length * this.scrollThresholdPerCard;
+  }
 
 
 
-    toggleVideo() {
-      const video: HTMLVideoElement = this.videoPlayer.nativeElement
-      if (video.paused) {
-        video.play()
-        this.isPlaying = true
-      } else {
-        video.pause()
-        this.isPlaying = false
-      }
+  toggleVideo() {
+    const video: HTMLVideoElement = this.videoPlayer.nativeElement
+    if (video.paused) {
+      video.play()
+      this.isPlaying = true
+    } else {
+      video.pause()
+      this.isPlaying = false
     }
+  }
 
 
   constructor() { }
