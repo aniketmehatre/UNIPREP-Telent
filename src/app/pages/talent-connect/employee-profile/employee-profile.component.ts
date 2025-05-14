@@ -1311,14 +1311,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       })
     }
     // Patch Professional References with IDs
-    if (response.professional_refrences && response.professional_refrences.length > 0) {
+    if (response.professional_references && response.professional_references.length > 0) {
       const professionalRefArray = this.personalInfoForm.get("professional_references") as FormArray
       professionalRefArray.clear()
       response.professional_refrences.forEach((ref: any) => {
         professionalRefArray.push(
           this.fb.group({
             id: [ref.id], // Store the original ID
-            references_company_name: [ref.college_name],
+            references_company_name: [ref.company_name],
             references_reference_name: [ref.reference_name],
             references_designation: [ref.designation],
             // references_phone_number: [ref.phone_number, Validators.max(9999999999)],
