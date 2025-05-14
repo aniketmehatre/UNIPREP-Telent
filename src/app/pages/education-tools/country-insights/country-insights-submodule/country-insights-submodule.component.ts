@@ -31,23 +31,24 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   page = 1;
   pageSize = 25;
   moduleId: number = 0;
-  countryId: string = '';
+  countryId: number = 0;
   questionModal: boolean = false;
   questionDetail: any;
   totalQuizCount: number = 0;
   selectedIndex: number = 0;
   countryname: string = '';
   isSkeletonVisible: boolean = false;
+  questionId: number = 0;
+
   constructor(private educationToolService: EducationToolsService, private route: ActivatedRoute, private meta: Meta,
     private storage: StorageService, private dataService: DataService, private socialShareService: SocialShareService) {
 
   }
 
   ngOnInit(): void {
-    this.moduleId  = Number(this.route.snapshot.paramMap.get("id"));
-    // this.countryId = this.storage.get('country_insights_country') || '';
-    // this.countryname = this.storage.get('country_name') || '';
-    this.countryId = this.storage.get('country_insights_country') || '';
+    this.moduleId = Number(this.route.snapshot.paramMap.get("id"));
+    this.countryId = Number(this.route.snapshot.paramMap.get("countryId"));
+    this.questionId = Number(this.route.snapshot.paramMap.get("questionId"));
     this.countryname = this.storage.get('country_insights_country_name') || '';
     this.getQuizQuestionData();
   }
@@ -55,17 +56,22 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   getQuizQuestionData() {
     this.isSkeletonVisible = true;
     this.questionsList = [];
-    let req = {
+    let req: any = {
       module_id: this.moduleId,
       page: this.page,
       perpage: this.pageSize,
       country: this.countryId,
     }
-
+    if(this.questionId) {
+      req.question_id = this.questionId;
+    }
     this.educationToolService.getQuizQuestion(req).subscribe(data => {
       this.questionsList = data?.questions;
       this.totalQuizCount = data.count;
       this.isSkeletonVisible = false;
+      if(this.questionId) {
+        this.viewModal(this.questionsList[0]);
+      }
     })
 
   }
@@ -91,10 +97,12 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
     let socialShare: any = document.getElementById("socialSharingList");
     socialShare.style.display = "none";
   }
+
   onShowModal(value: any) {
     let socialShare: any = document.getElementById("socialSharingList")
     socialShare.style.display = "none"
   }
+
   showSocialSharingList(index: any): void {
     let socialShare: any = document.getElementById("socialSharingList");
     if (socialShare.style.display == "") {
@@ -107,14 +115,14 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
 
   shareQuestion(type: string) {
     const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-    const url = encodeURI(window.location.origin + '/pages/education-tools/country-insights/' + this.questionDetail?.id);
+    const url = encodeURI(window.location.origin + '/pages/education-tools/country-insights/' + this.moduleId + '/' + this.countryId + '/' + this.questionDetail?.id);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
 
   copyLink() {
-    const textToCopy = encodeURI(window.location.origin + '/pages/education-tools/country-insights/' + this.questionDetail?.id);
+    const textToCopy = encodeURI(window.location.origin + '/pages/education-tools/country-insights/' + this.moduleId + '/' + this.countryId + '/' + this.questionDetail?.id);
     this.socialShareService.copyQuestion(textToCopy);
   }
 

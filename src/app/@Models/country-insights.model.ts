@@ -20,7 +20,7 @@ export interface CountryInsightsResponse {
 export interface QuestionsListPayLoad {
     page: number;
     module_id: number;
-    country: string;
+    country: number;
     perpage: number;
 }
 
