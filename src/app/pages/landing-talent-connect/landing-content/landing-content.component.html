@@ -177,10 +177,10 @@
                     </div>
 
                     <!-- CONTENT -->
-                    <div class="row mt-5" [ngClass]="{'flex-row-reverse': step.alignment === 'right'}">
+                    <div class="row mt-5" [ngClass]="{'flex-row-reverse gap-2': step.alignment === 'right'}">
                         <div class="col-md-6"
                             [ngClass]="{'text-end mx-2': step.alignment === 'left', 'text-start  mx-2': step.alignment === 'right'}">
-                            <div class="timeline-content p-3"
+                            <div class="timeline-content px-4 py-3"
                                 [ngClass]="{'ms-auto': step.alignment === 'left', 'me-auto': step.alignment === 'right'}">
                                 <h3 class="timeline-title fw-bold"
                                     [ngClass]="{'text-end': step.alignment === 'left', 'text-start': step.alignment === 'right'}">

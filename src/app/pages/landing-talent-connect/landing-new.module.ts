@@ -19,6 +19,10 @@ const routes: Routes = [
         loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),
       },
       {
+        path: 'about',
+        loadComponent: () => import('../landing/about-us/about-us.component').then(m => m.AboutUsComponent)
+      },
+      {
         path: 'active-jobs',
         loadComponent: () => import('./active-jobs/active-jobs.component').then(m => m.ActiveJobsComponent),
       },

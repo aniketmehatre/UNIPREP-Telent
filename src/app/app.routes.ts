@@ -31,10 +31,11 @@ export const appRoutes: Routes = [
 		loadComponent: () => import('./pages/landing/contact-us/contact-us.component').then(c => c.ContactUsComponent)
 	},
 	{ path: "pricing", component: PricingComponent },
+
 	{ path: "students", component: CoBrandedComponent },
-	{ path: "login", component: LoginComponent },
 	{ path: "students/login", component: LoginComponent },
 	{ path: "register", component: RegistrationComponent },
+	{ path: "login", component: LoginComponent },
 	{ path: "privacy", component: PrivacyComponent },
 	{ path: "blogs", component: BloglistComponent },
 	{ path: "blogs/:slug", component: BlogdetailComponent },

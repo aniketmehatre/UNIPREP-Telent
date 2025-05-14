@@ -110,8 +110,8 @@ export class LandingLanguageHubComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      if (params?.['id']) {
-        this.landingPageId = params?.['id'];
+      if (params?.['slug']) {
+        this.landingPageId = params?.['slug'];
         this.getLandingPageChooseUs(this.landingPageId);
         this.getLandingPageFAQs(this.landingPageId);
         this.getLandingPageWhoItsFor(this.landingPageId);

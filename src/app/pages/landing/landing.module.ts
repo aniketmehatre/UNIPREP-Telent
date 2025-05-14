@@ -12,6 +12,18 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { LandingFooterComponent } from "./landing-footer/landing-footer.component";
 const routes: Routes = [
   {
+    path: 'login',
+    loadComponent: () => import('../../Auth/login/login.component').then(m => m.LoginComponent),
+  },
+  {
+    path: 'register',
+    loadComponent: () => import('../../Auth/registration/registration.component').then(m => m.RegistrationComponent),
+  },
+  {
+    path: 'talent-connect',
+    loadChildren: () => import('../landing-talent-connect/landing-new.module').then(c => c.LandingModule)
+  },
+  {
     path: '',
     component: LandingComponent,
     children: [
@@ -44,21 +56,20 @@ const routes: Routes = [
         loadComponent: () => import('../compare-uni/compare-uni.component').then(c => c.CompareUniComponent)
       },
       {
-        path: 'explore/:category',
+        path: ':category',
         loadComponent: () => import('./job-seekers-landing/job-seekers-landing.component').then(m => m.JobSeekersLandingComponent),
       },
       {
         path: ':category/:slug',
         loadComponent: () => import('./landing-language-hub/landing-language-hub.component').then(m => m.LandingLanguageHubComponent),
       },
-
       {
         path: '',
         redirectTo: '',
         pathMatch: 'full'
       }
     ]
-  }
+  },
   
 ]
 @NgModule({
