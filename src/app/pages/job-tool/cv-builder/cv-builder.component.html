@@ -165,6 +165,12 @@
 													class="text-danger text-xs">
 													<div *ngIf="f['user_name'].errors">User Name Required</div>
 												</div>
+												<div *ngIf="f['user_name'].errors?.['maxWords']"
+													class="text-danger text-xs">
+													User Name cannot exceed {{ f['user_name']?.errors?.['maxWords'].max
+													}} words.
+													(Current: {{ f['user_name']?.errors?.['maxWords'].actual }})
+												</div>
 											</div>
 										</div>
 									</div>
@@ -188,6 +194,12 @@
 													<div *ngIf="submitted && f['user_job_title'].errors"
 														class="text-danger text-xs">
 														<div *ngIf="f['user_job_title'].errors">Job Title Required</div>
+													</div>
+													<div *ngIf="f['user_job_title'].errors?.['maxWords']"
+													    class="text-danger text-xs">
+														Job Title cannot exceed {{ f['user_job_title']?.errors?.['maxWords'].max
+														}} words.
+														(Current: {{ f['user_job_title']?.errors?.['maxWords'].actual }})
 													</div>
 												</div>
 											</div>
@@ -236,6 +248,12 @@
 														class="text-danger text-xs">
 														<div *ngIf="f['user_location'].errors">Current Location Required
 														</div>
+													</div>
+													<div *ngIf="f['user_location'].errors?.['maxWords']"
+														class="text-danger text-xs">
+														Current Location cannot exceed {{ f['user_location']?.errors?.['maxWords'].max
+														}} words.
+														(Current: {{ f['user_location']?.errors?.['maxWords'].actual }})
 													</div>
 												</div>
 											</div>
@@ -314,6 +332,12 @@
 													class="text-danger text-xs">
 													<div *ngIf="f['user_linkedin'].errors">Linked In Name Required</div>
 												</div>
+												<div *ngIf="f['user_linkedin'].errors?.['maxWords']"
+													class="text-danger text-xs">
+														LinkedIn Name cannot exceed {{ f['user_linkedin']?.errors?.['maxWords'].max
+														}} words.
+														(Current: {{ f['user_linkedin']?.errors?.['maxWords'].actual }})
+												</div>
 											</div>
 										</div>
 									</div>
@@ -329,6 +353,12 @@
 												<input class="w-100" type="text" placeholder="LinkedIn profile link"
 													formControlName="user_linkedin_link" pInputText />
 											</div>
+											<div *ngIf="f['user_linkedin_link'].errors?.['maxWords']"
+													class="text-danger text-xs">
+														LinkedIn Link cannot exceed {{ f['user_linkedin_link']?.errors?.['maxWords'].max
+														}} words.
+														(Current: {{ f['user_linkedin_link']?.errors?.['maxWords'].actual }})
+												</div>
 										</div>
 									</div>
 									<div class="col-md-12">
@@ -343,6 +373,12 @@
 											<div class="mb-3">
 												<input class="w-100" type="text" placeholder="Website or portfolio Link"
 													formControlName="user_website" pInputText />
+													<div *ngIf="f['user_website'].errors?.['maxWords']"
+													class="text-danger text-xs">
+														Website cannot exceed {{ f['user_website']?.errors?.['maxWords'].max
+														}} words.
+														(Current: {{ f['user_website']?.errors?.['maxWords'].actual }})
+												</div>
 											</div>
 										</div>
 									</div>
@@ -423,6 +459,15 @@
 																	class="text-danger text-xs">
 																	<div>Organization Name required.</div>
 																</div>
+																<div *ngIf="wrkExp.get('work_org_name').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Organization Name cannot exceed {{
+																	wrkExp.get('work_org_name').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	wrkExp.get('work_org_name').errors?.['maxWords'].actual
+																	}})
+																</div>
 															</div>
 														</div>
 													</div>
@@ -454,6 +499,15 @@
 																		class="text-danger text-xs">
 																		<div>Designation required.</div>
 																	</div>
+																	<div *ngIf="wrkExp.get('work_designation').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Designation cannot exceed {{
+																	wrkExp.get('work_designation').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	wrkExp.get('work_designation').errors?.['maxWords'].actual
+																	}})
+																</div>
 																</div>
 															</div>
 														</div>
@@ -612,6 +666,15 @@
 																		class="text-danger text-xs">
 																		<div>Work Location required.</div>
 																	</div>
+																	<div *ngIf="wrkExp.get('work_location').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Work Location cannot exceed {{
+																	wrkExp.get('work_location').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	wrkExp.get('work_location').errors?.['maxWords'].actual
+																	}})
+																</div>
 																</div>
 															</div>
 														</div>
@@ -713,6 +776,15 @@
 																	class="text-danger text-xs">
 																	<div>College name is required.</div>
 																</div>
+																<div *ngIf="eduDetail.get('edu_college_name').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	College name cannot exceed {{
+																	eduDetail.get('edu_college_name').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	eduDetail.get('edu_college_name').errors?.['maxWords'].actual
+																	}})
+																</div>
 															</div>
 														</div>
 													</div>
@@ -802,6 +874,15 @@
 																	class="text-danger text-xs">
 																	<div>Degree required.</div>
 																</div>
+																<div *ngIf="eduDetail.get('edu_degree').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Degree cannot exceed {{
+																	eduDetail.get('edu_degree').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	eduDetail.get('edu_degree').errors?.['maxWords'].actual
+																	}})
+																</div>
 															</div>
 														</div>
 													</div>
@@ -831,6 +912,15 @@
 																		class="text-danger text-xs">
 																		<div>Location required.</div>
 																	</div>
+																	<div *ngIf="eduDetail.get('edu_location').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Location cannot exceed {{
+																	eduDetail.get('edu_location').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	eduDetail.get('edu_location').errors?.['maxWords'].actual
+																	}})
+																</div>
 																</div>
 															</div>
 														</div>
@@ -1185,8 +1275,17 @@
 																formControlName="certificate_name" pInputText />
 															<div *ngIf="certificate.get('certificate_name')?.invalid && certificate.get('certificate_name')?.touched && submitted"
 																class="text-danger text-xs">
-																<div>certificate Name required.</div>
+																<div>Certificate Name required.</div>
 															</div>
+															<div *ngIf="certificate.get('certificate_name').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Certificate Name cannot exceed {{
+																	certificate.get('certificate_name').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	certificate.get('certificate_name').errors?.['maxWords'].actual
+																	}})
+																</div>
 														</div>
 													</div>
 												</div>
@@ -1207,6 +1306,15 @@
 																class="text-danger text-xs">
 																<div>certificate issued required.</div>
 															</div>
+															<div *ngIf="certificate.get('certificate_issued').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Certificate issued cannot exceed {{
+																	certificate.get('certificate_issued').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	certificate.get('certificate_issued').errors?.['maxWords'].actual
+																	}})
+																</div>
 														</div>
 													</div>
 												</div>
@@ -1225,6 +1333,15 @@
 															<input class="w-100" type="text"
 																placeholder="Certificate ID"
 																formControlName="certificate_id" pInputText />
+																<div *ngIf="certificate.get('certificate_id').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Certificate Id cannot exceed {{
+																	certificate.get('certificate_id').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	certificate.get('certificate_id').errors?.['maxWords'].actual
+																	}})
+																</div>
 														</div>
 													</div>
 												</div>
@@ -1241,6 +1358,15 @@
 															<input class="w-100" type="text"
 																placeholder="certificate Link"
 																formControlName="certicate_link" pInputText />
+																<div *ngIf="certificate.get('certicate_link').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Certificate Link cannot exceed {{
+																	certificate.get('certicate_link').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	certificate.get('certicate_link').errors?.['maxWords'].actual
+																	}})
+																</div>
 														</div>
 													</div>
 												</div>
@@ -1281,6 +1407,15 @@
 															class="text-danger text-xs">
 															<div>Achievements required.</div>
 														</div>
+														<div *ngIf="extra.get('extra_curricular_activites').errors?.['maxWords']"
+																	class="text-danger text-xs">
+																	Achievements cannot exceed {{
+																	extra.get('extra_curricular_activites').errors?.['maxWords'].max
+																	}} words.
+																	(Current: {{
+																	extra.get('extra_curricular_activites').errors?.['maxWords'].actual
+																	}})
+																</div>
 													</div>
 												</div>
 											</div>
