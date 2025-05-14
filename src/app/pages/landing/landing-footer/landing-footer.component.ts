@@ -28,10 +28,10 @@ export class LandingFooterComponent {
   aboutLinks = [{ text: "About UNIPREP", url: "/about" }]
 
   featureLinks = [
-    { text: "For Job Seekers", url: environment.employerDomain + "/landing/explore/job-seekers" },
-    { text: "For International Students", url: environment.employerDomain + "/landing/explore/international-students" },
-    { text: "For Global Travellers", url: environment.employerDomain + "/landing/explore/global-travellers" },
-    { text: "For Entrepreneurs", url: environment.employerDomain + "/landing/explore/entrepreneurs" },
+    { text: "For Job Seekers", url: '/job-seekers' },
+    { text: "For International Students", url: "/international-students" },
+    { text: "For Global Travellers", url: "/global-travellers" },
+    { text: "For Entrepreneurs", url: "/entrepreneurs" },
   ]
 
   exploreLinks = [

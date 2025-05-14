@@ -28,13 +28,16 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="video-container" (click)="toggleVideo()">
-									<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button"
-										*ngIf="!isPlaying"></i>
-									<video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none"
-										[poster]="landingPageData?.herocover?.hero_coverimage || 'uniprep-assets/images/mockup-frame.webp'">
-										<source [src]="landingPageData?.herocover?.video_link || welcomeVideoLink" type="video/mp4" />
-									</video>
+								<div class="position-relative fakemockup" >
+									<img class="mockup" src="uniprep-assets/images/mockup-frame.webp" (click)="toggleVideo()">
+									<div class="video-container position-absolute top-0" >
+										<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button"
+											*ngIf="!isPlaying" ></i>
+										<video #videoPlayer width="80%" height="100%" preload="none" style="width: 95%; object-fit: fill"
+											[poster]="landingPageData?.herocover?.hero_coverimage || 'uniprep-assets/images/mockup.webp'">
+											<source [src]="landingPageData?.herocover?.video_link || welcomeVideoLink" type="video/mp4" />
+										</video>
+									</div>								
 								</div>
 							</div>
 						</div>

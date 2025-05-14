@@ -10,18 +10,49 @@ import { LandingLanguageHubComponent } from './landing-language-hub/landing-lang
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LandingFooterComponent } from "./landing-footer/landing-footer.component";
+import { AuthGuard } from 'src/app/Auth/auth.guard';
+import { CoBrandedComponent } from 'src/app/Auth/co-branded/co-branded.component';
+import { ForgotPasswordComponent } from 'src/app/Auth/forgot-password/forgot-password.component';
+import { SetpasswordComponent } from 'src/app/Auth/setpassword/setpassword.component';
+import { VerificationComponent } from 'src/app/Auth/verification/verification.component';
+import { EnterpriseSubscriptionComponent } from 'src/app/components/enterprise-subscription/enterprise-subscription.component';
+import { UserResolver } from 'src/app/resolvers/user.resolver';
+import { LoginComponent } from '../../Auth/login/login.component';
+import { RegistrationComponent } from '../../Auth/registration/registration.component';
+import { BlogdetailComponent } from '../blogdetail/blogdetail.component';
+import { BloglistComponent } from '../bloglist/bloglist.component';
+import { CertificatesComponent } from '../certificates/certificates.component';
+import { PrivacyComponent } from '../privacy/privacy.component';
+
 const routes: Routes = [
+  // ...appRoutes,
   {
-    path: 'login',
-    loadComponent: () => import('../../Auth/login/login.component').then(m => m.LoginComponent),
+    path: "landing",
+    component: LandingComponent
   },
-  {
-    path: 'register',
-    loadComponent: () => import('../../Auth/registration/registration.component').then(m => m.RegistrationComponent),
-  },
+  { path: "students", component: CoBrandedComponent },
+  { path: "students/login", component: LoginComponent },
+  { path: "register", component: RegistrationComponent },
+  { path: "login", component: LoginComponent },
+  { path: "privacy", component: PrivacyComponent },
+  { path: "blogs", component: BloglistComponent },
+  { path: "blogs/:slug", component: BlogdetailComponent },
+  { path: "certificates", component: CertificatesComponent },
+  { path: "enterprisepayment/:id", component: EnterpriseSubscriptionComponent },
+  { path: "forgot-password", component: ForgotPasswordComponent },
+  { path: "verification/:email", component: VerificationComponent },
+  { path: "setpassword/:otp/:email", component: SetpasswordComponent },
   {
     path: 'talent-connect',
     loadChildren: () => import('../landing-talent-connect/landing-new.module').then(c => c.LandingModule)
+  },
+  {
+    path: "pages",
+    loadChildren: () => import("../../pages/pages.module").then((m) => m.PagesModule),
+    canActivate: [AuthGuard],
+    resolve: {
+      user: UserResolver,
+    },
   },
   {
     path: '',
@@ -56,11 +87,11 @@ const routes: Routes = [
         loadComponent: () => import('../compare-uni/compare-uni.component').then(c => c.CompareUniComponent)
       },
       {
-        path: 'explore/:category',
+        path: ':category',
         loadComponent: () => import('./job-seekers-landing/job-seekers-landing.component').then(m => m.JobSeekersLandingComponent),
       },
       {
-        path: 'category/:slug',
+        path: ':category/:slug',
         loadComponent: () => import('./landing-language-hub/landing-language-hub.component').then(m => m.LandingLanguageHubComponent),
       },
       {
