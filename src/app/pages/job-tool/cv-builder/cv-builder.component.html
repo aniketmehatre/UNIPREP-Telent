@@ -103,7 +103,6 @@
 						</div>
 					</div>
 				</div>
-				<!-- style="visibility:hidden;" -->
 				<div class="d-flex justify-content-between" style="height: 5%">
 					<button pButton type="button" (click)="previous()"
 						class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
@@ -233,9 +232,12 @@
 												pTooltip="Please enter your current location" tooltipPosition="top"></i>
 										</div>
 										<div class="form-group">
-											<div class="mb-3">
+											<p-select [options]="cities" placeholder="Location, Country" [filter]="true" filterBy="country_name"
+											styleClass="w-100" formControlName="user_location" optionLabel="country_name" [virtualScroll]="true" [virtualScrollItemSize]="50"
+											optionValue="country_name"></p-select>
+											<!-- <div class="mb-3">
 												<div class="input-wrapper">
-													<input type="text" formControlName="user_location"
+													<input type="text" formControlName="user_location" (focus)="onFocus()"
 														(input)="searchLocation($event)" (focusout)="onFocusOut()"
 														placeholder="Location, Country"
 														class="form-control job-input bg-transparent" />
@@ -256,7 +258,7 @@
 														(Current: {{ f['user_location']?.errors?.['maxWords'].actual }})
 													</div>
 												</div>
-											</div>
+											</div> -->
 											<!-- <div class="mb-3">
                                             <p-select [options]="cities" optionValue="country_name" optionLabel="country_name" formControlName="user_location" placeholder="Location, State" [filter]="true" filterBy="country_name" [showClear]="true" [appendTo]="'body'" [style]="{'minWidth': '100%'}" class="w-100 text-start custom-dropdown">
                                                 <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -630,7 +632,7 @@
 														<div class="form-group">
 															<div class="mb-3">
 																<p-select [options]="workTypeValue"
-																	placeholder="Select Work Type"
+																	placeholder="Select Work Type" styleClass="w-100"
 																	formControlName="work_type" optionLabel="value"
 																	optionValue="id"></p-select>
 																<div *ngIf="wrkExp.get('work_type')?.invalid && wrkExp.get('work_type')?.touched && submitted"
@@ -648,7 +650,9 @@
 																pTooltip="Specify the city and country where this job was located"
 																tooltipPosition="top"></i>
 														</div>
-														<div class="form-group">
+														<p-select [options]="cities" placeholder="Location, Country" [filter]="true" filterBy="country_name"
+														styleClass="w-100" formControlName="work_location" optionLabel="country_name" [virtualScroll]="true" [virtualScrollItemSize]="50"optionValue="country_name"></p-select>
+														<!-- <div class="form-group">
 															<div class="mb-3">
 																<div class="input-wrapper">
 																	<input type="text" formControlName="work_location"
@@ -677,7 +681,7 @@
 																</div>
 																</div>
 															</div>
-														</div>
+														</div> -->
 													</div>
 													<div class="col-md-12">
 														<div class="d-flex justify-content-between align-items-center">
@@ -897,7 +901,9 @@
 														<div class="form-group">
 															<div class="mb-3">
 																<div class="input-wrapper">
-																	<input type="text" formControlName="edu_location"
+																	<p-select [options]="cities" placeholder="Location, Country" [filter]="true" filterBy="country_name"
+																		styleClass="w-100" formControlName="edu_location" optionLabel="country_name" [virtualScroll]="true" [virtualScrollItemSize]="50" optionValue="country_name"></p-select>
+																	<!-- <input type="text" formControlName="edu_location"
 																		(input)="searchExpandEduLocation($event, i)"
 																		(focusout)="onFocusOut()"
 																		placeholder="Education Location"
@@ -907,7 +913,7 @@
 																		<li *ngFor="let city of filteredExpeAndEduLocations[i]"
 																			(click)="selectLocation(city, 'userEduLocation', i)">
 																			{{ city.country_name }}</li>
-																	</ul>
+																	</ul> -->
 																	<div *ngIf="eduDetail.get('edu_location')?.invalid && eduDetail.get('edu_location')?.touched && submitted"
 																		class="text-danger text-xs">
 																		<div>Location required.</div>
@@ -1449,7 +1455,7 @@
 						<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
 								class="fa-solid fa-arrow-right"></i></span>
 					</button> -->
-					<button pButton type="button" (click)="onProfileReview()"
+					<button pButton type="button" (click)="resumeFormSubmit()"
 						class="btn btn-primary btn-rounded p-1 ps-4">
 						<span class="me-2">Submit</span><span class="btn-icon px-2 py-2"><i
 								class="fa-solid fa-arrow-right"></i></span>
@@ -1485,7 +1491,7 @@
 							<span class="me-2">Edit</span><span class="btn-icon px-2 py-2"><i
 									class="fa-solid fa-arrow-left"></i></span>
 						</button>
-						<button pButton type="button" (click)="resumeFormSubmit()"
+						<button pButton type="button" (click)="next()"
 							class="btn btn-primary btn-rounded p-1 ps-4">
 							<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i
 									class="fa-solid fa-check"></i></span>

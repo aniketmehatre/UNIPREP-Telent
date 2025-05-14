@@ -470,50 +470,54 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     return mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query.toLowerCase()));
   }
 
-  getFilteredLocations(query: string) {
-    const mockLocations = this.cities;
+  // getFilteredLocations(query: string) {
+  //   const mockLocations = this.cities;
 
-    return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
-  }
+  //   return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
+  // }
 
-  searchLocation(event: any) {
-    const query = event.target.value.toLowerCase();
-    if (query.length > 3) {
-      this.filteredLocations = this.getFilteredLocations(query);
-    } else if (query.length < 2) {
-      this.filteredLocations = [];
-    }
-  }
+  // onFocus() {
+  //   this.filteredLocations = [...this.cities]; // Show all locations
+  // }
 
-  searchExpandEduLocation(event: any, index: number) {
-    const query = event.target.value.toLowerCase();
-    if (query.length > 3) {
-      this.filteredExpeAndEduLocations[index] = this.getFilteredLocations(query);
-    } else if (query.length < 2) {
-      this.filteredExpeAndEduLocations[index] = [];
-    }
-  }
+  // searchLocation(event: any) {
+  //   const query = event.target.value.toLowerCase();
+  //   if (query.length > 3) {
+  //     this.filteredLocations = this.getFilteredLocations(query);
+  //   } else if (query.length < 2) {
+  //     this.filteredLocations = [...this.cities];
+  //   }
+  // }
 
-  selectLocation(city: any, fieldName: string, index?: any) {
-    if (fieldName == "userLocation") {
-      this.resumeFormInfoData.patchValue({
-        user_location: city.country_name,
-      });
-      this.filteredLocations = [];
-    } else if (fieldName == "userExpLocation") {
-      const formArray = this.getWorkExpArray as FormArray;
-      formArray.at(index).patchValue({
-        work_location: city.country_name,
-      });
-      this.filteredExpeAndEduLocations[index] = [];
-    } else if (fieldName == "userEduLocation") {
-      const formArray = this.getEduDetailsArray as FormArray;
-      formArray.at(index).patchValue({
-        edu_location: city.country_name,
-      });
-      this.filteredExpeAndEduLocations[index] = [];
-    }
-  }
+  // searchExpandEduLocation(event: any, index: number) {
+  //   const query = event.target.value.toLowerCase();
+  //   if (query.length > 3) {
+  //     this.filteredExpeAndEduLocations[index] = this.getFilteredLocations(query);
+  //   } else if (query.length < 2) {
+  //     this.filteredExpeAndEduLocations[index] = [];
+  //   }
+  // }
+
+  // selectLocation(city: any, fieldName: string, index?: any) {
+  //   if (fieldName == "userLocation") {
+  //     this.resumeFormInfoData.patchValue({
+  //       user_location: city.country_name,
+  //     });
+  //     this.filteredLocations = [];
+  //   } else if (fieldName == "userExpLocation") {
+  //     const formArray = this.getWorkExpArray as FormArray;
+  //     formArray.at(index).patchValue({
+  //       work_location: city.country_name,
+  //     });
+  //     this.filteredExpeAndEduLocations[index] = [];
+  //   } else if (fieldName == "userEduLocation") {
+  //     const formArray = this.getEduDetailsArray as FormArray;
+  //     formArray.at(index).patchValue({
+  //       edu_location: city.country_name,
+  //     });
+  //     this.filteredExpeAndEduLocations[index] = [];
+  //   }
+  // }
 
   getUserPrefilledData() {
     this.resumeService.getCVPrefilledData().subscribe((res) => {
@@ -779,64 +783,64 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
 
-  fieldNextButton() {
-    this.storeUserFilledData();
-    this.moduleActiveIndex++;
-    if (this.moduleActiveIndex > 0) {
-      this.moduleActiveIndex--;
-      this.activePageIndex++;
-      this.filledFields.push("skills", "language_known");
-      return;
-    }
-    const fieldNameArray: string[] = [];
+  // fieldNextButton() {
+    // this.storeUserFilledData();
+    // this.moduleActiveIndex++;
+    // if (this.moduleActiveIndex > 0) {
+    //   this.moduleActiveIndex--;
+    //   this.activePageIndex++;
+    //   // this.filledFields.push("skills", "language_known");
+    //   return;
+    // }
+    // const fieldNameArray: string[] = [];
 
-    switch (this.moduleActiveIndex) {
-      case 1:
-        if (this.getWorkExpArray.length === 0 && !this.hidingHeaders.includes("work_experience")) {
-          fieldNameArray.push("work_experience");
-        }
-        break;
+    // switch (this.moduleActiveIndex) {
+    //   case 1:
+    //     if (this.getWorkExpArray.length === 0 && !this.hidingHeaders.includes("work_experience")) {
+    //       fieldNameArray.push("work_experience");
+    //     }
+    //     break;
 
-      case 2:
-        this.filledFields.push("work_experience");
-        if (this.getEduDetailsArray.length === 0 && !this.hidingHeaders.includes("education_detail")) {
-          fieldNameArray.push("education_detail");
-        }
-        if (this.resumeFormInfoData.value.selected_exp_level == 1 && this.getProjectDetailsArray.length === 0 && !this.hidingHeaders.includes("project_details")) {
-          fieldNameArray.push("project_details");
-        }
-        break;
+    //   case 2:
+    //     this.filledFields.push("work_experience");
+    //     if (this.getEduDetailsArray.length === 0 && !this.hidingHeaders.includes("education_detail")) {
+    //       fieldNameArray.push("education_detail");
+    //     }
+    //     if (this.resumeFormInfoData.value.selected_exp_level == 1 && this.getProjectDetailsArray.length === 0 && !this.hidingHeaders.includes("project_details")) {
+    //       fieldNameArray.push("project_details");
+    //     }
+    //     break;
 
-      case 3:
-        this.filledFields.push("education_detail", "project_details");
-        if (this.getCertificatesArray.length === 0 && !this.hidingHeaders.includes("certificate")) {
-          fieldNameArray.push("certificate");
-        }
-        if (this.getExtraCurricularArray.length === 0 && !this.hidingHeaders.includes("extra_curricular")) {
-          fieldNameArray.push("extra_curricular");
-        }
-        break;
+    //   case 3:
+    //     this.filledFields.push("education_detail", "project_details");
+    //     if (this.getCertificatesArray.length === 0 && !this.hidingHeaders.includes("certificate")) {
+    //       fieldNameArray.push("certificate");
+    //     }
+    //     if (this.getExtraCurricularArray.length === 0 && !this.hidingHeaders.includes("extra_curricular")) {
+    //       fieldNameArray.push("extra_curricular");
+    //     }
+    //     break;
 
-      case 4:
-        this.filledFields.push("certificate", "extra_curricular");
-        if (this.getSkillsArray.length === 0 && !this.hidingHeaders.includes("skills")) {
-          fieldNameArray.push("skills");
-        }
-        if (this.getLanguagesKnownArray.length === 0 && !this.hidingHeaders.includes("language_known")) {
-          fieldNameArray.push("language_known");
-        }
-        this.clickedDownloadButton = false;
-        break;
+    //   case 4:
+    //     this.filledFields.push("certificate", "extra_curricular");
+    //     if (this.getSkillsArray.length === 0 && !this.hidingHeaders.includes("skills")) {
+    //       fieldNameArray.push("skills");
+    //     }
+    //     if (this.getLanguagesKnownArray.length === 0 && !this.hidingHeaders.includes("language_known")) {
+    //       fieldNameArray.push("language_known");
+    //     }
+    //     this.clickedDownloadButton = false;
+    //     break;
 
-      default:
-        break;
-    }
-    if (fieldNameArray.length > 0) {
-      fieldNameArray.forEach((element: string) => {
-        this.clickAddMoreButton(element);
-      });
-    }
-  }
+    //   default:
+    //     break;
+    // }
+    // if (fieldNameArray.length > 0) {
+    //   fieldNameArray.forEach((element: string) => {
+    //     this.clickAddMoreButton(element);
+    //   });
+    // }
+  // }
 
   storeUserFilledData() {
     let formData = this.resumeFormInfoData.value;
@@ -884,7 +888,8 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       visibleFormControls.forEach((control) => control.markAsTouched());
     }
     else {
-      this.fieldNextButton();
+      this.onProfileReview();
+      this.storeUserFilledData();
     }
   }
   getVisibleFormControls1() {
@@ -1029,27 +1034,26 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     this.hideHeader();
   }
 
-  // previous() {
-  //   this.activePageIndex--;
-  //   this.hideHeader();
-  //   if (this.activePageIndex == 0 || this.activePageIndex == 1) {
-  //     this.selectedResumeLevel = "";
-  //     this.ngAfterViewInit();
-  //   }
-  // }
+  previous() {
+    this.activePageIndex--;
+    this.hideHeader();
+    if (this.activePageIndex == 0 || this.activePageIndex == 1) {
+      this.selectedResumeLevel = "";
+      this.ngAfterViewInit();
+    }
+  }
 
   next() {
     if (this.authService.isInvalidSubscription('career_tools')) {
       this.authService.hasUserSubscription$.next(true);
       return;
     }
-    console.log(this.activePageIndex);
     if (this.activePageIndex == 0) {
       this.ngAfterViewInit();
+      this.isReviewContent = false;
+      this.profileOverViewContent = "";
     }
     this.activePageIndex++;
-    console.log(this.activePageIndex);
-
     if (this.activePageIndex == 4) {
       if (this.clickedDownloadButton) {
         //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
