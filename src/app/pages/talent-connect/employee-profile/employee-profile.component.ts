@@ -24,6 +24,7 @@ import { differenceInMonths, formatDuration, intervalToDuration } from "date-fns
 import { HOVER_MESSAGES } from "./view-profile/hover-messages"
 import { Router } from "@angular/router"
 import {AuthService} from "../../../Auth/auth.service";
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -49,7 +50,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   isShowCreatedSuccessfullyPopup = false
   isShowAiEvaluation = false
   visible: boolean = false
-  aiEvaluationContent: string = "";
+  aiEvaluationContent: SafeHtml;
   hoverMessages = HOVER_MESSAGES;
   defaultMessage = "Hi, I am here to help you";
   recommendationMessage = ' To maximize your chances of being hired, it is crucial to implement all the recommendations provided in this evaluation.';
@@ -95,7 +96,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     private toastService: MessageService,
     private changeDetector: ChangeDetectorRef,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit() {
@@ -1439,22 +1441,130 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.validateTotalExperience();
         return;
       }
-      const formData = new FormData();
-      this.appendFormData(formData).then(() => {
-        this.talentConnectService.getAiEvaluationSummary(formData).subscribe({
-          next: (response) => {
-            this.aiEvaluationContent = response.response
-            this.isShowAiEvaluation = true
-          },
-          error: () => {
-            this.toastService.add({
-              severity: "error",
-              summary: "Error Occur Generate Ai Evaluation",
-              detail: "Please try again",
-            })
-          },
-        })
+      const formValues = this.personalInfoForm.value;
+
+      const student_profile: any = {
+        full_name: formValues.full_name || "",
+        date_of_birth: formValues.date_of_birth || "",
+        gender: formValues.gender || "",
+        total_years_of_experience: formValues.total_years_of_experience || "",
+      };
+
+      const selectedNationality = this.nationalityList.find(
+        (item: any) => item.id === formValues.nationality_id
+      );
+      
+      if (selectedNationality) {
+        student_profile.nationality_name = selectedNationality.nationality_name;
+      } else {
+        student_profile.nationality_name = '';
+      }
+
+       
+
+      const selectedLocation = this.locations.find(
+        (item: any) => item.id === formValues.location_id
+      );
+
+      if (selectedLocation) {
+        student_profile.location_name = selectedLocation.work_location;
+      } else {
+        student_profile.location_name = '';
+      }
+
+      /*
+      const educationArray = this.personalInfoForm.get('educationDetails') as FormArray;
+
+      if (educationArray && educationArray.length > 0) {
+        const firstEducation = educationArray.at(0) as FormGroup;
+        const qualificationId = firstEducation.get('education_qualification_id')?.value;
+      
+        const selectedQualification = this.qualifications.find(
+          (item: any) => item.id === qualificationId
+        );
+      
+        if (selectedQualification) {
+          student_profile.qualification_name = selectedQualification.qualification_name;
+        } else {
+          student_profile.qualification_name = '';
+        }
+      } else {
+        student_profile.qualification_name = '';
+      } */
+      
+      const qualificationId = this.personalInfoForm.get('educationDetails.0.education_qualification_id')?.value;
+      student_profile.qualification = this.qualifications.find((q: any) => q.id === qualificationId)?.qualification_name || '';
+      student_profile.institution_name = this.personalInfoForm.get('educationDetails.0.education_university_name')?.value;
+      student_profile.course_name = this.personalInfoForm.get('educationDetails.0.education_course_name')?.value;
+      const majorId = this.personalInfoForm.get('educationDetails.0.education_field_id')?.value;
+      student_profile.major = this.fieldsOfStudy.find((q: any) => q.id === majorId)?.field_name || '';
+      const graduationId = this.personalInfoForm.get('educationDetails.0.education_graduation_year_id')?.value;
+      student_profile.graduation_year = this.graduationYears.find((q: any) => q.id === graduationId)?.graduation_year_name || '';
+      student_profile.gpa_percent = this.personalInfoForm.get('educationDetails.0.education_gpa_percentage')?.value;
+      
+
+      //work experience
+      student_profile.company_name = this.personalInfoForm.get('work_experience.0.work_experience_company_name')?.value;
+      student_profile.job_title = this.personalInfoForm.get('work_experience.0.work_experience_job_title')?.value || '';
+
+
+      const employmentTypeValue = this.personalInfoForm.get('work_experience.0.work_experience_employment_type')?.value;
+      student_profile.employment_type = this.preferredEmploymentType.includes(employmentTypeValue) ? employmentTypeValue: '';
+
+      student_profile.duration =   (this.personalInfoForm.get('work_experience.0.work_experience_duration_from')?.value || '') + ' - ' +  (this.personalInfoForm.get('work_experience.0.work_experience_duration_to')?.value || '');
+      student_profile.salary_month = this.personalInfoForm.get('work_experience.0.work_experience_salary_per_month')?.value || '';
+      student_profile.career_status = this.personalInfoForm.get('career_preference_career_status')?.value || '';
+      student_profile.prefer_job_title = this.personalInfoForm.get('career_preference_job_title_id')?.value || '';
+      
+      const selectedLocationIds = this.personalInfoForm.get('career_preference_preferred_work_location_id')?.value || [];
+      const selectedLocations = this.locations .filter((loc: any) => selectedLocationIds.includes(loc.id)) .map((loc: any) => loc.work_location);
+      student_profile.prefer_work_location = selectedLocations.join(', ');
+
+      const prefer_employment_type = this.personalInfoForm.get('career_preference_preferred_employment_type')?.value || [];
+      student_profile.prefer_employment_type = prefer_employment_type.join(', ');
+
+      const prefer_work_type = this.personalInfoForm.get('career_preference_preferred_workplace_type')?.value || [];
+      student_profile.prefer_workplace_type = prefer_work_type.join(', ');
+
+      student_profile.willing_to_relocate = this.personalInfoForm.get('career_preference_willingness_to_relocate')?.value || '';
+      student_profile.expected_salary = this.personalInfoForm.get('career_preference_expected_salary')?.value || '';
+      student_profile.certification = this.personalInfoForm.get('certifications.0.certifications_certificate_name')?.value || '';
+ 
+      const language_id = this.personalInfoForm.get('languages.0.languages_language_id')?.value;
+      student_profile.language_known = this.languagelist.find((q: any) => q.id === language_id)?.language || '';
+      student_profile.hobbies_interest = this.personalInfoForm.get('languages.0.languages_hobby_id')?.value || '';
+      student_profile.set_you_apart = this.personalInfoForm.get('career_preference_set_industry_apart')?.value || '';
+
+      const soft_skills_id = this.personalInfoForm.get('career_preference_soft_skill_id')?.value || [];
+      const selectedSkills = this.softSkills .filter((skill: any) => soft_skills_id.map(String).includes(String(skill.id)))  .map((skill: any) => skill.soft_skill);
+      student_profile.soft_skills = selectedSkills.join(', ');
+      
+
+      const professional_strength_ids = this.personalInfoForm.get('career_preference_professional_strength_id')?.value || [];
+      const selectedStrengths = this.professionalStrengths .filter((item: any) => professional_strength_ids.map(String).includes(String(item.id))) .map((item: any) => item.strength);
+      student_profile.professional_strengths = selectedStrengths.join(', ');
+
+      student_profile.linked_in = this.personalInfoForm.get('networking_linkedin_profile')?.value || '';
+      student_profile.social_media = this.personalInfoForm.get('networking_social_media.0.networking_social_media')?.value || '';
+      student_profile.intro_video = this.personalInfoForm.get('career_preference_video_link')?.value || '';
+      student_profile.academic_reference = this.personalInfoForm.get('academicReferences.0.references_reference_name')?.value || '';
+      student_profile.professional_reference = this.personalInfoForm.get('professional_references.0.references_reference_name')?.value || '';
+
+      this.talentConnectService.getAiEvaluationSummary(student_profile).subscribe({
+        next: (response) => {
+          this.aiEvaluationContent = this.sanitizer.bypassSecurityTrustHtml(response.response);
+          this.profileCompletion = response.profile_percent || 0;;
+          this.isShowAiEvaluation = true;
+        },
+        error: () => {
+          this.toastService.add({
+            severity: "error",
+            summary: "Error Occurred",
+            detail: "Please try again",
+          });
+        },
       });
+     
     } else {
       this.markFormGroupTouched(this.personalInfoForm)
       this.toastService.add({

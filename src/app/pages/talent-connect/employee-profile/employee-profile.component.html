@@ -1400,7 +1400,9 @@
 						</form>
 					</div>
 					<div class="card-body h-100 overflow-y-auto" *ngIf="isShowAiEvaluation">
-						<div [innerHTML]="aiEvaluationContent"></div>
+						<div class="body_content">
+						<div  class="your_profile_ai_preview" [innerHTML]="aiEvaluationContent"></div>
+						</div>
 					</div>
 				</div>
 			</div>
