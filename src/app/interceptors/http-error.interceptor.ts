@@ -71,9 +71,9 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
       }
     }),
     catchError((error: HttpErrorResponse) => {
-      if (authTokenService.isTokenValid() && error.status !== 0) {
-        locationService.sessionEndApiCall().subscribe();
-      }
+      // if (authTokenService.isTokenValid() && error.status !== 0) {
+      //   locationService.sessionEndApiCall().subscribe();
+      // }
       if ((error.status === 500 || error.status === 401) && !isPublicRoute) {
         toast.add({
           severity: 'error',
