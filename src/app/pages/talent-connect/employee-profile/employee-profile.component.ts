@@ -1163,6 +1163,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       gender: response.gender || "",
       location_id: response.location_id || "",
       profile_image: response.dp_image || "",
+      languages_hobby_id: response.hobby || "",
       total_years_of_experience: response.total_years_of_experience || "",
       career_preference_career_status: response.careerPreference?.career_status || "",
       career_preference_job_title_id: response.careerPreference?.job_title_id || "",
@@ -1532,7 +1533,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
  
       const language_id = this.personalInfoForm.get('languages.0.languages_language_id')?.value;
       student_profile.language_known = this.languagelist.find((q: any) => q.id === language_id)?.language || '';
-      student_profile.hobbies_interest = this.personalInfoForm.get('languages.0.languages_hobby_id')?.value || '';
+      student_profile.hobbies_interest = this.personalInfoForm.get('languages_hobby_id')?.value || '';
       student_profile.set_you_apart = this.personalInfoForm.get('career_preference_set_industry_apart')?.value || '';
 
       const soft_skills_id = this.personalInfoForm.get('career_preference_soft_skill_id')?.value || [];
