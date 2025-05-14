@@ -1,41 +1,41 @@
 .questionread {
-	filter: grayscale(1);
+  filter: grayscale(1);
 }
 
 .questiontext {
-	font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .questioncard {
-	border: 1px solid var(--uniprep-secondary);
-	padding: 0;
+  border: 1px solid var(--uniprep-secondary);
+  padding: 0;
 
-	.homecountry {
-		width: 25px;
-		height: 25px;
-		border-radius: 100px;
-		padding: 0;
+  .homecountry {
+    width: 25px;
+    height: 25px;
+    border-radius: 100px;
+    padding: 0;
 
-		img {
-			height: 100%;
-			width: 100%;
-			border-radius: 100%;
-			border: 1px solid transparent;
-			object-fit: cover;
-		}
-	}
+    img {
+      height: 100%;
+      width: 100%;
+      border-radius: 100%;
+      border: 1px solid transparent;
+      object-fit: cover;
+    }
+  }
 }
 
 .scrollable-container {
-	display: flex;
-	overflow-x: hidden;
-	align-items: center;
+  display: flex;
+  overflow-x: hidden;
+  align-items: center;
 }
 
 .answercard {
-	background-color: var(--uniprep-primaryop10);
-	border: 2px solid var(--uniprep-primary);
-	overflow-y: auto;
+  background-color: var(--uniprep-primaryop10);
+  border: 2px solid var(--uniprep-primary);
+  overflow-y: auto;
 }
 
 // .socialShareBtn {
@@ -48,369 +48,373 @@
 // 	align-items: center;
 // }
 #socialSharingList {
-	display: none;
-	position: absolute;
-	right: 0rem;
-	top: 3rem;
+  display: none;
+  position: absolute;
+  right: 0rem;
+  top: 3rem;
 
-	::ng-deep.p-card-body {
-		padding: 0px;
+  ::ng-deep.p-card-body {
+    padding: 0px;
 
-		.p-card-content {
-			padding: 0px;
-		}
-	}
+    .p-card-content {
+      padding: 0px;
+    }
+  }
 
-	ul {
-		padding: 10px !important;
-		margin-bottom: 0;
+  ul {
+    padding: 10px !important;
+    margin-bottom: 0;
 
-		li {
-			display: flex;
-			align-items: center;
-			margin-bottom: 5px;
-		}
+    li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
 
-		i {
-			margin-right: 10px;
-		}
-	}
+    i {
+      margin-right: 10px;
+    }
+  }
 }
 
 .modal {
-	z-index: 9999;
+  z-index: 9999;
 
-	.modalbuttons {
-		position: absolute;
-		top: -1rem;
-		right: -1rem;
-	}
+  .modalbuttons {
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+  }
 }
 
 .embed-responsive {
-	position: relative;
-	display: block;
-	width: 100%;
-	padding: 0;
-	overflow: hidden;
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
 }
 
 .embed-responsive::before {
-	display: block;
-	content: "";
-	padding-top: 56.25%;
-	/* 16:9 Aspect Ratio */
+  display: block;
+  content: "";
+  padding-top: 56.25%;
+  /* 16:9 Aspect Ratio */
 }
 
 .embed-responsive iframe {
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	width: 100%;
-	height: 100%;
-	border: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 .homecardbtnquiz {
-	background-color: black;
-	color: white;
+  background-color: black;
+  color: white;
 }
 
 .ellipse-button {
-	width: auto;
-	padding: 6px 25px;
-	height: auto;
-	background-color: #f0780e;
-	border-radius: 25px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: not-allowed;
-	font-size: 10px;
+  width: auto;
+  padding: 6px 25px;
+  height: auto;
+  background-color: #f0780e;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: not-allowed;
+  font-size: 10px;
 }
 
 // new answer card ui
 .answercard {
-	background-color: white;
-	overflow-y: auto;
+  background-color: white;
+  overflow-y: auto;
 }
 
 ::ng-deep .p-dialog {
-	max-width: 60% !important;
+  max-width: 60% !important;
 }
 
 ::ng-deep .p-dialog-header {
-	padding: 3px !important;
+  padding: 3px !important;
 }
 
 .socialShareBtn {
-	height: 38px;
-	width: 38px;
-	border-radius: 5px !important;
-	margin: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	// left: 12px;
-	background-color: black !important;
+  height: 38px;
+  width: 38px;
+  border-radius: 5px !important;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // left: 12px;
+  background-color: black !important;
 }
 
 .select-title {
-	border-radius: 5px !important;
+  border-radius: 5px !important;
 }
 
 .career-closeIcon {
-	height: 100%;
-	width: 50px;
-	min-height: 40px;
-	border-radius: 8px;
-	background-color: #1c1b17;
-	color: white;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  height: 100%;
+  width: 50px;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: #1c1b17;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .career-homeIcon {
-	height: 100%;
-	width: 80px;
-	min-height: 40px;
-	border-radius: 8px;
-	background-color: var(--uniprep-secondary);
-	color: white;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  height: 100%;
+  width: 80px;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: var(--uniprep-secondary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .career-reportIcon {
-	height: 100%;
-	width: 90px;
-	min-height: 40px;
-	border-radius: 8px;
-	background-color: var(--uniprep-primary);
-	color: white;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  height: 100%;
+  width: 90px;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: var(--uniprep-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .careerreadingcardgrid {
-	flex: 0 0 25%;
-	max-width: 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
 }
 
 @media (max-width: 1499.98px) {
-	.careerreadingcardgrid {
-		flex: 0 0 25%;
-		max-width: 25%;
-	}
+  .careerreadingcardgrid {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
 }
 
 @media (max-width: 1399.98px) {
-	.careerreadingcardgrid {
-		flex: 0 0 25%;
-		max-width: 25%;
-	}
+  .careerreadingcardgrid {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
 }
 
 @media (max-width: 1299.98px) {
-	.careerreadingcardgrid {
-		flex: 0 0 25%;
-		max-width: 25%;
-	}
+  .careerreadingcardgrid {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
 }
 
 @media (max-width: 1199.98px) {
-	.careerreadingcardgrid {
-		flex: 0 0 33%;
-		max-width: 33%;
-	}
+  .careerreadingcardgrid {
+    flex: 0 0 33%;
+    max-width: 33%;
+  }
 }
 
 @media (max-width: 991.98px) {
-	.careerreadingcardgrid {
-		flex: 0 0 33%;
-		max-width: 33%;
-	}
+  .careerreadingcardgrid {
+    flex: 0 0 33%;
+    max-width: 33%;
+  }
 }
 
 @media (max-width: 767.98px) {
-	.careerreadingcardgrid {
-		flex: 0 0 50%;
-		max-width: 50%;
-	}
+  .careerreadingcardgrid {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
 }
 
 .questioncard .content-preview {
-	opacity: 0;
-	max-height: 0;
-	overflow: hidden;
-	transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
 }
 
 .questioncard:hover .content-preview {
-	opacity: 1;
-	max-height: 100px;
-	/* Adjust as needed */
+  opacity: 1;
+  max-height: 100px;
+  /* Adjust as needed */
 }
 
 .blog-content {
-	font-family: "Poppins", sans-serif;
-	line-height: 2rem;
+  font-family: "Poppins", sans-serif;
+  line-height: 2rem;
 }
 
 ::ng-deep .blog-content,
 p {
-	font-size: 16px;
+  font-size: 16px;
 }
 
-// scroll 
+// scroll
 .scrollable-container {
-	position: relative;
-	overflow-x: auto;
-	scrollbar-width: thin;
-	scrollbar-color: transparent transparent;
-	white-space: nowrap;
+  position: relative;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  white-space: nowrap;
 }
 
 /* Hide scrollbar initially */
 .scrollable-container::-webkit-scrollbar {
-	height: 6px;
+  height: 6px;
 }
 
 .scrollable-container::-webkit-scrollbar-thumb {
-	background-color: transparent;
-	transition: background-color 0.3s ease-in-out;
+  background-color: transparent;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .scrollable-container:hover::-webkit-scrollbar-thumb {
-	background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* Style for Right Scroll Button */
 .scroll-btn-vedio {
-	background: #C2D7FB;
-	color: #42568A;
-	border: none;
-	padding: 10px;
-	cursor: pointer;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: background 0.3s ease-in-out;
+  background: #c2d7fb;
+  color: #42568a;
+  border: none;
+  padding: 10px;
+  width: 8%;
+  height: 8%;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease-in-out;
 }
 
 .scroll-btn-link {
-	background: #FFCD96;
-	color: #FF8B00;
-	border: none;
-	padding: 10px;
-	cursor: pointer;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: background 0.3s ease-in-out;
-	margin-bottom: 11px;
+  background: #ffcd96;
+  color: #ff8b00;
+  border: none;
+  width: 8%;
+  height: 8%;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease-in-out;
 }
 
 .scroll-btn:hover {
-	background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 /* Default (Desktop) */
 .col-custom-4-5 {
-    flex: 0 0 37.5%; /* 4.5/12 */
-    max-width: 37.5%;
+  flex: 0 0 37.5%; /* 4.5/12 */
+  max-width: 37.5%;
 }
 
 .col-custom-3 {
-    flex: 0 0 25%; /* 3/12 */
-    max-width: 25%;
+  flex: 0 0 25%; /* 3/12 */
+  max-width: 25%;
 }
 
 /* Medium Screens (Tablets) */
 @media (max-width: 992px) {
-    .col-custom-4-5 {
-        flex: 0 0 50%; /* 2 columns */
-        max-width: 50%;
-    }
-    
-    .col-custom-3 {
-        flex: 0 0 100%; /* Stacks below */
-        max-width: 100%;
-    }
+  .col-custom-4-5 {
+    flex: 0 0 50%; /* 2 columns */
+    max-width: 50%;
+  }
+
+  .col-custom-3 {
+    flex: 0 0 100%; /* Stacks below */
+    max-width: 100%;
+  }
 }
 
 /* Small Screens (Phones) */
 @media (max-width: 768px) {
-    .col-custom-4-5, .col-custom-3 {
-        flex: 0 0 100%; /* Full-width stack */
-        max-width: 100%;
-    }
+  .col-custom-4-5,
+  .col-custom-3 {
+    flex: 0 0 100%; /* Full-width stack */
+    max-width: 100%;
+  }
 }
 // question card ui
 .readingcardgrid1 {
-	flex: 0 0 25% !important;
-	max-width: 25% !important;
+  flex: 0 0 25% !important;
+  max-width: 25% !important;
 }
 
 @media (max-width: 1499.98px) {
-	.readingcardgrid1 {
-		flex: 0 0 25% !important;
-		max-width: 25% !important;
-	}
+  .readingcardgrid1 {
+    flex: 0 0 25% !important;
+    max-width: 25% !important;
+  }
 }
 
 @media (max-width: 1399.98px) {
-	.readingcardgrid1 {
-		flex: 0 0 25% !important;
-		max-width: 25% !important;
-	}
+  .readingcardgrid1 {
+    flex: 0 0 25% !important;
+    max-width: 25% !important;
+  }
 }
 
 @media (max-width: 1299.98px) {
-	.readingcardgrid1 {
-		flex: 0 0 25% !important;
-		max-width: 25% !important;
-	}
+  .readingcardgrid1 {
+    flex: 0 0 25% !important;
+    max-width: 25% !important;
+  }
 }
 
 @media (max-width: 1199.98px) {
-	.readingcardgrid1 {
-		flex: 0 0 33%;
-		max-width: 33%;
-	}
+  .readingcardgrid1 {
+    flex: 0 0 33%;
+    max-width: 33%;
+  }
 }
 
 @media (max-width: 991.98px) {
-	.readingcardgrid1 {
-		flex: 0 0 33%;
-		max-width: 33%;
-	}
+  .readingcardgrid1 {
+    flex: 0 0 33%;
+    max-width: 33%;
+  }
 }
 
 @media (max-width: 767.98px) {
-	.readingcardgrid1 {
-		flex: 0 0 50%;
-		max-width: 50%;
-	}
+  .readingcardgrid1 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
 }
 
 @media (max-width: 575.98px) {
-	.readingcardgrid1 {
-		flex: 0 0 100%;
-		max-width: 100%;
-	}
+  .readingcardgrid1 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 
 @media screen and (max-width: 480px) {
-	.readingcardgrid1 {
-		flex: 0 0 100%;
-		max-width: 100%;
-	}
+  .readingcardgrid1 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }

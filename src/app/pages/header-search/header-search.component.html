@@ -2,42 +2,52 @@
 	<div class="col-md-12">
 		<p-inputgroup class=" searchheight">
 			<p-inputgroup-addon class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></p-inputgroup-addon>
-			<input #searchInput (keyup)="onKey(searchInput.value)" (keyup.enter)="searchKeyWord(searchInput)" [(ngModel)]="searchInputText" (input)="onSearchChange(searchInput.value)" pInputText placeholder="Enter Your Keywords Here" type="text" />
-			<span (click)="clearText()" *ngIf="showCloseIcon" class="border-0 input-group-text passwordvisibility" role="button" style="background: transparent">
+			<input #searchInput (keyup)="onKey(searchInput.value)" (keyup.enter)="searchKeyWord(searchInput)"
+				[(ngModel)]="searchInputText" (input)="onSearchChange(searchInput.value)" pInputText
+				placeholder="Enter Your Keywords Here" type="text" />
+			<span (click)="clearText()" *ngIf="showCloseIcon" class="border-0 input-group-text passwordvisibility"
+				role="button" style="background: transparent">
 				<i class="fa-solid fa-xmark text-danger" style="font-size: 1.25rem"></i>
 			</span>
 			<!-- <button *ngIf="isButtonShowOnlyModulesMenus" (click)="showModuleSearchBare()" class="btn-primary"
 			style="background-color: #D9D9D9 !important; color:#394D83 !important ; border-color: #D9D9D9;border-radius: 8px 0px 0px 8px !important;"
 			 pButton pRipple >{{flobalsearchbuttonname}}</button> -->
-			<button (click)="searchKeyWord(searchInput)" class="btn-primary" style="border-radius: 0px 8px 8px 0px !important;"  label="Questions" pButton pRipple type="button"></button>
+			<button (click)="searchKeyWord(searchInput)" class="btn-primary"
+				style="border-radius: 0px 8px 8px 0px !important;" label="Questions" pButton pRipple
+				type="button"></button>
 		</p-inputgroup>
-        <div class="searchcard" *ngIf="isSearchResultFound">
-            <div (scroll)="scrollHandler($event)" scrollTracker (scrollingFinished)="onScrollingFinished()" *ngFor="let c of searchResult"
-            class="p-2">
-                <div class="row mb-2">
-                    <div class="col-xxl-9 col-xl-8 col-lg-7 col-md-7 col-sm-12 col-12" (click)="gerSelectedQuestion(c)">
-                        <span [innerHTML]="dataContentChange(c.question)" role="button"> </span>
-                    </div>
-                    <div class="col-xxl-3 col-xl-4 col-lg-5 col-md-5 col-sm-12 col-12 d-flex align-items-center justify-content-start justify-content-md-end gap-2" role="button">
-                        <a class="text-small uniprep-primary text-decoration-none" (click)="redirectModule(c.module_name)">{{ c.module_name }}</a>
-                        <i class="fa-solid fa-chevron-right text-small uniprep-primary"></i>
-                        <a class="text-small uniprep-primary text-decoration-none" (click)="redirectToSubmodule(c)">{{ c.submodule_name }}</a>
-                    </div>
-                </div>
-            </div>
-            <div class="row sticky-bottom px-3 py-4 ">
-                <div class="col-md-6 col-12 text-md-start text-center order-2 order-md-1">
-                    <p class="text-left fw-bold">If you can't find your Question! <span (click)="openChat()" role="button" class="text-primary font-primarycolor">Ask Us</span></p>
-                </div>
-                <div class="col-md-6 col-12 text-md-end text-center order-1 order-md-2">
-                    <p class="text-right fw-bold">Total Related Questions: {{ searchKeywordTotalCount }}</p>
-                </div>
-            </div>
-        </div>
+		<div class="searchcard" *ngIf="isSearchResultFound">
+			<div (scroll)="scrollHandler($event)" scrollTracker (scrollingFinished)="onScrollingFinished()"
+				*ngFor="let c of searchResult" class="p-2">
+				<div class="row mb-2">
+					<div class="col-xxl-9 col-xl-8 col-lg-7 col-md-7 col-sm-12 col-12" (click)="gerSelectedQuestion(c)">
+						<span [innerHTML]="dataContentChange(c.question)" role="button"> </span>
+					</div>
+					<div class="col-xxl-3 col-xl-4 col-lg-5 col-md-5 col-sm-12 col-12 d-flex align-items-center justify-content-start justify-content-md-end gap-2"
+						role="button">
+						<a class="text-small uniprep-primary text-decoration-none"
+							(click)="redirectModule(c.module_name)">{{ c.module_name }}</a>
+						<i class="fa-solid fa-chevron-right text-small uniprep-primary"></i>
+						<a class="text-small uniprep-primary text-decoration-none" (click)="redirectToSubmodule(c)">{{
+							c.submodule_name }}</a>
+					</div>
+				</div>
+			</div>
+			<div class="row sticky-bottom px-3 py-4 ">
+				<div class="col-md-6 col-12 text-md-start text-center order-2 order-md-1">
+					<p class="text-left fw-bold">If you can't find your Question! <span (click)="openChat()"
+							role="button" class="text-primary font-primarycolor">Ask Us</span></p>
+				</div>
+				<div class="col-md-6 col-12 text-md-end text-center order-1 order-md-2">
+					<p class="text-right fw-bold">Total Related Questions: {{ searchKeywordTotalCount }}</p>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true">
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal"
+	header="Header" [maximizable]="true">
 	<ng-template pTemplate="header">
 		<div class="d-flex w-100 flex-column px-4">
 			<div class="d-flex flex-row justify-content-md-between justify-content-center">
@@ -48,7 +58,8 @@
 					</button>
 				</div>
 				<div class="col-md-10 col-8">
-					<h5 class="select-title w-100 text-center mb-0">Searched For - {{ searchInputValue | uppercase }}</h5>
+					<h5 class="select-title w-100 text-center mb-0">Searched For - {{ searchInputValue | uppercase }}
+					</h5>
 					<p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 text-small"></p-breadcrumb>
 
 					<!--                    <div class="row">-->
@@ -57,7 +68,8 @@
 					<div class="row justify-content-center">
 						<div class="col">
 							<div class="d-flex justify-content-end">
-								<a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious()"> <i class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
+								<a role="button" *ngIf="isAnswerDialogVisiblePrev" (click)="clickPrevious()"> <i
+										class="text-green h4 mx-3 mb-0 fa-solid fa-circle-chevron-left"></i></a>
 							</div>
 						</div>
 						<div class="col">
@@ -65,7 +77,8 @@
 							<!--                            <p-breadcrumb [model]="breadCrumb" class="w-100 mt-2 text-small"></p-breadcrumb>-->
 						</div>
 						<div class="col">
-							<a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext()"><i class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
+							<a role="button" *ngIf="isAnswerDialogVisibleNext" (click)="clickNext()"><i
+									class="text-green mx-3 h4 fa-solid mb-0 fa-circle-chevron-right"></i></a>
 						</div>
 					</div>
 					<div class="row justify-content-center"></div>
@@ -126,7 +139,8 @@
 				</div>
 				<h3 class="unselectable d-md-block d-none" [innerHTML]="oneQuestionContent?.question"></h3>
 				<h5 class="unselectable d-md-none d-block" [innerHTML]="oneQuestionContent?.question"></h5>
-				<div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%" [innerHTML]="oneQuestionContent?.answer"></div>
+				<div class="fw-medium" style="white-space: inherit; max-height: 80%; min-height: 80%"
+					[innerHTML]="oneQuestionContent?.answer"></div>
 			</div>
 		</div>
 	</div>
@@ -138,7 +152,10 @@
 				<div class="d-flex align-items-center gap-2 pb-2">
 					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
 						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">
-							<span class="btn btn-primary text-small videolinkbutton flex-shrink-0" (click)="openVideoPopup(videoL.link)" *ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video fa-sm"></i></span>
+							<span class="btn btn-primary text-small videolinkbutton flex-shrink-0 rounded-0"
+								(click)="openVideoPopup(videoL.link)"
+								*ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">Video {{ ind + 1
+								}} &nbsp;<i class="fa-solid fa-video fa-sm"></i></span>
 						</div>
 					</div>
 				</div>
@@ -149,13 +166,17 @@
 				<div class="d-flex align-items-center gap-2 pb-2">
 					<div class="scrollable-container" id="ref-links-container" #refLinksContainer>
 						<div class="d-flex flex-nowrap flex-md-wrap overflow-x-auto gap-2">
-							<a class="btn btn-secondary text-small reflinkbutton flex-shrink-0" target="_blank" href="{{ refL.link }}" *ngFor="let refL of oneQuestionContent?.reflink; let ind = index">Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link fa-sm"></i></a>
+							<a class="btn btn-secondary text-small reflinkbutton flex-shrink-0 rounded-0"
+								target="_blank" href="{{ refL.link }}"
+								*ngFor="let refL of oneQuestionContent?.reflink; let ind = index">Link {{ ind + 1 }}
+								&nbsp;<i class="fa-solid fa-link fa-sm"></i></a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="align-items-center d-flex desktop">
-				<button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2 align-items-center" (click)="onClickAsk()">
+				<button class="btn w-100 btn-primary theme-dark-blue mx-0 px-5 py-2 align-items-center"
+					(click)="onClickAsk()">
 					<div class="row justify-content-center align-items-center">
 						<div class="col-12">
 							<i class="fa-solid fa-file-contract h5 mb-2"></i>
@@ -172,7 +193,8 @@
 		</div>
 	</ng-template>
 </p-dialog>
-<p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show" [modal]="true" [maximizable]="true" [style]="{ width: '30vw' }" header="Header">
+<p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show" [modal]="true" [maximizable]="true"
+	[style]="{ width: '30vw' }" header="Header">
 	<ng-template pTemplate="header">
 		<span class="text-xl font-bold ms-2">Reviewed</span>
 	</ng-template>
@@ -219,7 +241,8 @@
 	</div>
 </p-dialog> -->
 
-<div [ngStyle]="{ display: visibleExhastedData ? 'block' : 'none' }" class="modal modal-bg multiDeviceLogoutPopup" role="dialog" tabindex="-1">
+<div [ngStyle]="{ display: visibleExhastedData ? 'block' : 'none' }" class="modal modal-bg multiDeviceLogoutPopup"
+	role="dialog" tabindex="-1">
 	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 		<div class="modal-content card bg-light">
 			<div class="text-right-close">
@@ -245,15 +268,19 @@
 								<div class="mt-1 text-center">
 									<span>
 										<strong class="firsttimelogin">
-											<h2 style="color: #f0780e; margin-bottom: 0">Subscribe now to continue using the platform.</h2>
+											<h2 style="color: #f0780e; margin-bottom: 0">Subscribe now to continue using
+												the platform.</h2>
 										</strong>
 									</span>
 								</div>
 								<div class="icon-container mt-1 d-flex justify-content-center mb-1">
-									<h6 style="color: rgb(63 76 131)">Enjoy complete access to <strong>UNIPREP</strong> V 1.0</h6>
+									<h6 style="color: rgb(63 76 131)">Enjoy complete access to <strong>UNIPREP</strong>
+										V 1.0</h6>
 								</div>
 								<div class="d-flex justify-content-center">
-									<button class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
+									<button class="btn btn-primary btn-rounded me-2 ms-0 my-0"
+										(click)="onClickSubscribedUser()" alt="chat with notification"><span
+											class="text-small fw-normal px-3">Subscribe Now</span></button>
 								</div>
 							</div>
 						</div>
@@ -270,7 +297,8 @@
 									</span>
 								</div>
 								<div class="icon-container mt-1 d-flex justify-content-center mb-1">
-									<h6 style="color: rgb(63 76 131)">Please contact {{orgnamewhitlabel}} Company for access</h6>
+									<h6 style="color: rgb(63 76 131)">Please contact {{orgnamewhitlabel}} Company for
+										access</h6>
 								</div>
 							</div>
 						</div>
@@ -287,14 +315,16 @@
 			<div class="modal-body position-relative pt-4">
 				<div class="modalbuttons">
 					<div class="d-flex gap-2">
-						<button title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-						<button type="button" title="Close Popup" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
+						<button title="New Window" type="button" class="btn btn-primary btn-rounded"
+							(click)="openNextVideo()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+						<button type="button" title="Close Popup" class="btn btn-primary btn-rounded"
+							(click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
 					</div>
 				</div>
-                <div class="embed-responsive" *ngIf="selectedVideoLink">
-                    <iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe>
-                </div>
-<!--				<div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>-->
+				<div class="embed-responsive" *ngIf="selectedVideoLink">
+					<iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe>
+				</div>
+				<!--				<div class="embed-responsive"><iframe #videoFrame [src]="selectedVideoLink" width="100%" frameborder="0" allowfullscreen></iframe></div>-->
 			</div>
 		</div>
 	</div>
