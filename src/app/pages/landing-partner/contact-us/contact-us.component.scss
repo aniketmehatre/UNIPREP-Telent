@@ -1,3 +1,29 @@
+.contact-container ::ng-deep input:-webkit-autofill,
+.contact-container ::ng-deep input:-webkit-autofill:hover,
+.contact-container ::ng-deep input:-webkit-autofill:focus,
+.contact-container ::ng-deep textarea:-webkit-autofill,
+.contact-container ::ng-deep textarea:-webkit-autofill:hover,
+.contact-container ::ng-deep textarea:-webkit-autofill:focus,
+.contact-container ::ng-deep .intel-input input:-webkit-autofill,
+.contact-container ::ng-deep .intel-input input:-webkit-autofill:hover,
+.contact-container ::ng-deep .intel-input input:-webkit-autofill:focus {
+  -webkit-text-fill-color: white !important;
+  -webkit-box-shadow: 0 0 0px 1000px #222 inset !important;
+}
+
+.contact-container ::ng-deep .form-select:-webkit-autofill,
+.contact-container ::ng-deep .form-select:-webkit-autofill:hover,
+.contact-container ::ng-deep .form-select:-webkit-autofill:focus,
+.contact-container ::ng-deep .p-select:-webkit-autofill,
+.contact-container ::ng-deep .p-select:-webkit-autofill:hover,
+.contact-container ::ng-deep .p-select:-webkit-autofill:focus,
+.contact-container ::ng-deep .p-select .p-select-label:-webkit-autofill,
+.contact-container ::ng-deep .p-select .p-select-label:-webkit-autofill:hover,
+.contact-container ::ng-deep .p-select .p-select-label:-webkit-autofill:focus {
+  -webkit-text-fill-color: white !important;
+  -webkit-box-shadow: 0 0 0px 1000px #222 inset !important;
+  /* Adjust if PrimeNG select has different background */
+}
 ::ng-deep .p-select {
   background: #222 !important;
   color: #fff !important;
