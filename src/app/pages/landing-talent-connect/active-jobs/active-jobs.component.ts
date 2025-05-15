@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Job } from 'src/app/pages/talent-connect/easy-apply/job-view/job-view.component';
-import { landingServices } from '../landing-page.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { PipesModule } from '@pipes/pipes.module';
+import { landingServices } from '../landing-page.service';
 
 @Component({
   selector: 'uni-active-jobs',

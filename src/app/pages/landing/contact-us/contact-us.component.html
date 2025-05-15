@@ -72,7 +72,7 @@
       <form [formGroup]="contactForm">
         <div class="mb-3">
           <label for="firstName" class="form-label text-white">Full Name <span class="text-danger">*</span></label>
-          <input type="text" class="form-control bg-dark text-white" id="firstName" formControlName="firstName"
+          <input type="text" class="form-control bg-dark text-white border-white" id="firstName" formControlName="firstName"
             [ngClass]="{'is-invalid': contactForm.get('firstName')?.touched && contactForm.get('firstName')?.invalid}">
           <div class="invalid-feedback"
             *ngIf="contactForm.get('firstName')?.touched && contactForm.get('firstName')?.errors?.['required']">
@@ -82,7 +82,7 @@
 
         <div class="mb-3">
           <label for="email" class="form-label text-white">Email <span class="text-danger">*</span></label>
-          <input type="email" class="form-control bg-dark text-white" id="email" formControlName="email"
+          <input type="email" class="form-control bg-dark text-white border-white" id="email" formControlName="email"
             [ngClass]="{'is-invalid': contactForm.get('email')?.touched && contactForm.get('email')?.invalid}">
           <div class="invalid-feedback"
             *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['required']">
@@ -98,7 +98,7 @@
           <label for="phoneNumber" class="form-label text-white">Whatsapp Number <span
               class="text-danger">*</span></label>
           <ngx-intl-tel-input class="intel-input bg-dark w-100"
-            [cssClass]="'form-control bg-dark text-white rounded-start-0 border border-dark'"
+            [cssClass]="'form-control bg-dark text-white border-white rounded-start-0 border border-dark'"
             [preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
             [searchCountryFlag]="true" [maxLength]="15"
             [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true"
@@ -122,7 +122,7 @@
 
         <div class="mb-3">
           <label for="organization" class="form-label text-white">Organization/Institution</label>
-          <input type="text" class="form-control bg-dark text-white" id="organization" formControlName="organization">
+          <input type="text" class="form-control bg-dark text-white border-white" id="organization" formControlName="organization">
         </div>
 
         <div class="mb-3">
@@ -138,7 +138,7 @@
         <div class="mb-3">
           <label for="helpMessage" class="form-label text-white">How can we help you? <span
               class="text-danger">*</span></label>
-          <textarea class="form-control bg-dark text-white" id="helpMessage" rows="5" formControlName="helpMessage"
+          <textarea class="form-control bg-dark text-white border-white" id="helpMessage" rows="5" formControlName="helpMessage"
             [ngClass]="{'is-invalid': contactForm.get('helpMessage')?.touched && contactForm.get('helpMessage')?.invalid}"></textarea>
           <div class="invalid-feedback"
             *ngIf="contactForm.get('helpMessage')?.touched && contactForm.get('helpMessage')?.errors?.['required']">

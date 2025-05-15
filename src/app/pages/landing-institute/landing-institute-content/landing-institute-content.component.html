@@ -1,0 +1,115 @@
+<section class="pb-2 pt-5 py-md-3 darksection" id="home">
+  <div class="container-fluid pt-5 text-center">
+    <div class="row justify-content-center">
+      <div class="col-md-8 d-flex flex-column justify-content-center align-items-center">
+        <div class="display-2"><span class="text-white fw-light">From Classroom to Career</span><br><span class="text-secondary fw-bold">Equip Student for the Real World</span></div>
+        <div class="text-center mb-4 mt-4">
+          <a href="/register" class="text-decoration-none"><button type="button"
+              class="btn btn-secondary px-4 py-3 m-0">
+              <h5 class="mb-0">REGISTER NOW!</h5>
+            </button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="pb-0 darksection homebg">
+  <div class="container-fluid pt-3 text-center">
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="video-container" (click)="toggleVideo()">
+          <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
+          <video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none"
+            poster="/uniprep-assets/images/uniprepmockup.png">
+            <source [src]="welcomevideoLink" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container-fluid darksection text-white py-4">
+  <div class="row py-5">
+    <div class="col-12 col-md-10 mx-auto">
+      <div class="d-flex flex-wrap gap-3">
+        <div class="dropdown">
+          <p-select aria-labelledby="countryDropdown" styleClass="w-100 p-1" class="dropdown-menu form-select bg-dark text-white w-100 p-2 border-secondary " id="enquireType" [options]="countries" [filter]="true" filterBy="country" placeholder="Select an Country" optionValue="id" optionLabel="country" appendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="50">
+          </p-select>
+        </div>
+
+        <div class="flex-grow-1">
+          <div class="input-group border-1 border-dark rounded-4">
+            <span class="input-group-text bg-dark border-0 text-white p-3">
+              <i class="fa fa-search"></i>
+            </span>
+            <input type="text" class="form-control bg-dark text-white p-3 border-0 rounded-end-2" placeholder="Search For Partners..."
+              style="border-radius: 0;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<ng-container *ngFor="let section of landingSections">
+<div class="row py-5 g-2 justify-content-center align-items-center" >
+    <div class="row col-md-10">
+      <div class="col-md-6 mx-auto d-flex flex-column justify-content-center" [ngClass]="{'order-lg-2 pl-100': !section.isRight, 'order-lg-1': section.isRight}">
+        <div class="fs-1 fw-bold mb-3" [innerHTML]="section.title"></div>
+        <p class="text-warning mb-4">{{ section.subtitle }}</p>
+        <div class="feature-list">
+          <div class="d-flex align-items-start mb-3" *ngFor="let feature of section.features">
+            <div class="me-2">
+              <i class="fa-light fs-3 fa-square-check text-white"></i>
+            </div>
+            <div>{{ feature }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6" [ngClass]="{'order-lg-1': !section.isRight, 'order-lg-2': section.isRight}">
+        <img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border border-white">
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+  <div class="row g-2 justify-content-center align-items-center">
+    <div class="row col-md-10">
+      <div class="col-12 ">
+        <h1 class="display-5 mb-4">
+          Why Partner with <span class="text-warning fw-bold ">UNIPREP?</span>
+        </h1>
+
+        <div class="p-4 rounded card fw-bold">
+          <p class="mb-3 text-white">{{ whyPartnerParagraph1 }}</p>
+          <p class="text-warning">{{ whyPartnerParagraph2 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="pt-5 pb-5 cta-field darksection">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="card py-4 px-4">
+          <div class="card-body">
+            <div class="row align-items-center justify-content-center">
+              <div class="col-md-10">
+                <h1 class="mb-md-0 mb-3 text-md-start text-center text-white">{{ wantToKnowMoreTitle }}</h1>
+                <h5 class="fw-medium text-white d-md-block d-none">
+                  {{ wantToKnowMoreLead }}
+                </h5>
+                <h5 class="fw-medium text-white text-center d-md-none d-block">{{ wantToKnowMoreLead }}
+                </h5>
+              </div>
+              <div class="col-md-2 col-6 text-end">
+                <a href="/register" class="btn cta-btn m-0 h5 py-3">{{ joinNowButtonText }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>

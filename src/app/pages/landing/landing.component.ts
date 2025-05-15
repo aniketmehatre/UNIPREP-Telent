@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core"
 import { ThemeService } from "../../theme.service"
-import { FormBuilder, FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from "@angular/forms"
+import { FormBuilder, Validators } from "@angular/forms"
 import { AuthService } from "../../Auth/auth.service"
 import { LocationService } from "../../location.service"
 import { environment } from "@env/environment"
@@ -62,48 +62,6 @@ export class LandingComponent implements OnInit, OnDestroy {
 
 	currentYear = new Date().getFullYear()
 
-	socialLinks = [
-		{ icon: "facebook", url: "https://facebook.com" },
-		{ icon: "instagram", url: "https://instagram.com" },
-		{ icon: "linkedin", url: "https://linkedin.com" },
-		{ icon: "youtube", url: "https://youtube.com" },
-	]
-
-	aboutLinks = [{ text: "About UNIPREP", url: "/about" }]
-
-	featureLinks = [
-		{ text: "For Job Seekers", url: "/landing/feature/job-seekers" },
-		{ text: "For International Students", url: "/landing/feature/international-students" },
-		{ text: "For Global Travellers", url: "/features/global-travellers" },
-		{ text: "For Entrepreneurs", url: "/features/entrepreneurs" },
-	]
-
-	exploreLinks = [
-		{ text: "For Employers", url: "/explore/employers" },
-		{ text: "For Talents", url: "/explore/talents" },
-		{ text: "For Institutions", url: "/explore/institutions" },
-		{ text: "For Partners", url: "/explore/partners" },
-	]
-
-	resourceLinks = [
-		{ text: "Blogs", url: "/resources/blogs" },
-		{ text: "Certificates", url: "/resources/certificates" },
-	]
-
-	otherLinks = [
-		{ text: "Privacy Policy", url: "/privacy-policy" },
-		{ text: "Terms & Conditions", url: "/terms-conditions" },
-		{ text: "Cancellation Policy", url: "/cancellation-policy" },
-		{ text: "Refund Policy", url: "/refund-policy" },
-	]
-
-	contactInfo = {
-		phone: [
-			{ country: "in", number: "+91 99807 88380" },
-			{ country: "gb", number: "+44 99009 00990" },
-		],
-		email: "info@uniprep.ai",
-	}
 
 	ngOnDestroy() {
 		localStorage.clear();

@@ -22,10 +22,6 @@ export const appRoutes: Routes = [
 		path: '',
 		loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule),
 	}, // Default route is now landing page
-	{
-		path: "landing",
-		loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule)
-	},
 	{ path: "students", component: CoBrandedComponent },
 	{ path: "students/login", component: LoginComponent },
 	{ path: "register", component: RegistrationComponent },
@@ -42,7 +38,14 @@ export const appRoutes: Routes = [
 		path: 'talent-connect',
 		loadChildren: () => import('./pages/landing-talent-connect/landing-new.module').then(c => c.LandingModule)
 	},
-
+	{
+		path: 'partner',
+		loadChildren: () => import('./pages/landing-partner/landing-partner.module').then(c => c.LandingPartnerModule)
+	},
+	{
+		path: 'institute',
+		loadChildren: () => import('./pages/landing-institute/landing-institute.module').then(c => c.LandingInstituteModule)
+	},
 
 
 	// Protected routes that require authentication
