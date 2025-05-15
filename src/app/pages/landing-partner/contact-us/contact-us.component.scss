@@ -1,0 +1,218 @@
+::ng-deep .p-select {
+  background: #222 !important;
+  color: #fff !important;
+  border: 1px solid #444 !important;
+  border-radius: 6px;
+}
+  
+::ng-deep .p-select .p-select-label {
+  color: #fff !important;
+}
+
+// ::ng-deep .p-select .p-select-list-container	 {
+//   color: #ccc !important;
+//   background: #1e1e1e !important;
+// }
+
+::ng-deep .p-select-panel {
+  background: #1e1e1e !important;
+  color: white !important;
+  border: 1px solid #444 !important;
+}
+
+::ng-deep .p-select-option {
+  background-color:  #1e1e1e !important;
+  color: white !important;
+}
+
+
+::ng-deep .p-select-option.p-highlight {
+  background-color: #444 !important;
+  color: #fff !important;
+}
+
+
+.contact-container {
+  background-color: #000;
+  color: #fff;
+  padding: 6rem 20rem;
+  min-height: 100vh;
+}
+
+.back-button {
+  margin-bottom: 2rem;
+}
+
+.card {
+	border-radius: 1.5rem;
+	border: 1px solid #e6ddfe08;
+	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+	color: white;
+	&:hover {
+		.card-title {
+			color: var(--uniprep-secondary);
+		}
+		.cardicon {
+			font-weight: 700;
+		}
+	}
+}
+
+.dropdown {
+
+}
+
+.contact-header {
+  margin-bottom: 3rem;
+  h1 {
+    font-size: 60px;
+  }
+}
+
+.direct-contact {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: rgb(219, 83, 175);
+  background: linear-gradient(90deg, #e78e60 0%,  #d14283 100%);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.direct-contact p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.direct-contact .email-button {
+  background-color: #121212;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+}
+
+.contact-content {  
+  display: grid;
+  grid-template-columns: 1.5fr 2.5fr;
+  gap: 2rem;
+  
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-info {
+  background-color: #111;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.contact-details {
+  margin-top: 1rem;
+}
+
+.map-container {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.contact-form {
+  // background-color: #111;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.form-header {
+  margin-bottom: 2rem;
+}
+
+.form-control, .form-select {
+  padding: 8px;
+  border: 1px solid #333;
+  
+  &:focus {
+    background-color: #222;
+    color: #fff;
+    border-color: #555;
+    box-shadow: none;
+  }
+}
+ 
+#headquarterDropdown {
+  border: 1px solid #e6ddfe08;
+	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+}
+
+.select-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+	border: 1px solid #e6ddfe08;
+	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+}
+
+::ng-deep .iti__flag-container {
+  background: #333;
+  border: #333;
+  color: white;
+}
+
+::ng-deep .iti__flag-container .iti__dropdown-content {
+  background: #333;
+  border: #333;
+  color: white;
+}
+
+.select-menu {
+  background-color: #222;
+  border: 1px solid #333;
+  
+  .select-item {
+    color: #fff;
+    
+    &:hover {
+      background-color: #333;
+    }
+  }
+}
+
+.text-white-50 {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.gradient-container {
+  background: linear-gradient(90deg, #e67e22, #e74c3c);
+}
+
+.btn-warning {
+  background-color: #e67e22;
+  border-color: #e67e22;
+  
+  &:hover {
+    background-color: darken(#e67e22, 10%);
+    border-color: darken(#e67e22, 10%);
+  }
+
+:host ::ng-deep .intel-input {
+  border: 1px solid #333;
+      background-color: #222;
+}
+}
+@media (max-width: 992px) {
+  .contact-container {
+    padding: 20px;
+  }
+}

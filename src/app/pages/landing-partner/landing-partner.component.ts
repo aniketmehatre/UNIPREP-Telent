@@ -1,13 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { environment } from '@env/environment';
 import { LocalStorageService } from 'ngx-localstorage';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
 import { ThemeService } from "../../theme.service"
-import { LandingFooterComponent } from "../landing/landing-footer/landing-footer.component";
 
 @Component({
   selector: 'uni-landing-partner',
@@ -16,8 +14,6 @@ import { LandingFooterComponent } from "../landing/landing-footer/landing-footer
   styleUrl: './landing-partner.component.scss'
 })
 export class LandingPartnerComponent {
-@ViewChild("videoPlayer")
-  videoPlayer!: ElementRef;
   hovered1: 'wa' | null = null;
   isPlaying = false
   isDarkMode: boolean
@@ -64,18 +60,6 @@ export class LandingPartnerComponent {
 
   changeImage(imageName: string): void {
     this.currentImage = "/uniprep-assets/images/" + imageName
-  }
-
-
-  toggleVideo() {
-    const video: HTMLVideoElement = this.videoPlayer.nativeElement
-    if (video.paused) {
-      video.play()
-      this.isPlaying = true
-    } else {
-      video.pause()
-      this.isPlaying = false
-    }
   }
 
   scrollToSection(event: Event, sectionId: string): void {

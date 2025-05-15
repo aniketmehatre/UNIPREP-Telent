@@ -42,7 +42,10 @@ export const appRoutes: Routes = [
 		path: 'partner',
 		loadChildren: () => import('./pages/landing-partner/landing-partner.module').then(c => c.LandingPartnerModule)
 	},
-
+	{
+		path: 'institute',
+		loadChildren: () => import('./pages/landing-institute/landing-institute.module').then(c => c.LandingInstituteModule)
+	},
 
 
 	// Protected routes that require authentication
