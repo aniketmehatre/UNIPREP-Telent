@@ -1314,7 +1314,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     if (response.professional_references && response.professional_references.length > 0) {
       const professionalRefArray = this.personalInfoForm.get("professional_references") as FormArray
       professionalRefArray.clear()
-      response.professional_refrences.forEach((ref: any) => {
+      response.professional_references.forEach((ref: any) => {
         professionalRefArray.push(
           this.fb.group({
             id: [ref.id], // Store the original ID
