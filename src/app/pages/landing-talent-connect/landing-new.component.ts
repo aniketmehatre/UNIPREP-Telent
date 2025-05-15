@@ -348,6 +348,6 @@ export class LandingNewComponent {
 	}
 
 	navigateConnectUrl() {
-		window.open(environment.employerDomain, '_blank');
+		window.open(environment.employerDomain);
 	}
 }
