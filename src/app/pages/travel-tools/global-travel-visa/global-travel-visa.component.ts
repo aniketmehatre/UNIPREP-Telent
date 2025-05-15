@@ -1,12 +1,10 @@
-import { Component, OnInit } from "@angular/core"
+import { Component, inject, OnInit } from "@angular/core"
 import { TravelToolsService } from "../travel-tools.service"
-import { Router, RouterModule } from "@angular/router"
+import { ActivatedRoute, Router, RouterModule } from "@angular/router"
 import { CommonModule } from "@angular/common"
 import { CarouselModule } from "primeng/carousel"
 import { Countries } from "src/app/@Models/country.model"
-import { BasicType } from "src/app/@Models/recommandation-question.model"
 import { Meta } from "@angular/platform-browser"
-import { MessageService } from "primeng/api"
 import { CardModule } from "primeng/card"
 import { DialogModule } from "primeng/dialog"
 import { DataService } from "src/app/data.service"
@@ -21,13 +19,14 @@ import { SelectModule } from "primeng/select"
 import { environment } from "@env/environment"
 import { AuthService } from "src/app/Auth/auth.service"
 import { SocialShareService } from "src/app/shared/social-share.service"
+import { ObjectModel } from "src/app/@Models/object.model"
 
 @Component({
 	selector: "uni-global-travel-visa",
 	templateUrl: "./global-travel-visa.component.html",
 	styleUrls: ["./global-travel-visa.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, CarouselModule, CardModule, DialogModule, SelectModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule],
+	imports: [CommonModule, RouterModule, CarouselModule, CardModule, DialogModule, SelectModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, TooltipModule],
 })
 export class GlobalTravelVisaComponent implements OnInit {
 	recommendations: { id: number; question: string }[] = [
@@ -72,9 +71,12 @@ export class GlobalTravelVisaComponent implements OnInit {
 	isNotSelectingDropdown: boolean = false
 	imageUrl: any = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;
 	currentEndpoint: string = '';
+	questionId: number = 0;
+	route = inject(ActivatedRoute);
 
 	constructor(private travelToolService: TravelToolsService, private router: Router, private meta: Meta,
-		private toast: MessageService, private dataService: DataService, private authService: AuthService, private socialShareService: SocialShareService) { }
+		private dataService: DataService, private authService: AuthService,
+		private socialShareService: SocialShareService) { }
 
 	ngOnInit(): void {
 		this.getCurrentModule()
@@ -83,10 +85,18 @@ export class GlobalTravelVisaComponent implements OnInit {
 	}
 
 	getCurrentModule() {
-		this.currentEndpoint = this.router.url.split("/").pop() || ""
+		const countryId = Number(this.route.snapshot.paramMap.get('countryId'));
+		this.questionId = Number(this.route.snapshot.paramMap.get('questionId'));
+		if (this.questionId) {
+			const urlSegments = this.router.url.split("/");
+			this.currentEndpoint = urlSegments[urlSegments.length - 3];
+		}
+		else {
+			this.currentEndpoint = this.router.url.split("/").pop() || "";
+		}
+
 		const titles: { [key: string]: string } = {
 			"travel-visa": "Global Travel Visa",
-			"global-work-visa": "Global Work Visa",
 			"enterpreneur-visa": "Global Entrepreneur Visa",
 			"study-visa": "Global Study Visa",
 		}
@@ -111,6 +121,11 @@ export class GlobalTravelVisaComponent implements OnInit {
 		}
 		this.moduleTitile = moduleTitile[this.currentEndpoint] || ""
 		// image url
+
+		if (this.questionId) {
+			this.selectedData = { 2: { id: countryId } }
+			this.getRecommendation();
+		}
 	}
 
 	getCountriesList() {
@@ -173,16 +188,21 @@ export class GlobalTravelVisaComponent implements OnInit {
 	}
 
 	getRecommendation() {
+		debugger
+
 		this.isRecommendationQuestion = false // if api is done, then have to remove
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
 		this.isRecommendationEachVisaNameData = false
 		this.recommendationDataList = []
-		let data = {
+		let data: ObjectModel = {
 			// source_id: this.selectedData[1],
 			country: this.selectedData[2].id,
 			mode: this.modeName,
 			// resident_id: this.selectedData[3]
+		}
+		if (this.questionId) {
+			data['question_id'] = this.questionId;
 		}
 		this.travelToolService.getVisaRecommendationsAllList(data).subscribe({
 			next: (response) => {
@@ -196,7 +216,10 @@ export class GlobalTravelVisaComponent implements OnInit {
 						this.recomendationData.map((item) => [item.visa_name, { visa_name: item.visa_name, visa_icons: item.visa_icons }])
 					).values()
 				);
-				this.recommendationDataList = uniqueVisaData
+				this.recommendationDataList = uniqueVisaData;
+				if (this.questionId) {
+					this.viewOneQuestion(this.recommendationDataList[0]);
+				}
 			},
 			error: (error) => {
 				this.isRecommendationData = false
@@ -222,8 +245,6 @@ export class GlobalTravelVisaComponent implements OnInit {
 
 	viewOneQuestion(data: any) {
 		this.isQuestionAnswerVisible = true
-		console.log(data);
-
 		this.selectedQuestionData = data
 	}
 
@@ -244,7 +265,7 @@ export class GlobalTravelVisaComponent implements OnInit {
 	shareQuestion(type: string) {
 		const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
 		const currentUrl = this.getCurrentUrl() + '/' + this.currentEndpoint + '/';
-		const url = encodeURI(window.location.origin + currentUrl + this.selectedQuestionData?.id);
+		const url = encodeURI(window.location.origin + currentUrl + this.selectedData[2].id + '/' + this.selectedQuestionData?.id);
 		this.meta.updateTag({ property: 'og:url', content: url });
 		const shareUrl = socialMedias[type] + encodeURIComponent(url);
 		window.open(shareUrl, '_blank');
@@ -252,12 +273,19 @@ export class GlobalTravelVisaComponent implements OnInit {
 
 	copyLink() {
 		const currentUrl = this.getCurrentUrl() + '/' + this.currentEndpoint + '/';
-		const textToCopy = encodeURI(window.location.origin + currentUrl + this.selectedQuestionData?.id);
+		const textToCopy = encodeURI(window.location.origin + currentUrl + this.selectedData[2].id + '/' + this.selectedQuestionData?.id);
 		this.socialShareService.copyQuestion(textToCopy);
 	}
 
 	goBack() {
-		if (this.isRecommendationData) {
+		if (this.questionId) {
+			this.isRecommendationSavedData = false;
+			this.isRecommendationEachVisaNameData = false;
+			this.isRecommendationData = false;
+			this.isRecommendationQuestion = true;
+			this.activePageIndex = 0;
+		}
+		else if (this.isRecommendationData) {
 			this.isRecommendationData = false
 			this.isRecommendationQuestion = true
 			this.activePageIndex = 0
@@ -276,7 +304,6 @@ export class GlobalTravelVisaComponent implements OnInit {
 	getCurrentUrl() {
 		const urls: { [key: string]: string } = {
 			"Global Travel Visa": "/pages/travel-tools",
-			"Global Work Visa": "/pages/job-tool",
 			"Global Entrepreneur Visa": "/pages/founderstool",
 			"Global Study Visa": "/pages/education-tools",
 		};

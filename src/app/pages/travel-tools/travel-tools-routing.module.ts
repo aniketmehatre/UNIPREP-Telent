@@ -20,6 +20,10 @@ const routes: Routes = [
         loadComponent: () => import('./global-travel-visa/global-travel-visa.component').then(m => m.GlobalTravelVisaComponent)
       },
       {
+        path: 'travel-visa/:countryId/:questionId',
+        loadComponent: () => import('./global-travel-visa/global-travel-visa.component').then(m => m.GlobalTravelVisaComponent)
+      },
+      {
         path: 'travel-visit-planner',
         loadComponent: () => import('./travel-visit-planner/travel-visit-planner.component').then(m => m.TravelVisitPlannerComponent)
       },

@@ -116,26 +116,25 @@ export class ComponentStoriesComponent implements OnInit {
     const datas: any = {
       mode: this.modename,
       country: id,
-      ...(question_id ? { actual_id: question_id } : {}) // Include question_id only if it's truthy
+      ...(question_id ? { question_id: question_id } : {}) // Include question_id only if it's truthy
     };
 
-    this.service.entrepreneurToolsSuccess(datas).subscribe(
-      (res: any) => {
+    this.service.entrepreneurToolsSuccess(datas).subscribe({
+      next: (res: any) => {
         this.isShowCountryData = false;
         this.isShowCountryQuesAns = true;
         this.questuionanswerlist = res.data; // Assign the response data to the list
 
         if (question_id) {
-          this.showDataAnswer(res.data[0]);
+          this.countryname = this.questuionanswerlist[0].country_name;
+          this.showDataAnswer(this.questuionanswerlist[0]);
         }
       },
-      (error) => {
+      error: (error) => {
         console.error("Error fetching question data:", error); // Handle errors
         this.isShowCountryData = true; // Fallback to show general data if API fails
       }
-
-    );
-
+    });
   }
 
   showDataAnswer(data: any) {
@@ -171,10 +170,7 @@ export class ComponentStoriesComponent implements OnInit {
   shareQuestion(type: string) {
     const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
     const currentMode = this.modename.replaceAll('_', '-');
-    let url : string = '';
-    if (this.currentRoute.includes('startup-funding-hacks')) {
-      url = encodeURI(window.location.origin + '/pages/founderstool/' + currentMode + '/' + this.countryId + '/' + this.dataanswerquestion?.id);
-    }
+    const url = encodeURI(window.location.origin + '/pages/founderstool/' + currentMode + '/' + this.countryId + '/' + this.dataanswerquestion?.id);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
@@ -182,16 +178,11 @@ export class ComponentStoriesComponent implements OnInit {
 
   copyLink() {
     const currentMode = this.modename.replaceAll('_', '-');
-    let textToCopy : string = '';
-    if (this.currentRoute.includes('startup-funding-hacks')) {
-      textToCopy = encodeURI(window.location.origin + '/pages/founderstool/' + currentMode + '/' + this.countryId + '/' + this.dataanswerquestion?.id);
-    }
+    const textToCopy = encodeURI(window.location.origin + '/pages/founderstool/' + currentMode + '/' + this.countryId + '/' + this.dataanswerquestion?.id);
     this.socialShareService.copyQuestion(textToCopy);
   }
 
   getContentPreview(content: string): string {
-    // const plainText = content.replace(/<[^>]*>/g, '');
-    // return plainText.length > 75 ? plainText.slice(0, 75) + ' ...' : plainText;
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, "text/html");
     const paragraph = doc.querySelector("p")?.textContent || '';

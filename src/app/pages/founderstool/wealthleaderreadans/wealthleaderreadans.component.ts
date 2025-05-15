@@ -3,7 +3,6 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
 import { FounderstoolService } from '../founderstool.service';
 import { Meta } from '@angular/platform-browser';
-import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
@@ -33,17 +32,21 @@ export class WealthleaderreadansComponent implements OnInit {
   perpage: number = 50;
   pageno: number = 1;
   totalcount: number = 0;
-  idleader: any;
+  leaderId: any;
   wealthleadersqueslist: any[] = [];
   isQuestionAnswerVisible: boolean = false;
   wealthleaderanswer: any = [];
   constructor(private router: Router, private pageFacade: PageFacadeService,
-    private service: FounderstoolService, private route: ActivatedRoute, private meta: Meta, private toastr: MessageService,
+    private service: FounderstoolService, private route: ActivatedRoute, private meta: Meta,
     private dataService: DataService, private storage: StorageService, private socialShareService: SocialShareService
   ) { }
   ngOnInit(): void {
     this.wealthleadersname = this.storage.get("wealthleadersname")
-    this.idleader = this.route.snapshot.paramMap.get('id');
+    this.leaderId = this.route.snapshot.paramMap.get('id');
+    const questionId = this.route.snapshot.paramMap.get('questionId');
+    if (questionId) {
+      this.seeAnswer(questionId)
+    }
     this.getWealthLeaders();
   }
   goBack() {
@@ -61,16 +64,16 @@ export class WealthleaderreadansComponent implements OnInit {
       questionid: id
     }
     this.service.wealthLeadersans(data).subscribe((res: any) => {
-      this.wealthleaderanswer = res.data
+      this.wealthleaderanswer = res.data;
+      this.wealthleadersname = res.wealth_leader_name;
       this.isQuestionAnswerVisible = true;
-      this.getWealthLeaders();
     })
   }
   getWealthLeaders() {
     var data = {
       page: this.pageno,
       perPage: this.perpage,
-      wealth_leader_id: this.idleader,
+      wealth_leader_id: this.leaderId,
     }
     this.service.wealthLeadersquestion(data).subscribe((res) => {
       this.wealthleadersqueslist = res.data;
@@ -89,14 +92,14 @@ export class WealthleaderreadansComponent implements OnInit {
 
   shareQuestion(type: string) {
     const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-    const url = encodeURI(window.location.origin + '/pages/education-tools/wealthleaderreadanswer/' + this.answerid);
+    const url = encodeURI(window.location.origin + '/pages/education-tools/wealthleaderreadanswer/' + this.leaderId + '/' + this.answerid);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
 
   copyLink() {
-    const textToCopy = encodeURI(window.location.origin + '/pages/education-tools/wealthleaderreadanswer/' + this.answerid);
+    const textToCopy = encodeURI(window.location.origin + '/pages/education-tools/wealthleaderreadanswer/' + this.leaderId + '/' + this.answerid);
     this.socialShareService.copyQuestion(textToCopy);
   }
 
