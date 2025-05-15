@@ -3,10 +3,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
-import { landingServices } from '../landing.service';
 import { Chooseuse, Faq, Howitswork, LandingPage, Whoitsfor } from 'src/app/@Models/landing-page.model';
 import { environment } from '@env/environment';
 import { AvatarModule } from 'primeng/avatar';
+import { landingServices } from '../landing.service';
 
 
 @Component({

@@ -33,16 +33,8 @@
     <div class="col-12 col-md-10 mx-auto">
       <div class="d-flex flex-wrap gap-3">
         <div class="dropdown">
-          <button class="btn dropdown-toggle text-white border-warning p-3" type="button" id="countryDropdown"
-            data-bs-toggle="dropdown" aria-expanded="false"
-            style="border-radius: 0; min-width: 200px; background-color: transparent;">
-            {{ selectedCountry }}
-          </button>
-          <ul class="dropdown-menu w-100" aria-labelledby="countryDropdown">
-            <li *ngFor="let country of countries">
-              <a class="dropdown-item" href="javascript:void(0)" (click)="selectCountry(country)">{{ country }}</a>
-            </li>
-          </ul>
+          <p-select aria-labelledby="countryDropdown" styleClass="w-100 p-1" class="dropdown-menu form-select bg-dark text-white w-100 p-2 border-secondary " id="enquireType" [options]="countries" [filter]="true" filterBy="country" placeholder="Select an Country" optionValue="id" optionLabel="country" appendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="50">
+          </p-select>
         </div>
 
         <div class="flex-grow-1">

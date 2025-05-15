@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '@env/environment';
+import { LandingInstituteService } from '../landing-institute.service';
+import { Country } from 'src/app/@Models/country.model';
+import { SelectModule } from 'primeng/select';
 
 interface LandingSection {
   title: string;
@@ -20,7 +23,7 @@ interface PartnerCategory {
 
 @Component({
   selector: 'uni-landing-institute-content',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, SelectModule],
   templateUrl: './landing-institute-content.component.html',
   styleUrl: './landing-institute-content.component.scss'
 })
@@ -28,7 +31,7 @@ export class LandingInstituteContentComponent {
 @ViewChild("videoPlayer")
   videoPlayer!: ElementRef
   isPlaying = false;
-  countries: string[] = ['United States', 'Canada', 'United Kingdom', 'Australia', 'India', 'Singapore', 'Germany'];
+  countries: Country;
   selectedCountry: string = 'Select Country';
   welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`
 
@@ -117,14 +120,25 @@ export class LandingInstituteContentComponent {
     isRight: true,
   },
 ];
-  constructor() { }
+  constructor(private landingInstituteService: LandingInstituteService) { }
 
   selectCountry(country: string): void {
     this.selectedCountry = country;
   }
 
   ngOnInit(): void {
+    this.getCountryList();
+  }
 
+  getCountryList() {
+    this.landingInstituteService.getCountryList().subscribe({
+      next: response => {
+        this.countries = response;
+      },
+      error: error => {
+        console.error(error);
+      }
+    })
   }
 
   toggleVideo() {

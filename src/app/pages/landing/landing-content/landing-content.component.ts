@@ -65,34 +65,29 @@ export class LandingContentComponent implements OnInit {
 
   stats = [
     {
-      "icon": "fa-globe",
-      "number": "28+",
-      "text": "Countries Covered",
+      icon: "fa-users",
+      number: "10,000+",
+      text: "Talents Registered",
     },
     {
-      "icon": "fa-gears",
-      "number": "70+",
-      "text": "Exclusive Features",
+      icon: "fa-briefcase",
+      number: "1000+",
+      text: "Employers Connected",
     },
     {
-      "icon": "fa-earth-americas",
-      "number": "100+",
-      "text": "Countries Open for Access",
+      icon: "fa-globe",
+      number: "195",
+      text: "Countries Supported",
     },
     {
-      "icon": "fa-hand-holding-circle-dollar",
-      "number": "1000+",
-      "text": "Courses for Upskilling",
+      icon: "fa-cogs",
+      number: "70+",
+      text: "Premium Features",
     },
     {
-      "icon": "fa-language",
-      "number": "25+",
-      "text": "Languages to Learn",
-    },
-    {
-      "icon": "fa-briefcase",
-      "number": "1000+",
-      "text": "Business Pitches",
+      icon: "fa-earth-americas",
+      number: "40+",
+      text: "Countries Covered",
     },
   ];
   
@@ -196,49 +191,68 @@ export class LandingContentComponent implements OnInit {
     }
   ];
 
-    faqItems = [
-      {
-        id: "faqcollapseOne",
-        question: "What is UNIPREP?",
-        answer: "UNIPREP is the world's only all-in-one SaaS platform designed to help students, professionals, and founders achieve success in today's competitive world.",
-      },
-      {
-        id: "faqcollapseTwo",
-        question: "Does UNIPREP offer any free version for users?",
-        answer: "UNIPREP provides its users with a free 60-minute trial period.",
-      },
-      {
-        id: "faqcollapseThree",
-        question: "What if the question I want to ask is not on the UNIPREP platform?",
-        answer: "If your question isn't already addressed on the UNIPREP platform, you can utilize our personalized advisory services. We offer tailored responses from global experts to specific user inquiries on a credit-based system.",
-      },
-      {
-        id: "faqcollapseFour",
-        question: "Can I apply for jobs through the UNIPREP platform?",
-        answer: "Yes, the UNIPREP platform has the employee connect feature with over a million active jobs, granting users access to global job opportunities. This feature enables you to explore and apply for positions worldwide, aligning with your career aspirations",
-      },
-      {
-        id: "faqcollapseFive",
-        question: "How does UNIPREP ensure the credibility of its certificates?",
-        answer: "Certificates from UNIPREP are accredited by the Global Education Accreditation Council (GEAC), ensuring they meet international educational standards. This accreditation adds credibility and recognition to UNIPREP certifications, making them valuable in academic and professional settings worldwide.",
-      },
-      {
-        id: "faqcollapseSix",
-        question: "How will the UNIPREP certificate benefit me?",
-        answer: "The certificates accredited by a prominent body will demonstrate your knowledge which can serve as a valuable addition to your CV and job applications.",
-      },
-      {
-        id: "faqcollapseSeven",
-        question: "Is UNIPREP updated?",
-        answer: "Yes, the information on the platform undergoes quarterly updates to ensure its accuracy.",
-      },
-      {
-        id: "faqcollapseEight",
-        question: "What is Learning Hub?",
-        answer: "The Learning Hub is a comprehensive platform that provides users with access to over 1000 skill-based learning programs each of which is accompanied by certificates.",
-      },
-      // Add more FAQs as needed
-    ]
+  faqItems = [
+    {
+      id: "faqcollapse1",
+      question: "What is UNIPREP Talent Connect?",
+      answer: "UNIPREP Talent Connect is a global talent discovery platform that helps students and graduates build job-ready profiles and connect directly with verified employers worldwide — without intermediaries or placement fees.",
+    },
+    {
+      id: "faqcollapse2",
+      question: "How does Talent Connect help job seekers?",
+      answer: "Talent Connect offers 30+ career features like resume building, AI reviews, skill assessments, and global job applications — empowering you to become job-ready and visible to top employers.",
+    },
+    {
+      id: "faqcollapse3",
+      question: "How does Employer Connect benefit companies?",
+      answer: "Employer Connect allows verified companies to post jobs for free, discover pre-screened talent, and use smart filters to connect with the most relevant candidates globally.",
+    },
+    {
+      id: "faqcollapse4",
+      question: "Can students apply to universities directly through UNIPREP?",
+      answer: "Yes. Students can search from over 100,000 global programs and apply directly to universities without using agents. The platform also provides SOP support and scholarship access.",
+    },
+    {
+      id: "faqcollapse5",
+      question: "Is UNIPREP available outside India?",
+      answer: "Yes. UNIPREP is accessible in 195+ countries, supporting global users including students, job seekers, digital nomads, and institutions worldwide.",
+    },
+    {
+      id: "faqcollapse6",
+      question: "How secure is my data on UNIPREP?",
+      answer: "Your data is protected with enterprise-level encryption and privacy controls. We follow global data compliance standards and do not share personal data without consent.",
+    },
+    {
+      id: "faqcollapse7",
+      question: "How do I register as an employer on UNIPREP?",
+      answer: "It’s simple — just sign up, complete your company profile, and start posting jobs. You’ll get instant access to 10,000+ verified talents and a smart dashboard to manage applicants.",
+    },
+    {
+      id: "faqcollapse8",
+      question: "What is an AI Profile Score on Talent Connect?",
+      answer: "The AI Profile Score indicates how job-ready a candidate is based on resume quality, skill match, certifications, and profile completeness — helping employers shortlist fast",
+    },
+    {
+      id: "faqcollapse9",
+      question: "How does UNIPREP support fresh graduates?",
+      answer: "Freshers can access guided career planning, mock interviews, resume building, and employer-specific tests — all designed to boost placement success.",
+    },
+    {
+      id: "faqcollapse10",
+      question: "How often is the data updated?",
+      answer: "All listings, courses, and data on the platform undergoes quarterly updates to ensure its accuracy.",
+    },
+    {
+      id: "faqcollapse11",
+      question: "Can I connect with companies before applying?",
+      answer: "Yes. Talents can view company profiles, follow them for updates, and even initiate interest or connect directly when employers enable it.",
+    },
+    {
+      id: "faqcollapse12",
+      question: "How will the UNIPREP certificate benefit me?",
+      answer: "The certificates accredited by a prominent body will demonstrate your knowledge which can serve as a valuable addition to your CV and job applications.",
+    },
+  ];
   
     toggleVideo() {
       const video: HTMLVideoElement = this.videoPlayer.nativeElement

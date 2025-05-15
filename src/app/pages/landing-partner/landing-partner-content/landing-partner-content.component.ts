@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '@env/environment';
+import { LandingPartnerServices } from '../landing-partner.service';
 
 interface LandingSection {
   title: string;
@@ -131,7 +132,7 @@ export class LandingPartnerContentComponent implements OnInit {
       isRight: false
     },
   ];
-  constructor() { }
+  constructor(private landingInstituteService: LandingPartnerServices) { }
 
   selectCountry(country: string): void {
     this.selectedCountry = country;
@@ -139,6 +140,17 @@ export class LandingPartnerContentComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  getCountryList() {
+    this.landingInstituteService.getCountryList().subscribe({
+      next: response => {
+        this.countries = response;
+      },
+      error: error => {
+        console.error(error);
+      }
+    })
   }
 
   toggleVideo() {

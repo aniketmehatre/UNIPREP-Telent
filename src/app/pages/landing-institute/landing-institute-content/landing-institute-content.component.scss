@@ -183,3 +183,7 @@ kbd {
     font-size: 1.8rem;
   }
 }
+
+::ng-deep .p-select .p-select-label {
+    color: #fff !important;
+}

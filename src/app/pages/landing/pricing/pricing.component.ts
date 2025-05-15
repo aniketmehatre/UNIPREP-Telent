@@ -48,7 +48,7 @@ export class PricingComponent implements OnInit {
   entrepreneurSubscription: Subscription;
   countryLocation: string;
 
-  constructor(private landingPageService: landingServices) {}
+  constructor(private landingPageService: landingServices) { }
   ngOnInit(): void {
       this.getCountry();
   }

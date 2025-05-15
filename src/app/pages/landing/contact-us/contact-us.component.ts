@@ -3,12 +3,12 @@ import {CommonModule} from "@angular/common";
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { landingServices } from '../landing.service';
 import { MessageService } from 'primeng/api';
 import { CountryISO, NgxIntlTelInputModule, SearchCountryField } from "ngx-intl-tel-input"
 import { SafePipe } from "../../../pipes/safe.pipe";
 import { SelectModule } from 'primeng/select';
 import { RouterModule } from '@angular/router';
+import { landingServices } from '../landing.service';
 
 interface Office {
   name: string;

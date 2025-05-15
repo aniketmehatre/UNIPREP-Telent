@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { ScrollTopModule } from 'primeng/scrolltop';
-import { landingServices } from '../landing.service';
+import { landingServices } from '../../landing/landing.service';
 
 export interface IPAddress {
   ip: string
@@ -48,7 +48,7 @@ export class PricingComponent implements OnInit {
   entrepreneurSubscription: Subscription;
   countryLocation: string;
 
-  constructor(private landingPageService: landingServices) {}
+  constructor(private landingPageService: landingServices) { }
   ngOnInit(): void {
       this.getCountry();
   }

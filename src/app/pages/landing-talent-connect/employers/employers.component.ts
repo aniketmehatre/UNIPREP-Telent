@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { Company } from 'src/app/@Models/company-connect.model';
-import { landingServices } from '../landing-page.service';
 import { ButtonModule } from 'primeng/button';
+import { landingServices } from '../landing-page.service';
 
 @Component({
   selector: 'uni-employers',
