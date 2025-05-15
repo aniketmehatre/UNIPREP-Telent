@@ -3,7 +3,7 @@
 	<div class="row justify-content-center" *ngIf="activePageIndex == 4 || activePageIndex == 0">
 		<div class="flex-column">
 			<div>
-				<h3 class="text-center uniprep-primary">Your Resumes</h3>
+				<h3 class="text-center uniprep-primary" *ngIf="this.resumeHistory.length">Your Resumes</h3>
 				<div class="cvSampleImg d-flex flex-wrap gap-3">
 					<div class="flex-column overflow-hidden" *ngFor="let resumes of resumeHistory; let i = index">
 						<!-- <pdf-viewer [src]="pdfURL" [original-size]="true" [show-all]="true" [fit-to-page]="true" [zoom]="1.0" [autoresize]="true" [render-text]="false" [external-link-target]="'blank'" style="width: 100%; height: 100%"> ></pdf-viewer> -->
@@ -182,25 +182,25 @@
 										</div>
 										<div class="form-group">
 											<div class="mb-3">
-												<div class="input-wrapper">
-													<input type="text" formControlName="user_job_title"
-														(input)="searchJob($event)" (focusout)="onFocusOut()"
-														placeholder="Search job title" class="form-control job-input" />
-													<ul *ngIf="filteredJobs.length > 0" class="dropdown-list">
-														<li *ngFor="let job of filteredJobs"
-															(click)="selectJob(job, 'jobTitle')">{{ job.jobrole }}</li>
-													</ul>
-													<div *ngIf="submitted && f['user_job_title'].errors"
-														class="text-danger text-xs">
-														<div *ngIf="f['user_job_title'].errors">Job Title Required</div>
-													</div>
-													<div *ngIf="f['user_job_title'].errors?.['maxWords']"
-													    class="text-danger text-xs">
-														Job Title cannot exceed {{ f['user_job_title']?.errors?.['maxWords'].max
-														}} words.
-														(Current: {{ f['user_job_title']?.errors?.['maxWords'].actual }})
-													</div>
-												</div>
+												<p-dropdown formControlName="user_job_title" [options]="occupationList"
+													placeholder="Select Job Title" styleClass="w-100"
+													optionLabel="jobrole" optionValue="jobrole" [filter]="true"
+													filterBy="jobrole" [virtualScroll]="occupationList.length > 100"
+													[virtualScrollItemSize]="50">
+													<ng-template pTemplate="header">
+														<div class="p-2">
+															<p-inputGroup>
+																<input pInputText class="rounded-end-2 me-1"
+																	placeholder="Custom Job Title" #jobTitleExp
+																	(click)="focusInput(jobTitleExp)" />
+																<button class="w-full btn btn-primary"
+																	(click)="addCustomJobTitle(jobTitleExp)">
+																	<i class="fa fa-plus"></i> Add New
+																</button>
+															</p-inputGroup>
+														</div>
+													</ng-template>
+												</p-dropdown>
 											</div>
 										</div>
 									</div>
@@ -232,54 +232,11 @@
 												pTooltip="Please enter your current location" tooltipPosition="top"></i>
 										</div>
 										<div class="form-group">
-											<p-select [options]="cities" placeholder="Location, Country" [filter]="true" filterBy="country_name"
-											styleClass="w-100" formControlName="user_location" optionLabel="country_name" [virtualScroll]="true" [virtualScrollItemSize]="50"
-											optionValue="country_name"></p-select>
-											<!-- <div class="mb-3">
-												<div class="input-wrapper">
-													<input type="text" formControlName="user_location" (focus)="onFocus()"
-														(input)="searchLocation($event)" (focusout)="onFocusOut()"
-														placeholder="Location, Country"
-														class="form-control job-input bg-transparent" />
-													<ul *ngIf="filteredLocations.length > 0" class="dropdown-list">
-														<li *ngFor="let city of filteredLocations"
-															(click)="selectLocation(city, 'userLocation')">{{
-															city.country_name }}</li>
-													</ul>
-													<div *ngIf="submitted && f['user_location'].errors"
-														class="text-danger text-xs">
-														<div *ngIf="f['user_location'].errors">Current Location Required
-														</div>
-													</div>
-													<div *ngIf="f['user_location'].errors?.['maxWords']"
-														class="text-danger text-xs">
-														Current Location cannot exceed {{ f['user_location']?.errors?.['maxWords'].max
-														}} words.
-														(Current: {{ f['user_location']?.errors?.['maxWords'].actual }})
-													</div>
-												</div>
-											</div> -->
-											<!-- <div class="mb-3">
-                                            <p-select [options]="cities" optionValue="country_name" optionLabel="country_name" formControlName="user_location" placeholder="Location, State" [filter]="true" filterBy="country_name" [showClear]="true" [appendTo]="'body'" [style]="{'minWidth': '100%'}" class="w-100 text-start custom-dropdown">
-                                                <ng-template pTemplate="selectedItem" let-selectedOption>
-                                                    <div class="d-flex align-items-center gap-2 custom-selected-item dropdown-image">
-                                                        <img [src]="selectedOption.flag" alt="Flag"/>
-                                                        <div class="scrolling-text">
-                                                            {{ selectedOption.country_name }}{{ selectedOption.city_name ? ', '+selectedOption.country_name : ''}}
-                                                        </div>
-                                                    </div>
-                                                </ng-template>
-                                                <ng-template let-country pTemplate="item">
-                                                    <div class="d-flex align-items-center gap-2 custom-dropdown-item dropdown-image">
-                                                        <img [src]="country.flag" alt="Flag"/>
-                                                        <div class="truncate-text">{{ country.country_name }}</div>
-                                                    </div>
-                                                </ng-template>
-                                            </p-select>
-                                            <div *ngIf="submitted && f['user_location'].errors" class="text-danger text-xs">
-                                                <div style="margin-left:10px;" *ngIf="f['user_location'].errors">Current Location Required</div>
-                                            </div>
-                                        </div> -->
+											<p-select [options]="cities" placeholder="Location, Country" [filter]="true"
+												filterBy="country_name" styleClass="w-100"
+												formControlName="user_location" optionLabel="country_name"
+												[virtualScroll]="true" [virtualScrollItemSize]="50"
+												optionValue="country_name"></p-select>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -329,16 +286,17 @@
 										<div class="form-group">
 											<div class="mb-3">
 												<input class="w-100" type="text" placeholder="LinkedIn profile name"
-													formControlName="user_linkedin" pInputText />
+													formControlName="user_linkedin" pInputText maxlength="25"/>
 												<div *ngIf="submitted && f['user_linkedin'].errors"
 													class="text-danger text-xs">
 													<div *ngIf="f['user_linkedin'].errors">Linked In Name Required</div>
 												</div>
 												<div *ngIf="f['user_linkedin'].errors?.['maxWords']"
 													class="text-danger text-xs">
-														LinkedIn Name cannot exceed {{ f['user_linkedin']?.errors?.['maxWords'].max
-														}} words.
-														(Current: {{ f['user_linkedin']?.errors?.['maxWords'].actual }})
+													LinkedIn Name cannot exceed {{
+													f['user_linkedin']?.errors?.['maxWords'].max
+													}} words.
+													(Current: {{ f['user_linkedin']?.errors?.['maxWords'].actual }})
 												</div>
 											</div>
 										</div>
@@ -356,11 +314,12 @@
 													formControlName="user_linkedin_link" pInputText />
 											</div>
 											<div *ngIf="f['user_linkedin_link'].errors?.['maxWords']"
-													class="text-danger text-xs">
-														LinkedIn Link cannot exceed {{ f['user_linkedin_link']?.errors?.['maxWords'].max
-														}} words.
-														(Current: {{ f['user_linkedin_link']?.errors?.['maxWords'].actual }})
-												</div>
+												class="text-danger text-xs">
+												LinkedIn Link cannot exceed {{
+												f['user_linkedin_link']?.errors?.['maxWords'].max
+												}} words.
+												(Current: {{ f['user_linkedin_link']?.errors?.['maxWords'].actual }})
+											</div>
 										</div>
 									</div>
 									<div class="col-md-12">
@@ -375,11 +334,11 @@
 											<div class="mb-3">
 												<input class="w-100" type="text" placeholder="Website or portfolio Link"
 													formControlName="user_website" pInputText />
-													<div *ngIf="f['user_website'].errors?.['maxWords']"
+												<div *ngIf="f['user_website'].errors?.['maxWords']"
 													class="text-danger text-xs">
-														Website cannot exceed {{ f['user_website']?.errors?.['maxWords'].max
-														}} words.
-														(Current: {{ f['user_website']?.errors?.['maxWords'].actual }})
+													Website cannot exceed {{ f['user_website']?.errors?.['maxWords'].max
+													}} words.
+													(Current: {{ f['user_website']?.errors?.['maxWords'].actual }})
 												</div>
 											</div>
 										</div>
@@ -483,34 +442,30 @@
 														</div>
 														<div class="form-group">
 															<div class="mb-3">
-																<div class="input-wrapper">
-																	<input type="text"
-																		formControlName="work_designation"
-																		(focusout)="onFocusOut()"
-																		(input)="searchDesignation($event, i)"
-																		placeholder="Your Designation"
-																		class="form-control job-input" />
-																	<ul *ngIf="filteredDesignations && filteredDesignations[i] && filteredDesignations[i].length > 0"
-																		class="dropdown-list">
-																		<li *ngFor="let job of filteredDesignations[i]"
-																			(click)="selectJob(job, 'experience', i)">
-																			{{ job.jobrole }}
-																		</li>
-																	</ul>
-																	<div *ngIf="wrkExp.get('work_designation')?.invalid && wrkExp.get('work_designation')?.touched && submitted"
-																		class="text-danger text-xs">
-																		<div>Designation required.</div>
-																	</div>
-																	<div *ngIf="wrkExp.get('work_designation').errors?.['maxWords']"
-																	class="text-danger text-xs">
-																	Designation cannot exceed {{
-																	wrkExp.get('work_designation').errors?.['maxWords'].max
-																	}} words.
-																	(Current: {{
-																	wrkExp.get('work_designation').errors?.['maxWords'].actual
-																	}})
-																</div>
-																</div>
+																<p-dropdown formControlName="work_designation"
+																	[options]="occupationList"
+																	placeholder="Your Designation" styleClass="w-100"
+																	optionLabel="jobrole" optionValue="jobrole"
+																	[filter]="true" filterBy="jobrole"
+																	[virtualScroll]="occupationList.length > 100"
+																	[virtualScrollItemSize]="50">
+
+																	<ng-template pTemplate="header">
+																		<div class="p-2">
+																			<p-inputGroup>
+																				<input pInputText #jobTitleExp
+																					class="rounded-end-2 me-1"
+																					placeholder="Custom Job Title"
+																					(click)="focusInput(jobTitleExp)" />
+																				<button type="button"
+																					class="btn btn-primary"
+																					(click)="addCustomJobTitleForExp(jobTitleExp, i)">
+																					<i class="fa fa-plus"></i> Add New
+																				</button>
+																			</p-inputGroup>
+																		</div>
+																	</ng-template>
+																</p-dropdown>
 															</div>
 														</div>
 													</div>
@@ -650,38 +605,11 @@
 																pTooltip="Specify the city and country where this job was located"
 																tooltipPosition="top"></i>
 														</div>
-														<p-select [options]="cities" placeholder="Location, Country" [filter]="true" filterBy="country_name"
-														styleClass="w-100" formControlName="work_location" optionLabel="country_name" [virtualScroll]="true" [virtualScrollItemSize]="50"optionValue="country_name"></p-select>
-														<!-- <div class="form-group">
-															<div class="mb-3">
-																<div class="input-wrapper">
-																	<input type="text" formControlName="work_location"
-																		(input)="searchExpandEduLocation($event, i)"
-																		(focusout)="onFocusOut()"
-																		placeholder="Location, country"
-																		class="form-control job-input" />
-																	<ul *ngIf="filteredExpeAndEduLocations && filteredExpeAndEduLocations[i] && filteredExpeAndEduLocations[i].length > 0"
-																		class="dropdown-list">
-																		<li *ngFor="let city of filteredExpeAndEduLocations[i]"
-																			(click)="selectLocation(city, 'userExpLocation', i)">
-																			{{ city.country_name }}</li>
-																	</ul>
-																	<div *ngIf="wrkExp.get('work_location')?.invalid && wrkExp.get('work_location')?.touched && submitted"
-																		class="text-danger text-xs">
-																		<div>Work Location required.</div>
-																	</div>
-																	<div *ngIf="wrkExp.get('work_location').errors?.['maxWords']"
-																	class="text-danger text-xs">
-																	Work Location cannot exceed {{
-																	wrkExp.get('work_location').errors?.['maxWords'].max
-																	}} words.
-																	(Current: {{
-																	wrkExp.get('work_location').errors?.['maxWords'].actual
-																	}})
-																</div>
-																</div>
-															</div>
-														</div> -->
+														<p-select [options]="cities" placeholder="Location, Country"
+															[filter]="true" filterBy="country_name" styleClass="w-100"
+															formControlName="work_location" optionLabel="country_name"
+															[virtualScroll]="true" [virtualScrollItemSize]="50"
+															optionValue="country_name"></p-select>
 													</div>
 													<div class="col-md-12">
 														<div class="d-flex justify-content-between align-items-center">
@@ -901,32 +829,27 @@
 														<div class="form-group">
 															<div class="mb-3">
 																<div class="input-wrapper">
-																	<p-select [options]="cities" placeholder="Location, Country" [filter]="true" filterBy="country_name"
-																		styleClass="w-100" formControlName="edu_location" optionLabel="country_name" [virtualScroll]="true" [virtualScrollItemSize]="50" optionValue="country_name"></p-select>
-																	<!-- <input type="text" formControlName="edu_location"
-																		(input)="searchExpandEduLocation($event, i)"
-																		(focusout)="onFocusOut()"
-																		placeholder="Education Location"
-																		class="form-control job-input" />
-																	<ul *ngIf="filteredExpeAndEduLocations && filteredExpeAndEduLocations[i] && filteredExpeAndEduLocations[i].length > 0"
-																		class="dropdown-list">
-																		<li *ngFor="let city of filteredExpeAndEduLocations[i]"
-																			(click)="selectLocation(city, 'userEduLocation', i)">
-																			{{ city.country_name }}</li>
-																	</ul> -->
+																	<p-select [options]="cities"
+																		placeholder="Location, Country" [filter]="true"
+																		filterBy="country_name" styleClass="w-100"
+																		formControlName="edu_location"
+																		optionLabel="country_name"
+																		[virtualScroll]="true"
+																		[virtualScrollItemSize]="50"
+																		optionValue="country_name"></p-select>
 																	<div *ngIf="eduDetail.get('edu_location')?.invalid && eduDetail.get('edu_location')?.touched && submitted"
 																		class="text-danger text-xs">
 																		<div>Location required.</div>
 																	</div>
 																	<div *ngIf="eduDetail.get('edu_location').errors?.['maxWords']"
-																	class="text-danger text-xs">
-																	Location cannot exceed {{
-																	eduDetail.get('edu_location').errors?.['maxWords'].max
-																	}} words.
-																	(Current: {{
-																	eduDetail.get('edu_location').errors?.['maxWords'].actual
-																	}})
-																</div>
+																		class="text-danger text-xs">
+																		Location cannot exceed {{
+																		eduDetail.get('edu_location').errors?.['maxWords'].max
+																		}} words.
+																		(Current: {{
+																		eduDetail.get('edu_location').errors?.['maxWords'].actual
+																		}})
+																	</div>
 																</div>
 															</div>
 														</div>
@@ -1094,7 +1017,7 @@
 						<ng-container>
 							<div class="col-md-12">
 								<div class="d-flex">
-									<h4 class="uniprep-primary">Your Technical Skills</h4>
+									<h4 class="uniprep-primary">Your Skills</h4>
 									<i class="fa-solid fa-circle-question m-2 uniprep-primary"
 										pTooltip="We recommend you enter at least five relevant skills"
 										tooltipPosition="top"></i>
@@ -1284,14 +1207,14 @@
 																<div>Certificate Name required.</div>
 															</div>
 															<div *ngIf="certificate.get('certificate_name').errors?.['maxWords']"
-																	class="text-danger text-xs">
-																	Certificate Name cannot exceed {{
-																	certificate.get('certificate_name').errors?.['maxWords'].max
-																	}} words.
-																	(Current: {{
-																	certificate.get('certificate_name').errors?.['maxWords'].actual
-																	}})
-																</div>
+																class="text-danger text-xs">
+																Certificate Name cannot exceed {{
+																certificate.get('certificate_name').errors?.['maxWords'].max
+																}} words.
+																(Current: {{
+																certificate.get('certificate_name').errors?.['maxWords'].actual
+																}})
+															</div>
 														</div>
 													</div>
 												</div>
@@ -1313,14 +1236,14 @@
 																<div>certificate issued required.</div>
 															</div>
 															<div *ngIf="certificate.get('certificate_issued').errors?.['maxWords']"
-																	class="text-danger text-xs">
-																	Certificate issued cannot exceed {{
-																	certificate.get('certificate_issued').errors?.['maxWords'].max
-																	}} words.
-																	(Current: {{
-																	certificate.get('certificate_issued').errors?.['maxWords'].actual
-																	}})
-																</div>
+																class="text-danger text-xs">
+																Certificate issued cannot exceed {{
+																certificate.get('certificate_issued').errors?.['maxWords'].max
+																}} words.
+																(Current: {{
+																certificate.get('certificate_issued').errors?.['maxWords'].actual
+																}})
+															</div>
 														</div>
 													</div>
 												</div>
@@ -1339,15 +1262,15 @@
 															<input class="w-100" type="text"
 																placeholder="Certificate ID"
 																formControlName="certificate_id" pInputText />
-																<div *ngIf="certificate.get('certificate_id').errors?.['maxWords']"
-																	class="text-danger text-xs">
-																	Certificate Id cannot exceed {{
-																	certificate.get('certificate_id').errors?.['maxWords'].max
-																	}} words.
-																	(Current: {{
-																	certificate.get('certificate_id').errors?.['maxWords'].actual
-																	}})
-																</div>
+															<div *ngIf="certificate.get('certificate_id').errors?.['maxWords']"
+																class="text-danger text-xs">
+																Certificate Id cannot exceed {{
+																certificate.get('certificate_id').errors?.['maxWords'].max
+																}} words.
+																(Current: {{
+																certificate.get('certificate_id').errors?.['maxWords'].actual
+																}})
+															</div>
 														</div>
 													</div>
 												</div>
@@ -1364,15 +1287,15 @@
 															<input class="w-100" type="text"
 																placeholder="certificate Link"
 																formControlName="certicate_link" pInputText />
-																<div *ngIf="certificate.get('certicate_link').errors?.['maxWords']"
-																	class="text-danger text-xs">
-																	Certificate Link cannot exceed {{
-																	certificate.get('certicate_link').errors?.['maxWords'].max
-																	}} words.
-																	(Current: {{
-																	certificate.get('certicate_link').errors?.['maxWords'].actual
-																	}})
-																</div>
+															<div *ngIf="certificate.get('certicate_link').errors?.['maxWords']"
+																class="text-danger text-xs">
+																Certificate Link cannot exceed {{
+																certificate.get('certicate_link').errors?.['maxWords'].max
+																}} words.
+																(Current: {{
+																certificate.get('certicate_link').errors?.['maxWords'].actual
+																}})
+															</div>
 														</div>
 													</div>
 												</div>
@@ -1414,14 +1337,14 @@
 															<div>Achievements required.</div>
 														</div>
 														<div *ngIf="extra.get('extra_curricular_activites').errors?.['maxWords']"
-																	class="text-danger text-xs">
-																	Achievements cannot exceed {{
-																	extra.get('extra_curricular_activites').errors?.['maxWords'].max
-																	}} words.
-																	(Current: {{
-																	extra.get('extra_curricular_activites').errors?.['maxWords'].actual
-																	}})
-																</div>
+															class="text-danger text-xs">
+															Achievements cannot exceed {{
+															extra.get('extra_curricular_activites').errors?.['maxWords'].max
+															}} words.
+															(Current: {{
+															extra.get('extra_curricular_activites').errors?.['maxWords'].actual
+															}})
+														</div>
 													</div>
 												</div>
 											</div>
@@ -1444,27 +1367,19 @@
 						<!-- [ngStyle]="{ 'visibility': moduleActiveIndex === 0 ? 'hidden' : 'visible' }" -->
 					</form>
 				</div>
-				<div class="d-flex justify-content-end">
-					<!-- <button pButton type="button" (click)="fieldPreviousButton()"
-						class="btn btn-primary btn-rounded p-1 pe-4">
-						<span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-left"></i></span> <span
-							class="ms-2">Previous</span>
-					</button>
-					<button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 4"
-						class="btn btn-primary btn-rounded p-1 ps-4">
-						<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i
-								class="fa-solid fa-arrow-right"></i></span>
-					</button> -->
+				<div class="d-flex justify-content-between">
+					<p-progressbar [value]="50" class="w-75 mt-2" />
 					<button pButton type="button" (click)="resumeFormSubmit()"
 						class="btn btn-primary btn-rounded p-1 ps-4">
-						<span class="me-2">Submit</span><span class="btn-icon px-2 py-2"><i
+						<span class="me-2">Preview</span><span class="btn-icon px-2 py-2"><i
 								class="fa-solid fa-arrow-right"></i></span>
 					</button>
 				</div>
 			</div>
 			<ng-template #showReview>
 				<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
-					<div *ngIf="!profileOverViewContent; else showResponseData" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+					<div *ngIf="!profileOverViewContent; else showResponseData"
+						class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
 						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
 						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
 						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
@@ -1491,9 +1406,8 @@
 							<span class="me-2">Edit</span><span class="btn-icon px-2 py-2"><i
 									class="fa-solid fa-arrow-left"></i></span>
 						</button>
-						<button pButton type="button" (click)="next()"
-							class="btn btn-primary btn-rounded p-1 ps-4">
-							<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i
+						<button pButton type="button" (click)="next()" class="btn btn-primary btn-rounded p-1 ps-4">
+							<span class="me-2">Preview</span><span class="btn-icon px-2 py-2"><i
 									class="fa-solid fa-check"></i></span>
 						</button>
 					</div>

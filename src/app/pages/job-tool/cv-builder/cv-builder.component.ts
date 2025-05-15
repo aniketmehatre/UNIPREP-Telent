@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
+import { Component, OnInit, AfterViewInit, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { MessageService, ConfirmationService } from "primeng/api";
-import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl, FormControl } from "@angular/forms";
 import { TooltipModule } from 'primeng/tooltip';
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
@@ -32,6 +32,8 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { EducationToolsService } from "../../education-tools/education-tools.service";
 import { SkeletonModule } from "primeng/skeleton";
 import { SharedModule } from "primeng/api";
+import { DropdownModule } from 'primeng/dropdown';
+import { ProgressBarModule } from 'primeng/progressbar';
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
@@ -40,12 +42,16 @@ interface ResumeHistory {
   created_time: string;
 }
 
+interface JobTitle {
+  id: number | null; // null for custom job titles
+  jobrole: string;
+}
 @Component({
   selector: "uni-cv-builder",
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, EditorModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule, SharedModule,SkeletonModule],
+  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, EditorModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule, SharedModule,SkeletonModule,DropdownModule, ProgressBarModule],
   providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
@@ -232,7 +238,8 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     private confirmService: ConfirmationService, 
     private authService: AuthService, 
     private sanitizer: DomSanitizer,
-    private educationService: EducationToolsService
+    private educationService: EducationToolsService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ["", Validators.required],
@@ -409,65 +416,144 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     });
   }
 
-  searchJob(event: any) {
-    const query = event.target.value.toLowerCase();
-    if (query.length > 3) {
-      this.filteredJobs = this.getFilteredJobs(query);
-      if (this.filteredJobs.length === 0) {
-        const newJobTitle: any = {
-          id: 0, // Use 0 or -1 to indicate it's a custom/new item
-          jobrole: query
-        };
-        this.filteredJobs.unshift(newJobTitle);
-        if (this.occupationList[0].id === 0) {
-          this.occupationList.shift();
-        }
-        this.occupationList.unshift(newJobTitle);
-      }
-    } else if (query.length < 2) {
-      this.filteredJobs = [];
-    }
+  // searchJob(event: any) {
+  //   const query = event.target.value.toLowerCase();
+  //   if (query.length > 3) {
+  //     this.filteredJobs = this.getFilteredJobs(query);
+  //     if (this.filteredJobs.length === 0) {
+  //       const newJobTitle: any = {
+  //         id: 0, // Use 0 or -1 to indicate it's a custom/new item
+  //         jobrole: query
+  //       };
+  //       this.filteredJobs.unshift(newJobTitle);
+  //       if (this.occupationList[0].id === 0) {
+  //         this.occupationList.shift();
+  //       }
+  //       this.occupationList.unshift(newJobTitle);
+  //     }
+  //   } else if (query.length < 2) {
+  //     this.filteredJobs = [];
+  //   }
+  // }
+
+  // searchDesignation(event: any, index: number) {
+  //   const query = event.target.value.toLowerCase();
+  //   if (query.length > 3) {
+  //     this.filteredDesignations[index] = this.getFilteredJobs(query);
+  //     if(this.filteredDesignations[index].length === 0){
+  //        const newJobTitle: any = {
+  //         id: 0, // Use 0 or -1 to indicate it's a custom/new item
+  //         jobrole: query
+  //       };
+  //       this.filteredDesignations[index].unshift(newJobTitle);
+  //       if (this.occupationList[0].id === 0) {
+  //         this.occupationList.shift();
+  //       }
+  //       this.occupationList.unshift(newJobTitle);
+  //     }
+  //   } else if (query.length < 2) {
+  //     this.filteredDesignations[index] = [];
+  //   }
+  // }
+
+  // selectJob(job: any, fieldName: string, index?: any) {
+  //   if (fieldName == "jobTitle") {
+  //     this.resumeFormInfoData.patchValue({
+  //       user_job_title: job.jobrole,
+  //     });
+  //     this.filteredJobs = [];
+  //   } else if (fieldName == "experience") {
+  //     const formArray = this.getWorkExpArray as FormArray;
+  //     formArray.at(index).patchValue({
+  //       work_designation: job.jobrole,
+  //     });
+  //     this.filteredDesignations[index] = [];
+  //   }
+  // }
+
+  // getFilteredJobs(query: string) {
+  //   const mockJobs = this.occupationList;
+
+  //   return mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query.toLowerCase()));
+  // }
+  
+  focusInput(input: HTMLInputElement) {
+    setTimeout(() => {
+      input.focus()
+    }, 0)
   }
 
-  searchDesignation(event: any, index: number) {
-    const query = event.target.value.toLowerCase();
-    if (query.length > 3) {
-      this.filteredDesignations[index] = this.getFilteredJobs(query);
-      if(this.filteredDesignations[index].length === 0){
-         const newJobTitle: any = {
-          id: 0, // Use 0 or -1 to indicate it's a custom/new item
-          jobrole: query
-        };
-        this.filteredDesignations[index].unshift(newJobTitle);
-        if (this.occupationList[0].id === 0) {
-          this.occupationList.shift();
-        }
-        this.occupationList.unshift(newJobTitle);
-      }
-    } else if (query.length < 2) {
-      this.filteredDesignations[index] = [];
-    }
-  }
-
-  selectJob(job: any, fieldName: string, index?: any) {
-    if (fieldName == "jobTitle") {
-      this.resumeFormInfoData.patchValue({
-        user_job_title: job.jobrole,
+  addCustomJobTitle(input: HTMLInputElement) {
+    const customValue = input.value.trim();
+    const exists = this.occupationList.some(
+      (job:any) => job.jobrole.toLowerCase() === customValue.toLowerCase()
+    );
+    if (exists) {
+      this.toaster.add({
+        severity: 'warn',
+        summary: 'Duplicate',
+        detail: `Job title "${customValue}" already exists`
       });
-      this.filteredJobs = [];
-    } else if (fieldName == "experience") {
-      const formArray = this.getWorkExpArray as FormArray;
-      formArray.at(index).patchValue({
-        work_designation: job.jobrole,
-      });
-      this.filteredDesignations[index] = [];
+      input.value = '';
+      return;
     }
+
+    const newJobTitle: JobTitle = {
+      id: null,
+      jobrole: customValue
+    };
+
+    this.occupationList = [...this.occupationList, newJobTitle];
+    this.resumeFormInfoData.get('user_job_title')?.setValue(customValue);
+    input.value = '';
+    this.cdr.detectChanges();
+
+    this.toaster.add({
+      severity: 'success',
+      summary: 'Added',
+      detail: `Job title "${customValue}" added`
+    });
   }
 
-  getFilteredJobs(query: string) {
-    const mockJobs = this.occupationList;
+  addCustomJobTitleForExp(input: HTMLInputElement, index: number) {
+    const customValue = input.value.trim();
+    if (!customValue) return;
 
-    return mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query.toLowerCase()));
+    const exists = this.occupationList.some(
+      (job: any) => job.jobrole.toLowerCase() === customValue.toLowerCase()
+    );
+
+    if (exists) {
+      this.toaster.add({
+        severity: 'warn',
+        summary: 'Duplicate',
+        detail: `Job title "${customValue}" already exists`
+      });
+      input.value = '';
+      return;
+    }
+
+    const newJobTitle: JobTitle = {
+      id: null,
+      jobrole: customValue
+    };
+
+    // Add to dropdown list
+    this.occupationList = [...this.occupationList, newJobTitle];
+
+    // ✅ Set value for this specific row of FormArray
+    const workExpFormArray = this.resumeFormInfoData.get('workExpArray') as FormArray;
+    const workExpGroup = workExpFormArray.at(index);
+    workExpGroup.get('work_designation')?.setValue(customValue);
+
+    input.value = '';
+    this.cdr.detectChanges();
+
+    this.toaster.add({
+      severity: 'success',
+      summary: 'Added',
+      detail: `Job title "${customValue}" added`
+    });
   }
 
   // getFilteredLocations(query: string) {
@@ -1358,7 +1444,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     };
     if (fieldName == "user_summary") {
       if (!formData.selected_exp_level) {
-        this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select Experience Level and job title." });
+        this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select Experience Level." });
+        return;
+      }
+      if(!formData.user_job_title){
+        this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select job title." });
         return;
       }
       parameters.user_job_title = formData.user_job_title;
