@@ -172,22 +172,26 @@ export class LandingContentComponent implements OnInit {
     {
       icon: '💼',
       title: 'For Job Seekers',
-      description: 'Access 30+ premium career features to land your dream job.'
+      description: 'Access 30+ premium career features to land your dream job.',
+      url: '/job-seekers'
     },
     {
       icon: '👨🏻‍🎓',
       title: 'For International Students',
-      description: 'Use 15+ education tools to unlock your study abroad goals.'
+      description: 'Use 15+ education tools to unlock your study abroad goals.',
+      url: '/international-students'
     },
     {
       icon: '📦',
       title: 'For Global Travellers',
-      description: 'Make smart moves with 10+ travel resources for that perfect vacation.'
+      description: 'Make smart moves with 10+ travel resources for that perfect vacation.',
+      url: '/global-travellers'
     },
     {
       icon: '🚀',
       title: 'For Entrepreneurs',
-      description: 'Kickstart your startup journey with 20+ business-building resources.'
+      description: 'Kickstart your startup journey with 20+ business-building resources.',
+      url: '/entrepreneurs'
     }
   ];
 
