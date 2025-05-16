@@ -14,3 +14,19 @@ export function maxWordsValidator(maxWords: number) {
         } : null;
     };
 }
+
+
+export function maxCharactersValidator(maxChars: number) {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) return null;
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(control.value, 'text/html');
+    const plainText = doc.body.textContent || '';
+    const charCount = plainText.length;
+
+    return charCount > maxChars ? {
+      maxCharacters: { actual: charCount, max: maxChars }
+    } : null;
+  };
+}

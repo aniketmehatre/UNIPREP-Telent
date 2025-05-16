@@ -12,7 +12,7 @@ import { LocationService } from "src/app/location.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { CarouselModule } from "primeng/carousel"
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { ButtonModule } from "primeng/button"
 import { TooltipModule } from "primeng/tooltip"
 import { RouterModule } from "@angular/router"
@@ -30,6 +30,7 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { SeoManagerComponent } from 'src/app/components/seo-manager/seo-manager.component';
 import { PopoverModule } from 'primeng/popover';
 import { TextareaModule } from 'primeng/textarea';
+import { FavouriteList, FeatureFavourite } from './favourites-data';
 
 @Component({
 	selector: "uni-dashboard",
@@ -46,6 +47,9 @@ import { TextareaModule } from 'primeng/textarea';
 })
 export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	@ViewChild("op") op!: ElementRef<HTMLInputElement>
+	@ViewChild("carousel") carousel!: Carousel
+	@Input() progress: number = 0
+	@Input() progressReading: number = 0
 	private subs = new SubSink()
 	userName: any
 	responsiveOptions: any
@@ -61,14 +65,12 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	isViewMoreOrgVisible: boolean = false
 	isViewMoreJobApplication: boolean = false;
 	partnerTrusterLogo: any
-	enableReading!: boolean
 	showSkeleton: boolean = false
 	planExpired: boolean = false
 	ehitlabelIsShow: boolean = true
 	imagewhitlabeldomainname: any
 	orgnamewhitlabel: any
 	orglogowhitelabel: any
-	@ViewChild("carousel") carousel!: Carousel
 	groupedListFav: any[] = [];
 	groupedListFav2: any[] = [];
 	date: Date = new Date();
@@ -76,23 +78,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	talentConnectPercentage: number = 0;
 	totalPercentage: number = 0;
 	isShowingCompletion: boolean = false;
-	university: any[] = [
-		{
-			image: "../../../uniprep-assets/images/icons/university1.svg",
-		},
-		{
-			image: "../../../uniprep-assets/images/icons/university2.svg",
-		},
-		{
-			image: "../../../uniprep-assets/images/icons/university3.svg",
-		},
-		{
-			image: "../../../uniprep-assets/images/icons/university3.svg",
-		},
-		{
-			image: "../../../uniprep-assets/images/icons/university3.svg",
-		},
-	]
 	selectedCountryId: number = 1
 	headerFlag!: string
 	currentModuleSlug: any
@@ -108,6 +93,10 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	isNoApplicationsData: boolean = true;
 	reportOptionNgModel: number = 21;
 	reportType: number = 1
+	certificatecountstudent: number = 0
+	quizpercentage: any = 0
+	reportSubmitForm!: FormGroup;
+	featureFavouriteList: FeatureFavourite[] = FavouriteList;
 	reportOptionList: any[] = [
 		{
 			"id": 21,
@@ -118,7 +107,8 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"updated_at": null
 		},
 	]
-	public reportSubmitForm!: FormGroup
+	fieldsToCheck = ["name", "email", "phone", "home_country_id", "selected_country", "location_id", "last_degree_passing_year", "intake_year_looking", "intake_month_looking", "programlevel_id"]
+
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
 		private dataService: DataService, private authService: AuthService, private locationService: LocationService,
 		private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService,
@@ -157,7 +147,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.generateDays();
 	}
 
-	fieldsToCheck = ["name", "email", "phone", "home_country_id", "selected_country", "location_id", "last_degree_passing_year", "intake_year_looking", "intake_month_looking", "programlevel_id"]
 
 	ngOnInit(): void {
 		// Initialize essential data first
@@ -166,7 +155,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.getUserTrackin();
 		this.handleUserData();
 		this.loadParallelData();
-		this.groupedListFav = this.chunkArray(this.listFav, 4);
+		this.groupedListFav = this.chunkArray(this.featureFavouriteList, 4);
 		this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 2);
 		this.locationService.dashboardLocationList().subscribe((countryList: any) => {
 			this.countryLists = countryList
@@ -187,7 +176,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 				this.cdr.detectChanges();
 			},
 			error: (error) => {
-				console.error('Error fetching job listings:', error);
+				// console.error('Error fetching job listings:', error);
 			}
 		});
 	}
@@ -199,15 +188,13 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		return result;
 	}
 
-	private initializeEssentialData(): void {
+	initializeEssentialData() {
 		this.selectedCountryId = Number(this.storage.get("countryId"));
 		this.storage.set("currentmodulenameforrecently", "");
-
-
 		this.cdr.detectChanges();
 	}
 
-	private loadParallelData(): void {
+	loadParallelData() {
 		const whitelabelData$ = forkJoin({
 			logo: this.locationService.getImage(),
 			orgName: this.locationService.getOrgName()
@@ -218,7 +205,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		const mainData$ = forkJoin({
 			partnerLogo: this.dashboardService.getTrustedPartners().pipe(catchError(() => of(null))),
 			countryList: this.locationService.dashboardLocationList().pipe(catchError(() => of([]))),
-			planStatus: this.service.getNewUserTimeLeft().pipe(catchError(() => of(null))),
 			readProgression: this.dashboardService.getReadProgression({ countryId: this.selectedCountryId }).pipe(catchError(() => of(null))),
 			quizCompletion: this.dashboardService.checkModuleQuizCompletion({ countryid: this.selectedCountryId }).pipe(catchError(() => of(null)))
 		});
@@ -235,7 +221,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.subs.sink = mainData$.subscribe(({
 			partnerLogo,
 			countryList,
-			planStatus,
 			readProgression,
 			quizCompletion
 		}) => {
@@ -245,11 +230,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			// Handle country list
 			if (countryList) {
 				this.handleCountryList(countryList);
-			}
-
-			// Handle plan status
-			if (planStatus) {
-				this.handlePlanStatus(planStatus);
 			}
 
 			// Handle read progression
@@ -304,24 +284,11 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		}
 	}
 
-	private handlePlanStatus(response: any): void {
-		const data = response.time_left;
-		this.planExpired = data.plan === "expired" || data.plan === "subscription_expired";
-		this.enableReading = !this.planExpired;
-	}
-
-	ngOnDestroy(): void {
-		this.subs.unsubscribe();
-		this.seoManagerComponent.updateDynamicContent("UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship");
-	}
-
-	certificatecountstudent: number = 0
 	loadApiData(): void {
 		const data = {
 			countryId: this.selectedCountryId,
 		}
-
-		combineLatest(this.dashboardService.getReadProgression({ countryId: this.selectedCountryId })).subscribe(([readProgression]) => {
+		combineLatest([this.dashboardService.getReadProgression(data)]).subscribe(([readProgression]) => {
 			if (readProgression && readProgression.success) {
 				const percentage = Math.round(readProgression.readpercentage) || 0;
 				this.setProgress1(percentage);
@@ -339,7 +306,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		let data = {
 			countryId: this.selectedCountryId,
 		}
-
 		this.dashboardService.getModuleReadProgression(data).subscribe((response) => {
 			this.readingProgressings = response.module
 			this.continueReading = "block"
@@ -354,10 +320,9 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		// dont remove comments
 		if (this.planExpired) {
 			this.authService.hasUserSubscription$.next(true);
-			return
+			return;
 		}
-
-		this.router.navigate([`pages/modules/quizmodule`])
+		this.router.navigate([`pages/modules/quizmodule`]);
 	}
 
 	selectCountry(selectedId: any): void {
@@ -385,88 +350,53 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.dashboardService.updateSelectedCountry(selectedId)
 	}
 
-	onClickReadProgression(data: any): void {
-		let moduleName = ""
-		switch (data.module_id) {
-			case 1:
-				moduleName = "pre-admission"
-				break
-			case 7:
-				moduleName = "travel-and-tourism"
-				break
-			case 3:
-				moduleName = "post-admission"
-				break
-			case 4:
-				moduleName = "career-hub"
-				break
-			case 5:
-				moduleName = "university"
-				break
-			case 6:
-				moduleName = "life-at-country"
-				break
-			case 10:
-				moduleName = "skill-mastery"
-				break
-			case 8:
-				moduleName = "learning-hub"
-				break
-			case 9:
-				this.router.navigate([`pages/language-hub/`])
-				return
-				break
-			case 14:
-				moduleName = "k12"
-				break
-		}
-		this.router.navigate([`pages/modules/${moduleName}/`])
-	}
-
 	openCertificate() {
 		this.router.navigate([`pages/mycertificate`])
 	}
 
-	onClickQuizProgression(data: any): void {
-		let moduleName = ""
-		switch (data.module_name) {
-			case "Pre-Admission":
-				moduleName = "pre-admission"
-				break
-			case "Post-Application":
-				moduleName = "post-application"
-				break
-			case "Post-Admission":
-				moduleName = "post-admission"
-				break
-			case "Career Hub":
-				moduleName = "career-hub"
-				break
-			case "University":
-				moduleName = "university"
-				break
-			case "Travel And Tourism":
-				moduleName = "travel-and-tourism"
-				break
-			case "Life at ":
-				moduleName = "life-at"
-				break
-			case "Skill Mastery":
-				moduleName = "skill-mastery"
-				break
-			case "Learning Hub":
-				moduleName = "learning-hub"
-				break
-			case "Language Hub":
-				moduleName = "language-hub"
-				break
+	onClickReadProgression(data: any): void {
+		if (data.module_id === 9) {
+			this.router.navigate(['pages/language-hub/']);
+			return;
 		}
-		this.router.navigate([`pages/${moduleName}/sub-modules/2`])
+		const moduleMap: { [key: number]: string } = {
+			1: 'pre-admission',
+			7: 'travel-and-tourism',
+			3: 'post-admission',
+			4: 'career-hub',
+			5: 'university',
+			6: 'life-at-country',
+			10: 'skill-mastery',
+			8: 'learning-hub',
+			14: 'k12'
+		};
+		const moduleName = moduleMap[data.module_id];
+		if (moduleName) {
+			this.router.navigate([`pages/modules/${moduleName}/`]);
+		}
+	}
+
+	onClickQuizProgression(data: any) {
+		const moduleMap: { [key: string]: string } = {
+			"Pre-Admission": "pre-admission",
+			"Post-Application": "post-application",
+			"Post-Admission": "post-admission",
+			"Career Hub": "career-hub",
+			"University": "university",
+			"Travel And Tourism": "travel-and-tourism",
+			"Life at ": "life-at",
+			"Skill Mastery": "skill-mastery",
+			"Learning Hub": "learning-hub",
+			"Language Hub": "language-hub",
+		};
+		const moduleName = moduleMap[data.module_name] || '';
+		this.router.navigate([`pages/${moduleName}/sub-modules/2`]);
 	}
 
 	openViewMoreOrg(): void {
 		this.isViewMoreOrgVisible = true;
 	}
+
 	viewMoreOpenJobApplication() {
 		if (this.recentJobApplication.length > 0) {
 			this.isViewMoreJobApplication = true;
@@ -475,7 +405,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			this.toastr.add({ severity: 'error', summary: '', detail: "No Recent Job Applications Yet" });
 		}
 	}
-	quizpercentage: any = 0
+
 	checkquizquestionmodule() {
 		var data = {
 			countryid: this.selectedCountryId,
@@ -499,6 +429,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		}
 		this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`])
 	}
+
 	checkplanExpire(): void {
 		if (this.authService._userSubscrition.time_left.plan === "expired" ||
 			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
@@ -513,185 +444,19 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.router.navigate(["/pages/usermanagement"])
 	}
 
-	@Input() progress: number = 0
-	@Input() progressReading: number = 0
-
-	ngOnChanges(changes: SimpleChanges): void {
-		if (changes["progress"]) {
-			this.setProgress(this.progress)
-		}
-		if (changes["progressReading"]) {
-			this.setProgress1(this.progressReading)
-		}
-	}
-
-	setProgress(progress: number) {
-		// const circle = document.querySelector(".progress-bar") as SVGCircleElement
-		// const radius = circle.r.baseVal.value
-		// const circumference = 2 * Math.PI * radius
-		// const offset = circumference - (progress / 100) * circumference
-		// circle.style.strokeDasharray = `${circumference} ${circumference}`
-		// circle.style.strokeDashoffset = `${offset}`
-
-		// be low this.progress is basic profile completion percentage and after that only fuction call. Because that fuction will give other two percentage. then after calculate overall percentage inside of that fuction api call
-		this.progress = Math.max(0, Math.min(progress, 100));
-		this.profileCompletion();
-	}
-
-	setProgress1(progress: number) {
-		if (typeof progress !== 'number') {
-			progress = 0;
-		}
-
-		const circle = document.querySelector('.progress1-ring__circle') as SVGCircleElement;
-		if (!circle) {
-			// console.warn('Progress ring circle element not found');
-			return;
-		}
-
-		const radius = circle.r.baseVal.value;
-		const circumference = radius * 2 * Math.PI;
-
-		circle.style.strokeDasharray = `${circumference} ${circumference}`;
-		circle.style.strokeDashoffset = `${circumference}`;
-
-		const offset = circumference - (progress / 100) * circumference;
-		circle.style.strokeDashoffset = offset.toString();
-	}
-
-	listFav: any[] = [
-		{
-			"id": 1,
-			"moduleName": "CV Builder",
-			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CV.png",
-			"mode": "cv-builder",
-			"url": "/pages/job-tool/cv-builder",
-			"module": "Career Tools"
-		},
-		{
-			"id": 2,
-			"moduleName": "Learning Hub",
-			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LearningHub.svg",
-			"mode": "cv-builder",
-			"url": "/pages/modules/learning-hub",
-			"module": ""
-		},
-		// {
-		// 	"id": 3,
-		// 	"moduleName": "Job Portal",
-		// 	"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-		// 	"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-		// 	"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/JobPortal.svg",
-		// 	"mode": "cv-builder",
-		// 	"url": "/pages/job-portal/job-search",
-		// 	"module":""
-		// },
-		{
-			"id": 4,
-			"moduleName": "Career Planner",
-			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CareerPlanner.svg",
-			"mode": "cv-builder",
-			"url": "/pages/job-tool/careerplannercountrywise",
-			"module": "Career Tools"
-		},
-		{
-			"id": 5,
-			"moduleName": "Employer Test",
-			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/EmployerTest.svg",
-			"mode": "cv-builder",
-			"url": "/pages/job-tool/list/employer-test/13",
-			"module": ""
-		},
-		{
-			"id": 6,
-			"moduleName": "Pitch Deck",
-			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/Pitchdeck.svg",
-			"mode": "cv-builder",
-			"url": "/pages/pitch-deck",
-			"module": ""
-		},
-		{
-			"id": 7,
-			"moduleName": "UNILEARN",
-			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNILEARN.svg",
-			"mode": "cv-builder",
-			"url": "/pages/unilearn/modules",
-			"module": ""
-		},
-		{
-			"id": 8,
-			"moduleName": "UNIFINDER",
-			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNIFINDER.svg",
-			"mode": "cv-builder",
-			"url": "/pages/course-list",
-			"module": ""
-		},
-		{
-			"id": 9,
-			"moduleName": "UNISCHOLAR",
-			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNISCHOLAR.svg",
-			"mode": "cv-builder",
-			"url": "/pages/scholarship-list",
-			"module": ""
-		},
-		{
-			"id": 10,
-			"moduleName": "Global Repository",
-			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/GlobalRepository.svg",
-			"mode": "cv-builder",
-			"url": "/pages/global-repo",
-			"module": ""
-		},
-		{
-			"id": 11,
-			"moduleName": "AI Global Advisor",
-			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/AI Business Advisor.svg",
-			"mode": "cv-builder",
-			"url": "/pages/advisor",
-			"module": ""
-		},
-		{
-			"id": 12,
-			"moduleName": "Language Hub",
-			"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-			"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LanguageHub.svg",
-			"mode": "cv-builder",
-			"url": "/pages/language-hub/languages",
-			"module": ""
-		}
-	]
-
 	// navigate Favourites
 	selectFav(req: any) {
 		this.router.navigateByUrl(req.url);
 	}
+
 	redirectToCvBuilder() {
 		this.router.navigate(['/pages/job-tool/cv-builder']);
 	}
+
 	redirectToTalentConnect() {
 		this.router.navigate(['/pages/talent-connect/my-profile']);
 	}
+
 	generateDays(): void {
 		this.firstDayIndex = new Date(this.currentYear, this.currentMonth, 1).getDay();
 		const totalDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
@@ -709,6 +474,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		if (usageEntries.some((entry: any) => entry.status === 'low')) return 'low';
 		return 'nostatus';
 	}
+
 	getUserTrackin() {
 		this.dashboardService.getUserTracking().subscribe({
 			next: (data: any) => {
@@ -727,6 +493,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			}
 		});
 	}
+
 	sendInviteMail() {
 		var data = {
 			email: this.sendInvite
@@ -741,6 +508,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			}
 		});
 	}
+
 	profileCompletion() {
 		this.dashboardService.profileCompletion().subscribe({
 			next: (data: any) => {
@@ -778,13 +546,11 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	onSubmit(op: any) {
-
 		let data = {
 			reportOption: this.reportSubmitForm.value.reportOption,
 			comment: this.reportSubmitForm.value.comment,
 		}
 		this.reportSubmitForm.patchValue({ comment: null })
-
 		this.locationService.reportFaqQuestion(data).subscribe((res) => {
 			if (res.status == 404) {
 			}
@@ -797,5 +563,48 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			}, 3000)
 			// this.locationService.reportFaqQuestionaftersubmit(maildata).subscribe((res) => { })
 		})
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		if (changes["progress"]) {
+			this.setProgress(this.progress)
+		}
+		if (changes["progressReading"]) {
+			this.setProgress1(this.progressReading)
+		}
+	}
+
+	setProgress(progress: number) {
+		// const circle = document.querySelector(".progress-bar") as SVGCircleElement
+		// const radius = circle.r.baseVal.value
+		// const circumference = 2 * Math.PI * radius
+		// const offset = circumference - (progress / 100) * circumference
+		// circle.style.strokeDasharray = `${circumference} ${circumference}`
+		// circle.style.strokeDashoffset = `${offset}`
+		// be low this.progress is basic profile completion percentage and after that only fuction call. Because that fuction will give other two percentage. then after calculate overall percentage inside of that fuction api call
+		this.progress = Math.max(0, Math.min(progress, 100));
+		this.profileCompletion();
+	}
+
+	setProgress1(progress: number) {
+		if (typeof progress !== 'number') {
+			progress = 0;
+		}
+		const circle = document.querySelector('.progress1-ring__circle') as SVGCircleElement;
+		if (!circle) {
+			// console.warn('Progress ring circle element not found');
+			return;
+		}
+		const radius = circle.r.baseVal.value;
+		const circumference = radius * 2 * Math.PI;
+		circle.style.strokeDasharray = `${circumference} ${circumference}`;
+		circle.style.strokeDashoffset = `${circumference}`;
+		const offset = circumference - (progress / 100) * circumference;
+		circle.style.strokeDashoffset = offset.toString();
+	}
+
+	ngOnDestroy(): void {
+		this.subs.unsubscribe();
+		this.seoManagerComponent.updateDynamicContent("UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship");
 	}
 }
