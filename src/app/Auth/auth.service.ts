@@ -26,10 +26,9 @@ export class AuthService {
 
   _logindata: any;
   // user!: User;
-  _user!: User | null;
-  public _userLoginCount!: number;
+  public _user!: User;
   public _userContineTrial!: boolean;
-  userData = new BehaviorSubject<User | null>(null);
+  public userData = new BehaviorSubject<User | null>(null);
   public canDisableSignIn = new BehaviorSubject<boolean>(true);
   public _checkExistsSubscription!: number;
   private tokenKey = "123";
@@ -96,7 +95,7 @@ export class AuthService {
   }
 
 
-  set user(u: User | null) {
+  set user(u: User) {
     this._user = u;
     this.userData.next(u);
   }
@@ -204,6 +203,37 @@ export class AuthService {
     return this.http.get<any>(environment.ApiUrl + "/logout", { headers });
   }
 
+  // getMe() {
+  //   const token = this.getToken();
+  //   if (!token) {
+  //     this.logout().subscribe();
+  //     return throwError(() => new Error('No authentication token'));
+  //   }
+
+  //   return this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, {
+  //     headers: new HttpHeaders()
+  //       .set('Accept', 'application/json')
+  //       .set('Authorization', `Bearer ${token}`)
+  //   }).pipe(
+  //     map(response => {
+  //       if (!response?.userdetails?.[0]) {
+  //         throw new Error('Invalid response format');
+  //       }
+  //       const userDetails = response.userdetails[0];
+  //       this._user = {
+  //         ...userDetails,
+  //         name: userDetails.name || ''
+  //       };
+  //       this.user = this._user;
+  //       console.log(this.user)
+  //       this.userData.next(this._user); // ✅ Notify subscribers here
+  //       this._checkExistsSubscription = userDetails.subscription_exists || 0;
+  //       this.storeUserData(userDetails);
+  //       return response;
+  //     })
+  //   )
+  // }
+
   getMe(): Observable<any> {
     const token = this.getToken();
     if (!token) {
@@ -229,7 +259,7 @@ export class AuthService {
           ...userDetails,
           name: userDetails.name || ''
         };
-        this._userLoginCount = userDetails.login_status || 0;
+        // this._userLoginCount = userDetails.login_status || 0;
         this._checkExistsSubscription = userDetails.subscription_exists || 0;
         this.storeUserData(userDetails);
         return response;
@@ -264,7 +294,7 @@ export class AuthService {
       throw error;
     }
   }
-  
+
   getCountry() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + "/country", {
@@ -488,7 +518,7 @@ export class AuthService {
     //|| module === 'ai_credit_count' 
     if (module === 'ai_global_advisor' || module === 'education_tools' || module === 'travel_tools' || module === 'events'
       || module === 'global_repository' || module === 'uni_scholar' || module === 'uni_finder' || module === 'uni_learn'
-      || module === 'language_hub' 
+      || module === 'language_hub'
     ) {
       if (this._userSubscrition?.time_left?.plan === "expired" ||
         this._userSubscrition?.time_left?.plan === "subscription_expired") {

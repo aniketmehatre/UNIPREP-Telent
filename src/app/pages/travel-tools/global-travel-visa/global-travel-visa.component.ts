@@ -188,8 +188,6 @@ export class GlobalTravelVisaComponent implements OnInit {
 	}
 
 	getRecommendation() {
-		debugger
-
 		this.isRecommendationQuestion = false // if api is done, then have to remove
 		this.isRecommendationData = true
 		this.isRecommendationSavedData = false
@@ -218,7 +216,9 @@ export class GlobalTravelVisaComponent implements OnInit {
 				);
 				this.recommendationDataList = uniqueVisaData;
 				if (this.questionId) {
-					this.viewOneQuestion(this.recommendationDataList[0]);
+					this.visaNameTite = this.recomendationData[0].visa_name
+					this.visaCategoryTitle = this.recomendationData[0].question_category;
+					this.viewOneQuestion(this.recomendationData[0]);
 				}
 			},
 			error: (error) => {

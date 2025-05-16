@@ -35,19 +35,18 @@
 			<div class="col-lg-6 col-md-6 col-12" *ngIf="userLoginTimeLeftCount">
 				<div
 					class="d-flex justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0 gap-3">
-					<div class="d-flex align-items-center" >
+					<div class="d-flex align-items-center">
 						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
-								class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
 						</button>
 
 						<!-- Buy Credits template -->
 						<ng-template #buyCreditTpl>
-							<button pButton
-									class="btn btn-secondary text-small btn-rounded flex-fill"
-									(click)="buyCredits()"
-									type="button">
-							Buy Credits
+							<button pButton class="btn btn-secondary text-small btn-rounded flex-fill"
+								(click)="buyCredits()" type="button">
+								Buy Credits
 							</button>
 						</ng-template>
 					</div>
@@ -174,19 +173,18 @@
 			<div class="col-md-6 col-12" *ngIf="!userLoginTimeLeftCount">
 				<div
 					class="d-flex align-items-center justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0">
-					<div class="d-flex align-items-center" >
+					<div class="d-flex align-items-center">
 						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
-								class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
 						</button>
 
 						<!-- Buy Credits template -->
 						<ng-template #buyCreditTpl>
-							<button pButton
-									class="btn btn-secondary text-small btn-rounded flex-fill"
-									(click)="buyCredits()"
-									type="button">
-							Buy Credits
+							<button pButton class="btn btn-secondary text-small btn-rounded flex-fill"
+								(click)="buyCredits()" type="button">
+								Buy Credits
 							</button>
 						</ng-template>
 					</div>
@@ -556,29 +554,28 @@
 						<div class="w-100 phonenumberblock mt-2">
 							<p class="m-2">Enter Your {{haveWhatsapp}} number to continue the experience</p>
 							<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom-less-padding'"
-								[preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true"
-                                                appendTo="body"
+								[preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" appendTo="body"
 								[enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
 								[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
 								[phoneValidation]="true" [selectedCountryISO]="preferredCountry"
 								customPlaceholder="Enter {{haveWhatsapp}} Number" formControlName="verification_phone"
 								[attr.disabled]="isSendingOTP" aria-label="Enter WhatsApp number"></ngx-intl-tel-input>
-							<div class="d-flex align-items-center mt-2">
-								<input type="checkbox" formControlName="choice" class="form-check-input mt-0"
-                                       (change)="onCheckHaveWhatsappOrPhone($event)"
-									id="noWhatsapp" />
-								<label for="noWhatsapp">I don't have a Whatsapp Number</label>
+							<div class="d-flex align-items-center justify-content-between mt-2">
+								<div class="d-flex align-items-center">
+									<input type="checkbox" formControlName="choice" class="form-check-input mt-0"
+										(change)="onCheckHaveWhatsappOrPhone($event)" id="noWhatsapp" />
+									<label for="noWhatsapp">I don't have a Whatsapp Number</label>
+								</div>
+								<div *ngIf="isSendingOTP" class="text-primary" role="button" (click)="onEditNumber()">Edit Number</div>
 							</div>
 						</div>
-                        <div class="d-flex justify-content-end mt-2">
-                            <a class="fw-medium text-primary text-decoration-underline"
-                               [class.disabled]="phoneVerification.invalid"
-                               role="button"
-                               style="cursor: pointer;"
-                               (click)="sendOTP()">
-                                Send OTP
-                            </a>
-                        </div>
+						<div class="d-flex justify-content-end mt-2">
+							<a class="fw-medium text-primary text-decoration-underline"
+								[class.disabled]="phoneVerification.invalid" role="button" style="cursor: pointer;"
+								(click)="sendOTP()">
+								Send OTP
+							</a>
+						</div>
 						<div *ngIf="isSendingOTP">
 							<p class="centertitle mt-2">Enter your Whatsapp number to continue the experinence</p>
 							<div class="otp-container m-4" role="group" aria-label="OTP input">
@@ -606,6 +603,7 @@
 		</div>
 	</div>
 </p-dialog>
+
 <p-dialog [(visible)]="freeTrial" [modal]="true" [closable]="false" styleClass="FirstLoginPopup">
 	<div class="container">
 		<div class="row mb-2 p-2">
@@ -641,7 +639,8 @@
 								[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
 								[phoneValidation]="true" [selectedCountryISO]="preferredCountry"
 								[(ngModel)]="phoneNumber" [disabled]="isPhoneDisabled" [attr.disabled]="isPhoneDisabled"
-								customPlaceholder="Enter {{haveWhatsapp}} Number" formControlName="phone"></ngx-intl-tel-input>
+								customPlaceholder="Enter {{haveWhatsapp}} Number"
+								formControlName="phone"></ngx-intl-tel-input>
 						</div>
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
 							<p class="m-1">Select Your Home Country</p>
