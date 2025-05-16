@@ -609,6 +609,7 @@ export class UserManagementComponent implements OnInit {
 			    this.registrationForm.get('last_degree_passing_year')?.disable();
 			    this.registrationForm.get('location_id')?.disable();
 				this.submitName = "Edit"
+				this.GetPersonalProfileData();
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
