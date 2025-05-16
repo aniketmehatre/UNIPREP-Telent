@@ -73,7 +73,9 @@ export class JobChatUiComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes?.['jobId']) {
+      this.message = '';
       this.getMessages(this.jobId);
+      this.messages = [];
     }
   }
 
