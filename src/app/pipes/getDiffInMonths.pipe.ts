@@ -11,10 +11,9 @@ export class DateDiffInMonthsPipe implements PipeTransform {
 
     const currentDate = new Date();
     const inputDate = new Date(value);
+    const yearsDiff = inputDate.getFullYear() - currentDate.getFullYear();
+    const monthsDiff = inputDate.getMonth() - currentDate.getMonth();
 
-    const yearsDiff = currentDate.getFullYear() - inputDate.getFullYear();
-    const monthsDiff = currentDate.getMonth() - inputDate.getMonth();
-
-    return yearsDiff * 12 + monthsDiff;
+    return Math.abs(yearsDiff * 12 + monthsDiff);
   }
 }

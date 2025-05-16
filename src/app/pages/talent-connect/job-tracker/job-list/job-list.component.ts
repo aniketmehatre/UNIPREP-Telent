@@ -69,6 +69,7 @@ export class JobListComponent implements OnInit {
   }
 
   selectTab(tab: any) {
+    console.log(this.tabs[tab].label);
     this.tabs.forEach(t => (t.active = false));
     this.tabs[tab].active = true;
     if (this.tabs[tab].label !== 'All Jobs') {
