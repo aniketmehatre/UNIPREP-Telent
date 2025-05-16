@@ -79,7 +79,7 @@ export class LandingInstituteContentComponent {
       'Accessed via your own unique link or subdomain',
       'Ideal for showcasing innovation, student services, and placement readiness',
     ],
-    image: 'uniprep-assets/images/landing-institutes/institute2.jpg', // Assuming a naming convention based on the order
+    image: 'uniprep-assets/images/landing-institutes/institute3.jpg', // Assuming a naming convention based on the order
     imageAlt: 'Two professionals shaking hands, representing a co-branded partnership',
     isRight: false,
   },
@@ -91,7 +91,7 @@ export class LandingInstituteContentComponent {
       'Designed to support placement cells, training teams, and career services departments',
       'Simple, guided onboarding with dedicated support',
     ],
-    image: 'uniprep-assets/images/landing-institutes/institute3.jpg', // Assuming a naming convention based on the order
+    image: 'uniprep-assets/images/landing-institutes/institute4.jpg', // Assuming a naming convention based on the order
     imageAlt: 'Two colleagues collaborating on a computer, highlighting customized support',
     isRight: true,
   },
@@ -103,7 +103,7 @@ export class LandingInstituteContentComponent {
       'Engagement insights to support placement decisions and academic planning',
       'Engagement insights to support placement decisions and academic planning',
     ],
-    image: 'uniprep-assets/images/landing-institutes/institute4.jpg', // Assuming a naming convention based on the order
+    image: 'uniprep-assets/images/landing-institutes/institute5.jpg', // Assuming a naming convention based on the order
     imageAlt: 'A person analyzing data on a computer screen for better planning',
     isRight: false,
   },
@@ -115,7 +115,7 @@ export class LandingInstituteContentComponent {
       'Affordable for institutions of all sizes with tiered access models',
       'Continuous upgrades and all features included without extra charges',
     ],
-    image: 'uniprep-assets/images/landing-institutes/institute5.jpg', // Assuming a naming convention based on the order
+    image: 'uniprep-assets/images/landing-institutes/institute6.jpg', // Assuming a naming convention based on the order
     imageAlt: 'A professional working on a laptop, emphasizing ease of setup and scalability',
     isRight: true,
   },
