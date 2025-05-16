@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { PageFacadeService } from "../../page-facade.service";
-import { learnModules } from "../unilearn.model";
-import { UniLearnService } from "../unilearn.service";
-import { ArrayHeaderService } from "../array-header.service";
-import { CommonModule } from "@angular/common";
-import { SkeletonModule } from "primeng/skeleton";
-import { TooltipModule } from "primeng/tooltip";
-import { RouterModule, Router } from "@angular/router";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
+import { PageFacadeService } from "../../page-facade.service"
+import { learnModules } from "../unilearn.model"
+import { UniLearnService } from "../unilearn.service"
+import { ArrayHeaderService } from "../array-header.service"
+import { CommonModule } from "@angular/common"
+import { SkeletonModule } from "primeng/skeleton"
+import { TooltipModule } from "primeng/tooltip"
+import { RouterModule, Router } from "@angular/router"
 import { StorageService } from "../../../storage.service";
+import { AuthService } from "src/app/Auth/auth.service"
 
 @Component({
   selector: "uni-learnmodules",
@@ -16,13 +17,13 @@ import { StorageService } from "../../../storage.service";
   standalone: false,
 })
 export class LearnModulesComponent implements OnInit {
-  constructor(
-    private pageFacade: PageFacadeService,
-    private learnService: UniLearnService,
-    private arrayHeaderService: ArrayHeaderService,
-    private router: Router,
-    private storage: StorageService
-  ) {}
+	constructor(
+		private pageFacade: PageFacadeService,
+		private learnService: UniLearnService,
+		private arrayHeaderService: ArrayHeaderService,
+		private router: Router, private storage: StorageService,
+		private authService: AuthService
+	) { }
 
   @Input() parentid: number;
   @Input() moduleid: number;

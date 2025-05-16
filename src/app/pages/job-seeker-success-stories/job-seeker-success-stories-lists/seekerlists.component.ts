@@ -12,6 +12,7 @@ import { DialogModule } from "primeng/dialog";
 import { PaginatorModule } from "primeng/paginator";
 import { DataService } from "src/app/data.service";
 import { SkeletonModule } from "primeng/skeleton";
+import { SocialShareService } from "src/app/shared/social-share.service";
 @Component({
   selector: "uni-seekerlists",
   templateUrl: "./seekerlists.component.html",
@@ -42,7 +43,8 @@ export class SeekerListsComponent implements OnInit {
     private authService: AuthService,
     private meta: Meta,
     private service: JobseekerSuccessStoriesService,
-    private dataService: DataService
+    private dataService: DataService,
+    private socialShareService: SocialShareService
   ) { }
   ngOnInit(): void {
     this.getList();
@@ -110,63 +112,20 @@ export class SeekerListsComponent implements OnInit {
       socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
     }
   }
-  shareViaWhatsapp() {
-    let url = window.location.href + "/" + this.selectedQuestionData?.id;
-    console.log(this.selectedQuestionData);
-    console.log(url);
-    this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
-    window.open(shareUrl, "_blank");
+
+  shareQuestion(type: string) {
+    const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+    const url = encodeURI(window.location.origin + '/pages/job-seeker-success-stories/' + this.selectedQuestionData?.id);
+    this.meta.updateTag({ property: 'og:url', content: url });
+    const shareUrl = socialMedias[type] + encodeURIComponent(url);
+    window.open(shareUrl, '_blank');
   }
-  shareViaInstagram() {
-    let url = window.location.href + "/" + this.selectedQuestionData?.id;
-    this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, "_blank");
-  }
-  shareViaFacebook() {
-    let url = window.location.href + "/" + this.selectedQuestionData?.id;
-    this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-    window.open(shareUrl, "_blank");
-  }
-  shareViaLinkedIn() {
-    let url = window.location.href + "/" + this.selectedQuestionData?.id;
-    this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, "_blank");
-  }
-  shareViaTwitter() {
-    let url = window.location.href + "/" + this.selectedQuestionData?.id;
-    this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, "_blank");
-  }
-  shareViaMail() {
-    let url = window.location.href + "/" + this.selectedQuestionData?.id;
-    this.meta.updateTag({ property: "og:url", content: url });
-    const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
-    window.open(shareUrl, "_blank");
-  }
+
   copyLink() {
-    const textarea = document.createElement("textarea");
-    const safeUrl = encodeURI(window.location.href);
-    const selectedQuestionId = this.selectedQuestionData?.id || "";
-
-    // Combine data with a safe format
-    textarea.textContent = `${safeUrl}/${selectedQuestionId}`;
-
-    // Append the textarea safely
-    document.body.append(textarea);
-    textarea.select();
-    document.execCommand("copy");
-    textarea.remove();
-    this.toast.add({
-      severity: "success",
-      summary: "Success",
-      detail: "Question Copied",
-    });
+    const textToCopy = encodeURI(window.location.origin + '/pages/job-seeker-success-stories/' + this.selectedQuestionData?.id);
+    this.socialShareService.copyQuestion(textToCopy);
   }
+
   readSavedResponse(selectedData: any) {
     this.selectedQuestionData = selectedData;
     this.isQuestionAnswerVisible = true;

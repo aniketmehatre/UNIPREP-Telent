@@ -1,16 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, input, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SelectModule } from 'primeng/select';
 import { TalentConnectService } from '../../talent-connect.service';
-import { forkJoin } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-company-filter',
   standalone: true,
-  imports: [DialogModule, ReactiveFormsModule, SelectModule, MultiSelectModule, ButtonModule],
+  imports: [DialogModule, CommonModule, ReactiveFormsModule, SelectModule, MultiSelectModule, ButtonModule],
   templateUrl: './company-filter.component.html',
   styleUrls: ['./company-filter.component.scss']
 })
@@ -19,16 +20,22 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
   @Output() triggerApplyFiler: EventEmitter<any> =  new EventEmitter<any>();
   @Output() closeFilter: EventEmitter<any> =  new EventEmitter<any>();
   @Output() resetFilter: EventEmitter<any> =  new EventEmitter<any>();
+  @Input() isListView: boolean = true;
   companyTypes: any = [];
   industryTypes: any = [];
   globalPresence: any = [];
   locations: any = [];
-  companySizes: any = []
+  companySizes: any = [];
   foundedYears: any[] = [];
   companyForm: FormGroup = new FormGroup({});
-  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder) { }
+  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder, private route: Router, private detectChanges: ChangeDetectorRef) {
+
+  }
 
   ngOnInit() {
+    // this.route.params.subscribe(data => {
+    //   console.log(data);
+    // });
     this.companyForm = this.fb.group({
       companyname: [''],
       industrytype: [[]], // Array values
@@ -38,14 +45,23 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
       foundedyear: [],
       companytype: [],
   });
+    this.setIsListViewFromRoute();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-      if(changes['openModal']) {
-        if(this.openModal) {
-          this.loadApiData();
-        }
-      }
+    if (changes['openModal'] && this.openModal) {
+      this.setIsListViewFromRoute();
+      this.loadApiData();
+    }
+
+    if (changes['isListView'] && changes['isListView'].currentValue !== undefined) {
+      this.isListView = changes['isListView'].currentValue;
+      this.detectChanges.detectChanges();
+    }
+  }
+
+  private setIsListViewFromRoute() {
+    this.isListView = !this.route.url.includes('company-tracker');
   }
 
   loadApiData() {

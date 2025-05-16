@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
+import { ActivatedRoute, Route } from '@angular/router';
 
 interface JobListing {
   id: number;
@@ -42,14 +43,26 @@ export class EasyApplyComponent {
   experienceLevels: any[] = [];
   totalJobs: number = 4;
   currencies: any[] = [];
+  hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'InActive', name: 'Actively Not Hiring' }];
+  introductionVideoTypes: { id: string, name: string }[] = [{ id: 'Yes', name: 'Mandatory' }, { id: 'No', name: 'Not Mandatory' }];
   page: number = 1;
   pageSize: number = 8;
   displayModal: boolean = false;
   first: number = 0;
   filterForm: FormGroup = new FormGroup({});
-  constructor(private fb: FormBuilder, private talentConnectService: TalentConnectService, private messageService: MessageService) { }
+  currencyOptions: any[] = [];
+  applicantCurrencyCode = signal<string>('');
+  applicantCurrencyValue = signal<number>(0);
+
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private talentConnectService: TalentConnectService, private messageService: MessageService) { }
   ngOnInit(): void {
-    this.getList();
+    this.route.queryParams.subscribe(params => {
+      if (params['company']) {
+        this.getList({ company: params['company'] });
+      } else {
+        this.getList();
+      }
+    });
     this.initializeForm();
     this.getOptionsList();
     this.getCountries();
@@ -66,7 +79,9 @@ export class EasyApplyComponent {
       currency: [],
       salary: [''],
       experienceLevel: [null],
-      salary_currency: [null]
+      salary_currency: [null],
+      hiringStatus: [null],
+      intro: [null],
     });
   }
 
@@ -136,5 +151,22 @@ export class EasyApplyComponent {
     this.filterForm.reset();
   }
 
-  openVideoPopup(id: string) {}
+  openVideoPopup(id: string) { }
+  
+  onChangeCurrency(convertTo: string, formattedEnd: string) {
+    this.talentConnectService.getCurrencyConverter(this.applicantCurrencyCode(), convertTo, formattedEnd, formattedEnd).subscribe({
+      next: (data: any) => {
+        const today = new Date().toISOString().slice(0, 10); // '2025-05-12'
+        const ratesForToday = data.rates[today]; // { AED: 0.04157 }
+
+        const currency = Object.keys(ratesForToday)[0]; // 'AED'
+        const rate = ratesForToday[currency];           // 0.04157
+
+        console.log(`Currency: ${currency}`, ` Rate: ${rate * this.applicantCurrencyValue()}`);
+      },
+      error: (err) => console.error('Error:', err)
+    });
+  }
+
+
 }

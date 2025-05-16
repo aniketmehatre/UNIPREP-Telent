@@ -9,48 +9,23 @@ import { JobSeekersLandingComponent } from './job-seekers-landing/job-seekers-la
 import { LandingLanguageHubComponent } from './landing-language-hub/landing-language-hub.component';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
-const routes: Routes = [
-  {
-    path: '',
-    component: LandingComponent,
-    children: [
-      {
-        path: '',
-        loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),
-      },
-      {
-        path: 'about/management',
-        loadComponent: () => import('./management-team/management-team.component').then(m => m.ManagementTeamComponent),
-      },
-      {
-        path: 'explore/:category',
-        loadComponent: () => import('./job-seekers-landing/job-seekers-landing.component').then(m => m.JobSeekersLandingComponent),
-      },
-      {
-        path: 'explore/:category/:id',
-        loadComponent: () => import('./landing-language-hub/landing-language-hub.component').then(m => m.LandingLanguageHubComponent),
-      },
-      {
-        path: '',
-        redirectTo: '',
-        pathMatch: 'full'
-      }
-    ]
-  }
-  
-]
+import { LandingFooterComponent } from "./landing-footer/landing-footer.component";
+import { landingRoutes } from './landing.routes';
+
 @NgModule({
     imports: [
-      CommonModule,
-      FormsModule,
-      ReactiveFormsModule,
-      DialogModule,
-      RouterModule.forChild(routes),
-      ScrollTopModule,
-      LandingLanguageHubComponent,
-      JobSeekersLandingComponent
-      // Empty reducer configuration or actual reducers here
-    ],
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DialogModule,
+    RouterModule.forChild(landingRoutes),
+    ScrollTopModule,
+    LandingLanguageHubComponent,
+    JobSeekersLandingComponent
+    // Empty reducer configuration or actual reducers here
+    ,
+    LandingFooterComponent
+  ],
   declarations: [LandingComponent],
   providers: [MessageService, AuthService],
 })

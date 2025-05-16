@@ -223,11 +223,11 @@ export class SidenavComponent {
       url: "",
       image: "",
     },
-    {
-      title: "Assessment",
-      url: "/pages/assessment/ilearn-challenge",
-      image: "fa-regular fa-badge-check",
-    },
+    // {
+    //   title: "Assessment",
+    //   url: "/pages/assessment/ilearn-challenge",
+    //   image: "fa-regular fa-badge-check",
+    // },
     {
       title: "AI Global Advisor",
       url: "/pages/advisor",
@@ -403,17 +403,15 @@ export class SidenavComponent {
         }
       }
     });
-    this.authService.getMe().subscribe((res) => {
-      if (res.userdetails[0].student_type_id == 2) {
-        if (res.userdetails[0].subscription_plan == "Student") {
-          this.menus = this.menus.filter((item) => !this.studentMenus.includes(item.title));
-        }
-        if (res.userdetails[0].subscription_plan == "Career") {
-          this.menus = this.menus.filter((item) => !this.careerMenus.includes(item.title));
-        }
-        this.menus = this.menus.filter((item) => !this.collegeStudentMenus.includes(item.title));
+    if (this.authService._user?.student_type_id == 2) {
+      if (this.authService._user?.subscription_plan == "Student") {
+        this.menus = this.menus.filter((item) => !this.studentMenus.includes(item.title));
       }
-    });
+      if (this.authService._user?.subscription_plan == "Career") {
+        this.menus = this.menus.filter((item) => !this.careerMenus.includes(item.title));
+      }
+      this.menus = this.menus.filter((item) => !this.collegeStudentMenus.includes(item.title));
+    }
 
     //this.changeSubscriptionUrl();
   }

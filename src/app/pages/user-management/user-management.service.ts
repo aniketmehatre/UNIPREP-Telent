@@ -51,4 +51,28 @@ export class UserManagementService {
       headers: headers,
     });
   }
+  newsLetterConsent(data:any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.httpClient.post<any>(environment.ApiUrl + "/UpdateNewsLetterNotification",data, {
+      headers: headers,
+    });
+  }
+  promotionalEmailConsent(data:any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.httpClient.post<any>(environment.ApiUrl + "/UpdatePromotionalEmailNotification",data, {
+      headers: headers,
+    });
+  }
+  productUpdateEmailConsent(data:any){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.httpClient.post<any>(environment.ApiUrl + "/UpdateProductUpdateNotification",data, {
+      headers: headers,
+    });
+  }
+  integrationPartActiveOrInactive(){
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.httpClient.post<any>(environment.ApiUrl + "/getIntegratedEmail", {
+      headers: headers,
+    });
+  }
 }

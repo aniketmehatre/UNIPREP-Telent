@@ -1,45 +1,66 @@
-<nav class="px-0">
+<nav class="px-0" role="navigation" aria-label="Main navigation">
 	<div class="container-fluid">
 		<div class="row align-items-center">
 			<div class="col-lg-6 col-md-6 col-12">
-				<div class="d-flex gap-2">
+				<div class="d-flex gap-2 justify-content-between">
 					<div class="d-flex align-items-center gap-2">
 						<div class="d-lg-none d-md-block d-sm-block d-block">
 							<a class="text-decoration-none uniprep-primary" data-bs-toggle="offcanvas"
-								href="#offcanvasWithBothOptions" role="button" aria-controls="offcanvasWithBothOptions">
-								<i class="fa-solid fa-bars fa-2xl"></i>
+								href="#offcanvasWithBothOptions" role="button" aria-controls="offcanvasWithBothOptions"
+								aria-label="Open menu">
+								<i class="fa-solid fa-bars fa-2xl" aria-hidden="true"></i>
 							</a>
 						</div>
 					</div>
 					<div class="d-md-none gap-2 d-flex align-items-center">
-						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName">
+						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName"
+							[attr.aria-label]="'Selected country: ' + homeCountryName">
 							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'"
 								[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'"
-								alt="flag" height="auto" width="auto" />
+								alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 						</div>
-						<p-avatar (click)="openchat()" class="mr-2" size="large" role="button"><i
-								class="fa-solid fa-comments"></i> </p-avatar>
+						<p-avatar (click)="openchat()" class="mr-2" size="large" role="button" aria-label="Open chat"><i
+								class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
 						<p-avatar class="" label="" *ngIf="false" (click)="np.toggle($event)" icon="pi pi-bell"
-							size="large" role="button"> </p-avatar>
-						<p-avatar routerLink="/pages/usermanagement" aria-expanded="false" role="button" size="large">
+							size="large" role="button" aria-label="Notifications"> </p-avatar>
+						<p-avatar routerLink="/pages/usermanagement" aria-expanded="false" role="button" size="large"
+							aria-label="User profile">
 							<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
 						</p-avatar>
-						<p-avatar (click)="logout()" label="" size="large" role="button"> <i
-								class="fa-solid fa-power-off"></i></p-avatar>
+						<p-avatar (click)="logout()" label="" size="large" role="button" aria-label="Logout"> <i
+								class="fa-solid fa-power-off" aria-hidden="true"></i></p-avatar>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-6 col-12" *ngIf="userLoginTimeLeftCount">
 				<div
 					class="d-flex justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0 gap-3">
+					<div class="d-flex align-items-center" >
+						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
+								class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
+						</button>
+
+						<!-- Buy Credits template -->
+						<ng-template #buyCreditTpl>
+							<button pButton
+									class="btn btn-secondary text-small btn-rounded flex-fill"
+									(click)="buyCredits()"
+									type="button">
+							Buy Credits
+							</button>
+						</ng-template>
+					</div>
+
 					<div class="d-flex">
 						<div class="d-flex justify-content-center align-items-center">
 							<h6 class="mb-0 d-none d-md-block">TIME LEFT</h6>
-							<i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0 uniprep-secondary"></i>
+							<i class="ps-1 pe-2 fa-solid fa-hourglass-end h4 mb-0 uniprep-secondary"
+								aria-hidden="true"></i>
 						</div>
-						<div class="d-flex">
+						<div class="d-flex" role="timer" aria-label="Time remaining">
 							<div class="col d-flex flex-column align-items-center px-1">
-								<div class="boxView fw-semibold text-green">
+								<div class="boxView fw-semibold text-green" aria-label="{{ month$ }} months">
 									{{ month$ ? month$ : "0" + "" }}
 								</div>
 								<span class="timertext text-uppercase">Months</span>
@@ -48,35 +69,39 @@
 								<span>:</span><span class="timertext">&nbsp;</span>
 							</div>
 							<div class="col d-flex flex-column align-items-center px-1">
-								<div class="boxView fw-semibold text-green">{{ day$ ? day$ : "0" + "" }}</div>
+								<div class="boxView fw-semibold text-green" aria-label="{{ day$ }} days">{{ day$ ? day$
+									: "0" + "" }}</div>
 								<span class="timertext text-uppercase">Days</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center">
 								<span>:</span><span class="timertext">&nbsp;</span>
 							</div>
 							<div class="col d-flex flex-column align-items-center px-1">
-								<div class="boxView fw-semibold text-green">{{ hrs$ ? hrs$ : "0" + "" }}</div>
+								<div class="boxView fw-semibold text-green" aria-label="{{ hrs$ }} hours">{{ hrs$ ? hrs$
+									: "0" + "" }}</div>
 								<span class="timertext text-uppercase">Hrs</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center">
 								<span>:</span><span class="timertext">&nbsp;</span>
 							</div>
 							<div class="col d-flex flex-column align-items-center px-1">
-								<div class="boxView fw-semibold text-green">{{ min$ ? min$ : "0" + "" }}</div>
+								<div class="boxView fw-semibold text-green" aria-label="{{ min$ }} minutes">{{ min$ ?
+									min$ : "0" + "" }}</div>
 								<span class="timertext text-uppercase">Mins</span>
 							</div>
 							<div class="d-flex flex-column align-items-center justify-content-center">
 								<span>:</span><span class="timertext">&nbsp;</span>
 							</div>
 							<div class="col d-flex flex-column align-items-center px-1">
-								<div class="boxView fw-semibold text-green">{{ sec$ ? sec$ : "0" + "" }}</div>
+								<div class="boxView fw-semibold text-green" aria-label="{{ sec$ }} seconds">{{ sec$ ?
+									sec$ : "0" + "" }}</div>
 								<span class="timertext text-uppercase">Sec</span>
 							</div>
 						</div>
 					</div>
 					<div class="d-none d-md-flex gap-2">
-						<button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn"
-							(click)="navigateILearnChallenge()">
+						<!-- <button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn"
+							(click)="navigateILearnChallenge()" aria-label="iLearn Challenge">
 							<span *ngIf="!iLearnChallengeData.isILearn; else showRank"
 								class="text-small fw-normal">iLearn Challenge</span>
 							<ng-template #showRank>
@@ -84,48 +109,51 @@
 										iLearnChallengeData.overAllParticipants }} out of 100 </span> <span
 										class="participants">Participants</span></span>
 							</ng-template>
-						</button>
-						<div label="" role="button" class="headerHomeCountry" [title]="homeCountryName">
+						</button> -->
+						<div label="" role="button" class="headerHomeCountry" [title]="homeCountryName"
+							aria-label="Selected country: {{ homeCountryName }}">
 							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'"
 								[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'"
-								alt="flag" height="auto" width="auto" />
+								alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 						</div>
 						<button class="btn btn-secondary d-flex justify-content-center align-items-center"
-							(click)="openReportModal(op, $event)" alt="reports"
+							(click)="openReportModal(op, $event)" aria-label="Open reports"
 							style="width: 40px; height: 40px; padding: 0; ">
-							<i class="fa-solid fa-bug" style="font-size: 16px;"></i> <!-- Bug icon -->
+							<i class="fa-solid fa-bug" style="font-size: 16px;" aria-hidden="true"></i>
 						</button>
 					</div>
 
 					<div class="d-flex gap-2 d-md-none align-items-center">
-						<button class="btn btn-primary p-3 m-0" alt="chat with notification"
+						<button class="btn btn-primary p-3 m-0" aria-label="Chat with notification"
 							(click)="onClickSubscribe()">
-							<i class="fa-solid fa-crown"></i>
+							<i class="fa-solid fa-crown" aria-hidden="true"></i>
 						</button>
-						<button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports">
-							<i class="fa-solid fa-circle-exclamation"></i>
+						<button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)"
+							aria-label="Open reports">
+							<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
 						</button>
 					</div>
 					<div class="d-none d-md-flex align-items-center">
-						<a (click)="openchat()" class="me-3">
+						<a (click)="openchat()" class="me-3" aria-label="Open chat">
 							<p-avatar class="" label="" role="button" style="padding: 19px;">
-								<i class="fa-solid fa-comments text-dark"></i> </p-avatar>
+								<i class="fa-solid fa-comments text-dark" aria-hidden="true"></i> </p-avatar>
 						</a>
-						<a *ngIf="false" (click)="np.toggle($event)" class="me-3">
+						<a *ngIf="false" (click)="np.toggle($event)" class="me-3" aria-label="Notifications">
 							<p-avatar class="" label="" role="button">
-								<i class="fa-solid fa-bell"></i>
+								<i class="fa-solid fa-bell" aria-hidden="true"></i>
 							</p-avatar>
 						</a>
 						<div class="dropdown profile-dropdown">
-							<button class="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<button class="button" data-bs-toggle="dropdown" aria-expanded="false"
+								aria-label="User profile menu">
 								<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
-								<!-- <span class="fw-medium">{{userName }}</span> -->
 							</button>
-							<ul class="dropdown-menu">
-								<li>
-									<a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement">
+							<ul class="dropdown-menu" role="menu" aria-label="User profile menu">
+								<li role="none">
+									<a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement"
+										role="menuitem">
 										<div class="d-flex justify-content-top">
-											<i class="fa-solid fa-user me-2 mt-1"></i>
+											<i class="fa-solid fa-user me-2 mt-1" aria-hidden="true"></i>
 											<div>
 												<p class="fw-semibold mb-1">{{ userName }}</p>
 												<p class="mb-0">{{ userName }}</p>
@@ -133,9 +161,10 @@
 										</div>
 									</a>
 								</li>
-								<li>
-									<a class="dropdown-item pt-2 pb-2" (click)="logout()"><i
-											class="fa-solid fa-power-off me-2"></i>Logout</a>
+								<li role="none">
+									<a class="dropdown-item pt-2 pb-2" (click)="logout()" role="menuitem">
+										<i class="fa-solid fa-power-off me-2" aria-hidden="true"></i>Logout
+									</a>
 								</li>
 							</ul>
 						</div>
@@ -145,6 +174,22 @@
 			<div class="col-md-6 col-12" *ngIf="!userLoginTimeLeftCount">
 				<div
 					class="d-flex align-items-center justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0">
+					<div class="d-flex align-items-center" >
+						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
+								class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
+						</button>
+
+						<!-- Buy Credits template -->
+						<ng-template #buyCreditTpl>
+							<button pButton
+									class="btn btn-secondary text-small btn-rounded flex-fill"
+									(click)="buyCredits()"
+									type="button">
+							Buy Credits
+							</button>
+						</ng-template>
+					</div>
 					<div class="d-flex">
 						<div class="d-flex justify-content-center align-items-center">
 							<h6 class="mb-0 d-none d-md-block">TIME LEFT</h6>
@@ -180,38 +225,38 @@
 						</div>
 					</div>
 					<div class="d-flex gap-2 d-md-none">
-						<button class="btn btn-primary p-3 m-0" alt="chat with notification"
+						<button class="btn btn-primary p-3 m-0" aria-label="Chat with notification"
 							(click)="onClickSubscribe()">
-							<i class="fa-solid fa-crown"></i>
+							<i class="fa-solid fa-crown" aria-hidden="true"></i>
 						</button>
-						<button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" alt="reports">
-							<i class="fa-solid fa-circle-exclamation"></i>
+						<button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)"
+							aria-label="Open reports">
+							<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
 						</button>
 
 					</div>
 					<div class="d-none d-md-flex gap-2 align-items-center">
-						<button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn"
-							(click)="navigateILearnChallenge()">
-							<span *ngIf="!iLearnChallengeData.isILearn; else showRank"
-								class="text-small fw-normal">iLearn Challenge</span>
-							<ng-template #showRank>
-								<span class="text-small fw-normal ilearn-sec">
-									<span class="rank">{{ iLearnChallengeData.overAllParticipants }} out of 100</span>
-									<span class="participants">Participants</span>
-								</span>
-							</ng-template>
-						</button>
+						<!--						<button *ngIf="service._user?.student_type_id == 2" class="btn btn-ilearn"-->
+						<!--							(click)="navigateILearnChallenge()">-->
+						<!--							<span *ngIf="!iLearnChallengeData.isILearn; else showRank"-->
+						<!--								class="text-small fw-normal">iLearn Challenge</span>-->
+						<!--							<ng-template #showRank>-->
+						<!--								<span class="text-small fw-normal ilearn-sec">-->
+						<!--									<span class="rank">{{ iLearnChallengeData.overAllParticipants }} out of 100</span>-->
+						<!--									<span class="participants">Participants</span>-->
+						<!--								</span>-->
+						<!--							</ng-template>-->
+						<!--						</button>-->
 						<button *ngIf="whiteLabelIsNotShow"
 							class="btn btn-primary btn-rounded d-flex flex-column align-items-center"
-							alt="chat with notification" (click)="onClickSubscribe()">
+							aria-label="Chat with notification" (click)="onClickSubscribe()">
 							<i class="fa-solid fa-crown mb-2 " style="font-size: 14px;"></i>
-							<!-- Replace with the appropriate icon -->
 							<span class="text-sm fw-normal px-3" style="font-size:12px">Subscribe Now</span>
 						</button>
 						<button class="btn btn-secondary d-flex justify-content-center align-items-center"
-							(click)="openReportModal(op, $event)" alt="reports"
+							(click)="openReportModal(op, $event)" aria-label="Open reports"
 							style="width: 40px; height: 40px; padding: 0; ">
-							<i class="fa-solid fa-bug" style="font-size: 16px;"></i> <!-- Bug icon -->
+							<i class="fa-solid fa-bug" style="font-size: 16px;"></i>
 						</button>
 					</div>
 					<div label="" role="button" class="headercountry me-2 ms-2 d-none d-md-block"
@@ -220,23 +265,22 @@
 					</div>
 
 					<div class="d-none d-md-flex align-items-center gap-3">
-						<!-- Chat Icon -->
-						<a (click)="openchat()" title="Chat">
+						<a (click)="openchat()" title="Chat" aria-label="Open chat">
 							<p-avatar class="" label="" role="button" style="padding: 19px;">
 								<i class="fa-solid fa-comments"></i>
 							</p-avatar>
 						</a>
-						<!-- Profile Dropdown -->
 						<div class="dropdown profile-dropdown">
 							<button class="button d-flex align-items-center" data-bs-toggle="dropdown"
-								aria-expanded="false" title="My Profile">
+								aria-expanded="false" title="My Profile" aria-label="User profile menu">
 								<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
 							</button>
-							<ul class="dropdown-menu">
-								<li>
-									<a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement">
+							<ul class="dropdown-menu" role="menu" aria-label="User profile menu">
+								<li role="none">
+									<a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement"
+										role="menuitem">
 										<div class="d-flex align-items-start">
-											<i class="fa-solid fa-user me-2 mt-1"></i>
+											<i class="fa-solid fa-user me-2 mt-1" aria-hidden="true"></i>
 											<div>
 												<p class="fw-semibold mb-1">{{ userName }}</p>
 												<p class="mb-0">{{ userName }}</p>
@@ -244,9 +288,9 @@
 										</div>
 									</a>
 								</li>
-								<li>
-									<a class="dropdown-item pt-2 pb-2" (click)="logout()">
-										<i class="fa-solid fa-power-off me-2"></i> Logout
+								<li role="none">
+									<a class="dropdown-item pt-2 pb-2" (click)="logout()" role="menuitem">
+										<i class="fa-solid fa-power-off me-2" aria-hidden="true"></i> Logout
 									</a>
 								</li>
 							</ul>
@@ -259,50 +303,52 @@
 	</div>
 </nav>
 
-<p-popover #op styleClass="reportwidthfix" appendTo="body">
+<p-popover #op styleClass="reportwidthfix" appendTo="body" aria-label="Report form">
 	<ng-template pTemplate="content">
 		<div class="container px-0">
-			<form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)">
+			<form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)" role="form"
+				aria-label="Report submission form">
 				<div class="row report">
 					<p *ngIf="false" class="report-label text-left mb-0">General / Modules</p>
 					<span *ngIf="false" class="report-modal">
 						<p-select [options]="genMod" (onChange)="onChangeChooseMain($event.value)"
 							[(ngModel)]="selectedGenMod" optionValue="id" formControlName="general" class="w-100"
-							id="genMod" optionLabel="name"></p-select>
+							id="genMod" optionLabel="name" aria-label="Select general module"></p-select>
 					</span>
 					<div *ngIf="isVisibleModulesMenu">
 						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Modules</p>
 						<span *ngIf="isQuestionVisible" class="report-modal">
 							<p-select [options]="moduleList" (onChange)="onChangeModuleList($event.value)"
 								formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id" class="w-100"
-								id="moduleId" optionLabel="module_name"></p-select>
+								id="moduleId" optionLabel="module_name" aria-label="Select module"></p-select>
 						</span>
 						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Categories</p>
 						<span *ngIf="isQuestionVisible" class="report-modal">
 							<p-select [options]="subModuleList" [(ngModel)]="subModuleNgModel"
 								formControlName="submoduleId" optionValue="id"
 								(onChange)="onChangeSubModuleList($event.value)" class="w-100" id="submoduleId"
-								optionLabel="submodule_name"></p-select>
+								optionLabel="submodule_name" aria-label="Select category"></p-select>
 						</span>
 						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Question Number</p>
 						<span *ngIf="isQuestionVisible" class="report-modal">
 							<p-select [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id"
-								formControlName="questionId" class="w-100" id="questionId"
-								optionLabel="index"></p-select>
+								formControlName="questionId" class="w-100" id="questionId" optionLabel="index"
+								aria-label="Select question number"></p-select>
 						</span>
 					</div>
 					<p class="report-label text-left mb-0">Issue Type</p>
 					<span class="report-modal">
 						<p-select [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id"
 							formControlName="reportOption" class="w-100" id="reportOption"
-							optionLabel="reportoption_name"></p-select>
+							optionLabel="reportoption_name" aria-label="Select issue type"></p-select>
 					</span>
 					<p class="report-label text-left mb-0">Comment</p>
 					<span class="report-modal">
-						<textarea formControlName="comment" fluid pTextarea id="comment"></textarea>
+						<textarea formControlName="comment" fluid pTextarea id="comment"
+							aria-label="Enter your comment"></textarea>
 					</span>
 					<span>
-						<button pButton class="btn btn-primary w-100 m-0">Submit</button>
+						<button pButton class="btn btn-primary w-100 m-0" aria-label="Submit report">Submit</button>
 					</span>
 				</div>
 			</form>
@@ -310,18 +356,19 @@
 	</ng-template>
 </p-popover>
 
-<p-popover #totalCountryList [style]="{ width: '100%', 'max-width': 'fit-content' }">
+<p-popover #totalCountryList [style]="{ width: '100%', 'max-width': 'fit-content' }" aria-label="Country selection">
 	<ng-template pTemplate="content">
 		<div *ngIf="isLondon" class="mega-menu">
 			<div class="row">
 				<div class="col" *ngFor="let column of [0, 1, 2]">
-					<ul class="px-0">
+					<ul class="px-0" role="list">
 						<ng-container
 							*ngFor="let v of countryLists.slice(column * 10, (column + 1) * 10); let i = index">
 							<li class="list-group-item my-2 d-flex align-items-center gap-2" role="button"
-								(click)="selectCountryInHeader(v, totalCountryList)">
-								<img (error)="$event.target.src = '/uniprep-assets/images/location.webp'" alt="country"
-									class="countryicon mr-2"
+								(click)="selectCountryInHeader(v, totalCountryList)" tabindex="0"
+								aria-label="Select {{ v.country }}">
+								<img (error)="$event.target.src = '/uniprep-assets/images/location.webp'"
+									alt="{{ v.country }} flag" class="countryicon mr-2"
 									[src]="v.flag || '../../uniprep-assets/images/location.webp'" width="25" />
 								<span class="text-nowrap">{{ v.country }}</span>
 							</li>
@@ -396,53 +443,57 @@
 	</div>
 </p-dialog>
 <p-dialog [(visible)]="isChangePasswordWindowVisible" [closable]="true" [style]="{ width: 'auto' }"
-	class="p-0 m-0 bg-white" [modal]="true" [draggable]="false" [resizable]="false">
+	class="p-0 m-0 bg-white" [modal]="true" [draggable]="false" [resizable]="false" aria-label="Change password">
 	<div class="px-5 pb-5 pt-3">
 		<div class="justify-content-center text-center pb-5 px-5">
 			<h5 class="text-center mb-2">Change Password</h5>
-			<form [formGroup]="setPasswordForm" (ngSubmit)="passwordChangeOnClick()">
+			<form [formGroup]="setPasswordForm" (ngSubmit)="passwordChangeOnClick()" role="form"
+				aria-label="Password change form">
 				<ng-container>
 					<label class="signup mb-3">your new password must be different to previously used password.</label>
 					<div class="form-floating mb-3">
 						<p-inputgroup>
-							<p-inputgroup-addon><i class="pi pi-lock"></i></p-inputgroup-addon>
+							<p-inputgroup-addon><i class="pi pi-lock" aria-hidden="true"></i></p-inputgroup-addon>
 							<input [type]="password" id="floatingInput" formControlName="password" pInputText
-								[ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
-							<span class="input-group-text passwordvisibility" (click)="showPassword()">
+								[ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+								aria-label="Enter new password" />
+							<span class="input-group-text passwordvisibility" (click)="showPassword()" role="button"
+								tabindex="0" aria-label="Toggle password visibility">
 								<img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px"
-									*ngIf="show" />
+									*ngIf="show" alt="Show password" />
 								<img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px"
-									*ngIf="!show" />
+									*ngIf="!show" alt="Hide password" />
 							</span>
 						</p-inputgroup>
-						<div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+						<div *ngIf="submitted && f['password'].errors" class="invalid-feedback" role="alert">
 							<div *ngIf="f.password.errors.required">Password is required</div>
 							<div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
 						</div>
 					</div>
 					<label for="confirmPassword">Confirm Password</label>
 					<p-inputgroup>
-						<p-inputgroup-addon><i class="pi pi-lock"></i></p-inputgroup-addon>
+						<p-inputgroup-addon><i class="pi pi-lock" aria-hidden="true"></i></p-inputgroup-addon>
 						<input [type]="password1" pInputText id="confirmPassword" formControlName="confirmPassword"
 							[ngClass]="{
 								'is-invalid': submitted && f['confirmPassword'].errors
-							}" />
-						<span class="input-group-text passwordvisibility" (click)="showPassword1()">
+							}" aria-label="Confirm new password" />
+						<span class="input-group-text passwordvisibility" (click)="showPassword1()" role="button"
+							tabindex="0" aria-label="Toggle password visibility">
 							<img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px"
-								*ngIf="show1" />
+								*ngIf="show1" alt="Show password" />
 							<img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px"
-								*ngIf="!show1" />
+								*ngIf="!show1" alt="Hide password" />
 						</span>
 					</p-inputgroup>
-					<div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+					<div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback" role="alert">
 						<div *ngIf="f.confirmPassword.hasError('matching')">Password and confirm password not match
 						</div>
 						<div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
 					</div>
 					<br />
 					<div class="d-grid">
-						<button pButton class="p-2 btn btn-primary btn-login text-uppercase fw-bold"
-							type="submit">Change Password</button>
+						<button pButton class="p-2 btn btn-primary btn-login text-uppercase fw-bold" type="submit"
+							aria-label="Change password">Change Password</button>
 					</div>
 				</ng-container>
 			</form>
@@ -486,13 +537,14 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="whatsappVerification" [modal]="true" [closable]="false" styleClass="whatsappVerification">
+<p-dialog [(visible)]="whatsappVerification" [modal]="true" [closable]="false" styleClass="whatsappVerification"
+	aria-label="WhatsApp verification">
 	<div class="container">
 		<div class="row mb-2">
 			<div class="col-md-12 px-4">
 				<div class="d-flex flex-column">
-					<div class="icon-container d-flex justify-content-center p-2">
-					</div>
+					<!-- <div class="icon-container d-flex justify-content-center p-2">
+					</div> -->
 					<div class="mt-1 mb-1">
 						<span>
 							<strong class="firsttimelogin">
@@ -500,43 +552,50 @@
 							</strong>
 						</span>
 					</div>
-					<form [formGroup]="phoneVerification">
+					<form [formGroup]="phoneVerification" role="form" aria-label="Phone verification form">
 						<div class="w-100 phonenumberblock mt-2">
-							<p class="m-2">Enter Your Whatsapp number to continue the experience</p>
-							<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom'"
+							<p class="m-2">Enter Your {{haveWhatsapp}} number to continue the experience</p>
+							<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom-less-padding'"
 								[preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true"
+                                                appendTo="body"
 								[enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
 								[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
 								[phoneValidation]="true" [selectedCountryISO]="preferredCountry"
-								customPlaceholder="Enter Contact Number" formControlName="verification_phone"
-								[attr.disabled]="isSendingOTP"></ngx-intl-tel-input>
+								customPlaceholder="Enter {{haveWhatsapp}} Number" formControlName="verification_phone"
+								[attr.disabled]="isSendingOTP" aria-label="Enter WhatsApp number"></ngx-intl-tel-input>
 							<div class="d-flex align-items-center mt-2">
-								<input type="checkbox" formControlName="choice" class="form-check-input mt-0" />
-								<div>I don't have a Whatsapp Number</div>
+								<input type="checkbox" formControlName="choice" class="form-check-input mt-0"
+                                       (change)="onCheckHaveWhatsappOrPhone($event)"
+									id="noWhatsapp" />
+								<label for="noWhatsapp">I don't have a Whatsapp Number</label>
 							</div>
 						</div>
-						<div class="d-flex justify-content-center m-3" *ngIf="!isSendingOTP">
-							<button pButton [disabled]="phoneVerification.invalid" style="padding: 8px 20px"
-								class="btn btn-primary" (click)="sendOTP()" alt="chat with notification">
-								<span class="fw-medium px-3">Send OTP</span>
-							</button>
-						</div>
+                        <div class="d-flex justify-content-end mt-2">
+                            <a class="fw-medium text-primary text-decoration-underline"
+                               [class.disabled]="phoneVerification.invalid"
+                               role="button"
+                               style="cursor: pointer;"
+                               (click)="sendOTP()">
+                                Send OTP
+                            </a>
+                        </div>
 						<div *ngIf="isSendingOTP">
 							<p class="centertitle mt-2">Enter your Whatsapp number to continue the experinence</p>
-							<div class="otp-container m-4">
+							<div class="otp-container m-4" role="group" aria-label="OTP input">
 								<input *ngFor="let digit of otpArray; let i = index" type="text" maxlength="1"
 									class="otp-box" [id]="'otp-' + i" [(ngModel)]="otp[i]" formControlName="otp"
-									(input)="onInputOTP($event, i)" (keydown)="onKeydownOPT($event, i)" />
+									(input)="onInputOTP($event, i)" (keydown)="onKeydownOPT($event, i)"
+									aria-label="OTP digit {{ i + 1 }}" />
 							</div>
 							<div class="d-flex justify-content-center m-3 gap-3">
 								<button pButton *ngIf="isResendOTP" [disabled]="phoneVerification.invalid"
 									style="padding: 8px 20px" class="btn btn-primary" (click)="sendOTP()"
-									alt="chat with notification">
+									aria-label="Resend OTP">
 									<span class="fw-medium px-3">Resend OTP</span>
 								</button>
 								<button pButton [disabled]="phoneVerification.invalid" style="padding: 8px 20px"
 									class="btn btn-primary" (click)="submitPhoneVerification()"
-									alt="chat with notification">
+									aria-label="Submit verification">
 									<span class="fw-medium px-3">Submit</span>
 								</button>
 							</div>
@@ -575,14 +634,14 @@
 					<form [formGroup]="mobileForm">
 						<div class="w-100 phonenumberblock d-none" *ngIf="formvisbility">
 							<p class="m-1">Enter your number to continue the experience</p>
-							<ngx-intl-tel-input class="intel-input w-100"
-								[cssClass]="isPhoneDisabled ? 'custom disabled' : 'custom'"
+							<ngx-intl-tel-input class="intel-input w-100" appendTo="body"
+								[cssClass]="isPhoneDisabled ? 'custom-less-padding disabled' : 'custom-less-padding'"
 								[preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true"
 								[enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
 								[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
 								[phoneValidation]="true" [selectedCountryISO]="preferredCountry"
 								[(ngModel)]="phoneNumber" [disabled]="isPhoneDisabled" [attr.disabled]="isPhoneDisabled"
-								customPlaceholder="Enter Contact Number" formControlName="phone"></ngx-intl-tel-input>
+								customPlaceholder="Enter {{haveWhatsapp}} Number" formControlName="phone"></ngx-intl-tel-input>
 						</div>
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
 							<p class="m-1">Select Your Home Country</p>

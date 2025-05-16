@@ -169,6 +169,7 @@ export class ExportCreditComponent implements OnInit {
       currentCurrencyCode: this.currentCurrencyCode
     };
     this.exportcreditservice.getModulesList(currencyData).subscribe((responce) => {
+      console.log(responce, "modules list");
       this.moduleList = responce;
     });
   }

@@ -24,11 +24,6 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton
-							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
-							type="button">
-							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						</button>
 						<button pButton type="button" (click)="saveRecommadation()"
 							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
@@ -161,7 +156,7 @@
 																formControlName="currency_code"
 																[options]="currenciesList" [filter]="true"
 																filterBy="currency_symbol" placeholder="Currency"
-																optionLabel="currency_symbol"
+																optionLabel="currency_symbol" appendTo="body"
 																optionValue="currency_symbol" [autoDisplayFirst]="false"
 																(ngModelChange)="changeCurrencyInTution($event)">
 															</p-select>
@@ -176,7 +171,7 @@
 																formControlName="compare_currency_code"
 																[options]="currenciesList" [filter]="true"
 																filterBy="currency_symbol" placeholder="Currency"
-																optionLabel="currency_symbol"
+																optionLabel="currency_symbol" appendTo="body"
 																optionValue="currency_symbol"
 																[autoDisplayFirst]="false"> </p-select>
 															<input type="number" class="form-control w-100 m-0"
@@ -191,7 +186,7 @@
 													allowed</div>
 
 												<!-- Annual Living Expense -->
-												<div class="row mb-3 align-items-center">
+												<!-- <div class="row mb-3 align-items-center">
 													<div class="col-lg-4">
 														<label class="form-label uniprep-primary fw-bold">What is your
 															expected annual living expense? </label>
@@ -226,7 +221,7 @@
 																[placeholder]="form.get('compare_expense_currency_code').value ? 'Enter Expense Amount in' + ' ' + form.get('compare_expense_currency_code').value : 'Enter Expense Amount'" />
 														</div>
 													</div>
-												</div>
+												</div> -->
 												<div class="text-danger text-center small"
 													*ngIf="(form.get('expense')?.errors?.required || form.get('compare_expenses')?.errors?.required || form.get('expense')?.errors?.max || form.get('compare_expenses')?.errors?.max) && submitted">
 													Please enter both living expenses and both are maximum 8 digit only
@@ -311,11 +306,7 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton
-							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
-							type="button">
-							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						</button>
+						
 						<button pButton type="button" (click)="saveRecommadation()"
 							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
@@ -394,11 +385,7 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton
-							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
-							type="button">
-							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						</button>
+						
 						<button pButton type="button" (click)="saveRecommadation()"
 							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>

@@ -171,7 +171,7 @@
 									<label class="uniprep-primarydark fw-bold h6">Your Name</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Full Name"
+											<input class="w-100" (input)="inputValuesEditOrNot()" type="text" placeholder="Full Name"
 												formControlName="user_name" pInputText />
 											<div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['user_name'].errors">Full Name
@@ -188,9 +188,10 @@
 											<div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Your Job Title Required</div>
 											</div> -->
-											<input type="text" formControlName="user_job_title"
-												(input)="searchJob($event)"
-												class="form-control w-100 rounded-5 border-primary inputHeight pr-5"
+											<div class="input-wrapper">
+												<input type="text" formControlName="user_job_title"
+												(input)="searchJob($event)" (focusout)="onFocusOutJob()"
+												class="form-control job-input bg-transparent"
 												placeholder="Search by Job Role"
 												style="border-radius: 10px !important;" />
 											<div *ngIf="submitted && f['user_job_title'].errors"
@@ -198,13 +199,13 @@
 												<div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Your
 													Job Title Required</div>
 											</div>
-
 											<ul *ngIf="filterJobRole.length > 0" class="dropdown-list">
 												<li *ngFor="let job of filterJobRole"
 													(click)="setJobtitle(job.id, job.jobrole)">
 													{{ job.jobrole }}
 												</li>
 											</ul>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -212,7 +213,7 @@
 									<label class="uniprep-primarydark fw-bold h6">Your Email</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Email Address"
+											<input (input)="inputValuesEditOrNot()" class="w-100" type="text" placeholder="Email Address"
 												formControlName="user_email" pInputText />
 											<div *ngIf="submitted && f['user_email'].errors"
 												class="text-danger text-xs">
@@ -254,7 +255,7 @@
 									<div class="form-group">
 										<div class="mb-3">
 											<p-select [options]="countryCodeList" styleClass="w-100" [filter]="true"
-												[filterBy]="'name'" placeholder="Select Country Code"
+												[filterBy]="'name'"  (onChange)="inputValuesEditOrNot()" placeholder="Select Country Code"
 												formControlName="country_code" optionLabel="name"
 												optionValue="code"></p-select>
 											<div *ngIf="submitted && f['country_code'].errors"
@@ -268,7 +269,7 @@
 									<label class="uniprep-primarydark fw-bold h6">Phone Number</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Phone Number"
+											<input (input)="inputValuesEditOrNot()" class="w-100" type="text" placeholder="Phone Number"
 												formControlName="user_phone" pInputText />
 											<div *ngIf="f['user_phone'].invalid && (f['user_phone'].dirty || f['user_phone'].touched)"
 												class="text-danger text-xs">
@@ -291,7 +292,7 @@
 									<label class="uniprep-primarydark fw-bold h6">Organization Name</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" type="text" placeholder="Organization Name"
+											<input (input)="inputValuesEditOrNot()" class="w-100" type="text" placeholder="Organization Name"
 												formControlName="org_name" pInputText />
 											<div *ngIf="submitted && f['org_name'].errors" class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['org_name'].errors">Organization
@@ -336,32 +337,33 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<!-- <div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Job Position</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<!-- <input class="w-100" type="text" placeholder="Your Job Position" formControlName="jobposition" pInputText /> -->
-
-											<input type="text" formControlName="jobposition"
-												(input)="searchJobPosition($event)"
-												class="form-control w-100 rounded-5 border-primary inputHeight pr-5"
+											<div class="input-wrapper">
+												<input type="text" formControlName="jobposition"
+												(input)="searchJobPosition($event)" (focusout)="onFocusOutJob()"
+												class="form-control job-input bg-transparent"
 												placeholder="Search by Job Role"
-												style="border-radius: 10px !important;" />
-											<div *ngIf="submitted && f['jobposition'].errors"
-												class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['jobposition'].errors">Your Job
-													Position Required</div>
+												style="border-radius: 10px !important;"/>
+												<div *ngIf="submitted && f['jobposition'].errors"
+													class="text-danger text-xs">
+													<div style="margin-left: 10px" *ngIf="f['jobposition'].errors">Your Job
+														Position Required</div>
+												</div>
+												<ul *ngIf="filterJobRolePostionApplied.length > 0" class="dropdown-list">
+													<li *ngFor="let job of filterJobRolePostionApplied"
+														(click)="setJobtitlePositiApplied(job.id, job.jobrole)">
+														{{ job.jobrole }}
+													</li>
+												</ul>
 											</div>
-											<ul *ngIf="filterJobRolePostionApplied.length > 0" class="dropdown-list">
-												<li *ngFor="let job of filterJobRolePostionApplied"
-													(click)="setJobtitlePositiApplied(job.id, job.jobrole)">
-													{{ job.jobrole }}
-												</li>
-											</ul>
 										</div>
 									</div>
-								</div>
-								<div class="col-md-12">
+								</div> -->
+								<!-- job discription commented here  -->
+								<!-- <div class="col-md-12">
 									<div class="d-flex justify-content-between align-items-center">
 										<div>
 											<label class="uniprep-primarydark fw-bold h6 mb-0">Job Description</label>
@@ -389,7 +391,7 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</ng-container>
 						<ng-container>
@@ -397,8 +399,7 @@
 								<div class="col-md-12">
 									<div class="d-flex justify-content-between align-items-center">
 										<div>
-											<label class="uniprep-primarydark fw-bold h6 mb-0">Cover Letter
-												Section</label>
+											<label class="uniprep-primarydark fw-bold h6 mb-0">Cover Letter Section</label>
 										</div>
 										<div>
 											<button pButton *ngIf="generateConBtnDisable" type="button"
@@ -413,9 +414,12 @@
 									</div>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-editor [style]="{ height: 'auto' }" class="mt-2"
+											<p-editor [style]="{ height: '250px' }" class="mt-2"
 												formControlName="user_summary" placeholder="Generate Your Content"
 												[modules]="editorModules"></p-editor>
+												<div class="text-end text-muted mt-1" style="font-size: 0.85rem;">
+													({{ getWordCount('user_summary') }}/1100)
+												</div>
 											<div *ngIf="submitted && f['user_summary'].errors"
 												class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['user_summary'].errors">Required
@@ -429,14 +433,14 @@
 					</div>
 				</form>
 			</div>
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-end">
 				<!-- <button pButton pButton type="button" (click)="prevStage()" class="btn btn-primary btn-rounded p-1 pe-4">
 					<span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
 				</button>
 				<button pButton pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 2" class="btn btn-primary btn-rounded p-1 ps-4">
 					<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-right"></i></span>
 				</button> -->
-				<button pButton pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 0"
+				<button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 0"
 					class="btn btn-success btn-rounded p-1 ps-4">
 					<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i
 							class="fa-solid fa-check"></i></span>

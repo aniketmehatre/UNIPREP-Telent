@@ -3,7 +3,6 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
 import { FounderstoolService } from '../founderstool.service';
 import { Meta } from '@angular/platform-browser';
-import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/data.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
@@ -20,6 +19,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { PaginatorModule } from 'primeng/paginator';
 import { TooltipModule } from 'primeng/tooltip';
 import { StorageService } from "../../../storage.service";
+import { SocialShareService } from 'src/app/shared/social-share.service';
 @Component({
   selector: 'uni-wealthleaderreadans',
   templateUrl: './wealthleaderreadans.component.html',
@@ -32,17 +32,21 @@ export class WealthleaderreadansComponent implements OnInit {
   perpage: number = 50;
   pageno: number = 1;
   totalcount: number = 0;
-  idleader: any;
+  leaderId: any;
   wealthleadersqueslist: any[] = [];
   isQuestionAnswerVisible: boolean = false;
   wealthleaderanswer: any = [];
   constructor(private router: Router, private pageFacade: PageFacadeService,
-    private service: FounderstoolService, private route: ActivatedRoute, private meta: Meta, private toastr: MessageService,
-    private dataService: DataService, private storage: StorageService
+    private service: FounderstoolService, private route: ActivatedRoute, private meta: Meta,
+    private dataService: DataService, private storage: StorageService, private socialShareService: SocialShareService
   ) { }
   ngOnInit(): void {
     this.wealthleadersname = this.storage.get("wealthleadersname")
-    this.idleader = this.route.snapshot.paramMap.get('id');
+    this.leaderId = this.route.snapshot.paramMap.get('id');
+    const questionId = this.route.snapshot.paramMap.get('questionId');
+    if (questionId) {
+      this.seeAnswer(questionId)
+    }
     this.getWealthLeaders();
   }
   goBack() {
@@ -60,16 +64,16 @@ export class WealthleaderreadansComponent implements OnInit {
       questionid: id
     }
     this.service.wealthLeadersans(data).subscribe((res: any) => {
-      this.wealthleaderanswer = res.data
+      this.wealthleaderanswer = res.data;
+      this.wealthleadersname = res.wealth_leader_name;
       this.isQuestionAnswerVisible = true;
-      this.getWealthLeaders();
     })
   }
   getWealthLeaders() {
     var data = {
       page: this.pageno,
       perPage: this.perpage,
-      wealth_leader_id: this.idleader,
+      wealth_leader_id: this.leaderId,
     }
     this.service.wealthLeadersquestion(data).subscribe((res) => {
       this.wealthleadersqueslist = res.data;
@@ -85,71 +89,20 @@ export class WealthleaderreadansComponent implements OnInit {
       socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
     }
   }
-  shareViaWhatsapp() {
-    let url = window.location.href + '/' + this.answerid
-    console.log(url);
+
+  shareQuestion(type: string) {
+    const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+    const url = encodeURI(window.location.origin + '/pages/education-tools/wealthleaderreadanswer/' + this.leaderId + '/' + this.answerid);
     this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
+    const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
-  shareViaInstagram() {
-    let url = window.location.href + '/' + this.answerid
-    console.log(url);
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaFacebook() {
-    let url = window.location.href + '/' + this.answerid
-    console.log(url);
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaLinkedIn() {
-    let url = window.location.href + '/' + this.answerid
-    console.log(url);
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaTwitter() {
-    let url = window.location.href + '/' + this.answerid
-    console.log(url);
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaMail() {
-    let url = window.location.href + '/' + this.answerid
-    console.log(url);
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
+
   copyLink() {
-    const textarea = document.createElement('textarea');
-
-    // this.meta.updateTag(
-    //   { property: 'og:title', content:  this.selectedQuestionName.question},
-    // );
-    // this.meta.updateTag(
-    //   { name: 'title', content:  this.selectedQuestionName.question},
-    // );
-    const safeUrl = encodeURI(window.location.href);
-    const selectedQuestionId = this.answerid || '';
-    // const safeCountryId = this.countryId || '';
-
-    // Combine data with a safe format
-    textarea.textContent = `${safeUrl}/${selectedQuestionId}`;
-
-    // Append the textarea safely
-    document.body.append(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    textarea.remove();
-    this.toastr.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
+    const textToCopy = encodeURI(window.location.origin + '/pages/education-tools/wealthleaderreadanswer/' + this.leaderId + '/' + this.answerid);
+    this.socialShareService.copyQuestion(textToCopy);
   }
+
   goToHome(event: any) {
     this.isQuestionAnswerVisible = false;
   }

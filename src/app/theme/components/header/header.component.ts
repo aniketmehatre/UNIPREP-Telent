@@ -31,7 +31,7 @@ import { AssessmentService } from "src/app/pages/assessment/assessment.service"
 import { ModuleServiceService } from "src/app/pages/module-store/module-service.service"
 import { AvatarModule } from "primeng/avatar"
 import { InputTextModule } from "primeng/inputtext"
-import { take } from "rxjs/operators"
+import { take, throwIfEmpty } from "rxjs/operators"
 import { SelectModule } from "primeng/select"
 import { TabViewModule } from "primeng/tabview"
 import { InputGroupModule } from "primeng/inputgroup"
@@ -41,8 +41,8 @@ import { AuthTokenService } from 'src/app/core/services/auth-token.service'
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { StorageService } from "../../../storage.service";
 import { DropdownModule } from "primeng/dropdown";
-import { AutoFocus } from "primeng/autofocus";
-
+import { PromptService } from "src/app/pages/prompt.service"
+import { User } from "src/app/@Models/user.model"
 // import { SocialAuthService } from "@abacritt/angularx-social-login";
 
 @Component({
@@ -71,7 +71,7 @@ import { AutoFocus } from "primeng/autofocus";
 		AvatarGroupModule,
 		DropdownModule,
 	],
-	providers: [AuthService, LocationService, ThemeService, DashboardService, AssessmentService, AuthTokenService],
+	providers: [LocationService, ThemeService, DashboardService, AssessmentService, AuthTokenService],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 	@ViewChild("op") op!: ElementRef<HTMLInputElement>
@@ -168,7 +168,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	orgnamewhitlabel: any
 	isNotSuccess: boolean = true
 	submitted: boolean = false
+	aiCreditCount:number = 0;
 
+	haveWhatsapp: string = 'WhatsApp'
 	// Add phone number configuration
 	phoneNumberConfig = {
 		preferredCountries: [CountryISO.India],
@@ -204,7 +206,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private moduleListService: ModuleServiceService,
 		private authTokenService: AuthTokenService,
 		private storage: StorageService,
+		private promptService: PromptService
 	) {
+
+		this.dataService.openReportWindowSource.subscribe({
+			next: (data) => {
+				console.log('othermodule')
+
+				console.log('data', data);
+			},
+			error: (error) => console.error("Error in report window subscription:", error),
+		})
 		// Initialize forms in constructor
 		this.reportSubmitForm = this.formBuilder.group({
 			general: [1, [Validators.required]],
@@ -270,6 +282,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.conditionModuleOrQuestionComponent()
 			}
 		})
+
+		this.service.aiCreditCount$.subscribe(value =>{
+			if(value){
+				this.getAICreditCount();
+			}
+		})
+	}
+
+	buyCredits(){
+		if(this.service.isInvalidSubscription('ai_credit_count')){
+			this.service.hasUserSubscription$.next(true);
+		}else{
+			this.router.navigate(["/pages/export-credit"]);
+		}
 	}
 
 	loadCountryList() {
@@ -381,6 +407,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	isResendOTP: boolean = false
 
 	sendOTP() {
+		if (this.phoneVerification.value.verification_phone == null) {
+			this.toast.add({
+				severity: "error",
+				summary: "Error",
+				detail: "Enter valid Phone Number",
+			})
+			return;
+		}
 		this.phoneVerification.disable()
 		let formData = this.phoneVerification.value
 
@@ -404,7 +438,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.toast.add({
 					severity: "error",
 					summary: "Error",
-					detail: error?.message,
+					detail: error?.error?.message,
 				})
 			},
 		})
@@ -509,27 +543,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 
 		// Add user details subscription
-		this.subs.sink = this.service.getMe().pipe(
-			take(1),
-			catchError(error => {
-				console.error('Error loading user details:', error);
-				return of(null);
-			})
-		).subscribe(response => {
-			if (response?.userdetails?.[0]) {
-				const userDetails = response.userdetails[0];
-				this.userName = userDetails.name || '';
-				this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
+		const userDetails = this.service._user as User;
+		this.userName = userDetails.name || '';
+		this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
 
-				// Set home country icon if available
-				if (userDetails.home_country_id) {
-					this.homeCountryId = userDetails.home_country_id;
-					this.storage.set('homeCountryId', this.homeCountryId.toString());
-					this.loadCountryList(); // This will now use the home country ID
-				}
-			}
-		});
-
+		// Set home country icon if available
+		if (userDetails.home_country_id) {
+			this.homeCountryId = userDetails.home_country_id;
+			this.storage.set('homeCountryId', this.homeCountryId.toString());
+			this.loadCountryList(); // This will now use the home country ID
+		}
 		// Load country list if not already loading from user details
 		if (!this.homeCountryId) {
 			this.loadCountryList();
@@ -641,7 +664,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			},
 			error: (error) => console.error('Error in dashboard country subscription:', error)
 		});
-
+		
+	}
+	getAICreditCount() {
+		this.promptService.getAicredits().subscribe({
+			next: resp => {
+				this.aiCreditCount = resp;
+				this.service._creditCount = resp;
+			}
+		})
 	}
 
 	private initializeForms() {
@@ -793,31 +824,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.onChangeSubModuleList(data.subModuleId)
 		this.selectedGenMod = 2
 		this.openReportModalFromMoudle(this.op, event)
+
 		this.reportType = 3
 		this.reportlearnlanguagetype = data.reporttype === 8 ? 8 : 0
-		this.subs.sink = this.service.getMe().subscribe((data) => {
-			if (data) {
-				//this.storage.set('countryId', data.userdetails[0].interested_country_id);
-				this.userName = data.userdetails[0].name.toString()
-				this.firstChar = this.userName.charAt(0)
-				this.homeCountryId = Number(data.userdetails[0].home_country_id)
-				this.selectedHomeCountry = Number(data.userdetails[0].home_country_id)
-				this.getHomeCountryList()
-				const loginStatus = data.userdetails[0].login_status
-				if (typeof loginStatus === "string" && loginStatus.includes("Demo") == true) {
-					this.demoTrial = true
-					this.demoDays = data.userdetails[0].login_status.replace("Demo-", "")
-				}
-				/*if (data.userdetails[0].login_status == "Demo") {
-		  this.demoTrial = true;
-		} */
-				let programLevelId = data.userdetails[0].programlevel_id
-				if (programLevelId == null || programLevelId == "null" || programLevelId == "") {
-					this.currentEducation = true
-					this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`
-				}
+		if (this.service._user) {
+			this.userName = this.service._user.name.toString()
+			this.firstChar = this.userName.charAt(0)
+			this.homeCountryId = Number(this.service._user.home_country_id)
+			this.selectedHomeCountry = Number(this.service._user.home_country_id)
+			this.getHomeCountryList()
+			const loginStatus = this.service._user.login_status;
+			if (typeof loginStatus === "string" && loginStatus.includes("Demo") == true) {
+				this.demoTrial = true;
+				this.demoDays = loginStatus.replace("Demo-", "");
 			}
-		})
+			let programLevelId = this.service._user.programlevel_id;
+			if (programLevelId == null || programLevelId == "null" || programLevelId == "") {
+				this.currentEducation = true;
+				this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`;
+			}
+		}
 
 		if (data.report_mode && data.report_mode === "other_module") {
 			this.handleOtherModuleReport(data)
@@ -908,6 +934,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.isQuestionVisible = true
 		this.isVisibleModulesMenu = false
 		// this.dataService.openReportWindowSource.subscribe((data) => {
+		// 	console.log('data', data)
 		// 	if (data.from == 'module') {
 		// 		this.isQuestionVisible = false
 		// 	} else {
@@ -1408,22 +1435,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	checkNewUSerLogin(): void {
-		if (this.service._userLoginCount === undefined) {
-			this.service.getMe().subscribe(() => {
-				this.runAfterDataLoads();
-			});
-		} else {
-			this.runAfterDataLoads();
-		}
-
-	}
-
-	runAfterDataLoads(): void {
 		let userLoginCount = this.service._userLoginCount
 		if (userLoginCount === 4) {
 			//this.freeTrial = true;
 			this.whatsappVerification = true
 		}
+
 	}
 
 	passwordChangeOnClick() {
@@ -1622,53 +1639,47 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	private loadUserData() {
-		this.subs.sink = this.service.getMe().subscribe({
-			next: (data) => {
-				if (data?.userdetails?.[0]) {
-					const userDetails = data.userdetails[0];
+		if(this.service._user){
+			const userDetails = this.service._user;
 
-					// Set user name and first character
-					this.userName = userDetails.name?.toString() || '';
-					this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
+			// Set user name and first character
+			this.userName = userDetails.name?.toString() || '';
+			this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
 
-					// Store user details in localStorage for persistence
-					this.storage.set('user_details', JSON.stringify({
-						name: this.userName,
-						firstChar: this.firstChar,
-						homeCountryId: userDetails.home_country_id,
-						programLevelId: userDetails.programlevel_id
-					}));
+			// Store user details in localStorage for persistence
+			this.storage.set('user_details', JSON.stringify({
+				name: this.userName,
+				firstChar: this.firstChar,
+				homeCountryId: userDetails.home_country_id,
+				programLevelId: userDetails.programlevel_id
+			}));
 
-					// Handle program level
-					if (!userDetails.programlevel_id) {
-						this.currentEducation = true;
-						this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`;
-					}
-
-					// Handle demo trial status
-					const loginStatus = userDetails.login_status;
-					if (typeof loginStatus === 'string' && loginStatus.includes('Demo')) {
-						this.demoTrial = true;
-						this.demoDays = loginStatus.replace('Demo-', '');
-					}
-
-					// Update home country
-					this.homeCountryId = Number(userDetails.home_country_id);
-					this.selectedHomeCountry = Number(userDetails.home_country_id);
-					this.getHomeCountryList();
-				}
-			},
-			error: (error) => {
-				console.error('Error fetching user profile:', error);
-				// Try to load from localStorage if API fails
-				const storedUserDetails = this.storage.get('user_details');
-				if (storedUserDetails) {
-					const details = JSON.parse(storedUserDetails);
-					this.userName = details.name;
-					this.firstChar = details.firstChar;
-				}
+			// Handle program level
+			if (!userDetails.programlevel_id) {
+				this.currentEducation = true;
+				this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`;
 			}
-		});
+
+			// Handle demo trial status
+			const loginStatus = userDetails.login_status;
+			if (typeof loginStatus === 'string' && loginStatus.includes('Demo')) {
+				this.demoTrial = true;
+				this.demoDays = loginStatus.replace('Demo-', '');
+			}
+
+			// Update home country
+			this.homeCountryId = Number(userDetails.home_country_id);
+			this.selectedHomeCountry = Number(userDetails.home_country_id);
+			this.getHomeCountryList();
+		}
+		else {
+			const storedUserDetails = this.storage.get('user_details');
+			if (storedUserDetails) {
+				const details = JSON.parse(storedUserDetails);
+				this.userName = details.name;
+				this.firstChar = details.firstChar;
+			}
+		}
 	}
 
 	toggleProfileDropdown(event: Event) {
@@ -1688,6 +1699,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			};
 
 			document.addEventListener('click', closeDropdown);
+		}
+	}
+
+	onCheckHaveWhatsappOrPhone(event: any) {
+		const isChecked = (event.target as HTMLInputElement).checked;
+		if (isChecked) {
+			this.haveWhatsapp = 'Phone'
+		}else {
+			this.haveWhatsapp = 'Whatsapp'
 		}
 	}
 }

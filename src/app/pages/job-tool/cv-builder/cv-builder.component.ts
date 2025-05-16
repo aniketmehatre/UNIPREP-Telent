@@ -1,12 +1,11 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
+import { Component, OnInit, AfterViewInit, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { MessageService, ConfirmationService } from "primeng/api";
-import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl, FormControl } from "@angular/forms";
 import { TooltipModule } from 'primeng/tooltip';
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
 import Swiper from "swiper";
 import { AuthService } from "../../../Auth/auth.service";
-import { LocationService } from "../../../location.service";
 import { City } from "src/app/@Models/cost-of-living";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
@@ -27,6 +26,14 @@ import { TextareaModule } from 'primeng/textarea';
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
 import { ToastModule } from 'primeng/toast';
+import { EditorModule } from "primeng/editor";
+import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { EducationToolsService } from "../../education-tools/education-tools.service";
+import { SkeletonModule } from "primeng/skeleton";
+import { SharedModule } from "primeng/api";
+import { DropdownModule } from 'primeng/dropdown';
+import { ProgressBarModule } from 'primeng/progressbar';
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
@@ -35,12 +42,16 @@ interface ResumeHistory {
   created_time: string;
 }
 
+interface JobTitle {
+  id: number | null; // null for custom job titles
+  jobrole: string;
+}
 @Component({
   selector: "uni-cv-builder",
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule],
+  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, EditorModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule, SharedModule,SkeletonModule,DropdownModule, ProgressBarModule],
   providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
@@ -216,20 +227,32 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   filteredLocations: any = [];
   filteredExpeAndEduLocations: { [key: number]: any[] } = {};
   pdfThumbnails: { [key: string]: string } = {};
+  profileOverViewContent: SafeHtml = '';
+  isReviewContent: boolean = false;
 
-  constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CvBuilderService, private router: Router, private confirmService: ConfirmationService, private authService: AuthService, private locationService: LocationService) {
+  constructor(
+    private toaster: MessageService, 
+    private fb: FormBuilder, 
+    private resumeService: CvBuilderService, 
+    private router: Router, 
+    private confirmService: ConfirmationService, 
+    private authService: AuthService, 
+    private sanitizer: DomSanitizer,
+    private educationService: EducationToolsService,
+    private cdr: ChangeDetectorRef,
+  ) {
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ["", Validators.required],
-      user_name: ["", Validators.required],
-      user_job_title: ["", Validators.required],
+      user_name: ["", [Validators.required, maxWordsValidator(12)]],
+      user_job_title: ["", [Validators.required, maxWordsValidator(12)]],
       user_email: ["", [Validators.required, Validators.email]],
-      user_location: ["", Validators.required],
+      user_location: ["", [Validators.required, maxWordsValidator(12)]],
       country_code: ["+91"],
       user_phone: ["", [Validators.required, Validators.pattern("^\\+?[1-9]\\d{1,14}$")]],
-      user_linkedin: ["", Validators.required],
-      user_linkedin_link: [""],
-      user_website: [""],
-      user_summary: ["", Validators.required],
+      user_linkedin: ["", [Validators.required, maxWordsValidator(12)]],
+      user_linkedin_link: ["", [maxWordsValidator(12)]],
+      user_website: ["", maxWordsValidator(12)],
+      user_summary: ["", [Validators.required, maxWordsValidator(50)]],
       // selected_exp_level: ['', [Validators.required]],
       // user_name: ['vivek kaliyaperumal', [Validators.required]],
       // user_job_title: ['full stack developer', [Validators.required]],
@@ -393,89 +416,194 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     });
   }
 
-  searchJob(event: any) {
-    const query = event.target.value.toLowerCase();
-    if (query.length > 3) {
-      this.filteredJobs = this.getFilteredJobs(query);
-    } else if (query.length < 2) {
-      this.filteredJobs = [];
-    }
+  // searchJob(event: any) {
+  //   const query = event.target.value.toLowerCase();
+  //   if (query.length > 3) {
+  //     this.filteredJobs = this.getFilteredJobs(query);
+  //     if (this.filteredJobs.length === 0) {
+  //       const newJobTitle: any = {
+  //         id: 0, // Use 0 or -1 to indicate it's a custom/new item
+  //         jobrole: query
+  //       };
+  //       this.filteredJobs.unshift(newJobTitle);
+  //       if (this.occupationList[0].id === 0) {
+  //         this.occupationList.shift();
+  //       }
+  //       this.occupationList.unshift(newJobTitle);
+  //     }
+  //   } else if (query.length < 2) {
+  //     this.filteredJobs = [];
+  //   }
+  // }
+
+  // searchDesignation(event: any, index: number) {
+  //   const query = event.target.value.toLowerCase();
+  //   if (query.length > 3) {
+  //     this.filteredDesignations[index] = this.getFilteredJobs(query);
+  //     if(this.filteredDesignations[index].length === 0){
+  //        const newJobTitle: any = {
+  //         id: 0, // Use 0 or -1 to indicate it's a custom/new item
+  //         jobrole: query
+  //       };
+  //       this.filteredDesignations[index].unshift(newJobTitle);
+  //       if (this.occupationList[0].id === 0) {
+  //         this.occupationList.shift();
+  //       }
+  //       this.occupationList.unshift(newJobTitle);
+  //     }
+  //   } else if (query.length < 2) {
+  //     this.filteredDesignations[index] = [];
+  //   }
+  // }
+
+  // selectJob(job: any, fieldName: string, index?: any) {
+  //   if (fieldName == "jobTitle") {
+  //     this.resumeFormInfoData.patchValue({
+  //       user_job_title: job.jobrole,
+  //     });
+  //     this.filteredJobs = [];
+  //   } else if (fieldName == "experience") {
+  //     const formArray = this.getWorkExpArray as FormArray;
+  //     formArray.at(index).patchValue({
+  //       work_designation: job.jobrole,
+  //     });
+  //     this.filteredDesignations[index] = [];
+  //   }
+  // }
+
+  // getFilteredJobs(query: string) {
+  //   const mockJobs = this.occupationList;
+
+  //   return mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query.toLowerCase()));
+  // }
+  
+  focusInput(input: HTMLInputElement) {
+    setTimeout(() => {
+      input.focus()
+    }, 0)
   }
 
-  searchDesignation(event: any, index: number) {
-    const query = event.target.value.toLowerCase();
-    if (query.length > 3) {
-      this.filteredDesignations[index] = this.getFilteredJobs(query);
-    } else if (query.length < 2) {
-      this.filteredDesignations[index] = [];
-    }
-  }
-
-  selectJob(job: any, fieldName: string, index?: any) {
-    if (fieldName == "jobTitle") {
-      this.resumeFormInfoData.patchValue({
-        user_job_title: job.jobrole,
+  addCustomJobTitle(input: HTMLInputElement) {
+    const customValue = input.value.trim();
+    const exists = this.occupationList.some(
+      (job:any) => job.jobrole.toLowerCase() === customValue.toLowerCase()
+    );
+    if (exists) {
+      this.toaster.add({
+        severity: 'warn',
+        summary: 'Duplicate',
+        detail: `Job title "${customValue}" already exists`
       });
-      this.filteredJobs = [];
-    } else if (fieldName == "experience") {
-      const formArray = this.getWorkExpArray as FormArray;
-      formArray.at(index).patchValue({
-        work_designation: job.jobrole,
-      });
-      this.filteredDesignations[index] = [];
+      input.value = '';
+      return;
     }
+
+    const newJobTitle: JobTitle = {
+      id: null,
+      jobrole: customValue
+    };
+
+    this.occupationList = [...this.occupationList, newJobTitle];
+    this.resumeFormInfoData.get('user_job_title')?.setValue(customValue);
+    input.value = '';
+    this.cdr.detectChanges();
+
+    this.toaster.add({
+      severity: 'success',
+      summary: 'Added',
+      detail: `Job title "${customValue}" added`
+    });
   }
 
-  getFilteredJobs(query: string) {
-    const mockJobs = this.occupationList;
+  addCustomJobTitleForExp(input: HTMLInputElement, index: number) {
+    const customValue = input.value.trim();
+    if (!customValue) return;
 
-    return mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query.toLowerCase()));
-  }
+    const exists = this.occupationList.some(
+      (job: any) => job.jobrole.toLowerCase() === customValue.toLowerCase()
+    );
 
-  getFilteredLocations(query: string) {
-    const mockLocations = this.cities;
-
-    return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
-  }
-
-  searchLocation(event: any) {
-    const query = event.target.value.toLowerCase();
-    if (query.length > 3) {
-      this.filteredLocations = this.getFilteredLocations(query);
-    } else if (query.length < 2) {
-      this.filteredLocations = [];
-    }
-  }
-
-  searchExpandEduLocation(event: any, index: number) {
-    const query = event.target.value.toLowerCase();
-    if (query.length > 3) {
-      this.filteredExpeAndEduLocations[index] = this.getFilteredLocations(query);
-    } else if (query.length < 2) {
-      this.filteredExpeAndEduLocations[index] = [];
-    }
-  }
-
-  selectLocation(city: any, fieldName: string, index?: any) {
-    if (fieldName == "userLocation") {
-      this.resumeFormInfoData.patchValue({
-        user_location: city.country_name,
+    if (exists) {
+      this.toaster.add({
+        severity: 'warn',
+        summary: 'Duplicate',
+        detail: `Job title "${customValue}" already exists`
       });
-      this.filteredLocations = [];
-    } else if (fieldName == "userExpLocation") {
-      const formArray = this.getWorkExpArray as FormArray;
-      formArray.at(index).patchValue({
-        work_location: city.country_name,
-      });
-      this.filteredExpeAndEduLocations[index] = [];
-    } else if (fieldName == "userEduLocation") {
-      const formArray = this.getEduDetailsArray as FormArray;
-      formArray.at(index).patchValue({
-        edu_location: city.country_name,
-      });
-      this.filteredExpeAndEduLocations[index] = [];
+      input.value = '';
+      return;
     }
+
+    const newJobTitle: JobTitle = {
+      id: null,
+      jobrole: customValue
+    };
+
+    // Add to dropdown list
+    this.occupationList = [...this.occupationList, newJobTitle];
+
+    // ✅ Set value for this specific row of FormArray
+    const workExpFormArray = this.resumeFormInfoData.get('workExpArray') as FormArray;
+    const workExpGroup = workExpFormArray.at(index);
+    workExpGroup.get('work_designation')?.setValue(customValue);
+
+    input.value = '';
+    this.cdr.detectChanges();
+
+    this.toaster.add({
+      severity: 'success',
+      summary: 'Added',
+      detail: `Job title "${customValue}" added`
+    });
   }
+
+  // getFilteredLocations(query: string) {
+  //   const mockLocations = this.cities;
+
+  //   return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
+  // }
+
+  // onFocus() {
+  //   this.filteredLocations = [...this.cities]; // Show all locations
+  // }
+
+  // searchLocation(event: any) {
+  //   const query = event.target.value.toLowerCase();
+  //   if (query.length > 3) {
+  //     this.filteredLocations = this.getFilteredLocations(query);
+  //   } else if (query.length < 2) {
+  //     this.filteredLocations = [...this.cities];
+  //   }
+  // }
+
+  // searchExpandEduLocation(event: any, index: number) {
+  //   const query = event.target.value.toLowerCase();
+  //   if (query.length > 3) {
+  //     this.filteredExpeAndEduLocations[index] = this.getFilteredLocations(query);
+  //   } else if (query.length < 2) {
+  //     this.filteredExpeAndEduLocations[index] = [];
+  //   }
+  // }
+
+  // selectLocation(city: any, fieldName: string, index?: any) {
+  //   if (fieldName == "userLocation") {
+  //     this.resumeFormInfoData.patchValue({
+  //       user_location: city.country_name,
+  //     });
+  //     this.filteredLocations = [];
+  //   } else if (fieldName == "userExpLocation") {
+  //     const formArray = this.getWorkExpArray as FormArray;
+  //     formArray.at(index).patchValue({
+  //       work_location: city.country_name,
+  //     });
+  //     this.filteredExpeAndEduLocations[index] = [];
+  //   } else if (fieldName == "userEduLocation") {
+  //     const formArray = this.getEduDetailsArray as FormArray;
+  //     formArray.at(index).patchValue({
+  //       edu_location: city.country_name,
+  //     });
+  //     this.filteredExpeAndEduLocations[index] = [];
+  //   }
+  // }
 
   getUserPrefilledData() {
     this.resumeService.getCVPrefilledData().subscribe((res) => {
@@ -502,7 +630,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
                 work_designation: [activity.work_designation, Validators.required],
                 work_type: [activity.work_type, Validators.required],
                 work_location: [activity.work_location, Validators.required],
-                work_job_description: [activity.work_job_description, Validators.required],
+                work_job_description: [activity.work_job_description, [Validators.required, maxWordsValidator(120)]],
               })
             );
           });
@@ -740,75 +868,65 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     formGroup.get("project_description")?.updateValueAndValidity();
   }
 
-  resumeFormSubmit() {
-    const visibleFormControls = this.getVisibleFormControls();
-    this.submitted = true;
-    if (!visibleFormControls.every((control) => control.valid)) {
-      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
-      visibleFormControls.forEach((control) => control.markAsTouched());
-    } else {
-      this.fieldNextButton();
-    }
-  }
 
-  fieldNextButton() {
-    this.storeUserFilledData();
-    this.moduleActiveIndex++;
-    if (this.moduleActiveIndex > 4) {
-      this.moduleActiveIndex--;
-      this.activePageIndex++;
-      this.filledFields.push("skills", "language_known");
-      return;
-    }
-    const fieldNameArray: string[] = [];
+  // fieldNextButton() {
+    // this.storeUserFilledData();
+    // this.moduleActiveIndex++;
+    // if (this.moduleActiveIndex > 0) {
+    //   this.moduleActiveIndex--;
+    //   this.activePageIndex++;
+    //   // this.filledFields.push("skills", "language_known");
+    //   return;
+    // }
+    // const fieldNameArray: string[] = [];
 
-    switch (this.moduleActiveIndex) {
-      case 1:
-        if (this.getWorkExpArray.length === 0 && !this.hidingHeaders.includes("work_experience")) {
-          fieldNameArray.push("work_experience");
-        }
-        break;
+    // switch (this.moduleActiveIndex) {
+    //   case 1:
+    //     if (this.getWorkExpArray.length === 0 && !this.hidingHeaders.includes("work_experience")) {
+    //       fieldNameArray.push("work_experience");
+    //     }
+    //     break;
 
-      case 2:
-        this.filledFields.push("work_experience");
-        if (this.getEduDetailsArray.length === 0 && !this.hidingHeaders.includes("education_detail")) {
-          fieldNameArray.push("education_detail");
-        }
-        if (this.resumeFormInfoData.value.selected_exp_level == 1 && this.getProjectDetailsArray.length === 0 && !this.hidingHeaders.includes("project_details")) {
-          fieldNameArray.push("project_details");
-        }
-        break;
+    //   case 2:
+    //     this.filledFields.push("work_experience");
+    //     if (this.getEduDetailsArray.length === 0 && !this.hidingHeaders.includes("education_detail")) {
+    //       fieldNameArray.push("education_detail");
+    //     }
+    //     if (this.resumeFormInfoData.value.selected_exp_level == 1 && this.getProjectDetailsArray.length === 0 && !this.hidingHeaders.includes("project_details")) {
+    //       fieldNameArray.push("project_details");
+    //     }
+    //     break;
 
-      case 3:
-        this.filledFields.push("education_detail", "project_details");
-        if (this.getCertificatesArray.length === 0 && !this.hidingHeaders.includes("certificate")) {
-          fieldNameArray.push("certificate");
-        }
-        if (this.getExtraCurricularArray.length === 0 && !this.hidingHeaders.includes("extra_curricular")) {
-          fieldNameArray.push("extra_curricular");
-        }
-        break;
+    //   case 3:
+    //     this.filledFields.push("education_detail", "project_details");
+    //     if (this.getCertificatesArray.length === 0 && !this.hidingHeaders.includes("certificate")) {
+    //       fieldNameArray.push("certificate");
+    //     }
+    //     if (this.getExtraCurricularArray.length === 0 && !this.hidingHeaders.includes("extra_curricular")) {
+    //       fieldNameArray.push("extra_curricular");
+    //     }
+    //     break;
 
-      case 4:
-        this.filledFields.push("certificate", "extra_curricular");
-        if (this.getSkillsArray.length === 0 && !this.hidingHeaders.includes("skills")) {
-          fieldNameArray.push("skills");
-        }
-        if (this.getLanguagesKnownArray.length === 0 && !this.hidingHeaders.includes("language_known")) {
-          fieldNameArray.push("language_known");
-        }
-        this.clickedDownloadButton = false;
-        break;
+    //   case 4:
+    //     this.filledFields.push("certificate", "extra_curricular");
+    //     if (this.getSkillsArray.length === 0 && !this.hidingHeaders.includes("skills")) {
+    //       fieldNameArray.push("skills");
+    //     }
+    //     if (this.getLanguagesKnownArray.length === 0 && !this.hidingHeaders.includes("language_known")) {
+    //       fieldNameArray.push("language_known");
+    //     }
+    //     this.clickedDownloadButton = false;
+    //     break;
 
-      default:
-        break;
-    }
-    if (fieldNameArray.length > 0) {
-      fieldNameArray.forEach((element: string) => {
-        this.clickAddMoreButton(element);
-      });
-    }
-  }
+    //   default:
+    //     break;
+    // }
+    // if (fieldNameArray.length > 0) {
+    //   fieldNameArray.forEach((element: string) => {
+    //     this.clickAddMoreButton(element);
+    //   });
+    // }
+  // }
 
   storeUserFilledData() {
     let formData = this.resumeFormInfoData.value;
@@ -831,47 +949,135 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.moduleActiveIndex--;
     }
   }
+  resumeFormSubmit() {
+    const visibleFormControls = this.getVisibleFormControls();
+    const visibleFormControls1 = this.getVisibleFormControls1();
+    const visibleFormControls2 = this.getVisibleFormControls2();
+    const visibleFormControls3 = this.getVisibleFormControls3();
+    const visibleFormControls4 = this.getVisibleFormControls4();
 
+    this.submitted = true;
+    if (!visibleFormControls.every((control) => control.valid)) {
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+      visibleFormControls.forEach((control) => control.markAsTouched());
+    } else if (!visibleFormControls1.every((control) => control.valid)) {
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+      visibleFormControls.forEach((control) => control.markAsTouched());
+    } else if (!visibleFormControls2.every((control) => control.valid)) {
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+      visibleFormControls.forEach((control) => control.markAsTouched());
+    } else if (!visibleFormControls3.every((control) => control.valid)) {
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+      visibleFormControls.forEach((control) => control.markAsTouched());
+    } else if (!visibleFormControls4.every((control) => control.valid)) {
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+      visibleFormControls.forEach((control) => control.markAsTouched());
+    }
+    else {
+      this.onProfileReview();
+      this.storeUserFilledData();
+    }
+  }
+  getVisibleFormControls1() {
+    const controls: AbstractControl[] = [];
+    let controlNames: string[] = [];
+    let formControlFields: FormArray[] = [];
+
+    if (this.moduleActiveIndex === 0) {
+      controlNames = ["edu_college_name", "edu_start_year", "edu_end_year", "edu_degree", "edu_location", "edu_percentage", "project_name", "project_start_name", "project_end_name", "project_description"];
+      formControlFields.push(this.resumeFormInfoData.get("EduDetailsArray") as FormArray);
+      formControlFields.push(this.resumeFormInfoData.get("projectDetailsArray") as FormArray);
+    }
+
+    formControlFields.forEach((formArray) => {
+      formArray.controls.forEach((eduGroup: AbstractControl) => {
+        controlNames.forEach((controlName) => {
+          const control = eduGroup.get(controlName);
+          if (control) {
+            controls.push(control);
+          }
+        });
+      });
+    });
+    return controls;
+  }
+  getVisibleFormControls2() {
+    const controls: AbstractControl[] = [];
+    let controlNames: string[] = [];
+    let formControlFields: FormArray[] = [];
+
+    if (this.moduleActiveIndex === 0) {
+      controlNames = ["work_org_name", "work_currently_working", "work_start_year", "work_start_month", "work_end_year", "work_end_month", "work_designation", "work_type", "work_location", "work_job_description"];
+      formControlFields.push(this.resumeFormInfoData.get("workExpArray") as FormArray);
+      console.log(formControlFields, "formControlFields");
+    }
+
+    formControlFields.forEach((formArray) => {
+      formArray.controls.forEach((eduGroup: AbstractControl) => {
+        controlNames.forEach((controlName) => {
+          const control = eduGroup.get(controlName);
+          if (control) {
+            controls.push(control);
+          }
+        });
+      });
+    });
+    return controls;
+  }
+  getVisibleFormControls3() {
+    const controls: AbstractControl[] = [];
+    let controlNames: string[] = [];
+    let formControlFields: FormArray[] = [];
+
+    if (this.moduleActiveIndex === 0) {
+      controlNames = ["certificate_name", "certificate_issued", "extra_curricular_activites"];
+      formControlFields.push(this.resumeFormInfoData.get("certificatesArray") as FormArray);
+      formControlFields.push(this.resumeFormInfoData.get("extraCurricularArray") as FormArray);
+    }
+    formControlFields.forEach((formArray) => {
+      formArray.controls.forEach((eduGroup: AbstractControl) => {
+        controlNames.forEach((controlName) => {
+          const control = eduGroup.get(controlName);
+          if (control) {
+            controls.push(control);
+          }
+        });
+      });
+    });
+    return controls;
+  }
+  getVisibleFormControls4() {
+    const controls: AbstractControl[] = [];
+    let controlNames: string[] = [];
+    let formControlFields: FormArray[] = [];
+    if (this.moduleActiveIndex === 4) {
+      controlNames = ["language", "lang_proficiency", "skills", "skills_proficiency"];
+      formControlFields.push(this.resumeFormInfoData.get("languagesKnownArray") as FormArray);
+      formControlFields.push(this.resumeFormInfoData.get("skillsArray") as FormArray);
+    }
+
+    formControlFields.forEach((formArray) => {
+      formArray.controls.forEach((eduGroup: AbstractControl) => {
+        controlNames.forEach((controlName) => {
+          const control = eduGroup.get(controlName);
+          if (control) {
+            controls.push(control);
+          }
+        });
+      });
+    });
+    return controls;
+  }
   getVisibleFormControls(): AbstractControl[] {
     const controls: AbstractControl[] = [];
     if (this.moduleActiveIndex === 0) {
+      // const controlNames = ["selected_exp_level", "user_name", "user_email", "user_job_title", "user_location", "user_phone", "user_summary"];
       const controlNames = ["selected_exp_level", "user_name", "user_email", "user_job_title", "user_location", "user_phone", "user_summary"];
       controlNames.forEach((controlName) => {
         const control = this.resumeFormInfoData.get(controlName);
         if (control) {
           controls.push(control);
         }
-      });
-    } else if (this.moduleActiveIndex === 1 || this.moduleActiveIndex === 2 || this.moduleActiveIndex === 3 || this.moduleActiveIndex === 4) {
-      let controlNames: string[] = [];
-      let formControlFields: FormArray[] = [];
-
-      if (this.moduleActiveIndex === 1) {
-        controlNames = ["work_org_name", "work_currently_working", "work_start_year", "work_start_month", "work_end_year", "work_end_month", "work_designation", "work_type", "work_location", "work_job_description"];
-        formControlFields.push(this.resumeFormInfoData.get("workExpArray") as FormArray);
-      } else if (this.moduleActiveIndex === 2) {
-        controlNames = ["edu_college_name", "edu_start_year", "edu_end_year", "edu_degree", "edu_location", "edu_percentage", "project_name", "project_start_name", "project_end_name", "project_description"];
-        formControlFields.push(this.resumeFormInfoData.get("EduDetailsArray") as FormArray);
-        formControlFields.push(this.resumeFormInfoData.get("projectDetailsArray") as FormArray);
-      } else if (this.moduleActiveIndex === 3) {
-        controlNames = ["certificate_name", "certificate_issued", "extra_curricular_activites"];
-        formControlFields.push(this.resumeFormInfoData.get("certificatesArray") as FormArray);
-        formControlFields.push(this.resumeFormInfoData.get("extraCurricularArray") as FormArray);
-      } else if (this.moduleActiveIndex === 4) {
-        controlNames = ["language", "lang_proficiency", "skills", "skills_proficiency"];
-        formControlFields.push(this.resumeFormInfoData.get("languagesKnownArray") as FormArray);
-        formControlFields.push(this.resumeFormInfoData.get("skillsArray") as FormArray);
-      }
-
-      formControlFields.forEach((formArray) => {
-        formArray.controls.forEach((eduGroup: AbstractControl) => {
-          controlNames.forEach((controlName) => {
-            const control = eduGroup.get(controlName);
-            if (control) {
-              controls.push(control);
-            }
-          });
-        });
       });
     }
     return controls;
@@ -930,10 +1136,10 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     }
     if (this.activePageIndex == 0) {
       this.ngAfterViewInit();
+      this.isReviewContent = false;
+      this.profileOverViewContent = "";
     }
     this.activePageIndex++;
-    console.log(this.activePageIndex);
-
     if (this.activePageIndex == 4) {
       if (this.clickedDownloadButton) {
         //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
@@ -995,12 +1201,12 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     if (fieldName == "education_detail") {
       this.getEduDetailsArray.push(
         this.fb.group({
-          edu_college_name: ["", Validators.required],
+          edu_college_name: ["", [Validators.required, maxWordsValidator(12)]],
           edu_still_pursuing: [""],
           edu_start_year: ["", Validators.required],
           edu_end_year: ["", Validators.required],
-          edu_degree: ["", Validators.required],
-          edu_location: ["", Validators.required],
+          edu_degree: ["", [Validators.required, maxWordsValidator(12)]],
+          edu_location: ["", [Validators.required, maxWordsValidator(12)]],
           edu_percentage: ["", Validators.required],
           edu_cgpa_percentage: ["CGPA", Validators.required],
         })
@@ -1020,16 +1226,16 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     } else if (fieldName == "work_experience") {
       this.getWorkExpArray.push(
         this.fb.group({
-          work_org_name: ["", Validators.required],
+          work_org_name: ["", [Validators.required, maxWordsValidator(12)]],
           work_currently_working: [""],
           work_start_year: ["", Validators.required],
           work_start_month: ["", Validators.required],
           work_end_year: ["", Validators.required],
           work_end_month: ["", Validators.required],
-          work_designation: ["", Validators.required],
+          work_designation: ["", [Validators.required, maxWordsValidator(12)]],
           work_type: ["", Validators.required],
-          work_location: ["", Validators.required],
-          work_job_description: ["", Validators.required],
+          work_location: ["", [Validators.required, maxWordsValidator(12)]],
+          work_job_description: ["", [Validators.required, maxWordsValidator(120)]],
         })
       );
       // this.getWorkExpArray.push(this.fb.group({
@@ -1082,7 +1288,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     } else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.push(
         this.fb.group({
-          extra_curricular_activites: ["", Validators.required],
+          extra_curricular_activites: ["", [Validators.required, maxWordsValidator(12)]],
         })
       );
       this.removeHideHeaderElement("extra_curricular");
@@ -1095,10 +1301,10 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       // }));
       this.getCertificatesArray.push(
         this.fb.group({
-          certificate_name: ["", Validators.required],
-          certificate_issued: ["", Validators.required],
-          certificate_id: [""],
-          certicate_link: [""],
+          certificate_name: ["", [Validators.required, maxWordsValidator(12)]],
+          certificate_issued: ["", [Validators.required, maxWordsValidator(12)]],
+          certificate_id: ["",maxWordsValidator(12)],
+          certicate_link: ["",maxWordsValidator(12)],
         })
       );
       this.removeHideHeaderElement("certificate");
@@ -1225,6 +1431,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   chatGPTIntegration(fieldName: string, iteration: number) {
     // const apiKey = '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';
+    if (this.authService._creditCount === 0) {
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
+      this.router.navigateByUrl('/pages/export-credit')
+      return;
+    }
     let formData = this.resumeFormInfoData.value;
     // let prompt: string = "";
     let parameters: any = {
@@ -1233,27 +1444,27 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     };
     if (fieldName == "user_summary") {
       if (!formData.selected_exp_level) {
-        this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select Experience Level and job title." });
+        this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select Experience Level." });
+        return;
+      }
+      if(!formData.user_job_title){
+        this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select job title." });
         return;
       }
       parameters.user_job_title = formData.user_job_title;
-      // parameters.mode =  "user_summary";
 
       if (formData.selected_exp_level == 1) {
         parameters.exp_type = "fresher";
-        // prompt = `Provide a professional summary for a ${formData.user_job_title} role, up to 30 words, suitable for a resume for freshers.`;
       } else {
         parameters.exp_type = "experience";
         const selectedExp = this.experienceLevel[formData.selected_exp_level - 1];
         parameters.experience_level = selectedExp.level;
-        // prompt = `Provide a professional summary for a resume, up to 30 words, tailored to a ${formData.user_job_title} role with ${selectedExp.level} of experience.`;
       }
-      // this.isButtonDisabled = true;
     } else if (fieldName == "work_job_description") {
-      // parameters.mode =  "work_job_description";
-      // this.genreateButtonDisabled[iteration] = true;
       const work_designation = this.getWorkExpArray.value[iteration].work_designation;
+      const work_organizationname = this.getWorkExpArray.value[iteration].work_org_name;
       parameters.work_designation = work_designation;
+      parameters.Company_Name = work_organizationname;
     } else if (fieldName == "rephrase_summary") {
       if (!formData.user_summary) {
         this.toaster.add({ severity: "error", summary: "Error", detail: "Please provide user summary..!" });
@@ -1271,6 +1482,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     }
     this.resumeService.openAiIntegration(parameters).subscribe((res) => {
       if (res.response && res.response.length > 0) {
+        this.authService.aiCreditCount$.next(true);
         if (fieldName == "user_summary" || fieldName == "rephrase_summary") {
           this.resumeFormInfoData.patchValue({
             user_summary: res.response,
@@ -1288,45 +1500,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         }
       }
     });
-    // return;
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //   'Authorization': `Bearer ${apiKey}`
-    // });
-
-    // const body = {
-    //   model: "gpt-3.5-turbo",
-    //   messages: [
-    //     { role: "system", content: "You are a helpful assistant." },
-    //     { role: "user", content: prompt }
-    //   ],
-    //   max_tokens: 300
-    // };
-
-    // this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers: headers }).subscribe(response => {
-    //   if (response.choices && response.choices.length > 0) {
-    //     const GPTResponse = response.choices[0].message.content.trim();
-    //     if (fieldName == 'user_summary') {
-    //       this.resumeFormInfoData.patchValue({
-    //         user_summary: GPTResponse
-    //       });
-    //     } else if (fieldName == 'work_job_description') {
-    //       const workExpArray = this.getWorkExpArray;
-    //       if (workExpArray.length > 0) {
-    //         const firstWorkExpGroup = workExpArray.at(iteration) as FormGroup;
-    //         firstWorkExpGroup.patchValue({
-    //           work_job_description: GPTResponse
-    //         });
-    //       } else {
-    //         console.error('No work experience entries found.');
-    //       }
-    //     }
-    //   } else {
-    //     console.error('Unexpected response structure:', response);
-    //   }
-    // }, error => {
-    //   console.error('Error:', error);
-    // });
   }
 
   downloadOldResume(resumeLink: string) {
@@ -1505,5 +1678,23 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       console.error('Error loading PDF:', error);
       this.pdfLoadError = true;
     });
+  }
+
+  onProfileReview() {
+    this.isReviewContent = true;
+    this.profileOverViewContent = "";
+    let formData = this.resumeFormInfoData.value;
+    let data: any = {
+      mode: "cv_builder_profile_review",
+      ...formData
+    }
+    // Api call for profile review
+    this.educationService.getChatgptRecommendations(data).subscribe({
+      next: response =>{
+        let currentResponse: SafeHtml = this.sanitizer.bypassSecurityTrustHtml(response.response);
+        this.profileOverViewContent =  currentResponse;
+        this.authService.aiCreditCount$.next(true);
+      }
+    })
   }
 }

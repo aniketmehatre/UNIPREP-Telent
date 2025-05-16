@@ -31,24 +31,31 @@ const routes: Routes = [
         path: 'politician-insights', component: PoliticianInsightsComponent
       },
       {
-        path: 'politician-insights/:id', component: PoliticianInsightsComponent
+        path: 'politician-insights/:countryId', component: PoliticianInsightsComponent
       },
       {
-        path: 'politician-insights/:id/:question_id', component: PoliticianInsightsComponent
+        path: 'politician-insights/:countryId/:politicianId', component: PoliticianInsightsComponent
+      },
+      {
+        path: 'politician-insights/:countryId/:politicianId/:questionId', component: PoliticianInsightsComponent
       },
       {
         path: 'startup-failure-stories/:id/:question_id', component: PoliticianInsightsComponent
       },
       {
-        path: 'country-insights',
-        component: CountryInsightsComponent,
+        path: 'country-insights',component: CountryInsightsComponent,
       },
       {
-        path: 'country-insights/:id',
-        component: CountryInsightsSubmoduleComponent
+        path: 'country-insights/:id/:countryId',component: CountryInsightsSubmoduleComponent
+      },
+      {
+        path: 'country-insights/:id/:countryId/:questionId',component: CountryInsightsSubmoduleComponent
       },
       {
         path: 'study-visa', component: GlobalTravelVisaComponent
+      },
+      {
+        path: 'study-visa/:countryId/:questionId', component: GlobalTravelVisaComponent
       },
       {
         path:'student-budget-planner', component: StudentBudgetPlannerComponent
@@ -58,6 +65,9 @@ const routes: Routes = [
       },
       {
         path: 'wealthleaderreadanswer/:id', component: WealthleaderreadansComponent
+      },
+       {
+        path: 'wealthleaderreadanswer/:id/:questionId', component: WealthleaderreadansComponent
       },
       {
         path: 'uni-compare', component: UniCompareComponent

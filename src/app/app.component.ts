@@ -7,6 +7,8 @@ import { ToastModule } from "primeng/toast"
 import { Router, RouterModule } from "@angular/router"
 import { MessageService } from "primeng/api"
 import { SeoManagerComponent } from "./components/seo-manager/seo-manager.component"
+import { SocialShareService } from "./shared/social-share.service"
+
 
 @Component({
 	selector: "app-root",
@@ -19,6 +21,7 @@ import { SeoManagerComponent } from "./components/seo-manager/seo-manager.compon
 	imports: [NgxUiLoaderModule, ToastModule, RouterModule, SeoManagerComponent],
 	providers: [
 		MessageService,
+		SocialShareService
 	],
 })
 export class AppComponent implements OnInit {

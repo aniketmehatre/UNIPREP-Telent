@@ -54,7 +54,7 @@ export class GlobalEdufitComponent implements OnInit {
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml;
   isResponseSkeleton: boolean = false;
-  aiCreditCount: number = 0;
+  
   userInputs: any;
 
   constructor(
@@ -77,7 +77,6 @@ export class GlobalEdufitComponent implements OnInit {
       duration: ['', Validators.required],
       currency_code: ['', Validators.required],
       fees: ['', Validators.required],
-      cost_estimation: ['', Validators.required],
       period: ['', Validators.required],
     });
     this.form.controls['university'].valueChanges.subscribe(value => {
@@ -115,15 +114,9 @@ export class GlobalEdufitComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrenyandLocation();
-    this.getAICreditCount();
+    
   }
-  getAICreditCount() {
-    this.promptService.getAicredits().subscribe({
-      next: resp => {
-        this.aiCreditCount = resp;
-      }
-    })
-  }
+
   goBack() {
     this.router.navigateByUrl('/pages/education-tools');
   }
@@ -156,9 +149,15 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   getRecommendation() {
+    if(this.authService._creditCount === 0){
+      this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+      this.router.navigateByUrl('/pages/export-credit')
+      return;
+    }
+    this.recommendationData = "";
     this.submitted = false;
     const formData = this.form.value;
-    if (!formData.fees || !formData.period || !formData.cost_estimation || !formData.currency_code) {
+    if (!formData.fees || !formData.period || !formData.currency_code) {
       this.submitted = true;
       return;
     }
@@ -167,14 +166,11 @@ export class GlobalEdufitComponent implements OnInit {
     const isValidEightAmount = (value: any) => {
       return typeof value === "number" && Number.isInteger(value) && value >= 0 && value <= 99999999;
     };
-    if (!isValidEightAmount(formData.fees) || !isValidEightAmount(formData.cost_estimation)) {
+    if (!isValidEightAmount(formData.fees)) {
       this.submitted = true;
       return;
     }
-    if (this.aiCreditCount == 0) {
-      this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-      return;
-    }
+
     let data: any = {
       ...this.form.value,
       university: formData.university.university_name,
@@ -190,7 +186,7 @@ export class GlobalEdufitComponent implements OnInit {
       next: response => {
         this.isResponseSkeleton = false;
         this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
-        this.getAICreditCount();
+        this.authService.aiCreditCount$.next(true);
       },
       error: error => {
         this.isResponseSkeleton = false;
@@ -226,7 +222,7 @@ export class GlobalEdufitComponent implements OnInit {
     //   }
     // }
     if (this.activePageIndex == 1) {
-      if (!formData.fees || !formData.period || !formData.cost_estimation) {
+      if (!formData.fees || !formData.period) {
         this.submitted = true;
         return;
       }
@@ -285,7 +281,7 @@ export class GlobalEdufitComponent implements OnInit {
 
   downloadRecommadation() {
     let addingInput: string = '';
-    const formValue = ['interested_country', 'university', 'specialization', 'fees', 'cost_estimation', 'period'];
+    const formValue = ['interested_country', 'university', 'specialization', 'fees', 'period'];
     // const formData = this.form.value;
     let formValueIndex = 0;
     this.recommendations.forEach((category: any) => {
@@ -295,7 +291,7 @@ export class GlobalEdufitComponent implements OnInit {
         let currentAnswer = "";
         const currentFormField = formValue[formValueIndex];
         if (this.userInputs[currentFormField]) {
-          if (currentFormField == 'fees' || currentFormField == 'cost_estimation') {
+          if (currentFormField == 'fees') {
             currentAnswer = this.userInputs['currency_code'] + ' ' + this.userInputs[currentFormField];
           }
           else if (currentFormField == 'interested_country') {

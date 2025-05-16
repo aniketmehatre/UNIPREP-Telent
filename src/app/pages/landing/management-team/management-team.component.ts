@@ -22,7 +22,7 @@ export class ManagementTeamComponent {
   description = 'UNIPREP guides jobseekers through every stage of their professional journey — from identifying strengths and mastering skills, to securing global opportunities and growing with purpose. Whether you\'re just starting out or scaling up, we\'re with you every step of the way.';
   
   page: number = 1;
-  perpage: number = 10;
+  perpage: number = 15;
 
   teamMembers: TeamMember[] = [];
 

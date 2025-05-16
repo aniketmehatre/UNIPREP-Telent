@@ -3,7 +3,7 @@ export interface Company {
     company_name: string
     company_logo: string
     company_type: CompanyType[]
-    industry_type: string
+  industry_type: Array<string>
     hq: number
     global_presence: string
     founded_year: string
@@ -32,7 +32,8 @@ export interface Company {
     timeframe: string
     format: string
     shortlisted: number
-    followed: number
+  followed: number;
+  notification_count?: number;
   }
   
   export interface CompanyType {

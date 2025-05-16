@@ -55,11 +55,8 @@ export class CountryInsightsComponent implements OnInit {
       this.authService.hasUserSubscription$.next(true);
       return;
     }
-    // this.storage.set('country_name', countryname);
-    // this.storage.set('country_insights_country', countryId);
     this.storage.set('country_insights_country_name', countryname);
-    this.storage.set('country_insights_country', countryId);
-    this.router.navigate(['/pages/education-tools/country-insights', id]);
+    this.router.navigate(['/pages/education-tools/country-insights', id, countryId]);
   }
 
   paginate(event: any) {

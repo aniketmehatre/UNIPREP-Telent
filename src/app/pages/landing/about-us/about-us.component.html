@@ -1,0 +1,146 @@
+<div class="container-fluid bg-black text-light py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex gap-2 align-items-center mb-2">
+                    <button class="back-button" routerLink="/">
+                        <i class="text-white fa-solid fa-arrow-left"></i>
+                    </button>
+                    <span class="text-white pagetitle px-3">About Uniprep</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6">
+                <h1 class="display-4">
+                    <span class="text-orange">From Vision to</span><br>
+                    <span class="fw-bold">Self-Empowerment</span>
+                </h1>
+                <p class="mt-4">
+                    <span class="text-orange fw-bold">In 2021,</span> a group of passionate De Montfort University
+                    alumni set out with a clear
+                    goal: to create a platform that empowers individuals to shape their futures on their
+                    own—no dependencies, just tools for self-guided success.
+                </p>
+                <button class="btn btn-orange rounded-pill px-4 py-2 mt-3" routerLink="/register">
+                    Try for Free!
+                </button>
+            </div>
+            <div class="col-lg-6">
+                <div class="video-container" (click)="toggleVideo()">
+                    <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
+                    <video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none"
+                        [poster]="'uniprep-assets/about-us-hero-image.png'">
+                        <source [src]="welcomeVideoLink" type="video/mp4" />
+                    </video>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="mb-5 display-5">
+                    <span>Our </span>
+                    <span class="text-orange fw-bold">evolution journey</span>
+                </div>
+            </div>
+        </div>
+
+        <p-timeline [value]="timelineData" class="w-full md:w-80" align="alternate">
+            <ng-template #marker let-item>
+                <div class="timeline-marker" *ngIf="item.icon else withoutIcon">
+                    <div class="timelineWithIconDot">
+                        <i class="{{ item.icon }}"></i>
+                    </div>
+                </div>
+                <ng-template #withoutIcon>
+                    <div class="timeline-dot"></div>
+                </ng-template>
+            </ng-template>
+            <ng-template #content let-item>
+                <div class="timeline-content">
+                    <h3 class="text-white">{{ item.year }}</h3>
+                    <h4 class="text-orange">{{ item.title }}</h4>
+                    <p>{{ item.subtitle }}</p>
+                    <p *ngFor="let point of item.points">
+                        <span class="text-orange fw-bold">{{ point.split(':')[0] }}:</span>
+                        {{ point.split(':')[1] }}
+                    </p>
+                </div>
+            </ng-template>
+        </p-timeline>
+
+        <!-- <div class="timeline-container">
+      <div *ngFor="let item of timelineData; let i = index" class="row timeline-item">
+        <div [ngClass]="{'col-lg-6': true, 'order-lg-2': i % 2 !== 0}">
+
+        </div>
+        <div [ngClass]="{'col-lg-6': true,'timeline-line': true, 'text-end': i % 2 === 0}">
+          <div class="timeline-marker">
+            <div class="timeline-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+        <div class="row mt-5 mb-5">
+            <div class="col-12">
+                <div class="display-4 mb-3 fw-bold">Why UNIPREP?</div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div *ngFor="let card of whyUniprepData" class="col-lg-4 mb-4">
+                <div class="card bg-dark text-white p-4 h-100">
+                    <div class="card-body d-flex gap-4 align-items-center justify-content-center">
+                        <div class="me-3 fs-1">{{ card.icon }}</div>
+                        <div>
+                            <h4 class="text-orange mb-3">{{ card.title }}</h4>
+                            <p class="mb-0">{{ card.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="row mb-5">
+            <div class="col-12">
+                <h2 class="mb-4">
+                    <span>Our </span>
+                    <span class="text-orange">Mission</span>
+                </h2>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card bg-dark text-white p-5">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <span class="badge bg-transparent border border-orange text-orange px-3 py-2">{{
+                                missionData.badge }}</span>
+                        </div>
+                        <h3 class="mb-3">{{ missionData.title }}</h3>
+                        <p>{{ missionData.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="row mb-5">
+            <div class="col-12 ctc-field ">
+                <div class="card text-white p-5">
+                    <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-center">
+                        <div>
+                            <h2 class="mb-2">{{ callToActionData.title }}</h2>
+                            <p class="mb-0">{{ callToActionData.description }}</p>
+                        </div>
+                        <a [href]="callToActionData.buttonLink" class="btn btn-dark px-4 py-4 mt-3 mt-md-0">{{
+                            callToActionData.buttonText }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -44,7 +44,7 @@
 
 .leader-img {
   width: 100%;
-  object-fit: cover;
+  // object-fit: cover;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 10px;
@@ -71,4 +71,11 @@
   text-align: center;
   font-size: 10px;
   border-radius: 5px;
+}
+.text-small{
+  font-size: 0.76rem !important; 
+}
+.light-text-size{
+  font-size: 0.69rem !important;
+  text-shadow: 0 0 black !important;
 }

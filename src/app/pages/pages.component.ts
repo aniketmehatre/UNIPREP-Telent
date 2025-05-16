@@ -194,7 +194,6 @@ export class PagesComponent implements OnInit, OnDestroy {
       }
       this.isPageLoad = true; // after page loading completed this will changed because first time needs to hide the how it works popup
     });
-    this.service.getNewUserTimeLeft();
   }
 
   onClickSubscribedUser(): void {
@@ -322,5 +321,9 @@ export class PagesComponent implements OnInit, OnDestroy {
     }
 
     return null;
+  }
+
+  onCloseRestrictModal(event: boolean) {
+    this.service.hasUserSubscription$.next(event);
   }
 }

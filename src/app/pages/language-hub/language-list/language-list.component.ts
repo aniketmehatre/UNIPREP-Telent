@@ -53,6 +53,10 @@ export class LanguageListComponent implements OnInit {
 	}
 
 	onLanguageClick(data: any) {
+		if (this.authService.isInvalidSubscription('language_hub')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.languageArrayGlobalService.addItem(data.language)
 		this.lhs.setDataLanguageName(data.language)
 		this.lhs.setLanguageData(data.id)

@@ -124,12 +124,13 @@ export class RegistrationComponent implements OnInit {
 					} else {
 						this.storage.set(environment.tokenKey, data?.authorisation?.token)
 					}
+					this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
 				},
 				(error: any) => {
 					this.toastr.add({
 						severity: "error",
 						summary: "Error",
-						detail: error,
+						detail: error?.error?.message || error?.message || "An unexpected error occurred, please contact the team",
 					})
 				}
 			)
@@ -241,6 +242,15 @@ export class RegistrationComponent implements OnInit {
 	}
 
 	onSubmit() {
+		if (this.registrationForm.value.password != this.registrationForm.value.confirmPassword) {
+			this.toastr.add({
+				severity: "error",
+				summary: "Error",
+				detail: "Password and Confirm Password should be same",
+			})
+			return
+		}
+
 		this.submitted = true
 		let data = {
 			name: this.registrationForm.value.fullName,
@@ -262,8 +272,14 @@ export class RegistrationComponent implements OnInit {
 					this.storage.set(environment.tokenKey, res.token)
 				} else {
 					this.storage.set(environment.tokenKey, res?.authorisation?.token)
+
 				}
-				this.router.navigate(["/pages/dashboard"])
+				// this.toastr.add({
+				// 	severity: "success",
+				// 	summary: "Success",
+				// 	detail: "Login Successful"
+				// })
+				this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
 			},
 			(error) => {
 				const message = error.error?.message != undefined ? error.error?.message : error?.message
@@ -449,7 +465,8 @@ export class RegistrationComponent implements OnInit {
 			},
 			(error) => {
 				this.otpError = true;
-				this.toastr.add({ severity: "error", summary: "Error", detail: error.message || "Invalid OTP." });
+				const message = error.error?.message != undefined ? error.error?.message : error?.message
+				this.toastr.add({ severity: "error", summary: "Error", detail: message || "Invalid OTP." });
 			}
 		)
 	}

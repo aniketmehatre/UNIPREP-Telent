@@ -3,13 +3,13 @@ import { PageFacadeService } from '../../page-facade.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { LocationService } from 'src/app/location.service';
 import { FounderstoolService } from '../founderstool.service';
-import { MessageService } from 'primeng/api';
 import { Meta } from '@angular/platform-browser';
 import { DataService } from 'src/app/data.service';
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { CardModule } from "primeng/card";
 import { AuthService } from 'src/app/Auth/auth.service';
+import { SocialShareService } from 'src/app/shared/social-share.service';
 @Component({
   selector: 'uni-component-stories',
   templateUrl: './component-stories.component.html',
@@ -20,8 +20,8 @@ import { AuthService } from 'src/app/Auth/auth.service';
 export class ComponentStoriesComponent implements OnInit {
 
   constructor(private pageFacade: PageFacadeService, private dataService: DataService, private activatedRoute: ActivatedRoute,
-    private meta: Meta, private toast: MessageService, private router: Router, private service: FounderstoolService,
-    private locationService: LocationService, private authService: AuthService) { }
+    private meta: Meta, private router: Router, private service: FounderstoolService,
+    private locationService: LocationService, private authService: AuthService, private socialShareService: SocialShareService) { }
   countrylist: any[] = [];
   currentRoute: string = '';
   headertooltipname: any;
@@ -116,26 +116,25 @@ export class ComponentStoriesComponent implements OnInit {
     const datas: any = {
       mode: this.modename,
       country: id,
-      ...(question_id ? { share_link_question_id: question_id } : {}) // Include question_id only if it's truthy
+      ...(question_id ? { question_id: question_id } : {}) // Include question_id only if it's truthy
     };
 
-    this.service.entrepreneurToolsSuccess(datas).subscribe(
-      (res: any) => {
+    this.service.entrepreneurToolsSuccess(datas).subscribe({
+      next: (res: any) => {
         this.isShowCountryData = false;
         this.isShowCountryQuesAns = true;
         this.questuionanswerlist = res.data; // Assign the response data to the list
 
         if (question_id) {
-          this.showDataAnswer(res.data[0]);
+          this.countryname = this.questuionanswerlist[0].country_name;
+          this.showDataAnswer(this.questuionanswerlist[0]);
         }
       },
-      (error) => {
+      error: (error) => {
         console.error("Error fetching question data:", error); // Handle errors
         this.isShowCountryData = true; // Fallback to show general data if API fails
       }
-
-    );
-
+    });
   }
 
   showDataAnswer(data: any) {
@@ -167,68 +166,23 @@ export class ComponentStoriesComponent implements OnInit {
       socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
     }
   }
-  shareViaWhatsapp() {
-    let url = window.location.href + '/' + this.dataanswerquestion?.id
+
+  shareQuestion(type: string) {
+    const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+    const currentMode = this.modename.replaceAll('_', '-');
+    const url = encodeURI(window.location.origin + '/pages/founderstool/' + currentMode + '/' + this.countryId + '/' + this.dataanswerquestion?.id);
     this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`;
+    const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
-  shareViaInstagram() {
-    let url = window.location.href + '/' + this.dataanswerquestion?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaFacebook() {
-    let url = window.location.href + '/' + this.dataanswerquestion?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaLinkedIn() {
-    let url = window.location.href + '/' + this.dataanswerquestion?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaTwitter() {
-    let url = window.location.href + '/' + this.dataanswerquestion?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
-  shareViaMail() {
-    let url = window.location.href + '/' + this.dataanswerquestion?.id
-    this.meta.updateTag({ property: 'og:url', content: url });
-    const shareUrl = `mailto:?body=${encodeURIComponent(url)}`;
-    window.open(shareUrl, '_blank');
-  }
+
   copyLink() {
-    const textarea = document.createElement('textarea');
-
-    // this.meta.updateTag(
-    //   { property: 'og:title', content:  this.selectedQuestionName.question},
-    // );
-    // this.meta.updateTag(
-    //   { name: 'title', content:  this.selectedQuestionName.question},
-    // );
-    const safeUrl = encodeURI(window.location.href);
-    const selectedQuestionId = this.dataanswerquestion?.id || '';
-    // const safeCountryId = this.countryId || '';
-
-    // Combine data with a safe format
-    textarea.textContent = `${safeUrl}/${selectedQuestionId}`;
-
-    // Append the textarea safely
-    document.body.append(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    textarea.remove();
-    this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
+    const currentMode = this.modename.replaceAll('_', '-');
+    const textToCopy = encodeURI(window.location.origin + '/pages/founderstool/' + currentMode + '/' + this.countryId + '/' + this.dataanswerquestion?.id);
+    this.socialShareService.copyQuestion(textToCopy);
   }
+
   getContentPreview(content: string): string {
-    // const plainText = content.replace(/<[^>]*>/g, '');
-    // return plainText.length > 75 ? plainText.slice(0, 75) + ' ...' : plainText;
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, "text/html");
     const paragraph = doc.querySelector("p")?.textContent || '';

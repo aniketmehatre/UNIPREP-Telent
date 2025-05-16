@@ -114,6 +114,10 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	viewFav() {
+		if (this.planExpired) {
+			this.authService.hasUserSubscription$.next(true);
+			return
+		}
 		this.viewFavourites = !this.viewFavourites
 		this.getPitchDeskList()
 	}
@@ -194,6 +198,10 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	performSearch() {
+		if (this.planExpired) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		const searchValue = this.valueNearYouFilter.trim().toLowerCase()
 
 		if (!searchValue) {
@@ -218,10 +226,18 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	closeGuidelines() {
+		if (this.planExpired) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.showDiv = !this.showDiv
 	}
 
 	showPdf(url: any, pdname: string) {
+		if (this.planExpired) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		// if (this.planExpired) {
 		// 	this.restrict = true;
 		// 	return;
@@ -410,6 +426,10 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	openReport() {
+		if (this.planExpired) {
+			this.authService.hasUserSubscription$.next(true);
+			return
+		}
 		let data = {
 			isVisible: true,
 			reporttype: 7,

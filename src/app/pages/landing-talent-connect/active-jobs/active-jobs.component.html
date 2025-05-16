@@ -1,0 +1,211 @@
+<!-- talent-search.component.html -->
+<div class="talent-search-container">
+  <div class="container-fluid p-4">
+    <div class="text-center mb-5">
+      <h1 class="display-1 fw-bold text-white font-sans">Looking for a career move that matters?</h1>
+      <p class="display-6 lead text-white">Discover Real Opportunities. Connect with Employers.</p>
+      <p style="color: orange;" class="mt-2 display-6">Take the Next Step in Your Career.</p>
+    </div>
+
+    <div class="card p-4 border shadow-lg">
+      <div class="d-flex justify-content-between align-items-center mb-3" style="padding-left: 3rem;">
+        <div class="text-white fs-4">Total Jobs: {{ totalTalents }}</div>
+        <button class="px-5 py-2 rounded-3 border-white text-white bg-gray" (click)="displayUnlockFilter = true;">Filter</button>
+      </div>
+
+      <div class="row g-3 talent-card-container">
+			<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2  rounded-3 text-black" *ngFor="let job of jobListings" (click)="displayUnlockFilter = true;">
+				<div class="card bg-white card-inside h-100 text-start position-relative" role="button">
+					<button class="btn btn-link text-warning p-0 position-absolute" style="right: 0.5rem; top: 0.5rem">
+						<i class="fa-regular fa-share-alt"></i>
+					</button>
+					<div class="card-body pb-0 text-black">
+						<div class="d-flex gap-2 align-items-center">
+							<div class="rounded-2 d-flex overflow-hidden" style="border: 1px solid #e7e7e7; max-width: 70px">
+								<img class="w-100" style="object-fit: cover; aspect-ratio: 1" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="job.company_logo" alt="Company Logo" />
+							</div>
+							<div>
+								<h5 class="mb-0 fw-semibold">{{ job?.position }}</h5>
+								<p class="mb-0 text-muted d-flex fw-semibold">
+									<a [href]="job.company_website" target="_blank" (click)="$event.stopPropagation()">{{ job.company_name }}</a>
+									<span class="uniprep-secondary" *ngIf="job.isVerified">
+										<i class="fas fa-check-circle"></i>
+									</span>
+								</p>
+								<p class="mb-0 text-warning fw-medium" style="font-size: 0.7rem">
+									{{ job.matching_skills }}
+								</p>
+								<button *ngIf="((job.start_date | dateDiffInMonths) > 4)" pButton
+									class="btn btn-rounded btn-primary text-nowrap !fs-6 py-1">
+									<i class="fa-solid fa-clock"></i>Future Hiring
+								</button>
+								<button *ngIf="!((job.start_date | dateDiffInMonths) > 4)" pButton
+									class="btn btn-rounded btn-success text-nowrap !fs-6 py-1">
+									<i class="fa-solid fa-check"></i>Actively Hiring
+								</button>
+							</div>
+						</div>
+						<hr class="my-2" />
+						<div class="row justify-content-between align-items-center">
+							<div class="col-md-6 col-6">
+								<div class="d-flex gap-2 align-items-center">
+									<i class="fa-solid fa-user-tie" style="color: #cc660a"></i>
+									<div>
+										<p class="text-muted mb-0 text-small">Total Vacancies</p>
+										<h3 class="mb-0 fw-semibold">{{ job?.available_vacancies }}</h3>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-6">
+								<div class="d-flex gap-2 align-items-center">
+									<i class="fa-solid fa-user-tie" style.color="bg-primary"></i>
+									<div>
+										<p class="text-muted mb-0 text-small">Total Applied</p>
+										<h3 class="mb-0 fw-medium">{{ job.total_applied }}</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr class="my-2" />
+						<div class="row">
+							<div class="col-md-6 col-6">
+								<div class="d-flex mb-3 align-items-center">
+									<div class="me-2 text-success">
+										<i class="fas fa-map-marker-alt"></i>
+									</div>
+									<div class="overflow-hidden">
+										<p class="text-muted mb-0 text-small">Work Location</p>
+										<p class="mb-0 fw-medium text-truncate">{{ job.worklocation }}</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6 col-6">
+								<div class="d-flex mb-3 align-items-center">
+									<div class="me-2 text-primary">
+										<i class="fas fa-calendar-alt"></i>
+									</div>
+									<div class="overflow-hidden">
+										<p class="text-muted mb-0 text-small">Start Date</p>
+										<p class="mb-0 fw-medium text-truncate">{{ job.start_date }}</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6 col-6">
+								<div class="d-flex mb-3 align-items-center">
+									<div class="me-2 text-primary">
+										<i class="fas fa-calendar-alt"></i>
+									</div>
+									<div class="overflow-hidden">
+										<p class="text-muted mb-0 text-small">Application Deadline</p>
+										<p class="mb-0 fw-medium text-truncate">{{ job.due_date }}</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6 col-6">
+								<div class="d-flex mb-3 align-items-center">
+									<div class="me-2 text-warning">
+										<i class="fas fa-building"></i>
+									</div>
+									<div class="overflow-hidden">
+										<p class="text-muted mb-0 text-small">Work Mode</p>
+										<p class="mb-0 fw-medium text-truncate">{{ job.work_mode }}</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6 col-6">
+								<div class="d-flex mb-3 align-items-center">
+									<div class="me-2 text-danger">
+										<i class="fas fa-briefcase"></i>
+									</div>
+									<div class="overflow-hidden">
+										<p class="text-muted mb-0 text-small">Employment Type</p>
+										<p class="mb-0 fw-medium text-truncate">{{ job.employment_type }}</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6 col-6">
+								<div class="d-flex align-items-center">
+									<div class="me-2 text-success">
+										<i class="fas fa-dollar-sign"></i>
+									</div>
+									<div class="overflow-hidden">
+										<p class="text-muted mb-0 text-small">Salary Range</p>
+										<p class="mb-0 fw-medium text-truncate">{{ job.currency_code }} {{ job.salary_offer }}</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6 col-6">
+								<div class="d-flex align-items-center">
+									<div class="me-2 text-success">
+										<i class="fas fa-dollar-sign"></i>
+									</div>
+									<div class="overflow-hidden">
+										<p class="text-muted mb-0 text-small">Introduction Video</p>
+										<p class="mb-0 fw-medium text-truncate">{{job.intro_video == 'Yes' ? 'Mandatory': 'Non Mandatory'}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer bg-transparent border-0">
+						<p class="text-muted text-small text-end">Posted On: {{ job.created_at | date : "dd-MM-yyyy" }}</p>
+					</div>
+				</div>
+			</div>
+      </div>
+
+      <!-- Pagination -->
+      <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" href="javascript:void(0)" (click)="previousPage()" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" href="javascript:void(0)" (click)="previousPage()" aria-label="Previous">
+              <span aria-hidden="true">&lt;</span>
+            </a>
+          </li>
+          <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" 
+              [class.active]="currentPage === i + 1">
+            <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" href="javascript:void(0)" (click)="nextPage()" aria-label="Next">
+              <span aria-hidden="true">&gt;</span>
+            </a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" href="javascript:void(0)" (click)="nextPage()" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+<p-dialog [(visible)]="displayUnlockFilter" [modal]="true" [closable]="true" [dismissableMask]="true" styleClass="unlock-filter-dialog p-1"
+  [style]="{ width: '500px' }" header="" [contentStyle]="{ 'text-align': 'center' }">
+  
+  <img src="uniprep-assets/icons/metal-lock.png" alt="lock" style="width: 100px; margin-bottom: 1rem;" />
+  <div class="p-4">
+      <h5 style="color: #ff6600; font-weight: bold;">Unlock Full Profile Access</h5>
+      
+      <p style="font-size: 14px; color: #444;" class="text-center">
+        You're just one step away from discovering top talent. <br>Log in to explore complete profiles, download CVs,
+        and connect directly with job-ready candidates verified by our team.
+      </p>
+    
+      <button class="btn btn-secondary mt-3" [routerLink]="['/register']">
+        Register Now
+    </button>
+</div>
+</p-dialog>

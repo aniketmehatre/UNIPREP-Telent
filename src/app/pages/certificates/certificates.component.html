@@ -3,7 +3,8 @@
 		<div class="row justify-content-center align-items-between">
 			<div class="col-md-5 d-md-block d-none">&nbsp;</div>
 			<div class="col-md-2 col-12 d-flex justify-content-center">
-				<a href="https://uniprep.ai"><img class="lightmodelogo m-auto" height="75px;" src="/uniprep-assets/images/uniprep-dark.svg" /></a>
+				<a href="https://uniprep.ai"><img class="lightmodelogo m-auto" height="75px;"
+						src="/uniprep-assets/images/uniprep-dark.svg" /></a>
 			</div>
 			<div class="col-md-5 d-md-block d-none">&nbsp;</div>
 		</div>
@@ -15,21 +16,23 @@
 			<div class="col-md-6">
 				<form class="row" [formGroup]="form" (ngSubmit)="certificateValid()">
 					<div class="col-md-9 col-12">
-						<input type="text" formControlName="certificateid" class="w-100" placeholder="Certificate ID" pInputText />
+						<input type="text" formControlName="certificateid" class="w-100" placeholder="Certificate ID"
+							pInputText />
 					</div>
 					<div class="col-md-3 col-12 mt-md-0 mt-3">
-						<button pButton  class="btn btn-secondary w-100 h-100" type="submit">Submit</button>
+						<button pButton class="btn btn-secondary w-100 h-100" type="submit">Submit</button>
 					</div>
 					<div class="col-md-12">
-						<p class="text-white text-start">Please enter the unique Certificate ID provided upon course completion to view the certificate.</p>
+						<p class="text-white text-start">Please enter the unique Certificate ID provided upon course
+							completion to view the certificate.</p>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-		<div class="container py-2 text-center h-100" *ngIf="!certificateAvailable">
-			<h2 class="text-white">{{ certificateforcopy }}</h2>
-		</div>
+	<div class="container py-2 text-center h-100" *ngIf="!certificateAvailable">
+		<h2 class="text-white">{{ certificateforcopy }}</h2>
+	</div>
 </section>
 <section *ngIf="certificateAvailable" class="darksection h-100">
 	<div class="container-fluid py-2 text-center h-100">
@@ -38,26 +41,32 @@
 				<div class="d-flex justify-content-between align-items-center mb-2 position-relative">
 					<div class="d-flex justify-content-center gap-2 align-items-center">
 						<p class="mb-0 text-white fw-semibold">STATUS :</p>
-						<span *ngIf="certificateStatus == 'active'" class="badge text-bg-success px-3 py-2">Active</span>
-						<span *ngIf="certificateStatus != 'active'" class="badge text-bg-danger px-3 py-2">Expired</span>
+						<span *ngIf="certificateStatus == 'active'"
+							class="badge text-bg-success px-3 py-2">Active</span>
+						<span *ngIf="certificateStatus != 'active'"
+							class="badge text-bg-danger px-3 py-2">Expired</span>
 					</div>
 					<div>
-						<button pButton  *ngIf="certificateStatus == 'active'" (click)="showSocialSharingList(1)" class="btn btn-primary btn-rounded sharebtn"><i class="fa-light fa-share-nodes"></i></button>
-						<p-card id="socialSharingList" class="socialSharingList" [ngClass]="{ show: selectedIndex === 1 }">
+						<button pButton *ngIf="certificateStatus == 'active'" (click)="showSocialSharingList(1)"
+							class="btn btn-primary btn-rounded sharebtn"><i
+								class="fa-light fa-share-nodes"></i></button>
+						<p-card id="socialSharingList" class="socialSharingList"
+							[ngClass]="{ show: selectedIndex === 1 }">
 							<ul style="list-style: none; cursor: pointer">
-								<li (click)="shareViaWhatsapp(certificateValidOrInvalid)"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-								<li (click)="shareViaMail(certificateValidOrInvalid)"><i class="pi pi-envelope"></i>Email</li>
-								<li (click)="shareViaFacebook(certificateValidOrInvalid)"><i class="pi pi-facebook"></i>Facebook</li>
-								<li (click)="shareViaTwitter(certificateValidOrInvalid)"><i class="pi pi-twitter"></i>Twitter</li>
-								<li (click)="shareViaInstagram(certificateValidOrInvalid)"><i class="pi pi-instagram"></i>Instagram</li>
-								<li (click)="shareViaLinkedIn(certificateValidOrInvalid)"><i class="pi pi-linkedin"></i>LinkedIn</li>
-								<li (click)="copyLink(certificateValidOrInvalid)"><i class="pi pi-link"></i>Copy Link</li>
+								<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+								<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+								<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+								<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+								<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+								<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
+								<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
 							</ul>
 						</p-card>
 					</div>
 				</div>
 				<div class="d-flex flex-fill h-100">
-					<embed [src]="certificateValidOrInvalid" type="application/pdf" style="width: 100%; height: 100%" toolbar="0" scrollbars="0" download="none" />
+					<embed [src]="certificateValidOrInvalid" type="application/pdf" style="width: 100%; height: 100%"
+						toolbar="0" scrollbars="0" download="none" />
 				</div>
 			</div>
 		</div>
@@ -68,14 +77,19 @@
 		<div class="container-fluid py-3">
 			<div class="row align-items-center">
 				<div class="col-md-6">
-					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-start gap-2 text-white">
-						<p role="button" aria-label="Contact Form" class="mb-0 text-white text-decoration-none small">Contact Us</p>
+					<div
+						class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-start gap-2 text-white">
+						<p role="button" aria-label="Contact Form" class="mb-0 text-white text-decoration-none small">
+							Contact Us</p>
 						|
-						<p role="button" aria-label="Privacy Policy" class="mb-0 text-white text-decoration-none small">Privacy Policy</p>
+						<p role="button" aria-label="Privacy Policy" class="mb-0 text-white text-decoration-none small">
+							Privacy Policy</p>
 						|
-						<p role="button" aria-label="Terms Conditions" class="mb-0 text-white text-decoration-none small">Terms & Conditions</p>
+						<p role="button" aria-label="Terms Conditions"
+							class="mb-0 text-white text-decoration-none small">Terms & Conditions</p>
 						|
-						<p role="button" aria-label="Cancellation Policy" class="mb-0 text-white text-decoration-none small">Cancellation & Refund Policy</p>
+						<p role="button" aria-label="Cancellation Policy"
+							class="mb-0 text-white text-decoration-none small">Cancellation & Refund Policy</p>
 					</div>
 				</div>
 				<div class="col-md-6 text-md-end text-center">

@@ -72,7 +72,6 @@ export class CourseListComponent implements OnInit {
 	buyCreditsCount: number = 0
 	exportDataIds: any = []
 	currentPlan: string = ""
-	planExpired!: boolean
 	stayBackList: any = []
 	PersonalInfo!: any
 	ehitlabelIsShow: boolean = true
@@ -146,7 +145,6 @@ export class CourseListComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.checkplanExpire()
 		// this.getCourseLists();
 		this.getRecommendationList()
 		this.GetPersonalProfileData()
@@ -286,9 +284,9 @@ export class CourseListComponent implements OnInit {
 	}
 
 	pageChange(event: any) {
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('uni_finder')) {
 			this.authService.hasUserSubscription$.next(true);
-			return
+			return;
 		}
 		this.selectAllCheckboxes = false
 		this.selectedCourses = 0
@@ -302,11 +300,10 @@ export class CourseListComponent implements OnInit {
 	}
 
 	exportData() {
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('uni_finder')) {
 			this.authService.hasUserSubscription$.next(true);
-			return
+			return;
 		}
-
 		if (this.buyCreditsCount == 0) {
 			if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
 				this.toastr.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits." })
@@ -358,24 +355,25 @@ export class CourseListComponent implements OnInit {
 	}
 
 	filterBy() {
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('uni_finder')) {
 			this.authService.hasUserSubscription$.next(true);
-			return
+			return;
 		}
 		this.isFilterVisible = "block"
 	}
 
 	handleClick(event: Event) {
-		if (this.planExpired) {
+		event.preventDefault() // Prevent the default action of the anchor tag
+		if (this.authService.isInvalidSubscription('uni_finder')) {
 			this.authService.hasUserSubscription$.next(true);
-			event.preventDefault() // Prevent the default action of the anchor tag
+			return;
 		}
 	}
 
 	buyCredits() {
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('uni_finder')) {
 			this.authService.hasUserSubscription$.next(true);
-			return
+			return;
 		}
 		this.router.navigate(["/pages/export-credit"])
 	}
@@ -424,23 +422,12 @@ export class CourseListComponent implements OnInit {
 	}
 
 	viewFav() {
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('uni_finder')) {
 			this.authService.hasUserSubscription$.next(true);
-			return
+			return;
 		}
-
 		this.viewFavourites = !this.viewFavourites
 		this.getCourseLists()
-	}
-
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
 	}
 
 	previous(): void {
@@ -451,6 +438,10 @@ export class CourseListComponent implements OnInit {
 	}
 
 	next(productId: number): void {
+		if (this.authService.isInvalidSubscription('uni_finder')) {
+			this.authService.hasUserSubscription$.next(true);
+			return;
+		}
 		this.invalidClass = false
 		if (productId in this.selectedData) {
 			if (this.activePageIndex < this.recommendations.length - 1) {
@@ -484,9 +475,9 @@ export class CourseListComponent implements OnInit {
 	}
 
 	getRecommendation() {
-		if (this.planExpired) {
+		if (this.authService.isInvalidSubscription('uni_finder')) {
 			this.authService.hasUserSubscription$.next(true);
-			return
+			return;
 		}
 		let keyMapping: any = { "1": "country", "2": "subject", "3": "study_level", "4": "intake_months", "5": "pre_requisite", "6": "world_rank" }
 

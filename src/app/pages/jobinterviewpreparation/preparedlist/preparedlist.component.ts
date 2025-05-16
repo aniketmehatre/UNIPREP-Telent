@@ -22,6 +22,7 @@ import { Meta } from "@angular/platform-browser";
 import { SkeletonModule } from "primeng/skeleton";
 import { SharedModule } from "src/app/shared/shared.module";
 import { SavedJobInterviewQuestion } from "src/app/@Models/job-interview.model";
+import { SocialShareService } from "src/app/shared/social-share.service";
 @Component({
   selector: "uni-preparedlist",
   templateUrl: "./preparedlist.component.html",
@@ -55,7 +56,8 @@ export class JobPreparedListComponent implements OnInit {
     .fill(0)
     .map((_, index) => index);
 
-  constructor(private toast: MessageService, private authService: AuthService, private service: InterviewPreparationService, private router: Router, private pageFacade: PageFacadeService, private meta: Meta) { }
+  constructor(private toast: MessageService, private authService: AuthService, private service: InterviewPreparationService,
+    private pageFacade: PageFacadeService, private meta: Meta, private socialShareService: SocialShareService) { }
 
   ngOnInit(): void {
     this.selectedJobRole = this.prepData.role;
@@ -179,14 +181,7 @@ export class JobPreparedListComponent implements OnInit {
   }
 
   shareQuestion(type: string) {
-    const socialMedias: { [key: string]: string } = {
-      "Whatsapp": "whatsapp://send?text=",
-      "Instagram": "https://www.instagram.com?url=",
-      "Facebook": "https://www.facebook.com/sharer/sharer.php?u=",
-      "LinkedIn": "https://www.linkedin.com/shareArticle?url=",
-      "Twitter": "https://twitter.com/intent/tweet?url=",
-      "Mail": "mailto:?body=",
-    }
+    const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
     const safeUrl = encodeURI(window.location.origin + '/pages/interviewprep');
     const params = new URLSearchParams();
     Object.keys(this.prepData).forEach(key => {
@@ -205,14 +200,7 @@ export class JobPreparedListComponent implements OnInit {
       params.append(key, this.prepData[key]);
     });
     const textToCopy = `${safeUrl}?${params.toString()}`;
-    navigator.clipboard.writeText(textToCopy)
-      .then(() => {
-        this.toast.add({ severity: 'success', summary: 'Success', detail: 'Question Copied' });
-      })
-      .catch((err) => {
-        this.toast.add({ severity: "error", summary: "Warning", detail: 'Failed to copy the question' });
-        console.error('Failed to copy text: ', err);
-      });
+    this.socialShareService.copyQuestion(textToCopy);
   }
 
   openReport() {

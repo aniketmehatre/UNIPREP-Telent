@@ -46,10 +46,24 @@ export class CareerplannercountrywiseComponent implements OnInit {
   recommadationSavedQuestionList: any[] = [];
   specializationList: any = [];
   isResponseSkeleton: boolean = false;
-  aiCreditCount: number = 0;
+  
   currentPlan: string = ""
   userInputs: any;
-
+  experienceArray = [
+    { label: 'Fresher', value: 'Fresher' },
+    { label: '1 Year', value: '1 Year' },
+    { label: '2 Years', value: '2 Years' },
+    { label: '3 Years', value: '3 Years' },
+    { label: '4 Years', value: '4 Years' },
+    { label: '5 Years', value: '5 Years' },
+    { label: '6 Years', value: '6 Years' },
+    { label: '7 Years', value: '7 Years' },
+    { label: '8 Years', value: '8 Years' },
+    { label: '9 Years', value: '9 Years' },
+    { label: '10 Years', value: '10 Years' },
+    { label: '10+ Years', value: '10+ Years' },
+  ];
+  
   constructor(private router: Router, private service: JobSearchService, private fb: FormBuilder, private pageFacade: PageFacadeService,
     private toast: MessageService, private educationService: EducationToolsService, private sanitizer: DomSanitizer,
     private promptService: PromptService, private authService: AuthService, private locationService: LocationService
@@ -57,6 +71,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
     this.form = this.fb.group({
       country: ['', [Validators.required]],
       specialization_name: ['', [Validators.required]],
+      experience: ['', [Validators.required]],
     });
   }
 
@@ -70,36 +85,28 @@ export class CareerplannercountrywiseComponent implements OnInit {
         this.specializationList = response;
       }
     });
-    this.getAICreditCount();
+    
 
   }
 
-  getAICreditCount() {
-    this.promptService.getAicredits().subscribe({
-      next: resp => {
-        this.aiCreditCount = resp;
-      }
-    })
-  }
 
   get f() {
     return this.form.controls;
   }
   formSubmit() {
+    this.recommendationData = "";
     if (this.authService.isInvalidSubscription('career_tools')) {
       this.authService.hasUserSubscription$.next(true);
       return;
     }
-    if (this.aiCreditCount == 0) {
-      this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-      return;
-    }
+
     this.submitted = true;
     if (this.form.valid) {
       var data = {
         mode: "careerplanner",
         country: this.form.value.country,
-        specialization_name: this.form.value.specialization_name
+        specialization_name: this.form.value.specialization_name,
+        experience: this.form.value.experience
       }
       this.userInputs = data;
       this.isFormVisible = false;
@@ -107,12 +114,12 @@ export class CareerplannercountrywiseComponent implements OnInit {
       this.isResponseSkeleton = true;
       this.service.getCountryCurrencyChatGptOutput(data).subscribe({
         next: (res: any) => {
-          this.getAICreditCount();
+          
           this.isResponseSkeleton = false;
           this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(res.response);
           this.submitted = false
           this.isSavedResponse = false;
-
+          this.authService.aiCreditCount$.next(true);
         },
         error: (error) => {
           console.error(error);
@@ -188,6 +195,8 @@ export class CareerplannercountrywiseComponent implements OnInit {
       <p>${this.userInputs.country}</p><br>
       <p style="color: #3f4c83;"><strong>Select Your Specialization</strong></p>
       <p>${this.userInputs.specialization_name}</p>
+      <p style="color: #3f4c83;"><strong>How many years of experience do you have?</strong></p>
+      <p>${this.userInputs.experience}</p>
       <br>
     `;
     let params: any = {

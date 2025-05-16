@@ -62,7 +62,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml = '';
   isResponseSkeleton: boolean = false;
-  aiCreditCount: number = 0;
+  
   constructor(
     private fb: FormBuilder,
     private educationToolService: EducationToolsService,
@@ -86,16 +86,16 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       currency_code: [''],
       compare_currency_code: [''],
       compare_fees: ['', Validators.required],
-      expense_currency_code: [''],
-      compare_expense_currency_code: [''],
-      expense: ['', Validators.required],
-      compare_expenses: ['', Validators.required],
+      // expense_currency_code: [''],
+      // compare_expense_currency_code: [''],
+      // expense: ['', Validators.required],
+      // compare_expenses: ['', Validators.required],
       period: ['', Validators.required],
       compare_period: ['', Validators.required],
     });
     // this.form.get('compare_currency_code')?.disable();
-    this.form.get('expense_currency_code')?.disable();
-    this.form.get('compare_expense_currency_code')?.disable();
+    // this.form.get('expense_currency_code')?.disable();
+    // this.form.get('compare_expense_currency_code')?.disable();
 
     this.form.controls['country'].valueChanges.subscribe(value => {
       if (value) {
@@ -134,7 +134,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       id: 2,
       question: {
         heading: 'Addtional Details',
-        branches: ['What is the overall tuition fees per year for the selected course?', 'What is your expected annual living expense?', 'How many months of stayback are allowed after graduation?']
+        branches: ['What is the overall tuition fees per year for the selected course?', 'How many months of stayback are allowed after graduation?']
       },
     },
   ];
@@ -147,15 +147,9 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     window.addEventListener('resize', this.updatePanelStyle);
 
     this.getCountryandSpecilizationList();
-    this.getAICreditCount();
+    
   }
-  getAICreditCount() {
-    this.promptService.getAicredits().subscribe({
-      next: resp => {
-        this.aiCreditCount = resp;
-      }
-    })
-  }
+
   getAndSetCourseNameList(universityId: number, mode: string) {
     this.educationToolService.courseNameList(universityId).subscribe({
       next: response => {
@@ -206,40 +200,42 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   changeCurrencyInTution(value: string) {
     this.form.patchValue({
       compare_currency_code: value,
-      expense_currency_code: value,
-      compare_expense_currency_code: value
+      // expense_currency_code: value,
+      // compare_expense_currency_code: value
     });
   }
 
   getRecommendation() {
+    if(this.authService._creditCount === 0){
+      this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+      this.router.navigateByUrl('/pages/export-credit')
+      return;
+    }
+
+    this.recommendationData = "";
     this.submitted = false;
     const formData = this.form.value;
     if (this.activePageIndex == 1) {
-      if (!formData.fees || !formData.compare_fees || !formData.expense || !formData.compare_expenses || !formData.compare_period || !formData.period) {
+      if (!formData.fees || !formData.compare_fees || !formData.compare_period || !formData.period) {
         this.submitted = true;
         return;
       }
       const isValidAmount = (value: any) => /^[0-9]{1,8}$/.test(value);
       if (
         !isValidAmount(formData.fees) ||
-        !isValidAmount(formData.compare_fees) ||
-        !isValidAmount(formData.expense) ||
-        !isValidAmount(formData.compare_expenses)
+        !isValidAmount(formData.compare_fees)
       ) {
         this.submitted = true;
         return;
       }
     }
-    if (this.aiCreditCount == 0) {
-      this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-      return;
-    }
+
     let data: any = {
       ...this.form.value,
       mode: 'uni_compare',
       compare_currency_code: this.form.get('compare_currency_code')?.value,
-      expense_currency_code: this.form.get('expense_currency_code')?.value,
-      compare_expense_currency_code: this.form.get('compare_expense_currency_code')?.value,
+      // expense_currency_code: this.form.get('expense_currency_code')?.value,
+      // compare_expense_currency_code: this.form.get('compare_expense_currency_code')?.value,
       country: formData.country.country,
       compare_country: formData.compare_country.country,
       university: formData.university.university_name,
@@ -254,7 +250,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       next: response => {
         this.isResponseSkeleton = false;
         this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
-        this.getAICreditCount();
+        this.authService.aiCreditCount$.next(true);
       },
       error: (error) => {
         console.error(error);
@@ -285,7 +281,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       }
     }
     if (this.activePageIndex == 1) {
-      if (!formData.fees || !formData.compare_fees || !formData.expense || !formData.compare_expenses || !formData.compare_period || !formData.period) {
+      if (!formData.fees || !formData.compare_fees || !formData.compare_period || !formData.period) {
         this.submitted = true;
         return;
       }
@@ -346,7 +342,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
 
   downloadRecommadation() {
     let addingInput: string = '';
-    const formValue = ['country', 'university', 'specialization', 'fees', 'expense', 'period'];
+    const formValue = ['country', 'university', 'specialization', 'fees', 'period'];
     // const formData = this.form.value;
     // formData['country'] = formData['country'].country;
     // formData['compare_country'] = formData['compare_country'].country;

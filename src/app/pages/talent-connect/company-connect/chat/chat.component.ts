@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AvatarModule } from "primeng/avatar";
 import { ButtonModule } from "primeng/button";
 import { CommonModule } from "@angular/common";
@@ -20,12 +20,12 @@ import { environment } from '@env/environment';
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnChanges {
   @Input() companyDetails!: Company;
   @Output() openInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() closeChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Input() showInfo: boolean = true;
-
+  isLoadingAiSummary: boolean = false;
   organizationName: string = 'UNIABROAD';
   organizationStatus: string = 'Active';
   currentStage: number = 2;
@@ -34,14 +34,24 @@ export class ChatComponent implements OnInit {
     { number: 2, name: 'HR Round', completed: false },
     { number: 3, name: 'Selected', completed: false }
   ];
+  message: string = '';
   messages: CompanyMessage[] = [];
   userLogo: string = '';
   attachmentFile: File | null = null;
+  aiGenerateChatDetails: any;
 
   constructor(private talentConnectService: TalentConnectService,) { }
 
   ngOnInit(): void {
+    // this.messageInput.value = '';
+    // this.messageInput.nativeElement.style.height = 'auto';
     this.getChatMessageForCompanyConnect(this.companyDetails.id);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['companyDetails'] && this.companyDetails) {
+      this.getChatMessageForCompanyConnect(this.companyDetails.id);
+    }
   }
 
 
@@ -52,6 +62,13 @@ export class ChatComponent implements OnInit {
         if (this.messages.length > 0) {
           this.userLogo = this.messages[0].icon;
         }
+        this.aiGenerateChatDetails = {
+          job_id: this.companyDetails?.id,
+          companyName: this.companyDetails?.company_name,
+          studentName: data?.message[0]?.userName,
+          createdAt: data.created_at
+        };  
+        console.log(this.aiGenerateChatDetails);
       },
       error: err => {
 
@@ -76,7 +93,7 @@ export class ChatComponent implements OnInit {
         if (response.message) {
           this.messages.push({
             added_by: 'Student',
-            chat: message ?? '',
+            chat: this.linkedFy(message) ?? '',
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             attachment_url: this.attachmentFile ? `https://${environment.domain}/uniprepapi/storage/app/public/CompanyConnectAttachment/${this.attachmentFile.name}` : '',
             attachment: this.attachmentFile ? this.attachmentFile.name : '',
@@ -91,8 +108,38 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  autoGrow(element: HTMLTextAreaElement): void {
+    element.style.height = 'auto';
+    element.style.height = (element.scrollHeight) + 'px';
+  }
+
+  aiGenerateSummary(mode: string, content: Record<string, any>, element: HTMLTextAreaElement) {
+    this.isLoadingAiSummary = true;
+    this.talentConnectService.getCompanyConnectAiSummary({ mode: mode, ...content }).subscribe({
+      next: (response) => {
+        this.isLoadingAiSummary = false;
+        if (response) {
+          element.innerHTML = response?.response;
+          this.autoGrow(element);
+        }
+      },
+      error: (error) => {
+        this.isLoadingAiSummary = false;
+        console.error(error)
+      },
+    })
+
+  }
+
   uploadFilesChat(event: any) {
     this.attachmentFile = event.target.files[0];
+  }
+
+  linkedFy(text: string) {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, function (url) {
+      return '<a href="' + url + '" target="_blank" class="chat-link">' + url + '</a>';
+    });
   }
 
 }

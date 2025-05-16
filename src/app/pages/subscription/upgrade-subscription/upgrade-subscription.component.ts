@@ -34,6 +34,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ConfirmDialogModule } from "primeng/confirmdialog"
 import { ToastModule } from "primeng/toast"
 import { TabViewModule } from "primeng/tabview"
+import { log } from "node:console"
 @Component({
 	selector: "uni-upgrade-subscription",
 	templateUrl: "./upgrade-subscription.component.html",
@@ -78,10 +79,10 @@ export class UpgradeSubscriptionComponent implements OnInit {
 	currentCountry: string = "India"
 	continent: string = "Asia"
 	currency: string = ""
-	monthlyPlan: number = 3
+	monthlyPlan: number = 1
 	activeTabIndex: number = 0
 	education_level: string = ""
-
+	activeButton: number = 1
 	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, private router: Router, private winRef: WindowRefService, private store: Store<SubscriptionState>, private http: HttpClient, private confirmationService: ConfirmationService, private messageService: MessageService, private stripeService: StripeService) {}
 	timeLeftInfoCard: any
 	userName: any
@@ -185,6 +186,13 @@ export class UpgradeSubscriptionComponent implements OnInit {
 
 	getSubscriptionList(canChangeSubscription: string) {
 		this.ngxService.startBackground()
+		if(this.activeButton ==1){
+			this.monthlyPlan=1;
+		}else if(this.activeButton ==2){
+			this.monthlyPlan=6;
+		}else{
+			this.monthlyPlan=12;
+		}
 		const data = {
 			page: 1,
 			perpage: 1000,
@@ -194,7 +202,6 @@ export class UpgradeSubscriptionComponent implements OnInit {
 			monthly_plan: this.monthlyPlan,
 			study_level: this.user?.education_level,
 		}
-
 		this.subscriptionService.getSubscriptions(data).subscribe({
 			next: (response) => {
 				// Sort and organize subscription data
@@ -289,24 +296,21 @@ export class UpgradeSubscriptionComponent implements OnInit {
 		this.subscriptionService.getExistingSubscription().subscribe({
 			next: (response: any) => {
 				this.existingSubscription = response.subscription
-				this.existingSubscription.map((plan) => (plan.subscriptionDays = plan.remainingdays.split("-")[0].trim().replace(/\D/g, "")))
-
+				this.existingSubscription.map((plan) => (plan.subscriptionDays = plan.remainingdays.split("-")[0].trim().replace(/\D/g, "")))	
 				// Set monthly plan based on subscription days
-				if (this.existingSubscription[0].subscriptionDays == 90) {
-					this.monthlyPlan = 3
-					this.existingSubscription[0].monthlyPlan = 3
+				if (this.existingSubscription[0].subscriptionDays == 30) {
+					this.existingSubscription[0].monthlyPlan = 1
+					this.setActiveButton(1)
 				} else if (this.existingSubscription[0].subscriptionDays == 180) {
-					this.monthlyPlan = 6
 					this.existingSubscription[0].monthlyPlan = 6
-					this.activeTabIndex = 0
+					// this.activeTabIndex = 0
+					this.setActiveButton(2)
 				} else {
-					this.monthlyPlan = 12
 					this.existingSubscription[0].monthlyPlan = 12
-					this.activeTabIndex = 1
+					// this.activeTabIndex = 1
+					this.setActiveButton(3)
 				}
-
 				// Get subscription list with proper parameters
-				this.getSubscriptionList("initial")
 			},
 			error: (error) => {
 				console.error("Error loading existing subscription:", error)
@@ -705,35 +709,24 @@ export class UpgradeSubscriptionComponent implements OnInit {
 			}
 		)
 	}
-	changeMonthlyPlan(event: any) {
-		let tabIndex = event.index
-		let data = ""
-		/*
-    if (tabIndex == 0) {
-      this.monthlyPlan = 3;
-    }
-    else if (tabIndex == 1) {
-      this.monthlyPlan = 6;
-    }
-    else {
-      this.monthlyPlan = 12;
-    }
-    */
-		if (tabIndex == 0) {
-			this.monthlyPlan = 6
-		} else if (tabIndex == 1) {
-			this.monthlyPlan = 12
-		}
-		if (this.monthlyPlan > this.existingSubscription[0]?.monthlyPlan) {
-			data = "canSubscribeAll"
-		} else if (this.monthlyPlan == this.existingSubscription[0]?.monthlyPlan) {
-			this.loadExistingSubscription()
-			return
-		} else {
-			data = "canSubscribeSome"
-		}
-		this.getSubscriptionList(data)
-	}
+	// changeMonthlyPlan(event: any) {
+	// 	let tabIndex = event.index
+	// 	let data = ""
+	// 	if (tabIndex == 0) {
+	// 		this.monthlyPlan = 6
+	// 	} else if (tabIndex == 1) {
+	// 		this.monthlyPlan = 12
+	// 	}
+	// 	if (this.monthlyPlan > this.existingSubscription[0]?.monthlyPlan) {
+	// 		data = "canSubscribeAll"
+	// 	} else if (this.monthlyPlan == this.existingSubscription[0]?.monthlyPlan) {
+	// 		this.loadExistingSubscription()
+	// 		return
+	// 	} else {
+	// 		data = "canSubscribeSome"
+	// 	}
+	// 	this.getSubscriptionList(data)
+	// }
 
 	protected readonly localStorage = localStorage
 
@@ -849,5 +842,84 @@ export class UpgradeSubscriptionComponent implements OnInit {
 				this.ngxService.stopBackground()
 			},
 		})
+	}
+	button1Style = {
+		"background-color": "#FFFFFF",
+		border: "1px solid var(--uniprep-primary)",
+		color: "#000000",
+	}
+
+	button2Style = {
+		"background-color": "#FFFFFF",
+		border: "1px solid var(--uniprep-primary)",
+		color: "#000000",
+	}
+	button3Style = {
+		"background-color": "#FFFFFF",
+		border: "1px solid var(--uniprep-primary)",
+		color: "#000000",
+	}
+	setActiveButtonUpgrade(buttonNumber:number){
+		let tabIndex = buttonNumber
+		let data = ""
+		if (tabIndex == 1) {
+			this.monthlyPlan = 1
+		} else if (tabIndex == 2) {
+			this.monthlyPlan = 6
+		} else if (tabIndex == 3) {
+			this.monthlyPlan = 12
+		}
+		if (this.monthlyPlan > this.existingSubscription[0]?.monthlyPlan) {
+			data = "canSubscribeAll"
+		} else if (this.monthlyPlan == this.existingSubscription[0]?.monthlyPlan) {
+			this.loadExistingSubscription()
+			return
+		} else {
+			data = "canSubscribeSome"
+		}
+		this.setActiveButton(tabIndex)
+	}
+	setActiveButton(buttonNumber: number): void {
+		this.button1Style = {
+			"background-color": "#FFFFFF",
+			border: "1px solid var(--uniprep-primary)",
+			color: "#000000",
+		}
+
+		this.button2Style = {
+			"background-color": "#FFFFFF",
+			border: "1px solid var(--uniprep-primary)",
+			color: "#000000",
+		}
+		this.button3Style = {
+			"background-color": "#FFFFFF",
+			border: "1px solid var(--uniprep-primary)",
+			color: "#000000",
+		}
+
+		// Set styles for the clicked button
+		if (buttonNumber === 1) {
+			this.activeButton = 1
+			this.button1Style = {
+				"background-color": "var(--uniprep-primary)",
+				border: "1px solid var(--uniprep-primary)",
+				color: "#FFFFFF",
+			}
+		} else if (buttonNumber === 2) {
+			this.activeButton = 2
+			this.button2Style = {
+				"background-color": "var(--uniprep-primary)",
+				border: "1px solid var(--uniprep-primary)",
+				color: "#FFFFFF",
+			}
+		} else if (buttonNumber === 3) {
+			this.activeButton = 3
+			this.button3Style = {
+				"background-color": "var(--uniprep-primary)",
+				border: "1px solid var(--uniprep-primary)",
+				color: "#FFFFFF",
+			}
+		}
+		this.getSubscriptionList("initial")
 	}
 }

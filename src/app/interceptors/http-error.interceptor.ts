@@ -6,6 +6,7 @@ import { inject } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { AuthTokenService } from "../core/services/auth-token.service";
 import { LocationService } from "../location.service";
+import {Router} from "@angular/router";
 
 // Cache for public routes check
 const publicRoutesSet = new Set([
@@ -44,7 +45,7 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
   const currentUrl = window.location.href;
   const isPublicRoute = Array.from(publicRoutesSet).some(route => currentUrl.includes(route));
   const isBackgroundRequest = Array.from(backgroundRequestsSet).some(path => request.url.includes(path));
-
+  const router = inject(Router)
   // Add auth token only for protected API requests
   if (request.url.includes(environment.ApiUrl) && !isPublicRoute) {
     const token = authTokenService.getToken();
@@ -70,9 +71,9 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
       }
     }),
     catchError((error: HttpErrorResponse) => {
-      if (authTokenService.isTokenValid() && error.status !== 0) {
-        locationService.sessionEndApiCall().subscribe();
-      }
+      // if (authTokenService.isTokenValid() && error.status !== 0) {
+      //   locationService.sessionEndApiCall().subscribe();
+      // }
       if ((error.status === 500 || error.status === 401) && !isPublicRoute) {
         toast.add({
           severity: 'error',
@@ -80,6 +81,7 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
           detail: 'Please login again'
         });
         authTokenService.clearToken();
+        router.navigate(['/login']);
       } else if (error.status === 400) {
         console.log('error', error.error.message);
         toast.add({

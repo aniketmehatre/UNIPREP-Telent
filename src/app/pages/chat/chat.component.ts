@@ -51,20 +51,15 @@ export class ChatComponent implements OnInit {
       reportOption: ["", Validators.required],
       comment: ["", Validators.required],
     });
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      this.subscriptioninfo = res;
-      let subscription_exists_status = res.subscription_details;
-      if (subscription_exists_status.subscription_plan == "free_trail") {
-        this.planmessage = "Please subscribe and send the message";
-        this.planstatus == "freetrail";
-        this.canChat = false;
-      } else if (subscription_exists_status.subscription_plan != "free_trail") {
-        this.planstatus == "expired";
-        this.planmessage = "Your question credits are exhausted! Additional credits will be available at 12:00 AM tommorow.";
-        this.canChat = false;
-      }
-    });
+    if (this.authService._userSubscrition.subscription_details.subscription_plan == "free_trail") {
+      this.planmessage = "Please subscribe and send the message";
+      this.planstatus == "freetrail";
+      this.canChat = false;
+    } else if (this.authService._userSubscrition.subscription_details.subscription_plan != "free_trail") {
+      this.planstatus == "expired";
+      this.planmessage = "Your question credits are exhausted! Additional credits will be available at 12:00 AM tommorow.";
+      this.canChat = false;
+    }
     this.modules = {
       toolbar: {
         container: [
@@ -236,33 +231,30 @@ export class ChatComponent implements OnInit {
       this.questionsleft = response?.questionsleft;
     });
 
-    this.authService.getMe().subscribe(async (response) => {
-      const encryptedData = this.storage.get("questions_left");
-      if (encryptedData) {
-        try {
-          this.totalcredits = await this.decryptData(encryptedData);
-        } catch (error) {
-          console.error('Error decrypting credits:', error);
-          this.totalcredits = 0;
-        }
+    const encryptedData = this.storage.get("questions_left");
+    if (encryptedData) {
+      try {
+        this.totalcredits = await this.decryptData(encryptedData);
+      } catch (error) {
+        console.error('Error decrypting credits:', error);
+        this.totalcredits = 0;
       }
+    }
 
-      if (this.totalcredits == 0) {
+    if (this.totalcredits == 0) {
+      this.btnsendmessage = 2;
+    } else if (this.totalcredits > 0) {
+      this.btnsendmessage = 1;
+    } else {
+      this.btnsendmessage = 3;
+    }
+    if (this.authService._userSubscrition.time_left.plan === "expired" || this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+      if (this.authService._userSubscrition.subscription_details.subscription_plan === "free_trail") {
         this.btnsendmessage = 2;
-      } else if (this.totalcredits > 0) {
-        this.btnsendmessage = 1;
       } else {
-        this.btnsendmessage = 3;
+        this.btnsendmessage = 2;
       }
-
-      if (this.subscriptioninfo.time_left.plan === "expired" || this.subscriptioninfo.time_left.plan === "subscription_expired") {
-        if (this.subscriptioninfo.subscription_details.subscription_plan === "free_trail") {
-          this.btnsendmessage = 2;
-        } else {
-          this.btnsendmessage = 2;
-        }
-      }
-    });
+    }
   }
   textMessage: string = "";
   visibility = false;

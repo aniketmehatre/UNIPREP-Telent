@@ -19,8 +19,8 @@ export interface CountryInsightsResponse {
 
 export interface QuestionsListPayLoad {
     page: number;
-    module_id: string;
-    country: string;
+    module_id: number;
+    country: number;
     perpage: number;
 }
 
@@ -35,6 +35,7 @@ export interface QuestionsList {
     created_at: string
     updated_at: string;
     module_name: string;
+    country_name: string
 }
 
 export interface QuestionListSuccess {

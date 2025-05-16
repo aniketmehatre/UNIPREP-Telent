@@ -3,9 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
-import { ScrollTop } from 'primeng/scrolltop';
-import { LandingLanguageHubComponent } from '../landing-language-hub/landing-language-hub.component';
 import { landingServices } from '../landing.service';
+import { ButtonModule } from 'primeng/button';
 
 interface CareerCard {
 	id: number;
@@ -32,6 +31,7 @@ interface CareerCard {
 		ReactiveFormsModule,
 		DialogModule,
 		RouterModule,
+		ButtonModule
 	],
   templateUrl: './job-seekers-landing.component.html',
   styleUrls: ['./job-seekers-landing.component.scss']

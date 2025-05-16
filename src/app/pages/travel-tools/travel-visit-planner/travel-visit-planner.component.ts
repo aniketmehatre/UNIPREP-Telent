@@ -51,20 +51,11 @@ export class TravelVisitPlannerComponent implements OnInit {
 	savedResponse: any = []
 	destinationLocationList: City[] = []
 	isResponseSkeleton: boolean = false;
-	aiCreditCount: number = 0;
 	userInputs: any;
 
 	ngOnInit(): void {
 		this.selectedData[2] = 1 //second page i need to show the days count so manually i enter the day.
 		this.getCityList();
-		this.getAICreditCount();
-	}
-	getAICreditCount() {
-		this.promptService.getAicredits().subscribe({
-			next: resp => {
-				this.aiCreditCount = resp;
-			}
-		})
 	}
 	getCityList() {
 		this.costOfLivingService.getCities().subscribe({
@@ -103,13 +94,14 @@ export class TravelVisitPlannerComponent implements OnInit {
 	}
 
 	getRecommendation(productId: number) {
+		if(this.authService._creditCount === 0){
+			this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+			this.router.navigateByUrl('/pages/export-credit')
+			return;
+		}
+		this.recommendationData = "";
 		this.hideWarning(productId)
 		if (!this.invalidClass) {
-			if (this.aiCreditCount == 0) {
-				this.toast.add({ severity: "error", summary: "Error", detail: "Free AI Credits Over.Please Buy Some Credits..!" });
-				this.buyCredits();
-				return;
-			}
 			let data = {
 				destination: this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name,
 				trip_duration: this.selectedData[2] + " days",
@@ -124,7 +116,7 @@ export class TravelVisitPlannerComponent implements OnInit {
 				next: (response) => {
 					this.isResponseSkeleton = false;
 					this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
-					this.getAICreditCount();
+					this.authService.aiCreditCount$.next(true);
 				},
 				error: (error) => {
 					console.error(error);

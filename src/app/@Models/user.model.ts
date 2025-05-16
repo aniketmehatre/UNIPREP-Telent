@@ -43,13 +43,14 @@ export interface User {
     state: string;
     district: string;
     programlevel: string;
-    country:string;
-    interested_country_name:string;
+    country: string;
+    interested_country_name: string;
     student_type_id: number;
-    education_level:string;
+    education_level: string;
     user_id: number;
     is_phn_or_whs_verified: number;
-    login_status: number;
+    login_status: number | string;
     ilearn_popup_status: number;
     country_code: number;
+    home_country_id: number;
 }

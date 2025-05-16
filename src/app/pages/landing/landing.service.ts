@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from '@env/environment';
 import {Observable} from 'rxjs';
+import { IPAddress } from './pricing/pricing.component';
 
 @Injectable({
     providedIn: 'root'
@@ -16,28 +17,28 @@ export class landingServices {
         headers: this.headers});
     }
 
-    getLandingPageChooseUs(id: number) {
-      return this.http.post<any>(environment.ApiUrl + "/landingpagechooseus",{id: id}, {
+  getLandingPageChooseUs(slug: string) {
+    return this.http.post<any>(environment.ApiUrl + "/landingpagechooseus", { slug: slug }, {
         headers: this.headers});
     }
 
-    getLandingPageFAQ(id: number) {
-      return this.http.post<any>(environment.ApiUrl + "/landingpagefaqs",{id: id}, {
+  getLandingPageFAQ(slug: string) {
+    return this.http.post<any>(environment.ApiUrl + "/landingpagefaqs", { slug: slug }, {
         headers: this.headers});
     }
 
-    getLandingPageHowItsWorks(id: number) {
-      return this.http.post<any>(environment.ApiUrl + "/landingpagehowitsworks",{id: id}, {
+  getLandingPageHowItsWorks(slug: string) {
+    return this.http.post<any>(environment.ApiUrl + "/landingpagehowitsworks", { slug: slug }, {
         headers: this.headers});
     }
 
-    getLandingPageWhoItsFors(id: number) {
-      return this.http.post<any>(environment.ApiUrl + "/landingpagewhoitsfors",{id: id}, {
+  getLandingPageWhoItsFors(slug: string) {
+    return this.http.post<any>(environment.ApiUrl + "/landingpagewhoitsfors", { slug: slug }, {
         headers: this.headers});
     }
 
-    getLandingPageData(val: any){
-      return this.http.post<any>(`${environment.ApiUrl}/landingpageedit`, {id: val});
+  getLandingPageData(slug: string) {
+    return this.http.post<any>(`${environment.ApiUrl}/landingpageedit`, { slug: slug });
     }
 
   getLandingCategories(id: number) {
@@ -60,5 +61,21 @@ export class landingServices {
 
   getManagementTeamMembersList(data: any) {
     return this.http.post<any>(`${environment.ApiUrl}/landingpageactivemanagement`, data);
+  }
+
+  sendContactUsPage(data: any) {
+    return this.http.post<any>(`${environment.ApiUrl}/contactussave`, data);
+  }
+
+  getCitiesCountry(data: any) {
+    return this.http.get<any>(`${environment.ApiUrl}/getworldcitiescountry`, { params: data });
+  }
+
+  getLandingPageSubscriptionList(data: any) {
+    return this.http.post<IPAddress>(`${environment.ApiUrl}/getlandingpagesubscriptionlist`, data);
+  }
+
+  getCountryName() {
+    return this.http.get('https://ipapi.co/json/');
   }
 }

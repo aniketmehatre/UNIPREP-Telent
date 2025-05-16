@@ -103,6 +103,7 @@ label {
 
 /* For the dialog content */
 .employee-profile-dialog {
+  padding: 0px;
     overflow: hidden !important; /* Prevent scroll inside the dialog */
   }
   
@@ -120,18 +121,6 @@ label {
       font-weight:600;
     }
   }
-
-  
-/* Custom column widths */
-.col-8-5 {
-  flex: 0 0 auto;
-  width: 72.833%; /* 8.5/12 = 70.833% */
-}
-
-.col-3-5 {
-  flex: 0 0 auto;
-  width: 27.167%; /* 3.5/12 = 29.167% */
-}
 
 .loader-overlay {
   position: fixed;
@@ -157,5 +146,21 @@ label {
   z-index: 3;
 }
 
+.h-fit-content {
+  height: fit-content;
+}
 
-  
+::ng-deep .p-dialog-content {
+  padding: 0 !important;
+}
+
+
+/* Your profile - evaluation css code start */
+.body_content {
+  font-family: 'Poppins', sans-serif;
+  background: #f3f4f6;
+  padding: 20px;
+  color: #1f2937;
+  }
+
+/* Your profile - evaluation css code end here */

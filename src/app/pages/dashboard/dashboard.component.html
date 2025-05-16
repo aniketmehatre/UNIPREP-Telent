@@ -1,37 +1,46 @@
 <!-- new design -->
-<div class="header-container">
+<div class="header-container" role="banner">
 	<div class="text-container">
-		<h4 class="fw-semibold mb-0">Hello, {{ userName }} <span class="emoji">👏</span></h4>
+		<h4 class="fw-semibold mb-0">Hello, {{ userName }} <span class="emoji" aria-label="clapping hands">👏</span>
+		</h4>
 		<h6 class="fw-normal lh-base mb-2 mb-md-0">
 			Welcome to <span class="highlight-text"><b>UNIPREP</b></span>! Let's get started on your journey to a
 			brighter future!
 		</h6>
 	</div>
 
-	<!-- <div class="button-container">
-        <button class="action-button">
-            <i class="fa-regular fa-bell"></i>
-            <span>Notifications</span>
-            <span class="notification-badge">3</span>
-        </button>
+	<div class="button-container text-end">
+		<!--        <button class="action-button">-->
+		<!--            <i class="fa-regular fa-bell"></i>-->
+		<!--            <span>Notifications</span>-->
+		<!--            <span class="notification-badge">3</span>-->
+		<!--        </button>-->
+		<div class="row">
+			<h3><strong>Missing Something?</strong></h3>
+			<p><span class="text-decoration-underline" (click)="openReportModal(op, $event)">let us know </span>
+				<span>and we will build the feature you need in 15 days!</span>
+			</p>
+		</div>
 
-        <button class="action-button">
-            <i class="fa-regular fa-envelope"></i>
-            <span>Messages</span>
-            <span class="notification-badge">3</span>
-        </button>
-    </div> -->
+		<!--        <button class="action-button">-->
+		<!--            <i class="fa-regular fa-envelope"></i>-->
+		<!--            <span>Messages</span>-->
+		<!--            <span>Messages</span>-->
+		<!--&lt;!&ndash;            <span class="notification-badge">3</span>&ndash;&gt;-->
+		<!--        </button>-->
+	</div>
 </div>
-<div class="row">
+<div class="row" role="main">
 	<div class="col-lg-3 col-md-6 col-sm-12">
 		<div class="card mt-2 bg-white" style="height: 100%">
 			<div class="card-body">
-				<h5 class="mb-2 text-start"><span class="emoji">🎥</span> Introduction to UNIPREP</h5>
-				<iframe width="100%" target="_blank" height="100%" style="border-radius: 15px"
-					src="https://www.youtube.com/embed/Sv8EyWriqV0?si=S3wZ7jT4B7y8o-zX" title="YouTube video player"
-					frameborder="0"
+				<h5 class="mb-2 text-start"><span class="emoji" aria-label="video camera">🎥</span> Introduction to
+					UNIPREP</h5>
+				<iframe width="100%" height="100%" style="border-radius: 15px"
+					src="https://www.youtube.com/embed/Bgm2bWF7p04?si=Cn9BNmxIO9h7j7hn"
+					title="UNIPREP Introduction Video" frameborder="0"
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-					allowfullscreen></iframe>
+					allowfullscreen aria-label="UNIPREP Introduction Video"> </iframe>
 			</div>
 		</div>
 	</div>
@@ -41,101 +50,99 @@
 			<div class="card-body d-flex flex-column justify-content-between">
 				<div class="row align-items-center">
 					<div class="col-12">
-						<h5><span class="emoji">👤</span> Profile Completion</h5>
+						<h5><span class="emoji" aria-label="user">👤</span> Profile Completion</h5>
 					</div>
 					<div class="col-6 mb-4">
 						<div style="display: flex; justify-content: space-between">
-							<div style="font-size: 3rem">{{ totalPercentage }}%</div>
+							<div style="font-size: 3rem" aria-label="Profile completion percentage">{{ totalPercentage
+								}}%</div>
 						</div>
 					</div>
 					<div class="col-6">
 						<button *ngIf="isShowingCompletion"
 							class="justify-content-center gap-2 px-4 py-2 border-0 rounded-lg shadow-md w-100"
-							style="border-radius: 15px; font-size: 10px">
+							style="border-radius: 15px; font-size: 10px" aria-label="Profile completion status">
 							<span class="text-gray-700 uniprep-primary fw-semibold">You are almost there!</span>
 						</button>
 					</div>
 					<div class="col-6">
-						<div class="progress-bar-container">
+						<div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="progress"
+							[attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
 							<div class="progress-bar" [style.width.%]="progress"></div>
-							<!-- Adjust the width to indicate progress -->
 						</div>
 						<span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700"
 							style="font-size: 9px">Basic Details</span>
 					</div>
 					<div class="col-3">
-						<div class="progress-bar-container">
+						<div class="progress-bar-container" role="progressbar"
+							[attr.aria-valuenow]="talentConnectPercentage" [attr.aria-valuemin]="0"
+							[attr.aria-valuemax]="100">
 							<div class="progress-bar2" [style.width.%]="talentConnectPercentage"></div>
-							<!-- Adjust the width to indicate progress -->
 						</div>
 						<span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700"
 							style="font-size: 9px">Job Profile</span>
 					</div>
 					<div class="col-3">
-						<div class="progress-bar-container">
+						<div class="progress-bar-container" role="progressbar"
+							[attr.aria-valuenow]="cvBuilderPercentage" [attr.aria-valuemin]="0"
+							[attr.aria-valuemax]="100">
 							<div class="progress-bar3" [style.width.%]="cvBuilderPercentage"></div>
-							<!-- Adjust the width to indicate progress -->
 						</div>
 						<span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700"
 							style="font-size: 9px">CV Details</span>
 					</div>
-					<!-- <div class="col-12">
-						<button pButton class="btn btn-rounded mt-2" style="color: var(--uniprep-primary); background-color: white; border-color: var(--uniprep-primaryop10); font-size: 10px; width: -webkit-fill-available">ATS Compobility : {{ progress }}%</button>
-					</div> -->
 					<div class="col-12 mt-4">
 						<p class="mb-0 text-start" style="font-size: 11px">Complete your profile today:</p>
 					</div>
 					<div class="col-12 d-flex gap-2 mt-2">
 						<button class="px-2 py-2 border rounded-lg shadow-md bg-white"
-							style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
-							<span (click)="openMyProfile()" style="color: #394d83">My Profile <i
-									class="fa-solid fa-user" style="color: #394d83"></i></span>
+							style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available"
+							(click)="openMyProfile()" aria-label="Open My Profile">
+							<span style="color: #394d83">My Profile <i class="fa-solid fa-user" style="color: #394d83"
+									aria-hidden="true"></i></span>
 						</button>
 						<button (click)="redirectToCvBuilder()" class="px-2 py-2 border rounded-lg shadow-md bg-white"
-							style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
+							style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available"
+							aria-label="Open CV Builder">
 							<span style="color: #394d83">CV Builder <i class="fa-solid fa-file-lines"
-									style="color: #394d83"></i></span>
+									style="color: #394d83" aria-hidden="true"></i></span>
 						</button>
 						<button (click)="redirectToTalentConnect()"
 							class="px-2 py-2 border rounded-lg shadow-md bg-white"
-							style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available">
+							style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available"
+							aria-label="Open Talent Connect">
 							<span style="color: #394d83">Talent Connect <i class="fa-solid fa-user-tie"
-									style="color: #394d83"></i></span>
+									style="color: #394d83" aria-hidden="true"></i></span>
 						</button>
 					</div>
 				</div>
-				<!-- <button pButton severity="contrast" (click)="openMyProfile()"
-                    class="btn btn-dark btn-rounded mt-3">{{ progress != 100 ? "Complete my profile" : "My Profile"
-                    }}
-                </button> -->
 			</div>
 		</div>
 	</div>
 	<div class="col-lg-6 col-md-12 col-sm-12">
 		<div class="card fav-card mt-2" style="background-color: white">
 			<div class="card-body text-center">
-				<h5 class="mb-0 text-start ms-4 ps-4"><span class="emoji">⭐</span> Feature Favourites</h5>
+				<h5 class="mb-0 text-start"><span class="emoji" aria-label="star">⭐</span> Feature Favourites</h5>
 
 				<!-- Carousel Component -->
 				<p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1"
 					[responsiveOptions]="responsiveOptions" [value]="groupedListFav" [showIndicators]="true"
-					[indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }">
+					[indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
+					aria-label="Feature Favourites Carousel">
 					<ng-template let-group pTemplate="item">
 						<div class="grid-container">
 							<div *ngFor="let v of group">
-								<div (click)="selectFav(v)" role="button" class="card-body country-border">
+								<div (click)="selectFav(v)" role="button" tabindex="0" class="card-body country-border"
+									(keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
 									<div class="d-flex justify-content-start gap-3 align-items-center">
 										<div>
-											<img alt="country" class="countryicon"
+											<img alt="{{ v.moduleName }} icon" class="countryicon"
 												[src]="v.imageLink != '' ? v.imageLink : '../../uniprep-assets/images/mstile-150x150.png'" />
 										</div>
 										<div class="text-start">
 											<p class="mb-0 text-sm text-capitalize" style="font-size: larger">
 												<b>{{ v.moduleName | uppercase }}</b>
 											</p>
-											<!-- <p class="mb-0 text-muted">
-												{{ v.module }}
-											</p> -->
 										</div>
 									</div>
 								</div>
@@ -154,23 +161,27 @@
 		<div class="card fav-card mt-2 bg-white">
 			<div class="card-body d-flex flex-column justify-content-between">
 				<div class="flex justify-content-between">
-					<h5 class="mb-0 p-2 text-start"><span class="emoji">💼</span> Recent Job Applications</h5>
+					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span> Recent Job
+						Applications</h5>
 					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white"
-						style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()">View
-						All</button>
+						style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()"
+						aria-label="View all job applications">View All</button>
 				</div>
 
 				<p-carousel #carousel [circular]="false" [numScroll]="1" [numVisible]="1" *ngIf="!isNoApplicationsData"
 					[responsiveOptions]="responsiveOptions" [value]="groupedListFav2" [showIndicators]="true"
-					[indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }">
+					[indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
+					aria-label="Recent Job Applications Carousel">
 					<ng-template let-group pTemplate="item">
 						<div class="grid-container">
 							<div *ngFor="let v of group">
-								<div (click)="selectFav(v)" role="button" class="card">
+								<div (click)="selectFav(v)" role="button" tabindex="0" class="card"
+									(keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
 									<div class="card-body">
 										<div class="d-flex gap-2">
 											<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
-												<img alt="logo" class="w-100 h-100" style="object-fit: cover"
+												<img alt="{{ v.company_name }} logo" class="w-100 h-100"
+													style="object-fit: cover"
 													(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
 													src="{{ v.company_logo }}" />
 											</div>
@@ -181,8 +192,8 @@
 												<p class="text-muted text-small">{{ v.company_name }}</p>
 												<p class="text-muted text-small">Status: {{ v.status }}</p>
 												<p class="mb-0 text-small text-capitalize mt-2">
-													<i class="fa-solid fa-location-dot"
-														style="color: #79ae28"></i>&nbsp;
+													<i class="fa-solid fa-location-dot" style="color: #79ae28"
+														aria-hidden="true"></i>&nbsp;
 													<span style="font-weight: 500px; color: black">{{ v.worklocation
 														}}</span>
 												</p>
@@ -192,7 +203,7 @@
 														color: 'white',
 														'font-size': '10px',
 														'border-radius': '2px'
-													}">
+													}" aria-label="Hiring stage: {{ v.hiringstage }}">
 													{{ v.hiringstage }}
 												</button>
 											</div>
@@ -217,12 +228,13 @@
 				<div class="card h-100 bg-white">
 					<div class="card-body d-flex flex-column justify-content-between">
 						<div class="text-start">
-							<h5 class="mb-1 uppercase"><span class="emoji">⌛</span> Quiz</h5>
+							<h5 class="mb-1 uppercase"><span class="emoji" aria-label="hourglass">⌛</span> Quiz</h5>
 							<p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
 						</div>
 						<button pButton severity="warn" (click)="openQuiz()"
 							class="btn btn-rounded font-weight-bold mt-3"
-							style="color: #ff9138; border-color: #ff9138; background-color: #fff1e7">Start Quiz</button>
+							style="color: #ff9138; border-color: #ff9138; background-color: #fff1e7"
+							aria-label="Start Quiz">Start Quiz</button>
 					</div>
 				</div>
 			</div>
@@ -230,38 +242,41 @@
 				<div class="card h-100 bg-white">
 					<div class="card-body d-flex flex-column justify-content-between">
 						<div class="text-start">
-							<h5 class="mb-1 uppercase fw-bold"><span class="emoji">📜</span> Certification</h5>
+							<h5 class="mb-1 uppercase fw-bold"><span class="emoji" aria-label="scroll">📜</span>
+								Certification</h5>
 							<p class="mb-0">Get all your certificates in one place to share them on social media.</p>
 						</div>
 						<button pButton (click)="openCertificate()" class="btn btn-rounded mt-3"
-							style="color: #455c9e; background-color: #ecedf3; border-color: #455c9e">My
-							Certificates</button>
+							style="color: #455c9e; background-color: #ecedf3; border-color: #455c9e"
+							aria-label="View My Certificates">My Certificates</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- Empty Column -->
+	<!-- Calendar -->
 	<div class="col-lg-3 col-md-6 col-sm-12 mt-2">
 		<div class="card bg-white h-100 p-3">
 			<div class="calendar-container">
-				<h5 style="text-align: start"><span class="emoji">🕒</span> {{ monthName }} {{ currentYear }}</h5>
+				<h5 style="text-align: start"><span class="emoji" aria-label="clock">🕒</span> {{ monthName }} {{
+					currentYear }}</h5>
 
-				<div class="weekdays">
-					<div *ngFor="let day of weekdays" class="weekday">{{ day }}</div>
+				<div class="weekdays" role="row">
+					<div *ngFor="let day of weekdays" class="weekday" role="columnheader">{{ day }}</div>
 				</div>
 
 				<!-- Calendar Days -->
-				<div class="calendar-grid">
+				<div class="calendar-grid" role="grid">
 					<!-- Empty spaces for first week alignment -->
-					<div *ngFor="let _ of [].constructor(firstDayIndex)" class="empty"></div>
+					<div *ngFor="let _ of [].constructor(firstDayIndex)" class="empty" role="gridcell"></div>
 
 					<!-- Calendar Days -->
-					<div *ngFor="let day of daysInMonth" class="day-box" [ngClass]="getStatusClass(day)">
+					<div *ngFor="let day of daysInMonth" class="day-box" [ngClass]="getStatusClass(day)" role="gridcell"
+						tabindex="0" aria-label="{{ day }} {{ monthName }} {{ currentYear }}">
 						<!-- Display Usage Data (if available) -->
 						<div *ngFor="let entry of getUsageDataForDay(day)" class="usage-info"
-							pTooltip="{{ entry.timeUsage }} " tooltipPosition="top">
+							pTooltip="{{ entry.timeUsage }}" tooltipPosition="top" role="presentation">
 							<span class="dot"></span>
 						</div>
 					</div>
@@ -289,17 +304,19 @@
 		<div class="card trustedcard bg-white">
 			<div class="card-body text-center pb-3 bodyclass">
 				<div class="flex justify-content-between">
-					<h5 class="mb-0 p-2 text-start"><span class="emoji">🌱</span> Trusted by 1000+ Educational Partners
-					</h5>
+					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="seedling">🌱</span> Trusted by 1000+
+						Educational Partners</h5>
 					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white"
-						style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()">View All</button>
+						style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()"
+						aria-label="View all educational partners">View All</button>
 				</div>
 				<div class="mb-4">
 					<p-carousel [numScroll]="6" [numVisible]="6" [autoplayInterval]="3000" [circular]="true"
 						[responsiveOptions]="responsiveOptions" [showIndicators]="false" [value]="partnerTrusterLogo"
-						class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }">
+						class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
+						aria-label="Educational Partners Carousel">
 						<ng-template let-uni pTemplate="item">
-							<img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
+							<img alt="{{ uni.name }} logo" class="trustedbylogo" src="{{ uni.logo }}" />
 						</ng-template>
 					</p-carousel>
 				</div>
@@ -310,425 +327,39 @@
 		<div class="card bg=white h-100">
 			<div class="card-body d-flex flex-column justify-content-between">
 				<div class="text-start">
-					<h5 class="mb-1 mt-2 uppercase"><span class="emoji">💌</span> Invite People to Try <span
-							style="color: #ff9138">UNIPREP</span></h5>
+					<h5 class="mb-1 mt-2 uppercase"><span class="emoji" aria-label="envelope">💌</span> Invite People to
+						Try <span style="color: #ff9138">UNIPREP</span></h5>
 					<p class="mb-0">We'll email them instructions and a link to create an account</p>
 				</div>
 				<p-inputgroup>
 					<p-inputgroup-addon>
-						<i class="fa-regular fa-envelope"></i>
+						<i class="fa-regular fa-envelope" aria-hidden="true"></i>
 					</p-inputgroup-addon>
-					<input pInputText [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address" />
+					<input pInputText [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address"
+						aria-label="Email address to send invite" required />
 				</p-inputgroup>
 
 				<button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold mt-3"
-					style="color: #666666; border-color: #666666; background-color: #ffffff; font-size: 10px">Send
-					Invite</button>
+					style="color: #666666; border-color: #666666; background-color: #ffffff; font-size: 10px"
+					aria-label="Send invite email">Send Invite</button>
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- <div class="card countrycard d-none d-lg-block mt-2">
-    <div class="card-body text-center pb-0">
-        <h5 class="mb-0">SELECTED COUNTRY</h5>
-        <p-carousel #carousel [circular]="false" [numScroll]="7" [numVisible]="7"
-                    [responsiveOptions]="responsiveOptions" [value]="countryLists">
-            <ng-template let-v pTemplate="item">
-                <div (click)="selectCountry(v)" role="button"
-                     class="text-center card-body {{ selectedCountryId == v.id ? 'country-border' : '' }}">
-                    <img alt="country" class="countryicon mb-2"
-                         src="{{ v.flag != '' ? v.flag : '../../uniprep-assets/images/mstile-150x150.png' }}"/>
-                    <p class="mb-0 text-center text-sm text-capitalize {{ selectedCountryId == v.id ? 'country-text' : 'country-text-small' }}">
-                        {{ v.country | uppercase }}
-                    </p>
-                </div>
-            </ng-template>
-        </p-carousel>
-        <div class="badge bg-dark text-wrap bottom-text text-capitalize">You Have Currently
-            Selected {{ selectedCountryName }}. If you're intrigued by details about other countries, start exploring
-            them now!
-        </div>
-    </div>
-</div> -->
-<!-- <div class="d-flex d-lg-none row align-items-center">
-	<div class="col-4">
-		<h5 class="mb-0">Country Selection</h5>
-	</div>
-	<div class="col-8">
-		<p-select [options]="countryLists" styleClass="w-100" optionLabel="country" (onChange)="selectCountry($event.value)">
-			<ng-template pTemplate="selectedItem">
-				<div class="d-flex align-items-center gap-2">
-					<img [src]="headerFlag" class="base-country-flag" width="15" />
-					<span>{{ selectedCountryName }}</span>
-				</div>
-			</ng-template>
-			<ng-template let-country pTemplate="item">
-				<div class="country-item">
-					<div class="d-flex gap-2 align-items-center"><img alt="country" class="countryicon" width="15" src="{{ country.flag != '' ? country.flag : '../../uniprep-assets/images/mstile-150x150.png' }}" />{{ country.country }}</div>
-				</div>
-			</ng-template>
-		</p-select>
-	</div>
-</div> -->
-<!-- <div class="container-fluid mt-3">
-    <div class="row align-items-center text-center text-lg-start">
-        <div class="col-md-7 col-12 p-0">
-            <div class="card trustedcard">
-                <div class="card-body text-center pb-0">
-                    <h5 class="mb-0 mt-2">Associated with 350+ Educational Partners</h5>
-                    <p-carousel [numScroll]="1" [numVisible]="4" [circular]="true"
-                        [responsiveOptions]="responsiveOptions" [showIndicators]="false" [value]="partnerTrusterLogo"
-                        class="text-center">
-                        <ng-template let-uni pTemplate="item">
-                            <img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
-                        </ng-template>
-                    </p-carousel>
-                    <button pButton class="btn btn-primary btn-rounded text-small px-4 py-2 m-0 mb-2"
-                        (click)="openViewMoreOrg()">View More
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<!-- <div class="card fav-card d-none d-lg-block mt-2">
-    <div class="card-body text-center pb-4 ">
-        <h4 class="mb-0">Favourites</h4>
-        <p-carousel #carousel [circular]="false" [numScroll]="7" [numVisible]="7"
-                    [responsiveOptions]="responsiveOptions" [value]="listFav" [showIndicators]="false">
-            <ng-template let-v pTemplate="item" style="padding:4px">
-                <div (click)="selectFav(v)" role="button"
-                     class="text-center card-body country-border m-2">
-                    <img alt="country" class="countryicon mb-2"
-                         src="{{ v.imageLink != '' ? v.imageLink : '../../uniprep-assets/images/mstile-150x150.png' }}"/>
-                    <p class="mb-0 text-center text-sm text-capitalize">
-                        {{ v.moduleName | uppercase }}
-                    </p>
-                </div>
-            </ng-template>
-        </p-carousel>
-    </div>
-</div> -->
-<!-- <div class="container-fluid px-0 mt-3 mb-3">
-    <div class="row g-3 justify-content-center"> -->
-<!-- <div class="col-12 col-lg-5">
-            <div class="card h-100">
-                <div class="card-body">
-                    <iframe width="100%" target="_blank" height="100%"
-                            src="https://www.youtube.com/embed/Sv8EyWriqV0?si=S3wZ7jT4B7y8o-zX"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
-                </div>
-            </div>
-        </div> -->
-<!-- 
-        <div class="col-12 col-lg-5">
-            <div class="card h-100">
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="text-center">
-                                <img src="/uniprep-assets/images/dashboard/Myprofile.png" alt="uniprep My Profile"
-                                    height="80" width="80" />
-                                <h5 class="mb-1 mt-2 uppercase">My Profile</h5>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-center">
-        
-                                <div class="text-center justify-content-center">
-                                    <div class="progress-circle" [attr.data-value]="progress"
-                                        [style.--value]="progress">
-                                        <svg class="progress-ring" width="60" height="60">
-                  
-                                            <circle class="progress-ring__background" stroke="#EEEEEE" stroke-width="8"
-                                                fill="transparent" r="25" cx="30" cy="30" />
-          
-                                            <circle class="progress-ring__circle" stroke="rgb(63, 76, 131)"
-                                                stroke-width="8" fill="transparent" r="25" cx="30" cy="30" />
-                
-                                        </svg>
-                                        <div class="progress-text" style="font-size: 0.8rem">{{ progress }}%</div>
-                            
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="mb-0 text-center">Complete your profile for personalised content.</p>
-                    <button pButton severity="contrast" (click)="openMyProfile()"
-                        class="btn btn-dark btn-rounded mt-3">{{ progress != 100 ? "Complete my profile" : "My Profile"
-                        }}
-                    </button>
-                </div>
-            </div>
-        </div> -->
-
-<!-- <div class="col-12 col-lg-5">
-            <div class="card h-100">
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="text-center">
-                                <img src="/uniprep-assets/images/dashboard/Reading.png" alt="uniprep Quiz" height="80"
-                                    width="80" />
-                                <h5 class="mb-1 mt-2 uppercase">Reading</h5>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-center justify-content-center">
-                                <div class="progress1-circle" [attr.data-value]="progressReading"
-                                    [style.--value]="progressReading">
-                                    <svg class="progress1-ring" width="60" height="60">
-                              
-                                        <circle class="progress1-ring__background" stroke="#EEEEEE" stroke-width="8"
-                                            fill="transparent" r="25" cx="30" cy="30" />
-                                   
-                                        <circle class="progress1-ring__circle" stroke="rgb(63, 76, 131)"
-                                            stroke-width="8" fill="transparent" r="25" cx="30" cy="30" />
-                                
-                                    </svg>
-                                    <div class="progress1-text" style="font-size: 0.8rem">{{ progressReading }}%</div>
-                                
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="mb-0 text-center">Expand your horizons through reading.</p>
-                    <button pButton (click)="openReading()" class="btn btn-primary btn-rounded mt-3">{{ quizpercentage
-                        >= 90 ? "Completed" : "Start Reading" }}
-                    </button>
-                </div>
-            </div>
-        </div> -->
-
-<!-- <div class="col-12 col-lg-5">
-            <div class="card h-100">
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <div class="text-center">
-                        <img src="/uniprep-assets/images/dashboard/Quiz.png" alt="uniprep Quiz" height="80"
-                            width="80" />
-                        <h5 class="mb-1 mt-2 uppercase">Quiz</h5>
-                        <p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
-                    </div>
-                    <button pButton severity="warn" (click)="openQuiz()"
-                        class="btn btn-secondary btn-rounded text-white font-weight-bold mt-3">
-                        Start Quiz
-                    </button>
-                </div>
-            </div>
-        </div> -->
-
-<!-- <div class="col-12 col-lg-5">
-            <div class="card h-100">
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <div class="text-center">
-                        <img src="/uniprep-assets/images/dashboard/Certification.png" alt="uniprep my certificate"
-                            height="80" width="80" />
-                        <h5 class="mb-1 mt-2 uppercase fw-bold">Certification</h5>
-                        <p class="mb-0">Get all your certificates in one place to share them on social media.</p>
-                    </div>
-                    <button pButton (click)="openCertificate()" class="btn btn-dark btn-rounded mt-3">My
-                        Certificates</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-<!-- </div> -->
-<!--<div class="container-fluid px-0 mt-3 mb-3">-->
-<!--    <div class="row">-->
-<!--        <div class="col-12 col-lg-5 my-md-0 my-2">-->
-<!--            <div class="card h-100">-->
-<!--                <div class="card-body">-->
-<!--                    <iframe width="100%" target="_blank" height="100%" src="https://www.youtube.com/embed/4boPpgZs1Lg?si=MWqoVbZ5FoybGI7Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col-12 col-lg-5 my-md-0 my-2" [ngClass]="{ 'readingData-enable': enableReading, 'readingData-disable': !enableReading }">-->
-<!--            <div class="card h-100">-->
-<!--                <div class="card-body d-flex justify-content-evenly flex-column">-->
-<!--                    <div class="row mb-3">-->
-<!--                        <div class="row">-->
-<!--                            <div class="col">-->
-<!--                                <div class="row">-->
-<!--                                    <div class="col-md-12 col-lg-12 d-flex">-->
-<!--                                        <img src="/uniprep-assets/images/dashboard/Myprofile.png" alt="uniprep My Profile" height="80" width="80" />-->
-<!--                                    </div>-->
-<!--                                    <div class="row mt-2">-->
-<!--                                        <h5 class="mb-1 uppercase">My Profile</h5>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col">-->
-<!--                                &lt;!&ndash;                                <div [attr.data-percentage]="readProgressionPercentage" class="progress1">&ndash;&gt;-->
-<!--                                &lt;!&ndash;								<span class="progress1-left">&ndash;&gt;-->
-<!--                                &lt;!&ndash;									<span class="progress1-bar"></span>&ndash;&gt;-->
-<!--                                &lt;!&ndash;								</span>&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                    <span class="progress1-right">&ndash;&gt;-->
-<!--                                &lt;!&ndash;									<span class="progress1-bar"></span>&ndash;&gt;-->
-<!--                                &lt;!&ndash;								</span>&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                    <div class="progress1-value">&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                        <div>{{ readProgressionPercentage }}%<br/></div>&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                    </div>&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--                                <div class="progress-circle" [attr.data-value]="progress" [style.&#45;&#45;value]="progress">-->
-<!--                                    <svg class="progress-ring" width="100" height="100">-->
-<!--                                        <circle class="progress-ring__background" stroke="#EEEEEE" stroke-width="10" fill="transparent" r="45" cx="50" cy="50" />-->
-<!--                                        <circle class="progress-ring__circle" stroke="black" stroke-width="10" fill="transparent" r="45" cx="50" cy="50" />-->
-<!--                                    </svg>-->
-<!--                                    <div class="progress-text">{{ progress }}%</div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-12">-->
-<!--                            <p class="mb-0">Complete your profile for personalised content.</p>-->
-<!--                        </div>-->
-<!--                        <div class="col-md-12 col-lg-12 d-flex mt-2">-->
-<!--                            <button pButton  (click)="openMyProfile()" class="btn w-100 m-0 p-0">-->
-<!--                                <div class="row">-->
-<!--                                    <div class="col-12">-->
-<!--										<span style="cursor: pointer; color: white" class="ellipse-button fw-normal container-fluid">-->
-<!--                                           <strong>{{ progress != 100 ? "Complete my profile" : "My Profile" }}</strong></span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col-12 col-lg-5 my-md-0 my-2" [ngClass]="{ 'readingData-enable': enableReading, 'readingData-disable': !enableReading }">-->
-<!--            <div class="card h-100">-->
-<!--                <div class="card-body d-flex justify-content-evenly flex-column">-->
-<!--                    <div class="row mb-3">-->
-<!--                        <div class="row">-->
-<!--                            <div class="col">-->
-<!--                                <div class="row">-->
-<!--                                    <div class="col-md-12 col-lg-12 d-flex">-->
-<!--                                        <img src="/uniprep-assets/images/dashboard/Reading.png" alt="uniprep Quiz" height="80" width="80" />-->
-<!--                                    </div>-->
-<!--                                    <div class="row mt-2">-->
-<!--                                        <h5 class="mb-1 uppercase">Reading</h5>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col">-->
-<!--                                &lt;!&ndash;                                <div [attr.data-percentage]="readProgressionPercentage" class="progress1">&ndash;&gt;-->
-<!--                                &lt;!&ndash;								<span class="progress1-left">&ndash;&gt;-->
-<!--                                &lt;!&ndash;									<span class="progress1-bar"></span>&ndash;&gt;-->
-<!--                                &lt;!&ndash;								</span>&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                    <span class="progress1-right">&ndash;&gt;-->
-<!--                                &lt;!&ndash;									<span class="progress1-bar"></span>&ndash;&gt;-->
-<!--                                &lt;!&ndash;								</span>&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                    <div class="progress1-value">&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                        <div>{{ readProgressionPercentage }}%<br/></div>&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                    </div>&ndash;&gt;-->
-<!--                                &lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--                                <div class="progress1-circle" [attr.data-value]="progressReading" [style.&#45;&#45;value]="progressReading">-->
-<!--                                    <svg class="progress1-ring" width="100" height="100">-->
-<!--                                        <circle class="progress1-ring__background" stroke="#EEEEEE" stroke-width="10" fill="transparent" r="45" cx="50" cy="50" />-->
-<!--                                        <circle class="progress1-ring__circle" stroke="rgb(63, 76, 131)" stroke-width="10" fill="transparent" r="45" cx="50" cy="50" />-->
-<!--                                    </svg>-->
-<!--                                    <div class="progress1-text">{{ progressReading }}%</div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-12">-->
-<!--                            <p class="mb-0">Expand your horizons through reading.</p>-->
-<!--                            <br />-->
-<!--                        </div>-->
-<!--                        <div class="col-md-12 col-lg-12 d-flex mt-2">-->
-<!--                            <button pButton  (click)="openReading()" class="btn w-100 m-0 p-0">-->
-<!--                                <div class="row">-->
-<!--                                    <div class="col-12">-->
-<!--										<span style="cursor: pointer; background: rgb(63, 76, 131);-->
-<!--color: white;" class="ellipse-button fw-normal container-fluid">-->
-<!--                                            <strong>{{ quizpercentage >= 90 ? "Completed" : "Start Reading" }}</strong></span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col-12 col-lg-5 my-md-0 my-2">-->
-<!--            <div class="card h-100">-->
-<!--                <div class="card-body d-flex justify-content-evenly flex-column">-->
-<!--                    <div class="row mb-3 text-center">-->
-<!--                        <div class="col-md-12 col-lg-12 text-center">-->
-<!--                            <img src="/uniprep-assets/images/dashboard/Quiz.png" alt="uniprep Quiz" height="80" width="80" />-->
-<!--                        </div>-->
-<!--                        <div class="row mt-2">-->
-<!--                            <h5 class="mb-1 uppercase">Quiz</h5>-->
-<!--                            <p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>-->
-<!--                        </div>-->
-<!--                        <div class="col-md-12 col-lg-12 d-flex mt-2">-->
-<!--                            <button pButton  (click)="openQuiz()" class="btn w-100 m-0 p-0">-->
-<!--                                <div class="row">-->
-<!--                                    <div class="col-12">-->
-<!--										<span style="cursor: pointer; background: #f0780e; color: white; font-weight: bold"-->
-<!--                                              class="ellipse-button fw-normal container-fluid"><strong>Start Quiz</strong></span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col-12 col-lg-5 my-md-0 my-2">-->
-<!--            <div class="card h-100">-->
-<!--                <div class="card h-100">-->
-<!--                    <div class="card-body d-flex justify-content-evenly flex-column">-->
-<!--                        <div class="row mb-3 text-center">-->
-<!--                            <div class="col-md-12 col-lg-12 text-center">-->
-<!--                                <div class="row mb-3 text-center">-->
-<!--                                    <div class="col-md-12 col-lg-12 text-center">-->
-<!--                                        <img src="/uniprep-assets/images/dashboard/Certification.png" alt="uniprep my certificate" height="80" width="80" />-->
-<!--                                    </div>-->
-<!--                                    &lt;!&ndash;<div class="col-6 mt-5">-->
-<!--                                        <div style="text-align: center; font-size: x-large;">-->
-<!--                                            <span style="background-color: black; color: white; border-radius: 50px; padding: 10px;"><b>{{certificatecountstudent}}</b></span>-->
-<!--                                        </div>-->
-<!--                                    </div> &ndash;&gt;-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="row mt-2">-->
-<!--                                <h5 class="mb-1 uppercase fw-bold">Certification</h5>-->
-<!--                                <p class="mb-0">Get all your certificates in one place to share them on social media.</p>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-12 col-lg-12 d-flex mt-2">-->
-<!--                                <button pButton  (click)="openCertificate()" class="btn w-100 m-0 p-0">-->
-<!--                                    <div class="row">-->
-<!--                                        <div class="col-12">-->
-<!--										<span style="cursor: pointer; color: white" class="ellipse-button fw-normal container-fluid">-->
-<!--                                            <strong>My Certificates</strong>-->
-<!--                                        </span>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1">
+<!-- Continue Reading Modal -->
+<div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1" aria-modal="true"
+	aria-labelledby="continueReadingHeader">
 	<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
 		<div class="modal-content card bg-light">
 			<div class="modal-header justify-content-between">
-				<h3 class="mb-0 continue-reading-header" tooltipZIndex="auto" tooltipPosition="top"
-					pTooltip="Complete the reading for all modules to get the certificate.">Continue Reading</h3>
+				<h5 id="continueReadingHeader" class="mb-0 continue-reading-header" tooltipZIndex="auto"
+					tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">
+					Continue Reading</h5>
 				<div class="popupclose">
-					<a (click)="closeReading()" class="close" role="button">
+					<button (click)="closeReading()" class="close" aria-label="Close continue reading modal">
 						<span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
-					</a>
+					</button>
 				</div>
 			</div>
 			<div class="modal-body card-body">
@@ -744,7 +375,9 @@
 												<div class="d-flex justify-content-between">
 													<div>
 														<div [attr.data-percentage]="readPro.progression"
-															class="progress1">
+															class="progress1" role="progressbar"
+															[attr.aria-valuenow]="readPro.progression"
+															[attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
 															<span class="progress1-left">
 																<span class="progress1-bar"></span>
 															</span>
@@ -764,7 +397,9 @@
 																{{ readPro.progression_status }}
 															</p>
 															<button pButton (click)="onClickReadProgression(readPro)"
-																class="btn btn-dark">Read Now</button>
+																class="btn btn-dark"
+																aria-label="Read {{ readPro.module_name }} now">Read
+																Now</button>
 														</div>
 														<p *ngIf="readPro.progression_status == 'Completed'"
 															class="text-center text-black text-small mb-0">
@@ -784,78 +419,33 @@
 		</div>
 	</div>
 </div>
-<!-- <div [ngStyle]="{ display: continueQuiz }" class="modal modal-bg" role="dialog" tabindex="-1">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-        <div class="modal-content card bg-light">-->
-<!-- <div class=" justify-content-between">
-                <h3 class="mb-0 continue-reading-header" tooltipZIndex="auto" tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">Continue Reading</h3>
-                <div class="popupclose">
-                    <a (click)="closeQuiz()" class="close" role="button">
-                        <span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
-                    </a>
-                </div>
-            </div> -->
-<!-- <div class="mt-2" style="text-align: right">
-                <a (click)="closeQuiz()" class="close" role="button">-->
-<!-- <span aria-hidden="true"><img src="/uniprep-assets/images/icons/close_button.svg" /></span> -->
-<!--<span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
-                </a>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <h3 class="mb-3" tooltipPosition="top"
-                                pTooltip="Complete the quiz for all modules to get the certificate.">
-                                Take Quiz
-                                <i class="questiontooltip fa-solid fa-circle-question"></i>
-                            </h3>
-                            <div class="row">
-                                <div *ngFor="let quiz of quizProgressings" class="col-md-6 p-2">
-                                    <div class="card continuecardq p-3 h-100">
-                                        <div class="modal-selected-box d-flex flex-column">
-                                            <h6 class="fw-semibold">{{ quiz.module_name }}</h6>
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    <div [attr.data-percentage]="quiz.progress" class="progress1">
-														<span class="progress1-left">
-															<span class="progress1-bar"></span>
-														</span>
-                                                        <span class="progress1-right">
-															<span class="progress1-bar"></span>
-														</span>
-                                                        <div class="progress1-value">
-                                                            <div *ngIf="quiz.progress > 0 ? true : false">{{ quiz.progress | number : "1.0-0" }}
-                                                                %<br/></div>
-                                                            <div *ngIf="quiz.progress > 0 ? false : true">0%<br/></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mt-2">
-                                                    <p class="text-center text-small mb-0">
-                                                        <strong>{{ quiz.progress >= 90 ? "Completed" : "Pending" }}</strong>
-                                                    </p>
-                                                    <p *ngIf="quiz.progress >= 90 ? false : true"
-                                                       class="text-center text-small mb-0">
-                                                        <button pButton  (click)="startQuiz(quiz.id)" style="font-size: small"
-                                                                class="btn btn-dark">Start
-                                                        </button>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<p-dialog [(visible)]="isVideoVisible" [modal]="true" [style]="{ width: '30vw' }" header="Header">
+<p-popover #op styleClass="reportwidthfix" appendTo="body" aria-label="Report form">
+	<ng-template pTemplate="content">
+		<div class="container px-0">
+			<form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)" role="form"
+				aria-label="Report submission form">
+				<div class="row report">
+					<p class="report-label text-left mb-0">Issue Type</p>
+					<span class="report-modal">
+						<p-select [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id"
+							formControlName="reportOption" class="w-100" id="reportOption"
+							optionLabel="reportoption_name" aria-label="Select issue type"></p-select>
+					</span>
+					<p class="report-label text-left mb-0">Comment</p>
+					<span class="report-modal">
+						<textarea formControlName="comment" fluid pTextarea autoResize="true" id="comment"
+							aria-label="Enter your comment"></textarea>
+					</span>
+					<span>
+						<button pButton class="btn btn-primary w-100 m-0" aria-label="Submit report">Submit</button>
+					</span>
+				</div>
+			</form>
+		</div>
+	</ng-template>
+</p-popover>
+<!-- Dialogs -->
+<p-dialog [(visible)]="isVideoVisible" [modal]="true" [style]="{ width: '30vw' }" aria-label="Recommended Videos">
 	<ng-template pTemplate="header">
 		<span class="text-xl font-bold">Recommended Videos</span>
 	</ng-template>
@@ -864,55 +454,59 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isShareWithSocialMedia" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0"
-	class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
+<p-dialog [(visible)]="isShareWithSocialMedia" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 timerpopup"
+	[modal]="true" [draggable]="false" [resizable]="false" aria-label="Share with Social Media">
 	<div class="px-5 pb-5 pt-3">
 		<div class="justify-content-center text-center pb-5 px-5"></div>
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isViewMoreOrgVisible" [closable]="true" [style]="{ width: '80vw' }" class="p-0 m-0"
-	[modal]="true" [draggable]="false" [resizable]="false">
-	<div class="text-center">
-		<h4 class="mb-0 uniprep-primary">Trusted by 1000+ Educational Partners</h4>
-	</div>
-	<div class="px-5 pb-5 pt-3">
-		<div class="justify-content-center text-center pb-5">
-			<div class="row">
-				<div class="col-lg-2 col-md-3 col-sm-4 col-6 p-2 d-flex justify-content-center align-items-center"
-					*ngFor="let uni of partnerTrusterLogo">
-					<img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
+<p-dialog [(visible)]="isViewMoreOrgVisible" [closable]="true" [style]="{ width: '75vw' }" class="p-0 m-0"
+	[modal]="true" [draggable]="false" [resizable]="false" aria-label="Educational Partners">
+	<ng-template #header>
+		<div class="d-flex text-center justify-content-center w-100">
+			<h4 class="mb-0 fw-semibold uniprep-primary">Trusted by 1000+ Educational Partners</h4>
+		</div>
+	</ng-template>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 mb-4"
+				*ngFor="let uni of partnerTrusterLogo">
+				<div class="card">
+					<div class="card-body">
+						<img alt="{{ uni.name }} logo" class="w-100 p-3" src="{{ uni.logo }}" />
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </p-dialog>
+
 <p-dialog [(visible)]="isViewMoreJobApplication" [closable]="true" [style]="{ width: '80vw' }" class="p-0 m-0"
-	[modal]="true" [draggable]="false" [resizable]="false">
+	[modal]="true" [draggable]="false" [resizable]="false" aria-label="Recent Job Applications">
 	<div class="text-center">
 		<h4 class="mb-0 uniprep-primary">Recent Job Applications</h4>
 	</div>
 	<div class="px-5 pb-5 pt-3">
 		<div class="justify-content-center text-center pb-5">
 			<div class="row">
-				<!-- <div class="col-lg-2 col-md-3 col-sm-4 col-6 p-2 d-flex justify-content-center align-items-center" *ngFor="let uni of recentJobApplication">
-					<img alt="{{ uni.logo }}" class="trustedbylogo" src="{{ uni.logo }}" />
-				</div> -->
 				<div class="col-lg-4 col-md-6 col-sm-12 mt-2" *ngFor="let v of recentJobApplication">
 					<div class="card">
 						<div class="card-body country-border text-start">
 							<div class="d-flex justify-content-evenly">
 								<div>
-									<img alt="country" width="70" height="70" class="mb-2" src="{{ v.company_logo }}" />
+									<img alt="{{ v.company_name }} logo" width="70" height="70" class="mb-2"
+										src="{{ v.company_logo }}" />
 								</div>
 								<div class="ms-2">
-									<h4 class="mb-0 text-sm text-capitalize">
+									<h6 class="mb-0 text-sm text-capitalize">
 										<b>{{ v.position }}</b>
-									</h4>
+									</h6>
 									<p class="text-muted text-medium">{{ v.company_name }}</p>
 									<p class="text-muted text-medium">Status: {{ v.status }}</p>
 									<p class="mb-0 text-medium text-capitalize mt-2">
-										<i class="fa-solid fa-location-dot" style="color: #79ae28"></i>&nbsp;
+										<i class="fa-solid fa-location-dot" style="color: #79ae28"
+											aria-hidden="true"></i>&nbsp;
 										<span style="font-weight: 500px; color: black">{{ v.worklocation }}</span>
 									</p>
 									<button class="btn btn-rounded text-medium m-0 mb-2" [ngStyle]="{
@@ -920,7 +514,7 @@
 											'background-color': v.color_code,
 											color: 'white',
 											'border-radius': '5px'
-										}">
+										}" aria-label="Hiring stage: {{ v.hiringstage }}">
 										{{ v.hiringstage }}
 									</button>
 								</div>

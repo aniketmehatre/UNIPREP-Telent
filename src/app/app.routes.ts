@@ -14,23 +14,18 @@ import { DashboardComponent } from "./pages/dashboard/dashboard.component"
 import { ForgotPasswordComponent } from "./Auth/forgot-password/forgot-password.component"
 import { VerificationComponent } from "./Auth/verification/verification.component"
 import { SetpasswordComponent } from "./Auth/setpassword/setpassword.component"
-import { LandingNewComponent } from "./pages/landing-new/landing-new.component";
 import { CoBrandedComponent } from "./Auth/co-branded/co-branded.component"
+import { PricingComponent } from "./pages/landing/pricing/pricing.component"
 export const appRoutes: Routes = [
 	// Public routes that don't require authentication
 	{
-		path: "",
+		path: '',
 		loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule),
-		pathMatch: "full"
 	}, // Default route is now landing page
-	{
-		path: "landing",
-		loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule)
-	},
 	{ path: "students", component: CoBrandedComponent },
-	{ path: "login", component: LoginComponent },
 	{ path: "students/login", component: LoginComponent },
 	{ path: "register", component: RegistrationComponent },
+	{ path: "login", component: LoginComponent },
 	{ path: "privacy", component: PrivacyComponent },
 	{ path: "blogs", component: BloglistComponent },
 	{ path: "blogs/:slug", component: BlogdetailComponent },
@@ -39,6 +34,18 @@ export const appRoutes: Routes = [
 	{ path: "forgot-password", component: ForgotPasswordComponent },
 	{ path: "verification/:email", component: VerificationComponent },
 	{ path: "setpassword/:otp/:email", component: SetpasswordComponent },
+	{
+		path: 'talent-connect',
+		loadChildren: () => import('./pages/landing-talent-connect/landing-new.module').then(c => c.LandingModule)
+	},
+	{
+		path: 'partner',
+		loadChildren: () => import('./pages/landing-partner/landing-partner.module').then(c => c.LandingPartnerModule)
+	},
+	{
+		path: 'institute',
+		loadChildren: () => import('./pages/landing-institute/landing-institute.module').then(c => c.LandingInstituteModule)
+	},
 
 
 	// Protected routes that require authentication

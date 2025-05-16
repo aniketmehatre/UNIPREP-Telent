@@ -24,6 +24,7 @@ import { MultiSelectModule } from "primeng/multiselect"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { StorageService } from "../../../storage.service";
+import { SocialShareService } from "src/app/shared/social-share.service"
 
 @Component({
 	selector: "uni-question-list",
@@ -103,7 +104,8 @@ export class QuestionListComponent implements OnInit {
 		private router: Router, private ngxService: NgxUiLoaderService, private authService: AuthService,
 		private sanitizer: DomSanitizer, private meta: Meta, private toast: MessageService,
 		private pageFacade: PageFacadeService, private locationService: LocationService,
-		private title: Title, private storage: StorageService) {
+		private title: Title, private storage: StorageService,
+		private socialShareService: SocialShareService) {
 		Carousel.prototype.changePageOnTouch = (e, diff) => { }
 		Carousel.prototype.onTouchMove = () => { }
 	}
@@ -681,71 +683,17 @@ export class QuestionListComponent implements OnInit {
 			socialShare.style.display = socialShare.style.display == "none" ? "block" : "none"
 		}
 	}
-	shareViaWhatsapp() {
-		let url = window.location.href + "/" + this.selectedQuestionData?.id
-		console.log(this.selectedQuestionData)
-		console.log(url)
-		this.meta.updateTag({ property: "og:url", content: url })
-		const shareUrl = `whatsapp://send?text=${encodeURIComponent(url)}`
-		window.open(shareUrl, "_blank")
-	}
-	shareViaInstagram() {
-		let url = window.location.href + "/" + this.selectedQuestionData?.id
-		console.log(url)
-		this.meta.updateTag({ property: "og:url", content: url })
-		const shareUrl = `https://www.instagram.com?url=${encodeURIComponent(url)}`
-		window.open(shareUrl, "_blank")
-	}
-	shareViaFacebook() {
-		let url = window.location.href + "/" + this.selectedQuestionData?.id
-		console.log(url)
-		this.meta.updateTag({ property: "og:url", content: url })
-		const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`
-		window.open(shareUrl, "_blank")
-	}
-	shareViaLinkedIn() {
-		let url = window.location.href + "/" + this.selectedQuestionData?.id
-		console.log(url)
-		this.meta.updateTag({ property: "og:url", content: url })
-		const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`
-		window.open(shareUrl, "_blank")
-	}
-	shareViaTwitter() {
-		let url = window.location.href + "/" + this.selectedQuestionData?.id
-		console.log(url)
-		this.meta.updateTag({ property: "og:url", content: url })
-		const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`
-		window.open(shareUrl, "_blank")
-	}
-	shareViaMail() {
-		let url = window.location.href + "/" + this.selectedQuestionData?.id
-		console.log(url)
-		this.meta.updateTag({ property: "og:url", content: url })
-		const shareUrl = `mailto:?body=${encodeURIComponent(url)}`
-		window.open(shareUrl, "_blank")
+
+	shareQuestion(type: string) {
+		const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+		const url = encodeURI(window.location.href + '/' + this.selectedQuestionData?.id);
+		this.meta.updateTag({ property: 'og:url', content: url });
+		const shareUrl = socialMedias[type] + encodeURIComponent(url);
+		window.open(shareUrl, '_blank');
 	}
 	copyLink() {
-		const textarea = document.createElement("textarea")
-
-		// this.meta.updateTag(
-		//   { property: 'og:title', content:  this.selectedQuestionName.question},
-		// );
-		// this.meta.updateTag(
-		//   { name: 'title', content:  this.selectedQuestionName.question},
-		// );
-		const safeUrl = encodeURI(window.location.href)
-		const selectedQuestionId = this.selectedQuestionData?.id || ""
-		const safeCountryId = this.countryId || ""
-
-		// Combine data with a safe format
-		textarea.textContent = `${safeUrl}/${selectedQuestionId}`
-
-		// Append the textarea safely
-		document.body.append(textarea)
-		textarea.select()
-		document.execCommand("copy")
-		textarea.remove()
-		this.toast.add({ severity: "success", summary: "Success", detail: "Question Copied" })
+		const textToCopy = encodeURI(window.location.href + '/' + this.selectedQuestionData?.id);
+		this.socialShareService.copyQuestion(textToCopy);
 	}
 	// vedio pop-up code
 	openNextPageLink: any

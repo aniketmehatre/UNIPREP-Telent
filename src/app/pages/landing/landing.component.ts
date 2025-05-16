@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core"
 import { ThemeService } from "../../theme.service"
-import { FormBuilder, FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from "@angular/forms"
+import { FormBuilder, Validators } from "@angular/forms"
 import { AuthService } from "../../Auth/auth.service"
 import { LocationService } from "../../location.service"
 import { environment } from "@env/environment"
@@ -23,7 +23,8 @@ interface CareerCard {
 })
 export class LandingComponent implements OnInit, OnDestroy {
 	@ViewChild("videoPlayer")
-	videoPlayer!: ElementRef
+	videoPlayer!: ElementRef;
+	hovered1: 'wa' | null = null;
 	isPlaying = false
 	isDarkMode: boolean
 	displaytandc!: boolean
@@ -58,6 +59,9 @@ export class LandingComponent implements OnInit, OnDestroy {
 		// Initialize the isDarkMode property with the value from the service
 		this.isDarkMode = this.themeService.getInitialSwitchState()
 	}
+
+	currentYear = new Date().getFullYear()
+
 
 	ngOnDestroy() {
 		localStorage.clear();
@@ -305,6 +309,12 @@ export class LandingComponent implements OnInit, OnDestroy {
 				this.displaycontactform = false
 			}, 2000)
 		})
+	}
+
+	navigateWhatsappCall() {
+		const whatsappSupportNumber = environment.whatsappSupportNumber;
+		const whatsappUrl = `https://wa.me/${whatsappSupportNumber}`;
+		window.open(whatsappUrl, '_blank');
 	}
 
 	toggleMobileSubmenu(event: Event): void {

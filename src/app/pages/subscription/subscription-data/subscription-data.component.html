@@ -1,5 +1,29 @@
-<p class="uniprep-primary mb-0">Subscription</p>
-<div class="card">
+
+<div class="card readingcard bg-white">
+	<div class="card-header border-0 bg-transparent">
+		<div class="row justify-content-center">
+			<div class="col-md-12 d-flex gap-2 text-start">
+				<div class="select-title d-flex justify-content-between align-items-center" style="width: 100%">
+					<div class="d-flex gap-2">
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 routerLink="/pages/mycertificate" role="button" class="mb-0" tooltipPosition="top" pTooltip="Learn new skills and concepts through step-by-step tutorials in a variety of subjects.">Subscription</h5>
+					</div>
+				</div>
+        <div style="font-size: smaller !important;" *ngIf="studentType!=2">
+          <button pButton class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(1)"
+          [ngStyle]="button1Style">Monthly</button> &nbsp;
+         <button pButton class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(2)"
+          [ngStyle]="button2Style">Half Yearly</button>&nbsp;
+          <button pButton class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(3)"
+          [ngStyle]="button3Style">Annualy</button>
+        </div>
+			</div>
+		</div>
+	</div>
+	<div class="card-body flex-fill overflow-y-auto">
+    
+<!-- <div class="card">
   <div class="card-body">
     <div class="d-flex flex-column flex-md-row justify-content-md-between">
       <div class="text-md-start text-center">
@@ -8,9 +32,6 @@
       </div>
       <div class="monthly-subscription mt-2" *ngIf="studentType!=2">
         <p-tabView (onChange)="changeMonthlyPlan($event)">
-          <!-- <p-tabPanel header="3 Month Plan">
-
-					</p-tabPanel> -->
           <p-tabPanel header="6 Month Plan"> </p-tabPanel>
           <p-tabPanel header="12 Month Plan"> </p-tabPanel>
         </p-tabView>
@@ -23,8 +44,8 @@
       </div>
     </div>
   </div>
-</div>
-<div class="card d-flex mt-2" style="flex: 1">
+</div> -->
+<div class="card d-flex mt-2 bg-white" style="flex: 1">
   <div class="card-body d-flex flex-column justify-content-center">
     <ng-container *ngIf="basesubscription">
       <div class="d-md-block d-none">
@@ -610,7 +631,7 @@
 			</div>
 		</div>
 	</div> -->
-  <div class="card flex-fill h-100" *ngIf="studentType!=2">
+  <div class="card flex-fill h-100 bg-white" *ngIf="studentType!=2">
     <div class="card-body d-flex align-items-center">
       <div class="w-100">
         <div class="d-flex justify-content-between align-items-center">
@@ -629,7 +650,7 @@
       </div>
     </div>
   </div>
-  <div class="card flex-fill h-100 justify-content-center">
+  <div class="card flex-fill h-100 justify-content-center bg-white">
     <div class="card-body d-flex align-items-center">
       <div class="w-100">
         <div class="d-flex flex-row">
@@ -775,7 +796,6 @@
 		</div>
 	</p-dialog> -->
 </div>
-
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -789,5 +809,7 @@
         <p class="text-center">Use this coupon code to unlock a 20% discount on your subscription.</p>
       </div>
     </div>
+  </div>
+</div>
   </div>
 </div>

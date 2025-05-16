@@ -1,0 +1,158 @@
+
+<div class="contact-container">
+  <header>
+    <button pButton icon="pi pi-arrow-left" class="p-button-rounded border text-white border-white bg-black"
+      routerLink="/"></button>&nbsp;
+    <button pButton label="Contact Us" class="p-button-rounded border text-white border-white bg-black"></button>
+  </header>
+
+  <div class="contact-header my-5">
+    <h1 class="text-white">Contact Us</h1>
+    <p class="text-white fs-5">Please complete the form that best matches your profile. A UNIPREP representative will
+      reach out shortly.</p>
+  </div>
+
+  <div class="contact-content">
+    <div class="">
+      <div class="">
+        <div class="card mb-4 w-100">
+          <button class="py-4 dropdown btn text-white dropdown-toggle w-100 text-start" type="button" id="headquarterDropdown"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            {{ selectedHeadquarter }}
+          </button>
+          <ul class="dropdown-menu w-100" aria-labelledby="headquarterDropdown">
+            <li *ngFor="let office of offices">
+              <a class="dropdown-item" (click)="onHeadquarterChange(office.name)">{{ office.name }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="card p-4">
+        <div class="phone-number mb-3">
+          <div class="text-white-50 fs-5">Phone Number</div>
+          <div class="d-flex align-items-center">
+            <i class="fas fa-phone-alt text-white-50 me-2"></i>
+            <span class="text-white fs-6">
+              <img [src]="selectedOffice?.flagIcon" width="13" height="13" alt="flag" /> {{ selectedOffice?.phone
+              }}&nbsp;
+            </span>
+          </div>
+        </div>
+
+        <div class="email mb-3">
+          <div class="text-white-50 fs-5">Email</div>
+          <div class="d-flex align-items-center">
+            <i class="fas fa-envelope text-white-50 me-2 "></i>
+            <a href="mailto:info@uniprep.ai" class="text-white fs-6">{{'info@uniprep.ai'}}</a>
+          </div>
+        </div>
+
+        <div class="address mb-3">
+          <span class="text-white-50 fs-5">{{ selectedOffice?.name }}</span>
+          <div class="d-flex align-items-center">
+            <i class="fas fa-location-dot text-white-50 me-2"></i>
+            <p class="text-white fs-6">{{ selectedOffice?.address }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-container">
+        <iframe [src]='selectedOffice.mapUrl| safe' width="100%" height="315" frameborder="0" allowfullscreen webkitallowfullscreen
+          mozallowfullscreen>
+        </iframe>
+      </div>
+    </div>
+
+    <div class="contact-form pt-0">
+      <div class="form-header">
+        <h2 class="text-white">General Inquiry - Contact Form</h2>
+        <p class="text-white-50">All fields marked with <span class="text-danger">*</span> must be filled in.</p>
+      </div>
+
+      <form [formGroup]="contactForm">
+        <div class="mb-3">
+          <label for="firstName" class="form-label text-white">Full Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control bg-dark text-white border-white" id="firstName" formControlName="firstName"
+            [ngClass]="{'is-invalid': contactForm.get('firstName')?.touched && contactForm.get('firstName')?.invalid}">
+          <div class="invalid-feedback"
+            *ngIf="contactForm.get('firstName')?.touched && contactForm.get('firstName')?.errors?.['required']">
+            Full name is required
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label text-white">Email <span class="text-danger">*</span></label>
+          <input type="email" class="form-control bg-dark text-white border-white" id="email" formControlName="email"
+            [ngClass]="{'is-invalid': contactForm.get('email')?.touched && contactForm.get('email')?.invalid}">
+          <div class="invalid-feedback"
+            *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['required']">
+            Email is required
+          </div>
+          <div class="invalid-feedback"
+            *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['email']">
+            Please enter a valid email address
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="phoneNumber" class="form-label text-white">Whatsapp Number <span
+              class="text-danger">*</span></label>
+          <ngx-intl-tel-input class="intel-input bg-dark w-100"
+            [cssClass]="'form-control bg-dark text-white border-white rounded-start-0 border border-dark'"
+            [preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
+            [searchCountryFlag]="true" [maxLength]="15"
+            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true"
+            [selectedCountryISO]="preferredCountry" customPlaceholder="Enter Contact Number"
+            formControlName="phoneNumber" aria-label="Enter Whatsapp Number" [maxLength]="10"></ngx-intl-tel-input>
+          <div class="text-danger mt-2 small"
+            *ngIf="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.errors?.['required']">
+            Whatsapp number is required
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="enquireType" class="form-label text-white">Enquire Type <span class="text-danger">*</span></label><br>
+          <p-select  styleClass="w-100 p-1" class="form-select bg-dark text-white w-100 p-4" id="enquireType" [options]="inquiryTypes" formControlName="enquireType"  placeholder="Select an enquiry type" class="w-full" [ngClass]="{'is-invalid': contactForm.get('enquireType')?.touched && contactForm.get('enquireType')?.invalid}">
+          </p-select>
+          <div class="invalid-feedback"
+            *ngIf="contactForm.get('enquireType')?.touched && contactForm.get('enquireType')?.errors?.['required']">
+            Please select an inquiry type
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="organization" class="form-label text-white">Organization/Institution</label>
+          <input type="text" class="form-control bg-dark text-white border-white" id="organization" formControlName="organization">
+        </div>
+
+        <div class="mb-3">
+          <label for="location" class="form-label text-white">Location <span class="text-danger">*</span></label>
+          <p-select  styleClass="w-100 p-1" class="form-select bg-dark text-white w-100 p-4" id="enquireType" [options]="locationsList" [filter]="true" filterBy="city_state" (onFilter)="getCitiesCountry($event.filter)" formControlName="location" optionValue="city_state" optionLabel="city_state" placeholder="Select the location" class="w-full" [ngClass]="{'is-invalid': contactForm.get('location')?.touched && contactForm.get('location')?.invalid}">
+          </p-select>
+          <div class="invalid-feedback"
+            *ngIf="contactForm.get('location')?.touched && contactForm.get('location')?.errors?.['required']">
+            Location is required
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="helpMessage" class="form-label text-white">How can we help you? <span
+              class="text-danger">*</span></label>
+          <textarea class="form-control bg-dark text-white border-white" id="helpMessage" rows="5" formControlName="helpMessage"
+            [ngClass]="{'is-invalid': contactForm.get('helpMessage')?.touched && contactForm.get('helpMessage')?.invalid}"></textarea>
+          <div class="invalid-feedback"
+            *ngIf="contactForm.get('helpMessage')?.touched && contactForm.get('helpMessage')?.errors?.['required']">
+            Please tell us how we can help you
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-warning w-100 py-3 mt-3" (click)="onSubmit()">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="direct-contact">
+    <p>Prefer to write to us directly?</p>
+    <button pButton label="Email" class="p-button-secondary email-button" (click)="sendEmail()"><a href="mailto:info@uniprep.ai"></a></button>
+  </div>
+</div>

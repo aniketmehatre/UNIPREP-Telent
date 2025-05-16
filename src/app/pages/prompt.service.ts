@@ -148,26 +148,27 @@ export class PromptService {
         let inputData = `<p style="color: #f0780e;"><strong>Input:<br></strong></p>${ data.inputString }<div class="divider"></div><p><strong>Response:<br></strong></p>`;
         // Rebuild final content using the extracted part
         let finalRecommendation = `<html><head>${ this.style }</head><body class="body-content">${ titleData } ${ inputData } ${ processedRecommendation }</body></html>`;
-        console.log(finalRecommendation);
         let paramData: DownloadRespose = {
             response: finalRecommendation,
             module_name: data.module_name,
             file_name: data.file_name
         };
+        if(data.module_name === 'Trip Length Finder'){
+            this.travelService.downloadAiRecommendation(paramData).subscribe({
+                next : (response: any) =>{
+                    console.log("response", response);
+                    return;
+                }
+            });
+            return;
+        }
+        
         this.travelService.convertHTMLtoPDF(paramData).then(() => {
             console.log("PDF successfully generated.");
         }).catch(error => {
             console.error("Error generating PDF:", error);
         });
     }
-
-    // Function to extract the content inside the "response-content" div
-    // extractResponseContent(htmlString: string){
-    //     const parser = new DOMParser();
-    //     const doc: Document = parser.parseFromString(htmlString, "text/html");
-    //     const responseContent: HTMLElement | null = doc.getElementById("response-content");
-    //     return responseContent ? responseContent.outerHTML : "";
-    // }
 
     extraContentRemover(response: string) {
         let htmlString: string = response;

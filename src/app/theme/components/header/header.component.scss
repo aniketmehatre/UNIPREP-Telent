@@ -258,12 +258,12 @@ form {
 //.p-dialog-header {
 //  display: none !important;
 //}
-.p-dialog-header {
-  padding: 0 !important;
-}
-.p-dialog-content {
-  padding: 0 !important;
-}
+// .p-dialog-header {
+//   padding: 0 !important;
+// }
+// .p-dialog-content {
+//   padding: 0 !important;
+// }
 .boxView {
   width: 30px;
   height: 30px;
@@ -581,4 +581,15 @@ $background-color_4: #fff;
 
 :host ::ng-deep .disabled .iti__flag-container {
   pointer-events: none;
+}
+.text-primary {
+  color: var(--uniprep-primary) !important; /* Or whatever the exact color is in your design */
+}
+
+a[role="button"]:not(.disabled):hover {
+  text-decoration: underline;
+}
+
+iti__flag-container {
+  width: 0 !important;
 }

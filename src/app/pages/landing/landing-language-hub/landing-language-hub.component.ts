@@ -3,10 +3,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
-import { landingServices } from '../landing.service';
 import { Chooseuse, Faq, Howitswork, LandingPage, Whoitsfor } from 'src/app/@Models/landing-page.model';
 import { environment } from '@env/environment';
 import { AvatarModule } from 'primeng/avatar';
+import { landingServices } from '../landing.service';
 
 
 @Component({
@@ -27,13 +27,15 @@ export class LandingLanguageHubComponent implements OnInit {
   videoPlayer!: ElementRef
   isPlaying = false;
   public environment = environment;
-  landingPageId: number = NaN;
+  landingPageId: string = '';
   selectedStep!: Howitswork;
   faqs: Faq[] = [];
   chooseUsList: Chooseuse[] = [];
   howitsWorks: Howitswork[] = [];
   whoItsFor: Whoitsfor[] = [];
   landingPageData!: LandingPage;
+  welcomeVideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
+
   // steps = [
   //   {
   //     number: 1,
@@ -108,8 +110,8 @@ export class LandingLanguageHubComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      if (params?.['id']) {
-        this.landingPageId = params?.['id'];
+      if (params?.['slug']) {
+        this.landingPageId = params?.['slug'];
         this.getLandingPageChooseUs(this.landingPageId);
         this.getLandingPageFAQs(this.landingPageId);
         this.getLandingPageWhoItsFor(this.landingPageId);
@@ -131,7 +133,7 @@ export class LandingLanguageHubComponent implements OnInit {
       section.scrollIntoView({ behavior: "smooth" })
     }
   }
-  getLandingPageChooseUs(landingPageId: number) {
+  getLandingPageChooseUs(landingPageId: string) {
     this.landingPageService.getLandingPageChooseUs(landingPageId).subscribe({
       next: response => {
         this.chooseUsList = response.chooseuses?.chooseuses;
@@ -142,7 +144,7 @@ export class LandingLanguageHubComponent implements OnInit {
     });
   }
 
-  getLandingPageHowItsWorks(category: number) {
+  getLandingPageHowItsWorks(category: string) {
     this.landingPageService.getLandingPageHowItsWorks(category).subscribe({
       next: response => {
         // Store the career cards organized by step
@@ -156,7 +158,7 @@ export class LandingLanguageHubComponent implements OnInit {
     });
   }
 
-  getLandingPageWhoItsFor(category: number) {
+  getLandingPageWhoItsFor(category: string) {
     this.landingPageService.getLandingPageWhoItsFors(category).subscribe({
       next: response => {
         // Store the career cards organized by step
@@ -169,7 +171,7 @@ export class LandingLanguageHubComponent implements OnInit {
     });
   }
 
-  getLandingPageFAQs(category: number) {
+  getLandingPageFAQs(category: string) {
     this.landingPageService.getLandingPageFAQ(category).subscribe({
       next: response => {
         this.faqs = response.faqs.faqs;
@@ -180,7 +182,7 @@ export class LandingLanguageHubComponent implements OnInit {
     });
   }
 
-  getLandingPageData(landingPageId: number) {
+  getLandingPageData(landingPageId: string) {
     this.landingPageService.getLandingPageData(landingPageId).subscribe({
       next: response => {
         this.landingPageData = response.landingpages;

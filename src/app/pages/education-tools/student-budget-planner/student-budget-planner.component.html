@@ -20,9 +20,6 @@
                     </div>
 				</div>
 				<div class="d-flex align-items-center gap-1">
-                    <button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
-                        AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-                      </button>
                     <button pButton type="button" (click)="listOfSavedResponse()" class="btn btn-primary btn-rounded py-2 px-4">
                         <span>History</span>
                     </button>
@@ -49,7 +46,7 @@
 										</div>
 										<div class="col-md-9 text-start">
 											<p-select [options]="countriesList" [filter]="true" [filterBy]="'country'" styleClass="w-100" (onChange)="onChangeCountry()" [(ngModel)]="selectedData['country']" optionLabel="country" optionValue="id" [appendTo]="'body'" placeholder="Select the country where you plan to pursue your studies"> </p-select>
-											<div *ngIf="notfilledArray.includes('country')" class="text-danger text-xs">
+											<div *ngIf="notfilledArray.includes('country') && !selectedData['country']" class="text-danger text-xs">
 												<div>Country Of Study Required</div>
 											</div>
 										</div>
@@ -61,7 +58,7 @@
 										</div>
 										<div class="col-md-9 text-start">
 											<p-select [options]="universityList" styleClass="w-100" [filter]="true" [filterBy]="'university_name'" [(ngModel)]="selectedData['university']" optionLabel="university_name" optionValue="university_name" [appendTo]="'body'" placeholder="Select your revenue goals for the forecast period the name of the university you will be attending"> </p-select>
-											<div *ngIf="notfilledArray.includes('university')" class="text-danger text-xs">
+											<div *ngIf="notfilledArray.includes('university') && !selectedData['university']" class="text-danger text-xs">
 												<div>University Required</div>
 											</div>
 										</div>
@@ -73,7 +70,7 @@
 										</div>
 										<div class="col-md-9 text-start">
 											<p-select [options]="courseDurationList" styleClass="w-100" [(ngModel)]="selectedData['course_duration']" optionLabel="value" optionValue="value" [appendTo]="'body'" placeholder="Select the duration of your course"> </p-select>
-											<div *ngIf="!selectedData['course_duration'] && isSubmitted" class="text-danger text-xs">
+											<div *ngIf="notfilledArray.includes('course_duration') && !selectedData['course_duration']" class="text-danger text-xs">
 												<div>Course Duration Required</div>
 											</div>
 										</div>
@@ -86,157 +83,29 @@
 										<div class="col-md-9 text-start">
 											<p-select [options]="stayBackList" styleClass="w-100" [(ngModel)]="selectedData['stay_back']" optionLabel="value" optionValue="value" [appendTo]="'body'" placeholder="Select the length of time you are allowed to stay after completing your studies"> </p-select>
 											<!-- <input type="text" pInputText placeholder="Stay Back Months" class="w-100" disabled="true" [(ngModel)]="selectedData['stay_back']" /> -->
-											<div *ngIf="!selectedData['stay_back'] && isSubmitted" class="text-danger text-xs">
+											<div *ngIf="notfilledArray.includes('stay_back') && !selectedData['stay_back']" class="text-danger text-xs">
 												<div>Stay Back Required</div>
 											</div>
 										</div>
 									</div>
-								</ng-container>
-								<ng-container *ngIf="recommendation.id == 2">
-									<!-- <div class="d-flex flex-column mb-3 align-items-center">
-                                        <div class="col-md-9">
-                                            <h5 class="m-2">What currency would you prefer to use for your expense calculations?</h5>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p-select [options]="currencyList" [filter]="true" [filterBy]="'currency_code'" styleClass="w-100" placeholder="Select Currency"
-                                        <div class="col-md-9">
-                                            <p-dropdown [options]="currencyList" [filter]="true" filterBy="currency_code" styleClass="w-100" placeholder="Select Currency"
-                                                [(ngModel)]="selectedData['currency']" optionLabel="currency_code" optionValue="currency_code" [appendTo]="'body'" >
-                                            </p-select>
-                                            <div *ngIf="notfilledArray.includes('currency')" class="text-danger text-xs">
-                                                <div>Currency Required</div>
-                                            </div>
-                                        </div>
-                                    </div> -->
+									<!-- Tution Fees -->
 									<div class="d-flex flex-column mb-3 align-items-center">
 										<div class="col-md-9">
 											<h5 class="m-2">What is the net tuition fee for your entire course?</h5>
 										</div>
 										<div class="col-md-9 text-start">
 											<input type="text" pInputText [placeholder]="'Select the total tuition fee for your course ' + (selectedCurrency ? ' in ' + selectedCurrency : '')" class="w-100" [(ngModel)]="selectedData['tution']" />
-											<div *ngIf="!selectedData['tution'] && isSubmitted" class="text-danger text-xs">
+											<div *ngIf="notfilledArray.includes('tution') && !selectedData['tution']"  class="text-danger text-xs">
 												<div>Overall Net Tution Required</div>
 											</div>
 										</div>
 									</div>
-									<div class="d-flex flex-column mb-3 align-items-center">
-										<div class="col-md-9">
-											<h5 class="m-2">How much do you expect to spend on accommodation each month? </h5>
-										</div>
-										<div class="col-md-9 text-start">
-											<input type="text" pInputText [placeholder]="'Enter your expected monthly accommodation cost ' + (selectedCurrency ? ' in ' + selectedCurrency : '')" class="w-100" [(ngModel)]="selectedData['accommodation']" />
-											<div *ngIf="!selectedData['accommodation'] && isSubmitted" class="text-danger text-xs">
-												<div>Accommodation Required</div>
-											</div>
-										</div>
-									</div>
-									<div class="d-flex flex-column mb-3 align-items-center">
-										<div class="col-md-9">
-											<h5 class="m-2">What are your estimated monthly travel expenses?</h5>
-										</div>
-										<div class="col-md-9 text-start">
-											<input type="text" pInputText [placeholder]="'Estimate your monthly travel expenses ' + (selectedCurrency ? ' in ' + selectedCurrency : '')" class="w-100" [(ngModel)]="selectedData['travel_expense']" />
-											<div *ngIf="!selectedData['travel_expense'] && isSubmitted" class="text-danger text-xs">
-												<div>Travel Expenses Required</div>
-											</div>
-										</div>
-									</div>
-									<div class="d-flex flex-column mb-3 align-items-center">
-										<div class="col-md-9">
-											<h5 class="m-2">How much do you plan to spend on food and groceries each month?</h5>
-										</div>
-										<div class="col-md-9 text-start">
-											<input type="text" pInputText [placeholder]="'Enter your expected monthly expenditure on food and groceries ' + (selectedCurrency ? ' in ' + selectedCurrency : '')" class="w-100" [(ngModel)]="selectedData['food_and_grocery']" />
-											<div *ngIf="!selectedData['food_and_grocery'] && isSubmitted" class="text-danger text-xs">
-												<div>Food & Groceries Required</div>
-											</div>
-										</div>
-									</div>
-									<div class="d-flex flex-column mb-3 align-items-center">
-										<div class="col-md-9">
-											<h5 class="m-2">What are your anticipated miscellaneous expenses each month?</h5>
-										</div>
-										<div class="col-md-9 text-start">
-											<input type="text" pInputText [placeholder]="'Estimate your miscellaneous expenses for the month' + (selectedCurrency ? ' in ' + selectedCurrency : '')" class="w-100" [(ngModel)]="selectedData['miscellaneous']" />
-											<div *ngIf="!selectedData['miscellaneous'] && isSubmitted" class="text-danger text-xs">
-												<div>Miscellaneous Required</div>
-											</div>
-										</div>
-									</div>
 								</ng-container>
-								<!-- <ng-container *ngIf="recommendation.id == 3">
-                                    <div class="d-flex flex-column mb-3 align-items-center">
-                                        <div class="col-md-9">
-                                            <h5 class="m-2">What is the total amount of your education loan? (Optional)</h5>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedCurrency ? ' in '+ selectedCurrency : '')" class="w-100"  [(ngModel)]="selectedData['education_loan']" />
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column mb-3 align-items-center">
-                                        <div class="col-md-9">
-                                            <h5 class="m-2">Are you receiving any loans from friends and family? If yes, how much?(Optional)</h5>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedCurrency ? ' in '+ selectedCurrency : '')" class="w-100"  [(ngModel)]="selectedData['family_loan']" />
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column mb-3 align-items-center">
-                                        <div class="col-md-9">
-                                            <h5 class="m-2">What is the amount of your monthly loan repayment?(Optional)</h5>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" pInputText [placeholder]="'Cost/Month' + (selectedCurrency ? ' in '+ selectedCurrency : '')" class="w-100"  [(ngModel)]="selectedData['monthly_payment']" />
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column mb-3 align-items-center">
-                                        <div class="col-md-9">
-                                            <h5 class="m-2">Over what period will you be repaying the loan?(Optional)</h5>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" pInputText placeholder="Months" class="w-100"  [(ngModel)]="selectedData['repayment_period']" />
-                                        </div>
-                                    </div>
-                                </ng-container>
-                                <ng-container *ngIf="recommendation.id == 4">
-                                    <div class="d-flex flex-column mb-3 align-items-center">
-                                        <div class="col-md-9">
-                                            <h5 class="m-2">How much do you expect to earn from part-time jobs during your studies?</h5>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" pInputText [placeholder]="'Income/Month' + (selectedCurrency ? ' in '+ selectedCurrency : '')" class="w-100"  [(ngModel)]="selectedData['part_time_income']" />
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column mb-3 align-items-center">
-                                        <div class="col-md-9">
-                                            <h5 class="m-2">What is your projected monthly income from full-time employment after your studies, after taxes?</h5>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" pInputText [placeholder]="'Income/Month' + (selectedCurrency ? ' in '+ selectedCurrency : '')" class="w-100"  [(ngModel)]="selectedData['full_time_income']" />
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column mb-3 align-items-center">
-                                        <div class="col-md-9">
-                                            <h5 class="m-2">Other Income</h5>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" pInputText [placeholder]="'Income/Month' + (selectedCurrency ? ' in '+ selectedCurrency : '')" class="w-100"  [(ngModel)]="selectedData['other_income']" />
-                                        </div>
-                                    </div>
-                                </ng-container> -->
 							</div>
 						</div>
 						<!-- Navigation Buttons -->
-						<div class="d-flex justify-content-between mt-2">
-							<button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
-								<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span>
-								<span class="ms-2">Previous</span>
-							</button>
-							<button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 ps-4" (click)="next(recommendation.id)" *ngIf="recommendation.id != 2">
-								<span class="me-2">Next</span>
-								<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-right"></i></span>
-							</button>
-							<button pButton pButton type="button" class="btn btn-success btn-rounded p-1 ps-4" (click)="submit()" *ngIf="recommendation.id == 2">
+						<div class="d-flex justify-content-end mt-2">
+							<button pButton type="button" class="btn btn-success btn-rounded p-1 ps-4" (click)="submit()">
 								<span class="me-2">Compare</span>
 								<span class="btn-icon px-2 py-2"><i class="fa fa-check-circle"></i></span>
 							</button>
@@ -269,9 +138,7 @@
                     </div>
 				</div>
 				<div class="d-flex align-items-center gap-1">
-                    <button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
-                        AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-                      </button>
+                    
                     <button pButton type="button" (click)="listOfSavedResponse()" class="btn btn-primary btn-rounded py-2 px-4">
                         <span>History</span>
                     </button>
@@ -342,9 +209,7 @@
                     </div>
 				</div>
 				<div class="d-flex align-items-center gap-1">
-                    <button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
-                        AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-                      </button>
+                    
                     <button pButton type="button" (click)="listOfSavedResponse()" class="btn btn-primary btn-rounded py-2 px-4">
                         <span>History</span>
                     </button>

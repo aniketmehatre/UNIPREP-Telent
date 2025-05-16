@@ -51,7 +51,7 @@ interface City {
 	styleUrls: ["./cover-letter-builder.component.scss"],
 	standalone: true,
 	imports: [CommonModule, ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
-	providers: [CvBuilderService, ConfirmationService, TooltipModule],
+	providers: [ConfirmationService, TooltipModule],
 })
 export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	@ViewChild("pdfViewer") pdfViewer: any
@@ -264,8 +264,8 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			user_summary: ["", [Validators.required]],
 			org_name: ["", [Validators.required]],
 			org_location: ["", [Validators.required]],
-			jobposition: ["", [Validators.required]],
-			job_description: ["", [Validators.required]],
+			// jobposition: ["", [Validators.required]],
+			// job_description: ["", [Validators.required]],
 		})
 		this.getJobRoles();
 	}
@@ -353,12 +353,15 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	onFocusOut() {
+		this.inputValuesEditOrNot();
 		setTimeout(() => {
 			this.filteredLocations = [];
 			this.orgLocation = [];
 		}, 200); // Delay clearing the dropdown by 200 milliseconds
 	}
-
+	onFocusOutJob() {
+		this.inputValuesEditOrNot();
+	}
 
 	selectLocation(city: any, mode: string) {
 		if (mode === "user_location") {
@@ -426,11 +429,10 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			],
 		}
 		this.items = [{ label: "Personal Information" }, { label: "Organisation Details" }, { label: "Letter Area" }]
-
-		this.checkplanExpire()
 		// this.hideHeader()
 		this.getCountryCodeList();
 		this.getLocationsList();
+		this.checkplanExpire()
 	}
 
 	getCountryCodeList() {
@@ -540,7 +542,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		const controls: AbstractControl[] = []
 		let controlNames: any = []
 		if (this.moduleActiveIndex === 0) {
-			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone", "org_name", "org_location", "jobposition", "user_summary"]
+			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone", "org_name", "org_location", "user_summary"]
 		}
 		// else if (this.moduleActiveIndex === 1) {
 		// 	controlNames = ["org_name", "org_location", "jobposition"]
@@ -655,7 +657,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			controlNames = ["user_job_title"]
 		}
 		if (mode == 'generate_summary') {
-			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone", "org_name", "org_location", "jobposition"]
+			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone", "org_name", "org_location"]
 		}
 		controlNames.forEach((controlName: any) => {
 			const control = this.resumeFormInfoData.get(controlName)
@@ -665,8 +667,14 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		})
 		return controls
 	}
-
+	// 1st chatgpt response after convert into refrase button , then any changes will in inuput or dropdown that button need to change ai genarate,That why save 1st response for checking
+	chatGptValueSave: any
 	chatGPTIntegration(mode: string) {
+		if(this.authService._creditCount === 0){
+			this.toaster.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+			this.router.navigateByUrl('/pages/export-credit')
+			return;
+		}
 		const visibleFormControls = this.getVisibleFormControlsChatGptRespons(mode);
 		// condition for required field for chatgpt
 		if (!visibleFormControls.every((control) => control.valid)) {
@@ -684,9 +692,9 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			formData.inner_mode = mode
 			formData.max_tokens = 1500
 			if (mode == 'generate_description') {
-				this.resumeFormInfoData.patchValue({
-					job_description: "",
-				})
+				// this.resumeFormInfoData.patchValue({
+				// 	job_description: "",
+				// })
 				this.rephraseDesBtnDisable = true;
 				this.generateDesBtnDisable = false;
 				this.chatGptButtonLoader = true;
@@ -715,16 +723,18 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 						.join("")
 
 					if (mode == 'generate_description' || mode == 'rephrase_description') {
-						this.resumeFormInfoData.patchValue({
-							job_description: GPTResponse,
-						})
+						// this.resumeFormInfoData.patchValue({
+						// 	job_description: GPTResponse,
+						// })
 					} else if (mode == 'generate_summary' || mode == 'rephrase_summary') {
 						this.resumeFormInfoData.patchValue({
 							user_summary: GPTResponse,
 						})
+						this.chatGptValueSave = this.cleanObject(this.resumeFormInfoData.value);
 					}
 					this.chatGptButtonLoader = false;
 					this.chatGptButtonLoaderSummary = false;
+					this.authService.aiCreditCount$.next(true);
 				} else {
 					console.error("Unexpected response structure:", res)
 				}
@@ -759,29 +769,33 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		const query = input.value.toLowerCase().trim();
 		if (query && query.length > 3) {
 			const mockJobs = this.jobRoles;
-
 			// Filter jobs that include the query
 			this.filterJobRole = mockJobs.filter((job: any) =>
 				job.jobrole.toLowerCase().includes(query)
 			);
-
-			// Sort the filtered jobs to prioritize exact matches
-			this.filterJobRole.sort((a: any, b: any) => {
-				const aJob = a.jobrole.toLowerCase();
-				const bJob = b.jobrole.toLowerCase();
-
-				if (aJob === query && bJob !== query) {
-					return -1; // a comes first
-				} else if (aJob !== query && bJob === query) {
-					return 1; // b comes first
-				} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
-					return -1; // a comes first if it starts with the query
-				} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
-					return 1; // b comes first if it starts with the query
-				} else {
-					return 0; // Keep original order for other cases
-				}
-			});
+			if(this.filterJobRole.length === 0){
+				this.filterJobRole.unshift({
+					id: 0, // Use 0 or -1 to indicate it's a custom/new item
+  					jobrole: query
+				});
+			}else{
+				// Sort the filtered jobs to prioritize exact matches
+				this.filterJobRole.sort((a: any, b: any) => {
+					const aJob = a.jobrole.toLowerCase();
+					const bJob = b.jobrole.toLowerCase();
+					if (aJob === query && bJob !== query) {
+						return -1; // a comes first
+					} else if (aJob !== query && bJob === query) {
+						return 1; // b comes first
+					} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
+						return -1; // a comes first if it starts with the query
+					} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
+						return 1; // b comes first if it starts with the query
+					} else {
+						return 0; // Keep original order for other cases
+					}
+				});
+			}
 		} else if (query.length < 1) {
 			this.filterJobRole = [];
 		}
@@ -814,7 +828,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			this.filterJobRolePostionApplied.sort((a: any, b: any) => {
 				const aJob = a.jobrole.toLowerCase();
 				const bJob = b.jobrole.toLowerCase();
-
 				if (aJob === query && bJob !== query) {
 					return -1; // a comes first
 				} else if (aJob !== query && bJob === query) {
@@ -839,5 +852,49 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	}
 	historyPage() {
 		this.activePageIndex = 0;
+	}
+	// fuction for check input values edit or not
+	inputValuesEditOrNot() {
+		if (this.isFormChanged()) {
+			this.generateConBtnDisable = false;
+			this.rephraseconBtnDisable = true;
+		} else {
+			this.generateConBtnDisable = true;
+			this.rephraseconBtnDisable = false;
+		}
+	}
+
+	isFormChanged(): boolean {
+		const current = this.cleanObject(this.resumeFormInfoData.value);
+		const saved = this.cleanObject(this.chatGptValueSave);
+		return JSON.stringify(current) === JSON.stringify(saved);
+	}
+
+	cleanObject(obj: any): any {
+		const cleaned: any = {};
+		if(obj){
+			Object.keys(obj).forEach(key => {
+				let val = obj[key];
+				if (typeof val === 'string') {
+					val = val.trim();
+				}
+				if (val !== undefined) {
+					cleaned[key] = val;
+				}
+			});
+		}
+		return cleaned;
+	}
+	getWordCount(controlName: string): number {
+		const html = this.resumeFormInfoData.get(controlName)?.value || '';
+
+		// Create a temporary element to convert HTML to plain text
+		const div = document.createElement('div');
+		div.innerHTML = html;
+		const text = div.textContent || div.innerText || '';
+
+		const trimmed = text.trim();
+
+		return trimmed ? trimmed.split(/\s+/).length : 0;
 	}
 }

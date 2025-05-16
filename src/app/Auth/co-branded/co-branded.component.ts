@@ -92,48 +92,12 @@ export class CoBrandedComponent implements OnInit, OnDestroy {
 
   navigateTo(type: string) {
     if (type === 'login') {
-      this.route.navigate(['/students/login']);
+      window.location.href = '/student';
     } else if (type === 'employer') {
-      // window.location.href = '/institute/';
-      this.route.navigate(['/institute/auth/login']);
+      window.location.href = '/institution';
     }
   }
 
-  private handleSuccessfulLogin(token: string) {
-    this.service.saveToken(token)
-    this.authTokenService.setToken(token)
-    this.storage.set(environment.tokenKey, token)
-
-    this.service.getMe().subscribe({
-      next: (userData) => {
-        this.loadCountryList(userData)
-        this.subs.sink = this.service.selectMessage$().subscribe((message) => {
-          let req = {
-            userId: userData.userdetails[0].user_id,
-            location: this.locationData.city,
-            country: this.locationData.country_name,
-          };
-          this.locationService
-            .sendSessionData(req, "login")
-            .subscribe((response) => {
-            });
-        });
-        this.toast.add({
-          severity: "success",
-          summary: "Success",
-          detail: "Login Successful"
-        })
-        this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
-      },
-      error: (error) => {
-        this.toast.add({
-          severity: "error",
-          summary: "Error",
-          detail: error.message || 'Failed to load user data'
-        })
-      }
-    })
-  }
 
   countryLists: any
   loadCountryList(data: any) {

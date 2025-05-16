@@ -7,7 +7,9 @@
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div>
-						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">Job Description<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+						<h5 class="mb-0" tooltipPosition="top"
+							pTooltip="Questions related to the application process are answered">Job Description<i
+								class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 				</div>
 			</div>
@@ -15,17 +17,22 @@
 	</div>
 	<div class="card-body text-start flex-fill overflow-y-auto">
 		<div class="row justify-content-between h-100">
-			<div class="h-100 overflow-hidden" [ngClass]="!isShowApplyChat ? 'col-md-12' : 'col-sm-7 col-md-7 col-lg-8 col-xl-9'" *ngIf="showInfo">
+			<div class="h-100 overflow-hidden"
+				[ngClass]="!isShowApplyChat ? 'col-sm-12' : 'col-sm-12 col-md-7 col-lg-8 col-xl-9'" *ngIf="showInfo">
 				<div class="card h-100 overflow-y-auto">
 					<div class="card-header bg-transparent p-4">
-						<div class="d-flex gap-4">
-							<div class="logo-container">
-								<img (error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="jobDetails?.company_logo_url" alt="company_logo" style="object-fit: contain; width: 100%; height: 100%" />
+						<div class="row align-items-center">
+							<div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-4">
+								<div class="rounded-2 border overflow-hidden">
+									<img class="company-logo"
+										(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
+										[src]="jobDetails?.company_logo_url" alt="company_logo" />
+								</div>
 							</div>
-							<div class="container-fluid">
+							<div class="col-xxl-11 col-xl-11 col-lg-10 col-md-10 col-sm-9 col-8">
 								<div class="row">
-									<div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10">
-										<h2 class="fw-bold mb-0">{{ jobDetails?.position }}</h2>
+									<div class="col-xxl-10 col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12 mb-3">
+										<h3 class="fw-bold mb-0">{{ jobDetails?.position }}</h3>
 										<div class="d-flex align-items-center mb-2">
 											<span class="me-2">{{ jobDetails.company_name }}</span>
 											<span class="ms-1 text-primary" *ngIf="jobDetails">
@@ -33,42 +40,114 @@
 											</span>
 										</div>
 									</div>
-									<div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 mt-md-0 mt-2">
-										<div class="d-flex flex-md-column flex-row justify-content-md-end justify-content-between align-items-center align-items-md-end">
-											<button pButton label="Close Info" class="btn btn-primary" (click)="showInfo = false" *ngIf="isShowApplyChat && isApplied"></button>
-											<button pButton class="p-button-success chat-btn" *ngIf="!isShowApplyChat && isApplied" (click)="isShowApplyChat = true"><i class="pi pi-comments"></i> Chat</button>
-											<button *ngIf="!isApplied" pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary mb-3" (click)="applyJob(id)" [disabled]="isApplied"></button>
-											<div class="posted-date text-nowrap">Posted On : {{ jobDetails.created_at | date : "dd-MM-yyyy" }}</div>
+									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12 mb-3">
+										<div class="row">
+											<div class="col-12 text-md-end text-center mb-2 d-md-block d-none">
+												<button pButton label="Close Info" class="btn btn-primary w-100"
+													(click)="showInfo = false"
+													*ngIf="isShowApplyChat && isApplied"></button>
+												<button pButton class="p-button-success chat-btn w-100"
+													*ngIf="!isShowApplyChat && isApplied"
+													(click)="isShowApplyChat = true"><i class="pi pi-comments"></i>
+													Chat</button>
+												<button *ngIf="!isApplied" pButton label="Apply"
+													icon="fa fa-arrow-pointer" iconPos="right"
+													class="p-button-primary w-100" (click)="applyJob(jobId)"
+													[disabled]="isApplied"></button>
+											</div>
+											<div class="d-block d-md-none">
+												<button *ngIf="!isApplied" pButton label="Apply"
+													icon="fa fa-arrow-pointer" iconPos="right"
+													class="p-button-primary w-100" (click)="applyJob(jobId)"
+													[disabled]="isApplied"></button>
+												<button class="p-button-success chat-btn w-100" pButton
+													*ngIf="isApplied" (click)="visible = true"><i
+														class="pi pi-comments"></i> Chat</button>
+											</div>
+											<div class="col-12 text-lg-end text-start">
+												<p class="posted-date">Posted On : {{ jobDetails.created_at | date :
+													"dd-MM-yyyy" }}</p>
+											</div>
 										</div>
 									</div>
-									<div class="col-12 col-sm-12 col-md-12">
+									<div class="col-12 col-sm-12 col-md-12 d-none d-md-block">
 										<div class="row align-items-center">
 											<div class="col-md-2 col-6">
 												<div class="d-flex align-items-center gap-3">
 													<span><i class="fa-solid fa-user-magnifying-glass fa-lg"></i></span>
 													<div>
 														<p class="text-muted text-small mb-0">Total Vacancies</p>
-														<h4 class="mb-0 fw-bold">{{ jobDetails.available_vacancies }}</h4>
+														<h4 class="mb-0 fw-bold">{{ jobDetails.available_vacancies }}
+														</h4>
 													</div>
 												</div>
 											</div>
 											<div class="col-md-2 col-6">
 												<div class="d-flex align-items-center gap-3">
-													<span><i class="fa-solid fa-user-tie fa-lg" style="color: #cc660a"></i></span>
+													<span><i class="fa-solid fa-user-tie fa-lg"
+															style="color: #cc660a"></i></span>
 													<div>
 														<p class="text-muted text-small mb-0">Total Applied</p>
 														<h4 class="mb-0 fw-bold">{{ jobDetails.total_applied }}</h4>
 													</div>
 												</div>
 											</div>
-											<div class="col-md-8 col-12">
+											<div class="col-md-2 col-6">
+												<div class="d-flex align-items-center gap-3">
+													<span><i class="fa-solid fa-video fa-lg text-muted"></i></span>
+													<div>
+														<p class="text-muted text-small mb-0">Introduction Video</p>
+														<h6 class="mb-0 fw-bold">{{ jobDetails.intro_video == 'No' ?
+															'Not Mandatory' : 'Mandatory' }}</h6>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6 col-12">
 												<p class="text-primary text-small fw-medium text-muted">
 													{{ jobDetails.matching_skills }}
 												</p>
-												<div class="d-flex flex-wrap gap-1 overflow-y-auto" style="max-height: 4rem">
-													<span *ngFor="let skill of jobDetails?.soft_skills" class="badge bg-badge-color text-white">{{ skill }}</span>
+												<div class="d-flex flex-wrap gap-1 overflow-y-auto"
+													style="max-height: 4rem">
+													<span *ngFor="let skill of jobDetails?.jobsoftskills"
+														[ngClass]="skill.ismatch ? 'bg-badge-color text-white': 'text-dark'"
+														class="badge border">{{ skill.softskill }}</span>
 												</div>
 											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="col-12 col-sm-12 col-md-12 d-md-none d-block">
+								<div class="row align-items-center">
+									<div class="col-md-2 col-6">
+										<div class="d-flex align-items-center gap-3">
+											<span><i class="fa-solid fa-user-magnifying-glass fa-lg"></i></span>
+											<div>
+												<p class="text-muted text-small mb-0">Total Vacancies</p>
+												<h4 class="mb-0 fw-bold">{{ jobDetails.available_vacancies }}</h4>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-2 col-6">
+										<div class="d-flex align-items-center gap-3">
+											<span><i class="fa-solid fa-user-tie fa-lg"
+													style="color: #cc660a"></i></span>
+											<div>
+												<p class="text-muted text-small mb-0">Total Applied</p>
+												<h4 class="mb-0 fw-bold">{{ jobDetails.total_applied }}</h4>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-8 col-12">
+										<p class="text-primary text-small fw-medium text-muted">
+											{{ jobDetails.matching_skills }}
+										</p>
+										<div class="d-flex flex-wrap gap-1 overflow-y-auto" style="max-height: 4rem">
+											<span *ngFor="let skill of jobDetails?.jobsoftskills"
+												[ngClass]="{ 'bg-badge-color text-white': skill.ismatch }"
+												class="badge border border-secondary text-warn">{{ skill.softskill
+												}}</span>
 										</div>
 									</div>
 								</div>
@@ -78,9 +157,10 @@
 					<div class="card-body h-100 overflow-y-auto p-4">
 						<div class="row mb-4">
 							<div class="col-md-12">
-								<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-3" [ngClass]="{ '!row-cols-lg-4': isShowApplyChat }">
+								<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-3"
+									[ngClass]="{ '!row-cols-lg-4': isShowApplyChat }">
 									<!-- Company Size -->
-									<div class="col">
+									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
 												<i class="fas fa-users me-2" style="color: gray"></i>
@@ -93,7 +173,7 @@
 									</div>
 
 									<!-- Position -->
-									<div class="col">
+									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
 												<i class="fas fa-suitcase me-2" style="color: blue"></i>
@@ -106,7 +186,7 @@
 									</div>
 
 									<!-- Start Date -->
-									<div class="col">
+									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
 												<i class="fas fa-calendar me-2" style="color: purple"></i>
@@ -119,12 +199,12 @@
 									</div>
 
 									<!-- Due Date -->
-									<div class="col">
+									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
-												<i class="fas fa-calendar me-2" style="color: red"></i>
+												<i class="fa-solid fa-hourglass me-2" style="color: red"></i>
 												<div>
-													<span class="text-muted">Due Date</span>
+													<span class="text-muted">Application Deadline</span>
 													<div class="fw-bold">{{ jobDetails.due_date }}</div>
 												</div>
 											</div>
@@ -132,7 +212,7 @@
 									</div>
 
 									<!-- Work Location -->
-									<div class="col">
+									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
 												<i class="fas fa-location-dot me-2" style="color: green"></i>
@@ -145,75 +225,55 @@
 									</div>
 
 									<!-- Work Mode -->
-									<div class="col">
+									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
-												<i class="fa fa-building-user me-2" style="color: var(--uniprep-secondary)"></i>
+												<i class="fa fa-building-user me-2"
+													style="color: var(--uniprep-secondary)"></i>
 												<div>
 													<span class="text-muted">Work Mode</span>
-													<div class="fw-bold text-break">{{ Array.isArray(jobDetails.work_mode) ? jobDetails.work_mode.join(", ") : jobDetails.work_mode }}</div>
+													<div class="fw-bold text-break">{{
+														Array.isArray(jobDetails.work_mode) ?
+														jobDetails.work_mode.join(", ") : jobDetails.work_mode }}</div>
 												</div>
 											</div>
 										</div>
 									</div>
 
 									<!-- Employment Type -->
-									<div class="col">
+									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
 												<i class="fas fa-person-digging me-2" style="color: red"></i>
 												<div>
 													<span class="text-muted">Employment Type</span>
-													<div class="fw-bold text-break">{{ Array.isArray(jobDetails.employment_type) ? jobDetails.employment_type.join(", ") : jobDetails.employment_type }}</div>
+													<div class="fw-bold text-break">{{
+														Array.isArray(jobDetails.employment_type) ?
+														jobDetails.employment_type.join(", ") :
+														jobDetails.employment_type }}</div>
 												</div>
 											</div>
 										</div>
 									</div>
 
 									<!-- Salary Range -->
-									<div class="col">
+									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
 												<i class="fas fa-dollar me-2 text-success"></i>
 												<div>
 													<span class="text-muted">Salary Range</span>
 													<div class="fw-bold">
-														<span class="me-1">{{ jobDetails.currency_code }}</span
-														>{{ jobDetails.salary_offer }}
+														<span class="me-1">{{ jobDetails.currency_code }}</span>{{
+														jobDetails.salary_offer }}
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 
-									<!-- Total Applied -->
-									<div class="col">
-										<div class="d-flex flex-column">
-											<div class="d-flex align-items-center mb-2">
-												<i class="fas fa-user-plus me-2 text-primary"></i>
-												<div>
-													<span class="text-muted">Total Applied</span>
-													<div class="fw-bold">{{ jobDetails.total_applied }}</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<!-- Available Vacancies -->
-									<div class="col">
-										<div class="d-flex flex-column">
-											<div class="d-flex align-items-center mb-2">
-												<i class="fas fa-users me-2 text-secondary"></i>
-												<div>
-													<span class="text-muted">Available Vacancies</span>
-													<div class="fw-bold">{{ jobDetails.available_vacancies }}</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
 									<!-- Experience Level -->
-									<div class="col">
+									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
 												<i class="fa-solid fa-user-plus me-2" style="color: black"></i>
@@ -226,20 +286,21 @@
 									</div>
 
 									<!-- Educational Degree -->
-									<div class="col">
+									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
 												<i class="fas fa-user-graduate me-2 text-primary"></i>
 												<div>
 													<span class="text-muted">Educational Degree</span>
-													<div class="fw-bold text-break">{{ jobDetails.minimum_education }}</div>
+													<div class="fw-bold text-break">{{ jobDetails.minimum_education }}
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 
 									<!-- Industry -->
-									<div class="col">
+									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
 												<i class="fas fa-building me-2" style="color: darkblue"></i>
@@ -276,7 +337,8 @@
 								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
 									<div class="row">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Key<br class="d-none d-md-block" />Responsibilities</h2>
+											<h2 class="fs-3 fw-bold">Key<br class="d-none d-md-block" />Responsibilities
+											</h2>
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div [innerHTML]="jobDetails?.key_responsibilities"></div>
@@ -287,7 +349,7 @@
 						</div>
 
 						<!-- Technical Proficiency -->
-						<div class="row mb-4">
+						<!-- <div class="row mb-4">
 							<div class="col-md-12">
 								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
 									<div class="row">
@@ -307,7 +369,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 						<!-- Language Proficiency -->
 						<div class="row mb-4">
@@ -315,14 +377,17 @@
 								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
 									<div class="row">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Language<br class="d-none d-md-block" />Proficiency</h2>
+											<h2 class="fs-3 fw-bold">Language<br class="d-none d-md-block" />Proficiency
+											</h2>
 										</div>
 										<div class="col-12 col-md-9">
 											<ul class="list-unstyled font-bold">
-												<li *ngFor="let lang of jobDetails?.language_proficiency" class="mb-3">
-													<div class="d-flex">
-														<i class="pi pi-circle-fill me-2 mt-1" style="font-size: 8px"></i>
-														<span>{{ lang.language }} - {{ lang.level }}</span>
+												<li *ngFor="let lang of jobDetails?.languages" class="mb-3">
+													<div class="d-flex align-items-center gap-2">
+														<span class="me-2">{{ lang.lang }}</span>
+														<p-rating *ngIf="lang.level" style="font-size: large"
+															[ngModel]="getProficiencyRating(lang.level)"
+															[readonly]="true"></p-rating>
 													</div>
 												</li>
 											</ul>
@@ -338,11 +403,14 @@
 								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
 									<div class="row">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Compensation<br class="d-none d-md-block" />Structure</h2>
+											<h2 class="fs-3 fw-bold">Compensation<br
+													class="d-none d-md-block" />Structure</h2>
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
-												<span *ngFor="let comp of jobDetails.compensation_structure" class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ comp }}</span>
+												<span *ngFor="let comp of jobDetails.compensation_structure"
+													class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													comp }}</span>
 											</div>
 										</div>
 									</div>
@@ -356,11 +424,14 @@
 								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
 									<div class="row">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Additional Benefits<br class="d-none d-md-block" />& Perks</h2>
+											<h2 class="fs-3 fw-bold">Additional Benefits<br
+													class="d-none d-md-block" />& Perks</h2>
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
-												<span *ngFor="let benefit of jobDetails.benefits_perks" class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ benefit }}</span>
+												<span *ngFor="let benefit of jobDetails.benefits_perks"
+													class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													benefit }}</span>
 											</div>
 										</div>
 									</div>
@@ -378,7 +449,9 @@
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
-												<span *ngFor="let skill of jobDetails?.soft_skills" class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ skill }}</span>
+												<span *ngFor="let skill of jobDetails?.soft_skills"
+													class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													skill }}</span>
 											</div>
 										</div>
 									</div>
@@ -395,26 +468,37 @@
 											<h2 class="fs-3 fw-bold">Hiring & Recruitment</h2>
 										</div>
 										<div class="col-12 col-md-9 font-bold">
-											<h6 class="mb-2">Hiring Process Stages</h6>
+											<h6 class="mb-2 text-primary">Hiring Process Stages</h6>
 											<div class="d-flex flex-wrap gap-2 mb-4">
-												<ng-container *ngIf="Array.isArray(jobDetails.hiring_stages) && jobDetails.hiring_stages.length > 0">
+												<ng-container
+													*ngIf="Array.isArray(jobDetails.hiring_stages) && jobDetails.hiring_stages.length > 0">
 													<ng-container *ngIf="jobDetails.hiring_stages[0].id !== undefined">
-														<span *ngFor="let stage of jobDetails.hiring_stages" class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage.name }}</span>
+														<span *ngFor="let stage of jobDetails.hiring_stages"
+															class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+															stage.name }}</span>
 													</ng-container>
 													<ng-container *ngIf="jobDetails.hiring_stages[0].id === undefined">
-														<span *ngFor="let stage of jobDetails.hiring_stages" class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage }}</span>
+														<span *ngFor="let stage of jobDetails.hiring_stages"
+															class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+															stage }}</span>
 													</ng-container>
 												</ng-container>
 												<ng-container *ngIf="!Array.isArray(jobDetails.hiring_stages)">
-													<span class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ jobDetails.hiring_stages }}</span>
+													<span class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+														jobDetails.hiring_stages }}</span>
 												</ng-container>
 											</div>
 
-											<h6 class="mb-2">Estimated Hiring Decision Timeframe</h6>
+											<h6 class="mb-2 text-primary">Estimated Hiring Decision Timeframe</h6>
 											<p class="mb-4">{{ jobDetails.hiring_timeframe }}</p>
 
-											<h6 class="mb-2">Interview Format</h6>
-											<p>{{ jobDetails.interview_format }}</p>
+											<h6 class="mb-2 text-primary">Interview Format</h6>
+											<div class="d-flex flex-wrap gap-2 mb-4">
+												<span *ngFor="let stage of jobDetails.interview_format"
+													class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">
+													{{ stage }}
+												</span>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -423,9 +507,18 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-12" *ngIf="isShowApplyChat" [ngClass]="{ 'col-sm-5 col-md-5 col-lg-4 col-xl-3 h-100 overflow-y-auto': showInfo, 'h-100': !showInfo }">
-				<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails" [jobId]="appliedId" (closeChat)="isShowApplyChat = false"></uni-job-chat-ui>
+			<div class="col-12 d-md-block d-none" *ngIf="isShowApplyChat"
+				[ngClass]="{ 'col-md-5 col-lg-4 col-xl-3 h-100 overflow-y-auto': showInfo, 'h-100': !showInfo }">
+				<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails"
+					[jobId]="appliedId" (closeChat)="isShowApplyChat = false"></uni-job-chat-ui>
 			</div>
+			<p-drawer #drawerRef [(visible)]="visible" position="right" [style]="{ width: '80vw' }">
+				<ng-template #headless>
+					<uni-job-chat-ui class="h-100" (openInfo)="showInfo = true" [showInfo]="showInfo"
+						[jobDetails]="jobDetails" [jobId]="appliedId"
+						(closeChat)="isShowApplyChat = false"></uni-job-chat-ui>
+				</ng-template>
+			</p-drawer>
 		</div>
 	</div>
 </div>

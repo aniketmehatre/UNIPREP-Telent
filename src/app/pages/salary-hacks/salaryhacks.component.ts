@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, inject, Input, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { RouterModule } from "@angular/router";
+import { ActivatedRoute, RouterModule } from "@angular/router";
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
@@ -24,26 +24,25 @@ import { SalaryHacksService } from "./salaryhacks.service";
   templateUrl: "./salaryhacks.component.html",
   standalone: true,
   imports: [
-    CommonModule, 
-    RouterModule, 
-    DialogModule, 
-    CardModule, 
-    PaginatorModule, 
-    FormsModule, 
-    ReactiveFormsModule, 
-    CarouselModule, 
-    ButtonModule, 
-    MultiSelectModule, 
-    SelectModule, 
-    InputGroupModule, 
-    InputTextModule, 
+    CommonModule,
+    RouterModule,
+    DialogModule,
+    CardModule,
+    PaginatorModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CarouselModule,
+    ButtonModule,
+    MultiSelectModule,
+    SelectModule,
+    InputGroupModule,
+    InputTextModule,
     InputGroupAddonModule,
     SalaryhacksCountryListsComponent,
     SalaryhacksListsComponent
   ],
   providers: [
     MessageService,
-    AuthService,
     PageFacadeService,
     SalaryHacksService
   ]
@@ -51,8 +50,19 @@ import { SalaryHacksService } from "./salaryhacks.service";
 export class SalaryhacksComponent implements OnInit {
   @Input() prepData: any = {};
   componentswitch: number = 1;
+  route = inject(ActivatedRoute);
 
   ngOnInit(): void {
+    const countryId = this.route.snapshot.paramMap.get('countryId');
+    const questionId = this.route.snapshot.paramMap.get('questionId');
+    if (questionId) {
+      this.prepData = {
+        country_id: countryId,
+        question_id: questionId,
+        countryName: ''
+      }
+      this.componentswitch = 2;
+    }
     // Initialize with default value if not set
     if (!this.componentswitch) {
       this.componentswitch = 1;

@@ -7,7 +7,6 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { AuthGuard } from "../Auth/auth.guard";
 import { ChatComponent } from './chat/chat.component';
 import { GuidelineComponent } from './chat/guidelines/guidelines.component';
-import { RecentlyaddedquestionsComponent } from './recentlyaddedquestions/recentlyaddedquestions.component';
 import { PrivacypolicyComponent } from './footersection/privacypolicy/privacypolicy.component';
 import { RefundpolicyComponent } from './footersection/refundpolicy/refundpolicy.component';
 import { CancellationpolicyComponent } from './footersection/cancellationpolicy/cancellationpolicy.component';
@@ -26,10 +25,6 @@ import { MycertificateComponent } from './mycertificate/mycertificate.component'
 import { CareerPlannerComponent } from './career-planner/career-planner.component';
 import { CareerGrowthCheckerComponent } from './career-growth-checker/career-growth-checker.component';
 import { CourseListComponent } from './course-list/course-list.component';
-import { JobToolComponent } from './job-tool/job-tool.component';
-import { SalaryConverterComponent } from "./job-tool/salary-converter/salary-converter.component";
-import { FounderstoolComponent } from './founderstool/founderstool.component';
-import { CareerToolComponent } from './job-tool/career-tool/career-tool.component';
 import { AdvisorComponent } from "./advisor/advisor.component";
 import { NationalExamCategoriesComponent } from './national-exam-categories/national-exam-categories.component';
 import { NationalExamTestsComponent } from './national-exam-tests/national-exam-tests.component';
@@ -38,18 +33,15 @@ import { NationalExamQuestionsComponent } from './national-exam-questions/nation
 import { NationalExamResultComponent } from './national-exam-result/national-exam-result.component';
 import { NationalExamReviewComponent } from './national-exam-review/national-exam-review.component';
 import { JobPreparationComponent } from './jobinterviewpreparation/interviewpreparation.component';
-import { JobPreparedListComponent } from './jobinterviewpreparation/preparedlist/preparedlist.component';
-import { AverageSalaryPreparedListComponent } from './averagesalaryestimator/preparedlist/preparedlist.component';
 import { AverageSalaryComponent } from './averagesalaryestimator/averagesalaryestimator.component';
 import { FundListGuidlinesComponent } from './fund-list-guidelines/fund-list-guidlines.component';
 import { JoboffercomparisontoolComponent } from './job-tool/joboffercomparisontool/joboffercomparisontool.component';
 import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
 import { GlobalWorkVisaComponent } from './global-work-visa/global-work-visa.component';
-import { ManagementTeamComponent } from './landing/management-team/management-team.component';
 
 const routes: Routes = [
     {
-        path: '', 
+        path: '',
         component: PagesComponent,
         canActivate: [AuthGuard],
         children: [
@@ -285,7 +277,15 @@ const routes: Routes = [
                 loadChildren: () => import('./career-hacks/careerhacks.module').then(m => m.CareerHacksModule)
             },
             {
+                path: 'career-hacks/:countryId/:questionId',
+                loadChildren: () => import('./career-hacks/careerhacks.module').then(m => m.CareerHacksModule)
+            },
+            {
                 path: 'salary-hacks',
+                loadChildren: () => import('./salary-hacks/salaryhacks.module').then(m => m.SalaryHacksModule)
+            },
+            {
+                path: 'salary-hacks/:countryId/:questionId',
                 loadChildren: () => import('./salary-hacks/salaryhacks.module').then(m => m.SalaryHacksModule)
             },
             {
@@ -294,6 +294,10 @@ const routes: Routes = [
             },
             {
                 path: 'fortune-companies',
+                loadChildren: () => import('./fortune-companies/fortune-companies.module').then(m => m.FortuneCompaniesModule)
+            },
+            {
+                path: 'fortune-companies/:companyId/:questionId',
                 loadChildren: () => import('./fortune-companies/fortune-companies.module').then(m => m.FortuneCompaniesModule)
             },
             {
@@ -317,7 +321,15 @@ const routes: Routes = [
                 loadChildren: () => import('./global-employment-insights/global-employment-insights.module').then(m => m.GlobalEmploymentModule)
             },
             {
+                path: 'global-employment-insights/:countryId/:questionId',
+                loadChildren: () => import('./global-employment-insights/global-employment-insights.module').then(m => m.GlobalEmploymentModule)
+            },
+            {
                 path: 'global-work-visa',
+                component: GlobalWorkVisaComponent
+            },
+            {
+                path: 'global-work-visa/:nationalityId/:countryId/:visaTypeId/:categoryId/:questionId',
                 component: GlobalWorkVisaComponent
             },
         ]

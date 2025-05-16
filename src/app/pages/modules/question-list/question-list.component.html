@@ -255,12 +255,12 @@
 						class="fa-solid fa-share"></i></button>
 				<p-card id="socialSharingList">
 					<ul style="list-style: none; cursor: pointer">
-						<li (click)="shareViaWhatsapp()"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-						<li (click)="shareViaMail()"><i class="pi pi-envelope"></i>Email</li>
-						<li (click)="shareViaFacebook()"><i class="pi pi-facebook"></i>Facebook</li>
-						<li (click)="shareViaTwitter()"><i class="pi pi-twitter"></i>Twitter</li>
-						<li (click)="shareViaInstagram()"><i class="pi pi-instagram"></i>Instagram</li>
-						<li (click)="shareViaLinkedIn()"><i class="pi pi-linkedin"></i>LinkedIn</li>
+						<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+						<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+						<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+						<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+						<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+						<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
 						<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
 					</ul>
 				</p-card>
@@ -277,78 +277,74 @@
 			</div>
 		</div>
 	</div>
-	<ng-template pTemplate="footer">
-		<div class="row cutom-row p-4">
-			<div class="col-custom-4-5">
-				<div class="d-flex flex-column" *ngIf="videoLinks">
-					<h5 class="text-start mb-1" *ngIf="oneQuestionContent?.videolink?.length > 0">Recommended Videos
-					</h5>
-					<div class="d-flex align-items-center gap-2 pb-2">
-						<!-- Scrollable Video Links -->
-						<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
-							<div class="d-flex flex-row gap-4 flex-nowrap overflow-x-auto py-3 video-scroll-container"
-								#scrollContainer>
-								<span class="btn btn-primary text-small videolinkbutton flex-shrink-0"
-									(click)="openVideoPopup(videoL.link)"
-									*ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">
-									Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i>
-								</span>
-							</div>
+	<div class="flex justify-center gap-2 p-2">
+		<div class="col-custom-4-5">
+			<div class="d-flex flex-column text-start" *ngIf="videoLinks">
+				<h5 class="text-start mb-1" *ngIf="oneQuestionContent?.videolink?.length > 0">Recommended Videos
+				</h5>
+				<div class="d-flex align-items-center gap-2 pb-2">
+					<!-- Scrollable Video Links -->
+					<div class="scrollable-container" id="video-links-container" #videoLinksContainer>
+						<div class="d-flex flex-row gap-4 flex-nowrap overflow-x-auto py-3 video-scroll-container"
+							#scrollContainer>
+							<span class="btn btn-primary text-small videolinkbutton flex-shrink-0"
+								(click)="openVideoPopup(videoL.link)"
+								*ngFor="let videoL of oneQuestionContent?.videolink; let ind = index">
+								Video {{ ind + 1 }} &nbsp;<i class="fa-solid fa-video"></i>
+							</span>
 						</div>
-
-						<!-- Right Arrow (Circular Scrolling) -->
-						<button class="scroll-btn-vedio  right" *ngIf="oneQuestionContent?.videolink?.length > 0"
-							(click)="scrollRight()" aria-label="Scroll Right">
-							<i class="fa-solid fa-chevron-right"></i>
-						</button>
 					</div>
-				</div>
-			</div>
-			<div class="col-custom-4-5">
-				<div class="d-flex flex-column" *ngIf="refLink">
-					<h5 class="text-start mb-1" *ngIf="oneQuestionContent?.reflink?.length > 0">Recommended Links</h5>
-					<div class="d-flex align-items-center gap-2 pb-2">
-						<!-- Scrollable Reference Links -->
-						<div class="scrollable-container " id="ref-links-container" #refLinksContainer>
-							<div class="d-flex flex-row gap-4 flex-nowrap overflow-x-auto py-3 video-scroll-container"
-								#scrollContainerlink>
-								<a class="btn btn-secondary text-small reflinkbutton flex-shrink-0" target="_blank"
-									href="{{ refL.link }}"
-									*ngFor="let refL of oneQuestionContent?.reflink; let ind = index">
-									Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i>
-								</a>
-							</div>
-						</div>
 
-						<!-- Right Arrow (Circular Scrolling) -->
-						<button class="scroll-btn-link right" *ngIf="oneQuestionContent?.reflink?.length > 0"
-							(click)="scrollRightLinks()" aria-label="Scroll Right">
-							<i class="fa-solid fa-chevron-right"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-			<div class="col-custom-3">
-				<div class="align-items-center d-flex desktop">
-					<button style="background-color: #001731 !important;"
-						class="btn w-100 btn-primary mx-0 px-5 py-2 align-items-center"
-						(click)="onClickAsk(oneQuestionContent?.question)">
-						<div class="row justify-content-center align-items-center">
-							<div class="col-12">
-								<i class="fa-solid fa-comment"></i>
-							</div>
-							<div class="col-12">
-								<span>Click here to ask</span>
-							</div>
-							<div class="col-12">Personalised Questions</div>
-						</div>
+					<!-- Right Arrow (Circular Scrolling) -->
+					<button class="scroll-btn-vedio  right" *ngIf="oneQuestionContent?.videolink?.length > 0"
+						(click)="scrollRight()" aria-label="Scroll Right">
+						<i class="fa-solid fa-chevron-right"></i>
 					</button>
 				</div>
 			</div>
-
-
 		</div>
-	</ng-template>
+		<div class="col-custom-4-5">
+			<div class="d-flex flex-column" *ngIf="refLink">
+				<h5 class="text-start mb-1" *ngIf="oneQuestionContent?.reflink?.length > 0">Recommended Links</h5>
+				<div class="d-flex align-items-center gap-2 pb-2">
+					<!-- Scrollable Reference Links -->
+					<div class="scrollable-container " id="ref-links-container" #refLinksContainer>
+						<div class="d-flex flex-row gap-4 flex-nowrap overflow-x-auto py-3 video-scroll-container"
+							#scrollContainerlink>
+							<a class="btn btn-secondary text-small reflinkbutton flex-shrink-0" target="_blank"
+								href="{{ refL.link }}"
+								*ngFor="let refL of oneQuestionContent?.reflink; let ind = index">
+								Link {{ ind + 1 }} &nbsp;<i class="fa-solid fa-link"></i>
+							</a>
+						</div>
+					</div>
+
+					<!-- Right Arrow (Circular Scrolling) -->
+					<button class="scroll-btn-link right" *ngIf="oneQuestionContent?.reflink?.length > 0"
+						(click)="scrollRightLinks()" aria-label="Scroll Right">
+						<i class="fa-solid fa-chevron-right"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-custom-3">
+			<div class="align-items-center d-flex desktop">
+				<button style="background-color: #001731 !important;"
+					class="btn w-100 btn-primary mx-0 px-5 py-2 align-items-center"
+					(click)="onClickAsk(oneQuestionContent?.question)">
+					<div class="row justify-content-center align-items-center">
+						<div class="col-12">
+							<i class="fa-solid fa-comment"></i>
+						</div>
+						<div class="col-12">
+							<span>Click here to ask</span>
+						</div>
+						<div class="col-12">Personalised Questions</div>
+					</div>
+				</button>
+			</div>
+		</div>
+	</div>
 </p-dialog>
 <!-- <p-dialog [(visible)]="isRecommendedVideoVisible" class="questionvideopopup" [modal]="true" [style]="{ width: '80vw' }">
 	<div class="container-fluid">

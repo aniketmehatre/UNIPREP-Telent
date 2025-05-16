@@ -5,10 +5,9 @@ import {
 	Component,
 	CUSTOM_ELEMENTS_SCHEMA,
 	ElementRef,
+	inject,
 	OnDestroy,
-	OnInit,
-	Renderer2,
-	ViewChild
+	OnInit, ViewChild
 } from "@angular/core"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
 import { Router, RouterModule } from "@angular/router"
@@ -26,8 +25,9 @@ import { DataService } from "src/app/data.service"
 import { SubSink } from "subsink"
 import { LocationService } from "../../location.service"
 import { AuthService } from "../auth.service"
-import { finalize } from 'rxjs/operators';
-import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login';
+import { finalize } from 'rxjs/operators'
+import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login'
+import { signal } from '@angular/core'
 
 declare var google: any;
 @Component({
@@ -42,24 +42,32 @@ declare var google: any;
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
+	// inject Services
+	private service = inject(AuthService);
+	private formBuilder = inject(FormBuilder);
+	private route = inject(Router);
+	private toast = inject(MessageService);
+	private dataService = inject(DataService);
+	private locationService = inject(LocationService);
+	private authService = inject(SocialAuthService);
+	private storage = inject(LocalStorageService);
+	private authTokenService = inject(AuthTokenService);
+	private cdr = inject(ChangeDetectorRef);
+
 	@ViewChild("button2") button2!: ElementRef
 	private subs = new SubSink()
 	loginForm: FormGroup
-	submitted: boolean = false
-	show: boolean = true
-	password: string = "password"
-	isLoading: boolean = false
-	isDisabled: boolean = false
-	locationData: any
-	imageUrlWhitelabel: string | null = null
-	domainname: string = 'main'
 	domainNameCondition: string
 	ipURL: string = "https://api.ipify.org?format=json"
-	constructor(private service: AuthService, private formBuilder: FormBuilder, private route: Router,
-		private toast: MessageService, private dataService: DataService,
-		private locationService: LocationService, private authService: SocialAuthService,
-		private storage: LocalStorageService, private authTokenService: AuthTokenService,
-		private cdr: ChangeDetectorRef, private el: ElementRef, private renderer: Renderer2) { }
+	locationData: any
+
+	submitted = signal(false);
+	show = signal(true);
+	isLoading = signal(false);
+	isDisabled = signal(false);
+	imageUrlWhitelabel = signal<string | null>(null);
+	domainname = signal('main');
+	password = signal('password')
 
 	ngOnDestroy() {
 		this.subs.unsubscribe()
@@ -71,9 +79,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.setupSocialAuth()
 	}
 
+	get canSubmit() {
+		return this.loginForm.valid && !this.isLoading();
+	}
+
 	private initializeComponent() {
 		this.domainNameCondition = window.location.hostname
-		this.domainname = this.isDomainMain() ? 'main' : 'sub'
+		this.domainname.set(this.isDomainMain() ? 'main' : 'sub')
 		this.dataService.loggedInAnotherDevice("none")
 		fetch(this.ipURL)
 			.then((response) => response.json())
@@ -81,7 +93,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 				this.locationData = data
 			})
 		this.locationService.getImage().subscribe((imageUrl) => {
-			this.imageUrlWhitelabel = imageUrl
+			this.imageUrlWhitelabel.set(imageUrl);
+			console.log(this.imageUrlWhitelabel)
 			this.cdr.markForCheck()
 		})
 		this.loginForm = this.formBuilder.group({
@@ -103,12 +116,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.subs.sink = this.authService.authState.subscribe(user => {
 			if (!user) return
 
-			this.isLoading = true
+			this.isLoading.set(true)
 			this.cdr.markForCheck()
 
 			this.service.isExist({ email: user.email }).pipe(
 				finalize(() => {
-					this.isLoading = false
+					this.isLoading.set(false)
 					this.cdr.markForCheck()
 				})
 			).subscribe({
@@ -116,51 +129,35 @@ export class LoginComponent implements OnInit, OnDestroy {
 					if (exists === "Exist") {
 						this.handleSocialLogin(user)
 					} else {
-						this.toast.add({
-							severity: "info",
-							summary: "Info",
-							detail: "Email not exist, Try Register"
-						})
+						this.toast.add({ severity: "info", summary: "Info", detail: "Email not exist, Try Register" })
 					}
 				},
 				error: (error) => {
-					this.toast.add({
-						severity: "error",
-						summary: "Error",
-						detail: error.message || 'Social login check failed'
-					})
+					this.toast.add({ severity: "error", summary: "Error", detail: error.message || 'Social login check failed' })
 				}
 			})
 		})
 	}
 
 	private handleSocialLogin(user: any) {
-		this.isLoading = true
+		this.isLoading.set(true)
 		this.cdr.markForCheck()
 
 		this.service.gmailLogin(user).pipe(
 			finalize(() => {
-				this.isLoading = false
+				this.isLoading.set(false)
 				this.cdr.markForCheck()
 			})
 		).subscribe({
 			next: (response) => {
-				if (response.status === "error") {
-					this.toast.add({
-						severity: "error",
-						summary: "Error",
-						detail: response.message || 'Login failed'
-					})
+				if (response.status === "false") {
+					this.toast.add({ severity: "error", summary: "Error", detail: response.message || 'Login failed' })
 					return
 				}
 				this.handleSuccessfulLogin(response.token)
 			},
 			error: (error) => {
-				this.toast.add({
-					severity: "error",
-					summary: "Error",
-					detail: error.message || 'Social login failed'
-				})
+				this.toast.add({ severity: "error", summary: "Error", detail: error?.error?.message || error.message || 'Social login failed' })
 			}
 		})
 	}
@@ -169,34 +166,20 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.service.saveToken(token)
 		this.authTokenService.setToken(token)
 		this.storage.set(environment.tokenKey, token)
-
 		this.service.getMe().subscribe({
 			next: (userData) => {
 				this.loadCountryList(userData)
-				this.subs.sink = this.service.selectMessage$().subscribe((message) => {
-					let req = {
-						userId: userData.userdetails[0].user_id,
-						location: this.locationData.city,
-						country: this.locationData.country_name,
-					};
-					this.locationService
-						.sendSessionData(req, "login")
-						.subscribe((response) => {
-						});
-				});
-				this.toast.add({
-					severity: "success",
-					summary: "Success",
-					detail: "Login Successful"
-				})
+				let req = {
+					userId: userData.userdetails[0].user_id,
+					location: this.locationData.city,
+					country: this.locationData.country_name,
+				};
+				this.locationService.sendSessionData(req, "login").subscribe();
+				this.toast.add({ severity: "success", summary: "Success", detail: "Login Successful" })
 				this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
 			},
 			error: (error) => {
-				this.toast.add({
-					severity: "error",
-					summary: "Error",
-					detail: error.message || 'Failed to load user data'
-				})
+				this.toast.add({ severity: "error", summary: "Error", detail: error.message || 'Failed to load user data' })
 			}
 		})
 	}
@@ -218,20 +201,20 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 
 	get f() {
-		return this.loginForm.controls
+		return this.loginForm.controls;
 	}
 
 	onSubmit(): void {
-		this.submitted = true
+		this.submitted.set(true)
 		if (this.loginForm.invalid) return
 
-		this.isLoading = true
+		this.isLoading.set(true)
 		this.cdr.markForCheck()
 		this.service.canDisableSignIn.next(true)
 
 		this.service.validateSignIn(this.loginForm.value).pipe(
 			finalize(() => {
-				this.isLoading = false
+				this.isLoading.set(false)
 				this.cdr.markForCheck()
 			})
 		).subscribe({

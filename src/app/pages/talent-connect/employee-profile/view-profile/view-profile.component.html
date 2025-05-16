@@ -6,8 +6,7 @@
       {{
       isSample
       ? "Sample Profile"
-      : profileData.personalInfo.fullName + "'s profile"
-      }}
+      : profileData.personalInfo.fullName + "'s profile"}}
     </h5>
     <i class="fa-solid fa-circle-xmark fs-2 cursor-pointer" style="color: white" (click)="closeDialog()"></i>
   </div>
@@ -18,9 +17,13 @@
           <div class="col-md-3 col-lg-3" style="max-width: 230px; max-height: 230px;">
             <img [src]="profileData.personalInfo.logo || 'uniprep-assets/images/avatar.webp'" alt="Profile Photo" class="img-fluid rounded" style="object-fit: cover; height: 100%;"/>
           </div>
-          <div class="col-md-6 col-lg-6">
+          <div class="col-md-9 col-lg-9">
             <h2 class="fw-bold">{{profileData.personalInfo.fullName}}</h2>
-            <p class="text-muted">Profile Updated On: {{isSample ? '28-04-2025': (this.updatedAtDate  | date: 'dd-MM-yyyy')}}</p>         
+            <p class="text-muted">Profile Updated On: {{isSample ? '28-04-2025': (this.updatedAtDate  | date: 'dd-MM-yyyy')}}</p>   
+            <div class="mt-2">
+              <button class="py-2 px-4 btn-success" *ngIf="introductionVideo && !this.isSample"><a [href]="introductionVideo" target="_blank" role="button" class="text-decoration-none text-white">Introduction Video Uploaded&nbsp; <i class="fa fa-video"></i></a></button>
+              <button class="py-2 px-4 btn btn-danger" *ngIf="!introductionVideo || this.isSample">Introduction Video Not Uploaded&nbsp; <i class="fa fa-video"></i></button>
+            </div>      
             <div class="row g-2 g-2 mt-2">
               <div class="col-md-3">
                 <div class="d-flex align-items-center">
@@ -59,14 +62,10 @@
                 </div>
               </div>
             </div>
-            
             <div class="mt-3">
               <div class="text-muted small mb-1">Profile Completion: {{isSample ? 85 : (profileCompletionPercentage || 0)}}%</div>
               <p-progressBar [style]="{ height: '10px', color: 'orange' }" styleClass="text-secondary mb-3" [value]="isSample ? 85 : (profileCompletionPercentage || 0)" [showValue]="false"></p-progressBar>
             </div>
-          </div>
-          <div class="col-md-3 col-lg-3 d-flex flex-column gap-2 align-items-end">
-            <button pButton label="Edit Profile" icon="pi pi-pencil" class="p-button-outlined" routerLink="/pages/talent-connect/my-profile"></button>
           </div>
         </div>
       </div>
@@ -149,7 +148,7 @@
                   <div>{{exp.duration || 'Not specified'}}</div>
                 </div>
                 <div class="col-md-4 mb-3">
-                  <div class="text-primary fw-bold">Salary</div>
+                  <div class="text-primary fw-bold">Salary / Month</div>
                   <div>{{exp.salary ? (exp.salary + ' ' + exp.exp_currency) : 'Not specified'}}</div>
                 </div>
               </ng-container>
@@ -169,8 +168,8 @@
         <div class="row g-2">
           <div class="col-md-3">
             <h3 class="fw-bold text-navy">Career Preferences & Aspirations</h3>
-            <div class="mt-3 text-warning">Confused about your career?</div>
-            <button pButton label="Click here to plan now!" class="p-button-outlined p-button-warning mt-2"></button>
+            <div class="mt-3 text-warning rounded-pill">Confused about your career?</div>
+            <button pButton label="Click here to plan now!" class="p-button-outlined p-button-warning mt-2 rounded-pill" (click)="ref.close();" routerLink="/pages/job-tool/career-tool"></button>
           </div>
           <div class="col-md-9">
             <div class="row g-2">
@@ -218,8 +217,8 @@
         <div class="row g-2">
           <div class="col-md-3">
             <h3 class="fw-bold text-navy">Certifications & Achievements</h3>
-            <div class="mt-3 text-warning">Want to add more skills?</div>
-            <button pButton label="Click here to add more to your list!" class="p-button-outlined p-button-warning mt-2"></button>
+            <div class="mt-3 text-warning rounded-pill">Want to add more skills?</div>
+            <button pButton label="Click here to add more to your list!" (click)="ref.close();" class="p-button-outlined p-button-warning mt-2 rounded-pill" routerLink="/pages/modules/learning-hub"></button>
           </div>
           <div class="col-md-9">
             <div class="row g-2">
@@ -280,7 +279,7 @@
           <div class="col-md-3">
             <h3 class="fw-bold text-navy">Additional Details</h3>
             <div class="mt-3 text-warning">Looking to add more languages?</div>
-            <button pButton label="Click here to start learning!" class="p-button-outlined p-button-warning mt-2"></button>
+            <button pButton label="Click here to start learning!" class="p-button-outlined p-button-warning mt-2 rounded-pill" (click)="ref.close();" routerLink="/pages/modules/language-hub"></button>
           </div>
           <div class="col-md-9">
             <div class="row g-2 mb-4">
@@ -289,8 +288,8 @@
                 <ng-container *ngFor="let lang of profileData.additionalDetails.languagesKnown">
                   <div class="mb-2">
                     <div class="d-flex align-items-center">
-                      <span class="me-2" style="width: 100px;">{{lang}}</span>
-                      <p-rating [ngModel]="3" [readonly]="true"></p-rating>
+                      <span class="me-2" style="width: 100px;">{{lang.lang}}</span>
+                      <p-rating *ngIf="lang.prof" style="font-size: large;" [ngModel]="getProficiencyRating(lang.prof)" [readonly]="true" ></p-rating>
                     </div>
                   </div>
                 </ng-container>
@@ -312,8 +311,8 @@
         <div class="row g-2">
           <div class="col-md-3">
             <h3 class="fw-bold text-navy">Key Strengths & Professional Traits</h3>
-            <div class="mt-3 text-warning">Want to add more skills?</div>
-            <button pButton label="Click here to add more to your list!" class="p-button-outlined p-button-warning mt-2"></button>
+            <div class="mt-3 text-warning rounded-pill">Want to add more skills?</div>
+            <button pButton label="Click here to add more to your list!" (click)="ref.close();" class="p-button-outlined p-button-warning mt-2 rounded-pill" routerLink="/pages/modules/skill-mastery"></button>
           </div>
           <div class="col-md-9">
             <div class="mb-4">
@@ -359,14 +358,16 @@
               <div class="col-md-4 mb-3">
                 <div class="text-primary fw-bold">LinkedIn Profile</div>
                 <a [href]="profileData.networking.linkedinProfile" target="_blank" class="text-break" *ngIf="profileData.networking.linkedinProfile">
-                  {{profileData.networking.linkedinProfile}}
+<!--                  {{profileData.networking.linkedinProfile}}-->
+                    <i class="pi pi-linkedin"></i>
                 </a>
                 <div *ngIf="!profileData.networking.linkedinProfile" class="text-muted">Not specified</div>
               </div>
               <div class="col-md-4 mb-3">
                 <div class="text-primary fw-bold">Personal Website</div>
                 <a [href]="profileData.networking.personalWebsite" target="_blank" class="text-break" *ngIf="profileData.networking.personalWebsite">
-                  {{profileData.networking.personalWebsite}}
+<!--                  {{profileData.networking.personalWebsite}}-->
+                    <i class="pi pi-globe"></i>
                 </a>
                 <div *ngIf="!profileData.networking.personalWebsite" class="text-muted">Not specified</div>
               </div>
@@ -376,7 +377,8 @@
                 <ng-container *ngFor="let social of profileData.networking.socialMedia">
                   <div>
                     <a [href]="social.link" target="_blank" class="text-break" *ngIf="social.link">
-                      {{social.media}}: {{social.link}}
+<!--                      {{social.media}}: {{social.link}}-->
+                        <i class="pi pi-{{social.media}}"></i>
                     </a>
                   </div>
                 </ng-container>
@@ -393,8 +395,8 @@
         <div class="row g-2">
           <div class="col-md-3">
             <h3 class="fw-bold text-navy">Attachments & Media</h3>
-            <div class="mt-3 text-warning">Want to update your CV?</div>
-            <button pButton label="Click here to create or edit your resume!" class="p-button-outlined p-button-warning mt-2"></button>
+            <div class="mt-3 text-warning ">Want to update your CV?</div>
+            <button pButton label="Click here to create or edit your resume!" class="p-button-outlined p-button-warning mt-2 rounded-pill" routerLink="/pages/job-tool/cv-builder" (click)="ref.close();"></button>
           </div>
           <div class="col-md-9">
             <div class="row g-2">

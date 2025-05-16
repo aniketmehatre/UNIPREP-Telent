@@ -21,9 +21,7 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
-							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						  </button>
+						
 						<button pButton type="button" (click)="saveRecommadation()"
 							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
@@ -48,7 +46,10 @@
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business Type is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 2">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="businessModelList" styleClass="w-100" optionLabel="businessModel" optionValue="businessModel" [appendTo]="'body'" placeholder="Select your business model"> </p-select>
+										<p-multiSelect [options]="businessModelList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]"
+										optionLabel="businessModel" optionValue="businessModel" appendTo="body" [filter]="true" filterBy="businessModel" 
+										placeholder="Select your business model"> </p-multiSelect>
+										<!-- <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="businessModelList" styleClass="w-100" optionLabel="businessModel" optionValue="businessModel" [appendTo]="'body'" placeholder="Select your business model"> </p-select> -->
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business model is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 3">
@@ -56,7 +57,10 @@
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business strategy is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 4">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="keyRisksList" styleClass="w-100" optionLabel="keyRisks" optionValue="keyRisks" [appendTo]="'body'" placeholder="List the main risks your startup faces"></p-select>
+										<!-- <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="keyRisksList" styleClass="w-100" optionLabel="keyRisks" optionValue="keyRisks" [appendTo]="'body'" placeholder="List the main risks your startup faces"></p-select> -->
+										<p-multiSelect [options]="keyRisksList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]"
+										optionLabel="keyRisks" optionValue="keyRisks" appendTo="body"
+										placeholder="List the main risks your startup faces"> </p-multiSelect>
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Business challenges is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 5">
@@ -68,7 +72,12 @@
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Competitive market is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 7">
-										<p-select [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList" [filter]="true" filterBy="targetAudience" styleClass="w-100" optionLabel="targetAudience" optionValue="targetAudience" [appendTo]="'body'" placeholder="Select the demographic or type of customers you are targeting"> </p-select>
+										<!-- <p-select [(ngModel)]="selectedData[recommendation.id]" [options]="targetAudienceList" [filter]="true" filterBy="targetAudience" styleClass="w-100" optionLabel="targetAudience" optionValue="targetAudience" [appendTo]="'body'" placeholder="Select the demographic or type of customers you are targeting"> </p-select> -->
+
+										<p-multiSelect [options]="targetAudienceList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]"
+										optionLabel="targetAudience" optionValue="targetAudience" appendTo="body" [filter]="true" filterBy="targetAudience" 
+										placeholder="Select the demographic or type of customers you are targeting"> </p-multiSelect>
+
 										<div class="text-center" [ngClass]="{ 'd-none': inValidClass === false }" style="color: red">Target Audience is required</div>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 8">
@@ -129,9 +138,7 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
-							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						  </button>
+						
 						<button pButton type="button" (click)="saveRecommadation()"
 							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
@@ -204,9 +211,7 @@
 						</div>
 					</div>
 					<div class="d-flex align-items-center gap-1">
-						<button pButton  class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
-							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						  </button>
+						
 						<button pButton type="button" (click)="saveRecommadation()"
 							class="btn btn-primary btn-rounded py-2 px-4">
 							<span>History</span>
