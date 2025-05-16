@@ -243,11 +243,7 @@ p {
 // 	border-style: solid;
 // }
 .navbar {
-background-image: url('/uniprep-assets/images/landing-talent-bg.svg'),
-		linear-gradient(135deg, #432F1C 0%, #2B212A 50%, #1D1D1E 100%), ;
-	background-position: right right;
-	background-repeat: no-repeat;
-	background-size: cover;
+	background: #07070b;
 }
 
 .navbar-toggler:focus {
