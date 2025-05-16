@@ -182,13 +182,32 @@
 								</div>
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Job Title</label>
-									<div class="form-group">
-										<div class="mb-3">
+									<p-dropdown formControlName="user_job_title" [options]="jobRoles"
+										placeholder="Select Job Title" styleClass="w-100"
+										optionLabel="jobrole" optionValue="jobrole" [filter]="true"
+										filterBy="jobrole" [virtualScroll]="jobRoles.length > 100"
+										[virtualScrollItemSize]="50">
+										<ng-template pTemplate="header">
+											<div class="p-2">
+												<p-inputGroup>
+													<input pInputText class="rounded-end-2 me-1"
+														placeholder="Custom Job Title" #jobTitleExp
+														(click)="focusInput(jobTitleExp)" />
+													<button class="w-full btn btn-primary"
+														(click)="addCustomJobTitle(jobTitleExp)">
+														<i class="fa fa-plus"></i> Add New
+													</button>
+												</p-inputGroup>
+											</div>
+										</ng-template>
+									</p-dropdown>
+									<!-- <div class="form-group">
+										<div class="mb-3"> -->
 											<!-- <input class="w-100" type="text" placeholder="Previous Your Job Title" formControlName="user_job_title" pInputText />
 											<div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
 												<div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Your Job Title Required</div>
 											</div> -->
-											<div class="input-wrapper">
+											<!-- <div class="input-wrapper">
 												<input type="text" formControlName="user_job_title"
 												(input)="searchJob($event)" (focusout)="onFocusOutJob()"
 												class="form-control job-input bg-transparent"
@@ -207,7 +226,7 @@
 											</ul>
 											</div>
 										</div>
-									</div>
+									</div> -->
 								</div>
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Your Email</label>
@@ -228,7 +247,12 @@
 								</div>
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Your Location</label>
-									<div class="form-group">
+									<p-select [options]="cities" placeholder="Location, Country" [filter]="true"
+												filterBy="country_name" styleClass="w-100"
+												formControlName="user_location" optionLabel="country_name"
+												[virtualScroll]="true" [virtualScrollItemSize]="50"
+												optionValue="country_name"></p-select>
+									<!-- <div class="form-group">
 										<div class="mb-3">
 											<div class="input-wrapper">
 												<input type="text" formControlName="user_location"
@@ -246,7 +270,7 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> -->
 								</div>
 								<div class="col-md-6">
 									<div class="d-flex align-items-center">
