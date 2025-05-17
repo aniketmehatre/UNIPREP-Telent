@@ -53,4 +53,5 @@ export interface User {
     ilearn_popup_status: number;
     country_code: number;
     home_country_id: number;
+    subscription_exists: number;
 }

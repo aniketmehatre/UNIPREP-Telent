@@ -203,37 +203,6 @@ export class AuthService {
     return this.http.get<any>(environment.ApiUrl + "/logout", { headers });
   }
 
-  // getMe() {
-  //   const token = this.getToken();
-  //   if (!token) {
-  //     this.logout().subscribe();
-  //     return throwError(() => new Error('No authentication token'));
-  //   }
-
-  //   return this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, {
-  //     headers: new HttpHeaders()
-  //       .set('Accept', 'application/json')
-  //       .set('Authorization', `Bearer ${token}`)
-  //   }).pipe(
-  //     map(response => {
-  //       if (!response?.userdetails?.[0]) {
-  //         throw new Error('Invalid response format');
-  //       }
-  //       const userDetails = response.userdetails[0];
-  //       this._user = {
-  //         ...userDetails,
-  //         name: userDetails.name || ''
-  //       };
-  //       this.user = this._user;
-  //       console.log(this.user)
-  //       this.userData.next(this._user); // ✅ Notify subscribers here
-  //       this._checkExistsSubscription = userDetails.subscription_exists || 0;
-  //       this.storeUserData(userDetails);
-  //       return response;
-  //     })
-  //   )
-  // }
-
   getMe(): Observable<any> {
     const token = this.getToken();
     if (!token) {
@@ -254,14 +223,9 @@ export class AuthService {
         if (!response?.userdetails?.[0]) {
           throw new Error('Invalid response format');
         }
-        const userDetails = response.userdetails[0];
-        this.user = {
-          ...userDetails,
-          name: userDetails.name || ''
-        };
-        // this._userLoginCount = userDetails.login_status || 0;
-        this._checkExistsSubscription = userDetails.subscription_exists || 0;
-        this.storeUserData(userDetails);
+       this.user= response.userdetails[0];
+        this._checkExistsSubscription = this.user.subscription_exists || 0;
+        this.storeUserData(this.user);
         return response;
       }),
       shareReplay({ bufferSize: 1, refCount: false }),
