@@ -517,6 +517,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	allSearchedResult: any[] = []
 	currentRoute: string = ""
 	async ngOnInit() {
+		
+		// Initialize forms
+		this.initializeForms();
+
+		// Handle phone verification
+		await this.handlePhoneVerification();
+		this.checkNewUSerLogin();
 		try {
 			this.phone = this.storage.get("phone");
 			// if (encPhone) {
@@ -637,11 +644,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			}
 		});
 
-		// Initialize forms
-		this.initializeForms();
-
-		// Handle phone verification
-		await this.handlePhoneVerification();
 
 		// Check subscription status
 		console.log(this.service._checkExistsSubscription);
@@ -1439,11 +1441,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	checkNewUSerLogin(): void {
-		let userLoginCount = this.service._user?.login_status;
-		if (userLoginCount === 4) {
-			//this.freeTrial = true;
-			this.whatsappVerification = true
+	checkNewUSerLogin() {
+		if (this.service._user?.login_status === 4) {
+			if (this.service._user.is_phn_or_whs_verified === 0) {
+				this.whatsappVerification = true;
+			}
+			else {
+				this.freeTrial = true;
+				this.formvisbility = true;
+			}
 		}
 
 	}
