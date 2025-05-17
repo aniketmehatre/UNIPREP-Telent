@@ -98,7 +98,7 @@ export class AboutUsComponent implements OnInit {
     },
     {
       icon: ' ',
-      year: 'Looking Ahead',
+      year: 'Looking <br> Ahead',
       title: 'Future Features & Easy Connections',
       subtitle: 'As we continue our journey in 2025, we are excited to announce that we are working on advanced features to make it even easier for employers and talents to connect and grow.',
       points: [

@@ -35,10 +35,13 @@ body {
     color: var(--uniprep-secondary) !important;
 }
 
-.pl-100 {
-    padding-left: 100px;
+.pl-70 {
+	padding-left: 20px;
 }
 
+.pr-70 {
+	padding-right: 50px;
+}
 video::-webkit-media-controls-panel {
 	background-image: none !important;
 }

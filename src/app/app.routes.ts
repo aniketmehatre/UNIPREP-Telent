@@ -7,8 +7,8 @@ import { UserResolver } from "./resolvers/user.resolver"
 import { AuthGuard } from "./Auth/auth.guard"
 import { DomainwhitlabelGuard } from "./domainwhitlabel.guard"
 import { EnterpriseSubscriptionComponent } from "./components/enterprise-subscription/enterprise-subscription.component"
-import { BlogdetailComponent } from "./pages/blogdetail/blogdetail.component"
-import { BloglistComponent } from "./pages/bloglist/bloglist.component"
+import { BlogdetailComponent } from "./pages/landing/blogdetail/blogdetail.component"
+import { BloglistComponent } from "./pages/landing/bloglist/bloglist.component"
 import { PrivacyComponent } from "./pages/privacy/privacy.component"
 import { DashboardComponent } from "./pages/dashboard/dashboard.component"
 import { ForgotPasswordComponent } from "./Auth/forgot-password/forgot-password.component"
@@ -27,8 +27,6 @@ export const appRoutes: Routes = [
 	{ path: "register", component: RegistrationComponent },
 	{ path: "login", component: LoginComponent },
 	{ path: "privacy", component: PrivacyComponent },
-	{ path: "blogs", component: BloglistComponent },
-	{ path: "blogs/:slug", component: BlogdetailComponent },
 	{ path: "certificates", component: CertificatesComponent },
 	{ path: "enterprisepayment/:id", component: EnterpriseSubscriptionComponent },
 	{ path: "forgot-password", component: ForgotPasswordComponent },

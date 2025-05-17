@@ -8,8 +8,8 @@ import { SetpasswordComponent } from 'src/app/Auth/setpassword/setpassword.compo
 import { VerificationComponent } from 'src/app/Auth/verification/verification.component';
 import { EnterpriseSubscriptionComponent } from 'src/app/components/enterprise-subscription/enterprise-subscription.component';
 import { UserResolver } from 'src/app/resolvers/user.resolver';
-import { BlogdetailComponent } from '../blogdetail/blogdetail.component';
-import { BloglistComponent } from '../bloglist/bloglist.component';
+import { BlogdetailComponent } from './blogdetail/blogdetail.component';
+import { BloglistComponent } from './bloglist/bloglist.component';
 import { CertificatesComponent } from '../certificates/certificates.component';
 import { PrivacyComponent } from '../privacy/privacy.component';
 import { LandingComponent } from './landing.component';
@@ -29,8 +29,6 @@ export const landingRoutes: Routes = [
   { path: "register", component: RegistrationComponent },
   { path: "login", component: LoginComponent },
   { path: "privacy", component: PrivacyComponent },
-  { path: "blogs", component: BloglistComponent },
-  { path: "blogs/:slug", component: BlogdetailComponent },
   { path: "certificates", component: CertificatesComponent },
   { path: "enterprisepayment/:id", component: EnterpriseSubscriptionComponent },
   { path: "forgot-password", component: ForgotPasswordComponent },
@@ -79,6 +77,14 @@ export const landingRoutes: Routes = [
       {
         path: 'management-team',
         loadComponent: () => import('./management-team/management-team.component').then(m => m.ManagementTeamComponent),
+      },
+      {
+        path: 'blogs',
+        loadComponent: () => import('./bloglist/bloglist.component').then(m => m.BloglistComponent),
+      },
+      {
+        path: "blogs/:slug",
+        loadComponent: () => import('./blogdetail/blogdetail.component').then(m => m.BlogdetailComponent)
       },
       {
         path: 'compare/:country',

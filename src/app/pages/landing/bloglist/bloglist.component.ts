@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LocationService} from "../../location.service";
+import {LocationService} from "../../../location.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { CardModule } from "primeng/card";

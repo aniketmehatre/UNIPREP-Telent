@@ -52,7 +52,7 @@
 <ng-container *ngFor="let section of landingSections">
 <div class="row py-5 g-2 justify-content-center align-items-center" >
     <div class="row col-md-10">
-      <div class="col-md-6 mx-auto d-flex flex-column justify-content-center" [ngClass]="{'order-lg-2 pl-100': !section.isRight, 'order-lg-1': section.isRight}">
+      <div class="col-md-6 mx-auto d-flex flex-column justify-content-center" [ngClass]="{'order-lg-2 pl-70': !section.isRight, 'order-lg-1 pr-70': section.isRight}">
         <div class="fs-1 fw-bold mb-3" [innerHTML]="section.title"></div>
         <p class="text-warning mb-4">{{ section.subtitle }}</p>
         <div class="feature-list">
@@ -66,27 +66,42 @@
       </div>
 
       <div class="col-md-6" [ngClass]="{'order-lg-1': !section.isRight, 'order-lg-2': section.isRight}">
-        <img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border border-white">
+        <img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border border-white" width="80%">
       </div>
     </div>
   </div>
 </ng-container>
 
-  <div class="row g-2 justify-content-center align-items-center">
+  <section class="py-5 darksection row">
+    <div class="container col-md-10 text-start">
+      <h2 class="mb-2 display-6">Who We Support in <span class="text-secondary fw-bold">Higher Education</span></h2>
+      <p class="mb-4 text-white fs-5"> UNIPREP collaborates with a wide spectrum of academic institutions to foster educational excellence, global exposure, and career readiness for students worldwide.</p>
+    <div class="row g-3">
+      <div *ngFor="let category of instituteCategories; let i = index" class="col-6 col-md-6 col-lg-4 col-xl-4">
+        <div class="card">
+          <div class="d-flex align-items-center gap-2 p-3 rounded">
+            <h3>{{category.emoji}}</h3>
+            <div>{{ category.title }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+  <div class="row justify-content-center align-items-center">
     <div class="row col-md-10">
       <div class="col-12 ">
-        <h1 class="display-5 mb-4">
-          Why Partner with <span class="text-warning fw-bold ">UNIPREP?</span>
+        <h1 class="display-6 mb-4">
+          Why Partner with <span class="text-warning fw-bold ">UNIPREP ?</span>
         </h1>
 
-        <div class="p-4 rounded card fw-bold">
+        <div class="p-4 rounded card fs-5">
           <p class="mb-3 text-white">{{ whyPartnerParagraph1 }}</p>
           <p class="text-warning">{{ whyPartnerParagraph2 }}</p>
         </div>
       </div>
     </div>
   </div>
-
   <section class="pt-5 pb-5 cta-field darksection">
   <div class="container-fluid">
     <div class="row justify-content-center">
