@@ -1405,7 +1405,7 @@
 							<span class="me-2">Edit</span><span class="btn-icon px-2 py-2"><i
 									class="fa-solid fa-arrow-left"></i></span>
 						</button>
-						<button pButton type="button" (click)="next()" class="btn btn-primary btn-rounded p-1 ps-4">
+						<button pButton type="button" *ngIf="profileOverViewContent" (click)="next()" class="btn btn-primary btn-rounded p-1 ps-4">
 							<span class="me-2">Preview</span><span class="btn-icon px-2 py-2"><i
 									class="fa-solid fa-check"></i></span>
 						</button>

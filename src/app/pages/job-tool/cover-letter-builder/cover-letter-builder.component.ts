@@ -921,6 +921,14 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	addCustomJobTitle(input: HTMLInputElement) {
+		if(!input.value){
+			this.toaster.add({
+				severity: 'warn',
+				summary: 'Empty',
+				detail: `Please Type Something..!`
+			});
+			return;
+		}
 		const customValue = input.value.trim();
 		const exists = this.jobRoles.some(
 			(job: any) => job.jobrole.toLowerCase() === customValue.toLowerCase()

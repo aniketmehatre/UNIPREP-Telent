@@ -340,7 +340,7 @@
 								</div> -->
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Location</label>
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<div class="mb-3">
 											<div class="input-wrapper">
 												<input type="text" formControlName="org_location"
@@ -359,7 +359,12 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> -->
+									<p-select [options]="cities" placeholder="Location, Country" [filter]="true"
+												filterBy="country_name" styleClass="w-100"
+												formControlName="org_location" optionLabel="country_name"
+												[virtualScroll]="true" [virtualScrollItemSize]="50"
+												optionValue="country_name"></p-select>
 								</div>
 								<!-- <div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Job Position</label>
