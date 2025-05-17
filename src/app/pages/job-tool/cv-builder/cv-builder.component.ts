@@ -27,7 +27,7 @@ import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
 import { ToastModule } from 'primeng/toast';
 import { EditorModule } from "primeng/editor";
-import { maxCharactersValidator } from "src/app/@Supports/max-word-validator";
+import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { EducationToolsService } from "../../education-tools/education-tools.service";
 import { SkeletonModule } from "primeng/skeleton";
@@ -160,6 +160,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   yearsList: any = [];
   isButtonDisabled: boolean = false;
   genreateButtonDisabled: boolean[] = [];
+  progress = 0;
 
   resumeSlider: any = [
     {
@@ -215,7 +216,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   ];
 
   editorModules: any;
-  hidingHeaders: string[] = ["project_details"];
+  hidingHeaders: string[] = ["project_details","certificate","extra_curricular"];
   swiper!: Swiper;
   pdfLoadError: boolean = false;
   pdfUrl: string = '';
@@ -243,47 +244,35 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   ) {
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ["", Validators.required],
-      user_name: ["", [Validators.required, maxCharactersValidator(40)]],
-      user_job_title: ["", [Validators.required, maxCharactersValidator(40)]],
+      user_name: ["", [Validators.required, maxWordsValidator(12)]],
+      user_job_title: ["", [Validators.required, maxWordsValidator(12)]],
       user_email: ["", [Validators.required, Validators.email]],
-      user_location: ["", [Validators.required, maxCharactersValidator(40)]],
+      user_location: ["", [Validators.required, maxWordsValidator(12)]],
       country_code: ["+91"],
       user_phone: ["", [Validators.required, Validators.pattern("^\\+?[1-9]\\d{1,14}$")]],
-      user_linkedin: ["", [Validators.required, maxCharactersValidator(40)]],
-      user_linkedin_link: ["", [maxCharactersValidator(40)]],
-      user_website: ["", maxCharactersValidator(40)],
-      user_summary: ["", [Validators.required, maxCharactersValidator(50)]],
-      // selected_exp_level: ['', [Validators.required]],
-      // user_name: ['vivek kaliyaperumal', [Validators.required]],
-      // user_job_title: ['full stack developer', [Validators.required]],
-      // user_email: ['vivek@uniabroad.co.in', [Validators.required]],
-      // user_location: ['mysore,karnataka', [Validators.required]],
-      // country_code: ['+91'],
-      // user_phone: ['9524999563', [Validators.required]],
-      // user_linkedin: ['vivek kaliyaperumal'],
-      // // user_linkedin_link: ['https://www.linkedin.com/in/vivek-kaliyaperumal-066943289/'],
-      // user_website: [''],
-      // user_summary: ['Results-driven full stack developer with expertise in front-end and back-end technologies. Proven track record of delivering high-quality applications for diverse clients.', [Validators.required]],
+      user_linkedin: ["", [Validators.required, maxWordsValidator(12)]],
+      user_linkedin_link: ["", [maxWordsValidator(12)]],
+      user_website: ["", maxWordsValidator(12)],
+      user_summary: ["", [Validators.required, maxWordsValidator(50)]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
       projectDetailsArray: this.fb.array([]),
       languagesKnownArray: this.fb.array([]),
       skillsArray: this.fb.array([]),
-      // hobbiesArray: this.fb.array([]),
       extraCurricularArray: this.fb.array([]),
       certificatesArray: this.fb.array([]),
       referenceArray: this.fb.array([]),
     });
   }
 
-  onFocusOut() {
-    setTimeout(() => {
-      this.filteredJobs = [];
-      this.filteredDesignations = [];
-      this.filteredLocations = [];
-      this.filteredExpeAndEduLocations = [];
-    }, 200); // Delay clearing the dropdown by 200 milliseconds
-  }
+  // onFocusOut() {
+  //   setTimeout(() => {
+  //     this.filteredJobs = [];
+  //     this.filteredDesignations = [];
+  //     this.filteredLocations = [];
+  //     this.filteredExpeAndEduLocations = [];
+  //   }, 200); // Delay clearing the dropdown by 200 milliseconds
+  // }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -402,6 +391,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       };
       document.body.appendChild(script);
     }
+
+    this.resumeFormInfoData.valueChanges.subscribe(() => {
+      this.updateProgress();
+    });
+    this.clickAddMoreButton('education_detail');
   }
 
   getLocationsList() {
@@ -415,67 +409,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.occupationList = res;
     });
   }
-
-  // searchJob(event: any) {
-  //   const query = event.target.value.toLowerCase();
-  //   if (query.length > 3) {
-  //     this.filteredJobs = this.getFilteredJobs(query);
-  //     if (this.filteredJobs.length === 0) {
-  //       const newJobTitle: any = {
-  //         id: 0, // Use 0 or -1 to indicate it's a custom/new item
-  //         jobrole: query
-  //       };
-  //       this.filteredJobs.unshift(newJobTitle);
-  //       if (this.occupationList[0].id === 0) {
-  //         this.occupationList.shift();
-  //       }
-  //       this.occupationList.unshift(newJobTitle);
-  //     }
-  //   } else if (query.length < 2) {
-  //     this.filteredJobs = [];
-  //   }
-  // }
-
-  // searchDesignation(event: any, index: number) {
-  //   const query = event.target.value.toLowerCase();
-  //   if (query.length > 3) {
-  //     this.filteredDesignations[index] = this.getFilteredJobs(query);
-  //     if(this.filteredDesignations[index].length === 0){
-  //        const newJobTitle: any = {
-  //         id: 0, // Use 0 or -1 to indicate it's a custom/new item
-  //         jobrole: query
-  //       };
-  //       this.filteredDesignations[index].unshift(newJobTitle);
-  //       if (this.occupationList[0].id === 0) {
-  //         this.occupationList.shift();
-  //       }
-  //       this.occupationList.unshift(newJobTitle);
-  //     }
-  //   } else if (query.length < 2) {
-  //     this.filteredDesignations[index] = [];
-  //   }
-  // }
-
-  // selectJob(job: any, fieldName: string, index?: any) {
-  //   if (fieldName == "jobTitle") {
-  //     this.resumeFormInfoData.patchValue({
-  //       user_job_title: job.jobrole,
-  //     });
-  //     this.filteredJobs = [];
-  //   } else if (fieldName == "experience") {
-  //     const formArray = this.getWorkExpArray as FormArray;
-  //     formArray.at(index).patchValue({
-  //       work_designation: job.jobrole,
-  //     });
-  //     this.filteredDesignations[index] = [];
-  //   }
-  // }
-
-  // getFilteredJobs(query: string) {
-  //   const mockJobs = this.occupationList;
-
-  //   return mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query.toLowerCase()));
-  // }
   
   focusInput(input: HTMLInputElement) {
     setTimeout(() => {
@@ -556,55 +489,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // getFilteredLocations(query: string) {
-  //   const mockLocations = this.cities;
-
-  //   return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
-  // }
-
-  // onFocus() {
-  //   this.filteredLocations = [...this.cities]; // Show all locations
-  // }
-
-  // searchLocation(event: any) {
-  //   const query = event.target.value.toLowerCase();
-  //   if (query.length > 3) {
-  //     this.filteredLocations = this.getFilteredLocations(query);
-  //   } else if (query.length < 2) {
-  //     this.filteredLocations = [...this.cities];
-  //   }
-  // }
-
-  // searchExpandEduLocation(event: any, index: number) {
-  //   const query = event.target.value.toLowerCase();
-  //   if (query.length > 3) {
-  //     this.filteredExpeAndEduLocations[index] = this.getFilteredLocations(query);
-  //   } else if (query.length < 2) {
-  //     this.filteredExpeAndEduLocations[index] = [];
-  //   }
-  // }
-
-  // selectLocation(city: any, fieldName: string, index?: any) {
-  //   if (fieldName == "userLocation") {
-  //     this.resumeFormInfoData.patchValue({
-  //       user_location: city.country_name,
-  //     });
-  //     this.filteredLocations = [];
-  //   } else if (fieldName == "userExpLocation") {
-  //     const formArray = this.getWorkExpArray as FormArray;
-  //     formArray.at(index).patchValue({
-  //       work_location: city.country_name,
-  //     });
-  //     this.filteredExpeAndEduLocations[index] = [];
-  //   } else if (fieldName == "userEduLocation") {
-  //     const formArray = this.getEduDetailsArray as FormArray;
-  //     formArray.at(index).patchValue({
-  //       edu_location: city.country_name,
-  //     });
-  //     this.filteredExpeAndEduLocations[index] = [];
-  //   }
-  // }
-
   getUserPrefilledData() {
     this.resumeService.getCVPrefilledData().subscribe((res) => {
       if (res.status) {
@@ -630,7 +514,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
                 work_designation: [activity.work_designation, Validators.required],
                 work_type: [activity.work_type, Validators.required],
                 work_location: [activity.work_location, Validators.required],
-                work_job_description: [activity.work_job_description, Validators.required],
+                work_job_description: [activity.work_job_description, [Validators.required, maxWordsValidator(120)]],
               })
             );
           });
@@ -840,6 +724,54 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   //   }
   //   this.updateValidatorsForAllProjects();
   // }
+
+  updateProgress(): void {
+  const form = this.resumeFormInfoData;
+  let total = 0;
+  let filled = 0;
+
+  const checkControl = (ctrl: AbstractControl) => {
+    if (!ctrl) return;
+
+    if (ctrl.validator) {
+      const temp = ctrl.validator({} as AbstractControl);
+      const isRequired = temp && temp["required"] !== undefined;
+      if (isRequired) {
+        total++;
+        if (ctrl.value && ctrl.valid) {
+          filled++;
+        }
+      }
+    }
+  };
+
+  // Check simple fields
+  Object.keys(form.controls).forEach(key => {
+    const control = form.get(key);
+
+    if (control instanceof FormControl) {
+      checkControl(control);
+    }
+
+    // Check FormArray entries (e.g., EduDetailsArray, workExpArray)
+    else if (control instanceof FormArray) {
+      control.controls.forEach(group => {
+        if (group instanceof FormGroup) {
+          Object.keys(group.controls).forEach(subKey => {
+            const nestedControl = group.get(subKey);
+            if (nestedControl) {
+              checkControl(nestedControl);
+            }
+          });
+        }
+      });
+    }
+
+  });
+
+  this.progress = total > 0 ? Math.round((filled / total) * 100) : 0;
+}
+
 
   updateValidatorsForAllProjects() {
     this.getProjectDetailsArray.controls.forEach((control) => {
@@ -1201,53 +1133,32 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     if (fieldName == "education_detail") {
       this.getEduDetailsArray.push(
         this.fb.group({
-          edu_college_name: ["", [Validators.required, maxCharactersValidator(40)]],
+          edu_college_name: ["", [Validators.required, maxWordsValidator(12)]],
           edu_still_pursuing: [""],
           edu_start_year: ["", Validators.required],
           edu_end_year: ["", Validators.required],
-          edu_degree: ["", [Validators.required, maxCharactersValidator(40)]],
-          edu_location: ["", [Validators.required, maxCharactersValidator(40)]],
+          edu_degree: ["", [Validators.required, maxWordsValidator(12)]],
+          edu_location: ["", [Validators.required, maxWordsValidator(12)]],
           edu_percentage: ["", Validators.required],
           edu_cgpa_percentage: ["CGPA", Validators.required],
         })
       );
-      // this.getEduDetailsArray.push(this.fb.group({
-      //   edu_college_name: ['Srinivasan Engg College', Validators.required],
-      //   edu_still_pursuing: [''],
-      //   edu_start_year: ['2015', Validators.required],
-      //   edu_end_year: ['2019', Validators.required],
-      //   edu_degree: ['Bachelor of Engineering in C.S', Validators.required],
-      //   edu_location: ['Perambalur', Validators.required],
-      //   edu_percentage: ['65', Validators.required],
-      //   edu_cgpa_percentage: ['%', Validators.required],
-      // }));
-
       this.removeHideHeaderElement("education_detail");
     } else if (fieldName == "work_experience") {
       this.getWorkExpArray.push(
         this.fb.group({
-          work_org_name: ["", [Validators.required, maxCharactersValidator(40)]],
+          work_org_name: ["", [Validators.required, maxWordsValidator(12)]],
           work_currently_working: [""],
           work_start_year: ["", Validators.required],
           work_start_month: ["", Validators.required],
           work_end_year: ["", Validators.required],
           work_end_month: ["", Validators.required],
-          work_designation: ["", [Validators.required, maxCharactersValidator(40)]],
+          work_designation: ["", [Validators.required, maxWordsValidator(12)]],
           work_type: ["", Validators.required],
-          work_location: ["", [Validators.required, maxCharactersValidator(40)]],
-          work_job_description: ["", [Validators.required, maxCharactersValidator(120)]],
+          work_location: ["", [Validators.required, maxWordsValidator(12)]],
+          work_job_description: ["", [Validators.required, maxWordsValidator(120)]],
         })
       );
-      // this.getWorkExpArray.push(this.fb.group({
-      //   work_org_name: ['Uniabroad Private Ltd', Validators.required],
-      //   work_currently_working: [''],
-      //   work_start_year: ['2013', Validators.required],
-      //   work_end_year: ['2015', Validators.required],
-      //   work_designation: ['Full stack developer', Validators.required],
-      //   work_type: ['Full Time', Validators.required],
-      //   work_location: ['Mysore', Validators.required],
-      //   work_job_description: ['- Develop and maintain front-end architecture, ensuring responsive design and user-friendly interfaces - Implement back-end functionality, including database integration and server-side logic - Write efficient and scalable code in multiple programming languages for both client and server-side applications - Collaborate with cross-functional teams to gather requirements, design solutions, and provide technical support - Stay up-to-date with industry trends and best practices to continually improve development processes and deliver high-quality products', Validators.required],
-      // }));
       this.removeHideHeaderElement("work_experience");
       this.hidingHeaders.push("project_details");
       // this.errorMessages.push('');
@@ -1260,12 +1171,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           project_description: ["", Validators.required],
         })
       );
-      // this.getProjectDetailsArray.push(this.fb.group({
-      //   project_name: ['Anonymity', Validators.required],
-      //   project_start_name: ['2015', Validators.required],
-      //   project_end_name: ['2019', Validators.required],
-      //   project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).', Validators.required],
-      // }));
       this.removeHideHeaderElement("project_details");
     } else if (fieldName == "language_known") {
       this.getLanguagesKnownArray.push(
@@ -1288,23 +1193,17 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     } else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.push(
         this.fb.group({
-          extra_curricular_activites: ["", [Validators.required, maxCharactersValidator(40)]],
+          extra_curricular_activites: ["", [Validators.required, maxWordsValidator(12)]],
         })
       );
       this.removeHideHeaderElement("extra_curricular");
     } else if (fieldName == "certificate") {
-      // this.getCertificatesArray.push(this.fb.group({
-      //   certificate_name: ['Certificate Name', Validators.required],
-      //   certificate_issued: ['Issued by', Validators.required],
-      //   certificate_id: ['certificate Id'],
-      //   certicate_link: ['certificate link'],
-      // }));
       this.getCertificatesArray.push(
         this.fb.group({
-          certificate_name: ["", [Validators.required, maxCharactersValidator(40)]],
-          certificate_issued: ["", [Validators.required, maxCharactersValidator(40)]],
-          certificate_id: ["",maxCharactersValidator(40)],
-          certicate_link: ["",maxCharactersValidator(40)],
+          certificate_name: ["", [Validators.required, maxWordsValidator(12)]],
+          certificate_issued: ["", [Validators.required, maxWordsValidator(12)]],
+          certificate_id: ["",maxWordsValidator(12)],
+          certicate_link: ["",maxWordsValidator(12)],
         })
       );
       this.removeHideHeaderElement("certificate");

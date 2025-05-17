@@ -4,14 +4,6 @@ $orange: #f0780e;
   font-family: 'Poppins', sans-serif;
 }
 
-.choose-us {
-  background-color: #121212;
-
-}
-
-.employer-types-container {
-  background: radial-gradient(circle at bottom center, #5c3416 0%, #1a1a1a 50%, #0e0e0e 100%) !important;
-}
 video::-webkit-media-controls-panel {
 	background-image: none !important;
 }
@@ -50,17 +42,19 @@ video {
 .hero-section {
   position: relative;
   padding: 80px 0;
-  background-image: url('/uniprep-assets/images/landing-talent-bg.svg'),
-      linear-gradient(135deg, #432F1C 0%, #2B212A 50%, #1D1D1E 100%), ;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.darksection {
+  background-color: #07070b;
+
+  p {
+    color: #000;
+  }
+}
 .background-overlay {
   position: absolute;
   top: 0;
@@ -170,7 +164,6 @@ h2 {
 
 
 .hero-section_1 {
-  background-color: #121212;
   padding: 80px 0;
   
   h1 {
@@ -194,7 +187,6 @@ h2 {
 }
 
 .choose-us-section {
-  background-color: #121212;
   padding: 80px 0;
   display: flex;
   flex-direction: column;
@@ -202,13 +194,17 @@ h2 {
 }
 
 .features-section {
-  background-color: #121212;
   padding-bottom: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.homebg {
+  background-image: url("/uniprep-assets/images/homepagebg.png");
+  background-size: cover;
+  background-position: center;
+}
 .card-stack-container {
   position: relative;
   height: 500px;
@@ -280,7 +276,6 @@ h2 {
 }
 
 .platform-features {
-  background-color: #121212;
   color: white;
   padding: 4rem 12rem;
 }
@@ -398,12 +393,29 @@ h2 {
   --index: 10;
 }
 
-.card {
+.card-sticky {
   position: sticky;
   top: 25%;
   padding-top: calc(var(--index) * var(--card-top-offset));
 }
 
+.card {
+  border-radius: 1.5rem;
+  border: 1px solid #e6ddfe08;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+  box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+  color: white;
+
+  &:hover {
+    .card-title {
+      color: var(--uniprep-secondary);
+    }
+
+    .cardicon {
+      font-weight: 700;
+    }
+  }
+}
 // Responsive adjustments
 @media (max-width: 767.98px) {
   .features-header {
@@ -429,10 +441,6 @@ h2 {
 
 .employer-types-container {
   background-color: #121212;
-  background-image: 
-    radial-gradient(circle at 10% 90%, rgba(50, 0, 80, 0.1) 0%, transparent 60%),
-    radial-gradient(circle at 90% 10%, rgba(80, 0, 100, 0.1) 0%, transparent 60%),
-    url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='wave' width='1000' height='1000' patternUnits='userSpaceOnUse'%3E%3Cpath d='M0,500 C200,400 300,300 500,500 C700,700 800,600 1000,500 L1000,1000 L0,1000 Z' fill='none' stroke='rgba(100,50,150,0.05)' stroke-width='1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23wave)'/%3E%3C/svg%3E");
   color: white;
   padding: 4rem 12rem;
   min-height: 100vh;
@@ -534,13 +542,6 @@ h2 {
 
 
 
-.how-it-works-container {
-  background-color: #121212;
-  color: #ffffff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #242222;
-background: linear-gradient(90deg,#161616 60%,  #1A1D30 100%);
-}
 
 .divider {
   width: 200px;
@@ -626,8 +627,8 @@ background: linear-gradient(90deg,#161616 60%,  #1A1D30 100%);
 
 .timeline-content {
   background-color: transparent;
-  padding: 20px;
     margin-bottom: 70px;
+      padding-inline: 10px;
 }
 
 
@@ -637,19 +638,19 @@ background: linear-gradient(90deg,#161616 60%,  #1A1D30 100%);
 }
 
 .timeline-description {
+  padding-inline: 20px;
   font-size: 16px;
   color: #cccccc;
 }
 
 // CTA section
 .cta-container {
-  background:radial-gradient(circle at bottom center, #5c3416 0%, #1a1a1a 60%, #0e0e0e 100%);;
   max-width: 80%;
   border: 1px solid #333;
   padding: 8rem;
 
   p {
-    font-size: 40px;
+    font-size: 30px;
   }
 }
 
