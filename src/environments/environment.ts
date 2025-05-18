@@ -11,7 +11,7 @@ const prod_uniapply_student = 'https://apply.uniabroad.io/uniapplyStudents/publi
 const employerdevUrl = 'https://dev-employer.uniprep.ai';
 const employerProdUrl = 'https://employer.uniprep.ai';
 const devStudentUrl = 'https://dev-student.uniprep.ai';
-const partnerDomain = 'https://dev-partners.uniprep.ai';
+const partnerDomain = 'https://dev-partner.uniprep.ai';
 export const environment = {
   domain: dev_domain,
   maintenanceMode: false,
