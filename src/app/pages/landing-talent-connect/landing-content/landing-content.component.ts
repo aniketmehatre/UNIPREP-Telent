@@ -133,76 +133,125 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
     },
   ];
 
-  chooseUsCards = [
-    {
-      icon: 'fas fa-lightbulb',
-      color: '#f8943f',
-      title: 'Apply For Jobs In 100+ Countries',
-      description: [
-        'Explore Roles In The UK, Europe, UAE, Canada, And More',
-        'Search By Remote, Hybrid, Onsite, Or Relocation-Ready Options',
-        'Apply For Full-Time, Part-Time, Freelance, Or Internships'
-      ]
-    },
-    {
-      icon: 'fas fa-video',
-      color: '#a64dff',
-      title: 'Introductory Videos – Optional For Students, Required By Employers',
-      description: [
-        'Apply Straight To Employers - No Agents Or Intermediaries',
-        'Faster Responses, Real Opportunities',
-        'Your Career In Your Hands'
-      ]
-    },
-  ]
-
   templateCardFeatures = [
     {
-      icon: 'fa-solid fa-wand-magic-sparkles',
-      color: '#f8943f',
-      title: 'Create A Talent Profile With Built-In AI Reviewer',
-      description: [],
-    },
-    {
-      icon: 'fa-solid fa-check-double',
-      color: '#4dcbc0',
-      title: 'Find And Apply For The Right Jobs — Instantly',
-      description: [],
-    },
-    {
-      icon: 'fa-solid fa-graduation-cap',
-      color: '#5c6bc0',
-      title: 'Use 30+ Career Features & Earn Certifications To Strengthen Your Profile',
-      description: [],
-    },
-    {
-      icon: 'fa-solid fa-list-check',
-      color: '#4dcbc0',
-      title: 'Track Applications Using Job Tracker',
-      description: [],
-    },
-    {
-      icon: 'fa-solid fa-building',
-      color: '#4dc970',
-      title: 'Connect With Companies Using Smart Filters + Company Tracker',
-      description: [],
-    },
-    {
-      icon: 'fa-solid fa-shield-check',
-      color: '#5c6bc0',
-      title: 'Simple, Safe, And Always Transparent',
-      description: [],
-    },
-    {
-      icon: 'fa-solid fa-headset',
-      color: '#f8943f',
-      title: '24×7 Support Whenever You Need It',
-      description: [
-        'Need Help With Applying, Creating Your Profile, Or Using The Platform?',
-        'The UNIPREP Team Is Always Here To Support You — Anytime, Anywhere',
-      ],
-    },
-  ];
+    icon: 'fa-solid fa-wand-magic-sparkles',
+    color: '#f8943f',
+    title: 'Skill-Based Hiring with Smart Filters',
+    description: [
+      'Post jobs with targeted skills',
+      'Filter for candidates who truly match your requirements',
+      'Skip irrelevant CVs — focus on what matters'
+    ],
+  },
+  {
+    icon: 'fa-solid fa-check-double',
+    color: '#4dcbc0',
+    title: 'Introductory Videos – Optional for Students, Required by Employers 🎥',
+    description: [
+      'Employers can make video introductions mandatory',
+      'See candidates’ communication skills and confidence before interviews',
+      'Only those who upload a video can apply (if required)'
+    ],
+  },
+  {
+    icon: 'fa-solid fa-graduation-cap',
+    color: '#5c6bc0',
+    title: 'Free for the First 6 Months 🆓',
+    description: [
+      'Unlimited job postings',
+      'Full access to career tools, dashboards, and support',
+      'No commissions, no contracts — try at scale, risk-free'
+    ],
+  },
+  {
+    icon: 'fa-solid fa-earth-americas',
+    color: '#4dc970',
+    title: 'Hire Across All Countries and Role Types',
+    description: [
+      'Post unlimited roles for remote, onsite, hybrid, or relocation',
+      'Full-time, freelance, internships, contractual, or part-time',
+      'Reach candidates from 100+ countries'
+    ],
+  },
+  {
+    icon: 'fa-solid fa-user-tie',
+    color: '#5c6bc0',
+    title: 'No Recruiters or Middlemen',
+    description: [
+      'Direct connection with job seekers',
+      'Built-in tools for shortlisting, messaging, and decision-making',
+      'No extra costs, no gatekeepers'
+    ],
+  },
+  {
+    icon: 'fa-solid fa-users',
+    color: '#4dcbc0',
+    title: 'Multi-User HR Dashboard with Role-Based Access 👥',
+    description: [
+      'Add and manage your team with specific roles:',
+      'Admin – Full access',
+      'Master User – Post jobs and add/manage team',
+      'User – Can advertise jobs only',
+      'Secure collaboration for growing hiring teams'
+    ],
+  },
+  {
+    icon: 'fa-solid fa-filter',
+    color: '#f8943f',
+    title: 'Filter Global Talent Before They Apply 🌍',
+    description: [
+      'Use filters to proactively discover candidates by:',
+      '💰 Salary expectations',
+      '🌎 Country or region',
+      '📍 Preferred location or relocation',
+      '🗣️ Languages spoken',
+      'Perfect for sourcing and shortlisting relevant talent before the job goes live'
+    ],
+  },
+  {
+    icon: 'fa-solid fa-folder-open',
+    color: '#4dcbc0',
+    title: 'Filter Job Applicants After They Apply 🗂️',
+    description: [
+      'Filter your applicants by:',
+      'Skill match',
+      'Salary benchmarking',
+      'Location and language',
+      'Video presence (if required)'
+    ],
+  },
+  {
+    icon: 'fa-solid fa-binoculars',
+    color: '#4dc970',
+    title: 'Talent Tracker – Organize and Revisit Top Candidates',
+    description: [
+      'Save promising profiles from search',
+      'Tag and organize for future roles',
+      'Build your long-term global talent pool'
+    ],
+  },
+  {
+    icon: 'fa-solid fa-clipboard-check',
+    color: '#5c6bc0',
+    title: 'Applicant Tracker – Manage All Applications Clearly',
+    description: [
+      'Track status: New, Shortlisted, Hired, etc.',
+      'Add notes, assign reviewers, collaborate with your team',
+      'Visibility and structure across all hiring pipelines'
+    ],
+  },
+  {
+    icon: 'fa-solid fa-headset',
+    color: '#f8943f',
+    title: '24×7 Support from the UNIPREP Talent Connect Team 💬',
+    description: [
+      'Need help posting jobs, filtering candidates, or managing access?',
+      'Our global support team is available 24X7',
+      'Get answers fast — whenever you need them'
+    ],
+  },
+];
 
   cardPositions: { top: number, left: number, rotate: number, scale: number, zIndex: number }[] = [];
   isStacked = false;
