@@ -18,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 import { HeaderSearchComponent } from "./header-search/header-search.component"
 import { StorageService } from "../storage.service";
 import { RestrictionDialogComponent } from "../shared/restriction-dialog/restriction-dialog.component";
+import { ScrollTopModule } from "primeng/scrolltop";
 
 @Component({
   selector: "uni-pages",
@@ -29,6 +30,7 @@ import { RestrictionDialogComponent } from "../shared/restriction-dialog/restric
     RouterModule,
     DialogModule,
     ButtonModule,
+    ScrollTopModule,
     HeaderComponent,
     SidenavComponent,
     HeaderSearchComponent,

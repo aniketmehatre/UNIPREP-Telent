@@ -1,107 +1,105 @@
 <div class="divider"></div>
 <footer class="footer-section">
-  <div class="container">
-    <div class="row">
-      <!-- Logo and Tagline Section -->
-      <div class="col-lg-4 col-md-4 mb-4 mb-md-0">
-        <div class="footer-logo">
-          <img src="uniprep-assets/images/uniprep-panda.png" alt="UNIPREP Logo" class="img-fluid mb-3">
-          <div class="fs-2 text-ambition">
-            <span>Where </span>
-            <span class="fw-bold">Ambition</span>
-            <span> Meets</span><br>
-            <span class="fw-bold">Opportunity.</span>
-          </div>
-        </div>
-        
-        <!-- Social Media Icons -->
-        <div class="social-icons mt-3">
-          <a href="https://facebook.com" target="_blank" class="social-icon">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="https://instagram.com" target="_blank" class="social-icon">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://linkedin.com" target="_blank" class="social-icon">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a href="https://youtube.com" target="_blank" class="social-icon">
-            <i class="fab fa-youtube"></i>
-          </a>
-        </div>
-      </div>
-      
-      <!-- About Section -->
-      <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
-        <h5 class="footer-heading">About</h5>
-        <ul class="footer-links">
-          <li *ngFor="let link of aboutLinks">
-            <a [href]="link.url">{{ link.text }}</a>
-          </li>
-        </ul>
-        
-        <h5 class="footer-heading mt-4">Features</h5>
-        <ul class="footer-links">
-          <li *ngFor="let link of featureLinks">
-            <a [href]="link.url">{{ link.text }}</a>
-          </li>
-        </ul>
-      </div>
-      
-      <!-- Explore Section -->
-      <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
-        <h5 class="footer-heading">Explore</h5>
-        <ul class="footer-links">
-          <li *ngFor="let link of exploreLinks">
-            <a [href]="link.url">{{ link.text }}</a>
-          </li>
-        </ul>
-        
-        <h5 class="footer-heading mt-4">Resources</h5>
-        <ul class="footer-links">
-          <li *ngFor="let link of resourceLinks">
-            <a [href]="link.url">{{ link.text }}</a>
-          </li>
-        </ul>
-      </div>
-      
-      <!-- Others Section -->
-      <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
-        <h5 class="footer-heading">Others</h5>
-        <ul class="footer-links">
-          <li *ngFor="let link of otherLinks" (click)="onClickPolicies(link.type)">
-            <a>{{ link.text }}</a>
-          </li>
-        </ul>
-      </div>
-      
-      <!-- Contact Section -->
-      <div class="col-lg-2 col-md-4">
-        <h5 class="footer-heading">Contact</h5>
-        <div class="contact-info">
-          <p class="mb-1">Phone</p>
-          <p class="contact-item">
-            <span class="flag-icon flag-icon-in"></span>
-            {{ contactInfo.phone[0].number }}
-          </p>
-          <p class="contact-item">
-            <span class="flag-icon flag-icon-gb"></span>
-            {{ contactInfo.phone[1].number }}
-          </p>
-          
-          <p class="mb-1 mt-3">Email</p>
-          <p class="contact-item">{{ contactInfo.email }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Copyright Section -->
-  <div class="copyright-section">
-    <div class="container">
-      <div class="text-center">
-        {{ currentYear }} © All rights reserved by UNIPREP Tech Ltd.
-      </div>
-    </div>
-  </div>
+	<div class="container">
+		<div class="row">
+			<!-- Logo and Tagline Section -->
+			<div class="col-lg-4 col-md-4 mb-4 mb-md-0">
+				<div class="footer-logo text-md-start text-center">
+					<img src="uniprep-assets/images/uniprep-panda.png" alt="UNIPREP Logo" class="img-fluid mb-3" />
+					<div class="fs-2 text-ambition">
+						<span>Where </span>
+						<span class="fw-bold">Ambition</span>
+						<span> Meets</span><br />
+						<span class="fw-bold">Opportunity.</span>
+					</div>
+				</div>
+
+				<!-- Social Media Icons -->
+				<div class="social-icons mt-3 justify-content-md-start justify-content-center">
+					<a href="https://facebook.com" target="_blank" class="social-icon">
+						<i class="fab fa-facebook-f"></i>
+					</a>
+					<a href="https://instagram.com" target="_blank" class="social-icon">
+						<i class="fab fa-instagram"></i>
+					</a>
+					<a href="https://linkedin.com" target="_blank" class="social-icon">
+						<i class="fab fa-linkedin-in"></i>
+					</a>
+					<a href="https://youtube.com" target="_blank" class="social-icon">
+						<i class="fab fa-youtube"></i>
+					</a>
+				</div>
+			</div>
+
+			<!-- About Section -->
+			<div class="col-lg-2 col-md-4 col-6 mb-4 mb-md-0">
+				<h5 class="footer-heading text-md-start text-center">About</h5>
+				<ul class="footer-links text-md-start text-center">
+					<li *ngFor="let link of aboutLinks">
+						<a [href]="link.url">{{ link.text }}</a>
+					</li>
+				</ul>
+
+				<h5 class="footer-heading mt-4 text-md-start text-center">Features</h5>
+				<ul class="footer-links text-md-start text-center">
+					<li *ngFor="let link of featureLinks">
+						<a [href]="link.url">{{ link.text }}</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Explore Section -->
+			<div class="col-lg-2 col-md-4 col-6 mb-4 mb-md-0">
+				<h5 class="footer-heading text-md-start text-center">Explore</h5>
+				<ul class="footer-links text-md-start text-center">
+					<li *ngFor="let link of exploreLinks">
+						<a [href]="link.url">{{ link.text }}</a>
+					</li>
+				</ul>
+
+				<h5 class="footer-heading mt-4 text-md-start text-center">Resources</h5>
+				<ul class="footer-links text-md-start text-center">
+					<li *ngFor="let link of resourceLinks">
+						<a [href]="link.url">{{ link.text }}</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Others Section -->
+			<div class="col-lg-2 col-md-4 col-6 mb-4 mb-md-0">
+				<h5 class="footer-heading text-md-start text-center">Others</h5>
+				<ul class="footer-links text-md-start text-center">
+					<li *ngFor="let link of otherLinks" (click)="onClickPolicies(link.type)">
+						<a>{{ link.text }}</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Contact Section -->
+			<div class="col-lg-2 col-6 col-md-4">
+				<h5 class="footer-heading text-md-start text-center">Contact</h5>
+				<div class="contact-info text-md-start text-center">
+					<p class="mb-1">Phone</p>
+					<p class="contact-item justify-content-md-start justify-content-center">
+						<span class="flag-icon flag-icon-in"></span>
+						{{ contactInfo.phone[0].number }}
+					</p>
+					<p class="contact-item justify-content-md-start justify-content-center">
+						<span class="flag-icon flag-icon-gb"></span>
+						{{ contactInfo.phone[1].number }}
+					</p>
+
+					<p class="mb-1 mt-3">Email</p>
+					<a class="text-decoration-none text-md-start text-center text-white" href="mailto:{{ contactInfo.email }}" target="_blank">{{ contactInfo.email }}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Copyright Section -->
+	<div class="copyright-section">
+		<div class="container">
+			<div class="text-center">{{ currentYear }} © All rights reserved by UNIPREP Tech Ltd.</div>
+		</div>
+	</div>
 </footer>
