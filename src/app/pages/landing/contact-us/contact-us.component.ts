@@ -72,15 +72,8 @@ export class ContactUsComponent {
 
   inquiryTypes: string[] = [
     'General Inquiry',
-    'Indian',
-    'International'
-  ];
-
-  countryCodes: { code: string, name: string }[] = [
-    { code: '+91', name: 'IND +91' },
-    { code: '+44', name: 'UK +44' },
-    { code: '+1', name: 'USA +1' },
-    // Add more country codes as needed
+    'Indian Institute',
+    'International University'
   ];
 
   selectedCountryCode: string = '+91';
