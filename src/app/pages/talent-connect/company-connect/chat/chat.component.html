@@ -61,7 +61,7 @@
                                 [ngClass]="message.added_by == 'Student' ? 'align-items-end' : 'align-items-start'">
                           
                                 <!-- Text Message -->
-                                <div *ngIf="!message.attachment" class="message-content text-end"
+                                <div *ngIf="!message.attachment_url" class="message-content text-end"
                                   [ngClass]="message.added_by == 'Student' ? 'bg-secondary text-white' : 'bg-secondary-subtle'"
                                   [ngStyle]="{ 'max-width': '75%' }">
                                   <p [innerHTML]="message.chat"></p>
@@ -82,8 +82,8 @@
                                 </div>
                           
                                 <!-- File Message -->
-                                <div *ngIf="message.attachement" class="message-content file-message text-start"
-                                  style="min-width: 50%">
+                                <div *ngIf="message.attachment_url" class="message-content file-message text-start"
+                                  style="min-width: 50%" [ngClass]="message.added_by == 'Student' ? 'bg-secondary text-white' : 'bg-secondary-subtle'">
                                   <a [href]="message.attachment_url" target="_blank" class="text-black text-decoration-none d-flex align-items-center"
                                     download>
                                     <i class="fas fa-file-pdf fa-large me-2"></i>

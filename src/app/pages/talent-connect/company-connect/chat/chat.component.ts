@@ -7,6 +7,15 @@ import { FormsModule } from "@angular/forms";
 import { TalentConnectService } from "../../talent-connect.service";
 import { Company, CompanyMessage } from 'src/app/@Models/company-connect.model';
 import { environment } from '@env/environment';
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
+import { CourseListService } from 'src/app/pages/course-list/course-list.service';
+import { AuthService } from 'src/app/Auth/auth.service';
+declare global {
+  interface Window {
+    Pusher: any;
+  }
+}
 @Component({
   selector: 'uni-chat',
   imports: [
@@ -39,16 +48,50 @@ export class ChatComponent implements OnInit, OnChanges {
   userLogo: string = '';
   attachmentFile: File | null = null;
   aiGenerateChatDetails: any;
-
-  constructor(private talentConnectService: TalentConnectService,) { }
+  private echo!: Echo<any>;
+  studentId: any
+  constructor(private talentConnectService: TalentConnectService, private courcelist: AuthService) { }
 
   ngOnInit(): void {
     // this.messageInput.value = '';
     // this.messageInput.nativeElement.style.height = 'auto';
-    this.getChatMessageForCompanyConnect(this.companyDetails.id);
+    this.courcelist.getMe().subscribe((res: any) => {
+      this.studentId = res.employee_user_id
+      console.log(this.studentId);
+      window.Pusher = Pusher;
+      this.echo = new Echo({
+        broadcaster: 'pusher',
+        key: '5b1022406406fbdcc0f9',
+        cluster: 'ap2',
+        forceTLS: true,
+      });
+      console.log(this.studentId);
+      this.echo.channel(`company-connect-employer-chat-${this.studentId}`)
+        .listen('CompanyConnectMessageSentEmployer', (event: any) => {
+          console.log('Received broadcast:', event);
+          console.log((`company-connect-employer-chat-${this.studentId}`));
+          if (event) {
+            const hasMatchingStudentId = this.studentId === event.tc_student_id;
+            if (hasMatchingStudentId) {
+              this.messages.push({
+                added_by: event.added_by,
+                chat: event.chat,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                attachment_url: event.attachment?event.attachment:"",
+                attachment: event.attachment ? event.attachment.name : '',
+                icon: event.icon
+              });
+              this.attachmentFile = null;
+            }
+          }
+        });
+    })
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes['companyDetails']);
+
     if (changes['companyDetails'] && this.companyDetails) {
       this.getChatMessageForCompanyConnect(this.companyDetails.id);
     }
@@ -67,7 +110,7 @@ export class ChatComponent implements OnInit, OnChanges {
           companyName: this.companyDetails?.company_name,
           studentName: data?.message[0]?.userName,
           createdAt: data.created_at
-        };  
+        };
         console.log(this.aiGenerateChatDetails);
       },
       error: err => {
