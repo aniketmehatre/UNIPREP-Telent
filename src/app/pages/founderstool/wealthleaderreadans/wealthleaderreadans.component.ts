@@ -65,7 +65,7 @@ export class WealthleaderreadansComponent implements OnInit {
     }
     this.service.wealthLeadersans(data).subscribe((res: any) => {
       this.wealthleaderanswer = res.data;
-      this.wealthleadersname = res.wealth_leader_name;
+      this.wealthleadersname = res.data[0].wealth_leader_name;
       this.isQuestionAnswerVisible = true;
     })
   }

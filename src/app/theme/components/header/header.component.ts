@@ -70,8 +70,7 @@ import { User } from "src/app/@Models/user.model"
 		TextareaModule,
 		AvatarGroupModule,
 		DropdownModule,
-	],
-	providers: [LocationService, ThemeService, DashboardService, AssessmentService, AuthTokenService],
+	]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 	@ViewChild("op") op!: ElementRef<HTMLInputElement>
@@ -168,7 +167,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	orgnamewhitlabel: any
 	isNotSuccess: boolean = true
 	submitted: boolean = false
-	aiCreditCount:number = 0;
+	aiCreditCount: number = 0;
 
 	haveWhatsapp: string = 'WhatsApp'
 	// Add phone number configuration
@@ -191,6 +190,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	//   new FormControl(''),
 	//   new FormControl(''),
 	// ]);
+
+	phoneNumber: any
+	isPhoneDisabled: boolean = true
 	constructor(
 		private router: Router,
 		private locationService: LocationService,
@@ -283,17 +285,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			}
 		})
 
-		this.service.aiCreditCount$.subscribe(value =>{
-			if(value){
+		this.service.aiCreditCount$.subscribe(value => {
+			if (value) {
 				this.getAICreditCount();
 			}
 		})
 	}
 
-	buyCredits(){
-		if(this.service.isInvalidSubscription('ai_credit_count')){
+	buyCredits() {
+		if (this.service.isInvalidSubscription('ai_credit_count')) {
 			this.service.hasUserSubscription$.next(true);
-		}else{
+		} else {
 			this.router.navigate(["/pages/export-credit"]);
 		}
 	}
@@ -444,8 +446,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		})
 	}
 
-	phoneNumber: any
-	isPhoneDisabled: boolean = true
+	onEditNumber() {
+		this.phoneVerification.enable();
+		this.isSendingOTP = false;
+	}
+
 	submitPhoneVerification() {
 		let formData = this.phoneVerification.value
 		let sendOTP = {
@@ -512,6 +517,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	allSearchedResult: any[] = []
 	currentRoute: string = ""
 	async ngOnInit() {
+		
+		// Initialize forms
+		this.initializeForms();
+
+		// Handle phone verification
+		await this.handlePhoneVerification();
+		this.checkNewUSerLogin();
 		try {
 			this.phone = this.storage.get("phone");
 			// if (encPhone) {
@@ -632,11 +644,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			}
 		});
 
-		// Initialize forms
-		this.initializeForms();
-
-		// Handle phone verification
-		await this.handlePhoneVerification();
 
 		// Check subscription status
 		console.log(this.service._checkExistsSubscription);
@@ -664,7 +671,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			},
 			error: (error) => console.error('Error in dashboard country subscription:', error)
 		});
-		
+
 	}
 	getAICreditCount() {
 		this.promptService.getAicredits().subscribe({
@@ -1434,11 +1441,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	checkNewUSerLogin(): void {
-		let userLoginCount = this.service._userLoginCount
-		if (userLoginCount === 4) {
-			//this.freeTrial = true;
-			this.whatsappVerification = true
+	checkNewUSerLogin() {
+		if (this.service._user?.login_status === 4) {
+			if (this.service._user.is_phn_or_whs_verified === 0) {
+				this.whatsappVerification = true;
+			}
+			else {
+				this.freeTrial = true;
+				this.formvisbility = true;
+			}
 		}
 
 	}
@@ -1639,7 +1650,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	private loadUserData() {
-		if(this.service._user){
+		if (this.service._user) {
 			const userDetails = this.service._user;
 
 			// Set user name and first character
@@ -1706,7 +1717,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		const isChecked = (event.target as HTMLInputElement).checked;
 		if (isChecked) {
 			this.haveWhatsapp = 'Phone'
-		}else {
+		} else {
 			this.haveWhatsapp = 'Whatsapp'
 		}
 	}
