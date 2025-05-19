@@ -1,10 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core"
-import { CommonModule } from "@angular/common" // Import CommonModule
-import { Location } from "@angular/common"
-import { MenuItem, MessageService } from "primeng/api"
-import { ActivatedRoute, Router } from "@angular/router"
+import { CommonModule } from "@angular/common"
 import { PageFacadeService } from "../../page-facade.service"
-import { AuthService } from "src/app/Auth/auth.service"
 import { Meta } from "@angular/platform-browser"
 import { SalaryHacksService } from "../salaryhacks.service"
 import { DialogModule } from "primeng/dialog"
@@ -22,6 +18,7 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { DataService } from "src/app/data.service";
 import { SkeletonModule } from "primeng/skeleton";
 import { SocialShareService } from "src/app/shared/social-share.service"
+import { ObjectModel } from "src/app/@Models/object.model"
 @Component({
 	selector: "uni-salaryhackslists",
 	templateUrl: "./salaryhackslists.component.html",
@@ -32,51 +29,54 @@ import { SocialShareService } from "src/app/shared/social-share.service"
 export class SalaryhacksListsComponent {
 	isSkeletonVisible: boolean = true;
 	isQuestionAnswerVisible: boolean = false;
-	planExpired: boolean = false;
 	page: number = 1;
 	perpage: number = 50;
 	totalDataCount: any = 0;
 	ListData: any = [];
 	selectedQuestionData: any;
+	module_id: any;
 	@Input() prepData: any;
 	@Output() windowChange = new EventEmitter();
 	loopRange = Array.from({ length: 30 })
 		.fill(0)
 		.map((_, index) => index);
 	constructor(
-		private location: Location,
-		private route: ActivatedRoute,
-		private toast: MessageService,
-		private router: Router,
 		private pageFacade: PageFacadeService,
-		private authService: AuthService,
 		private meta: Meta,
 		private service: SalaryHacksService,
 		private dataService: DataService,
 		private socialShareService: SocialShareService
 	) { }
+
 	ngOnInit(): void {
 		this.gethackList();
-		this.checkPlanExpiry();
 	}
+
 	onShowModal(value: any) {
 		let socialShare: any = document.getElementById("socialSharingList");
 		socialShare.style.display = "none";
 	}
-	module_id: any;
+
 	gethackList() {
-		this.service
-			.getSalaryegotitationhacks({
-				country_id: this.prepData.country_id,
-				page: this.page,
-				perpage: this.perpage,
-			})
-			.subscribe((response: any) => {
-				this.ListData = response.data;
-				this.module_id = response.module_id;
-				this.totalDataCount = response.totalcount;
-				this.isSkeletonVisible = false;
-			});
+		let data: ObjectModel = {
+			country_id: this.prepData.country_id,
+			page: this.page,
+			perpage: this.perpage,
+		}
+		if (this.prepData.question_id) {
+			data['question_id'] = this.prepData.question_id;
+		}
+		this.service.getSalaryegotitationhacks(data).subscribe((response) => {
+			this.ListData = response.data;
+			this.module_id = response.module_id;
+			this.totalDataCount = response.totalcount;
+			this.isSkeletonVisible = false;
+			if(this.prepData.question_id){
+				this.prepData.question_id = 0;
+				this.prepData.countryName = this.ListData[0].country_name;
+				this.readSavedResponse(this.ListData[0]);
+			}
+		});
 	}
 	goToHome(event: any) {
 		this.isQuestionAnswerVisible = false;
@@ -90,36 +90,8 @@ export class SalaryhacksListsComponent {
 		this.gethackList();
 	}
 
-	ngOnChanges() {
-		if (this.prepData?.country_id) {
-			this.gethackList()
-		}
-	}
-
-	checkPlanExpiry(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
-	}
-
 	openVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
-	}
-
-	selectedQuestion = ""
-	selectedAnswer: any
-	customizedResponse: any
-	selectedQuestionId: any
-
-	readAnswer(quizdata: any) {
-		this.selectedQuestion = quizdata?.ques
-		this.selectedAnswer = quizdata?.ans
-		this.selectedQuestionId = quizdata?.id
-		this.prepData.questionid = quizdata?.id
 	}
 
 	showSocialSharingList() {
@@ -133,14 +105,14 @@ export class SalaryhacksListsComponent {
 
 	shareQuestion(type: string) {
 		const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-		const url = encodeURI(window.location.origin + '/pages/salary-hacks/' + this.selectedQuestionData?.id);
+		const url = encodeURI(window.location.origin + '/pages/salary-hacks/' + this.prepData.country_id + '/' + this.selectedQuestionData?.id);
 		this.meta.updateTag({ property: 'og:url', content: url });
 		const shareUrl = socialMedias[type] + encodeURIComponent(url);
 		window.open(shareUrl, '_blank');
 	}
 
 	copyLink() {
-		const textToCopy = encodeURI(window.location.origin + '/pages/salary-hacks/' + this.selectedQuestionData?.id);
+		const textToCopy = encodeURI(window.location.origin + '/pages/salary-hacks/' + this.prepData.country_id + '/' + this.selectedQuestionData?.id);
 		this.socialShareService.copyQuestion(textToCopy);
 	}
 

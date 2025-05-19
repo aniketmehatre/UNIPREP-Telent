@@ -1,65 +1,57 @@
 <div class="container-fluid bg-black text-light py-5">
-    <div class="container">
-        <div class="row mb-5 justify-content-center">
-            <div class="col-md-8">
-                <div class="video-container" (click)="toggleVideo()">
-                    <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
-                    <video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none"
-                        [poster]="'uniprep-assets/about-us-hero-image.png'">
-                        <source [src]="welcomeVideoLink" type="video/mp4" />
-                    </video>
-                </div>
-            </div>
-        </div>
+	<div class="container">
+		<div class="row mb-5 justify-content-center">
+			<div class="col-md-8">
+				<div class="video-container" (click)="toggleVideo()">
+					<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
+					<video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none" [poster]="'uniprep-assets/about-us-hero-image.png'">
+						<source [src]="welcomeVideoLink" type="video/mp4" />
+					</video>
+				</div>
+			</div>
+		</div>
 
-        <div class="row align-items-center text-center justify-content-center mb-10">
-            <div class="col-md-12">
-                <div class="fs-2 fw-bold">
-                    From<span class="text-orange"> Vision </span> to
-                    <span class="text-orange"> Self-Empowerment</span>
-                </div>
-                <p class="mt-4 mb-5 fs-3">
-                    <span class="text-orange">In 2021,</span> a group of passionate De Montfort University
-                    alumni set out with a clear
-                    goal: to create a platform that empowers individuals to shape their futures on their
-                    own—no dependencies, just tools for self-guided success.
-                </p>
-                <button class="btn btn-orange rounded-pill px-5 py-2 " routerLink="/register">
-                    Try for Free!
-                </button>
-            </div>
-        </div>
+		<div class="row align-items-center text-center justify-content-center mb-10">
+			<div class="col-md-10">
+				<div class="fs-2 fw-bold">
+					From<span class="text-orange"> Vision </span> to
+					<span class="text-orange"> Self-Empowerment</span>
+				</div>
+				<p class="mt-4 fs-4"><span class="text-orange">In 2021,</span> a group of passionate De Montfort University alumni set out with a clear goal: to create a platform that empowers individuals to shape their futures on their own—no dependencies, just tools for self-guided success.</p>
+				<button class="btn btn-orange rounded-pill px-5 py-2 mt-3" routerLink="/register">Try for Free!</button>
+			</div>
+		</div>
 
-        <div class="row mb-5">
-        <p-timeline [value]="timelineData" class="w-full md:w-80" align="">
-            <ng-template #marker let-item>
-                <div class="timeline-marker" *ngIf="item.icon else withoutIcon">
-                    <div class="timelineWithIconDot">
-                        <i class="{{ item.icon }}"></i>
-                    </div>
-                </div>
-                <ng-template #withoutIcon>
-                    <div class="timeline-dot"></div>
-                </ng-template>
-            </ng-template>
-            <ng-template #opposite let-item>
-                <div class="timeline-content text-end">
-                    <div class="display-1 year-text-color-grad" [innerHtml]="item.year"></div>
-                    <h2 class="text-orange">{{ item.title }}</h2>
-                </div>
-            </ng-template>
-            <ng-template #content let-item>
-                <div class="timeline-content">
-                    <p class="mb-4">{{ item.subtitle }}</p>
-                    <p *ngFor="let point of item.points" class="mb-3">
-                        <span class="text-orange fw-bold">{{ point.split(':')[0] }}:</span>
-                        {{ point.split(':')[1] }}
-                    </p>
-                </div>
-            </ng-template>
-        </p-timeline>
-        </div>
-        <!-- <div class="timeline-container">
+		<div class="row mb-5">
+			<p-timeline [value]="timelineData" class="w-full md:w-80" align="">
+				<ng-template #marker let-item>
+					<div class="timeline-marker" *ngIf="item.icon; else withoutIcon">
+						<div class="timelineWithIconDot">
+							<i class="{{ item.icon }}"></i>
+						</div>
+					</div>
+					<ng-template #withoutIcon>
+						<div class="timeline-dot"></div>
+					</ng-template>
+				</ng-template>
+				<ng-template #opposite let-item>
+					<div class="timeline-content text-end">
+						<div class="display-1 year-text-color-grad" [innerHtml]="item.year"></div>
+						<h2 class="text-orange">{{ item.title }}</h2>
+					</div>
+				</ng-template>
+				<ng-template #content let-item>
+					<div class="timeline-content pb-5">
+						<p class="mb-4">{{ item.subtitle }}</p>
+						<p *ngFor="let point of item.points" class="mb-3">
+							<span class="text-orange fw-bold">{{ point.split(":")[0] }}:</span>
+							{{ point.split(":")[1] }}
+						</p>
+					</div>
+				</ng-template>
+			</p-timeline>
+		</div>
+		<!-- <div class="timeline-container">
       <div *ngFor="let item of timelineData; let i = index" class="row timeline-item">
         <div [ngClass]="{'col-lg-6': true, 'order-lg-2': i % 2 !== 0}">
 
@@ -72,59 +64,58 @@
       </div>
     </div> -->
 
-        <div class="row my-3">
-            <div class="col-12">
-                <div class="display-5 mb-3 fw-bold">Why UNIPREP?</div>
-            </div>
-        </div>
+		<div class="row my-3">
+			<div class="col-12">
+				<div class="display-5 mb-3 fw-bold">Why UNIPREP?</div>
+			</div>
+		</div>
 
-        <div class="row mb-5">
-            <div *ngFor="let card of whyUniprepData" class="col-lg-4 mb-4">
-                <div class="card text-white p-2 h-100">
-                    <div class="card-body d-flex gap-4 align-items-center justify-content-center">
-                        <div class="me-3 fs-1">{{ card.icon }}</div>
-                        <div>
-                            <h4 class="mb-3 card-title">{{ card.title }}</h4>
-                            <p class="mb-0">{{ card.description }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+		<div class="row mb-5">
+			<div *ngFor="let card of whyUniprepData" class="col-lg-4 mb-4">
+				<div class="card text-white p-2 h-100">
+					<div class="card-body d-flex gap-4 align-items-center justify-content-center">
+						<div class="me-3 fs-1">{{ card.icon }}</div>
+						<div>
+							<h4 class="text-orange mb-3">{{ card.title }}</h4>
+							<p class="mb-0">{{ card.description }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <div class="row mb-3">
-            <div class="col-12">
-                <h2>
-                    <span>Our </span>
-                    <span class="text-orange">Mission</span>
-                </h2>
-            </div>
-        </div>
+		<div class="row mb-3">
+			<div class="col-12">
+				<h2>
+					<span>Our </span>
+					<span class="text-orange">Mission</span>
+				</h2>
+			</div>
+		</div>
 
-        <div class="row mb-3">
-            <div class="col-12">
-                <div class="card text-white p-3">
-                    <div class="card-body">
-                        <p class="mb-3">{{ missionData.title }}</p>
-                        <p>{{ missionData.description }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+		<div class="row mb-3">
+			<div class="col-12">
+				<div class="card text-white p-3">
+					<div class="card-body">
+						<p class="mb-3">{{ missionData.title }}</p>
+						<p>{{ missionData.description }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <div class="row mb-5">
-            <div class="col-12 ctc-field ">
-                <div class="card text-white p-4">
-                    <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-center">
-                        <div>
-                            <h2 class="mb-2">{{ callToActionData.title }}</h2>
-                            <p class="mb-0">{{ callToActionData.description }}</p>
-                        </div>
-                        <a [href]="callToActionData.buttonLink" class="btn btn-dark px-5 py-4 mt-3 mt-md-0">{{
-                            callToActionData.buttonText }}</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="row mb-5">
+			<div class="col-12 ctc-field">
+				<div class="card text-white p-4">
+					<div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-center">
+						<div>
+							<h2 class="mb-2">{{ callToActionData.title }}</h2>
+							<p class="mb-0">{{ callToActionData.description }}</p>
+						</div>
+						<a [href]="callToActionData.buttonLink" class="btn btn-dark px-5 py-4 mt-3 mt-md-0">{{ callToActionData.buttonText }}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from "@angular/core"
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from "@angular/core"
 import { ConfirmationService, MenuItem, MessageService } from "primeng/api"
 import { FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms"
 import { CourseListService } from "../../course-list/course-list.service"
@@ -27,6 +27,7 @@ import { EditorModule } from "primeng/editor"
 import { SkeletonModule } from "primeng/skeleton"
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
+import { DropdownModule } from "primeng/dropdown"
 import { AveragesalaryestimatorService } from "../../averagesalaryestimator/averagesalaryestimator.service"
 
 declare const pdfjsLib: any;
@@ -37,6 +38,11 @@ interface ResumeHistory {
 	created_time: string;
 }
 
+
+interface JobTitle {
+	id: number | null; // null for custom job titles
+	jobrole: string;
+}
 interface City {
 	city_id: number
 	city_name: string
@@ -50,7 +56,7 @@ interface City {
 	templateUrl: "./cover-letter-builder.component.html",
 	styleUrls: ["./cover-letter-builder.component.scss"],
 	standalone: true,
-	imports: [CommonModule, ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
+	imports: [CommonModule, ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule, DropdownModule],
 	providers: [ConfirmationService, TooltipModule],
 })
 export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
@@ -79,8 +85,8 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	filteredLocations: any = [];
 	orgLocation: any = [];
 	cities: City[] = [];
-	filterJobRole: any[] = [];
-	filterJobRolePostionApplied: any[] = [];
+	// filterJobRole: any[] = [];
+	// filterJobRolePostionApplied: any[] = [];
 	resumeSlider: any = [
 		{
 			id: 1,
@@ -238,10 +244,20 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	pdfLoadError: boolean = false
 	pdfUrl: string = ""
 	countryCodeList: any[] = [];
-	jobTitleList: any[] = [];
+	// jobTitleList: any[] = [];
 	chatGptButtonLoader: boolean = false;
 	chatGptButtonLoaderSummary: boolean = false;
-	constructor(private toaster: MessageService, private fb: FormBuilder, private resumeService: CourseListService, private locationService: LocationService, private authService: AuthService, private router: Router, private confirmService: ConfirmationService, private cvBuilderService: CvBuilderService, private service: AveragesalaryestimatorService,
+	constructor(
+		private toaster: MessageService,
+		private fb: FormBuilder,
+		private resumeService: CourseListService,
+		private locationService: LocationService,
+		private authService: AuthService,
+		private router: Router,
+		private confirmService: ConfirmationService,
+		private cvBuilderService: CvBuilderService,
+		private service: AveragesalaryestimatorService,
+		private cdr: ChangeDetectorRef,
 	) {
 		this.resumeFormInfoData = this.fb.group({
 			// user_name: ['Vivek Kaliyaperumal', [Validators.required]],
@@ -322,23 +338,23 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		this.pdfLoadError = true
 	}
 
-	searchLocation(event: any, mode: string) {
-		const query = event.target.value.toLowerCase();
-		if (mode === "user_location") {
-			if (query.length > 3) {
-				this.filteredLocations = this.getFilteredLocations(query);
-			} else if (query.length < 2) {
-				this.filteredLocations = [];
-			}
-		} else {
-			if (query.length > 3) {
-				this.orgLocation = this.getFilteredLocations(query);
-			} else if (query.length < 2) {
-				this.orgLocation = [];
-			}
-		}
+	// searchLocation(event: any, mode: string) {
+	// 	const query = event.target.value.toLowerCase();
+	// 	if (mode === "user_location") {
+	// 		if (query.length > 3) {
+	// 			this.filteredLocations = this.getFilteredLocations(query);
+	// 		} else if (query.length < 2) {
+	// 			this.filteredLocations = [];
+	// 		}
+	// 	} else {
+	// 		if (query.length > 3) {
+	// 			this.orgLocation = this.getFilteredLocations(query);
+	// 		} else if (query.length < 2) {
+	// 			this.orgLocation = [];
+	// 		}
+	// 	}
 
-	}
+	// }
 
 	getLocationsList() {
 		this.cvBuilderService.getLocationList().subscribe((res: any) => {
@@ -346,11 +362,11 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		});
 	}
 
-	getFilteredLocations(query: string) {
-		const mockLocations = this.cities;
+	// getFilteredLocations(query: string) {
+	// 	const mockLocations = this.cities;
 
-		return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
-	}
+	// 	return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
+	// }
 
 	onFocusOut() {
 		this.inputValuesEditOrNot();
@@ -670,8 +686,8 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	// 1st chatgpt response after convert into refrase button , then any changes will in inuput or dropdown that button need to change ai genarate,That why save 1st response for checking
 	chatGptValueSave: any
 	chatGPTIntegration(mode: string) {
-		if(this.authService._creditCount === 0){
-			this.toaster.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+		if (this.authService._creditCount === 0) {
+			this.toaster.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
 			this.router.navigateByUrl('/pages/export-credit')
 			return;
 		}
@@ -764,92 +780,92 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		this.isButtonDisabledSelectTemplate = true
 		this.selectedResumeLevel = resumeLevel
 	}
-	searchJob(event: Event): void {
-		const input = event.target as HTMLInputElement;
-		const query = input.value.toLowerCase().trim();
-		if (query && query.length > 3) {
-			const mockJobs = this.jobRoles;
-			// Filter jobs that include the query
-			this.filterJobRole = mockJobs.filter((job: any) =>
-				job.jobrole.toLowerCase().includes(query)
-			);
-			if(this.filterJobRole.length === 0){
-				this.filterJobRole.unshift({
-					id: 0, // Use 0 or -1 to indicate it's a custom/new item
-  					jobrole: query
-				});
-			}else{
-				// Sort the filtered jobs to prioritize exact matches
-				this.filterJobRole.sort((a: any, b: any) => {
-					const aJob = a.jobrole.toLowerCase();
-					const bJob = b.jobrole.toLowerCase();
-					if (aJob === query && bJob !== query) {
-						return -1; // a comes first
-					} else if (aJob !== query && bJob === query) {
-						return 1; // b comes first
-					} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
-						return -1; // a comes first if it starts with the query
-					} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
-						return 1; // b comes first if it starts with the query
-					} else {
-						return 0; // Keep original order for other cases
-					}
-				});
-			}
-		} else if (query.length < 1) {
-			this.filterJobRole = [];
-		}
-	}
-	jobRoles = [];
+	// searchJob(event: Event): void {
+	// 	const input = event.target as HTMLInputElement;
+	// 	const query = input.value.toLowerCase().trim();
+	// 	if (query && query.length > 3) {
+	// 		const mockJobs = this.jobRoles;
+	// 		// Filter jobs that include the query
+	// 		this.filterJobRole = mockJobs.filter((job: any) =>
+	// 			job.jobrole.toLowerCase().includes(query)
+	// 		);
+	// 		if(this.filterJobRole.length === 0){
+	// 			this.filterJobRole.unshift({
+	// 				id: 0, // Use 0 or -1 to indicate it's a custom/new item
+	// 				jobrole: query
+	// 			});
+	// 		}else{
+	// 			// Sort the filtered jobs to prioritize exact matches
+	// 			this.filterJobRole.sort((a: any, b: any) => {
+	// 				const aJob = a.jobrole.toLowerCase();
+	// 				const bJob = b.jobrole.toLowerCase();
+	// 				if (aJob === query && bJob !== query) {
+	// 					return -1; // a comes first
+	// 				} else if (aJob !== query && bJob === query) {
+	// 					return 1; // b comes first
+	// 				} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
+	// 					return -1; // a comes first if it starts with the query
+	// 				} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
+	// 					return 1; // b comes first if it starts with the query
+	// 				} else {
+	// 					return 0; // Keep original order for other cases
+	// 				}
+	// 			});
+	// 		}
+	// 	} else if (query.length < 1) {
+	// 		this.filterJobRole = [];
+	// 	}
+	// }
+	jobRoles: JobTitle[] = [];
 	getJobRoles() {
 		this.service.getJobRoles().subscribe((response: any) => {
 			this.jobRoles = response;
 		});
 	}
-	setJobtitle(jobRoleId: number, jobRoleLabel: string) {
-		// this.selectedData[1] = jobRoleId;
-		this.resumeFormInfoData.patchValue({
-			user_job_title: jobRoleLabel
-		})
-		this.filterJobRole = [];
-	}
-	searchJobPosition(event: Event): void {
-		const input = event.target as HTMLInputElement;
-		const query = input.value.toLowerCase().trim();
-		if (query && query.length > 3) {
-			const mockJobs = this.jobRoles;
+	// setJobtitle(jobRoleId: number, jobRoleLabel: string) {
+	// 	// this.selectedData[1] = jobRoleId;
+	// 	this.resumeFormInfoData.patchValue({
+	// 		user_job_title: jobRoleLabel
+	// 	})
+	// 	this.filterJobRole = [];
+	// }
+	// searchJobPosition(event: Event): void {
+	// 	const input = event.target as HTMLInputElement;
+	// 	const query = input.value.toLowerCase().trim();
+	// 	if (query && query.length > 3) {
+	// 		const mockJobs = this.jobRoles;
 
-			// Filter jobs that include the query
-			this.filterJobRolePostionApplied = mockJobs.filter((job: any) =>
-				job.jobrole.toLowerCase().includes(query)
-			);
+	// 		// Filter jobs that include the query
+	// 		this.filterJobRolePostionApplied = mockJobs.filter((job: any) =>
+	// 			job.jobrole.toLowerCase().includes(query)
+	// 		);
 
-			// Sort the filtered jobs to prioritize exact matches
-			this.filterJobRolePostionApplied.sort((a: any, b: any) => {
-				const aJob = a.jobrole.toLowerCase();
-				const bJob = b.jobrole.toLowerCase();
-				if (aJob === query && bJob !== query) {
-					return -1; // a comes first
-				} else if (aJob !== query && bJob === query) {
-					return 1; // b comes first
-				} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
-					return -1; // a comes first if it starts with the query
-				} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
-					return 1; // b comes first if it starts with the query
-				} else {
-					return 0; // Keep original order for other cases
-				}
-			});
-		} else if (query.length < 1) {
-			this.filterJobRolePostionApplied = [];
-		}
-	}
-	setJobtitlePositiApplied(jobRoleId: number, jobRoleLabel: string) {
-		this.resumeFormInfoData.patchValue({
-			jobposition: jobRoleLabel
-		})
-		this.filterJobRolePostionApplied = [];
-	}
+	// 		// Sort the filtered jobs to prioritize exact matches
+	// 		this.filterJobRolePostionApplied.sort((a: any, b: any) => {
+	// 			const aJob = a.jobrole.toLowerCase();
+	// 			const bJob = b.jobrole.toLowerCase();
+	// 			if (aJob === query && bJob !== query) {
+	// 				return -1; // a comes first
+	// 			} else if (aJob !== query && bJob === query) {
+	// 				return 1; // b comes first
+	// 			} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
+	// 				return -1; // a comes first if it starts with the query
+	// 			} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
+	// 				return 1; // b comes first if it starts with the query
+	// 			} else {
+	// 				return 0; // Keep original order for other cases
+	// 			}
+	// 		});
+	// 	} else if (query.length < 1) {
+	// 		this.filterJobRolePostionApplied = [];
+	// 	}
+	// }
+	// setJobtitlePositiApplied(jobRoleId: number, jobRoleLabel: string) {
+	// 	this.resumeFormInfoData.patchValue({
+	// 		jobposition: jobRoleLabel
+	// 	})
+	// 	this.filterJobRolePostionApplied = [];
+	// }
 	historyPage() {
 		this.activePageIndex = 0;
 	}
@@ -872,7 +888,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 
 	cleanObject(obj: any): any {
 		const cleaned: any = {};
-		if(obj){
+		if (obj) {
 			Object.keys(obj).forEach(key => {
 				let val = obj[key];
 				if (typeof val === 'string') {
@@ -896,5 +912,50 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		const trimmed = text.trim();
 
 		return trimmed ? trimmed.split(/\s+/).length : 0;
+	}
+
+	focusInput(input: HTMLInputElement) {
+		setTimeout(() => {
+			input.focus()
+		}, 0)
+	}
+
+	addCustomJobTitle(input: HTMLInputElement) {
+		if(!input.value){
+			this.toaster.add({
+				severity: 'warn',
+				summary: 'Empty',
+				detail: `Please Type Something..!`
+			});
+			return;
+		}
+		const customValue = input.value.trim();
+		const exists = this.jobRoles.some(
+			(job: any) => job.jobrole.toLowerCase() === customValue.toLowerCase()
+		);
+		if (exists) {
+			this.toaster.add({
+				severity: 'warn',
+				summary: 'Duplicate',
+				detail: `Job title "${customValue}" already exists`
+			});
+			input.value = '';
+			return;
+		}
+
+		const newJobTitle: JobTitle = {
+			id: null,
+			jobrole: customValue
+		};
+		this.jobRoles = [...this.jobRoles, newJobTitle]
+		this.resumeFormInfoData.get('user_job_title')?.setValue(customValue);
+		input.value = '';
+		this.cdr.detectChanges();
+
+		this.toaster.add({
+			severity: 'success',
+			summary: 'Added',
+			detail: `Job title "${customValue}" added`
+		});
 	}
 }

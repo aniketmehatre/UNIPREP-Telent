@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
+import { Component, OnInit, AfterViewInit, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { MessageService, ConfirmationService } from "primeng/api";
-import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from "@angular/forms";
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl, FormControl } from "@angular/forms";
 import { TooltipModule } from 'primeng/tooltip';
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
@@ -27,11 +27,13 @@ import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
 import { ToastModule } from 'primeng/toast';
 import { EditorModule } from "primeng/editor";
-import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
+import { maxWordsValidator, maxCharactersValidator } from "src/app/@Supports/max-word-validator";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { EducationToolsService } from "../../education-tools/education-tools.service";
 import { SkeletonModule } from "primeng/skeleton";
-import { SharedModule } from "primeng/api";
+import { SharedModule } from "src/app/shared/shared.module";
+import { DropdownModule } from 'primeng/dropdown';
+import { ProgressBarModule } from 'primeng/progressbar';
 declare const pdfjsLib: any;
 
 interface ResumeHistory {
@@ -40,12 +42,16 @@ interface ResumeHistory {
   created_time: string;
 }
 
+interface JobTitle {
+  id: number | null; // null for custom job titles
+  jobrole: string;
+}
 @Component({
   selector: "uni-cv-builder",
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, EditorModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule, SharedModule,SkeletonModule],
+  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, EditorModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule, SharedModule,SkeletonModule,DropdownModule, ProgressBarModule],
   providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
@@ -154,6 +160,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   yearsList: any = [];
   isButtonDisabled: boolean = false;
   genreateButtonDisabled: boolean[] = [];
+  progress = 0;
 
   resumeSlider: any = [
     {
@@ -209,7 +216,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   ];
 
   editorModules: any;
-  hidingHeaders: string[] = ["project_details"];
+  hidingHeaders: string[] = ["project_details","certificate","extra_curricular"];
   swiper!: Swiper;
   pdfLoadError: boolean = false;
   pdfUrl: string = '';
@@ -232,7 +239,8 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     private confirmService: ConfirmationService, 
     private authService: AuthService, 
     private sanitizer: DomSanitizer,
-    private educationService: EducationToolsService
+    private educationService: EducationToolsService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ["", Validators.required],
@@ -246,37 +254,25 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       user_linkedin_link: ["", [maxWordsValidator(12)]],
       user_website: ["", maxWordsValidator(12)],
       user_summary: ["", [Validators.required, maxWordsValidator(50)]],
-      // selected_exp_level: ['', [Validators.required]],
-      // user_name: ['vivek kaliyaperumal', [Validators.required]],
-      // user_job_title: ['full stack developer', [Validators.required]],
-      // user_email: ['vivek@uniabroad.co.in', [Validators.required]],
-      // user_location: ['mysore,karnataka', [Validators.required]],
-      // country_code: ['+91'],
-      // user_phone: ['9524999563', [Validators.required]],
-      // user_linkedin: ['vivek kaliyaperumal'],
-      // // user_linkedin_link: ['https://www.linkedin.com/in/vivek-kaliyaperumal-066943289/'],
-      // user_website: [''],
-      // user_summary: ['Results-driven full stack developer with expertise in front-end and back-end technologies. Proven track record of delivering high-quality applications for diverse clients.', [Validators.required]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
       projectDetailsArray: this.fb.array([]),
       languagesKnownArray: this.fb.array([]),
       skillsArray: this.fb.array([]),
-      // hobbiesArray: this.fb.array([]),
       extraCurricularArray: this.fb.array([]),
       certificatesArray: this.fb.array([]),
       referenceArray: this.fb.array([]),
     });
   }
 
-  onFocusOut() {
-    setTimeout(() => {
-      this.filteredJobs = [];
-      this.filteredDesignations = [];
-      this.filteredLocations = [];
-      this.filteredExpeAndEduLocations = [];
-    }, 200); // Delay clearing the dropdown by 200 milliseconds
-  }
+  // onFocusOut() {
+  //   setTimeout(() => {
+  //     this.filteredJobs = [];
+  //     this.filteredDesignations = [];
+  //     this.filteredLocations = [];
+  //     this.filteredExpeAndEduLocations = [];
+  //   }, 200); // Delay clearing the dropdown by 200 milliseconds
+  // }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -395,6 +391,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       };
       document.body.appendChild(script);
     }
+
+    this.resumeFormInfoData.valueChanges.subscribe(() => {
+      this.updateProgress();
+    });
+    this.clickAddMoreButton('education_detail');
   }
 
   getLocationsList() {
@@ -408,116 +409,102 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.occupationList = res;
     });
   }
-
-  searchJob(event: any) {
-    const query = event.target.value.toLowerCase();
-    if (query.length > 3) {
-      this.filteredJobs = this.getFilteredJobs(query);
-      if (this.filteredJobs.length === 0) {
-        const newJobTitle: any = {
-          id: 0, // Use 0 or -1 to indicate it's a custom/new item
-          jobrole: query
-        };
-        this.filteredJobs.unshift(newJobTitle);
-        if (this.occupationList[0].id === 0) {
-          this.occupationList.shift();
-        }
-        this.occupationList.unshift(newJobTitle);
-      }
-    } else if (query.length < 2) {
-      this.filteredJobs = [];
-    }
+  
+  focusInput(input: HTMLInputElement) {
+    setTimeout(() => {
+      input.focus()
+    }, 0)
   }
 
-  searchDesignation(event: any, index: number) {
-    const query = event.target.value.toLowerCase();
-    if (query.length > 3) {
-      this.filteredDesignations[index] = this.getFilteredJobs(query);
-      if(this.filteredDesignations[index].length === 0){
-         const newJobTitle: any = {
-          id: 0, // Use 0 or -1 to indicate it's a custom/new item
-          jobrole: query
-        };
-        this.filteredDesignations[index].unshift(newJobTitle);
-        if (this.occupationList[0].id === 0) {
-          this.occupationList.shift();
-        }
-        this.occupationList.unshift(newJobTitle);
-      }
-    } else if (query.length < 2) {
-      this.filteredDesignations[index] = [];
-    }
-  }
-
-  selectJob(job: any, fieldName: string, index?: any) {
-    if (fieldName == "jobTitle") {
-      this.resumeFormInfoData.patchValue({
-        user_job_title: job.jobrole,
+  addCustomJobTitle(input: HTMLInputElement) {
+    if(!input.value){
+      this.toaster.add({
+        severity: 'warn',
+        summary: 'Empty',
+        detail: `Please Type Something..!`
       });
-      this.filteredJobs = [];
-    } else if (fieldName == "experience") {
-      const formArray = this.getWorkExpArray as FormArray;
-      formArray.at(index).patchValue({
-        work_designation: job.jobrole,
-      });
-      this.filteredDesignations[index] = [];
+      return;
     }
+    const customValue = input.value.trim();
+    const exists = this.occupationList.some(
+      (job:any) => job.jobrole.toLowerCase() === customValue.toLowerCase()
+    );
+    console.log(customValue, "inputs");
+    if (exists) {
+      this.toaster.add({
+        severity: 'warn',
+        summary: 'Duplicate',
+        detail: `Job title "${customValue}" already exists`
+      });
+      input.value = '';
+      return;
+    }
+
+    const newJobTitle: JobTitle = {
+      id: null,
+      jobrole: customValue
+    };
+
+    this.occupationList = [...this.occupationList, newJobTitle];
+    this.resumeFormInfoData.get('user_job_title')?.setValue(customValue);
+    input.value = '';
+    this.cdr.detectChanges();
+
+    this.toaster.add({
+      severity: 'success',
+      summary: 'Added',
+      detail: `Job title "${customValue}" added`
+    });
   }
 
-  getFilteredJobs(query: string) {
-    const mockJobs = this.occupationList;
+  addCustomJobTitleForExp(input: HTMLInputElement, index: number) {
+    if(!input.value){
+      this.toaster.add({
+        severity: 'warn',
+        summary: 'Empty',
+        detail: `Please Type Something..!`
+      });
+      return;
+    }
+    const customValue = input.value.trim();
+    if (!customValue) return;
 
-    return mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query.toLowerCase()));
+    const exists = this.occupationList.some(
+      (job: any) => job.jobrole.toLowerCase() === customValue.toLowerCase()
+    );
+
+    if (exists) {
+      this.toaster.add({
+        severity: 'warn',
+        summary: 'Duplicate',
+        detail: `Job title "${customValue}" already exists`
+      });
+      input.value = '';
+      return;
+    }
+
+    const newJobTitle: JobTitle = {
+      id: null,
+      jobrole: customValue
+    };
+
+    // Add to dropdown list
+    this.occupationList = [...this.occupationList, newJobTitle];
+
+    // ✅ Set value for this specific row of FormArray
+    const workExpFormArray = this.resumeFormInfoData.get('workExpArray') as FormArray;
+    const workExpGroup = workExpFormArray.at(index);
+    workExpGroup.get('work_designation')?.setValue(customValue);
+
+    input.value = '';
+    this.cdr.detectChanges();
+
+    this.toaster.add({
+      severity: 'success',
+      summary: 'Added',
+      detail: `Job title "${customValue}" added`
+    });
   }
-
-  // getFilteredLocations(query: string) {
-  //   const mockLocations = this.cities;
-
-  //   return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
-  // }
-
-  // onFocus() {
-  //   this.filteredLocations = [...this.cities]; // Show all locations
-  // }
-
-  // searchLocation(event: any) {
-  //   const query = event.target.value.toLowerCase();
-  //   if (query.length > 3) {
-  //     this.filteredLocations = this.getFilteredLocations(query);
-  //   } else if (query.length < 2) {
-  //     this.filteredLocations = [...this.cities];
-  //   }
-  // }
-
-  // searchExpandEduLocation(event: any, index: number) {
-  //   const query = event.target.value.toLowerCase();
-  //   if (query.length > 3) {
-  //     this.filteredExpeAndEduLocations[index] = this.getFilteredLocations(query);
-  //   } else if (query.length < 2) {
-  //     this.filteredExpeAndEduLocations[index] = [];
-  //   }
-  // }
-
-  // selectLocation(city: any, fieldName: string, index?: any) {
-  //   if (fieldName == "userLocation") {
-  //     this.resumeFormInfoData.patchValue({
-  //       user_location: city.country_name,
-  //     });
-  //     this.filteredLocations = [];
-  //   } else if (fieldName == "userExpLocation") {
-  //     const formArray = this.getWorkExpArray as FormArray;
-  //     formArray.at(index).patchValue({
-  //       work_location: city.country_name,
-  //     });
-  //     this.filteredExpeAndEduLocations[index] = [];
-  //   } else if (fieldName == "userEduLocation") {
-  //     const formArray = this.getEduDetailsArray as FormArray;
-  //     formArray.at(index).patchValue({
-  //       edu_location: city.country_name,
-  //     });
-  //     this.filteredExpeAndEduLocations[index] = [];
-  //   }
-  // }
 
   getUserPrefilledData() {
     this.resumeService.getCVPrefilledData().subscribe((res) => {
@@ -754,6 +741,54 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   //   }
   //   this.updateValidatorsForAllProjects();
   // }
+
+  updateProgress(): void {
+  const form = this.resumeFormInfoData;
+  let total = 0;
+  let filled = 0;
+
+  const checkControl = (ctrl: AbstractControl) => {
+    if (!ctrl) return;
+
+    if (ctrl.validator) {
+      const temp = ctrl.validator({} as AbstractControl);
+      const isRequired = temp && temp["required"] !== undefined;
+      if (isRequired) {
+        total++;
+        if (ctrl.value && ctrl.valid) {
+          filled++;
+        }
+      }
+    }
+  };
+
+  // Check simple fields
+  Object.keys(form.controls).forEach(key => {
+    const control = form.get(key);
+
+    if (control instanceof FormControl) {
+      checkControl(control);
+    }
+
+    // Check FormArray entries (e.g., EduDetailsArray, workExpArray)
+    else if (control instanceof FormArray) {
+      control.controls.forEach(group => {
+        if (group instanceof FormGroup) {
+          Object.keys(group.controls).forEach(subKey => {
+            const nestedControl = group.get(subKey);
+            if (nestedControl) {
+              checkControl(nestedControl);
+            }
+          });
+        }
+      });
+    }
+
+  });
+
+  this.progress = total > 0 ? Math.round((filled / total) * 100) : 0;
+}
+
 
   updateValidatorsForAllProjects() {
     this.getProjectDetailsArray.controls.forEach((control) => {
@@ -1125,17 +1160,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           edu_cgpa_percentage: ["CGPA", Validators.required],
         })
       );
-      // this.getEduDetailsArray.push(this.fb.group({
-      //   edu_college_name: ['Srinivasan Engg College', Validators.required],
-      //   edu_still_pursuing: [''],
-      //   edu_start_year: ['2015', Validators.required],
-      //   edu_end_year: ['2019', Validators.required],
-      //   edu_degree: ['Bachelor of Engineering in C.S', Validators.required],
-      //   edu_location: ['Perambalur', Validators.required],
-      //   edu_percentage: ['65', Validators.required],
-      //   edu_cgpa_percentage: ['%', Validators.required],
-      // }));
-
       this.removeHideHeaderElement("education_detail");
     } else if (fieldName == "work_experience") {
       this.getWorkExpArray.push(
@@ -1152,16 +1176,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           work_job_description: ["", [Validators.required, maxWordsValidator(120)]],
         })
       );
-      // this.getWorkExpArray.push(this.fb.group({
-      //   work_org_name: ['Uniabroad Private Ltd', Validators.required],
-      //   work_currently_working: [''],
-      //   work_start_year: ['2013', Validators.required],
-      //   work_end_year: ['2015', Validators.required],
-      //   work_designation: ['Full stack developer', Validators.required],
-      //   work_type: ['Full Time', Validators.required],
-      //   work_location: ['Mysore', Validators.required],
-      //   work_job_description: ['- Develop and maintain front-end architecture, ensuring responsive design and user-friendly interfaces - Implement back-end functionality, including database integration and server-side logic - Write efficient and scalable code in multiple programming languages for both client and server-side applications - Collaborate with cross-functional teams to gather requirements, design solutions, and provide technical support - Stay up-to-date with industry trends and best practices to continually improve development processes and deliver high-quality products', Validators.required],
-      // }));
       this.removeHideHeaderElement("work_experience");
       this.hidingHeaders.push("project_details");
       // this.errorMessages.push('');
@@ -1174,12 +1188,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           project_description: ["", Validators.required],
         })
       );
-      // this.getProjectDetailsArray.push(this.fb.group({
-      //   project_name: ['Anonymity', Validators.required],
-      //   project_start_name: ['2015', Validators.required],
-      //   project_end_name: ['2019', Validators.required],
-      //   project_description: ['Together with developers, collect and assess user requirements.Using storyboards, process flows, and sitemaps, illustrate design concepts.Create visual user interface components such as menus, tabs, and widgets.Create UI mockups and prototypes that clearly show how websites work and appear.Determine and address UX issues (e.g., responsiveness).', Validators.required],
-      // }));
       this.removeHideHeaderElement("project_details");
     } else if (fieldName == "language_known") {
       this.getLanguagesKnownArray.push(
@@ -1207,12 +1215,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       );
       this.removeHideHeaderElement("extra_curricular");
     } else if (fieldName == "certificate") {
-      // this.getCertificatesArray.push(this.fb.group({
-      //   certificate_name: ['Certificate Name', Validators.required],
-      //   certificate_issued: ['Issued by', Validators.required],
-      //   certificate_id: ['certificate Id'],
-      //   certicate_link: ['certificate link'],
-      // }));
       this.getCertificatesArray.push(
         this.fb.group({
           certificate_name: ["", [Validators.required, maxWordsValidator(12)]],
@@ -1358,7 +1360,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     };
     if (fieldName == "user_summary") {
       if (!formData.selected_exp_level) {
-        this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select Experience Level and job title." });
+        this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select Experience Level." });
+        return;
+      }
+      if(!formData.user_job_title){
+        this.toaster.add({ severity: "error", summary: "Error", detail: "Please Select job title." });
         return;
       }
       parameters.user_job_title = formData.user_job_title;

@@ -140,11 +140,11 @@ video {
     text-align: center;
     line-height: 30px;
 }
-.timeline-content {
-    background-color: transparent;
-    padding-bottom: 80px;
-      padding-inline: 20px;
-}
+// .timeline-content {
+//     // background-color: transparent;
+//     // padding-bottom: 80px;
+//     //   padding-inline: 20px;
+// }
 
 // WhatsApp button
 .whatsapp-button {
@@ -183,20 +183,20 @@ video {
 }
 
 // Responsive adjustments
-@media (max-width: 992px) {
-  .timeline-line::after {
-    left: 15px;
-  }
+// @media (max-width: 992px) {
+//   .timeline-line::after {
+//     left: 15px;
+//   }
   
-  .timeline-marker {
-    justify-content: flex-start;
-    padding-left: 15px;
-  }
+//   .timeline-marker {
+//     justify-content: flex-start;
+//     padding-left: 15px;
+//   }
   
-  .timeline-content {
-    text-align: left !important;
-  }
-}
+//   .timeline-content {
+//     text-align: left !important;
+//   }
+// }
 .mb-10 {
   margin-bottom: 100px;
 }

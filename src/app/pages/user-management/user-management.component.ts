@@ -31,12 +31,13 @@ import { TableModule } from "primeng/table"
 import { SubscriptionService } from "../subscription/subscription.service"
 import { ConfirmDialogModule } from "primeng/confirmdialog"
 import { AuthTokenService } from "src/app/core/services/auth-token.service"
+import { CalendarModule } from "primeng/calendar"
 @Component({
 	selector: "uni-user-management",
 	templateUrl: "./user-management.component.html",
 	styleUrls: ["./user-management.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule,ConfirmDialogModule , TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
+	imports: [CommonModule, RouterModule,ConfirmDialogModule ,CalendarModule , TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
 	providers: [ConfirmationService]
 })
 export class UserManagementComponent implements OnInit {
@@ -89,6 +90,7 @@ export class UserManagementComponent implements OnInit {
 	subscribedHistoryList: any[] = [];
 	subscribedTransactionList: any[] = [];
 	studentType: number = 0;
+	submitName:any="Edit"
 	constructor(private authService: AuthService, private formBuilder: FormBuilder,
 		private locationService: LocationService, private toast: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
@@ -103,6 +105,7 @@ export class UserManagementComponent implements OnInit {
 			home_country: [""],
 			last_degree_passing_year: [""],
 			email: [""],
+			current_education:[""]
 		})
 
 		this.updatedpasswords = this.formBuilder.group({
@@ -315,7 +318,8 @@ export class UserManagementComponent implements OnInit {
 				home_country: this.PersonalInfo?.home_country_id == null ? null : Number(this.PersonalInfo?.country),
 				last_degree_passing_year: this.PersonalInfo?.last_degree_passing_year,
 				phone: this.PersonalInfo?.phone,
-				email: this.PersonalInfo?.email
+				email: this.PersonalInfo?.email,
+				current_education:this.PersonalInfo?.programlevel
 			})
 			this.selectedDate = new Date()
 			this.selectedDate.setFullYear(this.registrationForm.get("intake_year_looking")?.value)
@@ -584,4 +588,32 @@ export class UserManagementComponent implements OnInit {
 	closeMobileMenu() {
 		this.isSidebarVisible = false;
 	  }
+	extractYear(dateString: string): number {
+		const date = new Date(dateString);
+		return date.getFullYear();
+	}
+	onSubmit() {
+		if (this.submitName == "Edit") {
+			this.registrationForm.get('last_degree_passing_year')?.enable();
+			this.registrationForm.get('location_id')?.enable();
+			this.submitName = "Update"
+			return;
+		}
+		let data = {
+			location_id: this.registrationForm.value.location_id,
+			last_degree_passing_year:this.extractYear(this.registrationForm.value.last_degree_passing_year),
+		}
+		this.userManagementService.updateUserDetails(data).subscribe({
+			next: (data: any) => {
+				this.toast.add({ severity: 'success', summary: 'Success', detail: data.message });
+			    this.registrationForm.get('last_degree_passing_year')?.disable();
+			    this.registrationForm.get('location_id')?.disable();
+				this.submitName = "Edit"
+				this.GetPersonalProfileData();
+			},
+			error: (error) => {
+				console.error('Error fetching job listings:', error);
+			}
+		});
+	}
 }

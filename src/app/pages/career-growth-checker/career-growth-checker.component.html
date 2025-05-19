@@ -65,7 +65,7 @@
 						<div class="row">
 							<div class="col">
 								<h5 class="uniprep-primary">Roles & Responsibilities</h5>
-								<div class="text-small">
+								<div class="text-medium">
 									<ul class="ps-4 mb-0">
 										<ng-container *ngFor="let role of detail.rolesArray">
 											<li>{{ role }}</li>
@@ -75,7 +75,7 @@
 							</div>
 							<div class="col">
 								<h5 class="uniprep-primary text-center">Skills</h5>
-								<div class="text-small">
+								<div class="text-medium">
 									<ul class="ps-4 mb-0">
 										<ng-container *ngFor="let skill of detail.skillsArray">
 											<li>{{ skill }}</li>
@@ -85,7 +85,7 @@
 							</div>
 							<div class="col text-center">
 								<h5 class="uniprep-primary">Required Years of Experience</h5>
-								<div class="text-small">
+								<div class="text-medium">
 									<ng-container>
 										{{ detail.experience }}
 									</ng-container>
@@ -94,13 +94,13 @@
 							<div class="col">
 								<div class="mb-4">
 									<h5 class="uniprep-primary">Average Salary in {{ detail.country }}</h5>
-									<div class="text-small">
+									<div class="text-medium">
 										<ng-container> {{ detail.salary }} per year </ng-container>
 									</div>
 								</div>
 								<div>
 									<h5 class="uniprep-primary">Average Salary in India</h5>
-									<div class="text-small">
+									<div class="text-medium">
 										<ng-container> {{ detail.india_salary }} per year </ng-container>
 									</div>
 								</div>

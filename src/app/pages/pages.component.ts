@@ -18,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 import { HeaderSearchComponent } from "./header-search/header-search.component"
 import { StorageService } from "../storage.service";
 import { RestrictionDialogComponent } from "../shared/restriction-dialog/restriction-dialog.component";
+import { ScrollTopModule } from "primeng/scrolltop";
 
 @Component({
   selector: "uni-pages",
@@ -29,6 +30,7 @@ import { RestrictionDialogComponent } from "../shared/restriction-dialog/restric
     RouterModule,
     DialogModule,
     ButtonModule,
+    ScrollTopModule,
     HeaderComponent,
     SidenavComponent,
     HeaderSearchComponent,
@@ -71,7 +73,7 @@ export class PagesComponent implements OnInit, OnDestroy {
   constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
     public meta: Meta, private locationService: LocationService,
     private service: AuthService, private deviceService: DeviceDetectorService,
-    private sanitizer: DomSanitizer, private storage: StorageService) {
+    private sanitizer: DomSanitizer, private storage: StorageService, private route: ActivatedRoute) {
     // dev
     //  Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
 
@@ -140,6 +142,10 @@ export class PagesComponent implements OnInit, OnDestroy {
   enterpriseSubscriptionLink: any;
   imagewhitlabeldomainname: any;
   ngOnInit(): void {
+    // Update the user details
+    this.route.data.subscribe(data => {
+      this.service._user = data['user']['userdetails'][0];
+    });
     this.locationService.getOrgName().subscribe((orgname) => {
       this.orgnamewhitlabel = orgname;
     });

@@ -23,7 +23,7 @@ const routes: Routes = [
     path: '', component: FounderstoolComponent,
     children: [
       {
-        path: '',  redirectTo: 'founderstoollist', pathMatch: 'full'
+        path: '', redirectTo: 'founderstoollist', pathMatch: 'full'
       },
       {
         path: 'foundersacademy', component: FoundersacademyComponent
@@ -108,6 +108,9 @@ const routes: Routes = [
       },
       {
         path: 'enterpreneur-visa', component: GlobalTravelVisaComponent
+      },
+      {
+        path: 'enterpreneur-visa/:countryId/:questionId', component: GlobalTravelVisaComponent
       },
       {
         path: 'startup-expense-estimate', component: StartUpExpenseEstimateComponent

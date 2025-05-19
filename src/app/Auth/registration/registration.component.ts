@@ -8,7 +8,6 @@ import { MessageService } from "primeng/api"
 import { CountryISO, NgxIntlTelInputModule, SearchCountryField } from "ngx-intl-tel-input"
 import { environment } from "@env/environment"
 import { LocalStorageService } from "ngx-localstorage"
-import { SubSink } from "subsink"
 import { FluidModule } from "primeng/fluid"
 import { CommonModule } from "@angular/common"
 import { PasswordModule } from "primeng/password"
@@ -33,20 +32,17 @@ import { ButtonDirective } from "primeng/button";
 		ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule, GoogleSigninButtonModule, ButtonDirective],
 })
 export class RegistrationComponent implements OnInit {
-	@ViewChild("otp1") otp1!: ElementRef
-	@ViewChild("otp2") otp2!: ElementRef
-	@ViewChild("otp3") otp3!: ElementRef
-	@ViewChild("otp4") otp4!: ElementRef
+	@ViewChild('otp1') otp1!: ElementRef
+	@ViewChild('otp2') otp2!: ElementRef
+	@ViewChild('otp3') otp3!: ElementRef
+	@ViewChild('otp4') otp4!: ElementRef
 
 	public registrationForm: any = FormGroup
-	genderList: any
-	intakeYearLooking: any
 	displayTerms = "none"
 	locationList: any
 	countryList: any
 	programLevelList: any
 	intrestedCountryList: any
-	countryCodes: any
 	currentLocationCountry: string = ""
 	currentLocationCity: string = ""
 	currentLocationState: string = ""
@@ -54,8 +50,6 @@ export class RegistrationComponent implements OnInit {
 	public otpForm: any = FormGroup
 	public emailOTPForm: any = FormGroup
 
-	// isMobileOTPSend: boolean = false
-	// isMobileOTPValidated: boolean = false
 	isEmailOTPSend: boolean = false
 	isEmailOTPValidated: boolean = false
 	isRemainingFieldVisible: boolean = false
@@ -65,7 +59,6 @@ export class RegistrationComponent implements OnInit {
 	showConfirm = false
 	confirmPassword: any
 
-	// resent timer
 	resendTime = 1
 	startTimer = 0
 	interval: any
@@ -74,25 +67,10 @@ export class RegistrationComponent implements OnInit {
 	validNumberRequired: boolean = false
 	registerFormInvalid: boolean = true
 
-	separateDialCode = false
-	SearchCountryField = SearchCountryField
-	CountryISO = CountryISO
-	preferredCountries: CountryISO[] = [CountryISO.India]
-	// isMobileOTPEdit: boolean = false
 	imageUrlWhitelabel: string | null = null
-	// domainnamecondition:any;
-	// domainname:any;
-	showPassword: boolean = false
-	otpValue: string = ""
-	otpError: boolean = false
 
-	homeCountryList: any = [
-		{
-			id: 15,
-			country: "India",
-			flag: "https://uniprep.ai/uniprepapi/storage/app/public/country-flags/1689510580Horse8b (2).svg",
-		},
-	]
+	showPassword: boolean = false
+	otpError: boolean = false
 
 	constructor(
 		private service: AuthService,
@@ -100,19 +78,13 @@ export class RegistrationComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private locationService: LocationService,
 		private toastr: MessageService,
-		// private fb: FacebookService,
 		private authService: SocialAuthService,
 		private storage: LocalStorageService
 	) { }
 
 	dateTime = new Date()
-	private subs = new SubSink()
 	ngOnInit() {
 		localStorage.clear()
-		// this.domainnamecondition=window.location.hostname
-		// if ( this.domainnamecondition === "dev-student.uniprep.ai" ||  this.domainnamecondition === "uniprep.ai" ||  this.domainnamecondition === "localhost") {
-		//   this.domainname="main"
-		// }
 		this.locationService.getImage().subscribe((imageUrl) => {
 			this.imageUrlWhitelabel = imageUrl
 		})
@@ -242,6 +214,14 @@ export class RegistrationComponent implements OnInit {
 	}
 
 	onSubmit() {
+		if (this.registrationForm.value.password.length < 8 || this.registrationForm.value.confirmPassword.length < 8) {
+			this.toastr.add({
+				severity: "error",
+				summary: "Error",
+				detail: "Password must be 8 characters",
+			})
+			return
+		}
 		if (this.registrationForm.value.password != this.registrationForm.value.confirmPassword) {
 			this.toastr.add({
 				severity: "error",
@@ -509,23 +489,6 @@ export class RegistrationComponent implements OnInit {
 		if (this.registrationForm.controls["emailAddress"].valid) {
 			this.showEmailErrorIcon = true
 		}
-	}
-
-	changeLocation(event: any) {
-		this.GetLocationList()
-	}
-	changeCountryCode(event: any) {
-		let changeHomeCountry = this.countryList.find((data: any) => data.country_code == event.value)
-		this.registrationForm.get("country").setValue(changeHomeCountry.id)
-		this.GetLocationList()
-	}
-
-	loginWithFacebook() {
-		// this.fb.login().then(response => {
-		//     console.log('Facebook login response:', response);
-		// }).catch(error => {
-		//     console.error('Facebook login error:', error);
-		// });
 	}
 
 	showHidePassword() {

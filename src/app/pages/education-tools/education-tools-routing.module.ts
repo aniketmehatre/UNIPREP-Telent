@@ -55,6 +55,9 @@ const routes: Routes = [
         path: 'study-visa', component: GlobalTravelVisaComponent
       },
       {
+        path: 'study-visa/:countryId/:questionId', component: GlobalTravelVisaComponent
+      },
+      {
         path:'student-budget-planner', component: StudentBudgetPlannerComponent
       },
       {
@@ -62,6 +65,9 @@ const routes: Routes = [
       },
       {
         path: 'wealthleaderreadanswer/:id', component: WealthleaderreadansComponent
+      },
+       {
+        path: 'wealthleaderreadanswer/:id/:questionId', component: WealthleaderreadansComponent
       },
       {
         path: 'uni-compare', component: UniCompareComponent
