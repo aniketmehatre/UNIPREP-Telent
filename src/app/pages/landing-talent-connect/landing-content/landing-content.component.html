@@ -32,25 +32,29 @@
 
 <!-- Features Section with Card Stack -->
 <section class="features-section py-5 darksection">
-	<div class="container w-50">
-		<ul id="cards">
-			<li class="card-sticky card bg-black border-secondary" id="card-1" *ngFor="let feature of templateCardFeatures; let i = index">
-				<div class="card-body">
-					<div class="feature-icon" [ngStyle]="{ 'background-color': feature.color }">
-						<i class="{{ feature.icon }}"></i>
-					</div>
-					<h3 class="card-title mt-3 text-white">{{ feature.title }}</h3>
-					<div class="card-text text-white" *ngIf="feature.description.length > 0">
-						<p *ngFor="let line of feature.description" class="text-white">{{ line }}</p>
-					</div>
-				</div>
-			</li>
-		</ul>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 col-12">
+				<ul class="p-0" id="">
+					<li class="card-sticky card bg-black border-secondary mb-3 h-100" id="card-1" *ngFor="let feature of templateCardFeatures; let i = index">
+						<div class="card-body">
+							<div class="feature-icon" [ngStyle]="{ 'background-color': feature.color }">
+								<i class="{{ feature.icon }}"></i>
+							</div>
+							<h3 class="card-title mt-3 text-white">{{ feature.title }}</h3>
+							<div class="card-text text-white" *ngIf="feature.description.length > 0">
+								<p *ngFor="let line of feature.description" class="text-white">{{ line }}</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </section>
 
-<section class="platform-features darksection">
-	<div class="container">
+<section class="darksection">
+	<div class="container-fluid">
 		<!-- Section Header -->
 		<div class="row mb-4">
 			<div class="col-12 text-center">
@@ -60,26 +64,26 @@
 		</div>
 
 		<!-- Features Table -->
-		<div class="row">
-			<div class="col-12">
+		<div class="row justify-content-center">
+			<div class="col-md-6 col-12">
 				<div class="features-table">
 					<!-- Table Header -->
-					<div class="features-header row m-0">
-						<div class="col-md-5 py-3">
+					<div class="features-header row m-0 py-3">
+						<div class="col-md-5">
 							<h3 class="mb-0">Feature</h3>
 						</div>
-						<div class="col-md-7 py-3">
+						<div class="col-md-7">
 							<h3 class="mb-0">Benefit</h3>
 						</div>
 					</div>
 
 					<!-- Table Rows -->
 					<div class="features-row row m-0" *ngFor="let feature of features; let i = index">
-						<div class="col-md-5 py-3 feature-title fs-5">
-							{{ feature.title }}
+						<div class="col-md-5">
+							<p class="mb-2 h5 fw-normal text-white">{{ feature.title }}</p>
 						</div>
-						<div class="col-md-7 py-3 feature-benefit fs-5">
-							{{ feature.benefit }}
+						<div class="col-md-7">
+							<p class="mb-0 h5 fw-normal text-white">{{ feature.benefit }}</p>
 						</div>
 					</div>
 				</div>
@@ -136,40 +140,49 @@
 		<hr class="divider mx-auto" />
 	</section>
 
-	<section class="timeline-section">
-		<div class="container">
-			<p-timeline [value]="steps" class="w-full md:w-80" align="alternate">
-				<ng-template #marker let-step>
-					<div class="timeline-icon-ball">
-						<div class="timeline-icon-container">
-							<div class="timeline-icon">
-								<i class="{{ step.icon }}"></i>
+	<section class="">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-md-8 col-12">
+					<p-timeline [value]="steps" align="alternate">
+						<ng-template #marker let-step>
+							<div class="timeline-icon-ball">
+								<div class="timeline-icon-container">
+									<div class="timeline-icon">
+										<i class="{{ step.icon }} fa-xs"></i>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-				</ng-template>
-				<ng-template #content let-step>
-					<div class="timeline-content">
-						<h3 class="timeline-title fw-bold mx-3">
-							<span class="text-orange">&nbsp;{{ step.title }}</span>
-						</h3>
-						<p class="timeline-description text-white">{{ step.description }}</p>
-					</div>
-				</ng-template>
-			</p-timeline>
+						</ng-template>
+						<ng-template #content let-step>
+							<div class="timeline-content pb-5">
+								<h4 class="text-orange fw-bold px-3">{{ step.title }}</h4>
+								<p class="text-white px-3">{{ step.description }}</p>
+							</div>
+						</ng-template>
+					</p-timeline>
+				</div>
+			</div>
 		</div>
 	</section>
 
 	<!-- Section 3: CTA -->
 	<section class="cta-section text-center mt-5 py-5">
-		<div class="cta-container card mx-auto rounded-4">
-			<div class="display-3 fw-bold text-orange mb-3">Ready to Be Found by the Right Employer?</div>
-			<p class="lead text-white fs-2 mb-4">
-				Hire the right talent — faster, smarter,<br />
-				and without spending a penny
-			</p>
-			<div>
-				<button class="btn btn-outline-orange btn-lg px-5" routerLink="/register">Start Now</button>
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-md-10 col-12">
+					<div class="card">
+						<div class="card-body py-5">
+							<h1 class="text-secondary">Ready to Be Found by the Right Employer?</h1>
+							<p class="lead text-white fs-2 mb-4">
+								Hire the right talent — faster, smarter,<br />and without spending a penny.
+							</p>
+							<div>
+								<button class="btn btn-outline-orange btn-lg px-5" routerLink="/register">Start Now</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
