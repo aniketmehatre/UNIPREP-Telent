@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
 import { AvatarModule } from "primeng/avatar";
 import { ButtonModule } from "primeng/button";
 import { CommonModule } from "@angular/common";
@@ -50,14 +50,14 @@ export class ChatComponent implements OnInit, OnChanges {
   aiGenerateChatDetails: any;
   private echo!: Echo<any>;
   studentId: any
+ @Output() visible = new EventEmitter<void>();
+  private observer!: IntersectionObserver;
   constructor(private talentConnectService: TalentConnectService, private courcelist: AuthService) { }
 
   ngOnInit(): void {
-    // this.messageInput.value = '';
-    // this.messageInput.nativeElement.style.height = 'auto';
+
     this.courcelist.getMe().subscribe((res: any) => {
       this.studentId = res.employee_user_id
-      console.log(this.studentId);
       window.Pusher = Pusher;
       this.echo = new Echo({
         broadcaster: 'pusher',
@@ -65,11 +65,9 @@ export class ChatComponent implements OnInit, OnChanges {
         cluster: 'ap2',
         forceTLS: true,
       });
-      console.log(this.studentId);
       this.echo.channel(`company-connect-employer-chat-${this.studentId}`)
         .listen('CompanyConnectMessageSentEmployer', (event: any) => {
           console.log('Received broadcast:', event);
-          console.log((`company-connect-employer-chat-${this.studentId}`));
           if (event) {
             const hasMatchingStudentId = this.studentId === event.tc_student_id;
             if (hasMatchingStudentId) {
@@ -77,7 +75,7 @@ export class ChatComponent implements OnInit, OnChanges {
                 added_by: event.added_by,
                 chat: event.chat,
                 time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                attachment_url: event.attachment?event.attachment:"",
+                attachment_url: event.attachment ? event.attachment : "",
                 attachment: event.attachment ? event.attachment.name : '',
                 icon: event.icon
               });
@@ -184,5 +182,4 @@ export class ChatComponent implements OnInit, OnChanges {
       return '<a href="' + url + '" target="_blank" class="chat-link">' + url + '</a>';
     });
   }
-
 }
