@@ -19,10 +19,11 @@ export class LandingFooterComponent {
   @Output() openRefundPolicy: EventEmitter<boolean> = new EventEmitter(true);
 
   socialLinks = [
-    { icon: "facebook", url: "https://facebook.com" },
+    { icon: "facebook", url: "https://www.facebook.com/profile.php?id=61576567286334" },
     { icon: "instagram", url: "https://instagram.com" },
-    { icon: "linkedin", url: "https://linkedin.com" },
-    { icon: "youtube", url: "https://youtube.com" },
+    { icon: "linkedin", url: "https://www.linkedin.com/company/uniprep-global/" },
+    { icon: "youtube", url: "https://www.youtube.com/@UNIPREPGlobal" },
+    { icon: "twitter", url: "https://x.com/uniprepglobal?s=21" },
   ]
 
   aboutLinks = [{ text: "About UNIPREP", url: "/about" }]

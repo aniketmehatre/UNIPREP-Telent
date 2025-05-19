@@ -14,7 +14,7 @@
 				<a class="nav-link active text-white fw-regular" aria-current="page" href="/about">About</a>
 			</li>
             <li class="nav-item">
-				<a class="nav-link active text-white fw-regular" aria-current="page" href="/compare">Compare</a>
+				<a class="nav-link active text-white fw-regular" aria-current="page" href="/compare/uk">Compare</a>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link text-white fw-regular dropdown-toggle" href="javascript.void(0)" id="exploreDropdown"
@@ -98,11 +98,11 @@
 				<!-- Mobile menu items -->
 				<ul class="nav flex-column gap-5 w-100">
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="#home"
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/"
 							(click)="scrollToSection($event, 'home')">Home</a>
 					</li>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#"
+						<a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="/about"
 							id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							About
 						</a>
@@ -122,16 +122,16 @@
 						</a>
 						<ul class="dropdown-menu bg-dark" aria-labelledby="featureDropdown">
 							<li><a class="dropdown-item text-white hover-black"
-									routerLink="/landing/explore/job-seekers" data-bs-dismiss="offcanvas" role="button"
+									routerLink="/job-seekers" data-bs-dismiss="offcanvas" role="button"
 									aria-expanded="false">For Job Seekers</a></li>
 							<li><a class="dropdown-item text-white hover-black"
-									routerLink="/landing/explore/international-students" data-bs-dismiss="offcanvas">For
+									routerLink="/international-students" data-bs-dismiss="offcanvas">For
 									International Students</a></li>
 							<li><a class="dropdown-item text-white hover-black"
-									routerLink="/landing/explore/global-travellers" data-bs-dismiss="offcanvas">For
+									routerLink="/explore/global-travellers" data-bs-dismiss="offcanvas">For
 									Global Travellers</a></li>
 							<li><a class="dropdown-item text-white hover-black"
-									routerLink="/landing/explore/entrepreneurs" data-bs-dismiss="offcanvas">For
+									routerLink="/explore/entrepreneurs" data-bs-dismiss="offcanvas">For
 									Entrepreneurs</a></li>
 						</ul>
 					</li>
