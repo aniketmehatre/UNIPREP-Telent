@@ -10,7 +10,7 @@ import { Company } from 'src/app/@Models/company-connect.model';
 @Component({
   selector: 'uni-company-list',
   standalone: true,
-  imports: [
+  imports: [ 
     TabsModule,
     TabViewModule,
     PaginatorModule,
