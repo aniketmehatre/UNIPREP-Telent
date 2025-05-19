@@ -15,7 +15,7 @@
 						<h1 class="text-white fw-light">{{ pageTitle }}</h1>
 						<p class="mb-4">{{ pageDescription }}</p>
 					</div>
-					<div class="col-md-12" *ngFor="let step of steps">
+					<div class="col-md-12 mt-5" *ngFor="let step of steps">
 						<ng-container *ngIf="getCardsForStep(step.tag_title).length">
 							<div class="row">
 								<div class="col-md-3">
@@ -26,17 +26,15 @@
 									</div>
 								</div>
 								<div class="col-md-9">
-									<div class="row">
-										<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3" *ngFor="let card of getCardsForStep(step.tag_title)">
-											<div class="card h-100" role="button" [routerLink]="card.status == 4 ? null : ['/category', card.feature_urlslug]">
+									<div class="row g-3">
+										<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6" *ngFor="let card of getCardsForStep(step.tag_title)">
+											<div class="card h-100 p-2" role="button" [routerLink]="card.status == 4 ? null : ['/category', card.feature_urlslug]" >
 												<div class="card-body">
 													<div class="d-flex justify-content-between align-items-center mb-3">
-														<div class="emoji h4">{{ card.icon || "📚" }}</div>
-														<div class="text-secondary fw-bold text-end pr-2 fs-5">{{ card.order_no }}</div>
+														<div class="emoji h5">{{ card.icon || '📚'}}</div>
+														<div class="text-secondary fw-bold text-end pr-2 fs-5">{{card.order_no}}</div>
 													</div>
-													<h4 class="card-title">
-														{{ card.feature_name }} <i class="fa-solid fa-arrow-up-right-from-square"></i><span *ngIf="card.status == 4" class="badge badge-warning ms-1"><i class="fa fa-clock"></i>&nbsp;Coming Soon</span>
-													</h4>
+													<h5 class="card-title">{{ card.feature_name }} <i class="fa-solid fa-arrow-up-right-from-square"></i><span *ngIf="card.status == 4" class="badge badge-warning ms-1"><i class="fa fa-clock"></i>&nbsp;Coming Soon</span></h5> 
 													<p class="text-muted">{{ card.description }}</p>
 												</div>
 											</div>

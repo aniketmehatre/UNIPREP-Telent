@@ -31,7 +31,7 @@ export class LandingPartnerContentComponent implements OnInit {
   isPlaying = false;
   countries: string[] = ['United States', 'Canada', 'United Kingdom', 'Australia', 'India', 'Singapore', 'Germany'];
   selectedCountry: string = 'Select Country';
-  welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`
+  welcomevideoLink: string = `https://youtu.be/Sv8EyWriqV0`
 
   whyPartnerParagraph1: string = 'UNIPREP isn\'t just a platform—it\'s your bridge to growth. Offer real value to your audience, grow your revenue, and connect learners with opportunity.';
   whyPartnerParagraph2: string = 'Launch fast. Empower users. Earn more.';

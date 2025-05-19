@@ -25,7 +25,7 @@
           <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
           <video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none"
             poster="/uniprep-assets/images/uniprepmockup.png">
-            <source [src]="welcomevideoLink" type="video/mp4" />
+          <source type="video/youtube" src="http://www.youtube.com/watch?v=nOEw9iiopwI" />
           </video>
         </div>
       </div>
@@ -568,12 +568,12 @@
         <div class="accordion pb-3 mb-5" id="accordionFAQ">
           <div class="accordion-item faqcard p-2" *ngFor="let faq of faqItems; let i = index">
             <h2 class="accordion-header">
-              <button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse"
+              <button class="accordion-button text-white collapsed fs-5" type="button" data-bs-toggle="collapse"
                 [attr.data-bs-target]="'#' + faq.id" aria-expanded="false" [attr.aria-controls]="faq.id">
                 {{ faq.question }}
               </button>
             </h2>
-            <div [id]="faq.id" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+            <div [id]="faq.id" class="accordion-collapse collapse " data-bs-parent="#accordionFAQ">
               <div class="accordion-body">{{ faq.answer }}</div>
             </div>
           </div>
