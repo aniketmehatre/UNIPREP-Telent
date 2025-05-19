@@ -50,11 +50,11 @@
 		</div>
 	</div>
 	<ng-container *ngFor="let section of landingSections">
-		<div class="container-fluid">
+		<div class="container-fluid pb-5 pb-mb-0">
 			<div class="row justify-content-center">
 				<div class="col-md-8 col-12">
 					<div class="row justify-content-md-between align-items-center">
-						<div class="col-md-6" [ngClass]="{ 'order-lg-2': !section.isRight, 'order-lg-1': section.isRight }">
+						<div class="col-md-6" [ngClass]="{ 'order-lg-2 order-2': !section.isRight, 'order-lg-1 order-2': section.isRight }">
 							<div class="fs-1 fw-bold mb-3" [innerHTML]="section.title"></div>
 							<p class="text-secondary mb-4">{{ section.subtitle }}</p>
 							<div class="feature-list">
@@ -67,7 +67,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-5" [ngClass]="{ 'order-lg-1': !section.isRight, 'order-lg-2': section.isRight }">
+						<div class="col-md-5" [ngClass]="{ 'order-lg-1 order-1': !section.isRight, 'order-lg-2 order-1': section.isRight }">
 							<img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border-0" />
 						</div>
 					</div>
