@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, signal, } from '@angular/core';
 import { environment } from "@env/environment";
 import { TalentConnectService } from '../talent-connect.service';
 import { Observable } from 'rxjs';
@@ -17,7 +17,7 @@ export class MainListComponent implements OnInit {
     protected domainUrl: string = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;
     isLoading: boolean = false;
     isProfileCreated: boolean = false;
-
+    private dpImage = signal('');
     constructor(private router: Router, private talentConnectService: TalentConnectService, private messageService: MessageService,
         private cdr: ChangeDetectorRef, private authService: AuthService) {
 
@@ -81,6 +81,8 @@ export class MainListComponent implements OnInit {
                 this.isLoading = false;
                 if (response && response.count) {
                     if (response.count > 0) {
+                        this.dpImage.set(response.data[0].dp_image)
+                        this.talentConnectMainList[0].image = response.data[0].dp_image;
                         this.isProfileCreated = true;
                         this.cdr.detectChanges();
                     }

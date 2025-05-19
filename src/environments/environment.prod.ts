@@ -12,12 +12,12 @@ const employerProdUrl = 'https://employer.uniprep.ai';
 const partnerDomain = 'https://partner.uniprep.ai';
 
 export const environment = {
-  domain: dev_domain,
+  domain: prod_domain,
   maintenanceMode: false,
   production: true,
-  ApiUrl: dev_url,
-  ApiUrlEmployer: dev_url + '/employer',
-  employerDomain: employerdevUrl,
+  ApiUrl: prod_url,
+  ApiUrlEmployer: prod_url + '/employer',
+  employerDomain: employerProdUrl,
   partnerDomain: partnerDomain,
   secretKeySalt: 'WaterMelonTea',
   tokenKey: 'token',
@@ -27,6 +27,6 @@ export const environment = {
   googleCloud: {
     apiKey: 'AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0'
   },
-  uniApplyUrl: dev_uniapplyb2c_url,
-  uniapplyAPI: dev_uniapply_student,
+  uniApplyUrl: prod_uniapplyb2c_url,
+  uniapplyAPI: prod_uniapply_student,
 };
