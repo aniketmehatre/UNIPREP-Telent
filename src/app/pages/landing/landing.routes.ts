@@ -79,16 +79,16 @@ export const landingRoutes: Routes = [
         loadComponent: () => import('./management-team/management-team.component').then(m => m.ManagementTeamComponent),
       },
       {
+        path: 'compare/:country',
+        loadComponent: () => import('../compare-uni/compare-uni.component').then(c => c.CompareUniComponent)
+      },
+      {
         path: 'blogs',
         loadComponent: () => import('./bloglist/bloglist.component').then(m => m.BloglistComponent),
       },
       {
         path: "blogs/:slug",
         loadComponent: () => import('./blogdetail/blogdetail.component').then(m => m.BlogdetailComponent)
-      },
-      {
-        path: 'compare/:country',
-        loadComponent: () => import('../compare-uni/compare-uni.component').then(c => c.CompareUniComponent)
       },
       {
         path: ':category',

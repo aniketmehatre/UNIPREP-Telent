@@ -39,9 +39,10 @@ interface CallToActionCard {
 })
 export class AboutUsComponent implements OnInit {
   isPlaying: boolean = false;
-  @ViewChild('videoPlayer') videoPlayer!: ElementRef;
+  // @ViewChild('videoPlayer') videoPlayer!: ElementRef;
   // welcomeVideoLink: string = 'https://uniprepapi.storage.googleapis.com/Landing/welcome.mp4';
   welcomeVideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
+  youtubeEmbedLink: string = `https://www.youtube.com/embed/Sv8EyWriqV0?autoplay=1`;
   timelineData: TimelineItem[] = [
     {
       icon: 'fa-light fa-arrow-down',
@@ -146,13 +147,6 @@ export class AboutUsComponent implements OnInit {
   }
 
     toggleVideo() {
-    const video: HTMLVideoElement = this.videoPlayer.nativeElement
-    if (video.paused) {
-      video.play()
-      this.isPlaying = true
-    } else {
-      video.pause()
-      this.isPlaying = false
-    }
+      this.isPlaying = !this.isPlaying;
   }
 }
