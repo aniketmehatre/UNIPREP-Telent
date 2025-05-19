@@ -1,7 +1,6 @@
 // Custom variables
 $orange: #f0780e;
-$dark-bg: #000000;
-$card-bg: #111111;
+$dark-bg: #07070b;
 $timeline-color: $orange;
 
 :host {
@@ -20,6 +19,9 @@ $timeline-color: $orange;
     background: transparent;
 }
 
+.darkSection {
+  background-color: #07070b;
+}
 .pagetitle {
     background-color: transparent;
     border: 1px solid white;
@@ -62,19 +64,21 @@ $timeline-color: $orange;
 }
 
 .card {
-	border-radius: 1.5rem;
-	border: 1px solid #e6ddfe08;
-	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 100%);
-	box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.1) inset;
-	color: white;
-	&:hover {
-		.card-title {
-			color: var(--uniprep-secondary);
-		}
-		.cardicon {
-			font-weight: 700;
-		}
-	}
+  border-radius: 1.5rem;
+    border: 1px solid #e6ddfe08;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+    box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+    color: white;
+
+  &:hover {
+      .card-title {
+        color: var(--uniprep-secondary);
+      }
+
+                                                                                                                                .cardicon {
+                                                                                                                                  font-weight: 700;
+                                                                                                                                }
+                                                                                                                                }
 }
 
 video::-webkit-media-controls-panel {
@@ -198,24 +202,17 @@ iframe {
 //     text-align: left !important;
 //   }
 // }
+.timeline-content {
+  margin-bottom: 50px;
+}
 .mb-10 {
   margin-bottom: 100px;
 }
 
-.card {
-  border-radius: 1.5rem;
-  border: 1px solid #e6ddfe08;
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
-  box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
-  color: white;
-
-  &:hover {
-    .card-title {
-      color: var(--uniprep-secondary);
-    }
-
-    .cardicon {
-      font-weight: 700;
-    }
+@media screen and (max-width: 768px) {
+  iframe {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
   }
 }
