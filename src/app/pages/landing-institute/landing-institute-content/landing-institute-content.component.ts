@@ -16,7 +16,7 @@ interface LandingSection {
   isRight: boolean 
 }
 
-interface PartnerCategory {
+interface InstituteCategory {
   title: string;
   emoji: string; 
 }
@@ -54,7 +54,7 @@ export class LandingInstituteContentComponent {
     ],
     image: 'uniprep-assets/images/landing-institutes/institute1.jpg', // Assuming a naming convention based on the order
     imageAlt: 'A person using a virtual platform to connect with potential employers',
-    isRight: false,
+     isRight: true,
   },
   {
     title: 'End-to-End Student Career Tools',
@@ -67,7 +67,7 @@ export class LandingInstituteContentComponent {
     ],
     image: 'uniprep-assets/images/landing-institutes/institute2.jpg', // Assuming a naming convention
     imageAlt: 'A student confidently walking with a laptop and coffee',
-    isRight: true,
+    isRight: false,
   },
   {
     title: 'Co-Branded Platform Experience',
@@ -81,7 +81,7 @@ export class LandingInstituteContentComponent {
     ],
     image: 'uniprep-assets/images/landing-institutes/institute3.jpg', // Assuming a naming convention based on the order
     imageAlt: 'Two professionals shaking hands, representing a co-branded partnership',
-    isRight: false,
+    isRight: true,
   },
   {
     title: 'Built Around Your Needs',
@@ -93,7 +93,7 @@ export class LandingInstituteContentComponent {
     ],
     image: 'uniprep-assets/images/landing-institutes/institute4.jpg', // Assuming a naming convention based on the order
     imageAlt: 'Two colleagues collaborating on a computer, highlighting customized support',
-    isRight: true,
+    isRight: false,
   },
   {
     title: 'Insights for Better Planning',
@@ -105,7 +105,7 @@ export class LandingInstituteContentComponent {
     ],
     image: 'uniprep-assets/images/landing-institutes/institute5.jpg', // Assuming a naming convention based on the order
     imageAlt: 'A person analyzing data on a computer screen for better planning',
-    isRight: false,
+    isRight: true,
   },
   {
     title: 'No Setup. No Hardware. Scales with You.',
@@ -117,9 +117,29 @@ export class LandingInstituteContentComponent {
     ],
     image: 'uniprep-assets/images/landing-institutes/institute6.jpg', // Assuming a naming convention based on the order
     imageAlt: 'A professional working on a laptop, emphasizing ease of setup and scalability',
-    isRight: true,
+    isRight: false,
   },
 ];
+
+  instituteCategories: InstituteCategory[] = [
+    { title: 'Undergraduate Institutes', emoji: '🎓' },
+    { title: 'Postgraduate Institutes', emoji: '🎓' },
+    { title: 'Engineering & Technical Institutes', emoji: '👷' },
+    { title: 'Management Institutes', emoji: '👨‍💼' },
+    { title: 'Medical Institutes', emoji: '⚕️' },
+    { title: 'Law Institutes', emoji: '👩‍⚖️' },
+    { title: 'Arts & Science Institutes', emoji: '🔬' },
+    { title: 'Polytechnic Institutes', emoji: '💻' },
+    { title: 'Professional Certification Institutes', emoji: '🚀' },
+    { title: 'Business Institutes', emoji: '💼' },
+    { title: 'Agriculture Institutes', emoji: '🧑‍🌾' },
+    { title: 'Design & Architecture Institutes', emoji: '📐' },
+    { title: 'Hospitality & Tourism Institutes', emoji: '🧑‍🍳' },
+    { title: 'Research Institutes', emoji: '🔬' },
+    { title: 'Online and Distance Learning Institutes', emoji: '🌐' },
+  ];
+
+
   constructor(private landingInstituteService: LandingInstituteService) { }
 
   selectCountry(country: string): void {

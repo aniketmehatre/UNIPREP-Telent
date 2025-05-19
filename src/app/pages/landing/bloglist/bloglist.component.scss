@@ -15,6 +15,17 @@
 	--uniprep-tertiary: #ffffff;
 }
 
+:host {
+  display: block;
+  overflow: auto; // or overflow-y: auto;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;           /* Chrome, Safari and Opera */
+  }
+}
+
 .topmarquee
 {
 	background:linear-gradient(145deg, rgba(24,34,79,1) 0%, rgba(220,122,86,1) 100%);

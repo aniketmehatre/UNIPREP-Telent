@@ -34,23 +34,7 @@
         </p>
     </div>
 </section>
-<section class="choose-us py-5 pl-3 darksection">
-    <div class="container d-flex flex-column gap-4 w-50">
-        <div *ngFor="let feature of chooseUsCards; let i = index" class="">
-            <div class="card text-white">
-                <div class="card-body">
-                    <div class="feature-icon" [ngStyle]="{'background-color': feature.color}">
-                        <i class="{{feature.icon}}"></i>
-                    </div>
-                    <h3 class="card-title mt-3">{{feature.title}}</h3>
-                    <div class="card-text fs-6" *ngIf="feature.description.length > 0">
-                        <p class="text-white " *ngFor="let line of feature.description">{{line}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 <!-- Features Section with Card Stack -->
 <section class="features-section py-5 darksection">
     <div class="container w-50">
@@ -63,7 +47,7 @@
                     </div>
                     <h3 class="card-title mt-3 text-white">{{feature.title}}</h3>
                     <div class="card-text text-white" *ngIf="feature.description.length > 0">
-                        <p *ngFor="let line of feature.description">{{line}}</p>
+                        <p *ngFor="let line of feature.description" class="text-white">{{line}}</p>
                     </div>
                 </div>
             </li>

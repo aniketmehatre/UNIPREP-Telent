@@ -1,0 +1,45 @@
+<section class="darksection flex-fill py-5">
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-md-10">
+				<div class="card mb-4">
+					<div class="card-body py-4 px-4">
+						<div class="row align-items-center">
+							<div class="col-md-2">
+								<span role="button" onclick="history.back()"><i class="fa-solid fa-chevron-left fa-xl"></i></span>
+							</div>
+							<div class="col-md-8">
+								<h4 class="text-white text-center">{{ blog.title }}</h4>
+							</div>
+							<div class="col-md-2">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-10">
+				<div class="blogimage" [style.backgroundImage]="'url(' + blog.featured_img + ')'">
+				</div>
+			</div>
+			<div class="col-md-10">
+				<div class="row">
+					<div class="col-md-8">
+						<p class="text-white">{{ blog.seo_title }}</p>
+					</div>
+					<div class="col-md-4">
+						<h5 class="text-white">Popular blogs</h5>
+							<div *ngFor="let one of blogs" class="">
+								<a style="text-decoration: none; " class="d-flex gap-3 mb-3" href="blogs/{{one.slug}}">
+								<div class="card popularimg" style="background-image:url('{{ one.featured_img }}')"></div>
+								<div>
+									<h6 class="text-white mb-0">{{ one.title }}</h6>
+									<p class="text-small text-white">03-06-2024</p>
+								</div>
+								</a>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+

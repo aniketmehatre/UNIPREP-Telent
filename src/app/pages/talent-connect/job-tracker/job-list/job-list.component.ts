@@ -72,7 +72,7 @@ export class JobListComponent implements OnInit {
     this.tabs.forEach(t => (t.active = false));
     this.tabs[tab].active = true;
     if (this.tabs[tab].label !== 'All Jobs') {
-      this.filteredAppliedJob = this.appliedJobList.filter((item: any) => item.hiringstage == this.tabs[tab].label);
+      this.filteredAppliedJob = this.appliedJobList.filter((item: any) => item.stage == this.tabs[tab].label);
     } else {
       this.filteredAppliedJob = this.appliedJobList;
     }

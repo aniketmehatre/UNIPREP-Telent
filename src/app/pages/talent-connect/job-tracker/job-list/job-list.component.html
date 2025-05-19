@@ -93,7 +93,7 @@
 
 				<div class="col-md-4">
 					<label class="form-label fw-bold">Experience Level </label>
-					<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel" optionLabel="label" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
+					<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel"  placeholder="Enter your experience level" optionLabel="label" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
 				</div>
 				<div class="col-md-4">
 					<label class="form-label fw-bold">Status</label>
@@ -104,6 +104,7 @@
 						]"
 						formControlName="status"
 						display="chip"
+						 placeholder="Select your status"
 						optionLabel="label"
 						optionValue="value"
 						class="w-100">
