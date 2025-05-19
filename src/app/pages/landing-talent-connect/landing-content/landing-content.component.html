@@ -1,182 +1,176 @@
 <section class="hero-section darksection" id="home">
-    <div class="container-fluid text-center">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="display-3 fw-bold text-white mb-3">Looking for a career move that matters?</div>
-                <h3 class="display-6 h6 text-white mb-3">Discover Real Opportunities. Connect with Employers.</h3>
-                <h3 class="display-6 fw-bold text-secondary mb-5">Take the Next Step in Your Career.</h3>
-                <button class="btn btn-secondary register-btn px-4 py-2" routerLink="/register">Register Now</button>
-            </div>
-        </div>
+	<div class="container-fluid text-center">
+		<div class="row justify-content-center">
+			<div class="col-lg-10">
+				<div class="display-3 fw-bold text-white mb-3">Looking for a career move that matters?</div>
+				<h3 class="display-6 h6 text-white mb-3">Discover Real Opportunities. Connect with Employers.</h3>
+				<h3 class="display-6 fw-bold text-secondary mb-5">Take the Next Step in Your Career.</h3>
+				<button class="btn btn-secondary register-btn px-4 py-2" routerLink="/register">Register Now</button>
+			</div>
+		</div>
 
-        <div class="row justify-content-center mt-5 homebg">
-            <div class="col-lg-12">
-                <div class="video-container" (click)="toggleVideo()">
-                    <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
-                    <video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none" style="width: 70%;"
-                        poster="uniprep-assets/images/dashboard-employer.png">
-                        <source [src]="welcomevideoLink" type="video/mp4" />
-                    </video>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="row justify-content-center mt-5 homebg">
+			<div class="col-lg-12">
+				<div class="video-container" (click)="toggleVideo()">
+					<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
+					<video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none" style="width: 70%" poster="uniprep-assets/images/dashboard-employer.png">
+						<source [src]="welcomevideoLink" type="video/mp4" />
+					</video>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 <!-- Hero Section -->
 <section class="hero-section_1 text-center text-white py-5 darksection">
-    <div class="container">
-        <div class="fs-2 fw-bold mb-4"><span class="text-secondary">Why</span> UNIPREP <span class="text-secondary">Employer Connect?</span></div>
+	<div class="container">
+		<div class="fs-2 fw-bold mb-4"><span class="text-secondary">Why</span> UNIPREP <span class="text-secondary">Employer Connect?</span></div>
 
-        <p class="lead mx-auto fs-4 text-secondary-subtle text-dark fw-medium" style="max-width: 1000px;">
-            UNIPREP Employer Connect Is Your Global Gateway To Real Opportunities, Verified Employers, And Powerful Job
-            Search Tools — Helping You Apply Smartly, Track Everything, And Connect With The Right Companies. Completely
-            Free To Join. 24x7 Support.
-        </p>
-    </div>
+		<p class="lead mx-auto fs-4 text-secondary-subtle text-white fw-medium">UNIPREP Employer Connect Is Your Global Gateway To Real Opportunities, Verified Employers, And Powerful Job Search Tools — Helping You Apply Smartly, Track Everything, And Connect With The Right Companies. Completely Free To Join. 24x7 Support.</p>
+	</div>
 </section>
 
 <!-- Features Section with Card Stack -->
 <section class="features-section py-5 darksection">
-    <div class="container w-50">
-        <ul id="cards">
-            <li class="card-sticky card bg-black border-secondary" id="card-1"
-                *ngFor="let feature of templateCardFeatures; let i = index">
-                <div class="card-body">
-                    <div class="feature-icon" [ngStyle]="{'background-color': feature.color}">
-                        <i class="{{feature.icon}}"></i>
-                    </div>
-                    <h3 class="card-title mt-3 text-white">{{feature.title}}</h3>
-                    <div class="card-text text-white" *ngIf="feature.description.length > 0">
-                        <p *ngFor="let line of feature.description" class="text-white">{{line}}</p>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+	<div class="container w-50">
+		<ul id="cards">
+			<li class="card-sticky card bg-black border-secondary" id="card-1" *ngFor="let feature of templateCardFeatures; let i = index">
+				<div class="card-body">
+					<div class="feature-icon" [ngStyle]="{ 'background-color': feature.color }">
+						<i class="{{ feature.icon }}"></i>
+					</div>
+					<h3 class="card-title mt-3 text-white">{{ feature.title }}</h3>
+					<div class="card-text text-white" *ngIf="feature.description.length > 0">
+						<p *ngFor="let line of feature.description" class="text-white">{{ line }}</p>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
 </section>
 
 <section class="platform-features darksection">
-    <div class="container">
-        <!-- Section Header -->
-        <div class="row mb-4">
-            <div class="col-12 text-center">
-                <h2 class="section-title mb-3">What You Can Do on the Platform</h2>
-                <div class="divider mx-auto"></div>
-            </div>
-        </div>
+	<div class="container">
+		<!-- Section Header -->
+		<div class="row mb-4">
+			<div class="col-12 text-center">
+				<h2 class="section-title mb-3">What You Can Do on the Platform</h2>
+				<div class="divider mx-auto"></div>
+			</div>
+		</div>
 
-        <!-- Features Table -->
-        <div class="row">
-            <div class="col-12">
-                <div class="features-table">
-                    <!-- Table Header -->
-                    <div class="features-header row m-0">
-                        <div class="col-md-5 py-3">
-                            <h3 class="mb-0">Feature</h3>
-                        </div>
-                        <div class="col-md-7 py-3">
-                            <h3 class="mb-0">Benefit</h3>
-                        </div>
-                    </div>
+		<!-- Features Table -->
+		<div class="row">
+			<div class="col-12">
+				<div class="features-table">
+					<!-- Table Header -->
+					<div class="features-header row m-0">
+						<div class="col-md-5 py-3">
+							<h3 class="mb-0">Feature</h3>
+						</div>
+						<div class="col-md-7 py-3">
+							<h3 class="mb-0">Benefit</h3>
+						</div>
+					</div>
 
-                    <!-- Table Rows -->
-                    <div class="features-row row m-0" *ngFor="let feature of features; let i = index">
-                        <div class="col-md-5 py-3 feature-title fs-5">
-                            {{ feature.title }}
-                        </div>
-                        <div class="col-md-7 py-3 feature-benefit fs-5">
-                            {{ feature.benefit }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+					<!-- Table Rows -->
+					<div class="features-row row m-0" *ngFor="let feature of features; let i = index">
+						<div class="col-md-5 py-3 feature-title fs-5">
+							{{ feature.title }}
+						</div>
+						<div class="col-md-7 py-3 feature-benefit fs-5">
+							{{ feature.benefit }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 <div class="darksection">
-    <!-- Call to Action Section -->
-    <section class="cta-section mb-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="cta-card d-flex justify-content-between align-items-center">
-                        <div>
-                            <h2 class="fw-bold mb-0">ACT NOW</h2>
-                            <p class="mb-0 fs-3 text-white">START YOUR JOURNEY WITH US TODAY FOR FREE!</p>
-                        </div>
-                        <button class="btn btn-dark px-4" routerLink="/register">Talk to us</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+	<!-- Call to Action Section -->
+	<section class="cta-section mb-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="cta-card d-flex justify-content-between align-items-center">
+						<div>
+							<h2 class="fw-bold mb-0">ACT NOW</h2>
+							<p class="mb-0 fs-3 text-white">START YOUR JOURNEY WITH US TODAY FOR FREE!</p>
+						</div>
+						<button class="btn btn-dark px-4" routerLink="/register">Talk to us</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <!-- Employer Types Section -->
-    <section class="employer-types-section ">
-        <div class="container">
-            <div class="row text-center mb-5">
-                <div class="col-12">
-                    <h2 class="section-title fw-bold mb-4">Who Should Join?</h2>
-                    <div class="divider mx-auto"></div>
-                </div>
-            </div>
+	<!-- Employer Types Section -->
+	<section class="employer-types-section">
+		<div class="container">
+			<div class="row text-center mb-5">
+				<div class="col-12">
+					<h2 class="section-title fw-bold mb-4">Who Should Join?</h2>
+					<div class="divider mx-auto"></div>
+				</div>
+			</div>
 
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4" *ngFor="let type of employerTypes">
-                    <div class="employer-card h-100 d-flex flex-column align-items-center text-center p-4">
-                        <div class="icon-container mb-3">
-                            <i class="{{type.icon}} fa-2xl icon-employer-type"></i>
-                        </div>
-                        <h3 class="card-title mb-3 text-white">{{type.title}}</h3>
-                        <p class="card-text">{{type.description}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+			<div class="row g-4">
+				<div class="col-md-6 col-lg-4" *ngFor="let type of employerTypes">
+					<div class="employer-card h-100 d-flex flex-column align-items-center text-center p-4">
+						<div class="icon-container mb-3">
+							<i class="{{ type.icon }} fa-2xl icon-employer-type"></i>
+						</div>
+						<h3 class="card-title mb-3 text-white">{{ type.title }}</h3>
+						<p class="card-text">{{ type.description }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </div>
 <div class="container-fluid text-white darksection py-5">
-    <!-- Section 1: Header -->
-    <section class="text-center mb-5">
-        <h3 class="display-4 fw-bold text-white">How It Works</h3>
-        <hr class="divider mx-auto">
-    </section>
+	<!-- Section 1: Header -->
+	<section class="text-center mb-5">
+		<h3 class="display-4 fw-bold text-white">How It Works</h3>
+		<hr class="divider mx-auto" />
+	</section>
 
-    <section class="timeline-section">
-        <div class="container">
-            <p-timeline [value]="steps" class="w-full md:w-80" align="alternate">
-                <ng-template #marker let-step>
-                    <div class="timeline-icon-ball">
-                        <div class="timeline-icon-container">
-                            <div class="timeline-icon">
-                                <i class="{{ step.icon }}"></i>
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-                <ng-template #content let-step>
-                    <div class="timeline-content">
-                            <h3 class="timeline-title fw-bold mx-3">
-                                <span class="text-orange">&nbsp;{{ step.title }}</span>
-                            </h3>
-                            <p class="timeline-description text-white">{{ step.description }}</p>
-                    </div>
-                </ng-template>
-            </p-timeline>
-        </div>
-    </section>
+	<section class="timeline-section">
+		<div class="container">
+			<p-timeline [value]="steps" class="w-full md:w-80" align="alternate">
+				<ng-template #marker let-step>
+					<div class="timeline-icon-ball">
+						<div class="timeline-icon-container">
+							<div class="timeline-icon">
+								<i class="{{ step.icon }}"></i>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+				<ng-template #content let-step>
+					<div class="timeline-content">
+						<h3 class="timeline-title fw-bold mx-3">
+							<span class="text-orange">&nbsp;{{ step.title }}</span>
+						</h3>
+						<p class="timeline-description text-white">{{ step.description }}</p>
+					</div>
+				</ng-template>
+			</p-timeline>
+		</div>
+	</section>
 
-
-    <!-- Section 3: CTA -->
-    <section class="cta-section text-center mt-5 py-5">
-        <div class="cta-container card mx-auto rounded-4">
-            <div class="display-3 fw-bold text-orange mb-3">Ready to Be Found by the Right Employer?</div>
-            <p class="lead text-white fs-2 mb-4">Hire the right talent — faster, smarter,<br> and without spending a
-                penny
-            </p>
-            <div>
-                <button class="btn btn-outline-orange btn-lg px-5" routerLink="/register">Start Now</button>
-            </div>
-        </div>
-    </section>
+	<!-- Section 3: CTA -->
+	<section class="cta-section text-center mt-5 py-5">
+		<div class="cta-container card mx-auto rounded-4">
+			<div class="display-3 fw-bold text-orange mb-3">Ready to Be Found by the Right Employer?</div>
+			<p class="lead text-white fs-2 mb-4">
+				Hire the right talent — faster, smarter,<br />
+				and without spending a penny
+			</p>
+			<div>
+				<button class="btn btn-outline-orange btn-lg px-5" routerLink="/register">Start Now</button>
+			</div>
+		</div>
+	</section>
 </div>
