@@ -27,11 +27,11 @@ import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
 import { ToastModule } from 'primeng/toast';
 import { EditorModule } from "primeng/editor";
-import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
+import { maxWordsValidator, maxCharactersValidator } from "src/app/@Supports/max-word-validator";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { EducationToolsService } from "../../education-tools/education-tools.service";
 import { SkeletonModule } from "primeng/skeleton";
-import { SharedModule } from "primeng/api";
+import { SharedModule } from "src/app/shared/shared.module";
 import { DropdownModule } from 'primeng/dropdown';
 import { ProgressBarModule } from 'primeng/progressbar';
 declare const pdfjsLib: any;
@@ -417,10 +417,19 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   addCustomJobTitle(input: HTMLInputElement) {
+    if(!input.value){
+      this.toaster.add({
+        severity: 'warn',
+        summary: 'Empty',
+        detail: `Please Type Something..!`
+      });
+      return;
+    }
     const customValue = input.value.trim();
     const exists = this.occupationList.some(
       (job:any) => job.jobrole.toLowerCase() === customValue.toLowerCase()
     );
+    console.log(customValue, "inputs");
     if (exists) {
       this.toaster.add({
         severity: 'warn',
@@ -449,6 +458,14 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   addCustomJobTitleForExp(input: HTMLInputElement, index: number) {
+    if(!input.value){
+      this.toaster.add({
+        severity: 'warn',
+        summary: 'Empty',
+        detail: `Please Type Something..!`
+      });
+      return;
+    }
     const customValue = input.value.trim();
     if (!customValue) return;
 
