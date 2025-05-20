@@ -38,7 +38,7 @@
 		<div class="row h-100">
 			<!-- Sidebar with job list -->
 			<div class="col-lg-3 col-md-5 col-12 h-100">
-				<uni-company-list (companyTrackerEmit)="onClickJobId($event)" [incomingStudentId]="studentIdForList" [incomingStudentIdLive]="studentIdForListLive"
+				<uni-company-list (companyTrackerEmit)="onClickJobId($event)" [incomingStudentId]="studentIdForList"
 					(triggerCloseFilter)="displayModal = false" [displayModal]="displayModal"></uni-company-list>
 			</div>
 
@@ -59,7 +59,7 @@
 					</div>
 				</ng-template>
 				<div class="h-100" *ngIf="selectedJobId; else showEmptyConainter">
-					<uni-company-detail (openChat)="toggleInfo()" (studentIdRelayLive)="onStudentIdRelayLive($event)" [companyId]="selectedJobId" (studentIdRelay)="onStudentIdRelay($event)"
+					<uni-company-detail (openChat)="toggleInfo()" [companyId]="selectedJobId" (studentIdRelay)="onStudentIdRelay($event)"
 						[showInfo]="showChat"></uni-company-detail>
 				</div>
 			</div>

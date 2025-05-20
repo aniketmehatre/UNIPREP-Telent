@@ -34,7 +34,6 @@ export class CompanyTracker1Component {
   companyTypes: DropdownOption[] = [];
   companyForm: FormGroup;
   studentIdForList:any 
-  studentIdForListLive:any;
   companyData: any
   openVideoPopup(link: string) {
 
@@ -119,8 +118,5 @@ export class CompanyTracker1Component {
   }
 onStudentIdRelay(id: number) {
   this.studentIdForList = id;
-}
-onStudentIdRelayLive(id:any){
-  this.studentIdForListLive = id;
 }
 }
