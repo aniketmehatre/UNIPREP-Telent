@@ -33,7 +33,8 @@ export class CompanyTracker1Component {
   foundedYears: DropdownOption[] = [];
   companyTypes: DropdownOption[] = [];
   companyForm: FormGroup;
-
+  studentIdForList:any 
+  studentIdForListLive:any;
   companyData: any
   openVideoPopup(link: string) {
 
@@ -116,5 +117,10 @@ export class CompanyTracker1Component {
   clearFilter() {
 
   }
-
+onStudentIdRelay(id: number) {
+  this.studentIdForList = id;
+}
+onStudentIdRelayLive(id:any){
+  this.studentIdForListLive = id;
+}
 }
