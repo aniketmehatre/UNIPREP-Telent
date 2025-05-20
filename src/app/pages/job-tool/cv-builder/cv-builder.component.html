@@ -166,7 +166,8 @@
 												</div>
 												<div *ngIf="f['user_name'].errors?.['maxCharacters']"
 													class="text-danger text-xs">
-													User Name cannot exceed {{ f['user_name']?.errors?.['maxCharacters'].max
+													User Name cannot exceed {{
+													f['user_name']?.errors?.['maxCharacters'].max
 													}} words.
 													(Current: {{ f['user_name']?.errors?.['maxCharacters'].actual }})
 												</div>
@@ -286,7 +287,7 @@
 										<div class="form-group">
 											<div class="mb-3">
 												<input class="w-100" type="text" placeholder="LinkedIn profile name"
-													formControlName="user_linkedin" pInputText maxlength="25"/>
+													formControlName="user_linkedin" pInputText maxlength="25" />
 												<div *ngIf="submitted && f['user_linkedin'].errors"
 													class="text-danger text-xs">
 													<div *ngIf="f['user_linkedin'].errors">Linked In Name Required</div>
@@ -296,7 +297,8 @@
 													LinkedIn Name cannot exceed {{
 													f['user_linkedin']?.errors?.['maxCharacters'].max
 													}} words.
-													(Current: {{ f['user_linkedin']?.errors?.['maxCharacters'].actual }})
+													(Current: {{ f['user_linkedin']?.errors?.['maxCharacters'].actual
+													}})
 												</div>
 											</div>
 										</div>
@@ -318,7 +320,8 @@
 												LinkedIn Link cannot exceed {{
 												f['user_linkedin_link']?.errors?.['maxCharacters'].max
 												}} words.
-												(Current: {{ f['user_linkedin_link']?.errors?.['maxCharacters'].actual }})
+												(Current: {{ f['user_linkedin_link']?.errors?.['maxCharacters'].actual
+												}})
 											</div>
 										</div>
 									</div>
@@ -336,7 +339,8 @@
 													formControlName="user_website" pInputText />
 												<div *ngIf="f['user_website'].errors?.['maxCharacters']"
 													class="text-danger text-xs">
-													Website cannot exceed {{ f['user_website']?.errors?.['maxCharacters'].max
+													Website cannot exceed {{
+													f['user_website']?.errors?.['maxCharacters'].max
 													}} words.
 													(Current: {{ f['user_website']?.errors?.['maxCharacters'].actual }})
 												</div>
@@ -362,12 +366,6 @@
 										</div>
 										<div class="form-group">
 											<div class="mb-3">
-												<!-- <textarea pTextarea formControlName="user_summary" class="mt-2 w-100"
-													placeholder="About yourself" [rows]="auto"></textarea>
-												<div *ngIf="submitted && f['user_summary'].errors?.['required']"
-													class="text-danger text-xs">
-													<div>User Summary Required</div>
-												</div> -->
 												<p-editor [style]="{ height: 'auto' }" class="mt-2"
 													formControlName="user_summary" placeholder="Generate Your Content"
 													[modules]="editorModules"></p-editor>
@@ -375,12 +373,16 @@
 													class="text-danger text-xs">
 													<div>User Summary Required</div>
 												</div>
-												<div *ngIf="f['user_summary'].errors?.['maxWords']"
+												<div *ngIf="f['user_summary'].errors?.['maxWords'] else showSummaryCount"
 													class="text-danger text-xs">
 													Summary cannot exceed {{ f['user_summary']?.errors?.['maxWords'].max
 													}} words.
 													(Current: {{ f['user_summary']?.errors?.['maxWords'].actual }})
 												</div>
+												<ng-template #showSummaryCount>
+													<div class="text-muted text-small">Word Count: {{userSummaryWordCount}}/50
+													</div>
+												</ng-template>
 											</div>
 										</div>
 									</div>
@@ -639,7 +641,7 @@
 																<p-editor [style]="{ height: 'auto' }" class="mt-2"
 																	formControlName="work_job_description"
 																	placeholder="About Job Description"
-																	[modules]="editorModules"></p-editor>
+																	[modules]="editorModules" (onTextChange)="updateWorkJobDescriptionWordCount( i, $event.htmlValue)"></p-editor>
 																<div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted"
 																	class="text-danger text-xs">
 																	<div
@@ -654,6 +656,10 @@
 																	(Current: {{
 																	wrkExp.get('work_job_description').errors?.['maxWords'].actual
 																	}})
+																</div>
+																<div class="text-small text-muted">
+																	Word Count: {{ jobDescriptionWordCount[i] || 0
+																	}}/120
 																</div>
 																<!-- <div *ngIf="errorMessages[i]" class="text-danger text-xs"
                                                                 style="margin-left:10px;">
@@ -887,7 +893,8 @@
 													</div>
 												</div>
 											</div>
-											<div class="d-flex justify-content-end align-items-center" *ngIf="getEduDetailsArray.length != 1">
+											<div class="d-flex justify-content-end align-items-center"
+												*ngIf="getEduDetailsArray.length != 1">
 												<button pButton class="deleteDivButton"
 													(click)="clickDeleteButton('education_detail', i)">Delete &nbsp;<i
 														class="fa-solid fa-trash trashIcon"></i></button>
@@ -1405,7 +1412,8 @@
 							<span class="me-2">Edit</span><span class="btn-icon px-2 py-2"><i
 									class="fa-solid fa-arrow-left"></i></span>
 						</button>
-						<button pButton type="button" *ngIf="profileOverViewContent" (click)="next()" class="btn btn-primary btn-rounded p-1 ps-4">
+						<button pButton type="button" *ngIf="profileOverViewContent" (click)="next()"
+							class="btn btn-primary btn-rounded p-1 ps-4">
 							<span class="me-2">Preview</span><span class="btn-icon px-2 py-2"><i
 									class="fa-solid fa-check"></i></span>
 						</button>
@@ -1630,9 +1638,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								
-								*ngIf="!hidingHeaders.includes('certificate')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('certificate')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize"
 									[ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">
 									certifications</h5>
@@ -1647,8 +1653,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4" 
-								*ngIf="!hidingHeaders.includes('skills')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('skills')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize"
 									[ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">
 									skills</h5>
@@ -1889,8 +1894,7 @@
 					</div>
 					<div class="col-5">
 						<div class="row">
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('certificate')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('certificate')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize">certifications</h5>
 								<div class="d-flex gap-0 flex-column">
 									<div class="certificationItem"
@@ -1924,8 +1928,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4" 
-								*ngIf="!hidingHeaders.includes('skills')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('skills')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize">skills</h5>
 								<div class="d-flex gap-0 flex-column">
 									<div class="technicalSkillItem fw-semibold"
@@ -2079,8 +2082,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4" 
-								*ngIf="!hidingHeaders.includes('skills')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('skills')">
 								<h5 class="fw-semibold text-capitalize">skills</h5>
 								<hr class="mb-2" />
 								<div class="d-flex gap-0 flex-column">
@@ -2130,9 +2132,7 @@
 									<p>{{ extra.value.extra_curricular_activites }}</p>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								
-								*ngIf="!hidingHeaders.includes('certificate')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('certificate')">
 								<h5 class="fw-semibold text-capitalize">certifications</h5>
 								<hr class="mb-2" />
 								<div class="d-flex gap-0 flex-column">
@@ -2230,9 +2230,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								
-								*ngIf="!hidingHeaders.includes('certificate')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('certificate')">
 								<h5 class="fw-semibold pb-0 text-capitalize" [ngStyle]="{ color: selectedThemeColor }">
 									Certifications</h5>
 								<hr class="mb-3"
@@ -2249,8 +2247,7 @@
 								</div>
 							</div>
 
-							<div class="col-12 mb-4" 
-								*ngIf="!hidingHeaders.includes('skills')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('skills')">
 								<h5 class="fw-semibold pb-0 text-capitalize" [ngStyle]="{ color: selectedThemeColor }">
 									Skills</h5>
 								<hr class="mb-3"
@@ -2483,8 +2480,7 @@
 					</div>
 					<div class="col-5">
 						<div class="row">
-							<div class="col-12 mb-4" 
-								*ngIf="!hidingHeaders.includes('skills')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('skills')">
 								<h5 class="fw-semibold text-capitalize">skills</h5>
 								<hr class="mb-2" />
 								<div class="d-flex gap-0 flex-column">
@@ -2534,9 +2530,7 @@
 									<p>{{ extra.value.extra_curricular_activites }}</p>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								
-								*ngIf="!hidingHeaders.includes('certificate')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('certificate')">
 								<h5 class="fw-semibold text-capitalize">certifications</h5>
 								<hr class="mb-2" />
 								<div class="d-flex gap-0 flex-column">
