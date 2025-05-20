@@ -61,7 +61,6 @@ export class ChatComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-
     this.courcelist.getMe().subscribe((res: any) => {
       this.studentId = res.employee_user_id
       window.Pusher = Pusher;
@@ -76,10 +75,7 @@ export class ChatComponent implements OnInit, OnChanges {
           if (event) {
             const hasMatchingStudentId = this.companyDetails?.id === event.company_id;
             if (hasMatchingStudentId) {
-              var data = {
-                chatId: event.id
-              }
-              this.talentConnectService.markReadMessage(data).subscribe((res: any) => { })
+
               this.messages.push({
                 added_by: event.added_by,
                 chat: event.chat,
@@ -88,8 +84,15 @@ export class ChatComponent implements OnInit, OnChanges {
                 attachment: event.attachment ? event.attachment.name : '',
                 icon: event.icon
               });
+              var data = {
+                chatId: event.id
+              }
+              this.talentConnectService.markReadMessage(data).subscribe((res: any) => {
+                const unseenCount = this.messages.filter((item: any) => item.seen === 0).length;
+                this.studentIdEmit.emit(unseenCount);
+              })
               this.attachmentFile = null;
-            }else{
+            } else {
               //  this.studentIdEmitLive.emit(event);
             }
           }
@@ -237,7 +240,7 @@ export class ChatComponent implements OnInit, OnChanges {
       }
       return item;
     });
-    const unseenCount = this.messages.filter((item: any) => item.seen === 0).length ;
+    const unseenCount = this.messages.filter((item: any) => item.seen === 0).length;
     this.studentIdEmit.emit(unseenCount);
     var data = {
       chatId: id
