@@ -35,7 +35,7 @@
 					</div>
 				</div>
 
-                <div class="card-body h-100 overflow-y-auto overflow-x-hidden no-scrollbar" *ngIf="messages?.length > 0">
+                <div  #scrollContainer class="card-body h-100 overflow-y-auto overflow-x-hidden no-scrollbar" *ngIf="messages?.length > 0">
                     <div >
                         <!-- Progress bar section -->
                         <div class="progress-container my-2 d-block d-lg-none">
@@ -47,8 +47,8 @@
                                 </div>
                             </div>
                         </div>
-                        <ng-container *ngFor="let message of messages">
-                            <div class="d-flex mb-2">
+                        <ng-container *ngFor="let message of messages; let i = index">
+                            <div class="d-flex mb-2" [id]="'item-' + message.id" #msgRef>
                               <!-- Left Avatar (Company/Admin) -->
                               <div class="avatar me-1" *ngIf="message.added_by != 'Student'">
                                 <p-avatar

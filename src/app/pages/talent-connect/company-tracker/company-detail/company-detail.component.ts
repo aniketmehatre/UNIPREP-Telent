@@ -19,7 +19,8 @@ export class CompanyDetailComponent implements OnInit, OnChanges {
   @Output() openChat = new EventEmitter<boolean>(true);
   @Input() showInfo: boolean = true;
   showChat: boolean = false;
-
+  @Output() studentIdRelay = new EventEmitter<number>();
+  @Output() studentIdRelayLive = new EventEmitter<number>();
   companyInfo = {
     name: 'UNIABROAD Technology Pvt. Ltd.',
     founded: 2019,
@@ -71,6 +72,11 @@ export class CompanyDetailComponent implements OnInit, OnChanges {
       }
     });
   }
-
+  onStudentIdFromChat(id: number) {
+  this.studentIdRelay.emit(id); // Bubble it up to parent
+  }
+  onStudentIdFromChatLive(id:any) {
+  this.studentIdRelayLive.emit(id); // Bubble it up to parent
+  }
 }
 

@@ -263,4 +263,8 @@ export class TalentConnectService {
     const url = `${this.apiUrlCurrencyConversion}?start_date=${start}&end_date=${end}&base=${base}&symbols=${symbols}`;
     return this.http.get(url, { headers: this.currencyHeaders });
  }
+     markReadMessage(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/readMessage", data, { headers: headers });
+    }
 }
