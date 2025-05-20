@@ -76,6 +76,7 @@ export class SubscriptionDataComponent implements OnInit {
 	activeButton: number = 1
 	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, private http: HttpClient) {}
 	timeLeftInfoCard: any
+	couponTab: boolean = false
 
 	async ngOnInit(): Promise<void> {
 		try {
@@ -513,7 +514,7 @@ export class SubscriptionDataComponent implements OnInit {
 			border: "1px solid var(--uniprep-primary)",
 			color: "#000000",
 		}
-
+		this.couponTab = false
 		// Set styles for the clicked button
 		if (buttonNumber === 1) {
 			this.activeButton = 1
@@ -522,6 +523,7 @@ export class SubscriptionDataComponent implements OnInit {
 				border: "1px solid var(--uniprep-primary)",
 				color: "#FFFFFF",
 			}
+			this.couponTab = true
 		} else if (buttonNumber === 2) {
 			this.activeButton = 2
 			this.button2Style = {

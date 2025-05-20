@@ -11,8 +11,9 @@
 }
 
 .uniprep-secondary {
-	color: var(--uniprep-secondary);
+	color: var(--uniprep-secondary) !important;
 }
+
 video::-webkit-media-controls-panel {
 	background-image: none !important;
 }

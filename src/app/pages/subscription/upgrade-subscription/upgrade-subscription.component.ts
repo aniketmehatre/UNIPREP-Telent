@@ -88,6 +88,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
 	userName: any
 	phone: any
 	email: any
+	couponTab: boolean = false
 	async ngOnInit(): Promise<void> {
 		try {
 			// Handle userName decryption with better error handling
@@ -860,10 +861,12 @@ export class UpgradeSubscriptionComponent implements OnInit {
 		color: "#000000",
 	}
 	setActiveButtonUpgrade(buttonNumber:number){
+		this.couponTab = false
 		let tabIndex = buttonNumber
 		let data = ""
 		if (tabIndex == 1) {
 			this.monthlyPlan = 1
+			this.couponTab = true
 		} else if (tabIndex == 2) {
 			this.monthlyPlan = 6
 		} else if (tabIndex == 3) {
