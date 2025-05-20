@@ -375,11 +375,11 @@
 													class="text-danger text-xs">
 													<div>User Summary Required</div>
 												</div>
-												<div *ngIf="f['user_summary'].errors?.['maxCharacters']"
+												<div *ngIf="f['user_summary'].errors?.['maxWords']"
 													class="text-danger text-xs">
-													Summary cannot exceed {{ f['user_summary']?.errors?.['maxCharacters'].max
+													Summary cannot exceed {{ f['user_summary']?.errors?.['maxWords'].max
 													}} words.
-													(Current: {{ f['user_summary']?.errors?.['maxCharacters'].actual }})
+													(Current: {{ f['user_summary']?.errors?.['maxWords'].actual }})
 												</div>
 											</div>
 										</div>
@@ -646,13 +646,13 @@
 																		*ngIf="wrkExp.get('work_job_description')?.errors?.['required']">
 																		Job Description required.</div>
 																</div>
-																<div *ngIf="wrkExp.get('work_job_description').errors?.['maxCharacters']"
+																<div *ngIf="wrkExp.get('work_job_description').errors?.['maxWords']"
 																	class="text-danger text-xs">
 																	Job Description cannot exceed {{
-																	wrkExp.get('work_job_description').errors?.['maxCharacters'].max
+																	wrkExp.get('work_job_description').errors?.['maxWords'].max
 																	}} words.
 																	(Current: {{
-																	wrkExp.get('work_job_description').errors?.['maxCharacters'].actual
+																	wrkExp.get('work_job_description').errors?.['maxWords'].actual
 																	}})
 																</div>
 																<!-- <div *ngIf="errorMessages[i]" class="text-danger text-xs"
