@@ -224,7 +224,6 @@ export class AuthService {
           throw new Error('Invalid response format');
         }
        this.user= response.userdetails[0];
-        this._checkExistsSubscription = this.user.subscription_exists || 0;
         this.storeUserData(this.user);
         return response;
       }),
