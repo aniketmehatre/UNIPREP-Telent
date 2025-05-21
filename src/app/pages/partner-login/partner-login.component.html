@@ -1,0 +1,67 @@
+<section class="startbg h-100">
+  <div class="container-fluid h-100">
+    <div class="row h-100 align-items-center justify-content-center">
+      <div class="col-md-6">
+        <div class="card px-4 my-4">
+          <div class="card-body p-md-5 p-0 py-5">
+            <div class="row justify-content-center justify-content-md-center">
+              <div class="col-md-12 col-lg-12">
+                <div class="login d-flex align-items-center text-right">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12 col-lg-12 text-center">
+                        <img [routerLink]="['/']" role="button" width="200" class="small-image text-left mb-2"
+                          [src]="imageUrlWhiteLabel()" />
+                        <hr class="w-25 m-auto" />
+                        <h4 class="mt-3 mb-2 fw-semibold text-center">
+                          Find your partner
+                        </h4>
+                      </div>
+                    </div>
+                    <div class="row mb-5">
+                      <div class="col-md-12 mt-2">
+                        <h5>Country</h5>
+                        <p-select styleClass="w-100" placeholder="Select the country" display="chip"
+                          optionLabel="country" optionValue="id" [options]="countryList" [appendTo]="'body'"
+                          [filter]="true" filterBy="value" [filter]="true" filterBy="country">
+                          <ng-template let-country pTemplate="item">
+                            <div class="d-flex align-items-center gap-2">
+                              <div class="dropdownimg">
+                                <img [src]="country?.flag" class="img-fluid" />
+                              </div>
+                              <div>
+                                {{ country?.country }}
+                              </div>
+                            </div>
+                          </ng-template>
+                          <ng-template pTemplate="selectedItem" let-selectedOption>
+                            <div class="d-flex align-items-center gap-2">
+                              <div class="dropdownimg">
+                                <img [src]="selectedOption.flag" class="img-fluid" />
+                              </div>
+                              <div>
+                                {{ selectedOption.country }}
+                              </div>
+                            </div>
+                          </ng-template>
+                        </p-select>
+                      </div>
+                    </div>
+                    <div class="row mb-5">
+                      <div class="col-md-12 mt-2">
+                        <h5>Partner</h5>
+                        <p-select styleClass="w-100" placeholder="Search for partner" display="chip"
+                          optionLabel="country" optionValue="id" [options]="countryList" [appendTo]="'body'"
+                          [filter]="true" filterBy="value"></p-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
