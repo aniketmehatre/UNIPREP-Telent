@@ -641,45 +641,6 @@ Due to the split circle of progress-left and progress right, we must use the ani
   justify-content: space-between;
   flex-grow: 1; /* Ensures content stretches evenly */
 }
-// active picker
-// .calendar-container {
-//   text-align: center;
-//   max-width: 300px;
-//   margin: auto;
-// }
-
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  justify-items: center;
-  align-content: center;
-}
-
-.day-box {
-  width: 25px;
-  height: 25px;
-  line-height: 30px;
-  text-align: center;
-  border-radius: 50%;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.high {
-  color: white;
-  border: 6px solid #ff881e;
-}
-.medium {
-  color: white;
-  border: 6px solid #455c9e;
-}
-.low {
-  color: black;
-  border: 6px solid #c8cfe5;
-}
 .nostatus {
   background-color: #ecedf3;
 }
@@ -691,41 +652,9 @@ Due to the split circle of progress-left and progress right, we must use the ani
   margin-top: 10px;
   font-size: x-small;
 }
-// n
-/* Weekday Row */
-.weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  justify-items: center;
-  align-content: center;
-  font-weight: bold;
-}
-
-.weekday {
-  text-align: center;
-  padding: 5px;
-}
-
-/* Empty cells for first week alignment */
-.empty {
-  width: 25px;
-  height: 25px;
-}
-
-.usage-info {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  .dot {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%) translateX(-50%);
-    left: 50%;
-  }
-}
 .reportwidthfix {
   max-width: 400px;
+}
+.row.d-flex {
+  align-items: stretch;
 }
