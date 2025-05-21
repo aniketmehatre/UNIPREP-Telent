@@ -11,11 +11,11 @@ export class LandingPartnerServices {
     constructor(private http: HttpClient) { }
 
     getCountryList() {
-      return this.http.get<any>(environment.ApiUrl + "/courseCountries");
+      return this.http.get<any>(environment.ApiUrl + "/getWhiteLabelCountry");
     }
 
-    getUniversityList(countryId: number) {
-      return this.http.post<any>(environment.ApiUrl + "/country",{country_id: countryId}, {
+  getPartnersListById(countryId: number, type: string) {
+    return this.http.post<any>(environment.ApiUrl + "/getWhiteLabelPartners", { country: countryId, mitypename: type }, {
         headers: this.headers});
     }
 }

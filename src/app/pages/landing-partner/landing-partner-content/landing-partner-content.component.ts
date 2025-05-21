@@ -3,6 +3,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '@env/environment';
 import { LandingPartnerServices } from '../landing-partner.service';
+import { } from 'primeng/api';
+import { SelectModule } from 'primeng/select';
+import { FormsModule } from '@angular/forms';
 
 interface LandingSection {
   title: string;
@@ -14,6 +17,13 @@ interface LandingSection {
   isRight: boolean 
 }
 
+interface Partner {
+  id: number;
+  country: string;
+  partner: string;
+  domain: string;
+}
+
 interface PartnerCategory {
   title: string;
   emoji: string; 
@@ -21,7 +31,8 @@ interface PartnerCategory {
 
 @Component({
   selector: 'app-landing-partner-content',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, SelectModule, FormsModule],
+  standalone: true,
   templateUrl: './landing-partner-content.component.html',
   styleUrls: ['./landing-partner-content.component.scss']
 })
@@ -31,7 +42,7 @@ export class LandingPartnerContentComponent implements OnInit {
   isPlaying = false;
   countries: string[] = ['United States', 'Canada', 'United Kingdom', 'Australia', 'India', 'Singapore', 'Germany'];
   selectedCountry: string = 'Select Country';
-  welcomevideoLink: string = `https://youtu.be/Sv8EyWriqV0`
+  welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`
 
   whyPartnerParagraph1: string = 'UNIPREP isn\'t just a platform—it\'s your bridge to growth. Offer real value to your audience, grow your revenue, and connect learners with opportunity.';
   whyPartnerParagraph2: string = 'Launch fast. Empower users. Earn more.';
@@ -132,25 +143,39 @@ export class LandingPartnerContentComponent implements OnInit {
       isRight: false
     },
   ];
-  constructor(private landingInstituteService: LandingPartnerServices) { }
+  partnersList: Partner[] = [];
+  filteredPartnerList: Partner[] = [];
+  searchWord: string = '';
+  constructor(private landingPartnerService: LandingPartnerServices) { }
 
   selectCountry(country: string): void {
     this.selectedCountry = country;
   }
 
   ngOnInit(): void {
-
+    this.getCountryList();
   }
 
   getCountryList() {
-    this.landingInstituteService.getCountryList().subscribe({
+    this.landingPartnerService.getCountryList().subscribe({
       next: response => {
-        this.countries = response;
+        this.countries = response.data;
       },
       error: error => {
         console.error(error);
       }
     })
+  }
+
+  getPartnersListById(id: number) {
+    // this.landingPartnerService.getPartnersListById(id).subscribe({
+    //   next: response => {
+    //     this.partnersList = response.data;
+    //   },
+    //   error: error => {
+    //     console.error(error);
+    //   }
+    // })
   }
 
   toggleVideo() {
@@ -163,5 +188,10 @@ export class LandingPartnerContentComponent implements OnInit {
       this.isPlaying = false
     }
   }
+
+  onSearchPartner(event: string) {
+    this.filteredPartnerList = this.partnersList.filter((item) => item.partner.includes(this.searchWord));
+  }
+
 
 }

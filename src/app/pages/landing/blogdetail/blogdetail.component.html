@@ -1,9 +1,9 @@
 <section class="darksection flex-fill py-5">
-	<div class="container-fluid">
+	<div class="container-fluid text-white">
 		<div class="row justify-content-center">
 			<div class="col-md-10">
-				<div class="card mb-4">
-					<div class="card-body py-4 px-4">
+				<div class="card mb-10">
+					<div class="card-body p-5">
 						<div class="row align-items-center">
 							<div class="col-md-2">
 								<span role="button" onclick="history.back()"><i class="fa-solid fa-chevron-left fa-xl"></i></span>
@@ -21,21 +21,25 @@
 				</div>
 			</div>
 			<div class="col-md-10">
-				<div class="row">
-					<div class="col-md-8">
+				<div class="row mt-4">
+					<div class="col-md-7">
+						<h5 class="py-3">{{blog.title}}</h5>
 						<p class="text-white">{{ blog.seo_title }}</p>
 					</div>
+					<div class="col-md-1 text-center">
+						<div class="vr h-100 bg-light"></div>
+					</div>
 					<div class="col-md-4">
-						<h5 class="text-white">Popular blogs</h5>
-							<div *ngFor="let one of blogs" class="">
+						<h5 class="text-white py-3">Popular blogs</h5>
+						<div *ngFor="let one of blogs">
 								<a style="text-decoration: none; " class="d-flex gap-3 mb-3" href="blogs/{{one.slug}}">
 								<div class="card popularimg" style="background-image:url('{{ one.featured_img }}')"></div>
 								<div>
 									<h6 class="text-white mb-0">{{ one.title }}</h6>
-									<p class="text-small text-white">03-06-2024</p>
+									<p class="text-small text-white">{{one.date}}</p>
 								</div>
 								</a>
-							</div>
+						</div>
 					</div>
 				</div>
 			</div>

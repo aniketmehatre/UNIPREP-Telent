@@ -357,18 +357,18 @@
             <div class="row g-2">
               <div class="col-md-4 mb-3">
                 <div class="text-primary fw-bold">LinkedIn Profile</div>
-                <a [href]="profileData.networking.linkedinProfile" target="_blank" class="text-break" *ngIf="profileData.networking.linkedinProfile">
+<!--                <a [href]="profileData.networking.linkedinProfile" target="_blank" class="text-break" *ngIf="profileData.networking.linkedinProfile">-->
 <!--                  {{profileData.networking.linkedinProfile}}-->
-                    <i class="pi pi-linkedin"></i>
-                </a>
+                    <i class="pi pi-linkedin" *ngIf="profileData.networking.linkedinProfile"></i>
+<!--                </a>-->
                 <div *ngIf="!profileData.networking.linkedinProfile" class="text-muted">Not specified</div>
               </div>
               <div class="col-md-4 mb-3">
                 <div class="text-primary fw-bold">Personal Website</div>
-                <a [href]="profileData.networking.personalWebsite" target="_blank" class="text-break" *ngIf="profileData.networking.personalWebsite">
+<!--                <a [href]="profileData.networking.personalWebsite" target="_blank" class="text-break" *ngIf="profileData.networking.personalWebsite">-->
 <!--                  {{profileData.networking.personalWebsite}}-->
-                    <i class="pi pi-globe"></i>
-                </a>
+                    <i class="pi pi-globe" *ngIf="profileData.networking.personalWebsite"></i>
+<!--                </a>-->
                 <div *ngIf="!profileData.networking.personalWebsite" class="text-muted">Not specified</div>
               </div>
               
@@ -403,11 +403,13 @@
               <ng-container *ngFor="let attachment of profileData.attachments">
                 <div class="col-md-4 mb-3" *ngIf="attachment.type === 'video'">
                   <div class="text-primary fw-bold">Introduction Video</div>
-                  <a [href]="attachment.name" target="_blank">{{attachment.name || 'Not specified'}}</a>
+<!--                  <a [href]="attachment.name" target="_blank">{{attachment.name || 'Not specified'}}</a>-->
+                    <p tooltip="Portfolio link"><i class="pi pi-video"></i></p>
                 </div>
                 <div class="col-md-4 mb-3" *ngIf="attachment.type === 'link'">
                   <div class="text-primary fw-bold">Portfolio</div>
-                  <a [href]="attachment.name" target="_blank">{{attachment.name || 'Not specified'}}</a>
+<!--                  <a [href]="attachment.name" target="_blank">{{attachment.name || 'Not specified'}}</a>-->
+                    <p tooltip="Portfolio link"><i class="pi pi-file"></i></p>
                 </div>
                 <div class="col-md-12 mb-3" *ngIf="attachment.type === 'document'">
                   <div class="text-primary fw-bold">Upload CV / Resume</div>
@@ -492,7 +494,7 @@
             <h3 class="fw-bold text-navy">Additional Information</h3>
           </div>
           <div class="col-md-9">
-            <p>{{profileData.additionalInfo}}</p>
+            <p [innerHtml]="profileData.additionalInfo"></p>
           </div>
         </div>
       </div>

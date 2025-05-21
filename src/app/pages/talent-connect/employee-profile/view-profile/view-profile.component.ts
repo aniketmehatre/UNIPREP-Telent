@@ -11,6 +11,7 @@ import { formatDate } from '@angular/common';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RatingModule } from 'primeng/rating';
 import { RouterModule } from '@angular/router';
+import {TooltipDirective} from "ngx-bootstrap/tooltip";
 
 // Process academic references
 interface AcademicReference {
@@ -120,19 +121,20 @@ interface ProfileData {
 @Component({
   selector: 'uni-view-profile',
   standalone: true,
-  imports: [
-    DialogModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CardModule,
-    ButtonModule,
-    TooltipModule,
-    AvatarModule,
-    ProgressBarModule,
-    RatingModule,
-    RouterModule
-  ],
+    imports: [
+        DialogModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CardModule,
+        ButtonModule,
+        TooltipModule,
+        AvatarModule,
+        ProgressBarModule,
+        RatingModule,
+        RouterModule,
+        TooltipDirective
+    ],
   templateUrl: './view-profile.component.html',
   styleUrl: './view-profile.component.scss'
 })

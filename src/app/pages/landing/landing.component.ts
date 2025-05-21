@@ -185,6 +185,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 	}
 
 	navigatePartnerPage() {
-		window.open(environment.partnerDomain, '_blank');
+		this.router.navigate(['/partner/login']);
+		// window.open(environment.partnerDomain, '_blank');
 	}
 }
