@@ -8,7 +8,7 @@ import { LandingInstituteService } from '../landing-institute/landing-institute.
 interface Institute {
   id: number;
   country: string;
-  partnername: string;
+  institutename: string;
   domainname: string;
   mitypename: string;
 }
