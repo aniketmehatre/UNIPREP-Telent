@@ -164,7 +164,8 @@
 		<div class="card fav-card mt-2 bg-white">
 			<div class="card-body d-flex flex-column justify-content-between">
 				<div class="flex justify-content-between">
-					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span>Apply for jobs</h5>
+					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span>Apply for jobs
+					</h5>
 					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white"
 						style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()"
 						aria-label="View all job applications">View All</button>
@@ -273,23 +274,23 @@
 						[responsiveOptions]="responsiveOptions" [showIndicators]="true" [value]="partnerTrusterLogo"
 						class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 						aria-label="Educational Partners Carousel">
-					<ng-template let-uni pTemplate="item">
-								<div role="button" tabindex="0" class="card m-2 bg-white" style="height: 93% !important;">
-									<div class="card-body">
-										<div class="text-center">
-											<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
-												<img alt="{{ uni.name }} logo" class="w-100 h-100"
-													style="object-fit: cover" src="{{uni.logo }}" />
-											</div>
-											<div>
-												<h6 class="mb-0 text-sm text-capitalize">
-													<b>Company Name</b>
-												</h6>
-											</div>
+						<ng-template let-uni pTemplate="item">
+							<div role="button" tabindex="0" class="card m-2 bg-white" style="height: 93% !important;">
+								<div class="card-body">
+									<div class="text-center">
+										<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
+											<img alt="{{ uni.name }} logo" class="w-100 h-100" style="object-fit: cover"
+												src="{{uni.logo }}" />
+										</div>
+										<div>
+											<h6 class="mb-0 text-sm text-capitalize">
+												<b>Company Name</b>
+											</h6>
 										</div>
 									</div>
 								</div>
-							</ng-template>
+							</div>
+						</ng-template>
 					</p-carousel>
 				</div>
 			</div>
@@ -318,7 +319,6 @@
 		</div>
 	</div>
 </div>
-
 <!-- Continue Reading Modal -->
 <div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1" aria-modal="true"
 	aria-labelledby="continueReadingHeader">
