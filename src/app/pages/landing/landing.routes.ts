@@ -38,10 +38,7 @@ export const landingRoutes: Routes = [
     path: 'talent-connect',
     loadChildren: () => import('../landing-talent-connect/landing-new.module').then(c => c.LandingModule)
   },
-  {
-    path: 'partner/login',
-    loadComponent: () => import('../partner-login/partner-login.component').then(m => m.PartnerLoginComponent),
-  },
+
   {
     path: 'institute/login',
     loadComponent: () => import('../institution-login/institution-login.component').then(m => m.InstitutionLoginComponent),
@@ -49,6 +46,10 @@ export const landingRoutes: Routes = [
   {
     path: 'partner',
     loadChildren: () => import('../landing-partner/landing-partner.module').then(c => c.LandingPartnerModule),
+  },
+  {
+    path: 'partner/login',
+    loadComponent: () => import('../partner-login/partner-login.component').then(m => m.PartnerLoginComponent),
   },
   {
     path: "pages",
