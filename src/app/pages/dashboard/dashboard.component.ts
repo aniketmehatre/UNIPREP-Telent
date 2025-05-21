@@ -380,11 +380,11 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	openViewMoreOrg(): void {
-		this.router.navigate(["/pages/talent-connect/easy-apply"]);
+		this.router.navigate(["/pages/talent-connect/company-connect"]);
 	}
 
 	viewMoreOpenJobApplication() {
-		this.router.navigate(["/pages/talent-connect/company-connect"]);
+		this.router.navigate(["/pages/talent-connect/easy-apply"]);
 	}
 
 	checkquizquestionmodule() {
