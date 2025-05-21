@@ -33,10 +33,10 @@
   <div class="row py-5">
     <div class="col-12 col-md-10 mx-auto">
       <div class="d-flex flex-wrap gap-3">
-        <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="country" [showClear]="true"
+        <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="country" styleClass="custom-country-select" [showClear]="true"
           [style]="{ 'min-width': '200px', 'border-radius': '8px', 'border': '1px solid orange', 'background': 'transparent', 'color': '#fff' }"
-          panelStyleClass="custom-dropdown-panel" [virtualScroll]="true" [virtualScrollItemSize]="50" [filter]="true" filterBy="country">
-          <ng-template let-country pTemplate="item">
+          panelStyleClass="custom-dropdown-panel" [virtualScroll]="true" optionValue="id" [virtualScrollItemSize]="50" [filter]="true" filterBy="country" (onChange)="getPartnersListById($event.value);">
+          <ng-template let-country pTemplate="item" >
             <div class="d-flex align-items-center gap-2">
               <div class="dropdownimg">
                 <img [src]="country?.flag" class="img-fluid" />
@@ -67,13 +67,13 @@
           </div>
           <div *ngIf="filteredPartnerList && filteredPartnerList.length > 0" class="rounded-4 border-orange">
             <ng-container *ngFor="let partner of filteredPartnerList">
-                <a class="bg-dark text-white text-decoration-none" [href]="partner.domain">
+                <div class="bg-dark text-white text-decoration-none py-3 border-white" [href]="'http:\\'+partner.domainname" target="_blank">
                   {{ partner.partner }}
-                </a>
+                </div>
             </ng-container>
           </div>
         </div>
-      </div>
+        </div>
     </div>
   </div>
   <ng-container *ngFor="let section of landingSections">

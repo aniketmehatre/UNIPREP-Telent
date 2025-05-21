@@ -5,6 +5,9 @@ import { environment } from '@env/environment';
 import { LandingInstituteService } from '../landing-institute.service';
 import { Country } from 'src/app/@Models/country.model';
 import { SelectModule } from 'primeng/select';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { FormsModule } from '@angular/forms';
 
 interface LandingSection {
   title: string;
@@ -16,6 +19,13 @@ interface LandingSection {
   isRight: boolean 
 }
 
+interface Institute {
+  id: number;
+  country: string;
+  institutename: string;
+  domainname: string;
+  mitypename: string;
+}
 interface InstituteCategory {
   title: string;
   emoji: string; 
@@ -23,7 +33,7 @@ interface InstituteCategory {
 
 @Component({
   selector: 'uni-landing-institute-content',
-  imports: [CommonModule, RouterModule, SelectModule],
+  imports: [CommonModule, RouterModule, FormsModule, SelectModule, InputGroupAddonModule, InputGroupModule],
   templateUrl: './landing-institute-content.component.html',
   styleUrl: './landing-institute-content.component.scss'
 })
@@ -138,8 +148,31 @@ export class LandingInstituteContentComponent {
     { title: 'Research Institutes', emoji: '🔬' },
     { title: 'Online and Distance Learning Institutes', emoji: '🌐' },
   ];
-
-
+  instituteList: Institute[] = [];
+  filteredInstituteList: Institute[] = [
+    {
+      id: 1,
+      country: 'India',
+      institutename: 'Tech Solutions Pvt Ltd',
+      domainname: 'techsolutions.in',
+      mitypename: 'Reseller'
+    },
+    {
+      id: 2,
+      country: 'United States',
+      institutename: 'Global Innovators LLC',
+      domainname: 'globalinnovators.com',
+      mitypename: 'Distributor'
+    },
+    {
+      id: 3,
+      country: 'Germany',
+      institutename: 'SmartTech GmbH',
+      domainname: 'smarttech.de',
+      mitypename: 'Integrator'
+    },
+  ];
+  searchWord: string = '';
   constructor(private landingInstituteService: LandingInstituteService) { }
 
   selectCountry(country: string): void {
@@ -161,6 +194,17 @@ export class LandingInstituteContentComponent {
     })
   }
 
+  getPartnersListById(id: number) {
+    this.landingInstituteService.getPartnersListById(id, 'College').subscribe({
+      next: response => {
+        this.instituteList = response.data;
+      },
+      error: error => {
+        console.error(error);
+      }
+    })
+  }
+
   toggleVideo() {
     const video: HTMLVideoElement = this.videoPlayer.nativeElement
     if (video.paused) {
@@ -172,4 +216,7 @@ export class LandingInstituteContentComponent {
     }
   }
 
+  onSearchInstitute(event: any) {
+    this.filteredInstituteList = this.filteredInstituteList.filter((item) => item.institutename.includes(this.searchWord));
+  }
 }
