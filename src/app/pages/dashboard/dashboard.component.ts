@@ -62,9 +62,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	sendInvite: any = ""
 	isVideoVisible: boolean = false
 	isShareWithSocialMedia: boolean = false
-	isViewMoreOrgVisible: boolean = false
-	isViewMoreJobApplication: boolean = false;
-	partnerTrusterLogo: any
+	partnerTrusterLogo: any[]=[]
 	showSkeleton: boolean = false
 	planExpired: boolean = false
 	ehitlabelIsShow: boolean = true
@@ -72,7 +70,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	orgnamewhitlabel: any
 	orglogowhitelabel: any
 	groupedListFav: any[] = [];
-	groupedListFav2: any[] = [];
 	date: Date = new Date();
 	cvBuilderPercentage: number = 0;
 	talentConnectPercentage: number = 0;
@@ -143,8 +140,8 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.recentJobs();
 		this.handleUserData();
 		this.loadParallelData();
+		this.recentCompanies();
 		this.groupedListFav = this.chunkArray(this.featureFavouriteList, 4);
-		this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 3);
 		this.locationService.dashboardLocationList().subscribe((countryList: any) => {
 			this.countryLists = countryList
 		});
@@ -154,13 +151,23 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	recentJobs() {
 		this.dashboardService.RecentJobApplication().subscribe({
 			next: (data: any) => {
-				this.recentJobApplication = data.jobs
-				this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 3);
+				this.recentJobApplication = data.recent_jobs
 				if (this.recentJobApplication.length == 0) {
 					this.isNoApplicationsData = true;
 				} else {
 					this.isNoApplicationsData = false;
 				}
+				this.cdr.detectChanges();
+			},
+			error: (error) => {
+				// console.error('Error fetching job listings:', error);
+			}
+		});
+	}
+	recentCompanies() {
+		this.dashboardService.RecentCompanies().subscribe({
+			next: (data: any) => {
+				this.partnerTrusterLogo = data.companies
 				this.cdr.detectChanges();
 			},
 			error: (error) => {
@@ -213,7 +220,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			quizCompletion
 		}) => {
 			// Handle partner logo
-			this.partnerTrusterLogo = partnerLogo;
+			// this.partnerTrusterLogo = partnerLogo;
 
 			// Handle country list
 			if (countryList) {
@@ -382,16 +389,11 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	openViewMoreOrg(): void {
-		this.isViewMoreOrgVisible = true;
+		this.router.navigate(["/pages/talent-connect/company-connect"]);
 	}
 
 	viewMoreOpenJobApplication() {
-		if (this.recentJobApplication.length > 0) {
-			this.isViewMoreJobApplication = true;
-		} else {
-			this.isViewMoreJobApplication = false;
-			this.toastr.add({ severity: 'error', summary: '', detail: "No Recent Job Applications Yet" });
-		}
+		this.router.navigate(["/pages/talent-connect/easy-apply"]);
 	}
 
 	checkquizquestionmodule() {
