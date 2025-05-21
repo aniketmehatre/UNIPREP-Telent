@@ -148,6 +148,6 @@
 		</div>
 	</div>
 	<div class="col-md-4 h-100 overflow-y-auto" *ngIf="showChat">
-		<uni-chat [companyDetails]="companyDetails" (studentIdEmitLive)="onStudentIdFromChatLive($event)" (closeChat)="showChat = false" (studentIdEmit)="onStudentIdFromChat($event)"></uni-chat>
+		<uni-chat [companyDetails]="companyDetails"  (closeChat)="showChat = false" (studentIdEmit)="onStudentIdFromChat($event)"></uni-chat>
 	</div>
 </div>

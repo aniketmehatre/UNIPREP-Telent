@@ -195,23 +195,13 @@ export class CompanyListsComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['incomingStudentId'] && changes['incomingStudentId'].currentValue) {
       const count = changes['incomingStudentId'].currentValue;
+      console.log(count);
+      
       this.companyList = this.companyList.map((item: any) => {
-        if (item.id === this.companyId.id && item.notification_count >= -1) {
+        if (item.id === this.companyId.id && item.notification_count >= 1) {
           return {
             ...item,
-            notification_count: count
-          };
-        }
-        return item;
-      });
-    }
-    if (changes['incomingStudentIdLive'] && changes['incomingStudentIdLive'].currentValue) {
-      const val = changes['incomingStudentIdLive'].currentValue;
-      this.companyList = this.companyList.map((item: any) => {
-        if (item.id === val.company_id) {
-          return {
-            ...item,
-            notification_count: item.notification_count + 1
+            notification_count: count==1?0:count
           };
         }
         return item;
