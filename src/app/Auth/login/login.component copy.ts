@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 			this.imageUrlWhitelabel.set(imageUrl);
 			console.log(this.imageUrlWhitelabel)
 			this.cdr.markForCheck()
-		})
+		});
 		this.loginForm = this.formBuilder.group({
 			email: ["", [Validators.required, Validators.email]],
 			password: ["", [Validators.required]],

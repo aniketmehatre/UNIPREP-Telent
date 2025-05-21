@@ -68,6 +68,11 @@ body {
 	overflow: auto !important;
 }
 
+
+.mb-10 {
+  margin-bottom: 100px;
+}
+
 // ::ng-deep ::-webkit-scrollbar-track {
 // 	-webkit-box-shadow: none !important;
 // 	border-radius: 8px !important;
@@ -168,9 +173,9 @@ h6 {
 	font-weight: 500;
 }
 p {
-	font-family: "Work Sans", sans-serif;
+	font-family: "Poppins", sans-serif !important;
 	line-height: 2;
-	font-weight:500;
+	font-size: 13px;
 }
 .darksection
 {

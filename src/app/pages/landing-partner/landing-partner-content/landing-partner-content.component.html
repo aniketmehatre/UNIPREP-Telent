@@ -19,7 +19,7 @@
       <div class="col-md-12">
         <div class="video-container" (click)="toggleVideo()">
           <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
-          <video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none"
+          <video class="rounded-4" #videoPlayer width="100%" height="80%" preload="none"
             poster="/uniprep-assets/images/uniprepmockup.png">
             <source [src]="welcomevideoLink" type="video/youtube" />
           </video>
@@ -33,7 +33,7 @@
     <div class="col-12 col-md-10 mx-auto">
       <div class="d-flex flex-wrap gap-3">
         <div class="dropdown">
-          <button class="btn dropdown-toggle text-white border-warning p-3" type="button" id="countryDropdown"
+          <button class="btn dropdown-toggle text-white border-orange p-3" type="button" id="countryDropdown"
             data-bs-toggle="dropdown" aria-expanded="false"
             style="border-radius: 0; min-width: 200px; background-color: transparent;">
             {{ selectedCountry }}
@@ -60,9 +60,9 @@
 <ng-container *ngFor="let section of landingSections">
 <div class="row py-5 g-2 justify-content-center align-items-center" >
     <div class="row col-md-10">
-      <div class="col-md-6 mx-auto d-flex flex-column justify-content-center" [ngClass]="{'order-lg-2 pl-100': !section.isRight, 'order-lg-1': section.isRight}">
+      <div class="col-md-6 mx-auto my-auto d-flex flex-column justify-content-center" [ngClass]="{'order-lg-2 pl-100': !section.isRight, 'order-lg-1': section.isRight}">
         <div class="fs-1 fw-bold mb-3" [innerHTML]="section.title"></div>
-        <p class="text-warning mb-4">{{ section.subtitle }}</p>
+        <p class="text-orange mb-4">{{ section.subtitle }}</p>
         <div class="feature-list">
           <div class="d-flex align-items-start mb-3" *ngFor="let feature of section.features">
             <div class="me-2">
@@ -74,7 +74,7 @@
       </div>
 
       <div class="col-md-6" [ngClass]="{'order-lg-1': !section.isRight, 'order-lg-2': section.isRight}">
-        <img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border border-white">
+        <img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border border-white" style="height: 80%; width: 100%;">
       </div>
     </div>
   </div>
@@ -101,12 +101,12 @@
     <div class="row col-md-10">
       <div class="col-12 ">
         <h1 class="display-5 mb-4">
-          Why Partner with <span class="text-warning fw-bold ">UNIPREP?</span>
+          Why Partner with <span class="text-orange fw-bold ">UNIPREP?</span>
         </h1>
 
         <div class="p-4 rounded card fw-bold">
           <p class="mb-3 text-white">{{ whyPartnerParagraph1 }}</p>
-          <p class="text-warning">{{ whyPartnerParagraph2 }}</p>
+          <p class="text-orange">{{ whyPartnerParagraph2 }}</p>
         </div>
       </div>
     </div>
@@ -145,11 +145,6 @@
         </h1>
         <div class="slider-container">
           <div class="slider-track d-flex justify-content-center align-items-center gap-5">
-            <img src="uniprep-assets/images/partner-advisors/advisor-1.png" alt="Image 1" />
-            <img src="uniprep-assets/images/partner-advisors/advisor-2.png" alt="Image 2" />
-            <img src="uniprep-assets/images/partner-advisors/advisor-3.png" alt="Image 3" />
-            <img src="uniprep-assets/images/partner-advisors/advisor-4.png" alt="Image 4" />
-            <img src="uniprep-assets/images/partner-advisors/advisor-5.png" alt="Image 5" />
             <img src="uniprep-assets/images/partner-advisors/advisor-1.png" alt="Image 1" />
             <img src="uniprep-assets/images/partner-advisors/advisor-2.png" alt="Image 2" />
             <img src="uniprep-assets/images/partner-advisors/advisor-3.png" alt="Image 3" />

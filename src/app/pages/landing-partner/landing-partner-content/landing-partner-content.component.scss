@@ -124,17 +124,17 @@ section {
   background-color: #121212 !important;
 }
 
-.text-warning {
-  color: #ff8a00 !important;
+.text-orange {
+  color: var(--uniprep-secondary) !important;
 }
 
-.border-warning {
-  border-color: #ff8a00 !important;
+.border-orange {
+  border-color: var(--uniprep-secondary) !important;
 }
 
-.btn-warning {
-  background-color: #ff8a00 !important;
-  border-color: #ff8a00 !important;
+.btn-orange {
+  background-color: var(--uniprep-secondary) !important;
+  border-color: var(--uniprep-secondary) !important;
 }
 
 .dropdown-toggle {
@@ -154,7 +154,7 @@ section {
 
 .feature-list {
   i {
-    color: #ff8a00;
+    color: var(--uniprep-secondary);
     font-size: 1.2rem;
   }
 }
@@ -182,4 +182,16 @@ kbd {
   .display-4, .display-5 {
     font-size: 1.8rem;
   }
+}
+
+.slider-track {
+	display: flex;
+	width: calc(100%);
+	/* enough width to slide duplicated images */
+}
+
+.slider-track img {
+	width: 14.2%;
+	padding: 10px;
+	object-fit: contain;
 }
