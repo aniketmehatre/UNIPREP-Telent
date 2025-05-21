@@ -24,6 +24,10 @@ export const landingRoutes: Routes = [
     path: 'institute',
     loadChildren: () => import('../landing-institute/landing-institute.module').then(c => c.LandingInstituteModule)
   },
+  {
+    path: 'partner',
+    loadChildren: () => import('../landing-partner/landing-partner.module').then(c => c.LandingPartnerModule),
+  },
   { path: "students", component: CoBrandedComponent },
   { path: "students/login", component: LoginComponent },
   { path: "register", component: RegistrationComponent },
@@ -43,10 +47,7 @@ export const landingRoutes: Routes = [
     path: 'institute/login',
     loadComponent: () => import('../institution-login/institution-login.component').then(m => m.InstitutionLoginComponent),
   },
-  {
-    path: 'partner',
-    loadChildren: () => import('../landing-partner/landing-partner.module').then(c => c.LandingPartnerModule),
-  },
+
   {
     path: 'partner/login',
     loadComponent: () => import('../partner-login/partner-login.component').then(m => m.PartnerLoginComponent),

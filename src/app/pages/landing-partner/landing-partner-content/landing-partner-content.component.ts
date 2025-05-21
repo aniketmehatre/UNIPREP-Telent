@@ -20,8 +20,9 @@ interface LandingSection {
 interface Partner {
   id: number;
   country: string;
-  partner: string;
-  domain: string;
+  partnername: string;
+  domainname: string;
+  mitypename: string;
 }
 
 interface PartnerCategory {
@@ -146,14 +147,15 @@ export class LandingPartnerContentComponent implements OnInit {
   partnersList: Partner[] = [];
   filteredPartnerList: Partner[] = [];
   searchWord: string = '';
-  constructor(private landingPartnerService: LandingPartnerServices) { }
+  constructor(private landingPartnerService: LandingPartnerServices) {
+    this.getCountryList();
+  }
 
   selectCountry(country: string): void {
     this.selectedCountry = country;
   }
 
   ngOnInit(): void {
-    this.getCountryList();
   }
 
   getCountryList() {
@@ -168,7 +170,7 @@ export class LandingPartnerContentComponent implements OnInit {
   }
 
   getPartnersListById(id: number) {
-    this.landingPartnerService.getPartnersListById(id).subscribe({
+    this.landingPartnerService.getPartnersListById(id, 'Marketing Representative').subscribe({
       next: response => {
         this.partnersList = response.data;
       },
@@ -190,7 +192,7 @@ export class LandingPartnerContentComponent implements OnInit {
   }
 
   onSearchPartner(event: string) {
-    this.filteredPartnerList = this.partnersList.filter((item) => item.partner.includes(this.searchWord));
+    this.filteredPartnerList = this.partnersList.filter((item) => item.partnername.includes(this.searchWord));
   }
 
 
