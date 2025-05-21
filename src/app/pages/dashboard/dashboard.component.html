@@ -166,58 +166,44 @@
 				<div class="flex justify-content-between">
 					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span>Apply for jobs
 					</h5>
-					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white"
+					<button class="btn btn-rounded text-small px-4 py-2 m-0  bg-white"
 						style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()"
 						aria-label="View all job applications">View All</button>
 				</div>
-				<p-carousel #carousel [circular]="false" [numScroll]="1" [numVisible]="1" *ngIf="!isNoApplicationsData"
-					[responsiveOptions]="responsiveOptions" [value]="groupedListFav2" [showIndicators]="true"
+				<p-carousel #carousel [circular]="false"  [autoplayInterval]="3000" [numScroll]="1" [numVisible]="3" *ngIf="!isNoApplicationsData"
+					[responsiveOptions]="responsiveOptions" [value]="recentJobApplication" [showIndicators]="true"
 					[indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 					aria-label="Recent Job Applications Carousel">
 					<ng-template let-group pTemplate="item">
-						<div class="grid-container">
-							<div *ngFor="let v of group">
-								<div (click)="selectFav(v)" role="button" tabindex="0" class="card bg-white"
+								<div  role="button" tabindex="0" class="card mt-0 m-2 bg-white"
 									(keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
 									<div class="card-body">
 										<div class="d-flex gap-2">
 											<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
-												<img alt="{{ v.company_name }} logo" class="w-100 h-100"
+												<img alt="{{ group.company_name }} logo" class="w-100 h-100"
 													style="object-fit: cover"
 													(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
-													src="{{ v.company_logo }}" />
+													src="{{ group.image }}" />
 											</div>
 											<div>
 												<h6 class="mb-0 text-sm text-capitalize">
-													<b>{{ v.position }}</b>
+													<b>{{ group.position_title }}</b>
 												</h6>
-												<p class="text-muted text-small">{{ v.company_name }}</p>
-												<p class="text-muted text-small">Status: {{ v.status }}</p>
+												<p class="text-muted text-small">{{ group.company_name }}</p>
 												<p class="mb-0 text-small text-capitalize mt-2">
 													<i class="fa-solid fa-location-dot" style="color: #79ae28"
 														aria-hidden="true"></i>&nbsp;
-													<span style="font-weight: 500px; color: black">{{ v.worklocation
+													<span style="font-weight: 500px; color: black">{{ group.work_location
 														}}</span>
 												</p>
-												<button class="btn btn-rounded text-small m-0 mb-2" [ngStyle]="{
-														border: '1px solid ' + v.color_code,
-														'background-color': v.color_code,
-														color: 'white',
-														'font-size': '10px',
-														'border-radius': '2px'
-													}" aria-label="Hiring stage: {{ v.hiringstage }}">
-													{{ v.hiringstage }}
-												</button>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
 					</ng-template>
 				</p-carousel>
 				<div *ngIf="isNoApplicationsData" style="margin: auto">
-					<h4>No Recent Job Applications Yet</h4>
+					<h4>No Recent Jobs Yet</h4>
 				</div>
 			</div>
 		</div>
@@ -275,7 +261,7 @@
 						class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 						aria-label="Educational Partners Carousel">
 						<ng-template let-uni pTemplate="item">
-							<div role="button" tabindex="0" class="card m-2 bg-white" style="height: 93% !important;">
+							<div role="button" tabindex="0" class="card mt-0 m-2 bg-white">
 								<div class="card-body">
 									<div class="text-center">
 										<div class="border rounded-2 overflow-hidden" style="max-width: 100px">

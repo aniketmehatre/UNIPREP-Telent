@@ -70,7 +70,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	orgnamewhitlabel: any
 	orglogowhitelabel: any
 	groupedListFav: any[] = [];
-	groupedListFav2: any[] = [];
 	date: Date = new Date();
 	cvBuilderPercentage: number = 0;
 	talentConnectPercentage: number = 0;
@@ -142,7 +141,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.handleUserData();
 		this.loadParallelData();
 		this.groupedListFav = this.chunkArray(this.featureFavouriteList, 4);
-		this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 3);
 		this.locationService.dashboardLocationList().subscribe((countryList: any) => {
 			this.countryLists = countryList
 		});
@@ -152,8 +150,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	recentJobs() {
 		this.dashboardService.RecentJobApplication().subscribe({
 			next: (data: any) => {
-				this.recentJobApplication = data.jobs
-				this.groupedListFav2 = this.chunkArray(this.recentJobApplication, 3);
+				this.recentJobApplication = data.recent_jobs
 				if (this.recentJobApplication.length == 0) {
 					this.isNoApplicationsData = true;
 				} else {
