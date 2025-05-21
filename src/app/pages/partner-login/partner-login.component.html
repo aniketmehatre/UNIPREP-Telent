@@ -23,8 +23,8 @@
                         <h5>Country</h5>
                         <p-select styleClass="w-100" placeholder="Select the country" display="chip"
                           optionLabel="country" optionValue="id" [options]="countryList" [appendTo]="'body'"
-                          [filter]="true" filterBy="value" [filter]="true" filterBy="country">
-                          <ng-template let-country pTemplate="item">
+                           [filter]="true" filterBy="country" (onChange)="getPartnersListById($event.value);">
+                          <ng-template let-country pTemplate="item" >
                             <div class="d-flex align-items-center gap-2">
                               <div class="dropdownimg">
                                 <img [src]="country?.flag" class="img-fluid" />
@@ -51,8 +51,14 @@
                       <div class="col-md-12 mt-2">
                         <h5>Partner</h5>
                         <p-select styleClass="w-100" placeholder="Search for partner" display="chip"
-                          optionLabel="country" optionValue="id" [options]="countryList" [appendTo]="'body'"
-                          [filter]="true" filterBy="value"></p-select>
+                          optionLabel="partnername" optionValue="id" [options]="partnersList" [appendTo]="'body'"
+                          [filter]="true" filterBy="partnername" (onChange)="routeDomain($event.value)">
+                          <ng-template let-item pTemplate="item" >
+                              <div [routerLink]="item.domainname">
+                                {{ item?.partnername }}
+                              </div>
+                          </ng-template>
+                        </p-select>
                       </div>
                     </div>
                   </div>
