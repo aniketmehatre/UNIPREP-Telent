@@ -10,6 +10,13 @@ interface Country
    flag: string
 }
 
+interface Partner {
+  id: number;
+  country: string;
+  partner: string;
+  domain: string;
+}
+
 @Component({
   selector: 'uni-partner-login',
   standalone: true,
@@ -20,6 +27,7 @@ interface Country
 export class PartnerLoginComponent implements OnInit {
   imageUrlWhiteLabel = signal<string | null>(null);
   countryList: Country[] = [];
+  partnersList: Partner[] = [];
 
   constructor(private locationService: LocationService, private partnerService: LandingPartnerServices) { }
 
@@ -37,7 +45,7 @@ export class PartnerLoginComponent implements OnInit {
     getCountryList() {
     this.partnerService.getCountryList().subscribe({
       next: response => {
-        this.countryList = response;
+        this.countryList = response.data;
       },
       error: error => {
         console.error(error);

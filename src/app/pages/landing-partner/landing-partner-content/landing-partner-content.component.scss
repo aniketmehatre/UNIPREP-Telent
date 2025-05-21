@@ -26,6 +26,11 @@ html {
 
 }
 
+.btn-secondary-1 {
+	color: white;
+	background-color: var(--uniprep-secondary);
+}
+
 body {
 	font-family: "Poppins", sans-serif !important;
 	overflow: auto !important;
@@ -154,7 +159,7 @@ section {
 
 .feature-list {
   i {
-    color: var(--uniprep-secondary);
+    color: #ff8a00;
     font-size: 1.2rem;
   }
 }
@@ -183,11 +188,17 @@ kbd {
     font-size: 1.8rem;
   }
 }
+.slider-container {
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+	height: 200px;
+	/* Adjust height as needed */
+}
 
 .slider-track {
 	display: flex;
 	width: calc(100%);
-	/* enough width to slide duplicated images */
 }
 
 .slider-track img {
