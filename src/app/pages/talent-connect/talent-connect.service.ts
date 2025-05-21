@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs';
+import { removeExtraResponse } from '../prompt';
 
 @Injectable({
     providedIn: 'root'
@@ -248,9 +250,9 @@ export class TalentConnectService {
     }
 
     getAiEvaluationSummary(formData: any) {
-        return this.http.post<any>(
-            environment.ApiUrl + "/generateyourprofile", formData,
-            { headers: this.headers });
+        return this.http.post<any>(environment.ApiUrl + "/getIntegratedRecom", formData,{ headers: this.headers }).pipe(
+            map(res => ({ response: removeExtraResponse(res.response), profile_percent: res.profile_percent })) // Process response before returning
+        );
     }
 
     getCompanyConnectAiSummary(formData: any) {
@@ -260,10 +262,11 @@ export class TalentConnectService {
     }
 
     getCurrencyConverter(base: string = 'USD', symbols: string = 'INR', start: string = '2025-05-11', end: string = '2025-05-12') {
-    const url = `${this.apiUrlCurrencyConversion}?start_date=${start}&end_date=${end}&base=${base}&symbols=${symbols}`;
-    return this.http.get(url, { headers: this.currencyHeaders });
- }
-     markReadMessage(data: any) {
+        const url = `${this.apiUrlCurrencyConversion}?start_date=${start}&end_date=${end}&base=${base}&symbols=${symbols}`;
+        return this.http.get(url, { headers: this.currencyHeaders });
+    }
+
+    markReadMessage(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/readMessage", data, { headers: headers });
     }

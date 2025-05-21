@@ -251,7 +251,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		private toaster: MessageService,
 		private fb: FormBuilder,
 		private resumeService: CourseListService,
-		private locationService: LocationService,
 		private authService: AuthService,
 		private router: Router,
 		private confirmService: ConfirmationService,
@@ -818,9 +817,11 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	// }
 	jobRoles: JobTitle[] = [];
 	getJobRoles() {
-		this.service.getJobRoles().subscribe((response: any) => {
-			this.jobRoles = response;
-		});
+		this.cvBuilderService.getJobList().subscribe({
+			next: (response: any) =>{
+				this.jobRoles = response;
+			}
+		})
 	}
 	// setJobtitle(jobRoleId: number, jobRoleLabel: string) {
 	// 	// this.selectedData[1] = jobRoleId;
