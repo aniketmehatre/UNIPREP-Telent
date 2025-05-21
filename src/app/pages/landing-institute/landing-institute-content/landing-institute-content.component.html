@@ -21,7 +21,7 @@
 				<div class="video-container" (click)="toggleVideo()">
 					<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
 					<video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none"
-						poster="/uniprep-assets/images/uniprepmockup.png">
+						poster="/uniprep-assets/images/landing-partners/partner-home-mock.png">
 						<source [src]="welcomevideoLink" type="video/mp4" />
 					</video>
 				</div>
@@ -35,28 +35,49 @@
 			<div class="col-12 col-md-8">
 				<div class="d-flex flex-wrap gap-3">
 					<div class="dropdown">
-						<p-select aria-labelledby="countryDropdown" styleClass="w-100 p-1"
-							class="dropdown-menu form-select bg-dark text-white w-100 p-2 border-secondary"
-							id="enquireType" [options]="countries" [filter]="true" filterBy="country"
-							placeholder="Select an Country" optionValue="id" optionLabel="country" appendTo="body"
-							[virtualScroll]="true" [virtualScrollItemSize]="50"> </p-select>
+					<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="country"
+						styleClass="custom-country-select p-1" [showClear]="true"
+						[style]="{ 'min-width': '200px', 'border-radius': '8px', 'border': '1px solid orange', 'background': 'transparent', 'color': '#fff' }"
+						panelStyleClass="custom-dropdown-panel" [virtualScroll]="true" optionValue="id"
+						[virtualScrollItemSize]="50" [filter]="true" filterBy="country"
+						(onChange)="getPartnersListById($event.value);">
+						<ng-template let-country pTemplate="item">
+							<div class="d-flex align-items-center gap-2">
+								<div class="dropdownimg">
+									<img [src]="country?.flag" class="img-fluid" />
+								</div>
+								<div>
+									{{ country?.country }}
+								</div>
+							</div>
+						</ng-template>
+						<ng-template pTemplate="selectedItem" let-selectedOption>
+							<div class="d-flex align-items-center gap-2 text-white">
+								<div class="dropdownimg">
+									<img [src]="selectedOption.flag" class="img-fluid" />
+								</div>
+								<div>
+									{{ selectedOption.country }}
+								</div>
+							</div>
+						</ng-template>
+					</p-select>
 					</div>
-
 					<div class="flex-grow-1">
 						<div class="input-group border-1 border-dark rounded-4">
 							<span class="input-group-text bg-dark border-0 text-white p-3">
 								<i class="fa fa-search"></i>
 							</span>
-							<input type="text" [(ngModel)]="searchWord" (ngModelChange)="onSearchInstitute($event);"
+							<input type="text" [(ngModel)]="searchWord" (ngModelChange)="onSearchInstitutes($event);"
 								class="form-control bg-dark text-white p-3 border-0 rounded-end-2"
-								placeholder="Search For Institutes..." style="border-radius: 0;">
+								placeholder="Search For Partners..." style="border-radius: 0;">
 						</div>
 						<div *ngIf="filteredInstituteList && filteredInstituteList.length > 0"
 							class="rounded-4 border-orange">
-							<ng-container *ngFor="let partner of filteredInstituteList">
+							<ng-container *ngFor="let institute of filteredInstituteList">
 								<div class="bg-dark text-white text-decoration-none py-3 px-2 border-white cursor-pointer"
-									(click)="naviagateRouteLink(partner.domainname);">
-									{{ partner.institutename }}
+									(click)="navigateRouteLink(institute.domainname);">
+									{{ institute.institutename }}
 								</div>
 							</ng-container>
 						</div>
@@ -86,7 +107,8 @@
 
 						<div class="col-md-5"
 							[ngClass]="{ 'order-lg-1 order-1': !section.isRight, 'order-lg-2 order-1': section.isRight }">
-							<img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border-0" />
+							<img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border-0"
+								style="width: 100%; height: 80%;" />
 						</div>
 					</div>
 				</div>

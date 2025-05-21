@@ -149,29 +149,7 @@ export class LandingInstituteContentComponent {
     { title: 'Online and Distance Learning Institutes', emoji: '🌐' },
   ];
   instituteList: Institute[] = [];
-  filteredInstituteList: Institute[] = [
-    {
-      id: 1,
-      country: 'India',
-      institutename: 'Tech Solutions Pvt Ltd',
-      domainname: 'techsolutions.in',
-      mitypename: 'Reseller'
-    },
-    {
-      id: 2,
-      country: 'United States',
-      institutename: 'Global Innovators LLC',
-      domainname: 'globalinnovators.com',
-      mitypename: 'Distributor'
-    },
-    {
-      id: 3,
-      country: 'Germany',
-      institutename: 'SmartTech GmbH',
-      domainname: 'smarttech.de',
-      mitypename: 'Integrator'
-    },
-  ];
+  filteredInstituteList: Institute[] = [];
   searchWord: string = '';
   constructor(private landingInstituteService: LandingInstituteService) { }
 
@@ -186,7 +164,7 @@ export class LandingInstituteContentComponent {
   getCountryList() {
     this.landingInstituteService.getCountryList().subscribe({
       next: response => {
-        this.countries = response;
+        this.countries = response.data;
       },
       error: error => {
         console.error(error);
@@ -216,7 +194,15 @@ export class LandingInstituteContentComponent {
     }
   }
 
-  onSearchInstitute(event: any) {
-    this.filteredInstituteList = this.filteredInstituteList.filter((item) => item.institutename.includes(this.searchWord));
+  onSearchInstitutes(event: any) {
+    const searchTerm = event?.toLowerCase() || '';
+    this.filteredInstituteList = this.instituteList.filter((item) =>
+      item.institutename.toLowerCase().includes(searchTerm)
+    );
+    console.log(this.filteredInstituteList);
+  }
+
+  navigateRouteLink(url: string) {
+    window.open('http://' + url, '_blank');
   }
 }
