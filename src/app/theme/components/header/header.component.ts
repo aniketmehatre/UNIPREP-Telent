@@ -20,7 +20,7 @@ import { LocationService } from "../../../location.service"
 import { DataService } from "src/app/data.service"
 import { ThemeService } from "../../../theme.service"
 import { DashboardService } from "src/app/pages/dashboard/dashboard.service"
-import { catchError, count, EMPTY, finalize, forkJoin, Observable, of, timeout } from "rxjs"
+import { catchError, count, EMPTY, finalize, forkJoin, Observable, timeout } from "rxjs"
 import { CountryISO, NgxIntlTelInputModule, SearchCountryField } from "ngx-intl-tel-input"
 import { environment } from "@env/environment"
 import { DialogModule } from "primeng/dialog"
@@ -28,7 +28,6 @@ import { PopoverModule } from "primeng/popover"
 import { TabsModule } from "primeng/tabs"
 import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model"
 import { AssessmentService } from "src/app/pages/assessment/assessment.service"
-import { ModuleServiceService } from "src/app/pages/module-store/module-service.service"
 import { AvatarModule } from "primeng/avatar"
 import { InputTextModule } from "primeng/inputtext"
 import { take, throwIfEmpty } from "rxjs/operators"
@@ -43,7 +42,6 @@ import { StorageService } from "../../../storage.service";
 import { DropdownModule } from "primeng/dropdown";
 import { PromptService } from "src/app/pages/prompt.service"
 import { User } from "src/app/@Models/user.model"
-// import { SocialAuthService } from "@abacritt/angularx-social-login";
 
 @Component({
 	selector: "uni-header",
@@ -78,7 +76,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	public mobileForm!: FormGroup
 	public currentEducationForm!: FormGroup
 	public phoneVerification!: FormGroup
-	public setPasswordForm!: FormGroup
 	@Input() breadcrumb: MenuItem[] = [{ label: "Categories" }, { label: "Sports" }]
 	@Input() expandicon = ""
 
@@ -100,9 +97,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	moduleQuestionReport: any
 	reportOptionList: any[] = []
 	darkModeSwitch!: HTMLInputElement
-	visible: boolean = false
+	visible: boolean = true
 	isShowFreeTrialStart: boolean = false
-	isChangePasswordWindowVisible: boolean = false
 	day$: Observable<any> | any
 	hrs$: Observable<any> | any
 	min$: Observable<any> | any
@@ -112,10 +108,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	isChatWindowVisible: boolean = false
 	isQuestionVisible: boolean = true
 	messages: any = []
-	show = false
-	password: string = "password"
-	show1 = false
-	password1: string = "password"
 	headerFlag: any = ""
 	headerHomeFlag: any = ""
 	homeCountryId: any
@@ -166,7 +158,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	imagewhitlabeldomainname: any
 	orgnamewhitlabel: any
 	isNotSuccess: boolean = true
-	submitted: boolean = false
 	aiCreditCount: number = 0;
 
 	haveWhatsapp: string = 'WhatsApp'
@@ -184,15 +175,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	phone: string = ''
 
 	isLoading: boolean = false
-	// otp = new FormArray([
-	//   new FormControl(''),
-	//   new FormControl(''),
-	//   new FormControl(''),
-	//   new FormControl(''),
-	// ]);
+	isMenuOpen = true
 
 	phoneNumber: any
 	isPhoneDisabled: boolean = true
+	activeheadersearch: any
+	protected readonly count = count
+	enterpriseSubscriptionLink: any
+	isCountryPopupOpen: any
+
+	isSendingOTP: boolean = false
+	isResendOTP: boolean = false
+	allSearchedResult: any[] = []
+	currentRoute: string = ""
+
 	constructor(
 		private router: Router,
 		private locationService: LocationService,
@@ -205,7 +201,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private dataService: DataService,
 		private dashboardService: DashboardService,
 		private assessmentService: AssessmentService,
-		private moduleListService: ModuleServiceService,
 		private authTokenService: AuthTokenService,
 		private storage: StorageService,
 		private promptService: PromptService
@@ -244,16 +239,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			choice: [false, Validators.required],
 			otp: this.otp
 		})
-
-		this.setPasswordForm = this.formBuilder.group(
-			{
-				password: ["", [Validators.required, Validators.minLength(6)]],
-				confirmPassword: ["", Validators.required],
-			},
-			{
-				validator: this.passwordMatchValidator,
-			}
-		)
 
 		this.dataService.castValue.subscribe((data) => {
 			if (data === true) {
@@ -351,36 +336,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			},
 		})
 	}
-	get isDialogVisible(): boolean {
-		return this.currentEducation && !this.formvisbility
-	}
-	isMenuOpen = true
+	
 	toggleMenu() {
 		const sidenav: Element | null = document.getElementById("sidenav")
 		if (sidenav) {
 			this.isMenuOpen = !this.isMenuOpen
 			this.storage.set("isMenuOpen", JSON.stringify(this.isMenuOpen))
 			this.updateMenuClass()
-		}
-	}
-
-	showPassword() {
-		if (this.password === "password") {
-			this.password = "text"
-			this.show = true
-		} else {
-			this.password = "password"
-			this.show = false
-		}
-	}
-
-	showPassword1() {
-		if (this.password1 === "password") {
-			this.password1 = "text"
-			this.show1 = true
-		} else {
-			this.password1 = "password"
-			this.show1 = false
 		}
 	}
 
@@ -404,9 +366,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			prevInput.focus()
 		}
 	}
-
-	isSendingOTP: boolean = false
-	isResendOTP: boolean = false
 
 	sendOTP() {
 		if (this.phoneVerification.value.verification_phone == null) {
@@ -514,10 +473,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	allSearchedResult: any[] = []
-	currentRoute: string = ""
+
 	async ngOnInit() {
-		
+
 		// Initialize forms
 		this.initializeForms();
 
@@ -644,11 +602,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			}
 		});
 
-
-		// Check subscription status
-		console.log(this.service._checkExistsSubscription);
-
-		if (this.service._checkExistsSubscription === 0) {
+		if (this.service._user.subscription_exists === 0) {
 			this.checkNewUser();
 		} else {
 			this.subScribedUserCount();
@@ -693,19 +647,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			current_education: ["", Validators.required],
 		})
 
-		this.setPasswordForm = this.formBuilder.group(
-			{
-				password: ["", [Validators.required, Validators.minLength(6)]],
-				confirmPassword: ["", Validators.required],
-			},
-			{
-				validator: this.passwordMatchValidator,
-			}
-		)
-	}
-
-	private passwordMatchValidator(g: AbstractControl) {
-		return g.get("password")?.value === g.get("confirmPassword")?.value ? null : { mismatch: true }
 	}
 
 	private async handlePhoneVerification() {
@@ -873,7 +814,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			error: (error) => console.error("Error getting module report options:", error),
 		})
 	}
-	activeheadersearch: any
 	showSearchComponent(type: string) {
 		this.activeheadersearch = type
 		if (this.activeheadersearch.stage == "questionsearch") {
@@ -920,14 +860,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	openReportModal(op: any, event: any) {
 		this.reportType = 1
 		this.reportSubmitForm.reset()
-		// this.reportSubmitForm = this.formBuilder.group({
-		//   general: [1, [Validators.required]],
-		//   moduleId: ["", [Validators.required]],
-		//   submoduleId: ["", [Validators.required]],
-		//   questionId: ["", [Validators.required]],
-		//   reportOption: [""],
-		//   comment: ["", []],
-		// });
 
 		this.moduleList = []
 		this.subModuleList = []
@@ -1048,7 +980,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			this.reportOptionList = [{ id: null, reportoption_name: "Select" }, ...reportTypeData]
 		})
 	}
-	isCountryPopupOpen: any
 	openFlagModal(totalCountryList: any, event: any): void {
 		this.isLondon = true
 		this.isCountryPopupOpen = event
@@ -1090,12 +1021,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	// getCountryList(): void {
-	//   this.locationService.getCountry().subscribe((countryList) => {
-	//     this.countryLists = countryList;
-	//   });
-	// }
-
 	onChangeChooseMain(event: any) {
 		this.isVisibleModulesMenu = event == 2
 	}
@@ -1127,7 +1052,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			})
 		})
 	}
-	enterpriseSubscriptionLink: any
 	onClickSubscribe() {
 		this.visible = false
 		if (this.enterpriseSubscriptionLink != "") {
@@ -1274,19 +1198,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	onSubmit(op: any) {
-		let data
-		// if (
-		//   this.reportSubmitForm.value.comment == null ||
-		//   this.reportSubmitForm.value.comment == ""
-		// ) {
-		// this.toast.add({
-		//   severity: "error",
-		//   summary: "Error",
-		//   detail: "Add comments to submit report",
-		// });
-		// return;
-		// }
-
+		let data:any;
 		if (this.reportSubmitForm.value.reportOption == null) {
 			this.toast.add({
 				severity: "error",
@@ -1330,14 +1242,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			this.locationService.reportFaqQuestionaftersubmit(maildata).subscribe((res) => { })
 		})
 		this.getReportOption()
-	}
-
-	changePassword() {
-		this.submitted = true
-	}
-
-	get f() {
-		return this.setPasswordForm.controls
 	}
 
 	continueTrial(): void {
@@ -1442,41 +1346,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	checkNewUSerLogin() {
-		if (this.service._user?.login_status === 4) {
-			if (this.service._user.is_phn_or_whs_verified === 0) {
+		// if (this.service._user?.login_status === 4) {
+		// 	if (this.service._user.is_phn_or_whs_verified === 0) {
 				this.whatsappVerification = true;
-			}
-			else {
-				this.freeTrial = true;
-				this.formvisbility = true;
-			}
-		}
+		// 	}
+		// 	else {
+		// 		this.freeTrial = true;
+		// 		this.formvisbility = true;
+		// 	}
+		// }
 
-	}
-
-	passwordChangeOnClick() {
-		if (this.setPasswordForm.value.password !== this.setPasswordForm.value.confirmPassword) {
-			this.toast.add({
-				severity: "info",
-				summary: "Alert",
-				detail: "Password does not match",
-			})
-			return
-		}
-
-		this.locationService.updatePassword(this.setPasswordForm.value.confirmPassword).subscribe((res) => {
-			if (res.status == 404) {
-			}
-			this.isChangePasswordWindowVisible = false
-			window.sessionStorage.clear()
-			localStorage.clear()
-			this.router.navigateByUrl("/login")
-			this.toast.add({
-				severity: "success",
-				summary: "Success",
-				detail: "Password Updated Successfully.",
-			})
-		})
 	}
 
 	changeLocation(event: any) {
@@ -1581,12 +1460,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.demoTrial = true
 	}
 
-	protected readonly count = count
 
 	navigateILearnChallenge() {
-		// const targetUrl = this.currentUserSubscriptionPlan === 'Career' || this.currentUserSubscriptionPlan === 'Entrepreneur'
-		//   ? item.url: this.authService?.user?.subscription ? '/pages/subscriptions/upgrade-subscription' : '/pages/subscriptions';
-		// this.router.navigateByUrl(targetUrl);
 		if (this.currentUserSubscriptionPlan === "Career" || this.currentUserSubscriptionPlan === "Entrepreneur") {
 			switch (this.service?._user?.ilearn_popup_status) {
 				case 0:
@@ -1693,32 +1568,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	toggleProfileDropdown(event: Event) {
-		event.preventDefault();
-		event.stopPropagation();
-
-		const dropdown = document.querySelector('.profile-dropdown');
-		if (dropdown) {
-			dropdown.classList.toggle('show');
-
-			// Close dropdown when clicking outside
-			const closeDropdown = (e: MouseEvent) => {
-				if (!dropdown.contains(e.target as Node)) {
-					dropdown.classList.remove('show');
-					document.removeEventListener('click', closeDropdown);
-				}
-			};
-
-			document.addEventListener('click', closeDropdown);
-		}
-	}
-
 	onCheckHaveWhatsappOrPhone(event: any) {
 		const isChecked = (event.target as HTMLInputElement).checked;
-		if (isChecked) {
-			this.haveWhatsapp = 'Phone'
-		} else {
-			this.haveWhatsapp = 'Whatsapp'
-		}
+		this.haveWhatsapp = isChecked ? 'Phone' : 'Whatsapp';
 	}
 }

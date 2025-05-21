@@ -440,64 +440,7 @@
 		</div>
 	</div>
 </p-dialog>
-<p-dialog [(visible)]="isChangePasswordWindowVisible" [closable]="true" [style]="{ width: 'auto' }"
-	class="p-0 m-0 bg-white" [modal]="true" [draggable]="false" [resizable]="false" aria-label="Change password">
-	<div class="px-5 pb-5 pt-3">
-		<div class="justify-content-center text-center pb-5 px-5">
-			<h5 class="text-center mb-2">Change Password</h5>
-			<form [formGroup]="setPasswordForm" (ngSubmit)="passwordChangeOnClick()" role="form"
-				aria-label="Password change form">
-				<ng-container>
-					<label class="signup mb-3">your new password must be different to previously used password.</label>
-					<div class="form-floating mb-3">
-						<p-inputgroup>
-							<p-inputgroup-addon><i class="pi pi-lock" aria-hidden="true"></i></p-inputgroup-addon>
-							<input [type]="password" id="floatingInput" formControlName="password" pInputText
-								[ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
-								aria-label="Enter new password" />
-							<span class="input-group-text passwordvisibility" (click)="showPassword()" role="button"
-								tabindex="0" aria-label="Toggle password visibility">
-								<img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px"
-									*ngIf="show" alt="Show password" />
-								<img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px"
-									*ngIf="!show" alt="Hide password" />
-							</span>
-						</p-inputgroup>
-						<div *ngIf="submitted && f['password'].errors" class="invalid-feedback" role="alert">
-							<div *ngIf="f.password.errors.required">Password is required</div>
-							<div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
-						</div>
-					</div>
-					<label for="confirmPassword">Confirm Password</label>
-					<p-inputgroup>
-						<p-inputgroup-addon><i class="pi pi-lock" aria-hidden="true"></i></p-inputgroup-addon>
-						<input [type]="password1" pInputText id="confirmPassword" formControlName="confirmPassword"
-							[ngClass]="{
-								'is-invalid': submitted && f['confirmPassword'].errors
-							}" aria-label="Confirm new password" />
-						<span class="input-group-text passwordvisibility" (click)="showPassword1()" role="button"
-							tabindex="0" aria-label="Toggle password visibility">
-							<img src="../../../uniprep-assets/images/viewpassword.svg" height="20" width="20px"
-								*ngIf="show1" alt="Show password" />
-							<img src="../../../uniprep-assets/images/hidepassword.svg" height="20" width="20px"
-								*ngIf="!show1" alt="Hide password" />
-						</span>
-					</p-inputgroup>
-					<div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback" role="alert">
-						<div *ngIf="f.confirmPassword.hasError('matching')">Password and confirm password not match
-						</div>
-						<div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
-					</div>
-					<br />
-					<div class="d-grid">
-						<button pButton class="p-2 btn btn-primary btn-login text-uppercase fw-bold" type="submit"
-							aria-label="Change password">Change Password</button>
-					</div>
-				</ng-container>
-			</form>
-		</div>
-	</div>
-</p-dialog>
+
 <p-dialog [(visible)]="visible" [closable]="false" class="p-0 m-0" [modal]="true" [draggable]="false"
 	[resizable]="false">
 	<div class="d-flex justify-content-between p-4">
@@ -541,8 +484,6 @@
 		<div class="row mb-2">
 			<div class="col-md-12 px-4">
 				<div class="d-flex flex-column">
-					<!-- <div class="icon-container d-flex justify-content-center p-2">
-					</div> -->
 					<div class="mt-1 mb-1">
 						<span>
 							<strong class="firsttimelogin">
