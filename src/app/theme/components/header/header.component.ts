@@ -97,7 +97,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	moduleQuestionReport: any
 	reportOptionList: any[] = []
 	darkModeSwitch!: HTMLInputElement
-	visible: boolean = true
+	visible: boolean = false
 	isShowFreeTrialStart: boolean = false
 	day$: Observable<any> | any
 	hrs$: Observable<any> | any
@@ -336,7 +336,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			},
 		})
 	}
-	
+
 	toggleMenu() {
 		const sidenav: Element | null = document.getElementById("sidenav")
 		if (sidenav) {
@@ -368,7 +368,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	sendOTP() {
-		if (this.phoneVerification.value.verification_phone == null) {
+		if (this.phoneVerification.value.verification_phone == null ||
+			  this.phoneVerification.get('verification_phone')?.errors?.['validatePhoneNumber']) {
 			this.toast.add({
 				severity: "error",
 				summary: "Error",
@@ -1198,7 +1199,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	onSubmit(op: any) {
-		let data:any;
+		let data: any;
 		if (this.reportSubmitForm.value.reportOption == null) {
 			this.toast.add({
 				severity: "error",
@@ -1348,7 +1349,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	checkNewUSerLogin() {
 		if (this.service._user?.login_status === 4) {
 			if (this.service._user.is_phn_or_whs_verified === 0) {
-				this.whatsappVerification = true;
+		this.whatsappVerification = true;
 			}
 			else {
 				this.freeTrial = true;
