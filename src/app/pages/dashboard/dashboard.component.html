@@ -164,7 +164,8 @@
 		<div class="card fav-card mt-2 bg-white">
 			<div class="card-body d-flex flex-column justify-content-between">
 				<div class="flex justify-content-between">
-					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span>Apply for jobs</h5>
+					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span>Apply for jobs
+					</h5>
 					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white"
 						style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()"
 						aria-label="View all job applications">View All</button>
@@ -176,7 +177,7 @@
 					<ng-template let-group pTemplate="item">
 						<div class="grid-container">
 							<div *ngFor="let v of group">
-								<div (click)="selectFav(v)" role="button" tabindex="0" class="card"
+								<div (click)="selectFav(v)" role="button" tabindex="0" class="card bg-white"
 									(keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
 									<div class="card-body">
 										<div class="d-flex gap-2">
@@ -270,33 +271,33 @@
 				</div>
 				<div class="mb-4">
 					<p-carousel [numScroll]="8" [numVisible]="4" [autoplayInterval]="3000" [circular]="true"
-						[responsiveOptions]="responsiveOptions" [showIndicators]="false" [value]="partnerTrusterLogo"
+						[responsiveOptions]="responsiveOptions" [showIndicators]="true" [value]="partnerTrusterLogo"
 						class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 						aria-label="Educational Partners Carousel">
-					<ng-template let-uni pTemplate="item">
-								<div role="button" tabindex="0" class="card m-2 bg-white" style="height: 93% !important;">
-									<div class="card-body">
-										<div class="text-center">
-											<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
-												<img alt="{{ uni.name }} logo" class="w-100 h-100"
-													style="object-fit: cover" src="{{uni.logo }}" />
-											</div>
-											<div>
-												<h6 class="mb-0 text-sm text-capitalize">
-													<b>Company Name</b>
-												</h6>
-											</div>
+						<ng-template let-uni pTemplate="item">
+							<div role="button" tabindex="0" class="card m-2 bg-white" style="height: 93% !important;">
+								<div class="card-body">
+									<div class="text-center">
+										<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
+											<img alt="{{ uni.name }} logo" class="w-100 h-100" style="object-fit: cover"
+												src="{{uni.logo }}" />
+										</div>
+										<div>
+											<h6 class="mb-0 text-sm text-capitalize">
+												<b>Company Name</b>
+											</h6>
 										</div>
 									</div>
 								</div>
-							</ng-template>
+							</div>
+						</ng-template>
 					</p-carousel>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-12 col-sm-12 mt-2">
-		<div class="card bg=white h-100">
+		<div class="card bg=white h-100 pb-3 pt-2 bg-white">
 			<div class="card-body d-flex flex-column justify-content-between">
 				<div class="text-start">
 					<h5 class="mb-1 mt-2 uppercase"><span class="emoji" aria-label="envelope">💌</span> Invite People to
@@ -311,14 +312,13 @@
 						aria-label="Email address to send invite" required />
 				</p-inputgroup>
 
-				<button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold mt-3"
+				<button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold "
 					style="color: #666666; border-color: #666666; background-color: #ffffff; font-size: 10px"
 					aria-label="Send invite email">Send Invite</button>
 			</div>
 		</div>
 	</div>
 </div>
-
 <!-- Continue Reading Modal -->
 <div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1" aria-modal="true"
 	aria-labelledby="continueReadingHeader">
