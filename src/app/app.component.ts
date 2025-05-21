@@ -22,7 +22,7 @@ import { ScrollTopModule } from "primeng/scrolltop";
 	providers: [MessageService, SocialShareService],
 })
 export class AppComponent implements OnInit {
-	constructor(private storage: LocalStorageService, private whitelabelservice: LocationService, private router: Router) {}
+	constructor(private storage: LocalStorageService, private whitelabelservice: LocationService, private router: Router) { }
 	private isPageHidden = false;
 	domainNameCondition: string;
 	domainname: string = "main";
@@ -40,7 +40,8 @@ export class AppComponent implements OnInit {
 	}
 
 	private isDomainMain(): boolean {
-		return this.domainNameCondition === "dev-student.uniprep.ai" || this.domainNameCondition === "*.uniprep.ai" || this.domainNameCondition === "uniprep.ai" || this.domainNameCondition === "localhost";
+		return this.domainNameCondition === "dev-institutes.uniprep.ai"
+			|| this.domainNameCondition === "dev-student.uniprep.ai" || this.domainNameCondition === "*.uniprep.ai" || this.domainNameCondition === "uniprep.ai" || this.domainNameCondition === "localhost";
 	}
 
 	@HostListener("window:beforeunload", ["$event"])
@@ -133,6 +134,6 @@ export class AppComponent implements OnInit {
 		var data = {
 			domainname: this.imagewhitlabeldomainname,
 		};
-		this.whitelabelservice.getWhitlabelData(data).subscribe((res) => {});
+		this.whitelabelservice.getWhitlabelData(data).subscribe((res) => { });
 	}
 }
