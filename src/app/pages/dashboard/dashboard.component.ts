@@ -62,8 +62,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	sendInvite: any = ""
 	isVideoVisible: boolean = false
 	isShareWithSocialMedia: boolean = false
-	isViewMoreOrgVisible: boolean = false
-	isViewMoreJobApplication: boolean = false;
 	partnerTrusterLogo: any
 	showSkeleton: boolean = false
 	planExpired: boolean = false
@@ -382,16 +380,11 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	openViewMoreOrg(): void {
-		this.isViewMoreOrgVisible = true;
+		this.router.navigate(["/pages/talent-connect/easy-apply"]);
 	}
 
 	viewMoreOpenJobApplication() {
-		if (this.recentJobApplication.length > 0) {
-			this.isViewMoreJobApplication = true;
-		} else {
-			this.isViewMoreJobApplication = false;
-			this.toastr.add({ severity: 'error', summary: '', detail: "No Recent Job Applications Yet" });
-		}
+		this.router.navigate(["/pages/talent-connect/company-connect"]);
 	}
 
 	checkquizquestionmodule() {
