@@ -15,14 +15,10 @@ const routes: Routes = [
       {
         path: '',
         loadComponent: () => import('./landing-institute-content/landing-institute-content.component').then(m => m.LandingInstituteContentComponent),
-      },
+      }, 
       {
-        path: 'about',
-        loadComponent: () => import('../landing/about-us/about-us.component').then(m => m.AboutUsComponent)
-      },
-      {
-        path: 'contact-us',
-        loadComponent: () => import('../landing/contact-us/contact-us.component').then(m => m.ContactUsComponent),
+        path: 'pricing/:country',
+        loadComponent: () => import('./institute-pricing/institute-pricing.component').then(m => m.InstitutePricingComponent)
       },
       {
         path: '',
