@@ -1,0 +1,145 @@
+:host ::ng-deep {
+    .custom-dropdown {
+        width: 100%;
+
+        .p-dropdown {
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+
+            .p-dropdown-label {
+                color: white;
+            }
+
+            .p-dropdown-trigger {
+                color: white;
+            }
+        }
+
+        .p-dropdown-panel {
+            background-color: #212529;
+
+            .p-dropdown-items {
+                .p-dropdown-item {
+                    color: white;
+
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.1);
+                    }
+                }
+            }
+
+            .p-dropdown-filter-container {
+                .p-dropdown-filter {
+                    background-color: #2c3034;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+.ctc-field {
+    background: rgb(219, 83, 175);
+    background: linear-gradient(90deg, #e78e60 0%, #d14283 100%);
+    border: none;
+}
+
+.table-container {
+    width: 100%;
+    margin-bottom: 40px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+    border: 1px solid var(--uniprep-secondary);
+}
+
+th,
+td {
+    padding: 15px;
+    text-align: left;
+    border: 1px solid var(--uniprep-secondary);
+}
+
+.header-row {
+    background-color: #8B4513;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.subheader-row {
+    background-color: #5C3317;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #333;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #444;
+}
+
+.country-item {
+    display: flex;
+    align-items: center;
+}
+
+.back-button {
+    margin-bottom: 2rem;
+}
+
+
+.table {
+    background-color: transparent;
+    color: white;
+
+    th,
+    td {
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
+.faqcard {
+    background: #18181d;
+    border-radius: 10px !important;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border: 1px solid #080e13 !important;
+}
+
+.faqcard .accordion-button::after {}
+
+.faqcard .accordion-collapse {
+    background: #18181d;
+}
+
+.faqcard .accordion-button:not(.collapsed) {
+    background: #18181d;
+    border-radius: 10px;
+    color: var(--uniprep-primary);
+    border: none;
+}
+
+/* .faqcard .accordion-button:not(.collapsed)::after
+{
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+} */
+
+.faqcard .accordion-header button {
+    background: #18181d;
+    box-shadow: none;
+    padding: 1rem 1rem;
+    font-weight: 600;
+}
+
+.faqcard .accordion-body {
+    text-align: start;
+    padding: 0.75rem 1rem;
+    color: white;
+    font-size: medium;
+}

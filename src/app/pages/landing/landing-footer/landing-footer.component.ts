@@ -2,21 +2,20 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '@env/environment';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'uni-landing-footer',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, DialogModule],
   exportAs: 'uni-landing-footer',
   templateUrl: './landing-footer.component.html',
   styleUrl: './landing-footer.component.scss'
 })
 export class LandingFooterComponent {
   currentYear = new Date().getFullYear()
-
-  @Output() openTermsAndCondition: EventEmitter<boolean> = new EventEmitter(true);
-  @Output() openPrivacyPolicy: EventEmitter<boolean> = new EventEmitter(true);
-  @Output() openCancellationPolicy: EventEmitter<boolean> = new EventEmitter(true);
-  @Output() openRefundPolicy: EventEmitter<boolean> = new EventEmitter(true);
+  displaycancellationpolicy: boolean = false;
+  displaytandc: boolean = false;
+  displayprivacypolicy: boolean = false;
 
   socialLinks = [
     { icon: "facebook", url: "https://www.facebook.com/profile.php?id=61576567286334" },
@@ -65,13 +64,13 @@ export class LandingFooterComponent {
   onClickPolicies(type: string) {
     switch (type) {
       case 'privacy':
-        this.openPrivacyPolicy.emit(true);
+        this.displayprivacypolicy = true;
         break;
       case 'terms':
-        this.openTermsAndCondition.emit(true);
+        this.displaytandc = true;
         break;
       case 'cancellation':
-        this.openCancellationPolicy.emit(true);
+        this.displaycancellationpolicy = true;
         break;
       case 'refund':
         window.open('/refund-policy', '_blank');

@@ -1,0 +1,179 @@
+<div class="container-fluid bg-black text-white py-5">
+  <div class="container">
+    <!-- Back button and Institution label -->
+    <div class="row justify-content-center mb-4">
+      <div class="col-md-10">
+    <button pButton icon="pi pi-arrow-left" class="p-button-rounded border text-white border-white bg-black"
+      routerLink="/"></button>&nbsp;
+    <button pButton label="Institute" class="p-button-rounded border text-white border-white bg-black"></button>
+      </div>
+    </div>
+
+    <!-- Main heading and description -->
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-10">
+        <h1 class="display-4 fw-light mb-4">Institutional Subscription Model</h1>
+        <p class="lead">
+          UNIPREP guides jobseekers through every stage of their professional journey — from identifying strengths and mastering skills, to securing global opportunities and growing with purpose. Whether you're just starting out or scaling up, we're with you every step of the way.
+        </p>
+      </div>
+    </div>
+
+    <!-- Country selector -->
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-10 col-md-6">
+        <p-select 
+          [options]="countryList" [(ngModel)]="selectedCountry" 
+          optionLabel="country" 
+          [filter]="true" 
+          filterBy="country" 
+          optionValue="id"
+          [showClear]="true" 
+          placeholder="Select Country"
+          styleClass="w-100 custom-dropdown p-2 bg-dark"
+          (ngModelChange)="changeCountry($event)"
+        >
+          <ng-template let-country pTemplate="item" >
+            <div class="d-flex align-items-center gap-2">
+              <div class="dropdownimg">
+                <img [src]="country?.flag" class="img-fluid" />
+              </div>
+              <div>
+                {{ country?.country }}
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="selectedItem" let-selectedOption>
+            <div class="d-flex align-items-center gap-2 text-white">
+              <div class="dropdownimg">
+                <img [src]="selectedOption.flag" class="img-fluid" />
+              </div>
+              <div>
+                {{ selectedOption.country }}
+              </div>
+            </div>
+          </ng-template>
+        </p-select>
+      </div>
+    </div>
+
+    <!-- Pricing Table -->
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-10">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr  class="header-row">
+                <th colspan="4" class="text-center py-3 fs-5">Institutional Pricing - Per Student Slab</th>
+              </tr>
+              <tr class="subheader-row">
+                <th class="py-3 ">Slab</th>
+                <th class="py-3">Student Range</th>
+                <th class="py-3">Cost Per Student (INR)</th>
+                <th class="py-3">Sample Total Fee (GST Excluded)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let slab of pricingSlabs">
+                <td class="py-3">{{slab.slab}}</td>
+                <td class="py-3">{{slab.range}}</td>
+                <td class="py-3">{{slab.cost}}</td>
+                <td class="py-3">{{slab.total}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Notes -->
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-10">
+        <div class="d-flex align-items-center mb-3">
+          <i class="pi pi-file-edit me-2 fs-4"></i>
+          <h3 class="mb-0">Key Notes</h3>
+        </div>
+        <ul>
+          <li class="mb-2">Payment has to be made after full implementation and access activation.</li>
+          <li class="mb-2">Implementation includes onboarding, co-branded portal setup, student access configuration, admin dashboard setup, and support provisioning.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Career Co-Pilot Banner -->
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-10">
+        <div class="p-5 rounded-4 ctc-field">
+          <div class="row justify-content-center align-items-center">
+            <div class="col-md-8">
+              <h2 class="display-6 fw-bold">UNIPREP IS YOUR CAREER CO-PILOT</h2>
+              <p class="fs-5">READY WHEN YOU ARE.</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+              <button class="btn btn-dark bg-black px-4 py-3 rounded-2">Register Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Benefits Table -->
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-10">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr class="header-row">
+                <th colspan="3" class="text-center py-3 fs-4">Add-On Benefits to Institutions (Tier-Wise)</th>
+              </tr>
+              <tr class="subheader-row">
+                <th class="py-3">Tier</th>
+                <th class="py-3">Eligibility (Students)</th>
+                <th class="py-3">Institutional Benefits</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let tier of benefitsTiers">
+                <td class="py-3">{{tier.tier}}</td>
+                <td class="py-3">{{tier.eligibility}}</td>
+                <td class="py-3">
+                  <div *ngFor="let benefit of tier.benefits">{{benefit}}</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROI Section -->
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <h2 class="display-5 mb-4">Institutional ROI by Investing in <span class="uniprep-secondary fw-bold">UNIPREP</span></h2>
+        <p class="lead">
+          UNIPREP is more than a platform—it's a future-ready investment that enhances employability, global visibility, student satisfaction, and NAAC/NIRF performance. It delivers 100X value to both students and institutions by combining technology, opportunity, and strategic partnerships.
+        </p>
+      </div>
+    </div>
+
+    <div class="row mt-4 justify-content-center align-items-center">
+      <div class="col-md-10">
+        <div class="accordion pb-3 mb-5" id="accordionFAQ">
+          <div class="accordion-item faqcard p-2" *ngFor="let faq of faqItems; let i = index">
+            <h2 class="accordion-header">
+              <button class="accordion-button text-white collapsed fs-5" type="button" data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#' + faq.id" aria-expanded="false" [attr.aria-controls]="faq.id">
+                {{ faq.title }}
+              </button>
+            </h2>
+            <div [id]="faq.id" class="accordion-collapse collapse " data-bs-parent="#accordionFAQ">
+              <div class="accordion-body" *ngFor="let item of faq.details">
+                {{item}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
