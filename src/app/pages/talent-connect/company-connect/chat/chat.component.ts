@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
 import { AvatarModule } from "primeng/avatar";
 import { ButtonModule } from "primeng/button";
 import { CommonModule } from "@angular/common";
@@ -9,7 +9,6 @@ import { Company, CompanyMessage } from 'src/app/@Models/company-connect.model';
 import { environment } from '@env/environment';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
-import { CourseListService } from 'src/app/pages/course-list/course-list.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 declare global {
   interface Window {
@@ -34,6 +33,8 @@ export class ChatComponent implements OnInit, OnChanges {
   @Output() openInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() closeChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Input() showInfo: boolean = true;
+  @Output() studentIdEmit = new EventEmitter<number>();
+  @Output() studentIdEmitLive = new EventEmitter<number>();
   isLoadingAiSummary: boolean = false;
   organizationName: string = 'UNIABROAD';
   organizationStatus: string = 'Active';
@@ -50,12 +51,16 @@ export class ChatComponent implements OnInit, OnChanges {
   aiGenerateChatDetails: any;
   private echo!: Echo<any>;
   studentId: any
- @Output() visible = new EventEmitter<void>();
-  private observer!: IntersectionObserver;
-  constructor(private talentConnectService: TalentConnectService, private courcelist: AuthService) { }
+  // scroll and take visible message ids
+  @ViewChildren('msgRef') msgElements!: QueryList<ElementRef>;
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+
+  observer!: IntersectionObserver;
+  constructor(private talentConnectService: TalentConnectService, private courcelist: AuthService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
-
     this.courcelist.getMe().subscribe((res: any) => {
       this.studentId = res.employee_user_id
       window.Pusher = Pusher;
@@ -67,10 +72,10 @@ export class ChatComponent implements OnInit, OnChanges {
       });
       this.echo.channel(`company-connect-employer-chat-${this.studentId}`)
         .listen('CompanyConnectMessageSentEmployer', (event: any) => {
-          console.log('Received broadcast:', event);
           if (event) {
-            const hasMatchingStudentId = this.studentId === event.tc_student_id;
+            const hasMatchingStudentId = this.companyDetails?.id === event.company_id;
             if (hasMatchingStudentId) {
+
               this.messages.push({
                 added_by: event.added_by,
                 chat: event.chat,
@@ -79,7 +84,16 @@ export class ChatComponent implements OnInit, OnChanges {
                 attachment: event.attachment ? event.attachment.name : '',
                 icon: event.icon
               });
+              var data = {
+                chatId: event.id
+              }
+              this.talentConnectService.markReadMessage(data).subscribe((res: any) => {
+                const unseenCount = this.messages.filter((item: any) => item.seen === 0).length;
+                this.studentIdEmit.emit(unseenCount);
+              })
               this.attachmentFile = null;
+            } else {
+              //  this.studentIdEmitLive.emit(event);
             }
           }
         });
@@ -88,7 +102,6 @@ export class ChatComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes['companyDetails']);
 
     if (changes['companyDetails'] && this.companyDetails) {
       this.getChatMessageForCompanyConnect(this.companyDetails.id);
@@ -109,7 +122,6 @@ export class ChatComponent implements OnInit, OnChanges {
           studentName: data?.message[0]?.userName,
           createdAt: data.created_at
         };
-        console.log(this.aiGenerateChatDetails);
       },
       error: err => {
 
@@ -181,5 +193,59 @@ export class ChatComponent implements OnInit, OnChanges {
     return text.replace(urlRegex, function (url) {
       return '<a href="' + url + '" target="_blank" class="chat-link">' + url + '</a>';
     });
+  }
+  // chat message read notification
+  ngAfterViewInit(): void {
+    this.setupIntersectionObserver();
+
+    this.msgElements.changes.subscribe(() => {
+      this.setupIntersectionObserver();
+    });
+  }
+
+  setupIntersectionObserver(): void {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            const index = parseInt(id.split('-')[1], 10);
+            const match = this.messages.find((item: any) => {
+              return item.seen === 0 && item.id === index;
+            });
+            if (match) {
+              this.markReadmessage(index)
+            }
+          }
+        });
+      },
+      {
+        root: this.scrollContainer?.nativeElement || null,
+        threshold: 0.5
+      }
+    );
+
+    this.msgElements.forEach((el) => {
+      this.observer.observe(el.nativeElement);
+    });
+  }
+  markReadmessage(id: any) {
+    this.messages = this.messages.map(item => {
+      if (item.id === id) {
+        return { ...item, seen: 1 };
+      }
+      return item;
+    });
+    const unseenCount = this.messages.filter((item: any) => item.seen === 0).length;
+    this.studentIdEmit.emit(unseenCount);
+    var data = {
+      chatId: id
+    }
+    this.talentConnectService.markReadMessage(data).subscribe((res: any) => {
+    })
   }
 }
