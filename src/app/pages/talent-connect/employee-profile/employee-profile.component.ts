@@ -1550,7 +1550,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       student_profile.intro_video = this.personalInfoForm.get('career_preference_video_link')?.value || '';
       student_profile.academic_reference = this.personalInfoForm.get('academicReferences.0.references_reference_name')?.value || '';
       student_profile.professional_reference = this.personalInfoForm.get('professional_references.0.references_reference_name')?.value || '';
-
+      student_profile.mode = 'employee_profile_ai_profile_summary';
       this.talentConnectService.getAiEvaluationSummary(student_profile).subscribe({
         next: (response) => {
           this.aiEvaluationContent = this.sanitizer.bypassSecurityTrustHtml(response.response);
