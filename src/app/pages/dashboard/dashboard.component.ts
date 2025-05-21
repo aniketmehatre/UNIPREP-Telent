@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	sendInvite: any = ""
 	isVideoVisible: boolean = false
 	isShareWithSocialMedia: boolean = false
-	partnerTrusterLogo: any
+	partnerTrusterLogo: any[]=[]
 	showSkeleton: boolean = false
 	planExpired: boolean = false
 	ehitlabelIsShow: boolean = true
@@ -140,6 +140,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.recentJobs();
 		this.handleUserData();
 		this.loadParallelData();
+		this.recentCompanies();
 		this.groupedListFav = this.chunkArray(this.featureFavouriteList, 4);
 		this.locationService.dashboardLocationList().subscribe((countryList: any) => {
 			this.countryLists = countryList
@@ -156,6 +157,17 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 				} else {
 					this.isNoApplicationsData = false;
 				}
+				this.cdr.detectChanges();
+			},
+			error: (error) => {
+				// console.error('Error fetching job listings:', error);
+			}
+		});
+	}
+	recentCompanies() {
+		this.dashboardService.RecentCompanies().subscribe({
+			next: (data: any) => {
+				this.partnerTrusterLogo = data.companies
 				this.cdr.detectChanges();
 			},
 			error: (error) => {
@@ -208,7 +220,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			quizCompletion
 		}) => {
 			// Handle partner logo
-			this.partnerTrusterLogo = partnerLogo;
+			// this.partnerTrusterLogo = partnerLogo;
 
 			// Handle country list
 			if (countryList) {

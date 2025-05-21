@@ -170,36 +170,36 @@
 						style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()"
 						aria-label="View all job applications">View All</button>
 				</div>
-				<p-carousel #carousel [circular]="false"  [autoplayInterval]="3000" [numScroll]="1" [numVisible]="3" *ngIf="!isNoApplicationsData"
-					[responsiveOptions]="responsiveOptions" [value]="recentJobApplication" [showIndicators]="true"
-					[indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
+				<p-carousel #carousel [circular]="false" [autoplayInterval]="3000" [numScroll]="1" [numVisible]="3"
+					*ngIf="!isNoApplicationsData" [responsiveOptions]="responsiveOptions" [value]="recentJobApplication"
+					[showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 					aria-label="Recent Job Applications Carousel">
 					<ng-template let-group pTemplate="item">
-								<div  role="button" tabindex="0" class="card mt-0 m-2 bg-white"
-									(keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
-									<div class="card-body">
-										<div class="d-flex gap-2">
-											<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
-												<img alt="{{ group.company_name }} logo" class="w-100 h-100"
-													style="object-fit: cover"
-													(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
-													src="{{ group.image }}" />
-											</div>
-											<div>
-												<h6 class="mb-0 text-sm text-capitalize">
-													<b>{{ group.position_title }}</b>
-												</h6>
-												<p class="text-muted text-small">{{ group.company_name }}</p>
-												<p class="mb-0 text-small text-capitalize mt-2">
-													<i class="fa-solid fa-location-dot" style="color: #79ae28"
-														aria-hidden="true"></i>&nbsp;
-													<span style="font-weight: 500px; color: black">{{ group.work_location
-														}}</span>
-												</p>
-											</div>
-										</div>
+						<div role="button" tabindex="0" class="card mt-0 m-2 bg-white" (keyup.enter)="selectFav(v)"
+							(keyup.space)="selectFav(v)">
+							<div class="card-body">
+								<div class="d-flex gap-2">
+									<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
+										<img alt="{{ group.company_name }} logo" width="100" height="100"
+											style="object-fit: cover"
+											(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
+											src="{{ group.image }}" />
+									</div>
+									<div>
+										<h6 class="mb-0 text-sm text-capitalize">
+											<b>{{ group.position_title }}</b>
+										</h6>
+										<p class="text-muted text-small">{{ group.company_name }}</p>
+										<p class="mb-0 text-small text-capitalize mt-2">
+											<i class="fa-solid fa-location-dot" style="color: #79ae28"
+												aria-hidden="true"></i>&nbsp;
+											<span style="font-weight: 500px; color: black">{{ group.work_location
+												}}</span>
+										</p>
 									</div>
 								</div>
+							</div>
+						</div>
 					</ng-template>
 				</p-carousel>
 				<div *ngIf="isNoApplicationsData" style="margin: auto">
@@ -263,16 +263,18 @@
 						<ng-template let-uni pTemplate="item">
 							<div role="button" tabindex="0" class="card mt-0 m-2 bg-white">
 								<div class="card-body">
-									<div class="text-center">
+									<div class="text-center" style="margin: auto;">
 										<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
-											<img alt="{{ uni.name }} logo" class="w-100 h-100" style="object-fit: cover"
-												src="{{uni.logo }}" />
+											<img alt="{{ uni.company_name }} logo" width="70" height="70"
+												style="object-fit: cover"
+												(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
+												src="{{ uni.company_logo }}" />
 										</div>
-										<div>
-											<h6 class="mb-0 text-sm text-capitalize">
-												<b>Company Name</b>
-											</h6>
-										</div>
+									</div>
+									<div class=" mt-1text-center">
+										<h6 class="mb-0 text-sm text-capitalize">
+											<b>{{uni.company_name}}</b>
+										</h6>
 									</div>
 								</div>
 							</div>
