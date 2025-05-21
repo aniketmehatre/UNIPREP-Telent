@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SelectModule } from 'primeng/select';
 import { LocationService } from 'src/app/location.service';
 import { LandingPartnerServices } from '../landing-partner/landing-partner.service';
+import { Router } from '@angular/router';
 interface Country 
 {  id: number; 
    country: string;
@@ -13,8 +14,9 @@ interface Country
 interface Partner {
   id: number;
   country: string;
-  partner: string;
-  domain: string;
+  partnername: string;
+  domainname: string;
+  mitypename: string;
 }
 
 @Component({
@@ -29,7 +31,7 @@ export class PartnerLoginComponent implements OnInit {
   countryList: Country[] = [];
   partnersList: Partner[] = [];
 
-  constructor(private locationService: LocationService, private partnerService: LandingPartnerServices) { }
+  constructor(private locationService: LocationService, private partnerService: LandingPartnerServices, private router: Router) { }
 
   ngOnInit() {
     this.getWhiteLabel();
@@ -52,5 +54,21 @@ export class PartnerLoginComponent implements OnInit {
       }
     })
   }
+  getPartnersListById(id: number) {
+    this.partnerService.getPartnersListById(id, 'Marketing Representative').subscribe({
+      next: response => {
+        this.partnersList = response.data;
+      },
+      error: error => {
+        console.error(error);
+      }
+    })
+  }
 
+  routeDomain(domain: number) {
+    const selectedPartner = this.partnersList.find(p => p.id === domain);
+    if (selectedPartner?.domainname) {
+      window.open(`https://${selectedPartner.domainname}`, '_blank');
+    }
+  }
 }

@@ -14,8 +14,8 @@ export class LandingPartnerServices {
       return this.http.get<any>(environment.ApiUrl + "/getWhiteLabelCountry");
     }
 
-  getPartnersListById(countryId: number) {
-      return this.http.post<any>(environment.ApiUrl + "/country",{country_id: countryId}, {
+  getPartnersListById(countryId: number, type: string) {
+    return this.http.post<any>(environment.ApiUrl + "/getWhiteLabelPartners", { country: countryId, mitypename: type }, {
         headers: this.headers});
     }
 }

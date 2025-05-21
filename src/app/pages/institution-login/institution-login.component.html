@@ -35,37 +35,28 @@
                           [options]="countryList"
                           [appendTo]="'body'"
                           [filter]="true"
-                          filterBy="value">
-                          <ng-template let-country pTemplate="item">
+                          filterBy="country" (onChange)="getPartnersListById($event.value);">
+                          <ng-template let-country pTemplate="item" >
                             <div class="d-flex align-items-center gap-2">
                               <div class="dropdownimg">
-                                <img [src]="country.flag" class="img-fluid" />
+                                <img [src]="country?.flag" class="img-fluid" />
                               </div>
                               <div>
-                                <span *ngIf="country.city_name !== null">
-                                  {{ country.city_name }}, </span
-                                >{{ country.country_name }}
+                                {{ country?.country }}
                               </div>
                             </div>
                           </ng-template>
-                          <ng-template
-                            pTemplate="selectedItem"
-                            let-selectedOption>
+                          <ng-template pTemplate="selectedItem" let-selectedOption>
                             <div class="d-flex align-items-center gap-2">
                               <div class="dropdownimg">
-                                <img
-                                  [src]="selectedOption.flag"
-                                  class="img-fluid"
-                                />
+                                <img [src]="selectedOption.flag" class="img-fluid" />
                               </div>
                               <div>
-                                <span *ngIf="selectedOption.city_name !== null">
-                                  {{ selectedOption.city_name }}, </span
-                                >{{ selectedOption.country_name }}
+                                {{ selectedOption.country }}
                               </div>
                             </div>
-                          </ng-template></p-select
-                        >
+                          </ng-template>
+                          </p-select>
                       </div>
                     </div>
                     <div class="row mb-5">
@@ -75,12 +66,13 @@
                           styleClass="w-100"
                           placeholder="Search for institution"
                           display="chip"
-                          optionLabel="country"
+                          optionLabel="institutename"
                           optionValue="id"
-                          [options]="countryList"
+                          [options]="instituteList"
                           [appendTo]="'body'"
                           [filter]="true"
-                          filterBy="value"
+                          filterBy="institutename"
+                          (onChange)="routeDomain($event.value)"
                         ></p-select>
                       </div>
                     </div>

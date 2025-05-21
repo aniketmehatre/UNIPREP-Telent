@@ -26,6 +26,14 @@ html {
 
 }
 
+::ng-deep .custom-country-select .p-dropdown {
+  min-height: 52px !important; /* Adjust select height */
+  border-radius: 8px;
+  border: 1px solid orange;
+  background: transparent;
+  color: #fff;
+}
+
 .btn-secondary-1 {
 	color: white;
 	background-color: var(--uniprep-secondary);
