@@ -194,10 +194,14 @@
                                                     <label>Last Degree Passing Year</label>
                                                     <div class="form-group">
                                                         <div class="mb-3">
-                                                            <p-calendar [maxDate]="today" appendTo="body"
-                                                                dateFormat="yy"
+                                                            <p-calendar [maxDate]="today" [showIcon]="true"
+                                                                appendTo="body" dateFormat="yy" view="year"
+                                                                [yearNavigator]="true" type="number"
+                                                                [yearRange]="'1950:' + currentYear" inputId="pickYear"
                                                                 formControlName="last_degree_passing_year"
-                                                                inputId="pickYear" view="year"> </p-calendar>
+                                                                placeholder="Enter or pick year"
+                                                                (input)="onYearInput($event)" (keypress)="onKeyPress($event)"
+                                                                ></p-calendar>
                                                         </div>
                                                     </div>
                                                 </div>

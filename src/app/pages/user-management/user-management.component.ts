@@ -616,4 +616,18 @@ export class UserManagementComponent implements OnInit {
 			}
 		});
 	}
+	onKeyPress(event: KeyboardEvent) {
+  const key = event.key;
+  const isNumber = /^[0-9]$/.test(key);
+
+  if (!isNumber) {
+    event.preventDefault(); // block letters/symbols
+  }
+}
+
+// Trim the input to max 4 digits
+onYearInput(event: any) {
+  const inputEl = event.target;
+  inputEl.value = inputEl.value.replace(/[^0-9]/g, '').slice(0, 4);
+}
 }
