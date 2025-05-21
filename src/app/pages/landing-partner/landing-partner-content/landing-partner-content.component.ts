@@ -168,14 +168,14 @@ export class LandingPartnerContentComponent implements OnInit {
   }
 
   getPartnersListById(id: number) {
-    this.landingPartnerService.getPartnersListById(id).subscribe({
-      next: response => {
-        this.partnersList = response.data;
-      },
-      error: error => {
-        console.error(error);
-      }
-    })
+    // this.landingPartnerService.getPartnersListById(id).subscribe({
+    //   next: response => {
+    //     this.partnersList = response.data;
+    //   },
+    //   error: error => {
+    //     console.error(error);
+    //   }
+    // })
   }
 
   toggleVideo() {
