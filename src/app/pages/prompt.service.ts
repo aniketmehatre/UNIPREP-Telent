@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TravelToolsService } from './travel-tools/travel-tools.service';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { environment } from '@env/environment';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -148,15 +148,76 @@ export class PromptService {
         let inputData = `<p style="color: #f0780e;"><strong>Input:<br></strong></p>${ data.inputString }<div class="divider"></div><p><strong>Response:<br></strong></p>`;
         // Rebuild final content using the extracted part
         let finalRecommendation = `<html><head>${ this.style }</head><body class="body-content">${ titleData } ${ inputData } ${ processedRecommendation }</body></html>`;
+        console.log(finalRecommendation, "final recommendation");
         let paramData: DownloadRespose = {
             response: finalRecommendation,
             module_name: data.module_name,
             file_name: data.file_name
         };
         if(data.module_name === 'Trip Length Finder'){
+           let newStyle: string = `<style>
+                    body {
+                        font-family: DejaVu Sans, sans-serif;
+                        color: #000;
+                        margin: 0;
+                        padding: 0;
+                        font-size: 16px;
+                        line-height: 1.6;
+                    }
+
+                    .logo {
+                        display: block;
+                        width: 180px;
+                        height: auto;
+                        margin: 0 auto 20px;
+                    }
+
+                    h3.title-highlight {
+                        color: #f0780e;
+                        font-weight: bold;
+                        font-size: 20px;
+                        margin-top: 30px;
+                        margin-bottom: 10px;
+                    }
+
+                    .section-content {
+                        padding: 15px;
+                        margin-bottom: 20px;
+                    }
+
+                    ul {
+                        padding-left: 20px;
+                    }
+
+                    ul li {
+                        margin-bottom: 8px;
+                    }
+
+                    .title-bar {
+                        border-bottom: 2px solid #f0780e;
+                        margin-bottom: 20px;
+                    }
+
+                    .divider {
+                        height: 2px;
+                        background: linear-gradient(to right, rgb(63, 76, 131), #f0780e);
+                        margin: 30px 0;
+                    }
+            </style>`;
+            let newTitleData = `
+                <div class="title-bar">
+                    <img class="logo" src="https://api.uniprep.ai/uniprepapi/storage/app/public/prompt_modules/trip_length_finder.png" alt="Logo" />
+                </div>`;
+            let newFinalRecommendation = `<html><head>${ newStyle }</head><body class="body-content">${ newTitleData } ${ inputData } ${ processedRecommendation }</body></html>`;
+            paramData = {
+                response: newFinalRecommendation,
+                module_name: data.module_name,
+                file_name: data.file_name
+            }
             this.travelService.downloadAiRecommendation(paramData).subscribe({
                 next : (response: any) =>{
                     console.log("response", response);
+                    window.open(response.link)
                     return;
                 }
             });

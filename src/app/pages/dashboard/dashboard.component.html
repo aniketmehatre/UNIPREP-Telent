@@ -160,57 +160,42 @@
 <!-- second line -->
 <div class="row mt-2">
 	<!-- Recent Job Applications Card -->
-	<div class="col-lg-6 col-md-12 col-sm-12">
+	<div class="col-lg-9 col-md-12 col-sm-12">
 		<div class="card fav-card mt-2 bg-white">
 			<div class="card-body d-flex flex-column justify-content-between">
 				<div class="flex justify-content-between">
-					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span> Recent Job
-						Applications</h5>
-					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white"
+					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span>&nbsp;Apply for jobs
+					</h5>
+					<button class="btn btn-rounded text-small px-4 py-2 m-0  bg-white"
 						style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()"
 						aria-label="View all job applications">View All</button>
 				</div>
-
-				<p-carousel #carousel [circular]="false" [numScroll]="1" [numVisible]="1" *ngIf="!isNoApplicationsData"
-					[responsiveOptions]="responsiveOptions" [value]="groupedListFav2" [showIndicators]="true"
-					[indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
+				<p-carousel #carousel [circular]="false" [autoplayInterval]="3000" [numScroll]="1" [numVisible]="3"
+					*ngIf="!isNoApplicationsData" [responsiveOptions]="responsiveOptions" [value]="recentJobApplication"
+					[showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 					aria-label="Recent Job Applications Carousel">
 					<ng-template let-group pTemplate="item">
-						<div class="grid-container">
-							<div *ngFor="let v of group">
-								<div (click)="selectFav(v)" role="button" tabindex="0" class="card"
-									(keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
-									<div class="card-body">
-										<div class="d-flex gap-2">
-											<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
-												<img alt="{{ v.company_name }} logo" class="w-100 h-100"
-													style="object-fit: cover"
-													(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
-													src="{{ v.company_logo }}" />
-											</div>
-											<div>
-												<h6 class="mb-0 text-sm text-capitalize">
-													<b>{{ v.position }}</b>
-												</h6>
-												<p class="text-muted text-small">{{ v.company_name }}</p>
-												<p class="text-muted text-small">Status: {{ v.status }}</p>
-												<p class="mb-0 text-small text-capitalize mt-2">
-													<i class="fa-solid fa-location-dot" style="color: #79ae28"
-														aria-hidden="true"></i>&nbsp;
-													<span style="font-weight: 500px; color: black">{{ v.worklocation
-														}}</span>
-												</p>
-												<button class="btn btn-rounded text-small m-0 mb-2" [ngStyle]="{
-														border: '1px solid ' + v.color_code,
-														'background-color': v.color_code,
-														color: 'white',
-														'font-size': '10px',
-														'border-radius': '2px'
-													}" aria-label="Hiring stage: {{ v.hiringstage }}">
-													{{ v.hiringstage }}
-												</button>
-											</div>
-										</div>
+						<div role="button" tabindex="0" class="card mt-0 m-2 bg-white" (keyup.enter)="selectFav(v)"
+							(keyup.space)="selectFav(v)">
+							<div class="card-body">
+								<div class="d-flex gap-2">
+									<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
+										<img alt="{{ group.company_name }} logo" width="100" height="100"
+											style="object-fit: cover"
+											(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
+											src="{{ group.image }}" />
+									</div>
+									<div>
+										<h6 class="mb-0 text-sm text-capitalize">
+											<b>{{ group.position_title }}</b>
+										</h6>
+										<p class="text-muted text-small">{{ group.company_name }}</p>
+										<p class="mb-0 text-small text-capitalize mt-2">
+											<i class="fa-solid fa-location-dot" style="color: #79ae28"
+												aria-hidden="true"></i>&nbsp;
+											<span style="font-weight: 500px; color: black">{{ group.work_location
+												}}</span>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -218,16 +203,16 @@
 					</ng-template>
 				</p-carousel>
 				<div *ngIf="isNoApplicationsData" style="margin: auto">
-					<h4>No Recent Job Applications Yet</h4>
+					<h4>No Recent Jobs Yet</h4>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<!-- Quiz and Certification Cards -->
-	<div class="col-lg-3 col-md-6 col-sm-12 mt-2">
+	<div class="col-lg-3 col-md-12 col-sm-12 mt-2">
 		<div class="row h-100">
-			<div class="col-12 mb-2">
+			<div class="col-lg-12 col-md-6 col-sm-12 mb-2">
 				<div class="card h-100 bg-white">
 					<div class="card-body d-flex flex-column justify-content-between">
 						<div class="text-start">
@@ -241,7 +226,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-12">
+			<div class="col-lg-12 col-md-6 col-sm-12">
 				<div class="card h-100 bg-white">
 					<div class="card-body d-flex flex-column justify-content-between">
 						<div class="text-start">
@@ -257,48 +242,6 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- Calendar -->
-	<div class="col-lg-3 col-md-6 col-sm-12 mt-2">
-		<div class="card bg-white h-100 p-3">
-			<div class="calendar-container">
-				<h5 style="text-align: start"><span class="emoji" aria-label="clock">🕒</span> {{ monthName }} {{
-					currentYear }}</h5>
-
-				<div class="weekdays" role="row">
-					<div *ngFor="let day of weekdays" class="weekday" role="columnheader">{{ day }}</div>
-				</div>
-
-				<!-- Calendar Days -->
-				<div class="calendar-grid" role="grid">
-					<!-- Empty spaces for first week alignment -->
-					<div *ngFor="let _ of [].constructor(firstDayIndex)" class="empty" role="gridcell"></div>
-
-					<!-- Calendar Days -->
-					<div *ngFor="let day of daysInMonth" class="day-box" [ngClass]="getStatusClass(day)" role="gridcell"
-						tabindex="0" aria-label="{{ day }} {{ monthName }} {{ currentYear }}">
-						<!-- Display Usage Data (if available) -->
-						<div *ngFor="let entry of getUsageDataForDay(day)" class="usage-info"
-							pTooltip="{{ entry.timeUsage }}" tooltipPosition="top" role="presentation">
-							<span class="dot"></span>
-						</div>
-					</div>
-				</div>
-
-				<div class="legend">
-					<span class="mt-2"><b>Platform Usage:</b></span>
-					<span class="high"
-						style="background-color: #ff881e; border-radius: 5px; min-width: 20%; text-align: center">
-						High</span>
-					<span class="medium"
-						style="background-color: #455c9e; border-radius: 5px; min-width: 20%; text-align: center">
-						Medium</span>
-					<span class="low"
-						style="background-color: #c8cfe5; border-radius: 5px; min-width: 20%; text-align: center">Low</span>
-				</div>
-			</div>
-		</div>
-	</div>
 </div>
 
 <!-- 3rd line -->
@@ -307,19 +250,34 @@
 		<div class="card trustedcard bg-white">
 			<div class="card-body text-center pb-3 bodyclass">
 				<div class="flex justify-content-between">
-					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="seedling">🌱</span> Trusted by 1000+
-						Educational Partners</h5>
+					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="seedling">💼</span> &nbsp;Companies</h5>
 					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white"
 						style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()"
 						aria-label="View all educational partners">View All</button>
 				</div>
 				<div class="mb-4">
-					<p-carousel [numScroll]="6" [numVisible]="6" [autoplayInterval]="3000" [circular]="true"
-						[responsiveOptions]="responsiveOptions" [showIndicators]="false" [value]="partnerTrusterLogo"
+					<p-carousel [numScroll]="8" [numVisible]="4" [autoplayInterval]="3000" [circular]="true"
+						[responsiveOptions]="responsiveOptions" [showIndicators]="true" [value]="partnerTrusterLogo"
 						class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 						aria-label="Educational Partners Carousel">
 						<ng-template let-uni pTemplate="item">
-							<img alt="{{ uni.name }} logo" class="trustedbylogo" src="{{ uni.logo }}" />
+							<div role="button" tabindex="0" class="card mt-0 m-2 bg-white">
+								<div class="card-body">
+									<div class="text-center" style="margin: auto;">
+										<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
+											<img alt="{{ uni.company_name }} logo" width="70" height="70"
+												style="object-fit: cover"
+												(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
+												src="{{ uni.company_logo }}" />
+										</div>
+									</div>
+									<div class=" mt-1text-center">
+										<h6 class="mb-0 text-sm text-capitalize">
+											<b>{{uni.company_name}}</b>
+										</h6>
+									</div>
+								</div>
+							</div>
 						</ng-template>
 					</p-carousel>
 				</div>
@@ -327,7 +285,7 @@
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-12 col-sm-12 mt-2">
-		<div class="card bg=white h-100">
+		<div class="card bg=white h-100 pb-3 pt-2 bg-white">
 			<div class="card-body d-flex flex-column justify-content-between">
 				<div class="text-start">
 					<h5 class="mb-1 mt-2 uppercase"><span class="emoji" aria-label="envelope">💌</span> Invite People to
@@ -342,14 +300,13 @@
 						aria-label="Email address to send invite" required />
 				</p-inputgroup>
 
-				<button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold mt-3"
+				<button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold "
 					style="color: #666666; border-color: #666666; background-color: #ffffff; font-size: 10px"
 					aria-label="Send invite email">Send Invite</button>
 			</div>
 		</div>
 	</div>
 </div>
-
 <!-- Continue Reading Modal -->
 <div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1" aria-modal="true"
 	aria-labelledby="continueReadingHeader">
@@ -461,71 +418,5 @@
 	[modal]="true" [draggable]="false" [resizable]="false" aria-label="Share with Social Media">
 	<div class="px-5 pb-5 pt-3">
 		<div class="justify-content-center text-center pb-5 px-5"></div>
-	</div>
-</p-dialog>
-
-<p-dialog [(visible)]="isViewMoreOrgVisible" [closable]="true" [style]="{ width: '75vw' }" class="p-0 m-0"
-	[modal]="true" [draggable]="false" [resizable]="false" aria-label="Educational Partners">
-	<ng-template #header>
-		<div class="d-flex text-center justify-content-center w-100">
-			<h4 class="mb-0 fw-semibold uniprep-primary">Trusted by 1000+ Educational Partners</h4>
-		</div>
-	</ng-template>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 mb-4"
-				*ngFor="let uni of partnerTrusterLogo">
-				<div class="card">
-					<div class="card-body">
-						<img alt="{{ uni.name }} logo" class="w-100 p-3" src="{{ uni.logo }}" />
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</p-dialog>
-
-<p-dialog [(visible)]="isViewMoreJobApplication" [closable]="true" [style]="{ width: '80vw' }" class="p-0 m-0"
-	[modal]="true" [draggable]="false" [resizable]="false" aria-label="Recent Job Applications">
-	<div class="text-center">
-		<h4 class="mb-0 uniprep-primary">Recent Job Applications</h4>
-	</div>
-	<div class="px-5 pb-5 pt-3">
-		<div class="justify-content-center text-center pb-5">
-			<div class="row">
-				<div class="col-lg-4 col-md-6 col-sm-12 mt-2" *ngFor="let v of recentJobApplication">
-					<div class="card">
-						<div class="card-body country-border text-start">
-							<div class="d-flex justify-content-evenly">
-								<div>
-									<img alt="{{ v.company_name }} logo" width="70" height="70" class="mb-2"
-										src="{{ v.company_logo }}" />
-								</div>
-								<div class="ms-2">
-									<h6 class="mb-0 text-sm text-capitalize">
-										<b>{{ v.position }}</b>
-									</h6>
-									<p class="text-muted text-medium">{{ v.company_name }}</p>
-									<p class="text-muted text-medium">Status: {{ v.status }}</p>
-									<p class="mb-0 text-medium text-capitalize mt-2">
-										<i class="fa-solid fa-location-dot" style="color: #79ae28"
-											aria-hidden="true"></i>&nbsp;
-										<span style="font-weight: 500px; color: black">{{ v.worklocation }}</span>
-									</p>
-									<button class="btn btn-rounded text-medium m-0 mb-2" [ngStyle]="{
-											border: '1px solid ' + v.color_code,
-											'background-color': v.color_code,
-											color: 'white',
-											'border-radius': '5px'
-										}" aria-label="Hiring stage: {{ v.hiringstage }}">
-										{{ v.hiringstage }}
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 </p-dialog>

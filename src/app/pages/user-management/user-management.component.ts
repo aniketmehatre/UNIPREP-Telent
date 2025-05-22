@@ -37,7 +37,7 @@ import { CalendarModule } from "primeng/calendar"
 	templateUrl: "./user-management.component.html",
 	styleUrls: ["./user-management.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule,ConfirmDialogModule ,CalendarModule , TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
+	imports: [CommonModule, RouterModule, ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
 	providers: [ConfirmationService]
 })
 export class UserManagementComponent implements OnInit {
@@ -90,14 +90,14 @@ export class UserManagementComponent implements OnInit {
 	subscribedHistoryList: any[] = [];
 	subscribedTransactionList: any[] = [];
 	studentType: number = 0;
-	submitName:any="Edit"
+	submitName: any = "Edit"
 	constructor(private authService: AuthService, private formBuilder: FormBuilder,
 		private locationService: LocationService, private toast: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
 		private userManagementService: UserManagementService, private router: Router,
 		private _location: Location, private storage: StorageService, private subscription: SubscriptionService,
-		private confirmationService: ConfirmationService,private authTokenService: AuthTokenService,) {
-			
+		private confirmationService: ConfirmationService, private authTokenService: AuthTokenService,) {
+
 		this.registrationForm = this.formBuilder.group({
 			name: [""],
 			location_id: [""],
@@ -105,7 +105,7 @@ export class UserManagementComponent implements OnInit {
 			home_country: [""],
 			last_degree_passing_year: [""],
 			email: [""],
-			current_education:[""]
+			current_education: [""]
 		})
 
 		this.updatedpasswords = this.formBuilder.group({
@@ -293,22 +293,22 @@ export class UserManagementComponent implements OnInit {
 					title: 'Weekly Newsletter',
 					description: 'Get notified about articles, discounts and new products.',
 					enabled: this.newsletter_consent,
-					pertrue:"You’ve successfully subscribed to the Weekly Newsletter. Look out for updates in your inbox!",
-					perfalse:"Are you sure you want to unsubscribe from the Weekly Newsletter?"
+					pertrue: "You’ve successfully subscribed to the Weekly Newsletter. Look out for updates in your inbox!",
+					perfalse: "Are you sure you want to unsubscribe from the Weekly Newsletter?"
 				},
 				{
 					title: 'Promotional Emails',
 					description: 'Get personalised emails based on your orders and preferences.',
 					enabled: this.promotional_email_consent,
-					pertrue:"You’ve subscribed to promotional emails. Stay tuned for the latest offers and news!",
-					perfalse:"Are you sure you want to stop receiving promotional emails?"
+					pertrue: "You’ve subscribed to promotional emails. Stay tuned for the latest offers and news!",
+					perfalse: "Are you sure you want to stop receiving promotional emails?"
 				},
 				{
 					title: 'Product Updates',
 					description: 'Checking this will enable us to notify you on updates and addition of new features to our product.',
 					enabled: this.product_update_email_consent,
-					pertrue:"You’ve subscribed to product updates. We’ll keep you informed about the latest features and improvements!",
-					perfalse:"Are you sure you want to stop receiving product updates?"
+					pertrue: "You’ve subscribed to product updates. We’ll keep you informed about the latest features and improvements!",
+					perfalse: "Are you sure you want to stop receiving product updates?"
 
 				}
 			];
@@ -319,7 +319,7 @@ export class UserManagementComponent implements OnInit {
 				last_degree_passing_year: this.PersonalInfo?.last_degree_passing_year,
 				phone: this.PersonalInfo?.phone,
 				email: this.PersonalInfo?.email,
-				current_education:this.PersonalInfo?.programlevel
+				current_education: this.PersonalInfo?.programlevel
 			})
 			this.selectedDate = new Date()
 			this.selectedDate.setFullYear(this.registrationForm.get("intake_year_looking")?.value)
@@ -414,66 +414,66 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	logout() {
-			// this.isLoading = true;
-			// Create a cleanup function to handle all synchronous operations
-			const cleanupLocalState = () => {
-				window.sessionStorage.clear();
-				localStorage.clear();
-				this.authService.clearCache();
-				this.locationService.clearCache();
-				this.authTokenService.clearToken();
-				// this.isLoading = false;
-			};
-	
-			// Prepare all API calls that need to be made
-			const logoutRequests = [
-				this.authService.logout().pipe(
-					catchError(error => {
-						console.warn('Logout API error:', error);
-						return EMPTY;
-					})
-				),
-				this.locationService.sessionEndApiCall().pipe(
-					catchError(error => {
-						console.warn('Session end API error:', error);
-						return EMPTY;
-					})
-				)
-			];
-	
-			// Execute all logout operations in parallel
-			forkJoin(logoutRequests).pipe(
-				timeout(5000), // 5 second timeout for all requests
-				finalize(() => {
-					// Always clean up local state, even if requests fail
-					cleanupLocalState();
-					// Navigate to login page
-					this.router.navigate(['/login'], { replaceUrl: true });
-				}),
+		// this.isLoading = true;
+		// Create a cleanup function to handle all synchronous operations
+		const cleanupLocalState = () => {
+			window.sessionStorage.clear();
+			localStorage.clear();
+			this.authService.clearCache();
+			this.locationService.clearCache();
+			this.authTokenService.clearToken();
+			// this.isLoading = false;
+		};
+
+		// Prepare all API calls that need to be made
+		const logoutRequests = [
+			this.authService.logout().pipe(
 				catchError(error => {
-					console.warn('Logout process error:', error);
-					// Still clean up and redirect on error
-					cleanupLocalState();
-					this.router.navigate(['/login'], { replaceUrl: true });
+					console.warn('Logout API error:', error);
 					return EMPTY;
 				})
-			).subscribe({
-				next: () => {
-					this.toast.add({
-						severity: 'success',
-						summary: 'Success',
-						detail: 'Logged out successfully'
-					});
-				},
-				error: (error) => {
-					console.error('Logout error:', error);
-					this.toast.add({
-						severity: 'info',
-						summary: 'Info',
-						detail: 'Logged out with some pending requests'
-					});
-				}
-			});
+			),
+			this.locationService.sessionEndApiCall().pipe(
+				catchError(error => {
+					console.warn('Session end API error:', error);
+					return EMPTY;
+				})
+			)
+		];
+
+		// Execute all logout operations in parallel
+		forkJoin(logoutRequests).pipe(
+			timeout(5000), // 5 second timeout for all requests
+			finalize(() => {
+				// Always clean up local state, even if requests fail
+				cleanupLocalState();
+				// Navigate to login page
+				this.router.navigate(['/login'], { replaceUrl: true });
+			}),
+			catchError(error => {
+				console.warn('Logout process error:', error);
+				// Still clean up and redirect on error
+				cleanupLocalState();
+				this.router.navigate(['/login'], { replaceUrl: true });
+				return EMPTY;
+			})
+		).subscribe({
+			next: () => {
+				this.toast.add({
+					severity: 'success',
+					summary: 'Success',
+					detail: 'Logged out successfully'
+				});
+			},
+			error: (error) => {
+				console.error('Logout error:', error);
+				this.toast.add({
+					severity: 'info',
+					summary: 'Info',
+					detail: 'Logged out with some pending requests'
+				});
+			}
+		});
 	}
 	// get name short form
 	getInitials(name: string): string {
@@ -484,21 +484,21 @@ export class UserManagementComponent implements OnInit {
 	}
 	confirmEmailToggle(event: any, setting: any) {
 		const newValue = event.checked ? 1 : 0;
-		const message = event.checked ?setting.pertrue:setting.perfalse;
+		const message = event.checked ? setting.pertrue : setting.perfalse;
 		this.confirmationService.confirm({
-		  message: message,
-		  header: 'Confirm Change',
-		  icon: 'pi pi-exclamation-triangle',
-		  accept: () => {
-			setting.enabled = newValue;
-			this.emailSettings(setting); // Proceed with API call
-		  },
-		  reject: () => {
-			// Revert toggle (optional visual correction)
-			setting.enabled = setting.enabled === 1 ? 0 : 1;
-		  }
+			message: message,
+			header: 'Confirm Change',
+			icon: 'pi pi-exclamation-triangle',
+			accept: () => {
+				setting.enabled = newValue;
+				this.emailSettings(setting); // Proceed with API call
+			},
+			reject: () => {
+				// Revert toggle (optional visual correction)
+				setting.enabled = setting.enabled === 1 ? 0 : 1;
+			}
 		});
-	  }
+	}
 	emailSettings(email: any) {
 		const title = email.title
 		if (title == "Weekly Newsletter") {
@@ -587,7 +587,7 @@ export class UserManagementComponent implements OnInit {
 	}
 	closeMobileMenu() {
 		this.isSidebarVisible = false;
-	  }
+	}
 	extractYear(dateString: string): number {
 		const date = new Date(dateString);
 		return date.getFullYear();
@@ -601,13 +601,13 @@ export class UserManagementComponent implements OnInit {
 		}
 		let data = {
 			location_id: this.registrationForm.value.location_id,
-			last_degree_passing_year:this.extractYear(this.registrationForm.value.last_degree_passing_year),
+			last_degree_passing_year: this.extractYear(this.registrationForm.value.last_degree_passing_year),
 		}
 		this.userManagementService.updateUserDetails(data).subscribe({
 			next: (data: any) => {
 				this.toast.add({ severity: 'success', summary: 'Success', detail: data.message });
-			    this.registrationForm.get('last_degree_passing_year')?.disable();
-			    this.registrationForm.get('location_id')?.disable();
+				this.registrationForm.get('last_degree_passing_year')?.disable();
+				this.registrationForm.get('location_id')?.disable();
 				this.submitName = "Edit"
 				this.GetPersonalProfileData();
 			},
@@ -615,5 +615,19 @@ export class UserManagementComponent implements OnInit {
 				console.error('Error fetching job listings:', error);
 			}
 		});
+	}
+	onKeyPress(event: KeyboardEvent) {
+		const key = event.key;
+		const isNumber = /^[0-9]$/.test(key);
+
+		if (!isNumber) {
+			event.preventDefault(); // block letters/symbols
+		}
+	}
+
+	// Trim the input to max 4 digits
+	onYearInput(event: any) {
+		const inputEl = event.target;
+		inputEl.value = inputEl.value.replace(/[^0-9]/g, '').slice(0, 4);
 	}
 }

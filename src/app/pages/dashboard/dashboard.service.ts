@@ -232,7 +232,13 @@ profileCompletion(){
 }
 RecentJobApplication(){
   const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getuserRecentJobs", {}, {
+  return this.http.get<any>(environment.ApiUrl + "/getdashboardapplyjob", {
+      headers: headers,
+  });
+}
+RecentCompanies(){
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.get<any>(environment.ApiUrl + "/getdashboardcompanieslist", {
       headers: headers,
   });
 }

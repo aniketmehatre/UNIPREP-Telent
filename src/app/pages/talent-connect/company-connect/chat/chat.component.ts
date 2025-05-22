@@ -34,7 +34,6 @@ export class ChatComponent implements OnInit, OnChanges {
   @Output() closeChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Input() showInfo: boolean = true;
   @Output() studentIdEmit = new EventEmitter<number>();
-  @Output() studentIdEmitLive = new EventEmitter<number>();
   isLoadingAiSummary: boolean = false;
   organizationName: string = 'UNIABROAD';
   organizationStatus: string = 'Active';
@@ -75,7 +74,7 @@ export class ChatComponent implements OnInit, OnChanges {
           if (event) {
             const hasMatchingStudentId = this.companyDetails?.id === event.company_id;
             if (hasMatchingStudentId) {
-
+   
               this.messages.push({
                 added_by: event.added_by,
                 chat: event.chat,
@@ -84,16 +83,8 @@ export class ChatComponent implements OnInit, OnChanges {
                 attachment: event.attachment ? event.attachment.name : '',
                 icon: event.icon
               });
-              var data = {
-                chatId: event.id
-              }
-              this.talentConnectService.markReadMessage(data).subscribe((res: any) => {
-                const unseenCount = this.messages.filter((item: any) => item.seen === 0).length;
-                this.studentIdEmit.emit(unseenCount);
-              })
+              this.markReadmessage(event.id)
               this.attachmentFile = null;
-            } else {
-              //  this.studentIdEmitLive.emit(event);
             }
           }
         });
@@ -122,6 +113,9 @@ export class ChatComponent implements OnInit, OnChanges {
           studentName: data?.message[0]?.userName,
           createdAt: data.created_at
         };
+            const unseenCount = this.messages.filter((item: any) => item.seen === 0).length ;
+            console.log(unseenCount);
+            
       },
       error: err => {
 
@@ -240,7 +234,7 @@ export class ChatComponent implements OnInit, OnChanges {
       }
       return item;
     });
-    const unseenCount = this.messages.filter((item: any) => item.seen === 0).length;
+    const unseenCount = this.messages.filter((item: any) => item.seen === 0).length ;
     this.studentIdEmit.emit(unseenCount);
     var data = {
       chatId: id
