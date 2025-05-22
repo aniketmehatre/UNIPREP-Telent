@@ -11,7 +11,7 @@
 				<a class="nav-link active text-white fw-regular" aria-current="page" href="/">Home</a>
 			</li>
             <li class="nav-item">
-				<a class="nav-link active text-white fw-regular" aria-current="page" href="/about">About</a>
+				<a class="nav-link active text-white fw-regular" aria-current="page" (click)="navigateConnectUrl('about')">About</a>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link text-white fw-regular dropdown-toggle" href="javascript.void(0)" id="exploreDropdown"
@@ -19,13 +19,13 @@
 					Features
 				</a>
 				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-					<li><a class="dropdown-item text-white hover-black" routerLink="/job-seekers">For
+					<li><a class="dropdown-item text-white hover-black" (click)="navigateConnectUrl('job-seekers')">For
 							Job Seekers</a></li>
 					<li><a class="dropdown-item text-white hover-black"
-							routerLink="/international-students">For International Students</a></li>
+                           (click)="navigateConnectUrl('international-students')">For International Students</a></li>
 					<li><a class="dropdown-item text-white hover-black"
-							routerLink="/global-travellers">For Global Travellers</a></li>
-					<li><a class="dropdown-item text-white hover-black" routerLink="/entrepreneurs">For
+                           (click)="navigateConnectUrl('global-travellers')">For Global Travellers</a></li>
+					<li><a class="dropdown-item text-white hover-black" (click)="navigateConnectUrl('entrepreneurs')">For
 							Entrepreneurs</a></li>
 				</ul>
 			</li>
@@ -38,12 +38,12 @@
 					Resources
 				</a>
 				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-					<li><a class="dropdown-item text-white hover-black" href="/certificates">Certificates</a></li>
-					<li><a class="dropdown-item text-white hover-black" href="/blogs">Blogs</a></li>
+                    <li><a class="dropdown-item text-white hover-black" (click)="navigateConnectUrl('blogs')">Blogs</a></li>
+                    <li><a class="dropdown-item text-white hover-black" (click)="navigateConnectUrl('certificates')">Certificates</a></li>
 				</ul>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular" aria-current="page" href="/contact-us">Contact Us</a>
+				<a class="nav-link active text-white fw-regular" aria-current="page" (click)="navigateConnectUrl('contact-us');">Contact Us</a>
 			</li>
 			<!-- <li class="nav-item">
 							<a class="nav-link text-white fw-regular" aria-label="Key Features" href="#keyfeatures"
@@ -143,7 +143,7 @@
 						</a>
 						<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
 							<li><a class="dropdown-item text-white hover-black" style="cursor: pointer"
-									(click)="navigateConnectUrl()">Employer Connect</a></li>
+                                   (click)="navigateConnectUrl('employer')">Employer Connect</a></li>
 							<li><a class="dropdown-item text-white hover-black"
 									routerLink="/talent-connect">Talent Connect</a></li>
 						</ul>

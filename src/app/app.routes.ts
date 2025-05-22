@@ -32,18 +32,18 @@ export const appRoutes: Routes = [
 	{ path: "forgot-password", component: ForgotPasswordComponent },
 	{ path: "verification/:email", component: VerificationComponent },
 	{ path: "setpassword/:otp/:email", component: SetpasswordComponent },
-	{
-		path: 'talent-connect',
-		loadChildren: () => import('./pages/landing-talent-connect/landing-new.module').then(c => c.LandingModule)
-	},
-	{
-		path: 'partner',
-		loadChildren: () => import('./pages/landing-partner/landing-partner.module').then(c => c.LandingPartnerModule)
-	},
-	{
-		path: 'institute',
-		loadChildren: () => import('./pages/landing-institute/landing-institute.module').then(c => c.LandingInstituteModule)
-	},
+	// {
+	// 	path: 'talent-connect',
+	// 	loadChildren: () => import('./pages/landing-talent-connect/landing-new.module').then(c => c.LandingModule)
+	// },
+	// {
+	// 	path: 'partner',
+	// 	loadChildren: () => import('./pages/landing-partner/landing-partner.module').then(c => c.LandingPartnerModule)
+	// },
+	// {
+	// 	path: 'institute',
+	// 	loadChildren: () => import('./pages/landing-institute/landing-institute.module').then(c => c.LandingInstituteModule)
+	// },
 
 
 	// Protected routes that require authentication
