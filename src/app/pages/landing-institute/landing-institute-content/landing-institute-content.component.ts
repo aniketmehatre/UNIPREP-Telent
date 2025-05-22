@@ -8,6 +8,7 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 interface LandingSection {
   title: string;
@@ -151,7 +152,10 @@ export class LandingInstituteContentComponent {
   instituteList: Institute[] = [];
   filteredInstituteList: Institute[] = [];
   searchWord: string = '';
-  constructor(private landingInstituteService: LandingInstituteService) { }
+  videoUrl: string = `https://www.youtube.com/embed/Sv8EyWriqV0?rel=0&autoplay=1`;
+  embedUrl!: SafeResourceUrl;
+  isInitialLoadVideo: boolean = true;
+  constructor(private landingInstituteService: LandingInstituteService, private sanitizer: DomSanitizer) { }
 
   selectCountry(country: string): void {
     this.selectedCountry = country;
@@ -184,14 +188,11 @@ export class LandingInstituteContentComponent {
   }
 
   toggleVideo() {
-    const video: HTMLVideoElement = this.videoPlayer.nativeElement
-    if (video.paused) {
-      video.play()
-      this.isPlaying = true
-    } else {
-      video.pause()
-      this.isPlaying = false
+    if (this.isInitialLoadVideo) {
+      this.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
+      this.isInitialLoadVideo = false;
     }
+    this.isPlaying = !this.isPlaying;
   }
 
   onSearchInstitutes(event: any) {

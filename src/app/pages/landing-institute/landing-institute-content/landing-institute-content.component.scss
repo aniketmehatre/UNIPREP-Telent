@@ -45,39 +45,49 @@ body {
 video::-webkit-media-controls-panel {
 	background-image: none !important;
 }
-
 .video-container {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .fa-circle-play {
-	position: absolute;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 5em;
-	z-index: 2;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5em;
+    z-index: 2;
+    cursor: pointer;
 }
 
-video {
-	width: 60%;
-	height: auto;
+.youtube-iframe {
+    width: 60%;
+    height: auto;
+    aspect-ratio: 16/9; /* Maintains proper video aspect ratio */
+    border-radius: 1rem; /* Equivalent to rounded-4 */
+}
+
+.video-thumbnail {
+    width: 60%;
+    height: auto;
+    aspect-ratio: 16/9;
+    border-radius: 1rem;
+    cursor: pointer;
 }
 
 .video-gradient {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 200px; /* Adjust this value to change the height of the gradient */
-	background: linear-gradient(to top, #07070b, transparent);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
 }
+
 body {
 	font-family: "Poppins", sans-serif !important;
 	overflow: auto !important;

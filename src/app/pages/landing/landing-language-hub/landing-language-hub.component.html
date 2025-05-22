@@ -1,7 +1,7 @@
 <section class="pb-5 pt-5 py-md-4 darksection" id="hero-section">
 	<div class="container-fluid py-5">
 		<div class="row justify-content-center">
-			<div class="col-md-10">
+			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="d-flex gap-2 align-items-center mb-2">
@@ -15,10 +15,11 @@
 						<div class="row align-items-center justify-content-between">
 							<div class="col-md-6 mb-md-0 mb-4">
 								<h1 class="fw-normal text-white">
-									<span class="fw-bold uniprep-secondary">{{ landingPageData?.herocover?.hero_title?.split(".")[0] }}.</span>
+									<span class="fw-bold uniprep-secondary">{{
+										landingPageData?.herocover?.hero_title?.split(".")[0] }}.</span>
 									{{ landingPageData?.herocover?.hero_title?.split(".").slice(1).join(".") }}
 								</h1>
-								<p class="mb-4">{{ landingPageData?.herocover?.hero_description }}</p>
+								<p class="mb-4 fs-5">{{ landingPageData?.herocover?.hero_description }}</p>
 								<div class="d-flex gap-2">
 									<button class="btn btn-outline-light !rounded-1 px-4 py-2" (click)="scrollToSection($event, 'why-choose-us')">Learn More</button>
 									<button class="btn btn-secondary !rounded-1 px-4 py-2" routerLink="/login">Try for Free!</button>
@@ -26,12 +27,23 @@
 							</div>
 							<div class="col-md-5">
 								<div class="position-relative fakemockup">
-									<img class="mockup" src="uniprep-assets/images/mockup-frame.webp" (click)="toggleVideo()" />
+									<img class="mockup" src="uniprep-assets/images/mockup-frame.webp"
+										(click)="toggleVideo()" />
 									<div class="video-container position-absolute top-0">
-										<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
-										<video #videoPlayer width="80%" height="100%" preload="none" style="width: 95%; object-fit: fill" [poster]="landingPageData?.herocover?.hero_coverimage || 'uniprep-assets/images/mockup.webp'">
-											<source [src]="landingPageData?.herocover?.video_link || welcomeVideoLink" type="video/mp4" />
-										</video>
+										<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button"
+											*ngIf="!isPlaying" (click)="toggleVideo()"></i>
+
+										<!-- YouTube iframe (shown when playing) -->
+										<iframe *ngIf="isPlaying" (click)="toggleVideo()" class="youtube-iframe"
+											[src]="embedUrl" title="YouTube video player" frameborder="0"
+											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+											allowfullscreen>
+										</iframe>
+
+										<!-- Video thumbnail (shown when not playing) -->
+										<img *ngIf="!isPlaying" class="video-thumbnail"
+											[src]="posterUrl"
+											alt="Video thumbnail">
 									</div>
 								</div>
 							</div>
@@ -45,7 +57,7 @@
 <section class="pb-5 pt-5 py-md-4 darksection" id="why-choose-us">
 	<div class="container-fluid py-5">
 		<div class="row justify-content-center">
-			<div class="col-md-10">
+			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12">
 						<h2 class="text-white fw-light mb-4">
@@ -55,7 +67,8 @@
 					</div>
 					<div class="col-md-12">
 						<div class="row">
-							<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3" *ngFor="let item of chooseUsList">
+							<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3"
+								*ngFor="let item of chooseUsList">
 								<div class="card h-100">
 									<div class="card-body d-flex align-items-center gap-4">
 										<h2 class="mb-0 emoji">{{ item.chooseus_icon }}</h2>
@@ -76,7 +89,7 @@
 <section class="pt-5 pb-5 cta-field darksection" id="cta-1">
 	<div class="container-fluid">
 		<div class="row justify-content-center">
-			<div class="col-md-10">
+			<div class="col-md-8">
 				<div class="card py-4 px-4">
 					<div class="card-body">
 						<div class="row align-items-center justify-content-center">
@@ -96,7 +109,7 @@
 <section class="pb-5 pt-5 py-md-4 darksection" id="how-it-works">
 	<div class="container-fluid py-5">
 		<div class="row justify-content-center">
-			<div class="col-md-10">
+			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12">
 						<h2 class="text-white fw-light mb-4">How it Works?</h2>
@@ -104,7 +117,8 @@
 					<div class="col-md-12">
 						<div class="row align-items-center justify-content-between">
 							<div class="col-md-5 order-md-1 order-2">
-								<div class="card mb-3" role="button" *ngFor="let step of howitsWorks" (click)="selectedStep = step">
+								<div class="card mb-3" role="button" *ngFor="let step of howitsWorks"
+									(click)="selectedStep = step">
 									<div class="card-body d-flex justify-content-between">
 										<div>
 											<h4 class="card-title" [ngClass]="{ 'uniprep-secondary': selectedStep == step }">Step {{ step.step }}</h4>
@@ -112,7 +126,8 @@
 										</div>
 										<div class="position-relative">
 											<div class="position-relative" style="z-index: 1">
-												<p-avatar class="position-relative" [image]="step.itswork_cardimage_url" size="xlarge"></p-avatar>
+												<p-avatar class="position-relative" [image]="step.itswork_cardimage_url"
+													size="xlarge"></p-avatar>
 											</div>
 
 											<h1 class="numberitem">{{ step.step }}</h1>
@@ -122,7 +137,9 @@
 							</div>
 							<div class="col-md-5 order-md-2 order-1">
 								<div class="rounded-4 overflow-hidden mb-md-0 mb-4" *ngIf="selectedStep">
-									<img class="w-100" (error)="$event.target.src = '/uniprep-assets/images/placeholder.webp'" [src]="selectedStep?.feature_image_url" alt="Platform Preview" />
+									<img class="w-100"
+										(error)="$event.target.src = '/uniprep-assets/images/placeholder.webp'"
+										[src]="selectedStep?.feature_image_url" alt="Platform Preview" />
 								</div>
 							</div>
 						</div>
@@ -135,18 +152,21 @@
 <section class="pt-5 pb-5 darksection" id="whos-it-for">
 	<div class="container-fluid">
 		<div class="row justify-content-center">
-			<div class="col-md-10">
+			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12">
 						<h2 class="text-white fw-light mb-4">Who It's For?</h2>
 					</div>
 					<div class="col-md-12">
 						<div class="row">
-							<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-3" *ngFor="let userType of whoItsFor">
+							<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-3"
+								*ngFor="let userType of whoItsFor">
 								<div class="card h-100">
 									<div class="card-body">
 										<div class="w-100 rounded-2 overflow-hidden mb-3">
-											<img style="object-fit: cover" class="w-100" (error)="$event.target.src = '/uniprep-assets/images/placeholder.webp'" [src]="userType.image_url" [alt]="userType.itsfor_title" />
+											<img style="object-fit: cover" class="w-100"
+												(error)="$event.target.src = '/uniprep-assets/images/placeholder.webp'"
+												[src]="userType.image_url" [alt]="userType.itsfor_title" />
 										</div>
 										<h4 class="card-title">{{ userType.itsfor_title }}</h4>
 										<p>{{ userType.itsfor_subtitle }}</p>
@@ -163,7 +183,7 @@
 <section class="pt-5 pb-5 darksection cta-field" id="cta-2">
 	<div class="container-fluid">
 		<div class="row justify-content-center">
-			<div class="col-md-10">
+			<div class="col-md-8">
 				<div class="card cta-gradient py-4 px-4">
 					<div class="card-body">
 						<div class="row align-items-center justify-content-center">
@@ -183,7 +203,7 @@
 <section class="pb-5 pt-5 py-md-4 darksection" id="faq-section">
 	<div class="container-fluid py-5">
 		<div class="row justify-content-center">
-			<div class="col-md-10">
+			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12">
 						<h2 class="text-white fw-light mb-4">Frequently Asked Questions</h2>
@@ -197,7 +217,8 @@
 											{{ faq.question }}
 										</button>
 									</h2>
-									<div [id]="'faq' + i" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+									<div [id]="'faq' + i" class="accordion-collapse collapse"
+										data-bs-parent="#accordionFAQ">
 										<div class="accordion-body">{{ faq.answer }}</div>
 									</div>
 								</div>

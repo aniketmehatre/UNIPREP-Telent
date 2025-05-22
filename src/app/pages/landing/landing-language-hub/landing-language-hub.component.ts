@@ -7,6 +7,7 @@ import { Chooseuse, Faq, Howitswork, LandingPage, Whoitsfor } from 'src/app/@Mod
 import { environment } from '@env/environment';
 import { AvatarModule } from 'primeng/avatar';
 import { landingServices } from '../landing.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -35,7 +36,10 @@ export class LandingLanguageHubComponent implements OnInit {
   whoItsFor: Whoitsfor[] = [];
   landingPageData!: LandingPage;
   welcomeVideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
-
+  posterUrl: string = '';
+  embedUrl!: SafeResourceUrl;
+  isInitialLoadVideo: boolean = true;
+  videoUrl: string = '';
   // steps = [
   //   {
   //     number: 1,
@@ -87,26 +91,8 @@ export class LandingLanguageHubComponent implements OnInit {
   //   }
   // ];
 
-  toggleFaq(faq: any): void {
-    faq.isOpen = !faq.isOpen;
-  }
 
-  toggleVideo() {
-    const video: HTMLVideoElement = this.videoPlayer.nativeElement
-    if (video.paused) {
-      video.play()
-      this.isPlaying = true
-    } else {
-      video.pause()
-      this.isPlaying = false
-    }
-  }
-
-  goBack() {
-    this.location.back();
-  }
-
-  constructor(private route: ActivatedRoute, private landingPageService: landingServices, public location: Location) { }
+  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private landingPageService: landingServices, public location: Location) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -121,6 +107,22 @@ export class LandingLanguageHubComponent implements OnInit {
     });
   }
   
+  toggleFaq(faq: any): void {
+    faq.isOpen = !faq.isOpen;
+  }
+
+  toggleVideo() {
+    if (this.isInitialLoadVideo) {
+      this.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
+      this.isInitialLoadVideo = false;
+    }
+    this.isPlaying = !this.isPlaying;
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
   scrollToSection(event: Event, sectionId: string): void {
     // Prevent the default anchor link behavior
     event.preventDefault()
@@ -186,6 +188,20 @@ export class LandingLanguageHubComponent implements OnInit {
     this.landingPageService.getLandingPageData(landingPageId).subscribe({
       next: response => {
         this.landingPageData = response.landingpages;
+        const poster = this.landingPageData?.herocover?.image_url;
+
+        if (poster) {
+          const img = new Image();
+          img.onload = () => {
+            this.posterUrl = poster;
+          };
+          img.onerror = () => {
+            this.posterUrl = 'uniprep-assets/images/landing-page-mock.png';
+          };
+          img.src = poster;
+        }
+
+        this.videoUrl = this.landingPageData?.herocover?.video_link + '?rel=0&autoplay=1';
       },
       error: error => {
         console.log(error);
