@@ -9,22 +9,23 @@ import { ThemeService } from 'src/app/theme.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ScrollTopModule } from 'primeng/scrolltop';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'uni-landing-content',
   imports: [
-          CommonModule,
-          FormsModule,
-          ReactiveFormsModule,
-          DialogModule,
-          RouterModule,
-          ScrollTopModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DialogModule,
+    RouterModule,
+    ScrollTopModule,
   ],
   templateUrl: './landing-content.component.html',
   styleUrls: ['./landing-content.component.scss']
 })
 export class LandingContentComponent implements OnInit {
-@ViewChild("videoPlayer")
+  @ViewChild("videoPlayer")
   videoPlayer!: ElementRef
   isPlaying = false
   isDarkMode: boolean
@@ -39,29 +40,9 @@ export class LandingContentComponent implements OnInit {
   blogs: any
   contactSuccess: boolean = false
   welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
-
-
-
-  showTandC() {
-    this.displaytandc = true
-  }
-
-  showprivacypolicy() {
-    this.displayprivacypolicy = true
-  }
-
-  showcancellationpolicy() {
-    this.displaycancellationpolicy = true
-  }
-
-  showcontactform() {
-    this.displaycontactform = true
-  }
-
-  constructor(private themeService: ThemeService, private formbuilder: FormBuilder, private service: LocationService, private storage: LocalStorageService, private router: Router, private authService: AuthService) {
-    // Initialize the isDarkMode property with the value from the service
-    this.isDarkMode = this.themeService.getInitialSwitchState()
-  }
+  videoUrl: string = `https://www.youtube.com/embed/Sv8EyWriqV0?rel=0&autoplay=1`;
+  embedUrl!: SafeResourceUrl;
+  isInitialLoadVideo: boolean = true;
 
   stats = [
     {
@@ -90,83 +71,79 @@ export class LandingContentComponent implements OnInit {
       text: "Countries Covered",
     },
   ];
-  
-    cardItems = [
-      {
-        text: "You want to connect with potential employers.",
-      },
-      {
-        text: "You're unsure about career preparation and want to upskill.",
-      },
-      {
-        text: "You're interested in learning new languages.",
-      },
-      {
-        text: "You're seeking education abroad.",
-      },
-      {
-        text: "You're planning to start your own business.",
-      },
-      {
-        text: "You're eager to travel the world.",
-      },
-    ];
-  
-    accordionItems = [
-      {
-        id: "collapseOne",
-        title: "Employer Connect",
-        content: "Network directly with potential employers anywhere in the world to enhance career opportunities.",
-        image: "uf1.webp",
-      },
-      {
-        id: "collapseTwo",
-        title: "CV Builder",
-        content: "Craft Unlimited standout resume with tailored templates and expert tips to land your dream job.",
-        image: "uf2.webp",
-      },
-      {
-        id: "collapseThree",
-        title: "Learning Hub",
-        content: "Access over 1,000 specialised courses to upskill and get certified.",
-        image: "uf3.webp",
-      },
-      {
-        id: "collapseFour",
-        title: "Career Planner",
-        content: "Visualize your next 5 potential career progressions to attain your professional goals.",
-        image: "uf4.webp",
-      },
-      {
-        id: "collapseFive",
-        title: "Job Interview Preparation",
-        content: "Prepare for interviews and learn insider tips to shine in your job interviews.",
-        image: "uf5.webp",
-      },
-      {
-        id: "collapseSix",
-        title: "Average Salary Estimator",
-        content: "Get updated salary data to negotiate confidently and plan your career path.",
-        image: "uf6.webp",
-      },
-      {
-        id: "collapseSeven",
-        title: "Language Hub",
-        content: "Learn over 25 languages through interactive lessons and practical exercises.",
-        image: "uf7.webp",
-      },
-      {
-        id: "collapseEight",
-        title: "Cost of Living Comparison",
-        content: "Compare living costs across locations to make informed decisions about where to live and work.",
-        image: "uf8.webp",
-      },
-      // Add more items as needed
-    ];
-  
-    changeImage(imageName: string): void {
-      this.currentImage = "/uniprep-assets/images/" + imageName
-    }
+
+  cardItems = [
+    {
+      text: "You want to connect with potential employers.",
+    },
+    {
+      text: "You're unsure about career preparation and want to upskill.",
+    },
+    {
+      text: "You're interested in learning new languages.",
+    },
+    {
+      text: "You're seeking education abroad.",
+    },
+    {
+      text: "You're planning to start your own business.",
+    },
+    {
+      text: "You're eager to travel the world.",
+    },
+  ];
+
+  accordionItems = [
+    {
+      id: "collapseOne",
+      title: "Employer Connect",
+      content: "Network directly with potential employers anywhere in the world to enhance career opportunities.",
+      image: "uf1.webp",
+    },
+    {
+      id: "collapseTwo",
+      title: "CV Builder",
+      content: "Craft Unlimited standout resume with tailored templates and expert tips to land your dream job.",
+      image: "uf2.webp",
+    },
+    {
+      id: "collapseThree",
+      title: "Learning Hub",
+      content: "Access over 1,000 specialised courses to upskill and get certified.",
+      image: "uf3.webp",
+    },
+    {
+      id: "collapseFour",
+      title: "Career Planner",
+      content: "Visualize your next 5 potential career progressions to attain your professional goals.",
+      image: "uf4.webp",
+    },
+    {
+      id: "collapseFive",
+      title: "Job Interview Preparation",
+      content: "Prepare for interviews and learn insider tips to shine in your job interviews.",
+      image: "uf5.webp",
+    },
+    {
+      id: "collapseSix",
+      title: "Average Salary Estimator",
+      content: "Get updated salary data to negotiate confidently and plan your career path.",
+      image: "uf6.webp",
+    },
+    {
+      id: "collapseSeven",
+      title: "Language Hub",
+      content: "Learn over 25 languages through interactive lessons and practical exercises.",
+      image: "uf7.webp",
+    },
+    {
+      id: "collapseEight",
+      title: "Cost of Living Comparison",
+      content: "Compare living costs across locations to make informed decisions about where to live and work.",
+      image: "uf8.webp",
+    },
+    // Add more items as needed
+  ];
 
   userCategories = [
     {
@@ -257,97 +234,88 @@ export class LandingContentComponent implements OnInit {
       answer: "The certificates accredited by a prominent body will demonstrate your knowledge which can serve as a valuable addition to your CV and job applications.",
     },
   ];
-  
-    toggleVideo() {
-      const video: HTMLVideoElement = this.videoPlayer.nativeElement
-      if (video.paused) {
-        video.play()
-        this.isPlaying = true
-      } else {
-        video.pause()
-        this.isPlaying = false
-      }
-    }
-  
-    scrollToSection(event: Event, sectionId: string): void {
-      // Prevent the default anchor link behavior
-      event.preventDefault()
-  
-      // Find the element with the given section ID
-      const section = document.querySelector(`#${sectionId}`)
-  
-      // If the section exists, scroll to it smoothly
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" })
-      }
-    }
-    timeLeftInfoCard: any
-    ngOnInit() {
-      if (this.authService.isTokenValid()) {
-        this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
-      }
-      // const token = this.storage.get<string>('token');
-      // let req = {
-      //   token: token
-      // }
-      // console.log('token', token)
-      // this.service.getValidateToken(req).subscribe((data) => {
-      //   console.log('data', data)
-  
-      //   if (data.message == 'valid token') {
-      //     console.log('come')
-      //     this.router.navigateByUrl('/login');
-      //   } else {
-      //     this.router.navigateByUrl('/');
-      //   }
-      // });
-  
-      this.service.getFeatBlogs().subscribe((response) => {
-        this.blogs = response.slice(0, 8)
-      })
-  
-      this.timeLeftInfoCard = "24 Hours"
-      // Any additional initialization can go here
-      this.currentImage = "/uniprep-assets/images/uf1.webp"
-  
-      this.contactForm = this.formbuilder.group({
-        name: ["", Validators.required],
-        email: ["", Validators.required],
-        subject: ["", Validators.required],
-        phone: ["", Validators.required],
-        message: ["", Validators.required],
-      })
-    }
-  
-    toggleTheme() {
-      this.themeService.toggleTheme()
-      // After toggling, update the isDarkMode property to reflect the new state
-      this.isDarkMode = this.themeService.isDarkMode()
-    }
-  
-    submitForm() {
-      // alert("subit");
-  
-      let contactData = {
-        name: this.contactForm.value.name,
-        email: this.contactForm.value.email,
-        phone: this.contactForm.value.phone,
-        subject: this.contactForm.value.subject,
-        message: this.contactForm.value.message,
-      }
-      this.themeService.storeContatForm(contactData).subscribe((response) => {
-        // this.toastr.add({severity: 'success', summary: 'Success', detail: "Organization Added"});
-        // this.getOrgList();
-        // this.reviewOrg.reset()
-        // alert("Thank You, we will get back to you at the earliest.")
-        this.contactSuccess = true
-        setTimeout(() => {
-          this.contactSuccess = false
-          this.displaycontactform = false
-        }, 2000)
-      })
-    }
+
+  showTandC() {
+    this.displaytandc = true
+  }
+
+  showprivacypolicy() {
+    this.displayprivacypolicy = true
+  }
+
+  showcancellationpolicy() {
+    this.displaycancellationpolicy = true
+  }
+
+  showcontactform() {
+    this.displaycontactform = true
+  }
+
+  constructor(private sanitizer: DomSanitizer, private themeService: ThemeService, private formbuilder: FormBuilder, private service: LocationService, private storage: LocalStorageService, private router: Router, private authService: AuthService) {
+    // Initialize the isDarkMode property with the value from the service
+    this.isDarkMode = this.themeService.getInitialSwitchState()
+  }
+
+  changeImage(imageName: string): void {
+    this.currentImage = "/uniprep-assets/images/" + imageName
+  }
 
 
-  
+  toggleVideo() {
+    if (this.isInitialLoadVideo) {
+      this.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
+      this.isInitialLoadVideo = false;
+    }
+    this.isPlaying = !this.isPlaying;
+  }
+
+  scrollToSection(event: Event, sectionId: string): void {
+    // Prevent the default anchor link behavior
+    event.preventDefault()
+
+    // Find the element with the given section ID
+    const section = document.querySelector(`#${sectionId}`)
+
+    // If the section exists, scroll to it smoothly
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+  timeLeftInfoCard: any;
+
+  ngOnInit() {
+    if (this.authService.isTokenValid()) {
+      this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
+    }
+    // const token = this.storage.get<string>('token');
+    // let req = {
+    //   token: token
+    // }
+    // console.log('token', token)
+    // this.service.getValidateToken(req).subscribe((data) => {
+    //   console.log('data', data)
+
+    //   if (data.message == 'valid token') {
+    //     console.log('come')
+    //     this.router.navigateByUrl('/login');
+    //   } else {
+    //     this.router.navigateByUrl('/');
+    //   }
+    // });
+
+    this.service.getFeatBlogs().subscribe((response) => {
+      this.blogs = response.slice(0, 8)
+    })
+
+    this.timeLeftInfoCard = "24 Hours"
+    // Any additional initialization can go here
+    this.currentImage = "/uniprep-assets/images/uf1.webp"
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme()
+    // After toggling, update the isDarkMode property to reflect the new state
+    this.isDarkMode = this.themeService.isDarkMode()
+  }
+
 }

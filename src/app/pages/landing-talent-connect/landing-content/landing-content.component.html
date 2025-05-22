@@ -11,11 +11,20 @@
 
 		<div class="row justify-content-center mt-5 homebg">
 			<div class="col-lg-12">
-				<div class="video-container" (click)="toggleVideo()">
-					<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
-					<video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none" style="width: 70%" poster="uniprep-assets/images/dashboard-employer.png">
-						<source [src]="welcomevideoLink" type="video/mp4" />
-					</video>
+				<div class="video-container">
+					<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"
+						(click)="toggleVideo()"></i>
+
+					<!-- YouTube iframe (shown when playing) -->
+					<iframe *ngIf="isPlaying" (click)="toggleVideo()" class="youtube-iframe" [src]="embedUrl"
+						title="Introduction" frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						allowfullscreen>
+					</iframe>
+
+					<!-- Video thumbnail (shown when not playing) -->
+					<img *ngIf="!isPlaying" class="video-thumbnail" src="uniprep-assets/images/dashboard-employer.png"
+						alt="Video thumbnail" onerror="this.src='uniprep-assets/images/dashboard-employer.png'">
 				</div>
 			</div>
 		</div>
@@ -24,9 +33,12 @@
 <!-- Hero Section -->
 <section class="hero-section_1 text-center text-white py-5 darksection">
 	<div class="container">
-		<div class="fs-2 fw-bold mb-4"><span class="text-secondary">Why</span> UNIPREP <span class="text-secondary">Employer Connect?</span></div>
+		<div class="fs-2 fw-bold mb-4"><span class="text-secondary">Why</span> UNIPREP <span
+				class="text-secondary">Employer Connect?</span></div>
 
-		<p class="lead mx-auto fs-4 text-secondary-subtle text-white fw-medium">UNIPREP Employer Connect Is Your Global Gateway To Real Opportunities, Verified Employers, And Powerful Job Search Tools — Helping You Apply Smartly, Track Everything, And Connect With The Right Companies. Completely Free To Join. 24x7 Support.</p>
+		<p class="lead mx-auto fs-4 text-secondary-subtle text-white fw-medium">UNIPREP Employer Connect Is Your Global
+			Gateway To Real Opportunities, Verified Employers, And Powerful Job Search Tools — Helping You Apply
+			Smartly, Track Everything, And Connect With The Right Companies. Completely Free To Join. 24x7 Support.</p>
 	</div>
 </section>
 
@@ -36,7 +48,8 @@
 		<div class="row justify-content-center">
 			<div class="col-md-6 col-12">
 				<ul class="p-0" id="">
-					<li class="card-sticky card bg-black border-secondary mb-3 h-100" id="card-1" *ngFor="let feature of templateCardFeatures; let i = index">
+					<li class="card-sticky card bg-black border-secondary mb-3 h-100" id="card-1"
+						*ngFor="let feature of templateCardFeatures; let i = index">
 						<div class="card-body">
 							<div class="feature-icon" [ngStyle]="{ 'background-color': feature.color }">
 								<i class="{{ feature.icon }}"></i>
@@ -178,7 +191,8 @@
 								Hire the right talent — faster, smarter,<br />and without spending a penny.
 							</p>
 							<div>
-								<button class="btn btn-outline-orange btn-lg px-5" routerLink="/register">Start Now</button>
+								<button class="btn btn-outline-orange btn-lg px-5" routerLink="/register">Start
+									Now</button>
 							</div>
 						</div>
 					</div>
