@@ -29,16 +29,8 @@ export class LandingContentComponent implements OnInit {
   videoPlayer!: ElementRef
   isPlaying = false
   isDarkMode: boolean
-  displaytandc!: boolean
-  displayprivacypolicy!: boolean
-  displaycancellationpolicy!: boolean
-  displaycontactform!: boolean;
-  displayLearningHubpage: boolean = false;
-  displayJobSeekerPage: boolean = true;
   currentImage: string = "/uniprep-assets/images/feature1.webp"
-  contactForm: any
   blogs: any
-  contactSuccess: boolean = false
   welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
   videoUrl: string = `https://www.youtube.com/embed/Sv8EyWriqV0?rel=0&autoplay=1`;
   embedUrl!: SafeResourceUrl;
@@ -235,29 +227,9 @@ export class LandingContentComponent implements OnInit {
     },
   ];
 
-  showTandC() {
-    this.displaytandc = true
-  }
-
-  showprivacypolicy() {
-    this.displayprivacypolicy = true
-  }
-
-  showcancellationpolicy() {
-    this.displaycancellationpolicy = true
-  }
-
-  showcontactform() {
-    this.displaycontactform = true
-  }
-
   constructor(private sanitizer: DomSanitizer, private themeService: ThemeService, private formbuilder: FormBuilder, private service: LocationService, private storage: LocalStorageService, private router: Router, private authService: AuthService) {
     // Initialize the isDarkMode property with the value from the service
     this.isDarkMode = this.themeService.getInitialSwitchState()
-  }
-
-  changeImage(imageName: string): void {
-    this.currentImage = "/uniprep-assets/images/" + imageName
   }
 
 
