@@ -117,9 +117,27 @@ export class LandingInstituteComponent {
     }
   }
 
-  navigateConnectUrl() {
-    window.open(environment.employerDomain, '_blank');
+  navigateConnectUrl(url: string) {
+    const baseUrl = window.location.origin;
+    const isDev = baseUrl.includes('dev') || baseUrl.includes('localhost');
+    const targetUrl = isDev ? 'https://dev-student.uniprep.ai' : 'https://uniprep.ai';
+
+    if (url === 'home') {
+      window.location.href = targetUrl
+    } else if (url === 'about') {
+      window.location.href = targetUrl + '/about'
+    } else if (url === 'contact') {
+      window.location.href = targetUrl + '/contact-us'
+    } else if (url === 'blogs') {
+      window.location.href = targetUrl + '/blogs'
+    } else if (url === 'certificates') {
+      window.location.href = targetUrl + '/certificates'
+    }
+    else {
+      window.location.href = `${environment.domain}/${url}`
+    }
   }
+
 }
 
 
