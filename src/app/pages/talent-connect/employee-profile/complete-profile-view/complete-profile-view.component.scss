@@ -41,3 +41,8 @@
         background-color: #F8F8F8 !important;
        }
   }
+
+  ::ng-deep .custom-progress .p-progressbar-value {
+    background-color:var(--uniprep-secondary);
+  }
+  
