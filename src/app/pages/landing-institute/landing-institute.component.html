@@ -111,19 +111,10 @@
 						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
 							(click)="navigateConnectUrl('about')">About</a>
 					</li>
-					<!-- <li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="/about"
-							id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							About
-						</a>
-						<ul class="dropdown-menu bg-dark" aria-labelledby="aboutDropdown">
-							<li><a class="dropdown-item text-white hover-black"
-									(click)="scrollToSection($event, 'about')" data-bs-dismiss="offcanvas">About
-									Uniprep</a></li>
-							 <li><a class="dropdown-item text-white hover-black" routerLink="/landing/about/management"
-									data-bs-dismiss="offcanvas">Management Team</a></li>
-						</ul>
-					</li> -->
+					<li class="nav-item" data-bs-dismiss="offcanvas">
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
+							(click)="navigateConnectUrl('compare/uk')">About</a>
+					</li>
 
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#"
@@ -163,19 +154,20 @@
 									(click)="navigateConnectUrl('certificates')">Certificates</a></li>
 						</ul>
 					</li>
+					<li class="nav-item" data-bs-dismiss="offcanvas">
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/"
+							(click)="navigateConnectUrl('contact-us')">Contact Us</a>
+					</li>
 					<!-- Add other mobile menu items as needed -->
 					<li class="nav-item text-center">
 						<a [routerLink]="['/login']"
 							class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
 					</li>
 					<li class="nav-item">
-						<a href="/register" class="text-decoration-none"><button type="button"
+						<a (click)="navigateConnectUrl('register')" class="text-decoration-none"><button type="button"
 								class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
 					</li>
-					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/"
-							(click)="navigateConnectUrl('contact-us')">Contact Us</a>
-					</li>
+
 				</ul>
 			</div>
 			<!-- "Try for Free" button (common for both mobile and desktop) -->
