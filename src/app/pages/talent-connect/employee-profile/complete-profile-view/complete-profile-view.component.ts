@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-complete-profile-view',
+  standalone:true,
   imports: [    
     CommonModule,
     RouterModule,
@@ -144,7 +145,9 @@ export class CompleteProfileViewComponent implements OnInit {
     let fileName = url.split('/').pop() || ''; // "1742015348_cv_letter.pdf"
     return fileName;
   }
-
+  hasNoCertificationFiles(): boolean {
+    return !this.profileData?.certifications?.some(cert => cert.file_name);
+  }
   getStudentDetails(id: string) {
 		this.talentConnectService.getStudentProfilesUsingId(id).subscribe({
       next: response => {
