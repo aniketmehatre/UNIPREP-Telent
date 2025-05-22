@@ -387,10 +387,10 @@ export class SidenavComponent {
         this.ehitlabelIsShow = true;
       } else {
         if (res.subscription_details.subscription_plan === "free_trail" && res.time_left.plan === "on_progress") {
-          this.menus = this.menus.filter((item) => !this.whitlabelmenuFreeTrails.includes(item.title));
+          this.menus = this.menus.filter((item) => !this.whitlabelmenuFreeTrails?.includes(item?.title));
           this.ehitlabelIsShow = false;
         } else {
-          this.menus = this.menus.filter((item) => !this.whitlabelmenu.includes(item.title));
+          this.menus = this.menus.filter((item) => !this.whitlabelmenu?.includes(item?.title));
           this.ehitlabelIsShow = false;
         }
       }
