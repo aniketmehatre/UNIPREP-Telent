@@ -12,7 +12,7 @@
 						</div>
 					</div>
 					<div class="col-md-12">
-						<div class="row align-items-center">
+						<div class="row align-items-center justify-content-between">
 							<div class="col-md-6 mb-md-0 mb-4">
 								<h1 class="fw-normal text-white">
 									<span class="fw-bold uniprep-secondary">{{ landingPageData?.herocover?.hero_title?.split(".")[0] }}.</span>
@@ -20,13 +20,11 @@
 								</h1>
 								<p class="mb-4">{{ landingPageData?.herocover?.hero_description }}</p>
 								<div class="d-flex gap-2">
-									<button class="btn btn-outline-light !rounded-1 px-4 py-2"
-										(click)="scrollToSection($event, 'why-choose-us')">Learn More</button>
-									<button class="btn btn-secondary !rounded-1 px-4 py-2" routerLink="/login">Try for
-										Free!</button>
+									<button class="btn btn-outline-light !rounded-1 px-4 py-2" (click)="scrollToSection($event, 'why-choose-us')">Learn More</button>
+									<button class="btn btn-secondary !rounded-1 px-4 py-2" routerLink="/login">Try for Free!</button>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-5">
 								<div class="position-relative fakemockup">
 									<img class="mockup" src="uniprep-assets/images/mockup-frame.webp" (click)="toggleVideo()" />
 									<div class="video-container position-absolute top-0">
@@ -51,8 +49,8 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h2 class="text-white fw-light mb-4">
-							Why Choose the <span class="uniprep-secondary fw-semibold">{{ landingPageData?.feature_name
-								}}</span>?
+							Why Choose the <span class="uniprep-secondary fw-semibold">{{ landingPageData?.feature_name }}</span
+							>?
 						</h2>
 					</div>
 					<div class="col-md-12">
@@ -104,12 +102,12 @@
 						<h2 class="text-white fw-light mb-4">How it Works?</h2>
 					</div>
 					<div class="col-md-12">
-						<div class="row align-items-center">
+						<div class="row align-items-center justify-content-between">
 							<div class="col-md-5 order-md-1 order-2">
 								<div class="card mb-3" role="button" *ngFor="let step of howitsWorks" (click)="selectedStep = step">
 									<div class="card-body d-flex justify-content-between">
 										<div>
-											<h4 class="card-title" [ngClass]="{'uniprep-secondary':(selectedStep == step)}">Step {{ step.step }}</h4>
+											<h4 class="card-title" [ngClass]="{ 'uniprep-secondary': selectedStep == step }">Step {{ step.step }}</h4>
 											<p>{{ step.itswork_title }}</p>
 										</div>
 										<div class="position-relative">
@@ -122,7 +120,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-7 order-md-2 order-1">
+							<div class="col-md-5 order-md-2 order-1">
 								<div class="rounded-4 overflow-hidden mb-md-0 mb-4" *ngIf="selectedStep">
 									<img class="w-100" (error)="$event.target.src = '/uniprep-assets/images/placeholder.webp'" [src]="selectedStep?.feature_image_url" alt="Platform Preview" />
 								</div>
@@ -195,9 +193,7 @@
 							<div class="accordion pb-3" id="accordionFAQ">
 								<div class="accordion-item faqcard" *ngFor="let faq of faqs; let i = index">
 									<h2 class="accordion-header">
-										<button class="accordion-button text-white collapsed fs-5" type="button"
-											data-bs-toggle="collapse" [attr.data-bs-target]="'#' + 'faq' + i"
-											aria-expanded="false" [attr.aria-controls]="'faq' + i">
+										<button class="accordion-button text-white collapsed fs-5" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#' + 'faq' + i" aria-expanded="false" [attr.aria-controls]="'faq' + i">
 											{{ faq.question }}
 										</button>
 									</h2>
