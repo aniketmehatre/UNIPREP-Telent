@@ -121,19 +121,12 @@ export class LandingInstituteComponent {
     const baseUrl = window.location.origin;
     const isDev = baseUrl.includes('dev') || baseUrl.includes('localhost');
     const targetUrl = isDev ? 'https://dev-student.uniprep.ai' : 'https://uniprep.ai';
-
+    const validUrls = ['about', 'contact-us', 'job-seekers', 'international-students', 'global-travellers', 'entrepreneurs', 'compare/uk', 'blogs', 'certificates'];
     if (url === 'home') {
       window.location.href = targetUrl
-    } else if (url === 'about') {
-      window.location.href = targetUrl + '/about'
-    } else if (url === 'contact') {
-      window.location.href = targetUrl + '/contact-us'
-    } else if (url === 'blogs') {
-      window.location.href = targetUrl + '/blogs'
-    } else if (url === 'certificates') {
-      window.location.href = targetUrl + '/certificates'
-    }
-    else {
+    } else if (validUrls.includes(url)) {
+      window.location.href = targetUrl + `/${url}`
+    } else {
       window.location.href = `${environment.domain}/${url}`
     }
   }
