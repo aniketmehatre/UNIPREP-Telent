@@ -418,7 +418,7 @@
 																<input class="w-100" type="text"
 																	placeholder="Organization Name"
 																	formControlName="work_org_name" pInputText />
-																<div *ngIf="wrkExp.get('work_org_name')?.invalid && wrkExp.get('work_org_name')?.touched && submitted"
+																<div *ngIf="wrkExp.get('work_org_name')?.invalid && submitted"
 																	class="text-danger text-xs">
 																	<div>Organization Name required.</div>
 																</div>
@@ -508,7 +508,7 @@
 																				formControlName="work_start_year"
 																				optionLabel="year"></p-select>
 																			<!-- <input class="w-100" type="number" placeholder="Start Year" formControlName="work_start_year" pInputText /> -->
-																			<div *ngIf="wrkExp.get('work_start_year')?.invalid && wrkExp.get('work_start_year')?.touched && submitted"
+																			<div *ngIf="wrkExp.get('work_start_year')?.invalid && submitted"
 																				class="text-danger text-xs">
 																				<div>Start Year required.</div>
 																			</div>
@@ -522,7 +522,7 @@
 																				formControlName="work_start_month"
 																				optionLabel="name"
 																				optionValue="id"></p-select>
-																			<div *ngIf="wrkExp.get('work_start_month')?.invalid && wrkExp.get('work_start_month')?.touched && submitted"
+																			<div *ngIf="wrkExp.get('work_start_month')?.invalid && submitted"
 																				class="text-danger text-xs">
 																				<div>Start Month required.</div>
 																			</div>
@@ -547,7 +547,7 @@
                                                                             placeholder="End Year"
                                                                             [attr.disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value ? true : null"
                                                                             formControlName="work_end_year" pInputText /> -->
-																			<div *ngIf="wrkExp.get('work_end_year')?.invalid && wrkExp.get('work_end_year')?.touched && submitted"
+																			<div *ngIf="wrkExp.get('work_end_year')?.invalid && submitted"
 																				class="text-danger text-xs">
 																				<div>End Year required.</div>
 																			</div>
@@ -562,7 +562,7 @@
 																				formControlName="work_end_month"
 																				optionLabel="name"
 																				optionValue="id"></p-select>
-																			<div *ngIf="wrkExp.get('work_end_month')?.invalid && wrkExp.get('work_end_month')?.touched && submitted"
+																			<div *ngIf="wrkExp.get('work_end_month')?.invalid && submitted"
 																				class="text-danger text-xs">
 																				<div>End Month required.</div>
 																			</div>
@@ -592,7 +592,7 @@
 																	placeholder="Select Work Type" styleClass="w-100"
 																	formControlName="work_type" optionLabel="value"
 																	optionValue="id"></p-select>
-																<div *ngIf="wrkExp.get('work_type')?.invalid && wrkExp.get('work_type')?.touched && submitted"
+																<div *ngIf="wrkExp.get('work_type')?.invalid && submitted"
 																	class="text-danger text-xs">
 																	<div>Work Type required.</div>
 																</div>
@@ -642,7 +642,7 @@
 																	formControlName="work_job_description"
 																	placeholder="About Job Description"
 																	[modules]="editorModules" (onTextChange)="updateWorkJobDescriptionWordCount( i, $event.htmlValue)"></p-editor>
-																<div *ngIf="wrkExp.get('work_job_description')?.invalid && wrkExp.get('work_job_description')?.touched && submitted"
+																<div *ngIf="wrkExp.get('work_job_description')?.invalid && submitted"
 																	class="text-danger text-xs">
 																	<div
 																		*ngIf="wrkExp.get('work_job_description')?.errors?.['required']">
@@ -710,7 +710,7 @@
 																<input class="w-100" type="text"
 																	placeholder="College Name"
 																	formControlName="edu_college_name" pInputText />
-																<div *ngIf="eduDetail.get('edu_college_name')?.invalid && eduDetail.get('edu_college_name')?.touched && submitted"
+																<div *ngIf="eduDetail.get('edu_college_name')?.invalid && submitted"
 																	class="text-danger text-xs">
 																	<div>College name is required.</div>
 																</div>
@@ -762,7 +762,7 @@
 																		<!-- <input class="w-100" type="number"
                                                                            placeholder="Start Year"
                                                                            formControlName="edu_start_year" pInputText /> -->
-																		<div *ngIf="eduDetail.get('edu_start_year')?.invalid && eduDetail.get('edu_start_year')?.touched && submitted"
+																		<div *ngIf="eduDetail.get('edu_start_year')?.invalid && submitted"
 																			class="text-danger text-xs">
 																			<div>Start Year required.</div>
 																		</div>
@@ -780,7 +780,7 @@
 																			formControlName="edu_end_year"
 																			optionLabel="year"
 																			[disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value"></p-select>
-																		<div *ngIf="eduDetail.get('edu_end_year')?.invalid && eduDetail.get('edu_end_year')?.touched && submitted"
+																		<div *ngIf="eduDetail.get('edu_end_year')?.invalid && submitted"
 																			class="text-danger text-xs">
 																			<div>End Year required.</div>
 																		</div>
@@ -808,7 +808,7 @@
 																<input class="w-100" type="text"
 																	placeholder="Your Degree"
 																	formControlName="edu_degree" pInputText />
-																<div *ngIf="eduDetail.get('edu_degree')?.invalid && eduDetail.get('edu_degree')?.touched && submitted"
+																<div *ngIf="eduDetail.get('edu_degree')?.invalid && submitted"
 																	class="text-danger text-xs">
 																	<div>Degree required.</div>
 																</div>
@@ -843,7 +843,7 @@
 																		[virtualScroll]="true"
 																		[virtualScrollItemSize]="50"
 																		optionValue="country_name"></p-select>
-																	<div *ngIf="eduDetail.get('edu_location')?.invalid && eduDetail.get('edu_location')?.touched && submitted"
+																	<div *ngIf="eduDetail.get('edu_location')?.invalid && submitted"
 																		class="text-danger text-xs">
 																		<div>Location required.</div>
 																	</div>
@@ -873,7 +873,7 @@
 																<input class="w-100" type="number"
 																	placeholder="Achieved Score"
 																	formControlName="edu_percentage" pInputText />
-																<div *ngIf="eduDetail.get('edu_percentage')?.invalid && eduDetail.get('edu_percentage')?.touched && submitted"
+																<div *ngIf="eduDetail.get('edu_percentage')?.invalid && submitted"
 																	class="text-danger text-xs">
 																	<div>Percentage required.</div>
 																</div>
@@ -927,7 +927,7 @@
 																<input class="w-100" type="text"
 																	placeholder="Project Name"
 																	formControlName="project_name" pInputText />
-																<div *ngIf="project.get('project_name')?.invalid && project.get('project_name')?.touched && submitted"
+																<div *ngIf="project.get('project_name')?.invalid && submitted"
 																	class="text-danger text-xs">
 																	<div>Project Name required.</div>
 																</div>
@@ -949,7 +949,7 @@
 																			formControlName="project_start_name"
 																			optionLabel="year"></p-select>
 																		<!-- <input class="w-100" type="text" placeholder="Start Year" formControlName="project_start_name" pInputText /> -->
-																		<div *ngIf="project.get('project_start_name')?.invalid && project.get('project_start_name')?.touched && submitted"
+																		<div *ngIf="project.get('project_start_name')?.invalid && submitted"
 																			class="text-danger text-xs">
 																			<div>Start date required.</div>
 																		</div>
@@ -967,7 +967,7 @@
 																			formControlName="project_end_name"
 																			optionLabel="year"></p-select>
 																		<!-- <input class="w-100" type="text" placeholder="End Year" formControlName="project_end_name" pInputText /> -->
-																		<div *ngIf="project.get('project_end_name')?.invalid && project.get('project_end_name')?.touched && submitted"
+																		<div *ngIf="project.get('project_end_name')?.invalid && submitted"
 																			class="text-danger text-xs">
 																			<div>End date required.</div>
 																		</div>
@@ -995,7 +995,7 @@
 																	[modules]="editorModules"></p-editor>
 																<!-- <p-editor formControlName="project_description"
                                                                       placeholder="Project Description"></p-editor> -->
-																<div *ngIf="project.get('project_description')?.invalid && project.get('project_description')?.touched && submitted"
+																<div *ngIf="project.get('project_description')?.invalid && submitted"
 																	class="text-danger text-xs">
 																	<div>Project Description required.</div>
 																</div>
@@ -1128,7 +1128,7 @@
 																	placeholder="Proficiency Level" styleClass="w-100"
 																	formControlName="lang_proficiency"
 																	optionLabel="value" optionValue="id"></p-select>
-																<div *ngIf="language.get('lang_proficiency')?.invalid && language.get('lang_proficiency')?.touched && submitted"
+																<div *ngIf="language.get('lang_proficiency')?.invalid && submitted"
 																	class="text-danger text-xs">
 																	<div>Language Proficiency required.</div>
 																</div>
@@ -1208,7 +1208,7 @@
 														<div class="mb-3">
 															<input class="w-100" type="text" placeholder="Name"
 																formControlName="certificate_name" pInputText />
-															<div *ngIf="certificate.get('certificate_name')?.invalid && certificate.get('certificate_name')?.touched && submitted"
+															<div *ngIf="certificate.get('certificate_name')?.invalid && submitted"
 																class="text-danger text-xs">
 																<div>Certificate Name required.</div>
 															</div>
@@ -1237,7 +1237,7 @@
 															<input class="w-100" type="text"
 																placeholder="Issued Organization"
 																formControlName="certificate_issued" pInputText />
-															<div *ngIf="certificate.get('certificate_issued')?.invalid && certificate.get('certificate_issued')?.touched && submitted"
+															<div *ngIf="certificate.get('certificate_issued')?.invalid && submitted"
 																class="text-danger text-xs">
 																<div>certificate issued required.</div>
 															</div>
@@ -1338,7 +1338,7 @@
 													<div class="mb-3">
 														<input class="w-100" type="text" placeholder="Achievements"
 															formControlName="extra_curricular_activites" pInputText />
-														<div *ngIf="extra.get('extra_curricular_activites')?.invalid && extra.get('extra_curricular_activites')?.touched && submitted"
+														<div *ngIf="extra.get('extra_curricular_activites')?.invalid && submitted"
 															class="text-danger text-xs">
 															<div>Achievements required.</div>
 														</div>
@@ -1377,7 +1377,7 @@
 					<p-progressbar [value]="progress" class="w-75 mt-2" />
 					<button pButton type="button" (click)="resumeFormSubmit()"
 						class="btn btn-primary btn-rounded p-1 ps-4">
-						<span class="me-2">Preview</span><span class="btn-icon px-2 py-2"><i
+						<span class="me-2">AI Summary</span><span class="btn-icon px-2 py-2"><i
 								class="fa-solid fa-arrow-right"></i></span>
 					</button>
 				</div>
@@ -1616,7 +1616,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ langugageHeight: !filledFields.includes('language_known') }"
 								*ngIf="!hidingHeaders.includes('language_known')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize"
 									[ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">
@@ -1673,7 +1672,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ extraCurricularHeight: !filledFields.includes('extra_curricular') }"
 								*ngIf="!hidingHeaders.includes('extra_curricular')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize"
 									[ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">
@@ -1696,7 +1694,6 @@
 							</div>
 
 							<div class="col-12 mb-2"
-								[ngClass]="{ experienceHeight: !filledFields.includes('work_experience') }"
 								*ngIf="!hidingHeaders.includes('work_experience')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize"
 									[ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">
@@ -1719,7 +1716,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ langugageHeight: !filledFields.includes('language_known') }"
 								*ngIf="!hidingHeaders.includes('education_detail')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize"
 									[ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">
@@ -1740,7 +1736,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ projectHeight: !filledFields.includes('project_details') }"
 								*ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize"
 									[ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">
@@ -1833,7 +1828,6 @@
 								<p [innerHTML]="f['user_summary'].value"></p>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ experienceHeight: !filledFields.includes('work_experience') }"
 								*ngIf="!hidingHeaders.includes('work_experience')">
 								<h5 class="fw-semibold text-capitalize"><span>experience</span></h5>
 								<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
@@ -1854,7 +1848,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ educationHeight: !filledFields.includes('education_detail') }"
 								*ngIf="!hidingHeaders.includes('education_detail')">
 								<h5 class="fw-semibold text-capitalize"><span>Education</span></h5>
 								<div class="educationItem mb-3" *ngFor="let edu of getEduDetailsArray.controls">
@@ -1873,7 +1866,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ projectHeight: !filledFields.includes('project_details') }"
 								*ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
 								<h5 class="fw-semibold text-capitalize">projects</h5>
 								<div class="projectItem" *ngFor="let project of getProjectDetailsArray.controls">
@@ -1908,7 +1900,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ langugageHeight: !filledFields.includes('language_known') }"
 								*ngIf="!hidingHeaders.includes('language_known')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize">language</h5>
 								<div class="d-flex gap-0 flex-column">
@@ -1946,7 +1937,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ extraCurricularHeight: !filledFields.includes('extra_curricular') }"
 								*ngIf="!hidingHeaders.includes('extra_curricular')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize">Achievements</h5>
 								<div class="technicalSkillItem fw-semibold"
@@ -1979,7 +1969,6 @@
 								<p [innerHTML]="f['user_summary'].value"></p>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ experienceHeight: !filledFields.includes('work_experience') }"
 								*ngIf="!hidingHeaders.includes('work_experience')">
 								<h5 class="fw-semibold text-capitalize"><span>experience</span></h5>
 								<hr class="mb-2" />
@@ -2001,7 +1990,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ educationHeight: !filledFields.includes('education_detail') }"
 								*ngIf="!hidingHeaders.includes('education_detail')">
 								<h5 class="fw-semibold text-capitalize"><span>Education</span></h5>
 								<hr class="mb-2" />
@@ -2021,7 +2009,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ projectHeight: !filledFields.includes('project_details') }"
 								*ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
 								<h5 class="fw-semibold text-capitalize">projects</h5>
 								<hr class="mb-2" />
@@ -2101,7 +2088,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ langugageHeight: !filledFields.includes('language_known') }"
 								*ngIf="!hidingHeaders.includes('language_known')">
 								<h5 class="fw-semibold text-capitalize">language</h5>
 								<hr class="mb-2" />
@@ -2123,7 +2109,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ extraCurricularHeight: !filledFields.includes('extra_curricular') }"
 								*ngIf="!hidingHeaders.includes('extra_curricular')">
 								<h5 class="fw-semibold text-capitalize">Achievements</h5>
 								<hr class="mb-2" />
@@ -2207,7 +2192,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ langugageHeight: !filledFields.includes('language_known') }"
 								*ngIf="!hidingHeaders.includes('language_known')">
 								<h5 class="fw-semibold pb-0 text-capitalize" [ngStyle]="{ color: selectedThemeColor }">
 									Language</h5>
@@ -2268,7 +2252,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ extraCurricularHeight: !filledFields.includes('extra_curricular') }"
 								*ngIf="!hidingHeaders.includes('extra_curricular')">
 								<h5 class="fw-semibold pb-0 text-capitalize" [ngStyle]="{ color: selectedThemeColor }">
 									Achievements</h5>
@@ -2291,7 +2274,6 @@
 								<p [innerHTML]="f['user_summary'].value"></p>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ experienceHeight: !filledFields.includes('work_experience') }"
 								*ngIf="!hidingHeaders.includes('work_experience')">
 								<h5 class="fw-semibold pb-0 text-capitalize" [ngStyle]="{ color: selectedThemeColor }">
 									Experience</h5>
@@ -2315,7 +2297,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ educationHeight: !filledFields.includes('education_detail') }"
 								*ngIf="!hidingHeaders.includes('education_detail')">
 								<h5 class="fw-semibold pb-0 text-capitalize" [ngStyle]="{ color: selectedThemeColor }">
 									Education</h5>
@@ -2337,7 +2318,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ projectHeight: !filledFields.includes('project_details') }"
 								*ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
 								<h5 class="fw-semibold pb-0 text-capitalize" [ngStyle]="{ color: selectedThemeColor }">
 									Projects</h5>
@@ -2416,7 +2396,6 @@
 					<div class="col-7">
 						<div class="row">
 							<div class="col-12 mb-4"
-								[ngClass]="{ experienceHeight: !filledFields.includes('work_experience') }"
 								*ngIf="!hidingHeaders.includes('work_experience')">
 								<h5 class="fw-semibold text-capitalize"><span>experience</span></h5>
 								<hr class="mb-2" />
@@ -2438,7 +2417,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ educationHeight: !filledFields.includes('education_detail') }"
 								*ngIf="!hidingHeaders.includes('education_detail')">
 								<h5 class="fw-semibold text-capitalize"><span>Education</span></h5>
 								<hr class="mb-2" />
@@ -2458,7 +2436,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ projectHeight: !filledFields.includes('project_details') }"
 								*ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
 								<h5 class="fw-semibold text-capitalize">projects</h5>
 								<hr class="mb-2" />
@@ -2499,7 +2476,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ langugageHeight: !filledFields.includes('language_known') }"
 								*ngIf="!hidingHeaders.includes('language_known')">
 								<h5 class="fw-semibold text-capitalize">language</h5>
 								<hr class="mb-2" />
@@ -2521,7 +2497,6 @@
 								</div>
 							</div>
 							<div class="col-12 mb-4"
-								[ngClass]="{ extraCurricularHeight: !filledFields.includes('extra_curricular') }"
 								*ngIf="!hidingHeaders.includes('extra_curricular')">
 								<h5 class="fw-semibold text-capitalize">Achievements</h5>
 								<hr class="mb-2" />

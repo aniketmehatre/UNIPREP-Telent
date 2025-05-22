@@ -516,8 +516,9 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         const storedValues = JSON.parse(responseData.data);
         this.resumeFormInfoData.patchValue(storedValues);
         // this.moduleActiveIndex = responseData.page_number;
-        this.hidingHeaders = JSON.parse(responseData.hiding_headers);
-        // this.changeExperience();
+        if(responseData.hiding_headers != null){
+          this.hidingHeaders = JSON.parse(responseData.hiding_headers);
+        }
         const workExpData = storedValues.workExpArray;
         if (workExpData.length != 0) {
           workExpData.forEach((activity: any) => {
@@ -961,7 +962,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     if (this.moduleActiveIndex === 0) {
       controlNames = ["work_org_name", "work_currently_working", "work_start_year", "work_start_month", "work_end_year", "work_end_month", "work_designation", "work_type", "work_location", "work_job_description"];
       formControlFields.push(this.resumeFormInfoData.get("workExpArray") as FormArray);
-      console.log(formControlFields, "formControlFields");
     }
 
     formControlFields.forEach((formArray) => {
@@ -1150,6 +1150,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   clickAddMoreButton(fieldName: string) {
+    this.submitted = false;
     if (fieldName == "education_detail") {
       this.getEduDetailsArray.push(
         this.fb.group({
@@ -1231,7 +1232,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   removeHideHeaderElement(fieldName: string) {
-    if (this.hidingHeaders.includes(fieldName)) {
+    if(Array.isArray(this.hidingHeaders) && this.hidingHeaders.includes(fieldName)){
       this.hidingHeaders = this.hidingHeaders.filter((item) => item !== fieldName);
     }
   }
