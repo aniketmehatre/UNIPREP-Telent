@@ -253,8 +253,8 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       country_code: ["+91"],
       user_phone: ["", [Validators.required, Validators.pattern("^\\+?[1-9]\\d{1,14}$")]],
       user_linkedin: ["", [Validators.required, maxCharactersValidator(40)]],
-      user_linkedin_link: ["", [maxCharactersValidator(40)]],
-      user_website: ["", maxCharactersValidator(40)],
+      user_linkedin_link: ["", [maxCharactersValidator(100)]],
+      user_website: ["", maxCharactersValidator(100)],
       user_summary: ["", [Validators.required, maxWordsValidator(50)]],
       EduDetailsArray: this.fb.array([]),
       workExpArray: this.fb.array([]),
@@ -398,7 +398,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     this.resumeFormInfoData.valueChanges.subscribe(() => {
       this.updateProgress();
     });
-    this.clickAddMoreButton('education_detail');
+    // this.clickAddMoreButton('education_detail');
   }
 
   getLocationsList() {
@@ -516,28 +516,29 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         const storedValues = JSON.parse(responseData.data);
         this.resumeFormInfoData.patchValue(storedValues);
         // this.moduleActiveIndex = responseData.page_number;
-        if(responseData.hiding_headers != null){
+        if (responseData.hiding_headers != null) {
           this.hidingHeaders = JSON.parse(responseData.hiding_headers);
         }
         const workExpData = storedValues.workExpArray;
         if (workExpData.length != 0) {
-          workExpData.forEach((activity: any) => {
+          workExpData.forEach((activity: any, index: number) => {
             let workEndMonth = activity.work_end_month == null ? "" : activity.work_end_month;
             const workEndMonthControl = activity.work_currently_working == true ? [workEndMonth] : [workEndMonth, Validators.required];
             this.getWorkExpArray.push(
               this.fb.group({
-                work_org_name: [activity.work_org_name, Validators.required],
+                work_org_name: [activity.work_org_name,[Validators.required, maxCharactersValidator(40)]],
                 work_currently_working: [activity.work_currently_working],
                 work_start_year: [activity.work_start_year, Validators.required],
                 work_start_month: [activity.work_start_month, Validators.required],
                 work_end_year: [activity.work_end_year, Validators.required],
                 work_end_month: workEndMonthControl,
-                work_designation: [activity.work_designation, Validators.required],
+                work_designation: [activity.work_designation, [Validators.required, maxCharactersValidator(40)]],
                 work_type: [activity.work_type, Validators.required],
-                work_location: [activity.work_location, Validators.required],
+                work_location: [activity.work_location, [Validators.required, maxCharactersValidator(40)]],
                 work_job_description: [activity.work_job_description, [Validators.required, maxWordsValidator(120)]],
               })
             );
+            this.updateWorkJobDescriptionWordCount(index, activity.work_job_description);
           });
           this.hidingHeaders.push("project_details");
           this.filledFields.push("project_details", "work_experience");
@@ -548,12 +549,12 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           educationData.forEach((element: any) => {
             this.getEduDetailsArray.push(
               this.fb.group({
-                edu_college_name: [element.edu_college_name, Validators.required],
+                edu_college_name: [element.edu_college_name, [Validators.required, maxCharactersValidator(85)]],
                 edu_still_pursuing: [element.edu_still_pursuing],
                 edu_start_year: [element.edu_start_year, Validators.required],
                 edu_end_year: [element.edu_end_year, Validators.required],
-                edu_degree: [element.edu_degree, Validators.required],
-                edu_location: [element.edu_location, Validators.required],
+                edu_degree: [element.edu_degree, [Validators.required, maxCharactersValidator(40)]],
+                edu_location: [element.edu_location, [Validators.required, maxCharactersValidator(40)]],
                 edu_percentage: [element.edu_percentage, Validators.required],
                 edu_cgpa_percentage: [element.edu_cgpa_percentage],
               })
@@ -567,10 +568,10 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           certificateData.forEach((element: any) => {
             this.getCertificatesArray.push(
               this.fb.group({
-                certificate_name: [element.certificate_name, Validators.required],
-                certificate_issued: [element.certificate_issued, Validators.required],
-                certificate_id: [element.certificate_id],
-                certicate_link: [element.certicate_link],
+                certificate_name: [element.certificate_name, [Validators.required, maxCharactersValidator(40)]],
+                certificate_issued: [element.certificate_issued, [Validators.required, maxCharactersValidator(40)]],
+                certificate_id: [element.certificate_id, maxCharactersValidator(40)],
+                certicate_link: [element.certicate_link, maxCharactersValidator(100)],
               })
             );
           });
@@ -1224,7 +1225,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           certificate_name: ["", [Validators.required, maxCharactersValidator(40)]],
           certificate_issued: ["", [Validators.required, maxCharactersValidator(40)]],
           certificate_id: ["", maxCharactersValidator(40)],
-          certicate_link: ["", maxCharactersValidator(40)],
+          certicate_link: ["", maxCharactersValidator(100)],
         })
       );
       this.removeHideHeaderElement("certificate");
@@ -1232,7 +1233,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   removeHideHeaderElement(fieldName: string) {
-    if(Array.isArray(this.hidingHeaders) && this.hidingHeaders.includes(fieldName)){
+    if (Array.isArray(this.hidingHeaders) && this.hidingHeaders.includes(fieldName)) {
       this.hidingHeaders = this.hidingHeaders.filter((item) => item !== fieldName);
     }
   }
@@ -1623,7 +1624,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.updateWordCount(value, 'summary');
     });
   }
-  
+
   updateWordCount(content: string, type: string, index: number = 0) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(content, 'text/html');

@@ -1,9 +1,9 @@
 <div class="container-fluid h-100 d-flex flex-column justify-content-center">
 	<p-toast></p-toast>
-	<div class="row justify-content-center" *ngIf="activePageIndex == 4 || activePageIndex == 0">
+	<div class="row justify-content-center align-items-end h-100" *ngIf="activePageIndex == 4 || activePageIndex == 0">
 		<div class="flex-column">
 			<div>
-				<h3 class="text-center uniprep-primary" *ngIf="this.resumeHistory.length">Your Resumes</h3>
+				<h3 class="text-center uniprep-primary" *ngIf="this.resumeHistory.length > 0">Your Resumes</h3>
 				<div class="cvSampleImg d-flex flex-wrap gap-3">
 					<div class="flex-column overflow-hidden" *ngFor="let resumes of resumeHistory; let i = index">
 						<!-- <pdf-viewer [src]="pdfURL" [original-size]="true" [show-all]="true" [fit-to-page]="true" [zoom]="1.0" [autoresize]="true" [render-text]="false" [external-link-target]="'blank'" style="width: 100%; height: 100%"> ></pdf-viewer> -->
@@ -12,8 +12,7 @@
 							<div class="pdf-preview" *ngIf="resumes?.pdf_name">
 								<img *ngIf="pdfThumbnails[resumes.pdf_name]" [src]="pdfThumbnails[resumes.pdf_name]"
 									alt="PDF Preview" class="pdf-thumbnail" />
-								<div *ngIf="!pdfThumbnails[resumes.pdf_name]" class="loading-placeholder">Loading
-									preview...</div>
+									<p-skeleton *ngIf="!pdfThumbnails[resumes.pdf_name]" height='300px' width="220px"></p-skeleton>
 								<div class="position-absolute resume-option">
 									<span role="button" class="HistoryDeleteIcon"
 										(click)="confirm($event, resumes.pdf_name, resumes.id)"><i
@@ -641,7 +640,7 @@
 																<p-editor [style]="{ height: 'auto' }" class="mt-2"
 																	formControlName="work_job_description"
 																	placeholder="About Job Description"
-																	[modules]="editorModules" (onTextChange)="updateWorkJobDescriptionWordCount( i, $event.htmlValue)"></p-editor>
+																	[modules]="editorModules" (onTextChange)="updateWorkJobDescriptionWordCount(i, $event.htmlValue)"></p-editor>
 																<div *ngIf="wrkExp.get('work_job_description')?.invalid && submitted"
 																	class="text-danger text-xs">
 																	<div
@@ -884,7 +883,7 @@
 														<label
 															class="uniprep-primarydark fw-bold h6 mb-0">&nbsp;</label>
 														<div class="form-group">
-															<div class="mb-3">
+															<div class="mb-3 mt-2">
 																<p-select [options]="cgpaPercentage" styleClass="w-100"
 																	formControlName="edu_cgpa_percentage"
 																	optionLabel="value" optionValue="id"></p-select>
@@ -1054,7 +1053,7 @@
 											</div>
 											<div class="col-md-6">
 												<div class="row">
-													<div class="col">
+													<div class="col-md-7">
 														<div class="form-group">
 															<div class="mb-3">
 																<p-select [options]="skillProficiency"
@@ -1070,7 +1069,7 @@
 															</div>
 														</div>
 													</div>
-													<div class="col-md-4"
+													<div class="col-md-5"
 														*ngIf="getSkillsArray.length > techSkillLimit">
 														<button pButton (click)="clickDeleteButton('skills', i)"
 															class="deleteDivButton">Delete &nbsp;<i
@@ -1120,7 +1119,7 @@
 											</div>
 											<div class="col-md-6">
 												<div class="row">
-													<div class="col">
+													<div class="col-md-7">
 														<div class="form-group">
 															<div class="mb-3">
 																<p-select [options]="languageProficiency"
@@ -1135,7 +1134,7 @@
 															</div>
 														</div>
 													</div>
-													<div class="col-md-4"
+													<div class="col-md-5"
 														*ngIf="getLanguagesKnownArray.length > languageLimit">
 														<button pButton class="deleteDivButton"
 															(click)="clickDeleteButton('language_known', i)">
@@ -1333,7 +1332,7 @@
 									formArrayName="extraCurricularArray">
 									<div [formGroupName]="i">
 										<div class="row">
-											<div class="col-md-10">
+											<div class="col-md-9">
 												<div class="form-group">
 													<div class="mb-3">
 														<input class="w-100" type="text" placeholder="Achievements"
@@ -1354,8 +1353,8 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-md-2 text-end">
-												<button pButton class="deleteDivButton w-100"
+											<div class="col-md-3 text-end">
+												<button pButton class="deleteDivButton"
 													(click)="clickDeleteButton('extra_curricular', i)">Delete &nbsp;<i
 														class="fa-solid fa-trash trashIcon"></i></button>
 											</div>
