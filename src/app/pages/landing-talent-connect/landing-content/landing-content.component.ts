@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { ScrollTopModule } from 'primeng/scrolltop';
@@ -27,6 +28,9 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
   @ViewChild("videoPlayer")
   videoPlayer!: ElementRef;
   welcomevideoLink: string = `https://api.uniprep.ai/uniprepapi/storage/app/public/Landing/welcome.mp4`;
+  videoUrl: string = `https://www.youtube.com/embed/Sv8EyWriqV0?rel=0&autoplay=1`;
+  embedUrl!: SafeResourceUrl;
+  isInitialLoadVideo: boolean = true;
   isPlaying = false;
   steps = [
     {
@@ -253,11 +257,14 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
   },
 ];
 
+  constructor(private sanitizer: DomSanitizer) { }
+
   cardPositions: { top: number, left: number, rotate: number, scale: number, zIndex: number }[] = [];
   isStacked = false;
   scrollThreshold = 300;
 
   ngOnInit() {
+
   }
 
   ngAfterViewInit() {
@@ -267,16 +274,12 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
 
 
   toggleVideo() {
-    const video: HTMLVideoElement = this.videoPlayer.nativeElement
-    if (video.paused) {
-      video.play()
-      this.isPlaying = true
-    } else {
-      video.pause()
-      this.isPlaying = false
+    if (this.isInitialLoadVideo) {
+      this.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
+      this.isInitialLoadVideo = false;
     }
+    this.isPlaying = !this.isPlaying;
   }
 
 
-  constructor() { }
 }

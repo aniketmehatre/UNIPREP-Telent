@@ -2476,9 +2476,6 @@ uni-global-employment-insights {
 	line-height: 2rem;
 }
 
-.cursor-pointer {
-	cursor: pointer;
-}
 
 .noscrollbar {
 	&::-webkit-scrollbar {
@@ -2737,7 +2734,7 @@ uni-global-employment-insights {
 }
 
 .cursor-pointer {
-	cursor: pointer;
+	cursor: pointer !important;
 }
 
 .profile-content {

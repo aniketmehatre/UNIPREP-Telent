@@ -29,33 +29,37 @@
 				<a class="nav-link active text-white fw-regular" aria-current="page" href="/talent-connect/employers">Employers</a>
 			</li>
 			<li class="nav-item dropdown">
-				<a class="nav-link text-white fw-regular dropdown-toggle" href="javascript.void(0)" id="exploreDropdown"
-					role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					Feature
+				<a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown" role="button"
+					data-bs-toggle="dropdown" aria-expanded="false">
+					Features
 				</a>
 				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-					<li><a class="dropdown-item text-white hover-black" routerLink="/job-seekers">For
-							Job Seekers</a></li>
-					<li><a class="dropdown-item text-white hover-black" routerLink="/international-students">For
+					<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('job-seekers')"
+							data-bs-dismiss="offcanvas" role="button" aria-expanded="false">For Job Seekers</a>
+					</li>
+					<li><a class="dropdown-item text-white hover-black cursor-pointer"
+							(click)="navigateConnectUrl('international-students')" data-bs-dismiss="offcanvas">For
 							International Students</a></li>
-					<li><a class="dropdown-item text-white hover-black" routerLink="/global-travellers">For Global
-							Travelers</a></li>
-					<li><a class="dropdown-item text-white hover-black" routerLink="/entrepreneurs">For
+					<li><a class="dropdown-item text-white hover-black cursor-pointer"
+							(click)="navigateConnectUrl('global-travellers')" data-bs-dismiss="offcanvas">For
+							Global Travellers</a></li>
+					<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('entrepreneurs')"
+							data-bs-dismiss="offcanvas">For
 							Entrepreneurs</a></li>
 				</ul>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular" aria-current="page" href="/pricing">Pricing</a>
+				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page" (click)="navigateConnectUrl('pricing')">Pricing</a>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Resources </a>
 				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-					<li><a class="dropdown-item text-white hover-black" href="/certificates">Certificates</a></li>
-					<li><a class="dropdown-item text-white hover-black" href="/blogs">Blogs</a></li>
+					<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('certificates')">Certificates</a></li>
+					<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('blogs')">Blogs</a></li>
 				</ul>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular" aria-current="page" href="/contact-us">Contact Us</a>
+				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page" (click)="navigateConnectUrl('contact-us')">Contact Us</a>
 			</li>
 			<!-- Add other desktop menu items as needed -->
 		</ul>
@@ -89,32 +93,52 @@
 				<!-- Mobile menu items -->
 				<ul class="nav flex-column gap-5 w-100">
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="#home" (click)="scrollToSection($event, 'home')">Home</a>
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" (click)="navigateConnectUrl('home')" >Home</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/about">About Us</a>
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" (click)="navigateConnectUrl('about')">About Us</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/talent-connect/active-jobs">Active Jobs</a>
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"  href="/active-jobs">Active Jobs</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/talent-connect/employers">Employers</a>
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/employers">Employers</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#"
+							id="featureDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Feature
+						</a>
+						<ul class="dropdown-menu bg-dark" aria-labelledby="featureDropdown">
+							<li><a class="dropdown-item text-white hover-black cursor-pointer"
+									(click)="navigateConnectUrl('job-seekers')" data-bs-dismiss="offcanvas"
+									role="button" aria-expanded="false">For Job Seekers</a>
+							</li>
+							<li><a class="dropdown-item text-white hover-black cursor-pointer"
+									(click)="navigateConnectUrl('international-students')"
+									data-bs-dismiss="offcanvas">For
+									International Students</a></li>
+							<li><a class="dropdown-item text-white hover-black cursor-pointer"
+									(click)="navigateConnectUrl('global-travellers')" data-bs-dismiss="offcanvas">For
+									Global Travellers</a></li>
+							<li><a class="dropdown-item text-white hover-black cursor-pointer"
+									(click)="navigateConnectUrl('entrepreneurs')" data-bs-dismiss="offcanvas">For
+									Entrepreneurs</a></li>
+						</ul>
+					</li>
+					<li class="nav-item" data-bs-dismiss="offcanvas">
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" (click)="navigateConnectUrl('pricing')">Pricing</a>
 					</li>
 
-					<!-- <li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="keyfeatures"
-							href="#keyfeatures" (click)="scrollToSection($event, 'keyfeatures')">Key Features</a>
-					</li> -->
-					<!-- <li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="#faq"
-							(click)="scrollToSection($event, 'faq')">F.A.Q</a>
-					</li> -->
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Resources </a>
 						<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-							<li><a class="dropdown-item text-white hover-black" style="cursor: pointer" routerLink="/blogs">Blogs</a></li>
-							<li><a class="dropdown-item text-white hover-black" routerLink="/certificates">Certificates</a></li>
+							<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('blogs')" routerLink="/blogs">Blogs</a></li>
+							<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('certificates')" routerLink="/certificates">Certificates</a></li>
 						</ul>
+					</li>
+					<li class="nav-item" data-bs-dismiss="offcanvas">
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" (click)="navigateConnectUrl('contact-us')">Contact Us</a>
 					</li>
 					<!-- Add other mobile menu items as needed -->
 					<li class="nav-item text-center">
