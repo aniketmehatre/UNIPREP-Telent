@@ -56,7 +56,7 @@ export interface LandingPage {
     hero_title: string
     video_link: any
     hero_description: string
-    hero_coverimage: any
+    image_url: any
     status: number
     created_at: string
     updated_at: string
