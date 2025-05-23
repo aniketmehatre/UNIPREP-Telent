@@ -27,8 +27,7 @@
 							</div>
 							<div class="col-md-5">
 								<div class="position-relative fakemockup">
-									<img class="mockup" src="uniprep-assets/images/mockup-frame.webp"
-										(click)="toggleVideo()" />
+									<img class="mockup" src="uniprep-assets/images/mockup-frame.webp"/>
 									<div class="video-container position-absolute top-0">
 										<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button"
 											*ngIf="!isPlaying" (click)="toggleVideo()"></i>
@@ -41,7 +40,7 @@
 										</iframe>
 
 										<!-- Video thumbnail (shown when not playing) -->
-										<img *ngIf="!isPlaying" class="video-thumbnail"
+										<img *ngIf="!isPlaying"  class="video-thumbnail"
 											[src]="posterUrl"
 											alt="Video thumbnail">
 									</div>
