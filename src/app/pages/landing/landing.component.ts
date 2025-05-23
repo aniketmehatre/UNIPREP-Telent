@@ -83,8 +83,25 @@ export class LandingComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	navigateConnectUrl() {
-		window.open(environment.employerDomain, '_blank');
+	navigateConnectUrl(url: any) {
+		//window.open(environment.employerDomain, '_blank');
+		const baseUrl = window.location.origin;
+		const isDev = baseUrl.includes('dev') || baseUrl.includes('localhost');
+		const targetUrl = isDev ? 'https://dev-student.uniprep.ai' : 'https://uniprep.ai';
+		const validUrls = ['about', 'contact-us', 'job-seekers', 'international-students', 'global-travellers', 'entrepreneurs', 'compare/uk', 'blogs', 'certificates', 'register'];
+		if (url === 'home') {
+			window.location.href = targetUrl
+		} else if (validUrls.includes(url)) {
+			window.location.href = targetUrl + `/${url}`
+		} else if (url === 'employer') {
+			window.location.href = environment.employerDomain
+		} else if (url === 'partner') {
+			window.location.href = environment.partnerDomain
+		} else if (url === 'institute') {
+			window.location.href = environment.instituteDomain
+		} else {
+			window.location.href = `${environment.domain}/${url}`
+		}
 	}
 
 	navigatePartnerPage() {

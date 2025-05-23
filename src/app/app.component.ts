@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
 	}
 
 	private isDomainMain(): boolean {
-		return this.domainNameCondition === "dev-institutes.uniprep.ai"
+		return this.domainNameCondition === "dev-institutes.uniprep.ai" || this.domainNameCondition === "institutes.uniprep.ai" || this.domainNameCondition === "partners.uniprep.ai"
 			|| this.domainNameCondition === "dev-student.uniprep.ai" || this.domainNameCondition === "*.uniprep.ai" || this.domainNameCondition === "uniprep.ai" || this.domainNameCondition === "localhost";
 	}
 

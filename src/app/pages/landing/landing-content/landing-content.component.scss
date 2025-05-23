@@ -141,7 +141,7 @@ h1,
 .text-size-h1 {
 	font-weight: 700;
 	margin-top: 0;
-	font-size: 5.65em;
+	font-size: 5rem;
 }
 
 h2,
@@ -185,16 +185,8 @@ h5,
 h6 {
 	font-weight: 500;
 }
-p {
-	font-family: "Work Sans", sans-serif;
-	line-height: 2;
-	font-weight: 500;
-}
 .darksection {
 	background-color: #07070b;
-	p {
-		color: #000;
-	}
 }
 // .impactborder
 // {
