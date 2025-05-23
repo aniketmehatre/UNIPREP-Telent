@@ -276,6 +276,7 @@ p {
 .navbar-brand img {
 	width: 200px;
 	transition: 0.2s;
+	object-fit: fill;
 }
 .poppins {
 	font-family: "Poppins", sans-serif;
