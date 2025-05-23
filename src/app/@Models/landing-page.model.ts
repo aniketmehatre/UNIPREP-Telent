@@ -1,21 +1,22 @@
 export interface LandingPage {
-  landingPages: any
-    id: number
-    feature_name: string
-    category: number
-    tag: string
-    status: number
-    icon: string
-    order_no: number
-    description: string
-    created_at: string
-    updated_at: string
-    chooseuses: Chooseuse[]
-    whoitsfors: Whoitsfor[]
-    faqs: Faq[]
-    herocover: Herocover
-    howitsworks: Howitswork[]
-    seo: Seo
+  landingPages: any;
+  id: number;
+  feature_name: string;
+  category: number;
+  tag: string;
+  status: number;
+  icon: string;
+  order_no: number;
+  description: string;
+  created_at: string;
+  updated_at: string;
+  chooseuses: Chooseuse[];
+  whoitsfors: Whoitsfor[];
+  faqs: Faq[];
+  herocover: Herocover;
+  howitsworks: Howitswork[];
+  seo: Seo;
+  logo: string;
   }
   
   export interface Chooseuse {

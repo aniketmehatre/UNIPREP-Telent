@@ -6,6 +6,7 @@ import { LocationService } from "../../location.service"
 import { environment } from "@env/environment"
 import { LocalStorageService } from "ngx-localstorage"
 import { Router } from "@angular/router"
+import { HeaderLogoStore } from "./landing-page.store"
 
 @Component({
 	selector: "uni-landing",
@@ -16,8 +17,9 @@ import { Router } from "@angular/router"
 export class LandingComponent implements OnInit, OnDestroy {
 	isDarkMode: boolean
 	currentYear = new Date().getFullYear()
+	logoUrl$ = this.logoStore.logoUrl$;
 
-	constructor(private themeService: ThemeService, private formbuilder: FormBuilder, private service: LocationService, private storage: LocalStorageService, private router: Router, private authService: AuthService) {
+	constructor(private logoStore: HeaderLogoStore, private themeService: ThemeService, private router: Router, private authService: AuthService) {
 		// Initialize the isDarkMode property with the value from the service
 		this.isDarkMode = this.themeService.getInitialSwitchState()
 	}
