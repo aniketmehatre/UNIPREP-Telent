@@ -63,6 +63,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   fileType = FileType
   personalInfoForm: FormGroup
   profileCompletion = 0
+  profileScore = 0
   ref: DynamicDialogRef | undefined
   logo: any
   uploadedFiles: { [key: string]: File } = {}
@@ -88,6 +89,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   socialMedias: any[] = ["Facebook", "Instagram", "X"]
   preferredLocationsList: any[] = []
   totalDurations: { years: number, months: number }[] = [];
+  aiSummaryScreen = false
 
   constructor(
     private fb: FormBuilder,
@@ -1166,7 +1168,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       languages_hobby_id: response.hobby || "",
       total_years_of_experience: response.total_years_of_experience || "",
       career_preference_career_status: response.careerPreference?.career_status || "",
-      career_preference_job_title_id: response.careerPreference?.job_title_id || "",
+      career_preference_job_title_id: response.careerPreference?.job_title || "",
       career_preference_career_interest_id: response.careerPreference?.career_interest_id || [],
       career_preference_preferred_work_location_id: response.careerPreference?.preferred_work_location_id || [],
       career_preference_preferred_employment_type: response.careerPreference?.preferred_employment_type || [],
@@ -1553,8 +1555,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       student_profile.mode = 'employee_profile_ai_profile_summary';
       this.talentConnectService.getAiEvaluationSummary(student_profile).subscribe({
         next: (response) => {
+          this.aiSummaryScreen = true;
           this.aiEvaluationContent = this.sanitizer.bypassSecurityTrustHtml(response.response);
-          this.profileCompletion = response.profile_percent || 0;;
+          this.profileScore = response.profile_percent || 0;;
           this.isShowAiEvaluation = true;
         },
         error: () => {

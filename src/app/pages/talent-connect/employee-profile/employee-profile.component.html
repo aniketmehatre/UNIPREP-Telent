@@ -1791,14 +1791,26 @@
 	<div class="card-footer bg-white">
 		<div class="row align-items-center">
 			<div class="col-8" [ngClass]="isShowAiEvaluation ? 'col-md-8' : 'col-md-10'">
+				<ng-container *ngIf="!profileScore">
 				<div class="d-flex align-items-center gap-2">
-					<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile: {{ profileCompletion
+					<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile Completion: {{ profileCompletion
 						}}%</span>
 					<div class="w-100">
 						<p-progressBar [style]="{ height: '12px' }" color="#f0780e" styleClass="rounded-pill"
 							[showValue]="false" [value]="profileCompletion"></p-progressBar>
 					</div>
 				</div>
+			</ng-container>
+			<ng-container *ngIf="profileScore">
+				<div class="d-flex align-items-center gap-2">
+					<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile Score: {{ profileScore
+						}}%</span>
+					<div class="w-100">
+						<p-progressBar [style]="{ height: '12px' }" color="#f0780e" styleClass="rounded-pill"
+							[showValue]="false" [value]="profileScore"></p-progressBar>
+					</div>
+				</div>
+			</ng-container>
 			</div>
 			<div class="col-4 col-md-2 text-end" [ngClass]="isShowAiEvaluation ? 'col-md-4' : 'col-md-2'">
 				<ng-container *ngIf="!isShowAiEvaluation">

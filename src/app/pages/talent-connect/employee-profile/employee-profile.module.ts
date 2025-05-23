@@ -69,7 +69,8 @@ const routes: Routes = [
     ConfirmDialogModule,
     InputGroupAddonModule,
     InputGroupModule,
-    SharedModule
+    SharedModule,
+    ButtonModule
   ]
 })
 export class EmployeeProfileModule { }

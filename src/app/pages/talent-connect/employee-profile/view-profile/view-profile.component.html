@@ -6,7 +6,7 @@
       {{
       isSample
       ? "Sample Profile"
-      : profileData.personalInfo.fullName + "'s profile"}}
+      : profileData.personalInfo.fullName + "'s profile"}}    
     </h5>
     <i class="fa-solid fa-circle-xmark fs-2 cursor-pointer" style="color: white" (click)="closeDialog()"></i>
   </div>
@@ -19,7 +19,7 @@
           </div>
           <div class="col-md-9 col-lg-9">
             <h2 class="fw-bold">{{profileData.personalInfo.fullName}}</h2>
-            <p class="text-muted">Profile Updated On: {{isSample ? '28-04-2025': (this.updatedAtDate  | date: 'dd-MM-yyyy')}}</p>   
+            <p class="text-muted">Profile Updated On3333: {{isSample ? '28-04-2025': (this.updatedAtDate  | date: 'dd-MM-yyyy')}}</p>   
             <div class="mt-2">
               <button class="py-2 px-4 btn-success" *ngIf="introductionVideo && !this.isSample"><a [href]="introductionVideo" target="_blank" role="button" class="text-decoration-none text-white">Introduction Video Uploaded&nbsp; <i class="fa fa-video"></i></a></button>
               <button class="py-2 px-4 btn btn-danger" *ngIf="!introductionVideo || this.isSample">Introduction Video Not Uploaded&nbsp; <i class="fa fa-video"></i></button>
