@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { SelectModule } from 'primeng/select';
+import { FormsModule } from '@angular/forms';
 @Component({
-  selector: 'uni-comparison',
-  imports: [CommonModule, RouterModule],
-  templateUrl: './comparison.component.html',
-  styleUrls: ['./comparison.component.scss'],
+  selector: 'uni-compare-uni',
+  imports: [CommonModule, RouterModule, SelectModule, FormsModule],
+  templateUrl: './compare-uni.component.html',
+  styleUrls: ['./compare-uni.component.scss'],
   animations: [
     trigger('fadeAnimation', [
       transition(':enter', [
@@ -29,13 +30,25 @@ import { RouterModule } from '@angular/router';
     ])
   ]
 })
-export class ComparisonComponent implements OnInit {
+export class CompareUniComponent implements OnInit {
   selectedCountry: 'uk' | 'india' = 'uk';
+    countryList: { id: string, country: string, flag: string }[] = [
+    {
+      id: 'india',
+      country: 'India',
+      flag: 'uniprep-assets/icons/india.png'
+    },
+    {
+      id: 'uk',
+      country: 'United Kingdom',
+      flag: 'uniprep-assets/icons/united-kingdom.png'
+    }
+  ];
   platforms: any = [];
   platformsInIndia = [
     {
       name: 'Student circle',
-      logo: 'uniprep-assets/images/student-circle.png',
+      logo: 'uniprep-assets/brands/studentcircus.webp',
       features: {
         inbuiltHiring: false,
         careerPrep: false,
@@ -46,7 +59,7 @@ export class ComparisonComponent implements OnInit {
     },
     {
       name: 'Handshake',
-      logo: 'uniprep-assets/images/student-circle.png',
+      logo: 'uniprep-assets/brands/handshake.webp',
       features: {
         inbuiltHiring: false,
         careerPrep: false,
@@ -57,7 +70,7 @@ export class ComparisonComponent implements OnInit {
     },
     {
       name: 'Symplicity',
-      logo: 'uniprep-assets/images/student-circle.png',
+      logo: 'uniprep-assets/brands/symplicity.webp',
       features: {
         inbuiltHiring: false,
         careerPrep: false,
@@ -68,7 +81,7 @@ export class ComparisonComponent implements OnInit {
     },
     {
       name: 'Target Connect',
-      logo: 'uniprep-assets/images/student-circle.png',
+      logo: 'uniprep-assets/brands/targetconnect.webp',
       features: {
         inbuiltHiring: true,
         careerPrep: false,
@@ -79,7 +92,7 @@ export class ComparisonComponent implements OnInit {
     },
     {
       name: 'LinkedIn',
-      logo: 'uniprep-assets/images/student-circle.png',
+      logo: 'uniprep-assets/brands/linkedin.webp',
       features: {
         inbuiltHiring: true,
         careerPrep: true,
@@ -90,7 +103,7 @@ export class ComparisonComponent implements OnInit {
     },
     {
       name: 'UNIPREP',
-      logo: 'uniprep-assets/images/student-circle.png',
+      logo: 'uniprep-assets/brands/uniprep.webp',
       features: {
         inbuiltHiring: true,
         careerPrep: true,
@@ -104,7 +117,7 @@ export class ComparisonComponent implements OnInit {
   platformsInUK = [
     {
       name: 'Superset',
-      logo: 'uniprep-assets/images/student-circle.png',
+      logo: 'uniprep-assets/brands/superset.webp',
       features: {
         inbuiltHiring: true,
         careerPrep: false,
@@ -115,7 +128,7 @@ export class ComparisonComponent implements OnInit {
     },
     {
       name: 'Handshake',
-      logo: 'uniprep-assets/images/student-circle.png',
+      logo: 'uniprep-assets/brands/studentcircus.webp',
       features: {
         inbuiltHiring: false,
         careerPrep: false,
@@ -126,7 +139,7 @@ export class ComparisonComponent implements OnInit {
     },
     {
       name: 'Symplicity',
-      logo: 'uniprep-assets/images/student-circle.png',
+      logo: 'uniprep-assets/brands/symplicity.webp',
       features: {
         inbuiltHiring: false,
         careerPrep: false,
@@ -138,7 +151,7 @@ export class ComparisonComponent implements OnInit {
 
     {
       name: 'Target Connect',
-      logo: 'uniprep-assets/images/student-circle.png',
+      logo: 'uniprep-assets/brands/targetconnect.webp',
       features: {
         inbuiltHiring: true,
         careerPrep: false,
@@ -149,7 +162,7 @@ export class ComparisonComponent implements OnInit {
     },
     {
       name: 'LinkedIn',
-      logo: 'uniprep-assets/images/student-circle.png',
+      logo: 'uniprep-assets/brands/linkedin.webp',
       features: {
         inbuiltHiring: true,
         careerPrep: true,
@@ -160,7 +173,7 @@ export class ComparisonComponent implements OnInit {
     },
     {
       name: 'UNIPREP',
-      logo: 'uniprep-assets/images/student-circle.png',
+      logo: 'uniprep-assets/brands/uniprep.webp',
       features: {
         inbuiltHiring: true,
         careerPrep: true,
@@ -204,15 +217,20 @@ export class ComparisonComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.platforms = this.platformsInUK;
+    this.route.params.subscribe((data: any) => {
+      if (data?.['country']) {
+        this.selectedCountry = data?.country;
+        this.platforms = this.selectedCountry == 'india' ? this.platformsInIndia : this.platformsInUK;
+      }
+    });
   }
 
-  toggleCountry(): void {
-    this.selectedCountry = this.selectedCountry === 'uk' ? 'india' : 'uk';
-    this.platforms = this.selectedCountry === 'uk' ? this.platformsInUK : this.platformsInIndia;
+  changeCountry(event: any) {
+    console.log('hii');
+    this.router.navigate(['/institute/compare', event]);
   }
 
   get getPlatformList() {
@@ -221,7 +239,6 @@ export class ComparisonComponent implements OnInit {
 
   // Helper method to determine if a platform has a specific feature
   hasFeature(platform: any, feature: string): boolean {
-    console.log({ platform });
-    return platform.features[feature];
-  }
+      return platform.features[feature];
+    }
 }

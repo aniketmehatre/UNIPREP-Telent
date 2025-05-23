@@ -8,8 +8,6 @@ import { SetpasswordComponent } from 'src/app/Auth/setpassword/setpassword.compo
 import { VerificationComponent } from 'src/app/Auth/verification/verification.component';
 import { EnterpriseSubscriptionComponent } from 'src/app/components/enterprise-subscription/enterprise-subscription.component';
 import { UserResolver } from 'src/app/resolvers/user.resolver';
-import { BlogdetailComponent } from './blogdetail/blogdetail.component';
-import { BloglistComponent } from './bloglist/bloglist.component';
 import { CertificatesComponent } from '../certificates/certificates.component';
 import { PrivacyComponent } from '../privacy/privacy.component';
 import { LandingComponent } from './landing.component';
@@ -24,10 +22,6 @@ export const landingRoutes: Routes = [
     path: 'institute',
     loadChildren: () => import('../landing-institute/landing-institute.module').then(c => c.LandingInstituteModule)
   },
-  {
-    path: 'partner',
-    loadChildren: () => import('../landing-partner/landing-partner.module').then(c => c.LandingPartnerModule),
-  },
   { path: "students", component: CoBrandedComponent },
   { path: "students/login", component: LoginComponent },
   { path: "register", component: RegistrationComponent },
@@ -38,19 +32,10 @@ export const landingRoutes: Routes = [
   { path: "forgot-password", component: ForgotPasswordComponent },
   { path: "verification/:email", component: VerificationComponent },
   { path: "setpassword/:otp/:email", component: SetpasswordComponent },
+
   {
     path: 'talent-connect',
     loadChildren: () => import('../landing-talent-connect/landing-new.module').then(c => c.LandingModule)
-  },
-
-  {
-    path: 'institute/login',
-    loadComponent: () => import('../institution-login/institution-login.component').then(m => m.InstitutionLoginComponent),
-  },
-
-  {
-    path: 'partner/login',
-    loadComponent: () => import('../partner-login/partner-login.component').then(m => m.PartnerLoginComponent),
   },
   {
     path: "pages",
@@ -87,10 +72,6 @@ export const landingRoutes: Routes = [
       {
         path: 'management-team',
         loadComponent: () => import('./management-team/management-team.component').then(m => m.ManagementTeamComponent),
-      },
-      {
-        path: 'compare/:country',
-        loadComponent: () => import('../compare-uni/compare-uni.component').then(c => c.CompareUniComponent)
       },
       {
         path: 'blogs',
