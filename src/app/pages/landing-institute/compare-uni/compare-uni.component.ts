@@ -229,7 +229,6 @@ export class CompareUniComponent implements OnInit {
   }
 
   changeCountry(event: any) {
-    console.log('hii');
     this.router.navigate(['/institute/compare', event]);
   }
 
