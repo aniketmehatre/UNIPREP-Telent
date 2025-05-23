@@ -22,7 +22,7 @@
           </button>
           <ul class="dropdown-menu w-100" aria-labelledby="headquarterDropdown">
             <li *ngFor="let office of offices">
-              <a class="dropdown-item" (click)="onHeadquarterChange(office.name)">{{ office.name }}</a>
+              <a class="dropdown-item cursor-pointer" (click)="onHeadquarterChange(office.name)">{{ office.name }}</a>
             </li>
           </ul>
         </div>
