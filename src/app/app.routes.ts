@@ -4,5 +4,7 @@ export const appRoutes: Routes = [
 	{
 		path: '',
 		loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule),
-	}
+	},
+	{ path: "**", redirectTo: "", pathMatch: "full" },
+
 ]
