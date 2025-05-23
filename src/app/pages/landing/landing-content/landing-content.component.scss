@@ -80,25 +80,6 @@ body {
 	overflow: auto !important;
 }
 
-// ::ng-deep ::-webkit-scrollbar-track {
-// 	-webkit-box-shadow: none !important;
-// 	border-radius: 8px !important;
-// 	background-color: black !important;
-// }
-
-// ::ng-deep ::-webkit-scrollbar {
-// 	border-radius: 0px;
-// 	width: 8px !important;
-// 	height: 5px;
-// 	background-color: black !important;
-// }
-
-// ::ng-deep ::-webkit-scrollbar-thumb {
-// 	border-radius: 8px !important;
-// 	-webkit-box-shadow: none !important;
-// 	background-color: var(--uniprep-secondary) !important;
-// }
-
 section {
 	scroll-margin-top: 3rem;
 }
@@ -111,31 +92,6 @@ section {
 	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 
-// h1,
-// .text-size-h1 {
-//   font-weight: 700;
-//   margin-top: 0;
-//   font-size: 4.21em;
-// }
-
-// h2,
-// .text-size-h2 { font-size: 3.16em; }
-
-// h3,
-// .text-size-h3 { font-size: 2.37em; }
-
-// h4,
-// .text-size-h4 { font-size: 1.78em; }
-
-// h5,
-// .text-size-h5 { font-size: 1.33em; }
-
-// .text-caption { font-size: 0.75em; }
-
-// small,
-// .text-small {
-//   font-size: 0.56em;
-// }
 
 h1,
 .text-size-h1 {
@@ -188,13 +144,7 @@ h6 {
 .darksection {
 	background-color: #07070b;
 }
-// .impactborder
-// {
-// 	border-radius:20px;
-// 	border-image: linear-gradient(145deg,rgba(24,34,79,1), rgba(220,122,86,1)) 30;
-// 	border-width: 10px;
-// 	border-style: solid;
-// }
+
 .navbar {
 	background: #07070b;
 }
@@ -784,4 +734,5 @@ h5 {
 	  text-overflow: ellipsis;
 	}
   }
+
   

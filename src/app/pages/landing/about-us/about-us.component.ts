@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { environment } from '@env/environment';
 import { TimelineModule } from 'primeng/timeline';
@@ -42,7 +43,9 @@ export class AboutUsComponent implements OnInit {
   // @ViewChild('videoPlayer') videoPlayer!: ElementRef;
   // welcomeVideoLink: string = 'https://uniprepapi.storage.googleapis.com/Landing/welcome.mp4';
   welcomeVideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
-  youtubeEmbedLink: string = `https://www.youtube.com/embed/Sv8EyWriqV0?autoplay=1`;
+  videoUrl: string = `https://www.youtube.com/embed/Sv8EyWriqV0?rel=0&autoplay=1`;
+  embedUrl!: SafeResourceUrl;
+  isInitialLoadVideo: boolean = true;
   timelineData: TimelineItem[] = [
     {
       icon: 'fa-light fa-arrow-down',
@@ -141,12 +144,16 @@ export class AboutUsComponent implements OnInit {
     buttonLink: '/register', // Replace with the actual link
   };
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
   }
 
     toggleVideo() {
+      if (this.isInitialLoadVideo) {
+        this.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
+        this.isInitialLoadVideo = false;
+      }
       this.isPlaying = !this.isPlaying;
-  }
+    }
 }
