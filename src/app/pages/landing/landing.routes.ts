@@ -107,6 +107,7 @@ export const landingRoutes: Routes = [
       {
         path: ':category/:slug',
         loadComponent: () => import('./landing-language-hub/landing-language-hub.component').then(m => m.LandingLanguageHubComponent),
+        pathMatch: 'full'
       },
       {
         path: '',
