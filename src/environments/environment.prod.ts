@@ -34,7 +34,7 @@ export const environment = {
     partnerDomain: prod_partner,
     instituteDomain: prod_institute,
     talentDomain: prod_talents,
-    studentDomain: prod_domain,
+    studentDomain: prod_student,
     googleCloud: {
         apiKey: 'AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0'
     },

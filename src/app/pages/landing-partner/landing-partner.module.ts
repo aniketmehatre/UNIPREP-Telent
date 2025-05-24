@@ -15,10 +15,7 @@ const routes: Routes = [
         path: '',
         loadComponent: () => import('./landing-partner-content/landing-partner-content.component').then(m => m.LandingPartnerContentComponent),
       },
-      {
-        path: 'partner/login',
-        loadComponent: () => import('./partner-login/partner-login.component').then(m => m.PartnerLoginComponent)
-      },
+
       // {
       //   path: 'contact-us',
       //   loadComponent: () => import('../landing/contact-us/contact-us.component').then(m => m.ContactUsComponent),
@@ -29,7 +26,11 @@ const routes: Routes = [
         pathMatch: 'full'
       }
     ]
-  }
+  },
+  {
+    path: 'partner/login',
+    loadComponent: () => import('./partner-login/partner-login.component').then(m => m.PartnerLoginComponent)
+  },
 
 ]
 

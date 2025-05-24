@@ -150,6 +150,7 @@ export class InstitutePricingComponent implements OnInit {
   }
 
   changeCountry(event: any) {
-    this.router.navigate(['/institute/pricing', event]);
+    this.router.navigate(['../' + event], { relativeTo: this.route });
+    // this.router.navigate(['/institute/pricing', event]);
   }
 }

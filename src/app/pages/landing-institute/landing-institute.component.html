@@ -31,16 +31,16 @@
 					Features
 				</a>
 				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-					<li><a class="dropdown-item text-white hover-black" (click)="navigateConnectUrl('job-seekers')"
+					<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('job-seekers')"
 							data-bs-dismiss="offcanvas" role="button" aria-expanded="false">For Job Seekers</a>
 					</li>
-					<li><a class="dropdown-item text-white hover-black"
+					<li><a class="dropdown-item text-white hover-black cursor-pointer"
 							(click)="navigateConnectUrl('international-students')" data-bs-dismiss="offcanvas">For
 							International Students</a></li>
-					<li><a class="dropdown-item text-white hover-black"
+					<li><a class="dropdown-item text-white hover-black cursor-pointer"
 							(click)="navigateConnectUrl('global-travellers')" data-bs-dismiss="offcanvas">For
 							Global Travellers</a></li>
-					<li><a class="dropdown-item text-white hover-black" (click)="navigateConnectUrl('entrepreneurs')"
+					<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('entrepreneurs')"
 							data-bs-dismiss="offcanvas">For
 							Entrepreneurs</a></li>
 				</ul>
@@ -50,10 +50,10 @@
 					href="/compare/uk">Compare</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular" aria-current="page" href="/pricing/india">Pricing</a>
+				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page" href="/pricing/india">Pricing</a>
 			</li>
 			<li class="nav-item dropdown">
-				<a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown" role="button"
+				<a class="nav-link text-white fw-regular dropdown-toggle cursor-pointer" id="exploreDropdown" role="button"
 					data-bs-toggle="dropdown" aria-expanded="false">
 					Resources
 				</a>
@@ -87,9 +87,9 @@
 		</ul>
 
 		<div class="d-flex gap-4 align-items-center">
-			<a [routerLink]="['/institute/login']" class="text-decoration-none text-white">Login</a>
-			<a [routerLink]="['/register']" class="text-decoration-none"><button type="button"
-					class="btn btn-secondary px-4 py-2 m-0">Register</button></a>
+			<a [routerLink]="['/institute/login']" class="text-decoration-none text-white cursor-pointer">Login</a>
+			<a class="text-decoration-none"><button type="button"
+					class="btn btn-secondary px-4 py-2 m-0 cursor-pointer">Register</button></a>
 		</div>
 	</div>
 
@@ -127,7 +127,7 @@
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
 						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
-							(click)="navigateConnectUrl('compare/uk')">About</a>
+							(click)="navigateConnectUrl('compare')">About</a>
 					</li>
 
 					<li class="nav-item dropdown">
@@ -174,11 +174,11 @@
 					</li>
 					<!-- Add other mobile menu items as needed -->
 					<li class="nav-item text-center">
-						<a [routerLink]="['/login']"
+						<a [routerLink]="['/institute/login']"
 							class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
 					</li>
 					<li class="nav-item">
-						<a (click)="navigateConnectUrl('register')" class="text-decoration-none"><button type="button"
+						<a class="text-decoration-none"><button type="button"
 								class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
 					</li>
 

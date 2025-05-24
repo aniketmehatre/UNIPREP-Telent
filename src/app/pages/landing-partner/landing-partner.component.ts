@@ -56,7 +56,7 @@ export class LandingPartnerComponent {
 
   ngOnDestroy() {
     localStorage.clear();
-    }
+  }
 
   changeImage(imageName: string): void {
     this.currentImage = "/uniprep-assets/images/" + imageName
@@ -70,7 +70,7 @@ export class LandingPartnerComponent {
         const section = document.querySelector(`#${sectionId}`)
         if (section) {
           section.scrollIntoView({ behavior: "smooth" })
-        }			
+        }
       }, 0)
     });
   }
@@ -118,7 +118,7 @@ export class LandingPartnerComponent {
   }
 
   navigateConnectUrl(url: any) {
-    // window.open(environment.employerDomain, '_blank');
+    //window.open(environment.employerDomain, '_blank');
     const baseUrl = window.location.origin;
     const isDev = baseUrl.includes('dev') || baseUrl.includes('localhost');
     const targetUrl = isDev ? 'https://dev-student.uniprep.ai' : 'https://uniprep.ai';
@@ -127,6 +127,14 @@ export class LandingPartnerComponent {
       window.location.href = targetUrl
     } else if (validUrls.includes(url)) {
       window.location.href = targetUrl + `/${url}`
+    } else if (url === 'employer') {
+      window.location.href = environment.employerDomain
+    } else if (url === 'partner') {
+      window.location.href = environment.partnerDomain
+    } else if (url === 'institute') {
+      window.location.href = environment.instituteDomain
+    } else if (url === 'talent') {
+      window.location.href = environment.talentDomain
     } else {
       window.location.href = `${environment.domain}/${url}`
     }
