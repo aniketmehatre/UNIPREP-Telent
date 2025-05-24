@@ -1,18 +1,16 @@
 <div class="container-fluid h-100 d-flex flex-column justify-content-center">
 	<p-toast></p-toast>
-	<div class="row justify-content-center align-items-center h-100" *ngIf="activePageIndex == 4 || activePageIndex == 0">
+	<div class="row justify-content-center align-items-center h-100"
+		*ngIf="activePageIndex == 4 || activePageIndex == 0">
 		<div class="flex-column">
 			<div>
 				<h3 class="text-center uniprep-primary" *ngIf="this.resumeHistory.length > 0">Your Resumes</h3>
 				<div class="cvSampleImg d-flex flex-wrap gap-3">
 					<div class="flex-column overflow-hidden" *ngFor="let resumes of resumeHistory; let i = index">
-						<!-- <pdf-viewer [src]="pdfURL" [original-size]="true" [show-all]="true" [fit-to-page]="true" [zoom]="1.0" [autoresize]="true" [render-text]="false" [external-link-target]="'blank'" style="width: 100%; height: 100%"> ></pdf-viewer> -->
 						<div>
-							<!-- Replace PDF viewer with image -->
 							<div class="pdf-preview" *ngIf="resumes?.pdf_name">
-								<img *ngIf="pdfThumbnails[resumes.pdf_name]" [src]="pdfThumbnails[resumes.pdf_name]"
-									alt="PDF Preview" class="pdf-thumbnail" />
-									<p-skeleton *ngIf="!pdfThumbnails[resumes.pdf_name]" height='300px' width="220px"></p-skeleton>
+								<pdf-viewer [src]="resumes?.pdf_name" [render-text]="true" [original-size]="false"
+									style="width: 220px; height: 300px" [show-all]="false" [page]="1"></pdf-viewer>
 								<div class="position-absolute resume-option">
 									<span role="button" class="HistoryDeleteIcon"
 										(click)="confirm($event, resumes.pdf_name, resumes.id)"><i
@@ -23,9 +21,6 @@
 										<i class="fa-solid fa-download"></i>
 									</span>
 								</div>
-							</div>
-							<div *ngIf="pdfLoadError" class="alert alert-danger mt-3">
-								<p>Error loading PDF. Please try downloading the file instead.</p>
 							</div>
 							<div>
 								<p>Version {{ i + 1 }}</p>
@@ -113,17 +108,6 @@
 		</div>
 	</div>
 	<div class="container-fluid h-100 d-flex flex-column" *ngIf="activePageIndex == 2">
-		<!-- <div class="row align-items-center mb-2">
-			<div class="col-md-1">
-				<div class="backIcon d-md-flex d-none" role="button" (click)="previous()">
-					<span class="pi pi-angle-left"></span>
-				</div>
-			</div>
-			<div class="col-md-10 flex-nowrap overflow-y-auto py-3 flex-row gap-4">
-				<p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
-			</div>
-			<div class="col-md-1">&nbsp;</div>
-		</div> -->
 		<div class="row flex-fill overflow-hidden">
 			<div *ngIf="!isReviewContent; else showReview"
 				class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
@@ -137,7 +121,6 @@
 										pTooltip="Please select your level of experience to proceed further"
 										tooltipPosition="top"></i>
 								</div>
-								<!-- (onChange)="changeExperience()" -->
 								<p-select [options]="experienceLevel" placeholder="Select Experience Level"
 									styleClass="w-100" formControlName="selected_exp_level" optionLabel="level"
 									optionValue="id"></p-select>
@@ -161,7 +144,8 @@
 													formControlName="user_name" pInputText />
 												<div *ngIf="submitted && f['user_name'].errors"
 													class="text-danger text-xs">
-													<div *ngIf="f['user_name'].errors">User Name Required</div>
+													<div *ngIf="f['user_name'].errors['required']">User Name Required
+													</div>
 												</div>
 												<div *ngIf="f['user_name'].errors?.['maxCharacters']"
 													class="text-danger text-xs">
@@ -201,6 +185,11 @@
 														</div>
 													</ng-template>
 												</p-dropdown>
+												<div *ngIf="submitted && f['user_job_title'].errors"
+													class="text-danger text-xs">
+													<div *ngIf="f['user_job_title'].errors['required']">Job Title
+														Required</div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -237,6 +226,11 @@
 												formControlName="user_location" optionLabel="country_name"
 												[virtualScroll]="true" [virtualScrollItemSize]="50"
 												optionValue="country_name"></p-select>
+											<div *ngIf="submitted && f['user_location'].errors"
+												class="text-danger text-xs">
+												<div *ngIf="f['user_location'].errors['required']">Current Location
+													Required</div>
+											</div>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -252,6 +246,11 @@
 													[filterBy]="'name'" placeholder="Select Country Code"
 													formControlName="country_code" optionLabel="name"
 													optionValue="code"></p-select>
+												<div *ngIf="submitted && f['country_code'].errors"
+													class="text-danger text-xs">
+													<div *ngIf="f['country_code'].errors['required']">Country Code
+														Required</div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -266,11 +265,11 @@
 											<div class="mb-3">
 												<input class="w-100" type="text" placeholder="Phone Number"
 													formControlName="user_phone" pInputText />
-												<div *ngIf="f['user_phone'].invalid && (f['user_phone'].dirty || f['user_phone'].touched)"
+												<div *ngIf="submitted && f['user_phone'].errors"
 													class="text-danger text-xs">
-													<div *ngIf="f['user_phone'].errors?.['required']">Phone number
+													<div *ngIf="f['user_phone'].errors['required']">Phone number
 														Required</div>
-													<div *ngIf="f['user_phone'].errors?.['pattern']">Enter Valid Phone
+													<div *ngIf="f['user_phone'].errors['pattern']">Enter Valid Phone
 														number</div>
 												</div>
 											</div>
@@ -289,7 +288,8 @@
 													formControlName="user_linkedin" pInputText maxlength="25" />
 												<div *ngIf="submitted && f['user_linkedin'].errors"
 													class="text-danger text-xs">
-													<div *ngIf="f['user_linkedin'].errors">Linked In Name Required</div>
+													<div *ngIf="f['user_linkedin'].errors['required']">LinkedIn Name
+														Required</div>
 												</div>
 												<div *ngIf="f['user_linkedin'].errors?.['maxCharacters']"
 													class="text-danger text-xs">
@@ -313,6 +313,11 @@
 											<div class="mb-3">
 												<input class="w-100" type="text" placeholder="LinkedIn profile link"
 													formControlName="user_linkedin_link" pInputText />
+											</div>
+											<div *ngIf="submitted && f['user_linkedin_link'].errors"
+												class="text-danger text-xs">
+												<div *ngIf="f['user_linkedin_link'].errors['required']">LinkedIn Link
+													Required</div>
 											</div>
 											<div *ngIf="f['user_linkedin_link'].errors?.['maxCharacters']"
 												class="text-danger text-xs">
@@ -354,13 +359,17 @@
 													pTooltip="We recommend you provide or generate a concise summary about yourself"
 													tooltipPosition="top"></i>
 											</div>
-											<div>
-												<button pButton class="deleteDivButton"
+											<div class="d-flex gap-2 mb-2">
+												<button pButton type="button"
 													(click)="chatGPTIntegration('user_summary', 0)"
-													style="background-color: #9bc329">Generate </button>
+													class="btn btn-success btn-rounded px-3 py-2">
+													AI Generate
+												</button>
 												<button pButton type="button"
 													(click)="chatGPTIntegration('rephrase_summary', 0)"
-													class="deleteDivButton m-2 p-2 bg-secondary">Rephrase</button>
+													class="btn btn-secondary btn-rounded px-3 py-2">
+													Rephrase
+												</button>
 											</div>
 										</div>
 										<div class="form-group">
@@ -368,10 +377,6 @@
 												<p-editor [style]="{ height: 'auto' }" class="mt-2"
 													formControlName="user_summary" placeholder="Generate Your Content"
 													[modules]="editorModules"></p-editor>
-												<div *ngIf="submitted && f['user_summary'].errors?.['required']"
-													class="text-danger text-xs">
-													<div>User Summary Required</div>
-												</div>
 												<div *ngIf="f['user_summary'].errors?.['maxWords'] else showSummaryCount"
 													class="text-danger text-xs">
 													Summary cannot exceed {{ f['user_summary']?.errors?.['maxWords'].max
@@ -379,9 +384,14 @@
 													(Current: {{ f['user_summary']?.errors?.['maxWords'].actual }})
 												</div>
 												<ng-template #showSummaryCount>
-													<div class="text-muted text-small">Word Count: {{userSummaryWordCount}}/50
+													<div class="text-muted text-small">Word Count:
+														{{userSummaryWordCount}}/50
 													</div>
 												</ng-template>
+												<div *ngIf="submitted && f['user_summary'].errors?.['required']"
+													class="text-danger text-xs">
+													User Summary Required
+												</div>
 											</div>
 										</div>
 									</div>
@@ -417,9 +427,9 @@
 																<input class="w-100" type="text"
 																	placeholder="Organization Name"
 																	formControlName="work_org_name" pInputText />
-																<div *ngIf="wrkExp.get('work_org_name')?.invalid && submitted"
-																	class="text-danger text-xs">
-																	<div>Organization Name required.</div>
+																<div *ngIf="submitted && wrkExp.get('work_org_name').errors?.['required']"
+																	class="text-danger text-xs">Organization Name
+																	Required
 																</div>
 																<div *ngIf="wrkExp.get('work_org_name').errors?.['maxCharacters']"
 																	class="text-danger text-xs">
@@ -450,7 +460,6 @@
 																	[filter]="true" filterBy="jobrole"
 																	[virtualScroll]="occupationList.length > 100"
 																	[virtualScrollItemSize]="50">
-
 																	<ng-template pTemplate="header">
 																		<div class="p-2">
 																			<p-inputGroup>
@@ -467,6 +476,9 @@
 																		</div>
 																	</ng-template>
 																</p-dropdown>
+																<div *ngIf="submitted && wrkExp.get('work_designation').errors?.['required']"
+																	class="text-danger text-xs">Designation Required
+																</div>
 															</div>
 														</div>
 													</div>
@@ -506,10 +518,9 @@
 																				filterBy="year" [filter]="true"
 																				formControlName="work_start_year"
 																				optionLabel="year"></p-select>
-																			<!-- <input class="w-100" type="number" placeholder="Start Year" formControlName="work_start_year" pInputText /> -->
-																			<div *ngIf="wrkExp.get('work_start_year')?.invalid && submitted"
+																			<div *ngIf="submitted && wrkExp.get('work_start_year').errors?.['required']"
 																				class="text-danger text-xs">
-																				<div>Start Year required.</div>
+																				Start Year Required
 																			</div>
 																		</div>
 																	</div>
@@ -521,9 +532,9 @@
 																				formControlName="work_start_month"
 																				optionLabel="name"
 																				optionValue="id"></p-select>
-																			<div *ngIf="wrkExp.get('work_start_month')?.invalid && submitted"
-																				class="text-danger text-xs">
-																				<div>Start Month required.</div>
+																			<div *ngIf="submitted && wrkExp.get('work_start_month').errors?.['required']"
+																				class="text-danger text-xs">Start Month
+																				Required
 																			</div>
 																		</div>
 																	</div>
@@ -542,13 +553,9 @@
 																				formControlName="work_end_year"
 																				filterBy="year" [filter]="true"
 																				optionLabel="year"></p-select>
-																			<!-- <input class="w-100" type="number"
-                                                                            placeholder="End Year"
-                                                                            [attr.disabled]="getWorkExpArray.controls[i]?.get('work_currently_working')?.value ? true : null"
-                                                                            formControlName="work_end_year" pInputText /> -->
-																			<div *ngIf="wrkExp.get('work_end_year')?.invalid && submitted"
-																				class="text-danger text-xs">
-																				<div>End Year required.</div>
+																			<div *ngIf="submitted && wrkExp.get('work_end_year').errors?.['required']"
+																				class="text-danger text-xs">End Year
+																				Required
 																			</div>
 																		</div>
 																	</div>
@@ -561,14 +568,14 @@
 																				formControlName="work_end_month"
 																				optionLabel="name"
 																				optionValue="id"></p-select>
-																			<div *ngIf="wrkExp.get('work_end_month')?.invalid && submitted"
-																				class="text-danger text-xs">
-																				<div>End Month required.</div>
+																			<div *ngIf="submitted && wrkExp.get('work_end_month').errors?.['required']"
+																				class="text-danger text-xs">End Month
+																				Required
 																			</div>
 																		</div>
 																	</div>
 																</div>
-																<div *ngIf="wrkExp.get('work_end_year')?.touched || wrkExp.get('work_end_month')?.touched"
+																<div *ngIf="wrkExp.get('work_end_year').errors || wrkExp.get('work_end_month').errors"
 																	class="text-danger text-xs">
 																	<div *ngIf="wrkExp.get('work_end_year')?.hasError('invalidEndDate') || wrkExp.get('work_end_month')?.hasError('invalidEndDate')"
 																		style="margin-left: 10px">End date cannot be
@@ -591,9 +598,8 @@
 																	placeholder="Select Work Type" styleClass="w-100"
 																	formControlName="work_type" optionLabel="value"
 																	optionValue="id"></p-select>
-																<div *ngIf="wrkExp.get('work_type')?.invalid && submitted"
-																	class="text-danger text-xs">
-																	<div>Work Type required.</div>
+																<div *ngIf="submitted && wrkExp.get('work_type').errors?.['required']"
+																	class="text-danger text-xs">Work Type Required
 																</div>
 															</div>
 														</div>
@@ -611,6 +617,9 @@
 															formControlName="work_location" optionLabel="country_name"
 															[virtualScroll]="true" [virtualScrollItemSize]="50"
 															optionValue="country_name"></p-select>
+														<div *ngIf="submitted && wrkExp.get('work_location').errors?.['required']"
+															class="text-danger text-xs">Location Required
+														</div>
 													</div>
 													<div class="col-md-12">
 														<div class="d-flex justify-content-between align-items-center">
@@ -621,33 +630,30 @@
 																	pTooltip="We recommend you describe minimum 5 key responsibilities and achievements"
 																	tooltipPosition="top"></i>
 															</div>
-															<div>
-																<!-- [disabled]="genreateButtonDisabled[i]" -->
-																<button pButton class="deleteDivButton mb-2"
+															<div class="d-flex gap-2 mb-2">
+																<button pButton type="button"
 																	(click)="chatGPTIntegration('work_job_description', i)"
-																	style="background-color: #9bc329">AI
-																	Generate</button>
+																	class="btn btn-success btn-rounded px-3 py-2">
+																	AI Generate
+																</button>
 																<button pButton type="button"
 																	(click)="chatGPTIntegration('rephrase_job_description', i)"
-																	class="deleteDivButton m-2 p-2 bg-secondary"
-																	[disabled]="rephraseDesBtnDisable">Rephrase</button>
+																	class="btn btn-secondary btn-rounded px-3 py-2"
+																	[disabled]="rephraseDesBtnDisable">
+																	Rephrase
+																</button>
+
 															</div>
 														</div>
-														<!-- (ngModelChange)="onEditorModelChange($event, i)" -->
 														<div class="form-group">
 															<div class="mb-3">
-
 																<p-editor [style]="{ height: 'auto' }" class="mt-2"
 																	formControlName="work_job_description"
 																	placeholder="About Job Description"
-																	[modules]="editorModules" (onTextChange)="updateWorkJobDescriptionWordCount(i, $event.htmlValue)"></p-editor>
-																<div *ngIf="wrkExp.get('work_job_description')?.invalid && submitted"
-																	class="text-danger text-xs">
-																	<div
-																		*ngIf="wrkExp.get('work_job_description')?.errors?.['required']">
-																		Job Description required.</div>
-																</div>
-																<div *ngIf="wrkExp.get('work_job_description').errors?.['maxWords']"
+																	[modules]="editorModules"
+																	(onTextChange)="updateWorkJobDescriptionWordCount(i, $event.htmlValue)"></p-editor>
+
+																<div *ngIf="wrkExp.get('work_job_description').errors?.['maxWords']; else showDescriptionCount"
 																	class="text-danger text-xs">
 																	Job Description cannot exceed {{
 																	wrkExp.get('work_job_description').errors?.['maxWords'].max
@@ -656,32 +662,37 @@
 																	wrkExp.get('work_job_description').errors?.['maxWords'].actual
 																	}})
 																</div>
-																<div class="text-small text-muted">
-																	Word Count: {{ jobDescriptionWordCount[i] || 0
-																	}}/120
+																<ng-template #showDescriptionCount>
+																	<div class="text-small text-muted">
+																		Word Count: {{ jobDescriptionWordCount[i] || 0
+																		}}/120
+																	</div>
+																</ng-template>
+																<div *ngIf="submitted && wrkExp.get('work_job_description').errors?.['required']"
+																	class="text-danger text-xs">Job Description Required
 																</div>
-																<!-- <div *ngIf="errorMessages[i]" class="text-danger text-xs"
-                                                                style="margin-left:10px;">
-                                                                {{ errorMessages[i] }}
-                                                            </div> -->
 															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-											<!-- *ngIf="getWorkExpArray.length != 1"  -->
 											<div class="d-flex justify-content-end align-items-center">
 												<button pButton (click)="clickDeleteButton('work_experience', i)"
-													class="deleteDivButton">Delete &nbsp;<i
-														class="fa-solid fa-trash trashIcon"></i></button>
+													class="btn btn-quit ps-3 btn-rounded"> Delete
+													<span class="btn-icon"><i class="fa-solid fa-trash"></i> </span>
+												</button>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="d-flex justify-content-center align-items-center m-3">
-									<button pButton class="addMoreButton" *ngIf="getWorkExpArray.length < wrkExpLimit"
-										(click)="clickAddMoreButton('work_experience')">Add More &nbsp;<i
-											class="fa-solid fa-plus tickIcon"></i></button>
+									<button pButton *ngIf="getWorkExpArray.length < wrkExpLimit"
+										(click)="clickAddMoreButton('work_experience')"
+										class="btn btn-primary btn-rounded p-1 ps-4">
+										<span class="me-2">Add More</span><span class="btn-icon px-2 py-2">
+											<i class="fa-solid fa-plus"></i>
+										</span>
+									</button>
 								</div>
 							</div>
 						</ng-container>
@@ -709,9 +720,8 @@
 																<input class="w-100" type="text"
 																	placeholder="College Name"
 																	formControlName="edu_college_name" pInputText />
-																<div *ngIf="eduDetail.get('edu_college_name')?.invalid && submitted"
-																	class="text-danger text-xs">
-																	<div>College name is required.</div>
+																<div *ngIf="submitted && eduDetail.get('edu_college_name').errors?.['required']"
+																	class="text-danger text-xs">College name Required
 																</div>
 																<div *ngIf="eduDetail.get('edu_college_name').errors?.['maxCharacters']"
 																	class="text-danger text-xs">
@@ -758,12 +768,9 @@
 																			filterBy="year" [filter]="true"
 																			formControlName="edu_start_year"
 																			optionLabel="year"></p-select>
-																		<!-- <input class="w-100" type="number"
-                                                                           placeholder="Start Year"
-                                                                           formControlName="edu_start_year" pInputText /> -->
-																		<div *ngIf="eduDetail.get('edu_start_year')?.invalid && submitted"
-																			class="text-danger text-xs">
-																			<div>Start Year required.</div>
+																		<div *ngIf="submitted && eduDetail.get('edu_start_year').errors?.['required']"
+																			class="text-danger text-xs">Start Year
+																			Required
 																		</div>
 																	</div>
 																</div>
@@ -779,14 +786,14 @@
 																			formControlName="edu_end_year"
 																			optionLabel="year"
 																			[disabled]="getEduDetailsArray.controls[i]?.get('edu_still_pursuing')?.value"></p-select>
-																		<div *ngIf="eduDetail.get('edu_end_year')?.invalid && submitted"
-																			class="text-danger text-xs">
-																			<div>End Year required.</div>
+																		<div *ngIf="submitted && eduDetail.get('edu_end_year').errors?.['required']"
+																			class="text-danger text-xs">End Year
+																			Required
 																		</div>
 																	</div>
 																</div>
 															</div>
-															<div *ngIf="eduDetail.get('edu_end_year')?.touched"
+															<div *ngIf="eduDetail.get('edu_end_year').errors"
 																class="text-danger text-xs">
 																<div *ngIf="eduDetail.get('edu_end_year')?.hasError('invalidEndDate')"
 																	style="margin-left: 10px">End date cannot be earlier
@@ -807,9 +814,8 @@
 																<input class="w-100" type="text"
 																	placeholder="Your Degree"
 																	formControlName="edu_degree" pInputText />
-																<div *ngIf="eduDetail.get('edu_degree')?.invalid && submitted"
-																	class="text-danger text-xs">
-																	<div>Degree required.</div>
+																<div *ngIf="submitted && eduDetail.get('edu_degree').errors?.['required']"
+																	class="text-danger text-xs">Degree Required
 																</div>
 																<div *ngIf="eduDetail.get('edu_degree').errors?.['maxCharacters']"
 																	class="text-danger text-xs">
@@ -842,18 +848,8 @@
 																		[virtualScroll]="true"
 																		[virtualScrollItemSize]="50"
 																		optionValue="country_name"></p-select>
-																	<div *ngIf="eduDetail.get('edu_location')?.invalid && submitted"
-																		class="text-danger text-xs">
-																		<div>Location required.</div>
-																	</div>
-																	<div *ngIf="eduDetail.get('edu_location').errors?.['maxCharacters']"
-																		class="text-danger text-xs">
-																		Location cannot exceed {{
-																		eduDetail.get('edu_location').errors?.['maxCharacters'].max
-																		}} words.
-																		(Current: {{
-																		eduDetail.get('edu_location').errors?.['maxCharacters'].actual
-																		}})
+																	<div *ngIf="submitted && eduDetail.get('edu_location').errors?.['required']"
+																		class="text-danger text-xs">Location Required
 																	</div>
 																</div>
 															</div>
@@ -872,9 +868,8 @@
 																<input class="w-100" type="number"
 																	placeholder="Achieved Score"
 																	formControlName="edu_percentage" pInputText />
-																<div *ngIf="eduDetail.get('edu_percentage')?.invalid && submitted"
-																	class="text-danger text-xs">
-																	<div>Percentage required.</div>
+																<div *ngIf="submitted && eduDetail.get('edu_percentage').errors?.['required']"
+																	class="text-danger text-xs">Academic Score Required
 																</div>
 															</div>
 														</div>
@@ -894,18 +889,22 @@
 											</div>
 											<div class="d-flex justify-content-end align-items-center"
 												*ngIf="getEduDetailsArray.length != 1">
-												<button pButton class="deleteDivButton"
-													(click)="clickDeleteButton('education_detail', i)">Delete &nbsp;<i
-														class="fa-solid fa-trash trashIcon"></i></button>
+												<button pButton (click)="clickDeleteButton('education_detail', i)"
+													class="btn btn-quit ps-3 btn-rounded"> Delete
+													<span class="btn-icon"><i class="fa-solid fa-trash"></i> </span>
+												</button>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="d-flex justify-content-center align-items-center m-3">
-									<button pButton class="addMoreButton"
-										*ngIf="getEduDetailsArray.length < eduDetailsLimit"
-										(click)="clickAddMoreButton('education_detail')">Add More &nbsp;<i
-											class="fa-solid fa-plus tickIcon"></i></button>
+									<button pButton *ngIf="getEduDetailsArray.length < eduDetailsLimit"
+										(click)="clickAddMoreButton('education_detail')"
+										class="btn btn-primary btn-rounded p-1 ps-4">
+										<span class="me-2">Add More</span><span class="btn-icon px-2 py-2">
+											<i class="fa-solid fa-plus"></i>
+										</span>
+									</button>
 								</div>
 							</div>
 							<div class="col-md-12">
@@ -926,9 +925,8 @@
 																<input class="w-100" type="text"
 																	placeholder="Project Name"
 																	formControlName="project_name" pInputText />
-																<div *ngIf="project.get('project_name')?.invalid && submitted"
-																	class="text-danger text-xs">
-																	<div>Project Name required.</div>
+																<div *ngIf="submitted && eduDetail.get('project_name').errors?.['required']"
+																	class="text-danger text-xs">Project Name Required
 																</div>
 															</div>
 														</div>
@@ -947,7 +945,6 @@
 																			filterBy="year" [filter]="true"
 																			formControlName="project_start_name"
 																			optionLabel="year"></p-select>
-																		<!-- <input class="w-100" type="text" placeholder="Start Year" formControlName="project_start_name" pInputText /> -->
 																		<div *ngIf="project.get('project_start_name')?.invalid && submitted"
 																			class="text-danger text-xs">
 																			<div>Start date required.</div>
@@ -965,7 +962,6 @@
 																			filterBy="year" [filter]="true"
 																			formControlName="project_end_name"
 																			optionLabel="year"></p-select>
-																		<!-- <input class="w-100" type="text" placeholder="End Year" formControlName="project_end_name" pInputText /> -->
 																		<div *ngIf="project.get('project_end_name')?.invalid && submitted"
 																			class="text-danger text-xs">
 																			<div>End date required.</div>
@@ -985,15 +981,12 @@
 														<div class="d-flex justify-content-between align-items-center">
 															<label class="uniprep-primarydark fw-bold h6 mb-0">Project
 																Description</label>
-															<!-- <button pButton  class="deleteDivButton" (click) = "chatGPTIntegration('project_description', i)" style="background-color: #9bc329;">Generate &nbsp;<i class="fa-solid fa-line-columns trashIcon"  style="background-color: #9bc329;"></i></button> -->
 														</div>
 														<div class="form-group">
 															<div class="mb-3">
 																<p-editor formControlName="project_description"
 																	placeholder="About Job Description"
 																	[modules]="editorModules"></p-editor>
-																<!-- <p-editor formControlName="project_description"
-                                                                      placeholder="Project Description"></p-editor> -->
 																<div *ngIf="project.get('project_description')?.invalid && submitted"
 																	class="text-danger text-xs">
 																	<div>Project Description required.</div>
@@ -1003,11 +996,11 @@
 													</div>
 												</div>
 											</div>
-											<!-- *ngIf="getProjectDetailsArray.length != 1" -->
 											<div class="d-flex justify-content-end align-items-center">
-												<button pButton class="deleteDivButton"
-													(click)="clickDeleteButton('project_details', i)">Delete &nbsp;<i
-														class="fa-solid fa-trash trashIcon"></i></button>
+												<button pButton (click)="clickDeleteButton('project_details', i)"
+													class="btn btn-quit ps-3 btn-rounded"> Delete
+													<span class="btn-icon"><i class="fa-solid fa-trash"></i> </span>
+												</button>
 											</div>
 										</div>
 									</div>
@@ -1040,7 +1033,7 @@
 															optionLabel="skills" optionValue="skills"
 															(onChange)="onSkillChange()"></p-select>
 
-														<div *ngIf="skill.get('skills')?.touched"
+														<div *ngIf="submitted && skill.get('skills').errors"
 															class="text-danger text-xs">
 															<div *ngIf="skill.get('skills')?.hasError('duplicate')"
 																style="margin-left: 10px">This skill has already been
@@ -1062,9 +1055,9 @@
 																	placeholder="Proficiency Level"
 																	formControlName="skills_proficiency"
 																	optionLabel="value" optionValue="id"></p-select>
-																<div *ngIf="skill.get('skills_proficiency')?.invalid && skill.get('skills_proficiency')?.touched"
+																<div *ngIf="submitted && skill.get('skills_proficiency')?.hasError('required')"
 																	class="text-danger text-xs">
-																	<div>Proficiency Level required.</div>
+																	Proficiency Level required
 																</div>
 															</div>
 														</div>
@@ -1072,8 +1065,10 @@
 													<div class="col-md-5"
 														*ngIf="getSkillsArray.length > techSkillLimit">
 														<button pButton (click)="clickDeleteButton('skills', i)"
-															class="deleteDivButton">Delete &nbsp;<i
-																class="fa-solid fa-trash trashIcon"></i></button>
+															class="btn btn-quit ps-3 btn-rounded"> Delete
+															<span class="btn-icon"><i class="fa-solid fa-trash"></i>
+															</span>
+														</button>
 													</div>
 												</div>
 											</div>
@@ -1081,9 +1076,13 @@
 									</div>
 								</div>
 								<div class="d-flex justify-content-center align-items-center m-3">
-									<button pButton class="addMoreButton" *ngIf="getSkillsArray.length < 5"
-										(click)="clickAddMoreButton('skills')">Add More &nbsp;<i
-											class="fa-solid fa-plus tickIcon"></i></button>
+									<button pButton *ngIf="getSkillsArray.length < 5"
+										(click)="clickAddMoreButton('skills')"
+										class="btn btn-primary btn-rounded p-1 ps-4">
+										<span class="me-2">Add More</span><span class="btn-icon px-2 py-2">
+											<i class="fa-solid fa-plus"></i>
+										</span>
+									</button>
 								</div>
 							</div>
 							<div class="col-md-12">
@@ -1106,7 +1105,7 @@
 															formControlName="language" optionLabel="value"
 															optionValue="value"
 															(onChange)="onLanguageChange()"></p-select>
-														<div *ngIf="language.get('language')?.touched"
+														<div *ngIf="submitted && language.get('language').errors"
 															class="text-danger text-xs">
 															<div *ngIf="language.get('language')?.hasError('duplicate')"
 																style="margin-left: 10px">This language has already been
@@ -1127,19 +1126,19 @@
 																	placeholder="Proficiency Level" styleClass="w-100"
 																	formControlName="lang_proficiency"
 																	optionLabel="value" optionValue="id"></p-select>
-																<div *ngIf="language.get('lang_proficiency')?.invalid && submitted"
+																<div *ngIf="submitted && language.get('lang_proficiency')?.hasError('required')"
 																	class="text-danger text-xs">
-																	<div>Language Proficiency required.</div>
+																	Language Proficiency required
 																</div>
 															</div>
 														</div>
 													</div>
 													<div class="col-md-5"
 														*ngIf="getLanguagesKnownArray.length > languageLimit">
-														<button pButton class="deleteDivButton"
-															(click)="clickDeleteButton('language_known', i)">
-															Delete &nbsp;
-															<i class="fa-solid fa-trash trashIcon"></i>
+														<button pButton (click)="clickDeleteButton('language_known', i)"
+															class="btn btn-quit ps-3 btn-rounded"> Delete
+															<span class="btn-icon"><i class="fa-solid fa-trash"></i>
+															</span>
 														</button>
 													</div>
 												</div>
@@ -1148,43 +1147,15 @@
 									</div>
 								</div>
 								<div class="d-flex justify-content-center align-items-center m-3">
-									<button pButton class="addMoreButton" *ngIf="getLanguagesKnownArray.length < 5"
-										(click)="clickAddMoreButton('language_known')">Add More &nbsp;<i
-											class="fa-solid fa-plus tickIcon"></i></button>
+									<button pButton *ngIf="getLanguagesKnownArray.length < 5"
+										(click)="clickAddMoreButton('language_known')"
+										class="btn btn-primary btn-rounded p-1 ps-4">
+										<span class="me-2">Add More</span><span class="btn-icon px-2 py-2">
+											<i class="fa-solid fa-plus"></i>
+										</span>
+									</button>
 								</div>
 							</div>
-							<!-- <div class="col-md-12">
-                            <h4 class="uniprep-primary">Your Hobbies (Optional)</h4>
-                            <div *ngFor="let hobby of getHobbiesArray.controls; let i = index"
-                                formArrayName="hobbiesArray">
-                                <div [formGroupName]="i">
-                                    <div class="row">
-                                        <div class="col-md-9">
-                                            <div class="form-group">
-                                                <div class="mb-3">
-                                                    <input class="w-100" type="text" placeholder="Add Your Hobbies"
-                                                        formControlName="hobbies" pInputText />
-                                                    <div *ngIf="hobby.get('hobbies')?.invalid && hobby.get('hobbies')?.touched && submitted"
-                                                        class="text-danger text-xs">
-                                                        <div style="margin-left:10px;">Skills required.</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <button pButton  class="deleteDivButton"
-                                                (click)="clickDeleteButton('Hobby', i)">Delete
-                                                &nbsp;<i class="fa-solid fa-trash trashIcon"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center align-items-center m-3">
-                                <button pButton  (click)="clickAddMoreButton('Hobby')"
-                                    *ngIf="getHobbiesArray.length < hobbyLimit" class="addMoreButton">Add More &nbsp;<i
-                                        class="fa-solid fa-plus tickIcon"></i></button>
-                            </div>
-                        </div> -->
 						</ng-container>
 						<ng-container>
 							<div class="col-md-12">
@@ -1207,9 +1178,9 @@
 														<div class="mb-3">
 															<input class="w-100" type="text" placeholder="Name"
 																formControlName="certificate_name" pInputText />
-															<div *ngIf="certificate.get('certificate_name')?.invalid && submitted"
+															<div *ngIf="submitted && certificate.get('certificate_name')?.hasError('required')"
 																class="text-danger text-xs">
-																<div>Certificate Name required.</div>
+																Certificate Name required
 															</div>
 															<div *ngIf="certificate.get('certificate_name').errors?.['maxCharacters']"
 																class="text-danger text-xs">
@@ -1236,9 +1207,9 @@
 															<input class="w-100" type="text"
 																placeholder="Issued Organization"
 																formControlName="certificate_issued" pInputText />
-															<div *ngIf="certificate.get('certificate_issued')?.invalid && submitted"
+															<div *ngIf="submitted && certificate.get('certificate_issued')?.hasError('required')"
 																class="text-danger text-xs">
-																<div>certificate issued required.</div>
+																Certificate Issued required
 															</div>
 															<div *ngIf="certificate.get('certificate_issued').errors?.['maxCharacters']"
 																class="text-danger text-xs">
@@ -1307,17 +1278,22 @@
 											</div>
 										</div>
 										<div class="d-flex justify-content-end align-items-center">
-											<button pButton class="deleteDivButton"
-												(click)="clickDeleteButton('certificate', i)">Delete &nbsp;<i
-													class="fa-solid fa-trash trashIcon"></i></button>
+											<button pButton (click)="clickDeleteButton('certificate', i)"
+												class="btn btn-quit ps-3 btn-rounded"> Delete
+												<span class="btn-icon"><i class="fa-solid fa-trash"></i>
+												</span>
+											</button>
 										</div>
 									</div>
 								</div>
 								<div class="d-flex justify-content-center align-items-center m-3">
-									<button pButton class="addMoreButton"
-										*ngIf="getCertificatesArray.length < certificateLimit"
-										(click)="clickAddMoreButton('certificate')">Add More &nbsp;<i
-											class="fa-solid fa-plus tickIcon"></i></button>
+									<button pButton *ngIf="getCertificatesArray.length < certificateLimit"
+										(click)="clickAddMoreButton('certificate')"
+										class="btn btn-primary btn-rounded p-1 ps-4">
+										<span class="me-2">Add More</span><span class="btn-icon px-2 py-2">
+											<i class="fa-solid fa-plus"></i>
+										</span>
+									</button>
 								</div>
 							</div>
 							<div class="col-md-12">
@@ -1331,45 +1307,47 @@
 								<div *ngFor="let extra of getExtraCurricularArray.controls; let i = index"
 									formArrayName="extraCurricularArray">
 									<div [formGroupName]="i">
-										<div class="row">
+										<div class="row align-items-center mb-3">
 											<div class="col-md-9">
 												<div class="form-group">
-													<div class="mb-3">
-														<input class="w-100" type="text" placeholder="Achievements"
-															formControlName="extra_curricular_activites" pInputText />
-														<div *ngIf="extra.get('extra_curricular_activites')?.invalid && submitted"
-															class="text-danger text-xs">
-															<div>Achievements required.</div>
-														</div>
-														<div *ngIf="extra.get('extra_curricular_activites').errors?.['maxCharacters']"
-															class="text-danger text-xs">
-															Achievements cannot exceed {{
-															extra.get('extra_curricular_activites').errors?.['maxCharacters'].max
-															}} words.
-															(Current: {{
-															extra.get('extra_curricular_activites').errors?.['maxCharacters'].actual
-															}})
-														</div>
+													<input class="w-100" type="text" placeholder="Achievements"
+														formControlName="extra_curricular_activites" pInputText />
+													<div *ngIf="submitted && extra.get('extra_curricular_activites')?.hasError('required')"
+														class="text-danger text-xs">
+														Achievements required
+													</div>
+													<div *ngIf="extra.get('extra_curricular_activites').errors?.['maxCharacters']"
+														class="text-danger text-xs">
+														Achievements cannot exceed {{
+														extra.get('extra_curricular_activites').errors?.['maxCharacters'].max
+														}} words.
+														(Current: {{
+														extra.get('extra_curricular_activites').errors?.['maxCharacters'].actual
+														}})
 													</div>
 												</div>
 											</div>
 											<div class="col-md-3 text-end">
-												<button pButton class="deleteDivButton"
-													(click)="clickDeleteButton('extra_curricular', i)">Delete &nbsp;<i
-														class="fa-solid fa-trash trashIcon"></i></button>
+												<button pButton (click)="clickDeleteButton('extra_curricular', i)"
+													class="btn btn-quit ps-3 btn-rounded"> Delete
+													<span class="btn-icon"><i class="fa-solid fa-trash"></i>
+													</span>
+												</button>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="d-flex justify-content-center align-items-center m-3">
-									<button pButton class="addMoreButton"
-										*ngIf="getExtraCurricularArray.length < extraCurriLimit"
-										(click)="clickAddMoreButton('extra_curricular')">Add More &nbsp;<i
-											class="fa-solid fa-plus tickIcon"></i></button>
+									<button pButton *ngIf="getExtraCurricularArray.length < extraCurriLimit"
+										(click)="clickAddMoreButton('extra_curricular')"
+										class="btn btn-primary btn-rounded p-1 ps-4">
+										<span class="me-2">Add More</span><span class="btn-icon px-2 py-2">
+											<i class="fa-solid fa-plus"></i>
+										</span>
+									</button>
 								</div>
 							</div>
 						</ng-container>
-						<!-- [ngStyle]="{ 'visibility': moduleActiveIndex === 0 ? 'hidden' : 'visible' }" -->
 					</form>
 				</div>
 				<div class="d-flex justify-content-between">
@@ -1614,8 +1592,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('language_known')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('language_known')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize"
 									[ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">
 									language</h5>
@@ -1669,8 +1646,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('extra_curricular')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('extra_curricular')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize"
 									[ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">
 									Achievements</h5>
@@ -1691,8 +1667,7 @@
 								<p [innerHTML]="f['user_summary'].value"></p>
 							</div>
 
-							<div class="col-12 mb-2"
-								*ngIf="!hidingHeaders.includes('work_experience')">
+							<div class="col-12 mb-2" *ngIf="!hidingHeaders.includes('work_experience')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize"
 									[ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">
 									experience</h5>
@@ -1713,8 +1688,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('education_detail')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('education_detail')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize"
 									[ngStyle]="{ 'background-color': selectedThemeColor, color: selectedFontColor }">
 									education</h5>
@@ -1809,8 +1783,7 @@
 								<h5 class="fw-semibold text-capitalize"><span>about me</span></h5>
 								<p [innerHTML]="f['user_summary'].value"></p>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('work_experience')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('work_experience')">
 								<h5 class="fw-semibold text-capitalize"><span>experience</span></h5>
 								<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
 									<div class="row">
@@ -1829,8 +1802,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('education_detail')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('education_detail')">
 								<h5 class="fw-semibold text-capitalize"><span>Education</span></h5>
 								<div class="educationItem mb-3" *ngFor="let edu of getEduDetailsArray.controls">
 									<div class="row">
@@ -1881,8 +1853,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('language_known')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('language_known')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize">language</h5>
 								<div class="d-flex gap-0 flex-column">
 									<div class="languageItem fw-semibold"
@@ -1918,8 +1889,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('extra_curricular')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('extra_curricular')">
 								<h5 class="fw-semibold px-2 py-2 text-capitalize">Achievements</h5>
 								<div class="technicalSkillItem fw-semibold"
 									*ngFor="let extra of getExtraCurricularArray.controls">
@@ -1950,8 +1920,7 @@
 								<hr class="mb-2" />
 								<p [innerHTML]="f['user_summary'].value"></p>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('work_experience')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('work_experience')">
 								<h5 class="fw-semibold text-capitalize"><span>experience</span></h5>
 								<hr class="mb-2" />
 								<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
@@ -1971,8 +1940,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('education_detail')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('education_detail')">
 								<h5 class="fw-semibold text-capitalize"><span>Education</span></h5>
 								<hr class="mb-2" />
 								<div class="educationItem mb-3" *ngFor="let edu of getEduDetailsArray.controls">
@@ -2069,8 +2037,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('language_known')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('language_known')">
 								<h5 class="fw-semibold text-capitalize">language</h5>
 								<hr class="mb-2" />
 								<div class="d-flex gap-0 flex-column">
@@ -2090,8 +2057,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('extra_curricular')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('extra_curricular')">
 								<h5 class="fw-semibold text-capitalize">Achievements</h5>
 								<hr class="mb-2" />
 								<div class="technicalSkillItem fw-semibold"
@@ -2173,8 +2139,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('language_known')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('language_known')">
 								<h5 class="fw-semibold pb-0 text-capitalize" [ngStyle]="{ color: selectedThemeColor }">
 									Language</h5>
 								<hr class="mb-3"
@@ -2233,8 +2198,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('extra_curricular')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('extra_curricular')">
 								<h5 class="fw-semibold pb-0 text-capitalize" [ngStyle]="{ color: selectedThemeColor }">
 									Achievements</h5>
 								<hr class="mb-3"
@@ -2255,8 +2219,7 @@
 									[ngStyle]="{ color: selectedThemeColor, 'background-color': selectedThemeColor }" />
 								<p [innerHTML]="f['user_summary'].value"></p>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('work_experience')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('work_experience')">
 								<h5 class="fw-semibold pb-0 text-capitalize" [ngStyle]="{ color: selectedThemeColor }">
 									Experience</h5>
 								<hr class="mb-3"
@@ -2278,8 +2241,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('education_detail')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('education_detail')">
 								<h5 class="fw-semibold pb-0 text-capitalize" [ngStyle]="{ color: selectedThemeColor }">
 									Education</h5>
 								<hr class="mb-3"
@@ -2377,8 +2339,7 @@
 				<div class="row flex-fill">
 					<div class="col-7">
 						<div class="row">
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('work_experience')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('work_experience')">
 								<h5 class="fw-semibold text-capitalize"><span>experience</span></h5>
 								<hr class="mb-2" />
 								<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
@@ -2398,8 +2359,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('education_detail')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('education_detail')">
 								<h5 class="fw-semibold text-capitalize"><span>Education</span></h5>
 								<hr class="mb-2" />
 								<div class="educationItem mb-3" *ngFor="let edu of getEduDetailsArray.controls">
@@ -2457,8 +2417,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('language_known')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('language_known')">
 								<h5 class="fw-semibold text-capitalize">language</h5>
 								<hr class="mb-2" />
 								<div class="d-flex gap-0 flex-column">
@@ -2478,8 +2437,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-12 mb-4"
-								*ngIf="!hidingHeaders.includes('extra_curricular')">
+							<div class="col-12 mb-4" *ngIf="!hidingHeaders.includes('extra_curricular')">
 								<h5 class="fw-semibold text-capitalize">Achievements</h5>
 								<hr class="mb-2" />
 								<div class="technicalSkillItem fw-semibold"
