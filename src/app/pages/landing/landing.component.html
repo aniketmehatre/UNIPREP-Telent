@@ -113,8 +113,7 @@
 	<div class="container-fluid d-md-none">
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
-			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.png" />
-			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.png" />
+			<img [src]="logoUrl$ | async" alt="Logo">
 		</a>
 
 		<!-- Hamburger button for mobile -->

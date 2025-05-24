@@ -201,10 +201,13 @@ export class LandingLanguageHubComponent implements OnInit, OnDestroy {
           };
           img.src = poster;
         }
+        this.videoUrl = this.landingPageData?.herocover?.video_link ?
+          this.landingPageData?.herocover?.video_link + '?rel=0&autoplay=1' :
+          'https://www.youtube.com/embed/Sv8EyWriqV0?rel=0&autoplay=1';
 
-        this.videoUrl = this.landingPageData?.herocover?.video_link + '?rel=0&autoplay=1';
-        this.logoStore.setLogo(this.landingPageData.logo);
-
+        if (this.landingPageData.logo) {
+          this.logoStore.setLogo(this.landingPageData.logo);
+        }
       },
       error: error => {
         console.log(error);
