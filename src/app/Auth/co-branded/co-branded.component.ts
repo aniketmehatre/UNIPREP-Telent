@@ -51,7 +51,7 @@ export class CoBrandedComponent implements OnInit, OnDestroy {
     domainNameCondition: string
     countryLists: any
     ipURL: string = "https://api.ipify.org?format=json"
-    isPartner:boolean = false
+    isPartner: boolean = false
 
     constructor(private service: AuthService, private formBuilder: FormBuilder, private route: Router,
                 private toast: MessageService, private dataService: DataService,
@@ -97,13 +97,11 @@ export class CoBrandedComponent implements OnInit, OnDestroy {
     }
 
     navigateTo(type: string) {
-
         if (type === 'login') {
             this.route.navigate(["/login"])
-        }
-        if (this.isPartner){
+        } else if (type === 'partners') {
             window.location.href = '/partners';
-        }else {
+        } else {
             window.location.href = '/institution';
         }
     }
@@ -113,7 +111,7 @@ export class CoBrandedComponent implements OnInit, OnDestroy {
             domain: window.location.hostname,
         }
         this.locationService.getSourceByDomain(req).subscribe((response) => {
-            if (response === 'Partner'){
+            if (response === 'Partner') {
                 this.isPartner = true;
             }
         })
