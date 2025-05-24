@@ -29,6 +29,7 @@ import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
 import { DropdownModule } from "primeng/dropdown"
 import { AveragesalaryestimatorService } from "../../averagesalaryestimator/averagesalaryestimator.service"
+import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
 
 declare const pdfjsLib: any;
 
@@ -247,6 +248,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	// jobTitleList: any[] = [];
 	chatGptButtonLoader: boolean = false;
 	chatGptButtonLoaderSummary: boolean = false;
+	userSummaryWordCount: number = 0;
 	constructor(
 		private toaster: MessageService,
 		private fb: FormBuilder,
@@ -259,30 +261,18 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		private cdr: ChangeDetectorRef,
 	) {
 		this.resumeFormInfoData = this.fb.group({
-			// user_name: ['Vivek Kaliyaperumal', [Validators.required]],
-			// user_job_title: ['Full stack developer', [Validators.required]],
-			// user_email: ['vivek.uniabroad@gmail.com', [Validators.required, Validators.email]],
-			// user_location: ['Mysuru, India', [Validators.required]],
-			// user_phone: ['9524000756',[Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}$')]],
-			// country_code: ['+91'],
-			// user_summary: ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', [Validators.required]],
-			// org_name: ['Rsoft technologies pvt ltd',[Validators.required]],
-			// org_location: ['Chennai, India',[Validators.required]],
-			// jobposition: ['Managing Director',[Validators.required]],
-
 			user_name: ["", [Validators.required]],
 			user_job_title: ["", [Validators.required]],
 			user_email: ["", [Validators.required, Validators.email]],
 			user_location: ["", [Validators.required]],
 			user_phone: ["", [Validators.required, Validators.pattern("^\\+?[1-9]\\d{1,14}$")]],
 			country_code: ["", [Validators.required]],
-			user_summary: ["", [Validators.required]],
+			user_summary: ["", [Validators.required, maxWordsValidator(1100)]],
 			org_name: ["", [Validators.required]],
 			org_location: ["", [Validators.required]],
-			// jobposition: ["", [Validators.required]],
-			// job_description: ["", [Validators.required]],
 		})
 		this.getJobRoles();
+		this.onChangesFormValues();
 	}
 
 	ngAfterViewInit() {
@@ -337,35 +327,11 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		this.pdfLoadError = true
 	}
 
-	// searchLocation(event: any, mode: string) {
-	// 	const query = event.target.value.toLowerCase();
-	// 	if (mode === "user_location") {
-	// 		if (query.length > 3) {
-	// 			this.filteredLocations = this.getFilteredLocations(query);
-	// 		} else if (query.length < 2) {
-	// 			this.filteredLocations = [];
-	// 		}
-	// 	} else {
-	// 		if (query.length > 3) {
-	// 			this.orgLocation = this.getFilteredLocations(query);
-	// 		} else if (query.length < 2) {
-	// 			this.orgLocation = [];
-	// 		}
-	// 	}
-
-	// }
-
 	getLocationsList() {
 		this.cvBuilderService.getLocationList().subscribe((res: any) => {
 			this.cities = res;
 		});
 	}
-
-	// getFilteredLocations(query: string) {
-	// 	const mockLocations = this.cities;
-
-	// 	return mockLocations.filter((city: any) => city.country_name.toLowerCase().includes(query.toLowerCase()));
-	// }
 
 	onFocusOut() {
 		this.inputValuesEditOrNot();
@@ -415,7 +381,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		this.resumeFormInfoData.patchValue({
 			user_name: userDetails?.name,
 			user_email: userDetails?.email,
-			user_location: location,
+			// user_location: location,
 			user_phone: userDetails?.phone,
 			country_code: userDetails?.country_code,
 		});
@@ -818,7 +784,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	jobRoles: JobTitle[] = [];
 	getJobRoles() {
 		this.cvBuilderService.getJobList().subscribe({
-			next: (response: any) =>{
+			next: (response: any) => {
 				this.jobRoles = response;
 			}
 		})
@@ -902,18 +868,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		}
 		return cleaned;
 	}
-	getWordCount(controlName: string): number {
-		const html = this.resumeFormInfoData.get(controlName)?.value || '';
-
-		// Create a temporary element to convert HTML to plain text
-		const div = document.createElement('div');
-		div.innerHTML = html;
-		const text = div.textContent || div.innerText || '';
-
-		const trimmed = text.trim();
-
-		return trimmed ? trimmed.split(/\s+/).length : 0;
-	}
 
 	focusInput(input: HTMLInputElement) {
 		setTimeout(() => {
@@ -922,7 +876,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	addCustomJobTitle(input: HTMLInputElement) {
-		if(!input.value){
+		if (!input.value) {
 			this.toaster.add({
 				severity: 'warn',
 				summary: 'Empty',
@@ -958,5 +912,19 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			summary: 'Added',
 			detail: `Job title "${customValue}" added`
 		});
+	}
+
+
+	onChangesFormValues() {
+		this.resumeFormInfoData.get('user_summary')?.valueChanges.subscribe(value => {
+			this.updateWordCount(value);
+		});
+	}
+
+	updateWordCount(content: string) {
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(content, 'text/html');
+		const plainText = doc.body.textContent || '';
+		this.userSummaryWordCount = (plainText.match(/\b\w+\b/g) || []).length;
 	}
 }
