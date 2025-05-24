@@ -2,65 +2,76 @@
 	<div class="container-fluid d-md-flex d-none">
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
-			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
-			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
+			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.png" />
+			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.png" />
 		</a>
 
 		<!-- Inside your component's template -->
 		<ul class="nav flex-row gap-2">
 			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular" aria-current="page" href="#home" (click)="scrollToSection($event, 'home')">Home</a>
+				<a class="nav-link active text-white fw-regular" aria-current="page" href="#home"
+					(click)="scrollToSection($event, 'home')">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white fw-regular" aria-label="About UNIPREP" href="#about" (click)="scrollToSection($event, 'about')">About UNIPREP</a>
+				<a class="nav-link text-white fw-regular" aria-label="About UNIPREP" href="#about"
+					(click)="scrollToSection($event, 'about')">About UNIPREP</a>
 			</li>
 			<li class="nav-item dropdown">
-				<a class="nav-link text-white fw-regular dropdown-toggle" href="#explore" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="scrollToSection($event, 'explore')">
+				<a class="nav-link text-white fw-regular dropdown-toggle" href="#explore" id="exploreDropdown"
+					role="button" data-bs-toggle="dropdown" aria-expanded="false"
+					(click)="scrollToSection($event, 'explore')">
 					Explore
 				</a>
 				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
 					<li><a class="dropdown-item text-white" href="#job-seekers">For Job Seekers</a></li>
-					<li><a class="dropdown-item text-white" href="#international-students">For International Students</a></li>
+					<li><a class="dropdown-item text-white" href="#international-students">For International
+							Students</a></li>
 					<li><a class="dropdown-item text-white" href="#global-travellers">For Global Travellers</a></li>
 					<li><a class="dropdown-item text-white" href="#entrepreneurs">For Entrepreneurs</a></li>
 				</ul>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white fw-regular" aria-label="Key Features" href="#keyfeatures" (click)="scrollToSection($event, 'keyfeatures')">Key Features</a>
+				<a class="nav-link text-white fw-regular" aria-label="Key Features" href="#keyfeatures"
+					(click)="scrollToSection($event, 'keyfeatures')">Key Features</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white fw-regular" aria-label="Certificates" href="/certificates">Certificates</a>
+				<a class="nav-link text-white fw-regular" aria-label="Certificates"
+					href="/certificates">Certificates</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link text-white fw-regular" aria-label="Blogs" href="/blogs">Blogs</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-white fw-regular" aria-label="FAQ" href="#faq" (click)="scrollToSection($event, 'faq')">F.A.Q</a>
+				<a class="nav-link text-white fw-regular" aria-label="FAQ" href="#faq"
+					(click)="scrollToSection($event, 'faq')">F.A.Q</a>
 			</li>
 			<!-- Add other desktop menu items as needed -->
 		</ul>
 
 		<div class="d-flex gap-4 align-items-center">
 			<a [routerLink]="['/login']" class="text-decoration-none text-white">Login</a>
-			<a [routerLink]="['/register']" class="text-decoration-none"><button type="button" class="btn btn-secondary px-4 py-2 m-0">Register</button></a>
+			<a [routerLink]="['/register']" class="text-decoration-none"><button type="button"
+					class="btn btn-secondary px-4 py-2 m-0">Register</button></a>
 		</div>
 	</div>
 
 	<div class="container-fluid d-md-none">
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
-			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
-			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
+			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.png" />
+			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.png" />
 		</a>
 
 		<!-- Hamburger button for mobile -->
-		<button class="navbar-toggler text-white" type="button" data-bs-toggle="offcanvas" data-bs-placement="right" data-bs-target="#sidebarNav" aria-controls="sidebarNav">
+		<button class="navbar-toggler text-white" type="button" data-bs-toggle="offcanvas" data-bs-placement="right"
+			data-bs-target="#sidebarNav" aria-controls="sidebarNav">
 			<!-- <span class="navbar-toggler-icon text-white"></span> -->
 			<i class="fa-regular fa-bars fa-2xl" role="button"></i>
 		</button>
 
 		<!-- Sidebar navigation (offcanvas) -->
-		<div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" tabindex="-1" id="sidebarNav" aria-labelledby="sidebarNavLabel">
+		<div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" tabindex="-1" id="sidebarNav"
+			aria-labelledby="sidebarNavLabel">
 			<div class="offcanvas-header justify-content-end mt-2">
 				<!-- Close button (X) to close the sidebar -->
 				<i class="fa-solid fa-xmark text-white fa-2xl" role="button" data-bs-dismiss="offcanvas"></i>
@@ -69,29 +80,36 @@
 				<!-- Mobile menu items -->
 				<ul class="nav flex-column gap-5 w-100">
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="#home" (click)="scrollToSection($event, 'home')">Home</a>
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="#home"
+							(click)="scrollToSection($event, 'home')">Home</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="About" href="#about" (click)="scrollToSection($event, 'about')">About</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="About" href="#about"
+							(click)="scrollToSection($event, 'about')">About</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="keyfeatures" href="#keyfeatures" (click)="scrollToSection($event, 'keyfeatures')">Key Features</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="keyfeatures"
+							href="#keyfeatures" (click)="scrollToSection($event, 'keyfeatures')">Key Features</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="#faq" (click)="scrollToSection($event, 'faq')">F.A.Q</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="#faq"
+							(click)="scrollToSection($event, 'faq')">F.A.Q</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="/certificates">Certificates</a>
+						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ"
+							href="/certificates">Certificates</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
 						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="/blogs">Blogs</a>
 					</li>
 					<!-- Add other mobile menu items as needed -->
 					<li class="nav-item text-center">
-						<a [routerLink]="['/login']" class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
+						<a [routerLink]="['/login']"
+							class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
 					</li>
 					<li class="nav-item">
-						<a href="/register" class="text-decoration-none"><button type="button" class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
+						<a href="/register" class="text-decoration-none"><button type="button"
+								class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
 					</li>
 				</ul>
 			</div>
@@ -115,13 +133,15 @@
 	<div class="container-fluid pt-5 text-center">
 		<div class="row justify-content-center">
 			<div class="col-md-8 d-flex flex-column justify-content-center align-items-center">
-				<h2 class="text-center text-white mb-4" style="font-weight: 400">Discover Real Opportunities. Connect with Employers. Take the Next Step in Your Career</h2>
+				<h2 class="text-center text-white mb-4" style="font-weight: 400">Discover Real Opportunities. Connect
+					with Employers. Take the Next Step in Your Career</h2>
 				<!-- <p class="mb-4">Unlock your potential and embrace a world of possibilities through UNIPREP's comprehensive resources and guidance. or Gain the tools to explore, adapt, and thrive in a global landscape, setting the stage for your future success.</p> -->
 				<div class="h5 text-grey">Looking for a career move that matters?</div>
 				<div class="text-center mb-4 mt-4">
-					<a href="/register" class="text-decoration-none"
-						><button type="button" class="btn btn-secondary px-5 py-3 m-0"><div class="mb-0">REGISTER NOW</div></button></a
-					>
+					<a href="/register" class="text-decoration-none"><button type="button"
+							class="btn btn-secondary px-5 py-3 m-0">
+							<div class="mb-0">REGISTER NOW</div>
+						</button></a>
 				</div>
 			</div>
 		</div>
@@ -134,7 +154,8 @@
 			<div class="col-md-10">
 				<div class="video-container" (click)="toggleVideo()">
 					<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
-					<video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none" poster="/uniprep-assets/images/uniprepmockup.png">
+					<video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none"
+						poster="/uniprep-assets/images/uniprepmockup.png">
 						<source [src]="welcomevideoLink" type="video/mp4" />
 					</video>
 				</div>
@@ -162,10 +183,13 @@
 		<div class="row justify-content-center">
 			<div class="col-md-9 text-start d-flex align-items-center pt-5">
 				<p class="h3 text-white text-center">
-                    UNIPREP Employer Connect is your gateway to internships, jobs, and career opportunities with employeers across local, national,
-                    and international markets. Whether you're a student ready to gain experience or a professional exploring your next chapter, this
-                    platform helps you connect directly with organizations actively hiring - and find roles that truly fir your profile.
-                </p>
+					UNIPREP Employer Connect is your gateway to internships, jobs, and career opportunities with
+					employeers across local, national,
+					and international markets. Whether you're a student ready to gain experience or a professional
+					exploring your next chapter, this
+					platform helps you connect directly with organizations actively hiring - and find roles that truly
+					fir your profile.
+				</p>
 				<!-- <h1 class="text-white text-md-start text-center">ABOUT UNIPREP</h1> -->
 				<!-- <p class="text-justify mb-5">
 						UNIPREP is a one-stop global search platform, designed to act as a personalized advisor, catering to all students and graduates seeking guidance on career growth, opportunities, life, and education abroad.<br /><br />Experts with firsthand experience residing in various countries have answered over half a million questions addressing all 360-degree queries. The information on the portal is further reviewed by the alumni of top international universities.
@@ -203,21 +227,24 @@
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-md-12 text-center mb-3">
-				<h2 class="text-white fw-extralight mb-4">Why <span class="fw-bold uniprep-secondary">UNIPREP</span> Employer Connect</h2>
-                <div class="h5 text-grey">If you're ready to grow, explore, and achieve, this platform is designed for you</div>
+				<h2 class="text-white fw-extralight mb-4">Why <span class="fw-bold uniprep-secondary">UNIPREP</span>
+					Employer Connect</h2>
+				<div class="h5 text-grey">If you're ready to grow, explore, and achieve, this platform is designed for
+					you</div>
 			</div>
 			<div class="col-md-10">
 				<div class="row justify-content-center">
 					<div class="col-md-4 col-12 isforyou" *ngFor="let card of cardItems">
 						<div class="card darkcard h-100">
 							<div class="card-body py-5 px-4">
-                                <div class="d-flex flex-row align-items-center gap-3">
-                                    <img style="height: 30px;width: 30px" [src]="'/assets/'+card.img">
-                                    <div class="d-flex flex-column">
-                                        <h5 class="mb-1 text-left">{{ card.text }}</h5>
-                                        <div class="text-left" *ngIf="card.description" class="text-grey">{{card.description}}</div>
-                                    </div>
-                                </div>
+								<div class="d-flex flex-row align-items-center gap-3">
+									<img style="height: 30px;width: 30px" [src]="'/assets/'+card.img">
+									<div class="d-flex flex-column">
+										<h5 class="mb-1 text-left">{{ card.text }}</h5>
+										<div class="text-left" *ngIf="card.description" class="text-grey">
+											{{card.description}}</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -276,22 +303,29 @@
 			<div class="col-md-10">
 				<div class="row justify-content-between align-items-center">
 					<div class="col-md-6">
-						<h2 class="text-white fw-semibold text-md-start text-center mb-3 d-block d-md-none">What You Can Do</h2>
+						<h2 class="text-white fw-semibold text-md-start text-center mb-3 d-block d-md-none">What You Can
+							Do</h2>
 						<div class="featureimage mb-md-0 mb-3 p-3">
 							<img [src]="currentImage" class="w-100 rounded-2" alt="Image" />
 						</div>
 					</div>
 					<div class="col-md-6 col-12">
-						<h2 class="text-white fw-semibold text-md-start text-center mb-3 d-none d-md-block">What You Can Do</h2>
+						<h2 class="text-white fw-semibold text-md-start text-center mb-3 d-none d-md-block">What You Can
+							Do</h2>
 						<div class="accordion accordion-flush" id="accordionFeatures">
 							<div class="accordion" id="accordionFeatures">
-								<div class="accordion-item featurecard" *ngFor="let item of accordionItems; let i = index">
+								<div class="accordion-item featurecard"
+									*ngFor="let item of accordionItems; let i = index">
 									<h2 class="accordion-header">
-										<button class="accordion-button text-white" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#' + item.id" aria-expanded="true" [attr.aria-controls]="item.id" (click)="changeImage(item.image)">
+										<button class="accordion-button text-white" type="button"
+											data-bs-toggle="collapse" [attr.data-bs-target]="'#' + item.id"
+											aria-expanded="true" [attr.aria-controls]="item.id"
+											(click)="changeImage(item.image)">
 											{{ item.title }}
 										</button>
 									</h2>
-									<div [id]="item.id" class="accordion-collapse collapse" data-bs-parent="#accordionFeatures" [ngClass]="{ show: i === 0 }">
+									<div [id]="item.id" class="accordion-collapse collapse"
+										data-bs-parent="#accordionFeatures" [ngClass]="{ show: i === 0 }">
 										<div class="accordion-body">
 											<p class="mb-0 text-white fw-extralight">{{ item.content }}</p>
 										</div>
@@ -307,24 +341,25 @@
 </section>
 
 <section class="pt-5 pb-5 cta-field darksection">
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <div class="card py-4 px-4">
-                    <div class="card-body">
-                        <div class="row align-items-center justify-content-center">
-                            <div class="col-md-10">
-                                <h3 class="mb-md-0 mb-3 text-md-start text-center fw-light"><span class="fw-bold">Get Free Access</span><br />Right Away!</h3>
-                            </div>
-                            <div class="col-md-2 col-7">
-                                <a href="/register" class="btn cta-btn m-0 h5 py-4">REGISTER NOW</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-md-10">
+				<div class="card py-4 px-4">
+					<div class="card-body">
+						<div class="row align-items-center justify-content-center">
+							<div class="col-md-10">
+								<h3 class="mb-md-0 mb-3 text-md-start text-center fw-light"><span class="fw-bold">Get
+										Free Access</span><br />Right Away!</h3>
+							</div>
+							<div class="col-md-2 col-7">
+								<a href="/register" class="btn cta-btn m-0 h5 py-4">REGISTER NOW</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 
 <section class="darksection py-5">
@@ -339,9 +374,11 @@
 						<a style="text-decoration: none" href="blogs/{{ blog.slug }}">
 							<div class="card">
 								<div class="card-body">
-									<div class="card rounded-4 blogimage" style="background-image: url('/assets/{{ blog.featured_img }}');"></div>
+									<div class="card rounded-4 blogimage"
+										style="background-image: url('/assets/{{ blog.featured_img }}');"></div>
 									<h5 class="text-white pt-3 fw-bold">{{ blog.title }}</h5>
-									<p class="text-white fw-light"><i class="fa-solid fa-calendar me-2"></i>{{ blog.date }}</p>
+									<p class="text-white fw-light"><i class="fa-solid fa-calendar me-2"></i>{{ blog.date
+										}}</p>
 									<p class="pt-1 text-white line-clamp">
 										{{ blog.desc }}
 									</p>
@@ -351,7 +388,8 @@
 					</div>
 				</div>
 				<div class="d-flex justify-content-center">
-					<a [routerLink]="['/blogs']" class="text-decoration-none"><button type="button" class="btn btn-secondary px-4 py-2 m-0 text-center mt-4">LOAD MORE</button></a>
+					<a [routerLink]="['/blogs']" class="text-decoration-none"><button type="button"
+							class="btn btn-secondary px-4 py-2 m-0 text-center mt-4">LOAD MORE</button></a>
 				</div>
 			</div>
 		</div>
@@ -361,7 +399,8 @@
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-md-12 text-center">
-				<h2 class="text-white fw-light mb-4">Trusted By <span class="uniprep-secondary fw-bold">350+</span> Institutions Globally</h2>
+				<h2 class="text-white fw-light mb-4">Trusted By <span class="uniprep-secondary fw-bold">350+</span>
+					Institutions Globally</h2>
 			</div>
 			<div class="col-md-10 mb-3 marquee overflow-hidden">
 				<img src="/uniprep-assets/images/collegelogos.webp" alt="Universities" class="marquee-imgu" />
@@ -381,7 +420,9 @@
 				<div class="accordion pb-3" id="accordionFAQ">
 					<div class="accordion-item faqcard" *ngFor="let faq of faqItems; let i = index">
 						<h2 class="accordion-header">
-							<button class="accordion-button text-white collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#' + faq.id" aria-expanded="false" [attr.aria-controls]="faq.id">
+							<button class="accordion-button text-white collapsed" type="button"
+								data-bs-toggle="collapse" [attr.data-bs-target]="'#' + faq.id" aria-expanded="false"
+								[attr.aria-controls]="faq.id">
 								{{ faq.question }}
 							</button>
 						</h2>
@@ -392,9 +433,10 @@
 				</div>
 			</div>
 			<div class="col-md-10 text-center">
-				<a href="/register" class="text-decoration-none d-flex justify-content-center mb-5"
-					><button type="button" class="btn btn-secondary px-4 py-3 m-0"><h5 class="mb-0">KNOW MORE</h5></button></a
-				>
+				<a href="/register" class="text-decoration-none d-flex justify-content-center mb-5"><button
+						type="button" class="btn btn-secondary px-4 py-3 m-0">
+						<h5 class="mb-0">KNOW MORE</h5>
+					</button></a>
 			</div>
 		</div>
 	</div>
@@ -409,9 +451,12 @@
 				</div>
 				<div class="col-md-6 col-12 text-md-end text-center">
 					<div class="d-flex justify-content-center justify-content-md-end gap-4">
-						<a href="https://www.facebook.com/uniprepindia" aria-label="Facebook" class="text-white" target="_blank"><i class="fa-brands fa-facebook fa-xl"></i></a>
-						<a href="https://instagram.com/uniprepindia" aria-label="Instagram" target="_blank" class="text-white"><i class="fa-brands fa-instagram fa-xl"></i></a>
-						<a href="https://www.linkedin.com/company/uniprep-india/" aria-label="LinkedIn" target="_blank" class="text-white"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+						<a href="https://www.facebook.com/uniprepindia" aria-label="Facebook" class="text-white"
+							target="_blank"><i class="fa-brands fa-facebook fa-xl"></i></a>
+						<a href="https://instagram.com/uniprepindia" aria-label="Instagram" target="_blank"
+							class="text-white"><i class="fa-brands fa-instagram fa-xl"></i></a>
+						<a href="https://www.linkedin.com/company/uniprep-india/" aria-label="LinkedIn" target="_blank"
+							class="text-white"><i class="fa-brands fa-linkedin fa-xl"></i></a>
 						<!--<a href="" class="text-white"><i class="fa-brands fa-youtube fa-xl"></i></a> -->
 					</div>
 				</div>
@@ -423,10 +468,11 @@
 		<div class="container-fluid py-3">
 			<div class="row">
 				<div class="col-12 text-center">
-					<img src="/uniprep-assets/images/uniprep-dark.svg" width="150px" />
+					<img src="/uniprep-assets/images/uniprep-dark.png" width="150px" />
 					<div class="text-white small mb-3">
 						<p class="mb-0">For Any Queries</p>
-						<a href="mailto:support&#64;uniprep.ai" class="text-decoration-none text-white">support&#64;uniprep.ai</a>
+						<a href="mailto:support&#64;uniprep.ai"
+							class="text-decoration-none text-white">support&#64;uniprep.ai</a>
 						|
 						<a href="tel:+919035723087" class="text-decoration-none text-white">+91 9035723087</a>
 					</div>
@@ -439,14 +485,19 @@
 		<div class="container-fluid py-3">
 			<div class="row align-items-center">
 				<div class="col-md-6">
-					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-start gap-2 text-white">
-						<p (click)="showcontactform()" role="button" aria-label="Contact Form" class="mb-0 text-white text-decoration-none small">Contact Us</p>
+					<div
+						class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-start gap-2 text-white">
+						<p (click)="showcontactform()" role="button" aria-label="Contact Form"
+							class="mb-0 text-white text-decoration-none small">Contact Us</p>
 						|
-						<p (click)="showprivacypolicy()" role="button" aria-label="Privacy Policy" class="mb-0 text-white text-decoration-none small">Privacy Policy</p>
+						<p (click)="showprivacypolicy()" role="button" aria-label="Privacy Policy"
+							class="mb-0 text-white text-decoration-none small">Privacy Policy</p>
 						|
-						<p (click)="showTandC()" role="button" aria-label="Terms Conditions" class="mb-0 text-white text-decoration-none small">Terms & Conditions</p>
+						<p (click)="showTandC()" role="button" aria-label="Terms Conditions"
+							class="mb-0 text-white text-decoration-none small">Terms & Conditions</p>
 						|
-						<p (click)="showcancellationpolicy()" role="button" aria-label="Cancellation Policy" class="mb-0 text-white text-decoration-none small">Cancellation & Refund Policy</p>
+						<p (click)="showcancellationpolicy()" role="button" aria-label="Cancellation Policy"
+							class="mb-0 text-white text-decoration-none small">Cancellation & Refund Policy</p>
 					</div>
 				</div>
 				<div class="col-md-6 text-md-end text-center">
@@ -457,14 +508,14 @@
 	</section>
 </footer>
 
-<p-dialog header="Contact Us" [(visible)]="displaycontactform" [modal]="true" [style]="{ width: '60vw' }" [maximizable]="true" [draggable]="false" [resizable]="false">
+<p-dialog header="Contact Us" [(visible)]="displaycontactform" [modal]="true" [style]="{ width: '60vw' }"
+	[maximizable]="true" [draggable]="false" [resizable]="false">
 	<div class="col-12 text-start">
 		<div class="d-flex flex-column small mb-3">
 			<p>For Any Queries</p>
 			<div class="d-flex gap-2">
-				<a href="mailto:support&#64;uniprep.ai" class="text-decoration-none text-black"
-					><span><i class=""></i></span>support&#64;uniprep.ai</a
-				>
+				<a href="mailto:support&#64;uniprep.ai" class="text-decoration-none text-black"><span><i
+							class=""></i></span>support&#64;uniprep.ai</a>
 				<span>|</span>
 				<a href="tel:+919035723087" class="text-decoration-none text-black">+91 9035723087</a>
 			</div>
@@ -477,96 +528,193 @@
 	<form [formGroup]="contactForm">
 		<div class="mb-3">
 			<label for="homepagename" class="form-label">Name</label>
-			<input type="name" placeholder="Your Name" formControlName="name" class="form-control" id="homepagename" aria-describedby="nameHelp" />
+			<input type="name" placeholder="Your Name" formControlName="name" class="form-control" id="homepagename"
+				aria-describedby="nameHelp" />
 		</div>
 		<div class="mb-3">
 			<label for="homepageemail" class="form-label">Email address</label>
-			<input type="email" placeholder="Your Email" class="form-control" formControlName="email" id="homepageemail" aria-describedby="emailHelp" />
+			<input type="email" placeholder="Your Email" class="form-control" formControlName="email" id="homepageemail"
+				aria-describedby="emailHelp" />
 		</div>
 		<div class="mb-3">
 			<label for="homepagephone" class="form-label">Phone Number</label>
-			<input type="phone" placeholder="Your Mobile Number" class="form-control" formControlName="phone" id="homepagephone" aria-describedby="phoneHelp" />
+			<input type="phone" placeholder="Your Mobile Number" class="form-control" formControlName="phone"
+				id="homepagephone" aria-describedby="phoneHelp" />
 		</div>
 		<div class="mb-3">
 			<label for="homepagesubject" class="form-label">Subject</label>
-			<input type="text" placeholder="Please Enter a Subject" class="form-control" formControlName="subject" id="homepagesubject" aria-describedby="subjectHelp" />
+			<input type="text" placeholder="Please Enter a Subject" class="form-control" formControlName="subject"
+				id="homepagesubject" aria-describedby="subjectHelp" />
 		</div>
 		<div class="mb-3">
 			<label for="homepagemessage" class="form-label">Message</label>
-			<textarea type="textarea" placeholder="Your message for us" class="form-control" formControlName="message" id="homepagemessage" aria-describedby="messageHelp"></textarea>
+			<textarea type="textarea" placeholder="Your message for us" class="form-control" formControlName="message"
+				id="homepagemessage" aria-describedby="messageHelp"></textarea>
 		</div>
 		<div class="text-end">
-			<button type="submit" (click)="submitForm()" class="btn btn-primary px-5 py-3 m-0" style="border-radius: 10px !important">Submit</button>
+			<button type="submit" (click)="submitForm()" class="btn btn-primary px-5 py-3 m-0"
+				style="border-radius: 10px !important">Submit</button>
 		</div>
 		<div class="mt-3" *ngIf="contactSuccess">
-			<p-message severity="success" text="Thank You, we will get back to you at the earliest." styleClass="p-mr-2"></p-message>
+			<p-message severity="success" text="Thank You, we will get back to you at the earliest."
+				styleClass="p-mr-2"></p-message>
 		</div>
 	</form>
 </p-dialog>
 
-<p-dialog [(visible)]="displaytandc" [modal]="true" [style]="{ width: '80vw' }" [maximizable]="true" [draggable]="true" [resizable]="false">
+<p-dialog [(visible)]="displaytandc" [modal]="true" [style]="{ width: '80vw' }" [maximizable]="true" [draggable]="true"
+	[resizable]="false">
 	<h3 class="mb-0">Terms & Conditions</h3>
 	<p class="mb-0">Last update: 1 February 2024</p>
 	<hr />
-	<p>These Terms of Use are created to govern the access and use of the Services in SOP Expert. The Terms of Use, as well as the User Agreement, which will be provided after Your Account registration, constitute legally binding agreement between You, as the User of the Services UNIPREP, and UNIABROAD LTD (may refer to "We", "Our", "Ours" or "Us" in the Terms of Use),Please read this Terms of Use carefully as far as it will regulate relations between you and us in the course of your use of the Service. By using the Service you agree to be bound by the terms and conditions stated herein. You claim and warrant that You have the full legal authority to enter these Terms of Use and to be legally bound by them</p>
+	<p>These Terms of Use are created to govern the access and use of the Services in SOP Expert. The Terms of Use, as
+		well as the User Agreement, which will be provided after Your Account registration, constitute legally binding
+		agreement between You, as the User of the Services UNIPREP, and UNIABROAD LTD (may refer to "We", "Our", "Ours"
+		or "Us" in the Terms of Use),Please read this Terms of Use carefully as far as it will regulate relations
+		between you and us in the course of your use of the Service. By using the Service you agree to be bound by the
+		terms and conditions stated herein. You claim and warrant that You have the full legal authority to enter these
+		Terms of Use and to be legally bound by them</p>
 	<hr />
 	<h4>LICENSE</h4>
 	<h5 class="text-decoration-underline">LICENSE TO USE THE SITE</h5>
-	<p>In consideration for Your consent to follow these Terms, We grant You a non-transferable, non-exclusive, worldwide license to use the Site and the Services only for Your personal, non-commercial purposes to find the similarity in the texts or other materials. No other license is granted. You may not modify, copy, distribute, transmit, display, perform, reproduce, publish, license, create derivative works from, transfer, or sell any information or services from the Site without our direct prior written consent. While UNIPREP provides comprehensive services to enhance your career, it is important to note that the platform and the company are not responsible for any prospective or specific growth in your career or choice you may make.</p>
+	<p>In consideration for Your consent to follow these Terms, We grant You a non-transferable, non-exclusive,
+		worldwide license to use the Site and the Services only for Your personal, non-commercial purposes to find the
+		similarity in the texts or other materials. No other license is granted. You may not modify, copy, distribute,
+		transmit, display, perform, reproduce, publish, license, create derivative works from, transfer, or sell any
+		information or services from the Site without our direct prior written consent. While UNIPREP provides
+		comprehensive services to enhance your career, it is important to note that the platform and the company are not
+		responsible for any prospective or specific growth in your career or choice you may make.</p>
 	<h5 class="text-decoration-underline">LICENSE BY YOU</h5>
-	<p>When You upload, submit, store, send or receive Text information to, or from our Services, You give/grant to Us (Our representatives, agents, employees) a worldwide, non-exclusive, royalty-free, perpetual, irrevocable license to use, host, store, create derivative works (such as those resulting from translations, adaptations or other changes), reproduce such content. The rights that You grant by this license are for the limited purpose of operating, performing and improving our Services, and developing new ones. This license shall survive termination or suspension of these Terms notwithstanding the reason for such termination or suspension. Any suggestions you give or messages sent on the chat window do not grant any license or promise to enhance your career accomplishments in any way.</p>
+	<p>When You upload, submit, store, send or receive Text information to, or from our Services, You give/grant to Us
+		(Our representatives, agents, employees) a worldwide, non-exclusive, royalty-free, perpetual, irrevocable
+		license to use, host, store, create derivative works (such as those resulting from translations, adaptations or
+		other changes), reproduce such content. The rights that You grant by this license are for the limited purpose of
+		operating, performing and improving our Services, and developing new ones. This license shall survive
+		termination or suspension of these Terms notwithstanding the reason for such termination or suspension. Any
+		suggestions you give or messages sent on the chat window do not grant any license or promise to enhance your
+		career accomplishments in any way.</p>
 	<h5 class="text-decoration-underline">ACCEPTABLE USE POLICY</h5>
-	<p>You shall use the Services in full compliance with these Terms. You acknowledge that the main purpose of the Services is to provide guidance through information related to career in general and study abroad. It does not target any specific course details or expertise. Thereby the user agrees to use UNIPREP for gaining information in any manner or to any extent provided. We do not assure of any kind of certain results to be achieved from the use of UNIPREP. The usage of the Services for any other purposes of any other materials than the educational records or materials related to Your own internalactivities shall be previously agreed with Us.</p>
+	<p>You shall use the Services in full compliance with these Terms. You acknowledge that the main purpose of the
+		Services is to provide guidance through information related to career in general and study abroad. It does not
+		target any specific course details or expertise. Thereby the user agrees to use UNIPREP for gaining information
+		in any manner or to any extent provided. We do not assure of any kind of certain results to be achieved from the
+		use of UNIPREP. The usage of the Services for any other purposes of any other materials than the educational
+		records or materials related to Your own internalactivities shall be previously agreed with Us.</p>
 	<h6>You shall not:</h6>
 	<ol>
 		<li>copy, modify duplicate or create derivative works based on the Site and the Services;</li>
-		<li>Republish, download, display, transmit, or distribute all or any portion of the Site or software included in Site in any form or media or by any means;</li>
-		<li>access content or data not intended for You, log onto a server or account that You are not authorized to access, or otherwise violate or attempt to violate any security or authentication feature or measures of the Site or the Services;</li>
+		<li>Republish, download, display, transmit, or distribute all or any portion of the Site or software included in
+			Site in any form or media or by any means;</li>
+		<li>access content or data not intended for You, log onto a server or account that You are not authorized to
+			access, or otherwise violate or attempt to violate any security or authentication feature or measures of the
+			Site or the Services;</li>
 		<li>attempt to access or derive the source code or architecture of the Services software;</li>
-		<li>attempt to reverse compile, disassemble, reverse engineer or otherwise reduce to human-perceivable form all or any part of the Site or software included in the Site;</li>
-		<li>attempt to probe, scan or test the vulnerability of the Site, or any associated system or network, or to breach any security or authentication feature or measures of the Site;</li>
-		<li>interfere or attempt to interfere with Services to any User, host or network, including, without limitation, by means of submitting malicious software or computer code to the Site or the Services, load testing, overloading, "flooding," "spamming," "mail bombing," "crashing,";</li>
-		<li>email or otherwise transmit any content that (i) infringes any intellectual property or other proprietary rights; (ii) You do not have a right to upload under any law or under contractual or fiduciary relationships; (iii) contains any malicious code, files or programs designed to interrupt, destroy or limit the functionality of any computer software or hardware or telecommunications equipment; (iv) poses or creates a privacy or security risk to any person or entity; (v) constitutes unsolicited or unauthorized materials; or (vi) is otherwise objectionable;</li>
-		<li>automate access to the Site or the Services, including, without limitation, through the use of bots, scrapers or other similar devices;</li>
+		<li>attempt to reverse compile, disassemble, reverse engineer or otherwise reduce to human-perceivable form all
+			or any part of the Site or software included in the Site;</li>
+		<li>attempt to probe, scan or test the vulnerability of the Site, or any associated system or network, or to
+			breach any security or authentication feature or measures of the Site;</li>
+		<li>interfere or attempt to interfere with Services to any User, host or network, including, without limitation,
+			by means of submitting malicious software or computer code to the Site or the Services, load testing,
+			overloading, "flooding," "spamming," "mail bombing," "crashing,";</li>
+		<li>email or otherwise transmit any content that (i) infringes any intellectual property or other proprietary
+			rights; (ii) You do not have a right to upload under any law or under contractual or fiduciary
+			relationships; (iii) contains any malicious code, files or programs designed to interrupt, destroy or limit
+			the functionality of any computer software or hardware or telecommunications equipment; (iv) poses or
+			creates a privacy or security risk to any person or entity; (v) constitutes unsolicited or unauthorized
+			materials; or (vi) is otherwise objectionable;</li>
+		<li>automate access to the Site or the Services, including, without limitation, through the use of bots,
+			scrapers or other similar devices;</li>
 		<li>use or access any services, or software in order to build a competitive product, service or solution;</li>
-		<li>access, store, distribute or transmit via, during the course of its use of the Site information that is unlawful, harmful, threatening, defamatory, obscene, infringing, harassing or racially or ethnically offensive, facilitates illegal activity, depicts sexually explicit images, promotes unlawful violence, is discriminatory based on race, gender, color, religious belief, sexual orientation, disability, or any other illegal activity or causes damage or injury to any person or property;</li>
+		<li>access, store, distribute or transmit via, during the course of its use of the Site information that is
+			unlawful, harmful, threatening, defamatory, obscene, infringing, harassing or racially or ethnically
+			offensive, facilitates illegal activity, depicts sexually explicit images, promotes unlawful violence, is
+			discriminatory based on race, gender, color, religious belief, sexual orientation, disability, or any other
+			illegal activity or causes damage or injury to any person or property;</li>
 		<li>violate any applicable law or regulations.</li>
 	</ol>
-	<p>You shall use all reasonable endeavors to prevent any unauthorized access to, or use of, the Site and, in the event of any such unauthorized access or use, promptly notify Us.</p>
-	<p>You represent and warrant that You are not on a list of persons barred and are not the subject of any sanction administered or enforced by the law</p>
+	<p>You shall use all reasonable endeavors to prevent any unauthorized access to, or use of, the Site and, in the
+		event of any such unauthorized access or use, promptly notify Us.</p>
+	<p>You represent and warrant that You are not on a list of persons barred and are not the subject of any sanction
+		administered or enforced by the law</p>
 	<hr />
 	<h4>REGISTRATION AND USER ACCOUNT</h4>
-	<p>You will need to pass the registration procedure and create Your Account to obtain access to the Services. The registration procedure covers the transfer of Your Personal Data to Us by filing the information. By completing the registration procedure on the Site, You agree to use the Services in accordance with these Terms and Your User Agreement, which will be provided after the registration. You agree to provide us with accurate and complete registration information. The failure to provide accurate information may affect Your use of the Services.</p>
-	<p>To learn more about the collection, storage and transfer of the User's Personal Data, please read our Privacy Policy and Cookie Policy.</p>
-	<p>You are solely responsible for all activity in connection with access to the Site and/or the Services through Your Account or using Your password, and for the security of Your computer systems, and in no event shall We be liable for any loss or damages relating to such activity.</p>
+	<p>You will need to pass the registration procedure and create Your Account to obtain access to the Services. The
+		registration procedure covers the transfer of Your Personal Data to Us by filing the information. By completing
+		the registration procedure on the Site, You agree to use the Services in accordance with these Terms and Your
+		User Agreement, which will be provided after the registration. You agree to provide us with accurate and
+		complete registration information. The failure to provide accurate information may affect Your use of the
+		Services.</p>
+	<p>To learn more about the collection, storage and transfer of the User's Personal Data, please read our Privacy
+		Policy and Cookie Policy.</p>
+	<p>You are solely responsible for all activity in connection with access to the Site and/or the Services through
+		Your Account or using Your password, and for the security of Your computer systems, and in no event shall We be
+		liable for any loss or damages relating to such activity.</p>
 	<hr />
 	<h4>FEES AND PAYMENT</h4>
-	<p>The amount of fees and payments for the use of the Services depends on the amount of the ordered Users' Account or Search requests (Page) You have chosen. UNIABROAD and UNIPREP can change the subscription plans and the costing at any time.<br />There are multiple subscription plans on the platform for the users to choose from. The payment can be made digitally, either through UPI or card.<br />Please note that UNIABROAD and UNIPREP do not charge any cancellation fees or offer any refund on any of the subscription plans.<br />It's essential to note that when you upgrade your subscription, the previous subscription is automatically discontinued, and the new subscription begins immediately.</p>
+	<p>The amount of fees and payments for the use of the Services depends on the amount of the ordered Users' Account
+		or Search requests (Page) You have chosen. UNIABROAD and UNIPREP can change the subscription plans and the
+		costing at any time.<br />There are multiple subscription plans on the platform for the users to choose from.
+		The payment can be made digitally, either through UPI or card.<br />Please note that UNIABROAD and UNIPREP do
+		not charge any cancellation fees or offer any refund on any of the subscription plans.<br />It's essential to
+		note that when you upgrade your subscription, the previous subscription is automatically discontinued, and the
+		new subscription begins immediately.</p>
 	<hr />
 	<h4>INTELLECTUAL PROPERTY RIGHTS</h4>
-	<p>You acknowledge that all rights in and to the Site and its content, including visual interface, graphics, design, text materials, compilations, computer code, software and all other elements of the Site are and shall remain Our sole property.</p>
-	<p>As expressly stated herein, these Terms do not grant You any rights to, or in, patents, copyrights, database rights, trade secrets, trade names, trademarks (whether registered or unregistered), or any other rights or licenses in respect of the Site and Services.</p>
-	<p>We confirm that We have all the rights in relation to the Site and Services that are necessary to grant all the rights We purport to grant under and in accordance with these Terms.</p>
+	<p>You acknowledge that all rights in and to the Site and its content, including visual interface, graphics, design,
+		text materials, compilations, computer code, software and all other elements of the Site are and shall remain
+		Our sole property.</p>
+	<p>As expressly stated herein, these Terms do not grant You any rights to, or in, patents, copyrights, database
+		rights, trade secrets, trade names, trademarks (whether registered or unregistered), or any other rights or
+		licenses in respect of the Site and Services.</p>
+	<p>We confirm that We have all the rights in relation to the Site and Services that are necessary to grant all the
+		rights We purport to grant under and in accordance with these Terms.</p>
 	<hr />
 	<h4>MODIFICATION OF SITE AND SERVICES</h4>
-	<p>We may from time to time modify, alternate or change design, functionality or information contained on the Site at Our own discretion without any prior notice to You.</p>
+	<p>We may from time to time modify, alternate or change design, functionality or information contained on the Site
+		at Our own discretion without any prior notice to You.</p>
 	<hr />
 	<h4>MODIFICATION OF THESE TERMS</h4>
-	<p>We reserve the right to change these Terms of Use or the User Agreement. We may notify You about such changes in Our legal documents, including these Terms of Use, User Agreement, Service Level Agreement and/or any other kind of legal and information document regarding the Site, the Services and/or any other area of relations between You and Us, by the email or through a notification on the Site. The updates become legally binding after the posting of the renewed Terms on the Site. Your use of the Services following any such update or revision constitutes Your agreement to be bound by and comply with these Terms as updated or revised.</p>
-	<p>No modification to these Terms of Use or any other legal document at this Site by You is allowed. Any abovementioned modification, alteration, or change of any kind without Our express written consent shall be negligent.</p>
+	<p>We reserve the right to change these Terms of Use or the User Agreement. We may notify You about such changes in
+		Our legal documents, including these Terms of Use, User Agreement, Service Level Agreement and/or any other kind
+		of legal and information document regarding the Site, the Services and/or any other area of relations between
+		You and Us, by the email or through a notification on the Site. The updates become legally binding after the
+		posting of the renewed Terms on the Site. Your use of the Services following any such update or revision
+		constitutes Your agreement to be bound by and comply with these Terms as updated or revised.</p>
+	<p>No modification to these Terms of Use or any other legal document at this Site by You is allowed. Any
+		abovementioned modification, alteration, or change of any kind without Our express written consent shall be
+		negligent.</p>
 	<hr />
 	<h4>TERMINATION</h4>
-	<p>We reserve the right at any time without liability to You at Our sole discretion to limit, suspend or revoke Your access to the Services in case of any breach of these Terms of Use or any other written Agreement between You and Us.</p>
+	<p>We reserve the right at any time without liability to You at Our sole discretion to limit, suspend or revoke Your
+		access to the Services in case of any breach of these Terms of Use or any other written Agreement between You
+		and Us.</p>
 	<hr />
 	<h4>WARRANTY, DISCLAIMER and LIMITATION of LIABILITY</h4>
-	<p>Other than as expressly set out in these terms of use or legal documents at this site, neither we nor our licensees, vendors, agents, or affiliates make any specific promises, warranties or representation about the site. site and services are provided on "as is" and "as available" basis. We do not make any statements or give any warranties about the results obtained by using the site and services, the specific functions of the site or it's reliability, availability, accuracy or ability to meet your needs. we do not warrant that access to the site and services will be uninterrupted or error-free, or that defects in the site or services will be corrected. some jurisdictions provide for certain warranties, like the implied warranty of merchantability, fitness for a particular purpose and non-infringement. To the fullest extent permitted by law, we exclude all such warranties.</p>
-	<p>You acknowledge and agree that the services have information purposes only and provide the similarity check of your text information. In any case, the results of the similarity check provided by the services shall be subject to your further review. we shall not be responsible or liable for any results of your services use, their interpretation and consequences of such interpretation.</p>
-	<p>We and our licensees, vendors, agents, and affiliates will not be responsible for loss of profits, revenues or data, admissions, financial losses or indirect, special, consequential, exemplary or punitive damages.</p>
-	<p>Under no circumstances shall we and our licensees, vendors, agents, or affiliates be liable for any loss or damage that is not reasonably foreseeable.</p>
+	<p>Other than as expressly set out in these terms of use or legal documents at this site, neither we nor our
+		licensees, vendors, agents, or affiliates make any specific promises, warranties or representation about the
+		site. site and services are provided on "as is" and "as available" basis. We do not make any statements or give
+		any warranties about the results obtained by using the site and services, the specific functions of the site or
+		it's reliability, availability, accuracy or ability to meet your needs. we do not warrant that access to the
+		site and services will be uninterrupted or error-free, or that defects in the site or services will be
+		corrected. some jurisdictions provide for certain warranties, like the implied warranty of merchantability,
+		fitness for a particular purpose and non-infringement. To the fullest extent permitted by law, we exclude all
+		such warranties.</p>
+	<p>You acknowledge and agree that the services have information purposes only and provide the similarity check of
+		your text information. In any case, the results of the similarity check provided by the services shall be
+		subject to your further review. we shall not be responsible or liable for any results of your services use,
+		their interpretation and consequences of such interpretation.</p>
+	<p>We and our licensees, vendors, agents, and affiliates will not be responsible for loss of profits, revenues or
+		data, admissions, financial losses or indirect, special, consequential, exemplary or punitive damages.</p>
+	<p>Under no circumstances shall we and our licensees, vendors, agents, or affiliates be liable for any loss or
+		damage that is not reasonably foreseeable.</p>
 	<hr />
 	<h4>LOGOS USE</h4>
-	<p>We hereby grant to You a limited, non-exclusive, non-transferable, non-sublicensable, royalty-free and revocable license to use Our logo "UNIPREP" for the limited purposes subject to the terms and conditions of these Terms of Use.</p>
-	<p>Within the scope of the license granted to You here under You can list Us as Your counter party in Your Website and/or in Your advertising materials and display Our logo for these purposes. But in any case, You agree that any use of Our logo by You shall be subject to Our previous written approval.</p>
+	<p>We hereby grant to You a limited, non-exclusive, non-transferable, non-sublicensable, royalty-free and revocable
+		license to use Our logo "UNIPREP" for the limited purposes subject to the terms and conditions of these Terms of
+		Use.</p>
+	<p>Within the scope of the license granted to You here under You can list Us as Your counter party in Your Website
+		and/or in Your advertising materials and display Our logo for these purposes. But in any case, You agree that
+		any use of Our logo by You shall be subject to Our previous written approval.</p>
 	<h6>You do not permit to make any changes to Our logo, including, but not limited to:</h6>
 	<ul>
 		<li>Distort the logo by scaling disproportionally;</li>
@@ -577,61 +725,138 @@
 		<li>Size the logo so small that it is not readable;</li>
 		<li>Manipulate or alter the logo in any other way.</li>
 	</ul>
-	<p>You agree not to challenge or assist others to challenge Our logo (except to the extent such restriction is prohibited by applicable law), and You agree not to register or attempt to register any domain names, trademarks, trade names, or other distinctive brand features that are confusingly similar to those of Us.</p>
-	<p>We reserve the right in Our sole discretion to terminate or modify Your permission to display Our logo and to take action against any use that does not conform to the terms and conditions set forth herein, infringes any of our intellectual property or other right, or violates applicable law. Any use of Our logo without Our prior written permission, other than as specifically authorized by these Terms of use, is strictly prohibited.</p>
-	<p>All disputes related to these Terms of Use shall be resolved by negotiations between the parties, which agree to make all efforts to resolve the dispute.</p>
+	<p>You agree not to challenge or assist others to challenge Our logo (except to the extent such restriction is
+		prohibited by applicable law), and You agree not to register or attempt to register any domain names,
+		trademarks, trade names, or other distinctive brand features that are confusingly similar to those of Us.</p>
+	<p>We reserve the right in Our sole discretion to terminate or modify Your permission to display Our logo and to
+		take action against any use that does not conform to the terms and conditions set forth herein, infringes any of
+		our intellectual property or other right, or violates applicable law. Any use of Our logo without Our prior
+		written permission, other than as specifically authorized by these Terms of use, is strictly prohibited.</p>
+	<p>All disputes related to these Terms of Use shall be resolved by negotiations between the parties, which agree to
+		make all efforts to resolve the dispute.</p>
 </p-dialog>
 
-<p-dialog [(visible)]="displayprivacypolicy" [modal]="true" [style]="{ width: '80vw' }" [maximizable]="true" [draggable]="false" [resizable]="false">
+<p-dialog [(visible)]="displayprivacypolicy" [modal]="true" [style]="{ width: '80vw' }" [maximizable]="true"
+	[draggable]="false" [resizable]="false">
 	<h3 class="mb-0">Privacy Policy</h3>
 	<p class="mb-0">Last update: 1 February 2024</p>
-	<p>We respect your privacy rights, care about Your Personal Data, and do Our best endeavors to protect it. So we provide this Privacy Policy (which can be also referred to as Policy) to explain to you how we collect, manage, use and protect your Personal Data. Please read this Policy carefully along with the Terms of Use and Cookie Policy. Unless otherwise defined all of the terms in this Privacy Policy have the same meaning as in the Terms of Use.</p>
+	<p>We respect your privacy rights, care about Your Personal Data, and do Our best endeavors to protect it. So we
+		provide this Privacy Policy (which can be also referred to as Policy) to explain to you how we collect, manage,
+		use and protect your Personal Data. Please read this Policy carefully along with the Terms of Use and Cookie
+		Policy. Unless otherwise defined all of the terms in this Privacy Policy have the same meaning as in the Terms
+		of Use.</p>
 	<hr />
 	<h4>ABOUT US</h4>
-	<p>In this Privacy Policy references to SOP Expert, or to "We", "Our", and "Ours" are to UNIABROAD Ltd. UNIABROAD Ltd is acting as data controller of the SOP Expert Individual Users' Personal Data. If you are a Corporate User, We will act on your behalf as Your data processor. We will provide You with the amended Privacy statement together with the User Agreement at the time of your Account activation. For the purpose of this clause the term "Individual User" shall mean any natural person, who visits our Site and/or use Our Services, and the term "Corporate User" shall mean any legal entity (organizations, educational establishments etc.), which uses Our Services through the specially created for that K-12&Higher ED Account.</p>
-	<p>If You have any questions related to your privacy, please contact us by Email: <a href="matilto:support@uniprep.ai">support&#64;uniprep.ai</a></p>
+	<p>In this Privacy Policy references to SOP Expert, or to "We", "Our", and "Ours" are to UNIABROAD Ltd. UNIABROAD
+		Ltd is acting as data controller of the SOP Expert Individual Users' Personal Data. If you are a Corporate User,
+		We will act on your behalf as Your data processor. We will provide You with the amended Privacy statement
+		together with the User Agreement at the time of your Account activation. For the purpose of this clause the term
+		"Individual User" shall mean any natural person, who visits our Site and/or use Our Services, and the term
+		"Corporate User" shall mean any legal entity (organizations, educational establishments etc.), which uses Our
+		Services through the specially created for that K-12&Higher ED Account.</p>
+	<p>If You have any questions related to your privacy, please contact us by Email: <a
+			href="matilto:support@uniprep.ai">support&#64;uniprep.ai</a></p>
 	<h4>Your Personal Data</h4>
 	<h5>a) What categories of Your Personal Data do We collect and process?</h5>
-	<p>In the course of using the Services, we will ask You to provide Us or can collect from third parties, certain information that identifies You as a specific individual or can be used to contact or identify You (hereinafter referred to as Personal Data).</p>
+	<p>In the course of using the Services, we will ask You to provide Us or can collect from third parties, certain
+		information that identifies You as a specific individual or can be used to contact or identify You (hereinafter
+		referred to as Personal Data).</p>
 	<h4>Registration data</h4>
-	<p>At the time You register Your Account, We ask You to provide Your Full name, email, country, District, password, and Contact number and other relevant information regarding your career like college and prospects etc.</p>
+	<p>At the time You register Your Account, We ask You to provide Your Full name, email, country, District, password,
+		and Contact number and other relevant information regarding your career like college and prospects etc.</p>
 	<h4>Payment data</h4>
-	<p>Despite the payment method You choose, We do not store and cannot use Your credit/debit card information or BN other payment details. Your credit card details are encrypted and securely stored by Your payment operator to enable Us to automatically bill You.</p>
+	<p>Despite the payment method You choose, We do not store and cannot use Your credit/debit card information or BN
+		other payment details. Your credit card details are encrypted and securely stored by Your payment operator to
+		enable Us to automatically bill You.</p>
 	<h4>Information Collected from Users Automatically (log information)</h4>
 	<p>
-		We will automatically collect log information from You whenever You access or interact with the Services. All this information will be stored in the anonymized form so that We will not be able to identify You. We need such data for Our initial statistical purposes. Such log information includes the browser and operating system You are using, the URL or advertisement that referred You to the Services, the search terms You entered into a search engine that led to the Services, areas within the Services that You visited, and other information commonly shared when browsers communicate with websites. We can combine this automatically collected log information with other information We collect about You and build their profile. We do this to develop the Services We offer and to improve marketing, analytics, and Site functionality. The information We collect also includes the Internet Protocol ("IP") address or other unique device identifier ("Device Identifier") for any device (computer,
-		mobile phone, tablet, etc.) used to access the Services. A Device Identifier is a number that is automatically assigned or connected to the device You use to access the Services.
+		We will automatically collect log information from You whenever You access or interact with the Services. All
+		this information will be stored in the anonymized form so that We will not be able to identify You. We need such
+		data for Our initial statistical purposes. Such log information includes the browser and operating system You
+		are using, the URL or advertisement that referred You to the Services, the search terms You entered into a
+		search engine that led to the Services, areas within the Services that You visited, and other information
+		commonly shared when browsers communicate with websites. We can combine this automatically collected log
+		information with other information We collect about You and build their profile. We do this to develop the
+		Services We offer and to improve marketing, analytics, and Site functionality. The information We collect also
+		includes the Internet Protocol ("IP") address or other unique device identifier ("Device Identifier") for any
+		device (computer,
+		mobile phone, tablet, etc.) used to access the Services. A Device Identifier is a number that is automatically
+		assigned or connected to the device You use to access the Services.
 	</p>
 	<h4>Request form information</h4>
-	<p>When You use the "Contact Us" form or other request forms, available on Our Site, to send Us Your request, We will ask You to give Us Your name, email address and (for Corporate Users) Your title and the name of the legal entity You are representing. We need this information to provide You with a reply to such a request. And if You are not the registered user on Our Site with the Account We will not use Your data for any other purposes unless We receive Your consent for that.</p>
+	<p>When You use the "Contact Us" form or other request forms, available on Our Site, to send Us Your request, We
+		will ask You to give Us Your name, email address and (for Corporate Users) Your title and the name of the legal
+		entity You are representing. We need this information to provide You with a reply to such a request. And if You
+		are not the registered user on Our Site with the Account We will not use Your data for any other purposes unless
+		We receive Your consent for that.</p>
 	<h5>b) Why We Need Your Personal Data?</h5>
-	<p>We collect and process only the data which is needed for certain purposes and according to the legal grounds provided by the law.</p>
+	<p>We collect and process only the data which is needed for certain purposes and according to the legal grounds
+		provided by the law.</p>
 	<p>When is the processing of Your Personal Data necessary for the performance of a contract between You and Us?</p>
-	<p>We need Your email and country of Your residence, which We collect from You during the registration, as well as Your telephone number, which You will provide in Your Account after the registration, to process Your registration, verify the information You provide is valid and create Your Account in order to provide You with Our Services on and beyond the platform. Your Account is personalized with Your email address and password, so without Your email, We won't be able to provide You with the Services. In addition, Your email is a means of password recovery in cases when You forget the password. We need to know the country of Your residence and Your telephone number in order to be able to receive and verify Your payments. We will also be collecting information regarding your education qualification and future desires to give you right and accurate guidance.</p>
-	<p>We will also ask You about your age in order to know if You are old enough to give Your consent for Personal Data processing or if We need to obtain Your parental consent to process Your Personal Data.</p>
-	<p>Please note that We need this data to provide You with Our Services. So as long as You want to use UNIPREP all this data will be processed by Us. If You want Us to stop processing this Data, You can delete Your account and stop using UNIPREP. In addition, the processing of the Data on such a legal basis is not related to Your consent for the processing, so that You cannot exercise the right to withdraw Your consent regarding such data.</p>
+	<p>We need Your email and country of Your residence, which We collect from You during the registration, as well as
+		Your telephone number, which You will provide in Your Account after the registration, to process Your
+		registration, verify the information You provide is valid and create Your Account in order to provide You with
+		Our Services on and beyond the platform. Your Account is personalized with Your email address and password, so
+		without Your email, We won't be able to provide You with the Services. In addition, Your email is a means of
+		password recovery in cases when You forget the password. We need to know the country of Your residence and Your
+		telephone number in order to be able to receive and verify Your payments. We will also be collecting information
+		regarding your education qualification and future desires to give you right and accurate guidance.</p>
+	<p>We will also ask You about your age in order to know if You are old enough to give Your consent for Personal Data
+		processing or if We need to obtain Your parental consent to process Your Personal Data.</p>
+	<p>Please note that We need this data to provide You with Our Services. So as long as You want to use UNIPREP all
+		this data will be processed by Us. If You want Us to stop processing this Data, You can delete Your account and
+		stop using UNIPREP. In addition, the processing of the Data on such a legal basis is not related to Your consent
+		for the processing, so that You cannot exercise the right to withdraw Your consent regarding such data.</p>
 	<h4>When the processing of Personal Data is based on Your consent?</h4>
 	<h5>During the registration You can give Your consent to using Your Personal Data for such purposes:</h5>
-	<p>To receive newsletters, marketing and promotional materials, related to the Services of SOP Expert and UNIABROAD on Your email address, texts and calls . Please note that if You gave Your consent to that, You can use the unsubscribe option at any time</p>
+	<p>To receive newsletters, marketing and promotional materials, related to the Services of SOP Expert and UNIABROAD
+		on Your email address, texts and calls . Please note that if You gave Your consent to that, You can use the
+		unsubscribe option at any time</p>
 	<h5>When the processing of Your Personal Data is based on Our legitimate interest?</h5>
-	<p>At the time of Your registration, We will ask You to provide Us with details. We collect and process such categories of Your Personal Data on the basis of Our legitimate interest.</p>
-	<p>We need these details to help you with the right kind of guidance for your career ahead and analyze your profile for prospects abroad through UNIPREP platform and the services provided by UNIABROAD altogether.</p>
-	<p>We will also use Your name and email to provide You with a reply to Your request in cases when You send Us the requests through the "Contact Us" form, the chat window to resolve personalized questions or other request forms on Our Site.</p>
-	<p>Please note that such processing of Your Personal Data will not harm any of Your rights and interests and We will not use Your Data for any other purposes.</p>
-	<p>If We process Your Personal Data on the basis of Our legitimate interest, we will consider and balance any potential impact on You and Your rights under data protection and any other relevant law.</p>
+	<p>At the time of Your registration, We will ask You to provide Us with details. We collect and process such
+		categories of Your Personal Data on the basis of Our legitimate interest.</p>
+	<p>We need these details to help you with the right kind of guidance for your career ahead and analyze your profile
+		for prospects abroad through UNIPREP platform and the services provided by UNIABROAD altogether.</p>
+	<p>We will also use Your name and email to provide You with a reply to Your request in cases when You send Us the
+		requests through the "Contact Us" form, the chat window to resolve personalized questions or other request forms
+		on Our Site.</p>
+	<p>Please note that such processing of Your Personal Data will not harm any of Your rights and interests and We will
+		not use Your Data for any other purposes.</p>
+	<p>If We process Your Personal Data on the basis of Our legitimate interest, we will consider and balance any
+		potential impact on You and Your rights under data protection and any other relevant law.</p>
 	<h5>c) How do we collect Your Personal Data?</h5>
-	<p>All of the Personal Data We process according to this Privacy Policy, is provided directly by You (for example, the Data You give Us during the registration or sending Us Your requests through the 'Contact Us" form or received by Us from the third parties. We can also collect information from a third party to create users on the portal, it could either be through a college, university, school, institute, organization or a third party vendor who has the rights to market UNIPREP on the behalf of UNIABROAD.</p>
+	<p>All of the Personal Data We process according to this Privacy Policy, is provided directly by You (for example,
+		the Data You give Us during the registration or sending Us Your requests through the 'Contact Us" form or
+		received by Us from the third parties. We can also collect information from a third party to create users on the
+		portal, it could either be through a college, university, school, institute, organization or a third party
+		vendor who has the rights to market UNIPREP on the behalf of UNIABROAD.</p>
 	<h4>Profiling</h4>
-	<p>Profiling means gathering, automated processing and analyzing the information about the individual or groups of individuals in order to evaluate certain personal aspects of such individuals.</p>
-	<p>We use automatically collected log information as well as the other information You directly provide to Us to Build Your profile.</p>
-	<p>We can use profiling to produce relevant communication and provide a better experience for Our Users. With the help of profiling, We can target Our Services more effectively by getting and combining certain categories of Your Personal Data.</p>
-	<p>For example, We can group Our Users according to their occupation (students or teachers/instructors) and provide them with relevant marketing and informational materials. Additionally, We may need such profiles for analytical and statistical purposes, in order to examine how Our Site and Services are used and to make certain improvements if needed. We can use Your profile with Your Personal Data to set the targeting advertisement with the help of third-party services (such as Facebook).</p>
-	<p>You can also withdraw Your consent at any time if You do not want Your Data to be used in any of the listed above ways.</p>
+	<p>Profiling means gathering, automated processing and analyzing the information about the individual or groups of
+		individuals in order to evaluate certain personal aspects of such individuals.</p>
+	<p>We use automatically collected log information as well as the other information You directly provide to Us to
+		Build Your profile.</p>
+	<p>We can use profiling to produce relevant communication and provide a better experience for Our Users. With the
+		help of profiling, We can target Our Services more effectively by getting and combining certain categories of
+		Your Personal Data.</p>
+	<p>For example, We can group Our Users according to their occupation (students or teachers/instructors) and provide
+		them with relevant marketing and informational materials. Additionally, We may need such profiles for analytical
+		and statistical purposes, in order to examine how Our Site and Services are used and to make certain
+		improvements if needed. We can use Your profile with Your Personal Data to set the targeting advertisement with
+		the help of third-party services (such as Facebook).</p>
+	<p>You can also withdraw Your consent at any time if You do not want Your Data to be used in any of the listed above
+		ways.</p>
 	<hr />
 	<h4>Marketing</h4>
-	<p>We can, with consent, process Your Personal Data to provide You with information about Our activities and Our Services. In cases You gave Your consent on receiving marketing materials during the registration or just subscribe to newsletters about our Services on Our Site, We will send such marketing material to Your email.</p>
-	<p>Please pay attention that if You did not choose such an option during the registration, We still can send letters via Your email, but only in cases when We are obliged under the law or under the contract to provide You with certain information (for example, when We change Our Terms of Use and Privacy Policy, make any software updates etc., We can inform You about it by sending You the email).</p>
-	<p>We can also use Your Personal Data (with Your prior consent) to provide it to the third party's services in order to set target marketing if You provide Us during the registration with consent to process Your Personal Data for marketing purposes, which also include targeting marketing.</p>
+	<p>We can, with consent, process Your Personal Data to provide You with information about Our activities and Our
+		Services. In cases You gave Your consent on receiving marketing materials during the registration or just
+		subscribe to newsletters about our Services on Our Site, We will send such marketing material to Your email.</p>
+	<p>Please pay attention that if You did not choose such an option during the registration, We still can send letters
+		via Your email, but only in cases when We are obliged under the law or under the contract to provide You with
+		certain information (for example, when We change Our Terms of Use and Privacy Policy, make any software updates
+		etc., We can inform You about it by sending You the email).</p>
+	<p>We can also use Your Personal Data (with Your prior consent) to provide it to the third party's services in order
+		to set target marketing if You provide Us during the registration with consent to process Your Personal Data for
+		marketing purposes, which also include targeting marketing.</p>
 	<hr />
 	<h4>Your rights</h4>
 
@@ -639,21 +864,35 @@
 	<p>Right to be informed</p>
 	<h5>This right means that You can get information from Us on how We use Your Personal Data;</h5>
 	<p>Right of access</p>
-	<p>This right entitles You to verify the Personal Data held by Us, and get informed on the ways it is used and the purposes of the processing. Right to rectification</p>
+	<p>This right entitles You to verify the Personal Data held by Us, and get informed on the ways it is used and the
+		purposes of the processing. Right to rectification</p>
 	<p>Right to erasure, "right to be forgotten"</p>
-	<p>This right means that You can request the removal of Your Personal Data, We hold and process, but please pay attention that We can delete Your Personal Information only if there is no legal or regulatory obligation to retain it;</p>
+	<p>This right means that You can request the removal of Your Personal Data, We hold and process, but please pay
+		attention that We can delete Your Personal Information only if there is no legal or regulatory obligation to
+		retain it;</p>
 
 	<h4>How we use and Share Your Personal Data</h4>
 
-	<p>We only disclose Your Personal Data to third parties when We are obliged by law or other applicable legislation.</p>
-	<p>We will also disclose Your Personal Data (but after obtaining Your consent for that), such as Your log data and emails to third parties, which provide the service of setting up targeting ads (such as Facebook) for marketing purposes.</p>
-	<p>Moreover, We will share some categories of Your Personal Data (which will include Your name and email) with the marketing automation services, when We make automated mailing on the emails of Our Users.</p>
-	<p>For the purpose of this clause the term "Sub-processor" shall mean another data processor, including but not limited to group companies, subsidiaries and auxiliary suppliers, engaged by the data processor to perform specific processing activities on behalf of the data controller. Please note that Your Personal Data is also being processed by Our hosting provider.</p>
+	<p>We only disclose Your Personal Data to third parties when We are obliged by law or other applicable legislation.
+	</p>
+	<p>We will also disclose Your Personal Data (but after obtaining Your consent for that), such as Your log data and
+		emails to third parties, which provide the service of setting up targeting ads (such as Facebook) for marketing
+		purposes.</p>
+	<p>Moreover, We will share some categories of Your Personal Data (which will include Your name and email) with the
+		marketing automation services, when We make automated mailing on the emails of Our Users.</p>
+	<p>For the purpose of this clause the term "Sub-processor" shall mean another data processor, including but not
+		limited to group companies, subsidiaries and auxiliary suppliers, engaged by the data processor to perform
+		specific processing activities on behalf of the data controller. Please note that Your Personal Data is also
+		being processed by Our hosting provider.</p>
 
 	<hr />
 	<h4>CHANGES TO THIS POLICY</h4>
 
-	<p>We may update this Privacy Policy in future if needed to provide compliance with data protection laws and regulations. In such cases, We may send You a letter of notification in Your email prior to the change becoming effective. We will always use Your Personal Data in accordance with GDPR requirements and in a manner consistent with the Privacy Policy in effect at the time You submitted the information unless You consent to the new or revised policy.</p>
+	<p>We may update this Privacy Policy in future if needed to provide compliance with data protection laws and
+		regulations. In such cases, We may send You a letter of notification in Your email prior to the change becoming
+		effective. We will always use Your Personal Data in accordance with GDPR requirements and in a manner consistent
+		with the Privacy Policy in effect at the time You submitted the information unless You consent to the new or
+		revised policy.</p>
 
 	<p>Contact Us</p>
 	<p>If You have any questions related to your privacy, please contact us:</p>
@@ -663,102 +902,158 @@
 	<hr />
 	<h4>Cookie Policy</h4>
 	<p>Please read this Policy together with the Terms of Use and Privacy Policy.</p>
-	<p>This Cookie Policy provides You with the information, which explains what types of cookies We use, why We use cookies, and how cookies enable the Site to function properly, so that You may not be able to experience the full functionality of the Site if You disable cookies.</p>
+	<p>This Cookie Policy provides You with the information, which explains what types of cookies We use, why We use
+		cookies, and how cookies enable the Site to function properly, so that You may not be able to experience the
+		full functionality of the Site if You disable cookies.</p>
 	<p>Unless otherwise defined all of the terms in this Cookie Policy have the same meaning as in the Terms of Use.</p>
 	<h4>What are cookies</h4>
-	<p>Cookies are text files, containing small amounts of information, which are downloaded to Your browsing device (such as a computer or smartphone) when You visit a website. Cookies can be recognized by the website that downloaded them — or other websites that use the same cookies. This helps websites to know if the browsing device has visited them before. The cookies allow the website to "remember" your actions or preferences over time.</p>
+	<p>Cookies are text files, containing small amounts of information, which are downloaded to Your browsing device
+		(such as a computer or smartphone) when You visit a website. Cookies can be recognized by the website that
+		downloaded them — or other websites that use the same cookies. This helps websites to know if the browsing
+		device has visited them before. The cookies allow the website to "remember" your actions or preferences over
+		time.</p>
 	<hr />
 	<h4>What are cookies used for?</h4>
-	<p>Cookies are used for lots of different purposes, like helping Us understand how the Site is being used by You, letting You navigate between pages efficiently, making Our Site work as You'd expect, remembering Your preferences and settings, and generally improving Your browsing experience. Cookies can also help to ensure that the marketing You see online is more relevant to the Your interests.</p>
+	<p>Cookies are used for lots of different purposes, like helping Us understand how the Site is being used by You,
+		letting You navigate between pages efficiently, making Our Site work as You'd expect, remembering Your
+		preferences and settings, and generally improving Your browsing experience. Cookies can also help to ensure that
+		the marketing You see online is more relevant to the Your interests.</p>
 	<h4>What types of cookies do We use?</h4>
 	<h5>There are four types of cookies that may be used during Your visit to the Site:</h5>
 	<ol>
-		<li>(a) Session cookies, which are stored only temporarily during a browsing session and are erased when You close the browser;</li>
-		<li>(b) Persistent cookies, which remain on Your computer for a fixed period of time (usually one year or more) and are not deleted when the browser is closed, for example Targeting cookies;</li>
+		<li>(a) Session cookies, which are stored only temporarily during a browsing session and are erased when You
+			close the browser;</li>
+		<li>(b) Persistent cookies, which remain on Your computer for a fixed period of time (usually one year or more)
+			and are not deleted when the browser is closed, for example Targeting cookies;</li>
 		<li>(c) First-party cookies, which belong to Us and are set by the Site; and</li>
-		<li>(d) Third-party cookies, which are placed on Your browsing device through the Site by the other organization, such as a third-party analytics company.</li>
+		<li>(d) Third-party cookies, which are placed on Your browsing device through the Site by the other
+			organization, such as a third-party analytics company.</li>
 	</ol>
 	<hr />
 	<h4>First party cookies</h4>
-	<p>First-party Cookies mean Functional Cookies that are set by Our Site. We need to use such cookies, as they enable You to move around the Site and use its features and functionality, as well as allow Us to receive certain aggregated information about how the Site and Services are being used.</p>
+	<p>First-party Cookies mean Functional Cookies that are set by Our Site. We need to use such cookies, as they enable
+		You to move around the Site and use its features and functionality, as well as allow Us to receive certain
+		aggregated information about how the Site and Services are being used.</p>
 	<h5>These cookies include:</h5>
-	<p>Performance Cookies, which collect information about how You use the Site, for example, which pages You go to most often and if You get error messages from certain pages.</p>
+	<p>Performance Cookies, which collect information about how You use the Site, for example, which pages You go to
+		most often and if You get error messages from certain pages.</p>
 	<p>Authentication Cookies, which help to identify You once he has logged in, for the duration of a session.</p>
-	<p>Operational Cookies (Your interface customization cookies), which allow the Site to remember the choices You make. For instance, the Site uses functionality cookies to remember the Your language preference. These cookies can also be used to remember changes You have made to text size, font and other parts of pages that the user can customize;</p>
+	<p>Operational Cookies (Your interface customization cookies), which allow the Site to remember the choices You
+		make. For instance, the Site uses functionality cookies to remember the Your language preference. These cookies
+		can also be used to remember changes You have made to text size, font and other parts of pages that the user can
+		customize;</p>
 	<p>Verification Cookies, which help Us to understand how You interact with the Site</p>
-	<p>Please pay attention, that We need all these cookies in order to provide you with the Services and to get the functional information about Your use of the Site in aggregated form. We use the data We get with the help of such cookies only for our internal purposes in order to be able to improve or develop Services. We will not be able to perform Services appropriately without these first-party cookies.</p>
+	<p>Please pay attention, that We need all these cookies in order to provide you with the Services and to get the
+		functional information about Your use of the Site in aggregated form. We use the data We get with the help of
+		such cookies only for our internal purposes in order to be able to improve or develop Services. We will not be
+		able to perform Services appropriately without these first-party cookies.</p>
 
 	<h4>Third-party cookies</h4>
 
-	<p>Third-party cookies are placed on Site for the purpose of recognizing Your specific browser or remembering information specific to Your browser, where You are to return to the same site. We use third party cookies to try and discern Your current interests so that We can deliver relevant, targeted advertising to You.</p>
+	<p>Third-party cookies are placed on Site for the purpose of recognizing Your specific browser or remembering
+		information specific to Your browser, where You are to return to the same site. We use third party cookies to
+		try and discern Your current interests so that We can deliver relevant, targeted advertising to You.</p>
 
 	<h5>These cookies include:</h5>
-	<p>Targeting Cookies, these cookies are used to deliver advertisements that are more relevant to Your interests. Such cookies are also used to limit the number of times You see an advertisement as well as to help measure the effectiveness of an advertising campaign. elsewhere on the Internet.</p>
-	<p>Analytics Cookies, the third-party organizations on the Site may use cookies, beacons and other technologies to collect or receive information from Us and elsewhere on the internet to provide analytical services</p>
-	<p>Please note that We do not transfer any data to third parties and have no control over cookies placed on the Site by third parties you should check the relevant third party's website for more information.</p>
+	<p>Targeting Cookies, these cookies are used to deliver advertisements that are more relevant to Your interests.
+		Such cookies are also used to limit the number of times You see an advertisement as well as to help measure the
+		effectiveness of an advertising campaign. elsewhere on the Internet.</p>
+	<p>Analytics Cookies, the third-party organizations on the Site may use cookies, beacons and other technologies to
+		collect or receive information from Us and elsewhere on the internet to provide analytical services</p>
+	<p>Please note that We do not transfer any data to third parties and have no control over cookies placed on the Site
+		by third parties you should check the relevant third party's website for more information.</p>
 	<p>You can delete or disable such third-party cookies in Privacy Options at the Site.</p>
 
 	<h4>How long will cookies stay on Your browsing device?</h4>
 
-	<p>The length of time a cookie will stay on the Your browsing device depends on whether it is a "persistent" or "session" cookie. Session cookies will only stay on the Your device until You stop browsing. Persistent cookies stay on the Your browsing device until they expire or are deleted (usually one year or more).</p>
+	<p>The length of time a cookie will stay on the Your browsing device depends on whether it is a "persistent" or
+		"session" cookie. Session cookies will only stay on the Your device until You stop browsing. Persistent cookies
+		stay on the Your browsing device until they expire or are deleted (usually one year or more).</p>
 
 	<h4>How to control and delete cookies through the User's browser</h4>
 
-	<p>The browser You are using to view the Site can enable, disable or delete cookies. To do this, You should follow the instructions provided by Your browser (usually located within the "Help," "Tools" or "Edit" facility).</p>
-	<p>But if You set the browser to disable cookies, You may not be able to access certain parts of the Site. Other parts of the Site may also not work properly</p>
+	<p>The browser You are using to view the Site can enable, disable or delete cookies. To do this, You should follow
+		the instructions provided by Your browser (usually located within the "Help," "Tools" or "Edit" facility).</p>
+	<p>But if You set the browser to disable cookies, You may not be able to access certain parts of the Site. Other
+		parts of the Site may also not work properly</p>
 	<p>Contacting Us</p>
-	<p>If You have any questions about this Cookie Policy, please contact Us at: <a href="matilto:support@uniprep.ai">support&#64;uniprep.ai</a></p>
+	<p>If You have any questions about this Cookie Policy, please contact Us at: <a
+			href="matilto:support@uniprep.ai">support&#64;uniprep.ai</a></p>
 </p-dialog>
 
-<p-dialog [(visible)]="displaycancellationpolicy" [modal]="true" [style]="{ width: '80vw' }" [maximizable]="true" [draggable]="false" [resizable]="false">
+<p-dialog [(visible)]="displaycancellationpolicy" [modal]="true" [style]="{ width: '80vw' }" [maximizable]="true"
+	[draggable]="false" [resizable]="false">
 	<h3 class="mb-0">Cancellation Policy</h3>
 	<p class="mb-0">Last update: 1 February 2024</p>
-	<p>At UNIPREP, we understand that circumstances may change, and we want to ensure a hassle-free experience for our users. Our cancellation policy is designed to be transparent and accommodating for both free and paid subscription plans.</p>
+	<p>At UNIPREP, we understand that circumstances may change, and we want to ensure a hassle-free experience for our
+		users. Our cancellation policy is designed to be transparent and accommodating for both free and paid
+		subscription plans.</p>
 	<hr />
 	<h4>1. Free Registration</h4>
 	<ul>
-		<li>Users who have registered for the free trial can cancel their subscription at any time during the trial period with no charges.</li>
-		<li>To cancel, users can contact our customer support team at <a href="matilto:support@uniprep.ai">support&#64;uniprep.ai</a>.Your access will be deactivated immediately.</li>
+		<li>Users who have registered for the free trial can cancel their subscription at any time during the trial
+			period with no charges.</li>
+		<li>To cancel, users can contact our customer support team at <a
+				href="matilto:support@uniprep.ai">support&#64;uniprep.ai</a>.Your access will be deactivated
+			immediately.</li>
 	</ul>
 	<h4>2. Paid Subscription Plans</h4>
 	<ul>
 		<li>For users with paid subscription plans, the following conditions apply:</li>
 		<li>Users can cancel their subscription at any time during the subscription period.</li>
 		<li>There will be no additional cancellation fees.</li>
-		<li>In case, you want to cancel your subscription you can write to the customer support team at <a href="matilto:support@uniprep.ai">support&#64;uniprep.ai</a></li>
-		<li>The UNIPREP team will deactivate your account, please note that under any circumstances, we do not offer a refund on any of the subscription plans.</li>
-		<li>It's essential to note that when you upgrade your subscription, the previous subscription is automatically discontinued, and the new subscription begins immediately. No refund will be issued for the previous plan</li>
+		<li>In case, you want to cancel your subscription you can write to the customer support team at <a
+				href="matilto:support@uniprep.ai">support&#64;uniprep.ai</a></li>
+		<li>The UNIPREP team will deactivate your account, please note that under any circumstances, we do not offer a
+			refund on any of the subscription plans.</li>
+		<li>It's essential to note that when you upgrade your subscription, the previous subscription is automatically
+			discontinued, and the new subscription begins immediately. No refund will be issued for the previous plan
+		</li>
 	</ul>
 	<h4>Common Guidelines</h4>
-	<p>UNIPREP will not charge any cancellation fees for either free registration or paid subscription plans.Users can cancel their subscription by contacting our customer support team; currently, we do not have a cancellation option available on the portal.Cancellations will not result in a refund for any remaining days in the current billing cycle.</p>
+	<p>UNIPREP will not charge any cancellation fees for either free registration or paid subscription plans.Users can
+		cancel their subscription by contacting our customer support team; currently, we do not have a cancellation
+		option available on the portal.Cancellations will not result in a refund for any remaining days in the current
+		billing cycle.</p>
 	<h4>Additional Notes</h4>
 	<p>
-		UNIPREP offers a free trial period upon registration. Users can explore the platform during this trial period without any subscription charges.There are multiple Subscription plans for the users, and you can choose from various plans based on validity and the countries they wish to receive information about (total of 13 countries).For any assistance or clarification regarding cancellations, please feel free to reach out to our customer support team at
+		UNIPREP offers a free trial period upon registration. Users can explore the platform during this trial period
+		without any subscription charges.There are multiple Subscription plans for the users, and you can choose from
+		various plans based on validity and the countries they wish to receive information about (total of 13
+		countries).For any assistance or clarification regarding cancellations, please feel free to reach out to our
+		customer support team at
 		<a href="matilto:support@uniprep.ai">support&#64;uniprep.ai</a>
 	</p>
 	<p>Thank you for choosing UNIPREP as your educational companion.</p>
 	<hr />
 	<h3 class="mb-0">Refund Policy</h3>
 	<p class="mb-0">Last update: 30 November 2023</p>
-	<p>Thank you for choosing UNIPREP, hosted by UNIABROAD. We value your trust and are committed to providing a transparent refund policy to ensure a satisfactory user experience.</p>
+	<p>Thank you for choosing UNIPREP, hosted by UNIABROAD. We value your trust and are committed to providing a
+		transparent refund policy to ensure a satisfactory user experience.</p>
 	<hr />
 	<h4>1. Free Registration</h4>
 	<ul>
-		<li>Users who opt for the free registration with a free trial period will not be charged during this period.</li>
+		<li>Users who opt for the free registration with a free trial period will not be charged during this period.
+		</li>
 		<li>No cancellation fees will be applied under any circumstances.</li>
 		<li>If users decide not to continue after the trial, no charges will be incurred.</li>
 	</ul>
 	<h4>2. Paid Subscription Plans:</h4>
 	<ul>
-		<li>UNIPREP offers various subscription plans based on validity and the number of countries selected for information access (up to 13 countries).</li>
+		<li>UNIPREP offers various subscription plans based on validity and the number of countries selected for
+			information access (up to 13 countries).</li>
 		<li>Regardless of the subscription plan chosen, there will be no cancellation fees imposed.</li>
 		<li>UNIPREP does not provide refunds for any subscription plans once they are activated.</li>
-		<li>It's essential to note that when you upgrade your subscription, the previous subscription is automatically discontinued, and the new subscription begins immediately. No refund will be issued for the previous plan</li>
+		<li>It's essential to note that when you upgrade your subscription, the previous subscription is automatically
+			discontinued, and the new subscription begins immediately. No refund will be issued for the previous plan
+		</li>
 	</ul>
 	<h4>Cancellation Process</h4>
-	<p>Users can cancel their subscription at any time without incurring any charges.To cancel, please contact the UNIPREP team at <a href="matilto:support@uniprep.ai">support&#64;uniprep.ai</a> with your request.</p>
+	<p>Users can cancel their subscription at any time without incurring any charges.To cancel, please contact the
+		UNIPREP team at <a href="matilto:support@uniprep.ai">support&#64;uniprep.ai</a> with your request.</p>
 	<h4>Contact Information</h4>
-	<p>For more information or assistance, feel free to reach out to the UNIPREP team at <a href="matilto:support@uniprep.ai">support&#64;uniprep.ai</a></p>
+	<p>For more information or assistance, feel free to reach out to the UNIPREP team at <a
+			href="matilto:support@uniprep.ai">support&#64;uniprep.ai</a></p>
 	<h4>Notes</h4>
 	<ul>
 		<li>UNIPREP reserves the right to modify the refund policy at its discretion.</li>
@@ -767,5 +1062,6 @@
 	<p>Thank you for being a part of UNIPREP! We are here to support your educational journey.</p>
 </p-dialog>
 <div class="position-absolute">
-	<p-scrolltop target="window" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ raised: true, rounded: true }" />
+	<p-scrolltop target="window" [threshold]="100" icon="pi pi-arrow-up"
+		[buttonProps]="{ raised: true, rounded: true }" />
 </div>

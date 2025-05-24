@@ -32,7 +32,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class CompareUniComponent implements OnInit {
   selectedCountry: 'uk' | 'india' = 'uk';
-    countryList: { id: string, country: string, flag: string }[] = [
+  countryList: { id: string, country: string, flag: string }[] = [
     {
       id: 'india',
       country: 'India',
@@ -229,7 +229,8 @@ export class CompareUniComponent implements OnInit {
   }
 
   changeCountry(event: any) {
-    this.router.navigate(['/institute/compare', event]);
+    this.router.navigate(['../' + event], { relativeTo: this.route });
+    //this.router.navigate(['/institute/compare', event]);
   }
 
   get getPlatformList() {
@@ -238,6 +239,6 @@ export class CompareUniComponent implements OnInit {
 
   // Helper method to determine if a platform has a specific feature
   hasFeature(platform: any, feature: string): boolean {
-      return platform.features[feature];
-    }
+    return platform.features[feature];
+  }
 }

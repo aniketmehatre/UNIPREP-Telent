@@ -34,7 +34,7 @@ import { SkeletonModule } from "primeng/skeleton";
 import { SharedModule } from "src/app/shared/shared.module";
 import { DropdownModule } from 'primeng/dropdown';
 import { ProgressBarModule } from 'primeng/progressbar';
-declare const pdfjsLib: any;
+// declare const pdfjsLib: any;
 
 interface ResumeHistory {
   id: number;
@@ -55,7 +55,7 @@ interface JobTitle {
   providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
-  @ViewChild('pdfViewer') pdfViewer: any;
+  // @ViewChild('pdfViewer') pdfViewer: any;
   selectedResumeLevel: string = "";
   experienceLevel: any = [
     { id: 1, level: "Fresher" },
@@ -247,9 +247,9 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     this.resumeFormInfoData = this.fb.group({
       selected_exp_level: ["", Validators.required],
       user_name: ["", [Validators.required, maxCharactersValidator(40)]],
-      user_job_title: ["", [Validators.required, maxCharactersValidator(40)]],
+      user_job_title: ["", [Validators.required]],
       user_email: ["", [Validators.required, Validators.email]],
-      user_location: ["", [Validators.required, maxCharactersValidator(40)]],
+      user_location: [null, [Validators.required]],
       country_code: ["+91"],
       user_phone: ["", [Validators.required, Validators.pattern("^\\+?[1-9]\\d{1,14}$")]],
       user_linkedin: ["", [Validators.required, maxCharactersValidator(40)]],
@@ -318,40 +318,40 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         });
       }
     }, 200);
-    if (this.pdfViewer) {
-      this.pdfViewer.refresh();
-    }
+    // if (this.pdfViewer) {
+    //   this.pdfViewer.refresh();
+    // }
   }
 
-  onError(error: any) {
-    console.error('PDF loading error:', error);
-    this.pdfLoadError = true;
-  }
+  // onError(error: any) {
+  //   console.error('PDF loading error:', error);
+  //   this.pdfLoadError = true;
+  // }
 
-  pdfViewLoader() {
-    try {
-      if (!this.pdfUrl) {
-        throw new Error('No PDF URL provided');
-      }
+  // pdfViewLoader() {
+  //   try {
+  //     if (!this.pdfUrl) {
+  //       throw new Error('No PDF URL provided');
+  //     }
 
-      const encodedUrl = encodeURI(this.pdfUrl);
-      if (this.pdfViewer) {
-        this.pdfViewer.pdfSrc = encodedUrl;
-        this.pdfViewer.refresh();
-      }
-    } catch (error) {
-      console.error('Error loading PDF:', error);
-      this.pdfLoadError = true;
-    }
-  }
+  //     const encodedUrl = encodeURI(this.pdfUrl);
+  //     if (this.pdfViewer) {
+  //       this.pdfViewer.pdfSrc = encodedUrl;
+  //       this.pdfViewer.refresh();
+  //     }
+  //   } catch (error) {
+  //     console.error('Error loading PDF:', error);
+  //     this.pdfLoadError = true;
+  //   }
+  // }
 
   getUserDetails() {
     let userDetails = this.authService._user;
-    let location = userDetails?.district + ', ' + userDetails?.state;
+    // let location = userDetails?.district + ', ' + userDetails?.state;
     this.resumeFormInfoData.patchValue({
       user_name: userDetails?.name,
       user_email: userDetails?.email,
-      user_location: location,
+      // user_location: location,
       user_phone: userDetails?.phone,
       country_code: userDetails?.country_code,
     });
@@ -384,16 +384,16 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     this.getOccupationList();
 
     // Load PDF.js library
-    if (!document.getElementById('pdfjs-script')) {
-      const script = document.createElement('script');
-      script.id = 'pdfjs-script';
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-      script.onload = () => {
-        // Set worker source
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-      };
-      document.body.appendChild(script);
-    }
+    // if (!document.getElementById('pdfjs-script')) {
+    //   const script = document.createElement('script');
+    //   script.id = 'pdfjs-script';
+    //   script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    //   script.onload = () => {
+    //     // Set worker source
+    //     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    //   };
+    //   document.body.appendChild(script);
+    // }
 
     this.resumeFormInfoData.valueChanges.subscribe(() => {
       this.updateProgress();
@@ -532,9 +532,9 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
                 work_start_month: [activity.work_start_month, Validators.required],
                 work_end_year: [activity.work_end_year, Validators.required],
                 work_end_month: workEndMonthControl,
-                work_designation: [activity.work_designation, [Validators.required, maxCharactersValidator(40)]],
+                work_designation: [activity.work_designation, [Validators.required]],
                 work_type: [activity.work_type, Validators.required],
-                work_location: [activity.work_location, [Validators.required, maxCharactersValidator(40)]],
+                work_location: [activity.work_location, [Validators.required]],
                 work_job_description: [activity.work_job_description, [Validators.required, maxWordsValidator(120)]],
               })
             );
@@ -554,7 +554,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
                 edu_start_year: [element.edu_start_year, Validators.required],
                 edu_end_year: [element.edu_end_year, Validators.required],
                 edu_degree: [element.edu_degree, [Validators.required, maxCharactersValidator(40)]],
-                edu_location: [element.edu_location, [Validators.required, maxCharactersValidator(40)]],
+                edu_location: [element.edu_location, [Validators.required]],
                 edu_percentage: [element.edu_percentage, Validators.required],
                 edu_cgpa_percentage: [element.edu_cgpa_percentage],
               })
@@ -583,7 +583,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           achievementData.forEach((element: any) => {
             this.getExtraCurricularArray.push(
               this.fb.group({
-                extra_curricular_activites: [element.extra_curricular_activites, Validators.required],
+                extra_curricular_activites: [element.extra_curricular_activites, [Validators.required, maxCharactersValidator(40)]]
               })
             );
           });
@@ -1114,11 +1114,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     this.resumeService.getAlreadyCreatedResumes().subscribe((res: ResumeHistory[]) => {
       this.resumeHistory = res;
       // Load thumbnails for all PDFs immediately
-      this.resumeHistory.forEach((resume: ResumeHistory) => {
-        if (resume.pdf_name) {
-          this.loadPdfThumbnail(resume.pdf_name);
-        }
-      });
+      // this.resumeHistory.forEach((resume: ResumeHistory) => {
+      //   if (resume.pdf_name) {
+      //     this.loadPdfThumbnail(resume.pdf_name);
+      //   }
+      // });
     });
   }
 
@@ -1151,7 +1151,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   clickAddMoreButton(fieldName: string) {
-    this.submitted = false;
+    // this.submitted = false;
     if (fieldName == "education_detail") {
       this.getEduDetailsArray.push(
         this.fb.group({
@@ -1160,7 +1160,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           edu_start_year: ["", Validators.required],
           edu_end_year: ["", Validators.required],
           edu_degree: ["", [Validators.required, maxCharactersValidator(40)]],
-          edu_location: ["", [Validators.required, maxCharactersValidator(40)]],
+          edu_location: ["", [Validators.required]],
           edu_percentage: ["", Validators.required],
           edu_cgpa_percentage: ["CGPA", Validators.required],
         })
@@ -1175,9 +1175,9 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           work_start_month: ["", Validators.required],
           work_end_year: ["", Validators.required],
           work_end_month: ["", Validators.required],
-          work_designation: ["", [Validators.required, maxCharactersValidator(40)]],
+          work_designation: ["", [Validators.required]],
           work_type: ["", Validators.required],
-          work_location: ["", [Validators.required, maxCharactersValidator(40)]],
+          work_location: ["", [Validators.required]],
           work_job_description: ["", [Validators.required, maxWordsValidator(120)]],
         })
       );
@@ -1562,44 +1562,44 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     return this.monthList.indexOf(month) + 1; // January should be 1, February 2, etc.
   }
 
-  loadPdfThumbnail(pdfUrl: string): void {
-    if (this.pdfThumbnails[pdfUrl]) {
-      return; // Already loaded
-    }
+  // loadPdfThumbnail(pdfUrl: string): void {
+  //   if (this.pdfThumbnails[pdfUrl]) {
+  //     return; // Already loaded
+  //   }
 
-    // Create canvas and load PDF
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    if (!context) {
-      console.error('Could not get canvas context');
-      return;
-    }
+  //   // Create canvas and load PDF
+  //   const canvas = document.createElement('canvas');
+  //   const context = canvas.getContext('2d');
+  //   if (!context) {
+  //     console.error('Could not get canvas context');
+  //     return;
+  //   }
 
-    // Load the PDF document
-    pdfjsLib.getDocument(pdfUrl).promise.then((pdf: any) => {
-      pdf.getPage(1).then((page: any) => {
-        const viewport = page.getViewport({ scale: 0.5 });
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
+  //   // Load the PDF document
+  //   pdfjsLib.getDocument(pdfUrl).promise.then((pdf: any) => {
+  //     pdf.getPage(1).then((page: any) => {
+  //       const viewport = page.getViewport({ scale: 0.5 });
+  //       canvas.height = viewport.height;
+  //       canvas.width = viewport.width;
 
-        page.render({
-          canvasContext: context,
-          viewport: viewport
-        }).promise.then(() => {
-          this.pdfThumbnails[pdfUrl] = canvas.toDataURL('image/jpeg');
-        }).catch((error: Error) => {
-          console.error('Error rendering PDF page:', error);
-          this.pdfLoadError = true;
-        });
-      }).catch((error: Error) => {
-        console.error('Error getting PDF page:', error);
-        this.pdfLoadError = true;
-      });
-    }).catch((error: Error) => {
-      console.error('Error loading PDF:', error);
-      this.pdfLoadError = true;
-    });
-  }
+  //       page.render({
+  //         canvasContext: context,
+  //         viewport: viewport
+  //       }).promise.then(() => {
+  //         this.pdfThumbnails[pdfUrl] = canvas.toDataURL('image/jpeg');
+  //       }).catch((error: Error) => {
+  //         console.error('Error rendering PDF page:', error);
+  //         this.pdfLoadError = true;
+  //       });
+  //     }).catch((error: Error) => {
+  //       console.error('Error getting PDF page:', error);
+  //       this.pdfLoadError = true;
+  //     });
+  //   }).catch((error: Error) => {
+  //     console.error('Error loading PDF:', error);
+  //     this.pdfLoadError = true;
+  //   });
+  // }
 
   onProfileReview() {
     this.isReviewContent = true;
