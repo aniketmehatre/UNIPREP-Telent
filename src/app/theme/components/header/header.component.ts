@@ -367,7 +367,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	sendOTP() {
 		if (this.phoneVerification.value.verification_phone == null ||
-			  this.phoneVerification.get('verification_phone')?.errors?.['validatePhoneNumber']) {
+			this.phoneVerification.get('verification_phone')?.errors?.['validatePhoneNumber']) {
 			this.toast.add({
 				severity: "error",
 				summary: "Error",
@@ -1358,14 +1358,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	checkNewUSerLogin() {
 		if (this.service._user?.login_status === 4) {
 			if (this.service._user.is_phn_or_whs_verified === 0) {
-		this.whatsappVerification = true;
+				this.whatsappVerification = true;
 			}
 			else {
 				this.freeTrial = true;
 				this.formvisbility = true;
 			}
 		}
-
 	}
 
 	changeLocation(event: any) {
