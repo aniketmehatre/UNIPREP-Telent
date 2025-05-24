@@ -21,7 +21,7 @@
 
     <!-- Country selector -->
     <div class="row justify-content-center mb-5">
-      <div class="col-md-10 col-md-6">
+      <div class="col-md-6">
         <p-select 
           [options]="countryList" [(ngModel)]="selectedCountry" 
           optionLabel="country" 
@@ -30,7 +30,7 @@
           optionValue="id"
           [showClear]="true" 
           placeholder="Select Country"
-          styleClass="w-100 custom-dropdown p-2 bg-dark"
+          styleClass="w-100 custom-dropdown p-2 bg-dark border-secondary"
           (ngModelChange)="changeCountry($event)"
         >
           <ng-template let-country pTemplate="item" >

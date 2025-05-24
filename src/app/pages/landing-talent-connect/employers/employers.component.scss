@@ -1,26 +1,28 @@
 /* talent-search.component.scss */
+
+
 .talent-search-container {
   background-color: #07070b;
-    min-height: 100vh;
-  padding: 25px 10rem;
+  min-height: 100vh;
 }
+
 .card {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    // opacity: 0.6;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  // opacity: 0.6;
   background: linear-gradient(135deg,
-        rgba(255, 255, 255, 0.1),
-        rgba(255, 255, 255, 0.05));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: #fff !important;
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff !important;
 
 }
 
 .talent-card-container {
-    padding: 3rem;
+  padding: 3rem;
 }
 
 .bg-transparent {
@@ -28,7 +30,7 @@
 }
 
 .bg-gray {
-    background-color: #818181;
+  background-color: #818181;
 }
 
 .talent-card {
@@ -43,167 +45,3 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 0;
-}
-
-.pagination .page-item {
-  list-style: none;
-}
-
-.pagination .page-link {
-  color: #fff;
-  background-color: transparent;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 50%;
-  font-weight: 500;
-  font-size: 14px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.pagination .page-link:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.pagination .page-item.active .page-link {
-  background-color: rgba(255, 102, 0, 0.3); /* orange tint */
-  color: #ff6600;
-  font-weight: 700;
-}
-
-.pagination .page-item.disabled .page-link {
-  color: rgba(255, 255, 255, 0.4);
-  background-color: transparent;
-  cursor: not-allowed;
-}
-
-.pagination .page-link:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-
-  .candidate-card {
-    border-radius: 10px;
-    transition: transform 0.2s;
-    border: 1px solid #e9ecef;
-    position: relative;
-    overflow: hidden;
-    
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-  }
-  
-  .profile-image-container {
-    width: 70px;
-    height: 70px;
-    border-radius: 5px;
-    overflow: hidden;
-    border: 1px solid #e9ecef;
-    background-color: #f8f9fa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .profile-update-date {
-    font-size: 10px;
-    color: #6c757d;
-    margin-top: 2px;
-  }
-  
-  .shortlist-button-container {
-    position: absolute;
-    top: px;
-    right: 10px;
-  }
-  
-  :host ::ng-deep {
-    .p-button.p-button-success.p-button-sm {
-      background-color: #50a21d;
-      border-color: #50a21d;
-      font-size: 0.75rem;
-      padding: 0.25rem 0.75rem;
-    }
-    
-    .profile-progress {
-      height: 6px;
-      
-      .p-progressbar-value {
-        background-color: #fda172;
-      }
-    }
-  }
-  
-  .detail-row {
-    display: flex;
-    align-items: flex-start;
-  }
-  
-  .detail-icon {
-    margin-right: 8px;
-    width: 20px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .detail-content {
-    flex: 1;
-  }
-  
-  .detail-label {
-    font-size: 11px;
-    color: #6c757d;
-    margin-bottom: 2px;
-  }
-  
-  .detail-value {
-    font-weight: 600;
-    font-size: 13px;
-  }
-  
-  .job-details {
-    padding-top: 10px;
-  }
-  
-  .pi-check-circle {
-    color: #fda172;
-  }
-
-  @media (max-width: 768px) {
-    .talent-search-container {
-      padding: 25px 2rem;
-    }
-    
-    .card {
-      padding: 0.3rem;
-    }
-    
-    .pagination {
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .pagination .page-link {
-      margin-bottom: 5px;
-    }
-    
-    .candidate-card {
-      width: 100%;
-    }
-  }

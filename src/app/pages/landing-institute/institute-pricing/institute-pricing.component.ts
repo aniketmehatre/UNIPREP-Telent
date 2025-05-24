@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { SelectModule } from 'primeng/select';
-import { LandingPartnerServices } from '../../landing-partner/landing-partner.service';
 import { ButtonModule } from 'primeng/button';
+import { LandingInstituteService } from '../landing-institute.service';
+import { Router } from '@angular/router';
 
 interface PricingSlab {
   slab: string;
@@ -15,7 +16,7 @@ interface PricingSlab {
 
 @Component({
   selector: 'uni-institute-pricing',
-  imports: [CommonModule, FormsModule, RouterModule, SelectModule, ButtonModule],
+  imports: [CommonModule, FormsModule, RouterModule, SelectModule, ButtonModule,],
   templateUrl: './institute-pricing.component.html',
   styleUrl: './institute-pricing.component.scss'
 })
@@ -43,8 +44,8 @@ export class InstitutePricingComponent implements OnInit {
   ];
 
   pricingSlabsUk = [
-    { slab: 'Slab 1', range: '1 - 500 students', cost: '£50', total: '£25000 for 500 students' },
-    { slab: 'Slab 2', range: '501 - 2,000 students', cost: '£50', total: '£80,000 for 2,000 students' },
+    { slab: 'Slab 1', range: '1 - 500 students', cost: '£50', total: '£25,000 for 500 students' },
+    { slab: 'Slab 2', range: '501 - 2,000 students', cost: '£40', total: '£80,000 for 2,000 students' },
     { slab: 'Slab 3', range: '2,000+ students', cost: '£30', total: 'Based on actual volume' }
   ];
 
@@ -137,7 +138,7 @@ export class InstitutePricingComponent implements OnInit {
     },
   ]
 
-  constructor(private partnerService: LandingPartnerServices, private route: ActivatedRoute) { }
+  constructor(private instituteService: LandingInstituteService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((data: any) => {
@@ -145,11 +146,10 @@ export class InstitutePricingComponent implements OnInit {
         this.selectedCountry = data?.country;
         this.pricingSlabs = this.selectedCountry == 'india' ? this.pricingSlabsIndia : this.pricingSlabsUk;
       }
-    }
-    )
+    });
   }
 
   changeCountry(event: any) {
-    this.pricingSlabs = event == 'india' ? this.pricingSlabsIndia : this.pricingSlabsUk;
+    this.router.navigate(['/institute/pricing', event]);
   }
 }

@@ -71,33 +71,52 @@
 }
 
 video::-webkit-media-controls-panel {
-  background-image: none !important;
+	background-image: none !important;
 }
 
 .video-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .fa-circle-play {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 5em;
-  z-index: 2;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5em;
+    z-index: 2;
+    cursor: pointer;
 }
 
-iframe {
-  width: 100%;
-  height: 600px;
-  border-radius: 8px;
+.youtube-iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9; /* Maintains proper video aspect ratio */
+    border-radius: 1rem; /* Equivalent to rounded-4 */
 }
+
+.video-thumbnail {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.video-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+}
+
 
 // Timeline styling
 .timeline-container {

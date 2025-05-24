@@ -10,8 +10,8 @@
 	<div class="container-fluid d-md-flex d-none">
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
-			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
-			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
+			<!-- <img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" /> -->
+			<img [src]="logoUrl$ | async" alt="Logo">
 		</a>
 
 		<ul class="nav flex-row gap-2">

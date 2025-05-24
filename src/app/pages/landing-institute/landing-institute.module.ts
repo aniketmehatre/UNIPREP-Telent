@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { LandingInstituteComponent } from './landing-institute.component';
 import { RouterModule, Routes } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
-import { LandingPartnerContentComponent } from '../landing-partner/landing-partner-content/landing-partner-content.component';
 import { LandingFooterComponent } from '../landing/landing-footer/landing-footer.component';
 import { ScrollTopModule } from 'primeng/scrolltop';
 
@@ -21,23 +20,23 @@ const routes: Routes = [
         loadComponent: () => import('./institute-pricing/institute-pricing.component').then(m => m.InstitutePricingComponent)
       },
       {
+        path: 'compare/:country',
+        loadComponent: () => import('../landing-institute/compare-uni/compare-uni.component').then(c => c.CompareUniComponent)
+      },
+      {
         path: '',
         redirectTo: '',
         pathMatch: 'full'
       }
     ]
   }
-
 ]
-
-
 
 @NgModule({
   declarations: [LandingInstituteComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    LandingPartnerContentComponent,
     DialogModule,
     LandingFooterComponent,
     ScrollTopModule

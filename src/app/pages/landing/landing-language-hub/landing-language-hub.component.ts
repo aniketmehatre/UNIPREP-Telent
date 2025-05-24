@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
@@ -8,6 +8,7 @@ import { environment } from '@env/environment';
 import { AvatarModule } from 'primeng/avatar';
 import { landingServices } from '../landing.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { HeaderLogoStore } from '../landing-page.store';
 
 
 @Component({
@@ -23,7 +24,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   templateUrl: './landing-language-hub.component.html',
   styleUrls: ['./landing-language-hub.component.scss']
 })
-export class LandingLanguageHubComponent implements OnInit {
+export class LandingLanguageHubComponent implements OnInit, OnDestroy {
   @ViewChild("videoPlayer")
   videoPlayer!: ElementRef
   isPlaying = false;
@@ -92,7 +93,7 @@ export class LandingLanguageHubComponent implements OnInit {
   // ];
 
 
-  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private landingPageService: landingServices, public location: Location) { }
+  constructor(private logoStore: HeaderLogoStore, private sanitizer: DomSanitizer, private route: ActivatedRoute, private landingPageService: landingServices, public location: Location) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -202,11 +203,17 @@ export class LandingLanguageHubComponent implements OnInit {
         }
 
         this.videoUrl = this.landingPageData?.herocover?.video_link + '?rel=0&autoplay=1';
+        this.logoStore.setLogo(this.landingPageData.logo);
+
       },
       error: error => {
         console.log(error);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.logoStore.resetLogo();
   }
 
 }

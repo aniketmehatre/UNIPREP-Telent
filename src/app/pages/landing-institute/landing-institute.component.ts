@@ -121,7 +121,7 @@ export class LandingInstituteComponent {
     const baseUrl = window.location.origin;
     const isDev = baseUrl.includes('dev') || baseUrl.includes('localhost');
     const targetUrl = isDev ? 'https://dev-student.uniprep.ai' : 'https://uniprep.ai';
-    const validUrls = ['about', 'contact-us', 'job-seekers', 'international-students', 'global-travellers', 'entrepreneurs', 'compare/uk', 'blogs', 'certificates', 'register'];
+    const validUrls = ['about', 'contact-us', 'job-seekers', 'international-students', 'global-travellers', 'entrepreneurs', 'blogs', 'certificates', 'register'];
     if (url === 'home') {
       window.location.href = targetUrl
     } else if (validUrls.includes(url)) {
