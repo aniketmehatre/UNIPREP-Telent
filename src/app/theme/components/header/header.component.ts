@@ -183,12 +183,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	protected readonly count = count
 	enterpriseSubscriptionLink: any
 	isCountryPopupOpen: any
-
+	ehitlabelIsShow: boolean = true;
 	isSendingOTP: boolean = false
 	isResendOTP: boolean = false
 	allSearchedResult: any[] = []
 	currentRoute: string = ""
-
 	constructor(
 		private router: Router,
 		private locationService: LocationService,
@@ -205,7 +204,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private storage: StorageService,
 		private promptService: PromptService
 	) {
-
 		this.dataService.openReportWindowSource.subscribe({
 			next: (data) => {
 				console.log('othermodule')
@@ -479,7 +477,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 		// Initialize forms
 		this.initializeForms();
-
+		this.service.getNewUserTimeLeft().subscribe((res) => {
+			this.imagewhitlabeldomainname = window.location.hostname;
+			if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+				this.ehitlabelIsShow = true;
+			} else {
+				if (res.subscription_details.subscription_plan === "free_trail" && res.time_left.plan === "on_progress") {
+					this.ehitlabelIsShow = false;
+				} else {
+					this.ehitlabelIsShow = false;
+				}
+			}
+		});
 		// Handle phone verification
 		await this.handlePhoneVerification();
 		this.checkNewUSerLogin();

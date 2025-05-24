@@ -36,7 +36,6 @@ export class RegistrationComponent implements OnInit {
 	@ViewChild('otp2') otp2!: ElementRef
 	@ViewChild('otp3') otp3!: ElementRef
 	@ViewChild('otp4') otp4!: ElementRef
-
 	public registrationForm: any = FormGroup
 	displayTerms = "none"
 	locationList: any

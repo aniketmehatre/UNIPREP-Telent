@@ -94,7 +94,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 			})
 		this.locationService.getImage().subscribe((imageUrl) => {
 			this.imageUrlWhitelabel.set(imageUrl);
-			console.log(this.imageUrlWhitelabel)
 			this.cdr.markForCheck()
 		})
 		this.loginForm = this.formBuilder.group({
@@ -109,6 +108,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 		return this.domainNameCondition === "dev-student.uniprep.ai" ||
 			this.domainNameCondition === "*.uniprep.ai" ||
 			this.domainNameCondition === "uniprep.ai" ||
+			this.domainNameCondition === "talents.uniprep.ai" ||
 			this.domainNameCondition === "localhost"
 	}
 
