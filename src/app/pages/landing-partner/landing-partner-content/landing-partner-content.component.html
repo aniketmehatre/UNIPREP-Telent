@@ -17,21 +17,29 @@
 <section class="pb-0 darksection homebg">
   <div class="container-fluid pt-3 text-center">
     <div class="row justify-content-center">
-      <div class="col-md-12">
-        <div class="video-container" (click)="toggleVideo()">
-          <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"></i>
-          <video class="rounded-4" #videoPlayer width="100%" height="100%" preload="none"
-            poster="/uniprep-assets/images/landing-partners/partner-home-mock.png">
-            <source [src]="welcomevideoLink" type="video/mp4" />
-          </video>
-        </div>
+      <div class="col-md-8">
+				<div class="video-container">
+					<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"
+						(click)="toggleVideo()"></i>
+
+					<!-- YouTube iframe (shown when playing) -->
+					<iframe *ngIf="isPlaying" (click)="toggleVideo()" class="youtube-iframe" [src]="embedUrl"
+						title="YouTube video player" frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						allowfullscreen>
+					</iframe>
+
+					<!-- Video thumbnail (shown when not playing) -->
+					<img *ngIf="!isPlaying" class="video-thumbnail" src="uniprep-assets/images/landing-partners/partner-home-mock.png"
+						alt="Video thumbnail">
+				</div>
       </div>
     </div>
   </div>
 </section>
 <div class="container-fluid darksection text-white py-4">
   <div class="row py-5">
-    <div class="col-12 col-md-10 mx-auto">
+    <div class="col-12 col-md-8 mx-auto">
       <div class="d-flex flex-wrap gap-3">
         <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="country"
           styleClass="custom-country-select p-2" [showClear]="true"
@@ -73,7 +81,7 @@
             <ng-container *ngFor="let partner of filteredPartnerList">
               <div class="bg-dark text-white text-decoration-none py-3 border-white"
                 [href]="'http:\\'+partner.domainname" target="_blank">
-                {{ partner.partner }}
+                {{ partner.partnername }}
               </div>
             </ng-container>
           </div>
@@ -82,40 +90,48 @@
     </div>
   </div>
   <ng-container *ngFor="let section of landingSections">
-    <div class="row py-5 g-2 justify-content-center align-items-center">
-      <div class="row col-md-10">
-        <div class="col-md-6 mx-auto d-flex flex-column justify-content-center"
-          [ngClass]="{'order-lg-2': !section.isRight, 'order-lg-1': section.isRight}">
-          <div class="fs-1 fw-bold mb-3" [innerHTML]="section.title"></div>
-          <p class="text-orange mb-4">{{ section.subTitle }}</p>
-          <div class="feature-list">
-            <div class="d-flex align-items-start mb-3" *ngFor="let feature of section.features">
-              <div class="me-2">
-                <i class="fa-light fs-3 fa-square-check text-white"></i>
-              </div>
-              <div>{{ feature }}</div>
-            </div>
-          </div>
-        </div>
+		<div class="container-fluid pb-5 pb-mb-0">
+			<div class="row justify-content-center">
+				<div class="col-md-8 col-12">
+					<div class="row justify-content-md-between align-items-center">
+						<div class="col-md-6"
+							[ngClass]="{ 'order-lg-2 order-2': !section.isRight, 'order-lg-1 order-2': section.isRight }">
+							<div class="fs-2 fw-bold mb-3" [innerHTML]="section.title"></div>
+              <div class="fs-5 fw-bold uniprep-secondary mb-3" [innerHTML]="section.subTitle"></div>
+							<div class="feature-list">
+								<div class="d-flex align-items-start mb-3" *ngFor="let feature of section.features">
+									<div class="me-2">
+										<i class="fa-light fs-4 fa-square-check text-white"></i>
+									</div>
+									<div>{{ feature }}</div>
+								</div>
+							</div>
+						</div>
 
-        <div class="col-md-6" [ngClass]="{'order-lg-1': !section.isRight, 'order-lg-2': section.isRight}">
-          <img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border border-white" width="80%">
-        </div>
-      </div>
-    </div>
+						<div class="col-md-5"
+							[ngClass]="{ 'order-lg-1 order-1': !section.isRight, 'order-lg-2 order-1': section.isRight }">
+							<img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border-0"
+								style="width: 100%; height: 80%;" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
   </ng-container>
-  <section class="py-5 darksection row">
-    <div class="container col-md-10 text-start">
-      <h2 class="mb-2 display-6">Who We <span class="text-secondary fw-bold">Work With</span></h2>
-      <p class="mb-4 text-white fs-5 fw-bold">Empowering the Ecosystem of Education, Employment, and Global Mobility</p>
-      <p class="mb-2 text-white fs-5">UNIPREP partners with organizations that guide learners and professionals across
-        education, skills, jobs, and international growth</p>
-      <div class="row g-4">
-        <div *ngFor="let category of partnerCategories; let i = index" class="col-6 col-lg-4 col-xl-3">
-          <div class="card">
-            <div class="d-flex align-items-center gap-2 p-3 rounded">
-              <h3>{{category.emoji}}</h3>
-              <div>{{ category.title }}</div>
+  <section class="py-5 darksection">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center text-md-start">
+        <h2 class="mb-2 display-6">Who We <span class="text-secondary fw-bold">Work With</span></h2>
+        <p class="mb-4 text-white fs-5 fw-bold">Empowering the Ecosystem of Education, Employment, and Global Mobility</p>
+        <p class="mb-2 text-white fs-5">UNIPREP partners with organizations that guide learners and professionals across
+          education, skills, jobs, and international growth</p>
+        <div class="row g-3">
+          <div *ngFor="let category of partnerCategories; let i = index" class="col-12 col-md-4">
+            <div class="card">
+              <div class="d-flex align-items-center gap-2 p-3 rounded">
+                <h3>{{category.emoji}}</h3>
+                <div>{{ category.title }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -124,13 +140,13 @@
   </section>
 
   <div class="row g-2 justify-content-center align-items-center">
-    <div class="row col-md-10">
+    <div class="row col-md-8 col-12">
       <div class="col-12 ">
         <h1 class="display-5 mb-4">
           Why Partner with <span class="text-orange fw-bold ">UNIPREP?</span>
         </h1>
 
-        <div class="p-4 rounded card fw-bold">
+        <div class="p-4 rounded card">
           <p class="mb-3 text-white">{{ whyPartnerParagraph1 }}</p>
           <p class="text-orange">{{ whyPartnerParagraph2 }}</p>
         </div>
@@ -141,7 +157,7 @@
   <section class="pt-5 pb-5 cta-field darksection">
     <div class="container-fluid">
       <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-8 col-12">
           <div class="card py-4 px-4">
             <div class="card-body">
               <div class="row align-items-center justify-content-center">
@@ -153,7 +169,7 @@
                   <h5 class="fw-medium text-white text-center d-md-none d-block">{{ wantToKnowMoreLead }}
                   </h5>
                 </div>
-                <div class="col-md-2 col-6 text-end">
+                <div class="col-md-2 col-6 text-center">
                   <a href="/register" class="btn cta-btn m-0 h5 py-3">{{ joinNowButtonText }}</a>
                 </div>
               </div>
@@ -165,7 +181,7 @@
   </section>
   <section>
     <div class="row justify-content-center align-items-center">
-      <div class="col-md-10">
+      <div class="col-md-8 col-12">
         <h1 class="display-6 mb-4">
           Our <span class="fw-bold ">Advisors</span>
         </h1>
@@ -175,7 +191,6 @@
             <img src="uniprep-assets/images/partner-advisors/advisor-2.png" alt="Image 2" />
             <img src="uniprep-assets/images/partner-advisors/advisor-3.png" alt="Image 3" />
             <img src="uniprep-assets/images/partner-advisors/advisor-4.png" alt="Image 4" />
-            <img src="uniprep-assets/images/partner-advisors/advisor-5.png" alt="Image 5" />
           </div>
         </div>
       </div>
