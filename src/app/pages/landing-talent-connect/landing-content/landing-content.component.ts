@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { TimelineModule } from 'primeng/timeline';
+import {environment} from "@env/environment";
 
 @Component({
   selector: 'uni-landing-content',
@@ -281,5 +282,18 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
     this.isPlaying = !this.isPlaying;
   }
 
+  navigateConnectUrl(url: string) {
+    const baseUrl = window.location.origin;
+    const isDev = baseUrl.includes('dev') || baseUrl.includes('localhost');
+    const targetUrl = isDev ? 'https://dev-student.uniprep.ai' : 'https://uniprep.ai';
+    const validUrls = ['about', 'contact-us', 'job-seekers', 'international-students', 'global-travellers', 'entrepreneurs', 'compare/uk', 'blogs', 'certificates', 'register', 'pricing', 'login'];
+    if (url === 'home') {
+      window.location.href = targetUrl
+    } else if (validUrls.includes(url)) {
+      window.location.href = targetUrl + `/${url}`
+    } else {
+      window.location.href = `${environment.domain}/${url}`
+    }
+  }
 
 }

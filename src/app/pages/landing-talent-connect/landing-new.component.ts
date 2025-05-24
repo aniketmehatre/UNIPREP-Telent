@@ -11,6 +11,7 @@ import { ThemeService } from "src/app/theme.service";
 import { LocationService } from "src/app/location.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { LocalStorageService } from "ngx-localstorage";
+import {HeaderLogoStore} from "../landing/landing-page.store";
 
 
 @Component({
@@ -39,6 +40,7 @@ import { LocalStorageService } from "ngx-localstorage";
   ],
 })
 export class LandingNewComponent {
+	logoUrl$ = this.logoStore.logoUrl$;
  	@ViewChild("videoPlayer")
 	videoPlayer!: ElementRef;
 	hovered1: 'wa' | null = null;
@@ -72,7 +74,9 @@ export class LandingNewComponent {
 		this.displaycontactform = true
 	}
 
-	constructor(private themeService: ThemeService, private formbuilder: FormBuilder, private service: LocationService, private storage: LocalStorageService, private router: Router, private authService: AuthService) {
+	constructor(private themeService: ThemeService, private logoStore: HeaderLogoStore,
+				private formbuilder: FormBuilder, private service: LocationService,
+				private storage: LocalStorageService, private router: Router, private authService: AuthService) {
 		// Initialize the isDarkMode property with the value from the service
 		this.isDarkMode = this.themeService.getInitialSwitchState()
 	}
@@ -197,7 +201,7 @@ export class LandingNewComponent {
 		const baseUrl = window.location.origin;
 		const isDev = baseUrl.includes('dev') || baseUrl.includes('localhost');
 		const targetUrl = isDev ? 'https://dev-student.uniprep.ai' : 'https://uniprep.ai';
-		const validUrls = ['about', 'contact-us', 'job-seekers', 'international-students', 'global-travellers', 'entrepreneurs', 'compare/uk', 'blogs', 'certificates', 'register', 'pricing'];
+		const validUrls = ['about', 'contact-us', 'job-seekers', 'international-students', 'global-travellers', 'entrepreneurs', 'compare/uk', 'blogs', 'certificates', 'register', 'pricing', 'login'];
 		if (url === 'home') {
 			window.location.href = targetUrl
 		} else if (validUrls.includes(url)) {

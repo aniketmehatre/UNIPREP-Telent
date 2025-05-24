@@ -14,7 +14,7 @@ const routes: Routes = [
       {
         path: '',
         loadComponent: () => import('./landing-institute-content/landing-institute-content.component').then(m => m.LandingInstituteContentComponent),
-      }, 
+      },
       {
         path: 'pricing/:country',
         loadComponent: () => import('./institute-pricing/institute-pricing.component').then(m => m.InstitutePricingComponent)

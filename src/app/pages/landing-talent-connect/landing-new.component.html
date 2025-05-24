@@ -8,19 +8,34 @@
 		</div>-->
 	<!-- <marquee class="text-white py-2">Enjoy free access to UNIPREP till 1st January 2024.</marquee> -->
 	<!-- </div> -->
+	<div class="topmarquee container-fluid justify-content-center">
+		<div class="row">
+			<div class="col-md-12">
+				<p class="mb-0 py-2 text-center text-white"><span class="h5 fw-semibold">UNIPREP 2.0</span> Is Here!
+					Discover the All-New Features – Try It Free Today <a href="/register" class="text-white">Try now for
+						free</a></p>
+			</div>
+		</div>
+		<!-- <marquee class="text-white py-2">Enjoy free access to UNIPREP till 1st January 2024.</marquee> -->
+	</div>
 	<div class="container-fluid d-md-flex d-none">
 		<!-- Your brand/logo (optional) -->
+		<!--		<a class="navbar-brand py-0" href="#">-->
+		<!--			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.png" />-->
+		<!--			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.png" />-->
+		<!--		</a>-->
 		<a class="navbar-brand py-0" href="#">
-			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
-			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
+			<!-- <img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.png" /> -->
+			<img [src]="logoUrl$ | async" alt="Logo">
 		</a>
-
 		<ul class="nav flex-row gap-4">
 			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular" aria-current="page" (click)="navigateConnectUrl('home')">Home</a>
+				<a class="nav-link active text-white fw-regular" aria-current="page"
+					(click)="navigateConnectUrl('home')">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular" aria-current="page" (click)="navigateConnectUrl('about')">About Us</a>
+				<a class="nav-link active text-white fw-regular" aria-current="page"
+					(click)="navigateConnectUrl('about')">About Us</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link active text-white fw-regular" aria-current="page" href="/active-jobs">Active Jobs</a>
@@ -34,8 +49,9 @@
 					Features
 				</a>
 				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-					<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('job-seekers')"
-							data-bs-dismiss="offcanvas" role="button" aria-expanded="false">For Job Seekers</a>
+					<li><a class="dropdown-item text-white hover-black cursor-pointer"
+							(click)="navigateConnectUrl('job-seekers')" data-bs-dismiss="offcanvas" role="button"
+							aria-expanded="false">For Job Seekers</a>
 					</li>
 					<li><a class="dropdown-item text-white hover-black cursor-pointer"
 							(click)="navigateConnectUrl('international-students')" data-bs-dismiss="offcanvas">For
@@ -43,48 +59,56 @@
 					<li><a class="dropdown-item text-white hover-black cursor-pointer"
 							(click)="navigateConnectUrl('global-travellers')" data-bs-dismiss="offcanvas">For
 							Global Travellers</a></li>
-					<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('entrepreneurs')"
-							data-bs-dismiss="offcanvas">For
+					<li><a class="dropdown-item text-white hover-black cursor-pointer"
+							(click)="navigateConnectUrl('entrepreneurs')" data-bs-dismiss="offcanvas">For
 							Entrepreneurs</a></li>
 				</ul>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page" (click)="navigateConnectUrl('pricing')">Pricing</a>
+				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page"
+					(click)="navigateConnectUrl('pricing')">Pricing</a>
 			</li>
 			<li class="nav-item dropdown">
-				<a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Resources </a>
+				<a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown" role="button"
+					data-bs-toggle="dropdown" aria-expanded="false"> Resources </a>
 				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-					<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('certificates')">Certificates</a></li>
-					<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('blogs')">Blogs</a></li>
+					<li><a class="dropdown-item text-white hover-black cursor-pointer"
+							(click)="navigateConnectUrl('certificates')">Certificates</a></li>
+					<li><a class="dropdown-item text-white hover-black cursor-pointer"
+							(click)="navigateConnectUrl('blogs')">Blogs</a></li>
 				</ul>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page" (click)="navigateConnectUrl('contact-us')">Contact Us</a>
+				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page"
+					(click)="navigateConnectUrl('contact-us')">Contact Us</a>
 			</li>
 			<!-- Add other desktop menu items as needed -->
 		</ul>
 
 		<div class="d-flex gap-4 align-items-center">
-			<a [routerLink]="['/login']" class="text-decoration-none text-white">Login</a>
-			<a [routerLink]="['/register']" class="text-decoration-none"><button type="button" class="btn btn-secondary px-4 py-2 m-0">Register</button></a>
+			<a (click)="navigateConnectUrl('login')" class="text-decoration-none text-white cursor-pointer">Login</a>
+			<a (click)="navigateConnectUrl('register')" class="text-decoration-none cursor-pointer"><button
+					type="button" class="btn btn-secondary px-4 py-2 m-0">Register</button></a>
 		</div>
 	</div>
 
 	<div class="container-fluid d-md-none">
 		<!-- Your brand/logo (optional) -->
 		<a class="navbar-brand py-0" href="#">
-			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
-			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.svg" />
+			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.png" />
+			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.png" />
 		</a>
 
 		<!-- Hamburger button for mobile -->
-		<button class="navbar-toggler text-white" type="button" data-bs-toggle="offcanvas" data-bs-placement="right" data-bs-target="#sidebarNav" aria-controls="sidebarNav">
+		<button class="navbar-toggler text-white" type="button" data-bs-toggle="offcanvas" data-bs-placement="right"
+			data-bs-target="#sidebarNav" aria-controls="sidebarNav">
 			<!-- <span class="navbar-toggler-icon text-white"></span> -->
 			<i class="fa-regular fa-bars fa-2xl" role="button"></i>
 		</button>
 
 		<!-- Sidebar navigation (offcanvas) -->
-		<div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" tabindex="-1" id="sidebarNav" aria-labelledby="sidebarNavLabel">
+		<div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" tabindex="-1" id="sidebarNav"
+			aria-labelledby="sidebarNavLabel">
 			<div class="offcanvas-header justify-content-end mt-2">
 				<!-- Close button (X) to close the sidebar -->
 				<i class="fa-solid fa-xmark text-white fa-2xl" role="button" data-bs-dismiss="offcanvas"></i>
@@ -93,16 +117,20 @@
 				<!-- Mobile menu items -->
 				<ul class="nav flex-column gap-5 w-100">
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" (click)="navigateConnectUrl('home')" >Home</a>
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
+							(click)="navigateConnectUrl('home')">Home</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" (click)="navigateConnectUrl('about')">About Us</a>
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
+							(click)="navigateConnectUrl('about')">About Us</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"  href="/active-jobs">Active Jobs</a>
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
+							href="/active-jobs">Active Jobs</a>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/employers">Employers</a>
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
+							href="/employers">Employers</a>
 					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#"
@@ -127,25 +155,34 @@
 						</ul>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" (click)="navigateConnectUrl('pricing')">Pricing</a>
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
+							(click)="navigateConnectUrl('pricing')">Pricing</a>
 					</li>
 
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Resources </a>
+						<a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#"
+							id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Resources </a>
 						<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-							<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('blogs')" routerLink="/blogs">Blogs</a></li>
-							<li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('certificates')" routerLink="/certificates">Certificates</a></li>
+							<li><a class="dropdown-item text-white hover-black cursor-pointer"
+									(click)="navigateConnectUrl('blogs')" routerLink="/blogs">Blogs</a></li>
+							<li><a class="dropdown-item text-white hover-black cursor-pointer"
+									(click)="navigateConnectUrl('certificates')"
+									routerLink="/certificates">Certificates</a></li>
 						</ul>
 					</li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" (click)="navigateConnectUrl('contact-us')">Contact Us</a>
+						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
+							(click)="navigateConnectUrl('contact-us')">Contact Us</a>
 					</li>
 					<!-- Add other mobile menu items as needed -->
 					<li class="nav-item text-center">
-						<a [routerLink]="['/login']" class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
+						<a (click)="navigateConnectUrl('login')"
+							class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
 					</li>
 					<li class="nav-item">
-						<a href="/register" class="text-decoration-none"><button type="button" class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
+						<a (click)="navigateConnectUrl('register')" class="text-decoration-none"><button type="button"
+								class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
 					</li>
 				</ul>
 			</div>
@@ -173,7 +210,8 @@
 <uni-landing-footer></uni-landing-footer>
 
 <div class="position-absolute">
-	<p-scrolltop target="window" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ raised: true, rounded: true }" />
+	<p-scrolltop target="window" [threshold]="100" icon="pi pi-arrow-up"
+		[buttonProps]="{ raised: true, rounded: true }" />
 </div>
 <!--<div class="floating-buttons1">-->
 <!--	<div class="floating-btn1 whatsapp" (mouseenter)="hovered1 = 'wa'" (mouseleave)="hovered1 = null">-->

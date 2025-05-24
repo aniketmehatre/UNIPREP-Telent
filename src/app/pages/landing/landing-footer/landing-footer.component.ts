@@ -36,8 +36,8 @@ export class LandingFooterComponent {
 
   exploreLinks = [
     { text: "For Employers", url: environment.employerDomain },
-    { text: "For Talents", url: "/talent-connect" },
-    { text: "For Institutions", url: "/institute" },
+    { text: "For Talents", url: environment.talentDomain },
+    { text: "For Institutions", url: environment.instituteDomain },
     { text: "For Partners", url: environment.partnerDomain },
   ]
 
