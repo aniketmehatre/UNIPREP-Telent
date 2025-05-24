@@ -103,9 +103,15 @@ export class TalentConnectService {
             { headers: this.headers });
     }
 
-    getMyProfileData() {
+    getMyProfileData() { 
         return this.http.get<any>(
             environment.ApiUrl + "/getstudentprofiles",
+            { headers: this.headers });
+    }
+
+    getDepartmentData() {
+        return this.http.get<any>(
+            environment.ApiUrl + "/getdepartments",
             { headers: this.headers });
     }
 
