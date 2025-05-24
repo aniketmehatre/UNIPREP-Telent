@@ -1103,9 +1103,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   getWorkLocation() {
     this.talentConnectService.getEasyApplyWorkLocationList().subscribe({
       next: (response) => {
-        this.preferredLocationsList = response.worklocations
         this.locations = response.worklocations
-        this.preferredLocationsList.push({ id: 0, work_location: "Any" })
+        this.preferredLocationsList = [...response.worklocations];
+        this.preferredLocationsList.unshift({ id: 0, work_location: "Any" });
+        
       },
     })
   }
@@ -1439,6 +1440,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onCallAIEvaluation() {
+    this.isLoadingAiSummary = true;
     if (this.personalInfoForm.valid) {
       if (this.haveErrorWhileAddExp) {
         this.validateTotalExperience();
@@ -1555,6 +1557,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       student_profile.mode = 'employee_profile_ai_profile_summary';
       this.talentConnectService.getAiEvaluationSummary(student_profile).subscribe({
         next: (response) => {
+          this.isLoadingAiSummary = false;
           this.aiSummaryScreen = true;
           this.aiEvaluationContent = this.sanitizer.bypassSecurityTrustHtml(response.response);
           this.profileScore = response.profile_percent || 0;;
@@ -1566,9 +1569,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
             summary: "Error Occurred",
             detail: "Please try again",
           });
+          this.isLoadingAiSummary = false;
         },
       });
-     
     } else {
       this.markFormGroupTouched(this.personalInfoForm)
       this.toastService.add({

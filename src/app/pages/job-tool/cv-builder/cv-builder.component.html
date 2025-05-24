@@ -1,6 +1,6 @@
 <div class="container-fluid h-100 d-flex flex-column justify-content-center">
 	<p-toast></p-toast>
-	<div class="row justify-content-center align-items-end h-100" *ngIf="activePageIndex == 4 || activePageIndex == 0">
+	<div class="row justify-content-center align-items-center h-100" *ngIf="activePageIndex == 4 || activePageIndex == 0">
 		<div class="flex-column">
 			<div>
 				<h3 class="text-center uniprep-primary" *ngIf="this.resumeHistory.length > 0">Your Resumes</h3>
@@ -1647,7 +1647,6 @@
 										<p>{{ certificate.value.certificate_issued }}</p>
 										<p>{{ certificate.value.certificate_id ? "ID:" +
 											certificate.value.certificate_id : "" }}</p>
-										<!-- <a [href]="certificate.value.certificate_link" target="_blank">{{ certificate.value.certificate_link }}</a> -->
 									</div>
 								</div>
 							</div>
@@ -1754,22 +1753,6 @@
 								</div>
 							</div>
 						</div>
-						<!-- [ngClass]="f['selected_exp_level'].value == 1 ? 'fresherHeight' : 'experienceHeight'" -->
-
-						<!-- <div class="educationItem mb-3" *ngFor="let edu of getEduDetailsArray.controls">
-                          <div style="width: 50%;">
-                              <p>{{ edu.value.edu_start_year }} {{ edu.value.edu_end_year ? " - " + edu.value.edu_end_year
-                                  : "" }}</p>
-                              <p class="text-uppercase fw-medium">{{ edu.value.edu_degree }} </p>
-                          </div>
-                          <div style="width: 30%;">
-                              <p>{{ edu.value.edu_college_name }}</p>
-                              <p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
-                          </div>
-                          <div style="width: 20%;">
-                              <p>{{ edu.value.edu_location }}</p>
-                          </div>
-                      </div> -->
 					</div>
 				</div>
 			</div>
