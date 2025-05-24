@@ -23,7 +23,7 @@ export const landingRoutes: Routes = [
     loadChildren: () => import('../landing-institute/landing-institute.module').then(c => c.LandingInstituteModule)
   },
   {
-    path: '',
+    path: 'partner',
     loadChildren: () => import('../landing-partner/landing-partner.module').then(c => c.LandingPartnerModule)
   },
   { path: "co", component: CoBrandedComponent },
@@ -50,7 +50,7 @@ export const landingRoutes: Routes = [
     },
   },
   {
-    path: 'land',
+    path: '',
     component: LandingComponent,
     children: [
       {
