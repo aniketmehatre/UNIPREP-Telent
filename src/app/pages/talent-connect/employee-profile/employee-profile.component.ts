@@ -1440,12 +1440,13 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onCallAIEvaluation() {
-    this.isLoadingAiSummary = true;
+
     if (this.personalInfoForm.valid) {
       if (this.haveErrorWhileAddExp) {
         this.validateTotalExperience();
         return;
       }
+      this.isLoadingAiSummary = true;
       const formValues = this.personalInfoForm.value;
 
       const student_profile: any = {

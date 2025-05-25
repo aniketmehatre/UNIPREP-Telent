@@ -87,6 +87,12 @@ export class MainListComponent implements OnInit {
                         this.cdr.detectChanges();
                     }
                 }
+                else {
+                    const profileItem = this.talentConnectMainList.find(item => item.id === 1);
+                    if (profileItem) {
+                        profileItem.title = "Create Profile";
+                    }
+                }
             },
             error: error => {
                 this.isLoading = false
