@@ -16,17 +16,8 @@
 
 				<!-- Social Media Icons -->
 				<div class="social-icons mt-3 justify-content-md-start justify-content-center">
-					<a href="https://facebook.com" target="_blank" class="social-icon">
-						<i class="fab fa-facebook-f"></i>
-					</a>
-					<a href="https://instagram.com" target="_blank" class="social-icon">
-						<i class="fab fa-instagram"></i>
-					</a>
-					<a href="https://linkedin.com" target="_blank" class="social-icon">
-						<i class="fab fa-linkedin-in"></i>
-					</a>
-					<a href="https://youtube.com" target="_blank" class="social-icon">
-						<i class="fab fa-youtube"></i>
+					<a [href]="link.url" target="_blank" class="social-icon" *ngFor="let link of socialLinks">
+						<i class="fab fa-{{link.icon}}"></i>
 					</a>
 				</div>
 			</div>
