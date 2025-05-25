@@ -20,10 +20,6 @@ const routes: Routes = [
         loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),
       },
       {
-        path: 'about',
-        loadComponent: () => import('../landing/about-us/about-us.component').then(m => m.AboutUsComponent)
-      },
-      {
         path: 'active-jobs',
         loadComponent: () => import('./active-jobs/active-jobs.component').then(m => m.ActiveJobsComponent),
       },
@@ -32,20 +28,15 @@ const routes: Routes = [
         loadComponent: () => import('./employers/employers.component').then(m => m.EmployersComponent),
       },
       {
-        path: 'contact-us',
-        loadComponent: () => import('../landing/contact-us/contact-us.component').then(m => m.ContactUsComponent),
-      },
-      {
         path: '',
         redirectTo: '',
         pathMatch: 'full'
       }
     ]
   }
-  
 ]
 @NgModule({
-    imports: [
+  imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -59,4 +50,4 @@ const routes: Routes = [
 })
 export class LandingModule {
 
- }
+}

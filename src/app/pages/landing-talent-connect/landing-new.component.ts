@@ -1,7 +1,7 @@
 import {
-  Component,
-  ElementRef,
-  ViewChild,
+	Component,
+	ElementRef,
+	ViewChild,
 } from "@angular/core"
 import { Router } from "@angular/router"
 import { trigger, state, style, animate, transition } from "@angular/animations"
@@ -11,37 +11,37 @@ import { ThemeService } from "src/app/theme.service";
 import { LocationService } from "src/app/location.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { LocalStorageService } from "ngx-localstorage";
-import {HeaderLogoStore} from "../landing/landing-page.store";
+import { HeaderLogoStore } from "../landing/landing-page.store";
 
 
 @Component({
-  selector: "uni-landing-new",
-  standalone: false,
-  templateUrl: "./landing-new.component.html",
-  styleUrls: ["./landing-new.component.scss"],
-  animations: [
-    trigger("cardAnimation", [
-      state(
-        "hidden",
-        style({
-          opacity: 0,
-          transform: "translateY(100px)",
-        }),
-      ),
-      state(
-        "visible",
-        style({
-          opacity: 1,
-          transform: "translateY(0)",
-        }),
-      ),
-      transition("hidden => visible", animate("400ms ease-in")),
-    ]),
-  ],
+	selector: "uni-landing-new",
+	standalone: false,
+	templateUrl: "./landing-new.component.html",
+	styleUrls: ["./landing-new.component.scss"],
+	animations: [
+		trigger("cardAnimation", [
+			state(
+				"hidden",
+				style({
+					opacity: 0,
+					transform: "translateY(100px)",
+				}),
+			),
+			state(
+				"visible",
+				style({
+					opacity: 1,
+					transform: "translateY(0)",
+				}),
+			),
+			transition("hidden => visible", animate("400ms ease-in")),
+		]),
+	],
 })
 export class LandingNewComponent {
 	logoUrl$ = this.logoStore.logoUrl$;
- 	@ViewChild("videoPlayer")
+	@ViewChild("videoPlayer")
 	videoPlayer!: ElementRef;
 	hovered1: 'wa' | null = null;
 	isPlaying = false
@@ -75,15 +75,15 @@ export class LandingNewComponent {
 	}
 
 	constructor(private themeService: ThemeService, private logoStore: HeaderLogoStore,
-				private formbuilder: FormBuilder, private service: LocationService,
-				private storage: LocalStorageService, private router: Router, private authService: AuthService) {
+		private formbuilder: FormBuilder, private service: LocationService,
+		private storage: LocalStorageService, private router: Router, private authService: AuthService) {
 		// Initialize the isDarkMode property with the value from the service
 		this.isDarkMode = this.themeService.getInitialSwitchState()
 	}
 
 	ngOnDestroy() {
 		localStorage.clear();
-    }
+	}
 
 	toggleVideo() {
 		const video: HTMLVideoElement = this.videoPlayer.nativeElement
@@ -104,31 +104,12 @@ export class LandingNewComponent {
 				const section = document.querySelector(`#${sectionId}`)
 				if (section) {
 					section.scrollIntoView({ behavior: "smooth" })
-				}			
+				}
 			}, 0)
 		});
 	}
 	timeLeftInfoCard: any
 	ngOnInit() {
-		if (this.authService.isTokenValid()) {
-			this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
-		}
-		// const token = this.storage.get<string>('token');
-		// let req = {
-		//   token: token
-		// }
-		// console.log('token', token)
-		// this.service.getValidateToken(req).subscribe((data) => {
-		//   console.log('data', data)
-
-		//   if (data.message == 'valid token') {
-		//     console.log('come')
-		//     this.router.navigateByUrl('/login');
-		//   } else {
-		//     this.router.navigateByUrl('/');
-		//   }
-		// });
-
 		this.service.getFeatBlogs().subscribe((response) => {
 			this.blogs = response
 		})

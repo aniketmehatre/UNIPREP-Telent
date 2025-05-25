@@ -29,7 +29,11 @@ const routes: Routes = [
         pathMatch: 'full'
       }
     ]
-  }
+  },
+  {
+    path: 'institute/login',
+    loadComponent: () => import('../institution-login/institution-login.component').then(m => m.InstitutionLoginComponent),
+  },
 ]
 
 @NgModule({

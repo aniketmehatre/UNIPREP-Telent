@@ -30,8 +30,8 @@
 					</iframe>
 
 					<!-- Video thumbnail (shown when not playing) -->
-					<img *ngIf="!isPlaying" class="video-thumbnail" src="uniprep-assets/images/landing-institutes/institute-home-mock.png"
-						alt="Video thumbnail">
+					<img *ngIf="!isPlaying" class="video-thumbnail"
+						src="uniprep-assets/images/landing-institutes/institute-home-mock.png" alt="Video thumbnail">
 				</div>
 			</div>
 		</div>
@@ -43,33 +43,33 @@
 			<div class="col-12 col-md-8">
 				<div class="d-flex flex-wrap gap-3">
 					<div class="dropdown">
-					<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="country"
-						styleClass="custom-country-select p-2" [showClear]="true"
-						[style]="{ 'min-width': '200px', 'border-radius': '8px', 'border': '1px solid orange', 'background': 'transparent', 'color': '#fff' }"
-						panelStyleClass="custom-dropdown-panel" [virtualScroll]="true" optionValue="id"
-						[virtualScrollItemSize]="50" [filter]="true" filterBy="country"
-						(onChange)="getPartnersListById($event.value);" placeholder="Select Country">
-						<ng-template let-country pTemplate="item">
-							<div class="d-flex align-items-center gap-2">
-								<div class="dropdownimg">
-									<img [src]="country?.flag" class="img-fluid" />
+						<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="country"
+							styleClass="custom-country-select p-2" [showClear]="true"
+							[style]="{ 'min-width': '200px', 'border-radius': '8px', 'border': '1px solid orange', 'background': 'transparent', 'color': '#fff' }"
+							panelStyleClass="custom-dropdown-panel" [virtualScroll]="true" optionValue="id"
+							[virtualScrollItemSize]="50" [filter]="true" filterBy="country"
+							(onChange)="getPartnersListById($event.value);" placeholder="Select Country">
+							<ng-template let-country pTemplate="item">
+								<div class="d-flex align-items-center gap-2">
+									<div class="dropdownimg">
+										<img [src]="country?.flag" class="img-fluid" />
+									</div>
+									<div>
+										{{ country?.country }}
+									</div>
 								</div>
-								<div>
-									{{ country?.country }}
+							</ng-template>
+							<ng-template pTemplate="selectedItem" let-selectedOption>
+								<div class="d-flex align-items-center gap-2 text-white">
+									<div class="dropdownimg">
+										<img [src]="selectedOption.flag" class="img-fluid" />
+									</div>
+									<div>
+										{{ selectedOption.country }}
+									</div>
 								</div>
-							</div>
-						</ng-template>
-						<ng-template pTemplate="selectedItem" let-selectedOption>
-							<div class="d-flex align-items-center gap-2 text-white">
-								<div class="dropdownimg">
-									<img [src]="selectedOption.flag" class="img-fluid" />
-								</div>
-								<div>
-									{{ selectedOption.country }}
-								</div>
-							</div>
-						</ng-template>
-					</p-select>
+							</ng-template>
+						</p-select>
 					</div>
 					<div class="flex-grow-1">
 						<div class="input-group border-1 border-dark rounded-4">
@@ -203,7 +203,7 @@
 						<img src="uniprep-assets/images/partner-advisors/advisor-1.png" alt="Image 1" />
 						<img src="uniprep-assets/images/partner-advisors/advisor-2.png" alt="Image 2" />
 						<img src="uniprep-assets/images/partner-advisors/advisor-3.png" alt="Image 3" />
-						<img src="uniprep-assets/images/partner-advisors/advisor-4.png" alt="Image 4" />
+
 					</div>
 				</div>
 			</div>
