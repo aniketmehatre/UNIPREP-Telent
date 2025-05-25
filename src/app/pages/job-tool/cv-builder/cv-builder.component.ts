@@ -1151,7 +1151,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   clickAddMoreButton(fieldName: string) {
-    // this.submitted = false;
+    this.submitted = false;
     if (fieldName == "education_detail") {
       this.getEduDetailsArray.push(
         this.fb.group({

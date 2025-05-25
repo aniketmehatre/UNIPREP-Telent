@@ -6,7 +6,6 @@
 				<div class="cvSampleImg d-flex flex-wrap gap-3">
 					<div class="flex-column overflow-hidden" *ngFor="let resume of resumeHistory; let i = index">
 						<div>
-							<!-- Replace PDF viewer with image -->
 							<div class="pdf-preview" *ngIf="resume?.pdf_name">
 								<img *ngIf="pdfThumbnails[resume.pdf_name]" [src]="pdfThumbnails[resume.pdf_name]"
 									alt="PDF Preview" class="pdf-thumbnail" />
@@ -24,9 +23,6 @@
 									</span>
 								</div>
 							</div>
-							<!-- <div *ngIf="pdfLoadError" class="alert alert-danger mt-3">
-								<p>Error loading PDF. Please try downloading the file instead.</p>
-							</div> -->
 						</div>
 						<div>
 							<p>Version {{ i + 1 }}</p>
@@ -83,37 +79,6 @@
 		</div>
 	</div>
 </div>
-<!-- <div class="" *ngIf="activePageIndex == 3">
-
-	<div class="row justify-content-center">
-		<div class="flex-column">
-			<div style="justify-content: center;">
-				<h3 class="text-center uniprep-primary">Your Coverletter</h3>
-				<h5 class="text-center uniprep-primary">{{ selectedResumeLevel }}</h5>
-				<div class="cvBuilderSampleImg d-flex justify-content-center align-items-center">
-					<span>
-						<img *ngIf="selectedResumeLevel == 'Modern'" src="{{previewImage}}" />
-						<img *ngIf="selectedResumeLevel == 'Traditional'" src="{{previewImage}}" />
-						<img *ngIf="selectedResumeLevel == 'Creative'" src="{{previewImage}}" />
-						<img *ngIf="selectedResumeLevel == 'Functional'" src="{{previewImage}}" />
-						<img *ngIf="selectedResumeLevel == 'Academic'" src="{{previewImage}}" />
-					</span>
-				</div>
-				<div class="d-flex justify-content-center align-items-center">
-					<button pButton  class="downloadButton" (click)="downloadResume()">Download &nbsp;&nbsp;&nbsp;<i
-							class="fa-solid fa-download tickIcon"></i></button>
-				</div>
-				<div class="d-flex justify-content-between">
-					<button pButton  pButton type="button" (click)="previous()"
-						class="text-white p-ripple p-button-rounded p-button-info-prev p-button p-component p-2"><i
-							class="fa fa-arrow-left exhausted-plan-icon-prev"></i> Previous</button> -->
-<!-- <button pButton  class="downloadButton" style="margin: 0px;" (click)="next()">Coverletter Builder
-						&nbsp;&nbsp;&nbsp;<i class="fa-sharp fa-regular fa-house tickIcon"></i></button> -->
-<!-- </div>
-			</div>
-		</div>
-	</div>
-</div> -->
 <div class="container-fluid h-100 bg-white" *ngIf="activePageIndex == 3" style="overflow-y: auto">
 	<div class="row justify-content-center">
 		<div class="flex-column">
@@ -148,17 +113,6 @@
 	</div>
 </div>
 <div class="container-fluid h-100 d-flex flex-column bg white" *ngIf="activePageIndex == 2">
-	<!-- <div class="row align-items-center mb-2">
-		<div class="col-md-1">
-			<div class="backIcon d-md-flex d-none" role="button" (click)="previous()">
-				<span class="pi pi-angle-left"></span>
-			</div>
-		</div>
-		<div class="col-md-10">
-			<p-steps [model]="items" [readonly]="false" [activeIndex]="moduleActiveIndex"></p-steps>
-		</div>
-		<div class="col-md-1">&nbsp;</div>
-	</div> -->
 	<div class="row flex-fill overflow-hidden bg-white">
 		<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
 			<div class="flex-fill overflow-y-auto">
@@ -171,11 +125,11 @@
 									<label class="uniprep-primarydark fw-bold h6">Your Name</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" (input)="inputValuesEditOrNot()" type="text" placeholder="Full Name"
-												formControlName="user_name" pInputText />
-											<div *ngIf="submitted && f['user_name'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_name'].errors">Full Name
-													Required</div>
+											<input class="w-100" (input)="inputValuesEditOrNot()" type="text"
+												placeholder="Full Name" formControlName="user_name" pInputText />
+											<div *ngIf="submitted && f['user_name'].errors?.['required']"
+												class="text-danger text-xs">
+												Full Name Required
 											</div>
 										</div>
 									</div>
@@ -183,10 +137,9 @@
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Job Title</label>
 									<p-dropdown formControlName="user_job_title" [options]="jobRoles"
-										placeholder="Select Job Title" styleClass="w-100"
-										optionLabel="jobrole" optionValue="jobrole" [filter]="true"
-										filterBy="jobrole" [virtualScroll]="jobRoles.length > 100"
-										[virtualScrollItemSize]="50">
+										placeholder="Select Job Title" styleClass="w-100" optionLabel="jobrole"
+										optionValue="jobrole" [filter]="true" filterBy="jobrole"
+										[virtualScroll]="jobRoles.length > 100" [virtualScrollItemSize]="50">
 										<ng-template pTemplate="header">
 											<div class="p-2">
 												<p-inputGroup>
@@ -201,45 +154,21 @@
 											</div>
 										</ng-template>
 									</p-dropdown>
-									<!-- <div class="form-group">
-										<div class="mb-3"> -->
-											<!-- <input class="w-100" type="text" placeholder="Previous Your Job Title" formControlName="user_job_title" pInputText />
-											<div *ngIf="submitted && f['user_job_title'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Your Job Title Required</div>
-											</div> -->
-											<!-- <div class="input-wrapper">
-												<input type="text" formControlName="user_job_title"
-												(input)="searchJob($event)" (focusout)="onFocusOutJob()"
-												class="form-control job-input bg-transparent"
-												placeholder="Search by Job Role"
-												style="border-radius: 10px !important;" />
-											<div *ngIf="submitted && f['user_job_title'].errors"
-												class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_job_title'].errors">Your
-													Job Title Required</div>
-											</div>
-											<ul *ngIf="filterJobRole.length > 0" class="dropdown-list">
-												<li *ngFor="let job of filterJobRole"
-													(click)="setJobtitle(job.id, job.jobrole)">
-													{{ job.jobrole }}
-												</li>
-											</ul>
-											</div>
-										</div>
-									</div> -->
+									<div *ngIf="submitted && f['user_job_title'].errors?.['required']"
+										class="text-danger text-xs">
+										Job Title Required
+									</div>
 								</div>
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Your Email</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input (input)="inputValuesEditOrNot()" class="w-100" type="text" placeholder="Email Address"
-												formControlName="user_email" pInputText />
+											<input (input)="inputValuesEditOrNot()" class="w-100" type="text"
+												placeholder="Email Address" formControlName="user_email" pInputText />
 											<div *ngIf="submitted && f['user_email'].errors"
 												class="text-danger text-xs">
-												<div style="margin-left: 10px"
-													*ngIf="f['user_email'].errors?.['required']">Email Required</div>
-												<div style="margin-left: 10px"
-													*ngIf="f['user_email'].errors?.['email']">Enter Valid email Address
+												<div *ngIf="f['user_email'].errors?.['required']">Email Required</div>
+												<div *ngIf="f['user_email'].errors?.['email']">Enter Valid email Address
 												</div>
 											</div>
 										</div>
@@ -248,29 +177,13 @@
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Your Location</label>
 									<p-select [options]="cities" placeholder="Location, Country" [filter]="true"
-												filterBy="country_name" styleClass="w-100"
-												formControlName="user_location" optionLabel="country_name"
-												[virtualScroll]="true" [virtualScrollItemSize]="50"
-												optionValue="country_name"></p-select>
-									<!-- <div class="form-group">
-										<div class="mb-3">
-											<div class="input-wrapper">
-												<input type="text" formControlName="user_location"
-													(input)="searchLocation($event, 'user_location')"
-													(focusout)="onFocusOut()" placeholder="Location, Country"
-													class="form-control job-input bg-transparent" />
-												<ul *ngIf="filteredLocations.length > 0" class="dropdown-list">
-													<li *ngFor="let city of filteredLocations"
-														(click)="selectLocation(city, 'user_location')">{{
-														city.country_name }}</li>
-												</ul>
-												<div *ngIf="submitted && f['user_location'].errors"
-													class="text-danger text-xs">
-													<div *ngIf="f['user_location'].errors">Location Required</div>
-												</div>
-											</div>
-										</div>
-									</div> -->
+										filterBy="country_name" styleClass="w-100" formControlName="user_location"
+										optionLabel="country_name" [virtualScroll]="true" [virtualScrollItemSize]="50"
+										optionValue="country_name"></p-select>
+									<div *ngIf="submitted && f['user_location'].errors?.['required']"
+										class="text-danger text-xs">
+										Location Required
+									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="d-flex align-items-center">
@@ -279,12 +192,12 @@
 									<div class="form-group">
 										<div class="mb-3">
 											<p-select [options]="countryCodeList" styleClass="w-100" [filter]="true"
-												[filterBy]="'name'"  (onChange)="inputValuesEditOrNot()" placeholder="Select Country Code"
-												formControlName="country_code" optionLabel="name"
-												optionValue="code"></p-select>
-											<div *ngIf="submitted && f['country_code'].errors"
+												[filterBy]="'name'" (onChange)="inputValuesEditOrNot()"
+												placeholder="Select Country Code" formControlName="country_code"
+												optionLabel="name" optionValue="code"></p-select>
+											<div *ngIf="submitted && f['country_code'].errors?.['required']"
 												class="text-danger text-xs">
-												<div *ngIf="f['country_code'].errors">Country Code Required</div>
+												Country Code Required
 											</div>
 										</div>
 									</div>
@@ -293,9 +206,9 @@
 									<label class="uniprep-primarydark fw-bold h6">Phone Number</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input (input)="inputValuesEditOrNot()" class="w-100" type="text" placeholder="Phone Number"
-												formControlName="user_phone" pInputText />
-											<div *ngIf="f['user_phone'].invalid && (f['user_phone'].dirty || f['user_phone'].touched)"
+											<input (input)="inputValuesEditOrNot()" class="w-100" type="text"
+												placeholder="Phone Number" formControlName="user_phone" pInputText />
+											<div *ngIf="submitted && f['user_phone'].errors"
 												class="text-danger text-xs">
 												<div style="margin-left: 10px"
 													*ngIf="f['user_phone'].errors?.['required']">Phone number Required
@@ -316,111 +229,29 @@
 									<label class="uniprep-primarydark fw-bold h6">Organization Name</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input (input)="inputValuesEditOrNot()" class="w-100" type="text" placeholder="Organization Name"
-												formControlName="org_name" pInputText />
-											<div *ngIf="submitted && f['org_name'].errors" class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['org_name'].errors">Organization
-													Name Required</div>
+											<input (input)="inputValuesEditOrNot()" class="w-100" type="text"
+												placeholder="Organization Name" formControlName="org_name" pInputText />
+											<div *ngIf="submitted && f['org_name'].errors?.['required']"
+												class="text-danger text-xs">
+												Organization Name Required
 											</div>
 										</div>
 									</div>
 								</div>
-								<!-- <div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Manager Name</label>
-									<div class="row">
-										<div class="form-group">
-											<div class="mb-3">
-												<input class="w-100" type="text" placeholder="Manger Name" formControlName="managername" pInputText />
-												<div *ngIf="submitted && f['managername'].errors" class="text-danger text-xs">
-													<div style="margin-left: 10px" *ngIf="f['managername'].errors">Manger Name Required</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div> -->
+
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Location</label>
-									<!-- <div class="form-group">
-										<div class="mb-3">
-											<div class="input-wrapper">
-												<input type="text" formControlName="org_location"
-													(input)="searchLocation($event, 'org_location')"
-													(focusout)="onFocusOut()" placeholder="Location, Country"
-													class="form-control job-input bg-transparent" />
-												<ul *ngIf="orgLocation.length > 0" class="dropdown-list">
-													<li *ngFor="let city of orgLocation"
-														(click)="selectLocation(city, 'org_location')">{{
-														city.country_name }}</li>
-												</ul>
-												<div *ngIf="submitted && f['org_location'].errors"
-													class="text-danger text-xs">
-													<div *ngIf="f['org_location'].errors">Organization Location Required
-													</div>
-												</div>
-											</div>
-										</div>
-									</div> -->
+
 									<p-select [options]="cities" placeholder="Location, Country" [filter]="true"
-												filterBy="country_name" styleClass="w-100"
-												formControlName="org_location" optionLabel="country_name"
-												[virtualScroll]="true" [virtualScrollItemSize]="50"
-												optionValue="country_name"></p-select>
+										filterBy="country_name" styleClass="w-100" formControlName="org_location"
+										optionLabel="country_name" [virtualScroll]="true" [virtualScrollItemSize]="50"
+										optionValue="country_name"></p-select>
+									<div *ngIf="submitted && f['org_location'].errors?.['required']"
+										class="text-danger text-xs">
+										Location Required
+									</div>
 								</div>
-								<!-- <div class="col-md-6">
-									<label class="uniprep-primarydark fw-bold h6">Job Position</label>
-									<div class="form-group">
-										<div class="mb-3">
-											<div class="input-wrapper">
-												<input type="text" formControlName="jobposition"
-												(input)="searchJobPosition($event)" (focusout)="onFocusOutJob()"
-												class="form-control job-input bg-transparent"
-												placeholder="Search by Job Role"
-												style="border-radius: 10px !important;"/>
-												<div *ngIf="submitted && f['jobposition'].errors"
-													class="text-danger text-xs">
-													<div style="margin-left: 10px" *ngIf="f['jobposition'].errors">Your Job
-														Position Required</div>
-												</div>
-												<ul *ngIf="filterJobRolePostionApplied.length > 0" class="dropdown-list">
-													<li *ngFor="let job of filterJobRolePostionApplied"
-														(click)="setJobtitlePositiApplied(job.id, job.jobrole)">
-														{{ job.jobrole }}
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div> -->
-								<!-- job discription commented here  -->
-								<!-- <div class="col-md-12">
-									<div class="d-flex justify-content-between align-items-center">
-										<div>
-											<label class="uniprep-primarydark fw-bold h6 mb-0">Job Description</label>
-										</div>
-										<div>
-											<button pButton *ngIf="generateDesBtnDisable" type="button"
-												class="deleteDivButton m-2 p-2" [loading]="chatGptButtonLoader"
-												(click)="chatGPTIntegration('generate_description')"
-												style="background-color: #9bc329">AI Generate</button>
-											<button *ngIf="rephraseDesBtnDisable" pButton type="button"
-												[loading]="chatGptButtonLoader"
-												class="deleteDivButton m-2 p-2 bg-secondary"
-												(click)="chatGPTIntegration('rephrase_description')">Rephrase</button>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="mb-3">
-											<p-editor [style]="{ height: 'auto' }" class="mt-2"
-												formControlName="job_description" placeholder="Job Description"
-												[modules]="editorModules"></p-editor>
-											<div *ngIf="submitted && f['job_description'].errors"
-												class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['job_description'].errors">
-													Required</div>
-											</div>
-										</div>
-									</div>
-								</div> -->
+
 							</div>
 						</ng-container>
 						<ng-container>
@@ -428,15 +259,16 @@
 								<div class="col-md-12">
 									<div class="d-flex justify-content-between align-items-center">
 										<div>
-											<label class="uniprep-primarydark fw-bold h6 mb-0">Cover Letter Section</label>
+											<label class="uniprep-primarydark fw-bold h6 mb-0">
+												Cover Letter Section</label>
 										</div>
-										<div>
+										<div class="mb-2">
 											<button pButton *ngIf="generateConBtnDisable" type="button"
-												class="deleteDivButton m-2 p-2" [loading]="chatGptButtonLoaderSummary"
+													class="btn btn-success btn-rounded px-3 py-2" [loading]="chatGptButtonLoaderSummary"
 												(click)="chatGPTIntegration('generate_summary')"
-												style="background-color: #9bc329">AI Generate</button>
+												>AI Generate</button>
 											<button pButton *ngIf="rephraseconBtnDisable" type="button"
-												class="deleteDivButton m-2 p-2 bg-secondary"
+												class="btn btn-secondary btn-rounded px-3 py-2"
 												[loading]="chatGptButtonLoaderSummary"
 												(click)="chatGPTIntegration('rephrase_summary')">Rephrase</button>
 										</div>
@@ -446,14 +278,21 @@
 											<p-editor [style]="{ height: '250px' }" class="mt-2"
 												formControlName="user_summary" placeholder="Generate Your Content"
 												[modules]="editorModules"></p-editor>
-												<div class="text-end text-muted mt-1" style="font-size: 0.85rem;">
-													({{ getWordCount('user_summary') }}/1100)
+											<div *ngIf="f['user_summary'].errors?.['maxWords'] else showSummaryCount"
+													class="text-danger text-xs">
+													Cover Letter Section cannot exceed {{ f['user_summary']?.errors?.['maxWords'].max
+													}} words.
+													(Current: {{ f['user_summary']?.errors?.['maxWords'].actual }})
 												</div>
-											<div *ngIf="submitted && f['user_summary'].errors"
-												class="text-danger text-xs">
-												<div style="margin-left: 10px" *ngIf="f['user_summary'].errors">Required
+												<ng-template #showSummaryCount>
+													<div class="text-muted text-small">Word Count:
+														{{userSummaryWordCount}}/1100
+													</div>
+												</ng-template>
+												<div *ngIf="submitted && f['user_summary'].errors?.['required']"
+													class="text-danger text-xs">
+													Cover Letter Section Required
 												</div>
-											</div>
 										</div>
 									</div>
 								</div>
@@ -463,12 +302,6 @@
 				</form>
 			</div>
 			<div class="d-flex justify-content-end">
-				<!-- <button pButton pButton type="button" (click)="prevStage()" class="btn btn-primary btn-rounded p-1 pe-4">
-					<span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
-				</button>
-				<button pButton pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex != 2" class="btn btn-primary btn-rounded p-1 ps-4">
-					<span class="me-2">Next</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-arrow-right"></i></span>
-				</button> -->
 				<button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 0"
 					class="btn btn-success btn-rounded p-1 ps-4">
 					<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i
