@@ -20,7 +20,7 @@ export class AuthTokenService {
     this.initializeToken();
   }
 
-  private initializeToken(): void {
+  initializeToken(): void {
     const token = this.storage.get<string>(environment.tokenKey);
     if (token && this.isTokenValid(token)) {
       this.tokenSubject.next(token);

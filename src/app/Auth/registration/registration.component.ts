@@ -20,6 +20,7 @@ import { ToastModule } from "primeng/toast"
 import { SelectModule } from "primeng/select"
 import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login';
 import { ButtonDirective } from "primeng/button";
+import { AuthTokenService } from "src/app/core/services/auth-token.service"
 
 @Component({
 	selector: "app-registration",
@@ -78,7 +79,8 @@ export class RegistrationComponent implements OnInit {
 		private locationService: LocationService,
 		private toastr: MessageService,
 		private authService: SocialAuthService,
-		private storage: LocalStorageService
+		private storage: LocalStorageService,
+		private authTokenService: AuthTokenService
 	) { }
 
 	dateTime = new Date()
@@ -248,10 +250,11 @@ export class RegistrationComponent implements OnInit {
 					detail: "User Registered",
 				})
 				if (res?.token) {
-					this.storage.set(environment.tokenKey, res.token)
+					this.storage.set(environment.tokenKey, res.token);
+					this.authTokenService.initializeToken();
 				} else {
-					this.storage.set(environment.tokenKey, res?.authorisation?.token)
-
+					this.storage.set(environment.tokenKey, res?.authorisation?.token);
+					this.authTokenService.initializeToken();
 				}
 				// this.toastr.add({
 				// 	severity: "success",
@@ -425,7 +428,7 @@ export class RegistrationComponent implements OnInit {
 		const otpControl = this.emailOTPForm.get('otp');
 		const otpValue = otpControl?.value;
 
-		if (!otpValue || otpValue.length !== 4) {
+		if (!otpValue || otpValue.length <= 3) {
 			this.toastr.add({ severity: "error", summary: "Error", detail: "Please enter a valid 4-digit OTP." });
 			return;
 		}
