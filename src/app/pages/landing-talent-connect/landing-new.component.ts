@@ -188,7 +188,7 @@ export class LandingNewComponent {
 		} else if (validUrls.includes(url)) {
 			window.location.href = targetUrl + `/${url}`
 		} else {
-			window.location.href = `${environment.domain}/${url}`
+			window.location.href = `${environment.studentDomain}/${url}`
 		}
 	}
 }

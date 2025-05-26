@@ -28,14 +28,14 @@ video::-webkit-media-controls-panel {
 }
 
 .youtube-iframe {
-    width: 60%;
+    width: 100%;
     height: auto;
     aspect-ratio: 16/9; /* Maintains proper video aspect ratio */
     border-radius: 1rem; /* Equivalent to rounded-4 */
 }
 
 .video-thumbnail {
-    width: 60%;
+    width: 100%;
     height: auto;
     aspect-ratio: 16/9;
     border-radius: 1rem;

@@ -19,10 +19,10 @@
 							<div role="button" class="col-lg-4 col-md-6 col-12" *ngFor="let job of jobListings"
 								(click)="displayUnlockFilter = true;">
 								<div class="talent-card-wrapper">
-									<img [src]="'uniprep-assets/images/active-jobs/job-card-' + job + '.webp'"
+									<img [src]="job"
 										alt="Job Profile Card"
 										class="img-fluid rounded shadow-sm talent-card-img w-100"
-										(onerror)="this.onerror=null;" />
+										(onerror)="event.target.src = 'uniprep-assets/images/default-job-card.webp'" />
 								</div>
 							</div>
 						</div>
