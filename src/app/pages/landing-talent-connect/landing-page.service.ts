@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class landingServices {
+export class LandingTalentService {
     headers = new HttpHeaders().set("Accept", "application/json");
 
     constructor(private http: HttpClient) { }
@@ -25,5 +25,9 @@ export class landingServices {
 
   getCompanyConnectList(params: any): Observable<any> {
     return this.http.post<any>(`${environment.ApiUrl}/landingpagecompanies`, params, { headers: this.headers });
+  }
+
+  getStaticCardsByType(type: string) {
+    return this.http.post<{ data: string[] }>(environment.ApiUrl + "/cardimages", { type: type });
   }
 }

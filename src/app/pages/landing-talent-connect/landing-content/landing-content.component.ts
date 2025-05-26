@@ -22,7 +22,7 @@ import {environment} from "@env/environment";
   templateUrl: './landing-content.component.html',
   styleUrl: './landing-content.component.scss'
 })
-export class LandingContentComponent implements OnInit, AfterViewInit {
+export class LandingContentComponent implements OnInit {
   scrollThresholdPerCard = 150; // How much scroll per card stack
   totalStackScrollHeight = 0;
   @ViewChild('cardStack') cardStackElement!: ElementRef;
@@ -267,12 +267,6 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
   ngOnInit() {
 
   }
-
-  ngAfterViewInit() {
-    this.totalStackScrollHeight = this.templateCardFeatures.length * this.scrollThresholdPerCard;
-  }
-
-
 
   toggleVideo() {
     if (this.isInitialLoadVideo) {

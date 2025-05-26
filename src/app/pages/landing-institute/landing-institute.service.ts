@@ -11,12 +11,16 @@ export class LandingInstituteService {
 
     constructor(private http: HttpClient) { }
 
-    getCountryList() {
+  getCountryList() {
       return this.http.get<any>(environment.ApiUrl + "/getWhiteLabelCountry");
-    }
+  }
 
   getPartnersListById(countryId: number, type: string) {
     return this.http.post<any>(environment.ApiUrl + "/getWhiteLabelInstitute", { country: countryId, mitypename: type }, {
         headers: this.headers});
-    }
+  }
+
+  getStaticCardsByType(type: string) {
+    return this.http.post<string[]>(environment.ApiUrl + "/", { type: type });
+  }
 }

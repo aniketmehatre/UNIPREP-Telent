@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
-import { landingServices } from '../landing-page.service';
 import { PaginatorModule } from 'primeng/paginator';
+import { LandingTalentService } from '../landing-page.service';
 
 @Component({
   selector: 'uni-active-jobs',
@@ -13,32 +13,35 @@ import { PaginatorModule } from 'primeng/paginator';
   templateUrl: './active-jobs.component.html',
   styleUrl: './active-jobs.component.scss'
 })
-export class ActiveJobsComponent {
-  jobListings: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+export class ActiveJobsComponent implements OnInit {
+  jobListings: string[] = [];
   displayUnlockFilter: boolean = false;
   currentPage: number = 1;
+  isShowEmpty: boolean = false;
   itemsPerPage: number = 9;
   first: number = 0;
   totalJobs: number = 500;
 
-  constructor(private landingPageService: landingServices) { }
+  constructor(private landingTalentService: LandingTalentService) { }
 
   ngOnInit(): void {
-    // this.loadJobsData();
-    // this.totalPages = Math.ceil(this.jobListings.length / this.itemsPerPage);
+    this.getStaticCardByType();
   }
 
-  // loadJobsData(): void {
-  //   this.landingPageService.getJobsList({ page: this.currentPage, perpage: this.itemsPerPage}).subscribe(
-  //     (response) => {
-  //       this.jobListings = response.jobs;
-  //       this.totalTalents = response.totaljobs;
-  //       this.totalPages = Math.ceil(this.totalTalents / this.itemsPerPage);
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching activeJobs:', error);
-  //     });
-  // }
+  getStaticCardByType() {
+    this.landingTalentService.getStaticCardsByType('job').subscribe({
+      next: response => {
+        this.jobListings = response.data;
+        if (this.jobListings && this.jobListings.length < 0) {
+          this.isShowEmpty = true;
+        }
+      },
+      error: error => {
+        this.isShowEmpty = true;
+        console.error(error.error.message);
+      }
+    })
+  }
 
   onPageChange(event: any) {
     this.currentPage = event.page + 1;

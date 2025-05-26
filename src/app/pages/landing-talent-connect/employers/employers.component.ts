@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { Company } from 'src/app/@Models/company-connect.model';
 import { ButtonModule } from 'primeng/button';
-import { landingServices } from '../landing-page.service';
+import { LandingTalentService } from '../landing-page.service';
 import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
@@ -14,16 +14,34 @@ import { PaginatorModule } from 'primeng/paginator';
   styleUrl: './employers.component.scss'
 })
 export class EmployersComponent {
-  companyConnectList: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  companyConnectList: string[] = [];
   displayUnlockFilter: boolean = false;
+  isShowEmpty: boolean = false;
   totalEmployers: number = 500;
   currentPage: number = 1;
   itemsPerPage: number = 9;
   first: number = 0;
 
-  constructor(private landingPageService: landingServices) { }
+  constructor(private landingTalentService: LandingTalentService) { }
 
   ngOnInit(): void {
+    this.getStaticCardByType();
+  }
+
+
+  getStaticCardByType() {
+    this.landingTalentService.getStaticCardsByType('company').subscribe({
+      next: response => {
+        this.companyConnectList = response.data;
+        if (this.companyConnectList && this.companyConnectList.length < 0) {
+          this.isShowEmpty = true;
+        }
+      },
+      error: error => {
+        this.isShowEmpty = true;
+        console.error(error.error.message);
+      }
+    })
   }
 
 
