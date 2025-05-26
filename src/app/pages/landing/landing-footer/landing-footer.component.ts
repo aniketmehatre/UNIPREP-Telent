@@ -18,8 +18,8 @@ export class LandingFooterComponent {
   displayprivacypolicy: boolean = false;
 
   socialLinks = [
-    { icon: "facebook", url: "https://www.facebook.com/profile.php?id=61576567286334" },
-    { icon: "instagram", url: "https://instagram.com" },
+    { icon: "facebook", url: "https://www.facebook.com/uniprepindia" },
+    { icon: "instagram", url: "https://www.instagram.com/uniprepglobal" },
     { icon: "linkedin", url: "https://www.linkedin.com/company/uniprep-global/" },
     { icon: "youtube", url: "https://www.youtube.com/@UNIPREPGlobal" },
     { icon: "twitter", url: "https://x.com/uniprepglobal?s=21" },
