@@ -135,7 +135,7 @@
 								</div>
 							</div>
 							<div class="col-md-7 order-md-2 order-1">
-								<div class="rounded-4 overflow-hidden mb-md-0 mb-4" *ngIf="selectedStep">
+								<div class="rounded-4 border border-dark overflow-hidden mb-md-0 mb-4" *ngIf="selectedStep">
 									<img class="w-100"
 										(error)="$event.target.src = '/uniprep-assets/images/placeholder.webp'"
 										[src]="selectedStep?.feature_image_url" alt="Platform Preview" />
