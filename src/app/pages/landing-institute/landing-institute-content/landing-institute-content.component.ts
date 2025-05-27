@@ -63,7 +63,7 @@ export class LandingInstituteContentComponent {
       'Smart filters and AI-powered job matching',
       'Smart filters to match students with the right roles',
     ],
-    image: 'uniprep-assets/images/landing-institutes/institute1.jpg', // Assuming a naming convention based on the order
+    image: 'uniprep-assets/images/landing-institutes/institute1.webp', // Assuming a naming convention based on the order
     imageAlt: 'A person using a virtual platform to connect with potential employers',
      isRight: true,
   },
@@ -76,7 +76,7 @@ export class LandingInstituteContentComponent {
       'Language Hub with 25+ global languages',
       'Future upgrades and new tools automatically included',
     ],
-    image: 'uniprep-assets/images/landing-institutes/institute2.jpg', // Assuming a naming convention
+    image: 'uniprep-assets/images/landing-institutes/institute2.webp', // Assuming a naming convention
     imageAlt: 'A student confidently walking with a laptop and coffee',
     isRight: false,
   },
@@ -90,7 +90,7 @@ export class LandingInstituteContentComponent {
       'Accessed via your own unique link or subdomain',
       'Ideal for showcasing innovation, student services, and placement readiness',
     ],
-    image: 'uniprep-assets/images/landing-institutes/institute3.jpg', // Assuming a naming convention based on the order
+    image: 'uniprep-assets/images/landing-institutes/institute3.webp', // Assuming a naming convention based on the order
     imageAlt: 'Two professionals shaking hands, representing a co-branded partnership',
     isRight: true,
   },
@@ -102,7 +102,7 @@ export class LandingInstituteContentComponent {
       'Designed to support placement cells, training teams, and career services departments',
       'Simple, guided onboarding with dedicated support',
     ],
-    image: 'uniprep-assets/images/landing-institutes/institute4.jpg', // Assuming a naming convention based on the order
+    image: 'uniprep-assets/images/landing-institutes/institute4.webp', // Assuming a naming convention based on the order
     imageAlt: 'Two colleagues collaborating on a computer, highlighting customized support',
     isRight: false,
   },
@@ -114,7 +114,7 @@ export class LandingInstituteContentComponent {
       'Engagement insights to support placement decisions and academic planning',
       'Engagement insights to support placement decisions and academic planning',
     ],
-    image: 'uniprep-assets/images/landing-institutes/institute5.jpg', // Assuming a naming convention based on the order
+    image: 'uniprep-assets/images/landing-institutes/institute5.webp', // Assuming a naming convention based on the order
     imageAlt: 'A person analyzing data on a computer screen for better planning',
     isRight: true,
   },
@@ -126,7 +126,7 @@ export class LandingInstituteContentComponent {
       'Affordable for institutions of all sizes with tiered access models',
       'Continuous upgrades and all features included without extra charges',
     ],
-    image: 'uniprep-assets/images/landing-institutes/institute6.jpg', // Assuming a naming convention based on the order
+    image: 'uniprep-assets/images/landing-institutes/institute6.webp', // Assuming a naming convention based on the order
     imageAlt: 'A professional working on a laptop, emphasizing ease of setup and scalability',
     isRight: false,
   },

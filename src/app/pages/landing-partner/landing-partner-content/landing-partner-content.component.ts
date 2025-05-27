@@ -77,7 +77,7 @@ export class LandingPartnerContentComponent implements OnInit {
         'Smart filters and AI-powered job matching',
         'Real-time visibility into hiring trends and employer needs',
       ],
-      image: 'uniprep-assets/images/landing-partners/partner1.jpg', // Assuming a naming convention based on the order
+      image: 'uniprep-assets/images/landing-partners/partner1.webp', // Assuming a naming convention based on the order
       imageAlt: 'A network of interconnected people',
       isRight: true
     },
@@ -90,7 +90,7 @@ export class LandingPartnerContentComponent implements OnInit {
         'Language Hub with 25+ international and regional languages',
         'Future tools and upgrades included at no extra cost',
       ],
-      image: 'uniprep-assets/images/landing-partners/partner2.jpg', // Assuming a naming convention based on the order
+      image: 'uniprep-assets/images/landing-partners/partner2.webp', // Assuming a naming convention based on the order
       imageAlt: 'Two professionals shaking hands in a meeting',
       isRight: false
     },
@@ -103,7 +103,7 @@ export class LandingPartnerContentComponent implements OnInit {
         'Boosts trust, retention, and perceived value',
         'Perfect for training firms, edtechs, consultancies, or HR platforms',
       ],
-      image: 'uniprep-assets/images/landing-partners/partner3.jpg', // Assuming a naming convention based on the order
+      image: 'uniprep-assets/images/landing-partners/partner3.webp', // Assuming a naming convention based on the order
       imageAlt: 'A person working on a co-branded platform on a laptop',
       isRight: true
     },
@@ -115,7 +115,7 @@ export class LandingPartnerContentComponent implements OnInit {
         'No coding or setup required—fully cloud-based',
         'Dedicated partner support for onboarding, integration, and co-branding',
       ],
-      image: 'uniprep-assets/images/landing-partners/partner4.jpg', // Assuming a naming convention based on the order
+      image: 'uniprep-assets/images/landing-partners/partner4.webp', // Assuming a naming convention based on the order
       imageAlt: 'A team discussing data on a computer screen',
       isRight: false
     },
@@ -127,7 +127,7 @@ export class LandingPartnerContentComponent implements OnInit {
         'Engagement analytics to refine offerings and increase conversions',
         'Know what your users need—and deliver it smarter and faster',
       ],
-      image: 'uniprep-assets/images/landing-partners/partner5.jpg', // Assuming a naming convention based on the order
+      image: 'uniprep-assets/images/landing-partners/partner5.webp', // Assuming a naming convention based on the order
       imageAlt: 'A hand interacting with a data growth chart on a laptop',
       isRight: true
     },
@@ -139,7 +139,7 @@ export class LandingPartnerContentComponent implements OnInit {
         'Start with just your logo and brand colors',
         'All updates and new features included, always',
       ],
-      image: 'uniprep-assets/images/landing-partners/partner6.jpg', // Assuming a naming convention based on the order
+      image: 'uniprep-assets/images/landing-partners/partner6.webp', // Assuming a naming convention based on the order
       imageAlt: 'A person happily working on a laptop',
       isRight: false
     },
