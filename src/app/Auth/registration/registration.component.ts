@@ -242,37 +242,21 @@ export class RegistrationComponent implements OnInit {
 			usertype_id: 1,
 		}
 
-		this.service.Registraion(data).subscribe(
-			(res: any) => {
-				this.toastr.add({
-					severity: "success",
-					summary: "Success",
-					detail: "User Registered",
-				})
-				if (res?.token) {
-					this.storage.set(environment.tokenKey, res.token);
-					this.authTokenService.initializeToken();
-				} else {
+		this.service.Registraion(data).subscribe({
+			next: (res: any) => {
+				this.toastr.add({severity: "success",summary: "Success",detail: "User Registered"});
+				if (res?.authorisation?.token) {
 					this.storage.set(environment.tokenKey, res?.authorisation?.token);
-					this.authTokenService.initializeToken();
+					this.service.saveToken(res?.authorisation?.token);
+					this.authTokenService.setToken(res?.authorisation?.token);
 				}
-				// this.toastr.add({
-				// 	severity: "success",
-				// 	summary: "Success",
-				// 	detail: "Login Successful"
-				// })
-				this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
+				this.router.navigate(["/pages/dashboard"], { replaceUrl: true });
 			},
-			(error) => {
-				const message = error.error?.message != undefined ? error.error?.message : error?.message
-
-				this.toastr.add({
-					severity: "error",
-					summary: "Failed",
-					detail: message,
-				})
+			error: (error) => {
+				const message = error.error?.message != undefined ? error.error?.message : error?.message;
+				this.toastr.add({severity: "error",summary: "Failed",detail: message});
 			}
-		)
+		});
 	}
 
 	getUserLocation() {
