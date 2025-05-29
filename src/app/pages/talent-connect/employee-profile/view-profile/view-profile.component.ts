@@ -11,7 +11,7 @@ import { formatDate } from '@angular/common';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RatingModule } from 'primeng/rating';
 import { RouterModule } from '@angular/router';
-import {TooltipDirective} from "ngx-bootstrap/tooltip";
+import { TooltipDirective } from "ngx-bootstrap/tooltip";
 
 // Process academic references
 interface AcademicReference {
@@ -86,6 +86,7 @@ interface ProfileData {
   additionalDetails: {
     languagesKnown: { lang: string, prof: string }[];
     hobbiesAndInterests: string;
+    softSkills: string[];
   } | null;
   keyStrengths: {
     industryDifferentiators: string | string[];
@@ -121,20 +122,20 @@ interface ProfileData {
 @Component({
   selector: 'uni-view-profile',
   standalone: true,
-    imports: [
-        DialogModule,
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CardModule,
-        ButtonModule,
-        TooltipModule,
-        AvatarModule,
-        ProgressBarModule,
-        RatingModule,
-        RouterModule,
-        TooltipDirective
-    ],
+  imports: [
+    DialogModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CardModule,
+    ButtonModule,
+    TooltipModule,
+    AvatarModule,
+    ProgressBarModule,
+    RatingModule,
+    RouterModule,
+    TooltipDirective
+  ],
   templateUrl: './view-profile.component.html',
   styleUrl: './view-profile.component.scss'
 })
@@ -162,7 +163,7 @@ export class ViewProfileComponent implements OnInit {
   profileData: ProfileData = {
     personalInfo: {
       fullName: 'Darshan Mandanna',
-      dateOfBirth: '30/03/1995',
+      dateOfBirth: '30-03-1995',
       gender: 'Male',
       nationality: 'Indian',
       location: 'Mysore, India',
@@ -211,7 +212,8 @@ export class ViewProfileComponent implements OnInit {
         { lang: 'Kannada', prof: '4/5' },
         { lang: 'Coorgi', prof: '5/5' }
       ],
-      hobbiesAndInterests: 'Travelling, Gaming, Designing, Sketching'
+      hobbiesAndInterests: 'Travelling, Gaming, Designing, Sketching',
+      softSkills: ['Photoshop', 'HTML', 'CSS'],
     },
     keyStrengths: {
       industryDifferentiators: 'I stand out by blending creativity with user-focused problem-solving. With a keen eye for aesthetics and functionality, I craft intuitive designs backed by research. Staying updated on trends, I ensure innovation. My collaborative approach and adaptability help create impactful, seamless experiences that enhance both user satisfaction and business success.',
@@ -419,6 +421,11 @@ export class ViewProfileComponent implements OnInit {
       })
       .filter(Boolean);
 
+
+    const softSkills = this.config.data.softSkills
+      .filter((item: any) => formData.career_preference_soft_skill_id.includes(item.id))
+      .map((item: any) => item.soft_skill);
+
     // Process hobbies
     const hobbiesAndInterests = Array.isArray(formData.languages_hobby_id) ?
       (formData.languages_hobby_id || [])
@@ -502,9 +509,10 @@ export class ViewProfileComponent implements OnInit {
       careerPreferences: hasObjectContent(careerPreferences) ? careerPreferences : null,
       certifications: hasValidContent(certifications) ? certifications : null,
       userAchievements: hasValidContent(userAchievements) ? userAchievements : null,
-      additionalDetails: (languagesKnown.length > 0 || hobbiesAndInterests) ? {
+      additionalDetails: (languagesKnown.length > 0 || hobbiesAndInterests || softSkills.length > 0) ? {
         languagesKnown: languagesKnown,
-        hobbiesAndInterests: hobbiesAndInterests
+        hobbiesAndInterests: hobbiesAndInterests,
+        softSkills: softSkills
       } : null,
       keyStrengths: hasObjectContent(keyStrengths) ? keyStrengths : null,
       networking: hasObjectContent(networking) ? networking : null,
@@ -523,4 +531,18 @@ export class ViewProfileComponent implements OnInit {
     return fileName;
   }
 
+  routingToPage(pageUrl: string) {
+    this.ref.close();
+    const url = window.location.origin + pageUrl;
+    window.open(url, "_blank");
+  }
+
+  getSocialMediaIconName(icon: string) {
+    const iconList: { [key: string]: string } = {
+      "Facebook": "facebook",
+      "Instagram": "instagram",
+      "X": "twitter"
+    }
+    return iconList[icon] || '';
+  }
 }
