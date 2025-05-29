@@ -136,7 +136,7 @@ export class LandingPartnerComponent {
     } else if (url === 'talent') {
       window.location.href = environment.talentDomain
     } else {
-      window.location.href = `${environment.domain}/${url}`
+      window.location.href = `${environment.studentDomain}/${url}`
     }
   }
 }
