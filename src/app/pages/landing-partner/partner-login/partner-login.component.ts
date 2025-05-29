@@ -55,7 +55,7 @@ export class PartnerLoginComponent implements OnInit {
     })
   }
   getPartnersListById(id: number) {
-    this.partnerService.getPartnersListById(id, 'Marketing Representative').subscribe({
+    this.partnerService.getPartnersListById(id, 'Partner').subscribe({
       next: response => {
         this.partnersList = response.data;
       },
