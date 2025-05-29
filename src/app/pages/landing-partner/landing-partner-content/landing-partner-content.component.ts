@@ -170,7 +170,7 @@ export class LandingPartnerContentComponent implements OnInit {
   }
 
   getPartnersListById(id: number) {
-    this.landingPartnerService.getPartnersListById(id, 'Marketing Representative').subscribe({
+    this.landingPartnerService.getPartnersListById(id, 'Partner').subscribe({
       next: response => {
         this.partnersList = response.data;
       },
