@@ -35,7 +35,7 @@
 														<div class="text-secondary fw-bold text-end pr-2 fs-5">{{ card.order_no }}</div>
 													</div>
 													<h5 class="card-title">
-														{{ card.feature_name }} <i class="fa-solid fa-arrow-up-right-from-square"></i><span *ngIf="card.status == 4" class="badge badge-warning ms-1"><i class="fa fa-clock"></i>&nbsp;Coming Soon</span>
+														{{ card.feature_name }} <i class="fa-solid fa-arrow-up-right-from-square" *ngIf="!(card.status == 4)"></i><span *ngIf="card.status == 4" class="badge badge-warning ms-1"><i class="fa fa-clock"></i>&nbsp;Coming Soon</span>
 													</h5>
 													<p class="text-muted">{{ card.description }}</p>
 												</div>
