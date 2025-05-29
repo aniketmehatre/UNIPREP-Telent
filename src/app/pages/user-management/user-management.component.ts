@@ -91,6 +91,8 @@ export class UserManagementComponent implements OnInit {
 	subscribedTransactionList: any[] = [];
 	studentType: number = 0;
 	submitName: any = "Edit"
+	editLabelIsShow: boolean = true;
+	imageWhiteLabelDomainName: any;
 	constructor(private authService: AuthService, private formBuilder: FormBuilder,
 		private locationService: LocationService, private toast: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
@@ -124,6 +126,11 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+	this.imageWhiteLabelDomainName = window.location.hostname;
+    this.editLabelIsShow = this.imageWhiteLabelDomainName === "*.uniprep.ai" ||
+      this.imageWhiteLabelDomainName === "dev-student.uniprep.ai" ||
+      this.imageWhiteLabelDomainName === "uniprep.ai" || this.imageWhiteLabelDomainName === "localhost"
+      || this.imageWhiteLabelDomainName === "meta.uniprep.ai";
 		this.dateTime.setDate(this.dateTime.getDate())
 		this.getProgramLevelList();
 		this.getCountryList();
