@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
@@ -9,6 +9,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { landingServices } from '../landing.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { HeaderLogoStore } from '../landing-page.store';
+import {MetaService} from "../../../services/meta.service";
 
 
 @Component({
@@ -25,6 +26,7 @@ import { HeaderLogoStore } from '../landing-page.store';
   styleUrls: ['./landing-language-hub.component.scss']
 })
 export class LandingLanguageHubComponent implements OnInit, OnDestroy {
+  private metaService = inject(MetaService)
   @ViewChild("videoPlayer")
   videoPlayer!: ElementRef
   isPlaying = false;
@@ -36,62 +38,10 @@ export class LandingLanguageHubComponent implements OnInit, OnDestroy {
   howitsWorks: Howitswork[] = [];
   whoItsFor: Whoitsfor[] = [];
   landingPageData!: LandingPage;
-  welcomeVideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
   posterUrl: string = '';
   embedUrl!: SafeResourceUrl;
   isInitialLoadVideo: boolean = true;
   videoUrl: string = '';
-  // steps = [
-  //   {
-  //     number: 1,
-  //     title: 'Create Your Free Account',
-  //     icon: '📱'
-  //   },
-  //   {
-  //     number: 2,
-  //     title: 'Watch the Demo Video',
-  //     icon: '📹'
-  //   },
-  //   {
-  //     number: 3,
-  //     title: 'Pick a Course',
-  //     icon: '📋'
-  //   },
-  //   {
-  //     number: 4,
-  //     title: 'Start Learning',
-  //     icon: '📚'
-  //   },
-  //   {
-  //     number: 5,
-  //     title: 'Complete the Quiz & Earn Your Certificate',
-  //     icon: '🏆'
-  //   }
-  // ];
-
-  // userTypes = [
-  //   {
-  //     title: 'Students',
-  //     description: 'Get career-ready before graduation',
-  //     image: 'uniprep-assets/images/screenshot3.png'
-  //   },
-  //   {
-  //     title: 'Freshers',
-  //     description: 'Stand out in a competitive job market',
-  //     image: 'uniprep-assets/images/screenshot3.png'
-  //   },
-  //   {
-  //     title: 'Working Professionals',
-  //     description: 'Upskill or switch career paths',
-  //     image: 'uniprep-assets/images/screenshot3.png'
-  //   },
-  //   {
-  //     title: 'Institutions',
-  //     description: 'Support student success with practical learning tools',
-  //     image: 'uniprep-assets/images/screenshot3.png'
-  //   }
-  // ];
-
 
   constructor(private logoStore: HeaderLogoStore, private sanitizer: DomSanitizer, private route: ActivatedRoute, private landingPageService: landingServices, public location: Location) { }
 
@@ -188,6 +138,15 @@ export class LandingLanguageHubComponent implements OnInit, OnDestroy {
   getLandingPageData(landingPageId: string) {
     this.landingPageService.getLandingPageData(landingPageId).subscribe({
       next: response => {
+        console.log(response.landingpages.seo.seo_title)
+        let metaReq = {
+          title: response.landingpages.seo.seo_title,
+          description: response.landingpages.seo.meta_description,
+          keywords: response.landingpages.seo.meta_tag,
+          url:  window.location.href,
+          image:  this.landingPageData?.herocover?.image_url,
+        }
+        this.metaService.updateMetaTags(metaReq)
         this.landingPageData = response.landingpages;
         const poster = this.landingPageData?.herocover?.image_url;
 
