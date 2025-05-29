@@ -1,33 +1,58 @@
-<section class="darksection flex-fill py-5">
-	<div class="container-fluid">
-		<div class="row justify-content-center">
-			<div class="col-md-12 text-center">
-				<h2 class="text-white fw-light mb-4">Everything About Achieving Success with UNIPREP</h2>
-			</div>
-			<div class="col-md-10 mt-4">
-				<div class="row">
-					<div class="col-md-4 mb-3" *ngFor="let blog of blogs">
-						<a style="text-decoration: none" href="blogs/{{ blog.slug }}">
-							<div class="card h-100">
-								<div class="card-body">
-									<div class="card rounded-4 blogimage" style="background-image: url('{{ blog.featured_img }}');">
-										<!-- <img class="w-100 rounded" src="{{blog.featured_img}}"> -->
-									</div>
-									<h5 class="text-white pt-3 line-clamp" title="{{ blog.title }}">{{ blog.title }}</h5>
-									<!-- <p class="text-white fw-light"><i class="fa-solid fa-calendar me-2"></i>{{ blog.date }}</p>
-									<p class="pt-1 text-white line-clamp">
-										{{ blog.desc }}
-									</p> -->
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="mt-5">
-			<p-paginator [rows]="10" [totalRecords]="total" [rowsPerPageOptions]="[20,50]" (onPageChange)="paginate($event)"></p-paginator>
-		</div>
+<section class="darksection text-white py-5 h-100" style="min-height: 100vh;">
+  <div class="container">
+    <div class="row g-4 mb-5 justify-content-center">
+      <div class="col-md-12 col-12 text-center">
+        <div class="card mb-5">
+          <div class="card-body p-4">
+              <h1 class="display-4 text-white text-center">BLOGS</h1>
+            </div>
+        </div>
+        <div class="row mb-4 justify-content-between align-items-center">
+          <div class="col-6">
+            <div class="search-bar">
+              <div class="input-group  border-secondary rounded-2 overflow-hidden">
+                <input pInputText  class="form-control text-light darksection border-0 pl-3" (input)="onSearchBlogs();" [(ngModel)]="searchTerm" placeholder="Search Blog" aria-label="Search"
+                  aria-describedby="search-addon">
+                <div id="search-addon" class="p-2 px-3 border-0 text-dark">
+                  <i class="fas fa-search"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 text-end">
+            <button class="btn btn-secondary rounded-pill px-4" (click)="onClickFilterBlog($event);">
+              <i class="fa fa-filter me-2"></i>Filter
+            </button>
+          </div>
+        </div>
 
-	</div>
+        <!-- Blog Grid -->
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4 col-2xl-3" *ngFor="let blog of blogs">
+            <div class="blog-card text-white border border-dark h-100 rounded-4 overflow-hidden p-3">
+              <div class="position-relative">
+                <img [src]="blog.featured_img" class="card-img-top rounded-4" [alt]="blog.title"
+                  style="height: 200px; object-fit: cover;">
+              </div>
+              <div class="card-body text-start py-3">
+                <h5 class="card-title line-clamp">{{ blog.title }}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent mt-5">
+					<p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="perpage" [rowsPerPageOptions]="[10, 20, 50]"
+						[totalRecords]="totalBlogs" />
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+<p-popover #op>
+    <div class="container filter-popover">
+      <div class="category-select">
+        <p-select [options]="categoryList" [(ngModel)]="selectedCategory" optionLabel="category" optionValue="id" placeholder="Select Category" class="w-full md:w-100 d-block"></p-select>
+      </div>
+        <button pButton class="btn btn-secondary d-block w-100 py-2 mt-2" (click)="onSelectCategory();">Submit</button>
+    </div>
+</p-popover>

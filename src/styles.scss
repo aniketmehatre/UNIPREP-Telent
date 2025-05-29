@@ -594,7 +594,6 @@ uni-bloglist,
 uni-blogdetail {
 	display: flex;
 	flex: 1;
-	height: 100%;
 	flex-direction: column;
 	/* Ensure flex children stack vertically */
 	overflow-x: hidden;
@@ -630,7 +629,7 @@ uni-landing-new,
 uni-landing-partner,
 uni-landing-institute,
 uni-partner-login,
-uni-institution-login {
+uni-institution-login{
 	position: absolute;
 	width: 100%;
 	height: 100%;
