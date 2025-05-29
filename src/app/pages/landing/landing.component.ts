@@ -1,10 +1,7 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core"
+import {Component, OnDestroy, OnInit} from "@angular/core"
 import {ThemeService} from "../../theme.service"
-import {FormBuilder, Validators} from "@angular/forms"
 import {AuthService} from "../../Auth/auth.service"
-import {LocationService} from "../../location.service"
 import {environment} from "@env/environment"
-import {LocalStorageService} from "ngx-localstorage"
 import {Router} from "@angular/router"
 import {HeaderLogoStore} from "./landing-page.store"
 
@@ -16,7 +13,6 @@ import {HeaderLogoStore} from "./landing-page.store"
 })
 export class LandingComponent implements OnInit, OnDestroy {
     isDarkMode: boolean
-    currentYear = new Date().getFullYear()
     logoUrl$ = this.logoStore.logoUrl$;
 
     constructor(private logoStore: HeaderLogoStore, private themeService: ThemeService, private router: Router, private authService: AuthService) {

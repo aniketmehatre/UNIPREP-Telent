@@ -20,6 +20,7 @@ import { ToastModule } from "primeng/toast"
 import { SelectModule } from "primeng/select"
 import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login';
 import { ButtonDirective } from "primeng/button";
+import { AuthTokenService } from "src/app/core/services/auth-token.service"
 
 @Component({
 	selector: "app-registration",
@@ -78,7 +79,8 @@ export class RegistrationComponent implements OnInit {
 		private locationService: LocationService,
 		private toastr: MessageService,
 		private authService: SocialAuthService,
-		private storage: LocalStorageService
+		private storage: LocalStorageService,
+		private authTokenService: AuthTokenService
 	) { }
 
 	dateTime = new Date()
@@ -240,36 +242,21 @@ export class RegistrationComponent implements OnInit {
 			usertype_id: 1,
 		}
 
-		this.service.Registraion(data).subscribe(
-			(res: any) => {
-				this.toastr.add({
-					severity: "success",
-					summary: "Success",
-					detail: "User Registered",
-				})
-				if (res?.token) {
-					this.storage.set(environment.tokenKey, res.token)
-				} else {
-					this.storage.set(environment.tokenKey, res?.authorisation?.token)
-
+		this.service.Registraion(data).subscribe({
+			next: (res: any) => {
+				this.toastr.add({severity: "success",summary: "Success",detail: "User Registered"});
+				if (res?.authorisation?.token) {
+					this.storage.set(environment.tokenKey, res?.authorisation?.token);
+					this.service.saveToken(res?.authorisation?.token);
+					this.authTokenService.setToken(res?.authorisation?.token);
 				}
-				// this.toastr.add({
-				// 	severity: "success",
-				// 	summary: "Success",
-				// 	detail: "Login Successful"
-				// })
-				this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
+				this.router.navigate(["/pages/dashboard"], { replaceUrl: true });
 			},
-			(error) => {
-				const message = error.error?.message != undefined ? error.error?.message : error?.message
-
-				this.toastr.add({
-					severity: "error",
-					summary: "Failed",
-					detail: message,
-				})
+			error: (error) => {
+				const message = error.error?.message != undefined ? error.error?.message : error?.message;
+				this.toastr.add({severity: "error",summary: "Failed",detail: message});
 			}
-		)
+		});
 	}
 
 	getUserLocation() {
@@ -425,7 +412,7 @@ export class RegistrationComponent implements OnInit {
 		const otpControl = this.emailOTPForm.get('otp');
 		const otpValue = otpControl?.value;
 
-		if (!otpValue || otpValue.length !== 4) {
+		if (!otpValue || otpValue.length <= 3) {
 			this.toastr.add({ severity: "error", summary: "Error", detail: "Please enter a valid 4-digit OTP." });
 			return;
 		}

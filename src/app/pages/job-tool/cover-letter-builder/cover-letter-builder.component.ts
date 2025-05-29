@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from "@angular/core"
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from "@angular/core"
 import { ConfirmationService, MenuItem, MessageService } from "primeng/api"
 import { FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms"
 import { CourseListService } from "../../course-list/course-list.service"
-import { LocationService } from "../../../location.service"
 import { AuthService } from "../../../Auth/auth.service"
 import { Router } from "@angular/router"
 import Swiper from "swiper"
@@ -28,7 +27,6 @@ import { SkeletonModule } from "primeng/skeleton"
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
 import { DropdownModule } from "primeng/dropdown"
-import { AveragesalaryestimatorService } from "../../averagesalaryestimator/averagesalaryestimator.service"
 import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
 
 declare const pdfjsLib: any;
@@ -60,7 +58,7 @@ interface City {
 	imports: [CommonModule, ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule, DropdownModule],
 	providers: [ConfirmationService, TooltipModule],
 })
-export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
+export class CoverLetterBuilderComponent implements OnInit {
 	@ViewChild("pdfViewer") pdfViewer: any
 	items!: MenuItem[]
 	selectedResumeLevel: string = ""
@@ -73,12 +71,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	selectedThemeColor: string = "#172a99"
 	selectedColorCode: number = 1
 	planExpired: boolean = false
-	previewImage: string = ""
-	coverHistories: any = []
-	currentDate: Date = new Date()
-	// isButtonDisabled: boolean = false
-	generateDesBtnDisable: boolean = true;
-	rephraseDesBtnDisable: boolean = false;
 	generateConBtnDisable: boolean = true;
 	rephraseconBtnDisable: boolean = false;
 	resumeHistory: any = [];
@@ -86,8 +78,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	filteredLocations: any = [];
 	orgLocation: any = [];
 	cities: City[] = [];
-	// filterJobRole: any[] = [];
-	// filterJobRolePostionApplied: any[] = [];
 	resumeSlider: any = [
 		{
 			id: 1,
@@ -139,116 +129,19 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			templateName: "Functional",
 			imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
 		},
-		{
-			id: 11,
-			templateName: "Traditional",
-			imageLink: "./../../../uniprep-assets/coverletter-images/traditional.svg",
-		},
-		{
-			id: 12,
-			templateName: "Modern",
-			imageLink: "../../../../uniprep-assets/coverletter-images/modern.svg",
-		},
-		{
-			id: 13,
-			templateName: "Academic",
-			imageLink: "../../../../uniprep-assets/coverletter-images/academic.svg",
-		},
-		{
-			id: 14,
-			templateName: "Creative",
-			imageLink: "../../../../uniprep-assets/coverletter-images/creative.svg",
-		},
-		{
-			id: 15,
-			templateName: "Functional",
-			imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
-		},
-		{
-			id: 16,
-			templateName: "Traditional",
-			imageLink: "./../../../uniprep-assets/coverletter-images/traditional.svg",
-		},
-		{
-			id: 17,
-			templateName: "Modern",
-			imageLink: "../../../../uniprep-assets/coverletter-images/modern.svg",
-		},
-		{
-			id: 18,
-			templateName: "Academic",
-			imageLink: "../../../../uniprep-assets/coverletter-images/academic.svg",
-		},
-		{
-			id: 19,
-			templateName: "Creative",
-			imageLink: "../../../../uniprep-assets/coverletter-images/creative.svg",
-		},
-		{
-			id: 20,
-			templateName: "Functional",
-			imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
-		},
-		{
-			id: 21,
-			templateName: "Traditional",
-			imageLink: "./../../../uniprep-assets/coverletter-images/traditional.svg",
-		},
-		{
-			id: 22,
-			templateName: "Modern",
-			imageLink: "../../../../uniprep-assets/coverletter-images/modern.svg",
-		},
-		{
-			id: 23,
-			templateName: "Academic",
-			imageLink: "../../../../uniprep-assets/coverletter-images/academic.svg",
-		},
-		{
-			id: 24,
-			templateName: "Creative",
-			imageLink: "../../../../uniprep-assets/coverletter-images/creative.svg",
-		},
-		{
-			id: 25,
-			templateName: "Functional",
-			imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
-		},
-		{
-			id: 26,
-			templateName: "Traditional",
-			imageLink: "./../../../uniprep-assets/coverletter-images/traditional.svg",
-		},
-		{
-			id: 27,
-			templateName: "Modern",
-			imageLink: "../../../../uniprep-assets/coverletter-images/modern.svg",
-		},
-		{
-			id: 28,
-			templateName: "Academic",
-			imageLink: "../../../../uniprep-assets/coverletter-images/academic.svg",
-		},
-		{
-			id: 29,
-			templateName: "Creative",
-			imageLink: "../../../../uniprep-assets/coverletter-images/creative.svg",
-		},
-		{
-			id: 30,
-			templateName: "Functional",
-			imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
-		},
+
 	]
 	editorModules: any
 	swiper!: Swiper
 	pdfLoadError: boolean = false
 	pdfUrl: string = ""
 	countryCodeList: any[] = [];
-	// jobTitleList: any[] = [];
 	chatGptButtonLoader: boolean = false;
 	chatGptButtonLoaderSummary: boolean = false;
 	userSummaryWordCount: number = 0;
+	jobRoles: JobTitle[] = [];
+	chatGptValueSave: any
+
 	constructor(
 		private toaster: MessageService,
 		private fb: FormBuilder,
@@ -257,7 +150,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		private router: Router,
 		private confirmService: ConfirmationService,
 		private cvBuilderService: CvBuilderService,
-		private service: AveragesalaryestimatorService,
 		private cdr: ChangeDetectorRef,
 	) {
 		this.resumeFormInfoData = this.fb.group({
@@ -271,11 +163,51 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			org_name: ["", [Validators.required]],
 			org_location: ["", [Validators.required]],
 		})
-		this.getJobRoles();
 		this.onChangesFormValues();
 	}
 
-	ngAfterViewInit() {
+	ngOnInit(): void {
+		let userDetails = this.authService._user;
+		let location = userDetails?.district + ', ' + userDetails?.state;
+		this.resumeFormInfoData.patchValue({
+			user_name: userDetails?.name,
+			user_email: userDetails?.email,
+			// user_location: location,
+			user_phone: userDetails?.phone,
+			country_code: userDetails?.country_code,
+		});
+		// Load PDF.js library dynamically
+		if (!document.getElementById('pdfjs-script')) {
+			const script = document.createElement('script');
+			script.id = 'pdfjs-script';
+			script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+			script.onload = () => {
+				// Set worker source
+				pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+				// Load resumes after PDF.js is ready
+				this.previousResumes();
+			};
+			document.body.appendChild(script);
+		} else {
+			this.previousResumes();
+		}
+
+		this.onLoadCarousal();
+		this.editorModules = {
+			toolbar: [
+				["bold", "italic", "underline"],
+				[{ list: "ordered" }, { list: "bullet" }],
+				["clean"],
+			],
+		}
+		this.items = [{ label: "Personal Information" }, { label: "Organisation Details" }, { label: "Letter Area" }]
+		this.getCountryCodeList();
+		this.getLocationsList();
+		this.checkplanExpire();
+		this.getJobRoles();
+	}
+
+	onLoadCarousal() {
 		if (this.pdfViewer) {
 			this.pdfViewer.refresh()
 		}
@@ -320,11 +252,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 				})
 			}
 		}, 200)
-	}
-
-	onError(error: any) {
-		console.error("PDF loading error:", error)
-		this.pdfLoadError = true
 	}
 
 	getLocationsList() {
@@ -373,47 +300,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			console.error("Error loading PDF:", error)
 			this.pdfLoadError = true
 		}
-	}
-
-	ngOnInit(): void {
-		let userDetails = this.authService._user;
-		let location = userDetails?.district + ', ' + userDetails?.state;
-		this.resumeFormInfoData.patchValue({
-			user_name: userDetails?.name,
-			user_email: userDetails?.email,
-			// user_location: location,
-			user_phone: userDetails?.phone,
-			country_code: userDetails?.country_code,
-		});
-		// Load PDF.js library dynamically
-		if (!document.getElementById('pdfjs-script')) {
-			const script = document.createElement('script');
-			script.id = 'pdfjs-script';
-			script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-			script.onload = () => {
-				// Set worker source
-				pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-				// Load resumes after PDF.js is ready
-				this.previousResumes();
-			};
-			document.body.appendChild(script);
-		} else {
-			this.previousResumes();
-		}
-
-		this.ngAfterViewInit();
-		this.editorModules = {
-			toolbar: [
-				["bold", "italic", "underline"],
-				[{ list: "ordered" }, { list: "bullet" }],
-				["clean"],
-			],
-		}
-		this.items = [{ label: "Personal Information" }, { label: "Organisation Details" }, { label: "Letter Area" }]
-		// this.hideHeader()
-		this.getCountryCodeList();
-		this.getLocationsList();
-		this.checkplanExpire()
 	}
 
 	getCountryCodeList() {
@@ -556,14 +442,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	// hideHeader() {
-	// 	if (this.activePageIndex == 2) {
-	// 		this.resumeService.setData(true)
-	// 	} else {
-	// 		this.resumeService.setData(false)
-	// 	}
-	// }
-
 	toggleFullScreen() {
 		this.fullScreenVisible = !this.fullScreenVisible
 	}
@@ -580,7 +458,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 	previous() {
 		this.activePageIndex--
 		if (this.activePageIndex <= 1) {
-			this.ngAfterViewInit()
+			this.onLoadCarousal()
 		}
 	}
 
@@ -591,7 +469,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		}
 		this.activePageIndex++
 		if (this.activePageIndex == 1) {
-			this.ngAfterViewInit()
+			this.onLoadCarousal()
 		}
 	}
 
@@ -625,7 +503,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			this.cvBuilderService.downloadPdf(res, lastPart)
 			this.toaster.add({ severity: "success", summary: "Success", detail: "File Download Successfully." })
 			this.activePageIndex = 0
-			this.ngAfterViewInit()
+			this.onLoadCarousal()
 			window.open(res, "_blank")
 			this.selectedResumeLevel = ""
 		})
@@ -649,7 +527,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		return controls
 	}
 	// 1st chatgpt response after convert into refrase button , then any changes will in inuput or dropdown that button need to change ai genarate,That why save 1st response for checking
-	chatGptValueSave: any
 	chatGPTIntegration(mode: string) {
 		if (this.authService._creditCount === 0) {
 			this.toaster.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
@@ -672,18 +549,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			formData.mode = "cover_letter"
 			formData.inner_mode = mode
 			formData.max_tokens = 1500
-			if (mode == 'generate_description') {
-				// this.resumeFormInfoData.patchValue({
-				// 	job_description: "",
-				// })
-				this.rephraseDesBtnDisable = true;
-				this.generateDesBtnDisable = false;
-				this.chatGptButtonLoader = true;
-			} else if (mode == 'rephrase_description') {
-				this.rephraseDesBtnDisable = false;
-				this.generateDesBtnDisable = true;
-				this.chatGptButtonLoader = true;
-			} else if (mode == 'generate_summary') {
+			if (mode == 'generate_summary') {
 				this.resumeFormInfoData.patchValue({
 					user_summary: "",
 				})
@@ -703,11 +569,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 						.map((part: any) => part + "</p><br>")
 						.join("")
 
-					if (mode == 'generate_description' || mode == 'rephrase_description') {
-						// this.resumeFormInfoData.patchValue({
-						// 	job_description: GPTResponse,
-						// })
-					} else if (mode == 'generate_summary' || mode == 'rephrase_summary') {
+					if (mode == 'generate_summary' || mode == 'rephrase_summary') {
 						this.resumeFormInfoData.patchValue({
 							user_summary: GPTResponse,
 						})
@@ -731,12 +593,10 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		else {
 			this.planExpired = false;
 		}
-
 	}
 
 	selectResumeTemplate(templateName: string) {
 		this.activePageIndex++
-		// this.hideHeader()
 		this.selectedResumeLevel = templateName
 		this.imgOnclick(templateName)
 	}
@@ -745,43 +605,6 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		this.isButtonDisabledSelectTemplate = true
 		this.selectedResumeLevel = resumeLevel
 	}
-	// searchJob(event: Event): void {
-	// 	const input = event.target as HTMLInputElement;
-	// 	const query = input.value.toLowerCase().trim();
-	// 	if (query && query.length > 3) {
-	// 		const mockJobs = this.jobRoles;
-	// 		// Filter jobs that include the query
-	// 		this.filterJobRole = mockJobs.filter((job: any) =>
-	// 			job.jobrole.toLowerCase().includes(query)
-	// 		);
-	// 		if(this.filterJobRole.length === 0){
-	// 			this.filterJobRole.unshift({
-	// 				id: 0, // Use 0 or -1 to indicate it's a custom/new item
-	// 				jobrole: query
-	// 			});
-	// 		}else{
-	// 			// Sort the filtered jobs to prioritize exact matches
-	// 			this.filterJobRole.sort((a: any, b: any) => {
-	// 				const aJob = a.jobrole.toLowerCase();
-	// 				const bJob = b.jobrole.toLowerCase();
-	// 				if (aJob === query && bJob !== query) {
-	// 					return -1; // a comes first
-	// 				} else if (aJob !== query && bJob === query) {
-	// 					return 1; // b comes first
-	// 				} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
-	// 					return -1; // a comes first if it starts with the query
-	// 				} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
-	// 					return 1; // b comes first if it starts with the query
-	// 				} else {
-	// 					return 0; // Keep original order for other cases
-	// 				}
-	// 			});
-	// 		}
-	// 	} else if (query.length < 1) {
-	// 		this.filterJobRole = [];
-	// 	}
-	// }
-	jobRoles: JobTitle[] = [];
 	getJobRoles() {
 		this.cvBuilderService.getJobList().subscribe({
 			next: (response: any) => {
@@ -789,50 +612,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			}
 		})
 	}
-	// setJobtitle(jobRoleId: number, jobRoleLabel: string) {
-	// 	// this.selectedData[1] = jobRoleId;
-	// 	this.resumeFormInfoData.patchValue({
-	// 		user_job_title: jobRoleLabel
-	// 	})
-	// 	this.filterJobRole = [];
-	// }
-	// searchJobPosition(event: Event): void {
-	// 	const input = event.target as HTMLInputElement;
-	// 	const query = input.value.toLowerCase().trim();
-	// 	if (query && query.length > 3) {
-	// 		const mockJobs = this.jobRoles;
 
-	// 		// Filter jobs that include the query
-	// 		this.filterJobRolePostionApplied = mockJobs.filter((job: any) =>
-	// 			job.jobrole.toLowerCase().includes(query)
-	// 		);
-
-	// 		// Sort the filtered jobs to prioritize exact matches
-	// 		this.filterJobRolePostionApplied.sort((a: any, b: any) => {
-	// 			const aJob = a.jobrole.toLowerCase();
-	// 			const bJob = b.jobrole.toLowerCase();
-	// 			if (aJob === query && bJob !== query) {
-	// 				return -1; // a comes first
-	// 			} else if (aJob !== query && bJob === query) {
-	// 				return 1; // b comes first
-	// 			} else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
-	// 				return -1; // a comes first if it starts with the query
-	// 			} else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
-	// 				return 1; // b comes first if it starts with the query
-	// 			} else {
-	// 				return 0; // Keep original order for other cases
-	// 			}
-	// 		});
-	// 	} else if (query.length < 1) {
-	// 		this.filterJobRolePostionApplied = [];
-	// 	}
-	// }
-	// setJobtitlePositiApplied(jobRoleId: number, jobRoleLabel: string) {
-	// 	this.resumeFormInfoData.patchValue({
-	// 		jobposition: jobRoleLabel
-	// 	})
-	// 	this.filterJobRolePostionApplied = [];
-	// }
 	historyPage() {
 		this.activePageIndex = 0;
 	}
@@ -877,11 +657,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 
 	addCustomJobTitle(input: HTMLInputElement) {
 		if (!input.value) {
-			this.toaster.add({
-				severity: 'warn',
-				summary: 'Empty',
-				detail: `Please Type Something..!`
-			});
+			this.toaster.add({ severity: 'warn', summary: 'Empty', detail: `Please Type Something..!` });
 			return;
 		}
 		const customValue = input.value.trim();
@@ -889,11 +665,7 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 			(job: any) => job.jobrole.toLowerCase() === customValue.toLowerCase()
 		);
 		if (exists) {
-			this.toaster.add({
-				severity: 'warn',
-				summary: 'Duplicate',
-				detail: `Job title "${customValue}" already exists`
-			});
+			this.toaster.add({ severity: 'warn', summary: 'Duplicate', detail: `Job title "${customValue}" already exists` });
 			input.value = '';
 			return;
 		}
@@ -906,14 +678,8 @@ export class CoverLetterBuilderComponent implements OnInit, AfterViewInit {
 		this.resumeFormInfoData.get('user_job_title')?.setValue(customValue);
 		input.value = '';
 		this.cdr.detectChanges();
-
-		this.toaster.add({
-			severity: 'success',
-			summary: 'Added',
-			detail: `Job title "${customValue}" added`
-		});
+		this.toaster.add({ severity: 'success', summary: 'Added', detail: `Job title "${customValue}" added` });
 	}
-
 
 	onChangesFormValues() {
 		this.resumeFormInfoData.get('user_summary')?.valueChanges.subscribe(value => {

@@ -117,26 +117,54 @@ export class LandingPartnerComponent {
     }
   }
 
-  navigateConnectUrl(url: any) {
-    //window.open(environment.employerDomain, '_blank');
+  navigateConnectUrl(url: string) {
     const baseUrl = window.location.origin;
-    const isDev = baseUrl.includes('dev') || baseUrl.includes('localhost');
-    const targetUrl = isDev ? 'https://dev-student.uniprep.ai' : 'https://uniprep.ai';
-    const validUrls = ['about', 'contact-us', 'job-seekers', 'international-students', 'global-travellers', 'entrepreneurs', 'compare/uk', 'pricing', 'blogs', 'certificates', 'register'];
-    if (url === 'home') {
-      window.location.href = targetUrl
-    } else if (validUrls.includes(url)) {
-      window.location.href = targetUrl + `/${url}`
-    } else if (url === 'employer') {
-      window.location.href = environment.employerDomain
-    } else if (url === 'partner') {
-      window.location.href = environment.partnerDomain
-    } else if (url === 'institute') {
-      window.location.href = environment.instituteDomain
-    } else if (url === 'talent') {
-      window.location.href = environment.talentDomain
+    let targetUrl = '';
+
+    // Define valid URLs
+    const validUrls = [
+      'about', 'contact-us', 'job-seekers', 'international-students',
+      'global-travellers', 'entrepreneurs', 'compare/uk', 'pricing',
+      'blogs', 'certificates', 'register'
+    ];
+
+    // Handle localhost case
+    if (baseUrl.includes('localhost')) {
+      window.location.href = `${baseUrl}/${url}`;
+      return;
+    }
+
+    // Determine environment-based target URL
+    if (baseUrl.includes('dev')) {
+      targetUrl = 'https://dev-student.uniprep.ai';
     } else {
-      window.location.href = `${environment.studentDomain}/${url}`
+      targetUrl = 'https://uniprep.ai';
+    }
+
+    // Handle routing based on URL
+    switch (url) {
+      case 'home':
+        window.location.href = targetUrl;
+        break;
+      case 'employer':
+        window.location.href = environment.employerDomain;
+        break;
+      case 'partner':
+        window.location.href = environment.partnerDomain;
+        break;
+      case 'institute':
+        window.location.href = environment.instituteDomain;
+        break;
+      case 'talent':
+        window.location.href = environment.talentDomain;
+        break;
+      default:
+        if (validUrls.includes(url)) {
+          window.location.href = `${targetUrl}/${url}`;
+        } else {
+          window.location.href = `${environment.domain}/${url}`;
+        }
     }
   }
+
 }
