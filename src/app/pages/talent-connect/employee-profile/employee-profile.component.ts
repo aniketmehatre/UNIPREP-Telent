@@ -1,28 +1,12 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-} from "@angular/core"
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormArray,
-  AbstractControl,
-  FormControl,
-} from "@angular/forms"
-import { ViewProfileComponent } from "./view-profile/view-profile.component"
-import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog"
-import { TalentConnectService } from "../talent-connect.service"
-import { MessageService } from "primeng/api"
-import { maxWordsValidator } from "src/app/shared/directives/maxwordValidators.directive"
-import { differenceInMonths, formatDuration, intervalToDuration } from "date-fns"
-import { HOVER_MESSAGES } from "./view-profile/hover-messages"
-import { Router } from "@angular/router"
+import { Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, FormControl } from "@angular/forms";
+import { ViewProfileComponent } from "./view-profile/view-profile.component";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { TalentConnectService } from "../talent-connect.service";
+import { MessageService } from "primeng/api";
+import { maxWordsValidator } from "src/app/shared/directives/maxwordValidators.directive";
+import { differenceInMonths, formatDuration, intervalToDuration } from "date-fns";
+import { HOVER_MESSAGES } from "./view-profile/hover-messages";
 import { AuthService } from "../../../Auth/auth.service";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -96,10 +80,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     private dialogService: DialogService,
     private talentConnectService: TalentConnectService,
     private toastService: MessageService,
-    private changeDetector: ChangeDetectorRef,
-    private router: Router,
     private authService: AuthService,
-    private sanitizer: DomSanitizer,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
@@ -1169,7 +1151,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       profile_image: response.dp_image || "",
       languages_hobby_id: response.hobby || "",
       total_years_of_experience: response.total_years_of_experience || "",
-      additional_notes:response.careerPreference?.notes,
+      additional_notes: response.careerPreference?.notes,
       career_preference_career_status: response.careerPreference?.career_status || "",
       career_preference_job_title_id: response.careerPreference?.job_title || "",
       career_preference_career_interest_id: response.careerPreference?.career_interest_id || [],
@@ -1200,18 +1182,23 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       const educationArray = this.personalInfoForm.get("educationDetails") as FormArray
       educationArray.clear()
       response.education.forEach((edu: any) => {
-        educationArray.push(
-          this.fb.group({
-            id: [edu.id], // Store the original ID
-            education_qualification_id: [edu.qualification_id || "", Validators.required],
-            education_university_name: [edu.university_name || "", Validators.required],
-            education_field_id: [edu.field_id || "", Validators.required],
-            education_course_name: [edu.course_name || "", Validators.required],
-            education_graduation_year_id: [edu.graduation_year_id || "", Validators.required],
-            education_gpa_percentage: [edu.gpa_percentage || null],
-          }),
-        )
+        this.createEducationGroup();
+        const group = this.fb.group({
+          id: [edu.id], // Store the original ID
+          education_qualification_id: [edu.qualification_id || "", Validators.required],
+          education_university_name: [edu.university_name || "", Validators.required],
+          education_field_id: [edu.field_id || "", Validators.required],
+          education_course_name: [edu.course_name || "", Validators.required],
+          education_graduation_year_id: [edu.graduation_year_id || "", Validators.required],
+          education_gpa_percentage: [edu.gpa_percentage || null],
+        });
+        educationArray.push(group);
+        const educationQualificationControl = group.get('education_qualification_id');
+        educationQualificationControl?.valueChanges?.subscribe((value: number) => {
+          this.isDisableAddMoreEducation = value == 1 ? true : false;
+        });
       })
+
     }
 
     // Patch Work Experience with IDs
@@ -1231,6 +1218,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           work_experience_currency_id: [exp.currency_id],
           work_experience_job_responsibilities: [exp.job_responsibilities, maxWordsValidator(150)],
           work_experience_experience_letter: [exp.experience_letter],
+          currently_working: [exp.currently_working ?? null]
         })
 
         workExpArray.push(group);
@@ -2041,25 +2029,29 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     })
 
   }
-
+  isDisableAddMoreEducation: boolean = false;
   onFormValueChanges() {
-    const stopsArray = this.personalInfoForm.get('work_experience') as FormArray;
-    stopsArray.controls.forEach((group: AbstractControl) => {
+    // Work Experience Form Array Value Changes
+    const workExperienceFromArray = this.personalInfoForm.get('work_experience') as FormArray;
+    workExperienceFromArray.controls.forEach((group: AbstractControl) => {
       const currentlyWorkingControl = group.get('currently_working');
       const toDateControl = group.get('work_experience_duration_to');
       currentlyWorkingControl?.valueChanges.subscribe((value: boolean) => {
         if (value) {
-          // Disable and clear the 'To Date'
           toDateControl?.disable();
-          toDateControl?.setValue(this.today); // Optional: Set today's date
+          toDateControl?.setValue(this.today);
         } else {
-          // Enable the 'To Date'
           toDateControl?.enable();
         }
       });
     });
-  }
 
+    // Education Form Array Value Changes
+    this.educationDetails.valueChanges.subscribe((educationArray: any[]) => {
+      const hasQualification = educationArray.some(item => item.education_qualification_id == 1);
+      this.isDisableAddMoreEducation = hasQualification;
+    });
+  }
 
   ngOnDestroy(): void {
     this.clearStoredFiles();
