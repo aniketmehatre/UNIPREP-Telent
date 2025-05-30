@@ -188,6 +188,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	isResendOTP: boolean = false
 	allSearchedResult: any[] = []
 	currentRoute: string = ""
+	userTypeId : boolean = true
 	constructor(
 		private router: Router,
 		private locationService: LocationService,
@@ -474,7 +475,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
 	async ngOnInit() {
-
+		this.userTypeId = this.storage.get('user_type_id') === 7
 		// Initialize forms
 		this.initializeForms();
 		this.service.getNewUserTimeLeft().subscribe((res) => {

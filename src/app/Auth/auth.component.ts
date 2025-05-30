@@ -1,4 +1,4 @@
-import { Component } from "@angular/core"
+import {Component, inject, signal} from "@angular/core"
 import { RouterModule } from "@angular/router"
 import { DeviceDetectorService } from "ngx-device-detector"
 import { CommonModule } from "@angular/common"
@@ -6,6 +6,7 @@ import { ToastModule } from "primeng/toast"
 import { SocialLoginModule, SocialAuthServiceConfig } from "@abacritt/angularx-social-login"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { InputGroupModule } from "primeng/inputgroup"
+import {LocationService} from "../location.service";
 @Component({
 	selector: "uni-auth",
 	templateUrl: "./auth.component.html",

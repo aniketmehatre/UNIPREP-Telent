@@ -39,10 +39,12 @@
                             class="fa-light fa-file-zipper"></i>&nbsp;&nbsp;My Resumes</a>
                 </li>
                 <hr />
-                <li *ngIf="editLabelIsShow" [class.active]="isActive('subscription')"
-                    (click)="setSwitchSection('subscription');closeMobileMenu()"> <i
-                        class="fa-solid fa-web-awesome"></i>&nbsp;&nbsp;My Subscription
-                </li>
+                <div *ngIf="!userTypeId">
+                    <li *ngIf="editLabelIsShow" [class.active]="isActive('subscription')"
+                        (click)="setSwitchSection('subscription');closeMobileMenu()"> <i
+                            class="fa-solid fa-web-awesome"></i>&nbsp;&nbsp;My Subscription
+                    </li>
+                </div>
             </ul>
             <div class="card mt-2 bg-white">
                 <div class="card-body d-flex flex-column justify-content-between">

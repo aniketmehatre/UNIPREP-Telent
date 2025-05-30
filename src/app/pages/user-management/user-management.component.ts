@@ -93,6 +93,7 @@ export class UserManagementComponent implements OnInit {
 	submitName: any = "Edit"
 	editLabelIsShow: boolean = true;
 	imageWhiteLabelDomainName: any;
+	userTypeId: boolean = true
 	constructor(private authService: AuthService, private formBuilder: FormBuilder,
 		private locationService: LocationService, private toast: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
@@ -126,7 +127,9 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-	this.imageWhiteLabelDomainName = window.location.hostname;
+		this.userTypeId = this.storage.get('user_type_id') === 7
+
+		this.imageWhiteLabelDomainName = window.location.hostname;
     this.editLabelIsShow = this.imageWhiteLabelDomainName === "*.uniprep.ai" ||
       this.imageWhiteLabelDomainName === "dev-student.uniprep.ai" ||
       this.imageWhiteLabelDomainName === "uniprep.ai" || this.imageWhiteLabelDomainName === "localhost"

@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, inject, OnInit, signal} from "@angular/core";
 import {LocationService} from "./location.service";
 import {NgxUiLoaderModule} from "ngx-ui-loader";
 import {ToastModule} from "primeng/toast";
@@ -31,9 +31,16 @@ export class AppComponent implements OnInit {
     domainNameCondition: string
     domainName: string = "main"
     whiteLabelDomainName: any
-
+    private locationService = inject(LocationService)
+    private isInstitute = signal(false)
 
     ngOnInit() {
+        this.apiToCheckPartnerOrInstitute()
+        if (this.isInstitute()) {
+            if (window.location.href.includes("/register")) {
+                this.router.navigate(["/login"], {replaceUrl: true});
+            }
+        }
         this.domainNameCondition = window.location.hostname;
         this.domainName = this.isDomainMain() ? "main" : "sub";
         if (this.domainName === "sub") {
@@ -62,5 +69,17 @@ export class AppComponent implements OnInit {
         };
         this.whiteLabelService.getWhitlabelData(data).subscribe((res) => {
         });
+    }
+
+
+    apiToCheckPartnerOrInstitute() {
+        let req = {
+            domain: window.location.hostname,
+        }
+        this.locationService.getSourceByDomain(req).subscribe((response) => {
+            if (response.source == 'Institute') {
+                this.isInstitute.set(true);
+            }
+        })
     }
 }
