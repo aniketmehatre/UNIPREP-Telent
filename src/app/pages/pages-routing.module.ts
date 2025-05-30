@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ButtonComponent } from './button/button.component';
-import { CardsComponent } from './cards/cards.component';
 import { PagesComponent } from './pages.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { AuthGuard } from "../Auth/auth.guard";
@@ -94,10 +92,6 @@ const routes: Routes = [
                 component: CancellationpolicyComponent
             },
             {
-                path: 'button',
-                component: ButtonComponent
-            },
-            {
                 path: 'chat',
                 component: ChatComponent
             },
@@ -108,10 +102,6 @@ const routes: Routes = [
             {
                 path: 'question-list/:type',
                 loadChildren: () => import('./recentlyaddedquestions/recentlyaddedques.module').then(m => m.RecentlyAddedQuestionsModule)
-            },
-            {
-                path: 'cards',
-                component: CardsComponent
             },
             {
                 path: 'support',
@@ -252,10 +242,10 @@ const routes: Routes = [
                 path: 'national-exams/:categoryid/review/:resultid',
                 component: NationalExamReviewComponent,
             },
-            {
-                path: 'assessment',
-                loadChildren: () => import('./assessment/assessment.module').then(m => m.AssessmentModule)
-            },
+            // {
+            //     path: 'assessment',
+            //     loadChildren: () => import('./assessment/assessment.module').then(m => m.AssessmentModule)
+            // },
             {
                 path: 'travel-tools',
                 loadChildren: () => import('./travel-tools/travel-tools.module').then(m => m.TravelToolsModule)

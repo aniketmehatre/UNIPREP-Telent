@@ -39,7 +39,7 @@
                             class="fa-light fa-file-zipper"></i>&nbsp;&nbsp;My Resumes</a>
                 </li>
                 <hr />
-                <li [class.active]="isActive('subscription')"
+                <li *ngIf="editLabelIsShow" [class.active]="isActive('subscription')"
                     (click)="setSwitchSection('subscription');closeMobileMenu()"> <i
                         class="fa-solid fa-web-awesome"></i>&nbsp;&nbsp;My Subscription
                 </li>

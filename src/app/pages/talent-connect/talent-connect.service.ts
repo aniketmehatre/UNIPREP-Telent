@@ -4,6 +4,7 @@ import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs';
 import { removeExtraResponse } from '../prompt';
+import { EmployeeConnectProfileRes } from 'src/app/@Models/employee-connect-profile';
 
 @Injectable({
     providedIn: 'root'
@@ -104,7 +105,7 @@ export class TalentConnectService {
     }
 
     getMyProfileData() { 
-        return this.http.get<any>(
+        return this.http.get<EmployeeConnectProfileRes>(
             environment.ApiUrl + "/getstudentprofiles",
             { headers: this.headers });
     }
