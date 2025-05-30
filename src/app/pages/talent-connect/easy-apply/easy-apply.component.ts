@@ -3,6 +3,7 @@ import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Route } from '@angular/router';
+import { PageFacadeService } from '../../page-facade.service';
 
 interface JobListing {
   id: number;
@@ -43,7 +44,7 @@ export class EasyApplyComponent {
   experienceLevels: any[] = [];
   totalJobs: number = 4;
   currencies: any[] = [];
-  hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'InActive', name: 'Actively Not Hiring' }];
+  hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'Future_Hiring', name: 'Future Hiring' }];
   introductionVideoTypes: { id: string, name: string }[] = [{ id: 'Yes', name: 'Mandatory' }, { id: 'No', name: 'Not Mandatory' }];
   page: number = 1;
   pageSize: number = 8;
@@ -54,7 +55,8 @@ export class EasyApplyComponent {
   applicantCurrencyCode = signal<string>('');
   applicantCurrencyValue = signal<number>(0);
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private talentConnectService: TalentConnectService, private messageService: MessageService) { }
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private talentConnectService: TalentConnectService,
+    private messageService: MessageService, private pageFacade: PageFacadeService) { }
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       if (params['company']) {
@@ -151,8 +153,10 @@ export class EasyApplyComponent {
     this.filterForm.reset();
   }
 
-  openVideoPopup(id: string) { }
-  
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink)
+  }
+
   onChangeCurrency(convertTo: string, formattedEnd: string) {
     this.talentConnectService.getCurrencyConverter(this.applicantCurrencyCode(), convertTo, formattedEnd, formattedEnd).subscribe({
       next: (data: any) => {

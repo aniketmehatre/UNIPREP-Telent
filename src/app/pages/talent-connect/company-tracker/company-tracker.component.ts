@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { TalentConnectService } from "../talent-connect.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { forkJoin } from "rxjs";
+import { PageFacadeService } from '../../page-facade.service';
 
 interface DropdownOption {
   label: string;
@@ -23,7 +24,6 @@ export class CompanyTracker1Component {
   @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();
   @Output() triggerApplyFilter: EventEmitter<any> = new EventEmitter();
   isSkeletonVisible: boolean = false;
-  howItWorksVideoLink: string = '';
   selectedJobId: number | null = null;
   displayModal: boolean = false;
   industryTypes: DropdownOption[] = [];
@@ -33,11 +33,9 @@ export class CompanyTracker1Component {
   foundedYears: DropdownOption[] = [];
   companyTypes: DropdownOption[] = [];
   companyForm: FormGroup;
-  studentIdForList:any 
+  studentIdForList: any
   companyData: any
-  openVideoPopup(link: string) {
 
-  }
   page: number = 1;
   perPage: number = 10;
 
@@ -53,7 +51,7 @@ export class CompanyTracker1Component {
   showChat: boolean = false;
   orgnamewhitlabel: string = '';
 
-  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder) {
+  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder, private pageFacade: PageFacadeService) {
     this.companyForm = this.fb.group({
       companyname: [''],
       industrytype: [[]], // Array values
@@ -116,7 +114,11 @@ export class CompanyTracker1Component {
   clearFilter() {
 
   }
-onStudentIdRelay(id: number) {
-  this.studentIdForList = id;
-}
+  onStudentIdRelay(id: number) {
+    this.studentIdForList = id;
+  }
+
+  openVideoPopup(videoLink: string) {
+    this.pageFacade.openHowitWorksVideoPopup(videoLink)
+  }
 }

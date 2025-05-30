@@ -12,14 +12,13 @@
 								class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('')">How it works?<i
+						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How it works?<i
 								class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 				<button type="button" class="border-primary bg-primary text-white rounded-2 px-2"
 					(click)="displayModal = true"><i class="fa-solid fa-filter"></i>&nbsp;&nbsp;Filter</button>
 			</div>
-			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
 		</div>
 		<div class="row justify-content-center align-items-center mt-2">
 			<div class="col-md-3 col-sm-4 d-flex gap-2">
@@ -64,9 +63,6 @@
 									<span class="uniprep-secondary" *ngIf="job.isVerified">
 										<i class="fas fa-check-circle"></i>
 									</span>
-								</p>
-								<p class="mb-0 text-warning fw-medium" style="font-size: 0.7rem">
-									{{ job.matching_skills }}
 								</p>
 								<button *ngIf="((job.start_date | dateDiffInMonths) > 4)" pButton
 									class="btn btn-rounded btn-primary text-nowrap !fs-6 py-1">
@@ -263,17 +259,17 @@
 						<label class="form-label fw-bold">Currency display for salaries</label>
 						<p-select [options]="currencies" formControlName="currency" optionLabel="currency_code"
 							optionValue="currency_code" appendTo="body" [filter]="true" filterBy="currency_code"
-							class="w-100"> </p-select>
+							class="w-100" placeholder="Select Currency"> </p-select>
 					</div>
 
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Salary offered</label>
 						<div class="d-flex w-100 gap-2">
 							<p-select [options]="currencies" styleClass="p-select p-component"
-								optionLabel="currency_code" optionValue="currency_code" placeholder="Select"
+								optionLabel="currency_code" optionValue="currency_code" placeholder="Select Currency"
 								formControlName="salary_currency" [filter]="true" filterBy="currency_code"
-								[style]="{ width: '80px' }"> </p-select>
-							<div class="flex-grow-1 me-2">
+								[style]="{ width: '150px' }"> </p-select>
+							<div class="flex-grow-1">
 								<p-inputNumber id="salary" placeholder="Enter your salary/month"
 									styleClass="p-inputtext w-100" [showButtons]="false" class="w-100"
 									formControlName="salary"></p-inputNumber>

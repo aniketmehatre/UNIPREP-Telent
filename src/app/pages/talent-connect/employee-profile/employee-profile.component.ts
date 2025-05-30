@@ -1169,6 +1169,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       profile_image: response.dp_image || "",
       languages_hobby_id: response.hobby || "",
       total_years_of_experience: response.total_years_of_experience || "",
+      additional_notes:response.careerPreference?.notes,
       career_preference_career_status: response.careerPreference?.career_status || "",
       career_preference_job_title_id: response.careerPreference?.job_title || "",
       career_preference_career_interest_id: response.careerPreference?.career_interest_id || [],
@@ -1885,7 +1886,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     )
     formData.append(
       "career_preference_professional_strength_id",
-      this.personalInfoForm.get("career_preference_professional_strength_id")?.value || "",
+      JSON.stringify(this.personalInfoForm.get("career_preference_professional_strength_id")?.value) || "",
     )
     formData.append(
       "career_preference_real_world_challenge",

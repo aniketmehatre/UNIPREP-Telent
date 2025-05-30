@@ -19,7 +19,7 @@
 									<span><i class="fa-solid fa-location-dot" style="color: #9bc329"></i></span><span>{{ job.worklocation }}</span>
 								</p>
 								<span class="status-badge" [style.color]="'white'" [style.backgroundColor]="job.color_code">{{ job.stage }}</span>
-								<p class="uniprep-secondary" style="font-size: 10px">{{ job.matching_skills }}</p>
+								<!-- <p class="uniprep-secondary" style="font-size: 10px">{{ job.matching_skills }}</p> -->
 							</div>
 						<span class="notification-badge" [ngClass]="{ 'bg-secondary-subtle text-white': !(job.unreadmessageCount > 0) }">
 							{{ job.unreadmessageCount }}

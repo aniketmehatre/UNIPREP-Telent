@@ -1,16 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PaginatorModule } from "primeng/paginator";
-import {TalentConnectService} from "../talent-connect.service";
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {Dialog} from "primeng/dialog";
-import {Select} from "primeng/select";
-import {Tooltip} from "primeng/tooltip";
-import {Router, RouterLink} from "@angular/router";
-import {CommonModule, NgClass} from "@angular/common";
-import {TagModule} from "primeng/tag";
-import { forkJoin } from 'rxjs';
+import { TalentConnectService } from "../talent-connect.service";
+import {  FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { Tooltip } from "primeng/tooltip";
+import { Router, RouterLink } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { TagModule } from "primeng/tag";
 import { CompanyFilterComponent } from "./company-filter/company-filter.component";
 import { MessageService } from 'primeng/api';
+import { PageFacadeService } from '../../page-facade.service';
 
 interface DropdownOption {
     label: string;
@@ -25,7 +23,6 @@ interface DropdownOption {
         FormsModule,
         Tooltip,
         RouterLink,
-        NgClass,
         ReactiveFormsModule,
         PaginatorModule,
         TagModule,
@@ -51,8 +48,8 @@ export class CompanyConnect1Component implements OnInit {
     companyForm: FormGroup;
 
 
-    constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder,
-        private router: Router, private messageService: MessageService) {
+    constructor(private talentConnectService: TalentConnectService,
+        private router: Router, private messageService: MessageService, private pageFacade: PageFacadeService) {
     }
 
     ngOnInit() {
@@ -80,8 +77,8 @@ export class CompanyConnect1Component implements OnInit {
         })
     }
 
-    openVideoPopup(link: string) {
-
+    openVideoPopup(videoLink: string) {
+        this.pageFacade.openHowitWorksVideoPopup(videoLink)
     }
 
     routerToJobListingPageWithCompanyId(event: any, id: number) {
