@@ -8,9 +8,8 @@
 				<div class="cvSampleImg d-flex flex-wrap gap-3">
 					<div class="flex-column overflow-hidden" *ngFor="let resumes of resumeHistory; let i = index">
 						<div>
-							<div class="pdf-preview" *ngIf="resumes?.pdf_name">
-								<pdf-viewer [src]="resumes?.pdf_name" [render-text]="true" [original-size]="false"
-									style="width: 220px; height: 300px" [show-all]="false" [page]="1"></pdf-viewer>
+							<div class="pdf-preview" *ngIf="resumes?.image_name">
+								<img [src]="resumes?.image_name" alt="PDF Preview" class="pdf-thumbnail" />
 								<div class="position-absolute resume-option">
 									<span role="button" class="HistoryDeleteIcon"
 										(click)="confirm($event, resumes.pdf_name, resumes.id)"><i
