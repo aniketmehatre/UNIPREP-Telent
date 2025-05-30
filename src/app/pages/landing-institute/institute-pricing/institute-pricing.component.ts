@@ -81,7 +81,7 @@ export class InstitutePricingComponent implements OnInit {
     }
   ];
 
-  accordionOfUK = [
+  accordionOfIndia = [
     {
       id: 'collapse1',
       title: "Career-Readiness & Student Success at Scale",
@@ -178,111 +178,63 @@ export class InstitutePricingComponent implements OnInit {
     },
   ];
 
-  accordionOfIndia = [
+  accordionOfUK = [
     {
-      id: 'accordion1',
-      title: "Key Features for Student Success & Placements",
-      items: [
-        {
-          id: 'collapse1',
-          title: "Career-Readiness & Student Success at Scale",
-          details: [
-            "🛠️ 70+ integrated tools for job prep, education, entrepreneurship & certifications",
-            "📄 Resume builder, interview prep, language hub, startup kit, mock tests",
-            "💬 24×7 support via UNIPREP team & AI Global Advisor",
-            "📆 Full 12-month access with future premium upgrades included",
-          ],
-        },
-        {
-          id: 'collapse2',
-          title: "Employer Connect Feature (Virtual)",
-          details: [
-            "🌍 Access to 1,000s of verified employers",
-            "🔍 Job filters: freshers, internships, hybrid & sector-based roles",
-            "🎯 Real-time, tech-driven solution for placements",
-          ],
-        },
-        {
-          id: 'collapse3',
-          title: "Tailored Feature Development",
-          details: [
-            "🛠️ Custom features built at no cost on request",
-            "🤝 Platform evolves based on your placement/training needs",
-            "📌 Personalized control over student experience",
-          ],
-        },
-        {
-          id: 'collapse4',
-          title: "Biannual Student Usage Reports",
-          details: [
-            "📆 Two reports per year tracking:",
-            "🔍 Student logins, tool usage",
-            "🎓 Certifications earned",
-            "💼 Job applications submitted",
-            "🧠 Enables data-driven planning by your leadership & placement teams",
-          ],
-        },
-        {
-          id: 'collapse5',
-          title: "High ROI, Low Cost, Zero Infrastructure",
-          details: [
-            "📦 Tiered pricing becomes more affordable as enrolment scales",
-            "⚙️ 100% cloud-based: no hardware, no setup",
-            "🔁 All updates & tools included—no extra charges",
-            "💥 Delivers 100X value in learning, outcomes, and reputation",
-          ],
-        },
-        {
-          id: 'collapse6',
-          title: "Increased Student Retention & Satisfaction",
-          details: [
-            "🎯 Full-lifecycle support improves student satisfaction and retention",
-            "📱 From global admissions to career launches—UNIPREP is a one-stop platform",
-            "❤️ Creates a meaningful, lifelong value experience for every student",
-          ],
-        },
+      id: 'collapse1',
+      title: "Career-Readiness & Student Success at Scale",
+      details: [
+        "🛠️ 70+ integrated tools for job prep, education, entrepreneurship & certifications",
+        "📄 Resume builder, interview prep, language hub, startup kit, mock tests",
+        "💬 24×7 support via UNIPREP team & AI Global Advisor",
+        "📆 Full 12-month access with future premium upgrades included",
       ],
     },
     {
-      id: 'accordion2',
-      title: "Additional Features & Benefits",
-      items: [
-        {
-          id: 'collapse7',
-          title: "Employer Connect Expo Pass (On-Site)",
-          details: [
-            "🎫 1 pass per student to attend exclusive on-ground hiring expos",
-            "🏛️ Meet 80+ top employers from various sectors",
-          ],
-        },
-        {
-          id: 'collapse8',
-          title: "Global University Collaborations for Student Progression",
-          details: [
-            "🤝 MoUs with 2 foreign universities",
-            "🎯 Strategic collaborations focused on recruitment & admissions",
-            "📢 Co-branding & visibility in global academic circles",
-          ],
-        },
-        {
-          id: 'collapse9',
-          title: "UNICONNECT – India & Global Events",
-          details: [
-            "🎟️ Institutional access to UNICONNECT India & Global Summits",
-            "✈️ Global Pass includes travel, visa, hotel for 2 reps",
-            "🏛️ Position your institute as internationally progressive",
-          ],
-        },
-        {
-          id: 'collapse10',
-          title: "NAAC & NIRF Performance Boost",
-          details: [
-            "🏷️ Co-branded portal strengthens your digital identity",
-            "📊 Contributes to NAAC benchmarks: Student Support, Best Practices, Internationalization",
-            "📈 Supports NIRF ranking: Graduation Outcomes, Outreach, Perception",
-            "🚀 Enhances regional and national standing",
-          ],
-        },
+      id: 'collapse2',
+      title: "Employer Connect Feature (Virtual)",
+      details: [
+        "🌍 Access to 1,000s of verified employers",
+        "🔍 Job filters: freshers, internships, hybrid & sector-based roles",
+        "🎯 Real-time, tech-driven solution for placements",
+      ],
+    },
+    {
+      id: 'collapse3',
+      title: "Tailored Feature Development",
+      details: [
+        "🛠️ Custom features built at no cost on request",
+        "🤝 Platform evolves based on your placement/training needs",
+        "📌 Personalized control over student experience",
+      ],
+    },
+    {
+      id: 'collapse4',
+      title: "Biannual Student Usage Reports",
+      details: [
+        "📆 Two reports per year tracking:",
+        "🔍 Student logins, tool usage",
+        "🎓 Certifications earned",
+        "💼 Job applications submitted",
+        "🧠 Enables data-driven planning by your leadership & placement teams",
+      ],
+    },
+    {
+      id: 'collapse5',
+      title: "High ROI, Low Cost, Zero Infrastructure",
+      details: [
+        "📦 Tiered pricing becomes more affordable as enrolment scales",
+        "⚙️ 100% cloud-based: no hardware, no setup",
+        "🔁 All updates & tools included—no extra charges",
+        "💥 Delivers 100X value in learning, outcomes, and reputation",
+      ],
+    },
+    {
+      id: 'collapse6',
+      title: "Increased Student Retention & Satisfaction",
+      details: [
+        "🎯 Full-lifecycle support improves student satisfaction and retention",
+        "📱 From global admissions to career launches—UNIPREP is a one-stop platform",
+        "❤️ Creates a meaningful, lifelong value experience for every student",
       ],
     },
   ];
