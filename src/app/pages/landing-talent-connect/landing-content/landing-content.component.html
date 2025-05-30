@@ -2,9 +2,9 @@
 	<div class="container-fluid text-center">
 		<div class="row justify-content-center">
 			<div class="col-lg-10">
-				<div class="display-3 fw-bold text-white mb-3">Looking for a career move that matters?</div>
-				<h3 class="display-6 h6 text-white mb-3">Discover Real Opportunities. Connect with Employers.</h3>
-				<h3 class="display-6 fw-bold text-secondary mb-5">Take the Next Step in Your Career.</h3>
+				<div class="display-1 fw-bold text-white mb-3">Looking for a career <span class="fw-lighter">move that</span> matters?</div>
+				<h3 class="display-6 text-white mb-3">Discover Real Opportunities. Connect with Employers and</h3>
+				<h3 class="display-6 fw-bold text-secondary mb-5">Take the Next Step in Your Career with Employer Connect.</h3>
 				<button class="btn btn-secondary register-btn px-4 py-2"
                         (click)="navigateConnectUrl('register')">Register Now</button>
 			</div>
@@ -51,7 +51,7 @@
               </div>
               <h3 class="card-title mt-3 text-white">{{ feature.title }}</h3>
               <div class="card-text text-white" *ngIf="feature.description.length > 0">
-                <p *ngFor="let line of feature.description" class="text-white">{{ line }}</p>
+                <p *ngFor="let line of feature.description" class="text-white" [innerHTML]="line"></p>
               </div>
             </div>
           </li>
@@ -179,10 +179,10 @@
     <div class="container-fluid">
       <div class="row justify-content-center">
         <div class="col-md-10 col-12">
-          <div class="card">
-            <div class="card-body py-5">
+          <div class="card p-8">
+            <div class="card-body">
               <h1 class="text-secondary">Ready to Be Found by the Right Employer?</h1>
-              <p class="lead text-white fs-2 mb-4">Hire the right talent — faster, smarter,<br />and without spending a penny.</p>
+              <p class="lead text-white fs-1 mb-4">Your next opportunity isn’t far away — it’s waiting for you on Employer Connect.</p>
               <div>
                 <button class="btn btn-outline-orange btn-lg px-5" routerLink="/register">Start Now</button>
               </div>

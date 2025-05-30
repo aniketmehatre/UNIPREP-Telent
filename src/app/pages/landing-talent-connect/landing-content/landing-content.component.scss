@@ -98,6 +98,10 @@ video::-webkit-media-controls-panel {
 	background: radial-gradient(circle at 70% 20%, rgba(123, 104, 238, 0.2), transparent 70%);
 }
 
+.p-8 {
+	padding: 80px;
+}
+
 h1 {
 	font-size: 4rem;
 	line-height: 1.1;
@@ -441,6 +445,10 @@ h2 {
 
 	.section-title {
 		font-size: 2rem;
+	}
+
+	.p-8 {
+		padding: 10px;
 	}
 }
 
