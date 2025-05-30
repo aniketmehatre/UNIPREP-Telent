@@ -1358,7 +1358,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	checkNewUSerLogin() {
 		if (this.service._user?.login_status === 4) {
 			if (this.service._user.is_phn_or_whs_verified === 0) {
-				this.whatsappVerification = true;
+				// this.whatsappVerification = true;
 			}
 			else {
 				this.freeTrial = true;

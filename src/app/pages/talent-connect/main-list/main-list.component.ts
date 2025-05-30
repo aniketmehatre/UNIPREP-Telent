@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { EmployeeConnectProfile } from 'src/app/@Models/employee-connect-profile';
 
 @Component({
     selector: 'uni-main-list',
@@ -18,6 +19,7 @@ export class MainListComponent implements OnInit {
     isLoading: boolean = false;
     isProfileCreated: boolean = false;
     private dpImage = signal('');
+    profileData: EmployeeConnectProfile[] = [];
     constructor(private router: Router, private talentConnectService: TalentConnectService, private messageService: MessageService,
         private cdr: ChangeDetectorRef, private authService: AuthService) {
 
@@ -84,6 +86,7 @@ export class MainListComponent implements OnInit {
                         this.dpImage.set(response.data[0].dp_image)
                         this.talentConnectMainList[0].image = response.data[0].dp_image;
                         this.isProfileCreated = true;
+                        this.profileData = response.data;
                         this.cdr.detectChanges();
                     }
                 }
@@ -121,7 +124,7 @@ export class MainListComponent implements OnInit {
                 this.router.navigateByUrl(url);
             }
         } else {
-            this.router.navigateByUrl(url);
+            this.router.navigate([url, this.profileData[0].id]);
         }
 
     }

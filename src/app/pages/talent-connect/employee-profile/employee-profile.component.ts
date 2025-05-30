@@ -23,7 +23,7 @@ import { maxWordsValidator } from "src/app/shared/directives/maxwordValidators.d
 import { differenceInMonths, formatDuration, intervalToDuration } from "date-fns"
 import { HOVER_MESSAGES } from "./view-profile/hover-messages"
 import { Router } from "@angular/router"
-import {AuthService} from "../../../Auth/auth.service";
+import { AuthService } from "../../../Auth/auth.service";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 export enum FileType {
@@ -67,7 +67,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   ref: DynamicDialogRef | undefined
   logo: any
   uploadedFiles: { [key: string]: File } = {}
-  profileId: string | null = null
+  profileId: number | null = null
 
   // Dropdown options
   preferredEmploymentType: any = []
@@ -110,6 +110,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     });
     this.getProfileData();
     this.setupFormListeners();
+    this.onFormValueChanges();
   }
 
   get educationDetails() {
@@ -462,7 +463,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     // }
     if (this.personalInfoForm.valid) {
       const formData = new FormData()
-      const profileId = this.profileId
+      const profileId = this.profileId?.toString();
       const isUpdateOperation = profileId !== null && profileId !== undefined
 
       if (isUpdateOperation) {
@@ -1106,7 +1107,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.locations = response.worklocations
         this.preferredLocationsList = [...response.worklocations];
         this.preferredLocationsList.unshift({ id: 0, work_location: "Any" });
-        
+
       },
     })
   }
@@ -1375,8 +1376,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  routerBlankPage(url: string) {
-    window.open(url, "_blank")
+  routingToPage(pageUrl: string) {
+    const url = window.location.origin + pageUrl;
+    window.open(url, "_blank");
   }
 
   handleValidationsForFields(control: FormControl, isRemove: boolean) {
@@ -1459,14 +1461,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       const selectedNationality = this.nationalityList.find(
         (item: any) => item.id === formValues.nationality_id
       );
-      
+
       if (selectedNationality) {
         student_profile.nationality_name = selectedNationality.nationality_name;
       } else {
         student_profile.nationality_name = '';
       }
 
-       
+
 
       const selectedLocation = this.locations.find(
         (item: any) => item.id === formValues.location_id
@@ -1497,7 +1499,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       } else {
         student_profile.qualification_name = '';
       } */
-      
+
       const qualificationId = this.personalInfoForm.get('educationDetails.0.education_qualification_id')?.value;
       student_profile.qualification = this.qualifications.find((q: any) => q.id === qualificationId)?.qualification_name || '';
       student_profile.institution_name = this.personalInfoForm.get('educationDetails.0.education_university_name')?.value;
@@ -1507,7 +1509,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       const graduationId = this.personalInfoForm.get('educationDetails.0.education_graduation_year_id')?.value;
       student_profile.graduation_year = this.graduationYears.find((q: any) => q.id === graduationId)?.graduation_year_name || '';
       student_profile.gpa_percent = this.personalInfoForm.get('educationDetails.0.education_gpa_percentage')?.value;
-      
+
 
       //work experience
       student_profile.company_name = this.personalInfoForm.get('work_experience.0.work_experience_company_name')?.value;
@@ -1515,15 +1517,15 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
 
       const employmentTypeValue = this.personalInfoForm.get('work_experience.0.work_experience_employment_type')?.value;
-      student_profile.employment_type = this.preferredEmploymentType.includes(employmentTypeValue) ? employmentTypeValue: '';
+      student_profile.employment_type = this.preferredEmploymentType.includes(employmentTypeValue) ? employmentTypeValue : '';
 
-      student_profile.duration =   (this.personalInfoForm.get('work_experience.0.work_experience_duration_from')?.value || '') + ' - ' +  (this.personalInfoForm.get('work_experience.0.work_experience_duration_to')?.value || '');
+      student_profile.duration = (this.personalInfoForm.get('work_experience.0.work_experience_duration_from')?.value || '') + ' - ' + (this.personalInfoForm.get('work_experience.0.work_experience_duration_to')?.value || '');
       student_profile.salary_month = this.personalInfoForm.get('work_experience.0.work_experience_salary_per_month')?.value || '';
       student_profile.career_status = this.personalInfoForm.get('career_preference_career_status')?.value || '';
       student_profile.prefer_job_title = this.personalInfoForm.get('career_preference_job_title_id')?.value || '';
-      
+
       const selectedLocationIds = this.personalInfoForm.get('career_preference_preferred_work_location_id')?.value || [];
-      const selectedLocations = this.locations .filter((loc: any) => selectedLocationIds.includes(loc.id)) .map((loc: any) => loc.work_location);
+      const selectedLocations = this.locations.filter((loc: any) => selectedLocationIds.includes(loc.id)).map((loc: any) => loc.work_location);
       student_profile.prefer_work_location = selectedLocations.join(', ');
 
       const prefer_employment_type = this.personalInfoForm.get('career_preference_preferred_employment_type')?.value || [];
@@ -1535,19 +1537,19 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       student_profile.willing_to_relocate = this.personalInfoForm.get('career_preference_willingness_to_relocate')?.value || '';
       student_profile.expected_salary = this.personalInfoForm.get('career_preference_expected_salary')?.value || '';
       student_profile.certification = this.personalInfoForm.get('certifications.0.certifications_certificate_name')?.value || '';
- 
+
       const language_id = this.personalInfoForm.get('languages.0.languages_language_id')?.value;
       student_profile.language_known = this.languagelist.find((q: any) => q.id === language_id)?.language || '';
       student_profile.hobbies_interest = this.personalInfoForm.get('languages_hobby_id')?.value || '';
       student_profile.set_you_apart = this.personalInfoForm.get('career_preference_set_industry_apart')?.value || '';
 
       const soft_skills_id = this.personalInfoForm.get('career_preference_soft_skill_id')?.value || [];
-      const selectedSkills = this.softSkills .filter((skill: any) => soft_skills_id.map(String).includes(String(skill.id)))  .map((skill: any) => skill.soft_skill);
+      const selectedSkills = this.softSkills.filter((skill: any) => soft_skills_id.map(String).includes(String(skill.id))).map((skill: any) => skill.soft_skill);
       student_profile.soft_skills = selectedSkills.join(', ');
-      
+
 
       const professional_strength_ids = this.personalInfoForm.get('career_preference_professional_strength_id')?.value || [];
-      const selectedStrengths = this.professionalStrengths .filter((item: any) => professional_strength_ids.map(String).includes(String(item.id))) .map((item: any) => item.strength);
+      const selectedStrengths = this.professionalStrengths.filter((item: any) => professional_strength_ids.map(String).includes(String(item.id))).map((item: any) => item.strength);
       student_profile.professional_strengths = selectedStrengths.join(', ');
 
       student_profile.linked_in = this.personalInfoForm.get('networking_linkedin_profile')?.value || '';
@@ -1676,10 +1678,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   updateExperienceDate(
-      fromDateControl: FormControl,
-      toDateControl: FormControl,
-      yearsExpControl: FormControl,
-      currentlyWorkingControl: FormControl
+    fromDateControl: FormControl,
+    toDateControl: FormControl,
+    yearsExpControl: FormControl,
+    currentlyWorkingControl: FormControl
   ) {
     const fromDateValue = fromDateControl?.value;
     const toDateValue = toDateControl?.value;
@@ -2038,6 +2040,25 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     })
 
   }
+
+  onFormValueChanges() {
+    const stopsArray = this.personalInfoForm.get('work_experience') as FormArray;
+    stopsArray.controls.forEach((group: AbstractControl) => {
+      const currentlyWorkingControl = group.get('currently_working');
+      const toDateControl = group.get('work_experience_duration_to');
+      currentlyWorkingControl?.valueChanges.subscribe((value: boolean) => {
+        if (value) {
+          // Disable and clear the 'To Date'
+          toDateControl?.disable();
+          toDateControl?.setValue(this.today); // Optional: Set today's date
+        } else {
+          // Enable the 'To Date'
+          toDateControl?.enable();
+        }
+      });
+    });
+  }
+
 
   ngOnDestroy(): void {
     this.clearStoredFiles();
