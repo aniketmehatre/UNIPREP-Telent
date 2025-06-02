@@ -125,12 +125,12 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
 	ngOnInit(): void {
 		// Initialize essential data first
+		this.groupedListFav = this.chunkArray(this.featureList, 4);
 		this.initializeEssentialData();
 		this.recentJobs();
 		this.handleUserData();
 		this.loadParallelData();
 		this.recentCompanies();
-		this.groupedListFav = this.chunkArray(this.featureList, 4);
 		console.log(this.groupedListFav);
 		
 		this.locationService.dashboardLocationList().subscribe((countryList: any) => {
@@ -181,16 +181,18 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	sourceDomainData: any;
 	loadParallelData() {
 		// don't remove this code below commented 
-		// this.locationService.getSourceByDomain(window.location.hostname).subscribe((data:any) => {
-        //     this.sourceDomainData = data
-        //     this.cdr.markForCheck()
-        // })
-		// const whiteLabelData$ = forkJoin({
-		// 	logo:  this.sourceDomainData.logo,
-		// 	orgName: this.sourceDomainData.name
-		// }).pipe(
-		// 	catchError(() => of({ logo: null, orgName: null }))
-		// );
+		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data:any) => {
+            this.sourceDomainData = data
+			console.log(this.sourceDomainData.logo);
+			
+            this.cdr.markForCheck()
+        })
+		const whiteLabelData$ = forkJoin({
+			logo:  this.sourceDomainData.logo,
+			orgName: this.sourceDomainData.name
+		}).pipe(
+			catchError(() => of({ logo: null, orgName: null }))
+		);
 
 		const mainData$ = forkJoin({
 			partnerLogo: this.dashboardService.getTrustedPartners().pipe(catchError(() => of(null))),
@@ -200,11 +202,11 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		});
 
 		// Subscribe to white label data
-		// this.subs.sink = whiteLabelData$.subscribe(({ logo, orgName }) => {
-		// 	this.orgLogoWhiteLabel = logo;
-		// 	this.orgNameWhiteLabel = orgName;
-		// 	this.cdr.markForCheck();
-		// });
+		this.subs.sink = whiteLabelData$.subscribe(({ logo, orgName }) => {
+			this.orgLogoWhiteLabel = logo;
+			this.orgNameWhiteLabel = orgName;
+			this.cdr.markForCheck();
+		});
 
 		// Subscribe to main data
 
@@ -454,18 +456,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	openReportModal(op: any, event: any) {
-		// this.reportSubmitForm.reset()
-		// this.moduleList = []
-		// this.subModuleList = []
-		// this.questionList = []
-		// this.getModuleList()
-		// this.getReportOption()
-		// this.selectedGenMod = 1
-		// this.onChangeModuleList(1)
-		// this.onChangeSubModuleList(1)
-		// this.moduleQuestionReport = []
-		// this.isQuestionVisible = true
-		// this.isVisibleModulesMenu = false
 		op.toggle(event)
 	}
 
@@ -479,13 +469,10 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			if (res.status == 404) {
 			}
 			this.dataService.showFeedBackPopup(true)
-			// this.showReportSuccess = true;
 			setTimeout(() => {
 				this.dataService.showFeedBackPopup(false)
 				op.hide()
-				// this.showReportSuccess = false;
 			}, 3000)
-			// this.locationService.reportFaqQuestionaftersubmit(maildata).subscribe((res) => { })
 		})
 	}
 
@@ -499,13 +486,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	setProgress(progress: number) {
-		// const circle = document.querySelector(".progress-bar") as SVGCircleElement
-		// const radius = circle.r.baseVal.value
-		// const circumference = 2 * Math.PI * radius
-		// const offset = circumference - (progress / 100) * circumference
-		// circle.style.strokeDasharray = `${circumference} ${circumference}`
-		// circle.style.strokeDashoffset = `${offset}`
-		// be low this.progress is basic profile completion percentage and after that only fuction call. Because that fuction will give other two percentage. then after calculate overall percentage inside of that fuction api call
 		this.progress = Math.max(0, Math.min(progress, 100));
 		this.profileCompletion();
 	}
