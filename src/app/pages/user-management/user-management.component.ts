@@ -38,31 +38,22 @@ import { PasswordModule } from "primeng/password"
 	templateUrl: "./user-management.component.html",
 	styleUrls: ["./user-management.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule , PasswordModule , ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
+	imports: [CommonModule, RouterModule, PasswordModule, ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
 	providers: [ConfirmationService]
 })
 export class UserManagementComponent implements OnInit {
 	user!: User | null
 	locationList: any;
-	today = new Date()
 	registrationForm!: FormGroup
 	countryList: any
 	currentDate = new Date()
 	dateTime = new Date()
 	maximumTime = new Date()
 	selectedDate: any
-	updatedpasswords: FormGroup
-	ShowCrntPass: boolean = false
-	CrntPass: string = "password"
-	ShowNewPass: boolean = false
-	NewPass: string = "password"
-	ShowCnfrmPass: boolean = false
-	CnfrmPass: string = "password"
-	ShowPersonalInfo: boolean = false
+	updatedPasswords: FormGroup
 	PasswordSubmitted = false
 	newsLetter: boolean = false
 	PersonalInfo: any = []
-	tooltipContent: string = "<strong>Complete your Profile</strong><br><div class='text-center mt-1 mb-1'><small>update your profile details for more<br>personalized results in our Portal</small></div>"
 	hideToolTip: boolean = true
 	private subs = new SubSink()
 	activeSection: string = 'profileCard';
@@ -101,15 +92,15 @@ export class UserManagementComponent implements OnInit {
 			current_education: [""]
 		})
 
-		this.updatedpasswords = this.formBuilder.group({
+		this.updatedPasswords = this.formBuilder.group({
 			current_password: ["", [Validators.required]],
 			new_password: ["", [Validators.required]],
 			confirm_password: ["", [Validators.required]],
 		})
 	}
 
-	get updatepassword() {
-		return this.updatedpasswords.controls
+	get updatePassword() {
+		return this.updatedPasswords.controls
 	}
 
 	goBack() {
@@ -225,22 +216,22 @@ export class UserManagementComponent implements OnInit {
 					title: 'Weekly Newsletter',
 					description: 'Get notified about articles, discounts and new products.',
 					enabled: this.newsletter_consent,
-					pertrue: "You’ve successfully subscribed to the Weekly Newsletter. Look out for updates in your inbox!",
-					perfalse: "Are you sure you want to unsubscribe from the Weekly Newsletter?"
+					per_true: "You’ve successfully subscribed to the Weekly Newsletter. Look out for updates in your inbox!",
+					per_false: "Are you sure you want to unsubscribe from the Weekly Newsletter?"
 				},
 				{
 					title: 'Promotional Emails',
 					description: 'Get personalised emails based on your orders and preferences.',
 					enabled: this.promotional_email_consent,
-					pertrue: "You’ve subscribed to promotional emails. Stay tuned for the latest offers and news!",
-					perfalse: "Are you sure you want to stop receiving promotional emails?"
+					per_true: "You’ve subscribed to promotional emails. Stay tuned for the latest offers and news!",
+					per_false: "Are you sure you want to stop receiving promotional emails?"
 				},
 				{
 					title: 'Product Updates',
 					description: 'Checking this will enable us to notify you on updates and addition of new features to our product.',
 					enabled: this.product_update_email_consent,
-					pertrue: "You’ve subscribed to product updates. We’ll keep you informed about the latest features and improvements!",
-					perfalse: "Are you sure you want to stop receiving product updates?"
+					per_true: "You’ve subscribed to product updates. We’ll keep you informed about the latest features and improvements!",
+					per_false: "Are you sure you want to stop receiving product updates?"
 
 				}
 			];
@@ -270,15 +261,15 @@ export class UserManagementComponent implements OnInit {
 		})
 	}
 	// update password
-	UserUpdatePassword(updatedpasswords: any) {
-		let data = this.updatedpasswords.value
+	UserUpdatePassword(updatedPasswords: any) {
+		let data = this.updatedPasswords.value
 		this.PasswordSubmitted = true
-		if (this.updatedpasswords.invalid) {
+		if (this.updatedPasswords.invalid) {
 			return
 		}
 		this.subs.sink = this.userManagementService.CompareUserPassword(data).subscribe((passwordconfirmation) => {
 			if (passwordconfirmation.severity == "success") {
-				this.updatedpasswords.patchValue({
+				this.updatedPasswords.patchValue({
 					current_password: "",
 					new_password: "",
 					confirm_password: "",
@@ -408,7 +399,7 @@ export class UserManagementComponent implements OnInit {
 	}
 	confirmEmailToggle(event: any, setting: any) {
 		const newValue = event.checked ? 1 : 0;
-		const message = event.checked ? setting.pertrue : setting.perfalse;
+		const message = event.checked ? setting.per_true : setting.per_false;
 		this.confirmationService.confirm({
 			message: message,
 			header: 'Confirm Change',
@@ -464,11 +455,11 @@ export class UserManagementComponent implements OnInit {
 		}
 
 	}
-	assoiciatedMail: any = "";
+	associatedMail: any = "";
 	integrationPartActiveOrInactive() {
 		this.userManagementService.integrationPartActiveOrInactive().subscribe({
 			next: (data: any) => {
-				this.assoiciatedMail = data.mail;
+				this.associatedMail = data.mail;
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
@@ -540,6 +531,7 @@ export class UserManagementComponent implements OnInit {
 			}
 		});
 	}
+	// block p-calender text ,
 	onKeyPress(event: KeyboardEvent) {
 		const key = event.key;
 		const isNumber = /^[0-9]$/.test(key);
@@ -549,20 +541,20 @@ export class UserManagementComponent implements OnInit {
 		}
 	}
 
-	// Trim the input to max 4 digits
+	// Trim the input to max 4 digits in p-calender
 	onYearInput(event: any) {
 		const inputEl = event.target;
 		inputEl.value = inputEl.value.replace(/[^0-9]/g, '').slice(0, 4);
 	}
-passwordFields = {
-  current: { visible: false, type: 'password' },
-  new: { visible: false, type: 'password' },
-  confirm: { visible: false, type: 'password' }
-};
+	passwordFields = {
+		current: { visible: false, type: 'password' },
+		new: { visible: false, type: 'password' },
+		confirm: { visible: false, type: 'password' }
+	};
 
-togglePassword(field: 'current' | 'new' | 'confirm') {
-  const passwordField = this.passwordFields[field];
-  passwordField.visible = !passwordField.visible;
-  passwordField.type = passwordField.visible ? 'text' : 'password';
-}
+	togglePassword(field: 'current' | 'new' | 'confirm') {
+		const passwordField = this.passwordFields[field];
+		passwordField.visible = !passwordField.visible;
+		passwordField.type = passwordField.visible ? 'text' : 'password';
+	}
 }

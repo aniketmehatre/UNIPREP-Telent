@@ -225,7 +225,7 @@
                                     <p class="fontsizecontent">Update your password</p>
                                 </div>
                                 <div class="col-md-9 col-lg-9 col-sm-12">
-                                    <form [formGroup]="updatedpasswords"
+                                    <form [formGroup]="updatedPasswords"
                                         (ngSubmit)="UserUpdatePassword(updatedpasswords)">
                                         <div class="container-fluid">
                                             <div class="row">
@@ -241,10 +241,10 @@
                                                                 [ngClass]="passwordFields.current.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
                                                         </span>
                                                     </div>
-                                                    <div *ngIf="PasswordSubmitted && updatepassword['current_password']['errors']"
+                                                    <div *ngIf="PasswordSubmitted && updatePassword['current_password']['errors']"
                                                         class="UserInfoValidation">
-                                                        <div
-                                                            *ngIf="updatepassword['current_password']['errors']['required']">
+                                                        <div class="text-danger"
+                                                            *ngIf="updatePassword['current_password']['errors']['required']">
                                                             Current Password is required</div>
                                                     </div>
                                                 </div>
@@ -260,10 +260,10 @@
                                                                 [ngClass]="passwordFields.new.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
                                                         </span>
                                                     </div>
-                                                    <div *ngIf="PasswordSubmitted && updatepassword['new_password']['errors']"
+                                                    <div *ngIf="PasswordSubmitted && updatePassword['new_password']['errors']"
                                                         class="UserInfoValidation">
-                                                        <div
-                                                            *ngIf="updatepassword['new_password']['errors']['required']">
+                                                        <div class="text-danger"
+                                                            *ngIf="updatePassword['new_password']['errors']['required']">
                                                             New Password is required</div>
                                                     </div>
                                                 </div>
@@ -279,10 +279,10 @@
                                                                 [ngClass]="passwordFields.confirm.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
                                                         </span>
                                                     </div>
-                                                    <div *ngIf="PasswordSubmitted && updatepassword['confirm_password']['errors']"
+                                                    <div *ngIf="PasswordSubmitted && updatePassword['confirm_password']['errors']"
                                                         class="UserInfoValidation">
-                                                        <div
-                                                            *ngIf="updatepassword['confirm_password']['errors']['required']">
+                                                        <div class="text-danger"
+                                                            *ngIf="updatePassword['confirm_password']['errors']['required']">
                                                             Confirm Password is required</div>
                                                     </div>
                                                 </div>
@@ -336,12 +336,12 @@
                                             <div>
                                                 <strong>Google</strong>
                                                 <div class="text-muted small"><span *ngIf="associatedMail"><i
-                                                            class="fab fa-google text-danger"></i></span>{{assoiciatedMail}}
+                                                            class="fab fa-google text-danger"></i></span>{{associatedMail}}
                                                 </div>
                                             </div>
-                                            <div [ngClass]="assoiciatedMail ? 'text-success' : 'text-danger'"
+                                            <div [ngClass]="associatedMail ? 'text-success' : 'text-danger'"
                                                 class="small">
-                                                {{ assoiciatedMail ? "Linked" : "Not Linked" }}
+                                                {{ associatedMail ? "Linked" : "Not Linked" }}
                                             </div>
                                         </div>
                                     </div>
