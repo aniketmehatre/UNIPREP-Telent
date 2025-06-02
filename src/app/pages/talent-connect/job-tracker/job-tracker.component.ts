@@ -12,6 +12,7 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { InputNumberModule } from "primeng/inputnumber";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { DrawerModule } from "primeng/drawer";
+import { PageFacadeService } from "../../page-facade.service";
 interface DropdownOption {
 	label: string;
 	value: string;
@@ -35,17 +36,17 @@ interface ChatMessage {
 export class JobTrackerComponent {
 	orgnamewhitlabel: any;
 	displayModal: boolean = false;
-	constructor(private talentConnectService: TalentConnectService) {}
+	constructor(private talentConnectService: TalentConnectService, private pageFacade: PageFacadeService) { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 	visible: boolean = false;
-  visiblechat: boolean = false;
+	visiblechat: boolean = false;
 	isSkeletonVisible: boolean = false;
 	ehitlabelIsShow: boolean = false;
 	restrict: boolean = false;
 	howItWorksVideoLink: string = "";
 	selectedJobId: number | null = null;
-	openVideoPopup(link: string) {}
+
 
 	totalJobs: number = 100; // As shown in the UI
 
@@ -92,5 +93,9 @@ export class JobTrackerComponent {
 		this.displayModal = true;
 	}
 
-	upgradePlan() {}
+	upgradePlan() { }
+
+	openVideoPopup(videoLink: string) {
+		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	}
 }

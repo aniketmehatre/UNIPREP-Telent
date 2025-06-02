@@ -36,7 +36,7 @@
 									{{ isShowAiEvaluation ? "Career Profile Evaluation" : "Edit your Profile" }}</h5>
 							</div>
 							<div class="d-flex gap-2" *ngIf="!isShowAiEvaluation">
-									<button class="btn btn-secondary btn-rounded" pButton
+								<button class="btn btn-secondary btn-rounded" pButton
 									(click)="openProfileDialog(true)">Profile Sample</button>
 								<button class="button-profile-top rounded-pill" pButton
 									(click)="openProfileDialog(false)">Profile Preview</button>
@@ -185,9 +185,9 @@
 												<!-- Highest Qualification -->
 												<div class="col-md-6">
 													<label for="" class="form-label">
-														Highest Qualification <span class="text-danger">*</span></label>
-													<p-select id=""
-														formControlName="education_qualification_id"
+														{{i== 0 ? 'Highest ' : '' }}Qualification <span
+															class="text-danger">*</span></label>
+													<p-select id="" formControlName="education_qualification_id"
 														[options]="qualifications"
 														placeholder="Select your highest qualification"
 														styleClass="w-100" optionLabel="qualification_name"
@@ -220,11 +220,11 @@
 												<div class="col-md-6">
 													<label for="fieldOfStudy" class="form-label">Major <span
 															class="text-danger">*</span></label>
-													<p-select id=""
-														formControlName="education_field_id" [options]="fieldsOfStudy"
-														placeholder="Select Major" styleClass="w-100"
-														optionLabel="field_name" optionValue="id" [filter]="true"
-														filterBy="field_name" (focusout)="resetMessageBox()"
+													<p-select id="" formControlName="education_field_id"
+														[options]="fieldsOfStudy" placeholder="Select Major"
+														styleClass="w-100" optionLabel="field_name" optionValue="id"
+														[filter]="true" filterBy="field_name"
+														(focusout)="resetMessageBox()"
 														(onFocus)="updateMessageBox('education_field_id')"></p-select>
 													<small class="text-danger"
 														*ngIf="education.get('education_field_id')?.invalid && education.get('education_field_id')?.touched">
@@ -253,12 +253,11 @@
 													<label for="fieldOfStudy" class="form-label">Graduation Year
 														<span class="text-danger">*</span></label>
 													<div class="p-inputgroup">
-														<p-select id=""
-															formControlName="education_graduation_year_id"
-															[options]="graduationYears"
-															placeholder="Select Graduation Year" styleClass="w-100"
-															optionLabel="graduation_year_name" optionValue="id"
-															(focusout)="resetMessageBox()"
+														<p-select id="" formControlName="education_graduation_year_id"
+															[options]="graduationYears" [filter]="true"
+															[appendTo]="'body'" placeholder="Select Graduation Year"
+															styleClass="w-100" optionLabel="graduation_year_name"
+															optionValue="id" (focusout)="resetMessageBox()"
 															(onFocus)="updateMessageBox('education_graduation_year_id')"></p-select>
 													</div>
 													<small class="text-danger"
@@ -291,7 +290,8 @@
 										</ng-container>
 									</ng-container>
 									<div class="row">
-										<button class="w-full btn btn-primary" pButton (click)="addEducation()">Add
+										<button [disabled]="isDisableAddMoreEducation" class="w-full btn btn-primary"
+											pButton (click)="addEducation()">Add
 											Education Details &nbsp;<i class="fa fa-plus"></i></button>
 									</div>
 								</div>
@@ -323,8 +323,7 @@
 												</div>
 												<div class="col-md-6 mb-3">
 													<label for="fieldOfStudy" class="form-label">Job Title</label>
-													<p-select id="" [virtualScroll]="true"
-														[virtualScrollItemSize]="50"
+													<p-select id="" [virtualScroll]="true" [virtualScrollItemSize]="50"
 														formControlName="work_experience_job_title"
 														[options]="jobTitles" placeholder="Select Job Title"
 														styleClass="w-100" optionLabel="job_title"
@@ -533,8 +532,7 @@
 											<div class="col-md-6">
 												<label for="" class="form-label">
 													Career Status<span class="text-danger">*</span></label>
-												<p-select id=""
-													formControlName="career_preference_career_status"
+												<p-select id="" formControlName="career_preference_career_status"
 													[options]="careerStatus" placeholder="Select Career Status"
 													styleClass="w-100" (focusout)="resetMessageBox()"
 													(onFocus)="updateMessageBox('career_preference_career_status')"></p-select>
@@ -545,8 +543,7 @@
 											<div class="col-md-6">
 												<label for="" class="form-label">Job Title<span
 														class="text-danger">*</span></label>
-												<p-select id=""
-													pTooltip="Not able to find please type in Job Title"
+												<p-select id="" pTooltip="Not able to find please type in Job Title"
 													[virtualScroll]="true" [virtualScrollItemSize]="50"
 													formControlName="career_preference_job_title_id"
 													[options]="jobTitles" placeholder="Select Job Title"
@@ -815,11 +812,11 @@
 												*ngFor="let language of languages.controls; let i = index"
 												[formGroupName]="i">
 												<div class="col-md-6">
-													<p-select id=""
-														formControlName="languages_language_id" [options]="languagelist"
-														placeholder="Enter know language" styleClass="w-100"
-														optionLabel="language" optionValue="id" [filter]="true"
-														filterBy="language" (focusout)="resetMessageBox()"
+													<p-select id="" formControlName="languages_language_id"
+														[options]="languagelist" placeholder="Enter know language"
+														styleClass="w-100" optionLabel="language" optionValue="id"
+														[filter]="true" filterBy="language"
+														(focusout)="resetMessageBox()"
 														(onFocus)="updateMessageBox('languages_language_id')"></p-select>
 													<small class="text-danger"
 														*ngIf="language.get('languages_language_id')?.invalid && language.get('languages_language_id')?.touched">
@@ -828,8 +825,7 @@
 												<div class="col-md-6">
 													<div class="row">
 														<div class="col">
-															<p-select id=""
-																formControlName="languages_proficiency"
+															<p-select id="" formControlName="languages_proficiency"
 																[options]="languageProficiency"
 																placeholder="Enter language proficiency"
 																styleClass="w-100" (focusout)="resetMessageBox()"
@@ -857,8 +853,7 @@
 											<div class="col-md-12">
 												<label for="" class="form-label">Hobbies &
 													Interests</label>
-												<input pInputText fluid id=""
-													formControlName="languages_hobby_id"
+												<input pInputText fluid id="" formControlName="languages_hobby_id"
 													placeholder="Enter if any hobbies and interests"
 													class="form-control w-100" />
 											</div>
@@ -1047,8 +1042,7 @@
 												*ngFor="let experience of socialMedia.controls; let i = index"
 												[formGroupName]="i">
 												<div class="col-md-6">
-													<p-select id=""
-														formControlName="networking_social_media"
+													<p-select id="" formControlName="networking_social_media"
 														[options]="socialMedias"
 														placeholder="Select any social media platform"
 														styleClass="w-100" (focusout)="resetMessageBox()"
@@ -1238,9 +1232,8 @@
 													<label for="" class="form-label">Email
 														<!-- <span class="text-danger">*</span> -->
 													</label>
-													<input pInputText fluid id=""
-														formControlName="references_email" type="email"
-														placeholder="Enter the reference email"
+													<input pInputText fluid id="" formControlName="references_email"
+														type="email" placeholder="Enter the reference email"
 														class="form-control w-100" (focusout)="resetMessageBox()"
 														(focus)="updateMessageBox('references_email')" />
 													<small class="text-danger"
@@ -1286,8 +1279,7 @@
 														(focus)="updateMessageBox('pro_references_reference_name')" />
 												</div>
 												<div class="col-md-4">
-													<label for=""
-														class="form-label">Desigination</label>
+													<label for="" class="form-label">Desigination</label>
 													<input pInputText fluid id=""
 														formControlName="references_designation"
 														placeholder="Enter the reference desigination"

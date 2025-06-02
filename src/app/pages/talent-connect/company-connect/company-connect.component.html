@@ -10,12 +10,11 @@
 						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">Company Connect<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 				<button type="button" title="Close Popup" class="btn btn-primary btn-lg rounded-3 shadow-sm px-4 text-normal" (click)="displayModal = true">Filter&nbsp;&nbsp;<i class="fa-solid fa-caret-down"></i></button>
 			</div>
-			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
 		</div>
 		<div class="row mt-2 align-items-center">
 			<!-- Left Spacer (Keeps Buttons Centered) -->
@@ -56,7 +55,7 @@
 										<h5 class="fw-bold mb-0">{{ company.company_name ? company.company_name : "Company Name" }}</h5>
 										<p class="text-muted text-small">Founded: {{ (company.founded_year | date: 'yyyy') || "2019" }}</p>
 									</div>
-									<a href="#" style="color: #fda172">
+									<a routerLink="/pages/talent-connect/company-connect" style="color: #fda172">
 										<i class="fa-regular fa-share-alt fa-xl"></i>
 									</a>
 								</div>
@@ -78,7 +77,7 @@
 									<div class="info-container" class="text-decoration-none text-dark"
 										(click)="routerToJobListingPageWithCompanyId($event, company.id);">
 										<div class="info-label">Open Jobs</div>
-										<div class="info-value">{{ company.jobs }}</div>
+										<div class="info-value">{{ company.jobs ?? '-'}}</div>
 									</div>
 								</div>
 							</div>
@@ -90,7 +89,7 @@
 										</div>
 										<div class="info-container" (click)="routerToJobListingPageWithCompanyId($event, company.id);">
 										<div class="info-label">Open Vacancies</div>
-										<div class="info-value">{{ company.vacancies }}</div>
+										<div class="info-value">{{ company.vacancies ?? '-'}}</div>
 									</div>
 								</div>
 							</div>
@@ -104,7 +103,7 @@
 									</div>
 									<div class="info-container">
 										<div class="info-label">Company Type</div>
-										<div class="info-value">{{ company.type }}</div>
+										<div class="info-value">{{ company.type ?? '-'}}</div>
 									</div>
 								</div>
 							</div>
@@ -116,7 +115,7 @@
 									</div>
 									<div class="info-container">
 										<div class="info-label">Company Size</div>
-										<div class="info-value">{{ company.size }}</div>
+										<div class="info-value">{{ company.size ?? '-'}}</div>
 									</div>
 								</div>
 							</div>
@@ -129,7 +128,7 @@
 									</div>
 									<div class="info-container">
 										<div class="info-label">Industry</div>
-										<div class="info-value">{{ company.industry_type }}</div>
+										<div class="info-value">{{ company.industry_type ?? '-' }}</div>
 									</div>
 								</div>
 							</div>
@@ -141,7 +140,7 @@
 									</div>
 									<div class="info-container">
 										<div class="info-label">Headquarters</div>
-										<div class="info-value">{{ company.HQ_city }} , {{ company.HQ_country }}</div>
+										<div class="info-value">{{ company.HQ_city ? company.HQ_city + ', ' : ''}}  {{ company.HQ_country }}</div>
 									</div>
 								</div>
 							</div>
@@ -154,7 +153,7 @@
 									</div>
 									<div class="info-container">
 										<div class="info-label">Department</div>
-										<div class="info-value">{{ company.departments }}</div>
+										<div class="info-value">{{ company.departments ?? '-' }}</div>
 									</div>
 								</div>
 							</div>
@@ -166,7 +165,7 @@
 									</div>
 									<div class="info-container">
 										<div class="info-label">Work mode</div>
-										<div class="info-value">{{ company.work_mode }}</div>
+										<div class="info-value">{{ company.work_mode ?? '-'}}</div>
 									</div>
 								</div>
 							</div>

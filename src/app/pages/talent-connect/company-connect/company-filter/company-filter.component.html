@@ -5,75 +5,79 @@
 			<span class="font-bold whitespace-nowrap">Filter</span>
 		</div>
 	</ng-template>
-	<div class="container-fluid p-3">
-		<form (ngSubmit)="triggerFilter()" [formGroup]="companyForm">
-			<div class="row g-4">
-				<div class="col-md-8">
-					<label class="form-label fw-bold">Company Name</label>
-					<input class="form-control p-0" formControlName="companyname" pInputText placeholder="Search by company name" />
-					</div>
-
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Industry Type</label>
-					<p-select appendTo="body" [options]="industryTypes" formControlName="industrytype" optionValue="id"
-						optionLabel="industry_name" placeholder="Select your preferred industry" styleClass="w-100"
-						[showClear]="true"></p-select>
-				</div>
-
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Company Size</label>
-					<p-select appendTo="body" [options]="companySizes" formControlName="companysize" placeholder="Select Company Size"
-						styleClass="w-100" [showClear]="true" optionValue="id" optionLabel="size"></p-select>
-				</div>
-
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Headquarters Location</label>
-					<p-select appendTo="body" [options]="locations" formControlName="hq" placeholder="Select Headquarters Location"
-						[filter]="true" filterBy="city_name,country_name" optionValue="city_id" styleClass="w-100" [showClear]="true"
-						[virtualScroll]="true" [virtualScrollItemSize]="50">
-						<ng-template let-item pTemplate="selectedItem">
-							{{ item?.city_name }}, {{ item?.country_name }}
-						</ng-template>
-						<ng-template let-option pTemplate="item">
-							{{ option.city_name }}, {{ option.country_name }}
-						</ng-template>
-					</p-select>
-				</div>
-				<div class="col-md-4" *ngIf="!isListView">
-					<label class="form-label fw-bold">Status</label>
-					<p-select appendTo="body" [options]="[{label: 'Active', value: 1}, {label: 'InActive', value: 0}]"
-						formControlName="globalpresence" placeholder="Select global presence" optionValue="value" optionLabel="label"
-						styleClass="w-100" [showClear]="true"></p-select>
-				</div>
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Global Presence</label>
-					<p-select appendTo="body" [options]="globalPresence" formControlName="globalpresence"
-						placeholder="Select global presence" optionValue="id" optionLabel="country" styleClass="w-100"
-						[showClear]="true"></p-select>
-				</div>
-
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Year Founded</label>
-					<p-select appendTo="body" [options]="foundedYears" formControlName="foundedyear" placeholder="Select founded year"
-						styleClass="w-100" [showClear]="true"></p-select>
-				</div>
-
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Company Type</label>
-					<p-select appendTo="body" [options]="companyTypes" formControlName="companytype" optionLabel="type" optionValue="id"
-						placeholder="Select company type" styleClass="w-100" [showClear]="true"></p-select>
-				</div>
+	<form (ngSubmit)="triggerFilter()" [formGroup]="companyForm">
+		<div class="row g-4">
+			<div class="col-md-8">
+				<label class="form-label fw-bold">Company Name</label>
+				<input class="form-control d-none" formControlName="companyname" pInputText
+				placeholder="Search by company name" />
+				<input class="form-control" formControlName="companyname" pInputText
+					placeholder="Search by company name" />
 			</div>
-		</form>
-	</div>
+
+			<div class="col-md-4">
+				<label class="form-label fw-bold">Industry Type</label>
+				<p-select appendTo="body" [options]="industryTypes" formControlName="industrytype" optionValue="id"
+					optionLabel="industry_name" placeholder="Select your preferred industry" styleClass="w-100"
+					[showClear]="true" [filter]="true"></p-select>
+			</div>
+
+			<div class="col-md-4">
+				<label class="form-label fw-bold">Company Size</label>
+				<p-select appendTo="body" [options]="companySizes" formControlName="companysize"
+					placeholder="Select Company Size" styleClass="w-100" [showClear]="true" optionValue="id"
+					optionLabel="size"></p-select>
+			</div>
+
+			<div class="col-md-4">
+				<label class="form-label fw-bold">Headquarters Location</label>
+				<p-select appendTo="body" [options]="locations" formControlName="hq"
+					placeholder="Select Headquarters Location" [filter]="true" filterBy="city_name,country_name"
+					optionValue="city_id" styleClass="w-100" [showClear]="true" [virtualScroll]="true"
+					[virtualScrollItemSize]="50">
+					<ng-template let-item pTemplate="selectedItem">
+						{{ item?.city_name }}, {{ item?.country_name }}
+					</ng-template>
+					<ng-template let-option pTemplate="item">
+						{{ option.city_name }}, {{ option.country_name }}
+					</ng-template>
+				</p-select>
+			</div>
+			<div class="col-md-4" *ngIf="!isListView">
+				<label class="form-label fw-bold">Status</label>
+				<p-select appendTo="body" [options]="[{label: 'Active', value: 1}, {label: 'InActive', value: 0}]"
+					formControlName="globalpresence" placeholder="Select global presence" optionValue="value"
+					optionLabel="label" styleClass="w-100" [showClear]="true"></p-select>
+			</div>
+			<div class="col-md-4">
+				<label class="form-label fw-bold">Global Presence</label>
+				<p-select appendTo="body" [options]="globalPresence" formControlName="globalpresence"
+					placeholder="Select global presence" optionValue="id" optionLabel="country" styleClass="w-100"
+					[showClear]="true" [filter]="true"></p-select>
+			</div>
+
+			<div class="col-md-4">
+				<label class="form-label fw-bold">Year Founded</label>
+				<p-select appendTo="body" [options]="foundedYears" formControlName="foundedyear"
+					placeholder="Select founded year" styleClass="w-100" [showClear]="true" [filter]="true"></p-select>
+			</div>
+
+			<div class="col-md-4">
+				<label class="form-label fw-bold">Company Type</label>
+				<p-select appendTo="body" [options]="companyTypes" formControlName="companytype" optionLabel="type"
+					optionValue="id" placeholder="Select company type" styleClass="w-100" [showClear]="true" [filter]="true"></p-select>
+			</div>
+		</div>
+	</form>
 
 	<ng-template #footer>
 		<div class="d-grid gap-2 col-12 mx-auto">
-			<button type="submit" class="btn btn-dark w-100 block" style="background-color: var(--uniprep-primary); border: none"
-				(click)="triggerFilter();">Apply
+			<button type="button" class="btn btn-dark w-100 block"
+				style="background-color: var(--uniprep-primary); border: none" (click)="triggerFilter();">Apply
 				Filter</button>
-			<button class="btn btn-outline-dark w-100" (click)="resetFilter.emit()"
-				style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none" type="button">Reset
+			<button class="btn btn-outline-dark w-100" (click)="onResetFilter()"
+				style="background-color: white; border-radius: 8px; color: var(--uniprep-primary); border: none"
+				type="button">Reset
 				Filter</button>
 		</div>
 	</ng-template>

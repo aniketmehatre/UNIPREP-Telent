@@ -124,7 +124,12 @@ export class MainListComponent implements OnInit {
                 this.router.navigateByUrl(url);
             }
         } else {
-            this.router.navigate([url, this.profileData[0].id]);
+            if (moduleId == 1) {
+                this.router.navigate([url, this.profileData[0].id]);
+            } 
+            else {
+                this.router.navigateByUrl(url);
+            }
         }
 
     }

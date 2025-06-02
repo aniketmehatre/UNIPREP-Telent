@@ -103,9 +103,9 @@
 												</div>
 											</div>
 											<div class="col-md-6 col-12">
-												<p class="text-primary text-small fw-medium text-muted">
+												<!-- <p class="text-primary text-small fw-medium text-muted">
 													{{ jobDetails.matching_skills }}
-												</p>
+												</p> -->
 												<div class="d-flex flex-wrap gap-1 overflow-y-auto"
 													style="max-height: 4rem">
 													<span *ngFor="let skill of jobDetails?.jobsoftskills"
@@ -262,7 +262,7 @@
 											<div class="d-flex align-items-center mb-2">
 												<i class="fas fa-dollar me-2 text-success"></i>
 												<div>
-													<span class="text-muted">Salary Range</span>
+													<span class="text-muted">Salary Offer / Month</span>
 													<div class="fw-bold">
 														<span class="me-1">{{ jobDetails.currency_code }}</span>{{
 														jobDetails.salary_offer }}
@@ -306,7 +306,7 @@
 												<i class="fas fa-building me-2" style="color: darkblue"></i>
 												<div>
 													<span class="text-muted">Industry</span>
-													<div class="fw-bold">{{ jobDetails.industry_name }}</div>
+													<div class="fw-bold">{{ jobDetails.industry_name ?? 'N/A'}}</div>
 												</div>
 											</div>
 										</div>
