@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	domainNameCondition: string
 	ipURL: string = "https://api.ipify.org?format=json"
 	locationData: any
+	isInstitute = signal(false)
 
 	submitted = signal(false);
 	show = signal(true);
@@ -77,6 +78,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 		localStorage.clear()
 		this.initializeComponent()
 		this.setupSocialAuth()
+		this.apiToCheckPartnerOrInstitute()
 	}
 
 	get canSubmit() {
@@ -169,6 +171,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.service.getMe().subscribe({
 			next: (userData) => {
 				this.loadCountryList(userData)
+				this.storage.set('user_type_id', userData.userdetails[0].usertype_id);
 				let req = {
 					userId: userData.userdetails[0].user_id,
 					location: this.locationData.city,
@@ -229,6 +232,17 @@ export class LoginComponent implements OnInit, OnDestroy {
 					summary: "Error",
 					detail: error?.error?.message || 'Login failed'
 				})
+			}
+		})
+	}
+
+	apiToCheckPartnerOrInstitute() {
+		let req = {
+			domain: window.location.hostname,
+		}
+		this.locationService.getSourceByDomain(req).subscribe((response) => {
+			if (response.source == 'Institute') {
+				this.isInstitute.set(true);
 			}
 		})
 	}
