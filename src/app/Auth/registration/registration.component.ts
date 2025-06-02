@@ -86,9 +86,9 @@ export class RegistrationComponent implements OnInit {
 	dateTime = new Date()
 	ngOnInit() {
 		localStorage.clear()
-		this.locationService.getImage().subscribe((imageUrl) => {
-			this.imageUrlWhitelabel = imageUrl
-		})
+        this.locationService.getSourceByDomainName().subscribe((data:any) => {
+            this.imageUrlWhitelabel = data.logo
+        })
 		this.authService.authState.subscribe((user) => {
 			this.service.googlesignUp(user).subscribe(
 				(data) => {

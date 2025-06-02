@@ -24,12 +24,10 @@ export class RestrictionDialogComponent implements OnInit {
   constructor(private locationService: LocationService, private router: Router) { }
 
   ngOnInit() {
-    this.locationService.getOrgName().subscribe((orgname) => {
-      this.orgName = orgname;
-    });
-    this.locationService.getImage().subscribe(imageUrl => {
-      this.orgLogo = imageUrl;
-    });
+    this.locationService.getSourceByDomainName().subscribe((data: any) => {
+      this.orgLogo = data.logo
+      this.orgName = data.name;
+    })
     this.whiteLabelName = window.location.hostname;
     if (this.whiteLabelName === "*.uniprep.ai" || this.whiteLabelName === "dev-student.uniprep.ai" || this.whiteLabelName === "uniprep.ai" || this.whiteLabelName === "localhost") {
       this.isWhiteLabelVisible = false;

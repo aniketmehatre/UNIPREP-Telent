@@ -112,8 +112,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 	}
 	imagewhitlabeldomainname: any
 	ngOnInit(): void {
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
+		this.locationService.getSourceByDomainName().subscribe((data: any) => {
+			this.orgnamewhitlabel = data.name
 		})
 		this.imagewhitlabeldomainname = window.location.hostname
 		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {

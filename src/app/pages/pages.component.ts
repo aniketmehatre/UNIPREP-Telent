@@ -146,9 +146,10 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.route.data.subscribe(data => {
       this.service._user = data['user']['userdetails'][0];
     });
-    this.locationService.getOrgName().subscribe((orgname) => {
-      this.orgnamewhitlabel = orgname;
-    });
+    this.locationService.getSourceByDomainName().subscribe((data: any) => {
+      this.orgnamewhitlabel = data.name,
+      this.imageUrlWhitelabel = data.logo
+    })
     this.imagewhitlabeldomainname = window.location.hostname;
     this.ehitlabelIsShow = this.imagewhitlabeldomainname === "*.uniprep.ai" ||
       this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
@@ -160,9 +161,6 @@ export class PagesComponent implements OnInit, OnDestroy {
       this.imagewhitlabeldomainname === "uniprep.ai" ||
       this.imagewhitlabeldomainname === "localhost" ||
       this.imagewhitlabeldomainname === "meta.uniprep.ai";
-    this.locationService.getImage().subscribe((imageUrl) => {
-      this.imageUrlWhitelabel = imageUrl;
-    });
     this.service.getTimeInfoForCard().subscribe((data) => {
       this.storage.set("time_card_info", data.card_message);
     });

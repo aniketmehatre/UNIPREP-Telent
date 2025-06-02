@@ -545,15 +545,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.conditionModuleOrQuestionComponent();
 		this.getProgramlevelList();
 		// Load organization name
-		this.locationService.getOrgName().subscribe({
-			next: (orgname) => {
-				this.orgnamewhitlabel = orgname;
-			},
-			error: (error) => {
-				console.error('Error loading org name:', error);
-			}
-		});
-
+		this.locationService.getSourceByDomainName().subscribe((data: any) => {
+			this.orgnamewhitlabel = data.name;
+		})
 		// Handle preferred country
 		try {
 			const response = await fetch('https://ipapi.co/json/');

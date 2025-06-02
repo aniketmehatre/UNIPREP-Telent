@@ -374,9 +374,9 @@ export class SidenavComponent {
           ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
           : this.menus;
     });
-    this.locationService.getOrgName().subscribe((orgname) => {
-      this.orgnamewhitlabel = orgname;
-    });
+    this.locationService.getSourceByDomainName().subscribe((data: any) => {
+			this.orgnamewhitlabel = data.name;
+		})
     this.markCurrentMenu();
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
