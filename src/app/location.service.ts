@@ -6,6 +6,7 @@ import {DeviceDetectorService} from "ngx-device-detector";
 import {LocalStorageService} from "ngx-localstorage";
 import {BehaviorSubject, Observable, of, shareReplay, tap} from 'rxjs';
 import {educationLevel} from './@Models/module.model';
+import { Blog } from './pages/landing/bloglist/bloglist.component';
 
 @Injectable({
     providedIn: "root",
@@ -147,9 +148,13 @@ export class LocationService {
 
     getBlogs(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/blogs", data, {
+        return this.http.post<{ blogs: Blog[], total: number }>(environment.ApiUrl + "/blogs", data, {
             headers: headers,
         });
+    }
+
+    getCategoriesList() {
+        return this.http.post<any>(environment.ApiUrl + '/blogcategories', {});
     }
 
     getFeatBlogs() {

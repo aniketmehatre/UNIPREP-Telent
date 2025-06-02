@@ -369,6 +369,10 @@ export class SidenavComponent {
       } else {
         this.menus = this.menus;
       }
+      let userTypeId = this.storage.get('user_type_id') === 7
+      this.menus = userTypeId
+          ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
+          : this.menus;
     });
     this.locationService.getOrgName().subscribe((orgname) => {
       this.orgnamewhitlabel = orgname;

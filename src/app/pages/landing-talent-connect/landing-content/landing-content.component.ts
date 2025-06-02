@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { TimelineModule } from 'primeng/timeline';
-import {environment} from "@env/environment";
+import { environment } from "@env/environment";
 
 @Component({
   selector: 'uni-landing-content',
@@ -23,8 +23,6 @@ import {environment} from "@env/environment";
   styleUrl: './landing-content.component.scss'
 })
 export class LandingContentComponent implements OnInit {
-  scrollThresholdPerCard = 150; // How much scroll per card stack
-  totalStackScrollHeight = 0;
   @ViewChild('cardStack') cardStackElement!: ElementRef;
   @ViewChild("videoPlayer")
   videoPlayer!: ElementRef;
@@ -43,7 +41,7 @@ export class LandingContentComponent implements OnInit {
     },
     {
       id: 2,
-      title: 'Discover Local, National & Global-Opportunities',
+      title: 'Explore opportunities across local, national, and global employers',
       description: 'Explore job openings from employers around the world across industries.',
       icon: 'fa-solid fa-globe',
       alignment: 'left',
@@ -57,14 +55,14 @@ export class LandingContentComponent implements OnInit {
     },
     {
       id: 4,
-      title: 'Stand Out and Get Shortlisted',
+      title: 'Get noticed and shortlisted by hiring companies',
       description: 'Browse through a diverse pool of qualified candidates to find your ideal match. Utilize advanced search filters to narrow down candidates based on your specific needs.',
       icon: 'fa-solid fa-user-check',
       alignment: 'left',
     },
     {
       id: 5,
-      title: 'Connect & Interview with Employers',
+      title: 'Connect, interview, and step into your next role',
       description: 'Engage directly with companies through the platform for interviews and assessments.',
       icon: 'fa-solid fa-handshake',
       alignment: 'right',
@@ -140,123 +138,119 @@ export class LandingContentComponent implements OnInit {
 
   templateCardFeatures = [
     {
-    icon: 'fa-solid fa-wand-magic-sparkles',
-    color: '#f8943f',
-    title: 'Skill-Based Hiring with Smart Filters',
-    description: [
-      'Post jobs with targeted skills',
-      'Filter for candidates who truly match your requirements',
-      'Skip irrelevant CVs — focus on what matters'
-    ],
-  },
-  {
-    icon: 'fa-solid fa-check-double',
-    color: '#4dcbc0',
-    title: 'Introductory Videos – Optional for Students, Required by Employers 🎥',
-    description: [
-      'Employers can make video introductions mandatory',
-      'See candidates’ communication skills and confidence before interviews',
-      'Only those who upload a video can apply (if required)'
-    ],
-  },
-  {
-    icon: 'fa-solid fa-graduation-cap',
-    color: '#5c6bc0',
-    title: 'Free for the First 6 Months 🆓',
-    description: [
-      'Unlimited job postings',
-      'Full access to career tools, dashboards, and support',
-      'No commissions, no contracts — try at scale, risk-free'
-    ],
-  },
-  {
-    icon: 'fa-solid fa-earth-americas',
-    color: '#4dc970',
-    title: 'Hire Across All Countries and Role Types',
-    description: [
-      'Post unlimited roles for remote, onsite, hybrid, or relocation',
-      'Full-time, freelance, internships, contractual, or part-time',
-      'Reach candidates from 100+ countries'
-    ],
-  },
-  {
-    icon: 'fa-solid fa-user-tie',
-    color: '#5c6bc0',
-    title: 'No Recruiters or Middlemen',
-    description: [
-      'Direct connection with job seekers',
-      'Built-in tools for shortlisting, messaging, and decision-making',
-      'No extra costs, no gatekeepers'
-    ],
-  },
-  {
-    icon: 'fa-solid fa-users',
-    color: '#4dcbc0',
-    title: 'Multi-User HR Dashboard with Role-Based Access 👥',
-    description: [
-      'Add and manage your team with specific roles:',
-      'Admin – Full access',
-      'Master User – Post jobs and add/manage team',
-      'User – Can advertise jobs only',
-      'Secure collaboration for growing hiring teams'
-    ],
-  },
-  {
-    icon: 'fa-solid fa-filter',
-    color: '#f8943f',
-    title: 'Filter Global Talent Before They Apply 🌍',
-    description: [
-      'Use filters to proactively discover candidates by:',
-      '💰 Salary expectations',
-      '🌎 Country or region',
-      '📍 Preferred location or relocation',
-      '🗣️ Languages spoken',
-      'Perfect for sourcing and shortlisting relevant talent before the job goes live'
-    ],
-  },
-  {
-    icon: 'fa-solid fa-folder-open',
-    color: '#4dcbc0',
-    title: 'Filter Job Applicants After They Apply 🗂️',
-    description: [
-      'Filter your applicants by:',
-      'Skill match',
-      'Salary benchmarking',
-      'Location and language',
-      'Video presence (if required)'
-    ],
-  },
-  {
-    icon: 'fa-solid fa-binoculars',
-    color: '#4dc970',
-    title: 'Talent Tracker – Organize and Revisit Top Candidates',
-    description: [
-      'Save promising profiles from search',
-      'Tag and organize for future roles',
-      'Build your long-term global talent pool'
-    ],
-  },
-  {
-    icon: 'fa-solid fa-clipboard-check',
-    color: '#5c6bc0',
-    title: 'Applicant Tracker – Manage All Applications Clearly',
-    description: [
-      'Track status: New, Shortlisted, Hired, etc.',
-      'Add notes, assign reviewers, collaborate with your team',
-      'Visibility and structure across all hiring pipelines'
-    ],
-  },
-  {
-    icon: 'fa-solid fa-headset',
-    color: '#f8943f',
-    title: '24×7 Support from the UNIPREP Talent Connect Team 💬',
-    description: [
-      'Need help posting jobs, filtering candidates, or managing access?',
-      'Our global support team is available 24X7',
-      'Get answers fast — whenever you need them'
-    ],
-  },
-];
+      icon: 'fa-solid fa-wand-magic-sparkles',
+      color: '#f8943f',
+      title: 'Apply for Jobs in 100+ Countries',
+      description: [
+        'Explore roles in the UK, Europe, UAE, Canada, and more',
+        'Search by remote, hybrid, onsite, or relocation-ready options',
+        'Apply for full-time, part-time, freelance, or internships'
+      ],
+    },
+    {
+      icon: 'fa-solid fa-check-double',
+      color: '#4dcbc0',
+      title: 'Get Hired Directly – No Middlemen',
+      description: [
+        'Apply straight to employers — no agents or intermediaries',
+        'Faster responses, real opportunities',
+        'Your career in your hands'
+      ],
+    },
+    {
+      icon: 'fa-solid fa-graduation-cap',
+      color: '#5c6bc0',
+      title: 'Create a Talent Profile with Built-in AI Reviewer 🤖',
+      description: [
+        'Add your skills, experience, education, certifications & preferences',
+        'Upload your CV and intro video',
+        '<div>\
+         <h6>AI Reviewer gives you:</h6>\
+          <ul style="list-style: none; padding-left: 0;">\
+            <li style="margin-bottom: 10px;">✅ ATS Score</li>\
+            <li style="margin-bottom: 10px;">✅ Profile Score</li>\
+           <li style="margin-bottom: 10px;">✅ Personalized tips to become job-ready</li>\
+          </ul>\
+        </div>'
+      ],
+    },
+    {
+      icon: 'fa-solid fa-earth-americas',
+      color: '#4dc970',
+      title: 'Add an Introductory Video to Boost Visibility 🎥',
+      description: [
+        'Let employers see you before the interview',
+        'Highlight your communication skills and confidence',
+        'Stand out in people-facing and international roles'
+      ],
+    },
+    {
+      icon: 'fa-solid fa-user-tie',
+      color: '#5c6bc0',
+      title: 'Find and Apply for the Right Jobs — Instantly 🌍',
+      description: [
+        '<div>\
+         <h6>Use smart filters to search by:</h6>\
+          <ul style="list-style: none; padding-left: 0;">\
+            <li style="margin-bottom: 10px;">💰 Salary</li>\
+            <li style="margin-bottom: 10px;">📍 Remote, hybrid, or onsite roles</li>\
+           <li style="margin-bottom: 10px;">🗣️ Language preferences</li>\
+          </ul>\
+        </div>',
+        'Apply in one click — no long forms or uploads every time'
+      ],
+    },
+    {
+      icon: 'fa-solid fa-users',
+      color: '#4dcbc0',
+      title: 'Use 30+ Career Features & Earn Certifications to Strengthen Your Profile',
+      description: [
+        'Access a wide range of tools to boost your global employability',
+        'Take quizzes in English, aptitude, job readiness, and more',
+        'Earn certificates and showcase them directly on your profile',
+        'Get noticed by top employers faster',
+      ],
+    },
+    {
+      icon: 'fa-solid fa-filter',
+      color: '#f8943f',
+      title: 'Filter Global Talent Before They Apply 🌍',
+      description: [
+        'Know exactly when your job application is viewed, shortlisted, or selected',
+        'Organize your job search in one place',
+        'Track progress for every role you apply to'
+      ],
+    },
+    {
+      icon: 'fa-solid fa-folder-open',
+      color: '#4dcbc0',
+      title: 'Connect with Companies Using Smart Filters + Company Tracker 🏢',
+      description: [
+        'Find companies by sector, country, or job type',
+        'Save and follow your favorite employers',
+        'Track updates and stay visible to hiring brands',
+      ],
+    },
+    {
+      icon: 'fa-solid fa-binoculars',
+      color: '#4dc970',
+      title: 'Simple, Safe, and Always Transparent',
+      description: [
+        'No ads, no fake listings, no random calls',
+        'Only verified opportunities — and your profile is shared only when you apply',
+        'Your data is private, secure, and in your control'
+      ],
+    },
+    {
+      icon: 'fa-solid fa-headset',
+      color: '#f8943f',
+      title: '24×7 Support Whenever You Need It',
+      description: [
+        'Need help with applying, creating your profile, or using the platform?',
+        'The UNIPREP team is always here to support you — anytime, anywhere',
+      ],
+    },
+  ];
 
   constructor(private sanitizer: DomSanitizer) { }
 

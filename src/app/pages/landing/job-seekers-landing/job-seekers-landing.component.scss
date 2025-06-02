@@ -59,12 +59,8 @@
 }
 .cta-field {
   .card {
-    background: rgb(219, 83, 175);
-    background: linear-gradient(
-      145deg,
-      rgba(24, 34, 79, 1) 0%,
-      rgba(220, 122, 86, 1) 100%
-    );
+	background: rgb(219, 83, 175);
+	background: linear-gradient(90deg, #d14283 0%, #e78e60 100%);
     border: none;
   }
   .cta-btn {

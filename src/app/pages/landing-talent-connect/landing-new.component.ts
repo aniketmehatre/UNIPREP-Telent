@@ -181,7 +181,7 @@ export class LandingNewComponent {
 	navigateConnectUrl(url: string) {
 		const baseUrl = window.location.origin;
 		const isDev = baseUrl.includes('dev') || baseUrl.includes('localhost');
-		const targetUrl = isDev ? 'https://dev-student.uniprep.ai' : 'https://uniprep.ai';
+		const targetUrl = isDev ? 'http://localhost:4200' : 'https://uniprep.ai';
 		const validUrls = ['about', 'contact-us', 'job-seekers', 'international-students', 'global-travellers', 'entrepreneurs', 'compare/uk', 'blogs', 'certificates', 'register', 'pricing', 'login'];
 		if (url === 'home') {
 			window.location.href = targetUrl

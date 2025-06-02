@@ -245,12 +245,14 @@
 						<!--								</span>-->
 						<!--							</ng-template>-->
 						<!--						</button>-->
+                        <div *ngIf="!userTypeId">
 						<button *ngIf="ehitlabelIsShow"
 							class="btn btn-primary btn-rounded d-flex flex-column align-items-center"
 							aria-label="Chat with notification" (click)="onClickSubscribe()">
 							<i class="fa-solid fa-crown mb-2 " style="font-size: 14px;"></i>
 							<span class="text-sm fw-normal px-3" style="font-size:12px">Subscribe Now</span>
 						</button>
+                        </div>
 						<button class="btn btn-secondary d-flex justify-content-center align-items-center"
 							(click)="openReportModal(op, $event)" aria-label="Open reports"
 							style="width: 90px; height: 40px; padding: 0; ">
