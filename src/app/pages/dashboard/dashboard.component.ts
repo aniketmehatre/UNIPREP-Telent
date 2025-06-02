@@ -180,7 +180,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 	sourceDomainData: any;
 	loadParallelData() {
-
+		// don't remove this code below commented 
 		// this.locationService.getSourceByDomain(window.location.hostname).subscribe((data:any) => {
         //     this.sourceDomainData = data
         //     this.cdr.markForCheck()
