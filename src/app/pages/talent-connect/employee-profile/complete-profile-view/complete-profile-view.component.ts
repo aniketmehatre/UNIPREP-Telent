@@ -66,22 +66,14 @@ export class CompleteProfileViewComponent implements OnInit {
     });
   }
 
-  getProficiencyRating(proficiency: string): number {
-    // Convert proficiency text to a rating number
-    switch (proficiency) {
-      case "Beginner":
-        return 1
-      case "Elementary":
-        return 2
-      case "Intermediate":
-        return 3
-      case "Advanced":
-        return 4
-      case "Fluent":
-        return 5
-      default:
-        return 3 // Default to intermediate
+  getProficiencyRating(proficiency: string) {
+    const proficiencyList: { [key: string]: number } = {
+      "Beginner": 2,
+      "Fluent": 3,
+      "Proficient": 4,
+      "Native": 5
     }
+    return proficiencyList[proficiency] || 0;
   }
 
   openView(url: string) {

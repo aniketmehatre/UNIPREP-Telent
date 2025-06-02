@@ -133,8 +133,7 @@ interface ProfileData {
     AvatarModule,
     ProgressBarModule,
     RatingModule,
-    RouterModule,
-    TooltipDirective
+    RouterModule
   ],
   templateUrl: './view-profile.component.html',
   styleUrl: './view-profile.component.scss'
@@ -389,7 +388,7 @@ export class ViewProfileComponent implements OnInit {
         name: exp.work_experience_experience_letter || '',
         file: exp.work_experience_experience_letter || ''
       },
-      exp_currency: exp.work_experience_currency_id || ''
+      exp_currency: exp.work_experience_currency_id ? this.currencies.find(item => item.id == exp.work_experience_currency_id)?.currency_code : ''
     }));
 
 
@@ -467,7 +466,7 @@ export class ViewProfileComponent implements OnInit {
       preferredWorkplaceType: formData.career_preference_preferred_workplace_type || '',
       willingToRelocate: formData.career_preference_willingness_to_relocate || '',
       salaryRange: formData.career_preference_expected_salary || '',
-      currency: formData.career_preference_currency_id || ''
+      currency: formData.career_preference_currency_id ? this.currencies.find(item => item.id == formData.career_preference_currency_id)?.currency_code : ''
     };
 
     // Key strengths object
