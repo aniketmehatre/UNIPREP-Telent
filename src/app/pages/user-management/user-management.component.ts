@@ -127,7 +127,7 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.userTypeId = this.storage.get('user_type_id') === 7
+		this.userTypeId = this.storage.get('user_type_id') == 7
 
 		this.imageWhiteLabelDomainName = window.location.hostname;
     this.editLabelIsShow = this.imageWhiteLabelDomainName === "*.uniprep.ai" ||

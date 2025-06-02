@@ -136,7 +136,7 @@ export class LandingPartnerComponent {
 
     // Determine environment-based target URL
     if (baseUrl.includes('dev')) {
-      targetUrl = 'http://localhost:4200';
+      targetUrl = 'https://dev-student.uniprep.ai';
     } else {
       targetUrl = 'https://uniprep.ai';
     }
@@ -150,16 +150,16 @@ export class LandingPartnerComponent {
         window.location.href = environment.employerDomain;
         break;
       case 'partner':
-        window.location.href = `${targetUrl}/${url}`;
-        //window.location.href = environment.partnerDomain;
+        //window.location.href = `${targetUrl}/${url}`;
+        window.location.href = environment.partnerDomain;
         break;
       case 'institute':
-        window.location.href = `${targetUrl}/${url}`;
-        // window.location.href = environment.instituteDomain;
+        //window.location.href = `${targetUrl}/${url}`;
+        window.location.href = environment.instituteDomain;
         break;
       case 'talent':
-        window.location.href = `${targetUrl}/${url}`;
-        // window.location.href = environment.talentDomain;
+        //window.location.href = `${targetUrl}/${url}`;
+        window.location.href = environment.talentDomain;
         break;
       default:
         if (validUrls.includes(url)) {
