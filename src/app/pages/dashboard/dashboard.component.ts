@@ -131,7 +131,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.handleUserData();
 		this.loadParallelData();
 		this.recentCompanies();
-		console.log(this.groupedListFav);
 		
 		this.locationService.dashboardLocationList().subscribe((countryList: any) => {
 			this.countryLists = countryList
