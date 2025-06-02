@@ -475,12 +475,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
 	async ngOnInit() {
+		this.locationService.getSourceByDomainName().subscribe((data: any) => {
+			this.imagewhitlabeldomainname = data.source
+		})
 		this.userTypeId = this.storage.get('user_type_id') === 7
 		// Initialize forms
 		this.initializeForms();
 		this.service.getNewUserTimeLeft().subscribe((res) => {
-			this.imagewhitlabeldomainname = window.location.hostname;
-			if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+			if (this.imagewhitlabeldomainname === "uniprep" || this.imagewhitlabeldomainname === "Partner") {
 				this.ehitlabelIsShow = true;
 			} else {
 				if (res.subscription_details.subscription_plan === "free_trail" && res.time_left.plan === "on_progress") {
@@ -1294,10 +1296,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		)
 	}
 	onClickSubscribedUser(): void {
-		this.imagewhitlabeldomainname = window.location.hostname
-		console.log(this.imagewhitlabeldomainname);
-
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+		if (this.imagewhitlabeldomainname === "uniprep" || this.imagewhitlabeldomainname === "Partner") {
 			this.visibleExhastedUser = false
 			let data: any = {}
 			if (this.mobileForm.valid) {

@@ -128,12 +128,11 @@ export class UserManagementComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.userTypeId = this.storage.get('user_type_id') === 7
-
-		this.imageWhiteLabelDomainName = window.location.hostname;
-    this.editLabelIsShow = this.imageWhiteLabelDomainName === "*.uniprep.ai" ||
-      this.imageWhiteLabelDomainName === "dev-student.uniprep.ai" ||
-      this.imageWhiteLabelDomainName === "uniprep.ai" || this.imageWhiteLabelDomainName === "localhost"
-      || this.imageWhiteLabelDomainName === "meta.uniprep.ai";
+		this.locationService.getSourceByDomainName().subscribe((data: any) => {
+			this.imageWhiteLabelDomainName = data.source
+		})
+    this.editLabelIsShow = this.imageWhiteLabelDomainName === "uniprep" ||
+      this.imageWhiteLabelDomainName === "Partner" 
 		this.dateTime.setDate(this.dateTime.getDate())
 		this.getProgramLevelList();
 		this.getCountryList();

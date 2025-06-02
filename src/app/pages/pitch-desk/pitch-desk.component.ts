@@ -52,7 +52,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	favCount: number = 0
 	PersonalInfo!: any
 	viewFavourites: boolean = false
-	imagewhitlabeldomainname: any
+	imageWhiteLabelDomainName: any
 	pdname: any
 	private allPitchDeskData: any[] = []
 	pdfURL: any
@@ -72,7 +72,9 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 		this.checkplanExpire()
 		this.selectBoxValues()
 		this.GetPersonalProfileData()
-		this.imagewhitlabeldomainname = window.location.hostname;
+		this.locationService.getSourceByDomainName().subscribe((data: any) => {
+			this.imageWhiteLabelDomainName = data.source
+		})
 	}
 
 	ngOnDestroy(): void {
@@ -392,7 +394,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 				this.toast.add({ severity: "error", summary: "error", detail: "Select Some data for export!." })
 				return
 			}
-			if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+			if (this.imageWhiteLabelDomainName === "uniprep" || this.imageWhiteLabelDomainName === "Partner") {
 				if (this.exportCreditCount < this.exportDataIds.length) {
 					this.toast.add({ severity: "error", summary: "error", detail: "insufficient credits.Please Buy Some Credits." })
 					this.router.navigate(["/pages/export-credit"])
@@ -416,7 +418,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 				this.getPitchDeskList()
 			})
 		} else if (this.exportCreditCount == 0) {
-			if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+			if (this.imageWhiteLabelDomainName === "uniprep" || this.imageWhiteLabelDomainName === "Partner") {
 				this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits." })
 				this.router.navigate(["/pages/export-credit"])
 			} else {
