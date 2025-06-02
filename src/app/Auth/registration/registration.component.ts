@@ -1,28 +1,28 @@
-import {Component, CUSTOM_ELEMENTS_SCHEMA, OnInit} from "@angular/core"
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
-import {Router, RouterModule} from "@angular/router"
-import {matchValidator} from "src/app/@Supports/matchvalidator"
-import {LocationService} from "src/app/location.service"
-import {AuthService} from "../auth.service"
-import {MessageService} from "primeng/api"
-import {NgxIntlTelInputModule} from "ngx-intl-tel-input"
-import {environment} from "@env/environment"
-import {LocalStorageService} from "ngx-localstorage"
-import {FluidModule} from "primeng/fluid"
-import {CommonModule} from "@angular/common"
-import {PasswordModule} from "primeng/password"
-import {InputTextModule} from "primeng/inputtext"
-import {InputIconModule} from "primeng/inputicon"
-import {InputGroupModule} from "primeng/inputgroup"
-import {InputGroupAddonModule} from "primeng/inputgroupaddon"
-import {InputOtpModule} from "primeng/inputotp"
-import {ToastModule} from "primeng/toast"
-import {SelectModule} from "primeng/select"
-import {GoogleSigninButtonModule, SocialAuthService, SocialLoginModule,} from '@abacritt/angularx-social-login';
-import {ButtonDirective} from "primeng/button";
-import {AuthTokenService} from "src/app/core/services/auth-token.service"
-import {KeyFilterModule} from 'primeng/keyfilter';
-import {Image} from "primeng/image";
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from "@angular/core"
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
+import { Router, RouterModule } from "@angular/router"
+import { matchValidator } from "src/app/@Supports/matchvalidator"
+import { LocationService } from "src/app/location.service"
+import { AuthService } from "../auth.service"
+import { MessageService } from "primeng/api"
+import { NgxIntlTelInputModule } from "ngx-intl-tel-input"
+import { environment } from "@env/environment"
+import { LocalStorageService } from "ngx-localstorage"
+import { FluidModule } from "primeng/fluid"
+import { CommonModule } from "@angular/common"
+import { PasswordModule } from "primeng/password"
+import { InputTextModule } from "primeng/inputtext"
+import { InputIconModule } from "primeng/inputicon"
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { InputOtpModule } from "primeng/inputotp"
+import { ToastModule } from "primeng/toast"
+import { SelectModule } from "primeng/select"
+import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login';
+import { ButtonDirective } from "primeng/button";
+import { AuthTokenService } from "src/app/core/services/auth-token.service"
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { Image } from "primeng/image";
 
 @Component({
     selector: "app-registration",
@@ -85,8 +85,8 @@ export class RegistrationComponent implements OnInit {
 
     ngOnInit() {
         localStorage.clear()
-        this.locationService.getImage().subscribe((imageUrl) => {
-            this.imageUrlWhitelabel = imageUrl
+        this.locationService.getSourceByDomainName().subscribe((data: any) => {
+            this.imageUrlWhitelabel = data.logo
         })
         this.authService.authState.subscribe((user) => {
             this.service.googlesignUp(user).subscribe(
@@ -96,7 +96,7 @@ export class RegistrationComponent implements OnInit {
                     } else {
                         this.storage.set(environment.tokenKey, data?.authorisation?.token)
                     }
-                    this.router.navigate(["/pages/dashboard"], {replaceUrl: true})
+                    this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
                 },
                 (error: any) => {
                     this.toastr.add({
@@ -134,7 +134,7 @@ export class RegistrationComponent implements OnInit {
         const formatted = value
             .toLowerCase()
             .replace(/\b\w/g, (char: any) => char.toUpperCase());
-        control?.setValue(formatted, {emitEvent: false});
+        control?.setValue(formatted, { emitEvent: false });
     }
 
     yearChage(event: any) {
@@ -156,7 +156,7 @@ export class RegistrationComponent implements OnInit {
                 }
             )
         } else {
-            this.locationList = [{id: 0, district: "Others"}]
+            this.locationList = [{ id: 0, district: "Others" }]
             this.registrationForm.get("location").setValue(0)
         }
     }
@@ -242,17 +242,17 @@ export class RegistrationComponent implements OnInit {
 
         this.service.Registraion(data).subscribe({
             next: (res: any) => {
-                this.toastr.add({severity: "success", summary: "Success", detail: "User Registered"});
+                this.toastr.add({ severity: "success", summary: "Success", detail: "User Registered" });
                 if (res?.authorisation?.token) {
                     this.storage.set(environment.tokenKey, res?.authorisation?.token);
                     this.service.saveToken(res?.authorisation?.token);
                     this.authTokenService.setToken(res?.authorisation?.token);
                 }
-                this.router.navigate(["/pages/dashboard"], {replaceUrl: true});
+                this.router.navigate(["/pages/dashboard"], { replaceUrl: true });
             },
             error: (error) => {
                 const message = error.error?.message != undefined ? error.error?.message : error?.message;
-                this.toastr.add({severity: "error", summary: "Failed", detail: message});
+                this.toastr.add({ severity: "error", summary: "Failed", detail: message });
             }
         });
     }
@@ -392,16 +392,16 @@ export class RegistrationComponent implements OnInit {
                 (res) => {
                     this.isEmailOTPSend = true
                     this.registrationForm.controls["emailAddress"].readonly = true
-                    this.toastr.add({severity: "success", summary: "Success", detail: "OTP sent to your email."})
+                    this.toastr.add({ severity: "success", summary: "Success", detail: "OTP sent to your email." })
                 },
                 (error) => {
                     const errorMessage = error?.error?.message || "Failed to send OTP.";
-                    this.toastr.add({severity: "error", summary: "Error", detail: errorMessage});
+                    this.toastr.add({ severity: "error", summary: "Error", detail: errorMessage });
                     //this.toastr.add({ severity: "error", summary: "Error", detail: error.message || "Failed to send OTP." || "This email has already been taken."})
                 }
             )
         } else {
-            this.toastr.add({severity: "error", summary: "Error", detail: 'Fill required fields'});
+            this.toastr.add({ severity: "error", summary: "Error", detail: 'Fill required fields' });
         }
 
     }
@@ -411,7 +411,7 @@ export class RegistrationComponent implements OnInit {
         const otpValue = otpControl?.value;
 
         if (!otpValue || otpValue.length <= 3) {
-            this.toastr.add({severity: "error", summary: "Error", detail: "Please enter a valid 4-digit OTP."});
+            this.toastr.add({ severity: "error", summary: "Error", detail: "Please enter a valid 4-digit OTP." });
             return;
         }
 
@@ -425,12 +425,12 @@ export class RegistrationComponent implements OnInit {
                 this.isEmailOTPSend = false;
                 this.isEmailOTPValidated = true;
                 this.isRemainingFieldVisible = true;
-                this.toastr.add({severity: "success", summary: "Success", detail: "OTP verified successfully."});
+                this.toastr.add({ severity: "success", summary: "Success", detail: "OTP verified successfully." });
             },
             (error) => {
                 this.otpError = true;
                 const message = error.error?.message != undefined ? error.error?.message : error?.message
-                this.toastr.add({severity: "error", summary: "Error", detail: message || "Invalid OTP."});
+                this.toastr.add({ severity: "error", summary: "Error", detail: message || "Invalid OTP." });
             }
         )
     }

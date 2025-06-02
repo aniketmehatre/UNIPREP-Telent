@@ -1,4 +1,4 @@
-import {CommonModule} from "@angular/common"
+import { CommonModule } from "@angular/common"
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -11,25 +11,25 @@ import {
     signal,
     ViewChild
 } from "@angular/core"
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
-import {Router, RouterModule} from "@angular/router"
-import {environment} from "@env/environment"
-import {LocalStorageService} from "ngx-localstorage"
-import {MessageService} from "primeng/api"
-import {FluidModule} from "primeng/fluid"
-import {InputGroupModule} from "primeng/inputgroup"
-import {InputGroupAddonModule} from "primeng/inputgroupaddon"
-import {InputIconModule} from "primeng/inputicon"
-import {InputTextModule} from "primeng/inputtext"
-import {PasswordModule} from "primeng/password"
-import {AuthTokenService} from "src/app/core/services/auth-token.service"
-import {DataService} from "src/app/data.service"
-import {SubSink} from "subsink"
-import {LocationService} from "../../location.service"
-import {AuthService} from "../auth.service"
-import {finalize} from 'rxjs/operators'
-import {GoogleSigninButtonModule, SocialAuthService, SocialLoginModule,} from '@abacritt/angularx-social-login'
-import {Image} from "primeng/image";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
+import { Router, RouterModule } from "@angular/router"
+import { environment } from "@env/environment"
+import { LocalStorageService } from "ngx-localstorage"
+import { MessageService } from "primeng/api"
+import { FluidModule } from "primeng/fluid"
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { InputIconModule } from "primeng/inputicon"
+import { InputTextModule } from "primeng/inputtext"
+import { PasswordModule } from "primeng/password"
+import { AuthTokenService } from "src/app/core/services/auth-token.service"
+import { DataService } from "src/app/data.service"
+import { SubSink } from "subsink"
+import { LocationService } from "../../location.service"
+import { AuthService } from "../auth.service"
+import { finalize } from 'rxjs/operators'
+import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login'
+import { Image } from "primeng/image";
 
 declare var google: any;
 
@@ -105,6 +105,27 @@ export class LoginComponent implements OnInit, OnDestroy {
         })
     }
 
+    private initializeComponent() {
+        this.domainNameCondition = window.location.hostname
+        this.domainName.set(this.isDomainMain() ? 'main' : 'sub')
+        this.dataService.loggedInAnotherDevice("none")
+        fetch(this.ipURL)
+            .then((response) => response.json())
+            .then((data) => {
+                this.locationData = data
+            })
+        this.locationService.getSourceByDomainName().subscribe((data: any) => {
+            this.imageUrlWhitelabel = data.logo
+            this.cdr.markForCheck()
+        })
+        this.loginForm = this.formBuilder.group({
+            email: ["", [Validators.required, Validators.email]],
+            password: ["", [Validators.required]],
+            domain_type: ['main']
+        })
+        this.loginForm.patchValue({ domain_type: this.domainName })
+    }
+
     onSubmit(): void {
         this.submitted.set(true)
         if (this.loginForm.invalid) return
@@ -145,26 +166,26 @@ export class LoginComponent implements OnInit, OnDestroy {
         })
     }
 
-    private initializeComponent() {
-        this.domainNameCondition = window.location.hostname
-        this.domainName.set(this.isDomainMain() ? 'main' : 'sub')
-        this.dataService.loggedInAnotherDevice("none")
-        fetch(this.ipURL)
-            .then((response) => response.json())
-            .then((data) => {
-                this.locationData = data
-            })
-        this.locationService.getImage().subscribe((imageUrl) => {
-            this.imageUrlWhitelabel.set(imageUrl);
-            this.cdr.markForCheck()
-        })
-        this.loginForm = this.formBuilder.group({
-            email: ["", [Validators.required, Validators.email]],
-            password: ["", [Validators.required]],
-            domain_type: ['main']
-        })
-        this.loginForm.patchValue({domain_type: this.domainName})
-    }
+    // private initializeComponent() {
+    //     this.domainNameCondition = window.location.hostname
+    //     this.domainName.set(this.isDomainMain() ? 'main' : 'sub')
+    //     this.dataService.loggedInAnotherDevice("none")
+    //     fetch(this.ipURL)
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             this.locationData = data
+    //         })
+    //     this.locationService.getImage().subscribe((imageUrl) => {
+    //         this.imageUrlWhitelabel.set(imageUrl);
+    //         this.cdr.markForCheck()
+    //     })
+    //     this.loginForm = this.formBuilder.group({
+    //         email: ["", [Validators.required, Validators.email]],
+    //         password: ["", [Validators.required]],
+    //         domain_type: ['main']
+    //     })
+    //     this.loginForm.patchValue({domain_type: this.domainName})
+    // }
 
     private isDomainMain(): boolean {
         return this.domainNameCondition === "dev-student.uniprep.ai" ||
@@ -181,7 +202,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.isLoading.set(true)
             this.cdr.markForCheck()
 
-            this.service.isExist({email: user.email}).pipe(
+            this.service.isExist({ email: user.email }).pipe(
                 finalize(() => {
                     this.isLoading.set(false)
                     this.cdr.markForCheck()
@@ -191,7 +212,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     if (exists === "Exist") {
                         this.handleSocialLogin(user)
                     } else {
-                        this.toast.add({severity: "info", summary: "Info", detail: "Email not exist, Try Register"})
+                        this.toast.add({ severity: "info", summary: "Info", detail: "Email not exist, Try Register" })
                     }
                 },
                 error: (error) => {
@@ -217,7 +238,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         ).subscribe({
             next: (response) => {
                 if (response.status === "false") {
-                    this.toast.add({severity: "error", summary: "Error", detail: response.message || 'Login failed'})
+                    this.toast.add({ severity: "error", summary: "Error", detail: response.message || 'Login failed' })
                     return
                 }
                 this.handleSuccessfulLogin(response.token)
@@ -246,8 +267,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                     country: this.locationData.country_name,
                 };
                 this.locationService.sendSessionData(req, "login").subscribe();
-                this.toast.add({severity: "success", summary: "Success", detail: "Login Successful"})
-                this.route.navigate(["/pages/dashboard"], {replaceUrl: true})
+                this.toast.add({ severity: "success", summary: "Success", detail: "Login Successful" })
+                this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
             },
             error: (error) => {
                 this.toast.add({

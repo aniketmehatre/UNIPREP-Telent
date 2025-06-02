@@ -311,8 +311,8 @@ export class SidenavComponent {
   conditionSubscribed!: boolean;
   currentTitle: any;
   visibleExhasted!: boolean;
-  imagewhitlabeldomainname: any;
-  ehitlabelIsShow: boolean = true;
+  imageWhiteLabelDomainName: any;
+  whiteLabelIsShow: boolean = true;
   orgnamewhitlabel: any;
   collegeStudentRestrictedMenus = ["Assessment"];
   currentUserSubscriptionPlan: string = "";
@@ -362,8 +362,8 @@ export class SidenavComponent {
     this.authService.userData.subscribe((data) => {
       if (data?.student_type_id == 1) {
         this.menus = userTypeId
-            ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
-            : this.menus;
+          ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
+          : this.menus;
         //this.menus = this.menus.filter((menu) => !this.collegeStudentRestrictedMenus?.includes(menu?.title));
       }
       const educationLevel = data?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation";
@@ -376,9 +376,10 @@ export class SidenavComponent {
       }
 
     });
-    this.locationService.getOrgName().subscribe((orgname) => {
-      this.orgnamewhitlabel = orgname;
-    });
+    this.locationService.getSourceByDomainName().subscribe((data: any) => {
+      this.orgnamewhitlabel = data.name;
+      this.imageWhiteLabelDomainName = data.source;
+    })
     this.markCurrentMenu();
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res.time_left;
@@ -388,18 +389,15 @@ export class SidenavComponent {
       } else {
         this.conditionSubscribed = true;
       }
-      this.imagewhitlabeldomainname = window.location.hostname;
-      if (this.imagewhitlabeldomainname === "*.uniprep.ai"
-          || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
-          this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-        //this.ehitlabelIsShow = true;
+      if (this.imageWhiteLabelDomainName === "uniprep" || this.imageWhiteLabelDomainName === "Partner" || this.imageWhiteLabelDomainName === "uniprep.ai") {
+        this.whiteLabelIsShow = true;
       } else {
         if (res.subscription_details.subscription_plan === "free_trail" && res.time_left.plan === "on_progress") {
           this.menus = this.menus.filter((item) => !this.whitlabelmenuFreeTrails?.includes(item?.title));
-          this.ehitlabelIsShow = false;
+          this.whiteLabelIsShow = false;
         } else {
           this.menus = this.menus.filter((item) => !this.whitlabelmenu?.includes(item?.title));
-          this.ehitlabelIsShow = false;
+          this.whiteLabelIsShow = false;
         }
       }
       if (res.subscription_details.subscription_plan == "free_trail" && res.enterprise_subscription_link != "") {

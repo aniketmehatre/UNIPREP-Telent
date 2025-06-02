@@ -110,17 +110,18 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 	loadMore(): void {
 		this.page++
 	}
-	imagewhitlabeldomainname: any
+	imageWhiteLabelDomainName: any
 	ngOnInit(): void {
-		this.locationService.getOrgName().subscribe((orgname) => {
-			this.orgnamewhitlabel = orgname
+		this.locationService.getSourceByDomainName().subscribe((data: any) => {
+			this.orgnamewhitlabel = data.name
+			this.imageWhiteLabelDomainName = data.source
+			if (this.imageWhiteLabelDomainName === "Partner" || this.imageWhiteLabelDomainName === "uniprep") {
+				this.ehitlabelIsShow = true
+			} else {
+				this.ehitlabelIsShow = false
+			}
 		})
-		this.imagewhitlabeldomainname = window.location.hostname
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
-			this.ehitlabelIsShow = true
-		} else {
-			this.ehitlabelIsShow = false
-		}
+
 		this.responsiveOptions = [
 			{
 				breakpoint: "1199px",

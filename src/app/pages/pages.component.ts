@@ -140,29 +140,22 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.storage.set("allowmobile", "1");
   }
   enterpriseSubscriptionLink: any;
-  imagewhitlabeldomainname: any;
+  imageWhiteLabelDomainName: any;
   ngOnInit(): void {
     // Update the user details
     this.route.data.subscribe(data => {
       this.service._user = data['user']['userdetails'][0];
     });
-    this.locationService.getOrgName().subscribe((orgname) => {
-      this.orgnamewhitlabel = orgname;
-    });
-    this.imagewhitlabeldomainname = window.location.hostname;
-    this.ehitlabelIsShow = this.imagewhitlabeldomainname === "*.uniprep.ai" ||
-      this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
-      this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost"
-      || this.imagewhitlabeldomainname === "meta.uniprep.ai";
-    this.imagewhitlabeldomainname = window.location.hostname;
-    this.footerIsShow = this.imagewhitlabeldomainname === "*.uniprep.ai" ||
-      this.imagewhitlabeldomainname === "dev-student.uniprep.ai" ||
-      this.imagewhitlabeldomainname === "uniprep.ai" ||
-      this.imagewhitlabeldomainname === "localhost" ||
-      this.imagewhitlabeldomainname === "meta.uniprep.ai";
-    this.locationService.getImage().subscribe((imageUrl) => {
-      this.imageUrlWhitelabel = imageUrl;
-    });
+    this.locationService.getSourceByDomainName().subscribe((data: any) => {
+      this.orgnamewhitlabel = data.name,
+      this.imageUrlWhitelabel = data.logo,
+      this.imageWhiteLabelDomainName = data.source
+    this.ehitlabelIsShow = this.imageWhiteLabelDomainName === "uniprep" ||
+      this.imageWhiteLabelDomainName === "Partner"
+    this.footerIsShow = this.imageWhiteLabelDomainName === "uniprep" ||
+      this.imageWhiteLabelDomainName === "Partner"
+    })
+
     this.service.getTimeInfoForCard().subscribe((data) => {
       this.storage.set("time_card_info", data.card_message);
     });
