@@ -54,37 +54,26 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	userName: any
 	responsiveOptions: any
 	selectedCountryName: any
-	readingProgressings: any
+	readingProgress: any
 	countryLists: any = []
-	quizProgressings: any = []
 	continueReading = "none"
-	continueQuiz = "none"
 	sendInvite: any = ""
-	isVideoVisible: boolean = false
-	isShareWithSocialMedia: boolean = false
 	partnerTrusterLogo: any[]=[]
-	showSkeleton: boolean = false
 	planExpired: boolean = false
-	ehitlabelIsShow: boolean = true
-	imagewhitlabeldomainname: any
-	orgnamewhitlabel: any
-	orglogowhitelabel: any
+	orgNameWhiteLabel: any
+	orgLogoWhiteLabel: any
 	groupedListFav: any[] = [];
-	date: Date = new Date();
 	cvBuilderPercentage: number = 0;
 	talentConnectPercentage: number = 0;
 	totalPercentage: number = 0;
 	isShowingCompletion: boolean = false;
 	selectedCountryId: number = 1
 	headerFlag!: string
-	currentModuleSlug: any
 	userData: any
 	recentJobApplication: any[] = [];
-	firstDayIndex: number = 0;
 	isNoApplicationsData: boolean = true;
 	reportOptionNgModel: number = 21;
-	reportType: number = 1
-	certificatecountstudent: number = 0
+	certificatesCountStudent: number = 0
 	quizpercentage: any = 0
 	reportSubmitForm!: FormGroup;
 	featureFavouriteList: FeatureFavourite[] = FavouriteList;
@@ -103,7 +92,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
 		private dataService: DataService, private authService: AuthService, private locationService: LocationService,
 		private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService,
-		private toastr: MessageService, private seoManagerComponent: SeoManagerComponent, private formBuilder: FormBuilder,
+		private toaster: MessageService, private seoManagerComponent: SeoManagerComponent, private formBuilder: FormBuilder,
 	) {
 		this.reportSubmitForm = this.formBuilder.group({
 			reportOption: [""],
@@ -194,7 +183,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
             this.sourceDomainData = data
             this.cdr.markForCheck()
         })
-		const whitelabelData$ = forkJoin({
+		const whiteLabelData$ = forkJoin({
 			logo:  this.sourceDomainData.logo,
 			orgName: this.sourceDomainData.name
 		}).pipe(
@@ -208,10 +197,10 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			quizCompletion: this.dashboardService.checkModuleQuizCompletion({ countryid: this.selectedCountryId }).pipe(catchError(() => of(null)))
 		});
 
-		// Subscribe to whitelabel data
-		this.subs.sink = whitelabelData$.subscribe(({ logo, orgName }) => {
-			this.orglogowhitelabel = logo;
-			this.orgnamewhitlabel = orgName;
+		// Subscribe to white label data
+		this.subs.sink = whiteLabelData$.subscribe(({ logo, orgName }) => {
+			this.orgLogoWhiteLabel = logo;
+			this.orgNameWhiteLabel = orgName;
 			this.cdr.markForCheck();
 		});
 
@@ -223,8 +212,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			readProgression,
 			quizCompletion
 		}) => {
-			// Handle partner logo
-			// this.partnerTrusterLogo = partnerLogo;
 
 			// Handle country list
 			if (countryList) {
@@ -236,7 +223,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 				const percentage = Math.round(readProgression.readpercentage) || 0;
 				this.setProgress1(percentage);
 				this.progressReading = percentage;
-				this.certificatecountstudent = readProgression.certificatecount || 0;
+				this.certificatesCountStudent = readProgression.certificatecount || 0;
 			}
 
 			// Handle quiz completion
@@ -251,10 +238,8 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	handleUserData() {
 		this.userName = this.authService._user?.name.toString();
 		this.userData = this.authService._user;
-
 		let filledCount = 0;
 		const totalCount = this.fieldsToCheck.length;
-
 		this.fieldsToCheck.forEach((field) => {
 			if (this.userData[field] != null && this.userData[field] !== undefined && this.userData[field] !== "") {
 				filledCount++;
@@ -292,7 +277,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 				const percentage = Math.round(readProgression.readpercentage) || 0;
 				this.setProgress1(percentage);
 				this.progressReading = percentage;
-				this.certificatecountstudent = readProgression.certificatecount || 0;
+				this.certificatesCountStudent = readProgression.certificatecount || 0;
 			}
 		});
 	}
@@ -306,15 +291,10 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			countryId: this.selectedCountryId,
 		}
 		this.dashboardService.getModuleReadProgression(data).subscribe((response) => {
-			this.readingProgressings = response.module
+			this.readingProgress = response.module
 			this.continueReading = "block"
 		})
 	}
-
-	closeQuiz(): void {
-		this.continueQuiz = "none"
-	}
-
 	openQuiz(): void {
 		// dont remove comments
 		if (this.planExpired) {
@@ -409,20 +389,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		})
 	}
 
-	startQuiz(moduleid: any) {
-		if (moduleid == 1) {
-			this.currentModuleSlug = "pre-admission"
-		} else if (moduleid == 3) {
-			this.currentModuleSlug = "post-admission"
-		} else if (moduleid == 4) {
-			this.currentModuleSlug = "career-hub"
-		} else if (moduleid == 6) {
-			this.currentModuleSlug = "life-at-country"
-		} else if (moduleid == 7) {
-			this.currentModuleSlug = "travel-and-tourism"
-		}
-		this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`])
-	}
 
 	checkplanExpire(): void {
 		if (this.authService._userSubscrition.time_left.plan === "expired" ||
@@ -457,7 +423,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		}
 		this.dashboardService.sentEmailForInviteUniPrep(data).subscribe({
 			next: (data: any) => {
-				this.toastr.add({ severity: 'success', summary: 'Success', detail: data.message });
+				this.toaster.add({ severity: 'success', summary: 'Success', detail: data.message });
 				this.sendInvite = ""
 			},
 			error: (error) => {
@@ -486,7 +452,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	openReportModal(op: any, event: any) {
-		// this.reportType = 1
 		// this.reportSubmitForm.reset()
 		// this.moduleList = []
 		// this.subModuleList = []
