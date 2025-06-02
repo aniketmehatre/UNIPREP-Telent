@@ -79,7 +79,7 @@ export class CoBrandedComponent implements OnInit, OnDestroy {
             .then((data) => {
                 this.locationData = data
             })
-        this.locationService.getSourceByDomainName().subscribe((data:any) => {
+        this.locationService.getSourceByDomain(window.location.hostname).subscribe((data:any) => {
             this.imageUrlWhitelabel = data.logo
             this.cdr.markForCheck()
         })

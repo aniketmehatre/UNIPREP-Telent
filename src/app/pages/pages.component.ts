@@ -146,7 +146,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.route.data.subscribe(data => {
       this.service._user = data['user']['userdetails'][0];
     });
-    this.locationService.getSourceByDomainName().subscribe((data: any) => {
+    this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
       this.orgnamewhitlabel = data.name,
       this.imageUrlWhitelabel = data.logo,
       this.imageWhiteLabelDomainName = data.source

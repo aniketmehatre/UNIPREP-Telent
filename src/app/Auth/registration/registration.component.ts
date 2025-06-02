@@ -85,7 +85,7 @@ export class RegistrationComponent implements OnInit {
 
     ngOnInit() {
         localStorage.clear()
-        this.locationService.getSourceByDomainName().subscribe((data: any) => {
+        this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
             this.imageUrlWhitelabel = data.logo
         })
         this.authService.authState.subscribe((user) => {

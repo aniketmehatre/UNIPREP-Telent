@@ -475,7 +475,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
 	async ngOnInit() {
-		this.locationService.getSourceByDomainName().subscribe((data: any) => {
+		let hostname = window.location.hostname
+		this.locationService.getSourceByDomain(hostname).subscribe((data: any) => {
 			this.imagewhitlabeldomainname = data.source
 		})
 		this.userTypeId = this.storage.get('user_type_id') === 7
@@ -547,7 +548,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.conditionModuleOrQuestionComponent();
 		this.getProgramlevelList();
 		// Load organization name
-		this.locationService.getSourceByDomainName().subscribe((data: any) => {
+		this.locationService.getSourceByDomain(hostname).subscribe((data: any) => {
 			this.orgnamewhitlabel = data.name;
 		})
 		// Handle preferred country

@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
         let req = {
             domain: window.location.hostname,
         }
-        this.locationService.getSourceByDomain(req).subscribe((response) => {
+        this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
             if (response.source == 'Institute') {
                 this.isInstitute.set(true);
             }

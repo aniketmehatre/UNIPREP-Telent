@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     submitted = signal(false);
     show = signal(true);
     isLoading = signal(false);
-    imageUrlWhitelabel = signal<string | null>(null);
+    imageUrlWhitelabel = signal<string>('');
     domainName = signal('main');
     password = signal('password')
     countryLists: any
@@ -114,8 +114,9 @@ export class LoginComponent implements OnInit, OnDestroy {
             .then((data) => {
                 this.locationData = data
             })
-        this.locationService.getSourceByDomainName().subscribe((data: any) => {
-            this.imageUrlWhitelabel = data.logo
+        this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
+            this.imageUrlWhitelabel.set(data.logo)
+            console.log(data.logo)
             this.cdr.markForCheck()
         })
         this.loginForm = this.formBuilder.group({
@@ -156,10 +157,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     apiToCheckPartnerOrInstitute() {
-        let req = {
-            domain: window.location.hostname,
-        }
-        this.locationService.getSourceByDomain(req).subscribe((response) => {
+
+        this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
             if (response.source == 'Institute') {
                 this.isInstitute.set(true);
             }

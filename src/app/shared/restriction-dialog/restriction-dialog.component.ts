@@ -24,7 +24,7 @@ export class RestrictionDialogComponent implements OnInit {
   constructor(private locationService: LocationService, private router: Router) { }
 
   ngOnInit() {
-    this.locationService.getSourceByDomainName().subscribe((data: any) => {
+    this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
       this.orgLogo = data.logo
       this.orgName = data.name;
       this.whiteLabelName = data.source

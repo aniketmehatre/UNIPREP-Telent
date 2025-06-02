@@ -376,7 +376,8 @@ export class SidenavComponent {
       }
 
     });
-    this.locationService.getSourceByDomainName().subscribe((data: any) => {
+    let hostname = window.location.hostname;
+    this.locationService.getSourceByDomain(hostname).subscribe((data: any) => {
       this.orgnamewhitlabel = data.name;
       this.imageWhiteLabelDomainName = data.source;
     })

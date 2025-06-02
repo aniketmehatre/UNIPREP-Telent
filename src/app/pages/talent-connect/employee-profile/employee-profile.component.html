@@ -188,7 +188,7 @@
 														{{i== 0 ? 'Highest ' : '' }}Qualification <span
 															class="text-danger">*</span></label>
 													<p-select id="" formControlName="education_qualification_id"
-														[options]="qualifications"
+														[options]="getFilteredQualifications(i)"
 														placeholder="Select your highest qualification"
 														styleClass="w-100" optionLabel="qualification_name"
 														optionValue="id" [filter]="true" filterBy="qualification_name"
@@ -254,7 +254,7 @@
 														<span class="text-danger">*</span></label>
 													<div class="p-inputgroup">
 														<p-select id="" formControlName="education_graduation_year_id"
-															[options]="graduationYears" [filter]="true"
+															[options]="getFilteredGraduationYears(i)" [filter]="true"
 															[appendTo]="'body'" placeholder="Select Graduation Year"
 															styleClass="w-100" optionLabel="graduation_year_name"
 															optionValue="id" (focusout)="resetMessageBox()"
@@ -813,7 +813,7 @@
 												[formGroupName]="i">
 												<div class="col-md-6">
 													<p-select id="" formControlName="languages_language_id"
-														[options]="languagelist" placeholder="Enter know language"
+														[options]="languageList" placeholder="Enter know language"
 														styleClass="w-100" optionLabel="language" optionValue="id"
 														[filter]="true" filterBy="language"
 														(focusout)="resetMessageBox()"
