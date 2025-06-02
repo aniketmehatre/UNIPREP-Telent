@@ -65,7 +65,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   fieldsOfStudy: any[] = []
   hobbies: any[] = []
   jobTitles: any[] = []
-  languagelist: any[] = []
+  languageList: any[] = []
   locations: any[] = []
   professionalStrengths: any[] = []
   qualifications: any[] = []
@@ -926,7 +926,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         currencies: this.currencies,
         careerInterests: this.careerInterests,
         jobTitles: this.jobTitles,
-        languagelist: this.languagelist,
+        languageList: this.languageList,
         locations: this.locations,
         hobbies: this.hobbies,
         professionalStrengths: this.professionalStrengths,
@@ -1108,7 +1108,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.currencies = response.currencies
         this.careerInterests = response.career_interests
         this.jobTitles = response.job_titles
-        this.languagelist = response.languages
+        this.languageList = response.languages
         // this.locations = response.locations;
         this.hobbies = response.hobbies
         this.professionalStrengths = response.professional_strengths
@@ -1536,7 +1536,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       student_profile.certification = this.personalInfoForm.get('certifications.0.certifications_certificate_name')?.value || '';
 
       const language_id = this.personalInfoForm.get('languages.0.languages_language_id')?.value;
-      student_profile.language_known = this.languagelist.find((q: any) => q.id === language_id)?.language || '';
+      student_profile.language_known = this.languageList.find((q: any) => q.id === language_id)?.language || '';
       student_profile.hobbies_interest = this.personalInfoForm.get('languages_hobby_id')?.value || '';
       student_profile.set_you_apart = this.personalInfoForm.get('career_preference_set_industry_apart')?.value || '';
 
