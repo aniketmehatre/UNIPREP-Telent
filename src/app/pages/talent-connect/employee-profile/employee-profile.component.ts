@@ -74,6 +74,12 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   preferredLocationsList: any[] = []
   totalDurations: { years: number, months: number }[] = [];
   aiSummaryScreen = false
+  qualificationList: any[] = [];
+  disableIfBachelorSelected: number[] = [2, 3, 4, 5];
+  disableIfMasterSelected: number[] = [3, 5];
+  disableIfPostgraduateSelected: number[] = [4, 5];
+  disableIfDoctorateSelected: number[] = [5];
+  graduationYearList: any[] = []
 
   constructor(
     private fb: FormBuilder,
@@ -1107,6 +1113,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.hobbies = response.hobbies
         this.professionalStrengths = response.professional_strengths
         this.qualifications = response.qualifications
+        this.qualificationList = response.qualifications
         this.softSkills = response.soft_skills
         this.fieldsOfStudy = response.fields_of_study
         this.preferredWorkplaceType = response.preferred_workplace_type
@@ -1114,6 +1121,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.totalYearExperienceList = response.total_years_experience
         this.careerStatus = response.career_status
         this.graduationYears = response.graduation_years
+        this.graduationYearList = response.graduation_years
         this.genderOptions = response.gender
         this.languageProficiency = response.language_proficiency
         this.nationalityList = response.nationalites
@@ -2051,6 +2059,32 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       const hasQualification = educationArray.some(item => item.education_qualification_id == 1);
       this.isDisableAddMoreEducation = hasQualification;
     });
+  }
+
+  getFilteredQualifications(index: number): any[] {
+    if (index === 0 || index === 5) return this.qualificationList;
+    const prevQualificationValue = this.educationDetails.at(index - 1).get('education_qualification_id')?.value;
+    const disableQualificationMap: { [key: number]: number[] } = {
+      2: [2, 3, 4, 5], // Bachelor’s Degree
+      3: [3, 5],       // Master’s Degree
+      4: [4, 5],       // Postgraduate Diploma
+      5: [5],          // Doctorte
+    };
+    const disabledQualificationIds = disableQualificationMap[prevQualificationValue] || [];
+    return this.qualifications.map(item => ({
+      ...item,
+      disabled: disabledQualificationIds.includes(item.id)
+    }));
+  }
+
+  getFilteredGraduationYears(index: number): any[] {
+    if (index === 0) return this.graduationYearList;
+     const prevValue = this.educationDetails.at(index - 1).get('education_graduation_year_id')?.value;
+     const sel = this.graduationYears.find(item => item.id == prevValue);
+    return this.graduationYears.map(item => ({
+      ...item,
+      disabled: Number(item.graduation_year_name) >= Number(sel.graduation_year_name)
+    }));
   }
 
   ngOnDestroy(): void {
