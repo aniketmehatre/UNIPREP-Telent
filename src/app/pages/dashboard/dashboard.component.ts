@@ -131,6 +131,8 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.loadParallelData();
 		this.recentCompanies();
 		this.groupedListFav = this.chunkArray(this.featureList, 4);
+		console.log(this.groupedListFav);
+		
 		this.locationService.dashboardLocationList().subscribe((countryList: any) => {
 			this.countryLists = countryList
 		});
@@ -179,16 +181,16 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	sourceDomainData: any;
 	loadParallelData() {
 
-		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data:any) => {
-            this.sourceDomainData = data
-            this.cdr.markForCheck()
-        })
-		const whiteLabelData$ = forkJoin({
-			logo:  this.sourceDomainData.logo,
-			orgName: this.sourceDomainData.name
-		}).pipe(
-			catchError(() => of({ logo: null, orgName: null }))
-		);
+		// this.locationService.getSourceByDomain(window.location.hostname).subscribe((data:any) => {
+        //     this.sourceDomainData = data
+        //     this.cdr.markForCheck()
+        // })
+		// const whiteLabelData$ = forkJoin({
+		// 	logo:  this.sourceDomainData.logo,
+		// 	orgName: this.sourceDomainData.name
+		// }).pipe(
+		// 	catchError(() => of({ logo: null, orgName: null }))
+		// );
 
 		const mainData$ = forkJoin({
 			partnerLogo: this.dashboardService.getTrustedPartners().pipe(catchError(() => of(null))),
@@ -198,11 +200,11 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		});
 
 		// Subscribe to white label data
-		this.subs.sink = whiteLabelData$.subscribe(({ logo, orgName }) => {
-			this.orgLogoWhiteLabel = logo;
-			this.orgNameWhiteLabel = orgName;
-			this.cdr.markForCheck();
-		});
+		// this.subs.sink = whiteLabelData$.subscribe(({ logo, orgName }) => {
+		// 	this.orgLogoWhiteLabel = logo;
+		// 	this.orgNameWhiteLabel = orgName;
+		// 	this.cdr.markForCheck();
+		// });
 
 		// Subscribe to main data
 
