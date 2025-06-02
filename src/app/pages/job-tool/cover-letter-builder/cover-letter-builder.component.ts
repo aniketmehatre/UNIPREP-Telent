@@ -35,6 +35,7 @@ interface ResumeHistory {
 	id: number;
 	pdf_name: string;
 	created_time: string;
+	image_name:string;
 }
 
 
@@ -74,7 +75,7 @@ export class CoverLetterBuilderComponent implements OnInit {
 	generateConBtnDisable: boolean = true;
 	rephraseconBtnDisable: boolean = false;
 	resumeHistory: any = [];
-	pdfThumbnails: { [key: string]: string } = {};
+	// pdfThumbnails: { [key: string]: string } = {};
 	filteredLocations: any = [];
 	orgLocation: any = [];
 	cities: City[] = [];
@@ -202,9 +203,9 @@ export class CoverLetterBuilderComponent implements OnInit {
 		}
 		this.items = [{ label: "Personal Information" }, { label: "Organisation Details" }, { label: "Letter Area" }]
 		this.getCountryCodeList();
+		this.getJobRoles();
 		this.getLocationsList();
 		this.checkplanExpire();
-		this.getJobRoles();
 	}
 
 	onLoadCarousal() {
@@ -310,54 +311,54 @@ export class CoverLetterBuilderComponent implements OnInit {
 		})
 	}
 
-	loadPdfThumbnail(pdfUrl: string): void {
-		if (this.pdfThumbnails[pdfUrl]) {
-			return; // Already loaded
-		}
+	// loadPdfThumbnail(pdfUrl: string): void {
+	// 	if (this.pdfThumbnails[pdfUrl]) {
+	// 		return; // Already loaded
+	// 	}
 
-		// Create canvas and load PDF
-		const canvas = document.createElement('canvas');
-		const context = canvas.getContext('2d');
-		if (!context) {
-			console.error('Could not get canvas context');
-			return;
-		}
+	// 	// Create canvas and load PDF
+	// 	const canvas = document.createElement('canvas');
+	// 	const context = canvas.getContext('2d');
+	// 	if (!context) {
+	// 		console.error('Could not get canvas context');
+	// 		return;
+	// 	}
 
-		// Load the PDF document
-		pdfjsLib.getDocument(pdfUrl).promise.then((pdf: any) => {
-			pdf.getPage(1).then((page: any) => {
-				const viewport = page.getViewport({ scale: 0.5 });
-				canvas.height = viewport.height;
-				canvas.width = viewport.width;
+	// 	// Load the PDF document
+	// 	pdfjsLib.getDocument(pdfUrl).promise.then((pdf: any) => {
+	// 		pdf.getPage(1).then((page: any) => {
+	// 			const viewport = page.getViewport({ scale: 0.5 });
+	// 			canvas.height = viewport.height;
+	// 			canvas.width = viewport.width;
 
-				page.render({
-					canvasContext: context,
-					viewport: viewport
-				}).promise.then(() => {
-					this.pdfThumbnails[pdfUrl] = canvas.toDataURL('image/jpeg');
-				}).catch((error: Error) => {
-					console.error('Error rendering PDF page:', error);
-					this.pdfLoadError = true;
-				});
-			}).catch((error: Error) => {
-				console.error('Error getting PDF page:', error);
-				this.pdfLoadError = true;
-			});
-		}).catch((error: Error) => {
-			console.error('Error loading PDF:', error);
-			this.pdfLoadError = true;
-		});
-	}
+	// 			page.render({
+	// 				canvasContext: context,
+	// 				viewport: viewport
+	// 			}).promise.then(() => {
+	// 				this.pdfThumbnails[pdfUrl] = canvas.toDataURL('image/jpeg');
+	// 			}).catch((error: Error) => {
+	// 				console.error('Error rendering PDF page:', error);
+	// 				this.pdfLoadError = true;
+	// 			});
+	// 		}).catch((error: Error) => {
+	// 			console.error('Error getting PDF page:', error);
+	// 			this.pdfLoadError = true;
+	// 		});
+	// 	}).catch((error: Error) => {
+	// 		console.error('Error loading PDF:', error);
+	// 		this.pdfLoadError = true;
+	// 	});
+	// }
 
 	previousResumes() {
 		this.resumeService.getCoverLetterHistories().subscribe((res: ResumeHistory[]) => {
 			this.resumeHistory = res;
 			// Load thumbnails for all PDFs immediately
-			this.resumeHistory.forEach((resume: ResumeHistory) => {
-				if (resume.pdf_name) {
-					this.loadPdfThumbnail(resume.pdf_name);
-				}
-			});
+			// this.resumeHistory.forEach((resume: ResumeHistory) => {
+			// 	if (resume.pdf_name) {
+			// 		this.loadPdfThumbnail(resume.pdf_name);
+			// 	}
+			// });
 		});
 	}
 

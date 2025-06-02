@@ -40,6 +40,7 @@ interface ResumeHistory {
   id: number;
   pdf_name: string;
   created_time: string;
+  image_name: string;
 }
 
 interface JobTitle {
@@ -540,7 +541,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
             );
             this.updateWorkJobDescriptionWordCount(index, activity.work_job_description);
           });
-          this.hidingHeaders.push("project_details");
+          this.hideFields("project_details");
           this.filledFields.push("project_details", "work_experience");
         }
 
@@ -619,6 +620,12 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         this.getUserDetails();
       }
     });
+  }
+
+  hideFields(filedName: string){
+    if(!this.hidingHeaders.includes(filedName)){
+      this.hidingHeaders.push(filedName);
+    }
   }
 
   skillsList() {
@@ -1182,7 +1189,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         })
       );
       this.removeHideHeaderElement("work_experience");
-      this.hidingHeaders.push("project_details");
+      this.hideFields("project_details");
       // this.errorMessages.push('');
     } else if (fieldName == "project_details") {
       this.getProjectDetailsArray.push(
@@ -1242,44 +1249,43 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     if (fieldName == "education_detail") {
       this.getEduDetailsArray.removeAt(index);
       if (this.getEduDetailsArray.length === 0) {
-        this.hidingHeaders.push("education_detail");
+        this.hideFields("education_detail");
       }
     } else if (fieldName == "work_experience") {
       this.getWorkExpArray.removeAt(index);
       if (this.getWorkExpArray.length === 0) {
-        this.hidingHeaders.push("work_experience");
+        this.hideFields("work_experience");
         this.removeHideHeaderElement("project_details");
-        // this.hidingHeaders.push('project_details');
       } else {
-        this.hidingHeaders.push("project_details");
+        this.hideFields("project_details");
       }
       // this.errorMessages.splice(index, 1);
     } else if (fieldName == "project_details") {
       this.getProjectDetailsArray.removeAt(index);
       if (this.getProjectDetailsArray.length === 0) {
-        this.hidingHeaders.push("project_details");
+        this.hideFields("project_details");
       }
     } else if (fieldName == "language_known") {
       this.getLanguagesKnownArray.removeAt(index);
       this.checkLanguageDuplication();
       if (this.getLanguagesKnownArray.length === 0) {
-        this.hidingHeaders.push("language_known");
+         this.hideFields("language_known");
       }
     } else if (fieldName == "skills") {
       this.getSkillsArray.removeAt(index);
       this.checkSkillsDuplilcation();
       if (this.getSkillsArray.length === 0) {
-        this.hidingHeaders.push("skills");
+         this.hideFields("skills");
       }
     } else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.removeAt(index);
       if (this.getExtraCurricularArray.length === 0) {
-        this.hidingHeaders.push("extra_curricular");
+         this.hideFields("extra_curricular");
       }
     } else if (fieldName == "certificate") {
       this.getCertificatesArray.removeAt(index);
       if (this.getCertificatesArray.length === 0) {
-        this.hidingHeaders.push("certificate");
+         this.hideFields("certificate");
       }
     }
   }
