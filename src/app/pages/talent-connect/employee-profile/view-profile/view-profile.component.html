@@ -411,13 +411,11 @@
               <ng-container *ngFor="let attachment of profileData.attachments">
                 <div class="col-md-4 mb-3" *ngIf="attachment.type === 'video'">
                   <div class="text-primary fw-bold">Introduction Video</div>
-<!--                  <a [href]="attachment.name" target="_blank">{{attachment.name || 'Not specified'}}</a>-->
-                    <p tooltip="Portfolio link"><i class="pi pi-video"></i></p>
+                 <a [href]="attachment.name" target="_blank" class="text-break text-dark"><i class="pi pi-video fs-4"></i></a>
                 </div>
                 <div class="col-md-4 mb-3" *ngIf="attachment.type === 'link'">
                   <div class="text-primary fw-bold">Portfolio</div>
-<!--                  <a [href]="attachment.name" target="_blank">{{attachment.name || 'Not specified'}}</a>-->
-                    <p tooltip="Portfolio link"><i class="pi pi-file"></i></p>
+                 <a [href]="attachment.name" target="_blank" class="text-break text-dark"><i class="pi pi-file fs-4"></i></a>
                 </div>
                 <div class="col-md-12 mb-3" *ngIf="attachment.type === 'document'">
                   <div class="text-primary fw-bold">Upload CV / Resume</div>
