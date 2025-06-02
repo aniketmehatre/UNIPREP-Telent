@@ -74,7 +74,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	isNoApplicationsData: boolean = true;
 	reportOptionNgModel: number = 21;
 	certificatesCountStudent: number = 0
-	quizPercentage: any = 0
 	reportSubmitForm!: FormGroup;
 	featureList: FeatureFavourite[] = FavouriteList;
 	reportOptionList: any[] = [
@@ -179,19 +178,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 	sourceDomainData: any;
 	loadParallelData() {
-		// don't remove this code below commented 
-		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data:any) => {
-            this.sourceDomainData = data
-			console.log(this.sourceDomainData.logo);
-			
-            this.cdr.markForCheck()
-        })
-		const whiteLabelData$ = forkJoin({
-			logo:  this.sourceDomainData.logo,
-			orgName: this.sourceDomainData.name
-		}).pipe(
-			catchError(() => of({ logo: null, orgName: null }))
-		);
 
 		const mainData$ = forkJoin({
 			partnerLogo: this.dashboardService.getTrustedPartners().pipe(catchError(() => of(null))),
@@ -200,20 +186,11 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			quizCompletion: this.dashboardService.checkModuleQuizCompletion({ countryid: this.selectedCountryId }).pipe(catchError(() => of(null)))
 		});
 
-		// Subscribe to white label data
-		this.subs.sink = whiteLabelData$.subscribe(({ logo, orgName }) => {
-			this.orgLogoWhiteLabel = logo;
-			this.orgNameWhiteLabel = orgName;
-			this.cdr.markForCheck();
-		});
-
 		// Subscribe to main data
 
 		this.subs.sink = mainData$.subscribe(({
-			partnerLogo,
 			countryList,
 			readProgression,
-			quizCompletion
 		}) => {
 
 			// Handle country list
@@ -227,11 +204,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 				this.setProgress1(percentage);
 				this.progressReading = percentage;
 				this.certificatesCountStudent = readProgression.certificatecount || 0;
-			}
-
-			// Handle quiz completion
-			if (quizCompletion) {
-				this.quizPercentage = quizCompletion.progress;
 			}
 
 			this.cdr.markForCheck();
@@ -383,14 +355,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.router.navigate(["/pages/talent-connect/easy-apply"]);
 	}
 
-	checkquizquestionmodule() {
-		var data = {
-			countryid: this.selectedCountryId,
-		}
-		this.dashboardService.checkModuleQuizCompletion(data).subscribe((res) => {
-			this.quizPercentage = res.progress
-		})
-	}
 
 
 	checkplanExpire(): void {
