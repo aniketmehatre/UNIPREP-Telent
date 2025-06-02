@@ -1,15 +1,15 @@
 import {CommonModule} from "@angular/common"
 import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	CUSTOM_ELEMENTS_SCHEMA,
-	ElementRef,
-	inject,
-	OnDestroy,
-	OnInit,
-	signal,
-	ViewChild
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    CUSTOM_ELEMENTS_SCHEMA,
+    ElementRef,
+    inject,
+    OnDestroy,
+    OnInit,
+    signal,
+    ViewChild
 } from "@angular/core"
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
 import {Router, RouterModule} from "@angular/router"

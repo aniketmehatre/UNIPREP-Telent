@@ -2,8 +2,8 @@
   <div *ngFor="let quiz of quizlist" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
     <div class="row w-100 m-0 justify-content-center h-100">
       <div class="card resourcecard position-relative" role="button">
-        <div *ngIf="quiz.is_assessment && authService._user?.student_type_id == 2" class="assessment-tag"
-          style="background-color: var(--uniprep-skyblue);">Assessment</div>
+<!--        <div *ngIf="quiz.is_assessment && authService._user?.student_type_id == 2" class="assessment-tag"-->
+<!--          style="background-color: var(&#45;&#45;uniprep-skyblue);">Assessment</div>-->
         <div *ngIf="quiz?.level" class="d-flex justify-content-end mt-1">
           <span [ngSwitch]="quiz?.level"
             [ngClass]="{ basicLevelTag: quiz.level === 1, intLevelTag: quiz.level === 2, advLevelTag: quiz.level === 3 }">
