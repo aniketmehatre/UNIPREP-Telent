@@ -12,8 +12,6 @@ import { Blog } from './pages/landing/bloglist/bloglist.component';
     providedIn: "root",
 })
 export class LocationService {
-    public sourceNameByDomain = new BehaviorSubject<string | null>(null);
-    public sourceDomain$: Observable<string | null> = this.sourceNameByDomain.asObservable();
 
     constructor(private http: HttpClient,
                 private deviceService: DeviceDetectorService, private storage: LocalStorageService) {
@@ -236,17 +234,30 @@ export class LocationService {
         });
     }
 
+    // getSourceByDomain(data : any) {
+    //     const headers = new HttpHeaders().set("Accept", "application/json");
+    //     return this.http.post<any>(environment.ApiUrl + "/get_source_by_domain", data, {
+    //         headers: headers,
+    //     }).pipe(
+    //         tap((response) => {
+    //             console.log(response);
+    //             this.sourceNameByDomain = response
+    //         })
+    //       );
+    // }
+
+
     getSourceByDomain(data : any) {
+        let req= {
+            domain: data,
+        }
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/getsourcebyDomain", data, {
+        return this.http.post<any>(environment.ApiUrl + "/get_source_by_domain", req, {
             headers: headers,
-        }).pipe(
-            tap((response) => {
-                this.sourceNameByDomain = response
-            })
-          );
+        });
     }
-    getSourceByDomainName(): Observable<string | null> {
-        return this.sourceDomain$
-      } 
+
+    // getSourceByDomain(window.location.hostname): Observable<any | null> {
+    //     return this.sourceDomain$
+    // }
 }

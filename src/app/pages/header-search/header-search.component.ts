@@ -112,7 +112,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 	}
 	imageWhiteLabelDomainName: any
 	ngOnInit(): void {
-		this.locationService.getSourceByDomainName().subscribe((data: any) => {
+		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.orgnamewhitlabel = data.name
 			this.imageWhiteLabelDomainName = data.source
 			if (this.imageWhiteLabelDomainName === "Partner" || this.imageWhiteLabelDomainName === "uniprep") {

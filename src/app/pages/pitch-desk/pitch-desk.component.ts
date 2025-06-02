@@ -72,7 +72,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 		this.checkplanExpire()
 		this.selectBoxValues()
 		this.GetPersonalProfileData()
-		this.locationService.getSourceByDomainName().subscribe((data: any) => {
+		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.imageWhiteLabelDomainName = data.source
 		})
 	}

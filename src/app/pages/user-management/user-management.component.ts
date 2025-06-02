@@ -128,7 +128,7 @@ export class UserManagementComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.userTypeId = this.storage.get('user_type_id') === 7
-		this.locationService.getSourceByDomainName().subscribe((data: any) => {
+		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.imageWhiteLabelDomainName = data.source
 		})
 		this.editLabelIsShow = this.imageWhiteLabelDomainName === "uniprep" ||
