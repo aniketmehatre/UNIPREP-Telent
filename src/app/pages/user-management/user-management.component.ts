@@ -32,29 +32,21 @@ import { SubscriptionService } from "../subscription/subscription.service"
 import { ConfirmDialogModule } from "primeng/confirmdialog"
 import { AuthTokenService } from "src/app/core/services/auth-token.service"
 import { CalendarModule } from "primeng/calendar"
+import { PasswordModule } from "primeng/password"
 @Component({
 	selector: "uni-user-management",
 	templateUrl: "./user-management.component.html",
 	styleUrls: ["./user-management.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
+	imports: [CommonModule, RouterModule , PasswordModule , ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
 	providers: [ConfirmationService]
 })
 export class UserManagementComponent implements OnInit {
 	user!: User | null
-	genderList = [
-		{ name: "Select", code: "" },
-		{ name: "Male", code: "M" },
-		{ name: "Female", code: "F" },
-		{ name: "Others", code: "O" },
-	]
-	locationList: any
-	programlevelList: any[] = []
+	locationList: any;
 	today = new Date()
-	submitted = false
 	registrationForm!: FormGroup
 	countryList: any
-	intrestedCountryList: any
 	currentDate = new Date()
 	dateTime = new Date()
 	maximumTime = new Date()
@@ -73,8 +65,6 @@ export class UserManagementComponent implements OnInit {
 	tooltipContent: string = "<strong>Complete your Profile</strong><br><div class='text-center mt-1 mb-1'><small>update your profile details for more<br>personalized results in our Portal</small></div>"
 	hideToolTip: boolean = true
 	private subs = new SubSink()
-	// new code
-	// activeSection = 'profile';
 	activeSection: string = 'profileCard';
 	sendInvite: any = ""
 	cvBuilderPercentage: number = 0;
@@ -134,9 +124,7 @@ export class UserManagementComponent implements OnInit {
 		this.editLabelIsShow = this.imageWhiteLabelDomainName === "uniprep" ||
 			this.imageWhiteLabelDomainName === "Partner"
 		this.dateTime.setDate(this.dateTime.getDate())
-		this.getProgramLevelList();
 		this.getCountryList();
-		this.getIntrestedCountryList();
 		this.handleUserData();
 		this.integrationPartActiveOrInactive();
 		this.getSubscriptions();
@@ -152,41 +140,6 @@ export class UserManagementComponent implements OnInit {
 			this.hideToolTip = false
 		}, 10000)
 	}
-
-	// getMonthNumberFromName(monthName: any) {
-	// 	const year = new Date().getFullYear()
-	// 	return new Date(`${monthName} 1, ${year}`).getMonth() + 1
-	// }
-
-
-
-
-
-
-	// yearChage(event: any) {
-	// 	this.registrationForm.get("intake_month_looking")?.setValue("")
-	// 	let intakeYearValue = this.registrationForm.get("intake_year_looking")?.value
-
-	// 	let intakeYear = intakeYearValue.toString().split(" ")[3]
-	// 	this.maximumTime.setFullYear(intakeYear)
-
-	// 	this.maximumTime.setMonth(11)
-	// 	if (this.dateTime.getFullYear() != intakeYear && this.currentDate.getFullYear() != intakeYear) {
-	// 		this.dateTime = new Date(intakeYear, 0, 1)
-	// 	} else {
-	// 		this.dateTime = new Date(intakeYear, this.currentDate.getMonth(), 1)
-	// 	}
-	// }
-
-	// onClickSubscribe() {
-	// 	this.subs.sink = this.userManagementService.GetPaidSubscriptionDetails().subscribe((data) => {
-	// 		if (data.includes(1)) {
-	// 			this.router.navigate(["/pages/subscriptions"])
-	// 		} else {
-	// 			this.router.navigate(["/pages/subscriptions"])
-	// 		}
-	// 	})
-	// }
 
 	// new code
 	getMonthName(monthNumber: any) {
@@ -216,11 +169,6 @@ export class UserManagementComponent implements OnInit {
 			this.registrationForm?.get("location_id")?.setValue(0)
 		}
 	}
-	getProgramLevelList() {
-		this.authService.getProgramLevel().subscribe((response) => {
-			this.programlevelList = response
-		})
-	}
 
 	getCountryList() {
 		this.locationService.getHomeCountry(2).subscribe(
@@ -230,32 +178,7 @@ export class UserManagementComponent implements OnInit {
 			(error: any) => { }
 		)
 	}
-	getIntrestedCountryList() {
-		this.locationService.getCountry().subscribe(
-			(res: any) => {
-				this.intrestedCountryList = res
-			},
-			(error: any) => { }
-		)
-	}
-	ShowCurrentPassword() {
-		if (this.ShowCrntPass == true) {
-			this.ShowCrntPass = false
-			this.CrntPass = "password"
-		} else {
-			this.ShowCrntPass = true
-			this.CrntPass = "text"
-		}
-	}
-	ShowNewPassword() {
-		if (this.ShowNewPass == true) {
-			this.ShowNewPass = false
-			this.NewPass = "password"
-		} else {
-			this.ShowNewPass = true
-			this.NewPass = "text"
-		}
-	}
+
 	changeLocation(event: any) {
 		const selectedCountry = this.countryList.find((country: any) => country.id === event.value)
 		if (selectedCountry) {
@@ -365,15 +288,7 @@ export class UserManagementComponent implements OnInit {
 		})
 		this.PasswordSubmitted = false
 	}
-	ShowConfirmPassword() {
-		if (this.ShowCnfrmPass == true) {
-			this.ShowCnfrmPass = false
-			this.CnfrmPass = "password"
-		} else {
-			this.ShowCnfrmPass = true
-			this.CnfrmPass = "text"
-		}
-	}
+
 	// invite email
 	sendInviteMail() {
 		var data = {
@@ -639,4 +554,15 @@ export class UserManagementComponent implements OnInit {
 		const inputEl = event.target;
 		inputEl.value = inputEl.value.replace(/[^0-9]/g, '').slice(0, 4);
 	}
+passwordFields = {
+  current: { visible: false, type: 'password' },
+  new: { visible: false, type: 'password' },
+  confirm: { visible: false, type: 'password' }
+};
+
+togglePassword(field: 'current' | 'new' | 'confirm') {
+  const passwordField = this.passwordFields[field];
+  passwordField.visible = !passwordField.visible;
+  passwordField.type = passwordField.visible ? 'text' : 'password';
+}
 }

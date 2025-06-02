@@ -74,9 +74,9 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	isNoApplicationsData: boolean = true;
 	reportOptionNgModel: number = 21;
 	certificatesCountStudent: number = 0
-	quizpercentage: any = 0
+	quizPercentage: any = 0
 	reportSubmitForm!: FormGroup;
-	featureFavouriteList: FeatureFavourite[] = FavouriteList;
+	featureList: FeatureFavourite[] = FavouriteList;
 	reportOptionList: any[] = [
 		{
 			"id": 21,
@@ -130,7 +130,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.handleUserData();
 		this.loadParallelData();
 		this.recentCompanies();
-		this.groupedListFav = this.chunkArray(this.featureFavouriteList, 4);
+		this.groupedListFav = this.chunkArray(this.featureList, 4);
 		this.locationService.dashboardLocationList().subscribe((countryList: any) => {
 			this.countryLists = countryList
 		});
@@ -171,7 +171,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		}
 		return result;
 	}
-
 	initializeEssentialData() {
 		this.selectedCountryId = Number(this.storage.get("countryId"));
 		this.storage.set("currentmodulenameforrecently", "");
@@ -228,7 +227,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
 			// Handle quiz completion
 			if (quizCompletion) {
-				this.quizpercentage = quizCompletion.progress;
+				this.quizPercentage = quizCompletion.progress;
 			}
 
 			this.cdr.markForCheck();
@@ -385,7 +384,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			countryid: this.selectedCountryId,
 		}
 		this.dashboardService.checkModuleQuizCompletion(data).subscribe((res) => {
-			this.quizpercentage = res.progress
+			this.quizPercentage = res.progress
 		})
 	}
 
