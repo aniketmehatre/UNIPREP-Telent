@@ -47,6 +47,7 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
       companytype: [],
     });
     this.setIsListViewFromRoute();
+    this.loadFoundedYears();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -113,6 +114,12 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
     });
   }
 
+  loadFoundedYears() {
+    const currentYear = new Date().getFullYear();
+    for (let year = currentYear; year >= 1900; year--) {
+      this.foundedYears.push(year);
+    }
+  }
 
   triggerFilter() {
     this.openModal = false;

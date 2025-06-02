@@ -12,8 +12,9 @@
 								class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How it works?<i
-								class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button class="how-it-works-button"
+							(click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How
+							it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 				<button type="button" class="border-primary bg-primary text-white rounded-2 px-2"
@@ -35,7 +36,13 @@
 			<div class="col-md-3 col-sm-4 d-flex justify-content-md-end justify-content-center gap-2">
 				<p-select [options]="currencies" optionLabel="currency_code" dataKey="currency_code"
 					[virtualScroll]="true" [virtualScrollItemSize]="40" [filter]="true" filterBy="currency_code"
-					[showClear]="true" placeholder="Currency : Select" appendTo="body" class="w-auto"></p-select>
+					[showClear]="true" placeholder="Currency : Select" appendTo="body" class="w-auto"
+					(onChange)="onCurrencyExchange($event)" (onClear)="onClearCurrency($event)">
+					<ng-template #selectedItem let-selectedOption>
+						<div class="" *ngIf="selectedOption">
+							{{ 'Currency : '+ selectedOption.currency_code }}
+						</div>
+					</ng-template></p-select>
 			</div>
 		</div>
 	</div>
@@ -172,8 +179,7 @@
 									</div>
 									<div class="overflow-hidden">
 										<p class="text-muted mb-0 text-small">Salary Range</p>
-										<p class="mb-0 fw-medium text-truncate">{{ job.currency_code }} {{
-											job.salary_offer }}</p>
+										<p class="mb-0 fw-medium text-truncate">{{ job.salary_per_month }} </p>
 									</div>
 								</div>
 							</div>
@@ -280,18 +286,20 @@
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Experience Level </label>
 						<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel"
-							optionLabel="experienceLevel" placeholder="Select the Experience Level" optionValue="experienceLevel" appendTo="body" display="chip"
-							class="w-100"> </p-multiSelect>
+							optionLabel="experienceLevel" placeholder="Select the Experience Level"
+							optionValue="experienceLevel" appendTo="body" display="chip" class="w-100"> </p-multiSelect>
 					</div>
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Hiring Status</label>
-						<p-multiSelect [options]="hiringStatuses" formControlName="hiringStatus" optionLabel="name"  placeholder="Select the Hiring Status" 
-							optionValue="id" appendTo="body" display="chip" class="w-100"> </p-multiSelect>
+						<p-multiSelect [options]="hiringStatuses" formControlName="hiringStatus" optionLabel="name"
+							placeholder="Select the Hiring Status" optionValue="id" appendTo="body" display="chip"
+							class="w-100"> </p-multiSelect>
 					</div>
 					<div class="col-md-6">
 						<label class="form-label fw-bold">Introduction Video </label>
-						<p-multiSelect [options]="introductionVideoTypes" formControlName="intro" optionLabel="name" placeholder="Select the Introduction video" 
-							optionValue="id" appendTo="body" display="chip" class="w-100"> </p-multiSelect>
+						<p-multiSelect [options]="introductionVideoTypes" formControlName="intro" optionLabel="name"
+							placeholder="Select the Introduction video" optionValue="id" appendTo="body" display="chip"
+							class="w-100"> </p-multiSelect>
 					</div>
 					<div class="col-md-6 h-full mt-auto">
 						<button pButton label="Apply Filter" (click)="applyFilter()"

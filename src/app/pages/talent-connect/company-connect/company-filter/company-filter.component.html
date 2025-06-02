@@ -9,6 +9,8 @@
 		<div class="row g-4">
 			<div class="col-md-8">
 				<label class="form-label fw-bold">Company Name</label>
+				<input class="form-control d-none" formControlName="companyname" pInputText
+				placeholder="Search by company name" />
 				<input class="form-control" formControlName="companyname" pInputText
 					placeholder="Search by company name" />
 			</div>
@@ -17,7 +19,7 @@
 				<label class="form-label fw-bold">Industry Type</label>
 				<p-select appendTo="body" [options]="industryTypes" formControlName="industrytype" optionValue="id"
 					optionLabel="industry_name" placeholder="Select your preferred industry" styleClass="w-100"
-					[showClear]="true"></p-select>
+					[showClear]="true" [filter]="true"></p-select>
 			</div>
 
 			<div class="col-md-4">
@@ -51,26 +53,26 @@
 				<label class="form-label fw-bold">Global Presence</label>
 				<p-select appendTo="body" [options]="globalPresence" formControlName="globalpresence"
 					placeholder="Select global presence" optionValue="id" optionLabel="country" styleClass="w-100"
-					[showClear]="true"></p-select>
+					[showClear]="true" [filter]="true"></p-select>
 			</div>
 
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Year Founded</label>
 				<p-select appendTo="body" [options]="foundedYears" formControlName="foundedyear"
-					placeholder="Select founded year" styleClass="w-100" [showClear]="true"></p-select>
+					placeholder="Select founded year" styleClass="w-100" [showClear]="true" [filter]="true"></p-select>
 			</div>
 
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Company Type</label>
 				<p-select appendTo="body" [options]="companyTypes" formControlName="companytype" optionLabel="type"
-					optionValue="id" placeholder="Select company type" styleClass="w-100" [showClear]="true"></p-select>
+					optionValue="id" placeholder="Select company type" styleClass="w-100" [showClear]="true" [filter]="true"></p-select>
 			</div>
 		</div>
 	</form>
 
 	<ng-template #footer>
 		<div class="d-grid gap-2 col-12 mx-auto">
-			<button type="submit" class="btn btn-dark w-100 block"
+			<button type="button" class="btn btn-dark w-100 block"
 				style="background-color: var(--uniprep-primary); border: none" (click)="triggerFilter();">Apply
 				Filter</button>
 			<button class="btn btn-outline-dark w-100" (click)="onResetFilter()"
