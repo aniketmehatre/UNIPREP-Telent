@@ -5,10 +5,11 @@ import { SelectModule } from 'primeng/select';
 import { LocationService } from 'src/app/location.service';
 import { LandingPartnerServices } from '../landing-partner.service';
 import { Router } from '@angular/router';
-interface Country 
-{  id: number; 
-   country: string;
-   flag: string
+import { ImageModule } from 'primeng/image';
+interface Country {
+  id: number;
+  country: string;
+  flag: string
 }
 
 interface Partner {
@@ -22,7 +23,7 @@ interface Partner {
 @Component({
   selector: 'uni-partner-login',
   standalone: true,
-  imports: [CommonModule, RouterModule, SelectModule],
+  imports: [CommonModule, RouterModule, SelectModule, ImageModule],
   templateUrl: './partner-login.component.html',
   styleUrls: ['./partner-login.component.scss']
 })
@@ -30,22 +31,25 @@ export class PartnerLoginComponent implements OnInit {
   imageUrlWhiteLabel = signal<string | null>(null);
   countryList: Country[] = [];
   partnersList: Partner[] = [];
-
-  constructor(private locationService: LocationService, private partnerService: LandingPartnerServices, private router: Router) { }
+  logo: any;
+  constructor(private locationService: LocationService,
+    private partnerService: LandingPartnerServices,
+    private router: Router) { }
 
   ngOnInit() {
     this.getWhiteLabel();
     this.getCountryList();
+    this.apiToCheckPartnerOrInstitute()
   }
 
   getWhiteLabel() {
     this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
       this.imageUrlWhiteLabel = data.logo
     })
-    
+
   }
 
-    getCountryList() {
+  getCountryList() {
     this.partnerService.getCountryList().subscribe({
       next: response => {
         this.countryList = response.data;
@@ -71,5 +75,11 @@ export class PartnerLoginComponent implements OnInit {
     if (selectedPartner?.domainname) {
       window.open(`https://${selectedPartner.domainname}`, '_blank');
     }
+  }
+
+  apiToCheckPartnerOrInstitute() {
+    this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
+      this.logo = response.logo
+    })
   }
 }

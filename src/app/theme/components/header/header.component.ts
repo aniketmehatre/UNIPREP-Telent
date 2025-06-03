@@ -188,16 +188,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	isResendOTP: boolean = false
 	allSearchedResult: any[] = []
 	currentRoute: string = ""
-	userTypeId : boolean = true
+	userTypeId: boolean = true
 	constructor(
 		private router: Router,
 		private locationService: LocationService,
 		private formBuilder: FormBuilder,
-		public service: AuthService,
+		public authService: AuthService,
 		private toast: MessageService,
 		private themeService: ThemeService,
 		route: ActivatedRoute,
-		private authService: SocialAuthService,
+		private socialService: SocialAuthService,
 		private dataService: DataService,
 		private dashboardService: DashboardService,
 		private assessmentService: AssessmentService,
@@ -252,7 +252,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			// put the code from `ngOnInit` here
 			this.loadCountryList()
 		})
-		this.service.getTimeInfoForCard().subscribe((data) => {
+		this.authService.getTimeInfoForCard().subscribe((data) => {
 			this.storage.set("time_card_info", data.card_message)
 		})
 		this.assessmentService.iLearnChallengeData$.subscribe((data) => {
@@ -269,7 +269,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			}
 		})
 
-		this.service.aiCreditCount$.subscribe(value => {
+		this.authService.aiCreditCount$.subscribe(value => {
 			if (value) {
 				this.getAICreditCount();
 			}
@@ -277,8 +277,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	buyCredits() {
-		if (this.service.isInvalidSubscription('ai_credit_count')) {
-			this.service.hasUserSubscription$.next(true);
+		if (this.authService.isInvalidSubscription('ai_credit_count')) {
+			this.authService.hasUserSubscription$.next(true);
 		} else {
 			this.router.navigate(["/pages/export-credit"]);
 		}
@@ -385,7 +385,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			whatsapp_number_or_not: formData.choice,
 			dial_code: formData.verification_phone.countryCode,
 		}
-		this.service.sendWhatsappOtp(sendPhoneNumber).subscribe({
+		this.authService.sendWhatsappOtp(sendPhoneNumber).subscribe({
 			next: (response) => {
 				this.isSendingOTP = true
 				this.toast.add({
@@ -421,7 +421,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 		this.phoneVerification.get('verification_phone')?.disable();
 
-		this.service.validateWhatsappOtp(sendOTP).subscribe({
+		this.authService.validateWhatsappOtp(sendOTP).subscribe({
 			next: (response) => {
 				if (response.message == 'Otp Invalid') {
 					this.toast.add({
@@ -479,10 +479,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.locationService.getSourceByDomain(hostname).subscribe((data: any) => {
 			this.imagewhitlabeldomainname = data.source
 		})
-		this.userTypeId = this.storage.get('user_type_id') === 7
+		this.userTypeId = this.authService._user?.student_type_id == 2
 		// Initialize forms
 		this.initializeForms();
-		this.service.getNewUserTimeLeft().subscribe((res) => {
+		this.authService.getNewUserTimeLeft().subscribe((res) => {
 			if (this.imagewhitlabeldomainname === "uniprep" || this.imagewhitlabeldomainname === "Partner") {
 				this.ehitlabelIsShow = true;
 			} else {
@@ -500,7 +500,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			this.phone = this.storage.get("phone");
 			// if (encPhone) {
 			// 	try {
-			// 		const decryptedPhone = await this.service.decryptData(encPhone);
+			// 		const decryptedPhone = await this.authService.decryptData(encPhone);
 			// 		if (decryptedPhone && typeof decryptedPhone === 'string') {
 			// 			try {
 			// 				if (decryptedPhone.startsWith('{') || decryptedPhone.startsWith('[') || decryptedPhone.startsWith('"')) {
@@ -527,7 +527,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 
 		// Add user details subscription
-		const userDetails = this.service._user as User;
+		const userDetails = this.authService._user as User;
 		this.userName = userDetails.name || '';
 		this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
 
@@ -610,7 +610,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			}
 		});
 
-		if (this.service._user.subscription_exists === 0) {
+		if (this.authService._user.subscription_exists === 0) {
 			this.checkNewUser();
 		} else {
 			this.subScribedUserCount();
@@ -639,7 +639,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.promptService.getAicredits().subscribe({
 			next: resp => {
 				this.aiCreditCount = resp;
-				this.service._creditCount = resp;
+				this.authService._creditCount = resp;
 			}
 		})
 	}
@@ -667,7 +667,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			// }
 
 			// Get decrypted phone using auth service
-			// let phoneValue = await this.service.decryptData(encryptedPhone);
+			// let phoneValue = await this.authService.decryptData(encryptedPhone);
 
 			// Handle the decrypted phone data
 			if (phoneValue) {
@@ -783,18 +783,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 		this.reportType = 3
 		this.reportlearnlanguagetype = data.reporttype === 8 ? 8 : 0
-		if (this.service._user) {
-			this.userName = this.service._user.name.toString()
+		if (this.authService._user) {
+			this.userName = this.authService._user.name.toString()
 			this.firstChar = this.userName.charAt(0)
-			this.homeCountryId = Number(this.service._user.home_country_id)
-			this.selectedHomeCountry = Number(this.service._user.home_country_id)
+			this.homeCountryId = Number(this.authService._user.home_country_id)
+			this.selectedHomeCountry = Number(this.authService._user.home_country_id)
 			this.getHomeCountryList()
-			const loginStatus = this.service._user.login_status;
+			const loginStatus = this.authService._user.login_status;
 			if (typeof loginStatus === "string" && loginStatus.includes("Demo") == true) {
 				this.demoTrial = true;
 				this.demoDays = loginStatus.replace("Demo-", "");
 			}
-			let programLevelId = this.service._user.programlevel_id;
+			let programLevelId = this.authService._user.programlevel_id;
 			if (programLevelId == null || programLevelId == "null" || programLevelId == "") {
 				this.currentEducation = true;
 				this.educationImage = `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/education.svg`;
@@ -839,7 +839,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	UpdateEducationLevel() {
 		let eduLevel = this.currentEducationForm.value.current_education
-		this.service.updateEducationLevel(eduLevel).subscribe((res) => {
+		this.authService.updateEducationLevel(eduLevel).subscribe((res) => {
 			this.currentEducation = false
 			this.toast.add({
 				severity: "success",
@@ -902,7 +902,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		const cleanupLocalState = () => {
 			window.sessionStorage.clear();
 			localStorage.clear();
-			this.service.clearCache();
+			this.authService.clearCache();
 			this.locationService.clearCache();
 			this.authTokenService.clearToken();
 			this.isLoading = false;
@@ -910,7 +910,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 		// Prepare all API calls that need to be made
 		const logoutRequests = [
-			this.service.logout().pipe(
+			this.authService.logout().pipe(
 				catchError(error => {
 					console.warn('Logout API error:', error);
 					return EMPTY;
@@ -925,7 +925,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		];
 
 		// Handle social logout if needed
-		this.authService.authState.pipe(
+		this.socialService.authState.pipe(
 			take(1),
 			catchError(error => {
 				console.warn('Error checking social auth state:', error);
@@ -933,7 +933,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			})
 		).subscribe(socialUser => {
 			if (socialUser) {
-				this.authService.signOut().catch(error =>
+				this.socialService.signOut().catch(error =>
 					console.warn('Social logout error:', error)
 				);
 			}
@@ -1070,7 +1070,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	subScribedUserCount(): void {
-		this.service.getNewUserTimeLeft().subscribe((res) => {
+		this.authService.getNewUserTimeLeft().subscribe((res) => {
 			this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
 			this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
 			let data = res.time_left;
@@ -1134,7 +1134,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	checkNewUser(): void {
-		this.service.getNewUserTimeLeft().subscribe((res) => {
+		this.authService.getNewUserTimeLeft().subscribe((res) => {
 			this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
 			this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
 			this.dashboardService.updatedata(res.time_left);
@@ -1273,11 +1273,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					})
 				}
 
-				this.service.contineStatus(false)
+				this.authService.contineStatus(false)
 				this.dataService.sendValue(false)
 				this.freeTrial = false
 				this.demoTrial = false
-				this.service._userContineTrial = false
+				this.authService._userContineTrial = false
 				setTimeout(() => {
 					this.checkNewUser()
 					window.location.reload()
@@ -1320,8 +1320,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					this.freeTrial = false
 					this.demoTrial = false
 					this.visibleExhasted = false
-					this.service._userContineTrial = false
-					this.service.contineStatus(false)
+					this.authService._userContineTrial = false
+					this.authService.contineStatus(false)
 					this.dataService.sendValue(false)
 					setTimeout(() => {
 						this.checkNewUser()
@@ -1351,8 +1351,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	checkNewUSerLogin() {
-		if (this.service._user?.login_status === 4) {
-			if (this.service._user.is_phn_or_whs_verified === 0) {
+		if (this.authService._user?.login_status === 4) {
+			if (this.authService._user.is_phn_or_whs_verified === 0) {
 				this.whatsappVerification = true;
 			}
 			else {
@@ -1467,7 +1467,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	navigateILearnChallenge() {
 		if (this.currentUserSubscriptionPlan === "Career" || this.currentUserSubscriptionPlan === "Entrepreneur") {
-			switch (this.service?._user?.ilearn_popup_status) {
+			switch (this.authService?._user?.ilearn_popup_status) {
 				case 0:
 				case 1:
 					if (this.router.url !== "/pages/assessment/ilearn-challenge") {
@@ -1488,7 +1488,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					this.isILearnCompletedVisible = true
 					break
 				default:
-					console.log(this.service?._user?.ilearn_popup_status)
+					console.log(this.authService?._user?.ilearn_popup_status)
 			}
 			return
 		}
@@ -1497,7 +1497,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	onSubscribe() {
 		this.isUpgradePlanVisible = false
-		const targetUrl = this.service?.user?.subscription ? "/pages/subscriptions/upgrade-subscription" : "/pages/subscriptions"
+		const targetUrl = this.authService?.user?.subscription ? "/pages/subscriptions/upgrade-subscription" : "/pages/subscriptions"
 		this.router.navigateByUrl(targetUrl)
 	}
 
@@ -1529,8 +1529,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	private loadUserData() {
-		if (this.service._user) {
-			const userDetails = this.service._user;
+		if (this.authService._user) {
+			const userDetails = this.authService._user;
 
 			// Set user name and first character
 			this.userName = userDetails.name?.toString() || '';

@@ -5,6 +5,7 @@ import { Country } from 'ngx-intl-tel-input/lib/model/country.model';
 import { SelectModule } from 'primeng/select';
 import { LocationService } from 'src/app/location.service';
 import { LandingInstituteService } from '../landing-institute/landing-institute.service';
+import { ImageModule } from 'primeng/image';
 interface Institute {
   id: number;
   country: string;
@@ -16,7 +17,7 @@ interface Institute {
 @Component({
   selector: 'uni-institution-login',
   standalone: true,
-  imports: [CommonModule, RouterModule, SelectModule],
+  imports: [CommonModule, RouterModule, SelectModule, ImageModule],
   templateUrl: './institution-login.component.html',
   styleUrls: ['./institution-login.component.scss']
 })
@@ -24,6 +25,7 @@ export class InstitutionLoginComponent implements OnInit {
   imageUrlWhiteLabel = signal<string | null>(null);
   countryList: Country[] = [];
   instituteList: Institute[] = [];
+  logo: any
   constructor(private locationService: LocationService, private partnerService: LandingInstituteService) { }
 
   ngOnInit() {
@@ -36,7 +38,7 @@ export class InstitutionLoginComponent implements OnInit {
       this.imageUrlWhiteLabel = data.logo
     })
   }
-    getCountryList() {
+  getCountryList() {
     this.partnerService.getCountryList().subscribe({
       next: response => {
         this.countryList = response.data;
@@ -63,6 +65,12 @@ export class InstitutionLoginComponent implements OnInit {
     if (selectedPartner?.domainname) {
       window.open(`https://${selectedPartner.domainname}`, '_blank');
     }
+  }
+
+  apiToCheckPartnerOrInstitute() {
+    this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
+      this.logo = response.logo
+    })
   }
 
 }

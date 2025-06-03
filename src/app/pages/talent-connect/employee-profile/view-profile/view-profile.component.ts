@@ -148,7 +148,7 @@ export class ViewProfileComponent implements OnInit {
   fieldsOfStudy: any[] = [];
   hobbies: any[] = [];
   jobTitles: any[] = [];
-  languagelist: any[] = [];
+  languageList: any[] = [];
   locations: any[] = [];
   professionalStrengths: any[] = [];
   qualifications: any[] = [];
@@ -261,7 +261,7 @@ export class ViewProfileComponent implements OnInit {
       this.currencies = data?.currencies,
         this.careerInterests = data?.careerInterests,
         this.jobTitles = data?.jobTitles,
-        this.languagelist = data?.languagelist,
+        this.languageList = data?.languageList,
         this.locations = data?.locations,
         this.hobbies = data?.hobbies,
         this.professionalStrengths = data?.professionalStrengths,
@@ -415,7 +415,7 @@ export class ViewProfileComponent implements OnInit {
     // Process languages
     const languagesKnown = (formData.languages || [])
       .map((lang: any) => {
-        const language = this.getListValue(this.languagelist, lang.languages_language_id, 'language') || '';
+        const language = this.getListValue(this.languageList, lang.languages_language_id, 'language') || '';
         const proficiency = lang.languages_proficiency || '';
         return { lang: language, prof: proficiency };
       })

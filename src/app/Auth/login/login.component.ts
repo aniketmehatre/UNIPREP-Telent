@@ -259,7 +259,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.service.getMe().subscribe({
             next: (userData) => {
                 this.loadCountryList(userData)
-                this.storage.set('user_type_id', userData.userdetails[0].usertype_id);
+                
                 let req = {
                     userId: userData.userdetails[0].user_id,
                     location: this.locationData.city,
