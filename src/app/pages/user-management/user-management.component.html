@@ -225,25 +225,26 @@
                                     <p class="fontsizecontent">Update your password</p>
                                 </div>
                                 <div class="col-md-9 col-lg-9 col-sm-12">
-                                    <form [formGroup]="updatedpasswords"
+                                    <form [formGroup]="updatedPasswords"
                                         (ngSubmit)="UserUpdatePassword(updatedpasswords)">
                                         <div class="container-fluid">
                                             <div class="row">
                                                 <div class="col-12">
                                                     <label class="mb-1">Current Password</label>
                                                     <div class="position-relative">
-                                                        <input [type]="CrntPass" class="form-control w-100"
+                                                        <input [type]="passwordFields.current.type"
+                                                            class="form-control w-100"
                                                             formControlName="current_password" />
                                                         <span class="passwordvisibility" role="button"
-                                                            (click)="ShowCurrentPassword()">
-                                                            <i class="fa-solid fa-eye" *ngIf="ShowCrntPass"></i>
-                                                            <i class="fa-solid fa-eye-slash" *ngIf="!ShowCrntPass"></i>
+                                                            (click)="togglePassword('current')">
+                                                            <i class="fa-solid"
+                                                                [ngClass]="passwordFields.current.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
                                                         </span>
                                                     </div>
-                                                    <div *ngIf="PasswordSubmitted && updatepassword['current_password']['errors']"
+                                                    <div *ngIf="PasswordSubmitted && updatePassword['current_password']['errors']"
                                                         class="UserInfoValidation">
-                                                        <div
-                                                            *ngIf="updatepassword['current_password']['errors']['required']">
+                                                        <div class="text-danger"
+                                                            *ngIf="updatePassword['current_password']['errors']['required']">
                                                             Current Password is required</div>
                                                     </div>
                                                 </div>
@@ -251,36 +252,37 @@
                                                 <div class="col-md-6 col-lg-6 col-sm-12">
                                                     <label class="mb-1">Set New Password</label>
                                                     <div class="position-relative">
-                                                        <input [type]="NewPass" class="form-control w-100"
-                                                            formControlName="new_password" />
+                                                        <input [type]="passwordFields.new.type"
+                                                            class="form-control w-100" formControlName="new_password" />
                                                         <span class="passwordvisibility" role="button"
-                                                            (click)="ShowNewPassword()">
-                                                            <i class="fa-solid fa-eye" *ngIf="ShowNewPass"></i>
-                                                            <i class="fa-solid fa-eye-slash" *ngIf="!ShowNewPass"></i>
+                                                            (click)="togglePassword('new')">
+                                                            <i class="fa-solid"
+                                                                [ngClass]="passwordFields.new.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
                                                         </span>
                                                     </div>
-                                                    <div *ngIf="PasswordSubmitted && updatepassword['new_password']['errors']"
+                                                    <div *ngIf="PasswordSubmitted && updatePassword['new_password']['errors']"
                                                         class="UserInfoValidation">
-                                                        <div
-                                                            *ngIf="updatepassword['new_password']['errors']['required']">
+                                                        <div class="text-danger"
+                                                            *ngIf="updatePassword['new_password']['errors']['required']">
                                                             New Password is required</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-lg-6 col-sm-12">
                                                     <label class="mb-1">Enter New Password Again</label>
                                                     <div class="position-relative">
-                                                        <input [type]="CnfrmPass" class="form-control w-100"
+                                                        <input [type]="passwordFields.confirm.type"
+                                                            class="form-control w-100"
                                                             formControlName="confirm_password" />
                                                         <span class="passwordvisibility" role="button"
-                                                            (click)="ShowConfirmPassword()">
-                                                            <i class="fa-solid fa-eye" *ngIf="ShowCnfrmPass"></i>
-                                                            <i class="fa-solid fa-eye-slash" *ngIf="!ShowCnfrmPass"></i>
+                                                            (click)="togglePassword('confirm')">
+                                                            <i class="fa-solid"
+                                                                [ngClass]="passwordFields.confirm.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
                                                         </span>
                                                     </div>
-                                                    <div *ngIf="PasswordSubmitted && updatepassword['confirm_password']['errors']"
+                                                    <div *ngIf="PasswordSubmitted && updatePassword['confirm_password']['errors']"
                                                         class="UserInfoValidation">
-                                                        <div
-                                                            *ngIf="updatepassword['confirm_password']['errors']['required']">
+                                                        <div class="text-danger"
+                                                            *ngIf="updatePassword['confirm_password']['errors']['required']">
                                                             Confirm Password is required</div>
                                                     </div>
                                                 </div>
@@ -334,12 +336,12 @@
                                             <div>
                                                 <strong>Google</strong>
                                                 <div class="text-muted small"><span *ngIf="associatedMail"><i
-                                                            class="fab fa-google text-danger"></i></span>{{assoiciatedMail}}
+                                                            class="fab fa-google text-danger"></i></span>{{associatedMail}}
                                                 </div>
                                             </div>
-                                            <div [ngClass]="assoiciatedMail ? 'text-success' : 'text-danger'"
+                                            <div [ngClass]="associatedMail ? 'text-success' : 'text-danger'"
                                                 class="small">
-                                                {{ assoiciatedMail ? "Linked" : "Not Linked" }}
+                                                {{ associatedMail ? "Linked" : "Not Linked" }}
                                             </div>
                                         </div>
                                     </div>
