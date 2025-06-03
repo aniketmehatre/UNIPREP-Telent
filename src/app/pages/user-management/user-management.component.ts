@@ -480,7 +480,6 @@ export class UserManagementComponent implements OnInit {
 			}
 		});
 	}
-
 	downloadInvoice(id: number): void {
 		let data: any = {
 			user_subscription_id: id,
@@ -496,7 +495,6 @@ export class UserManagementComponent implements OnInit {
 	}
 	// mobile view side menu
 	isSidebarVisible: boolean = false;
-
 	toggleSidebar(): void {
 		this.isSidebarVisible = !this.isSidebarVisible;
 	}
@@ -540,7 +538,6 @@ export class UserManagementComponent implements OnInit {
 			event.preventDefault(); // block letters/symbols
 		}
 	}
-
 	// Trim the input to max 4 digits in p-calender
 	onYearInput(event: any) {
 		const inputEl = event.target;
