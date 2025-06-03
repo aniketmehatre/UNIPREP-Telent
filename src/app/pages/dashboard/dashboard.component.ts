@@ -49,31 +49,21 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	@ViewChild("op") op!: ElementRef<HTMLInputElement>
 	@ViewChild("carousel") carousel!: Carousel
 	@Input() progress: number = 0
-	@Input() progressReading: number = 0
 	private subs = new SubSink()
 	userName: any
 	responsiveOptions: any
-	selectedCountryName: any
-	readingProgress: any
-	countryLists: any = []
-	continueReading = "none"
 	sendInvite: any = ""
 	partnerTrusterLogo: any[]=[]
 	planExpired: boolean = false
-	orgNameWhiteLabel: any
-	orgLogoWhiteLabel: any
 	groupedListFav: any[] = [];
 	cvBuilderPercentage: number = 0;
 	talentConnectPercentage: number = 0;
 	totalPercentage: number = 0;
 	isShowingCompletion: boolean = false;
-	selectedCountryId: number = 1
-	headerFlag!: string
 	userData: any
 	recentJobApplication: any[] = [];
 	isNoApplicationsData: boolean = true;
 	reportOptionNgModel: number = 21;
-	certificatesCountStudent: number = 0
 	reportSubmitForm!: FormGroup;
 	featureList: FeatureFavourite[] = FavouriteList;
 	reportOptionList: any[] = [
@@ -125,15 +115,9 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	ngOnInit(): void {
 		// Initialize essential data first
 		this.groupedListFav = this.chunkArray(this.featureList, 4);
-		this.initializeEssentialData();
 		this.recentJobs();
 		this.handleUserData();
-		this.loadParallelData();
 		this.recentCompanies();
-		
-		this.locationService.dashboardLocationList().subscribe((countryList: any) => {
-			this.countryLists = countryList
-		});
 		this.seoManagerComponent.updateDynamicContent('UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship');
 	}
 
@@ -171,44 +155,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		}
 		return result;
 	}
-	initializeEssentialData() {
-		this.selectedCountryId = Number(this.storage.get("countryId"));
-		this.storage.set("currentmodulenameforrecently", "");
-		this.cdr.detectChanges();
-	}
 	sourceDomainData: any;
-	loadParallelData() {
-
-		const mainData$ = forkJoin({
-			partnerLogo: this.dashboardService.getTrustedPartners().pipe(catchError(() => of(null))),
-			countryList: this.locationService.dashboardLocationList().pipe(catchError(() => of([]))),
-			readProgression: this.dashboardService.getReadProgression({ countryId: this.selectedCountryId }).pipe(catchError(() => of(null))),
-			quizCompletion: this.dashboardService.checkModuleQuizCompletion({ countryid: this.selectedCountryId }).pipe(catchError(() => of(null)))
-		});
-
-		// Subscribe to main data
-
-		this.subs.sink = mainData$.subscribe(({
-			countryList,
-			readProgression,
-		}) => {
-
-			// Handle country list
-			if (countryList) {
-				this.handleCountryList(countryList);
-			}
-
-			// Handle read progression
-			if (readProgression && readProgression.success) {
-				const percentage = Math.round(readProgression.readpercentage) || 0;
-				this.setProgress1(percentage);
-				this.progressReading = percentage;
-				this.certificatesCountStudent = readProgression.certificatecount || 0;
-			}
-
-			this.cdr.markForCheck();
-		});
-	}
 
 	handleUserData() {
 		this.userName = this.authService._user?.name.toString();
@@ -225,85 +172,23 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.setProgress(Math.round((filledCount / totalCount) * 100));
 	}
 
-	private handleCountryList(countryList: any[]): void {
-		this.carousel.page = 0;
-		this.countryLists = countryList;
-
-		// Find selected country
-		const selectedCountry = this.countryLists.find((element: any) => element.id == this.selectedCountryId);
-		if (selectedCountry) {
-			this.selectedCountryName = selectedCountry.country;
-			this.headerFlag = selectedCountry.flag;
-
-			// Move selected country to start of list
-			this.countryLists = [
-				selectedCountry,
-				...this.countryLists.filter((item: any) => item.id !== this.selectedCountryId)
-			];
-		}
-	}
-
-	loadApiData(): void {
-		const data = {
-			countryId: this.selectedCountryId,
-		}
-		combineLatest([this.dashboardService.getReadProgression(data)]).subscribe(([readProgression]) => {
-			if (readProgression && readProgression.success) {
-				const percentage = Math.round(readProgression.readpercentage) || 0;
-				this.setProgress1(percentage);
-				this.progressReading = percentage;
-				this.certificatesCountStudent = readProgression.certificatecount || 0;
-			}
-		});
-	}
-
-	closeReading(): void {
-		this.continueReading = "none"
-	}
-
-	openReading(): void {
-		let data = {
-			countryId: this.selectedCountryId,
-		}
-		this.dashboardService.getModuleReadProgression(data).subscribe((response) => {
-			this.readingProgress = response.module
-			this.continueReading = "block"
-		})
-	}
 	openQuiz(): void {
-		// dont remove comments
 		if (this.planExpired) {
 			this.authService.hasUserSubscription$.next(true);
 			return;
 		}
 		this.router.navigate([`pages/modules/quizmodule`]);
 	}
-
-	selectCountry(selectedId: any): void {
-		this.countryLists.forEach((element: any) => {
-			if (element.id === selectedId.id) {
-				this.selectedCountryName = element.country
-			}
-		})
-		this.countryLists.forEach((item: any, i: any) => {
-			if (item.id === selectedId.id) {
-				this.countryLists.splice(i, 1)
-				this.countryLists.unshift(item)
-			}
-		})
-
-		this.storage.set("countryId", selectedId.id)
-		this.storage.set("selectedCountryId", selectedId.id)
-		this.loadApiData()
-		this.selectedCountryId = selectedId.id
-		this.dataService.changeCountryId(selectedId.id)
-		this.dataService.changeCountryFlag(selectedId.flag)
-		this.dataService.changeCountryName(selectedId.country)
-
-		// Update the selected country in the dashboard service
-		this.dashboardService.updateSelectedCountry(selectedId)
-	}
-
+	// plan check code , don't remove
+	// checkPlanExpire(): void {
+	// 	if (this.authService._userSubscrition.time_left.plan === "expired" ||
+	// 		this.authService._userSubscrition.time_left.plan === "subscription_expired") {
+	// 		this.planExpired = true;
+	// 	}
+	// 	else {
+	// 		this.planExpired = false;
+	// 	}
+	// }
 	openCertificate() {
 		this.router.navigate([`pages/mycertificate`])
 	}
@@ -330,41 +215,12 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		}
 	}
 
-	onClickQuizProgression(data: any) {
-		const moduleMap: { [key: string]: string } = {
-			"Pre-Admission": "pre-admission",
-			"Post-Application": "post-application",
-			"Post-Admission": "post-admission",
-			"Career Hub": "career-hub",
-			"University": "university",
-			"Travel And Tourism": "travel-and-tourism",
-			"Life at ": "life-at",
-			"Skill Mastery": "skill-mastery",
-			"Learning Hub": "learning-hub",
-			"Language Hub": "language-hub",
-		};
-		const moduleName = moduleMap[data.module_name] || '';
-		this.router.navigate([`pages/${moduleName}/sub-modules/2`]);
-	}
-
 	openViewMoreOrg(): void {
 		this.router.navigate(["/pages/talent-connect/company-connect"]);
 	}
 
 	viewMoreOpenJobApplication() {
 		this.router.navigate(["/pages/talent-connect/easy-apply"]);
-	}
-
-
-
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
 	}
 
 	openMyProfile() {
@@ -443,33 +299,12 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		if (changes["progress"]) {
 			this.setProgress(this.progress)
 		}
-		if (changes["progressReading"]) {
-			this.setProgress1(this.progressReading)
-		}
 	}
 
 	setProgress(progress: number) {
 		this.progress = Math.max(0, Math.min(progress, 100));
 		this.profileCompletion();
 	}
-
-	setProgress1(progress: number) {
-		if (typeof progress !== 'number') {
-			progress = 0;
-		}
-		const circle = document.querySelector('.progress1-ring__circle') as SVGCircleElement;
-		if (!circle) {
-			// console.warn('Progress ring circle element not found');
-			return;
-		}
-		const radius = circle.r.baseVal.value;
-		const circumference = radius * 2 * Math.PI;
-		circle.style.strokeDasharray = `${circumference} ${circumference}`;
-		circle.style.strokeDashoffset = `${circumference}`;
-		const offset = circumference - (progress / 100) * circumference;
-		circle.style.strokeDashoffset = offset.toString();
-	}
-
 	ngOnDestroy(): void {
 		this.subs.unsubscribe();
 		this.seoManagerComponent.updateDynamicContent("UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship");
