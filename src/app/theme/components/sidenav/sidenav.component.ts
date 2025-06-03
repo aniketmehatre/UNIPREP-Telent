@@ -305,8 +305,8 @@ export class SidenavComponent {
   HigherEduRestritedMenus: string[] = ["K12 Academy", "K12 Academic Tools", "Academics"];
   studentMenus = ["null"];
   careerMenus = ["null"];
-  whitlabelmenu = ["Subscription", "About UNIPREP", "24x7 Support", "Success Stories", "Recommendations"];
-  whitlabelmenuFreeTrails = ["Subscription", "About UNIPREP", "24x7 Support", "Success Stories"];
+  whitlabelmenu = ["About UNIPREP", "24x7 Support", "Success Stories", "Recommendations"];
+  whitlabelmenuFreeTrails = ["About UNIPREP", "24x7 Support", "Success Stories"];
   collegeStudentMenus = ["null"]; //'Subscription'
   conditionSubscribed!: boolean;
   currentTitle: any;
@@ -357,10 +357,11 @@ export class SidenavComponent {
   enterpriseSubscriptionLink: any;
   ngOnInit(): void {
     //this.sampleMenus = this.menus;
-    let userTypeId = this.storage.get('user_type_id') == 7
+    let userTypeId = this.authService._user?.student_type_id == 2
+    console.log(userTypeId);
 
     this.authService.userData.subscribe((data) => {
-      if (data?.student_type_id == 1) {
+      if (data?.student_type_id == 2) {
         this.menus = userTypeId
           ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
           : this.menus;

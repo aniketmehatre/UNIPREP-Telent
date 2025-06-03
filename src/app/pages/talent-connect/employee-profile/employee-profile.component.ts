@@ -2062,7 +2062,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   getFilteredQualifications(index: number): any[] {
-    if (index === 0 || index === 5) return this.qualificationList;
+    if (index === 0) return this.qualificationList;
+    const previousQualificationIds = this.educationDetails.controls
+      .slice(0, index) // only previous entries
+      .map(control => control.get('education_qualification_id')?.value)
+      .filter(id => !!id); // remove undefined/null
+
+    const maxPrevQualificationId = Math.max(...previousQualificationIds, 0);
+    console.log(maxPrevQualificationId, 'previus id')
     const prevQualificationValue = this.educationDetails.at(index - 1).get('education_qualification_id')?.value;
     const disableQualificationMap: { [key: number]: number[] } = {
       2: [2, 3, 4, 5], // Bachelor’s Degree
@@ -2079,11 +2086,13 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   getFilteredGraduationYears(index: number): any[] {
     if (index === 0) return this.graduationYearList;
-     const prevValue = this.educationDetails.at(index - 1).get('education_graduation_year_id')?.value;
-     const sel = this.graduationYears.find(item => item.id == prevValue);
+    // const prevValue = this.educationDetails.at(index - 1).get('education_graduation_year_id')?.value;
+    // const sel = this.graduationYears.find(item => item.id == prevValue);
+    const prevYearId = this.educationDetails.at(index - 1).get('education_graduation_year_id')?.value;
+    const prevYear = this.graduationYears.find(y => y.id === prevYearId)?.graduation_year_name;
     return this.graduationYears.map(item => ({
       ...item,
-      disabled: Number(item.graduation_year_name) >= Number(sel.graduation_year_name)
+      disabled: Number(item.graduation_year_name) >= Number(prevYear)
     }));
   }
 

@@ -98,8 +98,9 @@ export class MainListComponent implements OnInit {
                 }
             },
             error: error => {
-                this.isLoading = false
-                console.log('error while calling get profile!.')
+                this.isLoading = false;
+                this.talentConnectMainList[0].title = 'Create Profile';
+                console.log('error while calling get profile!.');
             }
         });
     }
