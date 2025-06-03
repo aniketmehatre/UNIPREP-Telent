@@ -133,8 +133,7 @@ interface ProfileData {
     AvatarModule,
     ProgressBarModule,
     RatingModule,
-    RouterModule,
-    TooltipDirective
+    RouterModule
   ],
   templateUrl: './view-profile.component.html',
   styleUrl: './view-profile.component.scss'
@@ -302,22 +301,14 @@ export class ViewProfileComponent implements OnInit {
     this.display = false;
   }
 
-  getProficiencyRating(proficiency: string): number {
-    // Convert proficiency text to a rating number
-    switch (proficiency) {
-      case "Beginner":
-        return 1
-      case "Elementary":
-        return 2
-      case "Intermediate":
-        return 3
-      case "Advanced":
-        return 4
-      case "Fluent":
-        return 5
-      default:
-        return 3 // Default to intermediate
+  getProficiencyRating(proficiency: string) {
+    const proficiencyList: { [key: string]: number } = {
+      "Beginner": 2,
+      "Fluent": 3,
+      "Proficient": 4,
+      "Native": 5
     }
+    return proficiencyList[proficiency] || 0;
   }
 
   openView(url: string) {
@@ -397,7 +388,7 @@ export class ViewProfileComponent implements OnInit {
         name: exp.work_experience_experience_letter || '',
         file: exp.work_experience_experience_letter || ''
       },
-      exp_currency: exp.work_experience_currency_id || ''
+      exp_currency: exp.work_experience_currency_id ? this.currencies.find(item => item.id == exp.work_experience_currency_id)?.currency_code : ''
     }));
 
 
@@ -475,7 +466,7 @@ export class ViewProfileComponent implements OnInit {
       preferredWorkplaceType: formData.career_preference_preferred_workplace_type || '',
       willingToRelocate: formData.career_preference_willingness_to_relocate || '',
       salaryRange: formData.career_preference_expected_salary || '',
-      currency: formData.career_preference_currency_id || ''
+      currency: formData.career_preference_currency_id ? this.currencies.find(item => item.id == formData.career_preference_currency_id)?.currency_code : ''
     };
 
     // Key strengths object

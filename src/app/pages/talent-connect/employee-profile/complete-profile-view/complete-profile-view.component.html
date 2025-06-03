@@ -164,11 +164,11 @@
               </div>
               <div class="col-md-4 mb-3">
                 <div class="text-primary fw-bold">Duration</div>
-                <div>{{exp?.duration || 'Not specified'}}</div>
+                <div>{{exp?.duration_from + ' - ' + exp?.duration_to || 'Not specified'}}</div>
               </div>
               <div class="col-md-4 mb-3">
                 <div class="text-primary fw-bold">Salary</div>
-                <div>{{exp?.salary || 'Not specified'}}</div>
+                <div>{{exp?.salary_per_month || 'Not specified'}}</div>
               </div>
             </ng-container>
           </div>
