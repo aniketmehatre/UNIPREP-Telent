@@ -188,11 +188,16 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.storage.set("currentmodulenameforrecently", "");
 		this.cdr.detectChanges();
 	}
-
+	sourceDomainData: any;
 	loadParallelData() {
+
+		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data:any) => {
+            this.sourceDomainData = data
+            this.cdr.markForCheck()
+        })
 		const whitelabelData$ = forkJoin({
-			logo: this.locationService.getImage(),
-			orgName: this.locationService.getOrgName()
+			logo:  this.sourceDomainData.logo,
+			orgName: this.sourceDomainData.name
 		}).pipe(
 			catchError(() => of({ logo: null, orgName: null }))
 		);

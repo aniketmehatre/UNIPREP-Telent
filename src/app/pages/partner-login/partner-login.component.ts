@@ -39,9 +39,9 @@ export class PartnerLoginComponent implements OnInit {
   }
 
   getWhiteLabel() {
-    this.locationService.getImage().subscribe((imageUrl) => {
-			this.imageUrlWhiteLabel.set(imageUrl);
-		});
+    this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
+      this.imageUrlWhiteLabel = data.logo
+    })
   }
 
     getCountryList() {

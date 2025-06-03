@@ -7,10 +7,8 @@
 					<div class="flex-column overflow-hidden" *ngFor="let resume of resumeHistory; let i = index">
 						<div>
 							<div class="pdf-preview" *ngIf="resume?.pdf_name">
-								<img *ngIf="pdfThumbnails[resume.pdf_name]" [src]="pdfThumbnails[resume.pdf_name]"
-									alt="PDF Preview" class="pdf-thumbnail" />
-								<div *ngIf="!pdfThumbnails[resume.pdf_name]" class="loading-placeholder">Loading
-									preview...</div>
+								<img [src]="resume?.image_name" alt="PDF Preview" class="pdf-thumbnail" />
+								<!-- <div *ngIf="!resume?.image_name" class="loading-placeholder">Loading preview...</div> -->
 								<div class="position-absolute resume-option">
 									<span role="button" class="HistoryDeleteIcon"
 										(click)="confirm($event, resume.pdf_name, resume.id)">
@@ -38,8 +36,8 @@
 		</div>
 	</div>
 </div>
-<div class="container-fluid h-100 d-flex flex-column justify-content-center bg-white" *ngIf="activePageIndex == 1">
-	<div class="row">
+<div class="container-fluid d-flex flex-column justify-content-center bg-white" *ngIf="activePageIndex == 1">
+	<div class="row h-100">
 		<div class="col-md-12">
 			<h3 class="text-center uniprep-primary">Select your Cover Letter style to get started</h3>
 		</div>
@@ -72,7 +70,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="" style="overflow-y: auto; text-align: end;">
+			<div class="d-flex justify-content-end align-items-end">
 				<button pButton class="history-Button" (click)="historyPage()">History
 				</button>
 			</div>
@@ -136,7 +134,7 @@
 								</div>
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Job Title</label>
-									<p-dropdown formControlName="user_job_title" [options]="jobRoles"
+									<p-dropdown formControlName="user_job_title" [options]="jobRoles" 
 										placeholder="Select Job Title" styleClass="w-100" optionLabel="jobrole"
 										optionValue="jobrole" [filter]="true" filterBy="jobrole"
 										[virtualScroll]="jobRoles.length > 100" [virtualScrollItemSize]="50">
@@ -264,9 +262,9 @@
 										</div>
 										<div class="mb-2">
 											<button pButton *ngIf="generateConBtnDisable" type="button"
-													class="btn btn-success btn-rounded px-3 py-2" [loading]="chatGptButtonLoaderSummary"
-												(click)="chatGPTIntegration('generate_summary')"
-												>AI Generate</button>
+												class="btn btn-success btn-rounded px-3 py-2"
+												[loading]="chatGptButtonLoaderSummary"
+												(click)="chatGPTIntegration('generate_summary')">AI Generate</button>
 											<button pButton *ngIf="rephraseconBtnDisable" type="button"
 												class="btn btn-secondary btn-rounded px-3 py-2"
 												[loading]="chatGptButtonLoaderSummary"
@@ -279,20 +277,21 @@
 												formControlName="user_summary" placeholder="Generate Your Content"
 												[modules]="editorModules"></p-editor>
 											<div *ngIf="f['user_summary'].errors?.['maxWords'] else showSummaryCount"
-													class="text-danger text-xs">
-													Cover Letter Section cannot exceed {{ f['user_summary']?.errors?.['maxWords'].max
-													}} words.
-													(Current: {{ f['user_summary']?.errors?.['maxWords'].actual }})
+												class="text-danger text-xs">
+												Cover Letter Section cannot exceed {{
+												f['user_summary']?.errors?.['maxWords'].max
+												}} words.
+												(Current: {{ f['user_summary']?.errors?.['maxWords'].actual }})
+											</div>
+											<ng-template #showSummaryCount>
+												<div class="text-muted text-small">Word Count:
+													{{userSummaryWordCount}}/1100
 												</div>
-												<ng-template #showSummaryCount>
-													<div class="text-muted text-small">Word Count:
-														{{userSummaryWordCount}}/1100
-													</div>
-												</ng-template>
-												<div *ngIf="submitted && f['user_summary'].errors?.['required']"
-													class="text-danger text-xs">
-													Cover Letter Section Required
-												</div>
+											</ng-template>
+											<div *ngIf="submitted && f['user_summary'].errors?.['required']"
+												class="text-danger text-xs">
+												Cover Letter Section Required
+											</div>
 										</div>
 									</div>
 								</div>

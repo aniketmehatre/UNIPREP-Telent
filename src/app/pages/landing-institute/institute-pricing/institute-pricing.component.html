@@ -151,7 +151,7 @@
       <div class="col-md-10">
         <h2 class="display-5 mb-4">Institutional ROI by Investing in <span class="uniprep-secondary fw-bold">UNIPREP</span></h2>
         <p class="lead">
-          UNIPREP is more than a platform—it's a future-ready investment that enhances employability, global visibility, student satisfaction, and NAAC/NIRF performance. It delivers 100X value to both students and institutions by combining technology, opportunity, and strategic partnerships.
+         {{selectedCountry == 'uk' ? roiInvestmentDescriptionOfUK : roiInvestmentDescriptionOfIndia }}
         </p>
       </div>
     </div>
@@ -159,7 +159,7 @@
     <div class="row mt-4 justify-content-center align-items-center">
       <div class="col-md-10">
         <div class="accordion pb-3 mb-5" id="accordionFAQ">
-          <div class="accordion-item faqcard p-2" *ngFor="let faq of faqItems; let i = index">
+          <div class="accordion-item faqcard p-2" *ngFor="let faq of getROIAccordionList; let i = index">
             <h2 class="accordion-header">
               <button class="accordion-button text-white collapsed fs-5" type="button" data-bs-toggle="collapse"
                 [attr.data-bs-target]="'#' + faq.id" aria-expanded="false" [attr.aria-controls]="faq.id">

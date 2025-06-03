@@ -27,7 +27,7 @@ export class LandingContentComponent implements OnInit {
   @ViewChild("videoPlayer")
   videoPlayer!: ElementRef;
   welcomevideoLink: string = `https://api.uniprep.ai/uniprepapi/storage/app/public/Landing/welcome.mp4`;
-  videoUrl: string = `https://www.youtube.com/embed/Sv8EyWriqV0?rel=0&autoplay=1`;
+  videoUrl: string = `https://www.youtube.com/embed/AAXUZ0z5bl0?rel=0&autoplay=1`;
   embedUrl!: SafeResourceUrl;
   isInitialLoadVideo: boolean = true;
   isPlaying = false;

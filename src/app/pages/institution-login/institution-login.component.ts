@@ -32,11 +32,10 @@ export class InstitutionLoginComponent implements OnInit {
   }
 
   getWhiteLabel() {
-    this.locationService.getImage().subscribe((imageUrl) => {
-      this.imageUrlWhiteLabel.set(imageUrl);
-    });
+    this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
+      this.imageUrlWhiteLabel = data.logo
+    })
   }
-
     getCountryList() {
     this.partnerService.getCountryList().subscribe({
       next: response => {

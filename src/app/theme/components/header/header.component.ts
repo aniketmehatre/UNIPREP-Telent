@@ -475,12 +475,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
 	async ngOnInit() {
+		let hostname = window.location.hostname
+		this.locationService.getSourceByDomain(hostname).subscribe((data: any) => {
+			this.imagewhitlabeldomainname = data.source
+		})
 		this.userTypeId = this.storage.get('user_type_id') === 7
 		// Initialize forms
 		this.initializeForms();
 		this.service.getNewUserTimeLeft().subscribe((res) => {
-			this.imagewhitlabeldomainname = window.location.hostname;
-			if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+			if (this.imagewhitlabeldomainname === "uniprep" || this.imagewhitlabeldomainname === "Partner") {
 				this.ehitlabelIsShow = true;
 			} else {
 				if (res.subscription_details.subscription_plan === "free_trail" && res.time_left.plan === "on_progress") {
@@ -545,15 +548,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.conditionModuleOrQuestionComponent();
 		this.getProgramlevelList();
 		// Load organization name
-		this.locationService.getOrgName().subscribe({
-			next: (orgname) => {
-				this.orgnamewhitlabel = orgname;
-			},
-			error: (error) => {
-				console.error('Error loading org name:', error);
-			}
-		});
-
+		this.locationService.getSourceByDomain(hostname).subscribe((data: any) => {
+			this.orgnamewhitlabel = data.name;
+		})
 		// Handle preferred country
 		try {
 			const response = await fetch('https://ipapi.co/json/');
@@ -1300,10 +1297,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		)
 	}
 	onClickSubscribedUser(): void {
-		this.imagewhitlabeldomainname = window.location.hostname
-		console.log(this.imagewhitlabeldomainname);
-
-		if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
+		if (this.imagewhitlabeldomainname === "uniprep" || this.imagewhitlabeldomainname === "Partner") {
 			this.visibleExhastedUser = false
 			let data: any = {}
 			if (this.mobileForm.valid) {

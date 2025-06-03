@@ -46,7 +46,6 @@ export class AppComponent implements OnInit {
         if (this.domainName === "sub") {
             this.router.navigate(["/main"], {replaceUrl: true});
         }
-        this.getImageWhitelabel();
         document.addEventListener("visibilitychange", () => {
             this.isPageHidden = document.hidden;
         });
@@ -61,22 +60,11 @@ export class AppComponent implements OnInit {
             this.domainNameCondition === "localhost";
     }
 
-
-    getImageWhitelabel() {
-        this.whiteLabelDomainName = window.location.hostname;
-        let data = {
-            domainname: this.whiteLabelDomainName,
-        };
-        this.whiteLabelService.getWhitlabelData(data).subscribe((res) => {
-        });
-    }
-
-
     apiToCheckPartnerOrInstitute() {
         let req = {
             domain: window.location.hostname,
         }
-        this.locationService.getSourceByDomain(req).subscribe((response) => {
+        this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
             if (response.source == 'Institute') {
                 this.isInstitute.set(true);
             }
