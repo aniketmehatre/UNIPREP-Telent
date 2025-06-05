@@ -79,7 +79,7 @@ export class CoBrandedComponent implements OnInit, OnDestroy {
             .then((data) => {
                 this.locationData = data
             })
-        this.locationService.getSourceByDomain(window.location.hostname).subscribe((data:any) => {
+        this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
             this.imageUrlWhitelabel = data.logo
             this.cdr.markForCheck()
         })
@@ -108,10 +108,7 @@ export class CoBrandedComponent implements OnInit, OnDestroy {
     }
 
     apiToCheckPartnerOrInstitute() {
-        let req = {
-            domain: window.location.hostname,
-        }
-        this.locationService.getSourceByDomain(req).subscribe((response) => {
+        this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
             if (response.source == 'Partner') {
                 this.isPartner.set(true);
             }

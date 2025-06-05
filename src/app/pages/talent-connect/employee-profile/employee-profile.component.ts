@@ -2050,6 +2050,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   getFilteredGraduationYears(index: number): any[] {
     if (index === 0) return this.graduationYearList;
+    // const prevValue = this.educationDetails.at(index - 1).get('education_graduation_year_id')?.value;
+    // const sel = this.graduationYears.find(item => item.id == prevValue);
     const prevYearId = this.educationDetails.at(index - 1).get('education_graduation_year_id')?.value;
     const prevYear = this.graduationYears.find(y => y.id === prevYearId)?.graduation_year_name;
     return this.graduationYears.map(item => ({

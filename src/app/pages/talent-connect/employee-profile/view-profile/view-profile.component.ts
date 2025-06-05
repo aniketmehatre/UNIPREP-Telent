@@ -147,7 +147,7 @@ export class ViewProfileComponent implements OnInit {
   fieldsOfStudy: any[] = [];
   hobbies: any[] = [];
   jobTitles: any[] = [];
-  languagelist: any[] = [];
+  languageList: any[] = [];
   locations: any[] = [];
   professionalStrengths: any[] = [];
   qualifications: any[] = [];
@@ -244,7 +244,7 @@ export class ViewProfileComponent implements OnInit {
     }],
     additionalInfo: 'Nothing to give'
   };
-
+languagelist:any[]=[];
   constructor(
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig
@@ -404,7 +404,7 @@ export class ViewProfileComponent implements OnInit {
     // Process languages
     const languagesKnown = (formData.languages || [])
       .map((lang: any) => {
-        const language = this.getListValue(this.languagelist, lang.languages_language_id, 'language') || '';
+        const language = this.getListValue(this.languageList, lang.languages_language_id, 'language') || '';
         const proficiency = lang.languages_proficiency || '';
         return { lang: language, prof: proficiency };
       })

@@ -32,49 +32,30 @@ import { SubscriptionService } from "../subscription/subscription.service"
 import { ConfirmDialogModule } from "primeng/confirmdialog"
 import { AuthTokenService } from "src/app/core/services/auth-token.service"
 import { CalendarModule } from "primeng/calendar"
+import { PasswordModule } from "primeng/password"
 @Component({
 	selector: "uni-user-management",
 	templateUrl: "./user-management.component.html",
 	styleUrls: ["./user-management.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
+	imports: [CommonModule, RouterModule, PasswordModule, ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
 	providers: [ConfirmationService]
 })
 export class UserManagementComponent implements OnInit {
 	user!: User | null
-	genderList = [
-		{ name: "Select", code: "" },
-		{ name: "Male", code: "M" },
-		{ name: "Female", code: "F" },
-		{ name: "Others", code: "O" },
-	]
-	locationList: any
-	programlevelList: any[] = []
-	today = new Date()
-	submitted = false
+	locationList: any;
 	registrationForm!: FormGroup
 	countryList: any
-	intrestedCountryList: any
 	currentDate = new Date()
 	dateTime = new Date()
 	maximumTime = new Date()
 	selectedDate: any
-	updatedpasswords: FormGroup
-	ShowCrntPass: boolean = false
-	CrntPass: string = "password"
-	ShowNewPass: boolean = false
-	NewPass: string = "password"
-	ShowCnfrmPass: boolean = false
-	CnfrmPass: string = "password"
-	ShowPersonalInfo: boolean = false
+	updatedPasswords: FormGroup
 	PasswordSubmitted = false
 	newsLetter: boolean = false
 	PersonalInfo: any = []
-	tooltipContent: string = "<strong>Complete your Profile</strong><br><div class='text-center mt-1 mb-1'><small>update your profile details for more<br>personalized results in our Portal</small></div>"
 	hideToolTip: boolean = true
 	private subs = new SubSink()
-	// new code
-	// activeSection = 'profile';
 	activeSection: string = 'profileCard';
 	sendInvite: any = ""
 	cvBuilderPercentage: number = 0;
@@ -111,15 +92,15 @@ export class UserManagementComponent implements OnInit {
 			current_education: [""]
 		})
 
-		this.updatedpasswords = this.formBuilder.group({
+		this.updatedPasswords = this.formBuilder.group({
 			current_password: ["", [Validators.required]],
 			new_password: ["", [Validators.required]],
 			confirm_password: ["", [Validators.required]],
 		})
 	}
 
-	get updatepassword() {
-		return this.updatedpasswords.controls
+	get updatePassword() {
+		return this.updatedPasswords.controls
 	}
 
 	goBack() {
@@ -127,16 +108,14 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.userTypeId = this.storage.get('user_type_id') === 7
+		this.userTypeId = this.authService._user?.student_type_id === 2
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.imageWhiteLabelDomainName = data.source
 		})
 		this.editLabelIsShow = this.imageWhiteLabelDomainName === "uniprep" ||
 			this.imageWhiteLabelDomainName === "Partner"
 		this.dateTime.setDate(this.dateTime.getDate())
-		this.getProgramLevelList();
 		this.getCountryList();
-		this.getIntrestedCountryList();
 		this.handleUserData();
 		this.integrationPartActiveOrInactive();
 		this.getSubscriptions();
@@ -152,41 +131,6 @@ export class UserManagementComponent implements OnInit {
 			this.hideToolTip = false
 		}, 10000)
 	}
-
-	// getMonthNumberFromName(monthName: any) {
-	// 	const year = new Date().getFullYear()
-	// 	return new Date(`${monthName} 1, ${year}`).getMonth() + 1
-	// }
-
-
-
-
-
-
-	// yearChage(event: any) {
-	// 	this.registrationForm.get("intake_month_looking")?.setValue("")
-	// 	let intakeYearValue = this.registrationForm.get("intake_year_looking")?.value
-
-	// 	let intakeYear = intakeYearValue.toString().split(" ")[3]
-	// 	this.maximumTime.setFullYear(intakeYear)
-
-	// 	this.maximumTime.setMonth(11)
-	// 	if (this.dateTime.getFullYear() != intakeYear && this.currentDate.getFullYear() != intakeYear) {
-	// 		this.dateTime = new Date(intakeYear, 0, 1)
-	// 	} else {
-	// 		this.dateTime = new Date(intakeYear, this.currentDate.getMonth(), 1)
-	// 	}
-	// }
-
-	// onClickSubscribe() {
-	// 	this.subs.sink = this.userManagementService.GetPaidSubscriptionDetails().subscribe((data) => {
-	// 		if (data.includes(1)) {
-	// 			this.router.navigate(["/pages/subscriptions"])
-	// 		} else {
-	// 			this.router.navigate(["/pages/subscriptions"])
-	// 		}
-	// 	})
-	// }
 
 	// new code
 	getMonthName(monthNumber: any) {
@@ -216,11 +160,6 @@ export class UserManagementComponent implements OnInit {
 			this.registrationForm?.get("location_id")?.setValue(0)
 		}
 	}
-	getProgramLevelList() {
-		this.authService.getProgramLevel().subscribe((response) => {
-			this.programlevelList = response
-		})
-	}
 
 	getCountryList() {
 		this.locationService.getHomeCountry(2).subscribe(
@@ -230,32 +169,7 @@ export class UserManagementComponent implements OnInit {
 			(error: any) => { }
 		)
 	}
-	getIntrestedCountryList() {
-		this.locationService.getCountry().subscribe(
-			(res: any) => {
-				this.intrestedCountryList = res
-			},
-			(error: any) => { }
-		)
-	}
-	ShowCurrentPassword() {
-		if (this.ShowCrntPass == true) {
-			this.ShowCrntPass = false
-			this.CrntPass = "password"
-		} else {
-			this.ShowCrntPass = true
-			this.CrntPass = "text"
-		}
-	}
-	ShowNewPassword() {
-		if (this.ShowNewPass == true) {
-			this.ShowNewPass = false
-			this.NewPass = "password"
-		} else {
-			this.ShowNewPass = true
-			this.NewPass = "text"
-		}
-	}
+
 	changeLocation(event: any) {
 		const selectedCountry = this.countryList.find((country: any) => country.id === event.value)
 		if (selectedCountry) {
@@ -302,22 +216,22 @@ export class UserManagementComponent implements OnInit {
 					title: 'Weekly Newsletter',
 					description: 'Get notified about articles, discounts and new products.',
 					enabled: this.newsletter_consent,
-					pertrue: "You’ve successfully subscribed to the Weekly Newsletter. Look out for updates in your inbox!",
-					perfalse: "Are you sure you want to unsubscribe from the Weekly Newsletter?"
+					per_true: "You’ve successfully subscribed to the Weekly Newsletter. Look out for updates in your inbox!",
+					per_false: "Are you sure you want to unsubscribe from the Weekly Newsletter?"
 				},
 				{
 					title: 'Promotional Emails',
 					description: 'Get personalised emails based on your orders and preferences.',
 					enabled: this.promotional_email_consent,
-					pertrue: "You’ve subscribed to promotional emails. Stay tuned for the latest offers and news!",
-					perfalse: "Are you sure you want to stop receiving promotional emails?"
+					per_true: "You’ve subscribed to promotional emails. Stay tuned for the latest offers and news!",
+					per_false: "Are you sure you want to stop receiving promotional emails?"
 				},
 				{
 					title: 'Product Updates',
 					description: 'Checking this will enable us to notify you on updates and addition of new features to our product.',
 					enabled: this.product_update_email_consent,
-					pertrue: "You’ve subscribed to product updates. We’ll keep you informed about the latest features and improvements!",
-					perfalse: "Are you sure you want to stop receiving product updates?"
+					per_true: "You’ve subscribed to product updates. We’ll keep you informed about the latest features and improvements!",
+					per_false: "Are you sure you want to stop receiving product updates?"
 
 				}
 			];
@@ -326,7 +240,7 @@ export class UserManagementComponent implements OnInit {
 				location_id: this.PersonalInfo?.location_id,
 				home_country: this.PersonalInfo?.home_country_id == null ? null : Number(this.PersonalInfo?.country),
 				last_degree_passing_year: this.PersonalInfo?.last_degree_passing_year,
-				phone: this.PersonalInfo?.phone,
+				 phone: `${this.PersonalInfo?.country_code || ''} ${this.PersonalInfo?.phone || ''}`,
 				email: this.PersonalInfo?.email,
 				current_education: this.PersonalInfo?.programlevel
 			})
@@ -347,15 +261,15 @@ export class UserManagementComponent implements OnInit {
 		})
 	}
 	// update password
-	UserUpdatePassword(updatedpasswords: any) {
-		let data = this.updatedpasswords.value
+	UserUpdatePassword(updatedPasswords: any) {
+		let data = this.updatedPasswords.value
 		this.PasswordSubmitted = true
-		if (this.updatedpasswords.invalid) {
+		if (this.updatedPasswords.invalid) {
 			return
 		}
 		this.subs.sink = this.userManagementService.CompareUserPassword(data).subscribe((passwordconfirmation) => {
 			if (passwordconfirmation.severity == "success") {
-				this.updatedpasswords.patchValue({
+				this.updatedPasswords.patchValue({
 					current_password: "",
 					new_password: "",
 					confirm_password: "",
@@ -365,15 +279,7 @@ export class UserManagementComponent implements OnInit {
 		})
 		this.PasswordSubmitted = false
 	}
-	ShowConfirmPassword() {
-		if (this.ShowCnfrmPass == true) {
-			this.ShowCnfrmPass = false
-			this.CnfrmPass = "password"
-		} else {
-			this.ShowCnfrmPass = true
-			this.CnfrmPass = "text"
-		}
-	}
+
 	// invite email
 	sendInviteMail() {
 		var data = {
@@ -493,7 +399,7 @@ export class UserManagementComponent implements OnInit {
 	}
 	confirmEmailToggle(event: any, setting: any) {
 		const newValue = event.checked ? 1 : 0;
-		const message = event.checked ? setting.pertrue : setting.perfalse;
+		const message = event.checked ? setting.per_true : setting.per_false;
 		this.confirmationService.confirm({
 			message: message,
 			header: 'Confirm Change',
@@ -549,11 +455,11 @@ export class UserManagementComponent implements OnInit {
 		}
 
 	}
-	assoiciatedMail: any = "";
+	associatedMail: any = "";
 	integrationPartActiveOrInactive() {
 		this.userManagementService.integrationPartActiveOrInactive().subscribe({
 			next: (data: any) => {
-				this.assoiciatedMail = data.mail;
+				this.associatedMail = data.mail;
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
@@ -574,7 +480,6 @@ export class UserManagementComponent implements OnInit {
 			}
 		});
 	}
-
 	downloadInvoice(id: number): void {
 		let data: any = {
 			user_subscription_id: id,
@@ -590,7 +495,6 @@ export class UserManagementComponent implements OnInit {
 	}
 	// mobile view side menu
 	isSidebarVisible: boolean = false;
-
 	toggleSidebar(): void {
 		this.isSidebarVisible = !this.isSidebarVisible;
 	}
@@ -625,6 +529,7 @@ export class UserManagementComponent implements OnInit {
 			}
 		});
 	}
+	// block p-calender text ,
 	onKeyPress(event: KeyboardEvent) {
 		const key = event.key;
 		const isNumber = /^[0-9]$/.test(key);
@@ -633,10 +538,20 @@ export class UserManagementComponent implements OnInit {
 			event.preventDefault(); // block letters/symbols
 		}
 	}
-
-	// Trim the input to max 4 digits
+	// Trim the input to max 4 digits in p-calender
 	onYearInput(event: any) {
 		const inputEl = event.target;
 		inputEl.value = inputEl.value.replace(/[^0-9]/g, '').slice(0, 4);
+	}
+	passwordFields = {
+		current: { visible: false, type: 'password' },
+		new: { visible: false, type: 'password' },
+		confirm: { visible: false, type: 'password' }
+	};
+
+	togglePassword(field: 'current' | 'new' | 'confirm') {
+		const passwordField = this.passwordFields[field];
+		passwordField.visible = !passwordField.visible;
+		passwordField.type = passwordField.visible ? 'text' : 'password';
 	}
 }

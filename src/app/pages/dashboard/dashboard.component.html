@@ -307,78 +307,6 @@
 		</div>
 	</div>
 </div>
-<!-- Continue Reading Modal -->
-<div [ngStyle]="{ display: continueReading }" class="modal modal-bg" role="dialog" tabindex="-1" aria-modal="true"
-	aria-labelledby="continueReadingHeader">
-	<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
-		<div class="modal-content card bg-light">
-			<div class="modal-header justify-content-between">
-				<h5 id="continueReadingHeader" class="mb-0 continue-reading-header" tooltipZIndex="auto"
-					tooltipPosition="top" pTooltip="Complete the reading for all modules to get the certificate.">
-					Continue Reading</h5>
-				<div class="popupclose">
-					<button (click)="closeReading()" class="close" aria-label="Close continue reading modal">
-						<span aria-hidden="true"><i class="fa-solid fa-circle-x fa-2xl uniprep-primary"></i></span>
-					</button>
-				</div>
-			</div>
-			<div class="modal-body card-body">
-				<div class="container">
-					<div class="row mb-2">
-						<div class="col-md-12">
-							<div class="row">
-								<div *ngFor="let readPro of readingProgressings" class="col-md-6 p-2">
-									<div class="card continuecard">
-										<div class="card-body">
-											<div class="modal-selected-box d-flex flex-column">
-												<h6 class="fw-semibold">{{ readPro.module_name }}</h6>
-												<div class="d-flex justify-content-between">
-													<div>
-														<div [attr.data-percentage]="readPro.progression"
-															class="progress1" role="progressbar"
-															[attr.aria-valuenow]="readPro.progression"
-															[attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
-															<span class="progress1-left">
-																<span class="progress1-bar"></span>
-															</span>
-															<span class="progress1-right">
-																<span class="progress1-bar"></span>
-															</span>
-															<div class="progress1-value">
-																<div>{{ readPro.progression | number : "1.0-0" }}
-																	%<br /></div>
-															</div>
-														</div>
-													</div>
-													<div class="align-items-center justify-content-center">
-														<div class="d-flex flex-column"
-															*ngIf="readPro.progression_status == 'Pending'">
-															<p class="text-center text-small mb-0">
-																{{ readPro.progression_status }}
-															</p>
-															<button pButton (click)="onClickReadProgression(readPro)"
-																class="btn btn-dark"
-																aria-label="Read {{ readPro.module_name }} now">Read
-																Now</button>
-														</div>
-														<p *ngIf="readPro.progression_status == 'Completed'"
-															class="text-center text-black text-small mb-0">
-															<strong>{{ readPro.progression_status }}</strong>
-														</p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 <p-popover #op styleClass="reportwidthfix" appendTo="body" aria-label="Report form">
 	<ng-template pTemplate="content">
 		<div class="container px-0">
@@ -404,19 +332,3 @@
 		</div>
 	</ng-template>
 </p-popover>
-<!-- Dialogs -->
-<p-dialog [(visible)]="isVideoVisible" [modal]="true" [style]="{ width: '30vw' }" aria-label="Recommended Videos">
-	<ng-template pTemplate="header">
-		<span class="text-xl font-bold">Recommended Videos</span>
-	</ng-template>
-	<div class="container-fluid">
-		<p>Test video</p>
-	</div>
-</p-dialog>
-
-<p-dialog [(visible)]="isShareWithSocialMedia" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 timerpopup"
-	[modal]="true" [draggable]="false" [resizable]="false" aria-label="Share with Social Media">
-	<div class="px-5 pb-5 pt-3">
-		<div class="justify-content-center text-center pb-5 px-5"></div>
-	</div>
-</p-dialog>
