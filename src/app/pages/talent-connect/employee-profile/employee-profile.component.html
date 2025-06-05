@@ -373,9 +373,8 @@
 														</p-select>
 														<div class="flex-grow-1 me-2">
 															<p-inputNumber id="salary"
-																placeholder="Enter your salary/month"
-																styleClass="w-100" [showButtons]="false"
-																class="w-100"
+																placeholder="Enter your salary/month" styleClass="w-100"
+																[showButtons]="false" class="w-100"
 																formControlName="work_experience_salary_per_month"
 																(focusout)="resetMessageBox()"
 																(onFocus)="updateMessageBox('work_experience_salary_per_month')"
@@ -391,23 +390,20 @@
 														<div class="form-check">
 															<input class="form-check-input"
 																formControlName="currently_working"
-																id="currentlyWorking" type="checkbox" />
+																id="currentlyWorking" type="checkbox"
+																(change)="onChangeCurrentlyWorking($event, i)" />
 															<label class="form-check-label text-small text-black"
 																for="currentlyWorking">Currently Working</label>
 														</div>
 													</div>
 													<div class="d-flex w-100 gap-2">
-														<p-datepicker
-															(onSelect)="updateExperienceDate(experience.get('work_experience_duration_from'), experience.get('work_experience_duration_to'), experience.get('years_of_experience'),experience.get('currently_working'));"
-															[maxDate]="today" [readonlyInput]="true" class="flex-grow-1"
+														<p-datepicker (onSelect)="updateExperience(i)" [maxDate]="today"
+															[readonlyInput]="true" class="flex-grow-1"
 															dateFormat="mm/yy"
 															formControlName="work_experience_duration_from"
 															inputId="fromDate" placeholder="From Date" size="small"
 															styleClass="w-100" view="month" />
-														<p-datepicker
-															(onSelect)="updateExperienceDate(experience.get('work_experience_duration_from'), experience.get('work_experience_duration_to'), experience.get('years_of_experience'), experience.get('currently_working'));"
-															[disabled]="experience.get('currently_working')?.value"
-															[maxDate]="today"
+														<p-datepicker (onSelect)="updateExperience(i)" [maxDate]="today"
 															[minDate]="experience.get('work_experience_duration_from')?.value"
 															[readonlyInput]="true" class="flex-grow-1"
 															dateFormat="mm/yy"
@@ -664,8 +660,7 @@
 													</p-select>
 													<div class="flex-grow-1 me-2">
 														<p-inputNumber id="salary" placeholder="Enter your salary/month"
-															styleClass="w-100" [showButtons]="false"
-															class="w-100"
+															styleClass="w-100" [showButtons]="false" class="w-100"
 															formControlName="career_preference_expected_salary"></p-inputNumber>
 													</div>
 												</div>
