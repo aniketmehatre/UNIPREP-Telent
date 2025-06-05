@@ -240,7 +240,7 @@ export class UserManagementComponent implements OnInit {
 				location_id: this.PersonalInfo?.location_id,
 				home_country: this.PersonalInfo?.home_country_id == null ? null : Number(this.PersonalInfo?.country),
 				last_degree_passing_year: this.PersonalInfo?.last_degree_passing_year,
-				phone: this.PersonalInfo?.phone,
+				 phone: `${this.PersonalInfo?.country_code || ''} ${this.PersonalInfo?.phone || ''}`,
 				email: this.PersonalInfo?.email,
 				current_education: this.PersonalInfo?.programlevel
 			})
