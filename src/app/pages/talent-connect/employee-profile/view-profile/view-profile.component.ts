@@ -244,7 +244,7 @@ export class ViewProfileComponent implements OnInit {
     }],
     additionalInfo: 'Nothing to give'
   };
-languagelist:any[]=[];
+
   constructor(
     private ref: DynamicDialogRef,
     public config: DynamicDialogConfig
@@ -260,8 +260,8 @@ languagelist:any[]=[];
       this.currencies = data?.currencies,
         this.careerInterests = data?.careerInterests,
         this.jobTitles = data?.jobTitles,
-        this.languagelist = data?.languagelist,
         this.locations = [{ id: 0, work_location: "Any" }, ...data?.locations ],
+        this.languageList = data?.languageList,
         this.hobbies = data?.hobbies,
         this.professionalStrengths = data?.professionalStrengths,
         this.qualifications = data?.qualifications,
