@@ -115,7 +115,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.orgnamewhitlabel = data.name
 			this.imageWhiteLabelDomainName = data.source
-			if (this.imageWhiteLabelDomainName === "Partner" || this.imageWhiteLabelDomainName === "uniprep") {
+			if (this.imageWhiteLabelDomainName === "Partner" || this.imageWhiteLabelDomainName === "Uniprep") {
 				this.ehitlabelIsShow = true
 			} else {
 				this.ehitlabelIsShow = false

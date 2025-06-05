@@ -391,7 +391,8 @@ export class SidenavComponent {
       } else {
         this.conditionSubscribed = true;
       }
-      if (this.imageWhiteLabelDomainName === "uniprep" || this.imageWhiteLabelDomainName === "Partner" || this.imageWhiteLabelDomainName === "uniprep.ai") {
+      console.log("1");
+      if (this.imageWhiteLabelDomainName === "Uniprep" || this.imageWhiteLabelDomainName === "Partner" || this.imageWhiteLabelDomainName === "uniprep.ai") {
         this.whiteLabelIsShow = true;
       } else {
         if (res.subscription_details.subscription_plan === "free_trail" && res.time_left.plan === "on_progress") {
