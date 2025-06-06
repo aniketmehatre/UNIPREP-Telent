@@ -227,9 +227,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   createWorkExperienceGroup() {
-    return this.fb.group({
+    const group = this.fb.group({
       id: [""],
-      years_of_experience: [{ value: "", disabled: true }],
+      years_of_experience: [""],
       work_experience_company_name: [""],
       work_experience_job_title: [""],
       work_experience_employment_type: [""],
@@ -241,6 +241,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       work_experience_job_responsibilities: ["", maxWordsValidator(150)],
       work_experience_experience_letter: [""],
     })
+    return group;
   }
 
   createCertificateGroup() {
@@ -1207,7 +1208,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       response.work_experience.forEach((exp: any, i: number) => {
         const group = this.fb.group({
           id: [exp.id],
-          years_of_experience: [{ value: exp.years_of_experience, disabled: true }],
+          years_of_experience: [exp.years_of_experience],
           work_experience_company_name: [exp.company_name],
           work_experience_job_title: [exp.job_title],
           work_experience_employment_type: [exp.employment_type],
@@ -1219,7 +1220,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           work_experience_experience_letter: [exp.experience_letter],
           currently_working: [exp.currently_working ?? null]
         })
-
         workExpArray.push(group);
         // this.disableFieldsWhenClickFresher(group, group.get("years_of_experience")?.value === "Fresher");
       })

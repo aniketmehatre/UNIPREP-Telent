@@ -204,7 +204,7 @@
 													<label for="university" class="form-label">Institution Name
 														<span class="text-danger">*</span></label>
 													<div class="p-inputgroup">
-														<input pInputText fluid id="university"
+														<input pInputText fluid id=""
 															formControlName="education_university_name"
 															placeholder="Enter your institution Name"
 															class="form-control" (focusout)="resetMessageBox()"
@@ -314,7 +314,7 @@
 												<div class="col-md-6 mb-3">
 													<label for="university" class="form-label">Company Name</label>
 													<div class="p-inputgroup">
-														<input pInputText fluid id="university"
+														<input pInputText fluid id=""
 															formControlName="work_experience_company_name"
 															placeholder="Enter your company" class="form-control"
 															(focusout)="resetMessageBox()"
@@ -421,9 +421,9 @@
 													</div>
 												</div>
 												<div class="col-md-6 mb-3">
-													<label for="" class="form-label">Years of
+													<label class="form-label">Years of
 														Experience</label><br />
-													<input pInputText fluid id="university"
+													<input pInputText readonly
 														formControlName="years_of_experience"
 														placeholder="Years of experience" class="form-control"
 														(focusout)="resetMessageBox()"
@@ -929,7 +929,7 @@
 													solved a
 													real-world challenge in your feilds?</label>
 												<div class="position-relative">
-													<textarea pTextarea id="university"
+													<textarea pTextarea id=""
 														formControlName="career_preference_real_world_challenge"
 														placeholder="Have a you solved a real-world challenge?" rows="5"
 														class="form-control w-100" (focusout)="resetMessageBox()"
@@ -957,7 +957,7 @@
 															(click)="aiRePhraseSummary('leadership_roles', { rephrase_content: personalInfoForm?.get('career_preference_leadership_experience')?.value }, personalInfoForm?.get('career_preference_leadership_experience'))">RePhrase</button>
 													</div>
 												</div>
-												<textarea pTextarea id="university"
+												<textarea pTextarea id=""
 													formControlName="career_preference_leadership_experience"
 													placeholder="Have you taken on leadership roles?"
 													class="form-control w-100" (focusout)="resetMessageBox()" rows="5"
@@ -1012,7 +1012,7 @@
 											<div class="col-md-12">
 												<label for="" class="form-label">
 													LinkedIn Profile<span class="text-danger">*</span></label>
-												<input pInputText fluid id="university"
+												<input pInputText fluid id=""
 													formControlName="networking_linkedin_profile"
 													placeholder="Linkedin Profile Link" class="form-control w-100"
 													(focusout)="resetMessageBox()"
@@ -1056,7 +1056,7 @@
 												<div class="col-md-6">
 													<div class="row">
 														<div class="col-md-10">
-															<input pInputText fluid id="university"
+															<input pInputText fluid id=""
 																formControlName="networking_social_media_link"
 																placeholder="Social media link"
 																class="form-control w-100"
@@ -1084,7 +1084,7 @@
 											<div class="col-md-12">
 												<label for="" class="form-label">
 													Personal Website</label>
-												<input pInputText fluid id="university"
+												<input pInputText fluid id=""
 													formControlName="networking_personal_website"
 													placeholder="Website link" class="form-control w-100"
 													(focusout)="resetMessageBox()"
@@ -1184,7 +1184,7 @@
 														College Name
 														<!-- <span class="text-danger">*</span> -->
 													</label>
-													<input pInputText fluid id="university"
+													<input pInputText fluid id=""
 														formControlName="references_college_name"
 														placeholder="Enter the reference college name"
 														class="form-control w-100" (focusout)="resetMessageBox()"
@@ -1198,7 +1198,7 @@
 														Referee Name
 														<!-- <span class="text-danger">*</span> -->
 													</label>
-													<input pInputText fluid id="university"
+													<input pInputText fluid id=""
 														formControlName="references_reference_name"
 														placeholder="Enter the reference name"
 														class="form-control w-100" (focusout)="resetMessageBox()"
@@ -1211,7 +1211,7 @@
 													<label for="" class="form-label">Desigination
 														<!-- <span class="text-danger">*</span> -->
 													</label>
-													<input pInputText fluid id="university"
+													<input pInputText fluid id=""
 														formControlName="references_designation"
 														placeholder="Enter the reference desigination"
 														class="form-control w-100" (focusout)="resetMessageBox()"
