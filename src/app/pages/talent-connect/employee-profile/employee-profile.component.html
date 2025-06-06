@@ -570,13 +570,13 @@
 												<label for="careerInterest" class="form-label">
 													Career Interest / Industry<span class="text-danger">*</span></label>
 												<p-multiSelect id="careerInterest"
-													formControlName="career_preference_career_interest_id"
-													[options]="careerInterests" placeholder="Enter career interest"
-													styleClass="w-100" optionLabel="interest" optionValue="id"
-													[filter]="true" filterBy="interest" (focusout)="resetMessageBox()"
-													(onFocus)="updateMessageBox('career_preference_career_interest_id')"></p-multiSelect>
+													formControlName="career_preference_department_id"
+													[options]="departmentList" placeholder="Enter career interest"
+													styleClass="w-100" optionLabel="department" optionValue="id"
+													[filter]="true" (focusout)="resetMessageBox()"
+													(onFocus)="updateMessageBox('career_preference_department_id')"></p-multiSelect>
 												<small class="text-danger"
-													*ngIf="personalInfoForm.get('career_preference_career_interest_id')?.invalid && personalInfoForm.get('career_preference_career_interest_id')?.touched">
+													*ngIf="personalInfoForm.get('career_preference_department_id')?.invalid && personalInfoForm.get('career_preference_department_id')?.touched">
 													Career Interest / Industry is required </small>
 											</div>
 											<div class="col-md-6">
@@ -877,7 +877,7 @@
 															*ngIf="!isNotEmptyHtml(this.personalInfoForm.get('career_preference_set_industry_apart')?.value)"
 															class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2"
 															style="width: fit-content"
-															(click)="generateAiSummary('Key_strength', { career_status: personalInfoForm?.get('career_preference_career_status')?.value, industry_type: getListValue(careerInterests, personalInfoForm?.get('career_preference_career_interest_id')?.value, 'interest'), title: personalInfoForm?.get('career_preference_job_title_id')?.value }, personalInfoForm?.get('career_preference_set_industry_apart'))"><i
+															(click)="generateAiSummary('Key_strength', { career_status: personalInfoForm?.get('career_preference_career_status')?.value, industry_type: getListValue(departmentList, personalInfoForm?.get('career_preference_department_id')?.value, 'department'), title: personalInfoForm?.get('career_preference_job_title_id')?.value }, personalInfoForm?.get('career_preference_set_industry_apart'))"><i
 																class="fa-solid fa-stars"></i>AI Generate</button>
 														<button
 															*ngIf="isNotEmptyHtml(this.personalInfoForm.get('career_preference_set_industry_apart')?.value)"
@@ -1470,10 +1470,10 @@
 													<p class="text-muted text-small">Interested Industry</p>
 													<p class="text-small text-truncate">
 														{{
-														personalInfoForm?.get("career_preference_career_interest_id")?.value
-														? getListValue(careerInterests,
-														personalInfoForm?.get("career_preference_career_interest_id")?.value,
-														"interest") : "-" }}
+														personalInfoForm?.get("career_preference_department_id")?.value
+														? getListValue(departmentList,
+														personalInfoForm?.get("career_preference_department_id")?.value,
+														"department") : "-" }}
 													</p>
 												</div>
 											</div>
@@ -1660,10 +1660,10 @@
 														<p class="text-muted text-small">Interested Industry</p>
 														<p class="text-small text-truncate">
 															{{
-															personalInfoForm?.get("career_preference_career_interest_id")?.value
-															? getListValue(careerInterests,
-															personalInfoForm?.get("career_preference_career_interest_id")?.value,
-															"interest") : "-" }}
+															personalInfoForm?.get("career_preference_department_id")?.value
+															? getListValue(departmentList,
+															personalInfoForm?.get("career_preference_department_id")?.value,
+															"department") : "-" }}
 														</p>
 													</div>
 												</div>

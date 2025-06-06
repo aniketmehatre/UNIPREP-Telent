@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs';
 import { removeExtraResponse } from '../prompt';
 import { EmployeeConnectProfileRes } from 'src/app/@Models/employee-connect-profile';
+import { Departments } from 'src/app/@Models/user-profile.model';
 
 @Injectable({
     providedIn: 'root'
@@ -104,7 +105,7 @@ export class TalentConnectService {
             { headers: this.headers });
     }
 
-    getMyProfileData() { 
+    getMyProfileData() {
         return this.http.get<EmployeeConnectProfileRes>(
             environment.ApiUrl + "/getstudentprofiles",
             { headers: this.headers });
@@ -257,7 +258,7 @@ export class TalentConnectService {
     }
 
     getAiEvaluationSummary(formData: any) {
-        return this.http.post<any>(environment.ApiUrl + "/getIntegratedRecom", formData,{ headers: this.headers }).pipe(
+        return this.http.post<any>(environment.ApiUrl + "/getIntegratedRecom", formData, { headers: this.headers }).pipe(
             map(res => ({ response: removeExtraResponse(res.response), profile_percent: res.profile_percent })) // Process response before returning
         );
     }
@@ -276,5 +277,9 @@ export class TalentConnectService {
     markReadMessage(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/readMessage", data, { headers: headers });
+    }
+
+    getDepartments() {
+        return this.http.get<Departments[]>(environment.ApiUrl + `/getdepartments`);
     }
 }

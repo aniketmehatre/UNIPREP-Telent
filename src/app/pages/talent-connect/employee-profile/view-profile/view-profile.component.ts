@@ -72,7 +72,7 @@ interface ProfileData {
   }> | null;
   careerPreferences: {
     careerStatus: string;
-    careerInterest: string;
+    careerDepartment: string;
     jobTitle: string;
     preferredWorkLocation: string;
     preferredEmploymentType: string;
@@ -143,7 +143,7 @@ export class ViewProfileComponent implements OnInit {
   public isSample: boolean = true;
   graduationYears: any[] = [];
   currencies: any[] = [];
-  careerInterests: any[] = [];
+  careerDepartments: any[] = [];
   fieldsOfStudy: any[] = [];
   hobbies: any[] = [];
   jobTitles: any[] = [];
@@ -190,7 +190,7 @@ export class ViewProfileComponent implements OnInit {
     }],
     careerPreferences: {
       careerStatus: 'Full Time',
-      careerInterest: 'Designing',
+      careerDepartment: 'Designing',
       jobTitle: 'UI/UX Designer',
       preferredWorkLocation: 'Bangalore, India',
       preferredEmploymentType: 'Full Time',
@@ -256,19 +256,18 @@ export class ViewProfileComponent implements OnInit {
     this.isSample = data?.isSample ?? true;
 
     if (!this.isSample && data?.profileData) {
-      this.careerInterests = data?.careerInterests;
-      this.currencies = data?.currencies,
-        this.careerInterests = data?.careerInterests,
-        this.jobTitles = data?.jobTitles,
-        this.locations = [{ id: 0, work_location: "Any" }, ...data?.locations ],
-        this.languageList = data?.languageList,
-        this.hobbies = data?.hobbies,
-        this.professionalStrengths = data?.professionalStrengths,
-        this.qualifications = data?.qualifications,
-        this.softSkills = data?.softSkills,
-        this.fieldsOfStudy = data?.fieldsOfStudy,
-        this.graduationYears = data?.graduationYears,
-        this.nationalityList = data?.nationalityList
+      this.careerDepartments = data?.careerDepartments;
+      this.currencies = data?.currencies;
+      this.jobTitles = data?.jobTitles;
+      this.locations = [{ id: 0, work_location: "Any" }, ...data?.locations];
+      this.languageList = data?.languageList;
+      this.hobbies = data?.hobbies;
+      this.professionalStrengths = data?.professionalStrengths;
+      this.qualifications = data?.qualifications;
+      this.softSkills = data?.softSkills;
+      this.fieldsOfStudy = data?.fieldsOfStudy;
+      this.graduationYears = data?.graduationYears;
+      this.nationalityList = data?.nationalityList
       this.files = data?.uploadFiles
       this.profileData = this.mapToProfileData(this.config.data.profileData);
     }
@@ -370,7 +369,7 @@ export class ViewProfileComponent implements OnInit {
         graduationYear: this.getListValue(this.graduationYears, edu.education_graduation_year_id, 'graduation_year_name') || '',
         gpa: edu.education_gpa_percentage ? `${edu.education_gpa_percentage} %` : ''
       }));
-
+debugger
     // Process work experience
     const workExperience = (formData.work_experience || []).map((exp: any) => ({
       totalExperience: exp.years_of_experience || '',
@@ -457,7 +456,7 @@ export class ViewProfileComponent implements OnInit {
     // Career preferences object
     const careerPreferences = {
       careerStatus: formData.career_preference_career_status || '',
-      careerInterest: this.getListValue(this.careerInterests, formData.career_preference_career_interest_id, 'interest') || '',
+      careerDepartment: this.getListValue(this.careerDepartments, formData.career_preference_department_id, 'department') || '',
       jobTitle: formData.career_preference_job_title_id || '',
       preferredWorkLocation: this.getListValue(this.locations, formData.career_preference_preferred_work_location_id, 'work_location') || '',
       preferredEmploymentType: formData.career_preference_preferred_employment_type || '',

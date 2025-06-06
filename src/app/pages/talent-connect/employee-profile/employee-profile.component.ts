@@ -9,6 +9,7 @@ import { addMonths, differenceInMonths, formatDuration, intervalToDuration } fro
 import { HOVER_MESSAGES } from "./view-profile/hover-messages";
 import { AuthService } from "../../../Auth/auth.service";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Departments } from "src/app/@Models/user-profile.model";
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -61,7 +62,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   genderOptions: any[] = []
   graduationYears: any[] = []
   currencies: any[] = []
-  careerInterests: any[] = []
+  // careerInterests: any[] = []
   fieldsOfStudy: any[] = []
   hobbies: any[] = []
   jobTitles: any[] = []
@@ -80,6 +81,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   disableIfPostgraduateSelected: number[] = [4, 5];
   disableIfDoctorateSelected: number[] = [5];
   graduationYearList: any[] = []
+  departmentList: Departments[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -98,6 +100,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     });
     this.getProfileData();
     this.setupFormListeners();
+    this.getDepartmentList();
     this.onFormValueChanges();
   }
 
@@ -141,7 +144,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
       career_preference_career_status: [null, Validators.required],
       career_preference_job_title_id: [null, Validators.required],
-      career_preference_career_interest_id: [[], Validators.required],
+      career_preference_department_id: [[], Validators.required],
       career_preference_preferred_work_location_id: [[], Validators.required],
       career_preference_preferred_employment_type: [[], Validators.required],
       career_preference_preferred_workplace_type: [[], Validators.required],
@@ -602,7 +605,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         // Career preferences
         this.appendIfModified(formData, "career_preference_career_status", originalValues)
         this.appendIfModified(formData, "career_preference_job_title_id", originalValues)
-        this.appendIfModified(formData, "career_preference_career_interest_id", originalValues)
+        this.appendIfModified(formData, "career_preference_department_id", originalValues)
         this.appendIfModified(formData, "career_preference_preferred_work_location_id", originalValues)
         this.appendIfModified(formData, "career_preference_preferred_employment_type", originalValues)
         this.appendIfModified(formData, "career_preference_preferred_workplace_type", originalValues)
@@ -924,7 +927,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         profileData: this.personalInfoForm.value,
         isSample: isSample,
         currencies: this.currencies,
-        careerInterests: this.careerInterests,
+        careerDepartments: this.departmentList,
         jobTitles: this.jobTitles,
         languageList: this.languageList,
         locations: this.locations,
@@ -962,7 +965,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
     // Personal Information (15%)
     checkField(this.personalInfoForm.get("full_name"), 2)
-    checkField(this.personalInfoForm.get("profile_image"), 5)
+    checkField(this.personalInfoForm.get("profile_image"), 3)
     checkField(this.personalInfoForm.get("date_of_birth"), 2)
     checkField(this.personalInfoForm.get("gender"), 2)
     checkField(this.personalInfoForm.get("nationality_id"), 2)
@@ -998,7 +1001,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     // Career Preferences & Aspirations (10%)
     checkField(this.personalInfoForm.get("career_preference_career_status"), 3)
     checkField(this.personalInfoForm.get("career_preference_job_title_id"), 3)
-    checkField(this.personalInfoForm.get("career_preference_career_interest_id"), 3)
+    checkField(this.personalInfoForm.get("career_preference_department_id"), 3)
     checkField(this.personalInfoForm.get("career_preference_preferred_work_location_id"), 3)
     checkField(this.personalInfoForm.get("career_preference_preferred_employment_type"), 3)
     checkField(this.personalInfoForm.get("career_preference_preferred_workplace_type"), 3)
@@ -1088,11 +1091,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   getDropDownOptionList() {
     this.getWorkLocation()
-    //this.getCityCountryList();
     this.talentConnectService.getMyProfileDropDownValues().subscribe({
       next: (response) => {
         this.currencies = response.currencies
-        this.careerInterests = response.career_interests
+        // this.careerInterests = response.career_interests
         this.jobTitles = response.job_titles
         this.languageList = response.languages
         // this.locations = response.locations;
@@ -1148,7 +1150,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       additional_notes: response.careerPreference?.notes,
       career_preference_career_status: response.careerPreference?.career_status || "",
       career_preference_job_title_id: response.careerPreference?.job_title || "",
-      career_preference_career_interest_id: response.careerPreference?.career_interest_id || [],
+      career_preference_department_id: response.careerPreference?.department_id || [],
       career_preference_preferred_work_location_id: response.careerPreference?.preferred_work_location_id || [],
       career_preference_preferred_employment_type: response.careerPreference?.preferred_employment_type || [],
       career_preference_preferred_workplace_type: response.careerPreference?.preferred_workplace_type || [],
@@ -1335,10 +1337,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       // Return single value or empty string
     }
   }
-
-  // filterLocation(search: any, isPrefredLocation?: boolean) {
-  //   this.getCityCountryList(search.filter, isPrefredLocation);
-  // }
 
   resetMessageBox(): void {
     this.currentMessage = this.defaultMessage // Default message
@@ -1831,8 +1829,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       this.personalInfoForm.get("career_preference_job_title_id")?.value || "",
     )
     formData.append(
-      "career_preference_career_interest_id",
-      JSON.stringify(this.personalInfoForm.get("career_preference_career_interest_id")?.value) || "",
+      "career_preference_department_id",
+      JSON.stringify(this.personalInfoForm.get("career_preference_department_id")?.value) || "",
     )
     formData.append(
       "career_preference_preferred_work_location_id",
@@ -2038,7 +2036,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     const disableQualificationMap: { [key: number]: number[] } = {
       2: [2, 3, 4, 5],                                       // Bachelor’s Degree
       3: [3, 5, prevQualificationValue2 == 4 ? 4 : 0],       // Master’s Degree
-      4: [4, 5,  prevQualificationValue2 == 3 ? 3 : 0],      // Postgraduate Diploma
+      4: [4, 5, prevQualificationValue2 == 3 ? 3 : 0],      // Postgraduate Diploma
       5: [5],                                                // Doctorte
     };
     const disabledQualificationIds = disableQualificationMap[prevQualificationValue] || [];
@@ -2125,6 +2123,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     });
     const formatted = formatDuration(totalDuration, { format: ['years', 'months'] });
     this.personalInfoForm.get('total_years_of_experience')?.setValue(formatted || '0 months');
+  }
+
+  getDepartmentList() {
+    this.talentConnectService.getDepartments().subscribe({
+      next: (response) => {
+        this.departmentList = response
+      },
+    });
   }
 
   ngOnDestroy(): void {

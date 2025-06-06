@@ -53,14 +53,15 @@ export class ChatComponent implements OnInit, OnChanges {
   // scroll and take visible message ids
   @ViewChildren('msgRef') msgElements!: QueryList<ElementRef>;
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
-
+  jobTitle: string = '';
   observer!: IntersectionObserver;
-  constructor(private talentConnectService: TalentConnectService, private courcelist: AuthService,
-    private cdr: ChangeDetectorRef
+
+  constructor(private talentConnectService: TalentConnectService, private authService: AuthService,
+
   ) { }
 
   ngOnInit(): void {
-    this.courcelist.getMe().subscribe((res: any) => {
+    this.authService.getMe().subscribe((res: any) => {
       this.studentId = res.employee_user_id
       window.Pusher = Pusher;
       this.echo = new Echo({
@@ -74,7 +75,7 @@ export class ChatComponent implements OnInit, OnChanges {
           if (event) {
             const hasMatchingStudentId = this.companyDetails?.id === event.company_id;
             if (hasMatchingStudentId) {
-   
+
               this.messages.push({
                 added_by: event.added_by,
                 chat: event.chat,
@@ -89,16 +90,22 @@ export class ChatComponent implements OnInit, OnChanges {
           }
         });
     })
+    this.getProfileData();
+  }
 
+  getProfileData() {
+    this.talentConnectService.getMyProfileData().subscribe({
+      next: response => {
+        this.jobTitle = response.data[0]?.careerPreference?.job_title;
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
     if (changes['companyDetails'] && this.companyDetails) {
       this.getChatMessageForCompanyConnect(this.companyDetails.id);
     }
   }
-
 
   getChatMessageForCompanyConnect(id: any) {
     this.talentConnectService.getChatMessageForCompanyConnect(id).subscribe({
@@ -110,15 +117,13 @@ export class ChatComponent implements OnInit, OnChanges {
         this.aiGenerateChatDetails = {
           job_id: this.companyDetails?.id,
           companyName: this.companyDetails?.company_name,
-          studentName: data?.message[0]?.userName,
+          studentName: this.authService._user.name,
           createdAt: data.created_at
         };
-            const unseenCount = this.messages.filter((item: any) => item.seen === 0).length ;
-            console.log(unseenCount);
-            
+        const unseenCount = this.messages.filter((item: any) => item.seen === 0).length;
+        console.log(unseenCount);
       },
       error: err => {
-
       }
     })
   }
@@ -160,14 +165,15 @@ export class ChatComponent implements OnInit, OnChanges {
     element.style.height = (element.scrollHeight) + 'px';
   }
 
-  aiGenerateSummary(mode: string, content: Record<string, any>, element: HTMLTextAreaElement) {
+  aiGenerateSummary(type: string, content: Record<string, any>, element: HTMLTextAreaElement) {
     this.isLoadingAiSummary = true;
-    this.talentConnectService.getCompanyConnectAiSummary({ mode: mode, ...content }).subscribe({
+    this.talentConnectService.getCompanyConnectAiSummary({ type: type, ...content }).subscribe({
       next: (response) => {
         this.isLoadingAiSummary = false;
         if (response) {
-          element.innerHTML = response?.response;
+          this.message = this.convertHtmlToPlainText(response?.response);
           this.autoGrow(element);
+          this.authService.aiCreditCount$.next(true);
         }
       },
       error: (error) => {
@@ -175,7 +181,13 @@ export class ChatComponent implements OnInit, OnChanges {
         console.error(error)
       },
     })
+  }
 
+  convertHtmlToPlainText(html: string): string {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    tempDiv.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
+    return tempDiv.textContent || '';
   }
 
   uploadFilesChat(event: any) {
@@ -227,6 +239,7 @@ export class ChatComponent implements OnInit, OnChanges {
       this.observer.observe(el.nativeElement);
     });
   }
+
   markReadmessage(id: any) {
     this.messages = this.messages.map(item => {
       if (item.id === id) {
@@ -234,7 +247,7 @@ export class ChatComponent implements OnInit, OnChanges {
       }
       return item;
     });
-    const unseenCount = this.messages.filter((item: any) => item.seen === 0).length ;
+    const unseenCount = this.messages.filter((item: any) => item.seen === 0).length;
     this.studentIdEmit.emit(unseenCount);
     var data = {
       chatId: id

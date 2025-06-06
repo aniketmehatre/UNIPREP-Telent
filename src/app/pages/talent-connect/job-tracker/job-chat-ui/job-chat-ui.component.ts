@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { Avatar, AvatarModule } from "primeng/avatar";
 import { CommonModule, NgClass } from "@angular/common";
-import {ProgressBar} from "primeng/progressbar";
+import { ProgressBar } from "primeng/progressbar";
 import { Chip, ChipModule } from 'primeng/chip';
 import { Button, ButtonModule } from 'primeng/button';
 import { TalentConnectService } from '../../talent-connect.service';
@@ -55,19 +55,19 @@ export class JobChatUiComponent implements OnChanges {
   currentStage: number = 2;
   aiGenerateChatDetails!: AiGenerateChatDetails;
   id: number = NaN;
-  stages: Array<{number: number, name: string, completed: boolean}> = [
+  stages: Array<{ number: number, name: string, completed: boolean }> = [
     { number: 1, name: 'Initial Round', completed: true },
     { number: 2, name: 'HR Round', completed: false },
     { number: 3, name: 'Selected', completed: false }
   ];
-  
+
   messages: ChatMessage[] = [];
   newMessage: string = '';
   currentUser: string = '@uniabroad';
   attachmentFile: any;
   message: string = '';
   userActiveStatus: string = '';
-  
+
   constructor(private talentConnectService: TalentConnectService, private authService: AuthService) { }
 
 
@@ -108,7 +108,7 @@ export class JobChatUiComponent implements OnChanges {
             studentName: response?.messages[0]?.userName,
             createdAt: this.jobDetails.created_at
           };
-        } 
+        }
       },
       error: error => {
         console.log(error);
@@ -156,12 +156,13 @@ export class JobChatUiComponent implements OnChanges {
 
   aiGenerateSummary(mode: string, content: Record<string, any>, element: HTMLTextAreaElement, type: string) {
     this.isLoadingAiSummary = true;
-    this.talentConnectService.getJobAiSummary({ mode: mode, ...content, type: type, student_name:this.authService._user?.name }).subscribe({
+    this.talentConnectService.getJobAiSummary({ mode: mode, ...content, type: type, student_name: this.authService._user?.name }).subscribe({
       next: (response) => {
         this.isLoadingAiSummary = false;
         if (response) {
           this.message = this.convertHtmlToPlainText(response?.response);
           this.autoGrow(element);
+          this.authService.aiCreditCount$.next(true);
         }
       },
       error: (error) => {
