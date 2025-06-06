@@ -23,7 +23,7 @@ export const environment = {
     domain: dev_domain,
     maintenanceMode: false,
     production: false,
-    ApiUrl: dev_url,
+    ApiUrl: prod_url,
     ApiUrlEmployer: dev_url + '/employer',
     employerDomain: dev_employer_url,
     tokenKey: 'token',

@@ -178,14 +178,13 @@
 						<div role="button" tabindex="0" class="card mt-0 m-2 bg-white" (keyup.enter)="selectFav(v)"
 							(keyup.space)="selectFav(v)">
 							<div class="card-body">
-								<div class="d-flex gap-2">
-									<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
-										<img alt="{{ group.company_name }} logo" width="100" height="100"
-											style="object-fit: cover"
+								<div class="jobImage d-flex justify-content-center align-items-center h-100">
+									<!-- <div class="border rounded-2 overflow-hidden" style="max-width: 100px"> -->
+										<img alt="{{ group.company_name }} logo"
 											(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
 											src="{{ group.image }}" />
-									</div>
-									<div>
+									<!-- </div> -->
+									<!-- <div>
 										<h6 class="mb-0 text-sm text-capitalize">
 											<b>{{ group.position_title }}</b>
 										</h6>
@@ -196,7 +195,7 @@
 											<span style="font-weight: 500px; color: black">{{ group.work_location
 												}}</span>
 										</p>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
@@ -256,26 +255,25 @@
 						aria-label="View all educational partners">View All</button>
 				</div>
 				<div>
-					<p-carousel [numScroll]="8" [numVisible]="4" [autoplayInterval]="3000" [circular]="true"
+					<p-carousel [numScroll]="8" [numVisible]="4"  [circular]="true" [autoplayInterval]="3000"
 						[responsiveOptions]="responsiveOptions" [showIndicators]="true" [value]="partnerTrusterLogo"
 						class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 						aria-label="Educational Partners Carousel">
 						<ng-template let-uni pTemplate="item">
 							<div role="button" tabindex="0" class="card mt-0 m-2 bg-white">
 								<div class="card-body">
-									<div class="text-center" style="margin: auto;">
-										<div class="border rounded-2 overflow-hidden" style="max-width: 100px">
-											<img alt="{{ uni.company_name }} logo" width="70" height="70"
-												style="object-fit: cover"
-												(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
-												src="{{ uni.company_logo }}" />
-										</div>
+									<div class="text-center companyImage d-flex justify-content-center align-items-center h-100" style="margin: auto;">
+										<img
+											alt="{{ uni.company_name }} logo"
+											(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
+											[src]="uni.company_logo"
+										/>
 									</div>
-									<div class=" mt-1text-center">
+									<!-- <div class=" mt-1text-center">
 										<h6 class="mb-0 text-sm text-capitalize">
 											<b>{{uni.company_name}}</b>
 										</h6>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</ng-template>
