@@ -213,7 +213,7 @@
             </div>
             <div class="col-md-4 col-xl-3 mb-3">
               <div class="text-primary fw-bold">Interested Industry</div>
-              <div>{{profileData.careerPreference.career_interest_name || 'Not specified'}}</div>
+              <div>{{profileData.careerPreference.department_name?.join(',') || 'Not specified'}}</div>
             </div>
             <div class="col-md-4 col-xl-3 mb-3">
               <div class="text-primary fw-bold">Preferred Work Location</div>
