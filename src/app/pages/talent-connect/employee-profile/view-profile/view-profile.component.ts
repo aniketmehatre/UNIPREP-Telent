@@ -12,6 +12,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { RatingModule } from 'primeng/rating';
 import { RouterModule } from '@angular/router';
 import { TooltipDirective } from "ngx-bootstrap/tooltip";
+import { JobResponsibility } from './hover-messages';
 
 // Process academic references
 interface AcademicReference {
@@ -49,7 +50,7 @@ interface ProfileData {
     nationality: string;
     location: string;
     logo: string | null;
-    total_years_of_experience: number;
+    total_years_of_experience: string;
   };
   educationDetails: Array<{
     highestQualification: string;
@@ -161,88 +162,89 @@ export class ViewProfileComponent implements OnInit {
   // Define a single profile data object
   profileData: ProfileData = {
     personalInfo: {
-      fullName: 'Darshan Mandanna',
-      dateOfBirth: '30-03-1995',
-      gender: 'Male',
+      fullName: 'Darshini',
+      dateOfBirth: '30-01-2003',
+      gender: 'Female',
       nationality: 'Indian',
-      location: 'Mysore, India',
-      logo: 'uniprep-assets/images/dharshana-madanna.png',
-      total_years_of_experience: 10,
+      location: 'Mysore',
+      logo: 'https://drive.google.com/file/d/1nxiVXJQTMsWkusMo256dWun5jPN5-Rgz/view?usp=drive_link',
+      total_years_of_experience: '2 Years 5 Months',
     },
     educationDetails: [{
-      highestQualification: 'BSc in Designing',
-      university: 'Jain University',
-      fieldOfStudy: 'UI Designing',
-      courseName: 'UI/UX Designing',
-      graduationYear: 2014,
-      gpa: '8.9 GPA'
+      highestQualification: 'BBA',
+      university: 'MICA College',
+      fieldOfStudy: 'UG',
+      courseName: 'BBA IN Human Resource Management ',
+      graduationYear: 2022,
+      gpa: '8.6 GPA'
     }],
     workExperience: [{
-      totalExperience: 10,
+      totalExperience: '1 Year 5 Months',
       companyName: 'UNIABROAD Technology Pvt Ltd',
-      jobTitle: 'Senior UI/UX Designer',
+      jobTitle: 'Recruitment Specialist',
       employmentType: 'Full Time',
       duration: '10-01-2023 - Currently Employed',
-      salary: '1,00,000 per annum',
-      responsibilities: 'Conduct user research to understand needs and behaviors.',
+      salary: '45000',
+      responsibilities: JobResponsibility,
       exp_currency: 'INR',
       experienceLetter: { name: 'ExperienceLetter.pdf', file: null },
     }],
     careerPreferences: {
-      careerStatus: 'Full Time',
-      careerDepartment: 'Designing',
-      jobTitle: 'UI/UX Designer',
-      preferredWorkLocation: 'Bangalore, India',
+      careerStatus: 'Working',
+      careerDepartment: 'Education Industry Real Estate',
+      jobTitle: 'Human Resource',
+      preferredWorkLocation: 'Bangalore - Mysore',
       preferredEmploymentType: 'Full Time',
-      preferredWorkplaceType: 'Collaborative',
+      preferredWorkplaceType: 'Onsite',
       willingToRelocate: 'Yes',
-      salaryRange: '8 LPA',
+      salaryRange: '6-7 LPA',
       currency: 'INR'
     },
     certifications: [
-      { name: 'UNIPREP UI/UX Course', file: null }
+      { name: 'Talent Acquisition and Recruitment in Human Resource Management', file: 'https://drive.google.com/file/d/1YDdn-B_THfbJ0NKLRP6i1nVLXNzbWpSW/view' }
     ],
     userAchievements: [
-      { name: 'Best Performer', file: null }
+      { name: "Awarded HR Team's Best Performer of the Month", file: 'https://drive.google.com/file/d/1sZLWDD0QFAyUnZK6yM-lBUkmvufnWe6M/view?usp=drive_link' }
     ],
     additionalDetails: {
       languagesKnown: [
         { lang: 'English', prof: '3/5' },
         { lang: 'Kannada', prof: '4/5' },
-        { lang: 'Coorgi', prof: '5/5' }
+        { lang: 'Hindi', prof: '3/5' },
+        { lang: 'Marathi ', prof: '4/5' },
       ],
-      hobbiesAndInterests: 'Travelling, Gaming, Designing, Sketching',
-      softSkills: ['Photoshop', 'HTML', 'CSS'],
+      hobbiesAndInterests: 'Reading, Traveling, Fitness and yoga, Exploring new cuisines, Volunteering for social causes',
+      softSkills: ['Strong communication skills', 'Active listening', 'Conflict resolution', 'Empathy and compassion', 'Adaptability to change', 'Problem-solving ability', 'Ethical decision-making', 'Team collaboration', 'Effective time management', 'High emotional intelligence'],
     },
     keyStrengths: {
-      industryDifferentiators: 'I stand out by blending creativity with user-focused problem-solving. With a keen eye for aesthetics and functionality, I craft intuitive designs backed by research. Staying updated on trends, I ensure innovation. My collaborative approach and adaptability help create impactful, seamless experiences that enhance both user satisfaction and business success.',
-      topProfessionalStrength: 'Designing, Sketching',
+      industryDifferentiators: 'Strong interpersonal skills that build trust and rapport across all levels of the organization. Ability to handle sensitive matters with discretion and professionalism. A proactive approach to employee engagement and workplace culture. Balanced mindset between employee advocacy and organizational goals. Skilled in conflict resolution and fostering a positive work environment. Continuous learner who stays updated with HR trends and compliance. Empathetic listener with a solution-oriented approach',
+      topProfessionalStrength: 'Excellent communication and interpersonal skills,Strong organizational and time management abilities,Conflict resolution and problem-solving expertise,High emotional intelligence and empathy,Confidentiality and ethical decision-making,Adaptability to dynamic work environments,Team leadership and collaboration,Strategic thinking and planning,Talent acquisition and retention skills,Commitment to continuous improvement and learning',
       solvedRealWorldChallenge: 'Yes',
       leadershipRoles: 'Yes',
-      mostAdmiredQuality: 'Others admire my ability to think outside the box and design visually stunning, user-friendly interfaces that enhance user experiences.'
+      mostAdmiredQuality: 'Ability to stay calm and composed under pressure'
     },
     networking: {
-      linkedinProfile: 'https://www.linkedin.com/in/darshanmandanna-ui-ux-designer-bangalore',
-      socialMedia: [{ media: 'instagram', link: 'https://www.instagram.com/darshandesign/' }],
-      personalWebsite: 'https://www.behance.net/darshandesign/'
+      linkedinProfile: 'https://www.linkedin.com/in/darshini-p-ruknor-a09b49223/',
+      socialMedia: [{ media: 'Instagram', link: 'https://www.instagram.com/darshu_ruknor?igsh=cGl1NWVrd204ajF5&utm_source=qr' }],
+      personalWebsite: ''
     },
     attachments: [
-      { name: 'CV.pdf', type: 'document' },
-      { name: 'IntroductionVideo.mp4', type: 'video' }
+      { name: 'https://drive.google.com/file/d/1ISjq6bYNWCFTKjRhStrgdpN6J5ZnSxIi/view?usp=drive_link', type: 'document' },
+      { name: 'https://drive.google.com/file/d/1hIV_NnPxa7xnXsXbwKB0y6k9PCng6EP7/view', type: 'video' }
     ],
     academicReference: [{
-      collegeName: 'Jain University',
-      name: 'John G',
-      designation: 'Head of the Department',
-      email: 'johng@gmail.com'
+      collegeName: 'MICA College',
+      name: 'Anitha KR',
+      designation: 'Professor',
+      email: 'Anitha@micacollege.com'
     }],
     professionalReference: [{
       companyName: 'UNIABROAD Technology Pvt Ltd',
-      name: 'John Doe',
-      designation: 'Manager',
-      email: ''
+      name: 'Kalyani',
+      designation: 'HR Manager',
+      email: 'Kalyani.hr@uniabraod.co.in'
     }],
-    additionalInfo: 'Nothing to give'
+    additionalInfo: 'Not Specified'
   };
 
   constructor(
@@ -270,6 +272,9 @@ export class ViewProfileComponent implements OnInit {
       this.nationalityList = data?.nationalityList
       this.files = data?.uploadFiles
       this.profileData = this.mapToProfileData(this.config.data.profileData);
+    }
+    else {
+      this.introductionVideo = this.profileData?.attachments ? this.profileData?.attachments[1]?.name : '';
     }
     this.profileCompletionPercentage = data?.profileCompletionPercentage || 0;
     this.updatedAtDate = data?.updatedAt || new Date().toISOString();
