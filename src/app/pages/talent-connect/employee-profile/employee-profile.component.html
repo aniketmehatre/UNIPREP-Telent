@@ -568,16 +568,16 @@
 										<div class="row mb-3">
 											<div class="col-md-6">
 												<label for="careerInterest" class="form-label">
-													Career Interest / Industry<span class="text-danger">*</span></label>
+													Interested Department<span class="text-danger">*</span></label>
 												<p-multiSelect id="careerInterest"
 													formControlName="career_preference_department_id"
-													[options]="departmentList" placeholder="Enter career interest"
+													[options]="departmentList" placeholder="Enter Department"
 													styleClass="w-100" optionLabel="department" optionValue="id"
 													[filter]="true" (focusout)="resetMessageBox()"
 													(onFocus)="updateMessageBox('career_preference_department_id')"></p-multiSelect>
 												<small class="text-danger"
 													*ngIf="personalInfoForm.get('career_preference_department_id')?.invalid && personalInfoForm.get('career_preference_department_id')?.touched">
-													Career Interest / Industry is required </small>
+													Department is required </small>
 											</div>
 											<div class="col-md-6">
 												<label for="preferredWorkLocation" class="form-label">
@@ -1467,7 +1467,7 @@
 													<i class="fa-solid fa-industry" style="color: #3f4c83"></i>
 												</div>
 												<div class="overflow-hidden">
-													<p class="text-muted text-small">Interested Industry</p>
+													<p class="text-muted text-small">Interested Department</p>
 													<p class="text-small text-truncate">
 														{{
 														personalInfoForm?.get("career_preference_department_id")?.value

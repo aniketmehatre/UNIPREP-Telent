@@ -191,7 +191,7 @@ export class ViewProfileComponent implements OnInit {
     }],
     careerPreferences: {
       careerStatus: 'Working',
-      careerDepartment: 'Education Industry Real Estate',
+      careerDepartment: 'Education Industry, Real Estate',
       jobTitle: 'Human Resource',
       preferredWorkLocation: 'Bangalore - Mysore',
       preferredEmploymentType: 'Full Time',
