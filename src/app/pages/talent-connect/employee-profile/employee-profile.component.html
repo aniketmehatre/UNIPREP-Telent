@@ -1375,8 +1375,8 @@
 													<i class="fa-regular fa-share-alt"></i>
 												</a>
 											</div>
-											<div style="font-size: 12px" class="text-start">Profile Updated On
-												18-02-2025</div>
+											<div style="font-size: 12px" class="text-start">Profile Updated On:
+												{{profileDetail?.updated_at ?? today | date: 'dd-MM-yyyy'}}</div>
 											<div
 												class="mt-2 text-start d-flex justify-content-between align-items-center">
 												<div>
@@ -1564,8 +1564,8 @@
 														<i class="fa-regular fa-share-alt"></i>
 													</a>
 												</div>
-												<div style="font-size: 12px" class="text-start">Profile Updated On
-													18-02-2025</div>
+												<div style="font-size: 12px" class="text-start">Profile Updated On: 
+													{{profileDetail?.updated_at | date: 'dd-MM-yyyy'}}</div>
 												<div
 													class="mt-2 text-start d-flex justify-content-between align-items-center">
 													<div>

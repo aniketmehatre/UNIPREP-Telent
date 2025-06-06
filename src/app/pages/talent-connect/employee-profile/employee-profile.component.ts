@@ -10,6 +10,7 @@ import { HOVER_MESSAGES } from "./view-profile/hover-messages";
 import { AuthService } from "../../../Auth/auth.service";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Departments } from "src/app/@Models/user-profile.model";
+import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile";
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -82,6 +83,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   disableIfDoctorateSelected: number[] = [5];
   graduationYearList: any[] = []
   departmentList: Departments[] = [];
+  profileDetail!: EmployeeConnectProfile;
 
   constructor(
     private fb: FormBuilder,
@@ -1125,6 +1127,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       next: (response) => {
         if (response.status) {
           const responses = response.data[(response?.data).length - 1]
+          this.profileDetail = responses;
           this.profileId = responses.id
           this.patchFormData(responses)
         }

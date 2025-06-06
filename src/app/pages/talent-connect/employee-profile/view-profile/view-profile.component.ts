@@ -369,7 +369,6 @@ export class ViewProfileComponent implements OnInit {
         graduationYear: this.getListValue(this.graduationYears, edu.education_graduation_year_id, 'graduation_year_name') || '',
         gpa: edu.education_gpa_percentage ? `${edu.education_gpa_percentage} %` : ''
       }));
-debugger
     // Process work experience
     const workExperience = (formData.work_experience || []).map((exp: any) => ({
       totalExperience: exp.years_of_experience || '',
