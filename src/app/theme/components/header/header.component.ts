@@ -483,7 +483,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		// Initialize forms
 		this.initializeForms();
 		this.authService.getNewUserTimeLeft().subscribe((res) => {
-			if (this.imagewhitlabeldomainname === "uniprep" || this.imagewhitlabeldomainname === "Partner") {
+			if (this.imagewhitlabeldomainname === "Uniprep" || this.imagewhitlabeldomainname === "Partner") {
 				this.ehitlabelIsShow = true;
 			} else {
 				if (res.subscription_details.subscription_plan === "free_trail" && res.time_left.plan === "on_progress") {

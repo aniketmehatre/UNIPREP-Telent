@@ -28,13 +28,13 @@ export class RestrictionDialogComponent implements OnInit {
       this.orgLogo = data.logo
       this.orgName = data.name;
       this.whiteLabelName = data.source
-    })
-    if (this.whiteLabelName === "uniprep" ||
+      if (this.whiteLabelName === "Uniprep" ||
       this.whiteLabelName === "Partner" ) {
       this.isWhiteLabelVisible = false;
     } else {
       this.isWhiteLabelVisible = true;
     }
+    })
   }
 
   upgradePlan(): void {
