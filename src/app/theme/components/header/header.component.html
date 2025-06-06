@@ -113,8 +113,8 @@
 						</button> -->
 						<div label="" role="button" class="headerHomeCountry" [title]="homeCountryName"
 							aria-label="Selected country: {{ homeCountryName }}">
-							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'"
-								[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'"
+							<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'"
+								[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'"
 								alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 						</div>
 						<button class="btn btn-secondary d-flex justify-content-center align-items-center"

@@ -1413,7 +1413,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					const defaultCountry = {
 						id: 122,
 						country: 'India',
-						flag: `https://${this.ApiUrl}/uniprepapi/storage/app/public/uploads/flags/in.svg`
+						flag: `../../uniprep-assets/icons/india.png`
 					};
 					this.headerHomeFlag = defaultCountry.flag;
 					this.homeCountryName = defaultCountry.country;
