@@ -5,7 +5,7 @@ import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { TalentConnectService } from "../talent-connect.service";
 import { MessageService } from "primeng/api";
 import { maxWordsValidator } from "src/app/shared/directives/maxwordValidators.directive";
-import { differenceInMonths, formatDuration, intervalToDuration } from "date-fns";
+import { addMonths, differenceInMonths, formatDuration, intervalToDuration } from "date-fns";
 import { HOVER_MESSAGES } from "./view-profile/hover-messages";
 import { AuthService } from "../../../Auth/auth.service";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -224,7 +224,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   createWorkExperienceGroup() {
     return this.fb.group({
       id: [""],
-      years_of_experience: { value: "", disabled: true },
+      years_of_experience: [{ value: "", disabled: true }],
       work_experience_company_name: [""],
       work_experience_job_title: [""],
       work_experience_employment_type: [""],
@@ -1074,20 +1074,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.profileCompletion = Math.round((filledWeight / totalWeight) * 100)
   }
 
-  // getCityCountryList(search?: string, isPreferLocation: boolean | null = null) {
-  //   this.talentConnectService.getCityCountries(search).subscribe({
-  //     next: response => {
-  //       if (isPreferLocation !== null) {
-  //         isPreferLocation ?
-  //           this.preferredLocationsList = response : this.locations = response;
-  //         return;
-  //       }
-  //       this.preferredLocationsList = response;
-  //       this.locations = response;
-  //     }
-  //   });
-  // }
-
   //this is recovery purpose need to change.
   getWorkLocation() {
     this.talentConnectService.getEasyApplyWorkLocationList().subscribe({
@@ -1216,7 +1202,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       response.work_experience.forEach((exp: any, i: number) => {
         const group = this.fb.group({
           id: [exp.id],
-          years_of_experience: { value: exp.years_of_experience, disabled: true },
+          years_of_experience: [{ value: exp.years_of_experience, disabled: true }],
           work_experience_company_name: [exp.company_name],
           work_experience_job_title: [exp.job_title],
           work_experience_employment_type: [exp.employment_type],
@@ -2039,43 +2025,21 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
   isDisableAddMoreEducation: boolean = false;
   onFormValueChanges() {
-    // Work Experience Form Array Value Changes
-    const workExperienceFromArray = this.personalInfoForm.get('work_experience') as FormArray;
-    workExperienceFromArray.controls.forEach((group: AbstractControl) => {
-      const currentlyWorkingControl = group.get('currently_working');
-      const toDateControl = group.get('work_experience_duration_to');
-      currentlyWorkingControl?.valueChanges.subscribe((value: boolean) => {
-        if (value) {
-          toDateControl?.disable();
-          toDateControl?.setValue(this.today);
-        } else {
-          toDateControl?.enable();
-        }
-      });
-    });
-
     // Education Form Array Value Changes
     this.educationDetails.valueChanges.subscribe((educationArray: any[]) => {
       const hasQualification = educationArray.some(item => item.education_qualification_id == 1);
       this.isDisableAddMoreEducation = hasQualification;
     });
   }
-
   getFilteredQualifications(index: number): any[] {
     if (index === 0) return this.qualificationList;
-    const previousQualificationIds = this.educationDetails.controls
-      .slice(0, index) // only previous entries
-      .map(control => control.get('education_qualification_id')?.value)
-      .filter(id => !!id); // remove undefined/null
-
-    const maxPrevQualificationId = Math.max(...previousQualificationIds, 0);
-    console.log(maxPrevQualificationId, 'previus id')
     const prevQualificationValue = this.educationDetails.at(index - 1).get('education_qualification_id')?.value;
+    const prevQualificationValue2 = this.educationDetails.at(index - 2)?.get('education_qualification_id')?.value;
     const disableQualificationMap: { [key: number]: number[] } = {
-      2: [2, 3, 4, 5], // Bachelor’s Degree
-      3: [3, 5],       // Master’s Degree
-      4: [4, 5],       // Postgraduate Diploma
-      5: [5],          // Doctorte
+      2: [2, 3, 4, 5],                                       // Bachelor’s Degree
+      3: [3, 5, prevQualificationValue2 == 4 ? 4 : 0],       // Master’s Degree
+      4: [4, 5,  prevQualificationValue2 == 3 ? 3 : 0],      // Postgraduate Diploma
+      5: [5],                                                // Doctorte
     };
     const disabledQualificationIds = disableQualificationMap[prevQualificationValue] || [];
     return this.qualifications.map(item => ({
@@ -2096,7 +2060,75 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }));
   }
 
+  onChangeCurrentlyWorking(event: any, index: number) {
+    const group = this.workExperience.at(index);
+    const toCtrl = group.get('work_experience_duration_to');
+    const yearsCtrl = group.get('years_of_experience');
+    if (event.target.checked) {
+      // Uncheck and reset others
+      this.workExperience.controls.forEach((grp, i) => {
+        if (i !== index) {
+          const otherCurrentCtrl = grp.get('currently_working');
+          const otherToCtrl = grp.get('work_experience_duration_to');
+          const otherYearCtrl = grp.get('years_of_experience');
+          if (otherCurrentCtrl?.value) {
+            otherCurrentCtrl.setValue(false, { emitEvent: false });
+            otherToCtrl?.enable();
+            otherToCtrl?.reset();
+            otherYearCtrl?.reset();
+          }
+        }
+      });
+      // Set today and disable toDate
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      toCtrl?.setValue(today);
+      toCtrl?.disable();
+    } else {
+      toCtrl?.enable();
+      toCtrl?.reset();
+      yearsCtrl?.reset();
+    }
+    this.updateExperience(index);
+  }
+
+  updateExperience(index: number) {
+    const group = this.workExperience.at(index);
+    const from = group.get('work_experience_duration_from')?.value;
+    const to = group.get('work_experience_duration_to')?.value;
+    const yearsCtrl = group.get('years_of_experience');
+    if (from && to) {
+      const duration = intervalToDuration({ start: from, end: to });
+      const result = formatDuration(duration, { format: ['years', 'months'] });
+      yearsCtrl?.setValue(result);
+    } else {
+      yearsCtrl?.setValue('');
+    }
+    this.updateTotalWorkExperience();
+  }
+
+  updateTotalWorkExperience() {
+    let totalMonths = 0;
+    this.workExperience.controls.forEach((group) => {
+      const from = group.get('work_experience_duration_from')?.value ? new Date(group.get('work_experience_duration_from')?.value) : null;
+      const to = group.get('work_experience_duration_to')?.value ? new Date(group.get('work_experience_duration_to')?.value) : null;
+      if (from && to) {
+        const months = differenceInMonths(to, from);
+        if (months > 0) {
+          totalMonths += months;
+        }
+      }
+    });
+    const totalDuration = intervalToDuration({
+      start: new Date(2000, 0, 1),
+      end: addMonths(new Date(2000, 0, 1), totalMonths)
+    });
+    const formatted = formatDuration(totalDuration, { format: ['years', 'months'] });
+    this.personalInfoForm.get('total_years_of_experience')?.setValue(formatted || '0 months');
+  }
+
   ngOnDestroy(): void {
     this.clearStoredFiles();
   }
+
 }

@@ -98,27 +98,27 @@
         </div>
         <div class="col-md-9">
           <div class="row" *ngFor="let edu of profileData.education">
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 col-xl-3 mb-3">
               <div class="text-primary fw-bold">Highest Qualification</div>
               <div>{{edu?.qualification_name}}</div>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 col-xl-3 mb-3">
               <div class="text-primary fw-bold">University / Institution Name</div>
               <div>{{edu?.university_name}}</div>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 col-xl-3 mb-3">
               <div class="text-primary fw-bold">Field of Study / Major</div>
               <div>{{edu?.field_of_study || 'Not specified'}}</div>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 col-xl-3 mb-3">
               <div class="text-primary fw-bold">Course Name</div>
               <div>{{edu?.course_name}}</div>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 col-xl-3 mb-3">
               <div class="text-primary fw-bold">Graduation Year</div>
               <div>{{edu?.graduation_year_name}}</div>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 col-xl-3 mb-3">
               <div class="text-primary fw-bold">GPA / Percentage</div>
               <div>{{edu?.gpa_percentage}}</div>
             </div>
@@ -146,29 +146,39 @@
 
           <div class="row" *ngIf="profileData.work_experience && profileData.work_experience.length > 0">
             <ng-container *ngFor="let exp of profileData.work_experience">
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Years of Experience</div>
                 <div>{{exp?.years_of_experience || 'Not specified'}}</div>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Company Name</div>
                 <div>{{exp?.company_name || 'Not specified'}}</div>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Job Title</div>
                 <div>{{exp?.job_title || 'Not specified'}}</div>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Employment Type</div>
                 <div>{{exp?.employment_type || 'Not specified'}}</div>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Duration</div>
                 <div>{{exp?.duration_from + ' - ' + exp?.duration_to || 'Not specified'}}</div>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Salary</div>
                 <div>{{exp?.salary_per_month || 'Not specified'}}</div>
+              </div>
+              <div class="col-12 mb-3">
+                <div class="text-primary fw-bold">Job Responsibilities</div>
+                <div [innerHTML]="exp?.job_responsibilities || 'Not specified'"></div>
+              </div>
+              <div class="col-12 mb-3">
+                <div class="text-primary fw-bold">Experience Letter</div>
+                <button *ngIf="exp?.experience_letter" pButton [label]="extractFileName(exp?.experience_letter)"
+                  icon="pi pi-download" class="p-button-outlined p-button-secondary mb-2 justify-content-between"
+                  (click)="openView(exp?.experience_letter);" iconPos="right"></button>
               </div>
             </ng-container>
           </div>
@@ -193,37 +203,37 @@
         </div>
         <div class="col-md-9">
           <div class="row">
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 col-xl-3 mb-3">
               <div class="text-primary fw-bold">Career Status</div>
               <div>{{profileData.careerPreference?.career_status}}</div>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 col-xl-3 mb-3">
+              <div class="text-primary fw-bold">Desired Job Title</div>
+              <div>{{profileData.careerPreference.job_title || 'Not specified'}}</div>
+            </div>
+            <div class="col-md-4 col-xl-3 mb-3">
+              <div class="text-primary fw-bold">Interested Industry</div>
+              <div>{{profileData.careerPreference.career_interest_name || 'Not specified'}}</div>
+            </div>
+            <div class="col-md-4 col-xl-3 mb-3">
               <div class="text-primary fw-bold">Preferred Work Location</div>
               <div>{{profileData?.careerPreference?.preferred_work_location?.join(',') || 'Not specified'}}</div>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 col-xl-3 mb-3">
+              <div class="text-primary fw-bold">Preferred Work Type</div>
+              <div>{{profileData.careerPreference.preferred_workplace_type?.join(',')}}</div>
+            </div>
+            <div class="col-md-4 col-xl-3 mb-3">
+              <div class="text-primary fw-bold">Preferred Work Mode</div>
+              <div>{{profileData.careerPreference.preferred_employment_type?.join(',')}}</div>
+            </div>
+            <div class="col-md-4 col-xl-3 mb-3">
               <div class="text-primary fw-bold">Willingness to Relocate?</div>
               <div>{{profileData.careerPreference?.willingness_to_relocate}}</div>
             </div>
-            <div class="col-md-4 mb-3">
-              <div class="text-primary fw-bold">Job Title</div>
-              <div>{{profileData.careerPreference.job_title || 'Not specified'}}</div>
-            </div>
-            <div class="col-md-4 mb-3">
-              <div class="text-primary fw-bold">Preferred Employment Type</div>
-              <div>{{profileData.careerPreference.preferred_employment_type?.join(',')}}</div>
-            </div>
-            <div class="col-md-4 mb-3">
-              <div class="text-primary fw-bold">Salary Range</div>
+            <div class="col-md-4 col-xl-3 mb-3">
+              <div class="text-primary fw-bold">Expected</div>
               <div>{{profileData.careerPreference.expected_salary}}</div>
-            </div>
-            <div class="col-md-4 mb-3">
-              <div class="text-primary fw-bold">Career Interest / Industry</div>
-              <div>{{profileData.careerPreference.career_interest_name || 'Not specified'}}</div>
-            </div>
-            <div class="col-md-4 mb-3">
-              <div class="text-primary fw-bold">Preferred Workplace Type</div>
-              <div>{{profileData.careerPreference.preferred_workplace_type?.join(',')}}</div>
             </div>
           </div>
         </div>
@@ -296,8 +306,10 @@
               </ng-container>
             </div>
             <div class="col-md-4 mb-3">
-              <div class="text-primary fw-bold mb-2">Hobbies & Interests</div>
-              <p [innerHTML]="profileData.hobby || 'Not specified'"></p>
+              <div class="text-primary fw-bold mb-2">Soft Skills</div>
+              <ng-container *ngFor="let skill of profileData?.careerPreference?.soft_skill_name">
+                <div>{{skill}}</div>
+              </ng-container>
             </div>
           </div>
         </div>
@@ -441,23 +453,19 @@
           <div class="mb-4" *ngIf="profileData.references && profileData.references.length > 0">
             <div class="fw-bold fs-5 mb-3">Academic Reference</div>
             <div class="row" *ngFor="let ref of profileData.references">
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">College Name</div>
                 <div>{{ref.college_name || 'Not specified'}}</div>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Reference Name</div>
                 <div>{{ref.reference_name || 'Not specified'}}</div>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Designation</div>
                 <div>{{ref.designation || 'Not specified'}}</div>
               </div>
-              <div class="col-md-4 mb-3">
-                <div class="text-primary fw-bold">Phone Number</div>
-                <div>{{ref.phone_number || 'Not specified'}}</div>
-              </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Email</div>
                 <div>{{ref.email || 'Not specified'}}</div>
               </div>
@@ -467,26 +475,40 @@
           <div *ngIf="profileData.professional_references && profileData.professional_references.length > 0">
             <div class="fw-bold fs-5 mb-3">Professional Reference</div>
             <div class="row" *ngFor="let ref of profileData.professional_references">
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Organization Name</div>
-                <div>{{ref.organization_name || 'Not specified'}}</div>
+                <div>{{ref.company_name || 'Not specified'}}</div>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Reference Name</div>
                 <div>{{ref.reference_name || 'Not specified'}}</div>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Designation</div>
                 <div>{{ref.designation || 'Not specified'}}</div>
               </div>
-              <div class="col-md-4 mb-3">
-                <div class="text-primary fw-bold">Phone Number</div>
-                <div>{{ref.phone_number || 'Not specified'}}</div>
-              </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Email</div>
                 <div>{{ref.email || 'Not specified'}}</div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Notes -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3">
+          <h3 class="fw-bold text-navy">Additional Notes</h3>
+        </div>
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-12">
+              <div [innerHTML]="profileData.careerPreference.notes">LinkedIn Profile</div>
             </div>
           </div>
         </div>

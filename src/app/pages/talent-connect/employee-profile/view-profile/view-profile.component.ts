@@ -260,8 +260,8 @@ export class ViewProfileComponent implements OnInit {
       this.currencies = data?.currencies,
         this.careerInterests = data?.careerInterests,
         this.jobTitles = data?.jobTitles,
+        this.locations = [{ id: 0, work_location: "Any" }, ...data?.locations ],
         this.languageList = data?.languageList,
-        this.locations = data?.locations,
         this.hobbies = data?.hobbies,
         this.professionalStrengths = data?.professionalStrengths,
         this.qualifications = data?.qualifications,
@@ -280,8 +280,6 @@ export class ViewProfileComponent implements OnInit {
       this.isSample ? 'var(--uniprep-secondary)' : 'var(--uniprep-primary)'
     );
   }
-
-
 
   public getListValue(list: any[], id: number | number[], key: string): string {
     if (!list) return ""; // Return empty string if list is null/undefined
