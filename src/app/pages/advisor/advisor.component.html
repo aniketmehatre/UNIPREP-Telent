@@ -1,218 +1,223 @@
 <div class="card readingcard">
-	<div class="card-header border-0 bg-transparent">
-		<div class="row justify-content-center">
-			<div class="col-md-12 d-flex gap-2 text-center">
-				<div class="backIcon" role="button" *ngIf="!isQuestionNotAsked"
-					(click)="isQuestionAsked = false; isQuestionNotAsked = true">
-					<span class="fa-solid fa-chevron-left"></span>
-				</div>
-				<div class="select-title d-flex justify-content-between align-items-center">
-					<div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
-							<i class="fa-regular fa-home"></i>
-						</h5>
-						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 role="button" class="mb-0" tooltipPosition="top">AI Global Advisor</h5>
-					</div>
-					<div>
-						<button pButton class="how-it-works-button" severity="warn"
-							(click)="openVideoPopup('https://www.youtube.com/embed/dcojCJtwck0?si=Dq6ONzGdpyzGwnhp')">How
-							it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="card-body d-flex justify-content-center flex-column" *ngIf="isQuestionNotAsked">
-		<!-- <div class="row align-items-center justify-content-center">
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center">
+            <div class="col-md-12 d-flex gap-2 text-center">
+                <div class="backIcon" role="button" *ngIf="!isQuestionNotAsked"
+                     (click)="isQuestionAsked = false; isQuestionNotAsked = true">
+                    <span class="fa-solid fa-chevron-left"></span>
+                </div>
+                <div class="select-title d-flex justify-content-between align-items-center">
+                    <div class="d-flex gap-2">
+                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+                            <i class="fa-regular fa-home"></i>
+                        </h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 role="button" class="mb-0" tooltipPosition="top">AI Global Advisor</h5>
+                    </div>
+                    <div>
+                        <button pButton class="how-it-works-button" severity="warn"
+                                (click)="openVideoPopup('https://www.youtube.com/embed/dcojCJtwck0?si=Dq6ONzGdpyzGwnhp')">
+                            How
+                            it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body d-flex justify-content-center flex-column" *ngIf="isQuestionNotAsked">
+        <!-- <div class="row align-items-center justify-content-center">
 
         </div> -->
-		<div class="row justify-content-center">
-			<div class="col-lg-10 col-md-8">
-				<div class="row">
-					<div class="d-flex justify-content-center pb-5">
-						<img style="width: 100px" src="../../../uniprep-assets/images/icon-light.svg" />
-					</div>
-					<!-- <img style="width:150px" src="../../../uniprep-assets/images/icon-light.svg"> -->
-					<p-carousel [value]="questions" [responsiveOptions]="responsiveOptions" [numVisible]="5"
-						[numScroll]="1" [circular]="true" [showIndicators]="false" [showNavigators]="true">
-						<ng-template let-question pTemplate="item">
-							<div class="card h-100 mx-2 mb-1" style="border: 1px solid var(--uniprep-secondary)">
-								<div class="card-body">
-									<p class="mb-2"><i class="fa-regular fa-xl {{ question.icons }}"></i></p>
-									<h6 style="cursor: pointer" (click)="triggerSample(question.question)">{{
-										question.question }}</h6>
-								</div>
-							</div>
-						</ng-template>
-					</p-carousel>
-				</div>
-				<div class="d-flex justify-content-center">
-					<button pButton class="btn btn-primary btn-rounded px-5 mt-4" (click)="getChatHistory()">Chat
-						History</button>
-				</div>
-			</div>
-		</div>
-		<!-- <div class="">
-			<div class="p-inputgroup">
-				<div class="p-inputgroup">
-					<input type="text" [(ngModel)]="userQuestion" pInputText placeholder="" />
-					<button pButton  type="button" (click)="getAns()" class="btn btn-primary" pButton pRipple label="Search"></button>
-				</div>
-			</div>
-		</div> -->
-	</div>
-	<div #chatContainer class="card-body flex-fill overflow-y-auto" *ngIf="isQuestionAsked">
-		<div class="row justify-content-center overflow-hidden" *ngIf="showSkeleton">
-			<div class="col-md-8">
-				<div class="row align-items-center">
-					<div>
-						<div class="flex mb-3">
-							<p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
-							<div>
-								<p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
-								<p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
-							</div>
-						</div>
-						<p-skeleton width="100%" height="1rem"></p-skeleton>
-					</div>
-					<hr class="my-3" />
-					<div>
-						<div class="flex mb-3">
-							<p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
-							<div>
-								<p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
-								<p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
-							</div>
-						</div>
-						<div class="d-flex flex-column gap-1">
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-						</div>
-					</div>
-					<hr class="my-3" />
-					<div>
-						<div class="flex mb-3">
-							<p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
-							<div>
-								<p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
-								<p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
-							</div>
-						</div>
-						<div class="d-flex flex-column gap-1">
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-							<p-skeleton width="100%" height="1rem"></p-skeleton>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row justify-content-center" *ngFor="let chat of chatdata; let i = index" [id]="'chat-' + i">
-			<div class="col-md-8" #chatContainer>
-				<div class="advisor-question" *ngIf="chat.input == 1 || chat.input == 3">
-					<div class="d-flex align-items-center mb-3">
-						<p class="UserFirstLetter">{{ chat.name.slice(0, 2) }}</p>
-						<div class="d-flex flex-column">
-							<p>{{ chat.name }}</p>
-							<p>{{ chat.created }}</p>
-						</div>
-					</div>
-					<p style="margin-top: 10px">{{ chat.message }}</p>
-					<hr />
-				</div>
-				<div class="advisor-answer" *ngIf="chat.input == 2 || chat.input == 4">
-					<div class="d-flex flex-column">
-						<div class="d-flex align-items-center mb-3" *ngIf="chat.input == 4">
-							<p class="UserFirstLetter">{{ chat.name.slice(0, 2) }}</p>
-							<div class="d-flex flex-column">
-								<p>{{ chat.name }}</p>
-								<p>{{ chat.created }}</p>
-							</div>
-						</div>
-						<div class="d-flex align-items-center mb-4" *ngIf="chat.input == 2">
-							<img style="width: 50px" src="../../../uniprep-assets/images/icon-light.svg" />
-							<div class="d-flex flex-column">
-								<p *ngIf="chat.input == 2">UNIPREP AI Advisor</p>
-								<p>{{ chat.created }}</p>
-							</div>
-						</div>
-						<div>
-							<!-- <div *ngIf="chat.input == 2">
-								<ul>
-									<div *ngFor="let msg of chat.formatedMsg; index as i">
-										<li class="pb-2" *ngIf="i != 0 ">{{msg}}</li>
-									</div>
-								</ul>
-							</div> -->
-							<div style="font-size: 1.1rem" [innerHTML]="chat.formatedMsg"></div>
-						</div>
-					</div>
-					<hr />
-				</div>
-				<!-- <div class="advisor-answer" *ngIf="chat.input == 3">
-					<div class="d-flex align-items-center">
-						<p
-							style="margin-right: 10px; background-color: var(--uniprep-primaryop30); padding: 1rem; text-transform: uppercase; font-weight: bold; border-radius: 100%">
-							{{ chat.name.slice(0, 2) }}</p>
-						<div class="d-flex flex-column">
-							<p>{{ chat.name }}</p>
-							<p>{{ chat.created }}</p>
-						</div>
-					</div>
-					<div>
-						<div [innerHTML]="chat.message"></div>
-					</div>
-					<hr />
-				</div> -->
-			</div>
-		</div>
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-8">
+                <div class="row">
+                    <div class="d-flex justify-content-center pb-5">
+                        <img style="width: 100px" src="../../../uniprep-assets/images/icon-light.svg"/>
+                    </div>
+                    <!-- <img style="width:150px" src="../../../uniprep-assets/images/icon-light.svg"> -->
+                    <p-carousel [value]="questions" [responsiveOptions]="responsiveOptions" [numVisible]="5"
+                                [numScroll]="1" [circular]="true" [showIndicators]="false" [showNavigators]="true">
+                        <ng-template let-question pTemplate="item">
+                            <div class="card h-100 mx-2 mb-1" style="border: 1px solid var(--uniprep-secondary)">
+                                <div class="card-body">
+                                    <p class="mb-2"><i class="fa-regular fa-xl {{ question.icons }}"></i></p>
+                                    <h6 style="cursor: pointer" (click)="triggerSample(question.question)">{{
+                                            question.question
+                                        }}</h6>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-carousel>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button pButton class="btn btn-primary btn-rounded px-5 mt-4" (click)="getChatHistory()">Chat
+                        History
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="">
+            <div class="p-inputgroup">
+                <div class="p-inputgroup">
+                    <input type="text" [(ngModel)]="userQuestion" pInputText placeholder="" />
+                    <button pButton  type="button" (click)="getAns()" class="btn btn-primary" pButton pRipple label="Search"></button>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <div #chatContainer class="card-body flex-fill overflow-y-auto" *ngIf="isQuestionAsked">
+        <div class="row justify-content-center overflow-hidden" *ngIf="showSkeleton">
+            <div class="col-md-8">
+                <div class="row align-items-center">
+                    <div>
+                        <div class="flex mb-3">
+                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                            <div>
+                                <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+                                <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+                            </div>
+                        </div>
+                        <p-skeleton width="100%" height="1rem"></p-skeleton>
+                    </div>
+                    <hr class="my-3"/>
+                    <div>
+                        <div class="flex mb-3">
+                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                            <div>
+                                <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+                                <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column gap-1">
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                        </div>
+                    </div>
+                    <hr class="my-3"/>
+                    <div>
+                        <div class="flex mb-3">
+                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                            <div>
+                                <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+                                <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column gap-1">
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                            <p-skeleton width="100%" height="1rem"></p-skeleton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center" *ngFor="let chat of chatData; let i = index" [id]="'chat-' + i">
+            <div class="col-md-8" #chatContainer>
+                <div class="advisor-question" *ngIf="chat.input == 1 || chat.input == 3">
+                    <div class="d-flex align-items-center mb-3">
+                        <p class="UserFirstLetter">{{ chat.name.slice(0, 2) }}</p>
+                        <div class="d-flex flex-column">
+                            <p>{{ chat.name }}</p>
+                            <p>{{ chat.created }}</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 10px">{{ chat.message }}</p>
+                    <hr/>
+                </div>
+                <div class="advisor-answer" *ngIf="chat.input == 2 || chat.input == 4">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex align-items-center mb-3" *ngIf="chat.input == 4">
+                            <p class="UserFirstLetter">{{ chat.name.slice(0, 2) }}</p>
+                            <div class="d-flex flex-column">
+                                <p>{{ chat.name }}</p>
+                                <p>{{ chat.created }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-4" *ngIf="chat.input == 2">
+                            <img style="width: 50px" src="../../../uniprep-assets/images/icon-light.svg"/>
+                            <div class="d-flex flex-column">
+                                <p *ngIf="chat.input == 2">UNIPREP AI Advisor</p>
+                                <p>{{ chat.created }}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <!-- <div *ngIf="chat.input == 2">
+                                <ul>
+                                    <div *ngFor="let msg of chat.formatedMsg; index as i">
+                                        <li class="pb-2" *ngIf="i != 0 ">{{msg}}</li>
+                                    </div>
+                                </ul>
+                            </div> -->
+                            <div style="font-size: 1.1rem" [innerHTML]="chat.formatedMsg"></div>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+                <!-- <div class="advisor-answer" *ngIf="chat.input == 3">
+                    <div class="d-flex align-items-center">
+                        <p
+                            style="margin-right: 10px; background-color: var(--uniprep-primaryop30); padding: 1rem; text-transform: uppercase; font-weight: bold; border-radius: 100%">
+                            {{ chat.name.slice(0, 2) }}</p>
+                        <div class="d-flex flex-column">
+                            <p>{{ chat.name }}</p>
+                            <p>{{ chat.created }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div [innerHTML]="chat.message"></div>
+                    </div>
+                    <hr />
+                </div> -->
+            </div>
+        </div>
 
-		<div class="row justify-content-center mt-5">
-			<div class="col-md-4 d-flex align-items-center flex-column">
-				<p class="text-danger mb-2">Not happy with the answer ?</p>
-				<button pButton class="btn btn-primary btn-rounded px-5" (click)="askExpert()">{{ this.requestButton
-					}}</button>
-			</div>
-		</div>
-	</div>
-	<div class="card-footer border-0 bg-transparent">
-		<div class="row justify-content-center">
-			<div class="col-md-12">
-				<p-inputgroup class="advisorinput">
-					<input type="text" [(ngModel)]="userQuestion" (keyup)="lengthCheck()" pInputText
-						(keydown.enter)="getAns()"
-						placeholder="Ask any questions you have about traveling abroad, studying abroad, career or entrepreneurship!" />
-					<button pButton type="button" (click)="getAns()" class="btn btn-success btn-rounded"
-						[disabled]="smallquestion"><i class="fa-solid fa-stars"></i> {{ responseType }}</button>
-				</p-inputgroup>
-				<!-- <small class="fw-semibold"	*ngIf="isQuestionEmpty" style="color:red">Please enter the question</small> -->
-			</div>
-		</div>
-	</div>
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-4 d-flex align-items-center flex-column">
+                <p class="text-danger mb-2">Not happy with the answer ?</p>
+                <button pButton class="btn btn-primary btn-rounded px-5" (click)="askExpert()">{{
+                        this.requestButton
+                    }}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer border-0 bg-transparent">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <p-inputgroup class="advisorinput">
+                    <input type="text" [(ngModel)]="userQuestion" (keyup)="lengthCheck()" pInputText
+                           (keydown.enter)="getAns()"
+                           placeholder="Ask any questions you have about traveling abroad, studying abroad, career or entrepreneurship!"/>
+                    <button pButton type="button" (click)="getAns()" class="btn btn-success btn-rounded"
+                            [disabled]="smallQuestion"><i class="fa-solid fa-stars"></i> {{ responseType }}
+                    </button>
+                </p-inputgroup>
+            </div>
+        </div>
+    </div>
 </div>
