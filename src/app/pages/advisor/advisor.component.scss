@@ -14,6 +14,7 @@
   border: 1px solid var(--uniprep-lightgray);
   border-radius: 100px;
   padding: 2px;
+
   input {
     border: none !important;
     background: transparent !important;
@@ -21,12 +22,13 @@
     color: black;
   }
 }
+
 // #chatContainer {
 //   height: 500px; /* or your desired height */
 //   overflow-y: auto;
 // }
 
-.UserFirstLetter{
+.UserFirstLetter {
   margin-right: 10px;
   background-color: var(--uniprep-primaryop30);
   padding: 1rem;
