@@ -167,7 +167,7 @@ export class ViewProfileComponent implements OnInit {
       gender: 'Female',
       nationality: 'Indian',
       location: 'Mysore',
-      logo: 'https://drive.google.com/file/d/1nxiVXJQTMsWkusMo256dWun5jPN5-Rgz/view?usp=drive_link',
+      logo: 'uniprep-assets/images/employer-connect/darshini.jpg',
       total_years_of_experience: '2 Years 5 Months',
     },
     educationDetails: [{
