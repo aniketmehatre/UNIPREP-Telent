@@ -84,7 +84,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   graduationYearList: any[] = []
   departmentList: Departments[] = [];
   profileDetail!: EmployeeConnectProfile;
-
+  isDisableAddMoreEducation: boolean = false;
+  
   constructor(
     private fb: FormBuilder,
     private dialogService: DialogService,
@@ -529,19 +530,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           // Only append the ID if the item has been modified
           if (work.get("id")?.value && this.isArrayItemModified(work, originalWork)) {
             formData.append(`work_experience[${index}][id]`, work.get("id")?.value)
-          }
-
-          if (
-            (control.get("work_experience_duration_from")?.value &&
-              !control.get("work_experience_duration_to")?.value) ||
-            (!control.get("work_experience_duration_from")?.value && control.get("work_experience_duration_to")?.value)
-          ) {
-            this.toastService.add({
-              severity: "error",
-              summary: "Duration",
-              detail: "Please select both from and to values",
-            })
-            return
           }
 
           this.appendIfModified(
@@ -1561,11 +1549,11 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       });
     } else {
       this.markFormGroupTouched(this.personalInfoForm)
-      this.toastService.add({
-        severity: "error",
-        summary: "Required",
-        detail: " Please fill the required fields",
-      })
+      // this.toastService.add({
+      //   severity: "error",
+      //   summary: "Required",
+      //   detail: " Please fill the required fields",
+      // })
     }
   }
 
@@ -2024,7 +2012,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     })
 
   }
-  isDisableAddMoreEducation: boolean = false;
+
   onFormValueChanges() {
     // Education Form Array Value Changes
     this.educationDetails.valueChanges.subscribe((educationArray: any[]) => {
@@ -2032,6 +2020,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       this.isDisableAddMoreEducation = hasQualification;
     });
   }
+
   getFilteredQualifications(index: number): any[] {
     if (index === 0) return this.qualificationList;
     const prevQualificationValue = this.educationDetails.at(index - 1).get('education_qualification_id')?.value;
@@ -2131,7 +2120,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   getDepartmentList() {
     this.talentConnectService.getDepartments().subscribe({
       next: (response) => {
-        this.departmentList = response
+        this.departmentList = response;
       },
     });
   }

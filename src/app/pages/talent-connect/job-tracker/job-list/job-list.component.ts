@@ -1,10 +1,10 @@
-import { Component, ElementRef, Output, EventEmitter, OnInit, Input } from '@angular/core';
-import { TabPanel, TabView, TabViewModule } from "primeng/tabview";
-import { CommonModule, NgClass } from "@angular/common";
+import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
+import { TabViewModule } from "primeng/tabview";
+import { CommonModule } from "@angular/common";
 import { TalentConnectService } from '../../talent-connect.service';
-import { Paginator, PaginatorModule } from 'primeng/paginator';
+import { PaginatorModule } from 'primeng/paginator';
 import { TabsModule } from 'primeng/tabs';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputNumberModule } from 'primeng/inputnumber';
