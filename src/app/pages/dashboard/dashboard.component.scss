@@ -10,8 +10,8 @@
 .jobImage img{
   width: 20vw; 
   max-width: 320px;
-  height: auto;
-  object-fit: contain;
+  height: 13vh;
+  object-fit: fill;
 }
 .countrycard {
   .card-header {
