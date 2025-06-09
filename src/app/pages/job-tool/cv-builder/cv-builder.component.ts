@@ -357,6 +357,12 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     });
   }
 
+  getInitialFields(){
+    for (let i = 0; i < 2; i++) this.addLanguageRow();
+    for (let i = 0; i < 3; i++) this.addSkillsRow();
+    for (let i = 0; i < 1; i++) this.addEducationRow();
+  }
+
   getLocationsList() {
     this.resumeService.getLocationList().subscribe((res: any) => {
       this.cities = res;
@@ -581,6 +587,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         
       } else {
         this.getUserDetails();
+        this.getInitialFields();
       }
     });
   }
@@ -1044,21 +1051,43 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     return this.resumeFormInfoData.get("certificatesArray") as FormArray;
   }
   
+  addEducationRow(){
+    this.getEduDetailsArray.push(
+      this.fb.group({
+        edu_college_name: ["", [Validators.required, maxCharactersValidator(85)]],
+        edu_still_pursuing: [""],
+        edu_start_year: ["", Validators.required],
+        edu_end_year: ["", Validators.required],
+        edu_degree: ["", [Validators.required, maxCharactersValidator(40)]],
+        edu_location: ["", [Validators.required]],
+        edu_percentage: ["", Validators.required],
+        edu_cgpa_percentage: ["", Validators.required],
+      })
+    );
+  }
+
+  addLanguageRow(){
+    this.getLanguagesKnownArray.push(
+      this.fb.group({
+        language: ["", Validators.required],
+        lang_proficiency: ["", Validators.required],
+      })
+    );
+  }
+
+  addSkillsRow(){
+    this.getSkillsArray.push(
+      this.fb.group({
+        skills: ["", Validators.required],
+        skills_proficiency: ["", Validators.required],
+      })
+    );
+  }
+
   clickAddMoreButton(fieldName: string) {
     this.submitted = false;
     if (fieldName == "education_detail") {
-      this.getEduDetailsArray.push(
-        this.fb.group({
-          edu_college_name: ["", [Validators.required, maxCharactersValidator(85)]],
-          edu_still_pursuing: [""],
-          edu_start_year: ["", Validators.required],
-          edu_end_year: ["", Validators.required],
-          edu_degree: ["", [Validators.required, maxCharactersValidator(40)]],
-          edu_location: ["", [Validators.required]],
-          edu_percentage: ["", Validators.required],
-          edu_cgpa_percentage: ["", Validators.required],
-        })
-      );
+      this.addEducationRow();
       this.removeHideHeaderElement("education_detail");
     } else if (fieldName == "work_experience") {
       this.getWorkExpArray.push(
@@ -1089,21 +1118,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       );
       this.removeHideHeaderElement("project_details");
     } else if (fieldName == "language_known") {
-      this.getLanguagesKnownArray.push(
-        this.fb.group({
-          language: ["", Validators.required],
-          lang_proficiency: ["", Validators.required],
-        })
-      );
+      this.addLanguageRow();
       this.checkLanguageDuplication();
       this.removeHideHeaderElement("language_known");
     } else if (fieldName == "skills") {
-      this.getSkillsArray.push(
-        this.fb.group({
-          skills: ["", Validators.required],
-          skills_proficiency: ["", Validators.required],
-        })
-      );
+      this.addSkillsRow();
       this.checkSkillsDuplilcation();
       this.removeHideHeaderElement("skills");
     } else if (fieldName == "extra_curricular") {
