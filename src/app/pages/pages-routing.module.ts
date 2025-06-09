@@ -191,10 +191,6 @@ const routes: Routes = [
                 component: CourseListComponent
             },
             {
-                path: 'job-portal',
-                loadChildren: () => import('./job-search/job-search.module').then(m => m.JobSearchModule)
-            },
-            {
                 path: 'job-tool',
                 loadChildren: () => import('./job-tool/job-tool.module').then(m => m.JobToolModule)
             },
