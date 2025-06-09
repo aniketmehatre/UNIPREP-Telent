@@ -688,7 +688,7 @@
               <button pButton  *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder" (click)="checkout('razorpay')">
                 <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="40px" />
               </button> -->
-              <button pButton  [disabled]="showCheckout" *ngIf="currentCountry!='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+              <button pButton  [disabled]="showCheckout" *ngIf="currentCountry && currentCountry !== 'India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
                 (click)="checkout('stripe')">
                 Checkout
               </button>
