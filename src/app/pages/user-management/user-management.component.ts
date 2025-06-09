@@ -74,7 +74,8 @@ export class UserManagementComponent implements OnInit {
 	submitName: any = "Edit"
 	editLabelIsShow: boolean = true;
 	imageWhiteLabelDomainName: any;
-	userTypeId: boolean = true
+	userTypeId: boolean = true;
+	googleSignOrNot: boolean = false;
 	constructor(private authService: AuthService, private formBuilder: FormBuilder,
 		private locationService: LocationService, private toast: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
@@ -109,10 +110,11 @@ export class UserManagementComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.userTypeId = this.authService._user?.student_type_id === 2
+		this.googleSignOrNot = this.authService._user?.social_password != 1
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.imageWhiteLabelDomainName = data.source
 			this.editLabelIsShow = this.imageWhiteLabelDomainName === "Uniprep" ||
-			this.imageWhiteLabelDomainName === "Partner"
+				this.imageWhiteLabelDomainName === "Partner"
 		})
 		this.dateTime.setDate(this.dateTime.getDate())
 		this.getCountryList();
@@ -131,7 +133,6 @@ export class UserManagementComponent implements OnInit {
 			this.hideToolTip = false
 		}, 10000)
 	}
-
 	// new code
 	getMonthName(monthNumber: any) {
 		const date = new Date()
@@ -240,7 +241,7 @@ export class UserManagementComponent implements OnInit {
 				location_id: this.PersonalInfo?.location_id,
 				home_country: this.PersonalInfo?.home_country_id == null ? null : Number(this.PersonalInfo?.country),
 				last_degree_passing_year: this.PersonalInfo?.last_degree_passing_year,
-				 phone: `${this.PersonalInfo?.country_code || ''} ${this.PersonalInfo?.phone || ''}`,
+				phone: `${this.PersonalInfo?.country_code || ''} ${this.PersonalInfo?.phone || ''}`,
 				email: this.PersonalInfo?.email,
 				current_education: this.PersonalInfo?.programlevel
 			})
