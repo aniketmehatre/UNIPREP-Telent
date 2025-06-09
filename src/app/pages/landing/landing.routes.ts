@@ -1,18 +1,18 @@
-import {Routes} from '@angular/router';
-import {AuthGuard} from 'src/app/Auth/auth.guard';
-import {CoBrandedComponent} from 'src/app/Auth/co-branded/co-branded.component';
-import {ForgotPasswordComponent} from 'src/app/Auth/forgot-password/forgot-password.component';
-import {LoginComponent} from 'src/app/Auth/login/login.component';
-import {RegistrationComponent} from 'src/app/Auth/registration/registration.component';
-import {SetpasswordComponent} from 'src/app/Auth/setpassword/setpassword.component';
-import {VerificationComponent} from 'src/app/Auth/verification/verification.component';
+import { Routes } from '@angular/router';
+import { AuthGuard } from 'src/app/Auth/auth.guard';
+import { CoBrandedComponent } from 'src/app/Auth/co-branded/co-branded.component';
+import { ForgotPasswordComponent } from 'src/app/Auth/forgot-password/forgot-password.component';
+import { LoginComponent } from 'src/app/Auth/login/login.component';
+import { RegistrationComponent } from 'src/app/Auth/registration/registration.component';
+import { SetpasswordComponent } from 'src/app/Auth/setpassword/setpassword.component';
+import { VerificationComponent } from 'src/app/Auth/verification/verification.component';
 import {
     EnterpriseSubscriptionComponent
 } from 'src/app/components/enterprise-subscription/enterprise-subscription.component';
-import {UserResolver} from 'src/app/resolvers/user.resolver';
-import {CertificatesComponent} from '../certificates/certificates.component';
-import {PrivacyComponent} from '../privacy/privacy.component';
-import {LandingComponent} from './landing.component';
+import { UserResolver } from 'src/app/resolvers/user.resolver';
+import { CertificatesComponent } from '../certificates/certificates.component';
+import { PrivacyComponent } from '../privacy/privacy.component';
+import { LandingComponent } from './landing.component';
 
 export const landingRoutes: Routes = [
     {
@@ -27,16 +27,16 @@ export const landingRoutes: Routes = [
         path: 'partner',
         loadChildren: () => import('../landing-partner/landing-partner.module').then(c => c.LandingPartnerModule)
     },
-    {path: "co", component: CoBrandedComponent},
-    {path: "students/login", component: LoginComponent},
-    {path: "register", component: RegistrationComponent},
-    {path: "login", component: LoginComponent},
-    {path: "privacy", component: PrivacyComponent},
-    {path: "certificates", component: CertificatesComponent},
-    {path: "enterprisepayment/:id", component: EnterpriseSubscriptionComponent},
-    {path: "forgot-password", component: ForgotPasswordComponent},
-    {path: "verification/:email", component: VerificationComponent},
-    {path: "setpassword/:otp/:email", component: SetpasswordComponent},
+    { path: "co", component: CoBrandedComponent },
+    { path: "students/login", component: LoginComponent },
+    { path: "register", component: RegistrationComponent },
+    { path: "login", component: LoginComponent },
+    { path: "privacy", component: PrivacyComponent },
+    { path: "certificates", component: CertificatesComponent },
+    { path: "enterprisepayment/:id", component: EnterpriseSubscriptionComponent },
+    { path: "forgot-password", component: ForgotPasswordComponent },
+    { path: "verification/:email", component: VerificationComponent },
+    { path: "setpassword/:otp/:email", component: SetpasswordComponent },
 
     {
         path: 'talent',

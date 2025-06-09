@@ -89,13 +89,18 @@ export class RegistrationComponent implements OnInit {
             this.imageUrlWhitelabel = data.logo
         })
         this.authService.authState.subscribe((user) => {
+            console.log('comees');
+
             this.service.googlesignUp(user).subscribe(
                 (data) => {
-                    if (data.token) {
-                        this.storage.set(environment.tokenKey, data.token)
-                    } else {
-                        this.storage.set(environment.tokenKey, data?.authorisation?.token)
-                    }
+                    this.storage.set(environment.tokenKey, data?.authorisation?.token);
+                    this.service.saveToken(data?.authorisation?.token);
+                    this.authTokenService.setToken(data?.authorisation?.token);
+                    // if (data.token) {
+                    //     this.storage.set(environment.tokenKey, data.token)
+                    // } else {
+                    //     this.storage.set(environment.tokenKey, data?.authorisation?.token)
+                    // }
                     this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
                 },
                 (error: any) => {

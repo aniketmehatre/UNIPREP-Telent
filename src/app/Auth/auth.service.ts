@@ -205,6 +205,7 @@ export class AuthService {
 
   getMe(): Observable<any> {
     const token = this.getToken();
+
     if (!token) {
       this.logout().subscribe();
       return throwError(() => new Error('No authentication token'));
@@ -223,7 +224,7 @@ export class AuthService {
         if (!response?.userdetails?.[0]) {
           throw new Error('Invalid response format');
         }
-       this.user= response.userdetails[0];
+        this.user = response.userdetails[0];
         this.storeUserData(this.user);
         return response;
       }),
