@@ -106,10 +106,56 @@
 			</div>
 		</div>
 	</div>
+	<div class="container-fluid h-100 d-flex gap-2" *ngIf="activePageIndex == 6">
+		<div class="col-md-6 d-flex flex-column">
+			<div *ngIf="!profileOverViewContent; else showResponseData" class="card p-3 chatgpt-response bg-white overflow-y-auto h-100">
+				<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+				<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+				<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+				<p-skeleton width='90%' height='1rem' styleClass="mb-2"></p-skeleton>
+				<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+				<p-skeleton width='95%' height='1rem' styleClass="mb-2"></p-skeleton>
+				<p-skeleton width='50%' height='1rem'></p-skeleton>
+				<div class="divider"></div>
+				<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+				<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+				<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+				<div class="d-flex justify-content-end">
+					<uni-percentage-loader />
+				</div>
+			</div>
+			<ng-template #showResponseData>
+				<div class="flex-fill overflow-y-auto">
+					<div class="profile-content" [innerHTML]="profileOverViewContent"></div>
+				</div>
+			</ng-template>
+			<div class="d-flex justify-content-between">
+				<button pButton type="button" (click)="activePageIndex=2"
+					class="btn btn-primary btn-rounded p-1 ps-4">
+					<span class="me-2">Edit</span><span class="btn-icon px-2 py-2"><i
+							class="fa-solid fa-arrow-left"></i></span>
+				</button>
+				<button pButton type="button" *ngIf="profileOverViewContent" (click)="next()"
+					class="btn btn-primary btn-rounded p-1 ps-4">
+					<span class="me-2">Preview</span><span class="btn-icon px-2 py-2"><i
+							class="fa-solid fa-check"></i></span>
+				</button>
+			</div>
+		</div>
+		<div class="col-md-6 overflow-y-auto card">
+			<ng-container *ngTemplateOutlet="previewHeader"></ng-container>
+			<div class="card-body overflow-y-auto">
+				<div class="previewcontainer">
+					<div class="previewbody">
+						<ng-container *ngTemplateOutlet="sharedContent"></ng-container>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="container-fluid h-100 d-flex flex-column" *ngIf="activePageIndex == 2">
 		<div class="row flex-fill overflow-hidden">
-			<div *ngIf="!isReviewContent; else showReview"
-				class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
+			<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
 				<div class="flex-fill overflow-y-auto" *ngIf="moduleActiveIndex == 0">
 					<form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
 						<ng-container>
@@ -1350,84 +1396,30 @@
 					</form>
 				</div>
 				<div class="d-flex justify-content-between align-items-center">
-					<p-progressbar [value]="progress" class="w-75 mt-2" />
-					<button pButton type="button" (click)="resumeFormSubmit()"
-						class="btn btn-primary btn-rounded p-1 ps-4">
-						<span class="me-2">AI Summary</span><span class="btn-icon px-2 py-2"><i
-								class="fa-solid fa-arrow-right"></i></span>
-					</button>
+					<div style="width:58%;">
+						<p-progressbar [value]="progress" class="w-75 mt-2" />
+					</div>
+					<div class="d-flex justify-content-around" style="width:40%;">
+						<div>
+							<button pButton type="button" (click)="onProfileReview()"
+								class="btn btn-rounded p-1 ps-4 aiReviewBtn">
+								<span class="me-2">AI Review</span><span class="ai-btn-icon px-2 py-2"><i
+										class="fa-solid fa-microchip-ai"></i></span>
+							</button>
+						</div>
+						<div>
+							<button pButton type="button" (click)="resumeFormSubmit()"
+								class="btn btn-primary btn-rounded p-1 ps-4">
+								<span class="me-2">Create CV</span><span class="btn-icon px-2 py-2"><i
+										class="fa-solid fa-arrow-right"></i></span>
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
-			<ng-template #showReview>
-				<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
-					<div *ngIf="!profileOverViewContent; else showResponseData"
-						class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
-						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
-						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-						<p-skeleton width='90%' height='1rem' styleClass="mb-2"></p-skeleton>
-						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-						<p-skeleton width='95%' height='1rem' styleClass="mb-2"></p-skeleton>
-						<p-skeleton width='50%' height='1rem'></p-skeleton>
-						<div class="divider"></div>
-						<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
-						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-						<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-						<div class="d-flex justify-content-end">
-							<uni-percentage-loader />
-						</div>
-					</div>
-					<ng-template #showResponseData>
-						<div class="flex-fill overflow-y-auto">
-							<div class="profile-content" [innerHTML]="profileOverViewContent"></div>
-						</div>
-					</ng-template>
-					<div class="d-flex justify-content-between">
-						<button pButton type="button" (click)="isReviewContent=false"
-							class="btn btn-primary btn-rounded p-1 ps-4">
-							<span class="me-2">Edit</span><span class="btn-icon px-2 py-2"><i
-									class="fa-solid fa-arrow-left"></i></span>
-						</button>
-						<button pButton type="button" *ngIf="profileOverViewContent" (click)="next()"
-							class="btn btn-primary btn-rounded p-1 ps-4">
-							<span class="me-2">Preview</span><span class="btn-icon px-2 py-2"><i
-									class="fa-solid fa-check"></i></span>
-						</button>
-					</div>
-				</div>
-			</ng-template>
 			<div class="col-md-6 h-100">
 				<div class="card h-100">
-					<div class="card-header d-flex justify-content-between align-items-center border-0 bg-transparent">
-						<h4 class="uniprep-primary mb-0">Preview</h4>
-						<div class="d-flex gap-2 align-items-center">
-							<span class="templateButton gap-2">Template
-								<div class="template-dropdown position-relative">
-									<span class="templateName">{{ selectedResumeLevel }} <i
-											class="fa fa-caret-down"></i></span>
-									<div class="template-dropdown-content">
-										<a class="cursorPointer"
-											[ngClass]="{ activeTemplate: selectedResumeLevel === 'Traditional' }"
-											(click)="imgOnclick('Traditional')">Traditional</a>
-										<a class="cursorPointer"
-											[ngClass]="{ activeTemplate: selectedResumeLevel === 'Creative' }"
-											(click)="imgOnclick('Creative')">Creative</a>
-										<a class="cursorPointer"
-											[ngClass]="{ activeTemplate: selectedResumeLevel === 'Modern' }"
-											(click)="imgOnclick('Modern')">Modern</a>
-										<a class="cursorPointer"
-											[ngClass]="{ activeTemplate: selectedResumeLevel === 'Functional' }"
-											(click)="imgOnclick('Functional')">Functional</a>
-										<a class="cursorPointer"
-											[ngClass]="{ activeTemplate: selectedResumeLevel === 'Academic' }"
-											(click)="imgOnclick('Academic')">Academic</a>
-									</div>
-								</div>
-							</span>
-							<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
-						</div>
-						<i class="fa-sharp fa-solid fa-expand" role="button" (click)="toggleFullScreen()"></i>
-					</div>
+					<ng-container *ngTemplateOutlet="previewHeader"></ng-container>
 					<div class="card-body overflow-y-auto">
 						<div class="previewcontainer">
 							<div class="previewbody">
@@ -1442,37 +1434,8 @@
 
 	<p-sidebar [(visible)]="fullScreenVisible" [fullScreen]="true" [showCloseIcon]="false">
 		<div class="col-md-12 h-100">
-			<div class="card h-100 border-0">
-				<div class="card-header cvPreview border-0 rounded-0">
-					<h4 class="mb-0">CV Preview</h4>
-					<div class="d-flex gap-2 align-items-center">
-						<span class="templateButton gap-2">Template
-							<div class="template-dropdown position-relative">
-								<span class="templateName">{{ selectedResumeLevel }} <i
-										class="fa fa-caret-down"></i></span>
-								<div class="template-dropdown-content">
-									<a class="cursorPointer"
-										[ngClass]="{ activeTemplate: selectedResumeLevel === 'Traditional' }"
-										(click)="imgOnclick('Traditional')">Traditional</a>
-									<a class="cursorPointer"
-										[ngClass]="{ activeTemplate: selectedResumeLevel === 'Creative' }"
-										(click)="imgOnclick('Creative')">Creative</a>
-									<a class="cursorPointer"
-										[ngClass]="{ activeTemplate: selectedResumeLevel === 'Modern' }"
-										(click)="imgOnclick('Modern')">Modern</a>
-									<a class="cursorPointer"
-										[ngClass]="{ activeTemplate: selectedResumeLevel === 'Functional' }"
-										(click)="imgOnclick('Functional')">Functional</a>
-									<a class="cursorPointer"
-										[ngClass]="{ activeTemplate: selectedResumeLevel === 'Academic' }"
-										(click)="imgOnclick('Academic')">Academic</a>
-								</div>
-							</div>
-						</span>
-						<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
-					</div>
-					<i class="fa-sharp fa-solid fa-compress" role="button" (click)="toggleFullScreen()"></i>
-				</div>
+			<div class="card h-100 border-0" style="background-color: #3f4c83 !important;">
+				<ng-container *ngTemplateOutlet="previewHeader"></ng-container>
 				<div class="card-body overflow-y-auto" style="background-color: #3f4c83">
 					<div class="row justify-content-center">
 						<div class="col-md-5">
@@ -1488,6 +1451,38 @@
 		</div>
 	</p-sidebar>
 
+	<ng-template #previewHeader>
+		<div class="card-header d-flex justify-content-between align-items-center border-0 bg-transparent">
+			<h4 class="uniprep-primary mb-0">Preview</h4>
+			<div class="d-flex gap-2 align-items-center">
+				<span class="templateButton gap-2">Template
+					<div class="template-dropdown position-relative">
+						<span class="templateName">{{ selectedResumeLevel }} <i
+								class="fa fa-caret-down"></i></span>
+						<div class="template-dropdown-content">
+							<a class="cursorPointer"
+								[ngClass]="{ activeTemplate: selectedResumeLevel === 'Traditional' }"
+								(click)="imgOnclick('Traditional')">Traditional</a>
+							<a class="cursorPointer"
+								[ngClass]="{ activeTemplate: selectedResumeLevel === 'Creative' }"
+								(click)="imgOnclick('Creative')">Creative</a>
+							<a class="cursorPointer"
+								[ngClass]="{ activeTemplate: selectedResumeLevel === 'Modern' }"
+								(click)="imgOnclick('Modern')">Modern</a>
+							<a class="cursorPointer"
+								[ngClass]="{ activeTemplate: selectedResumeLevel === 'Functional' }"
+								(click)="imgOnclick('Functional')">Functional</a>
+							<a class="cursorPointer"
+								[ngClass]="{ activeTemplate: selectedResumeLevel === 'Academic' }"
+								(click)="imgOnclick('Academic')">Academic</a>
+						</div>
+					</div>
+				</span>
+				<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
+			</div>
+			<i class="fa-sharp fa-solid fa-expand" role="button" (click)="toggleFullScreen()"></i>
+		</div>
+	</ng-template>
 	<ng-template #colorPickerContent>
 		<div class="dropdown">
 			<div class="colorDiv d-flex colorButton align-items-center gap-2">
@@ -1673,14 +1668,16 @@
 								<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
 									<div class="row">
 										<div class="col-3">
-											<p class="fw-500">{{ exp.value.work_start_year }} {{ exp.value.work_start_month }} {{
+											<p class="fw-500">{{ exp.value.work_start_year }} {{
+												exp.value.work_start_month }} {{
 												exp.value.work_end_year ? " - " + exp.value.work_end_year + " " +
 												exp.value.work_end_month : "" }}</p>
 										</div>
 										<div class="col-9">
 											<p class="text-uppercase fw-semibold">{{ exp.value.work_designation }} {{
 												exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
-											<p class="italic font-12 text-uppercase">{{ exp.value.work_org_name }} - {{ exp.value.work_location }}</p>
+											<p class="italic font-12 text-uppercase">{{ exp.value.work_org_name }} - {{
+												exp.value.work_location }}</p>
 											<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
 										</div>
 									</div>
@@ -1698,7 +1695,8 @@
 										</div>
 										<div class="col-9">
 											<p class="text-uppercase fw-medium">{{ edu.value.edu_degree }}</p>
-											<p class="italic">{{ edu.value.edu_college_name }} - {{ edu.value.edu_location }}</p>
+											<p class="italic">{{ edu.value.edu_college_name }} - {{
+												edu.value.edu_location }}</p>
 											<p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
 										</div>
 									</div>
@@ -1785,14 +1783,16 @@
 								<div class="experienceItem" *ngFor="let exp of getWorkExpArray.controls">
 									<div class="row">
 										<div class="col-3">
-											<p class="fw-semibold">{{ exp.value.work_start_year }} {{ exp.value.work_start_month }} {{
+											<p class="fw-semibold">{{ exp.value.work_start_year }} {{
+												exp.value.work_start_month }} {{
 												exp.value.work_end_year ? " - " + exp.value.work_end_year + " " +
 												exp.value.work_end_month : "" }}</p>
 										</div>
 										<div class="col-9">
 											<p class="text-uppercase fw-semibold">{{ exp.value.work_designation }} {{
 												exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
-											<p class="italic font-12 text-uppercase">{{ exp.value.work_org_name }} - {{ exp.value.work_location }}</p>
+											<p class="italic font-12 text-uppercase">{{ exp.value.work_org_name }} - {{
+												exp.value.work_location }}</p>
 											<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
 										</div>
 									</div>
@@ -1808,7 +1808,8 @@
 										</div>
 										<div class="col-9">
 											<p class="text-uppercase fw-medium">{{ edu.value.edu_degree }}</p>
-											<p class="italic">{{ edu.value.edu_college_name }} - {{ edu.value.edu_location }}</p>
+											<p class="italic">{{ edu.value.edu_college_name }} - {{
+												edu.value.edu_location }}</p>
 											<p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
 										</div>
 									</div>
@@ -1928,7 +1929,8 @@
 										<div class="col-9">
 											<p class="text-uppercase fw-semibold">{{ exp.value.work_designation }} {{
 												exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
-											<p class="italic font-12 text-uppercase">{{ exp.value.work_org_name }} - {{ exp.value.work_location }}</p>
+											<p class="italic font-12 text-uppercase">{{ exp.value.work_org_name }} - {{
+												exp.value.work_location }}</p>
 											<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
 										</div>
 									</div>
@@ -1945,7 +1947,8 @@
 										</div>
 										<div class="col-9">
 											<p class="text-uppercase fw-medium">{{ edu.value.edu_degree }}</p>
-											<p class="italic">{{ edu.value.edu_college_name }} - {{ edu.value.edu_location }}</p>
+											<p class="italic">{{ edu.value.edu_college_name }} - {{
+												edu.value.edu_location }}</p>
 											<p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
 										</div>
 									</div>
@@ -2227,7 +2230,8 @@
 										<div class="col-9">
 											<p class="text-uppercase fw-semibold">{{ exp.value.work_designation }} {{
 												exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
-											<p class="italic font-12 text-uppercase">{{ exp.value.work_org_name }} - {{ exp.value.work_location }}</p>
+											<p class="italic font-12 text-uppercase">{{ exp.value.work_org_name }} - {{
+												exp.value.work_location }}</p>
 											<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
 										</div>
 									</div>
@@ -2246,7 +2250,8 @@
 										</div>
 										<div class="col-9">
 											<p class="text-uppercase fw-medium">{{ edu.value.edu_degree }}</p>
-											<p class="italic">{{ edu.value.edu_college_name }} - {{ edu.value.edu_location }}</p>
+											<p class="italic">{{ edu.value.edu_college_name }} - {{
+												edu.value.edu_location }}</p>
 											<p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
 										</div>
 									</div>
@@ -2343,7 +2348,8 @@
 										<div class="col-9">
 											<p class="text-uppercase fw-semibold">{{ exp.value.work_designation }} {{
 												exp.value.work_type ? " - " + exp.value.work_type : "" }}</p>
-											<p class="italic font-12 text-uppercase">{{ exp.value.work_org_name }} - {{ exp.value.work_location }}</p>
+											<p class="italic font-12 text-uppercase">{{ exp.value.work_org_name }} - {{
+												exp.value.work_location }}</p>
 											<p class="small-text" [innerHTML]="exp.value.work_job_description"></p>
 										</div>
 									</div>
@@ -2360,7 +2366,8 @@
 										</div>
 										<div class="col-9">
 											<p class="text-uppercase fw-medium">{{ edu.value.edu_degree }}</p>
-											<p class="italic">{{ edu.value.edu_college_name }} - {{ edu.value.edu_location }}</p>
+											<p class="italic">{{ edu.value.edu_college_name }} - {{
+												edu.value.edu_location }}</p>
 											<p>{{ edu.value.edu_percentage }} {{ edu.value.edu_cgpa_percentage }}</p>
 										</div>
 									</div>

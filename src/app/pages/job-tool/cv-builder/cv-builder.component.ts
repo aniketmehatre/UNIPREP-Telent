@@ -230,7 +230,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   filteredExpeAndEduLocations: { [key: number]: any[] } = {};
   pdfThumbnails: { [key: string]: string } = {};
   profileOverViewContent: SafeHtml = '';
-  isReviewContent: boolean = false;
   userSummaryWordCount: number = 0;
   jobDescriptionWordCount: number[] = [];
 
@@ -268,15 +267,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     });
     this.onChangesFormValues();
   }
-
-  // onFocusOut() {
-  //   setTimeout(() => {
-  //     this.filteredJobs = [];
-  //     this.filteredDesignations = [];
-  //     this.filteredLocations = [];
-  //     this.filteredExpeAndEduLocations = [];
-  //   }, 200); // Delay clearing the dropdown by 200 milliseconds
-  // }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -324,28 +314,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     // }
   }
 
-  // onError(error: any) {
-  //   console.error('PDF loading error:', error);
-  //   this.pdfLoadError = true;
-  // }
-
-  // pdfViewLoader() {
-  //   try {
-  //     if (!this.pdfUrl) {
-  //       throw new Error('No PDF URL provided');
-  //     }
-
-  //     const encodedUrl = encodeURI(this.pdfUrl);
-  //     if (this.pdfViewer) {
-  //       this.pdfViewer.pdfSrc = encodedUrl;
-  //       this.pdfViewer.refresh();
-  //     }
-  //   } catch (error) {
-  //     console.error('Error loading PDF:', error);
-  //     this.pdfLoadError = true;
-  //   }
-  // }
-
   getUserDetails() {
     let userDetails = this.authService._user;
     // let location = userDetails?.district + ', ' + userDetails?.state;
@@ -384,22 +352,9 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     }
     this.getOccupationList();
 
-    // Load PDF.js library
-    // if (!document.getElementById('pdfjs-script')) {
-    //   const script = document.createElement('script');
-    //   script.id = 'pdfjs-script';
-    //   script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-    //   script.onload = () => {
-    //     // Set worker source
-    //     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    //   };
-    //   document.body.appendChild(script);
-    // }
-
     this.resumeFormInfoData.valueChanges.subscribe(() => {
       this.updateProgress();
     });
-    // this.clickAddMoreButton('education_detail');
   }
 
   getLocationsList() {
@@ -433,7 +388,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     const exists = this.occupationList.some(
       (job: any) => job.jobrole.toLowerCase() === customValue.toLowerCase()
     );
-    console.log(customValue, "inputs");
     if (exists) {
       this.toaster.add({
         severity: 'warn',
@@ -527,7 +481,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
             const workEndMonthControl = activity.work_currently_working == true ? [workEndMonth] : [workEndMonth, Validators.required];
             this.getWorkExpArray.push(
               this.fb.group({
-                work_org_name: [activity.work_org_name,[Validators.required, maxCharactersValidator(40)]],
+                work_org_name: [activity.work_org_name, [Validators.required, maxCharactersValidator(40)]],
                 work_currently_working: [activity.work_currently_working],
                 work_start_year: [activity.work_start_year, Validators.required],
                 work_start_month: [activity.work_start_month, Validators.required],
@@ -616,14 +570,23 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           });
           this.filledFields.push("language_known");
         }
+        //in this place city is not loading.because lot of cities are there. it showing empty array. so i put settimeout.
+        setTimeout(() => {
+          let countryExist = this.cities.find((item) => item.country_name == storedValues.user_location);
+          //if country not exist we should remove the country.
+          if (countryExist === undefined) {
+            this.resumeFormInfoData.patchValue({ user_location: ""});
+          }
+        }, 500);
+        
       } else {
         this.getUserDetails();
       }
     });
   }
 
-  hideFields(filedName: string){
-    if(!this.hidingHeaders.includes(filedName)){
+  hideFields(filedName: string) {
+    if (!this.hidingHeaders.includes(filedName)) {
       this.hidingHeaders.push(filedName);
     }
   }
@@ -742,18 +705,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     return this.resumeFormInfoData.controls;
   }
 
-  // changeExperience() {
-  //   const expLevel = this.resumeFormInfoData.value.selected_exp_level;
-  //   if (expLevel == 1) {
-  //     this.eduDetailsLimit = 3;
-  //     // this.wrkExpLimit = 2;
-  //   } else {
-  //     this.eduDetailsLimit = 3;
-  //     // this.wrkExpLimit = 3;
-  //   }
-  //   this.updateValidatorsForAllProjects();
-  // }
-
   updateProgress(): void {
     const form = this.resumeFormInfoData;
     let total = 0;
@@ -829,66 +780,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     formGroup.get("project_description")?.updateValueAndValidity();
   }
 
-
-  // fieldNextButton() {
-  // this.storeUserFilledData();
-  // this.moduleActiveIndex++;
-  // if (this.moduleActiveIndex > 0) {
-  //   this.moduleActiveIndex--;
-  //   this.activePageIndex++;
-  //   // this.filledFields.push("skills", "language_known");
-  //   return;
-  // }
-  // const fieldNameArray: string[] = [];
-
-  // switch (this.moduleActiveIndex) {
-  //   case 1:
-  //     if (this.getWorkExpArray.length === 0 && !this.hidingHeaders.includes("work_experience")) {
-  //       fieldNameArray.push("work_experience");
-  //     }
-  //     break;
-
-  //   case 2:
-  //     this.filledFields.push("work_experience");
-  //     if (this.getEduDetailsArray.length === 0 && !this.hidingHeaders.includes("education_detail")) {
-  //       fieldNameArray.push("education_detail");
-  //     }
-  //     if (this.resumeFormInfoData.value.selected_exp_level == 1 && this.getProjectDetailsArray.length === 0 && !this.hidingHeaders.includes("project_details")) {
-  //       fieldNameArray.push("project_details");
-  //     }
-  //     break;
-
-  //   case 3:
-  //     this.filledFields.push("education_detail", "project_details");
-  //     if (this.getCertificatesArray.length === 0 && !this.hidingHeaders.includes("certificate")) {
-  //       fieldNameArray.push("certificate");
-  //     }
-  //     if (this.getExtraCurricularArray.length === 0 && !this.hidingHeaders.includes("extra_curricular")) {
-  //       fieldNameArray.push("extra_curricular");
-  //     }
-  //     break;
-
-  //   case 4:
-  //     this.filledFields.push("certificate", "extra_curricular");
-  //     if (this.getSkillsArray.length === 0 && !this.hidingHeaders.includes("skills")) {
-  //       fieldNameArray.push("skills");
-  //     }
-  //     if (this.getLanguagesKnownArray.length === 0 && !this.hidingHeaders.includes("language_known")) {
-  //       fieldNameArray.push("language_known");
-  //     }
-  //     this.clickedDownloadButton = false;
-  //     break;
-
-  //   default:
-  //     break;
-  // }
-  // if (fieldNameArray.length > 0) {
-  //   fieldNameArray.forEach((element: string) => {
-  //     this.clickAddMoreButton(element);
-  //   });
-  // }
-  // }
-
   storeUserFilledData() {
     let formData = this.resumeFormInfoData.value;
     let data = {
@@ -910,6 +801,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.moduleActiveIndex--;
     }
   }
+
   resumeFormSubmit() {
     const visibleFormControls = this.getVisibleFormControls();
     const visibleFormControls1 = this.getVisibleFormControls1();
@@ -935,10 +827,11 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       visibleFormControls.forEach((control) => control.markAsTouched());
     }
     else {
-      this.onProfileReview();
       this.storeUserFilledData();
+      this.activePageIndex = 3;
     }
   }
+
   getVisibleFormControls1() {
     const controls: AbstractControl[] = [];
     let controlNames: string[] = [];
@@ -1096,7 +989,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     }
     if (this.activePageIndex == 0) {
       this.ngAfterViewInit();
-      this.isReviewContent = false;
+      // this.isReviewContent = false;
       this.profileOverViewContent = "";
     }
     this.activePageIndex++;
@@ -1120,12 +1013,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   previousResumes() {
     this.resumeService.getAlreadyCreatedResumes().subscribe((res: ResumeHistory[]) => {
       this.resumeHistory = res;
-      // Load thumbnails for all PDFs immediately
-      // this.resumeHistory.forEach((resume: ResumeHistory) => {
-      //   if (resume.pdf_name) {
-      //     this.loadPdfThumbnail(resume.pdf_name);
-      //   }
-      // });
     });
   }
 
@@ -1156,7 +1043,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   get getCertificatesArray(): FormArray {
     return this.resumeFormInfoData.get("certificatesArray") as FormArray;
   }
-
+  
   clickAddMoreButton(fieldName: string) {
     this.submitted = false;
     if (fieldName == "education_detail") {
@@ -1169,7 +1056,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
           edu_degree: ["", [Validators.required, maxCharactersValidator(40)]],
           edu_location: ["", [Validators.required]],
           edu_percentage: ["", Validators.required],
-          edu_cgpa_percentage: ["CGPA", Validators.required],
+          edu_cgpa_percentage: ["", Validators.required],
         })
       );
       this.removeHideHeaderElement("education_detail");
@@ -1269,23 +1156,23 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.getLanguagesKnownArray.removeAt(index);
       this.checkLanguageDuplication();
       if (this.getLanguagesKnownArray.length === 0) {
-         this.hideFields("language_known");
+        this.hideFields("language_known");
       }
     } else if (fieldName == "skills") {
       this.getSkillsArray.removeAt(index);
       this.checkSkillsDuplilcation();
       if (this.getSkillsArray.length === 0) {
-         this.hideFields("skills");
+        this.hideFields("skills");
       }
     } else if (fieldName == "extra_curricular") {
       this.getExtraCurricularArray.removeAt(index);
       if (this.getExtraCurricularArray.length === 0) {
-         this.hideFields("extra_curricular");
+        this.hideFields("extra_curricular");
       }
     } else if (fieldName == "certificate") {
       this.getCertificatesArray.removeAt(index);
       if (this.getCertificatesArray.length === 0) {
-         this.hideFields("certificate");
+        this.hideFields("certificate");
       }
     }
   }
@@ -1547,6 +1434,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       console.error(`Form group at index ${index} does not exist.`);
     }
   }
+
   projectYearChange(index: number) {
     const formArray = this.getProjectDetailsArray as FormArray;
     const formGroupAtIndex = formArray.at(index) as FormGroup;
@@ -1568,47 +1456,9 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     return this.monthList.indexOf(month) + 1; // January should be 1, February 2, etc.
   }
 
-  // loadPdfThumbnail(pdfUrl: string): void {
-  //   if (this.pdfThumbnails[pdfUrl]) {
-  //     return; // Already loaded
-  //   }
-
-  //   // Create canvas and load PDF
-  //   const canvas = document.createElement('canvas');
-  //   const context = canvas.getContext('2d');
-  //   if (!context) {
-  //     console.error('Could not get canvas context');
-  //     return;
-  //   }
-
-  //   // Load the PDF document
-  //   pdfjsLib.getDocument(pdfUrl).promise.then((pdf: any) => {
-  //     pdf.getPage(1).then((page: any) => {
-  //       const viewport = page.getViewport({ scale: 0.5 });
-  //       canvas.height = viewport.height;
-  //       canvas.width = viewport.width;
-
-  //       page.render({
-  //         canvasContext: context,
-  //         viewport: viewport
-  //       }).promise.then(() => {
-  //         this.pdfThumbnails[pdfUrl] = canvas.toDataURL('image/jpeg');
-  //       }).catch((error: Error) => {
-  //         console.error('Error rendering PDF page:', error);
-  //         this.pdfLoadError = true;
-  //       });
-  //     }).catch((error: Error) => {
-  //       console.error('Error getting PDF page:', error);
-  //       this.pdfLoadError = true;
-  //     });
-  //   }).catch((error: Error) => {
-  //     console.error('Error loading PDF:', error);
-  //     this.pdfLoadError = true;
-  //   });
-  // }
-
   onProfileReview() {
-    this.isReviewContent = true;
+    // this.isReviewContent = true;
+    this.activePageIndex = 6;
     this.profileOverViewContent = "";
     let formData = this.resumeFormInfoData.value;
     let data: any = {
