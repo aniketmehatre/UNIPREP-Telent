@@ -77,11 +77,6 @@ export class CompanyTracker1Component {
     this.selectedJobId = event.id;
   }
 
-
-  upgradePlan() {
-
-  }
-
   onDialogOpen() {
     this.loadApiData();
   }
@@ -111,9 +106,6 @@ export class CompanyTracker1Component {
     console.log(this.companyForm.value)
   }
 
-  clearFilter() {
-
-  }
   onStudentIdRelay(id: number) {
     this.studentIdForList = id;
   }
