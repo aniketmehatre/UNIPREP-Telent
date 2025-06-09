@@ -288,7 +288,7 @@ export class UserManagementComponent implements OnInit {
 		this.dashboardService.sentEmailForInviteUniPrep(data).subscribe({
 			next: (data: any) => {
 				this.toast.add({ severity: 'success', summary: 'Success', detail: data.message });
-				this.sendInvite = ""
+				this.sendInvite = "";
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
