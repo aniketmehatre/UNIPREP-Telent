@@ -94,7 +94,7 @@ export class EasyApplyComponent {
 
   getCountries() {
     this.talentConnectService.getEasyApplyWorkLocationList().subscribe(data => {
-      this.locations = data.worklocations;
+      this.locations = [{ id: 0, work_location: "Any" }, ...data.worklocations];
     });
   }
 
@@ -143,7 +143,6 @@ export class EasyApplyComponent {
       this.workModes = data?.workmode;
       this.employmentTypes = data?.employmenttype;
       this.currencies = data?.currencycode;
-      this.locations = data?.locations;
     });
   }
 

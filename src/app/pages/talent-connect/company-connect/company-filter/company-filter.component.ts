@@ -34,9 +34,6 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    // this.route.params.subscribe(data => {
-    //   console.log(data);
-    // });
     this.companyForm = this.fb.group({
       companyname: [],
       industrytype: [[]], // Array values

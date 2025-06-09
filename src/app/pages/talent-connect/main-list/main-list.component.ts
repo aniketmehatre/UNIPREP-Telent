@@ -50,25 +50,7 @@ export class MainListComponent implements OnInit {
                 navigate_title: 'Connect',
                 navigate_url: '/pages/talent-connect/company-connect',
                 launch_soon: false,
-            },
-            // {
-            //     id: 4,
-            //     title: "Job Tracker",
-            //     image: this.domainUrl + "TripLengthFinder.svg",
-            //     value: '1 M+ JOBS',
-            //     navigate_title: 'Track',
-            //     navigate_url: '/pages/talent-connect/job-tracker',
-            //     launch_soon: false,
-            // },
-            // {
-            //     id: 5,
-            //     title: "Company Tracker",
-            //     image: this.domainUrl + "TripLengthFinder.svg",
-            //     value: '1 M+ JOBS',
-            //     navigate_title: 'Track',
-            //     navigate_url: '/pages/talent-connect/company-tracker',
-            //     launch_soon: false,
-            // }
+            }
         ]
     }
 
@@ -76,7 +58,7 @@ export class MainListComponent implements OnInit {
         this.checkIfProfileCreated();
     }
 
-    private checkIfProfileCreated() {
+    checkIfProfileCreated() {
         this.isLoading = true;
         this.talentConnectService.getMyProfileData().subscribe({
             next: response => {
@@ -127,7 +109,7 @@ export class MainListComponent implements OnInit {
         } else {
             if (moduleId == 1) {
                 this.router.navigate([url, this.profileData[0].id]);
-            } 
+            }
             else {
                 this.router.navigateByUrl(url);
             }
