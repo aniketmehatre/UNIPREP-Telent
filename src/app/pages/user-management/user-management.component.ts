@@ -75,7 +75,6 @@ export class UserManagementComponent implements OnInit {
 	editLabelIsShow: boolean = true;
 	imageWhiteLabelDomainName: any;
 	userTypeId: boolean = true;
-	googleSignOrNot: boolean = false;
 	constructor(private authService: AuthService, private formBuilder: FormBuilder,
 		private locationService: LocationService, private toast: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
@@ -110,7 +109,6 @@ export class UserManagementComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.userTypeId = this.authService._user?.student_type_id === 2
-		this.googleSignOrNot = this.authService._user?.social_password != 1
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.imageWhiteLabelDomainName = data.source
 			this.editLabelIsShow = this.imageWhiteLabelDomainName === "Uniprep" ||
