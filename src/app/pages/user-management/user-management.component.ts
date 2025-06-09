@@ -74,7 +74,7 @@ export class UserManagementComponent implements OnInit {
 	submitName: any = "Edit"
 	editLabelIsShow: boolean = true;
 	imageWhiteLabelDomainName: any;
-	userTypeId: boolean = true
+	userTypeId: boolean = true;
 	constructor(private authService: AuthService, private formBuilder: FormBuilder,
 		private locationService: LocationService, private toast: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
@@ -112,7 +112,7 @@ export class UserManagementComponent implements OnInit {
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.imageWhiteLabelDomainName = data.source
 			this.editLabelIsShow = this.imageWhiteLabelDomainName === "Uniprep" ||
-			this.imageWhiteLabelDomainName === "Partner"
+				this.imageWhiteLabelDomainName === "Partner"
 		})
 		this.dateTime.setDate(this.dateTime.getDate())
 		this.getCountryList();
@@ -131,7 +131,6 @@ export class UserManagementComponent implements OnInit {
 			this.hideToolTip = false
 		}, 10000)
 	}
-
 	// new code
 	getMonthName(monthNumber: any) {
 		const date = new Date()
@@ -240,7 +239,7 @@ export class UserManagementComponent implements OnInit {
 				location_id: this.PersonalInfo?.location_id,
 				home_country: this.PersonalInfo?.home_country_id == null ? null : Number(this.PersonalInfo?.country),
 				last_degree_passing_year: this.PersonalInfo?.last_degree_passing_year,
-				 phone: `${this.PersonalInfo?.country_code || ''} ${this.PersonalInfo?.phone || ''}`,
+				phone: `${this.PersonalInfo?.country_code || ''} ${this.PersonalInfo?.phone || ''}`,
 				email: this.PersonalInfo?.email,
 				current_education: this.PersonalInfo?.programlevel
 			})
@@ -288,7 +287,7 @@ export class UserManagementComponent implements OnInit {
 		this.dashboardService.sentEmailForInviteUniPrep(data).subscribe({
 			next: (data: any) => {
 				this.toast.add({ severity: 'success', summary: 'Success', detail: data.message });
-				this.sendInvite = ""
+				this.sendInvite = "";
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
@@ -459,7 +458,7 @@ export class UserManagementComponent implements OnInit {
 	integrationPartActiveOrInactive() {
 		this.userManagementService.integrationPartActiveOrInactive().subscribe({
 			next: (data: any) => {
-				this.associatedMail = data.mail;
+				this.associatedMail = data.email;
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);

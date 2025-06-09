@@ -54,4 +54,5 @@ export interface User {
     country_code: number;
     home_country_id: number;
     subscription_exists: number;
+    social_password: number;
 }
