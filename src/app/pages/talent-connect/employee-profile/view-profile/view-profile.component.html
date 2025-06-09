@@ -381,7 +381,7 @@
               </div>
               
               <div class="col-md-4 mb-3" *ngIf="profileData.networking.socialMedia && profileData.networking.socialMedia.length > 0">
-                <div class="text-primary fw-bold">Other Social Media</div>
+                <div class="text-primary fw-bold">Social Media</div>
                 <ng-container *ngFor="let social of profileData.networking.socialMedia">
                   <!-- <div class="d-flex gap-2"> -->
                     <a [href]="social.link" target="_blank" class="text-break text-dark me-2" *ngIf="social.link">

@@ -208,10 +208,10 @@ export class ViewProfileComponent implements OnInit {
     ],
     additionalDetails: {
       languagesKnown: [
-        { lang: 'English', prof: '3/5' },
-        { lang: 'Kannada', prof: '4/5' },
-        { lang: 'Hindi', prof: '3/5' },
-        { lang: 'Marathi ', prof: '4/5' },
+        { lang: 'English', prof: 'Fluent' },
+        { lang: 'Kannada', prof: 'Proficient' },
+        { lang: 'Hindi', prof: 'Fluent' },
+        { lang: 'Marathi ', prof: 'Proficient' },
       ],
       hobbiesAndInterests: 'Reading, Traveling, Fitness and yoga, Exploring new cuisines, Volunteering for social causes',
       softSkills: ['Strong communication skills', 'Active listening', 'Conflict resolution', 'Empathy and compassion', 'Adaptability to change', 'Problem-solving ability', 'Ethical decision-making', 'Team collaboration', 'Effective time management', 'High emotional intelligence'],
@@ -244,7 +244,7 @@ export class ViewProfileComponent implements OnInit {
       designation: 'HR Manager',
       email: 'Kalyani.hr@uniabraod.co.in'
     }],
-    additionalInfo: 'Not Specified'
+    additionalInfo: 'Some Content'
   };
 
   constructor(

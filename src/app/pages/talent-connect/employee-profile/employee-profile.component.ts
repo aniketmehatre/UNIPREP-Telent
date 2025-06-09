@@ -142,7 +142,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       location_id: [null, Validators.required],
 
       educationDetails: this.fb.array([this.createEducationGroup()]),
-      total_years_of_experience: ["", Validators.required],
+      total_years_of_experience: ["0", Validators.required],
       work_experience: this.fb.array([this.createWorkExperienceGroup()]),
 
       career_preference_career_status: [null, Validators.required],
