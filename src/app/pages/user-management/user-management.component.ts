@@ -460,7 +460,7 @@ export class UserManagementComponent implements OnInit {
 	integrationPartActiveOrInactive() {
 		this.userManagementService.integrationPartActiveOrInactive().subscribe({
 			next: (data: any) => {
-				this.associatedMail = data.mail;
+				this.associatedMail = data.email;
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
