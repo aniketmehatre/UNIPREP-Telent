@@ -185,8 +185,8 @@
 												<!-- Highest Qualification -->
 												<div class="col-md-6">
 													<label for="" class="form-label">
-														{{i== 0 ? 'Highest ' : '' }}Qualification <span
-															class="text-danger">*</span></label>
+														{{i== 0 ? 'Highest Qualification' : 'Level of qualification'
+														}}<span class="text-danger">*</span></label>
 													<p-select id="" formControlName="education_qualification_id"
 														[options]="getFilteredQualifications(i)"
 														placeholder="Select your highest qualification"
@@ -218,17 +218,17 @@
 											<div class="row mb-3">
 												<!-- Field of Study / Major -->
 												<div class="col-md-6">
-													<label for="fieldOfStudy" class="form-label">Major <span
+													<label for="fieldOfStudy" class="form-label">Field of study <span
 															class="text-danger">*</span></label>
 													<p-select id="" formControlName="education_field_id"
-														[options]="fieldsOfStudy" placeholder="Select Major"
+														[options]="fieldsOfStudy" placeholder="Select Field of study"
 														styleClass="w-100" optionLabel="field_name" optionValue="id"
 														[filter]="true" filterBy="field_name"
 														(focusout)="resetMessageBox()"
 														(onFocus)="updateMessageBox('education_field_id')"></p-select>
 													<small class="text-danger"
 														*ngIf="education.get('education_field_id')?.invalid && education.get('education_field_id')?.touched">
-														Major is required </small>
+														Field of study is required </small>
 												</div>
 
 												<!-- Course Name -->
@@ -360,7 +360,7 @@
 													</div>
 												</div>
 												<div class="col-md-6 mb-3">
-													<label for="salary" class="form-label">Salary / Month</label>
+													<label for="salary" class="form-label">Salary per month</label>
 													<div class="d-flex w-100 gap-2">
 														<p-select [options]="currencies"
 															styleClass="p-select p-component"
@@ -423,8 +423,7 @@
 												<div class="col-md-6 mb-3">
 													<label class="form-label">Years of
 														Experience</label><br />
-													<input pInputText readonly
-														formControlName="years_of_experience"
+													<input pInputText readonly formControlName="years_of_experience"
 														placeholder="Years of experience" class="form-control"
 														(focusout)="resetMessageBox()"
 														(focus)="updateMessageBox('years_of_experience')" />
@@ -470,8 +469,7 @@
 
 												<!-- Experience Letter Upload -->
 												<div class="col-md-12 mb-3">
-													<label class="form-label fw-medium">Experience Letter <span
-															class="text-muted">(Optional)</span></label>
+													<label class="form-label fw-medium">Experience Letter</label>
 													<div class="upload-box" (click)="fileExperieceUpload.click()"
 														[disabled]="experience.get('years_of_experience')?.value == 'Fresher'"
 														(onFocus)="updateMessageBox('work_experience_experience_letter')"
@@ -509,8 +507,7 @@
 											<label for="" class="form-label">Total Years of
 												Experience</label><br />
 											<input pInputText fluid id="total_years_of_experience"
-												formControlName="total_years_of_experience"
-												placeholder="Calculate the total years of experience based on the duration of input from the about section"
+												formControlName="total_years_of_experience" placeholder="0"
 												[readOnly]="true" class="form-control" value="totalDurations" />
 										</div>
 									</div>
@@ -537,12 +534,13 @@
 													Career Status is required </small>
 											</div>
 											<div class="col-md-6">
-												<label for="" class="form-label">Job Title<span
+												<label for="" class="form-label">Desired Job title<span
 														class="text-danger">*</span></label>
 												<p-select id="" pTooltip="Not able to find please type in Job Title"
 													[virtualScroll]="true" [virtualScrollItemSize]="50"
 													formControlName="career_preference_job_title_id"
-													[options]="jobTitles" placeholder="Select Job Title"
+													[options]="jobTitles"
+													placeholder="Select the Job role you are looking for"
 													styleClass="w-100" optionLabel="job_title" optionValue="job_title"
 													[filter]="true" filterBy="job_title" (focusout)="resetMessageBox()"
 													(onFocus)="updateMessageBox('career_preference_job_title_id')">
@@ -562,22 +560,22 @@
 												</p-select>
 												<small class="text-danger"
 													*ngIf="personalInfoForm.get('career_preference_job_title_id')?.invalid && personalInfoForm.get('career_preference_job_title_id')?.touched">
-													Job Title is required </small>
+													Desired Job title is required </small>
 											</div>
 										</div>
 										<div class="row mb-3">
 											<div class="col-md-6">
 												<label for="careerInterest" class="form-label">
-													Interested Department<span class="text-danger">*</span></label>
+													Interested Industry<span class="text-danger">*</span></label>
 												<p-multiSelect id="careerInterest"
 													formControlName="career_preference_department_id"
-													[options]="departmentList" placeholder="Enter Department"
+													[options]="departmentList" placeholder="Enter Industry"
 													styleClass="w-100" optionLabel="department" optionValue="id"
 													[filter]="true" (focusout)="resetMessageBox()"
 													(onFocus)="updateMessageBox('career_preference_department_id')"></p-multiSelect>
 												<small class="text-danger"
 													*ngIf="personalInfoForm.get('career_preference_department_id')?.invalid && personalInfoForm.get('career_preference_department_id')?.touched">
-													Department is required </small>
+													Interested Industry is required </small>
 											</div>
 											<div class="col-md-6">
 												<label for="preferredWorkLocation" class="form-label">
@@ -600,33 +598,32 @@
 										<div class="row mb-3">
 											<div class="col-md-6">
 												<label for="preferredEmployementType" class="form-label">
-													Preferred Employement Type<span class="text-danger">*</span></label>
+													Preferred Work Type<span class="text-danger">*</span></label>
 												<p-multiSelect id="preferredEmployementType"
 													formControlName="career_preference_preferred_employment_type"
-													[options]="preferredEmploymentType"
-													placeholder="Select Employement Type"
+													[options]="preferredEmploymentType" placeholder="Select Work Type"
 													styleClass="w-100"></p-multiSelect>
 												<small class="text-danger"
 													*ngIf="personalInfoForm.get('career_preference_preferred_employment_type')?.invalid && personalInfoForm.get('career_preference_preferred_employment_type')?.touched">
-													Preferred Employement Type is required </small>
+													Preferred Work Type is required </small>
 											</div>
 
 											<!-- University/Institution Name -->
 											<div class="col-md-6">
 												<label for="preferredWorkplaceType" class="form-label">
-													Preferred Workplace Type<span class="text-danger">*</span></label>
+													Preferred Work Mode<span class="text-danger">*</span></label>
 												<div class="p-inputgroup">
 													<p-multiSelect id="preferredWorkplaceType"
 														formControlName="career_preference_preferred_workplace_type"
 														[options]="preferredWorkplaceType"
-														placeholder="Enter Workplace Type" styleClass="w-100"
+														placeholder="Select Work Mode" styleClass="w-100"
 														(focusout)="resetMessageBox()" [appendTo]="'body'"
 														(onFocus)="updateMessageBox('career_preference_preferred_workplace_type')"
 														(ngModelChange)="handleValidationsForFields(personalInfoForm?.get('career_preference_willingness_to_relocate'), $event == 'Remote Work')"></p-multiSelect>
 												</div>
 												<small class="text-danger"
 													*ngIf="personalInfoForm.get('career_preference_preferred_workplace_type')?.invalid && personalInfoForm.get('career_preference_preferred_workplace_type')?.touched">
-													Preferred Workplace Type is required </small>
+													Preferred Work Mode is required </small>
 											</div>
 										</div>
 										<div class="row mb-3">
@@ -649,7 +646,7 @@
 											<!-- University/Institution Name -->
 											<div class="col-md-6">
 												<label for="university" class="form-label">
-													Expected Salary / Month<span class="text-danger">*</span></label>
+													Salary per month<span class="text-danger">*</span></label>
 												<div class="d-flex w-100 gap-2">
 													<p-select [options]="currencies" styleClass="p-select p-component"
 														optionLabel="currency_code" optionValue="id"
@@ -659,14 +656,15 @@
 														(onFocus)="updateMessageBox('career_preference_currency_id')">
 													</p-select>
 													<div class="flex-grow-1 me-2">
-														<p-inputNumber id="salary" placeholder="Enter your salary/month"
-															styleClass="w-100" [showButtons]="false" class="w-100"
+														<p-inputNumber id="salary"
+															placeholder="Enter your salary per month" styleClass="w-100"
+															[showButtons]="false" class="w-100"
 															formControlName="career_preference_expected_salary"></p-inputNumber>
 													</div>
 												</div>
 												<small class="text-danger"
 													*ngIf="(personalInfoForm.get('career_preference_expected_salary')?.invalid && personalInfoForm.get('career_preference_expected_salary')?.touched) || (personalInfoForm.get('career_preference_currency_id')?.invalid && personalInfoForm.get('career_preference_currency_id')?.touched)">
-													Expected Salary / Month with currency is required </small>
+													Salary per month with currency is required </small>
 											</div>
 
 										</div>
@@ -734,14 +732,14 @@
 											</ng-container>
 										</ng-container>
 										<ng-container class="education" formArrayName="acheivements">
-											<label class="form-label mb-2">Achievement Name</label>
+											<label class="form-label mb-2">Achievement</label>
 											<ng-container
 												*ngFor="let certificate of achievements.controls; let i = index"
 												[formGroupName]="i">
 												<div class="row mb-2 align-items-center">
 													<div class="col-md-6">
 														<input pInputText fluid class="form-control w-100"
-															placeholder="Enter Achievement Name"
+															placeholder="Enter Achievement"
 															formControlName="certifications_achievement_name"
 															(focusout)="resetMessageBox()"
 															(focus)="updateMessageBox('certifications_achievement_name')" />
@@ -908,8 +906,8 @@
 												<p-multi-select pInputText fluid id=""
 													formControlName="career_preference_soft_skill_id"
 													[options]="softSkills" optionValue="id" optionLabel="soft_skill"
-													placeholder="Enter Soft Skills" class="form-control p-1 w-100"
-													(focusout)="resetMessageBox()"
+													placeholder="Select your acquired soft skills"
+													class="form-control p-1 w-100" (focusout)="resetMessageBox()"
 													(focus)="updateMessageBox('career_preference_soft_skill_id')"></p-multi-select>
 											</div>
 											<div class="col-md-6">
@@ -1034,7 +1032,7 @@
 										</div>
 										<ng-container formArrayName="networking_social_media">
 											<div class="row mb-3"
-												*ngFor="let experience of socialMedia.controls; let i = index"
+												*ngFor="let socialMediaItem of socialMedia.controls; let i = index"
 												[formGroupName]="i">
 												<div class="col-md-6">
 													<p-select id="" formControlName="networking_social_media"
@@ -1050,7 +1048,7 @@
 														</ng-template>
 													</p-select>
 													<small class="text-danger"
-														*ngIf="experience.get('networking_social_media')?.invalid && experience.get('networking_social_media')?.touched">
+														*ngIf="socialMediaItem.get('networking_social_media')?.invalid && socialMediaItem.get('networking_social_media')?.touched">
 														Social Media is required </small>
 												</div>
 												<div class="col-md-6">
@@ -1066,7 +1064,7 @@
 														<div class="col-md-2">
 															<button
 																class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
-																(click)="removeSocialMedia(i); removeSelectedSocialMedia(experience.get('networking_social_media')?.value)"
+																(click)="removeSocialMedia(i); removeSelectedSocialMedia(socialMediaItem.get('networking_social_media')?.value)"
 																style="width: fit-content" *ngIf="i !== 0">
 																<span><i class="fa-regular fa-trash fa-lg"></i></span>
 															</button>
@@ -1076,9 +1074,9 @@
 											</div>
 										</ng-container>
 										<div class="row mb-3">
-											<button class="w-full btn btn-primary" (click)="addSocialMedia()">Add
-												more
-												Social media&nbsp;<i class="fa fa-plus"></i></button>
+											<button *ngIf="socialMedia.controls.length < 3"
+												class="w-full btn btn-primary" (click)="addSocialMedia()">
+												Add more Social media&nbsp;<i class="fa fa-plus"></i></button>
 										</div>
 										<div class="row mb-3">
 											<div class="col-md-12">
@@ -1129,8 +1127,22 @@
 									<div class="row w-100 justify-content-center">
 										<div class="col-md-6 mb-3">
 											<div class="border rounded p-3">
-												<h4 class="mb-3">Introduction Video Upload</h4>
-												<small class="text-muted">(90-120 seconds)</small>
+												<div class="row">
+													<div class="col-7 text-center text-primary">
+														<h4 class="mb-0">Introduction Video</h4>
+														<small>(90-120 seconds)</small>
+													</div>
+													<div class="col-5 ps-0">
+														<div class="d-flex">
+															<button pButton type="button"
+																class="btn btn-primary btn-rounded p-1 px-3 me-2">Sample
+															</button>
+															<button pButton type="button"
+																class="btn btn-secondary  btn-rounded p-1 px-3">Guide
+															</button>
+														</div>
+													</div>
+												</div>
 												<input pInputText fluid placeholder="Provide the video link"
 													class="form-control mt-2"
 													formControlName="career_preference_video_link"
@@ -1144,17 +1156,23 @@
 
 										<div class="col-md-6 mb-3">
 											<div class="border rounded p-3">
-												<h4 class="mb-3">Portfolio Upload</h4>
-												<small class="text-muted">(For Designers, Writers,
-													Developers)</small>
+												<div class="row">
+													<div class="col-9 text-center text-primary">
+														<h4 class="mb-0">Portfolio</h4>
+														<small>(For Designers, Writers, Developers)</small>
+													</div>
+													<div class="col-3 ps-0 text-end">
+														<button pButton type="button"
+															class="btn btn-secondary btn-rounded p-1 px-3">Guide
+														</button>
+													</div>
+												</div>
 												<div class="input-group mt-2">
 													<input pInputText fluid placeholder="Provide the portfolio link"
 														class="form-control"
 														formControlName="career_preference_portfolio_upload_link"
 														(focusout)="resetMessageBox()"
 														(focus)="updateMessageBox('career_preference_portfolio_upload_link')" />
-													<!-- <button pButton label="UPLOAD"
-                                                        class="p-button-secondary ms-2"></button> -->
 												</div>
 											</div>
 											<small class="text-danger"
@@ -1564,7 +1582,7 @@
 														<i class="fa-regular fa-share-alt"></i>
 													</a>
 												</div>
-												<div style="font-size: 12px" class="text-start">Profile Updated On: 
+												<div style="font-size: 12px" class="text-start">Profile Updated On:
 													{{profileDetail?.updated_at | date: 'dd-MM-yyyy'}}</div>
 												<div
 													class="mt-2 text-start d-flex justify-content-between align-items-center">
