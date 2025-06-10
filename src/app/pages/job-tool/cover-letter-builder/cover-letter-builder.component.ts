@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from "@angular/core"
-import { ConfirmationService, MenuItem, MessageService } from "primeng/api"
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core"
+import { ConfirmationService, MessageService } from "primeng/api"
 import { FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms"
 import { CourseListService } from "../../course-list/course-list.service"
 import { AuthService } from "../../../Auth/auth.service"
@@ -12,9 +12,7 @@ import { SidebarModule } from "primeng/sidebar"
 import { TooltipModule } from 'primeng/tooltip';
 import { RouterModule } from "@angular/router"
 import { CardModule } from "primeng/card"
-import { PaginatorModule } from "primeng/paginator"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
-import { CarouselModule } from "primeng/carousel"
 import { ButtonModule } from "primeng/button"
 import { MultiSelectModule } from "primeng/multiselect"
 import { SelectModule } from "primeng/select"
@@ -24,118 +22,36 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { TextareaModule } from "primeng/textarea"
 import { EditorModule } from "primeng/editor"
 import { SkeletonModule } from "primeng/skeleton"
-import { PdfViewerModule } from "ng2-pdf-viewer";
 import { ConfirmPopup } from "primeng/confirmpopup";
 import { DropdownModule } from "primeng/dropdown"
 import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
-
-declare const pdfjsLib: any;
-
-interface ResumeHistory {
-	id: number;
-	pdf_name: string;
-	created_time: string;
-	image_name:string;
-}
-
-
-interface JobTitle {
-	id: number | null; // null for custom job titles
-	jobrole: string;
-}
-interface City {
-	city_id: number
-	city_name: string
-	country_name: string
-	flag: string
-	label?: string;
-}
+import { coverLetterSliders, ResumeHistory, JobTitle } from "../cv-builder/cv-builder.data";
 
 @Component({
 	selector: "uni-cover-letter-builder",
 	templateUrl: "./cover-letter-builder.component.html",
 	styleUrls: ["./cover-letter-builder.component.scss"],
 	standalone: true,
-	imports: [CommonModule, ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule, DropdownModule],
+	imports: [CommonModule, ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule, DropdownModule],
 	providers: [ConfirmationService, TooltipModule],
 })
 export class CoverLetterBuilderComponent implements OnInit {
-	@ViewChild("pdfViewer") pdfViewer: any
-	items!: MenuItem[]
 	selectedResumeLevel: string = ""
 	activePageIndex: number = 0
 	resumeFormInfoData: FormGroup
 	fullScreenVisible: boolean = false
 	isButtonDisabledSelectTemplate: boolean = false
 	submitted: boolean = false
-	moduleActiveIndex: number = 0
 	selectedThemeColor: string = "#172a99"
 	selectedColorCode: number = 1
 	planExpired: boolean = false
 	generateConBtnDisable: boolean = true;
 	rephraseconBtnDisable: boolean = false;
-	resumeHistory: any = [];
-	// pdfThumbnails: { [key: string]: string } = {};
-	filteredLocations: any = [];
-	orgLocation: any = [];
-	cities: City[] = [];
-	resumeSlider: any = [
-		{
-			id: 1,
-			templateName: "Traditional",
-			imageLink: "./../../../uniprep-assets/coverletter-images/traditional.svg",
-		},
-		{
-			id: 2,
-			templateName: "Modern",
-			imageLink: "../../../../uniprep-assets/coverletter-images/modern.svg",
-		},
-		{
-			id: 3,
-			templateName: "Academic",
-			imageLink: "../../../../uniprep-assets/coverletter-images/academic.svg",
-		},
-		{
-			id: 4,
-			templateName: "Creative",
-			imageLink: "../../../../uniprep-assets/coverletter-images/creative.svg",
-		},
-		{
-			id: 5,
-			templateName: "Functional",
-			imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
-		},
-		{
-			id: 6,
-			templateName: "Traditional",
-			imageLink: "./../../../uniprep-assets/coverletter-images/traditional.svg",
-		},
-		{
-			id: 7,
-			templateName: "Modern",
-			imageLink: "../../../../uniprep-assets/coverletter-images/modern.svg",
-		},
-		{
-			id: 8,
-			templateName: "Academic",
-			imageLink: "../../../../uniprep-assets/coverletter-images/academic.svg",
-		},
-		{
-			id: 9,
-			templateName: "Creative",
-			imageLink: "../../../../uniprep-assets/coverletter-images/creative.svg",
-		},
-		{
-			id: 10,
-			templateName: "Functional",
-			imageLink: "../../../../uniprep-assets/coverletter-images/functional.svg",
-		},
-
-	]
+	resumeHistory: ResumeHistory[] = [];
+	cities: any[] = [];
+	resumeSlider: {id: number, templateName: string, imageLink: string} = coverLetterSliders;
 	editorModules: any
 	swiper!: Swiper
-	pdfLoadError: boolean = false
-	pdfUrl: string = ""
 	countryCodeList: any[] = [];
 	chatGptButtonLoader: boolean = false;
 	chatGptButtonLoaderSummary: boolean = false;
@@ -169,29 +85,13 @@ export class CoverLetterBuilderComponent implements OnInit {
 
 	ngOnInit(): void {
 		let userDetails = this.authService._user;
-		let location = userDetails?.district + ', ' + userDetails?.state;
 		this.resumeFormInfoData.patchValue({
 			user_name: userDetails?.name,
 			user_email: userDetails?.email,
-			// user_location: location,
 			user_phone: userDetails?.phone,
 			country_code: userDetails?.country_code,
 		});
-		// Load PDF.js library dynamically
-		if (!document.getElementById('pdfjs-script')) {
-			const script = document.createElement('script');
-			script.id = 'pdfjs-script';
-			script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-			script.onload = () => {
-				// Set worker source
-				pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-				// Load resumes after PDF.js is ready
-				this.previousResumes();
-			};
-			document.body.appendChild(script);
-		} else {
-			this.previousResumes();
-		}
+		this.previousResumes();
 
 		this.onLoadCarousal();
 		this.editorModules = {
@@ -201,7 +101,6 @@ export class CoverLetterBuilderComponent implements OnInit {
 				["clean"],
 			],
 		}
-		this.items = [{ label: "Personal Information" }, { label: "Organisation Details" }, { label: "Letter Area" }]
 		this.getCountryCodeList();
 		this.getJobRoles();
 		this.getLocationsList();
@@ -209,9 +108,6 @@ export class CoverLetterBuilderComponent implements OnInit {
 	}
 
 	onLoadCarousal() {
-		if (this.pdfViewer) {
-			this.pdfViewer.refresh()
-		}
 		setTimeout(() => {
 			this.swiper = new Swiper(".swiper", {
 				direction: "horizontal",
@@ -257,50 +153,8 @@ export class CoverLetterBuilderComponent implements OnInit {
 
 	getLocationsList() {
 		this.cvBuilderService.getLocationList().subscribe((res: any) => {
-			this.cities = res;
+			this.cities = res.worklocations;
 		});
-	}
-
-	onFocusOut() {
-		this.inputValuesEditOrNot();
-		setTimeout(() => {
-			this.filteredLocations = [];
-			this.orgLocation = [];
-		}, 200); // Delay clearing the dropdown by 200 milliseconds
-	}
-	onFocusOutJob() {
-		this.inputValuesEditOrNot();
-	}
-
-	selectLocation(city: any, mode: string) {
-		if (mode === "user_location") {
-			this.resumeFormInfoData.patchValue({
-				user_location: city.country_name,
-			});
-			this.filteredLocations = [];
-		} else if (mode === "org_location") {
-			this.resumeFormInfoData.patchValue({
-				org_location: city.country_name,
-			});
-			this.orgLocation = [];
-		}
-	}
-
-	pdfViewLoader() {
-		try {
-			if (!this.pdfUrl) {
-				throw new Error("No PDF URL provided")
-			}
-
-			const encodedUrl = encodeURI(this.pdfUrl)
-			if (this.pdfViewer) {
-				this.pdfViewer.pdfSrc = encodedUrl
-				this.pdfViewer.refresh()
-			}
-		} catch (error) {
-			console.error("Error loading PDF:", error)
-			this.pdfLoadError = true
-		}
 	}
 
 	getCountryCodeList() {
@@ -311,54 +165,9 @@ export class CoverLetterBuilderComponent implements OnInit {
 		})
 	}
 
-	// loadPdfThumbnail(pdfUrl: string): void {
-	// 	if (this.pdfThumbnails[pdfUrl]) {
-	// 		return; // Already loaded
-	// 	}
-
-	// 	// Create canvas and load PDF
-	// 	const canvas = document.createElement('canvas');
-	// 	const context = canvas.getContext('2d');
-	// 	if (!context) {
-	// 		console.error('Could not get canvas context');
-	// 		return;
-	// 	}
-
-	// 	// Load the PDF document
-	// 	pdfjsLib.getDocument(pdfUrl).promise.then((pdf: any) => {
-	// 		pdf.getPage(1).then((page: any) => {
-	// 			const viewport = page.getViewport({ scale: 0.5 });
-	// 			canvas.height = viewport.height;
-	// 			canvas.width = viewport.width;
-
-	// 			page.render({
-	// 				canvasContext: context,
-	// 				viewport: viewport
-	// 			}).promise.then(() => {
-	// 				this.pdfThumbnails[pdfUrl] = canvas.toDataURL('image/jpeg');
-	// 			}).catch((error: Error) => {
-	// 				console.error('Error rendering PDF page:', error);
-	// 				this.pdfLoadError = true;
-	// 			});
-	// 		}).catch((error: Error) => {
-	// 			console.error('Error getting PDF page:', error);
-	// 			this.pdfLoadError = true;
-	// 		});
-	// 	}).catch((error: Error) => {
-	// 		console.error('Error loading PDF:', error);
-	// 		this.pdfLoadError = true;
-	// 	});
-	// }
-
 	previousResumes() {
 		this.resumeService.getCoverLetterHistories().subscribe((res: ResumeHistory[]) => {
 			this.resumeHistory = res;
-			// Load thumbnails for all PDFs immediately
-			// this.resumeHistory.forEach((resume: ResumeHistory) => {
-			// 	if (resume.pdf_name) {
-			// 		this.loadPdfThumbnail(resume.pdf_name);
-			// 	}
-			// });
 		});
 	}
 
@@ -409,14 +218,7 @@ export class CoverLetterBuilderComponent implements OnInit {
 		// form validation
 		const controls: AbstractControl[] = []
 		let controlNames: any = []
-		if (this.moduleActiveIndex === 0) {
-			controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone", "org_name", "org_location", "user_summary"]
-		}
-		// else if (this.moduleActiveIndex === 1) {
-		// 	controlNames = ["org_name", "org_location", "jobposition"]
-		// } else if (this.moduleActiveIndex === 2) {
-		// 	controlNames = ["user_summary"]
-		// }
+		controlNames = ["user_name", "user_job_title", "user_email", "user_location", "user_phone", "org_name", "org_location", "user_summary"]
 		controlNames.forEach((controlName: any) => {
 			const control = this.resumeFormInfoData.get(controlName)
 			if (control) {
@@ -427,20 +229,7 @@ export class CoverLetterBuilderComponent implements OnInit {
 	}
 
 	nextStage() {
-		// if (this.moduleActiveIndex < 2) {
-		// 	this.moduleActiveIndex++
-		// 	return
-		// } else {
-		// 	this.activePageIndex++
-		// }
 		this.activePageIndex++
-	}
-
-	prevStage() {
-		if (this.moduleActiveIndex > 0) {
-			this.moduleActiveIndex--
-			return
-		}
 	}
 
 	toggleFullScreen() {
@@ -509,6 +298,7 @@ export class CoverLetterBuilderComponent implements OnInit {
 			this.selectedResumeLevel = ""
 		})
 	}
+
 	getVisibleFormControlsChatGptRespons(mode: any): AbstractControl[] {
 		// form validation
 		const controls: AbstractControl[] = []

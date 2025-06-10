@@ -170,7 +170,7 @@
 						style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()"
 						aria-label="View all job applications">View All</button>
 				</div>
-				<p-carousel #carousel [circular]="false" [autoplayInterval]="3000" [numScroll]="1" [numVisible]="3"
+				<p-carousel #carousel [circular]="true" [autoplayInterval]="3000" [numScroll]="1" [numVisible]="3"
 					*ngIf="!isNoApplicationsData" [responsiveOptions]="responsiveOptions" [value]="recentJobApplication"
 					[showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 					aria-label="Recent Job Applications Carousel">

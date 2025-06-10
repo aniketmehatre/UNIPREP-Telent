@@ -19,13 +19,6 @@ export class CvBuilderService {
     });
   }
 
-  private dataSubject = new BehaviorSubject<boolean>(false);
-  data$ = this.dataSubject.asObservable();
-
-  setData(data: any) {
-    this.dataSubject.next(data);
-  }
-
   getAlreadyCreatedResumes(){
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/resumeHistories",{
@@ -76,7 +69,7 @@ export class CvBuilderService {
   
   getLocationList(){
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/getCitiesList" ,{
+    return this.http.get<any>(environment.ApiUrl + "/easyappyworklocations" ,{
       headers: headers,
     });
   }
