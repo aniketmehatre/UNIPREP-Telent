@@ -5,7 +5,6 @@ import { PageFacadeService } from '../page-facade.service';
 import { filter } from 'rxjs';
 import { Location, CommonModule } from '@angular/common';
 import { CourseListService } from '../course-list/course-list.service';
-import { CvBuilderService } from './cv-builder/cv-builder.service';
 import { TooltipModule } from 'primeng/tooltip';
 import {StorageService} from "../../storage.service";
 
@@ -29,7 +28,6 @@ export class JobToolComponent implements OnInit {
     private router: Router, private employerGlobalService: EmployerGlobalService,
     private location: Location,
     private resumeService: CourseListService,
-    private cvBuilderService: CvBuilderService,
     private pageFacade: PageFacadeService, private storage: StorageService
   ) {
     this.currentRoute = this.router.url;
@@ -159,10 +157,6 @@ export class JobToolComponent implements OnInit {
   }
 
   hideHeaderForPreviewPage() {
-    this.cvBuilderService.data$.subscribe(data => {
-      this.hideTitleForPreviewPage = data;
-    });
-
     this.resumeService.data$.subscribe(data => {
       if (!this.currentRoute.includes("salary-converter")) {
         this.hideTitleForPreviewPage = data;
