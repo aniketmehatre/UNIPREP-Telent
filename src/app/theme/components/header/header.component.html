@@ -344,12 +344,13 @@
 					<span class="report-modal">
 						<p-select [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id"
 							formControlName="reportOption" class="w-100" id="reportOption"
-							optionLabel="reportoption_name" aria-label="Select issue type"></p-select>
+							placeholder="Select issue type" optionLabel="reportoption_name"
+							aria-label="Select issue type"></p-select>
 					</span>
 					<p class="report-label text-left mb-0">Comment</p>
 					<span class="report-modal">
-						<textarea formControlName="comment" fluid pTextarea id="comment"
-							aria-label="Enter your comment"></textarea>
+						<textarea formControlName="comment" fluid pTextarea id="comment" aria-label="Enter your comment"
+							placeholder="Enter your comment"></textarea>
 					</span>
 					<span>
 						<button pButton class="btn btn-primary w-100 m-0" aria-label="Submit report">Submit</button>
