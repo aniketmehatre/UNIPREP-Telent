@@ -33,7 +33,7 @@
 	<div class="card-body overflow-y-auto">
 		<div class="row">
 			<div class="col-12 col-md-4 col-lg-3 mt-2" *ngFor="let data of wealthleaderlist">
-				<div class="card subjectcard" role="button" (click)="viewReadAns(data.id, data.name)">
+				<div class="card subjectcard bg-white" role="button" (click)="viewReadAns(data.id, data.name)">
 					<div class="card-body">
 						<div class="row align-items-center">
 							<div class="col-4">
@@ -44,19 +44,19 @@
 								<h5 class="fw-bold text-truncate" title="{{ data.name }}">{{ data.name }}</h5>
 								<div class="d-flex gap-2 align-items-center">
 									<div class="rounded-circle overflow-hidden"><img [src]="data.flag" width="20" height="20" alt="" /></div>
-									<h6 class="mb-0 text-small">{{ data.country }}</h6>
+									<h6 class="mb-0 text-small" style="font-weight: 700">{{ data.country }}</h6>
 								</div>
 								<div class="d-flex justify-content-start align-items-center gap-2 mt-1">
 									<span class="uniprep-primaryhighlight text-start" style="min-width: 20px"><i class="fa-solid fa-clock fa-xl"></i> </span>
 									<div style="font-size: xx-small">
-										<p class="text-small" style="color: #cbced5">Age :</p>
+										<p class="text-small" style="color: #36393f; font-weight: 550;">Age :</p>
 										<h6 class="fw-semibold h6 mb-0">{{ data.age }} Years old</h6>
 									</div>
 								</div>
 								<div class="d-flex justify-content-start align-items-center gap-2 mt-1">
 									<span class="text-start" style="color: #00c083; min-width: 20px"><i class="fa-solid fa-dollar-sign fa-xl"></i> </span>
 									<div>
-										<p class="text-small" style="color: #cbced5">Net Worth :</p>
+										<p class="text-small" style="color: #36393f; font-weight: 550;">Net Worth :</p>
 										<h6 class="fw-semibold h6 mb-0">{{ data.networth }}</h6>
 									</div>
 								</div>
