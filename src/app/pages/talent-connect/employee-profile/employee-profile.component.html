@@ -50,7 +50,9 @@
 							<div class="row">
 								<!-- Photo Upload Section -->
 								<div class="col-md-4">
-									<div class="text-center mb-2 p-3 rounded-4" style="border: 1px solid lightgray">
+									<div class="text-center mb-2 p-3 rounded-4 position-relative"
+										style="border: 1px solid lightgray">
+										<span class="text-danger fs-4 position-absolute profile-sec-req">*</span>
 										<div class="bg-light p-3 rounded-4" style="border: 1px dashed lightgray">
 											<div class="position-relative mx-auto mb-3">
 												<ng-container *ngIf="logo; else showSample">
@@ -69,16 +71,19 @@
 											<div class="d-flex justify-content-center gap-2 mb-2">
 												<input name="image" type="file" (change)="onUploadPhoto($event)"
 													accept="image/*" #fileUploadImage style="display: none" />
-												<p-button label="{{ this.logo ? 'Change Photo' : 'Upload Photo' }}"
+												<p-button label="{{ logo ? 'Change Photo' : 'Upload Photo' }}"
 													icon="pi pi-upload" styleClass="p-button-sm"
 													(click)="fileUploadImage.click()"
 													(onFocus)="updateMessageBox('profile_image')"
 													(focusout)="resetMessageBox()"></p-button>
-												<p-button label="Remove Photo" icon="pi pi-times"
+												<p-button *ngIf="logo" label="Remove Photo" icon="pi pi-times"
 													(onClick)="onRemovePhoto()"
 													styleClass="p-button-sm p-button-outlined"></p-button>
 											</div>
 										</div>
+										<small class="text-danger"
+											*ngIf="personalInfoForm.get('profile_image')?.invalid && personalInfoForm.get('profile_image')?.touched">
+											Profile Image is required </small>
 										<div class="d-flex align-items-center gap-2 mt-2">
 											<span><i class="fa-solid fa-face-viewfinder fa-xl"></i></span>
 											<p class="fw-medium text-small text-start d-block">You have to upload a
@@ -109,7 +114,7 @@
 											<label for="dateOfBirth" class="form-label">Date of Birth<span
 													class="text-danger">*</span></label>
 											<p-datepicker id="dateOfBirth" formControlName="date_of_birth"
-												dateFormat="dd-mm-yy" placeholder="DD/MM/YYYY" styleClass="w-100"
+												dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY" styleClass="w-100"
 												[maxDate]="today" [readonlyInput]="true"
 												(onFocus)="updateMessageBox('date_of_birth')"
 												(focusout)="resetMessageBox()" />
@@ -233,11 +238,10 @@
 
 												<!-- Course Name -->
 												<div class="col-md-6">
-													<label for="courseName" class="form-label">Course Name <span
+													<label class="form-label">Course Name <span
 															class="text-danger">*</span></label>
 													<div class="p-inputgroup">
-														<input pInputText fluid id="courseName"
-															formControlName="education_course_name"
+														<input pInputText fluid formControlName="education_course_name"
 															placeholder="Enter your course name" class="form-control"
 															(focus)="updateMessageBox('education_course_name')"
 															(focusout)="resetMessageBox()" />
@@ -267,20 +271,35 @@
 
 												<!-- Course Name -->
 												<div class="col-md-6">
-													<label for="courseName" class="form-label">Percentage</label>
-													<div class="p-inputgroup">
-														<p-inputgroup>
-															<p-input-number id="courseName"
-																formControlName="education_gpa_percentage"
-																mode="decimal" placeholder="Enter your GPA"
-																class="w-100" [maxFractionDigits]="2" [min]="0"
-																[max]="100" (focusout)="resetMessageBox()"
-																(onFocus)="updateMessageBox('education_gpa_percentage')" />
-															<p-inputgroup-addon>
-																<i class="pi pi-percentage"></i>
-															</p-inputgroup-addon>
-														</p-inputgroup>
-
+													<div class="d-flex justify-content-between align-items-center">
+														<label class="form-label">GPA / Percentage<span class="text-danger">*</span></label>
+														<div class="form-check">
+															<input class="form-check-input"
+																formControlName="education_still_pursuing"
+																id="stillPursuing" type="checkbox"
+																(change)="onChangeStillPursuing($event, i)" />
+															<label class="form-check-label text-small text-black"
+																for="stillPursuing">Still Pursuing</label>
+														</div>
+													</div>
+													<div class="d-flex w-100 gap-2">
+														<p-select [options]="cgpaPercentageList"
+															formControlName="education_cgpa_or_percentage"
+															optionLabel="value" optionValue="id" (onChange)="onChangeCGPAorPercentage($event,i)"
+															[style]="{ width: '150px' }"></p-select>
+														<div class="flex-grow-1">
+															<p-inputgroup>
+																<p-input-number
+																	formControlName="education_gpa_percentage"
+																	mode="decimal" [placeholder]="education.get('education_cgpa_or_percentage')?.value == 1 ? 'Enter your Percentage' : 'Enter your GPA'"
+																	class="w-100" [maxFractionDigits]="2" [min]="0"
+																	[max]="education.get('education_cgpa_or_percentage')?.value == 1 ? 100 : 10" (focusout)="resetMessageBox()"
+																	(onFocus)="updateMessageBox('education_gpa_percentage')" />
+																<p-inputgroup-addon *ngIf="education.get('education_cgpa_or_percentage')?.value == 1">
+																	<i class="pi pi-percentage"></i>
+																</p-inputgroup-addon>
+															</p-inputgroup>
+														</div>
 													</div>
 													<small class="text-danger"
 														*ngIf="education.get('education_gpa_percentage')?.invalid && education.get('education_gpa_percentage')?.touched">
@@ -347,11 +366,10 @@
 													</p-select>
 												</div>
 												<div class="col-md-6 mb-3">
-													<label for="courseName" class="form-label">Employment
+													<label class="form-label">Employment
 														Type</label>
 													<div class="p-inputgroup">
-														<p-select id=""
-															formControlName="work_experience_employment_type"
+														<p-select formControlName="work_experience_employment_type"
 															[options]="preferredEmploymentType"
 															placeholder="Select employement type" styleClass="w-100"
 															(focusout)="resetMessageBox()"
@@ -1400,7 +1418,7 @@
 												<div>
 													<small>Profile Completion: {{ profileCompletion }}%</small>
 													<p-progressBar [value]="profileCompletion" [showValue]="false"
-														[style]="{ height: '6px', color: 'var(--uniprep-secondary)' }"
+														[style]="{ height: '6px'}" color="#f0780e"
 														styleClass="text-secondary"></p-progressBar>
 												</div>
 												<button class="btn btn-sm"
@@ -1589,7 +1607,7 @@
 													<div>
 														<small>Profile Completion: {{ profileCompletion }}%</small>
 														<p-progressBar [value]="profileCompletion" [showValue]="false"
-															[style]="{ height: '6px', color: 'var(--uniprep-secondary)' }"
+															[style]="{ height: '6px'}" color="#f0780e"
 															styleClass="text-secondary"></p-progressBar>
 													</div>
 													<button class="btn btn-sm"
