@@ -80,9 +80,9 @@
             <h3 class="fw-bold text-navy">Education Details</h3>
           </div>
           <div class="col-md-9">
-            <div class="row g-2" *ngFor="let edu of profileData.educationDetails">
+            <div class="row g-2" *ngFor="let edu of profileData.educationDetails; let i = index">
               <div class="col-md-4 mb-3">
-                <div class="text-primary fw-bold">Highest Qualification</div>
+                <div class="text-primary fw-bold">{{i== 0 ? 'Highest Qualification' : 'Level of qualification'}}</div>
                 <div>{{edu.highestQualification}}</div>
               </div>
               <div class="col-md-4 mb-3">
@@ -112,7 +112,7 @@
     </div>
   
     <!-- Work Experience Section -->
-    <div class="card mb-4">
+    <div class="card mb-4" *ngIf="profileData.workExperience && profileData.workExperience.length > 0">
       <div class="card-body">
         <div class="row g-2">
           <div class="col-md-3">

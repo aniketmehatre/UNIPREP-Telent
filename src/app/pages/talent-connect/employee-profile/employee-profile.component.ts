@@ -11,6 +11,7 @@ import { AuthService } from "../../../Auth/auth.service";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Departments } from "src/app/@Models/user-profile.model";
 import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile";
+import { SelectChangeEvent } from "primeng/select";
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -85,7 +86,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   departmentList: Departments[] = [];
   profileDetail!: EmployeeConnectProfile;
   isDisableAddMoreEducation: boolean = false;
-  
+  cgpaPercentageList: any = [
+    { id: 1, value: "Percentage" },
+    { id: 2, value: "CGPA" },
+  ];
   constructor(
     private fb: FormBuilder,
     private dialogService: DialogService,
@@ -209,7 +213,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       languages_hobby_id: [null],
 
       // Profile Image
-      profile_image: [""],
+      profile_image: [null, Validators.required],
       additional_notes: [null],
     })
   }
@@ -224,6 +228,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       education_course_name: [null, Validators.required],
       education_graduation_year_id: [null, Validators.required],
       education_gpa_percentage: [null],
+      education_still_pursuing: [null],
+      education_cgpa_or_percentage: [1],
     })
   }
 
@@ -1179,6 +1185,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           education_course_name: [edu.course_name || "", Validators.required],
           education_graduation_year_id: [edu.graduation_year_id || "", Validators.required],
           education_gpa_percentage: [edu.gpa_percentage || null],
+          education_still_pursuing: [null],
+          education_cgpa_or_percentage: [1],
         });
         educationArray.push(group);
         const educationQualificationControl = group.get('education_qualification_id');
@@ -2123,6 +2131,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.departmentList = response;
       },
     });
+  }
+
+  onChangeStillPursuing(event: any, index: number) {
+
+  }
+
+  onChangeCGPAorPercentage(event: SelectChangeEvent, index: number) {
+    const group = this.educationDetails.at(index);
+    const gpaPercantageCtrl = group.get('education_gpa_percentage');
+    gpaPercantageCtrl?.setValue(0);
   }
 
   ngOnDestroy(): void {
