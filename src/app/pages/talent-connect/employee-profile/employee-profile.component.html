@@ -109,7 +109,7 @@
 											<label for="dateOfBirth" class="form-label">Date of Birth<span
 													class="text-danger">*</span></label>
 											<p-datepicker id="dateOfBirth" formControlName="date_of_birth"
-												dateFormat="dd-mm-yy" placeholder="DD/MM/YYYY" styleClass="w-100"
+												dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY" styleClass="w-100"
 												[maxDate]="today" [readonlyInput]="true"
 												(onFocus)="updateMessageBox('date_of_birth')"
 												(focusout)="resetMessageBox()" />
@@ -1400,7 +1400,7 @@
 												<div>
 													<small>Profile Completion: {{ profileCompletion }}%</small>
 													<p-progressBar [value]="profileCompletion" [showValue]="false"
-														[style]="{ height: '6px', color: 'var(--uniprep-secondary)' }"
+														[style]="{ height: '6px'}" color="#f0780e"
 														styleClass="text-secondary"></p-progressBar>
 												</div>
 												<button class="btn btn-sm"
@@ -1589,7 +1589,7 @@
 													<div>
 														<small>Profile Completion: {{ profileCompletion }}%</small>
 														<p-progressBar [value]="profileCompletion" [showValue]="false"
-															[style]="{ height: '6px', color: 'var(--uniprep-secondary)' }"
+															[style]="{ height: '6px'}" color="#f0780e"
 															styleClass="text-secondary"></p-progressBar>
 													</div>
 													<button class="btn btn-sm"

@@ -163,7 +163,7 @@ export class ViewProfileComponent implements OnInit {
   profileData: ProfileData = {
     personalInfo: {
       fullName: 'Darshini',
-      dateOfBirth: '30-01-2003',
+      dateOfBirth: '30/01/2003',
       gender: 'Female',
       nationality: 'Indian',
       location: 'Mysore',
@@ -197,7 +197,7 @@ export class ViewProfileComponent implements OnInit {
       preferredEmploymentType: 'Full Time',
       preferredWorkplaceType: 'Onsite',
       willingToRelocate: 'Yes',
-      salaryRange: '6-7 LPA',
+      salaryRange: '55000',
       currency: 'INR'
     },
     certifications: [
@@ -380,9 +380,9 @@ export class ViewProfileComponent implements OnInit {
       companyName: exp.work_experience_company_name || '',
       jobTitle: exp.work_experience_job_title || '',
       employmentType: exp.work_experience_employment_type || '',
-      duration: (exp.work_experience_duration_from && exp.work_experience_duration_to) ?
-        formatDate(new Date(exp.work_experience_duration_from), 'MMM,dd,yyyy', 'en-US') + '-' +
-        formatDate(new Date(exp.work_experience_duration_to), 'MMM,dd,yyyy', 'en-US') : '',
+      duration: (exp.work_experience_duration_from && (exp.work_experience_duration_to || exp.currently_working)) ?
+        formatDate(new Date(exp.work_experience_duration_from), 'dd-MM-yyyy', 'en-US') + ' - ' +
+        (exp.currently_working ? 'Currently Employed' : formatDate(new Date(exp.work_experience_duration_to), 'dd-MM-yyyy', 'en-US')) : '',
       salary: exp.work_experience_salary_per_month || '',
       responsibilities: exp.work_experience_job_responsibilities || '',
       experienceLetter: {
@@ -436,8 +436,8 @@ export class ViewProfileComponent implements OnInit {
 
     // Process attachments
     const attachments = [
-      { name: formData.career_preference_cv_filename || '', type: 'document' },
       { name: formData.career_preference_portfolio_upload_link || '', type: 'link' },
+      { name: formData.career_preference_cv_filename || '', type: 'document' },
       { name: formData.career_preference_video_link || '', type: 'video' }
     ].filter(att => att.name);
     this.introductionVideo = formData.career_preference_video_link || '';
@@ -536,5 +536,10 @@ export class ViewProfileComponent implements OnInit {
       "X": "twitter"
     }
     return iconList[icon] || '';
+  }
+
+  extractFileName(url: string): string {
+    if (!url) return '';
+    return url.split('/').pop() || '';
   }
 }
