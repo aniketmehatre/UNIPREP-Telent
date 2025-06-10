@@ -33,7 +33,7 @@
 		<!--        </button>-->
 	</div>
 </div>
-<div class="row" role="main">
+<div class="row mb-3" role="main">
 	<div class="col-lg-3 col-md-6 col-sm-12">
 		<div class="card mt-2 bg-white" style="height: 100%">
 			<div class="card-body">
@@ -158,122 +158,64 @@
 	</div>
 </div>
 <!-- second line -->
-<div class="row mt-2">
-	<!-- Recent Job Applications Card -->
-	<div class="col-lg-9 col-md-12 col-sm-12">
-		<div class="card fav-card mt-2 bg-white">
-			<div class="card-body d-flex flex-column justify-content-between">
-				<div class="flex justify-content-between">
-					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span>&nbsp;Apply for jobs
-					</h5>
-					<button class="btn btn-rounded text-small px-4 py-2 m-0  bg-white"
-						style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()"
-						aria-label="View all job applications">View All</button>
-				</div>
-				<p-carousel #carousel [circular]="false" [autoplayInterval]="3000" [numScroll]="1" [numVisible]="3"
-					*ngIf="!isNoApplicationsData" [responsiveOptions]="responsiveOptions" [value]="recentJobApplication"
-					[showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
-					aria-label="Recent Job Applications Carousel">
-					<ng-template let-group pTemplate="item">
-						<div role="button" tabindex="0" class="card mt-0 m-2 bg-white" (keyup.enter)="selectFav(v)"
-							(keyup.space)="selectFav(v)">
-							<div class="card-body">
-								<div class="jobImage d-flex justify-content-center align-items-center h-100">
-									<!-- <div class="border rounded-2 overflow-hidden" style="max-width: 100px"> -->
+<div class="row g-3">
+	<!-- Left Column - 70% -->
+	<div class="col-lg-9 col-md-8">
+		<div class="d-flex flex-column h-100">
+			<div class="card mb-2 flex-fill bg-white">
+				<div class="card-body d-flex flex-column justify-content-between ">
+					<div class="flex justify-content-between">
+						<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span>&nbsp;Apply
+							for jobs</h5>
+						<button class="btn btn-rounded text-small px-4 py-2 m-0 bg-white"
+							style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()"
+							aria-label="View all job applications">View All</button>
+					</div>
+					<p-carousel #carousel [circular]="false" [autoplayInterval]="3000" [numScroll]="1" [numVisible]="3"
+						*ngIf="!isNoApplicationsData" [responsiveOptions]="responsiveOptions"
+						[value]="recentJobApplication" [showIndicators]="true"
+						[indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
+						aria-label="Recent Job Applications Carousel">
+						<ng-template let-group pTemplate="item">
+							<div role="button" tabindex="0" class="card mt-0 m-2 bg-white" (keyup.enter)="selectFav(v)"
+								(keyup.space)="selectFav(v)">
+								<div class="card-body">
+									<div class="jobImage d-flex justify-content-center align-items-center h-100">
 										<img alt="{{ group.company_name }} logo"
 											(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
 											src="{{ group.image }}" />
-									<!-- </div> -->
-									<!-- <div>
-										<h6 class="mb-0 text-sm text-capitalize">
-											<b>{{ group.position_title }}</b>
-										</h6>
-										<p class="text-muted text-small">{{ group.company_name }}</p>
-										<p class="mb-0 text-small text-capitalize mt-2">
-											<i class="fa-solid fa-location-dot" style="color: #79ae28"
-												aria-hidden="true"></i>&nbsp;
-											<span style="font-weight: 500px; color: black">{{ group.work_location
-												}}</span>
-										</p>
-									</div> -->
+									</div>
 								</div>
 							</div>
-						</div>
-					</ng-template>
-				</p-carousel>
-				<div *ngIf="isNoApplicationsData" style="margin: auto">
-					<h4>No Recent Jobs Yet</h4>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Quiz and Certification Cards -->
-	<div class="col-lg-3 col-md-12 col-sm-12 mt-2">
-		<div class="row h-100">
-			<div class="col-lg-12 col-md-6 col-sm-12 mb-2">
-				<div class="card h-100 bg-white">
-					<div class="card-body d-flex flex-column justify-content-between">
-						<div class="text-start">
-							<h5 class="mb-1 uppercase"><span class="emoji" aria-label="hourglass">⌛</span> Quiz</h5>
-							<p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
-						</div>
-						<button pButton severity="warn" (click)="openQuiz()"
-							class="btn btn-rounded font-weight-bold mt-1"
-							style="color: #ff9138; border-color: #ff9138; background-color: #fff1e7"
-							aria-label="Start Quiz">Start Quiz</button>
+						</ng-template>
+					</p-carousel>
+					<div *ngIf="isNoApplicationsData" class="text-center mt-3">
+						<h4>No Recent Jobs Yet</h4>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-12 col-md-6 col-sm-12">
-				<div class="card h-100 bg-white">
-					<div class="card-body d-flex flex-column justify-content-between">
-						<div class="text-start">
-							<h5 class="mb-1 uppercase fw-bold"><span class="emoji" aria-label="scroll">📜</span>
-								Certification</h5>
-							<p class="mb-0">Get all your certificates in one place to share them on social media.</p>
-						</div>
-						<button pButton (click)="openCertificate()" class="btn btn-rounded mt-1"
-							style="color: #455c9e; background-color: #ecedf3; border-color: #455c9e"
-							aria-label="View My Certificates">My Certificates</button>
+			<div class="card flex-fill bg-white">
+				<div class="card-body text-center pb-3 bodyclass d-flex flex-column justify-content-between h-100">
+					<div class="flex justify-content-between">
+						<h5 class="mb-0 p-2 text-start"><span class="emoji"
+								aria-label="seedling">💼</span>&nbsp;Companies</h5>
+						<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white"
+							style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()"
+							aria-label="View all educational partners">View All</button>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- 3rd line -->
-<div class="row mt-2">
-	<div class="col-lg-9 col-md-12 col-sm-12 mt-2">
-		<div class="card trustedcard bg-white">
-			<div class="card-body text-center pb-3 bodyclass">
-				<div class="flex justify-content-between">
-					<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="seedling">💼</span> &nbsp;Companies</h5>
-					<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white"
-						style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()"
-						aria-label="View all educational partners">View All</button>
-				</div>
-				<div>
-					<p-carousel [numScroll]="8" [numVisible]="4"  [circular]="true" [autoplayInterval]="3000"
+					<p-carousel [numScroll]="8" [numVisible]="4" [circular]="true" [autoplayInterval]="3000"
 						[responsiveOptions]="responsiveOptions" [showIndicators]="true" [value]="partnerTrusterLogo"
 						class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 						aria-label="Educational Partners Carousel">
 						<ng-template let-uni pTemplate="item">
 							<div role="button" tabindex="0" class="card mt-0 m-2 bg-white">
 								<div class="card-body">
-									<div class="text-center companyImage d-flex justify-content-center align-items-center h-100" style="margin: auto;">
-										<img
-											alt="{{ uni.company_name }} logo"
+									<div
+										class="text-center companyImage d-flex justify-content-center align-items-center h-100">
+										<img alt="{{ uni.company_name }} logo"
 											(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
-											[src]="uni.company_logo"
-										/>
+											[src]="uni.company_logo" />
 									</div>
-									<!-- <div class=" mt-1text-center">
-										<h6 class="mb-0 text-sm text-capitalize">
-											<b>{{uni.company_name}}</b>
-										</h6>
-									</div> -->
 								</div>
 							</div>
 						</ng-template>
@@ -282,29 +224,58 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-3 col-md-12 col-sm-12 mt-2">
-		<div class="card bg=white h-100 pb-3 pt-2 bg-white">
-			<div class="card-body d-flex flex-column justify-content-between">
-				<div class="text-start">
-					<h5 class="mb-1 mt-2 uppercase"><span class="emoji" aria-label="envelope">💌</span> Invite People to
-						Try <span style="color: #ff9138">UNIPREP</span></h5>
-					<p class="mb-0">We'll email them instructions and a link to create an account</p>
-				</div>
-				<p-inputgroup>
-					<p-inputgroup-addon>
-						<i class="fa-regular fa-envelope" aria-hidden="true"></i>
-					</p-inputgroup-addon>
-					<input pInputText [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address"
-						aria-label="Email address to send invite" />
-				</p-inputgroup>
 
-				<button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold "
-					style="color: #666666; border-color: #666666; background-color: #ffffff; font-size: 10px"
-					aria-label="Send invite email">Send Invite</button>
+	<!-- Right Column - 30% -->
+	<div class="col-lg-3 col-md-4">
+		<div class="d-flex flex-column h-100">
+			<div class="card mb-2 flex-fill bg-white">
+				<div class="card-body d-flex flex-column justify-content-between">
+					<div class="text-start">
+						<h5 class="mb-1 uppercase"><span class="emoji" aria-label="hourglass">⌛</span> Quiz</h5>
+						<p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
+					</div>
+					<button pButton severity="warn" (click)="openQuiz()" class="btn btn-rounded font-weight-bold mt-2"
+						style="color: #ff9138; border-color: #ff9138; background-color: #fff1e7"
+						aria-label="Start Quiz">Start Quiz</button>
+				</div>
+			</div>
+			<div class="card mb-2 flex-fill bg-white">
+				<div class="card-body d-flex flex-column justify-content-between">
+					<div class="text-start">
+						<h5 class="mb-1 uppercase fw-bold"><span class="emoji" aria-label="scroll">📜</span>
+							Certification</h5>
+						<p class="mb-0">Get all your certificates in one place to share them on social media.</p>
+					</div>
+					<button pButton (click)="openCertificate()" class="btn btn-rounded mt-2"
+						style="color: #455c9e; background-color: #ecedf3; border-color: #455c9e"
+						aria-label="View My Certificates">My Certificates</button>
+				</div>
+			</div>
+			<div class="card flex-fill bg-white">
+				<div class="card-body d-flex flex-column justify-content-between">
+					<div class="text-start">
+						<h5 class="mb-1 mt-2 uppercase"><span class="emoji" aria-label="envelope">💌</span> Invite
+							People to Try <span style="color: #ff9138">UNIPREP</span></h5>
+						<p class="mb-3">We'll email them instructions and a link to create an account</p>
+					</div>
+					<p-inputgroup>
+						<p-inputgroup-addon>
+							<i class="fa-regular fa-envelope" aria-hidden="true"></i>
+						</p-inputgroup-addon>
+						<input pInputText [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address"
+							aria-label="Email address to send invite" />
+					</p-inputgroup>
+					<button pButton (click)="sendInviteMail()" severity="warn"
+						class="btn btn-rounded font-weight-bold mt-4"
+						style="color: #666666; border-color: #666666; background-color: #ffffff; font-size: 10px"
+						aria-label="Send invite email">Send Invite</button>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+
 <p-popover #op styleClass="reportwidthfix" appendTo="body" aria-label="Report form">
 	<ng-template pTemplate="content">
 		<div class="container px-0">
@@ -315,8 +286,8 @@
 					<span class="report-modal">
 						<p-select [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id"
 							formControlName="reportOption" class="w-100" id="reportOption"
-							placeholder="Select Issue Type"
-							optionLabel="reportoption_name" aria-label="Select issue type"></p-select>
+							placeholder="Select Issue Type" optionLabel="reportoption_name"
+							aria-label="Select issue type"></p-select>
 					</span>
 					<p class="report-label text-left mb-0">Comment</p>
 					<span class="report-modal">
