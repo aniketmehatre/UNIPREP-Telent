@@ -133,7 +133,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	demoDays: any
 	reportlearnlanguagetype: number = 0
 	countryList: any //this is the original home country list for time being am doing like this.
-	indiaHomeCountry: any = [{ country: "India", id: 122 }]
+	// indiaHomeCountry: any = [{ country: "India", id: 122 }]
+	homeCountryList: any
 	locationList: any
 	whiteLabelIsNotShow: boolean = true
 	visibleExhastedUser!: boolean
@@ -372,7 +373,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			this.toast.add({
 				severity: "error",
 				summary: "Error",
-				detail: "Enter valid Phone Number",
+				detail: "Enter valid Number",
 			})
 			return;
 		}
@@ -493,6 +494,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				}
 			}
 		});
+
+		this.getHomeCountry()
 		// Handle phone verification
 		await this.handlePhoneVerification();
 		this.checkNewUSerLogin();
@@ -1575,5 +1578,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	onCheckHaveWhatsappOrPhone(event: any) {
 		const isChecked = (event.target as HTMLInputElement).checked;
 		this.haveWhatsapp = isChecked ? 'Phone' : 'Whatsapp';
+	}
+
+
+	getHomeCountry() {
+		this.locationService.getHomeCountryNew().subscribe(
+			(res: any) => {
+				this.homeCountryList = res
+			},
+			(error: any) => {
+				this.toast.add({
+					severity: "warning",
+					summary: "Warning",
+					detail: error.error.message,
+				})
+			}
+		)
 	}
 }

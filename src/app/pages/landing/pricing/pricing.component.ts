@@ -31,12 +31,12 @@ export interface Subscription {
 @Component({
   selector: 'uni-pricing',
   imports: [
-              CommonModule,
-              FormsModule,
-              ReactiveFormsModule,
-              DialogModule,
-              RouterModule,
-              ScrollTopModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DialogModule,
+    RouterModule,
+    ScrollTopModule,
   ],
   templateUrl: './pricing.component.html',
   styleUrl: './pricing.component.scss'
@@ -47,10 +47,13 @@ export class PricingComponent implements OnInit {
   careerSubscription: Subscription;
   entrepreneurSubscription: Subscription;
   countryLocation: string;
+  currentLocationCountry: any
+  preferredCountry: any
 
   constructor(private landingPageService: landingServices) { }
   ngOnInit(): void {
-      this.getCountry();
+    // this.getUserLocation()
+    this.getCountry();
   }
 
   onSelectPeriod(period: 1 | 6 | 12) {
@@ -72,7 +75,7 @@ export class PricingComponent implements OnInit {
   }
 
   setCountry(country: string) {
-    switch(country) {
+    switch (country) {
       case 'IN':
         this.countryLocation = 'India';
         break;
@@ -80,7 +83,7 @@ export class PricingComponent implements OnInit {
         this.countryLocation = 'United Kingdom';
         break;
       default:
-      this.countryLocation = 'India';
+        this.countryLocation = 'India';
     }
   }
 
@@ -91,7 +94,7 @@ export class PricingComponent implements OnInit {
     }
     this.landingPageService.getLandingPageSubscriptionList(data).subscribe({
       next: response => {
-        if(Array.isArray(response)) {
+        if (Array.isArray(response)) {
           this.studentSubscription = response.find(item => item.subscription_plan == 'Student');
           this.careerSubscription = response.find(item => item.subscription_plan == 'Career');
           this.entrepreneurSubscription = response.find(item => item.subscription_plan == 'Entrepreneur');
@@ -101,6 +104,41 @@ export class PricingComponent implements OnInit {
         console.error(error.error.message);
       }
     })
+  }
+
+  getUserLocation() {
+    fetch("https://ipapi.co/json/")
+      .then((response) => response.json())
+      .then((data) => {
+        this.preferredCountry = data.country_code.toLocaleLowerCase()
+        console.log(data)
+      })
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const longitude = position.coords.longitude
+          const latitude = position.coords.latitude
+          fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
+            .then((response) => response.json())
+            .then((data) => {
+              this.currentLocationCountry = data.address.country
+            })
+          console.log(this.currentLocationCountry)
+          //this.setCountry(this.currentLocationCountry);
+          this.getLandingPageSubscriptionList(this.currentLocationCountry, this.selectedPeriod);
+        },
+        (error) => {
+          //if you're not giving the location access get the current country name using IP address
+          fetch("https://ipapi.co/json/")
+            .then((response) => response.json())
+            .then((data) => {
+              this.currentLocationCountry = data.country_name
+            })
+        }
+      )
+    } else {
+      console.log("No support for geolocation")
+    }
   }
 
 }
