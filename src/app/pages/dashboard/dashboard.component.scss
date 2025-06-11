@@ -1,73 +1,5 @@
 // // @import "../../../uniprep-assets/buttons";
 // // @import "../../../uniprep-assets/cards";
-.companyImage img {
-  width: 25vw; 
-  max-width: 200px;
-  height: auto;
-  object-fit: contain;
-}
-
-.jobImage img{
-  width: 20vw; 
-  max-width: 320px;
-  height: 13vh;
-  object-fit: fill;
-}
-.countrycard {
-  .card-header {
-    background: transparent;
-    text-align: center;
-  }
-
-  .card-body {
-    .p-carousel
-      .p-carousel-indicators
-      .p-carousel-indicator.p-highlight
-      button {
-      background-color: #001631;
-      height: 5px;
-    }
-  }
-
-  .card-footer {
-    background: transparent;
-    text-align: center;
-    padding-bottom: 0;
-    border-top: none;
-  }
-
-  .countryicon {
-    max-width: 50px;
-    width: 100%;
-    object-fit: contain;
-  }
-
-  .bottom-text {
-    width: auto;
-    font-size: 0.9rem;
-    font-weight: normal;
-    padding: 15px 30px;
-    border-radius: 10px 10px 0px 0px;
-  }
-
-  .country-text {
-    color: var(--uniprep-primary);
-    font-weight: 600;
-    font-size: 1rem;
-  }
-
-  .country-text-small {
-    color: #001631;
-    font-weight: 600;
-    font-size: 1rem;
-  }
-
-  .country-border {
-    border: 2px solid var(--uniprep-primary);
-    border-radius: 10px;
-    background: var(--uniprep-primaryop10);
-  }
-}
 .fav-card {
   .card-header {
     background: transparent;
@@ -669,4 +601,43 @@ Due to the split circle of progress-left and progress right, we must use the ani
 }
 .row.d-flex {
   align-items: stretch;
+}
+.company-card {
+  border-radius: 1rem;
+  transition: box-shadow 0.3s ease;
+  background-color: white;
+}
+.logo-wrapper {
+  width: 75px;
+  height: 75px;
+  border-radius: 0.75rem;
+  background-color: white;
+  border: 0.5px solid #dee2e6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.company-logo {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+.job-card {
+  border-radius: 1rem;
+  background-color: #fff;
+  box-shadow: 0 0 4px rgba(0,0,0,0.03);
+  border: none;
+  display: flex !important;
+}
+
+.logo-wrapper1 {
+  width: 75px;
+  height: 75px;
+  background-color: white;
+  border: 0.5px solid #dee2e6;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
