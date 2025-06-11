@@ -1,48 +1,52 @@
 .text-navy {
-    color: #172b4d;
+  color: #172b4d;
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+.text-primary {
+  color: var(--uniprep-primary) !important;
+}
+
+.text-warning {
+  color: var(--uniprep-secondary) !important;
+}
+
+.p-button-warning {
+  background-color: #fff;
+  color: var(--uniprep-secondary);
+  border-color: var(--uniprep-secondary);
+
+  &:hover {
+    background-color: #fff9e6;
+    color: var(--uniprep-secondary);
+    border-color: var(--uniprep-secondary);
   }
-  
+}
+
+.p-progressbar .p-progressbar-value {
+  background: linear-gradient(to right, var(--uniprep-secondary), #ff5722);
+}
+
+.p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
+  color: var(--uniprep-secondary);
+}
+
+.student-details {
   .card {
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    border: none;
+    background-color: #F8F8F8 !important;
   }
-  
-  .text-primary {
-    color: var(--uniprep-primary) !important;
-  }
-  
-  .text-warning {
-    color: var(--uniprep-secondary) !important;
-  }
-  
-  .p-button-warning {
-    background-color: #fff;
-    color: var(--uniprep-secondary);
-    border-color:var(--uniprep-secondary);
-    
-    &:hover {
-      background-color: #fff9e6;
-      color: var(--uniprep-secondary);
-      border-color: var(--uniprep-secondary);
-    }
-  }
-  
-  .p-progressbar .p-progressbar-value {
-    background: linear-gradient(to right,var(--uniprep-secondary), #ff5722);
-  }
-  
-  .p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
-    color: var(--uniprep-secondary);
-  }
+}
 
-  .student-details {
-       .card {
-        background-color: #F8F8F8 !important;
-       }
-  }
+::ng-deep .custom-progress .p-progressbar-value {
+  background-color: var(--uniprep-secondary);
+}
 
-  ::ng-deep .custom-progress .p-progressbar-value {
-    background-color:var(--uniprep-secondary);
-  }
-  
+#socialSharingList {
+  right: 2rem;
+  top: 4rem;
+}

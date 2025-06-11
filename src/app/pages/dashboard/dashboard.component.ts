@@ -1,5 +1,5 @@
 import { InputGroupModule } from 'primeng/inputgroup';
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ElementRef } from "@angular/core"
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ElementRef, signal } from "@angular/core"
 import { DashboardService } from "./dashboard.service"
 import { AuthService } from "../../Auth/auth.service"
 import { SubSink } from "subsink"
@@ -31,6 +31,7 @@ import { SeoManagerComponent } from 'src/app/components/seo-manager/seo-manager.
 import { PopoverModule } from 'primeng/popover';
 import { TextareaModule } from 'primeng/textarea';
 import { FavouriteList, FeatureFavourite } from './favourites-data';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
 	selector: "uni-dashboard",
@@ -53,7 +54,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	userName: any
 	responsiveOptions: any
 	sendInvite: any = ""
-	partnerTrusterLogo: any[]=[]
+	partnerTrusterLogo: any[] = []
 	planExpired: boolean = false
 	groupedListFav: any[] = [];
 	cvBuilderPercentage: number = 0;
@@ -66,6 +67,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	reportOptionNgModel: number = 21;
 	reportSubmitForm!: FormGroup;
 	featureList: FeatureFavourite[] = FavouriteList;
+	userBasedVideo: any;
 	reportOptionList: any[] = [
 		{
 			"id": 21,
@@ -76,12 +78,14 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			"updated_at": null
 		},
 	]
+	safeSrc: SafeResourceUrl;
 	fieldsToCheck = ["name", "email", "phone", "home_country_id", "selected_country", "location_id", "last_degree_passing_year", "intake_year_looking", "intake_month_looking", "programlevel_id"]
 
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
 		private dataService: DataService, private authService: AuthService, private locationService: LocationService,
 		private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService,
 		private toaster: MessageService, private seoManagerComponent: SeoManagerComponent, private formBuilder: FormBuilder,
+		private sanitizer: DomSanitizer
 	) {
 		this.reportSubmitForm = this.formBuilder.group({
 			reportOption: [""],
@@ -114,6 +118,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
 	ngOnInit(): void {
 		// Initialize essential data first
+		this.apiToCheckPartnerOrInstitute()
 		this.groupedListFav = this.chunkArray(this.featureList, 4);
 		this.recentJobs();
 		this.handleUserData();
@@ -308,5 +313,18 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	ngOnDestroy(): void {
 		this.subs.unsubscribe();
 		this.seoManagerComponent.updateDynamicContent("UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship");
+	}
+
+	apiToCheckPartnerOrInstitute() {
+		this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
+			if (response.source == 'Institute') {
+				this.userBasedVideo = 'https://www.youtube.com/embed/42B2CeFKC3U?si=RXhsz-ipwODqBY1E'
+			} else if (response.source == 'Partner') {
+				this.userBasedVideo = 'https://www.youtube.com/embed/uWcCcFtEKs0?si=Foe4DmyoqDwndpy5'
+			} else {
+				this.userBasedVideo = 'https://www.youtube.com/embed/AAXUZ0z5bl0?si=xAFiTKSQGhHrQ9iE'
+			}
+			this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.userBasedVideo);
+		})
 	}
 }

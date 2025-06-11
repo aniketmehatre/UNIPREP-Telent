@@ -512,7 +512,7 @@
 								<div class="d-flex align-items-center">
 									<input type="checkbox" formControlName="choice" class="form-check-input mt-0"
 										(change)="onCheckHaveWhatsappOrPhone($event)" id="noWhatsapp" />
-									<label for="noWhatsapp">I don't have a Whatsapp Number</label>
+									<label for="noWhatsapp">I don't have a {{haveWhatsapp}} Number</label>
 								</div>
 								<div *ngIf="isSendingOTP" class="text-primary" role="button" (click)="onEditNumber()">
 									Edit Number</div>
@@ -526,7 +526,7 @@
 							</a>
 						</div>
 						<div *ngIf="isSendingOTP">
-							<p class="centertitle mt-2">Enter your Whatsapp number to continue the experinence</p>
+							<p class="centertitle mt-2">Enter your {{haveWhatsapp}} number to continue the experience</p>
 							<div class="otp-container m-4" role="group" aria-label="OTP input">
 								<input *ngFor="let digit of otpArray; let i = index" type="text" maxlength="1"
 									class="otp-box" [id]="'otp-' + i" [(ngModel)]="otp[i]" formControlName="otp"
@@ -594,7 +594,7 @@
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
 							<p class="m-1">Select Your Home Country</p>
 							<p-select class="w-100" formControlName="home_country" appendTo="body"
-								[options]="indiaHomeCountry" [filter]="true" placeholder="Country" [autofocus]="true"
+								[options]="homeCountryList" [filter]="true" placeholder="Country" [autofocus]="true"
 								(onChange)="changeLocation($event)" filterBy="country" optionLabel="country"
 								optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
 						</div>
