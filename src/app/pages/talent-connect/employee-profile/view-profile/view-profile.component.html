@@ -284,7 +284,7 @@
     </div>
   
     <!-- Additional Details Section -->
-    <div class="card mb-4" *ngIf="profileData.additionalDetails && profileData.additionalDetails.languagesKnown && profileData.additionalDetails.languagesKnown.length > 0">
+    <div class="card mb-4" *ngIf="profileData.additionalDetails && (profileData.additionalDetails.languagesKnown.length > 0 || profileData.additionalDetails.softSkills.length > 0)">
       <div class="card-body">
         <div class="row g-2">
           <div class="col-md-3">

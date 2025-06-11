@@ -350,6 +350,20 @@ export class ViewProfileComponent implements OnInit {
       );
     };
 
+    const hasValidWrokExpContent = (arr: any[]): boolean => {
+      if (!arr || !Array.isArray(arr) || arr.length === 0) return false;
+      const isNonEmpty = (val: any): boolean => {
+        if (val === null || val === undefined || val === '') return false;
+        if (typeof val === 'object') {
+          return Object.values(val).some(innerVal => isNonEmpty(innerVal));
+        }
+        return true;
+      };
+      return arr.some(item =>
+        Object.values(item).some(val => isNonEmpty(val))
+      );
+    };
+
     // Helper function to check if an object has meaningful content
     const hasObjectContent = (obj: any): boolean => {
       if (!obj || typeof obj !== 'object') return false;
@@ -407,11 +421,11 @@ export class ViewProfileComponent implements OnInit {
     // Process languages
     const languagesKnown = (formData.languages || [])
       .map((lang: any) => {
-        const language = this.getListValue(this.languageList, lang.languages_language_id, 'language') || '';
-        const proficiency = lang.languages_proficiency || '';
-        return { lang: language, prof: proficiency };
+        const language = this.getListValue(this.languageList, lang.languages_language_id, 'language') || null;
+        const proficiency = lang.languages_proficiency || null;
+        return language ? { lang: language, prof: proficiency } : null;
       })
-      .filter(Boolean);
+      .filter((item: any) => item !== null);
 
 
     const softSkills = this.config.data.softSkills
@@ -497,11 +511,11 @@ export class ViewProfileComponent implements OnInit {
         total_years_of_experience: formData.total_years_of_experience || 0,
       },
       educationDetails: hasValidContent(educationDetails) ? educationDetails : null,
-      workExperience: hasValidContent(workExperience) ? workExperience : null,
+      workExperience: hasValidWrokExpContent(workExperience) ? workExperience : null,
       careerPreferences: hasObjectContent(careerPreferences) ? careerPreferences : null,
       certifications: hasValidContent(certifications) ? certifications : null,
       userAchievements: hasValidContent(userAchievements) ? userAchievements : null,
-      additionalDetails: (languagesKnown.length > 0 || hobbiesAndInterests || softSkills.length > 0) ? {
+      additionalDetails: (languagesKnown.length > 0 || softSkills.length > 0) ? {
         languagesKnown: languagesKnown,
         hobbiesAndInterests: hobbiesAndInterests,
         softSkills: softSkills

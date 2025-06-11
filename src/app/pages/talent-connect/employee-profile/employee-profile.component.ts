@@ -229,7 +229,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       education_graduation_year_id: [null, Validators.required],
       education_gpa_percentage: [null],
       education_still_pursuing: [null],
-      education_cgpa_or_percentage: [1],
+      education_cgpa_or_percentage: [null],
     })
   }
 
@@ -289,7 +289,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       references_college_name: [null],
       references_reference_name: [null],
       references_designation: [null],
-      // references_phone_number: [null, Validators.max(9999999999)],
       references_email: [null, Validators.email],
     })
   }
@@ -300,7 +299,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       references_company_name: [null],
       references_reference_name: [null],
       references_designation: [null],
-      // references_phone_number: [null, Validators.max(9999999999)],
       references_email: [null, Validators.email],
     })
   }
@@ -1186,7 +1184,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           education_graduation_year_id: [edu.graduation_year_id || "", Validators.required],
           education_gpa_percentage: [edu.gpa_percentage || null],
           education_still_pursuing: [null],
-          education_cgpa_or_percentage: [1],
+          education_cgpa_or_percentage: [null],
         });
         educationArray.push(group);
         const educationQualificationControl = group.get('education_qualification_id');
@@ -1448,8 +1446,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         student_profile.nationality_name = '';
       }
 
-
-
       const selectedLocation = this.locations.find(
         (item: any) => item.id === formValues.location_id
       );
@@ -1459,26 +1455,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       } else {
         student_profile.location_name = '';
       }
-
-      /*
-      const educationArray = this.personalInfoForm.get('educationDetails') as FormArray;
-
-      if (educationArray && educationArray.length > 0) {
-        const firstEducation = educationArray.at(0) as FormGroup;
-        const qualificationId = firstEducation.get('education_qualification_id')?.value;
-      
-        const selectedQualification = this.qualifications.find(
-          (item: any) => item.id === qualificationId
-        );
-      
-        if (selectedQualification) {
-          student_profile.qualification_name = selectedQualification.qualification_name;
-        } else {
-          student_profile.qualification_name = '';
-        }
-      } else {
-        student_profile.qualification_name = '';
-      } */
 
       const qualificationId = this.personalInfoForm.get('educationDetails.0.education_qualification_id')?.value;
       student_profile.qualification = this.qualifications.find((q: any) => q.id === qualificationId)?.qualification_name || '';
@@ -1592,8 +1568,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     )
   }
 
-
-
   setupFormListeners(): void {
     this.personalInfoForm.get("total_years_of_experience")?.valueChanges.subscribe((value) => {
       if (value !== 'Fresher') {
@@ -1601,7 +1575,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       }
     });
   }
-
 
   validateTotalExperience() {
     const selectedTotalExp = this.personalInfoForm.get('total_years_of_experience')?.value;
@@ -2141,6 +2114,99 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     const group = this.educationDetails.at(index);
     const gpaPercantageCtrl = group.get('education_gpa_percentage');
     gpaPercantageCtrl?.setValue(0);
+  }
+
+  onChangeWorkExpCompanyName(event: any, index: number) {
+    const formGroup = this.workExperience.at(index);
+    const companyNameControl = formGroup.get("work_experience_company_name");
+    const jobTitleControl = formGroup.get("work_experience_job_title");
+    const durationFromControl = formGroup.get("work_experience_duration_from");
+    const durationToControl = formGroup.get("work_experience_duration_to");
+    const yearOfExperienceControl = formGroup.get("years_of_experience");
+    const employmentTypeControl = formGroup.get("work_experience_employment_type");
+    const currencyControl = formGroup.get("work_experience_currency_id");
+    const salaryPerMonthControl = formGroup.get("work_experience_salary_per_month");
+    const jobResponsibilityControl = formGroup.get("work_experience_job_responsibilities");
+    const experienceLetterControl = formGroup.get("work_experience_experience_letter");
+    if (event.target.value) {
+      companyNameControl?.setValidators(Validators.required);
+      jobTitleControl?.setValidators(Validators.required);
+      durationFromControl?.setValidators(Validators.required);
+      durationToControl?.setValidators(Validators.required);
+      yearOfExperienceControl?.setValidators(Validators.required);
+      employmentTypeControl?.setValidators(Validators.required);
+      currencyControl?.setValidators(Validators.required);
+      salaryPerMonthControl?.setValidators(Validators.required);
+      jobResponsibilityControl?.setValidators(Validators.required);
+      experienceLetterControl?.setValidators(Validators.required);
+    } else {
+      companyNameControl?.clearValidators();
+      jobTitleControl?.clearValidators();
+      durationFromControl?.clearValidators();
+      durationToControl?.clearValidators();
+      yearOfExperienceControl?.clearValidators();
+      employmentTypeControl?.clearValidators();
+      currencyControl?.clearValidators();
+      salaryPerMonthControl?.clearValidators();
+      jobResponsibilityControl?.clearValidators();
+      experienceLetterControl?.clearValidators();
+    }
+    companyNameControl?.updateValueAndValidity();
+    jobTitleControl?.updateValueAndValidity();
+    durationFromControl?.updateValueAndValidity();
+    durationToControl?.updateValueAndValidity();
+    yearOfExperienceControl?.updateValueAndValidity();
+    employmentTypeControl?.updateValueAndValidity();
+    currencyControl?.updateValueAndValidity();
+    salaryPerMonthControl?.updateValueAndValidity();
+    jobResponsibilityControl?.updateValueAndValidity();
+    experienceLetterControl?.updateValueAndValidity();
+  }
+
+  onChangeAcademicCollegeName(event: any, index: number) {
+    const formGroup = this.academicReferences.at(index);
+    const collegeControl = formGroup.get("references_college_name");
+    const nameControl = formGroup.get("references_reference_name");
+    const designationControl = formGroup.get("references_designation");
+    const emailControl = formGroup.get("references_email");
+    if (event.target.value) {
+      collegeControl?.setValidators(Validators.required);
+      nameControl?.setValidators(Validators.required);
+      designationControl?.setValidators(Validators.required);
+      emailControl?.setValidators([Validators.required, Validators.email]);
+    } else {
+      collegeControl?.clearValidators();
+      nameControl?.clearValidators();
+      designationControl?.clearValidators();
+      emailControl?.clearValidators();
+    }
+    collegeControl?.updateValueAndValidity();
+    nameControl?.updateValueAndValidity();
+    designationControl?.updateValueAndValidity();
+    emailControl?.updateValueAndValidity();
+  }
+
+  onChangeProfessionalCompanyName(event: any, index: number) {
+    const formGroup = this.professionalReferences.at(index);
+    const companyControl = formGroup.get("references_company_name");
+    const nameControl = formGroup.get("references_reference_name");
+    const designationControl = formGroup.get("references_designation");
+    const emailControl = formGroup.get("references_email");
+    if (event.target.value) {
+      companyControl?.setValidators(Validators.required);
+      nameControl?.setValidators(Validators.required);
+      designationControl?.setValidators(Validators.required);
+      emailControl?.setValidators([Validators.required, Validators.email]);
+    } else {
+      companyControl?.clearValidators();
+      nameControl?.clearValidators();
+      designationControl?.clearValidators();
+      emailControl?.clearValidators();
+    }
+    companyControl?.updateValueAndValidity();
+    nameControl?.updateValueAndValidity();
+    designationControl?.updateValueAndValidity();
+    emailControl?.updateValueAndValidity();
   }
 
   ngOnDestroy(): void {
