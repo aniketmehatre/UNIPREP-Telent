@@ -12,6 +12,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Departments } from "src/app/@Models/user-profile.model";
 import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile";
 import { SelectChangeEvent } from "primeng/select";
+import { environment } from "@env/environment";
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -2208,6 +2209,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     designationControl?.updateValueAndValidity();
     emailControl?.updateValueAndValidity();
   }
+
+openGuideUrl(type: string) {
+  const guideMap: { [key: string]: string } = {
+    video: environment.imagePath + 'sample/your_profile_video_guide.pdf',
+    sample: 'https://drive.google.com/file/d/1hIV_NnPxa7xnXsXbwKB0y6k9PCng6EP7/view',
+    portfolio: environment.imagePath + 'sample/your_profile_video_guide.pdf'
+  };
+  const url = guideMap[type];
+  window.open(url, '_blank');
+}
 
   ngOnDestroy(): void {
     this.clearStoredFiles();

@@ -1168,11 +1168,11 @@
 													</div>
 													<div class="col-5 ps-0">
 														<div class="d-flex">
-															<button pButton type="button"
+															<button pButton type="button" (click)="openGuideUrl('sample')"
 																class="btn btn-primary btn-rounded p-1 px-3 me-2">Sample
 															</button>
-															<button pButton type="button"
-																class="btn btn-secondary  btn-rounded p-1 px-3">Guide
+															<button pButton type="button" (click)="openGuideUrl('video')"
+																class="btn btn-secondary btn-rounded p-1 px-3">Guide
 															</button>
 														</div>
 													</div>
@@ -1196,7 +1196,7 @@
 														<small>(For Designers, Writers, Developers)</small>
 													</div>
 													<div class="col-3 ps-0 text-end">
-														<button pButton type="button"
+														<button pButton type="button"  (click)="openGuideUrl('portfolio')"
 															class="btn btn-secondary btn-rounded p-1 px-3">Guide
 														</button>
 													</div>
