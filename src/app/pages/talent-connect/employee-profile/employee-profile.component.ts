@@ -88,8 +88,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   profileDetail!: EmployeeConnectProfile;
   isDisableAddMoreEducation: boolean = false;
   cgpaPercentageList: any = [
-    { id: 1, value: "Percentage" },
-    { id: 2, value: "CGPA" },
+    { id: "Percentage", value: "Percentage" },
+    { id: "GPA", value: "GPA" },
   ];
   constructor(
     private fb: FormBuilder,
@@ -228,9 +228,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       education_field_id: [null, Validators.required],
       education_course_name: [null, Validators.required],
       education_graduation_year_id: [null, Validators.required],
-      education_gpa_percentage: [null],
       education_still_pursuing: [null],
-      education_cgpa_or_percentage: [null],
+      education_cgpa_or_percentage: [null, Validators.required],
+      education_cgpa_or_percentage_type: [null],
     })
   }
 
@@ -521,9 +521,21 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           )
           this.appendIfModified(
             formData,
-            `educationDetails[${index}][education_gpa_percentage]`,
+            `educationDetails[${index}][education_still_pursuing]`,
             originalEducation,
-            (value) => education.get("education_gpa_percentage")?.value || "",
+            (value) => education.get("education_still_pursuing")?.value || "",
+          )
+          this.appendIfModified(
+            formData,
+            `educationDetails[${index}][education_cgpa_or_percentage_type]`,
+            originalEducation,
+            (value) => education.get("education_cgpa_or_percentage_type")?.value || "",
+          )
+          this.appendIfModified(
+            formData,
+            `educationDetails[${index}][education_cgpa_or_percentage]`,
+            originalEducation,
+            (value) => education.get("education_cgpa_or_percentage")?.value || "",
           )
         })
 
@@ -989,7 +1001,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           checkField(edu.get("education_field_id"), 2)
           checkField(edu.get("education_course_name"), 1)
           checkField(edu.get("education_graduation_year_id"), 2)
-          checkField(edu.get("education_gpa_percentage"), 2)
+          checkField(edu.get("education_cgpa_or_percentage"), 2)
+          checkField(edu.get("education_still_pursuing"), 2)
         }
       })
     }
@@ -1175,7 +1188,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       const educationArray = this.personalInfoForm.get("educationDetails") as FormArray
       educationArray.clear()
       response.education.forEach((edu: any) => {
-        this.createEducationGroup();
         const group = this.fb.group({
           id: [edu.id], // Store the original ID
           education_qualification_id: [edu.qualification_id || "", Validators.required],
@@ -1183,17 +1195,27 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           education_field_id: [edu.field_id || "", Validators.required],
           education_course_name: [edu.course_name || "", Validators.required],
           education_graduation_year_id: [edu.graduation_year_id || "", Validators.required],
-          education_gpa_percentage: [edu.gpa_percentage || null],
-          education_still_pursuing: [null],
-          education_cgpa_or_percentage: [null],
+          education_still_pursuing: [edu.education_still_pursuing || null],
+          education_cgpa_or_percentage: [edu.gpa_percentage || null],
+          education_cgpa_or_percentage_type: [edu.gpa_percentage_type || null],
         });
-        educationArray.push(group);
+        const typeControl = group.get("education_cgpa_or_percentage_type");
+        const valueControl = group.get("education_cgpa_or_percentage");
+        if (!edu.education_still_pursuing) {
+          typeControl?.setValidators(Validators.required);
+          valueControl?.setValidators(Validators.required);
+        } else {
+          valueControl?.clearValidators();
+          typeControl?.clearValidators();
+        }
+        typeControl?.updateValueAndValidity();
+        valueControl?.updateValueAndValidity();
         const educationQualificationControl = group.get('education_qualification_id');
         educationQualificationControl?.valueChanges?.subscribe((value: number) => {
           this.isDisableAddMoreEducation = value == 1 ? true : false;
         });
-      })
-
+        educationArray.push(group);
+      });
     }
 
     // Patch Work Experience with IDs
@@ -1421,7 +1443,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onCallAIEvaluation() {
-
     if (this.personalInfoForm.valid) {
       if (this.haveErrorWhileAddExp) {
         this.validateTotalExperience();
@@ -1465,7 +1486,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       student_profile.major = this.fieldsOfStudy.find((q: any) => q.id === majorId)?.field_name || '';
       const graduationId = this.personalInfoForm.get('educationDetails.0.education_graduation_year_id')?.value;
       student_profile.graduation_year = this.graduationYears.find((q: any) => q.id === graduationId)?.graduation_year_name || '';
-      student_profile.gpa_percent = this.personalInfoForm.get('educationDetails.0.education_gpa_percentage')?.value;
+      student_profile.gpa_percent = this.personalInfoForm.get('educationDetails.0.education_cgpa_or_percentage')?.value;
 
 
       //work experience
@@ -1741,8 +1762,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         education.get("education_graduation_year_id")?.value || "",
       )
       formData.append(
-        `educationDetails[${index}][education_gpa_percentage]`,
-        education.get("education_gpa_percentage")?.value || "",
+        `educationDetails[${index}][education_still_pursuing]`,
+        education.get("education_still_pursuing")?.value || "",
+      )
+      formData.append(
+        `educationDetails[${index}][education_cgpa_or_percentage_type]`,
+        education.get("education_cgpa_or_percentage_type")?.value || "",
+      )
+      formData.append(
+        `educationDetails[${index}][education_cgpa_or_percentage]`,
+        education.get("education_cgpa_or_percentage")?.value || "",
       )
     })
 
@@ -2108,12 +2137,82 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onChangeStillPursuing(event: any, index: number) {
+    const currentGroup = this.educationDetails.at(index);
+    const cgpaTypeCtrl = currentGroup.get('education_cgpa_or_percentage_type');
+    const cgpaValueCtrl = currentGroup.get('education_cgpa_or_percentage');
+    if (event.target.checked) {
+      this.educationDetails.controls.forEach((group, i) => {
+        if (i !== index) {
+          const otherStillPursuing = group.get('education_still_pursuing');
+          const otherType = group.get('education_cgpa_or_percentage_type');
+          const otherValue = group.get('education_cgpa_or_percentage');
 
+          if (otherStillPursuing?.value) {
+            otherStillPursuing.setValue(false, { emitEvent: false });
+            otherType?.enable();
+            otherValue?.enable();
+          }
+        }
+      });
+      cgpaTypeCtrl?.reset();
+      cgpaValueCtrl?.reset();
+      cgpaTypeCtrl?.disable();
+      cgpaValueCtrl?.disable();
+    } else {
+      cgpaTypeCtrl?.enable();
+      cgpaValueCtrl?.enable();
+    }
   }
+
+  onChangeStillPursuingg(event: any, index: number) {
+  const isChecked = event.target.checked;
+  const currentGroup = this.educationDetails.at(index);
+  const currentTypeCtrl = currentGroup.get('education_cgpa_or_percentage_type');
+  const currentValueCtrl = currentGroup.get('education_cgpa_or_percentage');
+
+  // Reset and disable current if checked
+  if (isChecked) {
+    // Uncheck others
+    this.educationDetails.controls.forEach((group, i) => {
+      if (i !== index) {
+        const stillPursuingCtrl = group.get('education_still_pursuing');
+        const typeCtrl = group.get('education_cgpa_or_percentage_type');
+        const valueCtrl = group.get('education_cgpa_or_percentage');
+
+        if (stillPursuingCtrl?.value) {
+          stillPursuingCtrl.setValue(false, { emitEvent: false });
+          typeCtrl?.enable();
+          valueCtrl?.enable();
+        }
+
+        typeCtrl?.setValidators(Validators.required);
+        valueCtrl?.setValidators(Validators.required);
+        typeCtrl?.updateValueAndValidity();
+        valueCtrl?.updateValueAndValidity();
+      }
+    });
+
+    currentTypeCtrl?.reset();
+    currentValueCtrl?.reset();
+    currentTypeCtrl?.disable();
+    currentValueCtrl?.disable();
+    currentTypeCtrl?.clearValidators();
+    currentValueCtrl?.clearValidators();
+  } else {
+    // Enable and apply validators if unchecked
+    currentTypeCtrl?.enable();
+    currentValueCtrl?.enable();
+    currentTypeCtrl?.setValidators(Validators.required);
+    currentValueCtrl?.setValidators(Validators.required);
+  }
+
+  currentTypeCtrl?.updateValueAndValidity();
+  currentValueCtrl?.updateValueAndValidity();
+}
 
   onChangeCGPAorPercentage(event: SelectChangeEvent, index: number) {
     const group = this.educationDetails.at(index);
-    const gpaPercantageCtrl = group.get('education_gpa_percentage');
+    const gpaPercantageCtrl = group.get('education_cgpa_or_percentage');
     gpaPercantageCtrl?.setValue(0);
   }
 
@@ -2210,15 +2309,15 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     emailControl?.updateValueAndValidity();
   }
 
-openGuideUrl(type: string) {
-  const guideMap: { [key: string]: string } = {
-    video: environment.imagePath + 'sample/your_profile_video_guide.pdf',
-    sample: 'https://drive.google.com/file/d/1hIV_NnPxa7xnXsXbwKB0y6k9PCng6EP7/view',
-    portfolio: environment.imagePath + 'sample/your_profile_video_guide.pdf'
-  };
-  const url = guideMap[type];
-  window.open(url, '_blank');
-}
+  openGuideUrl(type: string) {
+    const guideMap: { [key: string]: string } = {
+      video: environment.imagePath + 'sample/your_profile_video_guide.pdf',
+      sample: 'https://drive.google.com/file/d/1hIV_NnPxa7xnXsXbwKB0y6k9PCng6EP7/view',
+      portfolio: environment.imagePath + 'sample/your_profile_video_guide.pdf'
+    };
+    const url = guideMap[type];
+    window.open(url, '_blank');
+  }
 
   ngOnDestroy(): void {
     this.clearStoredFiles();

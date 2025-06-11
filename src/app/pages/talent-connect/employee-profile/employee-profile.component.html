@@ -173,6 +173,8 @@
 									</div>
 								</div>
 								<hr class="my-3" />
+
+								<!-- Education Details Section -->
 								<div class="card-body">
 									<h2 class="card-title mb-1">Education Details</h2>
 									<ng-container class="education" formArrayName="educationDetails">
@@ -187,7 +189,6 @@
 												</button>
 											</div>
 											<div class="row mb-3">
-												<!-- Highest Qualification -->
 												<div class="col-md-6">
 													<label class="form-label">
 														{{i== 0 ? 'Highest Qualification' : 'Level of qualification'
@@ -203,8 +204,6 @@
 														*ngIf="education.get('education_qualification_id')?.invalid && education.get('education_qualification_id')?.touched">
 														Highest Qualification is required </small>
 												</div>
-
-												<!-- University/Institution Name -->
 												<div class="col-md-6">
 													<label for="university" class="form-label">Institution Name
 														<span class="text-danger">*</span></label>
@@ -221,7 +220,6 @@
 												</div>
 											</div>
 											<div class="row mb-3">
-												<!-- Field of Study / Major -->
 												<div class="col-md-6">
 													<label for="fieldOfStudy" class="form-label">Field of study <span
 															class="text-danger">*</span></label>
@@ -235,8 +233,6 @@
 														*ngIf="education.get('education_field_id')?.invalid && education.get('education_field_id')?.touched">
 														Field of study is required </small>
 												</div>
-
-												<!-- Course Name -->
 												<div class="col-md-6">
 													<label class="form-label">Course Name <span
 															class="text-danger">*</span></label>
@@ -252,7 +248,6 @@
 												</div>
 											</div>
 											<div class="row mb-3">
-												<!-- Field of Study / Major -->
 												<div class="col-md-6">
 													<label for="fieldOfStudy" class="form-label">Graduation Year
 														<span class="text-danger">*</span></label>
@@ -268,8 +263,6 @@
 														*ngIf="education.get('education_graduation_year_id')?.invalid && education.get('education_graduation_year_id')?.touched">
 														Graduation Year is required </small>
 												</div>
-
-												<!-- Course Name -->
 												<div class="col-md-6">
 													<div class="d-flex justify-content-between align-items-center">
 														<label class="form-label">GPA / Percentage<span
@@ -285,7 +278,7 @@
 													</div>
 													<div class="d-flex w-100 gap-2">
 														<p-select [options]="cgpaPercentageList"
-															formControlName="education_cgpa_or_percentage"
+															formControlName="education_cgpa_or_percentage_type"
 															optionLabel="value" optionValue="id"
 															placeholder="Select GPA / Percentage"
 															(onChange)="onChangeCGPAorPercentage($event,i)"
@@ -293,23 +286,29 @@
 														<div class="flex-grow-1">
 															<p-inputgroup>
 																<p-input-number
-																	formControlName="education_gpa_percentage"
+																	formControlName="education_cgpa_or_percentage"
 																	mode="decimal"
-																	[placeholder]="education.get('education_cgpa_or_percentage')?.value == 1 ? 'Enter your Percentage' : 'Enter your GPA'"
+																	[placeholder]="education.get('education_cgpa_or_percentage_type')?.value == 'Percentage' ? 'Enter your Percentage' : 'Enter your GPA'"
 																	class="w-100" [maxFractionDigits]="2" [min]="0"
-																	[max]="education.get('education_cgpa_or_percentage')?.value == 1 ? 100 : 10"
+																	[max]="education.get('education_cgpa_or_percentage_type')?.value == 'Percentage' ? 100 : 10"
 																	(focusout)="resetMessageBox()"
-																	(onFocus)="updateMessageBox('education_gpa_percentage')" />
+																	(onFocus)="updateMessageBox('education_cgpa_or_percentage')" />
 																<p-inputgroup-addon
-																	*ngIf="education.get('education_cgpa_or_percentage')?.value == 1">
+																	*ngIf="education.get('education_cgpa_or_percentage_type')?.value == 'Percentage'">
 																	<i class="pi pi-percentage"></i>
 																</p-inputgroup-addon>
 															</p-inputgroup>
 														</div>
 													</div>
+														<samll *ngIf="(
+                                                                  (education.get('education_cgpa_or_percentage_type')?.value && !education.get('education_cgpa_or_percentage')?.value) ||
+                                                                  (!education.get('education_cgpa_or_percentage_type')?.value && education.get('education_cgpa_or_percentage')?.value)
+                                                              )" class="text-danger">
+														Please fill both values.
+													</samll>
 													<small class="text-danger"
-														*ngIf="education.get('education_gpa_percentage')?.invalid && education.get('education_gpa_percentage')?.touched">
-														Percentage must be between 0 and 100 </small>
+														*ngIf="education.get('education_cgpa_or_percentage')?.invalid && education.get('education_cgpa_or_percentage')?.touched">
+														Percentage must be between 0 and {{education.get('education_cgpa_or_percentage_type')?.value == 'Percentage' ? 100 : 10 }} </small>
 												</div>
 											</div>
 										</ng-container>
@@ -321,6 +320,8 @@
 									</div>
 								</div>
 								<hr class="my-3" />
+
+								<!-- Work Experience Section -->
 								<div class="card-body">
 									<ng-container class="work-experience" formArrayName="work_experience">
 										<ng-container *ngFor="let experience of workExperience.controls; let i = index"
@@ -551,6 +552,8 @@
 									</div>
 								</div>
 								<hr class="my-3" />
+
+								<!-- Career Prefrenences & Aspirations Section -->
 								<div class="card-body">
 									<h2 class="card-title mb-1">Career Prefrenences & Aspirations</h2>
 									<div class="mb-2">
@@ -707,6 +710,8 @@
 									</ng-container>
 								</div>
 								<hr />
+
+								<!-- Certifications & Achievements Section -->
 								<div class="row">
 									<div class="col-12">
 										<h2 class="card-title mb-1">Certifications & Achievements</h2>
@@ -818,6 +823,8 @@
 										<hr class="my-4" />
 									</div>
 								</div>
+
+								<!-- Addtional Details Section -->
 								<div class="card-body">
 									<h2 class="card-title mb-1">Addtional Details</h2>
 									<div class="mb-2">
@@ -890,6 +897,8 @@
 									</ng-container>
 								</div>
 								<hr />
+
+								<!-- Key Strengths & Professional Traits Section -->
 								<div class="card-body">
 									<h2 class="card-title mb-1">Key Strengths & Professional Traits</h2>
 									<div class="mb-2">
@@ -1039,6 +1048,8 @@
 									</ng-container>
 								</div>
 								<hr />
+
+								<!-- Professional Networking & Online Presence Section -->
 								<div class="card-body">
 									<h2 class="card-title mb-3">Professional Networking & Online Presence</h2>
 									<ng-container class="work-experience">
@@ -1129,6 +1140,8 @@
 									</ng-container>
 								</div>
 								<hr />
+
+								<!-- Attachments & Media Section -->
 								<div class="card-body">
 									<h2 class="card-title mb-3">Attachments & Media</h2>
 									<div class="mb-2">
@@ -1216,6 +1229,8 @@
 									</div>
 								</div>
 								<hr class="my-3" />
+
+								<!-- Reference & Endorsement Section -->
 								<div class="card-body">
 									<h2 class="card-title mb-3">Reference & Endorsement</h2>
 									<ng-container class="work-experience" formArrayName="academicReferences">
