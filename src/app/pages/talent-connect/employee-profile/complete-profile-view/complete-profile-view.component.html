@@ -41,7 +41,7 @@
                 <i class="fa fa-calendar text-primary me-2"></i>
                 <div>
                   <div class="text-muted small">Date of Birth</div>
-                  <div>{{profileData?.date_of_birth | date: 'dd-MM-yyyy'}}</div>
+                  <div>{{profileData?.date_of_birth | date: 'dd/MM/yyyy'}}</div>
                 </div>
               </div>
             </div>
@@ -80,10 +80,22 @@
               [style]="{'height': '10px', 'color': 'red' }"></p-progressBar>
           </div>
         </div>
-        <div class="col-md-3 col-lg-3 d-flex flex-column gap-2 align-items-end">
+        <div class="col-md-3 col-lg-3 d-flex justify-content-end gap-2 align-items-start">
           <button class="p-button p-button-outlined" routerLink="/pages/talent-connect/my-profile"><i
               class="pi pi-pencil me-2"></i>Edit Profile</button>
-          <!-- <button pButton label="Share Profile" icon="pi pi-share-alt" class="p-button-outlined p-button-warning"></button> -->
+          <button pButton label="Share Profile" iconPos="right" icon="pi pi-share-alt"
+            class="p-button-outlined p-button-warning" (click)="showSocialSharingList()"></button>
+          <p-card id="socialSharingList">
+            <ul style="list-style: none; cursor: pointer">
+              <li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+              <li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+              <li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+              <li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+              <li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+              <li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
+              <li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+            </ul>
+          </p-card>
         </div>
       </div>
     </div>
@@ -103,11 +115,11 @@
               <div>{{edu?.qualification_name}}</div>
             </div>
             <div class="col-md-4 col-xl-3 mb-3">
-              <div class="text-primary fw-bold">University / Institution Name</div>
+              <div class="text-primary fw-bold">Institution Name</div>
               <div>{{edu?.university_name}}</div>
             </div>
             <div class="col-md-4 col-xl-3 mb-3">
-              <div class="text-primary fw-bold">Field of Study / Major</div>
+              <div class="text-primary fw-bold">Field of Study</div>
               <div>{{edu?.field_of_study || 'Not specified'}}</div>
             </div>
             <div class="col-md-4 col-xl-3 mb-3">
@@ -147,10 +159,6 @@
           <div class="row" *ngIf="profileData.work_experience && profileData.work_experience.length > 0">
             <ng-container *ngFor="let exp of profileData.work_experience">
               <div class="col-md-4 col-xl-3 mb-3">
-                <div class="text-primary fw-bold">Years of Experience</div>
-                <div>{{exp?.years_of_experience || 'Not specified'}}</div>
-              </div>
-              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Company Name</div>
                 <div>{{exp?.company_name || 'Not specified'}}</div>
               </div>
@@ -159,15 +167,19 @@
                 <div>{{exp?.job_title || 'Not specified'}}</div>
               </div>
               <div class="col-md-4 col-xl-3 mb-3">
-                <div class="text-primary fw-bold">Employment Type</div>
-                <div>{{exp?.employment_type || 'Not specified'}}</div>
-              </div>
-              <div class="col-md-4 col-xl-3 mb-3">
                 <div class="text-primary fw-bold">Duration</div>
                 <div>{{exp?.duration_from + ' - ' + exp?.duration_to || 'Not specified'}}</div>
               </div>
               <div class="col-md-4 col-xl-3 mb-3">
-                <div class="text-primary fw-bold">Salary</div>
+                <div class="text-primary fw-bold">Years of Experience</div>
+                <div>{{exp?.years_of_experience || 'Not specified'}}</div>
+              </div>
+              <div class="col-md-4 col-xl-3 mb-3">
+                <div class="text-primary fw-bold">Employment Type</div>
+                <div>{{exp?.employment_type || 'Not specified'}}</div>
+              </div>
+              <div class="col-md-4 col-xl-3 mb-3">
+                <div class="text-primary fw-bold">Salary per month</div>
                 <div>{{exp?.salary_per_month || 'Not specified'}}</div>
               </div>
               <div class="col-12 mb-3">
@@ -212,7 +224,7 @@
               <div>{{profileData.careerPreference.job_title || 'Not specified'}}</div>
             </div>
             <div class="col-md-4 col-xl-3 mb-3">
-              <div class="text-primary fw-bold">Interested Department</div>
+              <div class="text-primary fw-bold">Interested Industry</div>
               <div>{{profileData.careerPreference.department_name?.join(',') || 'Not specified'}}</div>
             </div>
             <div class="col-md-4 col-xl-3 mb-3">
@@ -232,7 +244,7 @@
               <div>{{profileData.careerPreference?.willingness_to_relocate}}</div>
             </div>
             <div class="col-md-4 col-xl-3 mb-3">
-              <div class="text-primary fw-bold">Expected</div>
+              <div class="text-primary fw-bold">Expected Salary per month</div>
               <div>{{profileData.careerPreference.expected_salary}}</div>
             </div>
           </div>
@@ -287,7 +299,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-3">
-          <h3 class="fw-bold text-navy">Additional Details</h3>
+          <h3 class="fw-bold text-navy">Key Strengths & Professional Traits</h3>
           <div class="mt-3 text-warning">Looking to add more languages?</div>
           <button pButton label="Click here to start learning!" (click)="routingToPage('/pages/language-hub/languages')"
             class="p-button-outlined p-button-warning mt-2"></button>
@@ -318,7 +330,7 @@
   </div>
 
   <!-- Key Strengths Section -->
-  <div class="card mb-4" *ngIf="profileData.careerPreference">
+  <!-- <div class="card mb-4" *ngIf="profileData.careerPreference">
     <div class="card-body">
       <div class="row">
         <div class="col-md-3">
@@ -362,7 +374,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Professional Networking Section -->
   <div class="card mb-4">
@@ -373,21 +385,25 @@
         </div>
         <div class="col-md-9">
           <div class="row">
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 mb-3" *ngIf="profileData.linkedin_profile">
+              <a [href]="profileData.linkedin_profile" target="_blank" class="text-break text-primary">
+                <i class="pi pi-linkedin fs-3"></i>
+              </a>
               <div class="text-primary fw-bold">LinkedIn Profile</div>
-              <a [href]="profileData.linkedin_profile" target="_blank" class="text-break"
-                *ngIf="profileData.linkedin_profile">
-                <i class="pi pi-linkedin text-dark fs-4"></i>
-              </a>
-              <div *ngIf="!profileData.linkedin_profile" class="text-muted">Not specified</div>
             </div>
-            <div class="col-md-4 mb-3">
-              <div class="text-primary fw-bold">Personal Website</div>
-              <a [href]="profileData.personal_website" target="_blank" class="text-break"
-                *ngIf="profileData.personal_website">
-                <i class="pi pi-globe text-dark fs-4"></i>
+            <ng-container *ngIf="profileData.networking && profileData.networking.length > 0">
+              <div class="col-md-4 mb-3" *ngFor="let social of profileData.networking">
+                  <a [href]="social.social_media_link" target="_blank" class="text-break text-primary">
+                    <i class="pi pi-{{getSocialMediaIconName(social.social_media)}} fs-3"></i>
+                  </a>
+                <div class="text-primary fw-bold">{{social.social_media + ' Profile'}}</div>
+              </div>
+            </ng-container>
+            <div class="col-md-4 mb-3" *ngIf="profileData.personal_website">
+              <a [href]="profileData.personal_website" target="_blank" class="text-break text-primary">
+                <i class="pi pi-globe fs-3"></i>
               </a>
-              <div *ngIf="!profileData.personal_website" class="text-muted">Not specified</div>
+              <div class="text-primary fw-bold">Personal Website</div>
             </div>
           </div>
         </div>
@@ -409,21 +425,11 @@
         <div class="col-md-9">
           <div class="row">
             <div class="col-md-4 mb-3">
-              <div class="text-primary fw-bold">Introduction Video</div>
-              <div *ngIf="profileData.careerPreference.video_link; else noVideoLink">
-                <a [href]="profileData.careerPreference.video_link" target="_blank" class="text-break">
-                  <i class="pi pi-video text-dark fs-4"></i>
-                </a>
-              </div>
-              <ng-template #noVideoLink>
-                <div class="text-muted">Not specified</div>
-              </ng-template>
-            </div>
-            <div class="col-md-4 mb-3">
               <div class="text-primary fw-bold">Portfolio</div>
               <div *ngIf="profileData.careerPreference.portfolio_upload_link; else noUploadLink">
-                <a [href]="profileData.careerPreference.portfolio_upload_link" target="_blank" class="text-break">
-                  <i class="pi pi-link text-dark fs-4"></i>
+                <a [href]="profileData.careerPreference.portfolio_upload_link" target="_blank"
+                  class="text-break text-primary">
+                  <i class="fa-solid fa-folder-user fs-3"></i>
                 </a>
               </div>
               <ng-template #noUploadLink>
@@ -432,8 +438,9 @@
             </div>
             <div class="col-md-4 mb-3">
               <div class="text-primary fw-bold">Upload CV / Resume</div>
-              <button *ngIf="profileData.careerPreference.cv_filename" pButton label="CV.pdf" icon="pi pi-download"
-                class="p-button-outlined p-button-secondary w-100 justify-content-between" iconPos="right"></button>
+                <button *ngIf="profileData.careerPreference.cv_filename" pButton [label]="extractFileName(profileData.careerPreference.cv_filename)"
+                  icon="pi pi-download" class="p-button-outlined p-button-secondary mb-2 justify-content-between"
+                  (click)="openView(profileData.careerPreference.cv_filename);" iconPos="right"></button>
               <div *ngIf="!profileData.careerPreference.cv_filename" class="text-muted">No CV uploaded</div>
             </div>
           </div>

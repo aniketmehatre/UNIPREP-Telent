@@ -116,7 +116,7 @@
 			<div class="flex-fill overflow-y-auto">
 				<form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
 					<div class="col-md-12 mb-3">
-						<ng-container *ngIf="moduleActiveIndex == 0">
+						<ng-container>
 							<h4 class="uniprep-primary">Enter Your Personal Information</h4>
 							<div class="row mb-3">
 								<div class="col-md-6">
@@ -134,7 +134,7 @@
 								</div>
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Job Title</label>
-									<p-dropdown formControlName="user_job_title" [options]="jobRoles" 
+									<p-dropdown formControlName="user_job_title" [options]="jobRoles"
 										placeholder="Select Job Title" styleClass="w-100" optionLabel="jobrole"
 										optionValue="jobrole" [filter]="true" filterBy="jobrole"
 										[virtualScroll]="jobRoles.length > 100" [virtualScrollItemSize]="50">
@@ -175,9 +175,9 @@
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Your Location</label>
 									<p-select [options]="cities" placeholder="Location, Country" [filter]="true"
-										filterBy="country_name" styleClass="w-100" formControlName="user_location"
-										optionLabel="country_name" [virtualScroll]="true" [virtualScrollItemSize]="50"
-										optionValue="country_name"></p-select>
+										filterBy="work_location" styleClass="w-100" formControlName="user_location"
+										optionLabel="work_location" [virtualScroll]="true" [virtualScrollItemSize]="50"
+										optionValue="work_location"></p-select>
 									<div *ngIf="submitted && f['user_location'].errors?.['required']"
 										class="text-danger text-xs">
 										Location Required
@@ -239,11 +239,10 @@
 
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Location</label>
-
 									<p-select [options]="cities" placeholder="Location, Country" [filter]="true"
-										filterBy="country_name" styleClass="w-100" formControlName="org_location"
-										optionLabel="country_name" [virtualScroll]="true" [virtualScrollItemSize]="50"
-										optionValue="country_name"></p-select>
+										filterBy="work_location" styleClass="w-100" formControlName="org_location"
+										optionLabel="work_location" [virtualScroll]="true" [virtualScrollItemSize]="50"
+										optionValue="work_location"></p-select>
 									<div *ngIf="submitted && f['org_location'].errors?.['required']"
 										class="text-danger text-xs">
 										Location Required
@@ -301,8 +300,7 @@
 				</form>
 			</div>
 			<div class="d-flex justify-content-end">
-				<button pButton type="button" (click)="resumeFormSubmit()" *ngIf="moduleActiveIndex == 0"
-					class="btn btn-success btn-rounded p-1 ps-4">
+				<button pButton type="button" (click)="resumeFormSubmit()" class="btn btn-success btn-rounded p-1 ps-4">
 					<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i
 							class="fa-solid fa-check"></i></span>
 				</button>
@@ -310,36 +308,7 @@
 		</div>
 		<div class="col-md-6 h-100">
 			<div class="card h-100">
-				<div class="card-header d-flex justify-content-between align-items-center border-0 bg-transparent">
-					<h4 class="uniprep-primary mb-0">Preview</h4>
-					<div class="d-flex gap-2 align-items-center">
-						<span class="templateButton gap-2">Template
-							<div class="template-dropdown position-relative">
-								<span class="templateName">{{ selectedResumeLevel }} <i
-										class="fa fa-caret-down"></i></span>
-								<div class="template-dropdown-content">
-									<a class="cursorPointer"
-										[ngClass]="{ activeTemplate: selectedResumeLevel === 'Traditional' }"
-										(click)="imgOnclick('Traditional')">Traditional</a>
-									<a class="cursorPointer"
-										[ngClass]="{ activeTemplate: selectedResumeLevel === 'Creative' }"
-										(click)="imgOnclick('Creative')">Creative</a>
-									<a class="cursorPointer"
-										[ngClass]="{ activeTemplate: selectedResumeLevel === 'Modern' }"
-										(click)="imgOnclick('Modern')">Modern</a>
-									<a class="cursorPointer"
-										[ngClass]="{ activeTemplate: selectedResumeLevel === 'Functional' }"
-										(click)="imgOnclick('Functional')">Functional</a>
-									<a class="cursorPointer"
-										[ngClass]="{ activeTemplate: selectedResumeLevel === 'Academic' }"
-										(click)="imgOnclick('Academic')">Academic</a>
-								</div>
-							</div>
-						</span>
-						<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
-					</div>
-					<i class="fa-sharp fa-solid fa-expand" style="cursor: pointer" (click)="toggleFullScreen()"></i>
-				</div>
+				<ng-container *ngTemplateOutlet="headerPreview"></ng-container>
 				<div class="card-body overflow-y-auto">
 					<div class="previewcontainer">
 						<div class="previewbody">
@@ -351,41 +320,13 @@
 		</div>
 	</div>
 </div>
-<!-- templates -->
+<!---------- templates ------------->
 
 <p-sidebar [(visible)]="fullScreenVisible" [fullScreen]="true" [showCloseIcon]="false">
 	<div class="col-md-12 h-100">
-		<div class="card h-100 border-0">
-			<div class="card-header cvPreview border-0 rounded-0">
-				<h4 class="mb-0">Cover Letter Preview</h4>
-				<div class="d-flex gap-2 align-items-center">
-					<span class="templateButton gap-2">Template
-						<div class="template-dropdown position-relative">
-							<span class="templateName">{{ selectedResumeLevel }} <i class="fa fa-caret-down"></i></span>
-							<div class="template-dropdown-content">
-								<a class="cursorPointer"
-									[ngClass]="{ activeTemplate: selectedResumeLevel === 'Traditional' }"
-									(click)="imgOnclick('Traditional')">Traditional</a>
-								<a class="cursorPointer"
-									[ngClass]="{ activeTemplate: selectedResumeLevel === 'Creative' }"
-									(click)="imgOnclick('Creative')">Creative</a>
-								<a class="cursorPointer"
-									[ngClass]="{ activeTemplate: selectedResumeLevel === 'Modern' }"
-									(click)="imgOnclick('Modern')">Modern</a>
-								<a class="cursorPointer"
-									[ngClass]="{ activeTemplate: selectedResumeLevel === 'Functional' }"
-									(click)="imgOnclick('Functional')">Functional</a>
-								<a class="cursorPointer"
-									[ngClass]="{ activeTemplate: selectedResumeLevel === 'Academic' }"
-									(click)="imgOnclick('Academic')">Academic</a>
-							</div>
-						</div>
-					</span>
-					<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
-				</div>
-				<i class="fa-sharp fa-solid fa-compress" role="button" (click)="toggleFullScreen()"></i>
-			</div>
-			<div class="card-body overflow-y-auto" style="background-color: #3f4c83">
+		<div class="card h-100 border-0" style="background-color: #3f4c83;">
+			<ng-container *ngTemplateOutlet="headerPreview"></ng-container>
+			<div class="card-body overflow-y-auto">
 				<div class="row justify-content-center">
 					<div class="col-md-5">
 						<div class="previewcontainer">
@@ -399,6 +340,33 @@
 		</div>
 	</div>
 </p-sidebar>
+
+<ng-template #headerPreview>
+	<div class="card-header cvPreview rounded-0 border-0 bg-transparent text-dark">
+		<h4 class="mb-0">Cover Letter Preview</h4>
+		<div class="d-flex gap-2 align-items-center">
+			<span class="templateButton gap-2">Template
+				<div class="template-dropdown position-relative">
+					<span class="templateName">{{ selectedResumeLevel }} <i class="fa fa-caret-down"></i></span>
+					<div class="template-dropdown-content">
+						<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Traditional' }"
+							(click)="imgOnclick('Traditional')">Traditional</a>
+						<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Creative' }"
+							(click)="imgOnclick('Creative')">Creative</a>
+						<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Modern' }"
+							(click)="imgOnclick('Modern')">Modern</a>
+						<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Functional' }"
+							(click)="imgOnclick('Functional')">Functional</a>
+						<a class="cursorPointer" [ngClass]="{ activeTemplate: selectedResumeLevel === 'Academic' }"
+							(click)="imgOnclick('Academic')">Academic</a>
+					</div>
+				</div>
+			</span>
+			<ng-container *ngTemplateOutlet="colorPickerContent"></ng-container>
+		</div>
+		<i class="fa-sharp fa-solid fa-compress" role="button" (click)="toggleFullScreen()"></i>
+	</div>
+</ng-template>
 
 <ng-template #colorPickerContent>
 	<div class="dropdown">

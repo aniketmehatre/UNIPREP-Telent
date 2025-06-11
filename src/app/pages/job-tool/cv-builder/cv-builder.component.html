@@ -156,7 +156,7 @@
 	<div class="container-fluid h-100 d-flex flex-column" *ngIf="activePageIndex == 2">
 		<div class="row flex-fill overflow-hidden">
 			<div class="col-md-6 h-100 d-flex flex-column overflow-hidden gap-2">
-				<div class="flex-fill overflow-y-auto" *ngIf="moduleActiveIndex == 0">
+				<div class="flex-fill overflow-y-auto">
 					<form role="form" class="row" [formGroup]="resumeFormInfoData" #form="ngForm">
 						<ng-container>
 							<div class="col-md-12 mb-3">
@@ -166,7 +166,8 @@
 										pTooltip="Please select your level of experience to proceed further"
 										tooltipPosition="top"></i>
 								</div>
-								<p-select [options]="experienceLevel" placeholder="Select Experience Level"
+								<!-- (onChange)="onChangeExpLevel()" -->
+								<p-select [options]="experienceLevel" placeholder="Select Experience Level" 
 									styleClass="w-100" formControlName="selected_exp_level" optionLabel="level"
 									optionValue="id"></p-select>
 								<div *ngIf="submitted && f['selected_exp_level'].errors" class="text-danger text-xs">
@@ -267,10 +268,10 @@
 										</div>
 										<div class="form-group">
 											<p-select [options]="cities" placeholder="Location, Country" [filter]="true"
-												filterBy="country_name" styleClass="w-100"
-												formControlName="user_location" optionLabel="country_name"
+												filterBy="work_location" styleClass="w-100"
+												formControlName="user_location" optionLabel="work_location"
 												[virtualScroll]="true" [virtualScrollItemSize]="50"
-												optionValue="country_name"></p-select>
+												optionValue="work_location"></p-select>
 											<div *ngIf="submitted && f['user_location'].errors"
 												class="text-danger text-xs">
 												<div *ngIf="f['user_location'].errors['required']">Current Location
@@ -658,10 +659,10 @@
 																tooltipPosition="top"></i>
 														</div>
 														<p-select [options]="cities" placeholder="Location, Country"
-															[filter]="true" filterBy="country_name" styleClass="w-100"
-															formControlName="work_location" optionLabel="country_name"
+															[filter]="true" filterBy="work_location" styleClass="w-100"
+															formControlName="work_location" optionLabel="work_location"
 															[virtualScroll]="true" [virtualScrollItemSize]="50"
-															optionValue="country_name"></p-select>
+															optionValue="work_location"></p-select>
 														<div *ngIf="submitted && wrkExp.get('work_location').errors?.['required']"
 															class="text-danger text-xs">Location Required
 														</div>
@@ -887,12 +888,12 @@
 																<div class="input-wrapper">
 																	<p-select [options]="cities"
 																		placeholder="Location, Country" [filter]="true"
-																		filterBy="country_name" styleClass="w-100"
+																		filterBy="work_location" styleClass="w-100"
 																		formControlName="edu_location"
-																		optionLabel="country_name"
+																		optionLabel="work_location"
 																		[virtualScroll]="true"
 																		[virtualScrollItemSize]="50"
-																		optionValue="country_name"></p-select>
+																		optionValue="work_location"></p-select>
 																	<div *ngIf="submitted && eduDetail.get('edu_location').errors?.['required']"
 																		class="text-danger text-xs">Location Required
 																	</div>
@@ -925,7 +926,7 @@
 														<div class="form-group">
 															<div class="mb-3 mt-2">
 																<p-select [options]="cgpaPercentage" styleClass="w-100"
-																	formControlName="edu_cgpa_percentage"
+																	formControlName="edu_cgpa_percentage" placeholder="score type"
 																	optionLabel="value" optionValue="id"></p-select>
 															</div>
 														</div>
@@ -953,6 +954,7 @@
 								</div>
 							</div>
 							<div class="col-md-12">
+								<!-- {{ hidingHeaders }} -->
 								<ng-container
 									*ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
 									<h4 class="uniprep-primary">Enter Your Project Details</h4>
@@ -1074,7 +1076,7 @@
 													<div class="mb-3">
 														<p-select [options]="skillsLists" placeholder="Select Skill"
 															styleClass="w-100" [filter]="true" [appendTo]="'body'"
-															[filterBy]="'skills'" formControlName="skills"
+															filterBy="skills" formControlName="skills"
 															optionLabel="skills" optionValue="skills"
 															(onChange)="onSkillChange()"></p-select>
 

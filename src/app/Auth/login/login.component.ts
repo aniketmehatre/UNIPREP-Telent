@@ -30,6 +30,7 @@ import { AuthService } from "../auth.service"
 import { finalize } from 'rxjs/operators'
 import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login'
 import { Image } from "primeng/image";
+import { SkeletonModule } from "primeng/skeleton"
 
 declare var google: any;
 
@@ -41,7 +42,7 @@ declare var google: any;
     standalone: true,
     imports: [CommonModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule,
         InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule,
-        SocialLoginModule, GoogleSigninButtonModule, Image],
+        SocialLoginModule, GoogleSigninButtonModule, Image, SkeletonModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
@@ -49,12 +50,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     loginForm: FormGroup
     domainNameCondition: string
     ipURL: string = "https://api.ipify.org?format=json"
+    fallbackImage = '../../../uniprep-assets/images/uniprep-light.svg'
     locationData: any
     isInstitute = signal(false)
     submitted = signal(false);
     show = signal(true);
     isLoading = signal(false);
-    imageUrlWhitelabel = signal<string>('');
+    coBrandedImageUrl = signal<string>('../../../uniprep-assets/images/uniprep-light.svg');
     domainName = signal('main');
     password = signal('password')
     countryLists: any
@@ -70,6 +72,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authTokenService = inject(AuthTokenService);
     private cdr = inject(ChangeDetectorRef);
     private subs = new SubSink()
+    loading = true;
 
     get canSubmit() {
         return this.loginForm.valid && !this.isLoading();
@@ -115,8 +118,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.locationData = data
             })
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
-            this.imageUrlWhitelabel.set(data.logo)
-            console.log(data.logo)
+            this.coBrandedImageUrl.set(data.logo)
+            this.loading = false
             this.cdr.markForCheck()
         })
         this.loginForm = this.formBuilder.group({
@@ -125,6 +128,12 @@ export class LoginComponent implements OnInit, OnDestroy {
             domain_type: ['main']
         })
         this.loginForm.patchValue({ domain_type: this.domainName })
+    }
+
+    onImageError(event: Event) {
+        const target = event.target as HTMLImageElement;
+        target.src = this.fallbackImage;
+        this.loading = false;
     }
 
     onSubmit(): void {
@@ -164,27 +173,6 @@ export class LoginComponent implements OnInit, OnDestroy {
             }
         })
     }
-
-    // private initializeComponent() {
-    //     this.domainNameCondition = window.location.hostname
-    //     this.domainName.set(this.isDomainMain() ? 'main' : 'sub')
-    //     this.dataService.loggedInAnotherDevice("none")
-    //     fetch(this.ipURL)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             this.locationData = data
-    //         })
-    //     this.locationService.getImage().subscribe((imageUrl) => {
-    //         this.imageUrlWhitelabel.set(imageUrl);
-    //         this.cdr.markForCheck()
-    //     })
-    //     this.loginForm = this.formBuilder.group({
-    //         email: ["", [Validators.required, Validators.email]],
-    //         password: ["", [Validators.required]],
-    //         domain_type: ['main']
-    //     })
-    //     this.loginForm.patchValue({domain_type: this.domainName})
-    // }
 
     private isDomainMain(): boolean {
         return this.domainNameCondition === "dev-student.uniprep.ai" ||
@@ -259,7 +247,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.service.getMe().subscribe({
             next: (userData) => {
                 this.loadCountryList(userData)
-                
+
                 let req = {
                     userId: userData.userdetails[0].user_id,
                     location: this.locationData.city,

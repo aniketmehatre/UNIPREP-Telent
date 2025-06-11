@@ -64,10 +64,12 @@ export class RegistrationComponent implements OnInit {
     validNumberRequired: boolean = false
     registerFormInvalid: boolean = true
 
-    imageUrlWhitelabel: string | null = null
+    imageUrlWhitelabel: string = '../../../uniprep-assets/images/uniprep-light.svg'
 
     showPassword: boolean = false
     otpError: boolean = false
+    fallbackImage = '../../../uniprep-assets/images/uniprep-light.svg'
+    loading = true;
 
     constructor(
         private service: AuthService,
@@ -131,6 +133,12 @@ export class RegistrationComponent implements OnInit {
         })
 
         this.getUserLocation() //while registering the user needs to get the location based city, state, region, country.
+    }
+
+    onImageError(event: Event) {
+        const target = event.target as HTMLImageElement;
+        target.src = this.fallbackImage;
+        this.loading = false;
     }
 
     formatName() {
