@@ -1,28 +1,28 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from "@angular/core"
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
-import { Router, RouterModule } from "@angular/router"
-import { matchValidator } from "src/app/@Supports/matchvalidator"
-import { LocationService } from "src/app/location.service"
-import { AuthService } from "../auth.service"
-import { MessageService } from "primeng/api"
-import { NgxIntlTelInputModule } from "ngx-intl-tel-input"
-import { environment } from "@env/environment"
-import { LocalStorageService } from "ngx-localstorage"
-import { FluidModule } from "primeng/fluid"
-import { CommonModule } from "@angular/common"
-import { PasswordModule } from "primeng/password"
-import { InputTextModule } from "primeng/inputtext"
-import { InputIconModule } from "primeng/inputicon"
-import { InputGroupModule } from "primeng/inputgroup"
-import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { InputOtpModule } from "primeng/inputotp"
-import { ToastModule } from "primeng/toast"
-import { SelectModule } from "primeng/select"
-import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login';
-import { ButtonDirective } from "primeng/button";
-import { AuthTokenService } from "src/app/core/services/auth-token.service"
-import { KeyFilterModule } from 'primeng/keyfilter';
-import { Image } from "primeng/image";
+import {Component, CUSTOM_ELEMENTS_SCHEMA, OnInit} from "@angular/core"
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
+import {Router, RouterModule} from "@angular/router"
+import {matchValidator} from "src/app/@Supports/matchvalidator"
+import {LocationService} from "src/app/location.service"
+import {AuthService} from "../auth.service"
+import {MessageService} from "primeng/api"
+import {NgxIntlTelInputModule} from "ngx-intl-tel-input"
+import {environment} from "@env/environment"
+import {LocalStorageService} from "ngx-localstorage"
+import {FluidModule} from "primeng/fluid"
+import {CommonModule} from "@angular/common"
+import {PasswordModule} from "primeng/password"
+import {InputTextModule} from "primeng/inputtext"
+import {InputIconModule} from "primeng/inputicon"
+import {InputGroupModule} from "primeng/inputgroup"
+import {InputGroupAddonModule} from "primeng/inputgroupaddon"
+import {InputOtpModule} from "primeng/inputotp"
+import {ToastModule} from "primeng/toast"
+import {SelectModule} from "primeng/select"
+import {GoogleSigninButtonModule, SocialAuthService, SocialLoginModule,} from '@abacritt/angularx-social-login';
+import {ButtonDirective} from "primeng/button";
+import {AuthTokenService} from "src/app/core/services/auth-token.service"
+import {KeyFilterModule} from 'primeng/keyfilter';
+import {Image} from "primeng/image";
 
 @Component({
     selector: "app-registration",
@@ -63,6 +63,7 @@ export class RegistrationComponent implements OnInit {
     showEmailErrorIcon: boolean = false
     validNumberRequired: boolean = false
     registerFormInvalid: boolean = true
+    submitted = false
 
     imageUrlWhitelabel: string = '../../../uniprep-assets/images/uniprep-light.svg'
 
@@ -103,7 +104,7 @@ export class RegistrationComponent implements OnInit {
                     // } else {
                     //     this.storage.set(environment.tokenKey, data?.authorisation?.token)
                     // }
-                    this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
+                    this.router.navigate(["/pages/dashboard"], {replaceUrl: true})
                 },
                 (error: any) => {
                     this.toastr.add({
@@ -147,79 +148,25 @@ export class RegistrationComponent implements OnInit {
         const formatted = value
             .toLowerCase()
             .replace(/\b\w/g, (char: any) => char.toUpperCase());
-        control?.setValue(formatted, { emitEvent: false });
+        control?.setValue(formatted, {emitEvent: false});
     }
 
-    yearChage(event: any) {
-        this.registrationForm?.get("intakeMonth")?.setValue(event)
-    }
+    //
+    // gethomeCountryList() {
+    //     this.locationService.getHomeCountryNew().subscribe(
+    //         (res: any) => {
+    //             this.countryList = res
+    //         },
+    //         (error: any) => {
+    //             this.toastr.add({
+    //                 severity: "warning",
+    //                 summary: "Warning",
+    //                 detail: error.error.message,
+    //             })
+    //         }
+    //     )
+    // }
 
-    GetLocationList() {
-        if (this.registrationForm.get("country").value == 122) {
-            this.locationService.getLocation().subscribe(
-                (res: any) => {
-                    this.locationList = res
-                },
-                (error: any) => {
-                    this.toastr.add({
-                        severity: "warning",
-                        summary: "Warning",
-                        detail: error.error.message,
-                    })
-                }
-            )
-        } else {
-            this.locationList = [{ id: 0, district: "Others" }]
-            this.registrationForm.get("location").setValue(0)
-        }
-    }
-
-    gethomeCountryList() {
-        this.locationService.getHomeCountryNew().subscribe(
-            (res: any) => {
-                this.countryList = res
-            },
-            (error: any) => {
-                this.toastr.add({
-                    severity: "warning",
-                    summary: "Warning",
-                    detail: error.error.message,
-                })
-            }
-        )
-    }
-
-    getIntrestedCountryList() {
-        this.locationService.getCountry().subscribe(
-            (res: any) => {
-                this.intrestedCountryList = res
-            },
-            (error: any) => {
-                this.toastr.add({
-                    severity: "warning",
-                    summary: "Warning",
-                    detail: error.error.message,
-                })
-            }
-        )
-    }
-
-    getProgramLevelList() {
-        this.locationService.getProgramLevel().subscribe(
-            (res: any) => {
-                this.programLevelList = res
-            },
-            (error: any) => {
-                this.toastr.add({
-                    severity: "warning",
-                    summary: "Warning",
-                    detail: error.error.message,
-                })
-            }
-        )
-    }
-
-    submitted = false
 
     get f() {
         return this.registrationForm.controls
@@ -255,17 +202,17 @@ export class RegistrationComponent implements OnInit {
 
         this.service.Registraion(data).subscribe({
             next: (res: any) => {
-                this.toastr.add({ severity: "success", summary: "Success", detail: "User Registered" });
+                this.toastr.add({severity: "success", summary: "Success", detail: "User Registered"});
                 if (res?.authorisation?.token) {
                     this.storage.set(environment.tokenKey, res?.authorisation?.token);
                     this.service.saveToken(res?.authorisation?.token);
                     this.authTokenService.setToken(res?.authorisation?.token);
                 }
-                this.router.navigate(["/pages/dashboard"], { replaceUrl: true });
+                this.router.navigate(["/pages/dashboard"], {replaceUrl: true});
             },
             error: (error) => {
                 const message = error.error?.message != undefined ? error.error?.message : error?.message;
-                this.toastr.add({ severity: "error", summary: "Failed", detail: message });
+                this.toastr.add({severity: "error", summary: "Failed", detail: message});
             }
         });
     }
@@ -305,85 +252,6 @@ export class RegistrationComponent implements OnInit {
         }
     }
 
-    openTermsPopup() {
-        this.displayTerms = "block"
-    }
-
-    closeTermsPopup() {
-        this.displayTerms = "none"
-    }
-
-    sendMobileOTP() {
-        // if (this.otpForm.invalid) {
-        //   return;
-        // }
-        let val = {
-            phone: this.registrationForm.value.contactNumber.number,
-            country_code: this.registrationForm.value.contactNumber.dialCode,
-        }
-        if (this.registrationForm.value.fullName != null && this.registrationForm.value.contactNumber.number) {
-            this.service.getSmsOTP(val).subscribe(
-                (res: any) => {
-                    this.resendTime++
-                    this.startTimer = 60
-                    if (this.resendTime >= 3) {
-                        this.startTimer = 30
-                    }
-                    this.processTimer()
-                    // this.isMobileOTPSend = true
-                    // this.isMobileOTPEdit = true
-                    this.toastr.add({
-                        severity: "success",
-                        summary: "Success",
-                        detail: "OTP Generated and Sent to " + val.phone,
-                    })
-                },
-                (error: any) => {
-                    // this.isMobileOTPSend = false
-                }
-            )
-        } else {
-            this.toastr.add({
-                severity: "info",
-                summary: "Info",
-                detail: "Enter Above Filed",
-            })
-        }
-    }
-
-    onValidateMobileOTP() {
-        if (this.otpForm.invalid) {
-            return
-        }
-        let _otp = this.otpForm.value.otp1 + this.otpForm.value.otp2 + this.otpForm.value.otp3 + this.otpForm.value.otp4
-        // if (!this.isMobileOTPValidated) {
-        // 	let val = {
-        // 		phone: this.registrationForm.value.contactNumber.number,
-        // 		country_code: this.registrationForm.value.contactNumber.dialCode,
-        // 		otp: _otp,
-        // 	}
-        // 	this.service.verifySmsOTP(val).subscribe(
-        // 		(res: any) => {
-        // 			this.isMobileOTPValidated = true
-        // 			this.otpForm.reset()
-        // 			this.toastr.add({
-        // 				severity: "success",
-        // 				summary: "Success",
-        // 				detail: "OTP Verified Successfully",
-        // 			})
-        // 		},
-        // 		(error: any) => {
-        // 			this.isMobileOTPValidated = false
-        // 		}
-        // 	)
-        // }
-    }
-
-    numericOnly(event: any): boolean {
-        let pattern = /^([0-9])$/
-        return pattern.test(event.key)
-    }
-
     sendEmailOTP() {
         const name = this.registrationForm.value.fullName;
         const email = this.registrationForm.value.emailAddress;
@@ -405,16 +273,16 @@ export class RegistrationComponent implements OnInit {
                 (res) => {
                     this.isEmailOTPSend = true
                     this.registrationForm.controls["emailAddress"].readonly = true
-                    this.toastr.add({ severity: "success", summary: "Success", detail: "OTP sent to your email." })
+                    this.toastr.add({severity: "success", summary: "Success", detail: "OTP sent to your email."})
                 },
                 (error) => {
                     const errorMessage = error?.error?.message || "Failed to send OTP.";
-                    this.toastr.add({ severity: "error", summary: "Error", detail: errorMessage });
+                    this.toastr.add({severity: "error", summary: "Error", detail: errorMessage});
                     //this.toastr.add({ severity: "error", summary: "Error", detail: error.message || "Failed to send OTP." || "This email has already been taken."})
                 }
             )
         } else {
-            this.toastr.add({ severity: "error", summary: "Error", detail: 'Fill required fields' });
+            this.toastr.add({severity: "error", summary: "Error", detail: 'Fill required fields'});
         }
 
     }
@@ -424,7 +292,7 @@ export class RegistrationComponent implements OnInit {
         const otpValue = otpControl?.value;
 
         if (!otpValue || otpValue.length <= 3) {
-            this.toastr.add({ severity: "error", summary: "Error", detail: "Please enter a valid 4-digit OTP." });
+            this.toastr.add({severity: "error", summary: "Error", detail: "Please enter a valid 4-digit OTP."});
             return;
         }
 
@@ -438,47 +306,18 @@ export class RegistrationComponent implements OnInit {
                 this.isEmailOTPSend = false;
                 this.isEmailOTPValidated = true;
                 this.isRemainingFieldVisible = true;
-                this.toastr.add({ severity: "success", summary: "Success", detail: "OTP verified successfully." });
+                this.toastr.add({severity: "success", summary: "Success", detail: "OTP verified successfully."});
             },
             (error) => {
                 this.otpError = true;
                 const message = error.error?.message != undefined ? error.error?.message : error?.message
-                this.toastr.add({ severity: "error", summary: "Error", detail: message || "Invalid OTP." });
+                this.toastr.add({severity: "error", summary: "Error", detail: message || "Invalid OTP."});
             }
         )
     }
 
-    processTimer() {
-        if (this.interval) {
-            clearInterval(this.interval)
-            this.interval = undefined
-        }
-        this.interval = setInterval(() => {
-            this.startTimer -= 1
-
-            if (this.startTimer <= 0) {
-                clearInterval(this.interval)
-            }
-        }, 1000)
-    }
-
-    editMobileNumberAgain() {
-        // this.isMobileOTPSend = false
-    }
-
     editEmailAgain() {
         this.isEmailOTPSend = false
-    }
-
-    onChangeContact(event: any) {
-        this.showContactErrorIcon = false
-        if (event?.target?.value?.length != 0) {
-            this.showContactErrorIcon = true
-            this.registerFormInvalid = true
-        } else {
-            this.validNumberRequired = false
-            this.registerFormInvalid = false
-        }
     }
 
     onChangeEmail(event: any) {

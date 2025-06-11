@@ -7,7 +7,9 @@
 						<div class="row justify-content-center justify-content-md-center">
               <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
                 <h3 class="login-heading mt-4 mb-2">Enter your OTP</h3>
-								<p class="fw-medium mb-4 text-muted">We have sent you one time password to your E-mail address for verification</p>
+								<p class="fw-medium mb-4 text-muted">We've sent a 4-digit code to your email.
+                                    <br>
+                                    Please enter it below to verify your account.</p>
                 <div class="form-group">
                   <div class="d-flex justify-content-center">
                     <p-inputotp formControlName="otp" [integerOnly]="true" [numberOfDigits]="4" placeholder="Enter OTP"> </p-inputotp>
