@@ -1,0 +1,168 @@
+.loginForm
+{
+    font-family: Poppins;
+
+}
+
+.subHeader
+{
+  
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: center;
+}
+.subHeaderSpan
+{
+  
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: center;
+}
+
+.labelText
+{
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #001631;
+  text-align: left;
+}
+
+.header{
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 37.5px;
+    text-align: center;
+}
+
+.labelLink
+{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.fullWidth-btn
+{
+    width: 100%;
+    height: 33px;
+}
+
+.d-flex {
+    display: flex;
+    justify-content: space-evenly;  
+    align-items: center;
+    width: 100%;   
+}
+
+.startbg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin: auto;
+}
+
+.check-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 20px;
+}
+
+.loginForm {
+  font-family: 'Poppins', sans-serif;
+}
+
+.subHeader {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: center;
+}
+
+.subHeaderSpan {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: center;
+}
+
+.labelText {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #001631;
+  text-align: left;
+}
+
+.header {
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 37.5px;
+  text-align: center;
+}
+
+.labelLink {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.fullWidth-btn {
+  width: 100%;
+  height: 33px;
+}
+
+// Responsive adjustments
+@media (max-width: 576px) {
+  .login-card {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+.text-primary {
+  color: var(--uniprep-primary) !important;
+} 
+
+ngx-intl-tel-input {
+  width: 100%;
+}
+
+
+
+.iti {
+  width: 100%;
+}
+
+
+.iti input {
+  height: 40px;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding-left: 50px !important;
+}
+
+::ng-deep .iti__selected-flag {
+  padding-inline: 10px;
+}
+
+// ::ng-deep .form-control.iti-input {
+//   padding-left: 70px !important;
+// }
