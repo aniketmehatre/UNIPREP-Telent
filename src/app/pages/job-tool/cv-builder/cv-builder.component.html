@@ -1,7 +1,7 @@
 <div class="container-fluid h-100 d-flex flex-column justify-content-center">
 	<p-toast></p-toast>
 	<div class="row justify-content-center align-items-center h-100"
-		*ngIf="activePageIndex == 4 || activePageIndex == 0">
+		*ngIf="activePageIndex == 0">
 		<div class="flex-column">
 			<div>
 				<h3 class="text-center uniprep-primary" *ngIf="this.resumeHistory.length > 0">Your Resumes</h3>
@@ -166,8 +166,7 @@
 										pTooltip="Please select your level of experience to proceed further"
 										tooltipPosition="top"></i>
 								</div>
-								<!-- (onChange)="onChangeExpLevel()" -->
-								<p-select [options]="experienceLevel" placeholder="Select Experience Level" 
+								<p-select [options]="experienceLevel" placeholder="Select Experience Level" (onChange)="onChangeExpLevel()"
 									styleClass="w-100" formControlName="selected_exp_level" optionLabel="level"
 									optionValue="id"></p-select>
 								<div *ngIf="submitted && f['selected_exp_level'].errors" class="text-danger text-xs">
@@ -444,7 +443,7 @@
 								</div>
 							</div>
 						</ng-container>
-						<ng-container>
+						<ng-container *ngIf="f['selected_exp_level'].value == 2 && !hidingHeaders.includes('work_experience')">
 							<div class="col-md-12">
 								<div class="d-flex">
 									<h4 class="uniprep-primary">Enter Your Work {{ f["selected_exp_level"].value == 1 ?
@@ -954,7 +953,6 @@
 								</div>
 							</div>
 							<div class="col-md-12">
-								<!-- {{ hidingHeaders }} -->
 								<ng-container
 									*ngIf="f['selected_exp_level'].value == 1 && !hidingHeaders.includes('project_details')">
 									<h4 class="uniprep-primary">Enter Your Project Details</h4>
@@ -972,7 +970,7 @@
 																<input class="w-100" type="text"
 																	placeholder="Project Name"
 																	formControlName="project_name" pInputText />
-																<div *ngIf="submitted && eduDetail.get('project_name').errors?.['required']"
+																<div *ngIf="submitted && project.get('project_name').errors?.['required']"
 																	class="text-danger text-xs">Project Name Required
 																</div>
 															</div>
@@ -1080,12 +1078,12 @@
 															optionLabel="skills" optionValue="skills"
 															(onChange)="onSkillChange()"></p-select>
 
-														<div *ngIf="submitted && skill.get('skills').errors"
+														<div *ngIf="skill.get('skills').errors"
 															class="text-danger text-xs">
 															<div *ngIf="skill.get('skills')?.hasError('duplicate')"
 																style="margin-left: 10px">This skill has already been
 																selected.</div>
-															<div *ngIf="!skill.get('skills')?.hasError('duplicate') && skill.get('skills')?.hasError('required')"
+															<div *ngIf="skill.get('skills')?.hasError('required') && submitted"
 																style="margin-left: 10px">Skill Name required.</div>
 														</div>
 													</div>
@@ -1148,7 +1146,7 @@
 													<div class="mb-3">
 														<p-select [options]="languageLists"
 															placeholder="Select Language" styleClass="w-100"
-															[filter]="true" [filterBy]="'value'"
+															[filter]="true" filterBy="value"
 															formControlName="language" optionLabel="value"
 															optionValue="value"
 															(onChange)="onLanguageChange()"></p-select>
@@ -1157,7 +1155,7 @@
 															<div *ngIf="language.get('language')?.hasError('duplicate')"
 																style="margin-left: 10px">This language has already been
 																selected.</div>
-															<div *ngIf="!language.get('language')?.hasError('duplicate') && language.get('language')?.hasError('required')"
+															<div *ngIf="language.get('language')?.hasError('required') && submitted"
 																style="margin-left: 10px">Language Name required.</div>
 														</div>
 													</div>

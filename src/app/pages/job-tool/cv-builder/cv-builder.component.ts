@@ -75,7 +75,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   progress = 0;
   resumeSlider: any = resumeSlider;
   editorModules: any;
-  hidingHeaders: string[] = ["project_details", "certificate", "extra_curricular"];
+  hidingHeaders: string[] = ["project_details", "certificate", "extra_curricular", "work_experience"];
   swiper!: Swiper;
   filledFields: string[] = [];
   cities: any[] = [];
@@ -173,7 +173,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // this.hideHeader();
     this.getLocationsList();
     this.editorModules = {
       toolbar: [
@@ -345,8 +344,24 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
             );
             this.updateWorkJobDescriptionWordCount(index, activity.work_job_description);
           });
-          this.hideFields("project_details");
-          this.filledFields.push("project_details", "work_experience");
+          this.filledFields.push("work_experience");
+          this.removeHideHeaderElement("work_experience");
+        }
+        
+        const projectData = storedValues.projectDetailsArray;
+        if(projectData.length != 0){
+          projectData.forEach((element: any) => {
+            this.getProjectDetailsArray.push(
+              this.fb.group({
+                project_name: [element.project_name, Validators.required],
+                project_start_name: [element.project_start_name, Validators.required],
+                project_end_name: [element.project_end_name, Validators.required],
+                project_description: [element.project_description, Validators.required],
+              })
+            )
+          });
+          this.filledFields.push("project_details");
+          this.removeHideHeaderElement("project_details");
         }
 
         const educationData = storedValues.EduDetailsArray;
@@ -470,23 +485,32 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       const skillControl = this.getSkillsArray.at(index).get("skills");
 
       if (duplicateCount > 1 && skill) {
-        skillControl?.setErrors({ duplicate: true });
+        skillControl?.setErrors({ ...skillControl?.errors, duplicate: true });
       } else {
-        skillControl?.setErrors(null);
+        if (skillControl?.hasError('duplicate')) {
+          const { duplicate, ...otherErrors } = skillControl.errors || {};
+          skillControl?.setErrors(Object.keys(otherErrors).length ? otherErrors : null);
+        }
+        skillControl?.updateValueAndValidity();
       }
     });
   }
 
   checkLanguageDuplication() {
-    const language = this.getLanguagesKnownArray.controls.map((language) => language.get("language")?.value);
-    language.forEach((lang, index) => {
-      const duplicateCount = language.filter((s) => s === lang).length;
+    const languages = this.getLanguagesKnownArray.controls.map((language) => language.get("language")?.value);
+
+    languages.forEach((lang, index) => {
+      const duplicateCount = languages.filter((s) => s === lang).length;
       const langControl = this.getLanguagesKnownArray.at(index).get("language");
 
       if (duplicateCount > 1 && lang) {
-        langControl?.setErrors({ duplicate: true });
+        langControl?.setErrors({ ...langControl?.errors, duplicate: true });
       } else {
-        langControl?.setErrors(null);
+        if (langControl?.hasError('duplicate')) {
+          const { duplicate, ...otherErrors } = langControl.errors || {};
+          langControl?.setErrors(Object.keys(otherErrors).length ? otherErrors : null);
+        }
+        langControl?.updateValueAndValidity(); // Re-evaluate validators
       }
     });
   }
@@ -523,14 +547,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       formArray.setControl(index, control);
     });
   }
-
-  // hideHeader() {
-  //   if (this.activePageIndex == 2) {
-  //     this.resumeService.setData(true);
-  //   } else {
-  //     this.resumeService.setData(false);
-  //   }
-  // }
 
   splitUserName(currentUserName: string) {
     const words = currentUserName.trim().split(/\s+/);
@@ -672,8 +688,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     } else if (!visibleFormControls4.every((control) => control.valid)) {
       this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
       visibleFormControls.forEach((control) => control.markAsTouched());
-    }
-    else {
+    }else {
       this.storeUserFilledData();
       this.activePageIndex = 3;
     }
@@ -828,20 +843,29 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.profileOverViewContent = "";
     }
     this.activePageIndex++;
-    if (this.activePageIndex == 4) {
-      if (this.clickedDownloadButton) {
-        //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
-        this.previousResumes();
-      } else {
-        this.activePageIndex--;
-        this.toaster.add({ severity: "error", summary: "Error", detail: "Please Download the Resume First!!" });
-      }
-    } else if (this.activePageIndex > 4) {
-      this.activePageIndex = 1;
+    if(this.activePageIndex === 7){
+      this.activePageIndex = 3;
       this.clickedDownloadButton = false;
       this.selectedResumeLevel = "";
       this.submitted = false;
+      this.previousResumes();
     }
+    // if (this.activePageIndex == 4) {
+    //   console.log("coming 1");
+    //   if (this.clickedDownloadButton) {
+    //     //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
+    //     this.previousResumes();
+    //   } else {
+    //     this.activePageIndex--;
+    //     this.toaster.add({ severity: "error", summary: "Error", detail: "Please Download the Resume First!!" });
+    //   }
+    // } else if (this.activePageIndex > 4) {
+    //   console.log("coming 2");
+    //   this.activePageIndex = 1;
+    //   this.clickedDownloadButton = false;
+    //   this.selectedResumeLevel = "";
+    //   this.submitted = false;
+    // }
   }
 
   previousResumes() {
@@ -1269,6 +1293,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   onProfileReview() {
+    this.resumeFormSubmit();
     // this.isReviewContent = true;
     this.activePageIndex = 6;
     this.profileOverViewContent = "";
@@ -1310,17 +1335,23 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     this.updateWordCount(content, 'jobDescription', index);
   }
 
-  // onChangeExpLevel(){
-  //   const expLevel = this.resumeFormInfoData.value.selected_exp_level;
-  //   console.log(expLevel, "selected exp level ");
-  //   if(expLevel == 1){ //fresher
-  //     this.hidingHeaders = this.hidingHeaders.filter(item => item !== "project_details");
-  //     this.addProjectRow();
-  //     this.cdr.detectChanges();
-  //   }else if(expLevel == 2){ //experience
-  //     this.addExperienceRow();
-  //     console.log("experience");
-      
-  //   }
-  // }
+  onChangeExpLevel(){
+    const expLevel = this.resumeFormInfoData.value.selected_exp_level;
+    console.log(expLevel, "selected exp level ");
+    if(expLevel == 1){ //fresher
+      this.clickAddMoreButton("project_details");
+      this.removeHideHeaderElement("project_details");
+      this.hidingHeaders.push("work_experience");
+      while (this.getWorkExpArray.length === 1) {
+        this.resumeFormInfoData.setControl('workExpArray', this.fb.array([]));
+      }
+    }else if(expLevel == 2){ //experience
+      this.clickAddMoreButton("work_experience");
+      this.removeHideHeaderElement("work_experience");
+      this.hidingHeaders.push("project_details");
+      while (this.getWorkExpArray.length === 2) {
+        this.resumeFormInfoData.setControl('projectDetailsArray', this.fb.array([]));
+      }
+    }
+  }
 }
