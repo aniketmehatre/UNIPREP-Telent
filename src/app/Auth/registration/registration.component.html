@@ -23,13 +23,13 @@
                                                         src="{{ imageUrlWhitelabel }}" />
                                                 </div>
 
-                                                <h4 class="mt-3 mb-2 fw-semibold text-center">Welcome, Please Register
-                                                    to your account.</h4>
+                                                <h4 class="mt-3 mb-2 fw-semibold text-center">Welcome, Please create
+                                                    your account.</h4>
                                                 <hr class="w-50 m-auto" />
                                                 <p class="uniprep-lightgray mt-2 text-center">
-                                                    Already have an account?<span><a
+                                                    Already have an account ? <span><a
                                                             class="uniprep-primary text-decoration-none" role="button"
-                                                            routerLink="/login">Login</a></span>
+                                                            routerLink="/login"> Login</a></span>
                                                 </p>
                                                 <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
                                                     <div class="row registerForm">
@@ -109,8 +109,10 @@
                                                             <form [formGroup]="emailOTPForm" class="formOTP"
                                                                 (ngSubmit)="onValidateEmailOTP()">
                                                                 <h5 class="mt-3 text-center">Enter your OTP</h5>
-                                                                <p class="text-center text-muted">We have sent you a
-                                                                    one-time password to your email for verification</p>
+                                                                <p class="text-center text-muted">We've sent a 4-digit code to your email.<br>
+                                                                    Please enter it below to verify your account.
+                                                                </p>
+                                                                <br>
                                                                 <div class="d-flex justify-content-center">
                                                                     <p-inputotp formControlName="otp"
                                                                         [integerOnly]="true" [length]="4"
