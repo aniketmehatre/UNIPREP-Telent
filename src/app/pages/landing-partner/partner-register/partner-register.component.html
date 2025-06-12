@@ -27,7 +27,8 @@
 																<input
 																	[ngClass]="{ 'is-invalid': submitted && f.full_name.errors }"
 																	formControlName="full_name" id="fullName" pInputText
-																	placeholder="Enter Full Name" type="text" />
+																	placeholder="Enter Full Name" type="text"
+																	(keypress)="blockNumbers($event)" />
 															</p-inputGroup>
 															<div *ngIf="submitted && f.full_name.errors"
 																class="invalid-feedback">
@@ -202,7 +203,25 @@
 															</div>
 														</div>
 													</div>
-
+														<div class="col-md-12 col-12 mt-2">
+															<label class="labelText col col-12"
+																for="gender">Gender<span
+																	class="required">*</span></label>
+															<p-inputgroup>
+																<p-select (ngModelChange)="onChangeCountry($event)"
+																    [options]="genderOptions"
+																	appendTo="body"
+																	placeholder="Select your gender"
+																	formControlName="gender" id="gender"
+																	optionLabel="name" optionValue="id"
+																	styleClass="w-100"></p-select>
+															</p-inputgroup>
+															<div *ngIf="submitted && f['gender']['errors']"
+																class="UserInfoValidation">
+																<div *ngIf="f['gender']['errors']['required']"
+																	style="color: red">Country is required</div>
+															</div>
+														</div>
 													<!-- Country/Location -->
 													<div class="row mt-2">
 														<div class="col-md-6 col-12">
@@ -327,7 +346,7 @@
 													Already have an account with us?
 													<span>
 														<span role="button" class="text-decoration-underline"
-															[routerLink]="['/login']">Login</span>
+															[routerLink]="['/partner/login']">Login</span>
 													</span>
 												</p>
 											</div>
@@ -389,7 +408,7 @@
 						<hr />
 						<a class="text-primary text-decoration-none">
 							Already have an account with us?
-							<p routerLink="/login" class="cursor-pointer text-reset">Login Now</p>
+							<p routerLink="/partner/login" class="cursor-pointer text-reset">Login Now</p>
 						</a>
 					</div>
 				</ng-template>

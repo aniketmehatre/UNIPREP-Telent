@@ -23,14 +23,14 @@ import { SubSink } from 'subsink';
 import { LandingPartnerServices } from '../landing-partner.service';
 
 @Component({
-  selector: 'uni-partner-register',
-  imports: [CommonModule, GoogleSigninButtonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule],
-  standalone: true,
-  templateUrl: './partner-register.component.html',
-  styleUrl: './partner-register.component.scss',
+	selector: 'uni-partner-register',
+	imports: [CommonModule, GoogleSigninButtonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule],
+	standalone: true,
+	templateUrl: './partner-register.component.html',
+	styleUrl: './partner-register.component.scss',
 })
 export class PartnerRegisterComponent {
- @ViewChild("otp1") otp1!: ElementRef;
+	@ViewChild("otp1") otp1!: ElementRef;
 	@ViewChild("otp2") otp2!: ElementRef;
 	@ViewChild("otp3") otp3!: ElementRef;
 	@ViewChild("otp4") otp4!: ElementRef;
@@ -64,15 +64,20 @@ export class PartnerRegisterComponent {
 	regionListBasedOnCountryId: any[] = [];
 	submitted = false;
 	isShowConfirmationResponse: boolean = false;
-
+	genderOptions: any[] = []
 	constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder, private locationService: LocationService, private toast: MessageService, private authService: SocialAuthService, private storage: LocalStorageService, private landingService: LandingPartnerServices) { }
 
 	dateTime = new Date();
 	private subs = new SubSink();
 	ngOnInit() {
-    this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
-      this.imageUrlWhiteLabel = data.logo
-    })
+		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
+			this.imageUrlWhiteLabel = data.logo
+		})
+		this.genderOptions = [
+			{ id: 'M', name: 'Male' },
+			{ id: 'F', name: 'Female' },
+			{ id: 'O', name: 'Others' }
+		];
 		this.authService.authState.subscribe((user) => {
 			this.service.googlesignUp(user).subscribe(
 				(data) => {
@@ -111,6 +116,7 @@ export class PartnerRegisterComponent {
 				'(\\/[^\\s]*)?$' // optional path
 			)],
 			designation: ["", [Validators.required]],
+			gender: ["", [Validators.required]],
 		});
 
 		this.otpForm = this.formBuilder.group({
@@ -225,6 +231,7 @@ export class PartnerRegisterComponent {
 			company_website: this.registrationForm.value.companyWebsite,
 			company_designation: this.registrationForm.value.designation,
 			phone_country_code: this.registrationForm.value.mobileNumber?.dialCode,
+			gender:this.registrationForm.value.gender
 		};
 
 		this.landingService.registerEmployer(data).subscribe({
@@ -439,5 +446,14 @@ export class PartnerRegisterComponent {
 				});
 			}
 		);
+	}
+	// restrictions
+	blockNumbers(event: KeyboardEvent) {
+		const pattern = /[a-zA-Z\s]/;
+		const inputChar = String.fromCharCode(event.keyCode || event.which);
+
+		if (!pattern.test(inputChar)) {
+			event.preventDefault();
+		}
 	}
 }
