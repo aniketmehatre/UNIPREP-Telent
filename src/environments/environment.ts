@@ -23,7 +23,7 @@ export const environment = {
     domain: dev_domain,
     maintenanceMode: false,
     production: false,
-    ApiUrl: prod_url,
+    ApiUrl: dev_url,
     ApiUrlEmployer: dev_url + '/employer',
     employerDomain: dev_employer_url,
     tokenKey: 'token',
@@ -40,5 +40,5 @@ export const environment = {
     },
     uniApplyUrl: dev_uni_apply_b2c_url,
     uniapplyAPI: dev_uni_apply_student,
-    imagePath:`https://${dev_domain}/uniprepapi/storage/app/public/`
+    imagePath: `https://${dev_domain}/uniprepapi/storage/app/public/`
 };
