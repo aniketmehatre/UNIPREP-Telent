@@ -24,7 +24,7 @@ export const HOVER_MESSAGES: any = {
     "Be specific about the course you completed. Employers are more likely to shortlist candidates with clear, detailed academic backgrounds. Numbers and special characters are not allowed.",
   education_graduation_year_id:
     "Select the year you graduated. A complete and up-to-date profile will increase your chances of being contacted for relevant roles!",
-  education_gpa_percentage:
+  education_cgpa_or_percentage:
     "Enter your GPA or percentage as per your academic grading system. This helps employers assess your academic performance and achievements. The system allows a maximum of two digits followed by the % symbol (for percentage) or numeric entry (for GPA).",
 
   // Work Experience
