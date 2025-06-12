@@ -41,7 +41,7 @@ const routes: Routes = [
     {
         path: '',
         component: PagesComponent,
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         children: [
             {
                 path: '',
@@ -50,7 +50,12 @@ const routes: Routes = [
             },
             {
                 path: 'dashboard',
-                canActivate: [AuthGuard],
+                // canActivate: [AuthGuard],
+                loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+            },
+            {
+                path: 'dashboard:/token',
+                // canActivate: [AuthGuard],
                 loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
             },
             {

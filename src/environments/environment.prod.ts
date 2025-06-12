@@ -20,25 +20,25 @@ const dev_institute = 'https://dev-institutes.uniprep.ai';
 const prod_institute = 'https://institutes.uniprep.ai';
 
 export const environment = {
-    domain: prod_domain,
+    domain: dev_domain,
     maintenanceMode: false,
     production: true,
-    ApiUrl: prod_url,
-    ApiUrlEmployer: prod_url + '/employer',
-    employerDomain: prod_employer_url,
+    ApiUrl: dev_url,
+    ApiUrlEmployer: dev_url + '/employer',
+    employerDomain: dev_employer_url,
     tokenKey: 'token',
     secretKeySalt: 'WaterMelonTea',
     facebookAppId: '892925195633254',
     linkedinId: '86b55xx7n8zomc',
     whatsappSupportNumber: 9876543210,
-    partnerDomain: prod_partner,
-    instituteDomain: prod_institute,
-    talentDomain: prod_talents,
-    studentDomain: prod_student,
+    partnerDomain: dev_partner,
+    instituteDomain: dev_institute,
+    talentDomain: dev_talents,
+    studentDomain: dev_student,
     googleCloud: {
         apiKey: 'AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0'
     },
-    uniApplyUrl: prod_uni_apply_b2c_url,
-    uniapplyAPI: prod_uni_apply_student,
-    imagePath:`https://${dev_domain}/uniprepapi/storage/app/public/`
+    uniApplyUrl: dev_uni_apply_b2c_url,
+    uniapplyAPI: dev_uni_apply_student,
+    imagePath: `https://${dev_domain}/uniprepapi/storage/app/public/`
 };
