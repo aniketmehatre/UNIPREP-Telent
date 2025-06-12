@@ -7,10 +7,13 @@
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div>
-						<h5 class="mb-0" tooltipPosition="top" pTooltip="Questions related to the application process are answered">Company Connect<i class="questiontooltip fa-solid fa-circle-question"></i></h5>
+						<h5 class="mb-0" tooltipPosition="top"
+							pTooltip="Questions related to the application process are answered">Company Connect<i
+								class="questiontooltip fa-solid fa-circle-question"></i></h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button class="how-it-works-button" (click)="openVideoPopup('')">How it works?<i
+								class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -24,27 +27,39 @@
 					<div class="card-header bg-transparent">
 						<div class="d-flex gap-3">
 							<div class="logo-container border rounded-2">
-								<img (error)="$event.target.src = '/uniprep-assets/images/job.webp'" style="object-fit: contain; width: 100%; height: 100%" src="{{ companyDetails?.company_logo }}" alt="Company Logo" class="img-fluid" onerror="this.src" />
+								<img (error)="$event.target.src = '/uniprep-assets/images/job.webp'"
+									style="object-fit: contain; width: 100%; height: 100%"
+									src="{{ companyDetails?.company_logo }}" alt="Company Logo" class="img-fluid"
+									onerror="this.src" />
 							</div>
 							<div class="container-fluid">
 								<div class="row">
 									<div class="col">
 										<h1 class="fw-bold">{{ companyDetails?.company_name }}</h1>
 										<p class="text-muted">Founded : {{ companyDetails?.founded_year }}</p>
-										<button class="btn {{ companyDetails?.followed == 0 ? 'btn-outline-primary' : 'btn-primary' }}" (click)="followCompany()" [disabled]="companyDetails?.followed == 1">
+										<button
+											class="btn {{ companyDetails?.followed == 0 ? 'btn-outline-primary' : 'btn-primary' }}"
+											(click)="followCompany()" [disabled]="companyDetails?.followed == 1">
 											{{ companyDetails?.followed == 0 ? "Follow" : "Followed" }}
-											<i [ngClass]="companyDetails?.followed == 0 ? 'pi pi-plus' : 'pi pi-check'" class="fs-6"></i>
+											<i [ngClass]="companyDetails?.followed == 0 ? 'pi pi-plus' : 'pi pi-check'"
+												class="fs-6"></i>
 										</button>
 									</div>
 									<div class="col-md-3">
 										<div class="d-flex gap-2 justify-content-end">
-											<button class="p-2 rounded-2" [ngClass]="companyDetails?.shortlisted == 1 ? 'btn btn-secondary' : 'btn btn-outline-secondary'" (click)="onClickShortListCompany(companyDetails?.id)" [disabled]="companyDetails?.shortlisted == 1">
+											<button class="p-2 rounded-2"
+												[ngClass]="companyDetails?.shortlisted == 1 ? 'btn btn-secondary' : 'btn btn-outline-secondary'"
+												(click)="onClickShortListCompany(companyDetails?.id)"
+												[disabled]="companyDetails?.shortlisted == 1">
 												{{ companyDetails?.shortlisted == 1 ? "Shortlisted" : "Shortlist" }}
 											</button>
 
-											<button *ngIf="!showChat; else showClose" pButton severity="success" class="success rounded-2" (click)="showChat = true">Chat <i class="pi pi-comment"></i></button>
+											<button *ngIf="!showChat; else showClose" pButton severity="success"
+												class="success rounded-2" (click)="showChat = true">Chat <i
+													class="pi pi-comment"></i></button>
 											<ng-template #showClose>
-												<button pButton label="Close Info" class="btn btn-primary" (click)="showChat = false"></button>
+												<button pButton label="Close Info" class="btn btn-primary"
+													(click)="showChat = false"></button>
 											</ng-template>
 										</div>
 									</div>
@@ -71,7 +86,8 @@
 														<h6 class="text-muted text-primary">Company Size</h6>
 														<p>
 															{{ companyDetails?.size }}<br />
-															<small class="text-muted">({{ companyInfo.sizeCategory }})</small>
+															<small class="text-muted">({{ companyInfo.sizeCategory
+																}})</small>
 														</p>
 													</div>
 													<div class="col-md-3 mb-3">
@@ -80,27 +96,30 @@
 													</div>
 													<div class="col-md-3 mb-3">
 														<h6 class="text-muted text-primary">Headquarters Location</h6>
-														<p>{{ companyDetails?.HQ_city }}, {{ companyDetails?.HQ_country }}</p>
+														<p>{{ companyDetails?.HQ_city }}, {{ companyDetails?.HQ_country
+															}}</p>
 													</div>
 													<div class="col-md-3 mb-3">
 														<h6 class="text-muted text-primary">Global Presence</h6>
 														<p>{{ companyDetails?.global_presence }}</p>
 													</div>
 													<div class="col-md-3 mb-3">
-														<h6 class="text-muted text-primary">Official Website</h6>
-														<p>{{ companyDetails?.website }}</p>
-													</div>
-													<div class="col-md-3 mb-3">
 														<h6 class="text-muted text-primary">Department</h6>
 														<p>{{ companyDetails?.departments }}</p>
 													</div>
 													<div class="col-md-3 mb-3">
-														<h6 class="text-muted text-primary">Work Mode</h6>
-														<p>{{ companyDetails?.work_mode }}</p>
+														<h6 class="text-muted text-primary">Official Website</h6>
+														<a [href]="companyDetails?.website" target="_blank"
+															class="text-break text-primary">
+															<i class="pi pi-globe fs-3"></i>
+														</a>
 													</div>
 													<div class="col-md-3">
 														<h6 class="text-muted text-primary">LinkedIn Profile</h6>
-														<p>{{ companyDetails?.linkedin_link }}</p>
+														<a [href]="companyDetails?.linkedin_link"
+															target="_blank" class="text-break text-primary">
+															<i class="pi pi-linkedin fs-3"></i>
+														</a>
 													</div>
 												</div>
 											</div>
@@ -123,20 +142,20 @@
 													<div class="col-md-6">
 														<h5 class="text-primary">Work Life Balance Policies</h5>
 														<div class="mt-2">
-															<p-chip *ngFor="let policy of companyDetails?.work_life_balance_policy" label="{{ policy }}" styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
+															<p-chip
+																*ngFor="let policy of companyDetails?.work_life_balance_policy"
+																label="{{ policy }}"
+																styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
 														</div>
 													</div>
 													<div class="col-md-6">
 														<h5 class="text-primary">Employee Benefits & Perks</h5>
 														<div class="mt-2">
-															<p-chip *ngFor="let benefit of companyDetails?.benefits" label="{{ benefit }}" styleClass="m-1 bg-info bg-opacity-25 text-dark"></p-chip>
+															<p-chip *ngFor="let benefit of companyDetails?.benefits"
+																label="{{ benefit }}"
+																styleClass="m-1 bg-info bg-opacity-25 text-dark"></p-chip>
 														</div>
 													</div>
-												</div>
-
-												<div class="mt-4">
-													<h5 class="text-primary">Work Location & Mode</h5>
-													<p>{{ companyDetails?.work_mode }}</p>
 												</div>
 											</div>
 										</div>
@@ -152,7 +171,9 @@
 											<div class="col">
 												<h5 class="text-primary">Hiring Process Stages</h5>
 												<div class="mt-2">
-													<p-chip *ngFor="let hire of companyDetails?.hiring_process_stages" label="{{ hire }}" styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
+													<p-chip *ngFor="let hire of companyDetails?.hiring_process_stages"
+														label="{{ hire }}"
+														styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
 												</div>
 
 												<div class="mt-4">
