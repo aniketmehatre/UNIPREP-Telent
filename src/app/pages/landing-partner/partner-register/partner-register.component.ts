@@ -78,25 +78,6 @@ export class PartnerRegisterComponent {
 			{ id: 'F', name: 'Female' },
 			{ id: 'O', name: 'Others' }
 		];
-		this.authService.authState.subscribe((user) => {
-			this.service.googlesignUp(user).subscribe(
-				(data) => {
-					if (data.token) {
-						this.storage.set(environment.tokenKey, data.token);
-					} else {
-						this.storage.set(environment.tokenKey, data?.authorisation?.token);
-					}
-					this.router.navigate(["/partner/login"])
-				},
-				(error: any) => {
-					this.toast.add({
-						severity: "error",
-						summary: "Error",
-						detail: error,
-					});
-				}
-			);
-		});
 		this.dateTime.setDate(this.dateTime.getDate());
 
 		this.password = "password";
@@ -130,36 +111,9 @@ export class PartnerRegisterComponent {
 		});
 		this.initializePhoneNumber();
 		this.fetchCountryList();
-		setTimeout(() => {
-			this.renderGoogleButton();
-		}, 200);
-
 		// this.getUserLocation() //while registering the user needs to get the location based city, state, region, country.
 	}
 
-	renderGoogleButton() {
-		console.log('hi')
-		const container = document.getElementById('google-button-container');
-		if (container && (window as any).google?.accounts?.id) {
-			(window as any).google.accounts.id.initialize({
-				client_id: '750560403636-pd8q2gts7v35t7opukgohhtkspf9ftgo.apps.googleusercontent.com',
-				callback: (response: any) => {
-				}
-			});
-
-			(window as any).google.accounts.id.renderButton(container, {
-				type: 'standard',
-				size: 'large',
-				theme: 'outline',
-				text: 'signin_with',
-				shape: 'rectangular',
-				logo_alignment: 'center',
-				width: 300,
-			});
-		} else {
-			console.warn('Google SDK not ready');
-		}
-	}
 
 	initializePhoneNumber() {
 		fetch("https://ipapi.co/json/")

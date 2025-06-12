@@ -31,10 +31,10 @@ const routes: Routes = [
     path: 'partner/login',
     loadComponent: () => import('./partner-login/partner-login.component').then(m => m.PartnerLoginComponent)
   },
-  {
-    path: 'partner/register',
-    loadComponent: () => import('../landing-partner/partner-register/partner-register.component').then(m => m.PartnerRegisterComponent)
-  },
+  // {
+  //   path: 'partner/register',
+  //   loadComponent: () => import('../landing-partner/partner-register/partner-register.component').then(m => m.PartnerRegisterComponent)
+  // },
 
 ]
 
