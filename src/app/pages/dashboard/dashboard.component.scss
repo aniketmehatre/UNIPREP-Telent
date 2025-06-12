@@ -605,26 +605,3 @@ Due to the split circle of progress-left and progress right, we must use the ani
 .logo-wrapper {
   height: 16vh;
 }
-
-.company-logo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* This fills and crops as needed */
-}
-.job-card {
-  border-radius: 1rem;
-  background-color: #fff;
-  border: none;
-  display: flex !important;
-}
-
-.logo-wrapper1 {
-  width: 15vw;
-  height: 15vh;
-  background-color: white;
-  border-radius: 0.75rem;
-  display: flex;
-  border: 0.5px solid #dee2e6;
-  align-items: center;
-  justify-content: center;
-}
