@@ -73,7 +73,7 @@ interface ProfileData {
   }> | null;
   careerPreferences: {
     careerStatus: string;
-    careerDepartment: string;
+    careerInterest: string;
     jobTitle: string;
     preferredWorkLocation: string;
     preferredEmploymentType: string;
@@ -144,7 +144,7 @@ export class ViewProfileComponent implements OnInit {
   public isSample: boolean = true;
   graduationYears: any[] = [];
   currencies: any[] = [];
-  careerDepartments: any[] = [];
+  careerInterests: any[] = [];
   fieldsOfStudy: any[] = [];
   hobbies: any[] = [];
   jobTitles: any[] = [];
@@ -191,7 +191,7 @@ export class ViewProfileComponent implements OnInit {
     }],
     careerPreferences: {
       careerStatus: 'Working',
-      careerDepartment: 'Education Industry, Real Estate',
+      careerInterest: 'Education Industry, Real Estate',
       jobTitle: 'Human Resource',
       preferredWorkLocation: 'Bangalore - Mysore',
       preferredEmploymentType: 'Full Time',
@@ -258,7 +258,7 @@ export class ViewProfileComponent implements OnInit {
     this.isSample = data?.isSample ?? true;
 
     if (!this.isSample && data?.profileData) {
-      this.careerDepartments = data?.careerDepartments;
+      this.careerInterests = data?.careerInterests;
       this.currencies = data?.currencies;
       this.jobTitles = data?.jobTitles;
       this.locations = [{ id: 0, work_location: "Any" }, ...data?.locations];
@@ -386,7 +386,7 @@ export class ViewProfileComponent implements OnInit {
         fieldOfStudy: this.getListValue(this.fieldsOfStudy, edu.education_field_id, 'field_name') || '',
         courseName: edu.education_course_name || '',
         graduationYear: this.getListValue(this.graduationYears, edu.education_graduation_year_id, 'graduation_year_name') || '',
-        gpa: edu.education_gpa_percentage ? `${edu.education_gpa_percentage} %` : ''
+        gpa: edu.education_cgpa_or_percentage ? edu.education_cgpa_or_percentage.toString() + (edu.education_cgpa_or_percentage_type == 'Percentage' ? ' %' : ' GPA') : ''
       }));
     // Process work experience
     const workExperience = (formData.work_experience || []).map((exp: any) => ({
@@ -474,7 +474,7 @@ export class ViewProfileComponent implements OnInit {
     // Career preferences object
     const careerPreferences = {
       careerStatus: formData.career_preference_career_status || '',
-      careerDepartment: this.getListValue(this.careerDepartments, formData.career_preference_department_id, 'department') || '',
+      careerInterest: this.getListValue(this.careerInterests, formData.career_preference_career_interest_id, 'interest') || '',
       jobTitle: formData.career_preference_job_title_id || '',
       preferredWorkLocation: this.getListValue(this.locations, formData.career_preference_preferred_work_location_id, 'work_location') || '',
       preferredEmploymentType: formData.career_preference_preferred_employment_type || '',

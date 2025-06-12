@@ -118,11 +118,11 @@ export class TalentConnectService {
     }
 
     submitProfile(formData: any): Observable<any> {
-        return this.http.post(`${environment.ApiUrl}/createstudentprofile `, formData);
+        return this.http.post(`${environment.ApiUrl}/createstudentprofile`, formData);
     }
 
     updateProfile(formData: any): Observable<any> {
-        return this.http.post(`${environment.ApiUrl}/updatestudentprofile `, formData);
+        return this.http.post(`${environment.ApiUrl}/updatestudentprofile`, formData);
     }
 
     getJobAiSummary(data: any) {
