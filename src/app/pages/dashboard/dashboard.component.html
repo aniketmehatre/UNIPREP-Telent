@@ -179,8 +179,8 @@
 							<div role="button" tabindex="0" class="card mt-0 m-2 bg-white" style="border: none;" (keyup.enter)="selectFav(v)"
 								(keyup.space)="selectFav(v)">
 								<div class="card-body">
-									<div class="jobImage d-flex justify-content-center align-items-center h-100">
-										<img alt="{{ group.company_name }} logo"
+									<div class="d-flex justify-content-center align-items-center h-100">
+										<img alt="{{ group.company_name }} logo" class="jobImage"
 											(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
 											src="{{ group.image }}" />
 									</div>
