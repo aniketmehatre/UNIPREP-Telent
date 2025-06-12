@@ -65,7 +65,8 @@ export class PricingComponent implements OnInit {
   getCountry() {
     this.landingPageService.getCountryName().subscribe({
       next: (response: any) => {
-        this.setCountry(response?.country);
+        this.countryLocation=response.country_name
+        // this.setCountry(response?.country);
         this.getLandingPageSubscriptionList(this.countryLocation, this.selectedPeriod);
       },
       error: error => {
@@ -74,18 +75,18 @@ export class PricingComponent implements OnInit {
     })
   }
 
-  setCountry(country: string) {
-    switch (country) {
-      case 'IN':
-        this.countryLocation = 'India';
-        break;
-      case 'UK':
-        this.countryLocation = 'United Kingdom';
-        break;
-      default:
-        this.countryLocation = 'India';
-    }
-  }
+  // setCountry(country: string) {
+  //   switch (country) {
+  //     case 'IN':
+  //       this.countryLocation = 'India';
+  //       break;
+  //     case 'UK':
+  //       this.countryLocation = 'United Kingdom';
+  //       break;
+  //     default:
+  //       this.countryLocation = 'India';
+  //   }
+  // }
 
   getLandingPageSubscriptionList(country: string, validity: number) {
     const data = {
