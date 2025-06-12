@@ -437,12 +437,12 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         }
         //in this place city is not loading.because lot of cities are there. it showing empty array. so i put settimeout.
         setTimeout(() => {
-          let countryExist = this.cities.find((item) => item.country_name == storedValues.user_location);
+          let countryExist = this.cities.find((item) => item.work_location == storedValues.user_location);
           //if country not exist we should remove the country.
           if (countryExist === undefined) {
             this.resumeFormInfoData.patchValue({ user_location: ""});
           }
-        }, 500);
+        }, 1000);
         
       } else {
         this.getUserDetails();
@@ -666,32 +666,39 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   resumeFormSubmit() {
-    const visibleFormControls = this.getVisibleFormControls();
-    const visibleFormControls1 = this.getVisibleFormControls1();
-    const visibleFormControls2 = this.getVisibleFormControls2();
-    const visibleFormControls3 = this.getVisibleFormControls3();
-    const visibleFormControls4 = this.getVisibleFormControls4();
-
-    this.submitted = true;
-    if (!visibleFormControls.every((control) => control.valid)) {
-      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
-      visibleFormControls.forEach((control) => control.markAsTouched());
-    } else if (!visibleFormControls1.every((control) => control.valid)) {
-      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
-      visibleFormControls.forEach((control) => control.markAsTouched());
-    } else if (!visibleFormControls2.every((control) => control.valid)) {
-      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
-      visibleFormControls.forEach((control) => control.markAsTouched());
-    } else if (!visibleFormControls3.every((control) => control.valid)) {
-      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
-      visibleFormControls.forEach((control) => control.markAsTouched());
-    } else if (!visibleFormControls4.every((control) => control.valid)) {
-      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
-      visibleFormControls.forEach((control) => control.markAsTouched());
-    }else {
+    let isFormValidated: boolean = this.formValidation();
+    if(!isFormValidated){
+      return;
+    }else{
       this.storeUserFilledData();
       this.activePageIndex = 3;
     }
+    // const visibleFormControls = this.getVisibleFormControls();
+    // const visibleFormControls1 = this.getVisibleFormControls1();
+    // const visibleFormControls2 = this.getVisibleFormControls2();
+    // const visibleFormControls3 = this.getVisibleFormControls3();
+    // const visibleFormControls4 = this.getVisibleFormControls4();
+
+    // this.submitted = true;
+    // if (!visibleFormControls.every((control) => control.valid)) {
+    //   this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+    //   visibleFormControls.forEach((control) => control.markAsTouched());
+    // } else if (!visibleFormControls1.every((control) => control.valid)) {
+    //   this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+    //   visibleFormControls.forEach((control) => control.markAsTouched());
+    // } else if (!visibleFormControls2.every((control) => control.valid)) {
+    //   this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+    //   visibleFormControls.forEach((control) => control.markAsTouched());
+    // } else if (!visibleFormControls3.every((control) => control.valid)) {
+    //   this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+    //   visibleFormControls.forEach((control) => control.markAsTouched());
+    // } else if (!visibleFormControls4.every((control) => control.valid)) {
+    //   this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+    //   visibleFormControls.forEach((control) => control.markAsTouched());
+    // }else {
+      // this.storeUserFilledData();
+      // this.activePageIndex = 3;
+    // }
   }
 
   getVisibleFormControls1() {
@@ -838,20 +845,22 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.authService.hasUserSubscription$.next(true);
       return;
     }
-    if (this.activePageIndex == 0) {
+    this.submitted = false;
+    if (this.activePageIndex == 0 ) {
       this.ngAfterViewInit();
       this.profileOverViewContent = "";
+    }
+    if(this.activePageIndex == 3){
+      this.activePageIndex = 0;
+      this.ngAfterViewInit();
+      this.selectedResumeLevel = "";
     }
     this.activePageIndex++;
     if(this.activePageIndex === 7){
       this.activePageIndex = 3;
       this.clickedDownloadButton = false;
-      this.selectedResumeLevel = "";
-      this.submitted = false;
-      this.previousResumes();
     }
     // if (this.activePageIndex == 4) {
-    //   console.log("coming 1");
     //   if (this.clickedDownloadButton) {
     //     //if the user not donwload the resume,in the presently created resume is not visible in the resume history page.
     //     this.previousResumes();
@@ -860,7 +869,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     //     this.toaster.add({ severity: "error", summary: "Error", detail: "Please Download the Resume First!!" });
     //   }
     // } else if (this.activePageIndex > 4) {
-    //   console.log("coming 2");
     //   this.activePageIndex = 1;
     //   this.clickedDownloadButton = false;
     //   this.selectedResumeLevel = "";
@@ -1277,7 +1285,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     if (formGroupAtIndex) {
       let startYear = formGroupAtIndex.get("project_start_name")?.value;
       let endYear = formGroupAtIndex.get("project_end_name")?.value;
-      console.log(startYear, endYear);
       if (endYear < startYear) {
         formGroupAtIndex.get("project_end_name")?.setErrors({ invalidEndDate: true });
       } else {
@@ -1293,7 +1300,10 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   onProfileReview() {
-    this.resumeFormSubmit();
+    let isFormValidated:boolean = this.formValidation();
+    if (!isFormValidated) {
+      return;
+    }
     // this.isReviewContent = true;
     this.activePageIndex = 6;
     this.profileOverViewContent = "";
@@ -1310,6 +1320,33 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         this.authService.aiCreditCount$.next(true);
       }
     })
+  }
+
+  formValidation() :boolean {
+    const controlGroups = [
+      this.getVisibleFormControls(),
+      this.getVisibleFormControls1(),
+      this.getVisibleFormControls2(),
+      this.getVisibleFormControls3(),
+      this.getVisibleFormControls4(),
+    ];
+
+    this.submitted = true;
+    let isValid = true;
+
+    for (const controls of controlGroups) {
+      if (!controls.every((control) => control.valid)) {
+        isValid = false;
+        controls.forEach((control) => control.markAsTouched());
+      }
+    }
+
+    if (!isValid) {
+      this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." });
+      return false;
+    }
+
+    return true;
   }
 
   onChangesFormValues() {
@@ -1337,21 +1374,16 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
 
   onChangeExpLevel(){
     const expLevel = this.resumeFormInfoData.value.selected_exp_level;
-    console.log(expLevel, "selected exp level ");
     if(expLevel == 1){ //fresher
       this.clickAddMoreButton("project_details");
       this.removeHideHeaderElement("project_details");
       this.hidingHeaders.push("work_experience");
-      while (this.getWorkExpArray.length === 1) {
-        this.resumeFormInfoData.setControl('workExpArray', this.fb.array([]));
-      }
+      this.resumeFormInfoData.setControl('workExpArray', this.fb.array([]));
     }else if(expLevel == 2){ //experience
       this.clickAddMoreButton("work_experience");
       this.removeHideHeaderElement("work_experience");
       this.hidingHeaders.push("project_details");
-      while (this.getWorkExpArray.length === 2) {
-        this.resumeFormInfoData.setControl('projectDetailsArray', this.fb.array([]));
-      }
+      this.resumeFormInfoData.setControl('projectDetailsArray', this.fb.array([]));
     }
   }
 }
