@@ -2967,3 +2967,8 @@ uni-global-employment-insights {
 		font-size: calc(0.4vw + 0.4vh);
 	}
 }
+
+.custom-editor .ql-editor ol li:before {
+    // content: counter(list-0, decimal) '. ';
+    content: none;
+}
