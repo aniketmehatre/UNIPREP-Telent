@@ -19,7 +19,6 @@
 									<span><i class="fa-solid fa-location-dot" style="color: #9bc329"></i></span><span>{{ job.worklocation }}</span>
 								</p>
 								<span class="status-badge" [style.color]="'white'" [style.backgroundColor]="job.color_code">{{ job.stage }}</span>
-								<!-- <p class="uniprep-secondary" style="font-size: 10px">{{ job.matching_skills }}</p> -->
 							</div>
 						<span class="notification-badge" [ngClass]="{ 'bg-secondary-subtle text-white': !(job.unreadmessageCount > 0) }">
 							{{ job.unreadmessageCount }}
@@ -42,7 +41,7 @@
 	<p-dialog header="Filter" [(visible)]="displayModal" [modal]="true" [style]="{ width: '80%' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="displayModal = false; closeFilter.emit(false)" styleClass="container">
 		<form [formGroup]="filterForm" class="p-3">
 			<div class="row g-3">
-				<div class="col-md-4">
+				<div class="col-md-12">
 					<label class="form-label fw-bold">Search</label>
 					<div class="p-inputgroup">
 						<input type="text" pInputText formControlName="keyword" placeholder="Search by Keyword" class="form-control" />
@@ -72,7 +71,7 @@
 				</div>
 
 				<div class="col-md-4">
-					<label class="form-label fw-bold">Employment Type </label>
+					<label class="form-label fw-bold">Work Type </label>
 					<p-multiSelect [options]="employmentTypes" formControlName="employment_type" placeholder="Select employment type" optionLabel="employment_type" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
 				</div>
 
@@ -84,8 +83,8 @@
 				<div class="col-md-4">
 					<label class="form-label fw-bold">Salary offered</label>
 					<div class="d-flex w-100 gap-2">
-						<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select" formControlName="currency" [style]="{ width: '80px' }"> </p-select>
-						<div class="flex-grow-1 me-2">
+						<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select currency" formControlName="currency" [style]="{ width: '150px' }"> </p-select>
+						<div class="flex-grow-1">
 							<p-inputNumber id="salary" placeholder="Enter your salary/month" styleClass="p-inputtext w-100" [showButtons]="false" class="w-100" formControlName="salary"></p-inputNumber>
 						</div>
 					</div>
@@ -93,7 +92,7 @@
 
 				<div class="col-md-4">
 					<label class="form-label fw-bold">Experience Level </label>
-					<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel"  placeholder="Enter your experience level" optionLabel="experienceLevel" optionValue="experienceLevel" display="chip" class="w-100"> </p-multiSelect>
+					<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel"  placeholder="Enter your experience level" optionLabel="experienceLevel" optionValue="experienceLevel" display="chip" class="w-100" appendTo="body"> </p-multiSelect>
 				</div>
 				<div class="col-md-4">
 					<label class="form-label fw-bold">Status</label>
@@ -110,12 +109,18 @@
 						class="w-100">
 					</p-select>
 				</div>
+				<div class="col-md-6">
+					<label class="form-label fw-bold">Hiring Type </label>
+					<p-multiSelect [options]="hiringTypes" formControlName="hiring_type" placeholder="Select hiring type" optionLabel="employment_type" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
+				</div>
+				<div class="col-md-6 h-full mt-auto">
+					<button pButton label="Apply Filter" (click)="applyFilter()" class="btn-primary w-100"></button>
+					</div>
 			</div>
 		</form>
 
 		<div class="dialog-footer p-3 d-flex justify-content-center w-100">
 			<div class="col-md-4 h-full mt-auto w-100">
-				<button pButton label="Apply Filter" (click)="applyFilter()" class="btn-primary w-100"></button>
 				<button pButton label="Reset Filter" (click)="resetFilter()" class="p-button-text text-primary"></button>
 			</div>
 		</div>

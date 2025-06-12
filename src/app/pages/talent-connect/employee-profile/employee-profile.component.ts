@@ -1215,9 +1215,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
     // Patch Work Experience with IDs
     if (response.work_experience && response.work_experience.length > 0) {
-      const workExpArray = this.personalInfoForm.get("work_experience") as FormArray
-      workExpArray.clear()
-      response.work_experience.forEach((exp: any, i: number) => {
+      const workExpArray = this.personalInfoForm.get("work_experience") as FormArray;
+      workExpArray.clear();
+      response.work_experience.forEach((exp: any, index: number) => {
         const group = this.fb.group({
           id: [exp.id],
           years_of_experience: [exp.years_of_experience],
@@ -1232,8 +1232,15 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           work_experience_experience_letter: [exp.experience_letter],
           currently_working: [exp.currently_working ?? null]
         })
+        if (exp.currently_working) {
+          const toCtrl = group.get("work_experience_duration_to");
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          toCtrl?.setValue(today);
+          toCtrl?.disable();
+        }
         workExpArray.push(group);
-        // this.disableFieldsWhenClickFresher(group, group.get("years_of_experience")?.value === "Fresher");
+        this.onChangeWorkExpCompanyName({ target: { value: exp.company_name } }, index);
       })
     }
 
@@ -1301,7 +1308,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     if (response.references && response.references.length > 0) {
       const academicRefArray = this.personalInfoForm.get("academicReferences") as FormArray
       academicRefArray.clear()
-      response.references.forEach((ref: any) => {
+      response.references.forEach((ref: any, index:number) => {
         academicRefArray.push(
           this.fb.group({
             id: [ref.id], // Store the original ID
@@ -1312,23 +1319,24 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
             references_email: [ref.email || "", [Validators.email]],
           }),
         )
+        this.onChangeAcademicCollegeName({ target: { value: ref.college_name } }, index);
       })
     }
     // Patch Professional References with IDs
     if (response.professional_references && response.professional_references.length > 0) {
       const professionalRefArray = this.personalInfoForm.get("professional_references") as FormArray
       professionalRefArray.clear()
-      response.professional_references.forEach((ref: any) => {
+      response.professional_references.forEach((ref: any, index:number) => {
         professionalRefArray.push(
           this.fb.group({
             id: [ref.id], // Store the original ID
             references_company_name: [ref.company_name],
             references_reference_name: [ref.reference_name],
             references_designation: [ref.designation],
-            // references_phone_number: [ref.phone_number, Validators.max(9999999999)],
             references_email: [ref.email, [Validators.email]],
           }),
         )
+        this.onChangeProfessionalCompanyName({ target: { value: ref.company_name } }, index);
       })
     }
     // this.filterLocation(response?.location_id)

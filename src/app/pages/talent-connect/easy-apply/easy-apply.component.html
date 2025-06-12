@@ -64,13 +64,14 @@
 							</div>
 							<div>
 								<h5 class="mb-0 fw-semibold">{{ job?.position }}</h5>
-								<p class="mb-0 text-muted d-flex fw-semibold">
+								<p class="text-muted d-flex">
 									<a class="text-muted text-decoration-none" [href]="job.company_website"
 										target="_blank" (click)="$event.stopPropagation()">{{ job.company_name }}</a>
 									<span class="uniprep-secondary" *ngIf="job.isVerified">
 										<i class="fas fa-check-circle"></i>
 									</span>
 								</p>
+								<!-- <p class="mb-0">Job Id: {{ job.id }}</p> -->
 								<button *ngIf="((job.start_date | dateDiffInMonths) > 4)" pButton
 									class="btn btn-rounded btn-primary text-nowrap !fs-6 py-1">
 									<i class="fa-solid fa-clock"></i>Future Hiring
@@ -121,7 +122,7 @@
 										<i class="fas fa-person-digging"></i>
 									</div>
 									<div class="overflow-hidden">
-										<p class="text-muted mb-0 text-small">Employment Type</p>
+										<p class="text-muted mb-0 text-small">Work Type</p>
 										<p class="mb-0 fw-medium text-truncate">{{ job.employment_type }}</p>
 									</div>
 								</div>
@@ -167,8 +168,10 @@
 										<i class="fa-solid fa-users"></i>
 									</div>
 									<div class="overflow-hidden">
-										<p class="text-muted mb-0 text-small">Company Size</p>
-										<p class="mb-0 fw-medium text-truncate">{{ job.company_size }}</p>
+										<p class="text-muted mb-0 text-small">Experience Level</p>
+										<p class="mb-0 fw-medium text-truncate">{{ job.experience_level == 'Fresher' ?
+											job.experience_level : job.experience_level == '1' ? job.experience_level+
+											'year' : job.experience_level+ ' years' }} </p>
 									</div>
 								</div>
 							</div>
@@ -178,7 +181,7 @@
 										<i class="fa-solid fa-money-bill"></i>
 									</div>
 									<div class="overflow-hidden">
-										<p class="text-muted mb-0 text-small">Salary Range</p>
+										<p class="text-muted mb-0 text-small">Salary offered per month</p>
 										<p class="mb-0 fw-medium text-truncate">{{ job.salary_per_month }} </p>
 									</div>
 								</div>
@@ -192,7 +195,7 @@
 									<div class="overflow-hidden">
 										<p class="text-muted mb-0 text-small">Introduction Video</p>
 										<p class="mb-0 fw-medium text-truncate">{{job.intro_video == 'Yes' ?
-											'Mandatory': 'Non Mandatory'}}</p>
+											'Mandatory': 'Not Mandatory'}}</p>
 									</div>
 								</div>
 							</div>
@@ -255,7 +258,7 @@
 					</div>
 
 					<div class="col-md-4">
-						<label class="form-label fw-bold">Employment Type </label>
+						<label class="form-label fw-bold">Work Type </label>
 						<p-multiSelect [options]="employmentTypes" formControlName="employment_type"
 							placeholder="Select employment type" optionLabel="employment_type" optionValue="id"
 							appendTo="body" display="chip" class="w-100"> </p-multiSelect>
