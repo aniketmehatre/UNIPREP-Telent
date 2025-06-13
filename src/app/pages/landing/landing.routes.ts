@@ -38,10 +38,6 @@ export const landingRoutes: Routes = [
     { path: "verification/:email", component: VerificationComponent },
     { path: "setpassword/:otp/:email", component: SetpasswordComponent },
     {
-        path: 'partner/register',
-        loadComponent: () => import('../landing-partner/partner-register/partner-register.component').then(m => m.PartnerRegisterComponent)
-    },
-    {
         path: 'talent',
         loadChildren: () => import('../landing-talent-connect/landing-new.module').then(c => c.LandingModule)
     },
@@ -49,9 +45,9 @@ export const landingRoutes: Routes = [
         path: "pages",
         loadChildren: () => import("../../pages/pages.module").then((m) => m.PagesModule),
         // canActivate: [AuthGuard],
-        // resolve: {
-        //     user: UserResolver,
-        // },
+        resolve: {
+            user: UserResolver,
+        },
     },
     {
         path: '',

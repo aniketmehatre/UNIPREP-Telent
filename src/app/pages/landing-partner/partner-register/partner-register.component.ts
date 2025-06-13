@@ -23,14 +23,14 @@ import { SubSink } from 'subsink';
 import { LandingPartnerServices } from '../landing-partner.service';
 
 @Component({
-  selector: 'uni-partner-register',
-  imports: [CommonModule, GoogleSigninButtonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule],
-  standalone: true,
-  templateUrl: './partner-register.component.html',
-  styleUrl: './partner-register.component.scss',
+	selector: 'uni-partner-register',
+	imports: [CommonModule, GoogleSigninButtonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule],
+	standalone: true,
+	templateUrl: './partner-register.component.html',
+	styleUrl: './partner-register.component.scss',
 })
 export class PartnerRegisterComponent {
- @ViewChild("otp1") otp1!: ElementRef;
+	@ViewChild("otp1") otp1!: ElementRef;
 	@ViewChild("otp2") otp2!: ElementRef;
 	@ViewChild("otp3") otp3!: ElementRef;
 	@ViewChild("otp4") otp4!: ElementRef;
@@ -64,34 +64,21 @@ export class PartnerRegisterComponent {
 	regionListBasedOnCountryId: any[] = [];
 	submitted = false;
 	isShowConfirmationResponse: boolean = false;
-
+	genderOptions: any[] = []
+	afterRegisterAwaitingConfirmation: boolean = false;
 	constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder, private locationService: LocationService, private toast: MessageService, private authService: SocialAuthService, private storage: LocalStorageService, private landingService: LandingPartnerServices) { }
 
 	dateTime = new Date();
 	private subs = new SubSink();
 	ngOnInit() {
-    this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
-      this.imageUrlWhiteLabel = data.logo
-    })
-		this.authService.authState.subscribe((user) => {
-			this.service.googlesignUp(user).subscribe(
-				(data) => {
-					if (data.token) {
-						this.storage.set(environment.tokenKey, data.token);
-					} else {
-						this.storage.set(environment.tokenKey, data?.authorisation?.token);
-					}
-					this.router.navigate(["/partner/login"])
-				},
-				(error: any) => {
-					this.toast.add({
-						severity: "error",
-						summary: "Error",
-						detail: error,
-					});
-				}
-			);
-		});
+		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
+			this.imageUrlWhiteLabel = data.logo
+		})
+		this.genderOptions = [
+			{ id: 'M', name: 'Male' },
+			{ id: 'F', name: 'Female' },
+			{ id: 'O', name: 'Others' }
+		];
 		this.dateTime.setDate(this.dateTime.getDate());
 
 		this.password = "password";
@@ -111,6 +98,7 @@ export class PartnerRegisterComponent {
 				'(\\/[^\\s]*)?$' // optional path
 			)],
 			designation: ["", [Validators.required]],
+			gender: ["", [Validators.required]],
 		});
 
 		this.otpForm = this.formBuilder.group({
@@ -124,36 +112,9 @@ export class PartnerRegisterComponent {
 		});
 		this.initializePhoneNumber();
 		this.fetchCountryList();
-		setTimeout(() => {
-			this.renderGoogleButton();
-		}, 200);
-
 		// this.getUserLocation() //while registering the user needs to get the location based city, state, region, country.
 	}
 
-	renderGoogleButton() {
-		console.log('hi')
-		const container = document.getElementById('google-button-container');
-		if (container && (window as any).google?.accounts?.id) {
-			(window as any).google.accounts.id.initialize({
-				client_id: '750560403636-pd8q2gts7v35t7opukgohhtkspf9ftgo.apps.googleusercontent.com',
-				callback: (response: any) => {
-				}
-			});
-
-			(window as any).google.accounts.id.renderButton(container, {
-				type: 'standard',
-				size: 'large',
-				theme: 'outline',
-				text: 'signin_with',
-				shape: 'rectangular',
-				logo_alignment: 'center',
-				width: 300,
-			});
-		} else {
-			console.warn('Google SDK not ready');
-		}
-	}
 
 	initializePhoneNumber() {
 		fetch("https://ipapi.co/json/")
@@ -225,6 +186,7 @@ export class PartnerRegisterComponent {
 			company_website: this.registrationForm.value.companyWebsite,
 			company_designation: this.registrationForm.value.designation,
 			phone_country_code: this.registrationForm.value.mobileNumber?.dialCode,
+			gender:this.registrationForm.value.gender
 		};
 
 		this.landingService.registerEmployer(data).subscribe({
@@ -235,7 +197,7 @@ export class PartnerRegisterComponent {
 					summary: "Success",
 					detail: "Employer Registered",
 				});
-				this.router.navigate(["partner/login"]);
+				this.afterRegisterAwaitingConfirmation = true;
 			},
 			error: (error) => {
 				const message = error.error?.message != undefined ? error.error?.message : error?.message;
@@ -439,5 +401,14 @@ export class PartnerRegisterComponent {
 				});
 			}
 		);
+	}
+	// restrictions
+	blockNumbers(event: KeyboardEvent) {
+		const pattern = /[a-zA-Z\s]/;
+		const inputChar = String.fromCharCode(event.keyCode || event.which);
+
+		if (!pattern.test(inputChar)) {
+			event.preventDefault();
+		}
 	}
 }

@@ -162,7 +162,7 @@
 	<div class="col-lg-9 col-md-8">
 		<div class="d-flex flex-column h-100">
 			<div class="card mb-2 flex-fill bg-white">
-				<div class="card-body d-flex flex-column justify-content-between ">
+			<div class="card-body d-flex flex-column justify-content-between ">
 					<div class="flex justify-content-between">
 						<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span>&nbsp;Apply
 							for jobs</h5>
@@ -176,26 +176,13 @@
 						[indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 						aria-label="Recent Job Applications Carousel">
 						<ng-template let-group pTemplate="item">
-							<div role="button" tabindex="0" class="card mt-0 m-2 bg-white" (keyup.enter)="selectFav(v)"
+							<div role="button" tabindex="0" class="card mt-0 m-2 bg-white" style="border: none;" (keyup.enter)="selectFav(v)"
 								(keyup.space)="selectFav(v)">
-								<div class="card job-card p-3 mb-2">
-									<div class="d-flex align-items-center">
-										<!-- Image Left -->
-										<div class="logo-wrapper1 me-3">
-											<img [src]="group.image" alt="{{ group.company_name }} logo"
-												(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
-												class="company-logo" />
-										</div>
-
-										<!-- Content Right -->
-										<div>
-											<h6 class="mb-1 fw-bold">Senior UI/UX Designer</h6>
-											<p class="mb-1 text-muted">{{ group.company_name }}</p>
-											<div class=" small d-flex align-items-center">
-												<i class="fa-solid fa-location-dot" style="color: #90c436;"></i> &nbsp;
-												<h7><b>{{group.work_location}}</b></h7>
-											</div>
-										</div>
+								<div class="card-body">
+									<div class="d-flex justify-content-center align-items-center h-100 image-border">
+										<img alt="{{ group.company_name }} logo" class="jobImage"
+											(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
+											src="{{ group.image }}" />
 									</div>
 								</div>
 							</div>
@@ -220,19 +207,14 @@
 						class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 						aria-label="Educational Partners Carousel">
 						<ng-template let-uni pTemplate="item">
-							<div role="button" tabindex="0" class="card mt-0 m-2 bg-white">
-								<div class="card company-card text-center p-3 shadow-sm border-0">
-									<div class="logo-wrapper mx-auto mb-3">
-										<img [src]="uni.company_logo" alt="{{ uni.company_name }} logo"
+							<div role="button" tabindex="0" class="card mt-0 m-2 bg-white" style="border: none;">
+								<div class="card-body">
+									<div
+										class="text-center image-border d-flex justify-content-center align-items-center h-100">
+										<img class="logo-wrapper" alt="{{ uni.company_name }} logo"
 											(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
-											class="img-fluid company-logo" />
+											[src]="uni.company_logo" />
 									</div>
-									<h6 class="mb-0 fw-bold">
-										{{ uni.company_name }}
-										<span class="text-warning ms-1">
-											<i class="bi bi-patch-check-fill"></i>
-										</span>
-									</h6>
 								</div>
 							</div>
 						</ng-template>

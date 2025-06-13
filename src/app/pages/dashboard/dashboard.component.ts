@@ -3,7 +3,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDe
 import { DashboardService } from "./dashboard.service"
 import { AuthService } from "../../Auth/auth.service"
 import { SubSink } from "subsink"
-import { Router } from "@angular/router"
+import { ActivatedRoute, Router } from "@angular/router"
 import { DataService } from "src/app/data.service"
 import { combineLatest, forkJoin, of } from "rxjs"
 import { catchError, map, tap } from "rxjs/operators"
@@ -85,7 +85,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		private dataService: DataService, private authService: AuthService, private locationService: LocationService,
 		private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService,
 		private toaster: MessageService, private seoManagerComponent: SeoManagerComponent, private formBuilder: FormBuilder,
-		private sanitizer: DomSanitizer
+		private sanitizer: DomSanitizer, private route: ActivatedRoute
 	) {
 		this.reportSubmitForm = this.formBuilder.group({
 			reportOption: [""],
@@ -116,13 +116,27 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 
-	ngOnInit(): void {
+	ngOnInit() {
+		this.route.queryParamMap.subscribe(params => {
+			const token = params.get('token');
+			if (token) {
+				// Store token somewhere (service, localStorage, etc.)
+				console.log('Token from URL:', token);
+
+				// ✅ Remove token from URL without reloading
+				this.router.navigate([], {
+					relativeTo: this.route,
+					queryParams: {},
+					replaceUrl: true
+				});
+			}
+		});
 		// Initialize essential data first
 		this.apiToCheckPartnerOrInstitute()
 		this.groupedListFav = this.chunkArray(this.featureList, 4);
 		this.recentJobs();
-		this.handleUserData();
 		this.recentCompanies();
+		this.handleUserData();
 		this.seoManagerComponent.updateDynamicContent('UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship');
 	}
 
