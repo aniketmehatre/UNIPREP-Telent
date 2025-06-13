@@ -9,7 +9,6 @@ import { addMonths, differenceInMonths, formatDuration, intervalToDuration } fro
 import { HOVER_MESSAGES } from "./view-profile/hover-messages";
 import { AuthService } from "../../../Auth/auth.service";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Departments } from "src/app/@Models/user-profile.model";
 import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile";
 import { SelectChangeEvent } from "primeng/select";
 import { environment } from "@env/environment";
@@ -65,7 +64,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   genderOptions: any[] = []
   graduationYears: any[] = []
   currencies: any[] = []
-  // careerInterests: any[] = []
   fieldsOfStudy: any[] = []
   hobbies: any[] = []
   jobTitles: any[] = []
@@ -84,7 +82,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   disableIfPostgraduateSelected: number[] = [4, 5];
   disableIfDoctorateSelected: number[] = [5];
   graduationYearList: any[] = []
-  departmentList: Departments[] = [];
+  careerInterests: any[] = [];
   profileDetail!: EmployeeConnectProfile;
   isDisableAddMoreEducation: boolean = false;
   cgpaPercentageList: any = [
@@ -107,8 +105,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       this.calculateProfileCompletion();
     });
     this.getProfileData();
-    this.setupFormListeners();
-    this.getDepartmentList();
     this.onFormValueChanges();
   }
 
@@ -152,7 +148,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
       career_preference_career_status: [null, Validators.required],
       career_preference_job_title_id: [null, Validators.required],
-      career_preference_department_id: [[], Validators.required],
+      career_preference_career_interest_id: [[], Validators.required],
       career_preference_preferred_work_location_id: [[], Validators.required],
       career_preference_preferred_employment_type: [[], Validators.required],
       career_preference_preferred_workplace_type: [[], Validators.required],
@@ -523,7 +519,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
             formData,
             `educationDetails[${index}][education_still_pursuing]`,
             originalEducation,
-            (value) => education.get("education_still_pursuing")?.value || "",
+            (value) => education.get("education_still_pursuing")?.value ? 1 : 0 || 0,
           )
           this.appendIfModified(
             formData,
@@ -575,6 +571,12 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           )
           this.appendIfModified(
             formData,
+            `work_experience[${index}][currently_working]`,
+            originalWork,
+            (value) => work.get("currently_working")?.value ? 1 : 0 || 0,
+          )
+          this.appendIfModified(
+            formData,
             `work_experience[${index}][work_experience_duration_from]`,
             originalWork,
             (value) => work.get("work_experience_duration_from")?.value || "",
@@ -613,7 +615,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         // Career preferences
         this.appendIfModified(formData, "career_preference_career_status", originalValues)
         this.appendIfModified(formData, "career_preference_job_title_id", originalValues)
-        this.appendIfModified(formData, "career_preference_department_id", originalValues)
+        this.appendIfModified(formData, "career_preference_career_interest_id", originalValues)
         this.appendIfModified(formData, "career_preference_preferred_work_location_id", originalValues)
         this.appendIfModified(formData, "career_preference_preferred_employment_type", originalValues)
         this.appendIfModified(formData, "career_preference_preferred_workplace_type", originalValues)
@@ -689,10 +691,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
             originalRef,
             (value) => ref.get("references_designation")?.value || "",
           )
-          // this.appendIfModified(formData,
-          //   `academicReferences[${index}][references_phone_number]`,
-          //   originalRef,
-          //   value => ref.get('references_phone_number')?.value || '');
           this.appendIfModified(
             formData,
             `academicReferences[${index}][references_email]`,
@@ -729,10 +727,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
             originalRef,
             (value) => ref.get("references_designation")?.value || "",
           )
-          // this.appendIfModified(formData,
-          //   `professional_references[${index}][references_phone_number]`,
-          //   originalRef,
-          //   value => ref.get('references_phone_number')?.value || '');
           this.appendIfModified(
             formData,
             `professional_references[${index}][references_email]`,
@@ -840,7 +834,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
             console.error("Error updating profile", error)
           },
         })
-      } else {
+      }
+      else {
         // Create operation - same as original code
         this.appendFormData(formData);
 
@@ -935,7 +930,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         profileData: this.personalInfoForm.value,
         isSample: isSample,
         currencies: this.currencies,
-        careerDepartments: this.departmentList,
+        careerInterests: this.careerInterests,
         jobTitles: this.jobTitles,
         languageList: this.languageList,
         locations: this.locations,
@@ -963,6 +958,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
     function checkField(control: AbstractControl | null, weight: number) {
       if (
+        control?.value &&
         control?.value !== null &&
         control?.value !== "" &&
         (Array.isArray(control?.value) ? control?.value.length > 0 : true)
@@ -1010,7 +1006,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     // Career Preferences & Aspirations (10%)
     checkField(this.personalInfoForm.get("career_preference_career_status"), 3)
     checkField(this.personalInfoForm.get("career_preference_job_title_id"), 3)
-    checkField(this.personalInfoForm.get("career_preference_department_id"), 3)
+    checkField(this.personalInfoForm.get("career_preference_career_interest_id"), 3)
     checkField(this.personalInfoForm.get("career_preference_preferred_work_location_id"), 3)
     checkField(this.personalInfoForm.get("career_preference_preferred_employment_type"), 3)
     checkField(this.personalInfoForm.get("career_preference_preferred_workplace_type"), 3)
@@ -1103,10 +1099,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.talentConnectService.getMyProfileDropDownValues().subscribe({
       next: (response) => {
         this.currencies = response.currencies
-        // this.careerInterests = response.career_interests
+        this.careerInterests = response.career_interests
         this.jobTitles = response.job_titles
         this.languageList = response.languages
-        // this.locations = response.locations;
         this.hobbies = response.hobbies
         this.professionalStrengths = response.professional_strengths
         this.qualifications = response.qualifications
@@ -1160,7 +1155,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       additional_notes: response.careerPreference?.notes,
       career_preference_career_status: response.careerPreference?.career_status || "",
       career_preference_job_title_id: response.careerPreference?.job_title || "",
-      career_preference_department_id: response.careerPreference?.department_id || [],
+      career_preference_career_interest_id: response.careerPreference?.career_interest_id || [],
       career_preference_preferred_work_location_id: response.careerPreference?.preferred_work_location_id || [],
       career_preference_preferred_employment_type: response.careerPreference?.preferred_employment_type || [],
       career_preference_preferred_workplace_type: response.careerPreference?.preferred_workplace_type || [],
@@ -1220,9 +1215,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
     // Patch Work Experience with IDs
     if (response.work_experience && response.work_experience.length > 0) {
-      const workExpArray = this.personalInfoForm.get("work_experience") as FormArray
-      workExpArray.clear()
-      response.work_experience.forEach((exp: any, i: number) => {
+      const workExpArray = this.personalInfoForm.get("work_experience") as FormArray;
+      workExpArray.clear();
+      response.work_experience.forEach((exp: any, index: number) => {
         const group = this.fb.group({
           id: [exp.id],
           years_of_experience: [exp.years_of_experience],
@@ -1237,8 +1232,15 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           work_experience_experience_letter: [exp.experience_letter],
           currently_working: [exp.currently_working ?? null]
         })
+        if (exp.currently_working) {
+          const toCtrl = group.get("work_experience_duration_to");
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          toCtrl?.setValue(today);
+          toCtrl?.disable();
+        }
         workExpArray.push(group);
-        // this.disableFieldsWhenClickFresher(group, group.get("years_of_experience")?.value === "Fresher");
+        this.onChangeWorkExpCompanyName({ target: { value: exp.company_name } }, index);
       })
     }
 
@@ -1306,7 +1308,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     if (response.references && response.references.length > 0) {
       const academicRefArray = this.personalInfoForm.get("academicReferences") as FormArray
       academicRefArray.clear()
-      response.references.forEach((ref: any) => {
+      response.references.forEach((ref: any, index:number) => {
         academicRefArray.push(
           this.fb.group({
             id: [ref.id], // Store the original ID
@@ -1317,23 +1319,24 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
             references_email: [ref.email || "", [Validators.email]],
           }),
         )
+        this.onChangeAcademicCollegeName({ target: { value: ref.college_name } }, index);
       })
     }
     // Patch Professional References with IDs
     if (response.professional_references && response.professional_references.length > 0) {
       const professionalRefArray = this.personalInfoForm.get("professional_references") as FormArray
       professionalRefArray.clear()
-      response.professional_references.forEach((ref: any) => {
+      response.professional_references.forEach((ref: any, index:number) => {
         professionalRefArray.push(
           this.fb.group({
             id: [ref.id], // Store the original ID
             references_company_name: [ref.company_name],
             references_reference_name: [ref.reference_name],
             references_designation: [ref.designation],
-            // references_phone_number: [ref.phone_number, Validators.max(9999999999)],
             references_email: [ref.email, [Validators.email]],
           }),
         )
+        this.onChangeProfessionalCompanyName({ target: { value: ref.company_name } }, index);
       })
     }
     // this.filterLocation(response?.location_id)
@@ -1393,8 +1396,12 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   generateAiSummary(mode: string, data: any, formControl: FormControl) {
+    if (this.authService._creditCount === 0) {
+      this.toastService.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
+      // this.router.navigateByUrl('/pages/export-credit')
+      return;
+    }
     const hasValidValues = data && Object.values(data).every((val) => val !== null && val !== "")
-
     if (hasValidValues) {
       this.isLoadingAiSummary = true
       this.talentConnectService.getAiSummaryByMode(mode, data).subscribe({
@@ -1443,6 +1450,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onCallAIEvaluation() {
+    if (this.authService._creditCount === 0) {
+      this.toastService.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
+      return;
+    }
     if (this.personalInfoForm.valid) {
       if (this.haveErrorWhileAddExp) {
         this.validateTotalExperience();
@@ -1543,6 +1554,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           this.aiEvaluationContent = this.sanitizer.bypassSecurityTrustHtml(response.response);
           this.profileScore = response.profile_percent || 0;;
           this.isShowAiEvaluation = true;
+          this.authService.aiCreditCount$.next(true);
         },
         error: () => {
           this.toastService.add({
@@ -1588,14 +1600,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       val !== "<p>&nbsp;</p>" &&
       val.replace(/<[^>]*>/g, "").trim() !== ""
     )
-  }
-
-  setupFormListeners(): void {
-    this.personalInfoForm.get("total_years_of_experience")?.valueChanges.subscribe((value) => {
-      if (value !== 'Fresher') {
-        this.validateTotalExperience();
-      }
-    });
   }
 
   validateTotalExperience() {
@@ -1761,9 +1765,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         `educationDetails[${index}][education_graduation_year_id]`,
         education.get("education_graduation_year_id")?.value || "",
       )
+      const stillPursuing = education.get("education_still_pursuing")?.value ? 1 : 0;
       formData.append(
         `educationDetails[${index}][education_still_pursuing]`,
-        education.get("education_still_pursuing")?.value || "",
+        stillPursuing.toString() || "0",
       )
       formData.append(
         `educationDetails[${index}][education_cgpa_or_percentage_type]`,
@@ -1792,6 +1797,11 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       formData.append(
         `work_experience[${index}][work_experience_employment_type]`,
         work.get("work_experience_employment_type")?.value || "",
+      )
+      const currentlyWorking = work.get("currently_working")?.value ? 1 : 0;
+      formData.append(
+        `work_experience[${index}][currently_working]`,
+        currentlyWorking.toString() || "0",
       )
       formData.append(
         `work_experience[${index}][work_experience_duration_from]`,
@@ -1831,8 +1841,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       this.personalInfoForm.get("career_preference_job_title_id")?.value || "",
     )
     formData.append(
-      "career_preference_department_id",
-      JSON.stringify(this.personalInfoForm.get("career_preference_department_id")?.value) || "",
+      "career_preference_career_interest_id",
+      JSON.stringify(this.personalInfoForm.get("career_preference_career_interest_id")?.value) || "",
     )
     formData.append(
       "career_preference_preferred_work_location_id",
@@ -2007,6 +2017,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   aiRePhraseSummary(mode: string, content: Record<string, any>, formControl: FormControl) {
+    if (this.authService._creditCount === 0) {
+      this.toastService.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
+      return;
+    }
     this.isLoadingAiSummary = true;
     this.talentConnectService.getAiSummaryByMode(mode, content).subscribe({
       next: (response) => {
@@ -2128,14 +2142,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.personalInfoForm.get('total_years_of_experience')?.setValue(formatted || '0 months');
   }
 
-  getDepartmentList() {
-    this.talentConnectService.getDepartments().subscribe({
-      next: (response) => {
-        this.departmentList = response;
-      },
-    });
-  }
-
   onChangeStillPursuing(event: any, index: number) {
     const currentGroup = this.educationDetails.at(index);
     const cgpaTypeCtrl = currentGroup.get('education_cgpa_or_percentage_type');
@@ -2165,50 +2171,50 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onChangeStillPursuingg(event: any, index: number) {
-  const isChecked = event.target.checked;
-  const currentGroup = this.educationDetails.at(index);
-  const currentTypeCtrl = currentGroup.get('education_cgpa_or_percentage_type');
-  const currentValueCtrl = currentGroup.get('education_cgpa_or_percentage');
+    const isChecked = event.target.checked;
+    const currentGroup = this.educationDetails.at(index);
+    const currentTypeCtrl = currentGroup.get('education_cgpa_or_percentage_type');
+    const currentValueCtrl = currentGroup.get('education_cgpa_or_percentage');
 
-  // Reset and disable current if checked
-  if (isChecked) {
-    // Uncheck others
-    this.educationDetails.controls.forEach((group, i) => {
-      if (i !== index) {
-        const stillPursuingCtrl = group.get('education_still_pursuing');
-        const typeCtrl = group.get('education_cgpa_or_percentage_type');
-        const valueCtrl = group.get('education_cgpa_or_percentage');
+    // Reset and disable current if checked
+    if (isChecked) {
+      // Uncheck others
+      this.educationDetails.controls.forEach((group, i) => {
+        if (i !== index) {
+          const stillPursuingCtrl = group.get('education_still_pursuing');
+          const typeCtrl = group.get('education_cgpa_or_percentage_type');
+          const valueCtrl = group.get('education_cgpa_or_percentage');
 
-        if (stillPursuingCtrl?.value) {
-          stillPursuingCtrl.setValue(false, { emitEvent: false });
-          typeCtrl?.enable();
-          valueCtrl?.enable();
+          if (stillPursuingCtrl?.value) {
+            stillPursuingCtrl.setValue(false, { emitEvent: false });
+            typeCtrl?.enable();
+            valueCtrl?.enable();
+          }
+
+          typeCtrl?.setValidators(Validators.required);
+          valueCtrl?.setValidators(Validators.required);
+          typeCtrl?.updateValueAndValidity();
+          valueCtrl?.updateValueAndValidity();
         }
+      });
 
-        typeCtrl?.setValidators(Validators.required);
-        valueCtrl?.setValidators(Validators.required);
-        typeCtrl?.updateValueAndValidity();
-        valueCtrl?.updateValueAndValidity();
-      }
-    });
+      currentTypeCtrl?.reset();
+      currentValueCtrl?.reset();
+      currentTypeCtrl?.disable();
+      currentValueCtrl?.disable();
+      currentTypeCtrl?.clearValidators();
+      currentValueCtrl?.clearValidators();
+    } else {
+      // Enable and apply validators if unchecked
+      currentTypeCtrl?.enable();
+      currentValueCtrl?.enable();
+      currentTypeCtrl?.setValidators(Validators.required);
+      currentValueCtrl?.setValidators(Validators.required);
+    }
 
-    currentTypeCtrl?.reset();
-    currentValueCtrl?.reset();
-    currentTypeCtrl?.disable();
-    currentValueCtrl?.disable();
-    currentTypeCtrl?.clearValidators();
-    currentValueCtrl?.clearValidators();
-  } else {
-    // Enable and apply validators if unchecked
-    currentTypeCtrl?.enable();
-    currentValueCtrl?.enable();
-    currentTypeCtrl?.setValidators(Validators.required);
-    currentValueCtrl?.setValidators(Validators.required);
+    currentTypeCtrl?.updateValueAndValidity();
+    currentValueCtrl?.updateValueAndValidity();
   }
-
-  currentTypeCtrl?.updateValueAndValidity();
-  currentValueCtrl?.updateValueAndValidity();
-}
 
   onChangeCGPAorPercentage(event: SelectChangeEvent, index: number) {
     const group = this.educationDetails.at(index);

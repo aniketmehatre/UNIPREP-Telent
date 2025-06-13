@@ -117,14 +117,13 @@ export class JobDetailsComponent implements OnInit, OnChanges {
     }
   }
 
-  getProficiencyRating(proficiency: string): number {
-    const ratings: { [key: string]: number } = {
-      Beginner: 1,
-      Elementary: 2,
-      Intermediate: 3,
-      Advanced: 4,
-      Fluent: 5,
-    };
-    return ratings[proficiency] ?? 1;
+   getProficiencyRating(proficiency: string) {
+    const proficiencyList: { [key: string]: number } = {
+      "Beginner": 2,
+      "Fluent": 3,
+      "Proficient": 4,
+      "Native": 5
+    }
+    return proficiencyList[proficiency] || 0;
   }
 }

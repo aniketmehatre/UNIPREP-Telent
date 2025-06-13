@@ -54,7 +54,8 @@ export class JobListComponent implements OnInit {
   tabs = [
     { label: 'All Jobs', active: true }
   ];
-
+  hiringTypes: any[] = [];
+  
   constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder) { }
 
 
@@ -134,10 +135,10 @@ export class JobListComponent implements OnInit {
       currency: ['INR'],
       salary: [''],
       experienceLevel: [null],
-      status: ['']
+      status: [''],
+      hiring_type: [null],
     });
   }
-
 
   getJobTrackDetails(id: number) {
     this.talentConnectService.getJobDetails(id).subscribe({

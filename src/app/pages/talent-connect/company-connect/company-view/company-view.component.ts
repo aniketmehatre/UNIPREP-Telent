@@ -92,4 +92,11 @@ export class CompanyViewComponent implements OnInit {
   }
 
   openVideoPopup(id: string) { }
+
+  openUrl(url: string) {
+    if (url && !url.startsWith('http')) {
+      url = 'https://' + url;
+    }
+    window.open(url, '_blank');
+  }
 }

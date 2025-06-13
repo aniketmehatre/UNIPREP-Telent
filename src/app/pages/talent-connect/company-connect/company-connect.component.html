@@ -61,7 +61,9 @@
 								</div>
 								<div class="text-start">
 									<button class="px-3 py-2 rounded-1 text-small btn" pButton [ngClass]="company.shortlisted == 1 ? 'active-shortlist' : 'inActive-shortlist'" (click)="onClickShortListCompany(company.id)" [disabled]="company.shortlisted == 1">
-										{{ company.shortlisted == 1 ? "Shortlisted" : "Shortlist" }}
+										{{ company.shortlisted == 1 ? "Shortlisted " : "Follow " }}
+										<i [ngClass]="company?.shortlisted == 0 ? 'pi pi-plus' : 'pi pi-check'"
+												style="font-size:10px"></i>
 									</button>
 								</div>
 							</div>
@@ -77,7 +79,7 @@
 									<div class="info-container" class="text-decoration-none text-dark"
 										(click)="routerToJobListingPageWithCompanyId($event, company.id);">
 										<div class="info-label">Open Jobs</div>
-										<div class="info-value">{{ company.jobs ?? '-'}}</div>
+										<div class="info-value">{{ company.jobs ?? 0}}</div>
 									</div>
 								</div>
 							</div>
@@ -154,18 +156,6 @@
 									<div class="info-container">
 										<div class="info-label">Department</div>
 										<div class="info-value">{{ company.departments ?? '-' }}</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-6">
-								<div class="d-flex align-items-center gap-2">
-									<div class="icon-container work-mode-icon">
-										<i class="fas fa-map-pin"></i>
-									</div>
-									<div class="info-container">
-										<div class="info-label">Work mode</div>
-										<div class="info-value">{{ company.work_mode ?? '-'}}</div>
 									</div>
 								</div>
 							</div>

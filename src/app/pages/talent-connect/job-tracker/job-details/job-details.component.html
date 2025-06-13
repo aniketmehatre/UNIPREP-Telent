@@ -38,14 +38,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="col-md-12">
-				<hr class="my-2" />
-			</div>
-			<div class="col-md-12">
-				<div class="overflow-x-auto">
-					<p-steps [model]="steps" [activeIndex]="activeIndex" [readonly]="true" class="w-100"></p-steps>
-				</div>
-			</div> -->
 		</div>
 	</div>
 	<div class="card-body overflow-y-auto">
@@ -53,6 +45,24 @@
 		<div class="row text-start">
 			<div class="col-md-12 col-12">
 				<div class="row">
+					<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 mb-3">
+						<div class="d-flex text-left align-items-center">
+							<i class="fa-solid fa-calendar text-primary me-2 mt-1" style="color: purple"></i>
+							<div>
+								<p class="text-muted mb-1">Start Date</p>
+								<p class="fw-bold mb-0">{{ jobDetails.start_date }}</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 mb-3">
+						<div class="d-flex text-left align-items-center">
+							<i class="fa-solid fa-calendar text-primary me-2 mt-1" style="color: purple"></i>
+							<div>
+								<p class="text-muted mb-1">Application Deadline</p>
+								<p class="fw-bold mb-0">{{ jobDetails.due_date }}</p>
+							</div>
+						</div>
+					</div>
 					<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 mb-3">
 						<div class="d-flex text-left align-items-center">
 							<i class="fa-solid fa-location-dot text-success me-2 mt-1"></i>
@@ -68,24 +78,6 @@
 							<div>
 								<p class="text-muted mb-1">Position</p>
 								<p class="fw-bold mb-0">{{ jobDetails.position }}</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 mb-3">
-						<div class="d-flex text-left align-items-center">
-							<i class="fa-solid fa-calendar text-primary me-2 mt-1" style="color: purple"></i>
-							<div>
-								<p class="text-muted mb-1">Start Date</p>
-								<p class="fw-bold mb-0">{{ jobDetails.start_date }}</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 mb-3">
-						<div class="d-flex text-left align-items-center">
-							<i class="fa-solid fa-users me-2 mt-1"></i>
-							<div>
-								<p class="text-muted mb-1">Company Size</p>
-								<p class="fw-bold mb-0">{{ jobDetails.company_size }}</p>
 							</div>
 						</div>
 					</div>
@@ -107,7 +99,7 @@
 						<div class="d-flex text-left align-items-center">
 							<i class="fa-solid fa-clock me-2 mt-1" style="color: red"></i>
 							<div>
-								<p class="text-muted mb-1">Employment Type</p>
+								<p class="text-muted mb-1">Work Type</p>
 								<p class="fw-bold mb-0">
 									<span *ngIf="!array.isArray(jobDetails.employment_type)">{{
 										jobDetails.employment_type }}</span>
@@ -121,10 +113,10 @@
 						<div class="d-flex text-left align-items-center">
 							<i class="fa-solid fa-dollar me-2 mt-1" style="color: green"></i>
 							<div>
-								<p class="text-muted mb-1">Salary Range</p>
+								<p class="text-muted mb-1">Salary offered per month</p>
 								<p class="fw-bold mb-0">
-									{{ jobDetails.salary_range || jobDetails.salary_offer }}
 									<span *ngIf="jobDetails.currency_code"> {{ jobDetails.currency_code }}</span>
+									{{ jobDetails.salary_range || jobDetails.salary_offer }}
 								</p>
 							</div>
 						</div>
@@ -182,20 +174,6 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col-md-12">
-						<div class="card mb-4 bg-secondary-subtle">
-							<div class="card-body">
-								<div class="row">
-									<div class="col-md-5">
-										<h3 class="fw-bold mb-0">Technical Proficiency</h3>
-									</div>
-									<div class="col-md-7 font-bold">
-										<p>{{ jobDetails.technical_proficiency }}</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div> -->
 					<div class="col-md-12">
 						<div class="card mb-4 bg-secondary-subtle">
 							<div class="card-body">
@@ -331,6 +309,20 @@
 												{{ stage }}
 											</span>
 										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="card mb-4 bg-secondary-subtle">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-5">
+										<h3 class="fw-bold mb-0">Additional Notes</h3>
+									</div>
+									<div class="col-md-7">
+										
 									</div>
 								</div>
 							</div>

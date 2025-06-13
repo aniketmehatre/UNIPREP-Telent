@@ -194,7 +194,7 @@
               </div>
               <div class="col-md-4 mb-3">
                 <div class="text-primary fw-bold">Interested Industry</div>
-                <div>{{profileData.careerPreferences.careerDepartment || 'Not specified'}}</div>
+                <div>{{profileData.careerPreferences.careerInterest || 'Not specified'}}</div>
               </div>
               <div class="col-md-4 mb-3">
                 <div class="text-primary fw-bold">Preferred Work Location</div>
@@ -313,56 +313,11 @@
                   </div>
                 </ng-container>
               </div>
-              <!-- <div *ngIf="profileData.additionalDetails.hobbiesAndInterests" class="col-12 mt-3">
-                <div class="text-primary fw-bold mb-2">Hobbies & Interests</div>
-                <div>{{profileData.additionalDetails.hobbiesAndInterests}}</div>
-              </div> -->
             </div>
           </div>
         </div>
       </div>
     </div>
-  
-    <!-- Key Strengths Section -->
-    <!-- <div class="card mb-4" *ngIf="profileData.keyStrengths">
-      <div class="card-body">
-        <div class="row g-2">
-          <div class="col-md-3">
-            <h3 class="fw-bold text-navy">Key Strengths & Professional Traits</h3>
-            <div class="mt-3 text-warning rounded-pill">Want to add more skills?</div>
-            <button pButton label="Click here to add more to your list!" (click)="routingToPage('/pages/modules/skill-mastery')" class="p-button-outlined p-button-warning mt-2 rounded-pill"></button>
-          </div>
-          <div class="col-md-9">
-            <div class="mb-4">
-              <div class="text-primary fw-bold">What sets you apart in your industry?</div>
-              <p [innerHTML]="profileData.keyStrengths.industryDifferentiators || 'Not specified'"></p>
-            </div>
-            
-            <div class="row g-2">
-              <div class="col-md-6 mb-3">
-                <div class="text-primary fw-bold">Have you solved a real-world challenge in your field?</div>
-                <div>{{profileData.keyStrengths.solvedRealWorldChallenge || 'Not specified'}}</div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <div class="text-primary fw-bold">Your top professional strength</div>
-                <div>{{profileData.keyStrengths.topProfessionalStrength || 'Not specified'}}</div>
-              </div>
-            </div>
-            
-            <div class="row g-2">
-              <div class="col-md-6 mb-3">
-                <div class="text-primary fw-bold">Have you taken on leadership roles?</div>
-                <div>{{profileData.keyStrengths.leadershipRoles || 'Not specified'}}</div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <div class="text-primary fw-bold">One quality others admire most about you</div>
-                <div>{{profileData.keyStrengths.mostAdmiredQuality || 'Not specified'}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
   
     <!-- Professional Networking Section -->
     <div class="card mb-4" *ngIf="profileData.networking">
@@ -379,19 +334,19 @@
                 </a>
                 <div class="text-primary fw-bold">LinkedIn Profile</div>
               </div>
+              <ng-container *ngIf="profileData.networking.socialMedia && profileData.networking.socialMedia.length > 0">
+                <div class="col-md-4 mb-3" *ngFor="let social of profileData.networking.socialMedia">
+                    <a [href]="social.link" target="_blank" class="text-break text-dark me-2" *ngIf="social.link">
+                      <i class="pi pi-{{getSocialMediaIconName(social.media)}} fs-3"></i>
+                    </a>
+                  <div class="text-primary fw-bold">{{social.media == 'X' ? 'Twitter ': social.media }} Profile</div>
+                </div>
+              </ng-container>
               <div class="col-md-4 mb-3" *ngIf="profileData.networking.personalWebsite">
                 <a [href]="profileData.networking.personalWebsite" target="_blank" class="text-break text-dark">
                   <i class="pi pi-globe fs-3"></i>
                 </a>
                 <div class="text-primary fw-bold">Personal Website</div>
-              </div>
-              <div class="col-md-4 mb-3" *ngIf="profileData.networking.socialMedia && profileData.networking.socialMedia.length > 0">
-                <ng-container *ngFor="let social of profileData.networking.socialMedia">
-                  <a [href]="social.link" target="_blank" class="text-break text-dark me-2" *ngIf="social.link">
-                    <i class="pi pi-{{getSocialMediaIconName(social.media)}} fs-3"></i>
-                  </a>
-                </ng-container>
-                <div class="text-primary fw-bold">Social Media</div>
               </div>
             </div>
           </div>

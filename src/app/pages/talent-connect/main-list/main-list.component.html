@@ -20,13 +20,13 @@
 			<div class="row justify-content-center">
 				<div class="col-md-6">
                     <h3 class="text-center mb-4 fw-bold uniprep-primary">
-                        Create your profile, explore jobs that match your skills,and get hired faster with seamless employer connections!
+                        {{talentConnectMainList[0].title == 'Create Profile' ? 'Create your profile, explore' : 'Explore' }} jobs that match your skills,and get hired faster with seamless employer connections!
                     </h3>
                 </div>
 				<div class="col-md-8">
 					<div class="row">
 						<div *ngFor="let item of talentConnectMainList" class="col-md-4 col-sm-4 col-xs-12 col-12 mb-3 d-flex justify-content-center">
-							<div class="card py-5 employercard w-100 position-relative card-border" [class.disabled]="item.launch_soon" role="button" (click)="checkAndNotAllowAccessModules($event, item.id, item.navigate_url, item.launch_soon)">
+							<div class="card py-3 employercard w-100 position-relative card-border" [class.disabled]="item.launch_soon" role="button" (click)="checkAndNotAllowAccessModules($event, item.id, item.navigate_url, item.launch_soon)">
 								<!-- Launch Soon Tag -->
 								<uni-launch-soon-tag *ngIf="item.launch_soon" message="Launching soon"></uni-launch-soon-tag>
 								<!-- Card Body -->
