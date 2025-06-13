@@ -157,7 +157,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     'https://dev-student.uniprep.ai'
                 ];
                 console.log(response);
-                if (!disallowedDomains.includes(response.domain)) {
+                if (disallowedDomains.includes(response.domain)) {
                     console.log('Allowed domain:', response.domain);
                     console.error(`${response.domain}/pages/dashboard?token=${response.token}`)
                     window.location.href = `${response.domain}/pages/dashboard?token=${response.token}`;
