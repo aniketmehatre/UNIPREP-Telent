@@ -31,20 +31,21 @@ export class LandingPartnerServices {
         const formData = new FormData();
         formData.append('name', formValue.name);
         formData.append('email', formValue.email);
-        formData.append('phone_number', formValue.phone_number);
+        formData.append('phone', formValue.phone_number);
         formData.append('phone_country_code', formValue.phone_country_code);
         formData.append('password', formValue.password);
         formData.append('password_confirmation', formValue.password_confirmation);
         formData.append('country_id', formValue.country_id);
         formData.append('location_id', formValue.location_id);
-        formData.append('company_name', formValue.company_name);
-        formData.append('company_website', formValue.company_website);
-        formData.append('company_designation', formValue.company_designation);
+        formData.append('organization_name', formValue.company_name);
+        formData.append('organization_website', formValue.company_website);
+        formData.append('designation', formValue.company_designation);
+        formData.append('gender', formValue.gender);
         const headers = new HttpHeaders({
             'Accept': 'application/json'
         });
 
-        return this.http.post<any>(environment.ApiUrlEmployer + "/registeremployer", formData, {headers});
+        return this.http.post<any>(environment.ApiUrl + "/partnerregister", formData, {headers});
     }
     
     sendEmailOTP(email: any,name: any,mobile: any): Observable<any> {
@@ -56,7 +57,7 @@ export class LandingPartnerServices {
             'Accept': 'application/json'
         });
 
-        return this.http.post<any>(environment.ApiUrlEmployer + "/sendemailotp", formData, {headers});
+        return this.http.post<any>(environment.ApiUrl + "/sendpartnerotp", formData, {headers});
     }
     verifyEmailOTP(formValue: any): Observable<any> {
         const formData = new FormData();
@@ -68,7 +69,7 @@ export class LandingPartnerServices {
             'Accept': 'application/json'
         });
 
-        return this.http.post<any>(environment.ApiUrlEmployer + "/verifyemailotp", formData, {headers});
+        return this.http.post<any>(environment.ApiUrl + "/verifypartnerotp", formData, {headers});
     }
     fetchRegionByCountryId(countryId: any): Observable<any> {
         return this.http.get<any>(`${environment.ApiUrl}/getworldcitiesstates`, {
