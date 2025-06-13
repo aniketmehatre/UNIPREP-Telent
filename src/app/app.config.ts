@@ -1,7 +1,7 @@
 import { provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from "@angular/common/http"
 import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom, isDevMode } from "@angular/core"
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async"
-import { RouterModule, Routes, provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling, withViewTransitions } from "@angular/router"
+import { ActivatedRoute, Router, RouterModule, Routes, provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling, withViewTransitions } from "@angular/router"
 import { providePrimeNG } from "primeng/config"
 import { appRoutes } from "./app.routes"
 import { LandingComponent } from "./pages/landing/landing.component"
@@ -32,6 +32,8 @@ import MyPreset from "./mypreset"
 import { LandingModule } from "./pages/landing/landing.module"
 import { AuthTokenService } from "./core/services/auth-token.service"
 import { StorageService } from "./storage.service"
+import { LocationService } from "./location.service"
+import { DataService } from "./data.service"
 
 // Assuming ngxLocalstorageConfiguration is properly defined elsewhere in your code
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as {
@@ -41,18 +43,52 @@ const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as {
 
 function initAppFactory(
   authTokenService: AuthTokenService,
-  storageService: StorageService,
-  service: AuthService
+  storage: StorageService,
+  service: AuthService,
+  locationService: LocationService,
+  dataService: DataService,
+  toast: MessageService,
+  route: ActivatedRoute,
+  router: Router
 ) {
   return () => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
-    console.log(token);
 
     if (token) {
       authTokenService.setToken(token);
       service.saveToken(token);
-      storageService.set(environment.tokenKey, token);
+      storage.set(environment.tokenKey, token);
+
+      service.getMe().subscribe({
+        next: (userData) => {
+          locationService.getCountry().subscribe((countryList: any) => {
+            const selectedCountry = countryList.find((element: any) =>
+              element.id === Number(userData.userdetails[0].selected_country)
+            )
+
+            if (selectedCountry) {
+              storage.set("countryId", selectedCountry.id.toString())
+              dataService.changeCountryName(selectedCountry.country)
+              dataService.changeCountryFlag(selectedCountry.flag)
+              dataService.changeCountryId(selectedCountry.id)
+            }
+          })
+          console.log(userData.userdetails[0])
+          let req = {
+            userId: userData.userdetails[0].user_id,
+            location: userData.userdetails[0].current_city,
+            country: userData.userdetails[0].home_country_name,
+          };
+          locationService.sendSessionData(req, "login").subscribe();
+          service.getNewUserTimeLeft().subscribe();
+          service.getMe();
+          toast.add({ severity: "success", summary: "Success", detail: "Login Successful" })
+        },
+        error: (error) => {
+          toast.add({ severity: "error", summary: "Error", detail: error.message || 'Failed to load user data' })
+        }
+      })
     }
 
     return Promise.resolve();
@@ -161,7 +197,7 @@ appConfig = {
     {
       provide: APP_INITIALIZER,
       useFactory: initAppFactory,
-      deps: [AuthTokenService, StorageService, AuthService],
+      deps: [AuthTokenService, StorageService, AuthService, LocationService, DataService, MessageService],
       multi: true
     },
     MessageService,

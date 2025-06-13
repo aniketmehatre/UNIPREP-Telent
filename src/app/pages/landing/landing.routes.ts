@@ -49,9 +49,9 @@ export const landingRoutes: Routes = [
         path: "pages",
         loadChildren: () => import("../../pages/pages.module").then((m) => m.PagesModule),
         // canActivate: [AuthGuard],
-        // resolve: {
-        //     user: UserResolver,
-        // },
+        resolve: {
+            user: UserResolver,
+        },
     },
     {
         path: '',
