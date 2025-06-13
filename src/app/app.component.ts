@@ -1,12 +1,12 @@
-import {Component, inject, OnInit, signal} from "@angular/core";
-import {LocationService} from "./location.service";
-import {NgxUiLoaderModule} from "ngx-ui-loader";
-import {ToastModule} from "primeng/toast";
-import {Router, RouterModule} from "@angular/router";
-import {MessageService} from "primeng/api";
-import {SeoManagerComponent} from "./components/seo-manager/seo-manager.component";
-import {SocialShareService} from "./shared/social-share.service";
-import {ScrollTopModule} from "primeng/scrolltop";
+import { Component, inject, OnInit, signal } from "@angular/core";
+import { LocationService } from "./location.service";
+import { NgxUiLoaderModule } from "ngx-ui-loader";
+import { ToastModule } from "primeng/toast";
+import { Router, RouterModule } from "@angular/router";
+import { MessageService } from "primeng/api";
+import { SeoManagerComponent } from "./components/seo-manager/seo-manager.component";
+import { SocialShareService } from "./shared/social-share.service";
+import { ScrollTopModule } from "primeng/scrolltop";
 
 @Component({
     selector: "app-root",
@@ -38,14 +38,14 @@ export class AppComponent implements OnInit {
         this.apiToCheckPartnerOrInstitute()
         if (this.isInstitute()) {
             if (window.location.href.includes("/register")) {
-                this.router.navigate(["/login"], {replaceUrl: true});
+                this.router.navigate(["/login"], { replaceUrl: true });
             }
         }
         this.domainNameCondition = window.location.hostname;
-        this.domainName = this.isDomainMain() ? "main" : "sub";
-        if (this.domainName === "sub") {
-            this.router.navigate(["/main"], {replaceUrl: true});
-        }
+        // this.domainName = this.isDomainMain() ? "main" : "sub";
+        // if (this.domainName === "sub") {
+        //     this.router.navigate(["/main"], { replaceUrl: true });
+        // }
         document.addEventListener("visibilitychange", () => {
             this.isPageHidden = document.hidden;
         });

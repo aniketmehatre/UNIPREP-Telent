@@ -151,8 +151,22 @@ export class LoginComponent implements OnInit, OnDestroy {
             })
         ).subscribe({
             next: (response) => {
-                if (response?.token) {
-                    this.handleSuccessfulLogin(response.token)
+                const disallowedDomains = [
+                    'https://uniprep.ai',
+                    'http://localhost:4200',
+                    'https://dev-student.uniprep.ai'
+                ];
+                console.log(response);
+                if (disallowedDomains.includes(response.domain)) {
+                    console.log('Allowed domain:', response.domain);
+                    console.error(`${response.domain}/pages/dashboard?token=${response.token}`)
+                    window.location.href = `${response.domain}/pages/dashboard?token=${response.token}`;
+                } else {
+                    console.warn('Blocked domain:', response.domain);
+                    // show error, redirect, or handle accordingly
+                    if (response?.token) {
+                        this.handleSuccessfulLogin(response.token)
+                    }
                 }
             },
             error: (error) => {
