@@ -15,12 +15,13 @@
 								<p class="text-muted">Founded : {{ companyDetails?.founded_year }}</p>
 								<button
 									class="btn {{ companyDetails?.followed == 0 ? 'btn-outline-primary' : 'btn-primary' }}"
-									(click)="followCompany()" [disabled]="companyDetails?.followed == 1">
-									{{ companyDetails?.followed == 0 ? "Follow" : "Followed" }}
+									(click)="followCompany(companyDetails?.followed)">
+									{{ companyDetails?.followed == 0 ? "Follow " : "Following " }}
 									<i [ngClass]="companyDetails?.followed == 0 ? 'pi pi-plus' : 'pi pi-check'"
 										class="fs-6"></i>
 								</button>
 							</div>
+
 							<div class="col-md-3">
 								<div class="d-flex gap-2 justify-content-end">
 									<button *ngIf="!showChat; else showClose" pButton severity="success"

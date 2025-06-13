@@ -196,9 +196,10 @@ export class TalentConnectService {
     }
 
     // follow company
-    followCompany(companyId: any) {
+    followCompany(companyId: any, followStatus:number) {
         const formData = new FormData();
         formData.append("companyId", companyId);
+        formData.append("follow_status", followStatus.toString());
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/followcompany", formData, { headers: headers });
     }

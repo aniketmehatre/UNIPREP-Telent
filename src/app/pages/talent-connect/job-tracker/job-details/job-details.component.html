@@ -58,7 +58,7 @@
 						<div class="d-flex text-left align-items-center">
 							<i class="fa-solid fa-calendar text-primary me-2 mt-1" style="color: purple"></i>
 							<div>
-								<p class="text-muted mb-1">Application Deadline</p>
+								<p class="text-muted mb-1">Job Application Deadline</p>
 								<p class="fw-bold mb-0">{{ jobDetails.due_date }}</p>
 							</div>
 						</div>
@@ -69,15 +69,6 @@
 							<div>
 								<p class="text-muted mb-1">Work Location</p>
 								<p class="fw-bold mb-0">{{ jobDetails.worklocation || jobDetails.work_location }}</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 mb-3">
-						<div class="d-flex text-left align-items-center">
-							<i class="fa-solid fa-briefcase me-2 mt-1" style="color: blue"></i>
-							<div>
-								<p class="text-muted mb-1">Position</p>
-								<p class="fw-bold mb-0">{{ jobDetails.position }}</p>
 							</div>
 						</div>
 					</div>
@@ -322,7 +313,7 @@
 										<h3 class="fw-bold mb-0">Additional Notes</h3>
 									</div>
 									<div class="col-md-7">
-										
+										<div [innerHTML]="jobDetails?.additional_notes"></div>
 									</div>
 								</div>
 							</div>

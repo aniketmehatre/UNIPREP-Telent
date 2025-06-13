@@ -40,7 +40,8 @@ interface Job {
   salary_range?: number;
   salary_offer?: number;
   currency_code?: string;
-  languages:LangProficiency[];
+  languages: LangProficiency[];
+  additional_notes: string;
 }
 
 interface LangProficiency {
@@ -117,7 +118,7 @@ export class JobDetailsComponent implements OnInit, OnChanges {
     }
   }
 
-   getProficiencyRating(proficiency: string) {
+  getProficiencyRating(proficiency: string) {
     const proficiencyList: { [key: string]: number } = {
       "Beginner": 2,
       "Fluent": 3,

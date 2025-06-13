@@ -53,7 +53,7 @@
 								<div class="d-flex justify-content-between text-start">
 									<div class="d-block">
 										<h5 class="fw-bold mb-0">{{ company.company_name ? company.company_name : "Company Name" }}</h5>
-										<p class="text-muted text-small">Founded: {{ (company.founded_year | date: 'yyyy') || "2019" }}</p>
+										<p class="text-muted text-small">Founded: {{ company.founded_year }}</p>
 									</div>
 									<a routerLink="/pages/talent-connect/company-connect" style="color: #fda172">
 										<i class="fa-regular fa-share-alt fa-xl"></i>
@@ -61,7 +61,7 @@
 								</div>
 								<div class="text-start">
 									<button class="px-3 py-2 rounded-1 text-small btn" pButton [ngClass]="company.shortlisted == 1 ? 'active-shortlist' : 'inActive-shortlist'" (click)="onClickShortListCompany(company.id)" [disabled]="company.shortlisted == 1">
-										{{ company.shortlisted == 1 ? "Shortlisted " : "Follow " }}
+										{{ company.shortlisted == 1 ? "Following " : "Follow " }}
 										<i [ngClass]="company?.shortlisted == 0 ? 'pi pi-plus' : 'pi pi-check'"
 												style="font-size:10px"></i>
 									</button>
