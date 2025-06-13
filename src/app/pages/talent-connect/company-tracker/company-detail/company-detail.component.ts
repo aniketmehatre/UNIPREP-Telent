@@ -72,8 +72,14 @@ export class CompanyDetailComponent implements OnInit, OnChanges {
     });
   }
   onStudentIdFromChat(id: number) {
-  this.studentIdRelay.emit(id); // Bubble it up to parent
+    this.studentIdRelay.emit(id); // Bubble it up to parent
   }
 
+  openUrl(url: string) {
+    if (url && !url.startsWith('http')) {
+      url = 'https://' + url;
+    }
+    window.open(url, '_blank');
+  }
 }
 

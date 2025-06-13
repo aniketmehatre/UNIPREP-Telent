@@ -43,12 +43,12 @@ export interface Job {
 	stage: string | null;
 	company_logo?: string;
 	jobsoftskills: JobSoftSkills[];
-  languages:LangProficiency[];
+	languages: LangProficiency[];
 }
 
 interface LangProficiency {
-  lang: string;
-  level: string
+	lang: string;
+	level: string
 }
 
 export interface JobSoftSkills {
@@ -204,15 +204,14 @@ export class JobViewComponent implements OnInit {
 		this.attachmentFileName = $event.target.files[0]?.name;
 	}
 
-	getProficiencyRating(proficiency: string): number {
-		const ratings: { [key: string]: number } = {
-			Beginner: 1,
-			Elementary: 2,
-			Intermediate: 3,
-			Advanced: 4,
-			Fluent: 5,
-		};
-		return ratings[proficiency] ?? 3;
+	getProficiencyRating(proficiency: string) {
+		const proficiencyList: { [key: string]: number } = {
+			"Beginner": 2,
+			"Fluent": 3,
+			"Proficient": 4,
+			"Native": 5
+		}
+		return proficiencyList[proficiency] || 0;
 	}
 
 	getMessages() {

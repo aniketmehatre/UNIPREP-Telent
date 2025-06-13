@@ -11,8 +11,8 @@ import { formatDate } from '@angular/common';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RatingModule } from 'primeng/rating';
 import { RouterModule } from '@angular/router';
-import { TooltipDirective } from "ngx-bootstrap/tooltip";
 import { JobResponsibility } from './hover-messages';
+import { environment } from '@env/environment';
 
 // Process academic references
 interface AcademicReference {
@@ -187,7 +187,7 @@ export class ViewProfileComponent implements OnInit {
       salary: '45000',
       responsibilities: JobResponsibility,
       exp_currency: 'INR',
-      experienceLetter: { name: 'ExperienceLetter.pdf', file: null },
+      experienceLetter: { name: 'ExperienceLetter.pdf', file: environment.imagePath + 'sample/Darshini_Experience_Certificate.pdf ' },
     }],
     careerPreferences: {
       careerStatus: 'Working',
@@ -225,8 +225,11 @@ export class ViewProfileComponent implements OnInit {
     },
     networking: {
       linkedinProfile: 'https://www.linkedin.com/in/darshini-p-ruknor-a09b49223/',
-      socialMedia: [{ media: 'Instagram', link: 'https://www.instagram.com/darshu_ruknor?igsh=cGl1NWVrd204ajF5&utm_source=qr' }],
-      personalWebsite: ''
+      socialMedia: [{ media: 'Instagram', link: 'https://www.instagram.com/darshu_ruknor?igsh=cGl1NWVrd204ajF5&utm_source=qr' },
+        { media: 'Facebook', link: 'https://www.facebook.com/Darshini' },
+        { media: 'X', link: 'https://twitter.com/Darshini' }
+      ],
+      personalWebsite: 'https://www.darshini-portfolio.com'
     },
     attachments: [
       { name: 'https://drive.google.com/file/d/1ISjq6bYNWCFTKjRhStrgdpN6J5ZnSxIi/view?usp=drive_link', type: 'document' },

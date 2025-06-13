@@ -109,17 +109,17 @@
 													</div>
 													<div class="col-md-3 mb-3">
 														<h6 class="text-muted text-primary">Official Website</h6>
-														<a [href]="companyDetails?.website" target="_blank"
+														<p (click)="openUrl(companyDetails?.website)" role="button"
 															class="text-break text-primary">
 															<i class="pi pi-globe fs-3"></i>
-														</a>
+														</p>
 													</div>
 													<div class="col-md-3">
 														<h6 class="text-muted text-primary">LinkedIn Profile</h6>
-														<a [href]="companyDetails?.linkedin_link"
-															target="_blank" class="text-break text-primary">
+														<p (click)="openUrl(companyDetails?.linkedin_link)" role="button"
+															class="text-break text-primary">
 															<i class="pi pi-linkedin fs-3"></i>
-														</a>
+														</p>
 													</div>
 												</div>
 											</div>
