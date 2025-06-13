@@ -38,10 +38,9 @@ interface JobListing {
 export class EasyApplyComponent {
   totalVacancies: string = '';
   jobListings: JobListing[] = [];
-  industries: any[] = [];
   locations: any[] = [];
   workModes: any[] = [];
-  employmentTypes: any[] = [];
+  employmentTypes: any[] = []; 
   experienceLevels: any[] = [];
   totalJobs: number = 4;
   currencies: any[] = [];
@@ -79,7 +78,6 @@ export class EasyApplyComponent {
     this.filterForm = this.fb.group({
       keyword: [''],
       position: [''],
-      industry: [null],
       worklocation: [null],
       work_mode: [null],
       employment_type: [null],
@@ -138,7 +136,6 @@ export class EasyApplyComponent {
 
   getOptionsList() {
     this.talentConnectService.getJobListDropdown().subscribe(data => {
-      this.industries = data?.industrytypes;
       this.experienceLevels = data.experiecelevel;
       this.workModes = data?.workmode;
       this.employmentTypes = data?.employmenttype;

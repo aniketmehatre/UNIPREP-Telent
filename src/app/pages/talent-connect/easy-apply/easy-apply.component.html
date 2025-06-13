@@ -71,7 +71,7 @@
 										<i class="fas fa-check-circle"></i>
 									</span>
 								</p>
-								<!-- <p class="mb-0">Job Id: {{ job.id }}</p> -->
+								<p class="mb-0">Job Id: {{ job.id }}</p>
 								<button *ngIf="((job.start_date | dateDiffInMonths) > 4)" pButton
 									class="btn btn-rounded btn-primary text-nowrap !fs-6 py-1">
 									<i class="fa-solid fa-clock"></i>Future Hiring
@@ -97,7 +97,7 @@
 								<div class="d-flex gap-2 align-items-center">
 									<i class="fa-solid fa-user-tie" style="color: #cc660a"></i>
 									<div>
-										<p class="text-muted mb-0 text-small">Total Applied</p>
+										<p class="text-muted mb-0 text-small">Total Applications</p>
 										<h3 class="mb-0 fw-medium">{{ job.total_applied }}</h3>
 									</div>
 								</div>
@@ -236,13 +236,6 @@
 								class="form-control" />
 						</div>
 					</div>
-
-					<div class="col-md-4">
-						<label class="form-label fw-bold">Industry </label>
-						<p-multiSelect [options]="industries" formControlName="industry" placeholder="Select industry"
-							optionLabel="industry_name" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
-					</div>
-
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Work Location </label>
 						<p-multiSelect [options]="locations" formControlName="worklocation" [virtualScroll]="true"

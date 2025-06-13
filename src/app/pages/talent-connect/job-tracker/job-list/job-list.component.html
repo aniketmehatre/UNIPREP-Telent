@@ -44,7 +44,7 @@
 				<div class="col-md-12">
 					<label class="form-label fw-bold">Search</label>
 					<div class="p-inputgroup">
-						<input type="text" pInputText formControlName="keyword" placeholder="Search by Keyword" class="form-control" />
+						<input type="text" pInputText formControlName="keyword" placeholder="Search by Company name" class="form-control" />
 					</div>
 				</div>
 
@@ -53,11 +53,6 @@
 					<div class="p-inputgroup">
 						<input type="text" pInputText formControlName="position" placeholder="Enter position title" class="form-control w-100" />
 					</div>
-				</div>
-
-				<div class="col-md-4">
-					<label class="form-label fw-bold">Industry </label>
-					<p-multiSelect [options]="industries" formControlName="industry" placeholder="Select industry" optionLabel="industry_name" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
 				</div>
 
 				<div class="col-md-4">
@@ -111,7 +106,7 @@
 				</div>
 				<div class="col-md-6">
 					<label class="form-label fw-bold">Hiring Type </label>
-					<p-multiSelect [options]="hiringTypes" formControlName="hiring_type" placeholder="Select hiring type" optionLabel="employment_type" optionValue="id" display="chip" class="w-100"> </p-multiSelect>
+					<p-multiSelect [options]="hiringStatuses" formControlName="hiringStatus" placeholder="Select hiring type" optionLabel="name" optionValue="id" display="chip" class="w-100" appendTo="body"> </p-multiSelect>
 				</div>
 				<div class="col-md-6 h-full mt-auto">
 					<button pButton label="Apply Filter" (click)="applyFilter()" class="btn-primary w-100"></button>

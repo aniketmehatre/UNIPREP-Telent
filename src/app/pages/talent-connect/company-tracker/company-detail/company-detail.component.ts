@@ -59,11 +59,11 @@ export class CompanyDetailComponent implements OnInit, OnChanges {
     });
   }
 
-  followCompany() {
-    this.talentConnectService.followCompany(this.companyId).subscribe({
+  followCompany(followStatus:number) {
+    this.talentConnectService.followCompany(this.companyId, followStatus ? 0 : 1).subscribe({
       next: response => {
         if (response.success) {
-          this.companyDetails.followed = 1;
+          this.companyDetails.followed =  followStatus ? 0 : 1;
         }
       },
       error: err => {
