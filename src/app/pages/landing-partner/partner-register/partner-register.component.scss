@@ -162,7 +162,8 @@ ngx-intl-tel-input {
 ::ng-deep .iti__selected-flag {
   padding-inline: 10px;
 }
-
-// ::ng-deep .form-control.iti-input {
-//   padding-left: 70px !important;
-// }
+.divider {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}

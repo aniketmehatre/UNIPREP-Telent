@@ -65,6 +65,7 @@ export class PartnerRegisterComponent {
 	submitted = false;
 	isShowConfirmationResponse: boolean = false;
 	genderOptions: any[] = []
+	afterRegisterAwaitingConfirmation: boolean = false;
 	constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder, private locationService: LocationService, private toast: MessageService, private authService: SocialAuthService, private storage: LocalStorageService, private landingService: LandingPartnerServices) { }
 
 	dateTime = new Date();
@@ -196,7 +197,7 @@ export class PartnerRegisterComponent {
 					summary: "Success",
 					detail: "Employer Registered",
 				});
-				this.router.navigate(["partner/login"]);
+				this.afterRegisterAwaitingConfirmation = true;
 			},
 			error: (error) => {
 				const message = error.error?.message != undefined ? error.error?.message : error?.message;
