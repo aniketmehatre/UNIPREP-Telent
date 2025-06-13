@@ -7,10 +7,7 @@
   }
 
   .card-body {
-    .p-carousel
-      .p-carousel-indicators
-      .p-carousel-indicator.p-highlight
-      button {
+    .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
       background-color: var(--uniprep-primary);
       height: 5px;
     }
@@ -55,6 +52,7 @@
     display: flex;
   }
 }
+
 // small progress
 $borderWidth: 10px;
 $animationTime: 0.5s;
@@ -83,7 +81,7 @@ $howManySteps: 100; //this needs to be even.
     left: 0;
   }
 
-  > span {
+  >span {
     width: 50%;
     height: 100%;
     overflow: hidden;
@@ -164,39 +162,39 @@ $howManySteps: 100; //this needs to be even.
 Due to the split circle of progress-left and progress right, we must use the animations on each side.
 */
 @for $i from 1 through $howManySteps {
-  $stepName: ($i * (100 / $howManySteps));
-  //animation only the left side if below 50%
-  @if $i <= ($howManySteps/2) {
-    .progress1[data-percentage="#{$stepName}"] {
-      .progress1-right .progress1-bar {
-        animation: loading-#{$i} $animationTime linear forwards;
-      }
+  $stepName: (
+    $i * (100 / $howManySteps)
+  );
 
-      .progress1-left .progress1-bar {
-        animation: 0;
-      }
+//animation only the left side if below 50%
+@if $i <=($howManySteps/2) {
+  .progress1[data-percentage="#{$stepName}"] {
+    .progress1-right .progress1-bar {
+      animation: loading-#{$i} $animationTime linear forwards;
+    }
+
+    .progress1-left .progress1-bar {
+      animation: 0;
     }
   }
-  //animation only the right side if above 50%
-  @if $i > ($howManySteps/2) {
-    .progress1[data-percentage="#{$stepName}"] {
-      .progress1-right .progress1-bar {
-        animation: loading-#{($howManySteps/2)}
-          $animationTime
-          linear
-          forwards; //set the animation to longest animation
-      }
+}
 
-      .progress1-left .progress1-bar {
-        animation: loading-#{$i -
-          ($howManySteps/2)}
-          $animationTime
-          linear
-          forwards
-          $animationTime;
-      }
+//animation only the right side if above 50%
+@if $i >($howManySteps/2) {
+  .progress1[data-percentage="#{$stepName}"] {
+    .progress1-right .progress1-bar {
+      animation: loading-#{($howManySteps/2)} $animationTime linear forwards; //set the animation to longest animation
     }
+
+    .progress1-left .progress1-bar {
+      animation: loading-#{$i -
+ ($howManySteps/2)
+    }
+
+    $animationTime linear forwards $animationTime;
   }
+}
+}
 }
 
 .trustedbylogo {
@@ -261,12 +259,15 @@ Due to the split circle of progress-left and progress right, we must use the ani
 .progress-ring__circle {
   transition: 0.35s stroke-dasharray;
   transform-origin: 50% 50%;
-  stroke-dasharray: 283; /* Circumference of the circle (2 * PI * radius) */
-  stroke-dashoffset: 283; /* Circumference of the circle */
+  stroke-dasharray: 283;
+  /* Circumference of the circle (2 * PI * radius) */
+  stroke-dashoffset: 283;
+  /* Circumference of the circle */
 }
 
 .progress-ring__background {
-  stroke-dasharray: 283; /* Circumference of the circle */
+  stroke-dasharray: 283;
+  /* Circumference of the circle */
 }
 
 .progress-text {
@@ -291,12 +292,15 @@ Due to the split circle of progress-left and progress right, we must use the ani
 .progress1-ring__circle {
   transition: 0.35s stroke-dasharray;
   transform-origin: 50% 50%;
-  stroke-dasharray: 283; /* Circumference of the circle (2 * PI * radius) */
-  stroke-dashoffset: 283; /* Circumference of the circle */
+  stroke-dasharray: 283;
+  /* Circumference of the circle (2 * PI * radius) */
+  stroke-dashoffset: 283;
+  /* Circumference of the circle */
 }
 
 .progress1-ring__background {
-  stroke-dasharray: 283; /* Circumference of the circle */
+  stroke-dasharray: 283;
+  /* Circumference of the circle */
 }
 
 .progress1-text {
@@ -319,18 +323,24 @@ Due to the split circle of progress-left and progress right, we must use the ani
   justify-content: center;
   border-radius: 50%;
 }
+
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns */
-  grid-template-rows: repeat(2, auto); /* 2 rows */
-  gap: 10px; /* Space between items */
+  grid-template-columns: repeat(2, 1fr);
+  /* 2 columns */
+  grid-template-rows: repeat(2, auto);
+  /* 2 rows */
+  gap: 10px;
+  /* Space between items */
   // padding: 10px;
 }
+
 .fav-item {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 // button
 .progress-bar-container {
   width: 100%;
@@ -340,34 +350,43 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 .progress-bar {
   height: 8px;
-  background-color: #ff7000; /* Orange progress color */
+  background-color: #ff7000;
+  /* Orange progress color */
   border-radius: 5px;
   transition: width 0.5s ease-in-out;
 }
+
 .progress-bar2 {
   height: 8px;
-  background-color: #394d83; /* Green color for progress */
+  background-color: #394d83;
+  /* Green color for progress */
   border-radius: 5px;
   transition: width 0.3s ease-in-out;
 }
+
 .progress-bar3 {
   height: 8px;
-  background-color: #c8cfe5; /* Green color for progress */
+  background-color: #c8cfe5;
+  /* Green color for progress */
   border-radius: 5px;
   transition: width 0.3s ease-in-out;
 }
+
 .input-container {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 300px; /* Adjust as needed */
+  max-width: 300px;
+  /* Adjust as needed */
 }
 
 .input-container i {
   position: absolute;
-  left: 10px; /* Adjust icon position */
-  color: #555; /* Icon color */
+  left: 10px;
+  /* Adjust icon position */
+  color: #555;
+  /* Icon color */
 }
 
 .input-container input {
@@ -377,9 +396,11 @@ Due to the split circle of progress-left and progress right, we must use the ani
   border-radius: 5px;
   outline: none;
 }
+
 .input-container input::-webkit-input-placeholder {
   font-size: 10px;
 }
+
 @media (max-width: 600px) {
   .input-container {
     max-width: 100%;
@@ -404,6 +425,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
     padding: 5px 5px 5px 25px;
   }
 }
+
 // responsive code
 /* Container for the whole section */
 .header-container {
@@ -411,13 +433,15 @@ Due to the split circle of progress-left and progress right, we must use the ani
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  flex-wrap: wrap; /* Allows wrapping on small screens */
+  flex-wrap: wrap;
+  /* Allows wrapping on small screens */
   padding: 10px;
 }
 
 /* Left-side text */
 .text-container {
-  max-width: 60%; /* Prevents text from taking too much space */
+  max-width: 60%;
+  /* Prevents text from taking too much space */
 }
 
 /* Highlighted text */
@@ -504,6 +528,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
     justify-content: center;
   }
 }
+
 @media (max-width: 1024px) {
   .fav-card .p-carousel .p-carousel-item {
     display: flex;
@@ -511,7 +536,8 @@ Due to the split circle of progress-left and progress right, we must use the ani
   }
 
   .fav-card .p-carousel .p-carousel-item img {
-    max-width: 100%; /* Ensure images scale on smaller screens */
+    max-width: 100%;
+    /* Ensure images scale on smaller screens */
   }
 }
 
@@ -526,29 +552,35 @@ Due to the split circle of progress-left and progress right, we must use the ani
     padding: 10px;
   }
 }
+
 .trustedcard {
   display: flex;
   flex-direction: column;
-  height: 100%; /* Ensures that the card fills the container */
+  height: 100%;
+  /* Ensures that the card fills the container */
 }
 
 .card-body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%; /* Makes the content inside the card fill the height */
+  height: 100%;
+  /* Makes the content inside the card fill the height */
 }
 
 .flex {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Center the content vertically */
+  align-items: center;
+  /* Center the content vertically */
 }
 
 @media (max-width: 1200px) {
   .trustedcard {
-    height: auto; /* Allow auto height on large screens */
+    height: auto;
+    /* Allow auto height on large screens */
   }
+
   .bodyclass {
     padding-bottom: 20px;
   }
@@ -556,8 +588,10 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 @media (max-width: 768px) {
   .trustedcard {
-    height: auto; /* Allow auto height on smaller screens */
+    height: auto;
+    /* Allow auto height on smaller screens */
   }
+
   .bodyclass {
     padding-bottom: 20px;
   }
@@ -565,9 +599,11 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 @media (max-width: 576px) {
   .trustedcard {
-    height: auto; /* Allow auto height on very small screens */
+    height: auto;
+    /* Allow auto height on very small screens */
   }
 }
+
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -576,15 +612,18 @@ Due to the split circle of progress-left and progress right, we must use the ani
 .card {
   display: flex;
   flex-direction: column;
-  height: 100%; /* Makes all cards equal in height */
+  height: 100%;
+  /* Makes all cards equal in height */
 }
 
 .card-body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex-grow: 1; /* Ensures content stretches evenly */
+  flex-grow: 1;
+  /* Ensures content stretches evenly */
 }
+
 .nostatus {
   background-color: #ecedf3;
 }
@@ -596,48 +635,19 @@ Due to the split circle of progress-left and progress right, we must use the ani
   margin-top: 10px;
   font-size: x-small;
 }
+
 .reportwidthfix {
   max-width: 400px;
 }
+
 .row.d-flex {
   align-items: stretch;
 }
-.company-card {
-  border-radius: 1rem;
-  transition: box-shadow 0.3s ease;
-  background-color: white;
-}
+
 .logo-wrapper {
-  width: 75px;
-  height: 75px;
-  border-radius: 0.75rem;
-  background-color: white;
-  border: 0.5px solid #dee2e6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 12vw;
 }
 
-.company-logo {
-  max-width: 90%;
-  max-height: 90%;
-  object-fit: contain;
-}
-.job-card {
-  border-radius: 1rem;
-  background-color: #fff;
-  box-shadow: 0 0 4px rgba(0,0,0,0.03);
-  border: none;
-  display: flex !important;
-}
-
-.logo-wrapper1 {
-  width: 75px;
-  height: 75px;
-  background-color: white;
-  border: 0.5px solid #dee2e6;
-  border-radius: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.jobImage {
+  width: 20vw;
 }

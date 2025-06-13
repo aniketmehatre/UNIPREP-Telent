@@ -135,8 +135,8 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.apiToCheckPartnerOrInstitute()
 		this.groupedListFav = this.chunkArray(this.featureList, 4);
 		this.recentJobs();
-		this.handleUserData();
 		this.recentCompanies();
+		this.handleUserData();
 		this.seoManagerComponent.updateDynamicContent('UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship');
 	}
 
