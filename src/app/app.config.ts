@@ -50,7 +50,6 @@ function initAppFactory(
     console.log(token);
 
     if (token) {
-      console.log('Token from URL:', token);
       authTokenService.setToken(token);
       service.saveToken(token);
       storageService.set(environment.tokenKey, token);
