@@ -172,7 +172,9 @@ export class ChatComponent implements OnInit, OnChanges {
         this.isLoadingAiSummary = false;
         if (response) {
           this.message = this.convertHtmlToPlainText(response?.response);
-          this.autoGrow(element);
+         setTimeout(() => {
+            this.autoGrow(element);
+          }, 100);
           this.authService.aiCreditCount$.next(true);
         }
       },
