@@ -333,13 +333,14 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
 	apiToCheckPartnerOrInstitute() {
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
-			if (response.source == 'Institute') {
-				this.userBasedVideo = 'https://www.youtube.com/embed/42B2CeFKC3U?si=RXhsz-ipwODqBY1E'
-			} else if (response.source == 'Partner') {
-				this.userBasedVideo = 'https://www.youtube.com/embed/uWcCcFtEKs0?si=Foe4DmyoqDwndpy5'
-			} else {
-				this.userBasedVideo = 'https://www.youtube.com/embed/AAXUZ0z5bl0?si=xAFiTKSQGhHrQ9iE'
-			}
+			// if (response.source == 'Institute') {
+			// 	this.userBasedVideo = 'https://www.youtube.com/embed/42B2CeFKC3U?si=RXhsz-ipwODqBY1E'
+			// } else if (response.source == 'Partner') {
+			// 	this.userBasedVideo = 'https://www.youtube.com/embed/uWcCcFtEKs0?si=Foe4DmyoqDwndpy5'
+			// } else {
+			// 	this.userBasedVideo = 'https://www.youtube.com/embed/AAXUZ0z5bl0?si=xAFiTKSQGhHrQ9iE'
+			// }
+			this.userBasedVideo = 'https://www.youtube.com/embed/AAXUZ0z5bl0?si=xAFiTKSQGhHrQ9iE'
 			this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.userBasedVideo);
 		})
 	}
