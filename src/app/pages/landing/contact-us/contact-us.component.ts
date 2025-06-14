@@ -55,7 +55,7 @@ export class ContactUsComponent {
     {
       name: 'United Kingdom',
       address: '128 City Road, London, United Kingdom, EC1V 2NX',
-      phone: '+44 9900900990',
+      phone: '+44 7864 716295',
       phoneCode: '+44',
       flagIcon: 'uniprep-assets/icons/united-kingdom.png',
       mapUrl: `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.2334321935673!2d-0.091397823871224!3d51.527278209251634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761ca671d5df0b%3A0x368e18d29207f698!2s128%20City%20Rd%2C%20London%20EC1V%202NX%2C%20UK!5e0!3m2!1sen!2sin!4v1746784936807!5m2!1sen!2sin`
@@ -63,7 +63,7 @@ export class ContactUsComponent {
     {
       name: 'Indian Office',
       address: '728, 2nd Floor, Thanishka Tower, 1st Main Rd, Yelahanka New Town, Bengaluru, Karnataka 560064',
-      phone: '+91 99807 88380',
+      phone: '+91 63627 16586',
       phoneCode: '+91',
       flagIcon: 'uniprep-assets/icons/india.png',
       mapUrl: `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7772.044800301689!2d77.57988853201056!3d13.097766879130269!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae18604ac9a52f%3A0x3d116ff7a39eaeb2!2sManya%20-%20The%20Princeton%20Review%20%7C%20Study%20Abroad%20Consultant%20-%20GRE%2C%20GMAT%2C%20SAT%20Prep%20%26%20IGCSE%2FIB%20Coaching%20in%20Yelahanka%2C%20Bangalore!5e0!3m2!1sen!2sin!4v1746785988409!5m2!1sen!2sin`

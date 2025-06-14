@@ -160,7 +160,7 @@ export class LandingContentComponent implements OnInit {
     {
       icon: 'fa-solid fa-graduation-cap',
       color: '#5c6bc0',
-      title: 'Create a Talent Profile with Built-in AI Reviewer 🤖',
+      title: 'Create a Talent Profile with Built-in AI Reviewer',
       description: [
         'Add your skills, experience, education, certifications & preferences',
         'Upload your CV and intro video',
@@ -177,7 +177,7 @@ export class LandingContentComponent implements OnInit {
     {
       icon: 'fa-solid fa-earth-americas',
       color: '#4dc970',
-      title: 'Add an Introductory Video to Boost Visibility 🎥',
+      title: 'Add an Introductory Video to Boost Visibility',
       description: [
         'Let employers see you before the interview',
         'Highlight your communication skills and confidence',
@@ -187,12 +187,13 @@ export class LandingContentComponent implements OnInit {
     {
       icon: 'fa-solid fa-user-tie',
       color: '#5c6bc0',
-      title: 'Find and Apply for the Right Jobs — Instantly 🌍',
+      title: 'Find and Apply for the Right Jobs — Instantly',
       description: [
         '<div>\
          <h6>Use smart filters to search by:</h6>\
           <ul style="list-style: none; padding-left: 0;">\
             <li style="margin-bottom: 10px;">💰 Salary</li>\
+            <li style="margin-bottom: 10px;">🌎 Country or region</li>\
             <li style="margin-bottom: 10px;">📍 Remote, hybrid, or onsite roles</li>\
            <li style="margin-bottom: 10px;">🗣️ Language preferences</li>\
           </ul>\
@@ -212,19 +213,19 @@ export class LandingContentComponent implements OnInit {
       ],
     },
     {
-      icon: 'fa-solid fa-filter',
+      icon: 'fa-solid fa-ballot-check', 
       color: '#f8943f',
-      title: 'Filter Global Talent Before They Apply 🌍',
+      title: 'Track Applications Using Job Tracker',
       description: [
         'Know exactly when your job application is viewed, shortlisted, or selected',
-        'Organize your job search in one place',
+        'Organise your job search in one place',
         'Track progress for every role you apply to'
       ],
     },
     {
       icon: 'fa-solid fa-folder-open',
       color: '#4dcbc0',
-      title: 'Connect with Companies Using Smart Filters + Company Tracker 🏢',
+      title: 'Connect with Companies Using Smart Filters + Company Tracker',
       description: [
         'Find companies by sector, country, or job type',
         'Save and follow your favorite employers',
