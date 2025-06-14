@@ -133,7 +133,7 @@ export class JobListComponent implements OnInit {
       worklocation: [null],
       work_mode: [null],
       employment_type: [null],
-      currency: ['INR'],
+      currency: [''],
       salary: [''],
       experienceLevel: [null],
       status: [''],

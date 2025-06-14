@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from "@angular/forms";
-import { Avatar, AvatarModule } from "primeng/avatar";
-import { CommonModule, NgClass } from "@angular/common";
-import { ProgressBar } from "primeng/progressbar";
-import { Chip, ChipModule } from 'primeng/chip';
-import { Button, ButtonModule } from 'primeng/button';
+import { AvatarModule } from "primeng/avatar";
+import { CommonModule } from "@angular/common";
+import {  ChipModule } from 'primeng/chip';
+import { ButtonModule } from 'primeng/button';
 import { TalentConnectService } from '../../talent-connect.service';
 import { Job } from '../../easy-apply/job-view/job-view.component';
 import { RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { EmployeeConnectProfile } from 'src/app/@Models/employee-connect-profile';
 
 interface ChatMessage {
   sender: boolean; // Changed from isSender to sender for clarity
@@ -67,6 +67,7 @@ export class JobChatUiComponent implements OnChanges {
   attachmentFile: any;
   message: string = '';
   userActiveStatus: string = '';
+  profileData!: EmployeeConnectProfile;
 
   constructor(private talentConnectService: TalentConnectService, private authService: AuthService) { }
 
@@ -74,19 +75,24 @@ export class JobChatUiComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes?.['jobId']) {
       this.message = '';
-      this.getMessages(this.jobId);
       this.messages = [];
+      this.getMessages(this.jobId);
+      this.checkIfProfileCreated();
     }
   }
 
-  loadSampleMessages(): void {
-    this.messages = [];
+  checkIfProfileCreated() {
+    this.talentConnectService.getMyProfileData().subscribe({
+      next: response => {
+        this.profileData = response.data[0];
+      }
+    });
   }
 
   getMessages(job_id: number) {
     this.talentConnectService.getMessage({ job_id: job_id }).subscribe({
       next: response => {
-        this.userActiveStatus = response.messages.employer_status;
+        this.userActiveStatus = response.employer_status;
         if (Array.isArray(response?.messages)) {
           this.messages = response?.messages.map((item: any) => {
             return {
@@ -156,7 +162,7 @@ export class JobChatUiComponent implements OnChanges {
 
   aiGenerateSummary(mode: string, content: Record<string, any>, element: HTMLTextAreaElement, type: string) {
     this.isLoadingAiSummary = true;
-    this.talentConnectService.getJobAiSummary({ mode: mode, ...content, type: type, student_name: this.authService._user?.name }).subscribe({
+    this.talentConnectService.getJobAiSummary({ mode: mode, ...content, type: type, student_name: this.profileData?.full_name }).subscribe({
       next: (response) => {
         this.isLoadingAiSummary = false;
         if (response) {
