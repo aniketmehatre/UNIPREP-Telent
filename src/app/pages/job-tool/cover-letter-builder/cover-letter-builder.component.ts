@@ -49,7 +49,7 @@ export class CoverLetterBuilderComponent implements OnInit {
 	rephraseconBtnDisable: boolean = false;
 	resumeHistory: ResumeHistory[] = [];
 	cities: any[] = [];
-	resumeSlider: {id: number, templateName: string, imageLink: string} = coverLetterSliders;
+	resumeSlider: { id: number, templateName: string, imageLink: string } = coverLetterSliders;
 	editorModules: any
 	swiper!: Swiper
 	countryCodeList: any[] = [];
@@ -209,6 +209,11 @@ export class CoverLetterBuilderComponent implements OnInit {
 			this.toaster.add({ severity: "error", summary: "Error", detail: "Please fill all the required fields." })
 			visibleFormControls.forEach((control) => control.markAsTouched())
 		} else {
+			//this will remove the &nbsp; in the user summary data.
+			const user_summary = this.resumeFormInfoData.value.user_summary;
+			let convertedText = user_summary.replace(/&nbsp;/g, ' ');
+			this.resumeFormInfoData.patchValue({ user_summary:convertedText });
+
 			this.submitted = false
 			this.nextStage()
 		}
@@ -274,10 +279,24 @@ export class CoverLetterBuilderComponent implements OnInit {
 		const cleanedContent = cleanHtmlContent(userSummary);
 
 		function cleanHtmlContent(html: string): string {
-			return html
-				.replace(/<p>(&nbsp;|\s)*<\/p>/g, '') // remove empty or space-only paragraphs
-				.replace(/&nbsp;/g, ' ')              // convert non-breaking spaces to regular spaces
+			if (!html) return '';
+
+			// Decode HTML entities and special characters
+			const decoded = html
+				.replace(/&amp;/g, '&')
+				.replace(/&quot;/g, '"')
+				.replace(/&apos;/g, "'")
+				.replace(/&#39;/g, "'")
+				.replace(/&nbsp;/g, ' ');
+
+			// Clean HTML tags and normalize text
+			let cleaned = decoded
+				.replace(/<[^>]+>/g, '')
+				.replace(/\s+/g, ' ')
+				.replace(/,\s*$/, '')
 				.trim();
+
+			return cleaned;
 		}
 
 		let data = {

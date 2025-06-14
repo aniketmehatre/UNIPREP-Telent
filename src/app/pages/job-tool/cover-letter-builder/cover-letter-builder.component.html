@@ -272,9 +272,8 @@
 									</div>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-editor [style]="{ height: '250px' }" class="mt-2"
-												formControlName="user_summary" placeholder="Generate Your Content"
-												[modules]="editorModules"></p-editor>
+											<p-editor [style]="{ height: '250px' }" class="mt-2" 
+												formControlName="user_summary" placeholder="Generate Your Content" ></p-editor>
 											<div *ngIf="f['user_summary'].errors?.['maxWords'] else showSummaryCount"
 												class="text-danger text-xs">
 												Cover Letter Section cannot exceed {{
