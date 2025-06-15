@@ -32,6 +32,7 @@ import { PopoverModule } from 'primeng/popover';
 import { TextareaModule } from 'primeng/textarea';
 import { FavouriteList, FeatureFavourite } from './favourites-data';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { TalentConnectService } from '../talent-connect/talent-connect.service';
 
 @Component({
 	selector: "uni-dashboard",
@@ -68,6 +69,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	reportSubmitForm!: FormGroup;
 	featureList: FeatureFavourite[] = FavouriteList;
 	userBasedVideo: any;
+	isProfileCreated: boolean = false;
 	reportOptionList: any[] = [
 		{
 			"id": 21,
@@ -83,9 +85,8 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
 		private dataService: DataService, private authService: AuthService, private locationService: LocationService,
-		private cdr: ChangeDetectorRef, private storage: StorageService, private jobSearchService: JobSearchService,
-		private toaster: MessageService, private seoManagerComponent: SeoManagerComponent, private formBuilder: FormBuilder,
-		private sanitizer: DomSanitizer, private route: ActivatedRoute
+		private cdr: ChangeDetectorRef, private toaster: MessageService, private seoManagerComponent: SeoManagerComponent, 
+		private formBuilder: FormBuilder,private sanitizer: DomSanitizer, private route: ActivatedRoute,private talentConnectService: TalentConnectService
 	) {
 		this.reportSubmitForm = this.formBuilder.group({
 			reportOption: [""],
@@ -132,6 +133,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			}
 		});
 		// Initialize essential data first
+		this.checkIfProfileCreated();
 		this.apiToCheckPartnerOrInstitute()
 		this.groupedListFav = this.chunkArray(this.featureList, 4);
 		this.recentJobs();
@@ -331,14 +333,30 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
 	apiToCheckPartnerOrInstitute() {
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
-			if (response.source == 'Institute') {
-				this.userBasedVideo = 'https://www.youtube.com/embed/42B2CeFKC3U?si=RXhsz-ipwODqBY1E'
-			} else if (response.source == 'Partner') {
-				this.userBasedVideo = 'https://www.youtube.com/embed/uWcCcFtEKs0?si=Foe4DmyoqDwndpy5'
-			} else {
-				this.userBasedVideo = 'https://www.youtube.com/embed/AAXUZ0z5bl0?si=xAFiTKSQGhHrQ9iE'
-			}
+			// if (response.source == 'Institute') {
+			// 	this.userBasedVideo = 'https://www.youtube.com/embed/42B2CeFKC3U?si=RXhsz-ipwODqBY1E'
+			// } else if (response.source == 'Partner') {
+			// 	this.userBasedVideo = 'https://www.youtube.com/embed/uWcCcFtEKs0?si=Foe4DmyoqDwndpy5'
+			// } else {
+			// 	this.userBasedVideo = 'https://www.youtube.com/embed/AAXUZ0z5bl0?si=xAFiTKSQGhHrQ9iE'
+			// }
+			this.userBasedVideo = 'https://www.youtube.com/embed/AAXUZ0z5bl0?si=xAFiTKSQGhHrQ9iE'
 			this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.userBasedVideo);
 		})
 	}
+	 checkIfProfileCreated() {
+        this.talentConnectService.getMyProfileData().subscribe({
+            next: response => {
+                if (response && response.count) {
+                    if (response.count > 0) {
+                        this.isProfileCreated = true;
+                        this.cdr.detectChanges();
+                    }
+                }
+            },
+            error: error => {
+                console.log('error while calling get profile!.');
+            }
+        });
+    }
 }

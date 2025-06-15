@@ -2972,3 +2972,13 @@ uni-global-employment-insights {
     // content: counter(list-0, decimal) '. ';
     content: none;
 }
+uni-partner-register {
+	display: flex;
+	flex: 1;
+	height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	scroll-behavior: smooth;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
