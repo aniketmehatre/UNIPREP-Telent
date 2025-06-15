@@ -60,7 +60,7 @@
                   [ngClass]="message.added_by == 'Student' ? 'align-items-end' : 'align-items-start'">
 
                   <!-- Text Message -->
-                  <div *ngIf="!message.attachment_url" class="message-content text-end"
+                  <div *ngIf="!message.attachment_url" class="message-content text-start"
                     [ngClass]="message.added_by == 'Student' ? 'bg-secondary text-white' : 'bg-secondary-subtle'"
                     [ngStyle]="{ 'max-width': '75%' }">
                     <p [innerHTML]="message.chat"></p>
@@ -83,12 +83,13 @@
                     style="min-width: 50%"
                     [ngClass]="message.added_by == 'Student' ? 'bg-secondary text-white' : 'bg-secondary-subtle'">
                     <a [href]="message.attachment_url" target="_blank"
-                      class="text-black text-decoration-none d-flex align-items-center" download>
+                      class=" text-decoration-none d-flex align-items-center"
+                      [ngClass]="message.added_by == 'Student' ? 'text-white' : 'text-black'" download>
                       <i class="fas fa-file-pdf fa-large me-2"></i>
                       {{ message.attachment_name || 'File' }}
                     </a>
                     <div class="">{{ message.content }}</div>
-                    <small class="message-time text-muted text-start">{{ message.time }}</small>
+                    <small class="message-time text-start" [ngClass]="message.added_by == 'Student' ? 'text-white' : 'text-muted'">{{ message.time }}</small>
                   </div>
 
                   <!-- Button Message -->
@@ -105,7 +106,7 @@
 
                 <!-- Right Avatar (Student) -->
                 <div class="avatar ms-2" *ngIf="message.added_by == 'Student'">
-                  <p-avatar [image]="companyDetails?.company_logo ?? 'uniprep-assets/images/avatar.webp'"
+                  <p-avatar [image]="profileData?.dp_image ?? 'uniprep-assets/images/avatar.webp'"
                     shape="circle" />
                 </div>
               </div>
@@ -117,7 +118,7 @@
   </div>
 
   <div class="card-footer bg-transparent border-0" style="background-color: transparent;">
-    <div class="w-100 mb-1 text-end bg-transparent">
+    <div class="w-100 mb-1 d-flex justify-content-end bg-transparent">
       <button *ngIf="messageInput.value?.length > 0 else isLoadingAiSummary"
         class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
         style="width: fit-content"
@@ -125,7 +126,7 @@
       <ng-template #isLoadingAiSummary>
         <button class="text-small text-end btn btn-success btn-rounded d-flex align-items-center gap-2"
           style="width: fit-content"
-          (click)="aiGenerateSummary('AI generate', {talent_name: aiGenerateChatDetails?.studentName, company_name: aiGenerateChatDetails.companyName, job_lookingfor: jobTitle, created_at:aiGenerateChatDetails?.createdAt, mode:'student'}, messageInput)">Ai
+          (click)="aiGenerateSummary('AI generate', {talent_name: aiGenerateChatDetails?.studentName, company_name: aiGenerateChatDetails.companyName, job_lookingfor:profileData?.careerPreference?.job_title, created_at:aiGenerateChatDetails?.createdAt, mode:'student'}, messageInput)">Ai
           Generate</button>
       </ng-template>
     </div>

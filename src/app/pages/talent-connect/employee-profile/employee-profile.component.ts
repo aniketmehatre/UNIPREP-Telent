@@ -2319,7 +2319,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     const guideMap: { [key: string]: string } = {
       video: environment.imagePath + 'sample/your_profile_video_guide.pdf',
       sample: 'https://drive.google.com/file/d/1hIV_NnPxa7xnXsXbwKB0y6k9PCng6EP7/view',
-      portfolio: environment.imagePath + 'sample/your_profile_video_guide.pdf'
+      portfolio: environment.imagePath + 'sample/PortfolioUploadGuide.pdf'
     };
     const url = guideMap[type];
     window.open(url, '_blank');

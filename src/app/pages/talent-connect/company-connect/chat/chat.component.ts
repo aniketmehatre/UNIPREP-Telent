@@ -10,6 +10,7 @@ import { environment } from '@env/environment';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { EmployeeConnectProfile } from 'src/app/@Models/employee-connect-profile';
 declare global {
   interface Window {
     Pusher: any;
@@ -53,8 +54,8 @@ export class ChatComponent implements OnInit, OnChanges {
   // scroll and take visible message ids
   @ViewChildren('msgRef') msgElements!: QueryList<ElementRef>;
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
-  jobTitle: string = '';
   observer!: IntersectionObserver;
+  profileData!: EmployeeConnectProfile;
 
   constructor(private talentConnectService: TalentConnectService, private authService: AuthService,
 
@@ -96,7 +97,7 @@ export class ChatComponent implements OnInit, OnChanges {
   getProfileData() {
     this.talentConnectService.getMyProfileData().subscribe({
       next: response => {
-        this.jobTitle = response.data[0]?.careerPreference?.job_title;
+        this.profileData = response.data[0];
       }
     });
   }
@@ -117,7 +118,7 @@ export class ChatComponent implements OnInit, OnChanges {
         this.aiGenerateChatDetails = {
           job_id: this.companyDetails?.id,
           companyName: this.companyDetails?.company_name,
-          studentName: this.authService._user.name,
+          studentName: this.profileData?.full_name,
           createdAt: data.created_at
         };
         const unseenCount = this.messages.filter((item: any) => item.seen === 0).length;
@@ -172,13 +173,15 @@ export class ChatComponent implements OnInit, OnChanges {
         this.isLoadingAiSummary = false;
         if (response) {
           this.message = this.convertHtmlToPlainText(response?.response);
-          this.autoGrow(element);
+          setTimeout(() => {
+            this.autoGrow(element);
+          }, 100);
           this.authService.aiCreditCount$.next(true);
         }
       },
       error: (error) => {
         this.isLoadingAiSummary = false;
-        console.error(error)
+        console.error(error);
       },
     })
   }

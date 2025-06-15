@@ -526,7 +526,7 @@
 							</a>
 						</div>
 						<div *ngIf="isSendingOTP">
-							<p class="centertitle mt-2">Enter your {{haveWhatsapp}} number to continue the experience</p>
+							<p class="centertitle mt-2">Enter the OTP sent your {{haveWhatsapp}} number to continue</p>
 							<div class="otp-container m-4" role="group" aria-label="OTP input">
 								<input *ngFor="let digit of otpArray; let i = index" type="text" maxlength="1"
 									class="otp-box" [id]="'otp-' + i" [(ngModel)]="otp[i]" formControlName="otp"
