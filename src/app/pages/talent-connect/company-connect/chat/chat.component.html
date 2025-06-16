@@ -20,7 +20,7 @@
       <div class="card-body p-0 flex-grow-1 overflow-hidden d-flex flex-column  no-scrollbar"
         style="height: calc(100vh - 450px)">
         <!-- Initial View (Empty State) -->
-        <div class="chat-body h-100 overflow-y-auto" *ngIf="messages?.length < 1">
+        <!-- <div class="chat-body h-100 overflow-y-auto" *ngIf="messages?.length < 1">
           <div class="description-box m-3 py-4 rounded-3" style="background-color: #edeff4">
             <h5 class="text-center mb-3">Write a description about yourself</h5>
 
@@ -34,7 +34,7 @@
             <button pButton class="p-button-text p-button-plain w-100" label="Click here to write one!"
               routerLink="/pages/job-tool/coverletter-builder"></button>
           </div>
-        </div>
+        </div> -->
 
         <div #scrollContainer class="card-body h-100 overflow-y-auto overflow-x-hidden no-scrollbar"
           *ngIf="messages?.length > 0">
