@@ -126,7 +126,7 @@
 		</div>
 	</div>
 	<div class="card-footer py-0 border-0 bg-transparent">
-		<p-paginator [rows]="10" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)"
+		<p-paginator [rows]="25" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)"
 			[rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
 	</div>
 </div>
@@ -234,8 +234,8 @@
 		<div class="card-header border-0 bg-transparent px-4 pt-4 pb-0 w-100">
 			<div class="row justify-content-center">
 				<div class="col-md-12 d-flex gap-2 text-center">
-					<div class="career-homeIcon px-3" role="button" (click)="goToHome($event)"><span
-							class="fa-solid fa-home me-2"></span>Home</div>
+					<!-- <div class="career-homeIcon px-3" role="button" (click)="goToHome($event)"><span
+							class="fa-solid fa-home me-2"></span>Home</div>  -->
 					<div class="select-title d-flex flex-fill justify-content-between align-items-center w-100">
 						<div>
 							<h5 class="mb-0">
