@@ -9,15 +9,19 @@
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
-          <div class="d-flex gap-2">
-            <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
-            <span><i class="fa-solid fa-chevron-right"></i></span>
-            <h5 routerLink="/pages/language-hub/languages" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Language Hub</h5>
-            <span><i class="fa-solid fa-chevron-right"></i></span>
-            <h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="">{{getFormattedValues()}}</h5>
-          </div>
+					<div class="d-flex gap-2">
+						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+							<i class="fa-regular fa-home"></i></h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 routerLink="/pages/language-hub/languages" role="button" class="mb-0" tooltipPosition="top"
+							pTooltip="">Language Hub</h5>
+						<span><i class="fa-solid fa-chevron-right"></i></span>
+						<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="">{{getFormattedValues()}}</h5>
+					</div>
 					<div>
-						<button pButton class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton class="how-it-works-button" severity="warn"
+							(click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How
+							it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -30,7 +34,7 @@
 				<div class="alphabet-nav">
 					<p href="#" class="all" (click)="onClickLetter(null)">ALL</p>
 					|
-                    <p (click)="onClickLetterNew(letter)" *ngFor="let letter of alphabet" class="text-black fw-normal">
+					<p (click)="onClickLetterNew(letter)" *ngFor="let letter of alphabet" class="text-black fw-normal">
 						{{ letter }}
 					</p>
 				</div>
@@ -42,28 +46,30 @@
 							<i class="fa-solid fa-search"></i>
 							<!-- Icon for the search bar -->
 						</p-inputgroup-addon>
-<!--						<input type="text" pInputText [(ngModel)]="searchTerm" placeholder="Search for a term" />-->
-                        <input type="text" pInputText [(ngModel)]="searchTerm" (ngModelChange)="filterWords()" placeholder="Search for a term" />
+						<!--						<input type="text" pInputText [(ngModel)]="searchTerm" placeholder="Search for a term" />-->
+						<input type="text" pInputText [(ngModel)]="searchTerm" (ngModelChange)="filterWords()"
+							placeholder="Search for a term" />
 
-                    </p-inputgroup>
+					</p-inputgroup>
 				</div>
 			</div>
 
 			<!-- Word List -->
 			<div class="dict">
-                <div *ngFor="let group of groupedWords">
-                    <h1 class="headerTextColor">
-                        <span class="headerTextColor">{{ group.letter }}</span>
-                    </h1>
-                    <hr/>
-                    <div *ngFor="let word of group.words" class="word-entry">
-                        <div class="word">{{ word.english_words }}</div>
-                        <div (click)="togglePlayPause(word.id, word)" class="topbutton btn p-0">
-                            <i [ngClass]="{ 'fa': true, 'fa-volume-up': playingStates[word.id], 'fa-play': !playingStates[word.id] }"></i>
-                            {{ word.searched_words }}
-                        </div>
-                    </div>
-                </div>
+				<div *ngFor="let group of groupedWords">
+					<h1 class="headerTextColor">
+						<span class="headerTextColor">{{ group.letter }}</span>
+					</h1>
+					<hr />
+					<div *ngFor="let word of group.words" class="word-entry">
+						<div class="word">{{ word.english_words }}</div>
+						<div (click)="togglePlayPause(word.id, word)" class="topbutton btn p-0">
+							<i
+								[ngClass]="{ 'fa': true, 'fa-volume-up': playingStates[word.id], 'fa-play': !playingStates[word.id] }"></i>
+							{{ word.searched_words }}
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

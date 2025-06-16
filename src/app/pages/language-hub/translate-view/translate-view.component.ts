@@ -34,15 +34,17 @@ export class TranslateViewComponent implements OnInit {
 		this.lhs.dataLanguageCode$.subscribe((data) => {
 			this.selectedLanguage = data
 		})
-		this.lhs.dataSubmoduleName$.subscribe((data) => {
-			this.selectedSubmoduleName = data
-		})
+		//once if i went previous page.this value is not giving correct value
+		// this.lhs.dataSubmoduleName$.subscribe((data) => {
+		// 	this.selectedSubmoduleName = data
+		// })
 		this.lhs.dataLanguageName$.subscribe((data) => {
 			this.selectedLanguageName = data
 		})
 	}
 
 	ngOnInit(): void {
+		this.selectedSubmoduleName = this.storage.get("selectedSubmoduleName");
 		this.questionId = this.route.snapshot.paramMap.get("id")
 		if (this.questionId) {
 			this.getQuestionsList(this.questionId)
@@ -69,7 +71,6 @@ export class TranslateViewComponent implements OnInit {
 	translateText(text1: any, text2: any) {
 		if (text1) {
 			this.translateViewService.translate(text1, this.selectedLanguage).subscribe((response: any) => {
-				console.log(response)
 				this.text2 = response.data.translations[0].translatedText
 				this.transliterate2 = tr(response.data.translations[0].translatedText)
 			})
