@@ -137,12 +137,10 @@ export class TalentConnectService {
             { headers: this.headers });
     }
 
-
-
-    // short list company
-    shortListCompany(companyId: any): Observable<any> {
+    followCompany(companyId: any, followStatus: number): Observable<any> {
         const formData = new FormData();
         formData.append("companyId", companyId);
+        formData.append("follow_status", followStatus.toString());
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/shortlistcompany", formData, { headers: headers });
     }
@@ -193,15 +191,6 @@ export class TalentConnectService {
     getCityWithFlag() {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrlEmployer + "/getcitywithflag", {}, { headers: headers });
-    }
-
-    // follow company
-    followCompany(companyId: any, followStatus:number) {
-        const formData = new FormData();
-        formData.append("companyId", companyId);
-        formData.append("follow_status", followStatus.toString());
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/followcompany", formData, { headers: headers });
     }
 
     getCurrencies() {

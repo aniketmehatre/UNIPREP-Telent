@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PaginatorModule } from "primeng/paginator";
 import { TalentConnectService } from "../talent-connect.service";
-import {  FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Tooltip } from "primeng/tooltip";
 import { Router, RouterLink } from "@angular/router";
 import { CommonModule } from "@angular/common";
@@ -104,8 +104,8 @@ export class CompanyConnect1Component implements OnInit {
         this.router.navigate(['/pages/talent-connect/company-connect', id]);
     }
 
-    onClickShortListCompany(id: any) {
-        this.talentConnectService.shortListCompany(id).subscribe({
+    onClickShortListCompany(id: any, followStatus: number) {
+        this.talentConnectService.followCompany(id, followStatus ? 0 : 1).subscribe({
             next: data => {
                 this.listCompanyData()
             },

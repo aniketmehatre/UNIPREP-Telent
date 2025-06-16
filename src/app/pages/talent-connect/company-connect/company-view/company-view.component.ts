@@ -67,23 +67,10 @@ export class CompanyViewComponent implements OnInit {
     });
   }
 
-  onClickShortListCompany(id: any) {
-    this.talentConnectService.shortListCompany(id).subscribe({
-      next: data => {
-        this.getCompanyDetail(this.companyId)
-      },
-      error: err => {
-
-      }
-    })
-  }
-
-  followCompany(followStatus:number) {
+  followCompany(followStatus: number) {
     this.talentConnectService.followCompany(this.companyId, followStatus ? 0 : 1).subscribe({
       next: response => {
-        if (response.success) {
-          this.companyDetails.followed = followStatus ? 0 : 1;
-        }
+        this.companyDetails.shortlisted = followStatus ? 0 : 1;
       },
       error: err => {
         console.log(err)
