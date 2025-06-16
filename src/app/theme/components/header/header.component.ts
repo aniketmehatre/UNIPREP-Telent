@@ -585,6 +585,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.dataService.homeCountryFlagSource.subscribe({
 			next: (data) => {
 				this.headerHomeFlag = data;
+				console.log(data,"country");
+				
 			},
 			error: (error) => {
 				console.error('Error in home country flag subscription:', error);
