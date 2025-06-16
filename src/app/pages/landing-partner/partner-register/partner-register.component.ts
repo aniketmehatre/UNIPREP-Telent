@@ -195,7 +195,7 @@ export class PartnerRegisterComponent {
 				this.toast.add({
 					severity: "success",
 					summary: "Success",
-					detail: "Employer Registered",
+					detail: res.message,
 				});
 				this.afterRegisterAwaitingConfirmation = true;
 			},
