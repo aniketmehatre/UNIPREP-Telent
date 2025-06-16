@@ -21,12 +21,6 @@ export class LandingPartnerServices {
         });
     }
     // register partner
-    fetchCountryList() {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrl + `/getWorldCountries`, {
-            headers: headers,
-        });
-    }
 
     registerEmployer(formValue: any): Observable<any> {
         const formData = new FormData();
@@ -71,10 +65,5 @@ export class LandingPartnerServices {
         });
 
         return this.http.post<any>(environment.ApiUrl + "/verifypartnerotp", formData, { headers });
-    }
-    fetchRegionByCountryId(countryId: any): Observable<any> {
-        return this.http.get<any>(`${environment.ApiUrl}/getworldcitiesstates`, {
-            params: { country_id: countryId.toString() }
-        });
     }
 }
