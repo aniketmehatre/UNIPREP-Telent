@@ -15,6 +15,7 @@ import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TooltipModule } from 'primeng/tooltip';
 import { PipesModule } from '@pipes/pipes.module';
+import { CardModule } from 'primeng/card';
 
 const routes: Routes = [
   {
@@ -47,7 +48,8 @@ const routes: Routes = [
     SelectModule,
     InputNumberModule,
     TooltipModule,
-    PipesModule
+    PipesModule,
+    CardModule
   ]
 })
 export class EasyApplyModule { }

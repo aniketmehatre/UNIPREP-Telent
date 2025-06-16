@@ -57,7 +57,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row" *ngIf="!isSkeletonVisible && totalDataCount != 0">
+		<div class="row" *ngIf="!isSkeletonVisible && ListData.length != 0; else noData">
 			<div *ngFor="let sub of ListData" class="col-md-3 col-sm-4 mb-3">
 				<div class="row w-100 h-100 m-0 justify-content-center">
 					<div (click)="readAnswer(sub)" role="button" class="card subjectcard">
@@ -72,14 +72,16 @@
 				</div>
 			</div>
 		</div>
-		<div *ngIf="totalDataCount == 0" class="d-flex justify-content-center align-items-center h-100 flex-column">
-			<h3 class="primary-color">It seems we don't have any recommendations that</h3>
-			<h3 class="primary-color">match your current selection.</h3>
-			<br />
-			<h4 class="universityicon">Don't Worry! You can try</h4>
-			<h6 class="primary-color">Adjusting your preferences</h6>
-			<h6 class="primary-color">Exploring other categories</h6>
-		</div>
+		<ng-template #noData>
+			<div class="d-flex justify-content-center align-items-center h-100 flex-column">
+				<h3 class="primary-color">It seems we don't have any recommendations that</h3>
+				<h3 class="primary-color">match your current selection.</h3>
+				<br />
+				<h4 class="universityicon">Don't Worry! You can try</h4>
+				<h6 class="primary-color">Adjusting your preferences</h6>
+				<h6 class="primary-color">Exploring other categories</h6>
+			</div>
+		</ng-template>
 	</div>
 	<div class="card-footer border-0 bg-transparent">
 		<div class="row">
@@ -179,7 +181,7 @@
 					<div class="col"></div>
 					<div class="col">{{ "Customized" | uppercase }}</div>
 					<div class="col text-right">
-						<button pButton (click)="saveInterviewQuestion()" class="btn btn-back btn-rounded me-3"
+						<button *ngIf="customizedResponse" pButton (click)="saveInterviewQuestion()" class="btn btn-back btn-rounded me-3"
 							style="padding: 0 !important">
 							<div class="d-flex align-items-center">
 								<span class="fw-normal h6 mb-0 ps-3 pe-2">Save Response</span>

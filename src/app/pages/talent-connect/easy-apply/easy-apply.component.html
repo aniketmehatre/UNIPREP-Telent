@@ -51,9 +51,22 @@
 			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2" *ngFor="let job of jobListings"
 				[routerLink]="['/pages/talent-connect/easy-apply', job.id]">
 				<div class="card card-inside h-100 text-start position-relative" role="button">
-					<button class="btn btn-link text-warning p-0 position-absolute" style="right: 0.5rem; top: 0.5rem">
+					<button class="btn btn-link text-warning p-0 position-absolute" style="right: 0.5rem; top: 0.5rem; z-index: 999;"
+						(click)="showSocialSharingList($event)">
 						<i class="fa-regular fa-share-alt"></i>
 					</button>
+					<p-card id="socialSharingList">
+						<ul style="list-style: none; cursor: pointer">
+							<li (click)="shareQuestion($event,'Whatsapp', job)"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+							<li (click)="shareQuestion($event,'Mail', job)"><i class="pi pi-envelope"></i>Email</li>
+							<li (click)="shareQuestion($event,'Facebook', job)"><i class="pi pi-facebook"></i>Facebook</li>
+							<li (click)="shareQuestion($event,'Twitter', job)"><i class="pi pi-twitter"></i>Twitter</li>
+							<li (click)="shareQuestion($event,'Instagram', job)"><i class="pi pi-instagram"></i>Instagram
+							</li>
+							<li (click)="shareQuestion($event,'LinkedIn', job)"><i class="pi pi-linkedin"></i>LinkedIn</li>
+							<li (click)="copyLink($event, job.id)"><i class="pi pi-link"></i>Copy Link</li>
+						</ul>
+					</p-card>
 					<div class="card-body pb-0">
 						<div class="d-flex gap-2 align-items-center">
 							<div class="rounded-2 d-flex overflow-hidden"
@@ -93,7 +106,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6 col-6">
+							<!-- <div class="col-md-6 col-6">
 								<div class="d-flex gap-2 align-items-center">
 									<i class="fa-solid fa-user-tie" style="color: #cc660a"></i>
 									<div>
@@ -101,7 +114,7 @@
 										<h3 class="mb-0 fw-medium">{{ job.total_applied }}</h3>
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 						<hr class="my-2" />
 						<div class="row">
@@ -214,6 +227,11 @@
 			<p-paginator *ngIf="totalJobs != 0" [rows]="pageSize" [totalRecords]="totalJobs"
 				[first]="(page - 1) * pageSize" (onPageChange)="onPageChange($event)"
 				[rowsPerPageOptions]="[8, 50, 100, 300, 500, 1000]" [disabled]="totalJobs <= pageSize"> </p-paginator>
+		</div>
+		<div>
+			<span class="uniprep-secondary fw-bold">Disclaimer: </span>
+			<span> Jobs listed here are from publicly available sources. We are currently onboarding official
+				partners.</span>
 		</div>
 	</div>
 	<div>

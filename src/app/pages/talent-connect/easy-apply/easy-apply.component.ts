@@ -1,9 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Route } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
+import { Meta } from '@angular/platform-browser';
+import { SocialShareService } from 'src/app/shared/social-share.service';
 
 interface JobListing {
   id: number;
@@ -40,7 +42,7 @@ export class EasyApplyComponent {
   jobListings: JobListing[] = [];
   locations: any[] = [];
   workModes: any[] = [];
-  employmentTypes: any[] = []; 
+  employmentTypes: any[] = [];
   experienceLevels: any[] = [];
   totalJobs: number = 4;
   currencies: any[] = [];
@@ -55,6 +57,8 @@ export class EasyApplyComponent {
   applicantCurrencyCode = signal<string>('');
   applicantCurrencyValue = signal<number>(0);
   currencyList: any[] = [];
+  socialShareService = inject(SocialShareService);
+  meta = inject(Meta);
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private talentConnectService: TalentConnectService,
     private messageService: MessageService, private pageFacade: PageFacadeService) {
@@ -219,4 +223,57 @@ export class EasyApplyComponent {
   onClearCurrency(event: Event) {
     this.getList({});
   }
+
+  showSocialSharingList(event: any) {
+    event.stopPropagation();
+    let socialShare: any = document.getElementById("socialSharingList");
+    if (socialShare.style.display == "") {
+      socialShare.style.display = "block";
+    }
+    else {
+      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
+    }
+  }
+
+  shareQuestion(event: any, type: string, job: JobListing) {
+    event.stopPropagation();
+    const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+    const url = window.location.origin + '/pages/talent-connect/easy-apply/' + job.id;
+    const encodedUrl = encodeURIComponent(url);
+    const title = encodeURIComponent('UNIPREP | ' + job?.position + ' | ' + job.company_name);
+
+    this.meta.updateTag({ property: 'og:url', content: url });
+    this.meta.updateTag({ property: 'og:title', content: title });
+    let shareUrl = '';
+    switch (type) {
+      case 'Whatsapp':
+        shareUrl = `${socialMedias[type]}${title}%0A${encodedUrl}`;
+        break;
+      case 'Mail':
+        shareUrl = `${socialMedias[type]}${title}%0A${encodedUrl}`;
+        break;
+      case 'LinkedIn':
+        shareUrl = `${socialMedias[type]}${encodedUrl}&title=${title}`;
+        break;
+      case 'Twitter':
+        shareUrl = `${socialMedias[type]}${encodedUrl}&text=${title}`;
+        break;
+      case 'Facebook':
+        shareUrl = `${socialMedias[type]}${encodedUrl}`;
+        break;
+      case 'Instagram':
+        shareUrl = `${socialMedias[type]}${encodedUrl}`;
+        break;
+      default:
+        shareUrl = `${socialMedias[type]}${encodedUrl}`;
+    }
+    window.open(shareUrl, '_blank');
+  }
+
+  copyLink(event: any, jobId: number) {
+    event.stopPropagation();
+    const textToCopy = encodeURI(window.location.origin + '/pages/talent-connect/easy-apply/' + jobId);
+    this.socialShareService.copyQuestion(textToCopy);
+  }
+
 }

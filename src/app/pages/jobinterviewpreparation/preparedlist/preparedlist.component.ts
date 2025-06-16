@@ -23,6 +23,7 @@ import { SkeletonModule } from "primeng/skeleton";
 import { SharedModule } from "src/app/shared/shared.module";
 import { SavedJobInterviewQuestion } from "src/app/@Models/job-interview.model";
 import { SocialShareService } from "src/app/shared/social-share.service";
+import { DataService } from "src/app/data.service";
 @Component({
   selector: "uni-preparedlist",
   templateUrl: "./preparedlist.component.html",
@@ -57,21 +58,23 @@ export class JobPreparedListComponent implements OnInit {
     .map((_, index) => index);
 
   constructor(private toast: MessageService, private authService: AuthService, private service: InterviewPreparationService,
-    private pageFacade: PageFacadeService, private meta: Meta, private socialShareService: SocialShareService) { }
+    private pageFacade: PageFacadeService, private meta: Meta, private socialShareService: SocialShareService,
+    private dataService: DataService) { }
 
   ngOnInit(): void {
     this.selectedJobRole = this.prepData.role;
-    this.getDefaultQuestions();
+    if (!this.prepData?.isFromHistory) {
+      this.getDefaultQuestions();
+    }
     this.getSavedQuestion();
-    this.checkPlanExpiry();
   }
 
   getDefaultQuestions() {
     this.service.getquestionByJobrole({ jobrole: this.prepData.jobrole }).subscribe(response => {
-      this.isSkeletonVisible = false;
       this.defaultListData = response;
       this.ListData = response;
       this.totalDataCount = this.ListData.length;
+      this.isSkeletonVisible = false;
       if (this.prepData.questionid) {
         const quiz = this.ListData.find(item => item.id == this.prepData.questionid);
         if (quiz) {
@@ -80,37 +83,32 @@ export class JobPreparedListComponent implements OnInit {
       }
     });
   }
+
   getSavedQuestion() {
     this.service.getsavedquestionByJobrole({ jobrole: this.prepData.jobrole }).subscribe(response => {
-      this.isSkeletonVisible = false;
       this.savedListData = response;
-      this.totalDataCount = this.ListData.length;
+      if (this.prepData.isFromHistory) {
+        this.isSkeletonVisible = false;
+        this.changeType(1);
+      }
     });
   }
+
   backtoMain() {
     this.windowChange.emit(false);
   }
+
   paginate(event: any) {
     this.page = event.page + 1;
     this.perpage = event.rows;
-  }
-
-  checkPlanExpiry(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
   }
 
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
 
-
   readAnswer(quizdata: any) {
+    this.customizedResponse = '';
     this.selectedQuestion = quizdata?.ques;
     this.selectedAnswer = quizdata?.ans;
     this.selectedQuestionId = quizdata?.id;
@@ -163,6 +161,7 @@ export class JobPreparedListComponent implements OnInit {
     } else {
       this.ListData = this.savedListData;
     }
+    this.totalDataCount = this.ListData.length;
   }
 
   onShowModal(value: any) {
@@ -204,6 +203,11 @@ export class JobPreparedListComponent implements OnInit {
   }
 
   openReport() {
-
+    let data: any = {
+      isVisible: true,
+      moduleId: 32,
+      questionId: this.prepData.questionid
+    };
+    this.dataService.openReportWindow(data);
   }
 }

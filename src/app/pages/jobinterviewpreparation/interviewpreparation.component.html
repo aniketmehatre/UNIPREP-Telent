@@ -9,72 +9,108 @@
 						</div>
 						<div class="select-title d-flex justify-content-between align-items-center">
 							<div class="d-flex gap-2">
-								<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+								<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top"
+									pTooltip=""><i class="fa-regular fa-home"></i></h5>
 								<span><i class="fa-solid fa-chevron-right"></i></span>
-								<h5 routerLink="/pages/job-tool/career-tool" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Career Tools</h5>
+								<h5 routerLink="/pages/job-tool/career-tool" role="button" class="mb-0"
+									tooltipPosition="top" pTooltip="">Career Tools</h5>
 								<span><i class="fa-solid fa-chevron-right"></i></span>
-								<h5 class="mb-0" tooltipPosition="top" pTooltip="Access a curated list of companies by industry and location to target your job search effectively.">Job Interview Preparation</h5>
+								<h5 class="mb-0" tooltipPosition="top"
+									pTooltip="Access a curated list of companies by industry and location to target your job search effectively.">
+									Job Interview Preparation</h5>
 							</div>
 							<div>
-								<button pButton class="how-it-works-button" severity="warn" (click)="openVideoPopup('https://www.youtube.com/embed/cbny1-f4rXI?si=E3WEU6LuiMLWA1Uq')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+								<button pButton class="how-it-works-button" severity="warn"
+									(click)="openVideoPopup('https://www.youtube.com/embed/cbny1-f4rXI?si=E3WEU6LuiMLWA1Uq')">How
+									it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 							</div>
 						</div>
+						<button pButton type="button" (click)="onhistory()"
+							class="btn btn-primary btn-rounded py-2 px-4">
+							<span>History</span>
+						</button>
 					</div>
 				</div>
 			</div>
 			<div class="card-body">
 				<div class="container-fluid h-100">
-					<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false" [showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
+					<p-carousel [value]="recommendations" [numVisible]="1" [numScroll]="1" [circular]="false"
+						[showNavigators]="false" [showIndicators]="false" [page]="activePageIndex" styleClass="h-100">
 						<ng-template let-recommendation let-i="index" pTemplate="item">
 							<div class="h-100 d-flex flex-column justify-content-between">
 								<div>&nbsp;</div>
 								<div class="row justify-content-center text-start">
 									<div class="col-md-12 mb-4">
-										<!-- <h5 class="uniprep-primary fw-semibold mb-0">
-                      Step {{ recommendation.id }}
-                    </h5> -->
 										<h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
 									</div>
 									<div class="col-md-6" [ngStyle]="recommendation.id == 7 ? { width: '100%' } : {}">
-										<div class="recommendationinput d-flex flex-column justify-content-center gap-3">
+										<div
+											class="recommendationinput d-flex flex-column justify-content-center gap-3">
 											<ng-container *ngIf="recommendation.id == 1">
-												<p-select styleClass="w-100" placeholder="Select Job role" display="chip" optionLabel="jobrole" optionValue="id" [options]="jobRoles" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'" [virtualScroll]="true" [virtualScrollItemSize]="10" [filter]="true" [filterBy]="'jobrole'"></p-select>
-												<!-- <div class="col-md-11 col-lg-11 mb-2 mb-md-0 position-relative">
-													<span class="p-input-icon-left w-100">
-														<i class="fa-solid fa-search"></i>
-														<input type="text" #jobRoleInput (input)="searchJob($event)" class="form-control w-100 rounded-5 border-primary inputHeight" pInputText placeholder=" Search by Job Role" />
-													</span>
-													<ul *ngIf="filterJobRole.length > 0" class="dropdown-list">
-														<li *ngFor="let job of filterJobRole" (click)="setJobtitle(job.id, job.jobrole)">{{ job.jobrole }}</li>
-													</ul>
-												</div> -->
-												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+												<p-select styleClass="w-100" placeholder="Select Job role"
+													display="chip" optionLabel="jobrole" optionValue="id"
+													[options]="jobRoles" [(ngModel)]="selectedData[recommendation.id]"
+													[appendTo]="'body'" [virtualScroll]="true"
+													[virtualScrollItemSize]="10" [filter]="true"
+													[filterBy]="'jobrole'"></p-select>
+												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+													style="color: red">Please Choose Any one option</p>
 											</ng-container>
 											<ng-container *ngIf="recommendation.id == 2">
-												<p-multiSelect styleClass="w-100" placeholder="Select any two soft skills" display="chip" optionLabel="soft_skill_name" optionValue="id" [options]="softSkills" [selectionLimit]="2" [displaySelectedLabel]="true" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
-												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any Two options</p>
+												<p-multiSelect styleClass="w-100"
+													placeholder="Select any two soft skills" display="chip"
+													optionLabel="soft_skill_name" optionValue="id"
+													[options]="softSkills" [selectionLimit]="2"
+													[displaySelectedLabel]="true"
+													[(ngModel)]="selectedData[recommendation.id]"
+													[appendTo]="'body'"></p-multiSelect>
+												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+													style="color: red">Please Choose Any Two options</p>
 											</ng-container>
 											<ng-container *ngIf="recommendation.id == 3">
-												<p-multiSelect styleClass="w-100" placeholder="Select any two professional skills" display="chip" optionLabel="hard_skill" optionValue="hard_skill" [options]="hardSkills" [selectionLimit]="2" [displaySelectedLabel]="true" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
-												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any Two options</p>
+												<p-multiSelect styleClass="w-100"
+													placeholder="Select any two professional skills" display="chip"
+													optionLabel="hard_skill" optionValue="hard_skill"
+													[options]="hardSkills" [selectionLimit]="2"
+													[displaySelectedLabel]="true"
+													[(ngModel)]="selectedData[recommendation.id]"
+													[appendTo]="'body'"></p-multiSelect>
+												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+													style="color: red">Please Choose Any Two options</p>
 											</ng-container>
 											<ng-container *ngIf="recommendation.id == 4">
-												<p-select styleClass="w-100" placeholder="Select experience" display="chip" optionLabel="experience" optionValue="id" [options]="jobExperience" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-select>
-												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+												<p-select styleClass="w-100" placeholder="Select experience"
+													display="chip" optionLabel="experience" optionValue="id"
+													[options]="jobExperience"
+													[(ngModel)]="selectedData[recommendation.id]"
+													[appendTo]="'body'"></p-select>
+												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+													style="color: red">Please Choose Any one option</p>
 											</ng-container>
 											<ng-container *ngIf="recommendation.id == 5">
-												<p-select styleClass="w-100" placeholder="Select reason" display="chip" optionLabel="reasons" optionValue="id" [options]="joiningReasons" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-select>
-												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+												<p-select styleClass="w-100" placeholder="Select reason" display="chip"
+													optionLabel="reasons" optionValue="id" [options]="joiningReasons"
+													[(ngModel)]="selectedData[recommendation.id]"
+													[appendTo]="'body'"></p-select>
+												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+													style="color: red">Please Choose Any one option</p>
 											</ng-container>
 											<ng-container *ngIf="recommendation.id == 6">
-												<p-select styleClass="w-100" placeholder="Select industry" display="chip" optionLabel="industry" optionValue="id" [options]="industries" [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-select>
-												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+												<p-select styleClass="w-100" placeholder="Select industry"
+													display="chip" optionLabel="industry" optionValue="id"
+													[options]="industries" [(ngModel)]="selectedData[recommendation.id]"
+													[appendTo]="'body'"></p-select>
+												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+													style="color: red">Please Choose Any one option</p>
 											</ng-container>
 											<ng-container *ngIf="recommendation.id == 7">
 												<div class="container mt-5">
 													<div class="row g-3 justify-content-center">
-														<div class="col-6 col-sm-4 col-md-2" *ngFor="let items of jobPreferences; let i = index">
-															<div class="option-card position-relative" [ngClass]="{ active: selectedCardIndex === i }" (click)="selectCard(i)">
+														<div class="col-6 col-sm-4 col-md-2"
+															*ngFor="let items of jobPreferences; let i = index">
+															<div class="option-card position-relative"
+																[ngClass]="{ active: selectedCardIndex === i }"
+																(click)="selectCard(i)">
 																{{ items?.jobpreferences }}
 																<span *ngIf="selectedCardIndex === i" class="tick-mark">
 																	<i class="pi pi-check"></i>
@@ -83,13 +119,16 @@
 														</div>
 													</div>
 												</div>
-												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
+												<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
+													style="color: red">Please Choose Any one option</p>
 											</ng-container>
 										</div>
 									</div>
 								</div>
 								<div class="d-flex justify-content-between mt-2">
-									<button pButton (click)="previous()" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" class="btn btn-back btn-rounded me-3 px-2 py-2">
+									<button pButton (click)="previous()"
+										[style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'"
+										class="btn btn-back btn-rounded me-3 px-2 py-2">
 										<div class="d-flex align-items-center prepmodule">
 											<div class="btn-icon">
 												<i class="fa-solid fa-arrow-left"></i>
@@ -98,7 +137,8 @@
 										</div>
 									</button>
 
-									<button pButton (click)="next(recommendation.id)" *ngIf="recommendation.id != 7" class="btn btn-start btn-rounded m-0 px-2 py-2">
+									<button pButton (click)="next(recommendation.id)" *ngIf="recommendation.id != 7"
+										class="btn btn-start btn-rounded m-0 px-2 py-2">
 										<div class="d-flex align-items-center">
 											<span class="fw-normal h6 mb-0 ps-3 pe-2">Next</span>
 											<div class="btn-icon">
@@ -106,8 +146,11 @@
 											</div>
 										</div>
 									</button>
-									<button pButton pButton type="button" (click)="getRecommendation()" severity="success" *ngIf="recommendation.id == 7" class="btn btn-success btn-rounded p-1 ps-4">
-										<span class="me-2">Get Preparations</span><span class="btn-icon px-2 py-2"><i class="pi pi-check"></i></span>
+									<button pButton pButton type="button" (click)="getRecommendation()"
+										severity="success" *ngIf="recommendation.id == 7"
+										class="btn btn-success btn-rounded p-1 ps-4">
+										<span class="me-2">Get Preparations</span><span class="btn-icon px-2 py-2"><i
+												class="pi pi-check"></i></span>
 									</button>
 								</div>
 							</div>

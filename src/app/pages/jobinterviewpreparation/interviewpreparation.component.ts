@@ -76,6 +76,8 @@ export class JobPreparationComponent implements OnInit {
       question: "What is your preferred work environment?",
     },
   ];
+  preparedvisibility = false;
+
   ngOnInit() {
     if (this.route.snapshot.queryParamMap.get('questionid')) { //Question share
       this.prepData = {
@@ -183,13 +185,12 @@ export class JobPreparationComponent implements OnInit {
       this.invalidClass = true;
     }
   }
-  preparedvisibility = false;
   getRecommendation() {
-    if(this.authService._creditCount === 0){
-			this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
-			this.router.navigateByUrl('/pages/export-credit')
-			return;
-		}
+    if (this.authService._creditCount === 0) {
+      this.toast.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
+      this.router.navigateByUrl('/pages/export-credit')
+      return;
+    }
     this.invalidClass = false;
     if (this.selectedCardIndex == null) {
       this.invalidClass = true;
@@ -211,6 +212,7 @@ export class JobPreparationComponent implements OnInit {
     };
     this.prepData = processedData;
   }
+
   windowChange(data: any) {
     if (this.route.snapshot.queryParamMap.get('questionid')) { // remove question share query params
       this.router.navigate(['/pages/interviewprep']);
@@ -226,45 +228,28 @@ export class JobPreparationComponent implements OnInit {
     this.activePageIndex = 0;
     this.selectedCardIndex = null;
   }
+
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink);
   }
+
   goBack() {
     this.router.navigate(["/pages/job-tool/career-tool"]);
   }
-  searchJob(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const query = input.value.toLowerCase().trim();
-    if (query && query.length > 3) {
-      const mockJobs = this.jobRoles;
 
-      // Filter jobs that include the query
-      this.filterJobRole = mockJobs.filter((job: any) => job.jobrole.toLowerCase().includes(query));
-
-      // Sort the filtered jobs to prioritize exact matches
-      this.filterJobRole.sort((a: any, b: any) => {
-        const aJob = a.jobrole.toLowerCase();
-        const bJob = b.jobrole.toLowerCase();
-
-        if (aJob === query && bJob !== query) {
-          return -1; // a comes first
-        } else if (aJob !== query && bJob === query) {
-          return 1; // b comes first
-        } else if (aJob.startsWith(query) && !bJob.startsWith(query)) {
-          return -1; // a comes first if it starts with the query
-        } else if (!aJob.startsWith(query) && bJob.startsWith(query)) {
-          return 1; // b comes first if it starts with the query
-        } else {
-          return 0; // Keep original order for other cases
-        }
-      });
-    } else if (query.length < 1) {
-      this.filterJobRole = [];
-    }
-  }
-  setJobtitle(jobRoleId: number, jobRoleLabel: string) {
-    this.selectedData[1] = jobRoleId;
-    this.JobRoleInput.nativeElement.value = jobRoleLabel;
-    this.filterJobRole = [];
+  onhistory() {
+    let processedData = {
+      role: '',
+      jobrole: '',
+      softskill: '',
+      techskill: '',
+      experience: '',
+      reason: '',
+      job_preference: '',
+      industry: '',
+      isFromHistory: true
+    };
+    this.prepData = processedData;
+    this.preparedvisibility = true;
   }
 }
