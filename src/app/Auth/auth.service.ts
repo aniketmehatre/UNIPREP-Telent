@@ -211,10 +211,6 @@ export class AuthService {
       return throwError(() => new Error('No authentication token'));
     }
 
-    if (this.getMeCache$) {
-      return this.getMeCache$;
-    }
-
     const request$ = this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, {
       headers: new HttpHeaders()
         .set('Accept', 'application/json')
@@ -240,8 +236,7 @@ export class AuthService {
       })
     );
 
-    this.getMeCache$ = request$;
-    return this.getMeCache$;
+    return request$;
   }
 
   private async storeUserData(userDetails: any): Promise<void> {

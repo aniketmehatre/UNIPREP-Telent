@@ -911,7 +911,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			this.locationService.clearCache();
 			this.authTokenService.clearToken();
 			this.isLoading = false;
-			this.authService._user = null as any;
 		};
 
 		// Prepare all API calls that need to be made
