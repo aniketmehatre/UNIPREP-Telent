@@ -413,25 +413,27 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
         const skillsData = storedValues.skillsArray;
         if (skillsData.length != 0) {
           skillsData.forEach((element: any) => {
-            this.getSkillsArray.push(
-              this.fb.group({
-                skills: [element.skills, Validators.required],
-                skills_proficiency: [element.skills_proficiency, Validators.required],
-              })
-            );
+            const group =  this.fb.group({
+              skills: [element.skills, Validators.required],
+              skills_proficiency: [{ value: element.skills_proficiency, disabled: !element.skills },Validators.required],
+            });
+            this.getSkillsArray.push(group);
+            this.setupSkillControlListeners(group);
           });
           this.filledFields.push("skills");
         }
 
         const languageData = storedValues.languagesKnownArray;
         if (languageData.length != 0) {
+          
           languageData.forEach((element: any) => {
-            this.getLanguagesKnownArray.push(
-              this.fb.group({
-                language: [element.language, Validators.required],
-                lang_proficiency: [element.lang_proficiency, Validators.required],
-              })
-            );
+            const group = this.fb.group({
+              language: [element.language, Validators.required],
+              //initially will disable the language proficiency.once the user select the language will enable the lang proficiency.
+              lang_proficiency: [{ value: element.lang_proficiency, disabled: !element.language },Validators.required],
+            });
+            this.setupLanguageControlListeners(group);
+            this.getLanguagesKnownArray.push(group);
           });
           this.filledFields.push("language_known");
         }
@@ -926,21 +928,46 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   addLanguageRow(){
-    this.getLanguagesKnownArray.push(
-      this.fb.group({
-        language: ["", Validators.required],
-        lang_proficiency: ["", Validators.required],
-      })
-    );
+    const group = this.fb.group({
+      language: ["", Validators.required],
+      //initially will disable the language proficiency.once the user select the language will enable the lang proficiency.
+      lang_proficiency: [{ value: "", disabled: true }, Validators.required], 
+    });
+    this.setupLanguageControlListeners(group);
+    this.getLanguagesKnownArray.push(group);
+  }
+
+  setupLanguageControlListeners(group: FormGroup) {
+    group.get("language")?.valueChanges.subscribe((langValue) => {
+      const profControl = group.get("lang_proficiency");
+      if (langValue) {
+        profControl?.enable();
+      } else {
+        profControl?.disable();
+        profControl?.reset(); // optional
+      }
+    });
   }
 
   addSkillsRow(){
-    this.getSkillsArray.push(
-      this.fb.group({
-        skills: ["", Validators.required],
-        skills_proficiency: ["", Validators.required],
-      })
-    );
+    const group = this.fb.group({
+      skills: ["", Validators.required],
+      skills_proficiency: [{ value: "", disabled: true }, Validators.required],
+    });
+    this.getSkillsArray.push(group);
+    this.setupSkillControlListeners(group);
+  }
+
+  setupSkillControlListeners(group: FormGroup){
+    group.get("skills")?.valueChanges.subscribe((skillValue) => {
+      const profControl = group.get("skills_proficiency");
+      if (skillValue) {
+        profControl?.enable();
+      } else {
+        profControl?.disable();
+        profControl?.reset(); // optional
+      }
+    });
   }
 
   addExperienceRow(){
