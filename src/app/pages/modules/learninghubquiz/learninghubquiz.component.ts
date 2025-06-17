@@ -403,6 +403,9 @@ export class LearninghubquizComponent implements OnInit {
         dd.otp4 = dd.option4 + dd.id + number++;
         return dd;
       });
+      this.totalanswercorret = res.answered_correctly;
+      this.totalanswerquistionaftersubmited = res.total_question;
+      this.totalPercentage = res.percentage;
     })
   }
   quizcount: number = 0
