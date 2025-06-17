@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {environment} from '@env/environment';
+import { Injectable } from '@angular/core';
+import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,21 +12,16 @@ export class LandingPartnerServices {
     constructor(private http: HttpClient) { }
 
     getCountryList() {
-      return this.http.get<any>(environment.ApiUrl + "/getWhiteLabelCountry");
+        return this.http.get<any>(environment.ApiUrl + "/getWhiteLabelCountry");
     }
 
-  getPartnersListById(countryId: number, type: string) {
-    return this.http.post<any>(environment.ApiUrl + "/getWhiteLabelPartners", { country: countryId, mitypename: type }, {
-        headers: this.headers});
-    }
-    // register partner
-        fetchCountryList() {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrl + `/getWorldCountries`, {
-            headers: headers,
+    getPartnersListById(countryId: number, type: string) {
+        return this.http.post<any>(environment.ApiUrl + "/getWhiteLabelPartners", { country: countryId, mitypename: type }, {
+            headers: this.headers
         });
     }
-    
+    // register partner
+
     registerEmployer(formValue: any): Observable<any> {
         const formData = new FormData();
         formData.append('name', formValue.name);
@@ -45,10 +40,10 @@ export class LandingPartnerServices {
             'Accept': 'application/json'
         });
 
-        return this.http.post<any>(environment.ApiUrl + "/partnerregister", formData, {headers});
+        return this.http.post<any>(environment.ApiUrl + "/partnerregister", formData, { headers });
     }
-    
-    sendEmailOTP(email: any,name: any,mobile: any): Observable<any> {
+
+    sendEmailOTP(email: any, name: any, mobile: any): Observable<any> {
         const formData = new FormData();
         formData.append('email', email);
         formData.append('name', name);
@@ -57,7 +52,7 @@ export class LandingPartnerServices {
             'Accept': 'application/json'
         });
 
-        return this.http.post<any>(environment.ApiUrl + "/sendpartnerotp", formData, {headers});
+        return this.http.post<any>(environment.ApiUrl + "/sendpartnerotp", formData, { headers });
     }
     verifyEmailOTP(formValue: any): Observable<any> {
         const formData = new FormData();
@@ -69,11 +64,6 @@ export class LandingPartnerServices {
             'Accept': 'application/json'
         });
 
-        return this.http.post<any>(environment.ApiUrl + "/verifypartnerotp", formData, {headers});
-    }
-    fetchRegionByCountryId(countryId: any): Observable<any> {
-        return this.http.get<any>(`${environment.ApiUrl}/getworldcitiesstates`, {
-            params: { country_id: countryId.toString() }
-        });
+        return this.http.post<any>(environment.ApiUrl + "/verifypartnerotp", formData, { headers });
     }
 }

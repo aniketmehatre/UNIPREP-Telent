@@ -61,7 +61,6 @@ export class PartnerRegisterComponent {
 	registerFormInvalid: boolean = true;
 	imageUrlWhiteLabel: string | null = null;
 	otpError: boolean = false;
-	regionListBasedOnCountryId: any[] = [];
 	submitted = false;
 	isShowConfirmationResponse: boolean = false;
 	genderOptions: any[] = []
@@ -125,7 +124,9 @@ export class PartnerRegisterComponent {
 	}
 
 	GetLocationList() {
-		if (this.registrationForm.get("country").value == 122) {
+		if (this.registrationForm.get("home_country").value == 122) {
+			this.registrationForm.get('location')?.enable();
+			this.registrationForm.get('location')?.reset();
 			this.locationService.getLocation().subscribe(
 				(res: any) => {
 					this.locationList = res;
@@ -139,13 +140,16 @@ export class PartnerRegisterComponent {
 				}
 			);
 		} else {
-			this.locationList = [{ id: 0, district: "Others" }];
+			this.locationList = [{
+				id: 0, district: "Others", state: "Others" 
+			}];
 			this.registrationForm.get("location").setValue(0);
+			this.registrationForm.get('location')?.disable();
 		}
 	}
 
 	fetchCountryList() {
-		this.landingService.fetchCountryList().subscribe(
+		this.locationService.getHomeCountry(2).subscribe(
 			(res: any) => {
 				this.countryList = res;
 			},
@@ -158,13 +162,14 @@ export class PartnerRegisterComponent {
 			}
 		);
 	}
-
+	onChangeCountry(event: any) {
+		this.GetLocationList();
+	}
 	get f() {
 		return this.registrationForm.controls;
 	}
 
 	onSubmit() {
-
 		if (this.registrationForm.value.password != this.registrationForm.value.confirmPassword) {
 			this.toast.add({
 				severity: "error",
@@ -186,7 +191,7 @@ export class PartnerRegisterComponent {
 			company_website: this.registrationForm.value.companyWebsite,
 			company_designation: this.registrationForm.value.designation,
 			phone_country_code: this.registrationForm.value.mobileNumber?.dialCode,
-			gender:this.registrationForm.value.gender
+			gender: this.registrationForm.value.gender
 		};
 
 		this.landingService.registerEmployer(data).subscribe({
@@ -195,7 +200,7 @@ export class PartnerRegisterComponent {
 				this.toast.add({
 					severity: "success",
 					summary: "Success",
-					detail: "Employer Registered",
+					detail: res.message,
 				});
 				this.afterRegisterAwaitingConfirmation = true;
 			},
@@ -381,26 +386,6 @@ export class PartnerRegisterComponent {
 		if (this.registrationForm.controls["emailAddress"].valid) {
 			this.showEmailErrorIcon = true;
 		}
-	}
-
-	onChangeCountry(event: any) {
-		this.fetchRegionByCountryId(event);
-	}
-
-	fetchRegionByCountryId(countryId: number) {
-		this.regionListBasedOnCountryId = [];
-		this.landingService.fetchRegionByCountryId(countryId).subscribe(
-			(res: any) => {
-				this.regionListBasedOnCountryId = res;
-			},
-			(error: any) => {
-				this.toast.add({
-					severity: "warning",
-					summary: "Warning",
-					detail: error.error.message,
-				});
-			}
-		);
 	}
 	// restrictions
 	blockNumbers(event: KeyboardEvent) {

@@ -163,7 +163,7 @@ export class UserManagementComponent implements OnInit {
 	getCountryList() {
 		this.locationService.getHomeCountry(2).subscribe(
 			(res: any) => {
-				this.countryList = res.filter((country: any) => country.id === 122)
+				this.countryList = res
 			},
 			(error: any) => { }
 		)
