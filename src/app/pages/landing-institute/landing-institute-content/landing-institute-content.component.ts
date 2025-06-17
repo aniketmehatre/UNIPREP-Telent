@@ -47,7 +47,7 @@ export class LandingInstituteContentComponent {
   welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`
 
   whyPartnerParagraph1: string = 'UNIPREP isn\'t just a platform—it\'s your bridge to growth. Offer real value to your audience, grow your revenue, and connect learners with opportunity.';
-  whyPartnerParagraph2: string = 'Launch fast. Empower users. Earn more.';
+  // whyPartnerParagraph2: string = 'Launch fast. Empower users. Earn more.';
 
   wantToKnowMoreTitle: string = 'WANT TO KNOW MORE?';
   wantToKnowMoreLead: string = 'REQUEST A DEMO OR JOIN THE UNIPREP NETWORK TODAY.';
@@ -74,7 +74,7 @@ export class LandingInstituteContentComponent {
       'Resume builder, mock interview prep, and job readiness tests',
       'Startup kit for entrepreneurship and business launch basics',
       'Language Hub with 25+ global languages',
-      'Future upgrades and new tools automatically included',
+      'All future upgrades and new tools automatically included at no extra cost',
     ],
     image: 'uniprep-assets/images/landing-institutes/institute2.webp', // Assuming a naming convention
     imageAlt: 'A student confidently walking with a laptop and coffee',
@@ -111,7 +111,6 @@ export class LandingInstituteContentComponent {
     subTitle: 'Stay informed about student activity and progress with:',
     features: [
       'Biannual usage reports tracking logins, tool use, certifications, and job applications',
-      'Engagement insights to support placement decisions and academic planning',
       'Engagement insights to support placement decisions and academic planning',
     ],
     image: 'uniprep-assets/images/landing-institutes/institute5.webp', // Assuming a naming convention based on the order

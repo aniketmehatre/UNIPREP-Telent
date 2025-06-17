@@ -36,28 +36,30 @@
 		<div class="row py-5">
 			<div class="col-12 col-md-8 mx-auto">
 				<div class="d-flex flex-wrap gap-3">
-					<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="country" styleClass="custom-country-select p-2" [showClear]="true" [style]="{ 'min-width': '200px', 'border-radius': '8px', border: '1px solid orange', background: 'transparent', color: '#fff' }" panelStyleClass="custom-dropdown-panel" [virtualScroll]="true" optionValue="id" [virtualScrollItemSize]="50" [filter]="true" filterBy="country" (onChange)="getPartnersListById($event.value)" placeholder="Select Country">
-						<ng-template let-country pTemplate="item">
-							<div class="d-flex align-items-center gap-2">
-								<div class="dropdownimg">
-									<img [src]="country?.flag" class="img-fluid" />
+					<div class="drip">
+						<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="country" styleClass="custom-country-select p-2" [showClear]="true" [style]="{ 'min-width': '300px', 'border-radius': '8px', border: '1px solid orange', background: 'transparent', color: '#fff' }" panelStyleClass="custom-dropdown-panel" optionValue="id" [filter]="true" filterBy="country" (onChange)="getPartnersListById($event.value)" placeholder="Select Country">
+							<ng-template let-country pTemplate="item">
+								<div class="d-flex align-items-center gap-2">
+									<div class="dropdownimg">
+										<img [src]="country?.flag" class="img-fluid" />
+									</div>
+									<div>
+										{{ country?.country }}
+									</div>
 								</div>
-								<div>
-									{{ country?.country }}
+							</ng-template>
+							<ng-template pTemplate="selectedItem" let-selectedOption>
+								<div class="d-flex align-items-center gap-2 text-white">
+									<div class="dropdownimg">
+										<img [src]="selectedOption.flag" class="img-fluid" />
+									</div>
+									<div>
+										{{ selectedOption.country }}
+									</div>
 								</div>
-							</div>
-						</ng-template>
-						<ng-template pTemplate="selectedItem" let-selectedOption>
-							<div class="d-flex align-items-center gap-2 text-white">
-								<div class="dropdownimg">
-									<img [src]="selectedOption.flag" class="img-fluid" />
-								</div>
-								<div>
-									{{ selectedOption.country }}
-								</div>
-							</div>
-						</ng-template>
-					</p-select>
+							</ng-template>
+						</p-select>
+					</div>
 					<div class="flex-grow-1">
 						<div class="input-group border-1 border-dark rounded-4">
 							<span class="input-group-text bg-dark border-0 text-white p-3">
@@ -65,9 +67,9 @@
 							</span>
 							<input type="text" [(ngModel)]="searchWord" (ngModelChange)="onSearchPartner($event)" class="form-control bg-dark text-white p-3 border-0 rounded-end-2" placeholder="Search For Partners..." style="border-radius: 0" />
 						</div>
-						<div *ngIf="filteredPartnerList && filteredPartnerList.length > 0" class="rounded-4 border-orange">
+						<div *ngIf="filteredPartnerList && filteredPartnerList.length > 0" class="rounded-4 border-orange dropdown-content">
 							<ng-container *ngFor="let partner of filteredPartnerList">
-								<div class="bg-dark text-white text-decoration-none py-3 border-white" [href]="'http:\\' + partner.domainname" target="_blank">
+								<div class="bg-dark text-white text-decoration-none p-3 border-white" [href]="'http:\\' + partner.domainname" target="_blank">
 									{{ partner.partnername }}
 								</div>
 							</ng-container>

@@ -20,7 +20,7 @@ export class ActiveJobsComponent implements OnInit {
   isShowEmpty: boolean = false;
   itemsPerPage: number = 9;
   first: number = 0;
-  totalJobs: number = 500;
+  totalJobs: string = "1,02,004";
 
   constructor(private landingTalentService: LandingTalentService) { }
 
