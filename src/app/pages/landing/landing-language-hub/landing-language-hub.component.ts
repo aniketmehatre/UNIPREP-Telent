@@ -10,7 +10,7 @@ import { landingServices } from '../landing.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { HeaderLogoStore } from '../landing-page.store';
 import {MetaService} from "../../../services/meta.service";
-
+import { CarouselModule } from 'primeng/carousel';
 
 @Component({
   selector: 'uni-landing-language-hub',
@@ -20,7 +20,8 @@ import {MetaService} from "../../../services/meta.service";
     RouterModule,
     AccordionModule,
     ButtonModule,
-    AvatarModule
+    AvatarModule,
+    CarouselModule
   ],
   templateUrl: './landing-language-hub.component.html',
   styleUrls: ['./landing-language-hub.component.scss']
@@ -42,7 +43,29 @@ export class LandingLanguageHubComponent implements OnInit, OnDestroy {
   embedUrl!: SafeResourceUrl;
   isInitialLoadVideo: boolean = true;
   videoUrl: string = '';
-
+  responsiveOptions = [
+			{
+				breakpoint: '1280px',
+				numVisible: 4,
+				numScroll: 4
+			},
+			{
+				breakpoint: '1024px',
+				numVisible: 3,
+				numScroll: 3
+			},
+			{
+				breakpoint: '768px',
+				numVisible: 2,
+				numScroll: 2
+			},
+			{
+				breakpoint: '560px',
+				numVisible: 1,
+				numScroll: 1
+			}
+  ];
+  
   constructor(private logoStore: HeaderLogoStore, private sanitizer: DomSanitizer, private route: ActivatedRoute, private landingPageService: landingServices, public location: Location) { }
 
   ngOnInit() {

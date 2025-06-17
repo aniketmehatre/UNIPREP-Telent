@@ -22,12 +22,14 @@
 								<p class="mb-4 fs-5">{{ landingPageData?.herocover?.hero_description }}</p>
 								<div class="d-flex gap-2">
 									<!-- <button class="btn btn-outline-light !rounded-1 px-4 py-2" (click)="scrollToSection($event, 'why-choose-us')">Learn More</button> -->
-									<button class="btn btn-secondary !rounded-1 px-4 py-2" routerLink="/login">Try for Free!</button>
+									<button class="btn btn-secondary !rounded-1 px-4 py-2" routerLink="/login">Try for
+										Free!</button>
 								</div>
 							</div>
 							<div class="col-md-5">
 								<div class="position-relative fakemockup">
-									<img class="mockup" src="uniprep-assets/images/mockup-frame.webp" (click)="toggleVideo()"/>
+									<img class="mockup" src="uniprep-assets/images/mockup-frame.webp"
+										(click)="toggleVideo()" />
 									<div class="video-container position-absolute top-0">
 										<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button"
 											*ngIf="!isPlaying" (click)="toggleVideo()"></i>
@@ -40,8 +42,7 @@
 										</iframe>
 
 										<!-- Video thumbnail (shown when not playing) -->
-										<img *ngIf="!isPlaying"  class="video-thumbnail"
-											[src]="posterUrl"
+										<img *ngIf="!isPlaying" class="video-thumbnail" [src]="posterUrl"
 											alt="Video thumbnail">
 									</div>
 								</div>
@@ -60,8 +61,8 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h2 class="text-white fw-light mb-4">
-							Why Choose the <span class="uniprep-secondary fw-semibold">{{ landingPageData?.feature_name }}</span
-							>?
+							Why Choose the <span class="uniprep-secondary fw-semibold">{{ landingPageData?.feature_name
+								}}</span>?
 						</h2>
 					</div>
 					<div class="col-md-12">
@@ -120,7 +121,9 @@
 									(click)="selectedStep = step">
 									<div class="card-body d-flex justify-content-between">
 										<div>
-											<h4 class="card-title" [ngClass]="{ 'uniprep-secondary': selectedStep == step }">Step {{ step.step }}</h4>
+											<h4 class="card-title"
+												[ngClass]="{ 'uniprep-secondary': selectedStep == step }">Step {{
+												step.step }}</h4>
 											<p>{{ step.itswork_title }}</p>
 										</div>
 										<div class="position-relative">
@@ -135,7 +138,8 @@
 								</div>
 							</div>
 							<div class="col-md-7 order-md-2 order-1">
-								<div class="rounded-4 border border-dark overflow-hidden mb-md-0 mb-4" *ngIf="selectedStep">
+								<div class="rounded-4 border border-dark overflow-hidden mb-md-0 mb-4"
+									*ngIf="selectedStep">
 									<img class="w-100"
 										(error)="$event.target.src = '/uniprep-assets/images/placeholder.webp'"
 										[src]="selectedStep?.feature_image_url" alt="Platform Preview" />
@@ -154,25 +158,24 @@
 			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12">
-						<h2 class="text-white fw-light mb-4">Who Is the {{ landingPageData?.feature_name }} Designed For?</h2>
+						<h2 class="text-white fw-light mb-4">Who Is the {{ landingPageData?.feature_name }} Designed
+							For?</h2>
 					</div>
 					<div class="col-md-12">
-						<div class="row">
-							<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-3"
-								*ngFor="let userType of whoItsFor">
-								<div class="card h-100">
+						<p-carousel [value]="whoItsFor" [numVisible]="4" [numScroll]="2" [circular]="true" [showIndicators]="false" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
+							<ng-template let-userType pTemplate="item">
+								<div class="card h-100 carousel-item-custom">
 									<div class="card-body">
 										<div class="w-100 rounded-2 overflow-hidden mb-3">
-											<img style="object-fit: cover" class="w-100"
-												(error)="$event.target.src = '/uniprep-assets/images/placeholder.webp'"
-												[src]="userType.image_url" [alt]="userType.itsfor_title" />
-										</div>
+											<img class="w-100" style="object-fit: cover;"
+												(error)="$event.target.src = '/uniprep-assets/images/placeholder.webp'" [src]="userType.image_url" [src]="userType.image_url"
+												[alt]="userType.itsfor_title"></div>
 										<h4 class="card-title">{{ userType.itsfor_title }}</h4>
 										<p>{{ userType.itsfor_subtitle }}</p>
 									</div>
 								</div>
-							</div>
-						</div>
+							</ng-template>
+						</p-carousel>
 					</div>
 				</div>
 			</div>
@@ -212,7 +215,9 @@
 							<div class="accordion pb-3" id="accordionFAQ">
 								<div class="accordion-item faqcard" *ngFor="let faq of faqs; let i = index">
 									<h2 class="accordion-header">
-										<button class="accordion-button text-white collapsed fs-5" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#' + 'faq' + i" aria-expanded="false" [attr.aria-controls]="'faq' + i">
+										<button class="accordion-button text-white collapsed fs-5" type="button"
+											data-bs-toggle="collapse" [attr.data-bs-target]="'#' + 'faq' + i"
+											aria-expanded="false" [attr.aria-controls]="'faq' + i">
 											{{ faq.question }}
 										</button>
 									</h2>
