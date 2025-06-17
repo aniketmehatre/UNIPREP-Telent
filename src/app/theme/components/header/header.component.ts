@@ -902,7 +902,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	logout() {
 		// Clear UI state immediately to improve perceived performance
 		this.isLoading = true;
-
 		// Create a cleanup function to handle all synchronous operations
 		const cleanupLocalState = () => {
 			window.sessionStorage.clear();
@@ -912,8 +911,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			this.locationService.clearCache();
 			this.authTokenService.clearToken();
 			this.isLoading = false;
-			// this.authService._user = null as any;
-			// this.headerHomeFlag = ""
+			this.authService._user = null as any;
 		};
 
 		// Prepare all API calls that need to be made
