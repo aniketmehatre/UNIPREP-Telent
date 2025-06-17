@@ -96,7 +96,10 @@ export class AuthService {
 
 
   set user(u: User) {
+    console.log( this._user);
+    
     this._user = u;
+      console.log( this._user);
     this.userData.next(u);
   }
 
