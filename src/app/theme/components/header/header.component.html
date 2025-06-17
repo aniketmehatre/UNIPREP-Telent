@@ -265,7 +265,9 @@
 					</div>
 					<div label="" role="button" class="headercountry me-2 ms-2 d-none d-md-block"
 						title="Selected Country">
-						<img src="../../../uniprep-assets/icons/india.png" alt="flag" height="auto" width="auto" />
+						<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'"
+							[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'"
+							alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 					</div>
 
 					<div class="d-none d-md-flex align-items-center gap-3">
