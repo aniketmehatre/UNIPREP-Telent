@@ -18,9 +18,9 @@
 	<div class="card-body text-center flex-fill overflow-y-auto d-flex flex-column justify-content-md-center align-items-md-center">
 		<div class="container-fluid">
 			<div class="row justify-content-center">
-				<div class="col-md-6">
+				<div class="col-md-8">
                     <h3 class="text-center mb-4 fw-bold uniprep-primary">
-                        {{talentConnectMainList[0].title == 'Create Profile' ? 'Create your profile, explore' : 'Explore' }} jobs that match your skills,and get hired faster with seamless employer connections!
+                        Explore jobs that match your skills, and get hired faster with seamless employer connections!
                     </h3>
                 </div>
 				<div class="col-md-8">
@@ -31,12 +31,11 @@
 								<uni-launch-soon-tag *ngIf="item.launch_soon" message="Launching soon"></uni-launch-soon-tag>
 								<!-- Card Body -->
 								<div class="card-body d-flex flex-column justify-content-md-between align-items-center" >
-									<div class="mb-4">
+									<div>
 										<div class="icon-container d-flex align-items-center justify-content-center mx-auto">
 											<img [src]="item.image" alt="Profile" class="feature-icon rounded-pill" />
 										</div>
-										<h4 class="text-center mt-3 fw-bold mb-0">{{ item.title }}</h4>
-										<p class="fw-semibold uniprep-secondary">{{ item.value }}</p>
+										<h4 class="text-center fw-bold mb-0" style="margin-top: 2rem;">{{ item.title }}</h4>
 									</div>
 								</div>
 							</div>
