@@ -1259,9 +1259,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	continueTrial(): void {
 		let data: any = {}
-		console.log(this.mobileForm.value.home_country);
-		if (this.mobileForm.get('home_country')?.valid && this.mobileForm.get('study_level')?.valid) {	
+		if (this.mobileForm.valid) {
+			data.phone = this.mobileForm.value.phone.number
 			data.home_country = this.mobileForm.value.home_country
+			data.country_code = this.mobileForm.value.phone.dialCode
 			data.study_level = this.mobileForm.value.study_level
 		}
 		if (this.demoTrial == true) {
@@ -1284,7 +1285,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.authService._userContineTrial = false
 				setTimeout(() => {
 					this.checkNewUser()
-					//window.location.reload()
+					window.location.reload()
 				}, 2000)
 				return res
 			},
@@ -1301,12 +1302,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		)
 	}
 	onClickSubscribedUser(): void {
-		if (this.imagewhitlabeldomainname.toLowerCase()  === "uniprep" || this.imagewhitlabeldomainname === "Partner") {
+		if (this.imagewhitlabeldomainname === "uniprep" || this.imagewhitlabeldomainname === "Partner") {
 			this.visibleExhastedUser = false
 			let data: any = {}
-			if (this.mobileForm.get('home_country')?.valid && this.mobileForm.get('study_level')?.valid) {	
+			if (this.mobileForm.valid) {
+				data.phone = this.mobileForm.value.phone.number
 				data.home_country = this.mobileForm.value.home_country
-				data.study_level = this.mobileForm.value.study_level
+				data.country_code = this.mobileForm.value.phone.dialCode
 			}
 			if (this.demoTrial == true) {
 				data.demo_user = 1

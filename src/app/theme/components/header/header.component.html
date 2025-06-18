@@ -581,7 +581,6 @@
 						</span>
 					</div>
 					<form [formGroup]="mobileForm">
-						<!--
 						<div class="w-100 phonenumberblock d-none" *ngIf="formvisbility">
 							<p class="m-1">Enter your number to continue the experience</p>
 							<ngx-intl-tel-input class="intel-input w-100" appendTo="body"
@@ -593,7 +592,7 @@
 								[(ngModel)]="phoneNumber" [disabled]="isPhoneDisabled" [attr.disabled]="isPhoneDisabled"
 								customPlaceholder="Enter {{haveWhatsapp}} Number"
 								formControlName="phone"></ngx-intl-tel-input>
-						</div>  -->
+						</div>
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
 							<p class="m-1">Select Your Home Country</p>
 							<p-select class="w-100" formControlName="home_country" appendTo="body"
@@ -606,7 +605,7 @@
 							<p-select class="w-100" formControlName="study_level" appendTo="body"
 								[options]="programLevelList" placeholder="Current Education" optionLabel="programlevel"
 								optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
-						</div> 
+						</div>
 						<div *ngIf="freeTrialErrorMsg" class="text-danger text-center">
 							{{ freeTrialErrorMsg }}
 						</div>
@@ -614,12 +613,12 @@
 							<h6 style="color: rgb(63 76 131)">Enjoy access to <strong>UNIPREP</strong> V 1.0</h6>
 						</div>
 						<div class="d-flex justify-content-center">
-							<button   [disabled]="!mobileForm.get('home_country')?.value || !mobileForm.get('study_level')?.value"
+							<button [disabled]="formvisbility && mobileForm.invalid"
 								class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()"
 								alt="chat with notification">
 								<span class="text-small fw-normal px-3">Subscribe Now</span>
 							</button>
-							<button  [disabled]="!mobileForm.get('home_country')?.value || !mobileForm.get('study_level')?.value"
+							<button [disabled]="formvisbility && mobileForm.invalid"
 								class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
 								<span class="text-small fw-normal px-2" (click)="continueTrial()">Continue Trial</span>
 							</button>
