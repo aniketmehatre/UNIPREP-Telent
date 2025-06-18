@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TalentConnectService } from "../../talent-connect.service";
 import { ChatComponent } from "../chat/chat.component";
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'uni-company-view',
@@ -16,7 +17,8 @@ import { ChatComponent } from "../chat/chat.component";
     CommonModule,
     ChipModule,
     RouterModule,
-    ChatComponent
+    ChatComponent,
+    SkeletonModule
   ]
 })
 export class CompanyViewComponent implements OnInit {
@@ -43,10 +45,10 @@ export class CompanyViewComponent implements OnInit {
   ];
 
   workLocation = 'On-Site';
-
   showChat: boolean = false;
   companyDetails: any;
   companyId: any
+  isSkeletonVisible: boolean = true;
 
   constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService) {
   }
@@ -60,8 +62,10 @@ export class CompanyViewComponent implements OnInit {
     this.talentConnectService.getCompanyDetails(id).subscribe({
       next: data => {
         this.companyDetails = data[0];
+        this.isSkeletonVisible = false;
       },
       error: err => {
+        this.isSkeletonVisible = false;
         console.log(err);
       }
     });

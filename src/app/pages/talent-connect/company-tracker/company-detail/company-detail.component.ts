@@ -5,13 +5,14 @@ import { ChipModule } from 'primeng/chip';
 import { TalentConnectService } from "../../talent-connect.service";
 import { ChatComponent } from '../../company-connect/chat/chat.component';
 import { Company } from 'src/app/@Models/company-connect.model';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'uni-company-detail',
   templateUrl: './company-detail.component.html',
   styleUrls: ['./company-detail.component.scss'],
   standalone: true,
-  imports: [ChipModule, ButtonModule, CommonModule, ChatComponent]
+  imports: [ChipModule, ButtonModule, CommonModule, ChatComponent, SkeletonModule]
 })
 export class CompanyDetailComponent implements OnInit, OnChanges {
 
@@ -35,6 +36,7 @@ export class CompanyDetailComponent implements OnInit, OnChanges {
     about: 'We\'re a company dedicated to helping students achieve their dream of studying abroad. Our journey began in 2019, when our founders recognized the need for a reliable and comprehensive overseas education company. Since then, we\'ve been working tirelessly to guide students in the process of applying to and studying at top universities around the world.\nWe\'re proud of the work we\'ve done so far, and we\'re excited to continue making a positive impact on the lives of students around the world.'
   };
   companyDetails!: Company;
+  isSkeletonVisible: boolean = false;
 
   constructor(private talentConnectService: TalentConnectService) {
   }
@@ -52,8 +54,10 @@ export class CompanyDetailComponent implements OnInit, OnChanges {
     this.talentConnectService.getCompanyDetails(this.companyId).subscribe({
       next: data => {
         this.companyDetails = data[0];
+        this.isSkeletonVisible = false;
       },
       error: err => {
+        this.isSkeletonVisible = false;
         console.log(err);
       }
     });
@@ -71,6 +75,7 @@ export class CompanyDetailComponent implements OnInit, OnChanges {
       }
     });
   }
+  
   onStudentIdFromChat(id: number) {
     this.studentIdRelay.emit(id); // Bubble it up to parent
   }
