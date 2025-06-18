@@ -1,6 +1,7 @@
 import { SocialAuthService } from "@abacritt/angularx-social-login"
 import { CommonModule } from "@angular/common"
 import {
+	ChangeDetectorRef,
 	Component,
 	ElementRef,
 	EventEmitter,
@@ -204,7 +205,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private assessmentService: AssessmentService,
 		private authTokenService: AuthTokenService,
 		private storage: StorageService,
-		private promptService: PromptService
+		private promptService: PromptService,
+		private cdr: ChangeDetectorRef
 	) {
 		this.dataService.openReportWindowSource.subscribe({
 			next: (data) => {
@@ -533,7 +535,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		const userDetails = this.authService._user as User;
 		this.userName = userDetails.name || '';
 		this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
-
 		// Set home country icon if available
 		if (userDetails.home_country_id) {
 			this.homeCountryId = userDetails.home_country_id;
@@ -585,6 +586,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.dataService.homeCountryFlagSource.subscribe({
 			next: (data) => {
 				this.headerHomeFlag = data;
+				this.cdr.detectChanges();
 			},
 			error: (error) => {
 				console.error('Error in home country flag subscription:', error);
@@ -900,11 +902,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	logout() {
 		// Clear UI state immediately to improve perceived performance
 		this.isLoading = true;
-
 		// Create a cleanup function to handle all synchronous operations
 		const cleanupLocalState = () => {
 			window.sessionStorage.clear();
 			localStorage.clear();
+			this.storage.remove("homeCountryId")
 			this.authService.clearCache();
 			this.locationService.clearCache();
 			this.authTokenService.clearToken();
@@ -1395,29 +1397,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.subs.sink = this.locationService.getHomeCountry(2).subscribe({
 			next: (res: any) => {
 				this.countryList = res;
-
+       
 				// First try to get country from localStorage
 				const storedHomeCountryId = this.storage.get('homeCountryId');
-
 				// Find selected home country with fallbacks
 				const selectedHomeCountry = storedHomeCountryId ?
 					res.find((data: any) => data.id === Number(storedHomeCountryId)) :
 					res.find((data: any) => data.id === this.homeCountryId) ||
 					res.find((data: any) => data.id === 122);
 
-				if (selectedHomeCountry) {
+				if (selectedHomeCountry) {				
 					this.headerHomeFlag = selectedHomeCountry.flag;
 					this.selectedHomeCountry = selectedHomeCountry;
 					this.homeCountryName = selectedHomeCountry.country;
 					this.dataService.changeHomeCountryFlag(selectedHomeCountry.flag);
 					this.storage.set('homeCountryId', selectedHomeCountry.id.toString());
+					this.cdr.detectChanges();
 				} else {
 					// Set default values for India
 					const defaultCountry = {
 						id: 122,
 						country: 'India',
 						flag: `../../uniprep-assets/icons/india.png`
-					};
+					};					
 					this.headerHomeFlag = defaultCountry.flag;
 					this.homeCountryName = defaultCountry.country;
 					this.selectedHomeCountry = defaultCountry;
