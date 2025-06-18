@@ -270,3 +270,8 @@ kbd {
 	padding: 10px;
 	object-fit: contain;
 }
+
+.dropdown-content{
+  max-height: 300px;
+  overflow-y: scroll;
+}

@@ -315,3 +315,8 @@ h5 {
   -ms-user-select: auto !important;
   user-select: auto !important;
 }
+
+.dropdown-content{
+  max-height: 300px;
+  overflow-y: scroll;
+}

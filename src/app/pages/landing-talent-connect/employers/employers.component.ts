@@ -17,7 +17,7 @@ export class EmployersComponent {
   companyConnectList: string[] = [];
   displayUnlockFilter: boolean = false;
   isShowEmpty: boolean = false;
-  totalEmployers: number = 500;
+  totalEmployers: string = "86,342";
   currentPage: number = 1;
   itemsPerPage: number = 9;
   first: number = 0;
