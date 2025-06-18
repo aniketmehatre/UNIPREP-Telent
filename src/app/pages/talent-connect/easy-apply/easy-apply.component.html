@@ -7,9 +7,7 @@
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div>
-						<h5 class="mb-0" tooltipPosition="top"
-							pTooltip="Questions related to the application process are answered">Easy Apply<i
-								class="questiontooltip fa-solid fa-circle-question"></i></h5>
+						<h5 class="mb-0">Easy Apply</h5>
 					</div>
 					<div>
 						<button class="how-it-works-button"
@@ -47,23 +45,27 @@
 		</div>
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
-		<div class="row">
+		<div class="row" *ngIf="!isSkeletonVisible && jobListings.length > 0; else noJobs">
 			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2" *ngFor="let job of jobListings"
 				[routerLink]="['/pages/talent-connect/easy-apply', job.id]">
 				<div class="card card-inside h-100 text-start position-relative" role="button">
-					<button class="btn btn-link text-warning p-0 position-absolute" style="right: 0.5rem; top: 0.5rem; z-index: 999;"
-						(click)="showSocialSharingList($event)">
+					<button class="btn btn-link text-warning p-0 position-absolute"
+						style="right: 0.5rem; top: 0.5rem; z-index: 999;" (click)="showSocialSharingList($event)">
 						<i class="fa-regular fa-share-alt"></i>
 					</button>
 					<p-card id="socialSharingList">
 						<ul style="list-style: none; cursor: pointer">
-							<li (click)="shareQuestion($event,'Whatsapp', job)"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-							<li (click)="shareQuestion($event,'Mail', job)"><i class="pi pi-envelope"></i>Email</li>
-							<li (click)="shareQuestion($event,'Facebook', job)"><i class="pi pi-facebook"></i>Facebook</li>
-							<li (click)="shareQuestion($event,'Twitter', job)"><i class="pi pi-twitter"></i>Twitter</li>
-							<li (click)="shareQuestion($event,'Instagram', job)"><i class="pi pi-instagram"></i>Instagram
+							<li (click)="shareQuestion($event,'Whatsapp', job)"><i class="pi pi-whatsapp"></i>Whatsapp
 							</li>
-							<li (click)="shareQuestion($event,'LinkedIn', job)"><i class="pi pi-linkedin"></i>LinkedIn</li>
+							<li (click)="shareQuestion($event,'Mail', job)"><i class="pi pi-envelope"></i>Email</li>
+							<li (click)="shareQuestion($event,'Facebook', job)"><i class="pi pi-facebook"></i>Facebook
+							</li>
+							<li (click)="shareQuestion($event,'Twitter', job)"><i class="pi pi-twitter"></i>Twitter</li>
+							<li (click)="shareQuestion($event,'Instagram', job)"><i
+									class="pi pi-instagram"></i>Instagram
+							</li>
+							<li (click)="shareQuestion($event,'LinkedIn', job)"><i class="pi pi-linkedin"></i>LinkedIn
+							</li>
 							<li (click)="copyLink($event, job.id)"><i class="pi pi-link"></i>Copy Link</li>
 						</ul>
 					</p-card>
@@ -221,6 +223,19 @@
 				</div>
 			</div>
 		</div>
+		<ng-template #noJobs>
+			<div class="card bg-white h-100">
+				<div class="d-flex flex-fill justify-content-center align-items-center flex-column text-center">
+					<div class="building-icon mb-4">
+						<img src="uniprep-assets/images/job.webp" alt="Building" class="img-fluid" />
+					</div>
+					<h4 class="mb-3">No jobs found matching your search.</h4>
+					<p class="text-muted">
+						Please try adjusting your filters or check back soon — new opportunities are added regularly
+					</p>
+				</div>
+			</div>
+		</ng-template>
 	</div>
 	<div class="card-footer py-1 border-0 bg-transparent">
 		<div class="row d-flex align-items-center justify-content-between">
