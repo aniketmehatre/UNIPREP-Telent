@@ -102,10 +102,10 @@
         <div class="row justify-content-center">
           <div class="col-md-4 col-12 text-center isforyou" *ngFor="let card of cardItems">
             <div class="card darkcard h-100">
-              <div class="card-body d-flex py-5 px-4">
-                <div class="d-flex flex-md-row flex-column gap-2 align-items-center card-title">
-                  <i class="fa-thin fa-square-check fa-2xl cardicon mb-4 mb-md-0"></i>
-                  <h5 class="text-md-start text-center mb-0">{{ card.text }}</h5>
+              <div class="card-body d-flex justify-content-center py-4 px-4">
+                <div class="d-flex flex-column gap-2 align-items-center justify-content-center card-title">
+                  <span class="mb-2"><i class="{{ card.icon }} fw-light cardicon h1"></i></span>
+                  <h5 class="text-center mb-0 fw-normal">{{ card.text }}</h5>
                 </div>
               </div>
             </div>
