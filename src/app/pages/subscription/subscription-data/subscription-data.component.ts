@@ -23,6 +23,7 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { landingServices } from '../../landing/landing.service';
 @Component({
 	selector: "uni-subscription-data",
 	templateUrl: "./subscription-data.component.html",
@@ -74,15 +75,15 @@ export class SubscriptionDataComponent implements OnInit {
 	monthlyPlan: number = 1
 	education_level: string = ""
 	activeButton: number = 1
-	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, private http: HttpClient) {}
+	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, private http: HttpClient,private landingPageService: landingServices) {}
 	timeLeftInfoCard: any
 	couponTab: boolean = false
+	currentLocationCountry: any
 
 	async ngOnInit(): Promise<void> {
 		try {
 			// let homeCountryName = null;
 			let homeCountryName = this.storage.get("home_country_name");
-
 			// if (encHomeCountryName) {
 			// 	try {
 			// 		const decryptedText = await this.authService.decryptData(encHomeCountryName);
@@ -160,7 +161,27 @@ export class SubscriptionDataComponent implements OnInit {
 		this.isInstructionVisible = true
 	}
 
-	getSubscriptionList() {
+	getCurrentLoction(): Promise<void> {
+		return new Promise((resolve) => {
+			this.landingPageService.getCountryName().subscribe({
+				next: (response: any) => {
+					this.currentCountry = response.country_name;
+					resolve();
+				},
+				error: error => {
+					this.currentCountry = "India"; // If failed, use default
+					resolve();
+				}
+			});
+		});
+	}
+
+ 
+
+
+	async  getSubscriptionList() {
+		this.currentLocationCountry = await this.getCurrentLoction();
+			//console.log(345+" ==== "+this.currentLocationCountry);
 		if(this.activeButton ==1){
 			this.monthlyPlan=1;
 		}else if(this.activeButton ==2){
@@ -542,4 +563,5 @@ export class SubscriptionDataComponent implements OnInit {
 		this.getSubscriptionList();
 	}
 
+ 
 }
