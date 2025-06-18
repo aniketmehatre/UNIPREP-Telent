@@ -66,22 +66,40 @@ export class LandingContentComponent implements OnInit {
 
   cardItems = [
     {
+      icon: "fa-thin fa-handshake",
       text: "You want to connect with potential employers.",
     },
     {
-      text: "You're unsure about career preparation and want to upskill.",
+      icon: "fa-thin fa-user-graduate",
+      text: "You are exploring opportunities to study abroad.",
     },
     {
-      text: "You're interested in learning new languages.",
+      icon: "fa-thin fa-lightbulb-on",
+      text: "You are unsure about career preparation and want to upskill.",
     },
     {
-      text: "You're seeking education abroad.",
+      icon: "fa-thin fa-briefcase",
+      text: "You are planning to start your own business.",
     },
     {
-      text: "You're planning to start your own business.",
+      icon: "fa-thin fa-language",
+      text: "You are interested in learning new languages.",
     },
     {
-      text: "You're eager to travel the world.",
+      icon: "fa-thin fa-earth",
+      text: "You are eager to travel the world.",
+    },
+    {
+      icon: "fa-thin fa-search",
+      text: "You want to hire skilled, job-ready candidates.",
+    },
+    {
+      icon: "fa-thin fa-users",
+      text: "You are looking to build a strong talent pipeline.",
+    },
+    {
+      icon: "fa-thin fa-sack-dollar",
+      text: "You are looking to reduce recruitment costs.",
     },
   ];
 
