@@ -115,7 +115,7 @@
 													class="text-danger">*</span></label>
 											<p-datepicker id="dateOfBirth" formControlName="date_of_birth"
 												dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY" styleClass="w-100"
-												[maxDate]="today" [readonlyInput]="true"
+												[maxDate]="today"
 												(onFocus)="updateMessageBox('date_of_birth')"
 												(focusout)="resetMessageBox()" />
 											<small class="text-danger"
@@ -1789,7 +1789,7 @@
 	</div>
 	<div class="card-footer bg-white">
 		<div class="row align-items-center">
-			<div class="col-8" [ngClass]="isShowAiEvaluation ? 'col-md-8' : 'col-md-10'">
+			<div class="col-8 col-md-8">
 				<ng-container *ngIf="!profileScore">
 					<div class="d-flex align-items-center gap-2">
 						<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile Completion: {{
@@ -1812,22 +1812,21 @@
 					</div>
 				</ng-container>
 			</div>
-			<div class="col-4 col-md-2 text-end" [ngClass]="isShowAiEvaluation ? 'col-md-4' : 'col-md-2'">
+			<div class="col-4 col-md-4 text-end">
 				<ng-container *ngIf="!isShowAiEvaluation">
 					<button pButton type="button" (click)="onCallAIEvaluation()"
-						class="btn btn-primary btn-rounded p-1 ps-4 mt-1">
-						<span class="me-2">Review Profile</span><span class="btn-icon px-2 py-2"><i
-								class="pi pi-check text-white"></i></span>
+						class="btn btn-primary btn-rounded px-3 py-2 me-2">
+						<span>AI Review</span>
 					</button>
 				</ng-container>
-				<ng-container *ngIf="isShowAiEvaluation">
-					<button pButton type="button" (click)="isShowAiEvaluation = false; aiEvaluationContent = ''"
-						class="btn btn-primary btn-rounded p-1 ps-4 mt-1 me-1">
+				<ng-container>
+					<button *ngIf="isShowAiEvaluation" pButton type="button" (click)="isShowAiEvaluation = false; aiEvaluationContent = ''"
+						class="btn btn-primary btn-rounded p-1 ps-4 me-2">
 						<span class="me-2">Edit Profile</span><span class="btn-icon px-2 py-2"><i
-								class="pi pi-check text-white"></i></span>
+								class="pi pi-arrow-left text-white"></i></span>
 					</button>
 					<button pButton type="button" (click)="onSubmit()"
-						class="btn btn-success btn-rounded p-1 ps-4 mt-1">
+						class="btn btn-success btn-rounded p-1 ps-4">
 						<span class="me-2">Complete Your Profile</span><span class="btn-icon px-2 py-2"><i
 								class="pi pi-check text-white"></i></span>
 					</button>
