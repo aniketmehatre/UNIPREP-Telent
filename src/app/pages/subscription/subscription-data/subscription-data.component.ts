@@ -180,8 +180,7 @@ export class SubscriptionDataComponent implements OnInit {
 
 
 	async  getSubscriptionList() {
-		this.currentLocationCountry = await this.getCurrentLoction();
-			//console.log(345+" ==== "+this.currentLocationCountry);
+		 await this.getCurrentLoction();
 		if(this.activeButton ==1){
 			this.monthlyPlan=1;
 		}else if(this.activeButton ==2){
