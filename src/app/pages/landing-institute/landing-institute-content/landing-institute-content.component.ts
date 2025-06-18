@@ -151,7 +151,7 @@ export class LandingInstituteContentComponent {
   instituteList: Institute[] = [];
   filteredInstituteList: Institute[] = [];
   searchWord: string = '';
-  videoUrl: string = `https://www.youtube.com/embed/t8_sOhBjOFo?rel=0&autoplay=1`;
+  videoUrl: string = `https://www.youtube.com/embed/42B2CeFKC3U?si=oOPvw0g2JPqducFG?rel=0&autoplay=1`;
   embedUrl!: SafeResourceUrl;
   isInitialLoadVideo: boolean = true;
   constructor(private landingInstituteService: LandingInstituteService, private sanitizer: DomSanitizer) { }
