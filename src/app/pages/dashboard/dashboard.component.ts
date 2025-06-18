@@ -82,11 +82,11 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	]
 	safeSrc: SafeResourceUrl;
 	fieldsToCheck = ["name", "email", "phone", "home_country_id", "selected_country", "location_id", "last_degree_passing_year", "intake_year_looking", "intake_month_looking", "programlevel_id"]
-
+	viewAllJobAndCompanies: boolean = false;
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
 		private dataService: DataService, private authService: AuthService, private locationService: LocationService,
-		private cdr: ChangeDetectorRef, private toaster: MessageService, private seoManagerComponent: SeoManagerComponent, 
-		private formBuilder: FormBuilder,private sanitizer: DomSanitizer, private route: ActivatedRoute,private talentConnectService: TalentConnectService
+		private cdr: ChangeDetectorRef, private toaster: MessageService, private seoManagerComponent: SeoManagerComponent,
+		private formBuilder: FormBuilder, private sanitizer: DomSanitizer, private route: ActivatedRoute, private talentConnectService: TalentConnectService
 	) {
 		this.reportSubmitForm = this.formBuilder.group({
 			reportOption: [""],
@@ -237,11 +237,19 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	openViewMoreOrg(): void {
-		this.router.navigate(["/pages/talent-connect/company-connect"]);
+		if (this.isProfileCreated) {
+			this.router.navigate(["/pages/talent-connect/company-connect"]);
+		} else {
+			this.viewAllJobAndCompanies = true;
+		}
 	}
 
 	viewMoreOpenJobApplication() {
-		this.router.navigate(["/pages/talent-connect/easy-apply"]);
+		if (this.isProfileCreated) {
+			this.router.navigate(["/pages/talent-connect/easy-apply"]);
+		} else {
+			this.viewAllJobAndCompanies = true;
+		}
 	}
 
 	openMyProfile() {
@@ -344,19 +352,22 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.userBasedVideo);
 		})
 	}
-	 checkIfProfileCreated() {
-        this.talentConnectService.getMyProfileData().subscribe({
-            next: response => {
-                if (response && response.count) {
-                    if (response.count > 0) {
-                        this.isProfileCreated = true;
-                        this.cdr.detectChanges();
-                    }
-                }
-            },
-            error: error => {
-                console.log('error while calling get profile!.');
-            }
-        });
-    }
+	checkIfProfileCreated() {
+		this.talentConnectService.getMyProfileData().subscribe({
+			next: response => {
+				if (response && response.count) {
+					if (response.count > 0) {
+						this.isProfileCreated = true;
+						this.cdr.detectChanges();
+					}
+				}
+			},
+			error: error => {
+				console.log('error while calling get profile!.');
+			}
+		});
+	}
+	redirectEmployerProfile() {
+		this.router.navigate(["/pages/talent-connect/my-profile"]);
+	}
 }
