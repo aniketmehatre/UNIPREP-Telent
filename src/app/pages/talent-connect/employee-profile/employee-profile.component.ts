@@ -12,6 +12,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile";
 import { SelectChangeEvent } from "primeng/select";
 import { environment } from "@env/environment";
+import { InputNumberInputEvent } from "primeng/inputnumber";
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -89,6 +90,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     { id: "Percentage", value: "Percentage" },
     { id: "GPA", value: "GPA" },
   ];
+  isMaxGpaPercentageValue: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private dialogService: DialogService,
@@ -1308,7 +1311,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     if (response.references && response.references.length > 0) {
       const academicRefArray = this.personalInfoForm.get("academicReferences") as FormArray
       academicRefArray.clear()
-      response.references.forEach((ref: any, index:number) => {
+      response.references.forEach((ref: any, index: number) => {
         academicRefArray.push(
           this.fb.group({
             id: [ref.id], // Store the original ID
@@ -1326,7 +1329,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     if (response.professional_references && response.professional_references.length > 0) {
       const professionalRefArray = this.personalInfoForm.get("professional_references") as FormArray
       professionalRefArray.clear()
-      response.professional_references.forEach((ref: any, index:number) => {
+      response.professional_references.forEach((ref: any, index: number) => {
         professionalRefArray.push(
           this.fb.group({
             id: [ref.id], // Store the original ID
@@ -2323,6 +2326,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     };
     const url = guideMap[type];
     window.open(url, '_blank');
+  }
+
+  onChangeGpaPercentage(event: InputNumberInputEvent, type: string) {
+    if (event.value) {
+      let maxValue = type == 'Percentage' ? 100 : 10;
+      this.isMaxGpaPercentageValue = maxValue < Number(event.value) ? true : false;
+    }
+    else {
+      this.isMaxGpaPercentageValue = false;
+    }
   }
 
   ngOnDestroy(): void {

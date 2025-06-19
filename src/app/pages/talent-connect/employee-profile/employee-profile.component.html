@@ -198,7 +198,7 @@
 														placeholder="Select your highest qualification"
 														styleClass="w-100" optionLabel="qualification_name"
 														optionValue="id" [filter]="true" filterBy="qualification_name"
-														(focusout)="resetMessageBox()"
+														(focusout)="resetMessageBox()" [appendTo]="'body'"
 														(onFocus)="updateMessageBox('education_qualification_id')"></p-select>
 													<small class="text-danger"
 														*ngIf="education.get('education_qualification_id')?.invalid && education.get('education_qualification_id')?.touched">
@@ -228,7 +228,8 @@
 														styleClass="w-100" optionLabel="field_name" optionValue="id"
 														[filter]="true" filterBy="field_name"
 														(focusout)="resetMessageBox()"
-														(onFocus)="updateMessageBox('education_field_id')"></p-select>
+														(onFocus)="updateMessageBox('education_field_id')"
+														[appendTo]="'body'"></p-select>
 													<small class="text-danger"
 														*ngIf="education.get('education_field_id')?.invalid && education.get('education_field_id')?.touched">
 														Field of study is required </small>
@@ -280,7 +281,7 @@
 														<p-select [options]="cgpaPercentageList"
 															formControlName="education_cgpa_or_percentage_type"
 															optionLabel="value" optionValue="id"
-															placeholder="Select GPA / Percentage"
+															placeholder="Select GPA / Percentage" [appendTo]="'body'"
 															(onChange)="onChangeCGPAorPercentage($event,i)"
 															[style]="{ width: '150px' }"></p-select>
 														<div class="flex-grow-1">
@@ -290,9 +291,11 @@
 																	mode="decimal"
 																	placeholder="Enter your GPA / Percentage"
 																	class="w-100" [maxFractionDigits]="2" [min]="0"
-																	[max]="education.get('education_cgpa_or_percentage_type')?.value == 'Percentage' ? 100 : 10"
+																	[maxlength]="education.get('education_cgpa_or_percentage_type')?.value == 'Percentage' ? 3 : 4"
 																	(focusout)="resetMessageBox()"
-																	(onFocus)="updateMessageBox('education_cgpa_or_percentage')" />
+																	(onFocus)="updateMessageBox('education_cgpa_or_percentage')"
+																	(onInput)="onChangeGpaPercentage($event, education.get('education_cgpa_or_percentage_type')?.value)"
+																	[readonly]="education.get('education_cgpa_or_percentage_type')?.value ? false : true"/>
 																<p-inputgroup-addon
 																	*ngIf="education.get('education_cgpa_or_percentage_type')?.value == 'Percentage'">
 																	<i class="pi pi-percentage"></i>
@@ -307,8 +310,8 @@
 														Please fill both values.
 													</samll>
 													<small class="text-danger"
-														*ngIf="education.get('education_cgpa_or_percentage')?.invalid && education.get('education_cgpa_or_percentage')?.touched">
-														Percentage must be between 0 and {{education.get('education_cgpa_or_percentage_type')?.value == 'Percentage' ? 100 : 10 }} </small>
+														*ngIf="isMaxGpaPercentageValue">
+														 {{education.get('education_cgpa_or_percentage_type')?.value == 'Percentage' ? 'Percentage must be between 0 and 100' : 'GPA must be between 0 and 10' }} </small>
 												</div>
 											</div>
 										</ng-container>
@@ -356,7 +359,7 @@
 														[options]="jobTitles" placeholder="Select Job Title"
 														styleClass="w-100" optionLabel="job_title"
 														optionValue="job_title" [filter]="true" filterBy="job_title"
-														(focusout)="resetMessageBox()"
+														(focusout)="resetMessageBox()" [appendTo]="'body'"
 														(onFocus)="updateMessageBox('work_experience_job_title')">
 														<ng-template #header>
 															<div class="p-2">
@@ -429,7 +432,7 @@
 												<div class="col-md-6 mb-3">
 													<label class="form-label">Employment Type</label>
 													<p-select formControlName="work_experience_employment_type"
-														[options]="preferredEmploymentType"
+														[options]="preferredEmploymentType" [appendTo]="'body'"
 														placeholder="Select employement type" styleClass="w-100"
 														(focusout)="resetMessageBox()"
 														(onFocus)="updateMessageBox('work_experience_employment_type')"></p-select>
@@ -568,7 +571,7 @@
 													Career Status<span class="text-danger">*</span></label>
 												<p-select formControlName="career_preference_career_status"
 													[options]="careerStatus" placeholder="Select Career Status"
-													styleClass="w-100" (focusout)="resetMessageBox()"
+													styleClass="w-100" (focusout)="resetMessageBox()" appendTo="body"
 													(onFocus)="updateMessageBox('career_preference_career_status')"></p-select>
 												<small class="text-danger"
 													*ngIf="personalInfoForm.get('career_preference_career_status')?.invalid && personalInfoForm.get('career_preference_career_status')?.touched">
@@ -580,7 +583,7 @@
 												<p-select pTooltip="Not able to find please type in Job Title"
 													[virtualScroll]="true" [virtualScrollItemSize]="50"
 													formControlName="career_preference_job_title_id"
-													[options]="jobTitles"
+													[options]="jobTitles" appendTo="body"
 													placeholder="Select the Job role you are looking for"
 													styleClass="w-100" optionLabel="job_title" optionValue="job_title"
 													[filter]="true" filterBy="job_title" (focusout)="resetMessageBox()"
@@ -851,7 +854,7 @@
 													<p-select formControlName="languages_language_id"
 														[options]="languageList" placeholder="Enter know language"
 														styleClass="w-100" optionLabel="language" optionValue="id"
-														[filter]="true" filterBy="language"
+														[filter]="true" filterBy="language" appendTo="body"
 														(focusout)="resetMessageBox()"
 														(onFocus)="updateMessageBox('languages_language_id')"></p-select>
 													<small class="text-danger"
@@ -862,7 +865,7 @@
 													<div class="row">
 														<div class="col">
 															<p-select formControlName="languages_proficiency"
-																[options]="languageProficiency"
+																[options]="languageProficiency" appendTo="body"
 																placeholder="Enter language proficiency"
 																styleClass="w-100" (focusout)="resetMessageBox()"
 																(onFocus)="updateMessageBox('languages_proficiency')"></p-select>
@@ -1082,7 +1085,7 @@
 												[formGroupName]="i">
 												<div class="col-md-6">
 													<p-select formControlName="networking_social_media"
-														[options]="socialMedias"
+														[options]="socialMedias" appendTo="body"
 														placeholder="Select any social media platform"
 														styleClass="w-100" (focusout)="resetMessageBox()"
 														(ngModelChange)="changeSocialMedia($event)"
