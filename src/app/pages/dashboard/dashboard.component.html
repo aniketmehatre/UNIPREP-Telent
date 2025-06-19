@@ -1,19 +1,19 @@
 <div class="row">
-	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+	<div class="col-xl-6 col-lg-6 col-md-7 col-sm-12 col-12">
 		<h4 class="fw-semibold mb-0">Hello, {{ userName }} <span class="emoji" aria-label="clapping hands">👏</span></h4>
-		<h6 class="fw-normal lh-base mb-2 mb-md-0">
+		<p class="fw-normal lh-base mb-2 mb-md-0">
 			Welcome to <span class="highlight-text"><b>UNIPREP</b></span
 			>! Let's get started on your journey to a brighter future!
-		</h6>
+		</p>
 	</div>
-	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+	<div class="col-xl-6 col-lg-6 col-md-5 col-sm-12 col-12">
 		<h4 class="text-md-end mb-0 fw-bold">Missing Something?</h4>
-		<h6 class="text-md-end">
+		<p class="text-md-end">
 			<span class="text-decoration-underline" (click)="openReportModal(op, $event)"
-				><span class="h5 text-primary cursor-pointer"><strong> Let us know </strong></span>
+				><span class="text-primary cursor-pointer"><strong> Let us know </strong></span>
 			</span>
 			<span> and we will build the feature you need in 15 days!</span>
-		</h6>
+		</p>
 	</div>
 </div>
 <div class="row mb-3" role="main">
@@ -164,7 +164,7 @@
 			<div class="card mb-2 flex-fill bg-white">
 				<div class="card-body d-flex flex-column justify-content-between">
 					<div class="text-start">
-						<h5 class="ppercase"><span class="emoji" aria-label="hourglass">⌛</span> Quiz</h5>
+						<h5 class="uppercase"><span class="emoji" aria-label="hourglass">⌛</span> Quiz</h5>
 						<p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
 					</div>
 					<button pButton severity="warn" (click)="openQuiz()" class="btn btn-rounded font-weight-bold mt-2" style="color: #ff9138; border-color: #ff9138; background-color: #fff1e7" aria-label="Start Quiz">Start Quiz</button>
@@ -173,7 +173,7 @@
 			<div class="card mb-2 flex-fill bg-white">
 				<div class="card-body d-flex flex-column justify-content-between">
 					<div class="text-start">
-						<h5 class="uppercase fw-bold"><span class="emoji" aria-label="scroll">📜</span> Certification</h5>
+						<h5 class="uppercase"><span class="emoji" aria-label="scroll">📜</span> Certification</h5>
 						<p class="mb-0">Get all your certificates in one place to share them on social media.</p>
 					</div>
 					<button pButton (click)="openCertificate()" class="btn btn-rounded mt-2" style="color: #455c9e; background-color: #ecedf3; border-color: #455c9e" aria-label="View My Certificates">My Certificates</button>
