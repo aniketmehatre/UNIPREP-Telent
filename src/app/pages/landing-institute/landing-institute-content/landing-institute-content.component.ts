@@ -15,9 +15,9 @@ interface LandingSection {
   subTitle: string;
   features: string[];
   image: string; // Optional image property
-  imageAlt: string; 
+  imageAlt: string;
   placeholderText?: string;
-  isRight: boolean 
+  isRight: boolean
 }
 
 interface Institute {
@@ -29,7 +29,7 @@ interface Institute {
 }
 interface InstituteCategory {
   title: string;
-  emoji: string; 
+  emoji: string;
 }
 
 @Component({
@@ -39,7 +39,7 @@ interface InstituteCategory {
   styleUrl: './landing-institute-content.component.scss'
 })
 export class LandingInstituteContentComponent {
-@ViewChild("videoPlayer")
+  @ViewChild("videoPlayer")
   videoPlayer!: ElementRef
   isPlaying = false;
   countries: Country;
@@ -53,83 +53,83 @@ export class LandingInstituteContentComponent {
   wantToKnowMoreLead: string = 'REQUEST A DEMO OR JOIN THE UNIPREP NETWORK TODAY.';
   joinNowButtonText: string = 'Join Now';
 
- landingSections: LandingSection[] = [
-  {
-    title: 'Virtual Campus Hiring & Employer Connect',
-    subTitle: 'Transform your placement process with a real-time virtual ecosystem:',
-    features: [
-      'Access to 1,000+ verified global and local employers',
-      'Job listings across sectors, including internships, part-time, and full-time roles',
-      'Smart filters and AI-powered job matching',
-      'Smart filters to match students with the right roles',
-    ],
-    image: 'uniprep-assets/images/landing-institutes/institute1.webp', // Assuming a naming convention based on the order
-    imageAlt: 'A person using a virtual platform to connect with potential employers',
-     isRight: true,
-  },
-  {
-    title: 'End-to-End Student Career Tools',
-    subTitle: 'Equip your students with the skills and resources they need to succeed.',
-    features: [
-      'Resume builder, mock interview prep, and job readiness tests',
-      'Startup kit for entrepreneurship and business launch basics',
-      'Language Hub with 25+ global languages',
-      'All future upgrades and new tools automatically included at no extra cost',
-    ],
-    image: 'uniprep-assets/images/landing-institutes/institute2.webp', // Assuming a naming convention
-    imageAlt: 'A student confidently walking with a laptop and coffee',
-    isRight: false,
-  },
-  {
-    title: 'Co-Branded Platform Experience',
-    subTitle: 'Promote your institution while delivering top-tier digital services:',
-    features: [
-      'A co-branded portal that reflects your college or university’s identity',
-      'Customized interface with your logo, name, and colour theme',
-      'Strengthens trust and visibility for both students and external stakeholders',
-      'Accessed via your own unique link or subdomain',
-      'Ideal for showcasing innovation, student services, and placement readiness',
-    ],
-    image: 'uniprep-assets/images/landing-institutes/institute3.webp', // Assuming a naming convention based on the order
-    imageAlt: 'Two professionals shaking hands, representing a co-branded partnership',
-    isRight: true,
-  },
-  {
-    title: 'Built Around Your Needs',
-    subTitle: 'Every institute is different. UNIPREP adapts accordingly',
-    features: [
-      'Custom feature development available at no additional cost',
-      'Designed to support placement cells, training teams, and career services departments',
-      'Simple, guided onboarding with dedicated support',
-    ],
-    image: 'uniprep-assets/images/landing-institutes/institute4.webp', // Assuming a naming convention based on the order
-    imageAlt: 'Two colleagues collaborating on a computer, highlighting customized support',
-    isRight: false,
-  },
-  {
-    title: 'Insights for Better Planning',
-    subTitle: 'Stay informed about student activity and progress with:',
-    features: [
-      'Biannual usage reports tracking logins, tool use, certifications, and job applications',
-      'Engagement insights to support placement decisions and academic planning',
-    ],
-    image: 'uniprep-assets/images/landing-institutes/institute5.webp', // Assuming a naming convention based on the order
-    imageAlt: 'A person analyzing data on a computer screen for better planning',
-    isRight: true,
-  },
-  {
-    title: 'No Setup. No Hardware. Scales with You.',
-    subTitle: 'Launch Instantly. Scale Easily.',
-    features: [
-      'Fully cloud-based—no servers, no physical infrastructure required',
-      'Affordable for institutions of all sizes with tiered access models',
-      'Continuous upgrades and all features included without extra charges',
-    ],
-    image: 'uniprep-assets/images/landing-institutes/institute6.webp', // Assuming a naming convention based on the order
-    imageAlt: 'A professional working on a laptop, emphasizing ease of setup and scalability',
-    isRight: false,
-  },
-];
+  landingSections: LandingSection[] = [
+    {
+      title: 'Virtual Campus Hiring & Employer Connect',
+      subTitle: 'Transform your placement process with a real-time virtual ecosystem:',
+      features: [
+        'Access to 1,000+ verified global and local employers',
+        'Job listings across sectors, including internships, part-time, and full-time roles',
+        'Smart filters and AI-powered job matching',
+        'Smart filters to match students with the right roles',
+      ],
+      image: 'uniprep-assets/images/landing-institutes/institute1.webp', // Assuming a naming convention based on the order
+      imageAlt: 'A person using a virtual platform to connect with potential employers',
+      isRight: true,
+    },
+    {
+      title: 'End-to-End Student Career Tools',
+      subTitle: 'Equip your students with the skills and resources they need to succeed.',
+      features: [
+        'Resume builder, mock interview prep, and job readiness tests',
+        'Startup kit for entrepreneurship and business launch basics',
+        'Language Hub with 25+ global languages',
+        'All future upgrades and new tools automatically included at no extra cost',
+      ],
+      image: 'uniprep-assets/images/landing-institutes/institute2.webp', // Assuming a naming convention
+      imageAlt: 'A student confidently walking with a laptop and coffee',
+      isRight: false,
+    },
+    {
+      title: 'Co-Branded Platform Experience',
+      subTitle: 'Promote your institution while delivering top-tier digital services:',
+      features: [
+        'A co-branded portal that reflects your college or university’s identity',
+        'Customized interface with your logo, name, and colour theme',
+        'Strengthens trust and visibility for both students and external stakeholders',
+        'Accessed via your own unique link or subdomain',
+        'Ideal for showcasing innovation, student services, and placement readiness',
+      ],
+      image: 'uniprep-assets/images/landing-institutes/institute3.webp', // Assuming a naming convention based on the order
+      imageAlt: 'Two professionals shaking hands, representing a co-branded partnership',
+      isRight: true,
+    },
+    {
+      title: 'Built Around Your Needs',
+      subTitle: 'Every institute is different. UNIPREP adapts accordingly',
+      features: [
+        'Custom feature development available at no additional cost',
+        'Designed to support placement cells, training teams, and career services departments',
+        'Simple, guided onboarding with dedicated support',
+      ],
+      image: 'uniprep-assets/images/landing-institutes/institute4.webp', // Assuming a naming convention based on the order
+      imageAlt: 'Two colleagues collaborating on a computer, highlighting customized support',
+      isRight: false,
+    },
+    {
+      title: 'Insights for Better Planning',
+      subTitle: 'Stay informed about student activity and progress with:',
+      features: [
+        'Biannual usage reports tracking logins, tool use, certifications, and job applications',
+        'Engagement insights to support placement decisions and academic planning',
+      ],
+      image: 'uniprep-assets/images/landing-institutes/institute5.webp', // Assuming a naming convention based on the order
+      imageAlt: 'A person analyzing data on a computer screen for better planning',
+      isRight: true,
+    },
+    {
+      title: 'No Setup. No Hardware. Scales with You.',
+      subTitle: 'Launch Instantly. Scale Easily.',
+      features: [
+        'Fully cloud-based—no servers, no physical infrastructure required',
+        'Affordable for institutions of all sizes with tiered access models',
+        'Continuous upgrades and all features included without extra charges',
+      ],
+      image: 'uniprep-assets/images/landing-institutes/institute6.webp', // Assuming a naming convention based on the order
+      imageAlt: 'A professional working on a laptop, emphasizing ease of setup and scalability',
+      isRight: false,
+    },
+  ];
 
   instituteCategories: InstituteCategory[] = [
     { title: 'Undergraduate Institutes', emoji: '🎓' },
@@ -196,10 +196,12 @@ export class LandingInstituteContentComponent {
 
   onSearchInstitutes(event: any) {
     const searchTerm = event?.toLowerCase() || '';
-    this.filteredInstituteList = this.instituteList.filter((item) =>
-      item.institutename.toLowerCase().includes(searchTerm)
+    this.filteredInstituteList = this.instituteList.filter((item) => {
+      return item.institutename
+        ? item.institutename.toLowerCase().includes(searchTerm)
+        : false;
+    }
     );
-    console.log(this.filteredInstituteList);
   }
 
   navigateRouteLink(url: string) {

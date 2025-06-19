@@ -9,7 +9,7 @@
 								<span role="button" onclick="history.back()"><i class="fa-solid fa-chevron-left fa-xl"></i></span>
 							</div>
 							<div class="col-md-8">
-								<h4 class="text-white text-center">{{ blog.title }}</h4>
+								<h4 class="text-white text-center">{{ blog?.title }}</h4>
 							</div>
 							<div class="col-md-2">&nbsp;</div>
 						</div>
@@ -17,14 +17,14 @@
 				</div>
 			</div>
 			<div class="col-md-10">
-				<div class="blogimage" [style.backgroundImage]="'url(' + blog.featured_img + ')'">
+				<div class="blogimage" [style.backgroundImage]="'url(' + blog?.featured_img + ')'">
 				</div>
 			</div>
 			<div class="col-md-10">
 				<div class="row mt-4">
 					<div class="col-md-7">
-						<h5 class="py-3">{{blog.title}}</h5>
-						<p class="text-white" [innerHTML]="blog.seo_title"></p>
+						<h5 class="py-3">{{blog?.title}}</h5>
+						<p class="text-white" [innerHTML]="blog?.seo_title"></p>
 					</div>
 					<div class="col-md-1 text-center">
 						<div class="vr h-100 bg-light"></div>

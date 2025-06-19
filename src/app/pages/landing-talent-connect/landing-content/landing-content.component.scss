@@ -661,8 +661,12 @@ h2 {
 	}
 }
 
-.mar-top-bottom-100{
-	margin: 100px 0px 100px 0px;
+.mt-100{
+	margin-top: 100px;
+}
+
+.mb-100{
+	margin-bottom: 100px;
 }
 // Responsive adjustments
 
@@ -680,4 +684,22 @@ h2 {
 	.section-title {
 		font-size: 2rem;
 	}
+}
+
+.backgroundColor{
+	background: linear-gradient(90deg, #d14b9a 0%, #e67e22 100%);
+	color: white;
+}
+
+.fs-35{
+	font-size: 35px;
+}
+
+.fs-21{
+	font-size: 21px;
+}
+
+.bg-black{
+	background-color: #000;
+	color: white;
 }

@@ -98,6 +98,7 @@ section {
   border: #07070b;
   &:hover {
     transform: translateY(-5px);
+	color: var(--uniprep-secondary) !important;
   }
 }
 

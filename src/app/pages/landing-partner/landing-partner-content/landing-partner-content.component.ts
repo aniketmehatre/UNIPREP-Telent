@@ -47,7 +47,6 @@ export class LandingPartnerContentComponent implements OnInit {
   videoUrl: string = `https://www.youtube.com/embed/uWcCcFtEKs0?si=GrKxz4zeCFxwNnE_?rel=0&autoplay=1`;
   embedUrl!: SafeResourceUrl;
   whyPartnerParagraph1: string = 'UNIPREP is more than a platform — it’s your gateway to expansion and impact. Deliver unmatched value to your audience, boost your brand trust, and open doors to global opportunities for your learners.';
-  whyPartnerParagraph2: string = 'Onboard quickly, empower your users with 70+ career tools, and unlock new revenue streams — all with UNIPREP.';
   isInitialLoadVideo: boolean = true;
   wantToKnowMoreTitle: string = 'WANT TO KNOW MORE?';
   wantToKnowMoreLead: string = 'REQUEST A DEMO OR JOIN THE UNIPREP NETWORK TODAY.';
@@ -56,7 +55,7 @@ export class LandingPartnerContentComponent implements OnInit {
   partnerCategories: PartnerCategory[] = [
     { title: 'Study Abroad Consultants', emoji: '🌍' },
     { title: 'Local Admission Consultants', emoji: '🏛️' },
-    { title: 'Test Prep & Coaching Centers', emoji: '🧑‍🎓' },
+    { title: 'Test Prep & Coaching Centers', emoji: '🎓' },
     { title: 'Career Counseling Centers', emoji: '💼' },
     { title: 'Immigration Consultants', emoji: '🛂' },
     { title: 'Language Training Institutes', emoji: '📖' },
@@ -206,10 +205,14 @@ export class LandingPartnerContentComponent implements OnInit {
   // }
   onSearchPartner(event: any) {
     const searchTerm = event?.toLowerCase() || '';
-    this.filteredPartnerList = this.partnersList.filter((item) =>
-      item.partnername.toLowerCase().includes(searchTerm)
-    );
-    console.log(this.filteredPartnerList);
+    this.filteredPartnerList = this.partnersList.filter((item) => {
+      return item.partnername
+        ? item.partnername.toLowerCase().includes(searchTerm)
+        : false;
+    });
   }
 
+   navigateRouteLink(url: string) {
+    window.open('http://' + url, '_blank');
+  }
 }

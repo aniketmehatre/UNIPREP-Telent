@@ -149,11 +149,12 @@ export class AboutUsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-    toggleVideo() {
-      if (this.isInitialLoadVideo) {
-        this.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
-        this.isInitialLoadVideo = false;
-      }
-      this.isPlaying = !this.isPlaying;
+  toggleVideo() {
+    if (this.isInitialLoadVideo) {
+      this.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
+      this.isInitialLoadVideo = false;
     }
+    this.isPlaying = !this.isPlaying;
+  }
+  
 }

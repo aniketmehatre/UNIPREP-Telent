@@ -216,3 +216,14 @@ video::-webkit-media-controls-panel {
   font-size: 60px;
   font-weight: 100;
 }
+
+.timeline-scroll-container {
+  position: relative;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.timeline-scroll-arrow {
+  position: absolute;
+  left: -20px;
+}

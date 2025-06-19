@@ -3,7 +3,7 @@
 		<div class="row justify-content-center">
 			<div class="col-md-8 d-flex flex-column justify-content-center align-items-center">
 				<div class="display-2"><span class="text-white fw-extralight">From Classroom to Career</span><br /><span
-						class="text-white fw-bold">Equip Student for the Real Worldss</span></div>
+						class="text-white fw-bold">Equip Student for the Real World</span></div>
 				<div class="text-center mb-4 mt-4">
 					<a href="/register" class="text-decoration-none"><button type="button"
 							class="btn btn-secondary px-4 py-3 m-0">
@@ -43,7 +43,7 @@
 				<div class="d-flex flex-wrap gap-3">
 					<div class="dropdown">
 						<p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="country"
-							styleClass="custom-country-select p-2" [showClear]="true"
+							styleClass="custom-country-select p-2"
 							[style]="{ 'min-width': '300px', 'border-radius': '8px', border: '1px solid orange', background: 'transparent', color: '#fff' }"
 							panelStyleClass="custom-dropdown-panel" optionValue="id"
 							[filter]="true" filterBy="country"
@@ -79,7 +79,7 @@
 								class="form-control bg-dark text-white p-3 border-0 rounded-end-2"
 								placeholder="Search For Institutes..." style="border-radius: 0" />
 						</div>
-						<div *ngIf="filteredInstituteList && filteredInstituteList.length > 0"
+						<div *ngIf="filteredInstituteList && filteredInstituteList.length > 0 && searchWord.length > 0"
 							class="rounded-4 border-orange dropdown-content">
 							<ng-container *ngFor="let institute of filteredInstituteList">
 								<div class="bg-dark text-white text-decoration-none py-3 px-2 border-white cursor-pointer"
@@ -165,8 +165,25 @@
 		</div>
 	</div>
 </section>
+<section class="pt-5 darksection">
+	<div class="container-fluid">
+		<div class="row justify-content-center align-items-center">
+			<div class="col-md-8">
+				<h3 class="text-white fw-light mb-4">Our <span class="fw-bold">Advisors</span></h3>
+				<div class="slider-container">
+					<div class="slider-track d-flex justify-content-start align-items-center gap-5">
+						<img src="uniprep-assets/images/partner-advisors/advisor-1.png" alt="Image 1" />
+						<img src="uniprep-assets/images/partner-advisors/advisor-2.png" alt="Image 2" />
+						<img src="uniprep-assets/images/partner-advisors/advisor-3.png" alt="Image 3" />
+						<img src="uniprep-assets/images/partner-advisors/advisor-4.png" alt="Image 4" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
-<section class="pt-5 pb-5 cta-field darksection">
+<section class="pb-5 cta-field darksection">
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
@@ -186,23 +203,6 @@
 								<a href="/register" class="btn cta-btn m-0 h5 py-3">{{ joinNowButtonText }}</a>
 							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<section class="pt-5 pb-5 darksection">
-	<div class="container-fluid">
-		<div class="row justify-content-center align-items-center">
-			<div class="col-md-8">
-				<h3 class="text-white fw-light mb-4">Our <span class="fw-bold">Advisors</span></h3>
-				<div class="slider-container">
-					<div class="slider-track d-flex justify-content-start align-items-center gap-5">
-						<img src="uniprep-assets/images/partner-advisors/advisor-1.png" alt="Image 1" />
-						<img src="uniprep-assets/images/partner-advisors/advisor-2.png" alt="Image 2" />
-						<img src="uniprep-assets/images/partner-advisors/advisor-3.png" alt="Image 3" />
-						<img src="uniprep-assets/images/partner-advisors/advisor-4.png" alt="Image 4" />
 					</div>
 				</div>
 			</div>

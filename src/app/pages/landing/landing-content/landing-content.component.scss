@@ -44,6 +44,25 @@ video::-webkit-media-controls-panel {
 	align-items: center;
 }
 
+.quote-icon {
+  position: absolute;
+  font-size: 160px;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+  color: inherit;
+}
+
+.quote-top-left {
+  top: -79px;
+  left: -10px;
+}
+
+.quote-bottom-right {
+  bottom: -79px;
+  right: -10px;
+}
+
 .fa-circle-play {
 	position: absolute;
 	display: flex;
@@ -600,11 +619,27 @@ h6 {
 	display: flex;
 }
 
+@media (min-width: 576px) {
+  .quote-icon {
+    font-size: 120px;
+  }
+}
+
+
 @media screen and (max-width: 768px) {
 	video {
 		width: 100%;
 		height: auto;
 	}
+	.quote-icon {
+		font-size: 140px;
+	}
+}
+
+@media (min-width: 992px) {
+  .quote-icon {
+    font-size: 160px;
+  }
 }
 
 .blogimage {
