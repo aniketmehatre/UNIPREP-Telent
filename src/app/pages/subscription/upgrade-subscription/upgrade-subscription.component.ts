@@ -35,6 +35,7 @@ import { ConfirmDialogModule } from "primeng/confirmdialog"
 import { ToastModule } from "primeng/toast"
 import { TabViewModule } from "primeng/tabview"
 import { log } from "node:console"
+import { landingServices } from '../../landing/landing.service';
 @Component({
 	selector: "uni-upgrade-subscription",
 	templateUrl: "./upgrade-subscription.component.html",
@@ -83,7 +84,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
 	activeTabIndex: number = 0
 	education_level: string = ""
 	activeButton: number = 1
-	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, private router: Router, private winRef: WindowRefService, private store: Store<SubscriptionState>, private http: HttpClient, private confirmationService: ConfirmationService, private messageService: MessageService, private stripeService: StripeService) {}
+	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, private router: Router, private winRef: WindowRefService, private store: Store<SubscriptionState>, private http: HttpClient, private confirmationService: ConfirmationService, private messageService: MessageService, private stripeService: StripeService,private landingPageService: landingServices) {}
 	timeLeftInfoCard: any
 	userName: any
 	phone: any
@@ -185,7 +186,23 @@ export class UpgradeSubscriptionComponent implements OnInit {
 		this.isInstructionVisible = true
 	}
 
-	getSubscriptionList(canChangeSubscription: string) {
+	getCurrentLoction(): Promise<void> {
+		return new Promise((resolve) => {
+			this.landingPageService.getCountryName().subscribe({
+				next: (response: any) => {
+					this.currentCountry = response.country_name;
+					resolve();
+				},
+				error: error => {
+					this.currentCountry = "India"; // If failed, use default
+					resolve();
+				}
+			});
+		});
+	}
+
+	async getSubscriptionList(canChangeSubscription: string) {
+		await this.getCurrentLoction();
 		this.ngxService.startBackground()
 		if(this.activeButton ==1){
 			this.monthlyPlan=1;
