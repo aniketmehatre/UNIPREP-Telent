@@ -1283,7 +1283,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.authService._userContineTrial = false
 				setTimeout(() => {
 					this.checkNewUser()
-					//window.location.reload()
+					window.location.reload()
 				}, 2000)
 				return res
 			},
