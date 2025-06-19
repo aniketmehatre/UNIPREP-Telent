@@ -43,7 +43,7 @@ export class AboutUsComponent implements OnInit {
   // @ViewChild('videoPlayer') videoPlayer!: ElementRef;
   // welcomeVideoLink: string = 'https://uniprepapi.storage.googleapis.com/Landing/welcome.mp4';
   welcomeVideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
-  videoUrl: string = `https://www.youtube.com/embed/Sv8EyWriqV0?rel=0&autoplay=1`;
+  videoUrl: string = `https://www.youtube.com/embed/FOPErdSv9AQ?si=Dnawlh7RFlpupy3d?rel=0&autoplay=1`;
   embedUrl!: SafeResourceUrl;
   isInitialLoadVideo: boolean = true;
   timelineData: TimelineItem[] = [
@@ -117,17 +117,17 @@ export class AboutUsComponent implements OnInit {
     {
       title: 'Self-Preparation',
       icon: '💼',
-      description: 'Whether you\'re applying for universities, planning your career, or starting a business, UNIPREP gives you the tools to succeed on your own terms.',
+      description: 'Whether you\’re applying to universities, planning your career path, or launching a startup, UNIPREP provides you with all the essential tools and guidance.',
     },
     {
       title: 'Independence',
       icon: '💻',
-      description: 'No reliance on agents or third parties—just the right resources to help you move forward.',
+      description: 'No need to depend on agents or intermediaries — just the right resources and support to help you progress confidently at your own pace.',
     },
     {
       title: 'Global Access',
       icon: '🔓',
-      description: 'From job applications to scholarship searches, everything is accessible to you directly—anywhere, anytime.',
+      description: 'From searching for scholarships to applying for jobs, everything you need is available directly to you, anytime and anywhere around the world.',
     },
   ];
 

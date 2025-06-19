@@ -6,7 +6,7 @@ import { LandingPartnerServices } from '../landing-partner.service';
 import { } from 'primeng/api';
 import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
-
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 interface LandingSection {
   title: string;
   subTitle: string;
@@ -44,10 +44,11 @@ export class LandingPartnerContentComponent implements OnInit {
   countries: string[] = ['United States', 'Canada', 'United Kingdom', 'Australia', 'India', 'Singapore', 'Germany'];
   selectedCountry: string = 'Select Country';
   welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`
-
+  videoUrl: string = `https://www.youtube.com/embed/uWcCcFtEKs0?si=GrKxz4zeCFxwNnE_?rel=0&autoplay=1`;
+  embedUrl!: SafeResourceUrl;
   whyPartnerParagraph1: string = 'UNIPREP is more than a platform — it’s your gateway to expansion and impact. Deliver unmatched value to your audience, boost your brand trust, and open doors to global opportunities for your learners.';
   whyPartnerParagraph2: string = 'Onboard quickly, empower your users with 70+ career tools, and unlock new revenue streams — all with UNIPREP.';
-
+  isInitialLoadVideo: boolean = true;
   wantToKnowMoreTitle: string = 'WANT TO KNOW MORE?';
   wantToKnowMoreLead: string = 'REQUEST A DEMO OR JOIN THE UNIPREP NETWORK TODAY.';
   joinNowButtonText: string = 'Join Now';
@@ -147,7 +148,7 @@ export class LandingPartnerContentComponent implements OnInit {
   partnersList: Partner[] = [];
   filteredPartnerList: Partner[] = [];
   searchWord: string = '';
-  constructor(private landingPartnerService: LandingPartnerServices) {
+  constructor(private landingPartnerService: LandingPartnerServices, private sanitizer: DomSanitizer) {
     this.getCountryList();
   }
 
@@ -180,15 +181,24 @@ export class LandingPartnerContentComponent implements OnInit {
     })
   }
 
+  // toggleVideo() {
+  //   const video: HTMLVideoElement = this.videoPlayer.nativeElement
+  //   if (video.paused) {
+  //     video.play()
+  //     this.isPlaying = true
+  //   } else {
+  //     video.pause()
+  //     this.isPlaying = false
+  //   }
+  // }
+
+  
   toggleVideo() {
-    const video: HTMLVideoElement = this.videoPlayer.nativeElement
-    if (video.paused) {
-      video.play()
-      this.isPlaying = true
-    } else {
-      video.pause()
-      this.isPlaying = false
+    if (this.isInitialLoadVideo) {
+      this.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
+      this.isInitialLoadVideo = false;
     }
+    this.isPlaying = !this.isPlaying;
   }
 
   // onSearchPartner(event: string) {

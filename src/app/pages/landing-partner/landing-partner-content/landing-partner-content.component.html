@@ -25,8 +25,17 @@
 					<iframe *ngIf="isPlaying" (click)="toggleVideo()" class="youtube-iframe" [src]="embedUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen> </iframe>
 
 					<!-- Video thumbnail (shown when not playing) -->
-					<img *ngIf="!isPlaying" class="video-thumbnail" src="uniprep-assets/images/landing-partners/partner-home-mock.webp" alt="Video thumbnail" />
+					<img *ngIf="!isPlaying" class="video-thumbnail" src="uniprep-assets/images/landing-partners/partner-home-mock.webp" alt="Video thumbnail" onerror="this.src='uniprep-assets/images/landing-partners/partner-home-mock.webp'" />
 				</div>
+				<!-- <div class="video-container">
+					<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying" (click)="toggleVideo()"></i> -->
+
+					<!-- YouTube iframe (shown when playing) -->
+					<!-- <iframe *ngIf="isPlaying" (click)="toggleVideo()" class="youtube-iframe" [src]="embedUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen> </iframe> -->
+
+					<!-- Video thumbnail (shown when not playing) -->
+					<!-- <img *ngIf="!isPlaying" class="video-thumbnail" src="uniprep-assets/images/landing-partners/partner-home-mock.webp" alt="Video thumbnail" /> 
+				</div>-->
 			</div>
 		</div>
 	</div>

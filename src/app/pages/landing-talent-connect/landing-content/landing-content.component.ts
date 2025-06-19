@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -17,7 +17,6 @@ import { environment } from "@env/environment";
     DialogModule,
     RouterModule,
     TimelineModule
-
   ],
   templateUrl: './landing-content.component.html',
   styleUrl: './landing-content.component.scss'
@@ -27,7 +26,7 @@ export class LandingContentComponent implements OnInit {
   @ViewChild("videoPlayer")
   videoPlayer!: ElementRef;
   welcomevideoLink: string = `https://api.uniprep.ai/uniprepapi/storage/app/public/Landing/welcome.mp4`;
-  videoUrl: string = `https://www.youtube.com/embed/AAXUZ0z5bl0?rel=0&autoplay=1`;
+  videoUrl: string = `https://www.youtube.com/embed/AAXUZ0z5bl0?si=U4BmozIZJvUnmUlr?rel=0&autoplay=1`;
   embedUrl!: SafeResourceUrl;
   isInitialLoadVideo: boolean = true;
   isPlaying = false;

@@ -24,7 +24,7 @@
 				<div class="row mt-4">
 					<div class="col-md-7">
 						<h5 class="py-3">{{blog.title}}</h5>
-						<p class="text-white">{{ blog.seo_title }}</p>
+						<p class="text-white" [innerHTML]="blog.seo_title"></p>
 					</div>
 					<div class="col-md-1 text-center">
 						<div class="vr h-100 bg-light"></div>
