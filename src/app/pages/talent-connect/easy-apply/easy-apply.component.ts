@@ -57,6 +57,9 @@ export class EasyApplyComponent {
   applicantCurrencyCode = signal<string>('');
   applicantCurrencyValue = signal<number>(0);
   currencyList: any[] = [];
+  isSkeletonVisible: boolean = true;
+
+  //Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
 
@@ -131,8 +134,10 @@ export class EasyApplyComponent {
             id: job.id,
             salary_per_month: job.salary_per_month
           }));
+        this.isSkeletonVisible = false;
       },
       error: error => {
+        this.isSkeletonVisible = false;
         console.log(error);
       }
     });

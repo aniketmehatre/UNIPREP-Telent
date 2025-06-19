@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PaginatorModule } from "primeng/paginator";
 import { TalentConnectService } from "../talent-connect.service";
-import { FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { Tooltip } from "primeng/tooltip";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Router, RouterLink } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { TagModule } from "primeng/tag";
@@ -21,7 +20,6 @@ interface DropdownOption {
     imports: [
         CommonModule,
         FormsModule,
-        Tooltip,
         RouterLink,
         ReactiveFormsModule,
         PaginatorModule,
@@ -45,8 +43,7 @@ export class CompanyConnect1Component implements OnInit {
     companyDataList = []
     totalJob: number;
     totalVacancies: number;
-    companyForm: FormGroup;
-
+    companyObj: any
 
     constructor(private talentConnectService: TalentConnectService,
         private router: Router, private messageService: MessageService, private pageFacade: PageFacadeService) {
@@ -86,18 +83,22 @@ export class CompanyConnect1Component implements OnInit {
         this.router.navigate(['/pages/talent-connect/easy-apply'], { queryParams: { company: id } });
     }
 
-    applyFilter() {
-        console.log(this.companyForm.value);
+    applyFilter(event: any) {
+        this.companyObj = event;
+        this.listCompanyData(this.companyObj)
+
     }
 
     clearFilter() {
+        this.companyObj = {};
+        this.listCompanyData(this.companyObj)
 
     }
 
     pageChange(event: any) {
         this.page = event.page + 1
         this.perPage = event.rows
-        this.listCompanyData()
+        this.listCompanyData(this.companyObj)
     }
 
     onClickCompany(id: number) {
