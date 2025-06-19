@@ -34,6 +34,10 @@ const routes: Routes = [
     path: 'institute/login',
     loadComponent: () => import('../institution-login/institution-login.component').then(m => m.InstitutionLoginComponent),
   },
+    {
+    path: 'institute/register',
+    loadComponent: () => import('./institute-register/institute-register.component').then(m => m.InstituteRegisterComponent),
+  },
 ]
 
 @NgModule({

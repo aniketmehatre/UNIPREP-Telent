@@ -23,4 +23,49 @@ export class LandingInstituteService {
   getStaticCardsByType(type: string) {
     return this.http.post<string[]>(environment.ApiUrl + "/", { type: type });
   }
+  // register api
+   registerEmployer(formValue: any): Observable<any> {
+        const formData = new FormData();
+        formData.append('name', formValue.name);
+        formData.append('email', formValue.email);
+        formData.append('phone', formValue.phone_number);
+        formData.append('phone_country_code', formValue.phone_country_code);
+        formData.append('password', formValue.password);
+        formData.append('password_confirmation', formValue.password_confirmation);
+        formData.append('country_id', formValue.country_id);
+        formData.append('location_id', formValue.location_id);
+        formData.append('organization_name', formValue.company_name);
+        formData.append('organization_website', formValue.company_website);
+        formData.append('designation', formValue.company_designation);
+        formData.append('gender', formValue.gender);
+        const headers = new HttpHeaders({
+            'Accept': 'application/json'
+        });
+
+        return this.http.post<any>(environment.ApiUrl + "/institutesRegister", formData, { headers });
+    }
+
+    sendEmailOTP(email: any, name: any, mobile: any): Observable<any> {
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('name', name);
+        formData.append('mobile', mobile);
+        const headers = new HttpHeaders({
+            'Accept': 'application/json'
+        });
+
+        return this.http.post<any>(environment.ApiUrl + "/sendpartnerotp", formData, { headers });
+    }
+    verifyEmailOTP(formValue: any): Observable<any> {
+        const formData = new FormData();
+        formData.append('full_name', formValue.full_name);
+        formData.append('email', formValue.email);
+        formData.append('otp', formValue.otp);
+
+        const headers = new HttpHeaders({
+            'Accept': 'application/json'
+        });
+
+        return this.http.post<any>(environment.ApiUrl + "/verifypartnerotp", formData, { headers });
+    }
 }

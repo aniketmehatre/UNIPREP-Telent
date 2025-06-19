@@ -1,0 +1,453 @@
+<section class="startbg h-100">
+	<div class="container-fluid h-100">
+		<div class="row h-100 align-items-center justify-content-center">
+			<div class="col-md-6 col-lg-4" *ngIf="!afterRegisterAwaitingConfirmation">
+				<ng-container *ngIf="!isShowConfirmationResponse; else showConfirmationResponse">
+					<div class="card">
+						<div class="card-body p-5">
+							<div class="row justify-content-center justify-content-md-center">
+								<div class="col-md-12 col-lg-12 col-12">
+									<div class="row">
+										<div class="col-md-12 col-lg-12 text-center">
+											<img [routerLink]="['/']" class="small-image text-left mb-2" role="button"
+												src="{{ imageUrlWhiteLabel }}" width="200" />
+											<h4 class="mt-3 mb-2 header text-center">Welcome</h4>
+											<p class="mt-3 mb-2 text-center subHeader">Sign In to your <span
+													class="subHeaderSpan uniprep-primary">UNIPREP </span> Institution
+												Portal.</p>
+
+											<form (ngSubmit)="onSubmit()" [formGroup]="registrationForm" class="mt-4">
+												<div class="registerForm">
+													<!-- Name/Number -->
+													<div class="row">
+														<div class="col-md-6 mt-2">
+															<label class="labelText col col-12" for="fullName">Full
+																Name<span class="required">*</span></label>
+															<p-inputGroup>
+																<input
+																	[ngClass]="{ 'is-invalid': submitted && f.full_name.errors }"
+																	formControlName="full_name" id="fullName" pInputText
+																	placeholder="Enter Full Name" type="text"
+																	(keypress)="blockNumbers($event)" />
+															</p-inputGroup>
+															<div *ngIf="submitted && f.full_name.errors"
+																class="invalid-feedback">
+																<div *ngIf="f.full_name.errors.required">Full Name is
+																	required</div>
+															</div>
+														</div>
+														<div class="col-md-6 mt-2">
+															<label class="col col-12" for="mobileNumber">Mobile
+																Number<span class="required">*</span></label>
+															<ngx-intl-tel-input class="w-100"
+																[cssClass]="'form-control p-2 fs-6 w-100 border border-gray rounded-start-0'"
+																[preferredCountries]="['in']"
+																[enableAutoCountrySelect]="true"
+																[enablePlaceholder]="true" [searchCountryFlag]="true"
+																[maxLength]="10" [searchCountryField]="['iso2', 'name']"
+																[selectedCountryISO]="preferredCountry"
+																formControlName="mobileNumber"
+																customPlaceholder=" Enter Contact Number"
+																appendTo="body"> </ngx-intl-tel-input>
+															<div *ngIf="submitted && f.mobileNumber.errors"
+																class="invalid-feedback">
+																<div *ngIf="f.mobileNumber.errors.required">Mobile
+																	Number is required</div>
+															</div>
+														</div>
+													</div>
+
+													<!-- Email -->
+													<div class="row">
+														<div class="col-md-9">
+															<label class="labelText col col-12 mt-2"
+																for="emailAddress">Email Address
+																<span
+																	*ngIf="!isEmailOTPValidated && showEmailErrorIcon">
+																	<i
+																		class="fa-solid fa-circle-exclamation text-danger"></i>
+																</span>
+																<span *ngIf="isEmailOTPValidated">
+																	<i
+																		class="fa-solid fa-circle-check uniprep-primary"></i>
+																</span>
+																<span class="required">*</span>
+															</label>
+															<p-inputGroup>
+																<input (keyup)="onChangeEmail($event)"
+																	[ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }"
+																	[readonly]="isEmailOTPSend" autocomplete="off"
+																	formControlName="emailAddress" id="emailAddress"
+																	pInputText placeholder="Enter Email Address"
+																	type="email" />
+															</p-inputGroup>
+															<div (click)="editEmailAgain()"
+																*ngIf="isEmailOTPSend && !isRemainingFieldVisible"
+																class="edit-button text-end" role="button">Edit</div>
+															<div *ngIf="submitted && f.emailAddress.errors"
+																class="invalid-feedback">
+																<div *ngIf="f.emailAddress.errors.required">Email
+																	Address is required</div>
+															</div>
+														</div>
+														<div *ngIf="!isRemainingFieldVisible" class="col-md-3">
+															<!--  -->
+															<label class="labelText col col-12 mt-2"> &nbsp;</label>
+															<div class="text-center">
+																<button (click)="sendEmailOTP()" style="height: auto;"
+																	class="btn m-0 btn-primary send-btn fullWidth-btn"
+																	pButton type="button">SEND OTP</button>
+															</div>
+														</div>
+														<div *ngIf="isRemainingFieldVisible" class="col-md-3">
+															<!--  -->
+															<label class="labelText col col-12 mt-2"> &nbsp;</label>
+															<div class="text-center">
+																<button style="height: auto;"
+																	class="btn m-0 btn-success send-btn fullWidth-btn"
+																	pButton type="button">Verified</button>
+															</div>
+														</div>
+													</div>
+													<!-- OTP -->
+													<div *ngIf="isEmailOTPSend" class="col-md-12 mt-2">
+														<form (ngSubmit)="onValidateEmailOTP()"
+															[formGroup]="emailOTPForm" class="formOTP">
+															<h5 class="mt-3 text-center">Enter your OTP</h5>
+															<p class="text-center text-muted">We have sent you a
+																one-time password to your email for verification</p>
+
+															<div _ngcontent-wta-c50="" class="row">
+																<div _ngcontent-wta-c50=""
+																	class="col-lg-3 col-md-3 col-3">&nbsp;</div>
+																<div _ngcontent-wta-c50=""
+																	class="col-lg-6 col-md-6 col-6">
+																	<p-inputotp [integerOnly]="true"
+																		[numberOfDigits]="4" class="d-flex gap-3"
+																		formControlName="otp"
+																		placeholder="Enter OTP"></p-inputotp>
+																</div>
+																<div _ngcontent-wta-c50=""
+																	class="col-lg-3 col-md-3 col-3">&nbsp;</div>
+															</div>
+
+															<div *ngIf="otpError" class="invalid-feedback">
+																<div *ngIf="otpError">Invalid OTP</div>
+															</div>
+
+															<div class="text-center mt-3">
+																<button
+																	class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
+																	pButton type="submit">VERIFY OTP</button>
+															</div>
+
+															<div class="text-center my-3">
+																<p class="text-center text-muted">
+																	Didn't receive the OTP? <span><a
+																			(click)="sendEmailOTP()"
+																			class="text-decoration-none"> Click to
+																			resend</a></span>
+																</p>
+															</div>
+														</form>
+													</div>
+												</div>
+
+												<div *ngIf="isRemainingFieldVisible">
+													<!-- Password/Confirm Password -->
+													<div class="row mt-2">
+														<div class="col-md-6 col-12 mt-2">
+															<label class="labelText col col-12 mt-2"
+																for="password">Password<span
+																	class="required">*</span></label>
+															<p-password [feedback]="false" [mask]="show ? false : true"
+																[ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+																[toggleMask]="true" autocomplete="off" class="border-0"
+																fluid formControlName="password" id="password"
+																placeholder="Password">
+																<ng-template pTemplate="icon">
+																	<i [ngClass]="show ? 'fa-eye' : 'fa-eye-slash'"
+																		class="fa-solid"></i>
+																</ng-template>
+															</p-password>
+															<div *ngIf="submitted && f.password.errors"
+																class="invalid-feedback">
+																<div *ngIf="f.password.errors.required">Password is
+																	required</div>
+																<div *ngIf="f.password.errors.minlength">Password must
+																	be at least 8 characters</div>
+															</div>
+														</div>
+														<div class="col-md-6 col-12 mt-2">
+															<label class="labelText col col-12 mt-2"
+																for="confirmPassword">Confirm Password<span
+																	class="required">*</span></label>
+															<p-password [feedback]="false" [mask]="show ? false : true"
+																[ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"
+																[toggleMask]="true" [type]="confirmPassword"
+																autocomplete="off" class="border-0" fluid
+																formControlName="confirmPassword" id="confirmPassword"
+																placeholder="Enter Confirm Password">
+																<ng-template pTemplate="icon">
+																	<i [ngClass]="show ? 'fa-eye' : 'fa-eye-slash'"
+																		class="fa-solid"></i>
+																</ng-template>
+															</p-password>
+															<div *ngIf="submitted && f.confirmPassword.errors"
+																class="invalid-feedback">
+																<div *ngIf="f.confirmPassword.hasError('matching')"
+																	style="width: 120%">Password and confirm password
+																	not match</div>
+																<div *ngIf="f.confirmPassword.errors.required">Confirm
+																	Password is required</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-12 col-12 mt-2">
+														<label class="labelText col col-12" for="gender">Gender<span
+																class="required">*</span></label>
+														<p-inputgroup>
+															<p-select (ngModelChange)="onChangeCountry($event)"
+																[options]="genderOptions" appendTo="body"
+																placeholder="Select your gender"
+																formControlName="gender" id="gender" optionLabel="name"
+																optionValue="id" styleClass="w-100"></p-select>
+														</p-inputgroup>
+														<div *ngIf="submitted && f['gender']['errors']"
+															class="UserInfoValidation">
+															<div *ngIf="f['gender']['errors']['required']"
+																style="color: red">Country is required</div>
+														</div>
+													</div>
+													<!-- Country/Location -->
+													<div class="row mt-2">
+														<div class="col-md-6 col-12">
+															<label class="labelText col col-12"
+																for="home_country">Country<span
+																	class="required">*</span></label>
+															<p-inputgroup>
+																<p-select (ngModelChange)="onChangeCountry($event)"
+																	[filter]="true" [options]="countryList"
+																	appendTo="body" filterBy="country"
+																	placeholder="Select Country"
+																	formControlName="home_country" id="home_country"
+																	optionLabel="country" optionValue="id"
+																	styleClass="w-100"></p-select>
+															</p-inputgroup>
+															<div *ngIf="submitted && f['home_country']['errors']"
+																class="UserInfoValidation">
+																<div *ngIf="f['home_country']['errors']['required']"
+																	style="color: red">Country is required</div>
+															</div>
+														</div>
+
+														<div class="col-md-6 col-12">
+															<label class="labelText col col-12"
+																for="location">Location<span
+																	class="required">*</span></label>
+															<p-inputgroup>
+																<p-select formControlName="location" optionValue="id"
+																	optionLabel="state" styleClass="w-100"
+																	[options]="locationList"
+																	placeholder="Select Location" [filter]="true"
+																	filterBy="state,district" [appendTo]="'body'">
+																	<ng-template let-data pTemplate="item">
+																		<div>{{data.state}} - {{data.district}}</div>
+																	</ng-template>
+																	<ng-template pTemplate="selectedItem"
+																		let-selectedOption>
+																		{{ selectedOption.state }} - {{
+																		selectedOption.district }}
+																	</ng-template>
+																</p-select>
+															</p-inputgroup>
+															<div *ngIf="submitted && f['location']['errors']"
+																class="UserInfoValidation">
+																<div *ngIf="f['location']['errors']['required']"
+																	style="color: red">Country is required</div>
+															</div>
+														</div>
+													</div>
+
+													<div
+														class="d-flex justify-content-between gap-2 align-items-center my-3">
+														<hr class="w-100" />
+													</div>
+
+													<p class="mt-3 mb-2 subHeader">Partner Information</p>
+
+													<!-- Company Name/Website -->
+													<div class="row">
+														<div class="col-md-6 mt-2">
+															<label class="labelText col col-12"
+																for="companyName">Institution Name<span
+																	class="required">*</span></label>
+															<p-inputGroup>
+																<input
+																	[ngClass]="{ 'is-invalid': submitted && f.companyName.errors }"
+																	formControlName="companyName" id="companyName"
+																	pInputText placeholder="Enter Company Name"
+																	type="text" />
+															</p-inputGroup>
+															<div *ngIf="submitted && f.companyName.errors"
+																class="invalid-feedback">
+																<div *ngIf="f.companyName.errors.required">Enter Institution
+																	Name</div>
+															</div>
+														</div>
+														<div class="col-md-6 mt-2">
+															<label class="labelText col col-12"
+																for="companyWebsite">Institution Website<span
+																	class="required">*</span></label>
+															<p-inputGroup>
+																<input
+																	[ngClass]="{ 'is-invalid': submitted && f.companyWebsite.errors }"
+																	formControlName="companyWebsite" id="companyWebsite"
+																	pInputText placeholder="Enter Company Website"
+																	type="text" />
+															</p-inputGroup>
+															<div *ngIf="submitted && f.companyWebsite.errors"
+																class="invalid-feedback">
+																<div *ngIf="f.companyWebsite.errors.required">Enter
+																	Institution Website</div>
+															</div>
+														</div>
+													</div>
+
+													<!-- Designation -->
+													<div class="row">
+														<div class="col-md-12 mt-2">
+															<label class="labelText col col-12"
+																for="designation">Designation<span
+																	class="required">*</span></label>
+															<p-inputGroup>
+																<input
+																	[ngClass]="{ 'is-invalid': submitted && f.designation.errors }"
+																	formControlName="designation" id="designation"
+																	pInputText placeholder="Enter Designation"
+																	type="text" />
+															</p-inputGroup>
+															<div *ngIf="submitted && f.designation.errors"
+																class="invalid-feedback">
+																<div *ngIf="f.designation.errors.required">What is your
+																	designation in the company?</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="col-md-12 mt-4">
+														<div class="d-grid">
+															<button
+																class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold h5 m-0 text-dark"
+																pButton type="submit">Sign Up</button>
+														</div>
+													</div>
+												</div>
+											</form>
+
+											<div class="justify-content-between gap-2 align-items-center"
+												*ngIf="!isEmailOTPSend && !isRemainingFieldVisible">
+												<p class="uniprep-primary mt-2 text-center labelLink">
+													Already have an account with us?
+													<span>
+														<span role="button" class="text-decoration-underline"
+															[routerLink]="['/institute/login']">Login</span>
+													</span>
+												</p>
+											</div>
+
+											<div class="justify-content-between gap-2 align-items-center"
+												*ngIf="isEmailOTPSend || isRemainingFieldVisible">
+												<p class="uniprep-primary mt-2 text-center labelLink">
+													Already have an account with us?
+													<span>
+														<span role="button" class="text-decoration-underline"
+															[routerLink]="['/institute/login']">Login</span>
+													</span>
+												</p>
+											</div>
+
+											<div class="d-flex justify-content-between">
+												<div class="w-100">&nbsp;</div>
+												<div class="w-100">
+													<!-- <asl-google-signin-button width="300" text="signup_with" logo_alignment="center" type="standard" size="large"></asl-google-signin-button> -->
+												</div>
+												<div class="w-100">&nbsp;</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</ng-container>
+				<ng-template #showConfirmationResponse>
+					<div class="login-card bg-white">
+						<img src="/uniprep-assets/images/uniprep-light.svg" alt="UNIPREP Logo" class="mb-3"
+							style="max-height: 50px" />
+
+						<h3 class="mb-3 fw-bold">Welcome</h3>
+						<p class="text-muted mb-4">Sign In to your UNIPREP Partner Portal.</p>
+
+						<div class="check-icon">
+							<img src="/uniprep-assets/images/icons/check.png" alt="Logo" class="mb-3"
+								style="object-fit: fit; width: 100%; height: 100%" />
+						</div>
+
+						<h4 class="mb-3">Awaiting Confirmation</h4>
+						<p class="text-muted mb-4">Please wait till your account is confirmed to complete your profile
+						</p>
+						<hr />
+						<a class="text-primary text-decoration-none">
+							Already have an account with us?
+							<p routerLink="/institute/login" class="cursor-pointer text-reset">Login Now</p>
+						</a>
+					</div>
+				</ng-template>
+			</div>
+			<div class="col-md-6 col-lg-4" *ngIf="afterRegisterAwaitingConfirmation">
+				<ng-container>
+					<div class="card">
+						<div class="card-body p-5">
+							<div class="row justify-content-center justify-content-md-center">
+								<div class="col-md-12 col-lg-12 col-12">
+									<div class="row">
+										<div class="col-md-12 col-lg-12 text-center">
+											<img [routerLink]="['/']" class="small-image text-left mb-2" role="button"
+												src="{{ imageUrlWhiteLabel }}" width="200" />
+											<h4 class="mt-3 mb-2 header text-center">Welcome</h4>
+											<h5>Thank you for showing your <br>interest in UNIPREP</h5>
+
+											<div class="check-circle mt-5 mb-4">
+												<div class="check-circle">
+													<i class="fa-solid fa-circle-check fa-9x"
+														style="color: #ffe7d5;"></i>
+												</div>
+											</div>
+											<h4 class="header">Awaiting Confirmation</h4>
+											<h6>
+												Please wait for a confirmation email with your credentials to get
+												started
+											</h6>
+
+											<div class="mt-3">
+												<hr class="divider" />
+											</div>
+											<p class="uniprep-primary mt-2 text-center labelLink">
+												Already have an account with us?
+												<span>
+													<span role="button" class="text-decoration-underline"
+														[routerLink]="['/institute/login']">Login Now</span>
+												</span>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</ng-container>
+			</div>
+		</div>
+	</div>
+</section>
