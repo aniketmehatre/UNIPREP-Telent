@@ -98,7 +98,7 @@ export const landingRoutes: Routes = [
                 path: '',
                 redirectTo: '',
                 pathMatch: 'full'
-            }
+            },
         ]
     },
 
