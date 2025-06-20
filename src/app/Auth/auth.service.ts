@@ -232,6 +232,7 @@ export class AuthService {
           this.authTokenService.clearToken();
           return throwError(() => new Error('Session expired'));
         }
+        console.log('eeeeee', error);
         return throwError(() => error);
       })
     );

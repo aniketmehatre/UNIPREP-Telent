@@ -6,7 +6,8 @@ import { inject } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { AuthTokenService } from "../core/services/auth-token.service";
 import { LocationService } from "../location.service";
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
+import { DataService } from "../data.service";
 
 // Cache for public routes check
 const publicRoutesSet = new Set([
@@ -38,6 +39,7 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
   request: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
+  const dataService = inject(DataService);
   const toast = inject(MessageService);
   const ngxService = inject(NgxUiLoaderService);
   const authTokenService = inject(AuthTokenService);
@@ -74,6 +76,10 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
       // if (authTokenService.isTokenValid() && error.status !== 0) {
       //   locationService.sessionEndApiCall().subscribe();
       // }
+      if (error.status == 408) {
+        dataService.loggedInAnotherDevice("block")
+        return throwError(() => error);
+      }
       if ((error.status === 500 || error.status === 401) && !isPublicRoute) {
         toast.add({
           severity: 'error',

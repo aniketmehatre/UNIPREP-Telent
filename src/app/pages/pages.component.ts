@@ -148,12 +148,12 @@ export class PagesComponent implements OnInit, OnDestroy {
     });
     this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
       this.orgnamewhitlabel = data.name,
-      this.imageUrlWhitelabel = data.logo,
-      this.imageWhiteLabelDomainName = data.source
-    this.ehitlabelIsShow = this.imageWhiteLabelDomainName === "Uniprep" ||
-      this.imageWhiteLabelDomainName === "Partner"
-    this.footerIsShow = this.imageWhiteLabelDomainName === "Uniprep" ||
-      this.imageWhiteLabelDomainName === "Partner"
+        this.imageUrlWhitelabel = data.logo,
+        this.imageWhiteLabelDomainName = data.source
+      this.ehitlabelIsShow = this.imageWhiteLabelDomainName === "Uniprep" ||
+        this.imageWhiteLabelDomainName === "Partner"
+      this.footerIsShow = this.imageWhiteLabelDomainName === "Uniprep" ||
+        this.imageWhiteLabelDomainName === "Partner"
     })
 
     this.service.getTimeInfoForCard().subscribe((data) => {
