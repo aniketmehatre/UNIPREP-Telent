@@ -1,17 +1,16 @@
 <!-- company-profile.component.html -->
-<div class="row h-100">
-	<div class="col-md-8 h-100 overflow-hidden" [ngClass]="{ 'col-md-12': !showChat }">
+<div class="row h-100 text-start">
+	<div class="col-md-12 h-100 overflow-hidden">
 		<div class="card h-100 bg-white">
 			<div class="card-header bg-transparent">
 				<div class="d-flex gap-3">
 					<div class="logo-container border rounded-2">
 						<img src="{{ companyDetails?.company_logo }}" alt="Company Logo" class="img-fluid"
-							onerror="this.src" 
-							(error)="$event.target.src = '/uniprep-assets/images/job.webp'"/>
+							onerror="this.src" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" />
 					</div>
 					<div class="container-fluid">
 						<div class="row">
-							<div class="col">
+							<div class="col ">
 								<h1 class="fw-bold">{{ companyDetails?.company_name }}</h1>
 								<p class="text-muted">Founded : {{ companyDetails?.founded_year }}</p>
 								<div *ngIf="isSkeletonVisible; else showFollowBtn">
@@ -30,13 +29,10 @@
 
 							<div class="col-md-3">
 								<div class="d-flex gap-2 justify-content-end">
-									<button *ngIf="!showChat; else showClose" pButton severity="success"
-										class="success rounded-2" (click)="showChat = true">Chat <i
-											class="pi pi-comment"></i></button>
-									<ng-template #showClose>
-										<button pButton label="Close Info" class="btn btn-primary"
-											(click)="showChat = false"></button>
-									</ng-template>
+									<button pButton label="Close Info" class="btn btn-primary w-100"
+										(click)="closeInfo.emit(false)" *ngIf="showChat"></button>
+									<button pButton class="p-button-success chat-btn w-100" *ngIf="!showChat"
+										(click)="openChat.emit(true)"><i class="pi pi-comments"></i> Chat</button>
 								</div>
 							</div>
 						</div>
@@ -162,9 +158,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="col-md-4 overflow-y-auto" *ngIf="showChat">
-		<uni-chat [companyDetails]="companyDetails" (closeChat)="showChat = false"
-			(studentIdEmit)="onStudentIdFromChat($event)"></uni-chat>
 	</div>
 </div>

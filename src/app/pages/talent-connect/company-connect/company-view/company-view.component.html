@@ -22,7 +22,8 @@
 	</div>
 	<div class="card-body flex-fill overflow-y-auto">
 		<div class="row h-100">
-			<div class="col h-100 overflow-hidden" [ngClass]="{ 'col-md-12': !showChat }">
+			<div class="col h-100 overflow-hidden"
+			[ngClass]="!showChat ? 'col-sm-12' : 'col-sm-12 col-md-7 col-lg-8 col-xl-9'" *ngIf="showInfo">
 				<div class="card h-100 bg-white">
 					<div class="card-header bg-transparent">
 						<div class="d-flex gap-3">
@@ -57,7 +58,7 @@
 													class="pi pi-comment"></i></button>
 											<ng-template #showClose>
 												<button pButton label="Close Info" class="btn btn-primary"
-													(click)="showChat = false"></button>
+													(click)="showInfo = false"></button>
 											</ng-template>
 										</div>
 									</div>
@@ -193,9 +194,17 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3 overflow-hidden pt-2" *ngIf="showChat">
-				<uni-chat [companyDetails]="companyDetails" (closeChat)="showChat = false"></uni-chat>
+			<div class="col-12 d-md-block d-none" *ngIf="showChat"
+			[ngClass]="{ 'col-md-5 col-lg-4 col-xl-3 h-100 overflow-y-auto': showInfo, 'h-100': !showInfo }">
+				<uni-chat (openInfo)="showInfo = true" [showInfo]="showInfo" [companyDetails]="companyDetails"
+					(closeChat)="showChat = false"></uni-chat>
 			</div>
+			<p-drawer #drawerRef [(visible)]="visible" position="right" [style]="{ width: '80vw' }">
+				<ng-template #headless>
+					<uni-chat (openInfo)="showInfo = true" [showInfo]="showInfo" [companyDetails]="companyDetails"
+						(closeChat)="showChat = false"></uni-chat>
+				</ng-template>
+			</p-drawer>
 		</div>
 	</div>
 </div>

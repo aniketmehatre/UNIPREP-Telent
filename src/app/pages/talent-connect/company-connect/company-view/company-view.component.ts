@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { ChipModule } from "primeng/chip";
 import { ButtonModule } from 'primeng/button';
@@ -6,6 +6,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TalentConnectService } from "../../talent-connect.service";
 import { ChatComponent } from "../chat/chat.component";
 import { SkeletonModule } from 'primeng/skeleton';
+import { DrawerModule } from 'primeng/drawer';
 
 @Component({
   selector: 'uni-company-view',
@@ -18,7 +19,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     ChipModule,
     RouterModule,
     ChatComponent,
-    SkeletonModule
+    SkeletonModule,DrawerModule
   ]
 })
 export class CompanyViewComponent implements OnInit {
@@ -49,6 +50,8 @@ export class CompanyViewComponent implements OnInit {
   companyDetails: any;
   companyId: any
   isSkeletonVisible: boolean = true;
+  @Input() showInfo: boolean = true;
+	visible: boolean = false;
 
   constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService) {
   }
