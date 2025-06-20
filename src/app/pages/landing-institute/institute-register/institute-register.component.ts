@@ -1,7 +1,6 @@
 import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router } from 'express';
 import { LocalStorageService } from 'ngx-localstorage';
 import { MessageService } from 'primeng/api';
 import { matchValidator } from 'src/app/@Supports/matchvalidator';
@@ -9,7 +8,7 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
 import { SubSink } from 'subsink';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { FluidModule } from 'primeng/fluid';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -17,14 +16,15 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputOtpModule } from 'primeng/inputotp';
 import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
 import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
 import { LandingInstituteService } from '../landing-institute.service';
+import {PasswordModule} from "primeng/password";
 
 @Component({
   selector: 'uni-institute-register',
-  imports: [CommonModule, GoogleSigninButtonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule],
+  imports: [CommonModule, GoogleSigninButtonModule, InputOtpModule, FluidModule, PasswordModule,
+    RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule],
   standalone: true,
   templateUrl: './institute-register.component.html',
   styleUrl: './institute-register.component.scss'
