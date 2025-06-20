@@ -12,6 +12,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile";
 import { SelectChangeEvent } from "primeng/select";
 import { environment } from "@env/environment";
+import { InputNumberInputEvent } from "primeng/inputnumber";
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -89,6 +90,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     { id: "Percentage", value: "Percentage" },
     { id: "GPA", value: "GPA" },
   ];
+  isMaxGpaPercentageValue: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private dialogService: DialogService,
@@ -155,12 +158,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_willingness_to_relocate: [null, Validators.required],
       career_preference_expected_salary: [null, Validators.required],
       career_preference_currency_id: [null, Validators.required],
-      career_preference_set_industry_apart: ["", maxWordsValidator(150)],
       career_preference_soft_skill_id: [[]],
-      career_preference_professional_strength_id: [[]],
-      career_preference_real_world_challenge: ["", maxWordsValidator(150)],
-      career_preference_leadership_experience: ["", maxWordsValidator(150)],
-      career_preference_admired_quality: ["", maxWordsValidator(150)],
 
       // Networking
       networking_linkedin_profile: [
@@ -207,7 +205,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       acheivements: this.fb.array([this.createAcheivementGroup()]),
       // Languages & Hobbies
       languages: this.fb.array([this.createLanguageGroup()]),
-      languages_hobby_id: [null],
 
       // Profile Image
       profile_image: [null, Validators.required],
@@ -224,7 +221,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       education_field_id: [null, Validators.required],
       education_course_name: [null, Validators.required],
       education_graduation_year_id: [null, Validators.required],
-      education_still_pursuing: [null],
+      education_still_pursuing: [0],
       education_cgpa_or_percentage: [null, Validators.required],
       education_cgpa_or_percentage_type: [null],
     })
@@ -544,7 +541,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           if (work.get("id")?.value && this.isArrayItemModified(work, originalWork)) {
             formData.append(`work_experience[${index}][id]`, work.get("id")?.value)
           }
-
+  
           this.appendIfModified(
             formData,
             `work_experience[${index}][years_of_experience]`,
@@ -622,12 +619,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.appendIfModified(formData, "career_preference_willingness_to_relocate", originalValues)
         this.appendIfModified(formData, "career_preference_expected_salary", originalValues)
         this.appendIfModified(formData, "career_preference_currency_id", originalValues)
-        this.appendIfModified(formData, "career_preference_set_industry_apart", originalValues)
         this.appendIfModified(formData, "career_preference_soft_skill_id", originalValues)
-        this.appendIfModified(formData, "career_preference_professional_strength_id", originalValues)
-        this.appendIfModified(formData, "career_preference_real_world_challenge", originalValues)
-        this.appendIfModified(formData, "career_preference_leadership_experience", originalValues)
-        this.appendIfModified(formData, "career_preference_admired_quality", originalValues)
 
         if (this.uploadedFiles["CV_0"]) {
           formData.append("career_preference_cv_filename", this.uploadedFiles["CV_0"])
@@ -807,8 +799,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           )
         })
 
-        this.appendIfModified(formData, "languages_hobby_id", originalValues)
-
         if (this.uploadedFiles["profile_image"]) {
           formData.append("profile_image", this.uploadedFiles["profile_image"])
         }
@@ -869,18 +859,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  private appendIfModified(
-    formData: FormData,
-    fieldName: string,
-    originalData: any,
-    valueTransform?: (value: any) => any,
-  ) {
+  appendIfModified(formData: FormData, fieldName: string, originalData: any, valueTransform?: (value: any) => any) {
     const currentValue = this.personalInfoForm.get(fieldName)?.value
-
-    // if (currentValue === null || currentValue === undefined) {
-    //   return // Skip appending if value is null or undefined
-    // }
-
     const transformedValue = valueTransform ? valueTransform(currentValue) : currentValue || ""
 
     // Ensure proper handling of arrays
@@ -1034,12 +1014,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
 
     // Skills & Strengths (12%)
-    checkField(this.personalInfoForm.get("career_preference_soft_skill_id"), 2)
-    checkField(this.personalInfoForm.get("career_preference_professional_strength_id"), 2)
-    checkField(this.personalInfoForm.get("career_preference_set_industry_apart"), 1)
-    checkField(this.personalInfoForm.get("career_preference_real_world_challenge"), 1)
-    checkField(this.personalInfoForm.get("career_preference_leadership_experience"), 1)
-    checkField(this.personalInfoForm.get("career_preference_admired_quality"), 1)
+    checkField(this.personalInfoForm.get("career_preference_soft_skill_id"), 2 + 1 + 2 + 1 + 1 + 1)
 
     if (this.languages?.controls?.length) {
       this.languages.controls.forEach((lang, index) => {
@@ -1150,7 +1125,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       gender: response.gender || "",
       location_id: response.location_id || "",
       profile_image: response.dp_image || "",
-      languages_hobby_id: response.hobby || "",
       total_years_of_experience: response.total_years_of_experience || "",
       additional_notes: response.careerPreference?.notes,
       career_preference_career_status: response.careerPreference?.career_status || "",
@@ -1166,14 +1140,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_video_link: response.careerPreference?.video_link || "",
       career_preference_soft_skill_id: response.careerPreference.soft_skill_id || [],
       career_preference_portfolio_upload_link: response.careerPreference?.portfolio_upload_link || "",
-      career_preference_set_industry_apart: response.careerPreference?.set_industry_apart || "",
-      career_preference_real_world_challenge: response.careerPreference?.real_world_challenge || "",
-      career_preference_professional_strength_id:
-        (Array.isArray(response.careerPreference?.professional_strength_id)
-          ? response.careerPreference?.professional_strength_id
-          : [response.careerPreference?.professional_strength_id]) || [],
-      career_preference_leadership_experience: response.careerPreference?.leadership_experience || "",
-      career_preference_admired_quality: response.careerPreference?.admired_quality,
       networking_linkedin_profile: response.linkedin_profile || "",
       networking_personal_website: response.personal_website || "",
     });
@@ -1190,7 +1156,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           education_field_id: [edu.field_id || "", Validators.required],
           education_course_name: [edu.course_name || "", Validators.required],
           education_graduation_year_id: [edu.graduation_year_id || "", Validators.required],
-          education_still_pursuing: [edu.education_still_pursuing || null],
+          education_still_pursuing: [edu.education_still_pursuing || 0],
           education_cgpa_or_percentage: [edu.gpa_percentage || null],
           education_cgpa_or_percentage_type: [edu.gpa_percentage_type || null],
         });
@@ -1308,7 +1274,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     if (response.references && response.references.length > 0) {
       const academicRefArray = this.personalInfoForm.get("academicReferences") as FormArray
       academicRefArray.clear()
-      response.references.forEach((ref: any, index:number) => {
+      response.references.forEach((ref: any, index: number) => {
         academicRefArray.push(
           this.fb.group({
             id: [ref.id], // Store the original ID
@@ -1326,7 +1292,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     if (response.professional_references && response.professional_references.length > 0) {
       const professionalRefArray = this.personalInfoForm.get("professional_references") as FormArray
       professionalRefArray.clear()
-      response.professional_references.forEach((ref: any, index:number) => {
+      response.professional_references.forEach((ref: any, index: number) => {
         professionalRefArray.push(
           this.fb.group({
             id: [ref.id], // Store the original ID
@@ -1529,17 +1495,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
       const language_id = this.personalInfoForm.get('languages.0.languages_language_id')?.value;
       student_profile.language_known = this.languageList.find((q: any) => q.id === language_id)?.language || '';
-      student_profile.hobbies_interest = this.personalInfoForm.get('languages_hobby_id')?.value || '';
-      student_profile.set_you_apart = this.personalInfoForm.get('career_preference_set_industry_apart')?.value || '';
 
       const soft_skills_id = this.personalInfoForm.get('career_preference_soft_skill_id')?.value || [];
       const selectedSkills = this.softSkills.filter((skill: any) => soft_skills_id.map(String).includes(String(skill.id))).map((skill: any) => skill.soft_skill);
       student_profile.soft_skills = selectedSkills.join(', ');
-
-
-      const professional_strength_ids = this.personalInfoForm.get('career_preference_professional_strength_id')?.value || [];
-      const selectedStrengths = this.professionalStrengths.filter((item: any) => professional_strength_ids.map(String).includes(String(item.id))).map((item: any) => item.strength);
-      student_profile.professional_strengths = selectedStrengths.join(', ');
 
       student_profile.linked_in = this.personalInfoForm.get('networking_linkedin_profile')?.value || '';
       student_profile.social_media = this.personalInfoForm.get('networking_social_media.0.networking_social_media')?.value || '';
@@ -1868,29 +1827,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       "career_preference_currency_id",
       this.personalInfoForm.get("career_preference_currency_id")?.value || "",
     )
-    formData.append(
-      "career_preference_set_industry_apart",
-      this.personalInfoForm.get("career_preference_set_industry_apart")?.value || "",
-    )
+
     formData.append(
       "career_preference_soft_skill_id",
       JSON.stringify(this.personalInfoForm.get("career_preference_soft_skill_id")?.value) || "",
-    )
-    formData.append(
-      "career_preference_professional_strength_id",
-      JSON.stringify(this.personalInfoForm.get("career_preference_professional_strength_id")?.value) || "",
-    )
-    formData.append(
-      "career_preference_real_world_challenge",
-      this.personalInfoForm.get("career_preference_real_world_challenge")?.value || "",
-    )
-    formData.append(
-      "career_preference_leadership_experience",
-      this.personalInfoForm.get("career_preference_leadership_experience")?.value || "",
-    )
-    formData.append(
-      "career_preference_admired_quality",
-      this.personalInfoForm.get("career_preference_admired_quality")?.value || "",
     )
 
     if (this.uploadedFiles["CV_0"]) {
@@ -2004,8 +1944,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       formData.append(`languages[${index}][languages_language_id]`, lang.get("languages_language_id")?.value || "")
       formData.append(`languages[${index}][languages_proficiency]`, lang.get("languages_proficiency")?.value || "")
     })
-
-    formData.append("languages_hobby_id", this.personalInfoForm.get("languages_hobby_id")?.value || "")
 
     if (this.uploadedFiles["profile_image"]) {
       formData.append("profile_image", this.uploadedFiles["profile_image"])
@@ -2233,7 +2171,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     const currencyControl = formGroup.get("work_experience_currency_id");
     const salaryPerMonthControl = formGroup.get("work_experience_salary_per_month");
     const jobResponsibilityControl = formGroup.get("work_experience_job_responsibilities");
-    const experienceLetterControl = formGroup.get("work_experience_experience_letter");
     if (event.target.value) {
       companyNameControl?.setValidators(Validators.required);
       jobTitleControl?.setValidators(Validators.required);
@@ -2244,7 +2181,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       currencyControl?.setValidators(Validators.required);
       salaryPerMonthControl?.setValidators(Validators.required);
       jobResponsibilityControl?.setValidators(Validators.required);
-      experienceLetterControl?.setValidators(Validators.required);
     } else {
       companyNameControl?.clearValidators();
       jobTitleControl?.clearValidators();
@@ -2255,7 +2191,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       currencyControl?.clearValidators();
       salaryPerMonthControl?.clearValidators();
       jobResponsibilityControl?.clearValidators();
-      experienceLetterControl?.clearValidators();
     }
     companyNameControl?.updateValueAndValidity();
     jobTitleControl?.updateValueAndValidity();
@@ -2266,7 +2201,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     currencyControl?.updateValueAndValidity();
     salaryPerMonthControl?.updateValueAndValidity();
     jobResponsibilityControl?.updateValueAndValidity();
-    experienceLetterControl?.updateValueAndValidity();
   }
 
   onChangeAcademicCollegeName(event: any, index: number) {
@@ -2323,6 +2257,21 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     };
     const url = guideMap[type];
     window.open(url, '_blank');
+  }
+
+  onChangeGpaPercentage(event: InputNumberInputEvent, type: string) {
+    if (event.value) {
+      let maxValue = type == 'Percentage' ? 100 : 10;
+      this.isMaxGpaPercentageValue = maxValue < Number(event.value) ? true : false;
+    }
+    else {
+      this.isMaxGpaPercentageValue = false;
+    }
+  }
+
+  onRemoveExpLetter(control: any, event: any) {
+    event.stopPropagation();
+    control.value = '';
   }
 
   ngOnDestroy(): void {

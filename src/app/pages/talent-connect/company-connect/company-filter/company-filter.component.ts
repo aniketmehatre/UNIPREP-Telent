@@ -22,13 +22,17 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
   @Output() closeFilter: EventEmitter<any> = new EventEmitter<any>();
   @Output() resetFilter: EventEmitter<any> = new EventEmitter<any>();
   @Input() isListView: boolean = true;
-  companyTypes: any = [];
   industryTypes: any = [];
   globalPresence: any = [];
   locations: any = [];
   companySizes: any = [];
   foundedYears: any[] = [];
   companyForm: FormGroup = new FormGroup({});
+  statusList = [
+    { label: 'Following', value: 'Following' },
+    { label: 'Sent', value: 'Sent' },
+    { label: 'Recieved', value: 'Recieved' }
+  ];
   constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder, private route: Router, private detectChanges: ChangeDetectorRef) {
 
   }
@@ -41,7 +45,7 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
       hq: [],
       globalpresence: [[]], // Array values
       foundedyear: [],
-      companytype: [],
+      status:[]
     });
     this.setIsListViewFromRoute();
     this.loadFoundedYears();
@@ -64,15 +68,6 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
   }
 
   loadApiData() {
-    this.talentConnectService.getCompanyTypes().subscribe({
-      next: (data) => {
-        this.companyTypes = data;
-      },
-      error: (err) => {
-        console.error('Error loading company types:', err);
-      }
-    });
-
     this.talentConnectService.getIndustryTypes().subscribe({
       next: (data) => {
         this.industryTypes = data;

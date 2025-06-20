@@ -31,7 +31,7 @@ export class CompanyListsComponent implements OnInit {
   activeIndex: number = 0;
   tabs = [
     { label: 'All Companies', active: true },
-    { label: 'Shortlisted', active: false },
+    { label: 'Following', active: false },
     { label: 'Sent', active: false },
     { label: 'Recieved', active: false }
   ];
@@ -182,7 +182,7 @@ export class CompanyListsComponent implements OnInit {
   getStatusClass(status: string): string {
     const statusClassMap: { [key: string]: string } = {
       Sent: 'bg-primary text-white',
-      Shortlisted: 'bg-success text-white',
+      Following: 'bg-success text-white',
       Received: 'bg-secondary text-white',
     };
     return statusClassMap[status] || 'bg-secondary text-white';
