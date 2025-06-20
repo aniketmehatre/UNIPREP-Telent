@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { environment } from '@env/environment';
@@ -40,6 +40,32 @@ interface CallToActionCard {
 })
 export class AboutUsComponent implements OnInit {
   isPlaying: boolean = false;
+  @ViewChild('scrollCursor') scrollCursor!: ElementRef;
+  @ViewChild('timelineContainer') timelineContainer!: ElementRef;
+
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    const container = this.timelineContainer?.nativeElement;
+    const cursor = this.scrollCursor?.nativeElement;
+    if (!container || !cursor) return;
+
+    const rect = container.getBoundingClientRect();
+
+    const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+
+    if (isInView) {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const progress = (scrollTop + window.innerHeight / 2 - (scrollTop + rect.top)) / rect.height;
+      const clampedProgress = Math.min(Math.max(progress, 0), 1);
+      const cursorTop = clampedProgress * rect.height;
+
+      cursor.style.top = `${cursorTop}px`;
+      cursor.style.opacity = '1'; // show when active
+    } else {
+      cursor.style.opacity = '0'; // hide when out of view
+    }
+  }
+
   // @ViewChild('videoPlayer') videoPlayer!: ElementRef;
   // welcomeVideoLink: string = 'https://uniprepapi.storage.googleapis.com/Landing/welcome.mp4';
   welcomeVideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
@@ -156,5 +182,4 @@ export class AboutUsComponent implements OnInit {
     }
     this.isPlaying = !this.isPlaying;
   }
-  
 }

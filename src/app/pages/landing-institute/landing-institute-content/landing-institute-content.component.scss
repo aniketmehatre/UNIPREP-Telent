@@ -272,7 +272,7 @@ kbd {
 }
 
 .slider-track img {
-	width: 14.2%;
+	width: 17.2%;
 	padding: 10px;
 	object-fit: contain;
 }
@@ -319,4 +319,8 @@ h5 {
 .dropdown-content{
   max-height: 300px;
   overflow-y: scroll;
+}
+
+.gap-95{
+  gap: 95px;
 }

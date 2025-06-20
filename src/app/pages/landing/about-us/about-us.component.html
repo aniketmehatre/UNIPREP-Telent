@@ -53,33 +53,41 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-8 col-12">
-        <p-timeline [value]="timelineData" align="">
-          <ng-template #marker let-item>
-            <div class="timeline-marker" *ngIf="item.icon; else withoutIcon">
-              <div class="timelineWithIconDot">
-                <i class="{{ item.icon }}"></i>
+        <div #timelineContainer class="timeline-container position-relative">
+          <!-- Scroll line and cursor -->
+          <!-- <div class="timeline-line-wrapper"></div> -->
+          <!-- <div #scrollCursor class="timeline-scroll-cursor"></div> -->
+          <!-- PrimeNG Timeline -->
+          <p-timeline  #timelineBody  [value]="timelineData" align="">
+            <ng-template #marker let-item>
+              <div class="timeline-line-wrapper" *ngIf="item.icon; else withoutIcon">
+                <div #scrollCursor class="timeline-scroll-cursor">
+                  <i class="{{ item.icon }}"></i>
+                </div>
               </div>
-            </div>
-            <ng-template #withoutIcon>
-              <div class="timeline-dot"></div>
+              <ng-template #withoutIcon>
+                <div class="timeline-dot"></div>
+              </ng-template>
             </ng-template>
-          </ng-template>
-          <ng-template #opposite let-item>
-            <div class="timeline-content text-end">
-              <div class="display-1 year-text-color-grad" [innerHtml]="item.year"></div>
-              <h2 class="text-orange">{{ item.title }}</h2>
-            </div>
-          </ng-template>
-          <ng-template #content let-item>
-            <div class="timeline-content pb-5">
-              <p class="mb-4">{{ item.subtitle }}</p>
-              <p *ngFor="let point of item.points" class="mb-3">
-                <span class="text-orange fw-bold">{{ point.split(":")[0] }}:</span>
-                {{ point.split(":")[1] }}
-              </p>
-            </div>
-          </ng-template>
-        </p-timeline>
+
+            <ng-template #opposite let-item>
+              <div class="timeline-content text-end">
+                <div class="display-1 year-text-color-grad" [innerHtml]="item.year"></div>
+                <h2 class="text-orange">{{ item.title }}</h2>
+              </div>
+            </ng-template>
+
+            <ng-template #content let-item>
+              <div class="timeline-content pb-5">
+                <p class="mb-4">{{ item.subtitle }}</p>
+                <p *ngFor="let point of item.points" class="mb-3">
+                  <span class="text-orange fw-bold">{{ point.split(':')[0] }}:</span>
+                  {{ point.split(':')[1] }}
+                </p>
+              </div>
+            </ng-template>
+          </p-timeline>
+        </div>
       </div>
     </div>
   </div>

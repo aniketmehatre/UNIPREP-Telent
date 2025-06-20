@@ -121,8 +121,13 @@
         </div>
 
         <div class="mb-3">
-          <label for="organization" class="form-label text-white">Organization/Institution</label>
-          <input type="text" class="form-control bg-dark text-white border-white" id="organization" formControlName="organization">
+          <label for="organization" class="form-label text-white">Organization/Institution <span class="text-danger">*</span></label>
+           <input type="text" class="form-control bg-dark text-white border-white" id="organization" formControlName="organization"
+            [ngClass]="{'is-invalid': contactForm.get('organization')?.touched && contactForm.get('organization')?.invalid}">
+          <div class="invalid-feedback"
+            *ngIf="contactForm.get('organization')?.touched && contactForm.get('organization')?.errors?.['required']">
+            Organization/Institution is required
+          </div>
         </div>
 
         <div class="mb-3">
