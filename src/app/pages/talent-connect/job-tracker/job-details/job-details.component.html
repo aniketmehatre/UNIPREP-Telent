@@ -106,8 +106,8 @@
 							<div>
 								<p class="text-muted mb-1">Salary offered per month</p>
 								<p class="fw-bold mb-0">
-									
-									{{ jobDetails.salary_per_month }}
+									<span *ngIf="jobDetails.currency_code"> {{ jobDetails.currency_code }}</span>
+									{{ jobDetails.salary_range || jobDetails.salary_offer }}
 								</p>
 							</div>
 						</div>

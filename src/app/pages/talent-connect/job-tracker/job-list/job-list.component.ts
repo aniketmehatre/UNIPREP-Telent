@@ -55,8 +55,8 @@ export class JobListComponent implements OnInit {
     { label: 'All Jobs', active: true }
   ];
   hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'Future_Hiring', name: 'Future Hiring' }];
-  jobStatusList:any[] = [];
 
+  
   constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder) { }
 
 
@@ -100,7 +100,6 @@ export class JobListComponent implements OnInit {
             active: false
           }))
         ];
-        this.jobStatusList = response.hiringStages;
         this.totalPage = Math.ceil(response.totaljobs / this.pageSize);
       },
       error: error => {
@@ -135,8 +134,7 @@ export class JobListComponent implements OnInit {
       work_mode: [null],
       employment_type: [null],
       currency: [''],
-      min_salary: [''],
-      max_salary: [''],
+      salary: [''],
       experienceLevel: [null],
       status: [''],
       hiringStatus: [null],

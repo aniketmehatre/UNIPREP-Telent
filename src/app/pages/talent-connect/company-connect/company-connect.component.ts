@@ -79,8 +79,8 @@ export class CompanyConnect1Component implements OnInit {
     }
 
     routerToJobListingPageWithCompanyId(event: any, id: number) {
-        // event.stopPropagation();
-        // this.router.navigate(['/pages/talent-connect/easy-apply'], { queryParams: { company: id } });
+        event.stopPropagation();
+        this.router.navigate(['/pages/talent-connect/easy-apply'], { queryParams: { company: id } });
     }
 
     applyFilter(event: any) {

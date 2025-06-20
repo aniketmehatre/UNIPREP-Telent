@@ -27,7 +27,6 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { SharedModule } from "../../../shared/shared.module";
 import { DrawerModule } from 'primeng/drawer';
-import { PanelModule } from 'primeng/panel';
 
 const routes: Routes = [
   {
@@ -70,7 +69,7 @@ const routes: Routes = [
     InputGroupAddonModule,
     InputGroupModule,
     SharedModule,
-    PanelModule
+    ButtonModule
   ]
 })
 export class EmployeeProfileModule { }

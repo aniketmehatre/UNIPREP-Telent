@@ -18,29 +18,17 @@
 			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
 		</div>
 		<div class="row mt-2 justify-content-center align-items-center">
-			<div class="col-md-10 col-12 mb-2">
+			<div class="col-md-12 col-12 mb-2">
 				<div class="d-flex gap-2 justify-content-center">
 					<button pButton class="btn border bg-white px-3 py-3" style="color: var(--uniprep-primary)" routerLink="/pages/talent-connect/easy-apply">Job Search</button>
 					<button pButton class="btn border bg-primary px-3 py-3 text-white">Job Tracker</button>
 				</div>
 			</div>
-			<div class="col-md-12 col-12 d-lg-none d-block mb-2">
+			<div class="col-md-12 col-12 d-lg-none d-block">
 				<div class="d-flex gap-3 align-items-center justify-content-between">
 					<button *ngIf="selectedJobId" pButton class="btn btn-primary w-100 rounded px-4 py-3 text-small" (click)="visible = true" icon="fa-solid fa-student">Applications</button>
 					<button class="btn btn-success w-100 rounded px-4 py-3 text-small" pButton *ngIf="selectedJobId" (click)="visiblechat = true">Chat</button>
 				</div>
-			</div>
-			<div class="col-md-2 col-12 d-flex justify-content-md-end justify-content-center gap-2">
-				<p-select [options]="currencies" optionLabel="currency_code" dataKey="currency_code"
-					[virtualScroll]="true" [virtualScrollItemSize]="40" [filter]="true" filterBy="currency_code"
-					[showClear]="true" placeholder="Currency : Select" appendTo="body" class="w-auto"
-					(onChange)="onCurrencyExchange($event)" (onClear)="onClearCurrency($event)"
-					[disabled]="!selectedJobId">
-					<ng-template #selectedItem let-selectedOption>
-						<div class="" *ngIf="selectedOption">
-							{{ 'Currency : '+ selectedOption.currency_code }}
-						</div>
-					</ng-template></p-select>
 			</div>
 		</div>
 	</div>

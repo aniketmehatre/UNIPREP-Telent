@@ -42,7 +42,6 @@ interface Job {
   currency_code?: string;
   languages: LangProficiency[];
   additional_notes: string;
-  salary_per_month: string;
 }
 
 interface LangProficiency {
