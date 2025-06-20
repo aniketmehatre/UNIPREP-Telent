@@ -82,8 +82,14 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
         });
         authTokenService.clearToken();
         router.navigate(['/login']);
+      } else if (error.status === 422) {
+        toast.add({
+          severity: 'error',
+          summary: 'Info',
+          detail: error.error.message,
+          life: 3000
+        });
       } else if (error.status === 400) {
-        console.log('error', error.error.message);
         toast.add({
           severity: 'error',
           summary: 'Unauthorized',
