@@ -32,7 +32,7 @@ export class LandingContentComponent implements OnInit {
   currentImage: string = "/uniprep-assets/images/feature1.webp"
   blogs: any
   welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`;
-  videoUrl: string = `https://www.youtube.com/embed/Sv8EyWriqV0?rel=0&autoplay=1`;
+  videoUrl: string = `https://www.youtube.com/embed/AAXUZ0z5bl0?si=fkMUZWejNm7qfSTs?rel=0&autoplay=1`;
   embedUrl!: SafeResourceUrl;
   isInitialLoadVideo: boolean = true;
 

@@ -142,9 +142,9 @@ export class LandingInstituteContentComponent {
     { title: 'Polytechnic Institutes', emoji: '💻' },
     { title: 'Professional Certification Institutes', emoji: '🚀' },
     { title: 'Business Institutes', emoji: '💼' },
-    { title: 'Agriculture Institutes', emoji: '🧑‍🌾' },
+    { title: 'Agriculture Institutes', emoji: '🌾' },
     { title: 'Design & Architecture Institutes', emoji: '📐' },
-    { title: 'Hospitality & Tourism Institutes', emoji: '🧑‍🍳' },
+    { title: 'Hospitality & Tourism Institutes', emoji: '🙏' },
     { title: 'Research Institutes', emoji: '🔬' },
     { title: 'Online and Distance Learning Institutes', emoji: '🌐' },
   ];

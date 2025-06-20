@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {CommonModule} from "@angular/common";
+import { CommonModule } from "@angular/common";
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -66,7 +66,7 @@ export class ContactUsComponent {
       phone: '+91 63627 16586',
       phoneCode: '+91',
       flagIcon: 'uniprep-assets/icons/india.png',
-      mapUrl: `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7772.044800301689!2d77.57988853201056!3d13.097766879130269!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae18604ac9a52f%3A0x3d116ff7a39eaeb2!2sManya%20-%20The%20Princeton%20Review%20%7C%20Study%20Abroad%20Consultant%20-%20GRE%2C%20GMAT%2C%20SAT%20Prep%20%26%20IGCSE%2FIB%20Coaching%20in%20Yelahanka%2C%20Bangalore!5e0!3m2!1sen!2sin!4v1746785988409!5m2!1sen!2sin`
+      mapUrl: `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4649.99803408612!2d77.57438717575691!3d13.101634412012695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae19e9105df037%3A0xa5e0ffbc37ee37a8!2sUNIABROAD%20-Bengaluru%20North%20%7C%20Study%20Abroad%20Experts!5e1!3m2!1sen!2sin!4v1750425313862!5m2!1sen!2sin`
     }
   ];
 
@@ -103,7 +103,7 @@ export class ContactUsComponent {
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required]],
       enquireType: ['', Validators.required],
-      organization: [''],
+      organization: ['', Validators.required],
       location: ['', Validators.required],
       helpMessage: ['', Validators.required]
     });
@@ -145,10 +145,13 @@ export class ContactUsComponent {
           detail: 'Please fill whatsapp number'
         });
       }
-      this.landingPageServices.sendContactUsPage({ ...this.contactForm.value, phoneNumber: this.cf?.['phoneNumber'].value.number, phoneCountryCode: this.cf?.['phoneNumber'].value.dialCode }).subscribe({
+      let parms: any ={
+        ...this.contactForm.value, 
+        phoneNumber: this.cf?.['phoneNumber'].value.number, 
+        phoneCountryCode: this.cf?.['phoneNumber'].value.dialCode
+      }
+      this.landingPageServices.sendContactUsPage(parms).subscribe({
         next: response => {
-          console.log(response);
-
           if (response.success) {
             this.messageService.add({
               severity: 'success',
@@ -167,7 +170,11 @@ export class ContactUsComponent {
       Object.keys(this.contactForm.controls).forEach(key => {
         this.contactForm.get(key)?.markAsTouched();
       });
-      console.log(this.contactForm.controls)
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: "Please fill add required fields."
+      });
     }
   }
 

@@ -42,15 +42,15 @@ export class InstitutePricingComponent implements OnInit {
   pricingSlabs: PricingSlab[] = [];
 
   pricingSlabsIndia: PricingSlab[] = [
-    { slab: 'Slab 1', range: '1 - 500 students', cost: '₹1,500', total: '₹7,50,000 for 500 students' },
-    { slab: 'Slab 2', range: '501 - 2,000 students', cost: '₹1,350', total: '₹27,00,000 for 2,000 students' },
-    { slab: 'Slab 3', range: '2,000+ students', cost: '₹1,200', total: 'Based on actual volume' }
+    { slab: 'Slab 1', range: '1 - 500 students', cost: '₹3,000', total: '₹7,50,000 for 500 students' },
+    { slab: 'Slab 2', range: '501 - 2,000 students', cost: '₹2,500', total: '₹27,00,000 for 2,000 students' },
+    { slab: 'Slab 3', range: '2,000+ students', cost: '₹2,000', total: 'Based on actual volume' }
   ];
 
   pricingSlabsUk = [
-    { slab: 'Slab 1', range: '1 - 500 students', cost: '£50', total: '£25,000 for 500 students' },
-    { slab: 'Slab 2', range: '501 - 2,000 students', cost: '£40', total: '£80,000 for 2,000 students' },
-    { slab: 'Slab 3', range: '2,0001+ students', cost: '£30', total: 'Based on actual volume' }
+    { slab: 'Slab 1', range: '1 - 500 students', cost: '£70', total: '£25,000 for 500 students' },
+    { slab: 'Slab 2', range: '501 - 2,000 students', cost: '£60', total: '£80,000 for 2,000 students' },
+    { slab: 'Slab 3', range: '2,0001+ students', cost: '£50', total: 'Based on actual volume' }
   ];
 
 
