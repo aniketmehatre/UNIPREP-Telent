@@ -1,6 +1,6 @@
 <div class="card h-100">
   <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center">
+    <div class="d-flex gap-2 align-items-center">
       <button *ngIf="!showInfo" pButton icon="pi pi-info-circle" label="Open Info" class="btn-primary text-dark me-1"
         (click)="openInfo.emit(true)"></button>
       <div class="uniabroad-icon me-2">
@@ -12,7 +12,8 @@
         <p class="small text-success mb-0 text-start">{{ organizationStatus }}</p>
       </div>
     </div>
-    <button type="button" class="btn-close" aria-label="Close" (click)="closeChat.emit(true)"></button>
+    <button type="button" *ngIf="showInfo" class="btn-close" aria-label="Close"
+			(click)="closeChat.emit(true)"></button>
   </div>
   <div class="card-body">
     <div class="h-100 d-flex flex-column">

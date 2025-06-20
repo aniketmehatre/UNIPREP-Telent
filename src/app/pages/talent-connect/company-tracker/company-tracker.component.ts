@@ -8,6 +8,9 @@ import { TalentConnectService } from "../talent-connect.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { forkJoin } from "rxjs";
 import { PageFacadeService } from '../../page-facade.service';
+import { DrawerModule } from 'primeng/drawer';
+import { Company } from 'src/app/@Models/company-connect.model';
+import { ChatComponent } from '../company-connect/chat/chat.component';
 
 interface DropdownOption {
   label: string;
@@ -18,13 +21,13 @@ interface DropdownOption {
   templateUrl: './company-tracker.component.html',
   styleUrls: ['./company-tracker.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, CompanyListsComponent, CompanyDetailComponent, RouterLink]
+  imports: [CommonModule, DialogModule, CompanyListsComponent, CompanyDetailComponent, RouterLink, DrawerModule, ChatComponent]
 })
 export class CompanyTracker1Component {
   @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();
   @Output() triggerApplyFilter: EventEmitter<any> = new EventEmitter();
   isSkeletonVisible: boolean = false;
-  selectedJobId: number | null = null;
+  selectedCompanyId: number | null = null;
   displayModal: boolean = false;
   industryTypes: DropdownOption[] = [];
   companySizes: DropdownOption[] = [];
@@ -50,7 +53,10 @@ export class CompanyTracker1Component {
 
   showChat: boolean = false;
   orgnamewhitlabel: string = '';
-
+  visiblechat: boolean = false;
+  visible: boolean = false;
+  showInfo: boolean = false;
+  companyDetails!: Company;
   constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder, private pageFacade: PageFacadeService) {
     this.companyForm = this.fb.group({
       companyname: [''],
@@ -66,15 +72,34 @@ export class CompanyTracker1Component {
   ngOnInit(): void {
   }
 
-
   toggleInfo(): void {
-    this.showChat = !this.showChat;
+    this.showInfo = !this.showInfo;
   }
 
   onClickJobId(event: any) {
-    this.companyData = event;
-    this.showChat = false;
-    this.selectedJobId = event.id;
+
+    if (event) {
+      this.selectedCompanyId = event.id;
+      this.getCompanyDetails();
+    } else {
+      this.showChat = false;
+      this.showInfo = false;
+    }
+  }
+
+  getCompanyDetails() {
+    this.talentConnectService.getCompanyDetails(this.selectedCompanyId).subscribe({
+      next: data => {
+        this.companyDetails = data[0];
+        this.isSkeletonVisible = false;
+        this.showInfo = true;
+
+      },
+      error: err => {
+        this.isSkeletonVisible = false;
+        console.log(err);
+      }
+    });
   }
 
   onDialogOpen() {
