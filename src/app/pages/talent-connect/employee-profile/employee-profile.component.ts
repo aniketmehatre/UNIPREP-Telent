@@ -541,7 +541,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           if (work.get("id")?.value && this.isArrayItemModified(work, originalWork)) {
             formData.append(`work_experience[${index}][id]`, work.get("id")?.value)
           }
-
+  
           this.appendIfModified(
             formData,
             `work_experience[${index}][years_of_experience]`,
@@ -859,18 +859,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  private appendIfModified(
-    formData: FormData,
-    fieldName: string,
-    originalData: any,
-    valueTransform?: (value: any) => any,
-  ) {
+  appendIfModified(formData: FormData, fieldName: string, originalData: any, valueTransform?: (value: any) => any) {
     const currentValue = this.personalInfoForm.get(fieldName)?.value
-
-    // if (currentValue === null || currentValue === undefined) {
-    //   return // Skip appending if value is null or undefined
-    // }
-
     const transformedValue = valueTransform ? valueTransform(currentValue) : currentValue || ""
 
     // Ensure proper handling of arrays
@@ -1024,7 +1014,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
 
     // Skills & Strengths (12%)
-    checkField(this.personalInfoForm.get("career_preference_soft_skill_id"), 2+1+2+1+1+1)
+    checkField(this.personalInfoForm.get("career_preference_soft_skill_id"), 2 + 1 + 2 + 1 + 1 + 1)
 
     if (this.languages?.controls?.length) {
       this.languages.controls.forEach((lang, index) => {
@@ -1837,7 +1827,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       "career_preference_currency_id",
       this.personalInfoForm.get("career_preference_currency_id")?.value || "",
     )
-  
+
     formData.append(
       "career_preference_soft_skill_id",
       JSON.stringify(this.personalInfoForm.get("career_preference_soft_skill_id")?.value) || "",
@@ -2181,7 +2171,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     const currencyControl = formGroup.get("work_experience_currency_id");
     const salaryPerMonthControl = formGroup.get("work_experience_salary_per_month");
     const jobResponsibilityControl = formGroup.get("work_experience_job_responsibilities");
-    const experienceLetterControl = formGroup.get("work_experience_experience_letter");
     if (event.target.value) {
       companyNameControl?.setValidators(Validators.required);
       jobTitleControl?.setValidators(Validators.required);
@@ -2192,7 +2181,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       currencyControl?.setValidators(Validators.required);
       salaryPerMonthControl?.setValidators(Validators.required);
       jobResponsibilityControl?.setValidators(Validators.required);
-      experienceLetterControl?.setValidators(Validators.required);
     } else {
       companyNameControl?.clearValidators();
       jobTitleControl?.clearValidators();
@@ -2203,7 +2191,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       currencyControl?.clearValidators();
       salaryPerMonthControl?.clearValidators();
       jobResponsibilityControl?.clearValidators();
-      experienceLetterControl?.clearValidators();
     }
     companyNameControl?.updateValueAndValidity();
     jobTitleControl?.updateValueAndValidity();
@@ -2214,7 +2201,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     currencyControl?.updateValueAndValidity();
     salaryPerMonthControl?.updateValueAndValidity();
     jobResponsibilityControl?.updateValueAndValidity();
-    experienceLetterControl?.updateValueAndValidity();
   }
 
   onChangeAcademicCollegeName(event: any, index: number) {
@@ -2281,6 +2267,11 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     else {
       this.isMaxGpaPercentageValue = false;
     }
+  }
+
+  onRemoveExpLetter(control: any, event: any) {
+    event.stopPropagation();
+    control.value = '';
   }
 
   ngOnDestroy(): void {

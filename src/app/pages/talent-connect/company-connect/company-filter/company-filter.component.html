@@ -10,7 +10,7 @@
 			<div class="col-md-8">
 				<label class="form-label fw-bold">Company Name</label>
 				<input class="form-control d-none" formControlName="companyname" pInputText
-				placeholder="Search by company name" />
+					placeholder="Search by company name" />
 				<input class="form-control" formControlName="companyname" pInputText
 					placeholder="Search by company name" />
 			</div>
@@ -20,6 +20,13 @@
 				<p-select appendTo="body" [options]="industryTypes" formControlName="industrytype" optionValue="id"
 					optionLabel="industry_name" placeholder="Select your preferred industry" styleClass="w-100"
 					[showClear]="true" [filter]="true"></p-select>
+			</div>
+
+			<div class="col-md-4" *ngIf="!isListView">
+				<label class="form-label fw-bold">Status</label>
+				<p-select appendTo="body" [options]="statusList" formControlName="status"
+					placeholder="Select Status" optionValue="value" optionLabel="label" styleClass="w-100"
+					[showClear]="true"></p-select>
 			</div>
 
 			<div class="col-md-4">
@@ -43,12 +50,7 @@
 					</ng-template>
 				</p-select>
 			</div>
-			<div class="col-md-4" *ngIf="!isListView">
-				<label class="form-label fw-bold">Status</label>
-				<p-select appendTo="body" [options]="[{label: 'Active', value: 1}, {label: 'InActive', value: 0}]"
-					formControlName="globalpresence" placeholder="Select Status" optionValue="value"
-					optionLabel="label" styleClass="w-100" [showClear]="true"></p-select>
-			</div>
+
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Global Presence</label>
 				<p-multiSelect appendTo="body" [options]="globalPresence" formControlName="globalpresence"
@@ -61,12 +63,6 @@
 				<p-select appendTo="body" [options]="foundedYears" formControlName="foundedyear"
 					placeholder="Select founded year" styleClass="w-100" [showClear]="true" [filter]="true"></p-select>
 			</div>
-
-			<!-- <div class="col-md-4">
-				<label class="form-label fw-bold">Company Type</label>
-				<p-select appendTo="body" [options]="companyTypes" formControlName="companytype" optionLabel="type"
-					optionValue="id" placeholder="Select company type" styleClass="w-100" [showClear]="true" [filter]="true"></p-select>
-			</div> -->
 		</div>
 	</form>
 
