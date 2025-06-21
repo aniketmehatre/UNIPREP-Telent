@@ -92,6 +92,8 @@ video::-webkit-media-controls-panel {
     font-size: 5em;
     z-index: 2;
     cursor: pointer;
+    background-color: white;
+    border-radius: 100%;
 }
 
 .youtube-iframe {
@@ -199,9 +201,6 @@ video::-webkit-media-controls-panel {
 //     text-align: left !important;
 //   }
 // }
-.timeline-content {
-  margin-bottom: 50px;
-}
 
 .mb-10 {
   margin-bottom: 100px;
@@ -220,50 +219,171 @@ video::-webkit-media-controls-panel {
   font-weight: 100;
 }
 
+// .timeline-container {
+//   position: relative;
+//   overflow: visible;
+// }
+
+// .timeline-line-wrapper {
+//   display: flex;
+//   position: relative;
+//   left: 50%;
+//   top: 0;
+//   transform: translateX(-50%);
+//   width: 6px;
+//   height: 100%;
+//   background-color: var(--uniprep-secondary);
+//   z-index: 999999;
+// }
+
+// /* Timeline dot with no icon */
+// .timeline-dot {
+//   width: 30px;
+//   height: 30px;
+//   background-color: black;
+//   border-radius: 50%;
+//   border: 4px solid var(--uniprep-secondary);
+// }
+
+// /* Scroll-following cursor */
+// .timeline-scroll-cursor {
+//   position: absolute;
+//   z-index: 999;        /* bring it above everything */
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   width: 30px;
+//   height: 30px;
+//   background-color: var(--uniprep-secondary);
+//   border-radius: 50%;
+//   line-height: 30px;
+//   text-align: center;
+//   font-size: 16px;
+//   pointer-events: none;
+// }
+
+// ::ng-deep .p-timeline-event-connector {
+//   width: 6px !important;
+//   background-color: var(--uniprep-secondary) !important;
+// }
+
 .timeline-container {
   position: relative;
-  overflow: visible;
+  width: 100%;
+  padding: 4rem 2rem;
+  overflow-x: hidden; /* Prevent x-axis overflow */
 }
 
 .timeline-line-wrapper {
-  display: flex;
-  position: relative;
-  left: 50%;
+  position: absolute;
   top: 0;
+  left: 50%;
   transform: translateX(-50%);
   width: 6px;
   height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  bottom: 0;
+}
+
+.timeline-line-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ddd;
+}
+
+.timeline-line-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: var(--uniprep-secondary);
-  z-index: 999999;
+  transition: height 0.3s ease-out;
+  z-index: 2;
 }
 
-/* Timeline dot with no icon */
-.timeline-dot {
-  width: 30px;
-  height: 30px;
-  background-color: black;
-  border-radius: 50%;
-  border: 4px solid var(--uniprep-secondary);
-}
-
-/* Scroll-following cursor */
 .timeline-scroll-cursor {
   position: absolute;
-  z-index: 999;        /* bring it above everything */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: top 0.3s ease-out;
+}
+
+.down-arrow {
+  font-size: 18px;
+  color: white;
+  background-color: var(--uniprep-secondary);
+  padding: 0px 7px;
+  border-radius: 50%;
+}
+
+.timeline-step-dot {
+  position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 30px;
-  height: 30px;
-  background-color: var(--uniprep-secondary);
+  width: 25px;
+  height: 25px;
+  background-color: #fff;
+  border: 4px solid var(--uniprep-secondary);
   border-radius: 50%;
-  line-height: 30px;
-  text-align: center;
-  font-size: 16px;
-  pointer-events: none;
+  z-index: 3;
+  transition: background-color 0.3s ease;
 }
 
-::ng-deep .p-timeline-event-connector {
-  width: 6px !important;
-  background-color: var(--uniprep-secondary) !important;
+.timeline-step-dot.filled {
+  background-color: var(--uniprep-secondary);
 }
 
+.timeline-item {
+  width: 100%;
+}
+
+.timeline-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  width: 100%;
+}
+
+.timeline-side {
+  width: 48%;
+}
+
+.year-side {
+  text-align: right;
+}
+
+.timeline-content {
+  padding: 1rem;
+  margin-bottom: 50px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.timeline-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-content ul {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  list-style-type: disc;
+}
+
+html {
+  scroll-behavior: auto; /* disable browser auto snap if needed */
+}

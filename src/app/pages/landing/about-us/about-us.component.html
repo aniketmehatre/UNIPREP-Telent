@@ -6,7 +6,9 @@
           From<span class="fw-bold"> Vision </span> to
           <span class="fw-bold"> Self-Empowerment</span>
         </div>
-        <p class="mt-4 fs-4">In 2021, a group of passionate De Montfort University alumni set out with a clear goal: to create a platform that empowers individuals to shape their futures on their own—no dependencies, just tools for self-guided success.</p>
+        <p class="mt-4 fs-4">In 2021, a group of passionate De Montfort University alumni set out with a clear goal: to
+          create a platform that empowers individuals to shape their futures on their own—no dependencies, just tools
+          for self-guided success.</p>
         <button class="btn btn-secondary rounded-pill px-5 py-2 mt-5" routerLink="/register">Try for Free!</button>
       </div>
     </div>
@@ -17,13 +19,18 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="video-container">
-          <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying" (click)="toggleVideo()"></i>
+          <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"
+            (click)="toggleVideo()"></i>
 
           <!-- YouTube iframe (shown when playing) -->
-          <iframe *ngIf="isPlaying" (click)="toggleVideo()" class="youtube-iframe" [src]="embedUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen> </iframe>
+          <iframe *ngIf="isPlaying" (click)="toggleVideo()" class="youtube-iframe" [src]="embedUrl"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen> </iframe>
 
           <!-- Video thumbnail (shown when not playing) -->
-          <img *ngIf="!isPlaying" class="video-thumbnail" src="uniprep-assets/about-us-hero-image.png" alt="Video thumbnail" />
+          <img *ngIf="!isPlaying" class="video-thumbnail" src="uniprep-assets/about-us-hero-image.png"
+            alt="Video thumbnail" />
         </div>
       </div>
     </div>
@@ -49,16 +56,16 @@
     </div>
   </div>
 </section>
-<section class="darksection py-2 text-white">
+<!-- <section class="darksection py-2 text-white">
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-8 col-12">
-        <div #timelineContainer class="timeline-container position-relative">
-          <!-- Scroll line and cursor -->
-          <!-- <div class="timeline-line-wrapper"></div> -->
-          <!-- <div #scrollCursor class="timeline-scroll-cursor"></div> -->
-          <!-- PrimeNG Timeline -->
-          <p-timeline  #timelineBody  [value]="timelineData" align="">
+        <div #timelineContainer class="timeline-container position-relative"> -->
+<!-- Scroll line and cursor -->
+<!-- <div class="timeline-line-wrapper"></div> -->
+<!-- <div #scrollCursor class="timeline-scroll-cursor"></div> -->
+<!-- PrimeNG Timeline -->
+<!-- <p-timeline  #timelineBody  [value]="timelineData" align="">
             <ng-template #marker let-item>
               <div class="timeline-line-wrapper" *ngIf="item.icon; else withoutIcon">
                 <div #scrollCursor class="timeline-scroll-cursor">
@@ -91,7 +98,58 @@
       </div>
     </div>
   </div>
+</section> -->
+<section class="darksection py-2 text-white">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8">
+        <div #timelineContainer class="timeline-container">
+          <!-- Timeline Line that grows with container height -->
+          <div class="timeline-line-wrapper">
+            <div class="timeline-line-background"></div>
+            <div class="timeline-line-fill" [ngStyle]="{ height: fillHeight + '%' }"></div>
+            <!-- Moving scroll arrow -->
+            <div #scrollCursor class="timeline-scroll-cursor">
+              <div class="timeline-dot filled"></div>
+              <div class="down-arrow">
+                <i class="fa-solid fa-arrow-down"></i>
+              </div>
+            </div>
+            <!-- Step Dots -->
+            <div *ngFor="let item of timelineData; let i = index" #stepDot class="timeline-step-dot"
+              [ngClass]="{ 'filled': i <= activeIndex }" [style.top.px]="dotPositions[i] || 0"></div>
+          </div>
+
+          <!-- Content -->
+          <div class="timeline-item" *ngFor="let item of timelineData; let i = index" #timelineItem>
+            <div class="timeline-item-row">
+              <!-- Left (Year) -->
+              <div class="timeline-side year-side">
+                <div class="display-1 year-text-color-grad" [innerHTML]="item.year"></div>
+                <h2 class="text-orange">{{ item.title }}</h2>
+              </div>
+
+              <!-- Center Line Space (handled by .timeline-line-wrapper) -->
+
+              <!-- Right (Content) -->
+              <div class="timeline-side">
+                <div class="timeline-content pb-5">
+                  <p class="mb-4">{{ item.subtitle }}</p>
+                  <p *ngFor="let point of item.points" class="mb-3">
+                    <span class="text-orange fw-bold">{{ point.split(':')[0] }}:</span>
+                    {{ point.split(':')[1] }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
 <section class="darksection py-3">
   <div class="container-fluid">
     <div class="row justify-content-center">
@@ -126,7 +184,8 @@
               <h2 class="mb-2">{{ callToActionData.title }}</h2>
               <p class="mb-0">{{ callToActionData.description }}</p>
             </div>
-            <a [href]="callToActionData.buttonLink" class="btn btn-dark bg-black px-5 py-4 mt-3 mt-md-0">{{ callToActionData.buttonText }}</a>
+            <a [href]="callToActionData.buttonLink" class="btn btn-dark bg-black px-5 py-4 mt-3 mt-md-0">{{
+              callToActionData.buttonText }}</a>
           </div>
         </div>
       </div>
