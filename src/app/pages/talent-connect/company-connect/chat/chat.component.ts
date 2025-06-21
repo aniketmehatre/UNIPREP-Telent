@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, inject, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
 import { AvatarModule } from "primeng/avatar";
 import { ButtonModule } from "primeng/button";
 import { CommonModule } from "@angular/common";
@@ -11,6 +11,7 @@ import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { EmployeeConnectProfile } from 'src/app/@Models/employee-connect-profile';
+import { MessageService } from 'primeng/api';
 declare global {
   interface Window {
     Pusher: any;
@@ -35,6 +36,8 @@ export class ChatComponent implements OnInit, OnChanges {
   @Output() closeChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Input() showInfo: boolean = true;
   @Output() studentIdEmit = new EventEmitter<number>();
+  @Output() onCompanyConnect: EventEmitter<number> = new EventEmitter<number>();
+
   isLoadingAiSummary: boolean = false;
   organizationName: string = 'UNIABROAD';
   organizationStatus: string = 'Active';
@@ -56,7 +59,10 @@ export class ChatComponent implements OnInit, OnChanges {
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   observer!: IntersectionObserver;
   profileData!: EmployeeConnectProfile;
+  @Input() isFollowed: boolean = true;
 
+  //Inject Service
+  private toast = inject(MessageService);
   constructor(private talentConnectService: TalentConnectService, private authService: AuthService,
 
   ) { }
@@ -195,6 +201,16 @@ export class ChatComponent implements OnInit, OnChanges {
 
   uploadFilesChat(event: any) {
     this.attachmentFile = event.target.files[0];
+  }
+
+  onFollowCompany(message: string) {
+    if (!message.trim()) {
+      this.toast.add({ severity: "error", summary: "Error", detail: 'Enter your information' });
+      return;
+    }
+    this.onCompanyConnect.emit(this.companyDetails.shortlisted);
+    this.isFollowed = true;
+    this.sendMessage(message);
   }
 
   linkedFy(text: string) {

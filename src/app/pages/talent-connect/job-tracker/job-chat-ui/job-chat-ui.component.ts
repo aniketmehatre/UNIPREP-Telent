@@ -188,6 +188,7 @@ export class JobChatUiComponent implements OnChanges {
     this.talentConnectService.applyJob(this.jobDetails?.id).subscribe({
       next: (response) => {
         this.jobId = response.id;
+        this.isJobApplied = true;
         this.sendMessage(message);
       }
     });
