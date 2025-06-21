@@ -1,14 +1,15 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { AvatarModule } from "primeng/avatar";
 import { CommonModule } from "@angular/common";
-import {  ChipModule } from 'primeng/chip';
+import { ChipModule } from 'primeng/chip';
 import { ButtonModule } from 'primeng/button';
 import { TalentConnectService } from '../../talent-connect.service';
 import { Job } from '../../easy-apply/job-view/job-view.component';
 import { RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { EmployeeConnectProfile } from 'src/app/@Models/employee-connect-profile';
+import { MessageService } from 'primeng/api';
 
 interface ChatMessage {
   sender: boolean; // Changed from isSender to sender for clarity
@@ -68,7 +69,10 @@ export class JobChatUiComponent implements OnChanges {
   message: string = '';
   userActiveStatus: string = '';
   profileData!: EmployeeConnectProfile;
+  @Input() isJobApplied: boolean = true;
 
+  //Inject Service
+  private toast = inject(MessageService);
   constructor(private talentConnectService: TalentConnectService, private authService: AuthService) { }
 
 
@@ -76,8 +80,10 @@ export class JobChatUiComponent implements OnChanges {
     if (changes?.['jobId']) {
       this.message = '';
       this.messages = [];
-      this.getMessages(this.jobId);
       this.checkIfProfileCreated();
+      if (this.jobId) {
+        this.getMessages(this.jobId);
+      }
     }
   }
 
@@ -126,6 +132,15 @@ export class JobChatUiComponent implements OnChanges {
     this.attachmentFile = $event.target.files[0];
   }
 
+  onEnterMsg(inputElement: HTMLTextAreaElement) {
+    if (this.isJobApplied) {
+      this.sendMessage(this.message);
+    } else {
+      this.applyJob(inputElement.value);
+    }
+    this.autoGrow(inputElement);
+  }
+
   sendMessage(message: string): void {
     if (!message.trim() && !this.attachmentFile) return;
     const formData = new FormData();
@@ -151,6 +166,29 @@ export class JobChatUiComponent implements OnChanges {
       },
       error: error => {
         console.log('Error sending message:', error);
+      }
+    });
+  }
+
+  applyJob(message: string) {
+    if (!message.trim() && !this.attachmentFile) {
+      this.toast.add({ severity: "error", summary: "Error", detail: 'Please upload CV and Enter your information' });
+      return;
+    }
+    if (!message.trim() || !this.attachmentFile) {
+      if (!message.trim()) {
+        this.toast.add({ severity: "error", summary: "Error", detail: 'Enter your information' });
+        return;
+      }
+      if (!this.attachmentFile) {
+        this.toast.add({ severity: "error", summary: "Error", detail: 'Please upload CV' });
+        return;
+      }
+    }
+    this.talentConnectService.applyJob(this.jobDetails?.id).subscribe({
+      next: (response) => {
+        this.jobId = response.id;
+        this.sendMessage(message);
       }
     });
   }

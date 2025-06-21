@@ -19,7 +19,7 @@
 			<div class="card-body p-0 flex-grow-1 overflow-hidden d-flex flex-column"
 				style="height: calc(100vh - 450px)">
 				<!-- Initial View (Empty State) -->
-				<!-- <div class="chat-body h-100 overflow-y-auto" *ngIf="messages?.length < 1">
+				<div class="chat-body h-100 overflow-y-auto" *ngIf="messages?.length < 1">
 					<div class="description-box m-3 py-4 rounded-3" style="background-color: #edeff4">
 						<h5 class="text-center mb-3">Write a description about yourself</h5>
 						<div class="upload-section text-center">
@@ -29,9 +29,10 @@
 					</div>
 					<div class="cover-letter-box m-3 py-4 rounded-3" style="background-color: #f9e9d8">
 						<p class="text-center">Need a cover letter?</p>
-						<button pButton class="p-button-text p-button-plain w-100" label="Click here to write one!" routerLink="/pages/job-tool/coverletter-builder"></button>
+						<button pButton class="p-button-text p-button-plain w-100" label="Click here to write one!"
+							routerLink="/pages/job-tool/coverletter-builder"></button>
 					</div>
-				</div> -->
+				</div>
 
 				<!-- Conversation View -->
 				<div class="chat-body h-100 overflow-y-auto p-3" *ngIf="messages?.length > 0">
@@ -86,7 +87,8 @@
 									</div>
 									<div class="">{{ message.content }}</div>
 									<small class="message-time text-start"
-									[ngClass]="message.sender ? 'text-white' : 'text-muted'">{{ message.time }}</small>
+										[ngClass]="message.sender ? 'text-white' : 'text-muted'">{{ message.time
+										}}</small>
 								</div>
 							</div>
 							<!-- Button Message -->
@@ -118,7 +120,7 @@
 	</div>
 	<div class="card-footer bg-white p-2 border-0 w-100">
 		<div class="w-100 mb-1 d-flex justify-content-end bg-transparent">
-			<button *ngIf="messageInput.value?.length > 0 else isLoadingAiSummary"
+			<button *ngIf="messages?.length !== 0 || messageInput?.value?.length !==0; else isLoadingAiSummary"
 				class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
 				style="width: fit-content"
 				(click)="aiGenerateSummary('student', { content: messageInput.value }, messageInput, 'RePhrase')">RePhrase</button>
@@ -136,19 +138,28 @@
 			<div>{{attachmentFile.name}}</div>
 			<i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null;"></i>
 		</div>
-		<div class="input-group border rounded-4 p-1 h-auto">
-			<textarea class="form-control border-0 overflow-auto no-scrollbar"
-				[placeholder]="'Text with ... '+ jobDetails?.company_name" #messageInput rows="1" [(ngModel)]="message"
-				style="resize: none; min-height: 38px; max-height: 200px;" (input)="autoGrow($event.target)"
-				(keyup.enter)="sendMessage(message); message = ''; autoGrow(messageInput);">
-		  </textarea>
-			<button class="input-group-text border-0 bg-white" (click)="fileAttachment.click();">
-				<i class="fa-solid fa-paperclip"></i>
-			</button>
-			<button class="input-group-text border-0 bg-white"
-				(click)="sendMessage(messageInput.value); messageInput.value = ''; autoGrow(messageInput);">
-				<i class="fas fa-paper-plane" style="color: var(--uniprep-secondary);"></i>
-			</button>
+		<div class="d-flex gap-2 align-items-center">
+			<div class="input-group border rounded-4 p-1 h-auto">
+				<textarea class="form-control border-0 overflow-auto no-scrollbar"
+					[placeholder]="'Text with ... '+ jobDetails?.company_name" #messageInput rows="1"
+					[(ngModel)]="message" style="resize: none; min-height: 38px; max-height: 200px;"
+					(input)="autoGrow($event.target)"
+					(keyup.enter)="onEnterMsg(messageInput);message = '';">
+		  		</textarea>
+				<button class="input-group-text border-0 bg-white" (click)="fileAttachment.click();">
+					<i class="fa-solid fa-paperclip"></i>
+				</button>
+				<button class="input-group-text border-0 bg-white" *ngIf="isJobApplied"
+					(click)="sendMessage(messageInput.value); messageInput.value = ''; autoGrow(messageInput);">
+					<i class="fas fa-paper-plane" style="color: var(--uniprep-secondary);"></i>
+				</button>
+			</div>
+			<div *ngIf="!isJobApplied">
+				<button class="btn btn-secondary"
+					(click)="applyJob(messageInput.value);  messageInput.value = ''; autoGrow(messageInput);">
+					Apply
+				</button>
+			</div>
 		</div>
 	</div>
 </div>

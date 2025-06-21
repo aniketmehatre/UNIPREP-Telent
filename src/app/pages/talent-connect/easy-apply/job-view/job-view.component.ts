@@ -89,7 +89,6 @@ export class JobViewComponent implements OnInit {
 	isShowApplyChat: boolean = false;
 	currentView: "initial" | "conversation" = "initial";
 
-	messages: Message[] = [];
 
 	constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService, private message: MessageService) { }
 
@@ -131,10 +130,10 @@ export class JobViewComponent implements OnInit {
 					if (response?.applied_jobid) {
 						this.appliedId = response?.applied_jobid;
 					}
-					this.isApplied = response?.isapplied;
-					if (response?.isapplied) {
-						this.isShowApplyChat = response?.isapplied;
-						this.getMessages();
+					// this.isApplied = response?.isapplied;
+					this.isApplied = true;
+					if (this.isApplied) {
+						this.isShowApplyChat = this.isApplied;
 					}
 				}
 			},
@@ -214,60 +213,4 @@ export class JobViewComponent implements OnInit {
 		return proficiencyList[proficiency] || 0;
 	}
 
-	getMessages() {
-		if (this.appliedId) {
-			this.talentConnectService.getMessage({ job_id: this.appliedId }).subscribe({
-				next: (response) => {
-					if (Array.isArray(response?.messages)) {
-						// Handle array response
-						this.messages = response?.messages.map((item: any) => {
-							return {
-								sender: item.employer == 0 ? false : true,
-								content: item.chat,
-								markAsRead: item?.markasread == 0 ? false : true,
-								time: new Date(item.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-								type: item.attachment ? "file" : "text",
-							};
-						});
-					} else {
-						// Handle object response
-						console.log("Message response:", response);
-					}
-				},
-				error: (error) => {
-					console.log(error);
-				},
-			});
-		}
-	}
-
-	sendMessage(message: string): void {
-		if (!message.trim()) return;
-		const formData = new FormData();
-		if (this.attachmentFile) {
-			formData.append("attachment", this.attachmentFile);
-		}
-		formData.append("chat", message);
-		formData.append("job_id", this.appliedId.toString());
-		this.talentConnectService.sendMessage(formData).subscribe({
-			next: (response) => {
-				// If there's a response message from the server, add it
-				if (response.message) {
-					this.messages.push({
-						sender: true,
-						content: message,
-						time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-						type: !this.attachmentFile ? "text" : "file",
-						attachment: this.attachmentFileName ? this.attachmentFileName : null,
-						attachment_url: this.attachmentFile ? this.attachmentFile : null,
-					});
-				}
-				this.attachmentFile = null;
-				this.attachmentFileName = "";
-			},
-			error: (error) => {
-				console.log("Error sending message:", error);
-			},
-		});
-	}
 }

@@ -45,7 +45,7 @@
 		</div>
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
-		<div class="row" *ngIf="!isSkeletonVisible && jobListings.length > 0; else noJobs">
+		<div class="row" *ngIf="!isSkeletonVisible && jobListings.length > 0">
 			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2" *ngFor="let job of jobListings"
 				[routerLink]="['/pages/talent-connect/easy-apply', job.id]">
 				<div class="card card-inside h-100 text-start position-relative" role="button">
@@ -223,19 +223,17 @@
 				</div>
 			</div>
 		</div>
-		<ng-template #noJobs>
-			<div class="card bg-white h-100">
-				<div class="d-flex flex-fill justify-content-center align-items-center flex-column text-center">
-					<div class="building-icon mb-4">
-						<img src="uniprep-assets/images/job.webp" alt="Building" class="img-fluid" />
-					</div>
-					<h4 class="mb-3">No jobs found matching your search.</h4>
-					<p class="text-muted">
-						Please try adjusting your filters or check back soon — new opportunities are added regularly
-					</p>
+		<div class="card bg-white h-100" *ngIf="!isSkeletonVisible && jobListings.length == 0">
+			<div class="d-flex flex-fill justify-content-center align-items-center flex-column text-center">
+				<div class="building-icon mb-4">
+					<img src="uniprep-assets/images/job.webp" alt="Building" class="img-fluid" />
 				</div>
+				<h4 class="mb-3">No jobs found matching your search.</h4>
+				<p class="text-muted">
+					Please try adjusting your filters or check back soon — new opportunities are added regularly
+				</p>
 			</div>
-		</ng-template>
+		</div>
 	</div>
 	<div class="card-footer py-1 border-0 bg-transparent">
 		<div class="row d-flex align-items-center justify-content-between">
@@ -298,16 +296,18 @@
 					</div>
 
 					<div class="col-md-4">
-						<label class="form-label fw-bold">Salary offered</label>
+						<label class="form-label fw-bold">Salary range offered per month</label>
 						<div class="d-flex w-100 gap-2">
 							<p-select [options]="currencies" styleClass="p-select p-component"
 								optionLabel="currency_code" optionValue="currency_code" placeholder="Select Currency"
 								formControlName="salary_currency" [filter]="true" filterBy="currency_code"
 								[style]="{ width: '150px' }"> </p-select>
-							<div class="flex-grow-1">
-								<p-inputNumber id="salary" placeholder="Enter your salary/month"
-									styleClass="p-inputtext w-100" [showButtons]="false" class="w-100"
-									formControlName="salary"></p-inputNumber>
+							<div class="d-flex gap-2 align-items-center flex-grow-1">
+								<p-inputNumber placeholder="Min" styleClass="w-100"
+									[showButtons]="false" class="w-100" formControlName="min_salary"></p-inputNumber>
+								<div>To</div>
+								<p-inputNumber placeholder="Max" styleClass="w-100"
+									[showButtons]="false" class="w-100" formControlName="max_salary"></p-inputNumber>
 							</div>
 						</div>
 					</div>
