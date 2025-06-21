@@ -445,6 +445,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     return false
   }
 
+  onCovertDateFormat(value: any) {
+    const date = new Date(value);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
+
   onSubmit() {
     // if (this.personalInfoForm.get('profile_image')?.invalid) {
     //   this.toastService.add({
@@ -462,12 +470,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       if (isUpdateOperation) {
         formData.append("id", profileId)
         const originalValues = this.originalProfileData
-
-        formData.append("profile_completion", this.profileCompletion.toString())
+        if (this.profileCompletion != this.profileDetail.profile_completion) {
+          formData.append("profile_completion", this.profileCompletion.toString())
+        }
         this.appendIfModified(formData, "full_name", originalValues)
-        this.appendIfModified(formData, "date_of_birth", originalValues, (value) =>
-          value ? new Date(value).toISOString() : "",
-        )
+        this.appendIfModified(formData, "date_of_birth", originalValues, (value) => {
+          if (!value) return "";
+          return this.onCovertDateFormat(value);
+        })
         this.appendIfModified(formData, "nationality_id", originalValues)
         this.appendIfModified(formData, "gender", originalValues)
         this.appendIfModified(formData, "location_id", originalValues)
@@ -541,7 +551,20 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           if (work.get("id")?.value && this.isArrayItemModified(work, originalWork)) {
             formData.append(`work_experience[${index}][id]`, work.get("id")?.value)
           }
-  
+          if (!work.get("work_experience_company_name")?.value &&
+            !work.get("work_experience_job_title")?.value &&
+            !work.get("currently_working")?.value &&
+            !work.get("work_experience_duration_from")?.value &&
+            !work.get("work_experience_duration_to")?.value &&
+            !work.get("years_of_experience")?.value &&
+            !work.get("work_experience_employment_type")?.value &&
+            !work.get("work_experience_currency_id")?.value &&
+            !work.get("work_experience_salary_per_month")?.value &&
+            !work.get("work_experience_experience_letter")?.value && 
+            (work.get("work_experience_job_responsibilities")?.value == '<p></p>' || work.get("work_experience_job_responsibilities")?.value)
+          ) {
+            formData.append(`work_experience[${index}][status]`, '1')
+          }
           this.appendIfModified(
             formData,
             `work_experience[${index}][years_of_experience]`,
@@ -879,13 +902,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     })
 
     // Ensure proper comparison of arrays (convert both to strings)
-    const formattedOriginalValue = Array.isArray(originalValue) ? JSON.stringify(originalValue) : originalValue
-
+    let formattedOriginalValue = Array.isArray(originalValue) ? JSON.stringify(originalValue) : originalValue;
+    if (baseFieldName == 'date_of_birth') {
+      formattedOriginalValue = this.onCovertDateFormat(formattedOriginalValue);
+    }
     if (formattedValue !== formattedOriginalValue) {
       formData.append(fieldName, formattedValue)
     }
   }
-
   private markFormGroupTouched(formGroup: FormGroup | FormArray) {
     Object.values(formGroup.controls).forEach((control) => {
       control.markAsTouched()

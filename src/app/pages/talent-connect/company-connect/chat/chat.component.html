@@ -12,8 +12,7 @@
         <p class="small text-success mb-0 text-start">{{ organizationStatus }}</p>
       </div>
     </div>
-    <button type="button" *ngIf="showInfo" class="btn-close" aria-label="Close"
-			(click)="closeChat.emit(true)"></button>
+    <button type="button" *ngIf="showInfo" class="btn-close" aria-label="Close" (click)="closeChat.emit(true)"></button>
   </div>
   <div class="card-body">
     <div class="h-100 d-flex flex-column">
@@ -68,8 +67,8 @@
                     <div class="d-flex justify-content-between align-items-center flex-row-reverse">
                       <div>
                         <span *ngIf="message.added_by == 'Student'" class="ms-2 text-white-50">
-                          <i class="fa fa-check" [style.color]="message?.markAsRead ? 'skyblue' : 'lightgray'"></i>
-                          <i class="fa fa-check" [style.color]="message?.markAsRead ? 'skyblue' : 'lightgray'"></i>
+                          <i class="fa-solid fa-check-double"
+                            [style.color]="message?.markAsRead ? 'skyblue' : 'lightgray'"></i>
                         </span>
                       </div>
                       <small class="message-time text-end"
@@ -90,7 +89,8 @@
                       {{ message.attachment_name || 'File' }}
                     </a>
                     <div class="">{{ message.content }}</div>
-                    <small class="message-time text-start" [ngClass]="message.added_by == 'Student' ? 'text-white' : 'text-muted'">{{ message.time }}</small>
+                    <small class="message-time text-start"
+                      [ngClass]="message.added_by == 'Student' ? 'text-white' : 'text-muted'">{{ message.time }}</small>
                   </div>
 
                   <!-- Button Message -->
@@ -107,8 +107,7 @@
 
                 <!-- Right Avatar (Student) -->
                 <div class="avatar ms-2" *ngIf="message.added_by == 'Student'">
-                  <p-avatar [image]="profileData?.dp_image ?? 'uniprep-assets/images/avatar.webp'"
-                    shape="circle" />
+                  <p-avatar [image]="profileData?.dp_image ?? 'uniprep-assets/images/avatar.webp'" shape="circle" />
                 </div>
               </div>
             </ng-container>
@@ -120,7 +119,7 @@
 
   <div class="card-footer bg-transparent border-0" style="background-color: transparent;">
     <div class="w-100 mb-1 d-flex justify-content-end bg-transparent">
-      <button *ngIf="messageInput.value?.length > 0 else isLoadingAiSummary"
+      <button *ngIf="messages?.length !== 0 || messageInput?.value?.length !==0; else isLoadingAiSummary"
         class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
         style="width: fit-content"
         (click)="aiGenerateSummary('RePhrase', { content: messageInput.value, mode:'student'}, messageInput)">RePhrase</button>
@@ -138,19 +137,27 @@
       <div>{{ attachmentFile.name }}</div>
       <i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null"></i>
     </div>
-    <div class="input-group rounded-4 p-1 h-auto" style="border: 1px solid #E8E8E8">
-      <textarea class="form-control border-0 overflow-auto"
-        [placeholder]="'Text with ... '+ companyDetails?.company_name" [(ngModel)]="message" #messageInput rows="1"
-        style="resize: none; min-height: 38px; max-height: 200px;" (input)="autoGrow($event.target)"
-        (keyup.enter)="sendMessage(message); message = ''; autoGrow(messageInput);">
+    <div class="d-flex gap-2 align-items-center">
+      <div class="input-group rounded-4 p-1 h-auto" style="border: 1px solid #E8E8E8">
+        <textarea class="form-control border-0 overflow-auto"
+          [placeholder]="'Text with ... '+ companyDetails?.company_name" [(ngModel)]="message" #messageInput rows="1"
+          style="resize: none; min-height: 38px; max-height: 200px;" (input)="autoGrow($event.target)"
+          (keyup.enter)="sendMessage(message); message = ''; autoGrow(messageInput);">
             </textarea>
-      <span role="button" class="input-group-text border-0 bg-white" (click)="fileAttachment.click()">
-        <i class="fa-solid fa-paperclip"></i>
-      </span>
-      <span role="button" class="input-group-text border-0 bg-white"
-        (click)="sendMessage(messageInput.value); messageInput.value = '';  autoGrow(messageInput);">
-        <i class="fa-solid fa-paper-plane-top" style="color: var(--uniprep-secondary)"></i>
-      </span>
+        <span role="button" class="input-group-text border-0 bg-white" (click)="fileAttachment.click()">
+          <i class="fa-solid fa-paperclip"></i>
+        </span>
+        <span role="button" class="input-group-text border-0 bg-white" *ngIf="isFollowed"
+          (click)="sendMessage(messageInput.value); messageInput.value = '';  autoGrow(messageInput);">
+          <i class="fa-solid fa-paper-plane-top" style="color: var(--uniprep-secondary)"></i>
+        </span>
+      </div>
+      <div *ngIf="!isFollowed">
+        <button class="btn btn-secondary"
+          (click)="onFollowCompany(messageInput.value);  messageInput.value = ''; autoGrow(messageInput);">
+          Connect
+        </button>
+      </div>
     </div>
   </div>
 </div>

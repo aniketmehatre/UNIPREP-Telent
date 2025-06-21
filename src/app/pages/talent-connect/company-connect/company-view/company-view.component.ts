@@ -46,7 +46,7 @@ export class CompanyViewComponent implements OnInit {
   ];
 
   workLocation = 'On-Site';
-  showChat: boolean = false;
+  showChat: boolean = true;
   companyDetails: any;
   companyId: any
   isSkeletonVisible: boolean = true;
