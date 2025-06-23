@@ -53,13 +53,6 @@ video::-webkit-media-controls-panel {
     cursor: pointer;
 }
 
-.video-gradient {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 200px;
-}
 .pagetitle {
 	background-color: transparent;
 	border: 1px solid white;
@@ -169,15 +162,6 @@ video::-webkit-media-controls-panel {
 	position: relative;
 	width: 100%;
 	z-index: 10;
-}
-.mockupfit
-{
-	position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    padding: 2.5%;
-    width: 100%;
 }
 
 p {
