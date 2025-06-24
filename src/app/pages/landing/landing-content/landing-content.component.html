@@ -60,7 +60,7 @@
   <div class="container-fluid text-center py-5">
     <div class="row justify-content-center">
       <div class="col-md-9 text-start d-flex align-items-center pt-5 position-relative">
-        <div class="card">
+        <div class="card w-100">
           <div class="card-body p-5 position-relative overflow-hidden">
             <!-- Top-left quote -->
             <span class="quote-icon quote-top-left">
@@ -166,14 +166,17 @@
 						[routerLink]="category.url">
 						<div class="card w-100">
 							<div class="card-body d-flex flex-column p-4">
-								<div class="card mb-3 d-flex align-items-center justify-content-center"
+								<div class="d-flex justify-content-center justify-content-md-start">
+									<div class="card mb-3 d-flex align-items-center justify-content-center"
 									style="width: 60px; height: 60px">
 									<span class="fs-2">{{ category.icon }}</span>
 								</div>
-								<h5 class="card-title">
+								</div>
+
+								<h5 class="card-title text-center text-md-start">
 									{{ category.title }}
 								</h5>
-								<p class="card-description text-light-emphasis mt-auto">
+								<p class="card-description text-light-emphasis mt-auto text-center text-md-start">
 									{{ category.description }}
 								</p>
 							</div>
