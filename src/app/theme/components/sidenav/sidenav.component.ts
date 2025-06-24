@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from "@angular/core";
+import { Component, ContentChild, EventEmitter, Input, Output, signal, TemplateRef } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { error } from "console";
 import { TieredMenuModule } from "primeng/tieredmenu";
@@ -29,6 +29,8 @@ export interface SideMenu {
   imports: [CommonModule, TieredMenuModule],
 })
 export class SidenavComponent {
+
+  isPartner = signal(false)
   @ContentChild("appTitle") appTitle!: TemplateRef<any>;
   @Output() active = new EventEmitter<SideMenu>();
   @Input() isOverlap = false;
@@ -356,9 +358,9 @@ export class SidenavComponent {
 
   enterpriseSubscriptionLink: any;
   ngOnInit(): void {
+    this.apiToCheckPartnerOrInstitute()
     //this.sampleMenus = this.menus;
     let userTypeId = this.authService._user?.student_type_id == 2
-    console.log(userTypeId);
 
     this.authService.userData.subscribe((data) => {
       if (data?.student_type_id == 2) {
@@ -391,7 +393,6 @@ export class SidenavComponent {
       } else {
         this.conditionSubscribed = true;
       }
-      console.log("1");
       if (this.imageWhiteLabelDomainName === "Uniprep" || this.imageWhiteLabelDomainName === "Partner" || this.imageWhiteLabelDomainName === "uniprep.ai") {
         this.whiteLabelIsShow = true;
       } else {
@@ -516,5 +517,16 @@ export class SidenavComponent {
 
   closeQuiz(): void {
     this.visibleExhasted = false;
+  }
+
+  apiToCheckPartnerOrInstitute() {
+    this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
+      if (response.source == 'Partner') {
+        this.isPartner.set(true);
+        this.menus = this.isPartner()
+          ? this.menus.filter((menu: any) => menu.title !== 'UNIFINDER')
+          : this.menus;
+      }
+    })
   }
 }
