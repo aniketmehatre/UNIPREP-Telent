@@ -39,7 +39,7 @@
 						</div>
 					</div>
 					<div class="col-6">
-						<button *ngIf="isShowingCompletion" class="justify-content-center gap-2 px-4 py-2 border-0 rounded-lg shadow-md w-100" style="border-radius: 15px; font-size: 10px" aria-label="Profile completion status">
+						<button *ngIf="isShowingCompletion" class="justify-content-center gap-2 px-4 py-2 border-0 rounded shadow w-100" style="border-radius: 15px; font-size: 10px" aria-label="Profile completion status">
 							<span class="text-gray-700 uniprep-primary fw-semibold">You are almost there!</span>
 						</button>
 					</div>
@@ -47,32 +47,32 @@
 						<div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="progress" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
 							<div class="progress-bar" [style.width.%]="progress"></div>
 						</div>
-						<span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Basic Details</span>
+						<span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700 text-extrasmall">Basic Details</span>
 					</div>
 					<div class="col-3">
 						<div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="talentConnectPercentage" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
 							<div class="progress-bar2" [style.width.%]="talentConnectPercentage"></div>
 						</div>
-						<span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">Job Profile</span>
+						<span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700 text-extrasmall">Job Profile</span>
 					</div>
 					<div class="col-3">
 						<div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="cvBuilderPercentage" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
 							<div class="progress-bar3" [style.width.%]="cvBuilderPercentage"></div>
 						</div>
-						<span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 9px">CV Details</span>
+						<span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700 text-extrasmall">CV Details</span>
 					</div>
 					<div class="col-12 mt-4">
-						<p class="mb-0 text-start" style="font-size: 11px">Complete your profile today:</p>
+						<p class="mb-0 text-start text-extrasmall">Complete your profile today:</p>
 					</div>
 					<div class="col-12 d-flex gap-2 mt-2">
-						<button class="px-2 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available" (click)="openMyProfile()" aria-label="Open My Profile">
-							<span style="color: #394d83">My Profile <i class="fa-solid fa-user" style="color: #394d83" aria-hidden="true"></i></span>
+						<button class="px-2 py-2 border rounded-3 bg-white cursor-pointer w-100 text-extrasmall" (click)="openMyProfile()" aria-label="Open My Profile">
+							<span class="uniprep-primary">My Profile <i class="fa-solid fa-user uniprep-primary" aria-hidden="true"></i></span>
 						</button>
-						<button (click)="redirectToCvBuilder()" class="px-2 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available" aria-label="Open CV Builder">
-							<span style="color: #394d83">CV Builder <i class="fa-solid fa-file-lines" style="color: #394d83" aria-hidden="true"></i></span>
+						<button (click)="redirectToCvBuilder()" class="px-2 py-2 border rounded-3 bg-white cursor-pointer w-100 text-extrasmall" aria-label="Open CV Builder">
+							<span class="uniprep-primary">CV Builder <i class="fa-solid fa-file-lines uniprep-primary" aria-hidden="true"></i></span>
 						</button>
-						<button (click)="redirectToTalentConnect()" class="px-2 py-2 border rounded-lg shadow-md bg-white" style="border-radius: 15px; font-size: 9px; width: -webkit-fill-available" aria-label="Open Talent Connect">
-							<span style="color: #394d83">Talent Connect <i class="fa-solid fa-user-tie" style="color: #394d83" aria-hidden="true"></i></span>
+						<button (click)="redirectToTalentConnect()" class="px-2 py-2 border rounded-3 bg-white cursor-pointer w-100 text-extrasmall" aria-label="Open Talent Connect">
+							<span class="uniprep-primary">Talent Connect <i class="fa-solid fa-user-tie uniprep-primary" aria-hidden="true"></i></span>
 						</button>
 					</div>
 				</div>
@@ -80,7 +80,7 @@
 		</div>
 	</div>
 	<div class="col-lg-6 col-md-12 col-sm-12">
-		<div class="card fav-card mt-2" style="background-color: white">
+		<div class="card fav-card mt-2 bg-white">
 			<div class="card-body text-center">
 				<h5 class="mb-0 text-start"><span class="emoji" aria-label="star">⭐</span> Feature Favourites</h5>
 
@@ -118,7 +118,7 @@
 				<div class="card-body d-flex flex-column justify-content-between">
 					<div class="flex justify-content-between">
 						<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span>&nbsp;Apply for jobs</h5>
-						<button class="btn btn-rounded text-small px-4 py-2 m-0 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()" aria-label="View all job applications">View All</button>
+						<button class="btn btn-rounded text-extrasmall px-4 py-2 m-0 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()" aria-label="View all job applications">View All</button>
 					</div>
 					<p-carousel #carousel [circular]="false" [autoplayInterval]="3000" [numScroll]="1" [numVisible]="3" *ngIf="!isNoApplicationsData" [responsiveOptions]="responsiveOptions" [value]="recentJobApplication" [showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Recent Job Applications Carousel">
 						<ng-template let-group pTemplate="item">
@@ -140,7 +140,7 @@
 				<div class="card-body text-center pb-3 bodyclass d-flex flex-column justify-content-between h-100">
 					<div class="flex justify-content-between">
 						<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="seedling">💼</span>&nbsp;Companies</h5>
-						<button class="btn btn-rounded text-small px-4 py-2 m-0 mb-2 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()" aria-label="View all educational partners">View All</button>
+						<button class="btn btn-rounded text-extrasmall px-4 py-2 m-0 mb-2 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()" aria-label="View all educational partners">View All</button>
 					</div>
 					<p-carousel [numScroll]="8" [numVisible]="4" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions" [showIndicators]="true" [value]="partnerTrusterLogo" class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Educational Partners Carousel">
 						<ng-template let-uni pTemplate="item">
@@ -167,7 +167,7 @@
 						<h5 class="uppercase"><span class="emoji" aria-label="hourglass">⌛</span> Quiz</h5>
 						<p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
 					</div>
-					<button pButton severity="warn" (click)="openQuiz()" class="btn btn-rounded font-weight-bold mt-2" style="color: #ff9138; border-color: #ff9138; background-color: #fff1e7" aria-label="Start Quiz">Start Quiz</button>
+					<button pButton severity="warn" (click)="openQuiz()" class="btn btn-rounded font-weight-bold mt-2 bg-white" style="color: #ff9138; border-color: #ff9138; background-color: #fff1e7" aria-label="Start Quiz">Start Quiz</button>
 				</div>
 			</div>
 			<div class="card mb-2 flex-fill bg-white">
@@ -176,7 +176,7 @@
 						<h5 class="uppercase"><span class="emoji" aria-label="scroll">📜</span> Certification</h5>
 						<p class="mb-0">Get all your certificates in one place to share them on social media.</p>
 					</div>
-					<button pButton (click)="openCertificate()" class="btn btn-rounded mt-2" style="color: #455c9e; background-color: #ecedf3; border-color: #455c9e" aria-label="View My Certificates">My Certificates</button>
+					<button pButton (click)="openCertificate()" class="btn btn-rounded mt-2 bg-white" style="color: #455c9e; border-color: #455c9e" aria-label="View My Certificates">My Certificates</button>
 				</div>
 			</div>
 			<div class="card flex-fill bg-white">
@@ -191,7 +191,7 @@
 						</p-inputgroup-addon>
 						<input pInputText [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address" aria-label="Email address to send invite" />
 					</p-inputgroup>
-					<button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold mt-4" style="color: #666666; border-color: #666666; background-color: #ffffff; font-size: 10px" aria-label="Send invite email">Send Invite</button>
+					<button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold mt-4 bg-white text-extrasmall" style="color: #666666; border-color: #666666; font-size: 10px" aria-label="Send invite email">Send Invite</button>
 				</div>
 			</div>
 		</div>
