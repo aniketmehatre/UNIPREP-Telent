@@ -265,8 +265,12 @@ export class ExportCreditComponent implements OnInit {
     rzp.open();
   }
 
-  naviagateSubscriptionPage() {
-    this.router.navigate(["/pages/subscriptions/upgrade-subscription"]);
+  naviagateSubscriptionPage(isSubscription: number) {
+    if(isSubscription === 2){
+      this.router.navigate(["/pages/subscriptions"]);
+    }else{
+      this.router.navigate(["/pages/subscriptions/upgrade-subscription"]);
+    }
   }
 
   // blockKeyboardInput(event: KeyboardEvent) :void{
@@ -277,25 +281,30 @@ export class ExportCreditComponent implements OnInit {
 
   onInputChangeValue(event: any, module_id: number) {
     this.totalPayableAmount = 0;
-    if (this.currentCountry == "India") {
+    // if (this.currentCountry == "India") {
       this.moduleList.forEach(item => {
         if (module_id == item.id) {
           item.inputvalue = event.value;
         }
         if (item.planValidation == 1) {
-          this.totalPayableAmount += item.inputvalue * item.price_per_credit;
+          if (this.currentCountry == "India") {
+            this.totalPayableAmount += item.inputvalue * item.price_per_credit;
+          }else{
+            this.totalPayableAmount += parseFloat((item.inputvalue * (item.price_per_credit * this.perRupeePrice)).toFixed(2));
+          }
+          
         }
       });
-    } else {
-      this.moduleList.forEach(item => {
-        if (module_id == item.id) {
-          item.inputvalue = event.value;
-        }
-        if (item.planValidation == 1) {
-          this.totalPayableAmount += parseFloat((item.inputvalue * (item.price_per_credit * this.perRupeePrice)).toFixed(2));
-        }
-      });
-    }
+    // } else {
+    //   this.moduleList.forEach(item => {
+    //     if (module_id == item.id) {
+    //       item.inputvalue = event.value;
+    //     }
+    //     if (item.planValidation == 1) {
+    //       this.totalPayableAmount += parseFloat((item.inputvalue * (item.price_per_credit * this.perRupeePrice)).toFixed(2));
+    //     }
+    //   });
+    // }
 
   }
 }
