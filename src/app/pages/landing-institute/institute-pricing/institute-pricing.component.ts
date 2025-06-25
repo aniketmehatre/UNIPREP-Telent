@@ -14,6 +14,11 @@ interface PricingSlab {
   total: string;
 }
 
+interface CountryList{
+  id: string;
+  country: string;
+  flag: string
+}
 @Component({
   selector: 'uni-institute-pricing',
   imports: [CommonModule, FormsModule, RouterModule, SelectModule, ButtonModule,],
@@ -26,30 +31,42 @@ export class InstitutePricingComponent implements OnInit {
   roiInvestmentDescriptionOfUK = 'UNIPREP is more than a platform—it\'s a future-ready investment that enhances employability, global visibility & student satisfaction. \
                                   It delivers 100X value to both students and institutions by combining technology, opportunity, and strategic partnerships.';
 
-  countryList: { id: string, country: string, flag: string }[] = [
-    {
-      id: 'india',
-      country: 'India',
-      flag: 'uniprep-assets/icons/india.png'
-    },
-    {
-      id: 'uk',
-      country: 'United Kingdom',
-      flag: 'uniprep-assets/icons/united-kingdom.png'
-    }
+  countryList:CountryList[] = [
+    { id: 'india', country: 'India', flag: 'https://flagcdn.com/in.svg' },
+    { id: 'united-kingdom', country: 'United Kingdom', flag: 'https://flagcdn.com/gb.svg' },
+    { id: 'united-states', country: 'United States', flag: 'https://flagcdn.com/us.svg' },
+    { id: 'canada', country: 'Canada', flag: 'https://flagcdn.com/ca.svg' },
+    { id: 'australia', country: 'Australia', flag: 'https://flagcdn.com/au.svg' },
+    { id: 'germany', country: 'Germany', flag: 'https://flagcdn.com/de.svg' },
+    { id: 'united-arab-emirates', country: 'United Arab Emirates', flag: 'https://flagcdn.com/ae.svg' },
+    { id: 'singapore', country: 'Singapore', flag: 'https://flagcdn.com/sg.svg' },
+    { id: 'new-zealand', country: 'New Zealand', flag: 'https://flagcdn.com/nz.svg' },
+    { id: 'france', country: 'France', flag: 'https://flagcdn.com/fr.svg' },
+    { id: 'ireland', country: 'Ireland', flag: 'https://flagcdn.com/ie.svg' },
+    { id: 'japan', country: 'Japan', flag: 'https://flagcdn.com/jp.svg' },
+    { id: 'netherlands', country: 'Netherlands', flag: 'https://flagcdn.com/nl.svg' },
+    { id: 'sweden', country: 'Sweden', flag: 'https://flagcdn.com/se.svg' },
+    { id: 'south-korea', country: 'South Korea', flag: 'https://flagcdn.com/kr.svg' },
+    { id: 'switzerland', country: 'Switzerland', flag: 'https://flagcdn.com/ch.svg' },
+    { id: 'malaysia', country: 'Malaysia', flag: 'https://flagcdn.com/my.svg' },
+    { id: 'qatar', country: 'Qatar', flag: 'https://flagcdn.com/qa.svg' },
+    { id: 'norway', country: 'Norway', flag: 'https://flagcdn.com/no.svg' },
+    { id: 'finland', country: 'Finland', flag: 'https://flagcdn.com/fi.svg' },
+    { id: 'saudi-arabia', country: 'Saudi Arabia', flag: 'https://flagcdn.com/sa.svg' },
+    { id: 'denmark', country: 'Denmark', flag: 'https://flagcdn.com/dk.svg' }
   ];
 
   pricingSlabs: PricingSlab[] = [];
 
   pricingSlabsIndia: PricingSlab[] = [
-    { slab: 'Slab 1', range: '1 - 500 students', cost: '₹3,000', total: '₹7,50,000 for 500 students' },
-    { slab: 'Slab 2', range: '501 - 2,000 students', cost: '₹2,500', total: '₹27,00,000 for 2,000 students' },
+    { slab: 'Slab 1', range: '1 - 500 students', cost: '₹3,000', total: '₹15,00,000 for 500 students' },
+    { slab: 'Slab 2', range: '501 - 2,000 students', cost: '₹2,500', total: '50,00,000 for 2,000 students' },
     { slab: 'Slab 3', range: '2,000+ students', cost: '₹2,000', total: 'Based on actual volume' }
   ];
 
   pricingSlabsUk = [
-    { slab: 'Slab 1', range: '1 - 500 students', cost: '£70', total: '£25,000 for 500 students' },
-    { slab: 'Slab 2', range: '501 - 2,000 students', cost: '£60', total: '£80,000 for 2,000 students' },
+    { slab: 'Slab 1', range: '1 - 500 students', cost: '£70', total: '£35,000 for 500 students' },
+    { slab: 'Slab 2', range: '501 - 2,000 students', cost: '£60', total: '£1,20,000 for 2,000 students' },
     { slab: 'Slab 3', range: '2,0001+ students', cost: '£50', total: 'Based on actual volume' }
   ];
 

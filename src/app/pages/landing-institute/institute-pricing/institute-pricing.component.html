@@ -69,7 +69,7 @@
               <tr class="subheader-row">
                 <th class="py-3 ">Slab</th>
                 <th class="py-3">Student Range</th>
-                <th class="py-3">Cost Per Student (INR)</th>
+                <th class="py-3">Cost Per Student ( {{ this.selectedCountry === 'india' ? 'INR' : 'GBP'}})</th>
                 <th class="py-3">Sample Total Fee (GST Excluded)</th>
               </tr>
             </thead>
@@ -99,24 +99,6 @@
         </ul>
       </div>
     </div>
-
-    <!-- Career Co-Pilot Banner -->
-    <div class="row justify-content-center mb-5">
-      <div class="col-md-10">
-        <div class="p-5 rounded-4 ctc-field">
-          <div class="row justify-content-center align-items-center">
-            <div class="col-md-8">
-              <h2 class="display-6 fw-bold">UNIPREP IS YOUR CAREER CO-PILOT</h2>
-              <p class="fs-5">READY WHEN YOU ARE.</p>
-            </div>
-            <div class="col-md-4 text-md-end mt-3 mt-md-0">
-              <button class="btn btn-dark bg-black px-4 py-3 rounded-2">Register Now</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Benefits Table -->
     <div class="row justify-content-center mb-5">
       <div class="col-md-10">
@@ -175,5 +157,24 @@
         </div>
       </div>
     </div>
+
+    
+    <!-- Career Co-Pilot Banner -->
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-10">
+        <div class="p-5 rounded-4 ctc-field">
+          <div class="row justify-content-center align-items-center">
+            <div class="col-md-8">
+              <h2 class="display-6 fw-bold">UNIPREP IS YOUR CAREER CO-PILOT</h2>
+              <p class="fs-5">READY WHEN YOU ARE.</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+              <button class="btn btn-dark bg-black px-4 py-3 rounded-2">Register Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </div>
 </div>

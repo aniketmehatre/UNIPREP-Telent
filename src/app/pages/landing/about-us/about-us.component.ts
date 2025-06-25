@@ -40,147 +40,96 @@ interface CallToActionCard {
 })
 export class AboutUsComponent implements OnInit {
   isPlaying: boolean = false;
-  // @ViewChild('scrollCursor') scrollCursor!: ElementRef;
-  // @ViewChild('timelineContainer') timelineContainer!: ElementRef;
+  @ViewChild('timelineContainer') timelineContainer!: ElementRef;
+  @ViewChild('scrollCursor') scrollCursor!: ElementRef;
+  @ViewChildren('timelineItem') timelineItems!: QueryList<ElementRef>;
+  @ViewChildren('stepDot') stepDots!: QueryList<ElementRef>;
+  fillHeight = 0;
+  activeIndex = -1;
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    const container = this.timelineContainer?.nativeElement;
+    const cursor = this.scrollCursor?.nativeElement;
+    if (!container || !cursor) return;
 
-  // @HostListener('window:scroll', [])
-  // onScroll(): void {
-  //   const container = this.timelineContainer?.nativeElement;
-  //   const cursor = this.scrollCursor?.nativeElement;
-  //   if (!container || !cursor) return;
+    const rect = container.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
 
-  //   const rect = container.getBoundingClientRect();
-
-  //   const isInView = rect.top < window.innerHeight && rect.bottom > 0;
-
-  //   if (isInView) {
-      // const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      // const progress = (scrollTop + window.innerHeight / 2 - (scrollTop + rect.top)) / rect.height;
-      // const clampedProgress = Math.min(Math.max(progress, 0), 1);
-      // const cursorTop = clampedProgress * rect.height;
-
-      // cursor.style.top = `${cursorTop}px`;
-  //     cursor.style.opacity = '1'; // show when active
-  //   } else {
-  //     cursor.style.opacity = '0'; // hide when out of view
-  //   }
-  // }
-
-@ViewChild('timelineContainer') timelineContainer!: ElementRef;
-@ViewChild('scrollCursor') scrollCursor!: ElementRef;
-@ViewChildren('timelineItem') timelineItems!: QueryList<ElementRef>;
-@ViewChildren('stepDot') stepDots!: QueryList<ElementRef>;
-fillHeight = 0;
-activeIndex = -1;
-@HostListener('window:scroll', [])
-onScroll(): void {
-  const container = this.timelineContainer?.nativeElement;
-  const cursor = this.scrollCursor?.nativeElement;
-  if (!container || !cursor) return;
-
-  const rect = container.getBoundingClientRect();
-  const windowHeight = window.innerHeight;
-
-  // Only activate when timeline is in view
-  const isInView = rect.top < windowHeight && rect.bottom > 0;
-  if (!isInView) {
-    cursor.style.opacity = '0';
-    return;
-  }
-
-  // --- Use center-of-viewport based progress ---
-  const scrollTop = window.scrollY || document.documentElement.scrollTop;
-  const containerOffsetTop = scrollTop + rect.top;
-  const viewportCenter = scrollTop + window.innerHeight / 2;
-
-  const progress = (viewportCenter - containerOffsetTop) / rect.height;
-  const clampedProgress = Math.min(Math.max(progress, 0), 1);
-  const cursorTop = Math.min(clampedProgress * rect.height, rect.height - cursor.offsetHeight);
-
-  cursor.style.top = `${cursorTop}px`;
-  cursor.style.opacity = '1'; // Show when in view
-
-  // --- Continue to calculate fill height for progress line ---
-  this.fillHeight = clampedProgress * 100;
-
-  // Update dots
-  this.calculateDotPositions();
-  this.updateDotStates();
-}
-
-currentStepIndex = 0;
-scrolling = false;
-
-@HostListener('wheel', ['$event'])
-onWheelScroll(event: WheelEvent): void {
-  const container = this.timelineContainer?.nativeElement;
-  if (!container || this.scrolling || !this.dotPositions.length) return;
-
-  const rect = container.getBoundingClientRect();
-  const isInView = rect.top < window.innerHeight && rect.bottom > 0;
-  if (!isInView) return;
-
-  event.preventDefault();
-
-  this.scrolling = true;
-
-  const direction = event.deltaY > 0 ? 1 : -1;
-
-  // Clamp index change to 1 step only
-  let nextIndex = this.currentStepIndex + direction;
-
-  // Enforce valid range
-  nextIndex = Math.max(0, Math.min(this.dotPositions.length - 1, nextIndex));
-
-  if (nextIndex !== this.currentStepIndex) {
-    this.currentStepIndex = nextIndex;
-
-    const containerTop = container.getBoundingClientRect().top + window.scrollY;
-    const targetY = containerTop + this.dotPositions[this.currentStepIndex] - window.innerHeight / 2;
-
-    // Scroll to center the selected dot
-    window.scrollTo({ top: targetY, behavior: 'smooth' });
-  }
-
-  // Lock further scrolls briefly
-  setTimeout(() => {
-    this.scrolling = false;
-  }, 600); // Reduce delay if scroll feels unresponsive
-}
-
-
-dotPositions: number[] = [];
-
-calculateDotPositions(): void {
-  if (!this.timelineItems) return;
-
-  this.dotPositions = this.timelineItems.map((el) => {
-    const rect = el.nativeElement.getBoundingClientRect();
-    const containerTop = this.timelineContainer.nativeElement.getBoundingClientRect().top;
-    return rect.top - containerTop + rect.height / 2; // center of each block relative to container
-  });
-}
-
-updateDotStates(): void {
-  if (!this.stepDots || !this.scrollCursor) return;
-
-  const cursorRect = this.scrollCursor.nativeElement.getBoundingClientRect();
-  const cursorYCenter = cursorRect.top + cursorRect.height / 2;
-
-  this.activeIndex = -1;
-
-  this.stepDots.forEach((dot, i) => {
-    const dotRect = dot.nativeElement.getBoundingClientRect();
-    const dotYCenter = dotRect.top + dotRect.height / 2;
-
-    if (cursorYCenter >= dotYCenter) {
-      this.activeIndex = i;
+    const isInView = rect.top < windowHeight && rect.bottom > 0;
+    if (!isInView) {
+      cursor.style.opacity = '0';
+      return;
     }
-  });
-}
 
+    this.calculateDotPositions();
 
+    // Get center of viewport
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const containerOffsetTop = scrollTop + rect.top;
+    const viewportCenter = scrollTop + window.innerHeight / 2;
 
+    const relativeY = viewportCenter - containerOffsetTop;
+
+    // Find the closest dot to center of viewport
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+    this.dotPositions.forEach((pos, index) => {
+      const distance = Math.abs(pos - relativeY);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    // Set the active index
+    this.activeIndex = closestIndex;
+
+    // Move the cursor to the center of the active dot
+    const activeDotY = this.dotPositions[this.activeIndex];
+    cursor.style.top = `${activeDotY - cursor.offsetHeight / 2}px`;
+    cursor.style.opacity = '1';
+
+    // Update the orange fill line height up to the active dot
+    this.fillHeight =
+      (this.dotPositions[this.activeIndex] /
+        this.timelineContainer.nativeElement.getBoundingClientRect().height) *
+      100;
+
+    // Update filled dot state
+    this.updateDotStates();
+  }
+
+  currentStepIndex = 0;
+  scrolling = false;
+  dotPositions: number[] = [];
+
+  calculateDotPositions(): void {
+    if (!this.timelineItems) return;
+
+    this.dotPositions = this.timelineItems.map((el) => {
+      const rect = el.nativeElement.getBoundingClientRect();
+      const containerTop = this.timelineContainer.nativeElement.getBoundingClientRect().top;
+      return rect.top - containerTop + rect.height / 2; // center of each block relative to container
+    });
+  }
+
+  updateDotStates(): void {
+    if (!this.stepDots || !this.scrollCursor) return;
+
+    const cursorRect = this.scrollCursor.nativeElement.getBoundingClientRect();
+    const cursorYCenter = cursorRect.top + cursorRect.height / 2;
+
+    this.activeIndex = -1;
+
+    this.stepDots.forEach((dot, i) => {
+      const dotRect = dot.nativeElement.getBoundingClientRect();
+      const dotYCenter = dotRect.top + dotRect.height / 2;
+
+      if (cursorYCenter >= dotYCenter) {
+        this.activeIndex = i;
+      }
+    });
+  }
 
   // @ViewChild('videoPlayer') videoPlayer!: ElementRef;
   // welcomeVideoLink: string = 'https://uniprepapi.storage.googleapis.com/Landing/welcome.mp4';
