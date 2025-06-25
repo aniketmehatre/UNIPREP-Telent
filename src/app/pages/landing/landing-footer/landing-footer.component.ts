@@ -55,8 +55,8 @@ export class LandingFooterComponent {
 
   contactInfo = {
     phone: [
-      { country: "in", number: "+91 6362716586" },
-      { country: "gb", number: "+44 7864716295" },
+      { country: "in", number: "+91 63627 16586" },
+      { country: "gb", number: "+44 78647 16295" },
     ],
     email: "info@uniprep.ai",
   }
