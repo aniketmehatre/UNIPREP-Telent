@@ -30,6 +30,7 @@ export interface EmployeeConnectProfile {
   professional_references: ProfessionalReference[]
   languages: Language[]
   networking: Networking[]
+  profile_completion_flag: number
 }
 
 export interface CareerPreference {
