@@ -43,7 +43,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="card-body h-100 overflow-y-auto" *ngIf="!isShowAiEvaluation else showAIValuationBodyContent">
+					<div class="card-body h-100 overflow-y-auto"
+						*ngIf="!isShowAiEvaluation else showAIValuationBodyContent">
 						<p-carousel [value]="profileFormList" [numVisible]="1" [numScroll]="1" [circular]="false"
 							[showNavigators]="false" [showIndicators]="false" [page]="activePageIndex"
 							styleClass="h-100">
@@ -1357,45 +1358,90 @@
 					</div>
 					<div class="card-footer bg-white">
 						<div class="row" *ngIf="!isShowAiEvaluation; else showAIValuationFooter">
-							<div class="col-3 pe-0 text-start" *ngIf="activePageIndex !== 0">
-								<button pButton type="button" class="btn btn-outline-primary-bg py-2 px-3"
-									(click)="previous()">
-									<i class="fa fa-arrow-left"></i>{{getPreviousIndexValue()}}
-								</button>
-							</div>
-							<div class="px-0"
-								[ngClass]="{'col-9': activePageIndex == 0, 'col-6' : activePageIndex < 9, 'col-4' : activePageIndex == 9 }">
-								<div class="uniprep-secondary fw-bold mb-1">Profile Completion: {{
-									profileCompletion
-									}}%</div>
-								<div class="w-100">
-									<p-progressBar [style]="{ height: '12px' }" color="#f0780e"
-										styleClass="rounded-pill" [showValue]="false"
-										[value]="profileCompletion"></p-progressBar>
+							<ng-container *ngIf="!isUpdatedProfile; else showUpdate">
+								<div class="col-3 pe-0 text-start" *ngIf="activePageIndex !== 0">
+									<button pButton type="button" class="btn btn-outline-primary-bg py-2 px-3"
+										(click)="previous()">
+										<i class="fa fa-arrow-left"></i>{{getPreviousIndexValue()}}
+									</button>
 								</div>
-							</div>
-							<div *ngIf="activePageIndex != 9" class="col-3 ps-0 text-end">
-								<button pButton type="button" (click)="next()" class="btn btn-primary py-2 px-3">
-									{{getNextIndexValue()}}<i class="fa fa-arrow-right"></i>
-								</button>
-							</div>
-							<div *ngIf="activePageIndex == 9" class="col-5 ps-0 text-end">
-								<button pButton type="button" (click)="onCallAIEvaluation()"
-									class="btn btn-primary btn-rounded p-1 ps-4 me-2">
-									<span class="me-2">AI Review</span><span class="btn-icon px-2 py-2">
-										<i class="pi pi-microchip-ai text-white"></i>
+								<div class="px-0"
+									[ngClass]="{'col-9': activePageIndex == 0, 'col-6' : activePageIndex < 9, 'col-4' : activePageIndex == 9 }">
+									<div class="uniprep-secondary fw-bold mb-1">Profile Completion: {{
+										profileCompletion
+										}}%</div>
+									<div class="w-100">
+										<p-progressBar [style]="{ height: '12px' }" color="#f0780e"
+											styleClass="rounded-pill" [showValue]="false"
+											[value]="profileCompletion"></p-progressBar>
+									</div>
+								</div>
+								<div *ngIf="activePageIndex != 9" class="col-3 ps-0 text-end">
+									<button pButton type="button" (click)="next()" class="btn btn-primary py-2 px-3">
+										{{getNextIndexValue()}}<i class="fa fa-arrow-right"></i>
+									</button>
+								</div>
+								<div *ngIf="activePageIndex == 9" class="col-5 ps-0 text-end">
+									<button pButton type="button" (click)="onCallAIEvaluation()"
+										class="btn btn-primary btn-rounded p-1 ps-4 me-2">
+										<span class="me-2">AI Review</span><span class="btn-icon px-2 py-2">
+											<i class="pi pi-microchip-ai text-white"></i>
 										</span>
-								</button>
-								<button pButton type="button" (click)="next()"
-									class="btn btn-success btn-rounded p-1 ps-4">
-									<span class="me-2">Complete Your Profile</span><span class="btn-icon px-2 py-2"><i
-											class="pi pi-check text-white"></i></span>
-								</button>
-							</div>
+									</button>
+									<button pButton type="button" (click)="next()"
+										class="btn btn-success btn-rounded p-1 ps-4">
+										<span class="me-2">Complete Your Profile</span><span
+											class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
+									</button>
+								</div>
+							</ng-container>
+							<ng-template #showUpdate>
+								<div class="col-3 pe-0 text-start" *ngIf="activePageIndex !== 0">
+									<button pButton type="button" class="btn btn-outline-primary-bg py-2 px-3"
+										(click)="previous()">
+										<i class="fa fa-arrow-left"></i>{{getPreviousIndexValue()}}
+									</button>
+								</div>
+								<div class="px-0"
+									[ngClass]="{'col-8': activePageIndex == 0, 'col-5' : activePageIndex < 9, 'col-4' : activePageIndex == 9 }">
+									<div class="uniprep-secondary fw-bold mb-1">Profile Completion: {{
+										profileCompletion
+										}}%</div>
+									<div class="w-100">
+										<p-progressBar [style]="{ height: '12px' }" color="#f0780e"
+											styleClass="rounded-pill" [showValue]="false"
+											[value]="profileCompletion"></p-progressBar>
+									</div>
+								</div>
+								<div *ngIf="activePageIndex != 9" class="col-4 ps-0 text-end">
+									<button pButton type="button" (click)="next(true)"
+										class="btn btn-success btn-rounded p-1 ps-4 me-2">
+										<span class="me-2">Update</span><span
+											class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
+									</button>
+									<button pButton type="button" (click)="next()" class="btn btn-primary py-2 px-3">
+										{{getNextIndexValue()}}<i class="fa fa-arrow-right"></i>
+									</button>
+								</div>
+								<div *ngIf="activePageIndex == 9" class="col-5 ps-0 text-end">
+									<button pButton type="button" (click)="onCallAIEvaluation()"
+										class="btn btn-primary btn-rounded p-1 ps-4 me-2">
+										<span class="me-2">AI Review</span><span class="btn-icon px-2 py-2">
+											<i class="pi pi-microchip-ai text-white"></i>
+										</span>
+									</button>
+									<button pButton type="button" (click)="next()"
+										class="btn btn-success btn-rounded p-1 ps-4">
+										<span class="me-2">Complete Your Profile</span><span
+											class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
+									</button>
+								</div>
+							</ng-template>
+
 						</div>
 						<ng-template #showAIValuationFooter>
 							<div class="row align-items-center">
-							<div class="col-7 col-md-7">
+								<div class="col-7 col-md-7">
 									<div class="d-flex align-items-center gap-2">
 										<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile Score: {{
 											profileScore
@@ -1406,8 +1452,8 @@
 												[value]="profileScore"></p-progressBar>
 										</div>
 									</div>
-							</div>
-							<div class="col-5 col-md-5 text-end">
+								</div>
+								<div class="col-5 col-md-5 text-end">
 									<button pButton type="button"
 										(click)="isShowAiEvaluation = false; aiEvaluationContent = ''"
 										class="btn btn-primary btn-rounded p-1 ps-4 me-2">
@@ -1419,10 +1465,10 @@
 										<span class="me-2">Complete Your Profile</span><span
 											class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
 									</button>
+								</div>
 							</div>
-						</div>
 						</ng-template>
-						
+
 						<!-- <div class="d-flex justify-content-between gap-2 w-100">
 							<button pButton type="button" class="btn btn-outline-primary-bg py-2 px-3"
 								[style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">

@@ -127,6 +127,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   isSubmittedReferencesForm: boolean = false;
 
   profileCreationId: number = 0;
+  isUpdatedProfile: boolean = false;
   constructor(
     private fb: FormBuilder,
     private dialogService: DialogService,
@@ -1232,6 +1233,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           this.profileId = responses.id
           this.patchFormData(responses)
           this.profileCreationId = responses.id;
+          this.isUpdatedProfile = responses.profile_completion_flag ? true : false;
         }
       },
       error: (error) => {
@@ -2447,16 +2449,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.activePageIndex--;
   }
 
-  next() {
+  next(isUpdate = false) {
     if (this.activePageIndex == 0) {
       if (this.personalInformationForm.invalid) {
         this.isSubmittedPersonalInformationForm = true;
         return;
       }
       this.calculateProfileCompletion();
-      if (this.isPersonalInfoModified()) {
-        this.onSubmitPersonalInformationForm();
-      }
+      this.onSubmitPersonalInformationForm(isUpdate);
     }
     else if (this.activePageIndex == 1) {
       if (this.educationDetailsForm.invalid) {
@@ -2464,9 +2464,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         return;
       }
       this.calculateProfileCompletion();
-      if (this.isEducationDetailsModified()) {
-        this.onSubmitEducationDetailsForm();
-      }
+      this.onSubmitEducationDetailsForm(isUpdate);
     }
     else if (this.activePageIndex == 2) {
       if (this.workExperienceForm.invalid) {
@@ -2474,9 +2472,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         return;
       }
       this.calculateProfileCompletion();
-      if (this.isWorkExperienceModified()) {
-        this.onSubmitWorkExperienceForm();
-      }
+      this.onSubmitWorkExperienceForm(isUpdate);
     }
     else if (this.activePageIndex == 3) {
       if (this.careerPreferenceForm.invalid) {
@@ -2484,70 +2480,64 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         return;
       }
       this.calculateProfileCompletion();
-      if (this.isCareerPreferenceModified()) {
-        this.onSubmitCareerPreferenceForm();
-      }
-    } 
+      this.onSubmitCareerPreferenceForm(isUpdate);
+    }
     else if (this.activePageIndex == 4) {
       if (this.certificationsForm.invalid) {
         this.isSubmittedCertificationsForm = true;
         return;
       }
       this.calculateProfileCompletion();
-      if (this.isCertificationsFormModified()) {
-        this.onSubmitCertificationsForm();
-      }
-    } 
+      this.onSubmitCertificationsForm(isUpdate);
+    }
     else if (this.activePageIndex == 5) {
       if (this.professionalTraitsForm.invalid) {
         this.isSubmittedProfessionalTraitsForm = true;
         return;
       }
       this.calculateProfileCompletion();
-      if (this.isProfessionalTraitsModified()) {
-        this.onSubmitProfessionalTraitsForm();
-      }
-    } 
+      this.onSubmitProfessionalTraitsForm(isUpdate);
+    }
     else if (this.activePageIndex == 6) {
       if (this.professionalNetworkingForm.invalid) {
         this.isSubmittedProfessionalNetworkingForm = true;
         return;
       }
       this.calculateProfileCompletion();
-      if (this.isProfessionalNetworkingModified()) {
-        this.onSubmitProfessionalNetworkingForm();
-      }
-    } 
+      this.onSubmitProfessionalNetworkingForm(isUpdate);
+    }
     else if (this.activePageIndex == 7) {
       if (this.attachmentsForm.invalid) {
         this.isSubmittedAttachmentsForm = true;
         return;
       }
       this.calculateProfileCompletion();
-      if (this.isAttachmentsFormModified()) {
-        this.onSubmitAttachmentsForm();
-      }
-    } 
+      this.onSubmitAttachmentsForm(isUpdate);
+    }
     else if (this.activePageIndex == 8) {
       if (this.referencesForm.invalid) {
         this.isSubmittedReferencesForm = true;
         return;
       }
       this.calculateProfileCompletion();
-      if (this.isReferencesFormModified()) {
-        this.onSubmitReferencesForm();
-      }
+      this.onSubmitReferencesForm(isUpdate);
     }
     if (this.activePageIndex == 9) {
       this.calculateProfileCompletion();
       this.onSubmitAdditionalNotesForm();
     }
-    if (this.activePageIndex < 9) {
+    if (this.activePageIndex < 9 && !isUpdate) {
       this.activePageIndex++;
     }
   }
 
-  onSubmitPersonalInformationForm() {
+  onSubmitPersonalInformationForm(isUpdate: boolean) {
+    if (!this.isPersonalInfoModified()) {
+      if (isUpdate) {
+        this.toastService.add({ severity: "success", summary: "Success", detail: "Personal Information Updated Successfully" });
+      }
+      return;
+    }
     const formDataValue = this.personalInformationForm.value;
     const formData = new FormData();
     formData.append("profile_image", this.uploadedFiles["profile_image"]);
@@ -2564,11 +2554,20 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       next: res => {
         this.profileCreationId = res.student_id;
         this.getProfileData();
+        if (isUpdate) {
+          this.toastService.add({ severity: "success", summary: "Success", detail: "Personal Information Updated Successfully" });
+        }
       }
     });
   }
 
-  onSubmitEducationDetailsForm() {
+  onSubmitEducationDetailsForm(isUpdate: boolean) {
+    if (!this.isEducationDetailsModified()) {
+      if (isUpdate) {
+        this.toastService.add({ severity: "success", summary: "Success", detail: "Education details Updated Successfully" });
+      }
+      return;
+    }
     let data = {
       student_id: this.profileCreationId,
       profile_completion: this.profileCompletion,
@@ -2577,11 +2576,20 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.talentConnectService.profileCreationEducationInfo(data).subscribe({
       next: res => {
         this.getProfileData();
+        if (isUpdate) {
+          this.toastService.add({ severity: "success", summary: "Success", detail: "Education details Updated Successfully" });
+        }
       }
     });
   }
 
-  onSubmitWorkExperienceForm() {
+  onSubmitWorkExperienceForm(isUpdate: boolean) {
+    if (!this.isWorkExperienceModified()) {
+      if (isUpdate) {
+        this.toastService.add({ severity: "success", summary: "Success", detail: "Work Experience Updated Successfully" });
+      }
+      return;
+    }
     const companyName = this.workExperience.at(0)?.get('work_experience_company_name')?.value;
     if (companyName) {
       const formData = new FormData();
@@ -2641,12 +2649,21 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       this.talentConnectService.profileCreationExperienceInfo(formData).subscribe({
         next: res => {
           this.getProfileData();
+          if (isUpdate) {
+            this.toastService.add({ severity: "success", summary: "Success", detail: "Work Experience details Updated Successfully" });
+          }
         }
       });
     }
   }
 
-  onSubmitCareerPreferenceForm() {
+  onSubmitCareerPreferenceForm(isUpdate: boolean) {
+    if (!this.isCareerPreferenceModified()) {
+      if (isUpdate) {
+        this.toastService.add({ severity: "success", summary: "Success", detail: "Career Information Updated Successfully" });
+      }
+      return;
+    }
     let data = {
       student_id: this.profileCreationId,
       profile_completion: this.profileCompletion,
@@ -2655,11 +2672,20 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.talentConnectService.profileCreationCareerInfo(data).subscribe({
       next: res => {
         this.getProfileData();
+        if (isUpdate) {
+          this.toastService.add({ severity: "success", summary: "Success", detail: "Career Information Updated Successfully" });
+        }
       }
     });
   }
 
-  onSubmitCertificationsForm() {
+  onSubmitCertificationsForm(isUpdate: boolean) {
+    if (!this.isCertificationsFormModified()) {
+      if (isUpdate) {
+        this.toastService.add({ severity: "success", summary: "Success", detail: "Certifications Updated Successfully" });
+      }
+      return;
+    }
     const certificateName = this.certifications.at(0)?.get('certifications_certificate_name')?.value;
     const achievmentName = this.achievements.at(0)?.get('certifications_achievement_name')?.value;
     if (certificateName || achievmentName) {
@@ -2698,12 +2724,21 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       this.talentConnectService.profileCreationCertificateInfo(formData).subscribe({
         next: res => {
           this.getProfileData();
+          if (isUpdate) {
+            this.toastService.add({ severity: "success", summary: "Success", detail: "Certifications Updated Successfully" });
+          }
         }
       });
     }
   }
 
-  onSubmitProfessionalTraitsForm() {
+  onSubmitProfessionalTraitsForm(isUpdate: boolean) {
+    if (!this.isProfessionalTraitsModified()) {
+      if (isUpdate) {
+        this.toastService.add({ severity: "success", summary: "Success", detail: "Professional Traits Updated Successfully" });
+      }
+      return;
+    }
     let data = {
       student_id: this.profileCreationId,
       profile_completion: this.profileCompletion,
@@ -2712,11 +2747,20 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.talentConnectService.profileCreationLanguageInfo(data).subscribe({
       next: res => {
         this.getProfileData();
+        if (isUpdate) {
+          this.toastService.add({ severity: "success", summary: "Success", detail: "Professional Traits Updated Successfully" });
+        }
       }
     });
   }
 
-  onSubmitProfessionalNetworkingForm() {
+  onSubmitProfessionalNetworkingForm(isUpdate: boolean) {
+    if (!this.isProfessionalNetworkingModified()) {
+      if (isUpdate) {
+        this.toastService.add({ severity: "success", summary: "Success", detail: "Professional Networking Updated Successfully" });
+      }
+      return;
+    }
     let data = {
       student_id: this.profileCreationId,
       profile_completion: this.profileCompletion,
@@ -2725,11 +2769,20 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.talentConnectService.profileCreationNetworkInfo(data).subscribe({
       next: res => {
         this.getProfileData();
+        if (isUpdate) {
+          this.toastService.add({ severity: "success", summary: "Success", detail: "Professional Networking Updated Successfully" });
+        }
       }
     });
   }
 
-  onSubmitAttachmentsForm() {
+  onSubmitAttachmentsForm(isUpdate: boolean) {
+    if (!this.isAttachmentsFormModified()) {
+      if (isUpdate) {
+        this.toastService.add({ severity: "success", summary: "Success", detail: "Attachments Updated Successfully" });
+      }
+      return;
+    }
     const formData = new FormData();
     formData.append("student_id", this.profileCreationId.toString());
     formData.append("profile_completion", this.profileCompletion.toString());
@@ -2749,11 +2802,20 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.talentConnectService.profileCreationCareerInfo(formData).subscribe({
       next: res => {
         this.getProfileData();
+        if (isUpdate) {
+          this.toastService.add({ severity: "success", summary: "Success", detail: "Attachments Updated Successfully" });
+        }
       }
     });
   }
 
-  onSubmitReferencesForm() {
+  onSubmitReferencesForm(isUpdate: boolean) {
+    if (!this.isReferencesFormModified()) {
+      if (isUpdate) {
+        this.toastService.add({ severity: "success", summary: "Success", detail: "References Updated Successfully" });
+      }
+      return;
+    }
     let data = {
       student_id: this.profileCreationId,
       profile_completion: this.profileCompletion,
@@ -2762,6 +2824,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.talentConnectService.profileCreationReferenceInfo(data).subscribe({
       next: res => {
         this.getProfileData();
+        if (isUpdate) {
+          this.toastService.add({ severity: "success", summary: "Success", detail: "References Updated Successfully" });
+        }
       }
     });
   }
