@@ -2481,13 +2481,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     else if (this.activePageIndex == 3) {
       if (this.careerPreferenceForm.invalid) {
         this.isSubmittedCareerPreferenceForm = true;
-        // return;
+        return;
       }
       this.calculateProfileCompletion();
-      //  if (this.isCareerPreferenceModified()) {
-      //   this.onSubmitCareerPreferenceForm();
-      // }
-    } else if (this.activePageIndex == 4) {
+      if (this.isCareerPreferenceModified()) {
+        this.onSubmitCareerPreferenceForm();
+      }
+    } 
+    else if (this.activePageIndex == 4) {
       if (this.certificationsForm.invalid) {
         this.isSubmittedCertificationsForm = true;
         return;
@@ -2496,7 +2497,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       if (this.isCertificationsFormModified()) {
         this.onSubmitCertificationsForm();
       }
-    } else if (this.activePageIndex == 5) {
+    } 
+    else if (this.activePageIndex == 5) {
       if (this.professionalTraitsForm.invalid) {
         this.isSubmittedProfessionalTraitsForm = true;
         return;
@@ -2505,7 +2507,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       if (this.isProfessionalTraitsModified()) {
         this.onSubmitProfessionalTraitsForm();
       }
-    } else if (this.activePageIndex == 6) {
+    } 
+    else if (this.activePageIndex == 6) {
       if (this.professionalNetworkingForm.invalid) {
         this.isSubmittedProfessionalNetworkingForm = true;
         return;
@@ -2514,7 +2517,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       if (this.isProfessionalNetworkingModified()) {
         this.onSubmitProfessionalNetworkingForm();
       }
-    } else if (this.activePageIndex == 7) {
+    } 
+    else if (this.activePageIndex == 7) {
       if (this.attachmentsForm.invalid) {
         this.isSubmittedAttachmentsForm = true;
         return;
@@ -2523,7 +2527,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       if (this.isAttachmentsFormModified()) {
         this.onSubmitAttachmentsForm();
       }
-    } else if (this.activePageIndex == 8) {
+    } 
+    else if (this.activePageIndex == 8) {
       if (this.referencesForm.invalid) {
         this.isSubmittedReferencesForm = true;
         return;
@@ -2533,7 +2538,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.onSubmitReferencesForm();
       }
     }
-
     if (this.activePageIndex == 9) {
       this.calculateProfileCompletion();
       this.onSubmitAdditionalNotesForm();
