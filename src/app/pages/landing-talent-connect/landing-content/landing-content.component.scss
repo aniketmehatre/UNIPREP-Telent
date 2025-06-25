@@ -25,6 +25,8 @@ video::-webkit-media-controls-panel {
     font-size: 5em;
     z-index: 2;
     cursor: pointer;
+	background-color: white;
+	border-radius: 100%;
 }
 
 .youtube-iframe {
@@ -40,6 +42,7 @@ video::-webkit-media-controls-panel {
     aspect-ratio: 16/9;
     border-radius: 1rem;
     cursor: pointer;
+	object-fit: contain;
 }
 
 .video-gradient {
