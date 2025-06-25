@@ -2,10 +2,10 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <div class="title-fonts" style="font-size: 60px;">
+        <h1 class="title-fonts">
           From<span class="fw-bold"> Vision </span> to
           <span class="fw-bold"> Self-Empowerment</span>
-        </div>
+        </h1>
         <p class="mt-4 fs-4">In 2021, a group of passionate De Montfort University alumni set out with a clear goal: to
           create a platform that empowers individuals to shape their futures on their own—no dependencies, just tools
           for self-guided success.</p>
@@ -40,10 +40,10 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <h2 class="fw-light text-white text-center">
+        <h4 class="fw-light text-white text-center">
           <span>Our </span>
           <span class="text-orange fw-semibold">Mission</span>
-        </h2>
+        </h4>
       </div>
       <div class="col-md-8">
         <div class="card text-white p-3">
@@ -125,8 +125,8 @@
             <div class="timeline-item-row">
               <!-- Left (Year) -->
               <div class="timeline-side year-side">
-                <div class="display-1 year-text-color-grad" [innerHTML]="item.year"></div>
-                <h2 class="text-orange">{{ item.title }}</h2>
+                <h5 class="year-text-color-grad" [innerHTML]="item.year"></h5>
+                <h4 class="text-orange">{{ item.title }}</h4>
               </div>
 
               <!-- Center Line Space (handled by .timeline-line-wrapper) -->
@@ -154,16 +154,16 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <h1 class="text-white mb-3 fw-bold">Why UNIPREP?</h1>
+        <h4 class="text-white mb-3 fw-bold">Why UNIPREP?</h4>
       </div>
       <div class="col-md-8">
         <div class="row">
           <div *ngFor="let card of whyUniprepData" class="col-lg-4 mb-4">
             <div class="card h-100">
               <div class="card-body d-flex align-items-center gap-4">
-                <h2 class="mb-0 emoji">{{ card.icon }}</h2>
+                <h4 class="mb-0 emoji">{{ card.icon }}</h4>
                 <div>
-                  <h4 class="card-title">{{ card.title }}</h4>
+                  <h6 class="card-title">{{ card.title }}</h6>
                   <p>{{ card.description }}</p>
                 </div>
               </div>

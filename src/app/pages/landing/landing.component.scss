@@ -177,38 +177,48 @@ section {
 
 h1,
 .text-size-h1 {
-	font-weight: 700;
-	margin-top: 0;
-	font-size: 5.5em;
+	font-size: 5.61em;
 }
 
 h2,
 .text-size-h2 {
-	font-size: 4em;
+	font-size: 4.209em;
 }
 
 h3,
 .text-size-h3 {
-	font-size: 2.83em;
+	font-size: 3.157em;
 }
 
 h4,
 .text-size-h4 {
-	font-size: 2em;
+	font-size: 2.369em;
 }
 
 h5,
 .text-size-h5 {
-	font-size: 1.41em;
+	font-size: 1.777em;
 }
 
-.text-caption {
-	font-size: 0.71em;
+h6,
+.text-size-h6 {
+	font-size: 1.333em;
 }
 
 small,
 .text-small {
 	font-size: 0.833em;
+}
+
+p {
+	font-family: "Poppins", sans-serif;
+	line-height: 2;
+	font-weight: 500;
+	font-size:1rem;
+}
+
+.text-caption {
+	font-size: 0.71em;
 }
 
 h1,
@@ -223,11 +233,7 @@ h5,
 h6 {
 	font-weight: 500;
 }
-p {
-	font-family: "Work Sans", sans-serif;
-	line-height: 2;
-	font-weight: 500;
-}
+
 .darksection {
 	background-color: #07070b;
 	p {
@@ -674,7 +680,41 @@ p {
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 }
+h1,
+.text-size-h1 {
+	font-weight: 700;
+	margin-top: 0;
+	font-size: 5.5em;
+}
 
+h2,
+.text-size-h2 {
+	font-size: 4em;
+}
+
+h3,
+.text-size-h3 {
+	font-size: 2.83em;
+}
+
+h4,
+.text-size-h4 {
+	font-size: 2em;
+}
+
+h5,
+.text-size-h5 {
+	font-size: 1.41em;
+}
+
+.text-caption {
+	font-size: 0.71em;
+}
+
+small,
+.text-small {
+	font-size: 0.833em;
+}
 
 p {
 	margin-bottom: 0rem;
