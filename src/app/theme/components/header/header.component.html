@@ -37,7 +37,6 @@
 					class="d-flex justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0 gap-3">
 					<div class="d-flex align-items-center">
 						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
-							[disabled]="authService._user?.student_type_id == 2"
 							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
 							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
@@ -177,7 +176,6 @@
 					class="d-flex align-items-center justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0">
 					<div class="d-flex align-items-center">
 						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
-							[disabled]="authService._user?.student_type_id == 2"
 							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
 							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
@@ -456,7 +454,8 @@
 		<div>
 			<h4>Your {{ timeLeftInfo }}<span class="text-xl font-bold p-1 fw-bold" style="color: #3f4c83"> Free
 					Trial Has </span>Ended</h4>
-			<p class="get-certificate">Unlock unlimited access to UNIPREP’s learning tools, career features, and<br> entrepreneurial resources with a subscription.</p>
+			<p class="get-certificate">Unlock unlimited access to UNIPREP’s learning tools, career features, and<br>
+				entrepreneurial resources with a subscription.</p>
 		</div>
 		<div>
 			<img src="../../../uniprep-assets/images/popup-clock.png" alt="clock" width="70" />
@@ -465,15 +464,15 @@
 	<div class="px-5 pb-5 pt-3">
 		<h4>Get More With our<span class="text-xl font-bold p-1 fw-bold" style="color: #3f4c83"> Subscription.</span>
 		</h4>
-		<p class="list-data">🔵 Employer Connect – Find and apply to 1M+ global jobs directly  
+		<p class="list-data">🔵 Employer Connect – Find and apply to 1M+ global jobs directly
 		<p class="list-data">🔵 CV Builder – Create a professional resume instantly </p>
-		<p class="list-data">🔵 Learning Hub –Master skills with guided learning.  </p>
+		<p class="list-data">🔵 Learning Hub –Master skills with guided learning. </p>
 		<p class="list-data">🔵 Language Hub – Learn global languages with ease</p>
 		<p class="list-data">🔵 Psychometric & Employer Tests – Boost employability with practice tests</p>
 		<p class="list-data">🔵 Skill Mastery – Build essential workplace skills</p>
 		<p class="list-data">🔵 Interview Prep – Practice confidently for job interviews</p>
 		<p class="list-data">🔵 Global Employment Insights – Stay updated on global job trends </p>
-		<p class="list-data">🔵 Cost of Living Comparison – Plan your career moves wisely  </p><br>
+		<p class="list-data">🔵 Cost of Living Comparison – Plan your career moves wisely </p><br>
 		<p class="list-data">…and much more.</p><br>
 		<div class="d-flex justify-content-center">
 			<button pButton class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribe()"
@@ -610,12 +609,14 @@
 							<h6 style="color: rgb(63 76 131)">Enjoy access to <strong>UNIPREP</strong> V 1.0</h6>
 						</div>
 						<div class="d-flex justify-content-center">
-							<button [disabled]="!mobileForm.get('home_country')?.value || !mobileForm.get('study_level')?.value"
+							<button
+								[disabled]="!mobileForm.get('home_country')?.value || !mobileForm.get('study_level')?.value"
 								class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()"
 								alt="chat with notification">
 								<span class="text-small fw-normal px-3">Subscribe Now</span>
 							</button>
-							<button [disabled]="!mobileForm.get('home_country')?.value || !mobileForm.get('study_level')?.value"
+							<button
+								[disabled]="!mobileForm.get('home_country')?.value || !mobileForm.get('study_level')?.value"
 								class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
 								<span class="text-small fw-normal px-2" (click)="continueTrial()">Continue Trial</span>
 							</button>
