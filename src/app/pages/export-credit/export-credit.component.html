@@ -3,7 +3,7 @@
 	<div class="card-body">
 		<div class="d-flex flex-column flex-md-row gap-4">
 			<div class="d-flex justify-content-center" (click)="goBack()">
-				<div class="backIcon d-md-flex d-none" role="button" >
+				<div class="backIcon d-md-flex d-none" role="button">
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 			</div>
@@ -24,29 +24,45 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-8 col-8">
-									<h5 class="card-title uniprep-primary">{{ modules?.module_name }} - {{modules?.alreadyaddedcredit ? modules?.alreadyaddedcredit : 0}}</h5>
+									<h5 class="card-title uniprep-primary">{{ modules?.module_name }} -
+										{{modules?.alreadyaddedcredit ? modules?.alreadyaddedcredit : 0}}</h5>
 									<small>{{ modules?.module_description }}</small>
 								</div>
-								<!-- *ngIf="modules.planValidation == 1; else upgradeRequired" -->
-								<div class="col-md-4 col-4 d-flex flex-column justify-content-center gap-3" *ngIf="modules?.planValidation == 1">
-									<div class="d-flex justify-content-center justify-content-md-end">
-										<p-inputNumber [(ngModel)]="modules.inputvalue"  (onInput)="onInputChangeValue($event, modules.id)"  [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" incrementButtonIcon="pi pi-plus" incrementButtonClass="plus-icon" decrementButtonClass="minus-icon"  decrementButtonIcon="pi pi-minus"  [min]="modules.min_credit"  [max]="modules.max_credit" [size]="3" [step]="modules.increment"  [inputStyle]="{'pointer-events': 'none', 'caret-color': 'transparent'}">
-										</p-inputNumber>
-										<!-- (keydown)="blockKeyboardInput($event)" -->
+								<ng-container *ngIf="modules?.planValidation === 1; else upgradeRequired">
+									<div class="col-md-4 col-4 d-flex flex-column justify-content-center gap-3">
+										<div class="d-flex justify-content-center justify-content-md-end">
+											<p-inputNumber [(ngModel)]="modules.inputvalue"
+												(onInput)="onInputChangeValue($event, modules.id)" [showButtons]="true"
+												buttonLayout="horizontal" spinnerMode="horizontal"
+												incrementButtonIcon="pi pi-plus" incrementButtonClass="plus-icon"
+												decrementButtonClass="minus-icon" decrementButtonIcon="pi pi-minus"
+												[min]="modules.min_credit" [max]="modules.max_credit" [size]="3"
+												[step]="modules.increment"
+												[inputStyle]="{'pointer-events': 'none', 'caret-color': 'transparent'}">
+											</p-inputNumber>
+											<!-- (keydown)="blockKeyboardInput($event)" -->
+										</div>
+										<div
+											class="d-flex flex-row justify-content-center gap-3 align-items-center text-nowrap ">
+											<h5 *ngIf="currentCountry !='India'" class="mb-0 uniprep-primary">{{
+												modules.price_per_credit * perRupeePrice | number:'1.2-2' }} {{
+												currentCurrencySymbol }}/Credit</h5>
+											<h5 *ngIf="currentCountry =='India'" class="mb-0 uniprep-primary">{{
+												modules.price_per_credit }} {{ currentCurrencySymbol }}/Credit</h5>
+										</div>
 									</div>
-									<div class="d-flex flex-row justify-content-center gap-3 align-items-center text-nowrap ">
-										<h5 *ngIf="currentCountry !='India'" class="mb-0 uniprep-primary">{{ modules.price_per_credit * perRupeePrice | number:'1.2-2' }} {{ currentCurrencySymbol }}/Credit</h5>                
-										<h5 *ngIf="currentCountry =='India'" class="mb-0 uniprep-primary">{{ modules.price_per_credit }} {{ currentCurrencySymbol }}/Credit</h5>                
-										<!-- <button pButton  type="button" (click)="updateCredits()" class="btn btn-primary">Update Credits</button> -->
-									</div>
-								</div>
-								<!-- <ng-template #upgradeRequired> -->
-									<div class="col-md-4 col-4 d-flex flex-column align-items-center " *ngIf="modules?.planValidation == 0">
+								</ng-container>
+								<ng-template #upgradeRequired>
+									<div class="col-md-4 col-4 d-flex flex-column align-items-center ">
 										<h6 class="card-title mt-2" style="color: #f0780e;">Upgrade Required</h6>
-										<small>To access this exclusive module, please upgrade your subscription plan now.</small>
-										<button pButton  pButton (click)="naviagateSubscriptionPage()" type="button" class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2 mb-2">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
+										<small>To access this exclusive module, please upgrade your subscription plan
+											now.</small>
+										<button pButton (click)="naviagateSubscriptionPage(modules?.planValidation)"
+											type="button"
+											class="text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2 mb-2">Upgrade
+											Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
 									</div>
-								<!-- </ng-template> -->
+								</ng-template>
 							</div>
 						</div>
 					</div>
@@ -64,8 +80,11 @@
 						<small>{{ modules.inputvalue }} Credits</small>
 					</div>
 					<div>
-						<h5 *ngIf="currentCountry !='India'" class="p-2">{{ (modules.inputvalue * (modules.price_per_credit * perRupeePrice)) | number:'1.2-2' }} {{ currentCurrencySymbol }}</h5>
-						<h5 *ngIf="currentCountry =='India'" class="p-2">{{ modules.inputvalue * modules.price_per_credit }} {{ currentCurrencySymbol }}</h5>
+						<h5 *ngIf="currentCountry !='India'" class="p-2">{{ (modules.inputvalue *
+							(modules.price_per_credit * perRupeePrice)) | number:'1.2-2' }} {{ currentCurrencySymbol }}
+						</h5>
+						<h5 *ngIf="currentCountry =='India'" class="p-2">{{ modules.inputvalue *
+							modules.price_per_credit }} {{ currentCurrencySymbol }}</h5>
 					</div>
 				</div>
 			</div>
@@ -102,7 +121,8 @@
 						</div>
 					</div>
 					<div class="flex-full">
-						<button pButton  (click)="checkOut()" class="btn btn-primary w-100 py-3 px-5 h6 m-0">Checkout</button>
+						<button pButton (click)="checkOut()"
+							class="btn btn-primary w-100 py-3 px-5 h6 m-0">Checkout</button>
 						<!-- <p>Discount Amount: 10</p> -->
 					</div>
 				</div>
