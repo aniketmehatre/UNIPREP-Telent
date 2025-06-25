@@ -28,6 +28,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { SharedModule } from "../../../shared/shared.module";
 import { DrawerModule } from 'primeng/drawer';
 import { PanelModule } from 'primeng/panel';
+import { CarouselModule } from 'primeng/carousel';
 
 const routes: Routes = [
   {
@@ -71,7 +72,8 @@ const routes: Routes = [
     InputGroupModule,
     SharedModule,
     ButtonModule,
-    PanelModule
+    PanelModule,
+    CarouselModule
   ]
 })
 export class EmployeeProfileModule { }

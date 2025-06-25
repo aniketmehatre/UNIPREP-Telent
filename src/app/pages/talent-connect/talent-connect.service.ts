@@ -272,4 +272,32 @@ export class TalentConnectService {
     getDepartments() {
         return this.http.get<Departments[]>(environment.ApiUrl + `/getdepartments`);
     }
+
+    //Profile Creation
+    profileCreationBasicInfo(formData: any) {
+        return this.http.post<{ message: String, student_id: number }>(`${environment.ApiUrl}/studentprofile/basic`, formData);
+    }
+
+    profileCreationEducationInfo(formData: any) {
+        return this.http.post(`${environment.ApiUrl}/studentprofile/education`, formData);
+    }
+
+    profileCreationExperienceInfo(formData: any) {
+        return this.http.post(`${environment.ApiUrl}/studentprofile/experience`, formData);
+    }
+    profileCreationCareerInfo(formData: any) {
+        return this.http.post(`${environment.ApiUrl}/studentprofile/career`, formData);
+    }
+    profileCreationCertificateInfo(formData: any) {
+        return this.http.post(`${environment.ApiUrl}/studentprofile/certificate`, formData);
+    }
+    profileCreationLanguageInfo(formData: any) {
+        return this.http.post(`${environment.ApiUrl}/studentprofile/language`, formData);
+    }
+    profileCreationNetworkInfo(formData: any) {
+        return this.http.post(`${environment.ApiUrl}/studentprofile/network`, formData);
+    }
+    profileCreationReferenceInfo(formData: any) {
+        return this.http.post(`${environment.ApiUrl}/studentprofile/reference`, formData);
+    }
 }
