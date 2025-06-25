@@ -31,6 +31,7 @@ export class InstitutionLoginComponent implements OnInit {
   ngOnInit() {
     this.getWhiteLabel();
     this.getCountryList();
+    this.apiToCheckPartnerOrInstitute();
   }
 
   getWhiteLabel() {
