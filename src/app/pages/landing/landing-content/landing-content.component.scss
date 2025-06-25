@@ -27,7 +27,6 @@
 html {
 	scroll-behavior: smooth;
 	overflow: auto !important;
-
 }
 
 video::-webkit-media-controls-panel {
@@ -45,22 +44,22 @@ video::-webkit-media-controls-panel {
 }
 
 .quote-icon {
-  position: absolute;
-  font-size: 160px;
-  opacity: 0.08;
-  pointer-events: none;
-  z-index: 0;
-  color: inherit;
+	position: absolute;
+	font-size: 160px;
+	opacity: 0.08;
+	pointer-events: none;
+	z-index: 0;
+	color: inherit;
 }
 
 .quote-top-left {
-  top: -79px;
-  left: -10px;
+	top: -79px;
+	left: -10px;
 }
 
 .quote-bottom-right {
-  bottom: -79px;
-  right: -10px;
+	bottom: -79px;
+	right: -10px;
 }
 
 .fa-circle-play {
@@ -117,41 +116,50 @@ section {
 	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 
-
 h1,
 .text-size-h1 {
-	font-weight: 700;
-	margin-top: 0;
-	font-size: 5rem;
+	font-size: 5.61em;
 }
 
 h2,
 .text-size-h2 {
-	font-size: 4em;
+	font-size: 4.209em;
 }
 
 h3,
 .text-size-h3 {
-	font-size: 2.83em;
+	font-size: 3.157em;
 }
 
 h4,
 .text-size-h4 {
-	font-size: 2em;
+	font-size: 2.369em;
 }
 
 h5,
 .text-size-h5 {
-	font-size: 1.41em;
+	font-size: 1.777em;
 }
 
-.text-caption {
-	font-size: 0.71em;
+h6,
+.text-size-h6 {
+	font-size: 1.333em;
 }
 
 small,
 .text-small {
 	font-size: 0.833em;
+}
+
+p {
+	font-family: "Poppins", sans-serif;
+	line-height: 2;
+	font-weight: 500;
+	font-size: 1rem;
+}
+
+.text-caption {
+	font-size: 0.71em;
 }
 
 h1,
@@ -374,7 +382,8 @@ h6 {
 	border: 1px solid #080e13 !important;
 }
 
-.faqcard .accordion-button::after {}
+.faqcard .accordion-button::after {
+}
 
 .faqcard .accordion-collapse {
 	background: #18181d;
@@ -621,11 +630,10 @@ h6 {
 }
 
 @media (min-width: 576px) {
-  .quote-icon {
-    font-size: 120px;
-  }
+	.quote-icon {
+		font-size: 120px;
+	}
 }
-
 
 @media screen and (max-width: 768px) {
 	video {
@@ -635,12 +643,57 @@ h6 {
 	.quote-icon {
 		font-size: 140px;
 	}
+	h1,
+	.text-size-h1 {
+		font-size: 2.986em;
+	}
+
+	h2,
+	.text-size-h2 {
+		font-size: 2.488em;
+	}
+
+	h3,
+	.text-size-h3 {
+		font-size: 2.074em;
+	}
+
+	h4,
+	.text-size-h4 {
+		font-size: 1.728em;
+	}
+
+	h5,
+	.text-size-h5 {
+		font-size: 1.44em;
+	}
+
+	h6,
+	.text-size-h6 {
+		font-size: 1.2em;
+	}
+
+	small,
+	.text-small {
+		font-size: 0.833em;
+	}
+
+	p {
+		font-family: "Poppins", sans-serif;
+		line-height: 2;
+		font-weight: 500;
+		font-size: 1rem;
+	}
+
+	.text-caption {
+		font-size: 0.71em;
+	}
 }
 
 @media (min-width: 992px) {
-  .quote-icon {
-    font-size: 160px;
-  }
+	.quote-icon {
+		font-size: 160px;
+	}
 }
 
 .blogimage {
@@ -657,7 +710,6 @@ h6 {
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 }
-
 
 p {
 	margin-bottom: 0rem;
@@ -735,7 +787,7 @@ h5 {
 	font-style: italic;
 }
 
-.fw-300{
+.fw-300 {
 	font-weight: 300;
 }
 .blog-section {
@@ -797,11 +849,11 @@ h5 {
 	}
 
 	.flag-icon-gb {
-		background-image: url('https://flagcdn.com/w20/gb.png');
+		background-image: url("https://flagcdn.com/w20/gb.png");
 	}
 
 	.flag-icon-eu {
-		background-image: url('https://flagcdn.com/w20/eu.png');
+		background-image: url("https://flagcdn.com/w20/eu.png");
 	}
 
 	.card-title {
