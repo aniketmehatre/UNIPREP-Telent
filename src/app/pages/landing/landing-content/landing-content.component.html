@@ -66,11 +66,11 @@
             <span class="quote-icon quote-top-left">
               <i class="fa-solid fa-quote-left"></i>
             </span>
-            <h4 class="p-5 text-white text-center fw-300 italic">
+            <h5 class="p-5 text-white text-center fw-300 italic">
               <span class="fw-bold uniprep-secondary">UNIPREP</span> is a Career Tech Platform that
               connects employers & talents.<br />
               We empower talents to thrive in the modern world through 70+ premium features.
-            </h4>
+            </h5>
             <!-- Bottom-right flipped quote -->
             <span class="quote-icon quote-bottom-right">
               <i class="fa-solid fa-quote-left fa-flip-horizontal"></i>
@@ -111,8 +111,8 @@
 	<div class="container-fluid py-5">
 		<div class="row justify-content-center">
 			<div class="col-md-12 text-center mb-3">
-				<h2 class="text-white fw-extralight mb-4"><span class="fw-bold uniprep-secondary">UNIPREP</span> Is for
-					you, If...</h2>
+				<h3 class="text-white fw-extralight mb-4"><span class="fw-semibold uniprep-secondary">UNIPREP</span> Is for
+					you, If...</h3>
 			</div>
 			<div class="col-md-10">
 				<div class="row justify-content-center">
@@ -122,7 +122,7 @@
 								<div
 									class="d-flex flex-column gap-2 align-items-center justify-content-center card-title">
 									<span class="mb-2"><i class="{{ card.icon }} fw-light cardicon h1"></i></span>
-									<h5 class="text-center mb-0 fw-normal">{{ card.text }}</h5>
+									<h6 class="text-center mb-0 fw-normal">{{ card.text }}</h6>
 								</div>
 							</div>
 						</div>
@@ -158,8 +158,8 @@
 	<div class="container-fluid py-5">
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-10">
-				<h2 class="text-center mb-5 fw-light">Discover What <span class="text-warning fw-bold">UNIPREP</span>
-					Can Do</h2>
+				<h3 class="text-center mb-5 fw-light">Discover What <span class="text-warning fw-semibold">UNIPREP</span>
+					Can Do</h3>
 
 				<div class="row g-3 align-items-stretch">
 					<div class="col-md-3 d-flex cursor-pointer" *ngFor="let category of userCategories"
@@ -173,9 +173,9 @@
 								</div>
 								</div>
 
-								<h5 class="card-title text-center text-md-start">
+								<h6 class="card-title text-center text-md-start">
 									{{ category.title }}
-								</h5>
+								</h6>
 								<p class="card-description text-light-emphasis mt-auto text-center text-md-start">
 									{{ category.description }}
 								</p>
@@ -285,7 +285,7 @@
 								<div class="text-center pt-4 pb-4" *ngFor="let stat of stats">
 									<i class="fa-thin {{ stat.icon }} fa-2xl pb-4"></i>
 									<h3 class="mb-2 uniprep-secondary">{{ stat.number }}</h3>
-									<h5 class="mb-0">{{ stat.text }}</h5>
+									<h6 class="mb-0">{{ stat.text }}</h6>
 								</div>
 							</div>
 						</div>
@@ -485,7 +485,7 @@
 	<div class="container-fluid py-5">
 		<div class="row justify-content-center">
 			<div class="col-md-10">
-				<h2 class="text-center mb-5">Blogs</h2>
+				<h3 class="text-center mb-5">Blogs</h3>
 				<div class="row">
 					<div class="col-lg-3 col-md-4 col-sm-6 mb-4 cursor-pointer" *ngFor="let post of blogs"
 						[routerLink]="['/blogs', post.slug]">
@@ -494,7 +494,7 @@
 								<img [src]="post.featured_img" class="card-img-top blog-image" [alt]="post.title" />
 							</div>
 							<div class="card-body d-flex flex-column">
-								<h5 class="card-title">{{ post.title }}</h5>
+								<h6 class="card-title">{{ post.title }}</h6>
 								<!-- <p class="card-text line-clamp text-small" [innerHTML]="post.content"></p> -->
 							</div>
 						</div>
@@ -513,8 +513,8 @@
 	<div class="container-fluid py-5">
 		<div class="row justify-content-center">
 			<div class="col-md-12 text-center">
-				<h2 class="text-white fw-medium mb-4">TRUSTED BY <span class="uniprep-secondary fw-bold">350+</span>
-					INSTITUTIONS GLOBALLY</h2>
+				<h3 class="text-white fw-medium mb-4">TRUSTED BY <span class="uniprep-secondary fw-semibold">350+</span>
+					INSTITUTIONS GLOBALLY</h3>
 			</div>
 			<div class="col-md-10 mb-3 marquee overflow-hidden">
 				<img src="/uniprep-assets/images/collegelogos.webp" alt="Universities" class="marquee-imgu" />
@@ -553,9 +553,7 @@
 						<div class="row align-items-center justify-content-center">
 							<div class="col-md-9">
 								<h3 class="mb-md-0 mb-3 text-md-start text-center">GET FREE UNIPREP ACCESS</h3>
-								<h5 class="fw-medium text-white d-md-block d-none">RIGHT AWAY</h5>
-								<h5 class="fw-medium text-white text-center d-md-none d-block">FOR EXCLUSIVE DISCOUNT
-									CODES</h5>
+								<h5 class="fw-medium text-white">RIGHT AWAY</h5>
 							</div>
 							<div class="col-md-2 col-6">
 								<a href="/register" class="btn cta-btn m-0 h5 py-4">Start free trial now</a>
@@ -571,7 +569,7 @@
 	<div class="container-fluid text-start py-5">
 		<div class="row justify-content-center">
 			<div class="col-md-6 text-center">
-				<h2 class="text-white fw-semibold mb-5">Frequently Asked Questions</h2>
+				<h3 class="text-white fw-semibold mb-5">Frequently Asked Questions</h3>
 			</div>
 			<div class="col-md-10">
 				<div class="accordion pb-3 mb-5" id="accordionFAQ">
