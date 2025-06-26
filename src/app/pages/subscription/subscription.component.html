@@ -54,11 +54,10 @@
 		[(visible)]="cardvisibility"
 		[style]="{ width: '40rem', height: 'auto' }">
 		<div style="padding: 2rem !important">
-			<div *ngIf="elementsOptions.clientSecret">
-				<ngx-stripe-elements [elementsOptions]="elementsOptions">
-					<ngx-stripe-payment></ngx-stripe-payment>
-				</ngx-stripe-elements>
-			</div>
+			 @if (elementsOptions.clientSecret) {
+      			<ngx-stripe-payment [elementsOptions]="elementsOptions"
+        		></ngx-stripe-payment>
+             }
 			<button pButton 
 				class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary"
 				(click)="paywithstripe()">
