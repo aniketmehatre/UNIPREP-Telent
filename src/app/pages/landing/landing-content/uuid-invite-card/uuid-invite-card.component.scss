@@ -3,5 +3,23 @@
     padding: 2rem;
     color: white;
     text-align: center;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    min-height: 40vh; 
+    box-sizing: border-box;
+  }
+
+  .uuid-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .uuid-card p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
   }
   

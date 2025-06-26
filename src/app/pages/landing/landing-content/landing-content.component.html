@@ -1,6 +1,6 @@
-<app-uuid-invite-card  *ngIf="isFromUUID" [data]="uuidCardData"></app-uuid-invite-card>
+<app-uuid-invite-card  *ngIf="isFromUUID; else normalLanding" [data]="uuidCardData"></app-uuid-invite-card>
 
- 
+<ng-template #normalLanding>
 	<section class="pb-2 pt-5 py-md-3 darksection" id="home">
 		<div class="container-fluid pt-5 text-center">
 			<div class="row justify-content-center">
@@ -603,4 +603,4 @@
 		</div>
 	</section>
 
- 
+</ng-template>
