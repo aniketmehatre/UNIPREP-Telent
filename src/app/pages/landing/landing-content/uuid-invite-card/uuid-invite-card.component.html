@@ -1,7 +1,80 @@
-<section class="uuid-card" *ngIf="data">
-    <h2>🎉 Welcome!</h2>
-    <p><strong>Name:</strong> {{ data.name }}</p>
-    <p><strong>Program:</strong> {{ data.program }}</p>
-    <p>{{ data.message }}</p>
-</section>
- 
+<section class="uuid-card-container" *ngIf="data">
+
+    <!-- 🔷 CARD 1: Job Details -->
+    <div class="uuid-card">
+      <div class="uuid-header">
+        <div class="logo-info">
+          <img src="assets/images/company-logo.png" alt="Company Logo" />
+          <div class="company-info">
+            <h2>Senior UI/UX Designer.</h2>
+            <p class="updated">UNIABRAOD Pvt Ltd.</p>
+            <p class="completion">Profile Completion: <strong>75%</strong></p>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button class="btn close-btn">Share</button>
+          <button class="btn chat-btn">Apply</button>
+        </div>
+      </div>
+  
+      <div class="uuid-details">
+        <div class="detail-box">
+          <span class="label">Experience Level</span>
+          <span class="value">{{ data.experience }}</span>
+        </div>
+        <div class="detail-box">
+          <span class="label">Start Date</span>
+          <span class="value">{{ data.startDate }}</span>
+        </div>
+        <div class="detail-box">
+          <span class="label">Deadline</span>
+          <span class="value">{{ data.deadline }}</span>
+        </div>
+        <div class="detail-box">
+          <span class="label">Location</span>
+          <span class="value">{{ data.location }}</span>
+        </div>
+        <div class="detail-box">
+          <span class="label">Work Mode</span>
+          <span class="value">{{ data.workMode }}</span>
+        </div>
+        <div class="detail-box">
+          <span class="label">Work Type</span>
+          <span class="value">Full Time</span>
+        </div>
+      </div>
+  
+      <div class="uuid-details">
+        <div class="detail-box">
+          <span class="label">Salary / Month</span>
+          <span class="value">{{ data.salary }}</span>
+        </div>
+        <div class="detail-box">
+          <span class="label">Experience Level</span>
+          <span class="value">{{ data.level }}</span>
+        </div>
+        <div class="detail-box">
+          <span class="label">Educational Degree</span>
+          <span class="value">{{ data.degree }}</span>
+        </div>
+        <div class="detail-box">
+          <span class="label">Industry</span>
+          <span class="value">{{ data.industry }}</span>
+        </div>
+      </div>
+    </div>
+  
+    <!-- 🔷 CARD 2: Job Overview -->
+    <div class="uuid-card">
+        <div class="job-overview">
+          <h2 class="overview-title">Job Overview</h2>
+          <p class="overview-description">
+            We are looking for a <strong>creative and detail-oriented UI/UX Designer</strong> to join our team at UNIABROAD.
+            The ideal candidate will be responsible for designing user-friendly, engaging, and visually appealing interfaces
+            for our digital platforms, ensuring a seamless user experience for students and stakeholders.
+          </p>
+        </div>
+    </div>
+  
+  </section>
+  
