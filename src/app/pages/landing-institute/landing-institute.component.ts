@@ -122,9 +122,13 @@ export class LandingInstituteComponent {
     const baseUrl = window.location.origin;
     const isDev = baseUrl.includes('dev') || baseUrl.includes('localhost');
     const targetUrl = isDev ? 'https://dev-student.uniprep.ai' : 'https://uniprep.ai';
-    const validUrls = ['about', 'contact-us', 'job-seekers', 'international-students', 'global-travellers', 'entrepreneurs', 'blogs', 'certificates', 'register'];
+    const validUrls = ['about', 'contact-us', 'job-seekers', 'international-students', 'global-travellers',
+      'entrepreneurs', 'blogs', 'certificates', 'register'];
+
     if (url === 'home') {
       window.location.href = targetUrl
+    } else if (url === 'institute/compare/uk') {
+      window.location.href = window.location.href + `/compare/uk`
     } else if (url === 'compare') {
       window.location.href = targetUrl + `/${url}`
     } else if (validUrls.includes(url)) {
@@ -135,7 +139,7 @@ export class LandingInstituteComponent {
       window.location.href = environment.partnerDomain
       //window.location.href = targetUrl + `/${url}`
     } else if (url === 'institute') {
-       window.location.href = environment.instituteDomain
+      window.location.href = environment.instituteDomain
       //window.location.href = targetUrl + `/${url}`
     } else if (url === 'talent') {
       window.location.href = environment.talentDomain
