@@ -386,7 +386,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
 
     // Step 3: Recalculate total experience
-    this.calculateTotalExperience();
+    this.updateTotalWorkExperience();
   }
   removeLanguage(index: number): void {
     this.removeFormArrayItem(this.languages, index, true)
@@ -1701,44 +1701,19 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           formData.append(`work_experience[${index}][id]`, work.get("id")?.value);
         }
         formData.append(`work_experience[${index}][years_of_experience]`, work.get("years_of_experience")?.value || "");
-        formData.append(`work_experience[${index}][work_experience_company_name]`, work.get("work_experience_company_name")?.value || "")
-        formData.append(
-          `work_experience[${index}][work_experience_job_title]`,
-          work.get("work_experience_job_title")?.value || "",
-        )
-        formData.append(
-          `work_experience[${index}][work_experience_employment_type]`,
-          work.get("work_experience_employment_type")?.value || "",
-        )
+        formData.append(`work_experience[${index}][work_experience_company_name]`, work.get("work_experience_company_name")?.value || "");
+        formData.append(`work_experience[${index}][work_experience_job_title]`, work.get("work_experience_job_title")?.value || "");
+        formData.append(`work_experience[${index}][work_experience_employment_type]`, work.get("work_experience_employment_type")?.value || "");
         const currentlyWorking = work.get("currently_working")?.value ? 1 : 0;
-        formData.append(
-          `work_experience[${index}][currently_working]`,
-          currentlyWorking.toString() || "0",
-        )
-        formData.append(
-          `work_experience[${index}][work_experience_duration_from]`,
-          this.onCovertDateFormat(work.get("work_experience_duration_from")?.value) || "",
-        )
-        formData.append(
-          `work_experience[${index}][work_experience_duration_to]`,
-          this.onCovertDateFormat(work.get("work_experience_duration_to")?.value) || "",
-        )
-        formData.append(
-          `work_experience[${index}][work_experience_salary_per_month]`,
-          work.get("work_experience_salary_per_month")?.value || "",
-        )
-        formData.append(
-          `work_experience[${index}][work_experience_currency_id]`,
-          work.get("work_experience_currency_id")?.value || "",
-        )
-        formData.append(
-          `work_experience[${index}][work_experience_job_responsibilities]`,
-          work.get("work_experience_job_responsibilities")?.value || "",
-        )
-
-        const fileKey = `${FileType.EXPERIENCE_LETTER}_${index}`
+        formData.append(`work_experience[${index}][currently_working]`, currentlyWorking.toString() || "0");
+        formData.append(`work_experience[${index}][work_experience_duration_from]`, this.onCovertDateFormat(work.get("work_experience_duration_from")?.value) || "");
+        formData.append(`work_experience[${index}][work_experience_duration_to]`, this.onCovertDateFormat(work.get("work_experience_duration_to")?.value) || "");
+        formData.append(`work_experience[${index}][work_experience_salary_per_month]`, work.get("work_experience_salary_per_month")?.value || "");
+        formData.append(`work_experience[${index}][work_experience_currency_id]`, work.get("work_experience_currency_id")?.value || "");
+        formData.append(`work_experience[${index}][work_experience_job_responsibilities]`, work.get("work_experience_job_responsibilities")?.value || "");
+        const fileKey = `${FileType.EXPERIENCE_LETTER}_${index}`;
         if (this.uploadedFiles[fileKey]) {
-          formData.append(`work_experience[${index}][work_experience_experience_letter]`, this.uploadedFiles[fileKey])
+          formData.append(`work_experience[${index}][work_experience_experience_letter]`, this.uploadedFiles[fileKey]);
         } else {
           formData.append(`work_experience[${index}][work_experience_experience_letter]`, work.get("work_experience_experience_letter")?.value ?? '')
         }
@@ -1794,34 +1769,26 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         if (cert.get("id")?.value) {
           formData.append(`certifications[${index}][id]`, cert.get("id")?.value);
         }
-        formData.append(
-          `certifications[${index}][certifications_certificate_name]`,
-          cert.get("certifications_certificate_name")?.value || "",
-        )
-
-        const fileKey = `${FileType.CERTIFICATIONS}_${index}`
+        formData.append(`certifications[${index}][certifications_certificate_name]`, cert.get("certifications_certificate_name")?.value || "");
+        const fileKey = `${FileType.CERTIFICATIONS}_${index}`;
         if (this.uploadedFiles[fileKey]) {
-          formData.append(`certifications[${index}][certifications_certificate_file]`, this.uploadedFiles[fileKey])
+          formData.append(`certifications[${index}][certifications_certificate_file]`, this.uploadedFiles[fileKey]);
         } else {
-          formData.append(`certifications[${index}][certifications_certificate_file]`, cert.get("certifications_certificate_file")?.value ?? '')
+          formData.append(`certifications[${index}][certifications_certificate_file]`, cert.get("certifications_certificate_file")?.value ?? '');
         }
-      })
+      });
 
       this.achievements.controls.forEach((control, index) => {
         const ach = control as FormGroup
         if (ach.get("id")?.value) {
           formData.append(`acheivements[${index}][id]`, ach.get("id")?.value);
         }
-        formData.append(
-          `acheivements[${index}][certifications_achievement_name]`,
-          ach.get("certifications_achievement_name")?.value || "",
-        )
-
-        const fileKey = `${FileType.ACHIEVEMENTS}_${index}`
+        formData.append(`acheivements[${index}][certifications_achievement_name]`, ach.get("certifications_achievement_name")?.value || "");
+        const fileKey = `${FileType.ACHIEVEMENTS}_${index}`;
         if (this.uploadedFiles[fileKey]) {
-          formData.append(`acheivements[${index}][certifications_achievement_file]`, this.uploadedFiles[fileKey])
+          formData.append(`acheivements[${index}][certifications_achievement_file]`, this.uploadedFiles[fileKey]);
         } else {
-          formData.append(`acheivements[${index}][certifications_achievement_file]`, ach.get("certifications_achievement_file")?.value ?? '')
+          formData.append(`acheivements[${index}][certifications_achievement_file]`, ach.get("certifications_achievement_file")?.value ?? '');
         }
       });
       this.talentConnectService.profileCreationCertificateInfo(formData).subscribe({
@@ -1890,18 +1857,12 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     formData.append("student_id", this.profileCreationId.toString());
     formData.append("profile_completion", this.profileCompletion.toString());
     if (this.uploadedFiles["CV_0"]) {
-      formData.append("career_preference_cv_filename", this.uploadedFiles["CV_0"])
+      formData.append("career_preference_cv_filename", this.uploadedFiles["CV_0"]);
     } else {
-      formData.append("career_preference_cv_filename", this.originalProfileData?.career_preference_cv_filename ?? '')
+      formData.append("career_preference_cv_filename", this.originalProfileData?.career_preference_cv_filename ?? '');
     }
-    formData.append(
-      "career_preference_video_link",
-      this.attachmentsForm.get("career_preference_video_link")?.value || "",
-    )
-    formData.append(
-      "career_preference_portfolio_upload_link",
-      this.attachmentsForm.get("career_preference_portfolio_upload_link")?.value || "",
-    )
+    formData.append("career_preference_video_link", this.attachmentsForm.get("career_preference_video_link")?.value || "");
+    formData.append("career_preference_portfolio_upload_link", this.attachmentsForm.get("career_preference_portfolio_upload_link")?.value || "");
     this.talentConnectService.profileCreationCareerInfo(formData).subscribe({
       next: res => {
         this.getProfileData();
@@ -1936,7 +1897,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   onSubmitAdditionalNotesForm() {
     this.additionalNotesForm.value.additional_notes = this.additionalNotesForm.value.additional_notes == '<p></p>' ? '' : this.additionalNotesForm.value.additional_notes;
-    if (this.additionalNotesForm.value.additional_notes == this.originalProfileData?.additional_notes &&  this.isUpdatedProfile) {
+    if (this.additionalNotesForm.value.additional_notes == this.originalProfileData?.additional_notes && this.isUpdatedProfile) {
       this.isShowCreatedSuccessfullyPopup = true;
       this.toastService.add({ severity: "success", summary: "Success", detail: "Profile Created Successfully" });
       return;
