@@ -535,27 +535,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.attachmentsForm.get("career_preference_cv_filename")?.setValue("");
   }
 
-  private isArrayItemModified(formGroup: FormGroup, originalData: any): boolean {
-    if (!originalData) return true // Consider new items as modified
-    for (const controlName of Object.keys(formGroup.controls)) {
-      const control = formGroup.get(controlName)
-      if (controlName === "id") continue
-      const currentValue = control?.value
-      const originalValue = originalData[controlName]
-      if (currentValue !== originalValue) {
-        if (
-          !(
-            (currentValue === "" || currentValue === null || currentValue === undefined) &&
-            (originalValue === "" || originalValue === null || originalValue === undefined)
-          )
-        ) {
-          return true
-        }
-      }
-    }
-    return false
-  }
-
   onCovertDateFormat(value: any) {
     const date = new Date(value);
     const year = date.getFullYear();
@@ -564,464 +543,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     return `${year}-${month}-${day}`;
   }
 
-  onSubmit() {
-    if (this.personalInfoForm.valid) {
-      const formData = new FormData()
-      const profileId = this.profileId?.toString();
-      const isUpdateOperation = profileId !== null && profileId !== undefined
-
-      if (isUpdateOperation) {
-        formData.append("id", profileId)
-        const originalValues = this.originalProfileData
-        if (this.profileCompletion != this.profileDetail.profile_completion) {
-          formData.append("profile_completion", this.profileCompletion.toString())
-        }
-        this.appendIfModified(formData, "full_name", originalValues)
-        this.appendIfModified(formData, "date_of_birth", originalValues, (value) => {
-          if (!value) return "";
-          return this.onCovertDateFormat(value);
-        })
-        this.appendIfModified(formData, "nationality_id", originalValues)
-        this.appendIfModified(formData, "gender", originalValues)
-        this.appendIfModified(formData, "location_id", originalValues)
-        this.appendIfModified(formData, "total_years_of_experience", originalValues)
-        // Education Details
-        this.educationDetails.controls.forEach((control, index) => {
-          const education = control as FormGroup
-          const originalEducation = originalValues.educationDetails?.[index] || {}
-
-          // Only append the ID if the item has been modified
-          if (education.get("id")?.value && this.isArrayItemModified(education, originalEducation)) {
-            formData.append(`educationDetails[${index}][id]`, education.get("id")?.value)
-          }
-
-          this.appendIfModified(
-            formData,
-            `educationDetails[${index}][education_qualification_id]`,
-            originalEducation,
-            (value) => education.get("education_qualification_id")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `educationDetails[${index}][education_university_name]`,
-            originalEducation,
-            (value) => education.get("education_university_name")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `educationDetails[${index}][education_field_id]`,
-            originalEducation,
-            (value) => education.get("education_field_id")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `educationDetails[${index}][education_course_name]`,
-            originalEducation,
-            (value) => education.get("education_course_name")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `educationDetails[${index}][education_graduation_year_id]`,
-            originalEducation,
-            (value) => education.get("education_graduation_year_id")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `educationDetails[${index}][education_still_pursuing]`,
-            originalEducation,
-            (value) => education.get("education_still_pursuing")?.value ? 1 : 0 || 0,
-          )
-          this.appendIfModified(
-            formData,
-            `educationDetails[${index}][education_cgpa_or_percentage_type]`,
-            originalEducation,
-            (value) => education.get("education_cgpa_or_percentage_type")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `educationDetails[${index}][education_cgpa_or_percentage]`,
-            originalEducation,
-            (value) => education.get("education_cgpa_or_percentage")?.value || "",
-          )
-        })
-
-        // Work Experience
-        this.workExperience.controls.forEach((control, index) => {
-          const work = control as FormGroup
-          const originalWork = originalValues.work_experience?.[index] || {}
-
-          // Only append the ID if the item has been modified
-          if (work.get("id")?.value && this.isArrayItemModified(work, originalWork)) {
-            formData.append(`work_experience[${index}][id]`, work.get("id")?.value)
-          }
-          if (!work.get("work_experience_company_name")?.value &&
-            !work.get("work_experience_job_title")?.value &&
-            !work.get("currently_working")?.value &&
-            !work.get("work_experience_duration_from")?.value &&
-            !work.get("work_experience_duration_to")?.value &&
-            !work.get("years_of_experience")?.value &&
-            !work.get("work_experience_employment_type")?.value &&
-            !work.get("work_experience_currency_id")?.value &&
-            !work.get("work_experience_salary_per_month")?.value &&
-            !work.get("work_experience_experience_letter")?.value &&
-            (work.get("work_experience_job_responsibilities")?.value == '<p></p>' || work.get("work_experience_job_responsibilities")?.value)
-          ) {
-            formData.append(`work_experience[${index}][status]`, '1')
-          }
-          this.appendIfModified(
-            formData,
-            `work_experience[${index}][years_of_experience]`,
-            originalWork,
-            (value) => work.get("years_of_experience")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `work_experience[${index}][work_experience_company_name]`,
-            originalWork,
-            (value) => work.get("work_experience_company_name")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `work_experience[${index}][work_experience_job_title]`,
-            originalWork,
-            (value) => work.get("work_experience_job_title")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `work_experience[${index}][work_experience_employment_type]`,
-            originalWork,
-            (value) => work.get("work_experience_employment_type")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `work_experience[${index}][currently_working]`,
-            originalWork,
-            (value) => work.get("currently_working")?.value ? 1 : 0 || 0,
-          )
-          this.appendIfModified(
-            formData,
-            `work_experience[${index}][work_experience_duration_from]`,
-            originalWork,
-            (value) => work.get("work_experience_duration_from")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `work_experience[${index}][work_experience_duration_to]`,
-            originalWork,
-            (value) => work.get("work_experience_duration_to")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `work_experience[${index}][work_experience_salary_per_month]`,
-            originalWork,
-            (value) => work.get("work_experience_salary_per_month")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `work_experience[${index}][work_experience_currency_id]`,
-            originalWork,
-            (value) => work.get("work_experience_currency_id")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `work_experience[${index}][work_experience_job_responsibilities]`,
-            originalWork,
-            (value) => work.get("work_experience_job_responsibilities")?.value || "",
-          )
-
-          const fileKey = `${FileType.EXPERIENCE_LETTER}_${index}`
-          if (this.uploadedFiles[fileKey]) {
-            formData.append(`work_experience[${index}][work_experience_experience_letter]`, this.uploadedFiles[fileKey])
-          }
-        })
-
-        // Career preferences
-        this.appendIfModified(formData, "career_preference_career_status", originalValues)
-        this.appendIfModified(formData, "career_preference_job_title_id", originalValues)
-        this.appendIfModified(formData, "career_preference_career_interest_id", originalValues)
-        this.appendIfModified(formData, "career_preference_preferred_work_location_id", originalValues)
-        this.appendIfModified(formData, "career_preference_preferred_employment_type", originalValues)
-        this.appendIfModified(formData, "career_preference_preferred_workplace_type", originalValues)
-        this.appendIfModified(formData, "career_preference_willingness_to_relocate", originalValues)
-        this.appendIfModified(formData, "career_preference_expected_salary", originalValues)
-        this.appendIfModified(formData, "career_preference_currency_id", originalValues)
-        this.appendIfModified(formData, "career_preference_soft_skill_id", originalValues)
-
-        if (this.uploadedFiles["CV_0"]) {
-          formData.append("career_preference_cv_filename", this.uploadedFiles["CV_0"])
-        }
-        this.appendIfModified(formData, "career_preference_video_link", originalValues)
-        this.appendIfModified(formData, "career_preference_portfolio_upload_link", originalValues)
-
-        // Networking
-        this.appendIfModified(formData, "networking_linkedin_profile", originalValues)
-        this.appendIfModified(formData, "networking_personal_website", originalValues)
-
-        // Social Media
-        this.socialMedia.controls.forEach((control, index) => {
-          const social = control as FormGroup
-          const originalSocial = originalValues.networking_social_media?.[index] || {}
-
-          // Only append the ID if the item has been modified
-          if (social.get("id")?.value && this.isArrayItemModified(social, originalSocial)) {
-            formData.append(`networking_social_media[${index}][id]`, social.get("id")?.value)
-          }
-
-          this.appendIfModified(
-            formData,
-            `networking_social_media[${index}][networking_social_media]`,
-            originalSocial,
-            (value) => social.get("networking_social_media")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `networking_social_media[${index}][networking_social_media_link]`,
-            originalSocial,
-            (value) => social.get("networking_social_media_link")?.value || "",
-          )
-        })
-
-        // Academic References
-        this.academicReferences.controls.forEach((control, index) => {
-          const ref = control as FormGroup
-          const originalRef = originalValues.academicReferences?.[index] || {}
-
-          // Only append the ID if the item has been modified
-          if (ref.get("id")?.value && this.isArrayItemModified(ref, originalRef)) {
-            formData.append(`academicReferences[${index}][id]`, ref.get("id")?.value)
-          }
-
-          this.appendIfModified(
-            formData,
-            `academicReferences[${index}][references_college_name]`,
-            originalRef,
-            (value) => ref.get("references_college_name")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `academicReferences[${index}][references_reference_name]`,
-            originalRef,
-            (value) => ref.get("references_reference_name")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `academicReferences[${index}][references_designation]`,
-            originalRef,
-            (value) => ref.get("references_designation")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `academicReferences[${index}][references_email]`,
-            originalRef,
-            (value) => ref.get("references_email")?.value || "",
-          )
-        })
-
-        // Professional References
-        this.professionalReferences.controls.forEach((control, index) => {
-          const ref = control as FormGroup
-          const originalRef = originalValues.professional_references?.[index] || {}
-
-          // Only append the ID if the item has been modified
-          if (ref.get("id")?.value && this.isArrayItemModified(ref, originalRef)) {
-            formData.append(`professional_references[${index}][id]`, ref.get("id")?.value)
-          }
-
-          this.appendIfModified(
-            formData,
-            `professional_references[${index}][references_company_name]`,
-            originalRef,
-            (value) => ref.get("references_company_name")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `professional_references[${index}][references_reference_name]`,
-            originalRef,
-            (value) => ref.get("references_reference_name")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `professional_references[${index}][references_designation]`,
-            originalRef,
-            (value) => ref.get("references_designation")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `professional_references[${index}][references_email]`,
-            originalRef,
-            (value) => ref.get("references_email")?.value || "",
-          )
-        })
-
-        this.appendIfModified(formData, "career_preference_notes", originalValues)
-
-        // Certifications
-        this.certifications.controls.forEach((control, index) => {
-          const cert = control as FormGroup
-          const originalCert = originalValues.certifications?.[index] || {}
-
-          // Only append the ID if the item has been modified
-          if (cert.get("id")?.value && this.isArrayItemModified(cert, originalCert)) {
-            formData.append(`certifications[${index}][id]`, cert.get("id")?.value)
-          }
-
-          this.appendIfModified(
-            formData,
-            `certifications[${index}][certifications_certificate_name]`,
-            originalCert,
-            (value) => cert.get("certifications_certificate_name")?.value || "",
-          )
-
-          const fileKey = `${FileType.CERTIFICATIONS}_${index}`
-          if (this.uploadedFiles[fileKey]) {
-            formData.append(`certifications[${index}][certifications_certificate_file]`, this.uploadedFiles[fileKey])
-          }
-        })
-
-        // Achievements
-        this.achievements.controls.forEach((control, index) => {
-          const ach = control as FormGroup
-          const originalAch = originalValues.acheivements?.[index] || {}
-
-          // Only append the ID if the item has been modified
-          if (ach.get("id")?.value && this.isArrayItemModified(ach, originalAch)) {
-            formData.append(`acheivements[${index}][id]`, ach.get("id")?.value)
-          }
-
-          this.appendIfModified(
-            formData,
-            `acheivements[${index}][certifications_achievement_name]`,
-            originalAch,
-            (value) => ach.get("certifications_achievement_name")?.value || "",
-          )
-
-          const fileKey = `${FileType.ACHIEVEMENTS}_${index}`
-          if (this.uploadedFiles[fileKey]) {
-            formData.append(`acheivements[${index}][certifications_achievement_file]`, this.uploadedFiles[fileKey])
-          }
-        })
-
-        // Languages
-        this.languages.controls.forEach((control, index) => {
-          const lang = control as FormGroup
-          const originalLang = originalValues.languages?.[index] || {}
-
-          // Only append the ID if the item has been modified
-          if (lang.get("id")?.value && this.isArrayItemModified(lang, originalLang)) {
-            formData.append(`languages[${index}][id]`, lang.get("id")?.value)
-          }
-
-          this.appendIfModified(
-            formData,
-            `languages[${index}][languages_language_id]`,
-            originalLang,
-            (value) => lang.get("languages_language_id")?.value || "",
-          )
-          this.appendIfModified(
-            formData,
-            `languages[${index}][languages_proficiency]`,
-            originalLang,
-            (value) => lang.get("languages_proficiency")?.value || "",
-          )
-        })
-
-        if (this.uploadedFiles["profile_image"]) {
-          formData.append("profile_image", this.uploadedFiles["profile_image"])
-        }
-
-        this.appendIfModified(formData, "additional_notes", originalValues)
-
-        this.talentConnectService.updateProfile(formData).subscribe({
-          next: (response) => {
-            this.isShowCreatedSuccessfullyPopup = true
-            this.toastService.add({
-              severity: "success",
-              summary: "Success",
-              detail: "Profile updated successfully",
-            })
-          },
-          error: (error) => {
-            this.toastService.add({
-              severity: "error",
-              summary: "Required",
-              detail: error.error.message,
-            });
-            this.isShowAiEvaluation = false;
-            console.error("Error updating profile", error)
-          },
-        })
-      }
-      else {
-        // Create operation - same as original code
-        this.appendFormData(formData);
-
-        this.talentConnectService.submitProfile(formData).subscribe({
-          next: (response) => {
-            this.getProfileData()
-            this.isShowCreatedSuccessfullyPopup = true
-            this.toastService.add({
-              severity: "success",
-              summary: "Success",
-              detail: "Profile Created Successfully",
-            })
-          },
-          error: (error) => {
-            this.toastService.add({
-              severity: "error",
-              summary: "Error",
-              detail: error.error.message,
-            });
-            this.isShowAiEvaluation = false;
-          },
-        })
-      }
-    } else {
-      this.markFormGroupTouched(this.personalInfoForm)
-      this.toastService.add({
-        severity: "error",
-        summary: "Required",
-        detail: " Please fill the required fields",
-      })
-    }
-  }
-
-  appendIfModified(formData: FormData, fieldName: string, originalData: any, valueTransform?: (value: any) => any) {
-    const currentValue = this.personalInfoForm.get(fieldName)?.value
-    const transformedValue = valueTransform ? valueTransform(currentValue) : currentValue || ""
-
-    // Ensure proper handling of arrays
-    const formattedValue = Array.isArray(transformedValue) ? JSON.stringify(transformedValue) : transformedValue
-
-    const baseFieldName =
-      fieldName
-        .replace(/\[\d+\]/g, "")
-        .split("[")
-        .pop()
-        ?.replace("]", "") || fieldName
-
-    let originalValue = originalData
-    baseFieldName.split(".").forEach((part) => {
-      if (originalValue) originalValue = originalValue[part]
-    })
-
-    // Ensure proper comparison of arrays (convert both to strings)
-    let formattedOriginalValue = Array.isArray(originalValue) ? JSON.stringify(originalValue) : originalValue;
-    if (baseFieldName == 'date_of_birth') {
-      formattedOriginalValue = this.onCovertDateFormat(formattedOriginalValue);
-    }
-    if (formattedValue !== formattedOriginalValue) {
-      formData.append(fieldName, formattedValue)
-    }
-  }
-  private markFormGroupTouched(formGroup: FormGroup | FormArray) {
-    Object.values(formGroup.controls).forEach((control) => {
-      control.markAsTouched()
-
-      if (control instanceof FormGroup || control instanceof FormArray) {
-        this.markFormGroupTouched(control) // Recursively mark nested FormGroups & FormArrays
-      }
-    })
-  }
 
   openVideoPopup(id: string) {
     // Implement video popup functionality
@@ -1270,7 +791,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     });
 
     this.professionalTraitsForm.patchValue({
-      career_preference_soft_skill_id: response.careerPreference.soft_skill_id || [],
+      career_preference_soft_skill_id: response.careerPreference?.soft_skill_id || [],
     });
 
     this.attachmentsForm.patchValue({
@@ -2832,7 +2353,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onSubmitAdditionalNotesForm() {
-    if (this.additionalNotesForm.value.additional_notes == this.originalProfileData.additional_notes) {
+    if (this.additionalNotesForm.value.additional_notes == this.originalProfileData?.additional_notes) {
       this.isShowCreatedSuccessfullyPopup = true;
       this.toastService.add({ severity: "success", summary: "Success", detail: "Profile Created Successfully" });
       return;
@@ -2872,7 +2393,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     if (!this.originalProfileData) return true;
     this.originalProfileData = {
       ...this.originalProfileData,
-      date_of_birth: this.onCovertDateFormat(this.originalProfileData.date_of_birth),
+      date_of_birth: this.onCovertDateFormat(this.originalProfileData?.date_of_birth),
     }
     const current = {
       ...this.personalInformationForm.value,
@@ -2882,14 +2403,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   isEducationDetailsModified(): boolean {
-    const originalEducationDetails = JSON.stringify(this.originalProfileData.educationDetails);
+    const originalEducationDetails = JSON.stringify(this.originalProfileData?.educationDetails);
     if (!originalEducationDetails) return true;
     const currentValue = JSON.stringify(this.educationDetailsForm.value.educationDetails);
     return currentValue !== originalEducationDetails;
   }
 
   isWorkExperienceModified(): boolean {
-    const originalWorkExperience = JSON.stringify(this.originalProfileData.work_experience);
+    const originalWorkExperience = JSON.stringify(this.originalProfileData?.work_experience);
     if (!originalWorkExperience) return true;
     const formValue = JSON.stringify(this.workExperienceForm.value.work_experience);
     const original = originalWorkExperience;
@@ -2903,15 +2424,15 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   isCareerPreferenceModified(): boolean {
     const originalCareerPreference: any = {
-      career_preference_career_status: this.originalProfileData.career_preference_career_status,
-      career_preference_job_title_id: this.originalProfileData.career_preference_job_title_id,
-      career_preference_career_interest_id: this.originalProfileData.career_preference_career_interest_id || [],
-      career_preference_preferred_work_location_id: JSON.parse(this.originalProfileData.career_preference_preferred_work_location_id || "[]"),
-      career_preference_preferred_employment_type: this.originalProfileData.career_preference_preferred_employment_type || [],
-      career_preference_preferred_workplace_type: this.originalProfileData.career_preference_preferred_workplace_type || [],
-      career_preference_willingness_to_relocate: this.originalProfileData.career_preference_willingness_to_relocate,
-      career_preference_expected_salary: this.originalProfileData.career_preference_expected_salary,
-      career_preference_currency_id: this.originalProfileData.career_preference_currency_id
+      career_preference_career_status: this.originalProfileData?.career_preference_career_status,
+      career_preference_job_title_id: this.originalProfileData?.career_preference_job_title_id,
+      career_preference_career_interest_id: this.originalProfileData?.career_preference_career_interest_id || [],
+      career_preference_preferred_work_location_id: this.originalProfileData?.career_preference_preferred_work_location_id || [],
+      career_preference_preferred_employment_type: this.originalProfileData?.career_preference_preferred_employment_type || [],
+      career_preference_preferred_workplace_type: this.originalProfileData?.career_preference_preferred_workplace_type || [],
+      career_preference_willingness_to_relocate: this.originalProfileData?.career_preference_willingness_to_relocate,
+      career_preference_expected_salary: this.originalProfileData?.career_preference_expected_salary,
+      career_preference_currency_id: this.originalProfileData?.career_preference_currency_id
     };
     if (!originalCareerPreference) return true;
     const current = this.careerPreferenceForm.value;
@@ -2929,8 +2450,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   isCertificationsFormModified(): boolean {
     const originalCertificationsForm = {
-      certifications: this.originalProfileData.certifications,
-      acheivements: this.originalProfileData.acheivements
+      certifications: this.originalProfileData?.certifications,
+      acheivements: this.originalProfileData?.acheivements
     };
     if (!originalCertificationsForm) return true;
     const current = {
@@ -2943,8 +2464,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   isProfessionalTraitsModified(): boolean {
     const originalProfessionalTraits = {
-      languages: this.originalProfileData.languages,
-      career_preference_soft_skill_id: this.originalProfileData.career_preference_soft_skill_id
+      languages: this.originalProfileData?.languages,
+      career_preference_soft_skill_id: this.originalProfileData?.career_preference_soft_skill_id
     };
     if (!originalProfessionalTraits) return true;
     const current = {
@@ -2957,9 +2478,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   isProfessionalNetworkingModified(): boolean {
     const originalProfessionalNetworking = {
-      networking_linkedin_profile: this.originalProfileData.networking_linkedin_profile,
-      networking_personal_website: this.originalProfileData.networking_personal_website,
-      networking_social_media: this.originalProfileData.networking_social_media
+      networking_linkedin_profile: this.originalProfileData?.networking_linkedin_profile,
+      networking_personal_website: this.originalProfileData?.networking_personal_website,
+      networking_social_media: this.originalProfileData?.networking_social_media
     };
     if (!this.originalProfileData) return true;
     const current = {
@@ -2973,9 +2494,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   isAttachmentsFormModified(): boolean {
     const originalAttachmentsForm = {
-      career_preference_video_link: this.originalProfileData.career_preference_video_link,
-      career_preference_portfolio_upload_link: this.originalProfileData.career_preference_portfolio_upload_link,
-      career_preference_cv_filename: this.originalProfileData.career_preference_cv_filename
+      career_preference_video_link: this.originalProfileData?.career_preference_video_link,
+      career_preference_portfolio_upload_link: this.originalProfileData?.career_preference_portfolio_upload_link,
+      career_preference_cv_filename: this.originalProfileData?.career_preference_cv_filename
     };
     if (!originalAttachmentsForm) return true;
     const current = {
@@ -2988,8 +2509,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   isReferencesFormModified(): boolean {
     const originalReferencesForm = {
-      academicReferences: this.originalProfileData.academicReferences,
-      professional_references: this.originalProfileData.professional_references
+      academicReferences: this.originalProfileData?.academicReferences,
+      professional_references: this.originalProfileData?.professional_references
     };
     if (!originalReferencesForm) return true;
     const current = {
