@@ -68,7 +68,7 @@ import { RouterModule } from '@angular/router';
         SplitButtonModule,
         TooltipModule ,
         ConfirmDialogModule,    
-        NgxStripeModule.forRoot(environment.domain != "api.uniprep.ai"?'pk_live_51RatH904tgKnorO6oeJ6OkKBH8HS1XetBEv1piIezO2hwW2jqhABXJakopLKvBymyuOxgsztPXljh0TD2SK2xFyq00zEp7B1Dn':'pk_test_51RatH904tgKnorO6qAStN7DYjc0QvdazlEapxUmPKDqmnZAtBpl9FvfmrszVJakrk3SP6lcX7TYVY2BqTesxkW3k00e3SHimNK'),
+        NgxStripeModule.forRoot(environment.domain === 'uniprep.ai'?'pk_live_51RatH904tgKnorO6oeJ6OkKBH8HS1XetBEv1piIezO2hwW2jqhABXJakopLKvBymyuOxgsztPXljh0TD2SK2xFyq00zEp7B1Dn':'pk_test_51RatH904tgKnorO6qAStN7DYjc0QvdazlEapxUmPKDqmnZAtBpl9FvfmrszVJakrk3SP6lcX7TYVY2BqTesxkW3k00e3SHimNK'),
     ],
      providers: [ConfirmationService,MessageService ],
 })
