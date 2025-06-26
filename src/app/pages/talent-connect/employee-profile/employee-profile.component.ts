@@ -49,7 +49,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   originalProfileData: any
   profileData: any
   fileType = FileType
-  personalInfoForm: FormGroup
   profileCompletion = 0
   profileScore = 0
   ref: DynamicDialogRef | undefined
@@ -246,79 +245,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.additionalNotesForm = this.fb.group({
       additional_notes: [null]
     });
-    this.personalInfoForm = this.fb.group({
-      // Personal Information
-      full_name: ["", [Validators.required]],
-      date_of_birth: [null, Validators.required],
-      nationality_id: [null, Validators.required],
-      gender: [null, Validators.required],
-      location_id: [null, Validators.required],
 
-      educationDetails: this.fb.array([this.createEducationGroup()]),
-      total_years_of_experience: ["0", Validators.required],
-      work_experience: this.fb.array([this.createWorkExperienceGroup()]),
-
-      career_preference_career_status: [null, Validators.required],
-      career_preference_job_title_id: [null, Validators.required],
-      career_preference_career_interest_id: [[], Validators.required],
-      career_preference_preferred_work_location_id: [[], Validators.required],
-      career_preference_preferred_employment_type: [[], Validators.required],
-      career_preference_preferred_workplace_type: [[], Validators.required],
-      career_preference_willingness_to_relocate: [null, Validators.required],
-      career_preference_expected_salary: [null, Validators.required],
-      career_preference_currency_id: [null, Validators.required],
-      career_preference_soft_skill_id: [[]],
-
-      // Networking
-      networking_linkedin_profile: [
-        "",
-        [
-          Validators.required,
-          Validators.pattern(
-            /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
-          ),
-        ],
-      ],
-      networking_social_media: this.fb.array([this.createSocialMediaGroup()]),
-      networking_personal_website: [
-        null,
-        Validators.pattern(
-          /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
-        ),
-      ],
-
-      // Achievements
-      career_preference_cv_filename: ["", Validators.required],
-      career_preference_video_link: [
-        "",
-        [
-          Validators.pattern(
-            /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
-          ),
-        ],
-      ],
-      career_preference_portfolio_upload_link: [
-        "",
-        Validators.pattern(
-          /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
-        ),
-      ],
-
-      // References
-      academicReferences: this.fb.array([this.createAcademicReferenceGroup()]),
-      professional_references: this.fb.array([this.createProfessionalReferenceGroup()]),
-      career_preference_notes: [""],
-
-      // Certifications & Achievements
-      certifications: this.fb.array([this.createCertificateGroup()]),
-      acheivements: this.fb.array([this.createAcheivementGroup()]),
-      // Languages & Hobbies
-      languages: this.fb.array([this.createLanguageGroup()]),
-
-      // Profile Image
-      profile_image: [null, Validators.required],
-      additional_notes: [null],
-    })
   }
 
   // Form group creation methods
@@ -597,16 +524,15 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
     // Personal Information (15%)
     checkField(this.personalInformationForm.get("full_name"), 2)
-    checkField(this.personalInformationForm.get("profile_image"), 3)
+    checkField(this.personalInformationForm.get("profile_image"), 5)
     checkField(this.personalInformationForm.get("date_of_birth"), 2)
     checkField(this.personalInformationForm.get("gender"), 2)
     checkField(this.personalInformationForm.get("nationality_id"), 2)
     checkField(this.personalInformationForm.get("location_id"), 2)
-    checkField(this.workExperienceForm.get("total_years_of_experience"), 1)
 
     // Contact Information (10%)
     checkField(this.professionalNetworkingForm.get("networking_linkedin_profile"), 2)
-
+    checkField(this.professionalNetworkingForm.get("networking_personal_website"), 2)
     if (this.socialMedia?.controls?.length) {
       this.socialMedia.controls.forEach((sm) => {
         checkField(sm.get("networking_social_media"), 1)
@@ -614,56 +540,55 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       })
     }
 
-    checkField(this.professionalNetworkingForm.get("networking_personal_website"), 0)
-
     // Education Details (15%)
-    if (this.educationDetails?.controls?.length) {
+    if (this.educationDetails?.controls?.length>0) {
       this.educationDetails.controls.forEach((edu, index) => {
         if (index == 0) {
           checkField(edu.get("education_qualification_id"), 2)
           checkField(edu.get("education_university_name"), 2)
           checkField(edu.get("education_field_id"), 2)
-          checkField(edu.get("education_course_name"), 1)
+          checkField(edu.get("education_course_name"), 2)
           checkField(edu.get("education_graduation_year_id"), 2)
-          checkField(edu.get("education_cgpa_or_percentage"), 2)
-          checkField(edu.get("education_still_pursuing"), 2)
+          console.log(edu.get("education_still_pursuing"), 'stio')
+          if (!edu.get("education_still_pursuing")?.value) {
+            checkField(edu.get("education_cgpa_or_percentage"), 5)
+          }
+          checkField(edu.get("education_still_pursuing"), 5)
         }
       })
     }
 
-    // Career Preferences & Aspirations (10%)
+    // Career Preferences & Aspirations (27%)
     checkField(this.careerPreferenceForm.get("career_preference_career_status"), 3)
     checkField(this.careerPreferenceForm.get("career_preference_job_title_id"), 3)
     checkField(this.careerPreferenceForm.get("career_preference_career_interest_id"), 3)
     checkField(this.careerPreferenceForm.get("career_preference_preferred_work_location_id"), 3)
     checkField(this.careerPreferenceForm.get("career_preference_preferred_employment_type"), 3)
     checkField(this.careerPreferenceForm.get("career_preference_preferred_workplace_type"), 3)
-    checkField(this.careerPreferenceForm.get("career_preference_willingness_to_relocate"), 2)
-    checkField(this.careerPreferenceForm.get("career_preference_currency_id"), 2)
-    checkField(this.careerPreferenceForm.get("career_preference_expected_salary"), 2)
+    checkField(this.careerPreferenceForm.get("career_preference_willingness_to_relocate"), 3)
+    checkField(this.careerPreferenceForm.get("career_preference_currency_id"), 3)
+    checkField(this.careerPreferenceForm.get("career_preference_expected_salary"), 3)
 
     // Certifications & Achievements (8%)
     if (this.certifications?.controls?.length) {
       this.certifications.controls.forEach((cert, index) => {
         if (index == 0) {
-          checkField(cert.get("certifications_certificate_name"), 1)
-          checkField(cert.get("certifications_certificate_file"), 1)
+          checkField(cert.get("certifications_certificate_name"), 2)
+          checkField(cert.get("certifications_certificate_file"), 2)
         }
       })
     }
-
     if (this.achievements?.controls?.length) {
       this.achievements.controls.forEach((ach, index) => {
         if (index == 0) {
-          checkField(ach.get("certifications_achievement_name"), 1)
-          checkField(ach.get("certifications_achievement_file"), 1)
+          checkField(ach.get("certifications_achievement_name"), 2)
+          checkField(ach.get("certifications_achievement_file"), 2)
         }
       })
     }
 
-    // Skills & Strengths (12%)
-    checkField(this.professionalTraitsForm.get("career_preference_soft_skill_id"), 2 + 1 + 2 + 1 + 1 + 1)
-
+    // Skills & Strengths (5%)
+    checkField(this.professionalTraitsForm.get("career_preference_soft_skill_id"), 1)
     if (this.languages?.controls?.length) {
       this.languages.controls.forEach((lang, index) => {
         if (index == 0) {
@@ -673,29 +598,28 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       })
     }
 
-    // Attachments & Media (5%)
+    // Attachments & Media (10%)
     checkField(this.attachmentsForm.get("career_preference_cv_filename"), 5)
     checkField(this.attachmentsForm.get("career_preference_video_link"), 5)
 
-    // References & Endorsements (5%)
+    // References & Endorsements (10%)
     if (this.academicReferences?.controls?.length) {
       this.academicReferences.controls.forEach((ref, index) => {
         if (index == 0) {
-          checkField(ref.get("references_college_name"), 2)
-          checkField(ref.get("references_reference_name"), 2)
-          checkField(ref.get("references_designation"), 4) //weight add 2 for comment phone number enable comment change this 2
+          checkField(ref.get("references_college_name"), 1)
+          checkField(ref.get("references_reference_name"), 1)
+          checkField(ref.get("references_designation"), 1)
           checkField(ref.get("references_email"), 2)
         }
       })
     }
-
     if (this.professionalReferences?.controls?.length) {
       this.professionalReferences.controls.forEach((ref, index) => {
         if (index == 0) {
-          checkField(ref.get("references_company_name"), 2)
-          checkField(ref.get("references_reference_name"), 2)
-          checkField(ref.get("references_designation"), 4)
-          checkField(ref.get("references_email"), 1)
+          checkField(ref.get("references_company_name"), 1)
+          checkField(ref.get("references_reference_name"), 1)
+          checkField(ref.get("references_designation"), 1)
+          checkField(ref.get("references_email"), 2)
         }
       })
     }
@@ -1083,12 +1007,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onCallAIEvaluation() {
-    //  this.isLoadingAiSummary = false;
-    //       this.aiSummaryScreen = true;
-    //       this.aiEvaluationContent = this.sanitizer.bypassSecurityTrustHtml('test');
-    //       this.profileScore = 0;
-    //       this.isShowAiEvaluation = true;
-    //       return;
     if (this.authService._creditCount === 0) {
       this.toastService.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
       return;
@@ -1223,38 +1141,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     )
   }
 
-  validateTotalExperience() {
-    const selectedTotalExp = this.personalInfoForm.get('total_years_of_experience')?.value;
-
-    // Skip validation if total_years_of_experience is not set or is "Fresher"
-    if (!selectedTotalExp || selectedTotalExp === 'Fresher') {
-      return;
-    }
-
-    // Convert selected experience to number (assuming format like "0-1 Years", "1-2 Years", etc.)
-    const selectedExpRange = this.parseExperienceRange(selectedTotalExp);
-    const calculatedExp = this.calculateTotalExperience();
-
-    // if (calculatedExp < selectedExpRange.min) {
-    //   this.haveErrorWhileAddExp = true;
-    //   this.toastService.add({
-    //     severity: 'error',
-    //     summary: 'Experience Validation Error',
-    //     detail: `Your work history shows only ${calculatedExp} years of experience, which is less than the minimum ${selectedExpRange.min} years you selected.`
-    //   });
-    // } else if (calculatedExp > selectedExpRange.max && selectedExpRange.max !== Infinity) {
-    //   this.haveErrorWhileAddExp = true;
-    //   this.toastService.add({
-    //     severity: 'error',
-    //     summary: 'Experience Validation Error',
-    //     detail: `Your work history shows ${calculatedExp} years of experience, which exceeds the maximum ${selectedExpRange.max} years you selected.`
-    //   });
-    // } else {
-    //   this.haveErrorWhileAddExp = false;
-    //   this.toastService.clear();
-    // }
-  }
-
   parseExperienceRange(expString: string): { min: number, max: number } {
     if (expString === 'Fresher') {
       return { min: 0, max: 0 };
@@ -1277,50 +1163,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     return { min: years, max: years };
   }
 
-  updateExperienceDate(
-    fromDateControl: FormControl,
-    toDateControl: FormControl,
-    yearsExpControl: FormControl,
-    currentlyWorkingControl: FormControl
-  ) {
-    const fromDateValue = fromDateControl?.value;
-    const toDateValue = toDateControl?.value;
-    const currentlyWorking = currentlyWorkingControl?.value;
-    if (fromDateValue && (toDateValue || currentlyWorking)) {
-      const fromDate = new Date(fromDateValue);
-      const toDate = currentlyWorking ? new Date() : new Date(toDateValue);
-      const duration = intervalToDuration({ start: fromDate, end: toDate });
-
-      this.totalDurations.push({ years: duration.years || 0, months: duration.months || 0 });
-
-      const result = formatDuration(duration, { format: ['years', 'months'] });
-      yearsExpControl.setValue(result);
-
-      this.validateTotalExperience();
-      this.calculateTotalExperience1();
-    }
-  }
-
-
-  calculateTotalExperience1() {
-    let totalYears = 0;
-    let totalMonths = 0;
-
-    for (const duration of this.totalDurations) {
-      totalYears += duration.years;
-      totalMonths += duration.months;
-    }
-
-    if (totalMonths >= 12) {
-      totalYears += Math.floor(totalMonths / 12);
-      totalMonths = totalMonths % 12;
-    }
-
-    const total = `${totalYears} years ${totalMonths} months`;
-
-    // Set this to the form control
-    this.personalInfoForm.get('total_years_of_experience')?.setValue(total);
-  }
 
   calculateTotalExperience(): number {
     let totalMonths = 0;
@@ -1348,272 +1190,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         sessionStorage.removeItem(key);
       }
     });
-  }
-
-  async appendFormData(formData: FormData) {
-    formData.append("full_name", this.personalInfoForm.get("full_name")?.value || "")
-    formData.append(
-      "date_of_birth",
-      new Date(this.personalInfoForm.get("date_of_birth")?.value).toISOString() || "",
-    )
-    formData.append("nationality_id", this.personalInfoForm.get("nationality_id")?.value || "")
-    formData.append("gender", this.personalInfoForm.get("gender")?.value || "")
-    formData.append("location_id", this.personalInfoForm.get("location_id")?.value || "")
-    formData.append("profile_completion", this.profileCompletion.toString())
-    formData.append(
-      "total_years_of_experience",
-      this.personalInfoForm.get("total_years_of_experience")?.value || "",
-    )
-    this.educationDetails.controls.forEach((control, index) => {
-      const education = control as FormGroup
-      formData.append(
-        `educationDetails[${index}][education_qualification_id]`,
-        education.get("education_qualification_id")?.value || "",
-      )
-      formData.append(
-        `educationDetails[${index}][education_university_name]`,
-        education.get("education_university_name")?.value || "",
-      )
-      formData.append(
-        `educationDetails[${index}][education_field_id]`,
-        education.get("education_field_id")?.value || "",
-      )
-      formData.append(
-        `educationDetails[${index}][education_course_name]`,
-        education.get("education_course_name")?.value || "",
-      )
-      formData.append(
-        `educationDetails[${index}][education_graduation_year_id]`,
-        education.get("education_graduation_year_id")?.value || "",
-      )
-      const stillPursuing = education.get("education_still_pursuing")?.value ? 1 : 0;
-      formData.append(
-        `educationDetails[${index}][education_still_pursuing]`,
-        stillPursuing.toString() || "0",
-      )
-      formData.append(
-        `educationDetails[${index}][education_cgpa_or_percentage_type]`,
-        education.get("education_cgpa_or_percentage_type")?.value || "",
-      )
-      formData.append(
-        `educationDetails[${index}][education_cgpa_or_percentage]`,
-        education.get("education_cgpa_or_percentage")?.value || "",
-      )
-    })
-
-    this.workExperience.controls.forEach((control, index) => {
-      const work = control as FormGroup
-      formData.append(
-        `work_experience[${index}][years_of_experience]`,
-        work.get("years_of_experience")?.value || "",
-      )
-      formData.append(
-        `work_experience[${index}][work_experience_company_name]`,
-        work.get("work_experience_company_name")?.value || "",
-      )
-      formData.append(
-        `work_experience[${index}][work_experience_job_title]`,
-        work.get("work_experience_job_title")?.value || "",
-      )
-      formData.append(
-        `work_experience[${index}][work_experience_employment_type]`,
-        work.get("work_experience_employment_type")?.value || "",
-      )
-      const currentlyWorking = work.get("currently_working")?.value ? 1 : 0;
-      formData.append(
-        `work_experience[${index}][currently_working]`,
-        currentlyWorking.toString() || "0",
-      )
-      formData.append(
-        `work_experience[${index}][work_experience_duration_from]`,
-        work.get("work_experience_duration_from")?.value || "",
-      )
-      formData.append(
-        `work_experience[${index}][work_experience_duration_to]`,
-        work.get("work_experience_duration_to")?.value || "",
-      )
-      formData.append(
-        `work_experience[${index}][work_experience_salary_per_month]`,
-        work.get("work_experience_salary_per_month")?.value || "",
-      )
-      formData.append(
-        `work_experience[${index}][work_experience_currency_id]`,
-        work.get("work_experience_currency_id")?.value || "",
-      )
-      formData.append(
-        `work_experience[${index}][work_experience_job_responsibilities]`,
-        work.get("work_experience_job_responsibilities")?.value || "",
-      )
-
-      const fileKey = `${FileType.EXPERIENCE_LETTER}_${index}`
-      if (this.uploadedFiles[fileKey]) {
-        formData.append(`work_experience[${index}][work_experience_experience_letter]`, this.uploadedFiles[fileKey])
-      } else {
-        formData.append(`work_experience[${index}][work_experience_experience_letter]`, "")
-      }
-    })
-
-    formData.append(
-      "career_preference_career_status",
-      this.personalInfoForm.get("career_preference_career_status")?.value || "",
-    )
-    formData.append(
-      "career_preference_job_title_id",
-      this.personalInfoForm.get("career_preference_job_title_id")?.value || "",
-    )
-    formData.append(
-      "career_preference_career_interest_id",
-      JSON.stringify(this.personalInfoForm.get("career_preference_career_interest_id")?.value) || "",
-    )
-    formData.append(
-      "career_preference_preferred_work_location_id",
-      JSON.stringify(this.personalInfoForm.get("career_preference_preferred_work_location_id")?.value) || "",
-    )
-    formData.append(
-      "career_preference_preferred_employment_type",
-      JSON.stringify(this.personalInfoForm.get("career_preference_preferred_employment_type")?.value) || "",
-    )
-    formData.append(
-      "career_preference_preferred_workplace_type",
-      JSON.stringify(this.personalInfoForm.get("career_preference_preferred_workplace_type")?.value) || "",
-    )
-    formData.append(
-      "career_preference_willingness_to_relocate",
-      this.personalInfoForm.get("career_preference_willingness_to_relocate")?.value || "",
-    )
-    formData.append(
-      "career_preference_expected_salary",
-      this.personalInfoForm.get("career_preference_expected_salary")?.value || "",
-    )
-    formData.append(
-      "career_preference_currency_id",
-      this.personalInfoForm.get("career_preference_currency_id")?.value || "",
-    )
-
-    formData.append(
-      "career_preference_soft_skill_id",
-      JSON.stringify(this.personalInfoForm.get("career_preference_soft_skill_id")?.value) || "",
-    )
-
-    if (this.uploadedFiles["CV_0"]) {
-      formData.append("career_preference_cv_filename", this.uploadedFiles["CV_0"])
-    } else {
-      formData.append("career_preference_cv_filename", "")
-    }
-    formData.append(
-      "career_preference_video_link",
-      this.personalInfoForm.get("career_preference_video_link")?.value || "",
-    )
-    formData.append(
-      "career_preference_portfolio_upload_link",
-      this.personalInfoForm.get("career_preference_portfolio_upload_link")?.value || "",
-    )
-
-    formData.append(
-      "networking_linkedin_profile",
-      this.personalInfoForm.get("networking_linkedin_profile")?.value || "",
-    )
-    formData.append(
-      "networking_personal_website",
-      this.personalInfoForm.get("networking_personal_website")?.value || "",
-    )
-
-    this.socialMedia.controls.forEach((control, index) => {
-      const social = control as FormGroup
-      formData.append(
-        `networking_social_media[${index}][networking_social_media]`,
-        social.get("networking_social_media")?.value || "",
-      )
-      formData.append(
-        `networking_social_media[${index}][networking_social_media_link]`,
-        social.get("networking_social_media_link")?.value || "",
-      )
-    })
-
-    this.academicReferences.controls.forEach((control, index) => {
-      const ref = control as FormGroup
-      formData.append(
-        `academicReferences[${index}][references_college_name]`,
-        ref.get("references_college_name")?.value || "",
-      )
-      formData.append(
-        `academicReferences[${index}][references_reference_name]`,
-        ref.get("references_reference_name")?.value || "",
-      )
-      formData.append(
-        `academicReferences[${index}][references_designation]`,
-        ref.get("references_designation")?.value || "",
-      )
-      // formData.append(`academicReferences[${index}][references_phone_number]`, ref.get('references_phone_number')?.value || '');
-      formData.append(`academicReferences[${index}][references_email]`, ref.get("references_email")?.value || "")
-    })
-
-    this.professionalReferences.controls.forEach((control, index) => {
-      const ref = control as FormGroup
-      formData.append(
-        `professional_references[${index}][references_company_name]`,
-        ref.get("references_company_name")?.value || "",
-      )
-      formData.append(
-        `professional_references[${index}][references_reference_name]`,
-        ref.get("references_reference_name")?.value || "",
-      )
-      formData.append(
-        `professional_references[${index}][references_designation]`,
-        ref.get("references_designation")?.value || "",
-      )
-      // formData.append(`professional_references[${index}][references_phone_number]`, ref.get('references_phone_number')?.value || '');
-      formData.append(
-        `professional_references[${index}][references_email]`,
-        ref.get("references_email")?.value || "",
-      )
-    })
-
-    formData.append("career_preference_notes", this.personalInfoForm.get("career_preference_notes")?.value || "")
-
-    this.certifications.controls.forEach((control, index) => {
-      const cert = control as FormGroup
-      formData.append(
-        `certifications[${index}][certifications_certificate_name]`,
-        cert.get("certifications_certificate_name")?.value || "",
-      )
-
-      const fileKey = `${FileType.CERTIFICATIONS}_${index}`
-      if (this.uploadedFiles[fileKey]) {
-        formData.append(`certifications[${index}][certifications_certificate_file]`, this.uploadedFiles[fileKey])
-      } else {
-        formData.append(`certifications[${index}][certifications_certificate_file]`, "")
-      }
-    })
-
-    this.achievements.controls.forEach((control, index) => {
-      const ach = control as FormGroup
-      formData.append(
-        `acheivements[${index}][certifications_achievement_name]`,
-        ach.get("certifications_achievement_name")?.value || "",
-      )
-
-      const fileKey = `${FileType.ACHIEVEMENTS}_${index}`
-      if (this.uploadedFiles[fileKey]) {
-        formData.append(`acheivements[${index}][certifications_achievement_file]`, this.uploadedFiles[fileKey])
-      } else {
-        formData.append(`acheivements[${index}][certifications_achievement_file]`, "")
-      }
-    })
-
-    this.languages.controls.forEach((control, index) => {
-      const lang = control as FormGroup
-      formData.append(`languages[${index}][languages_language_id]`, lang.get("languages_language_id")?.value || "")
-      formData.append(`languages[${index}][languages_proficiency]`, lang.get("languages_proficiency")?.value || "")
-    })
-
-    if (this.uploadedFiles["profile_image"]) {
-      formData.append("profile_image", this.uploadedFiles["profile_image"])
-    } else {
-      formData.append("profile_image", "")
-    }
-
-    formData.append("additional_notes", this.personalInfoForm.get("additional_notes")?.value || "")
   }
 
   aiRePhraseSummary(mode: string, content: Record<string, any>, formControl: FormControl) {
@@ -2061,7 +1637,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
     const formDataValue = this.personalInformationForm.value;
     const formData = new FormData();
-    formData.append("profile_image", this.uploadedFiles["profile_image"]);
+    formData.append("profile_image", this.uploadedFiles["profile_image"] ?? this.originalProfileData?.profile_image);
     formData.append("full_name", formDataValue.full_name);
     formData.append("date_of_birth", this.onCovertDateFormat(formDataValue.date_of_birth));
     formData.append("nationality_id", formDataValue.nationality_id);
@@ -2116,16 +1692,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       const formData = new FormData();
       formData.append("student_id", this.profileCreationId.toString());
       formData.append("profile_completion", this.profileCompletion.toString());
+      formData.append("total_years_of_experience", this.workExperienceForm.value.total_years_of_experience);
       this.workExperience.controls.forEach((control, index) => {
         const work = control as FormGroup;
-        formData.append(
-          `work_experience[${index}][years_of_experience]`,
-          work.get("years_of_experience")?.value || "",
-        )
-        formData.append(
-          `work_experience[${index}][work_experience_company_name]`,
-          work.get("work_experience_company_name")?.value || "",
-        )
+        if (work.get("id")?.value) {
+          formData.append(`work_experience[${index}][id]`, work.get("id")?.value);
+        }
+        formData.append(`work_experience[${index}][years_of_experience]`, work.get("years_of_experience")?.value || "");
+        formData.append(`work_experience[${index}][work_experience_company_name]`, work.get("work_experience_company_name")?.value || "")
         formData.append(
           `work_experience[${index}][work_experience_job_title]`,
           work.get("work_experience_job_title")?.value || "",
@@ -2164,7 +1738,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         if (this.uploadedFiles[fileKey]) {
           formData.append(`work_experience[${index}][work_experience_experience_letter]`, this.uploadedFiles[fileKey])
         } else {
-          formData.append(`work_experience[${index}][work_experience_experience_letter]`, "")
+          formData.append(`work_experience[${index}][work_experience_experience_letter]`, work.get("work_experience_experience_letter")?.value ?? '')
         }
       });
       this.talentConnectService.profileCreationExperienceInfo(formData).subscribe({
@@ -2214,7 +1788,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       formData.append("student_id", this.profileCreationId.toString());
       formData.append("profile_completion", this.profileCompletion.toString());
       this.certifications.controls.forEach((control, index) => {
-        const cert = control as FormGroup
+        const cert = control as FormGroup;
+        if (cert.get("id")?.value) {
+          formData.append(`certifications[${index}][id]`, cert.get("id")?.value);
+        }
         formData.append(
           `certifications[${index}][certifications_certificate_name]`,
           cert.get("certifications_certificate_name")?.value || "",
@@ -2224,12 +1801,15 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         if (this.uploadedFiles[fileKey]) {
           formData.append(`certifications[${index}][certifications_certificate_file]`, this.uploadedFiles[fileKey])
         } else {
-          formData.append(`certifications[${index}][certifications_certificate_file]`, "")
+          formData.append(`certifications[${index}][certifications_certificate_file]`, cert.get("certifications_certificate_file")?.value ?? '')
         }
       })
 
       this.achievements.controls.forEach((control, index) => {
         const ach = control as FormGroup
+        if (ach.get("id")?.value) {
+          formData.append(`acheivements[${index}][id]`, ach.get("id")?.value);
+        }
         formData.append(
           `acheivements[${index}][certifications_achievement_name]`,
           ach.get("certifications_achievement_name")?.value || "",
@@ -2239,7 +1819,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         if (this.uploadedFiles[fileKey]) {
           formData.append(`acheivements[${index}][certifications_achievement_file]`, this.uploadedFiles[fileKey])
         } else {
-          formData.append(`acheivements[${index}][certifications_achievement_file]`, "")
+          formData.append(`acheivements[${index}][certifications_achievement_file]`, ach.get("certifications_achievement_file")?.value ?? '')
         }
       });
       this.talentConnectService.profileCreationCertificateInfo(formData).subscribe({
@@ -2310,7 +1890,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     if (this.uploadedFiles["CV_0"]) {
       formData.append("career_preference_cv_filename", this.uploadedFiles["CV_0"])
     } else {
-      formData.append("career_preference_cv_filename", "")
+      formData.append("career_preference_cv_filename", this.originalProfileData?.career_preference_cv_filename ?? '')
     }
     formData.append(
       "career_preference_video_link",
@@ -2353,6 +1933,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onSubmitAdditionalNotesForm() {
+    this.additionalNotesForm.value.additional_notes = this.additionalNotesForm.value.additional_notes == '<p></p>' ? '' : this.additionalNotesForm.value.additional_notes;
     if (this.additionalNotesForm.value.additional_notes == this.originalProfileData?.additional_notes) {
       this.isShowCreatedSuccessfullyPopup = true;
       this.toastService.add({ severity: "success", summary: "Success", detail: "Profile Created Successfully" });

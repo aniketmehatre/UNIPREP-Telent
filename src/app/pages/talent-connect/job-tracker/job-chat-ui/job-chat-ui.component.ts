@@ -163,19 +163,9 @@ export class JobChatUiComponent implements OnChanges {
   }
 
   applyJob(message: string) {
-    if (!message.trim() && !this.attachmentFile) {
-      this.toast.add({ severity: "error", summary: "Error", detail: 'Please upload CV and Enter your information' });
+    if (!message.trim()) {
+      this.toast.add({ severity: "error", summary: "Error", detail: 'Please enter a short message to continue' });
       return;
-    }
-    if (!message.trim() || !this.attachmentFile) {
-      if (!message.trim()) {
-        this.toast.add({ severity: "error", summary: "Error", detail: 'Enter your information' });
-        return;
-      }
-      if (!this.attachmentFile) {
-        this.toast.add({ severity: "error", summary: "Error", detail: 'Please upload CV' });
-        return;
-      }
     }
     this.talentConnectService.applyJob(this.jobDetails?.id).subscribe({
       next: (response) => {
