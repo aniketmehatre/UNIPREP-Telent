@@ -10,7 +10,7 @@ import { select } from "@ngrx/store"
 import { DataService } from "src/app/data.service"
 import { environment } from "@env/environment"
 import { DashboardService } from "../dashboard/dashboard.service"
-import { StripeCardComponent, StripePaymentElementComponent, StripeService } from "ngx-stripe"
+import { NgxStripeModule, StripeCardComponent, StripePaymentElementComponent, StripeService } from "ngx-stripe"
 import { PaymentIntent, Stripe, StripeCardElementOptions, StripeElementsOptions, StripePaymentElementOptions } from "@stripe/stripe-js"
 // import CryptoJS from "crypto-js"
 import { NgxUiLoaderService } from "ngx-ui-loader"
@@ -22,22 +22,23 @@ import { SubscriptionDataComponent } from "./subscription-data/subscription-data
 import { SubscriptionListComponent } from "./subscription-list/subscription-list.component"
 import { SubscriptionBillingComponent } from "./subscription-billing/subscription-billing.component"
 import { SubscriptionSuccessComponent } from "./subscription-success/subscription-success.component"
-import {StorageService} from "../../storage.service";
+import { StorageService } from "../../storage.service";
 @Component({
 	selector: "uni-subscription",
 	templateUrl: "./subscription.component.html",
 	styleUrls: ["./subscription.component.scss"],
 	standalone: true,
 	imports: [
-		CommonModule, 
-		FormsModule, 
-		ReactiveFormsModule, 
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
 		DialogModule,
 		SubscriptionHistoryComponent,
 		SubscriptionDataComponent,
 		SubscriptionListComponent,
 		SubscriptionBillingComponent,
-		SubscriptionSuccessComponent
+		SubscriptionSuccessComponent,
+		NgxStripeModule
 	],
 })
 export class SubscriptionComponent implements OnInit {
@@ -73,13 +74,13 @@ export class SubscriptionComponent implements OnInit {
 	email: string = ''
 
 	constructor(private subscriptionService: SubscriptionService, private winRef: WindowRefService,
-				private authService: AuthService, private toastr: MessageService,
-				private dataService: DataService, private dashboardService: DashboardService,
-				private stripeService: StripeService, private ngxService: NgxUiLoaderService,
-				private storage: StorageService) {}
+		private authService: AuthService, private toastr: MessageService,
+		private dataService: DataService, private dashboardService: DashboardService,
+		private stripeService: StripeService, private ngxService: NgxUiLoaderService,
+		private storage: StorageService) { }
 	async ngOnInit(): Promise<void> {
 		try {
-			let homeCountryName  = this.storage.get("home_country_name");
+			let homeCountryName = this.storage.get("home_country_name");
 
 			// if (encHomeCountryName) {
 			// 	try {
@@ -132,7 +133,7 @@ export class SubscriptionComponent implements OnInit {
 			this.currentCountry = homeCountryName ? String(homeCountryName).trim() : "";
 			this.phone = phone || '';
 			this.email = email || '';
-			
+
 			this.user = this.authService.user;
 			this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation";
 			this.studentType = this.user?.student_type_id || 0;
@@ -190,14 +191,14 @@ export class SubscriptionComponent implements OnInit {
 	loadSubDetails() {
 		this.orderHistory$ = this.subscriptionService.getOrderHistory()
 		this.subscriptionDetail$ = this.subscriptionService.getSubscriptionDetail()
-		this.subscriptionDetail$.subscribe((data) => {})
+		this.subscriptionDetail$.subscribe((data) => { })
 
 		this.billingInfo$ = this.subscriptionService.getBillingInfo()
 		//this.subscriptionService.loadSubDetails();
 	}
 	loadSubscriptions() {
 		this.subscriptions$ = this.subscriptionService.getSubscriptionList()
-		this.subscriptions$.subscribe((data) => {})
+		this.subscriptions$.subscribe((data) => { })
 		this.orderLoading$ = this.subscriptionService.getLoading()
 		this.subscriptionService.loadSubscriptionList()
 		this.subscriptionService.getOrderID().subscribe((order) => {
@@ -430,8 +431,7 @@ export class SubscriptionComponent implements OnInit {
 	showHistory($event: any) {
 		this.stage = 5
 	}
-	@ViewChild(StripePaymentElementComponent) card: StripePaymentElementComponent
-
+	@ViewChild(StripePaymentElementComponent) card!: StripePaymentElementComponent;
 	cardOptions: StripeCardElementOptions = {
 		iconStyle: "solid",
 		style: {
