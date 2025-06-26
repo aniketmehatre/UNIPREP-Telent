@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'uni-landing-content',
@@ -225,7 +226,11 @@ export class LandingContentComponent implements OnInit {
     }
   ];
 
-  constructor(private sanitizer: DomSanitizer, private themeService: ThemeService, private formbuilder: FormBuilder, private service: LocationService, private storage: LocalStorageService, private router: Router, private authService: AuthService) {
+  uuid: string | null = null;
+  isFromUUID = false;
+  uuidCardData: any = null;
+
+  constructor(private sanitizer: DomSanitizer, private themeService: ThemeService, private formbuilder: FormBuilder, private service: LocationService, private storage: LocalStorageService, private router: Router, private authService: AuthService,private route: ActivatedRoute) {
     // Initialize the isDarkMode property with the value from the service
     this.isDarkMode = this.themeService.getInitialSwitchState()
   }
@@ -257,6 +262,19 @@ export class LandingContentComponent implements OnInit {
     if (this.authService.isTokenValid()) {
       this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
     }
+
+    this.uuid = this.route.snapshot.paramMap.get('uuid');
+    this.isFromUUID = !!this.uuid;
+  
+    if (this.isFromUUID) {
+      this.uuidCardData = {
+        name: 'John Doe',
+        program: 'AI Career Prep',
+        message: 'You have been invited via a special link!'
+      };
+      return;
+    }
+    
     // const token = this.storage.get<string>('token');
     // let req = {
     //   token: token
