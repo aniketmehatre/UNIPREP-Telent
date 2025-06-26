@@ -63,14 +63,12 @@ export class MainListComponent implements OnInit {
         this.talentConnectService.getMyProfileData().subscribe({
             next: response => {
                 this.isLoading = false;
-                if (response && response.count) {
-                    if (response.count > 0 && response.data[0].profile_completion_flag) {
-                        this.dpImage.set(response.data[0].dp_image)
-                        this.talentConnectMainList[0].image = response.data[0].dp_image;
-                        this.isProfileCreated = true;
-                        this.profileData = response.data;
-                        this.cdr.detectChanges();
-                    }
+                if (response && response.count > 0 && response.data[0].profile_completion_flag) {
+                    this.dpImage.set(response.data[0].dp_image)
+                    this.talentConnectMainList[0].image = response.data[0].dp_image;
+                    this.isProfileCreated = true;
+                    this.profileData = response.data;
+                    this.cdr.detectChanges();
                 }
                 else {
                     const profileItem = this.talentConnectMainList.find(item => item.id === 1);

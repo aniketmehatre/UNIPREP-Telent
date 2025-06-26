@@ -54,7 +54,6 @@ export class JobChatUiComponent implements OnChanges {
   @Input() showInfo: boolean = true;
   isLoadingAiSummary: boolean = false;
   currentStage: number = 2;
-  aiGenerateChatDetails!: AiGenerateChatDetails;
   id: number = NaN;
   stages: Array<{ number: number, name: string, completed: boolean }> = [
     { number: 1, name: 'Initial Round', completed: true },
@@ -113,13 +112,6 @@ export class JobChatUiComponent implements OnChanges {
               profile_image: item.profile_image ?? null,
             };
           });
-          this.aiGenerateChatDetails = {
-            job_id: job_id,
-            companyName: this.jobDetails?.company_name,
-            positionName: this.jobDetails?.position,
-            studentName: response?.messages[0]?.userName,
-            createdAt: this.jobDetails.created_at
-          };
         }
       },
       error: error => {
@@ -171,19 +163,9 @@ export class JobChatUiComponent implements OnChanges {
   }
 
   applyJob(message: string) {
-    if (!message.trim() && !this.attachmentFile) {
-      this.toast.add({ severity: "error", summary: "Error", detail: 'Please upload CV and Enter your information' });
+    if (!message.trim()) {
+      this.toast.add({ severity: "error", summary: "Error", detail: 'Please enter a short message to continue' });
       return;
-    }
-    if (!message.trim() || !this.attachmentFile) {
-      if (!message.trim()) {
-        this.toast.add({ severity: "error", summary: "Error", detail: 'Enter your information' });
-        return;
-      }
-      if (!this.attachmentFile) {
-        this.toast.add({ severity: "error", summary: "Error", detail: 'Please upload CV' });
-        return;
-      }
     }
     this.talentConnectService.applyJob(this.jobDetails?.id).subscribe({
       next: (response) => {
