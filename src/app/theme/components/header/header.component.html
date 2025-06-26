@@ -567,7 +567,7 @@
 						</span>
 					</div>
 					<div class="mt-1">
-						<span *ngIf="ehitlabelIsShow">
+						<span *ngIf="!userTypeId">
 							<strong class="firsttimelogin">
 								<h2 style="color: #f0780e; margin-bottom: 0">You have unlocked</h2>
 							</strong>
@@ -575,7 +575,7 @@
 								<h2 style="color: #f0780e; margin-top: 0">{{ timeLeftInfo }} free trial.</h2>
 							</strong>
 						</span>
-						<span *ngIf="!ehitlabelIsShow">
+						<span *ngIf="userTypeId">
 							<strong class="firsttimelogin">
 								<h2 style="color: #f0780e; margin-bottom: 0">Enjoy exclusive UNIPREP Features!</h2>
 							</strong>
