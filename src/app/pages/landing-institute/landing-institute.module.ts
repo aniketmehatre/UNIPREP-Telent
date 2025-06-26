@@ -20,7 +20,7 @@ const routes: Routes = [
         loadComponent: () => import('./institute-pricing/institute-pricing.component').then(m => m.InstitutePricingComponent)
       },
       {
-        path: 'compare/:country',
+        path: 'compare',
         loadComponent: () => import('../landing-institute/compare-uni/compare-uni.component').then(c => c.CompareUniComponent)
       },
       {

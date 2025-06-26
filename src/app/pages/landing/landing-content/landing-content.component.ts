@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { environment } from '@env/environment';
 import { Router, RouterModule } from '@angular/router';
@@ -24,7 +24,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   templateUrl: './landing-content.component.html',
   styleUrls: ['./landing-content.component.scss']
 })
-export class LandingContentComponent implements OnInit {
+export class LandingContentComponent implements OnInit, AfterViewInit  {
+  @ViewChild('homeSection', { static: true }) homeSectionRef!: ElementRef;
   @ViewChild("videoPlayer")
   videoPlayer!: ElementRef
   isPlaying = false
@@ -39,12 +40,12 @@ export class LandingContentComponent implements OnInit {
   stats = [
     {
       icon: "fa-users",
-      number: "10,000+",
+      number: "100,000+",
       text: "Talents Registered",
     },
     {
       icon: "fa-briefcase",
-      number: "1000+",
+      number: "10,000+",
       text: "Employers Connected",
     },
     {
@@ -190,8 +191,8 @@ export class LandingContentComponent implements OnInit {
     },
     {
       id: "faqcollapse2",
-      question: "How do I apply for jobs or universities through UNIPREP?",
-      answer: "For jobs, simply create an account and connect directly with verified employers.For universities, use our UNIFINDER and UNIAPPLY features to shortlist programs, submit applications, and track your progress — all in one place.",
+      question: "How do I apply for internships or jobs abroad?",
+      answer: "For jobs or internships, simply create an account on employer connect and apply for vacancies created by verified employers.",
     },
     {
       id: "faqcollapse3",
@@ -210,8 +211,8 @@ export class LandingContentComponent implements OnInit {
     },
     {
       id: "faqcollapse6",
-      question: "Is my data safe on UNIPREP?",
-      answer: "Absolutely. We use robust data encryption and strict security protocols to protect your information.",
+      question: "How is UNIPREP different from LinkedIn, Indeed, and other platforms?",
+      answer: "UNIPREP focuses on skill-building, career readiness, and guided student support—unlike LinkedIn or Indeed, which are primarily job search platforms.",
     },
     {
       id: "faqcollapse7",
@@ -225,7 +226,7 @@ export class LandingContentComponent implements OnInit {
     }
   ];
 
-  constructor(private sanitizer: DomSanitizer, private themeService: ThemeService, private formbuilder: FormBuilder, private service: LocationService, private storage: LocalStorageService, private router: Router, private authService: AuthService) {
+  constructor(private sanitizer: DomSanitizer, private themeService: ThemeService, private formbuilder: FormBuilder, private service: LocationService, private storage: LocalStorageService, private router: Router, private authService: AuthService, private renderer: Renderer2) {
     // Initialize the isDarkMode property with the value from the service
     this.isDarkMode = this.themeService.getInitialSwitchState()
   }
@@ -280,6 +281,17 @@ export class LandingContentComponent implements OnInit {
     this.timeLeftInfoCard = "24 Hours"
     // Any additional initialization can go here
     this.currentImage = "/uniprep-assets/images/uf1.webp"
+  }
+
+  ngAfterViewInit(): void {
+    // Re-enable right click ONLY inside the #home section
+    const section = this.homeSectionRef.nativeElement;
+
+    this.renderer.listen(section, 'contextmenu', (event: MouseEvent) => {
+      event.stopPropagation(); // Prevent global blockers
+    });
+
+    section.oncontextmenu = () => true; // Restore native behavior
   }
 
   toggleTheme() {
