@@ -530,18 +530,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     checkField(this.personalInformationForm.get("nationality_id"), 2)
     checkField(this.personalInformationForm.get("location_id"), 2)
 
-    // Contact Information (10%)
-    checkField(this.professionalNetworkingForm.get("networking_linkedin_profile"), 2)
-    checkField(this.professionalNetworkingForm.get("networking_personal_website"), 2)
-    if (this.socialMedia?.controls?.length) {
-      this.socialMedia.controls.forEach((sm) => {
-        checkField(sm.get("networking_social_media"), 1)
-        checkField(sm.get("networking_social_media_link"), 1)
-      })
-    }
-
     // Education Details (15%)
-    if (this.educationDetails?.controls?.length>0) {
+    if (this.educationDetails?.controls?.length) {
       this.educationDetails.controls.forEach((edu, index) => {
         if (index == 0) {
           checkField(edu.get("education_qualification_id"), 2)
@@ -595,6 +585,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           checkField(lang.get("languages_language_id"), 2)
           checkField(lang.get("languages_proficiency"), 2)
         }
+      })
+    }
+
+    // Contact Information (10%)
+    checkField(this.professionalNetworkingForm.get("networking_linkedin_profile"), 2)
+    checkField(this.professionalNetworkingForm.get("networking_personal_website"), 2)
+    if (this.socialMedia?.controls?.length) {
+      this.socialMedia.controls.forEach((sm) => {
+        checkField(sm.get("networking_social_media"), 1)
+        checkField(sm.get("networking_social_media_link"), 1)
       })
     }
 
@@ -753,6 +753,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         } else {
           valueControl?.clearValidators();
           typeControl?.clearValidators();
+          valueControl?.disable();
+          typeControl?.disable();
         }
         typeControl?.updateValueAndValidity();
         valueControl?.updateValueAndValidity();
@@ -1934,7 +1936,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   onSubmitAdditionalNotesForm() {
     this.additionalNotesForm.value.additional_notes = this.additionalNotesForm.value.additional_notes == '<p></p>' ? '' : this.additionalNotesForm.value.additional_notes;
-    if (this.additionalNotesForm.value.additional_notes == this.originalProfileData?.additional_notes) {
+    if (this.additionalNotesForm.value.additional_notes == this.originalProfileData?.additional_notes &&  this.isUpdatedProfile) {
       this.isShowCreatedSuccessfullyPopup = true;
       this.toastService.add({ severity: "success", summary: "Success", detail: "Profile Created Successfully" });
       return;
