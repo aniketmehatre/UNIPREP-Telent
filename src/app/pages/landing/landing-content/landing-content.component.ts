@@ -11,6 +11,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { UuidInviteCardComponent } from './uuid-invite-card/uuid-invite-card.component';
 
 @Component({
   selector: 'uni-landing-content',
@@ -21,6 +22,7 @@ import { ActivatedRoute } from '@angular/router';
     DialogModule,
     RouterModule,
     ScrollTopModule,
+    UuidInviteCardComponent 
   ],
   templateUrl: './landing-content.component.html',
   styleUrls: ['./landing-content.component.scss']
