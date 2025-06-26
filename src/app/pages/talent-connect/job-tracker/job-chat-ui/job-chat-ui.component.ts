@@ -54,7 +54,6 @@ export class JobChatUiComponent implements OnChanges {
   @Input() showInfo: boolean = true;
   isLoadingAiSummary: boolean = false;
   currentStage: number = 2;
-  aiGenerateChatDetails!: AiGenerateChatDetails;
   id: number = NaN;
   stages: Array<{ number: number, name: string, completed: boolean }> = [
     { number: 1, name: 'Initial Round', completed: true },
@@ -113,13 +112,6 @@ export class JobChatUiComponent implements OnChanges {
               profile_image: item.profile_image ?? null,
             };
           });
-          this.aiGenerateChatDetails = {
-            job_id: job_id,
-            companyName: this.jobDetails?.company_name,
-            positionName: this.jobDetails?.position,
-            studentName: response?.messages[0]?.userName,
-            createdAt: this.jobDetails.created_at
-          };
         }
       },
       error: error => {
