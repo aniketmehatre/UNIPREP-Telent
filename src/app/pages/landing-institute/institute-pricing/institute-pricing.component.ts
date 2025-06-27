@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
-import { LandingInstituteService } from '../landing-institute.service';
 import { Router } from '@angular/router';
 
 interface PricingSlab {
@@ -60,7 +59,7 @@ export class InstitutePricingComponent implements OnInit {
 
   pricingSlabsIndia: PricingSlab[] = [
     { slab: 'Slab 1', range: '1 - 500 students', cost: '₹3,000', total: '₹15,00,000 for 500 students' },
-    { slab: 'Slab 2', range: '501 - 2,000 students', cost: '₹2,500', total: '50,00,000 for 2,000 students' },
+    { slab: 'Slab 2', range: '501 - 2,000 students', cost: '₹2,500', total: '₹50,00,000 for 2,000 students' },
     { slab: 'Slab 3', range: '2,000+ students', cost: '₹2,000', total: 'Based on actual volume' }
   ];
 
@@ -119,29 +118,12 @@ export class InstitutePricingComponent implements OnInit {
       ],
     },
     {
-      id: 'collapse3',
-      title: "Employer Connect Expo Pass (On-Site)",
-      details: [
-        "🎫 1 pass per student to attend exclusive on-ground hiring expos",
-        "🏛️ Meet 80+ top employers from various sectors",
-      ],
-    },
-    {
       id: 'collapse4',
       title: "Global University Collaborations for Student Progression",
       details: [
         "🤝 MoUs with 2 foreign universities",
         "🎯 Strategic collaborations focused on recruitment & admissions",
         "📢 Co-branding & visibility in global academic circles",
-      ],
-    },
-    {
-      id: 'collapse5',
-      title: "UNICONNECT – India & Global Events",
-      details: [
-        "🎟️ Institutional access to UNICONNECT India & Global Summits",
-        "✈️ Global Pass includes travel, visa, hotel for 2 reps",
-        "🏛️ Position your institute as internationally progressive",
       ],
     },
     {
@@ -256,7 +238,7 @@ export class InstitutePricingComponent implements OnInit {
     },
   ];
 
-  constructor(private instituteService: LandingInstituteService, private route: ActivatedRoute, private router: Router) { }
+  constructor( private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((data: any) => {
@@ -273,6 +255,6 @@ export class InstitutePricingComponent implements OnInit {
   }
 
   get getROIAccordionList() {
-    return this.selectedCountry == 'uk' ? this.accordionOfUK : this.accordionOfIndia;
+    return this.selectedCountry == 'india' ? this.accordionOfIndia : this.accordionOfUK;
   }
 }

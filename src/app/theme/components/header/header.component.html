@@ -598,7 +598,7 @@
 								formControlName="phone"></ngx-intl-tel-input>
 						</div> -->
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
-							<p class="m-1">Select Your Home Country</p>
+							<p class="m-1">Select Your Nationality</p>
 							<p-select class="w-100" formControlName="home_country" appendTo="body"
 								[options]="homeCountryList" [filter]="true" placeholder="Country" [autofocus]="true"
 								(onChange)="changeLocation($event)" filterBy="country" optionLabel="country"

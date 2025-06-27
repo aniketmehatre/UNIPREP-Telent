@@ -24,80 +24,92 @@
 		</div>
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 mt-3"
-					*ngFor="let list of totalmodulecirtficatelist; let i = index">
-					<div class="card resourcecard justify-content-center text-black h-100">
-						<div class="card-body h-100 position-relative">
-							<div class="mb-1" id="resourceLink">
-								<div class="d-flex gap-3 align-items-center h-100">
-									<div class="resourceimg"><img src="{{ list.module_image }}" alt="" /></div>
-									<div class="text-start" *ngIf="list.module_id == 9 || list.module_id == 8">
-										<span style="font-size: 1rem" title="{{ list.module_name }}"><b>{{
-												list.module_name }}</b></span><br />
-										<span style="font-size: 1rem"
-											*ngIf="list.module_id == 1 || list.module_id == 7 || list.module_id == 3 || list.module_id == 4 || list.module_id == 6"><b>{{
-												list.country_name }}</b></span>
-										<span style="font-size: 1rem"><b>{{ list.submodule_name }} <span
-													*ngIf="list.module_id == 9 || list.module_id == 8">{{ "-" +
-													list.category_name }}</span></b></span>
-										<h6>ID: {{ list.certificateID }}</h6>
-									</div>
-									<div class="text-start" *ngIf="!(list.module_id == 9 || list.module_id == 8)">
-										<span style="font-size: 1rem" title="{{ list.module_name }}"><b>{{
-												list.module_name }}</b></span><br />
-										<span><img width="20" height="20" src="{{ list.country_flag }}" alt="" />
-										</span>&nbsp;
-										<span style="font-size: 1rem"
-											*ngIf="list.module_id == 1 || list.module_id == 7 || list.module_id == 3 || list.module_id == 4 || list.module_id == 6"><b>{{
-												list.country_name }}</b></span>
-										<span style="font-size: 1rem"><b>{{ list.submodule_name }} <span
-													*ngIf="list.module_id == 9 || list.module_id == 8">{{ "-" +
-													list.category_name }}</span></b></span>
-										<h6>ID: {{ list.certificateID }}</h6>
+		<div class="container-fluid h-100">
+			<ng-container *ngIf="totalmodulecirtficatelist.length; else noCertificate">
+				<div class="row">
+					<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 mt-3"
+						*ngFor="let list of totalmodulecirtficatelist; let i = index">
+						<div class="card resourcecard justify-content-center text-black h-100">
+							<div class="card-body h-100 position-relative">
+								<div class="mb-1" id="resourceLink">
+									<div class="d-flex gap-3 align-items-center h-100">
+										<div class="resourceimg"><img src="{{ list.module_image }}" alt="" /></div>
+										<div class="text-start" *ngIf="list.module_id == 9 || list.module_id == 8">
+											<span style="font-size: 1rem" title="{{ list.module_name }}"><b>{{
+													list.module_name }}</b></span><br />
+											<span style="font-size: 1rem"
+												*ngIf="list.module_id == 1 || list.module_id == 7 || list.module_id == 3 || list.module_id == 4 || list.module_id == 6"><b>{{
+													list.country_name }}</b></span>
+											<span style="font-size: 1rem"><b>{{ list.submodule_name }} <span
+														*ngIf="list.module_id == 9 || list.module_id == 8">{{ "-" +
+														list.category_name }}</span></b></span>
+											<h6>ID: {{ list.certificateID }}</h6>
+										</div>
+										<div class="text-start" *ngIf="!(list.module_id == 9 || list.module_id == 8)">
+											<span style="font-size: 1rem" title="{{ list.module_name }}"><b>{{
+													list.module_name }}</b></span><br />
+											<span><img width="20" height="20" src="{{ list.country_flag }}" alt="" />
+											</span>&nbsp;
+											<span style="font-size: 1rem"
+												*ngIf="list.module_id == 1 || list.module_id == 7 || list.module_id == 3 || list.module_id == 4 || list.module_id == 6"><b>{{
+													list.country_name }}</b></span>
+											<span style="font-size: 1rem"><b>{{ list.submodule_name }} <span
+														*ngIf="list.module_id == 9 || list.module_id == 8">{{ "-" +
+														list.category_name }}</span></b></span>
+											<h6>ID: {{ list.certificateID }}</h6>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div id="resourceLink">
-								<div class="d-flex justify-content-between gap-2">
-									<button pButton type="button"
-										(click)="downloadCertificate(list.certificate_link, list.module_id)"
-										class="btn btn-primary btn-rounded w-100 text-center">Download</button>
-									<button pButton class="btn btn-primary socialShareBtn"
-										(click)="showSocialSharingList(i, list.module_id)"><i
-											class="fa-light fa-share-nodes"></i></button>
-									<p-card id="socialSharingList{{ i }}" class="socialSharingList"
-										[ngClass]="{ show: selectedIndex === i }">
-										<ul class="list-unstyled">
-											<li (click)="shareQuestion(list.certificate_link,'Whatsapp')">
-												<i class="pi pi-whatsapp"></i>Whatsapp
-											</li>
-											<li (click)="shareQuestion(list.certificate_link,'Mail')">
-												<i class="pi pi-envelope"></i>Email
-											</li>
-											<li (click)="shareQuestion(list.certificate_link,'Facebook')">
-												<i class="pi pi-facebook"></i>Facebook
-											</li>
-											<li (click)="shareQuestion(list.certificate_link,'Twitter')">
-												<i class="pi pi-twitter"></i>Twitter
-											</li>
-											<li (click)="shareQuestion(list.certificate_link,'Instagram')">
-												<i class="pi pi-instagram"></i>Instagram
-											</li>
-											<li (click)="shareQuestion(list.certificate_link,'LinkedIn')">
-												<i class="pi pi-linkedin"></i>LinkedIn
-											</li>
-											<li (click)="copyLink(list.certificate_link)"><i class="pi pi-link"></i>
-												Copy Link</li>
-										</ul>
-									</p-card>
+								<div id="resourceLink">
+									<div class="d-flex justify-content-between gap-2">
+										<button pButton type="button"
+											(click)="downloadCertificate(list.certificate_link, list.module_id)"
+											class="btn btn-primary btn-rounded w-100 text-center">Download</button>
+										<button pButton class="btn btn-primary socialShareBtn"
+											(click)="showSocialSharingList(i, list.module_id)"><i
+												class="fa-light fa-share-nodes"></i></button>
+										<p-card id="socialSharingList{{ i }}" class="socialSharingList"
+											[ngClass]="{ show: selectedIndex === i }">
+											<ul class="list-unstyled">
+												<li (click)="shareQuestion(list.certificate_link,'Whatsapp')">
+													<i class="pi pi-whatsapp"></i>Whatsapp
+												</li>
+												<li (click)="shareQuestion(list.certificate_link,'Mail')">
+													<i class="pi pi-envelope"></i>Email
+												</li>
+												<li (click)="shareQuestion(list.certificate_link,'Facebook')">
+													<i class="pi pi-facebook"></i>Facebook
+												</li>
+												<li (click)="shareQuestion(list.certificate_link,'Twitter')">
+													<i class="pi pi-twitter"></i>Twitter
+												</li>
+												<li (click)="shareQuestion(list.certificate_link,'Instagram')">
+													<i class="pi pi-instagram"></i>Instagram
+												</li>
+												<li (click)="shareQuestion(list.certificate_link,'LinkedIn')">
+													<i class="pi pi-linkedin"></i>LinkedIn
+												</li>
+												<li (click)="copyLink(list.certificate_link)"><i class="pi pi-link"></i>
+													Copy Link</li>
+											</ul>
+										</p-card>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</ng-container>
+			<ng-template #noCertificate>
+				<div class="d-flex flex-column justify-content-center align-items-center text-center h-100">
+					<h1 class="uniprep-secondary">No Certificates Yet!</h1>
+					<h3 class="uniprep-primary">
+					Complete reading modules, ace assessments, and earn certificates to showcase your
+					skills.
+					</h3>
+					<h3 class="uniprep-primary">Your first achievement is just a step away!</h3>
+				</div>
+			</ng-template>
 		</div>
 	</div>
 	<!--<div style="text-align: center">
