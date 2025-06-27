@@ -1034,7 +1034,7 @@
 															class="form-control w-100" (focusout)="resetMessageBox()"
 															(focus)="updateMessageBox('networking_linkedin_profile')" />
 														<small class="text-danger"
-															*ngIf="isSubmittedProfessionalNetworkingForm && professionalNetworkingForm.get('networking_linkedin_profile')?.errors?.required">
+															*ngIf="isSubmittedProfessionalNetworkingForm && professionalNetworkingForm.get('networking_linkedin_profile')?.invalid">
 															LinkedIn Profile is required with valid url </small>
 													</div>
 												</div>
@@ -1107,6 +1107,9 @@
 															placeholder="Website link" class="form-control w-100"
 															(focusout)="resetMessageBox()"
 															(focus)="updateMessageBox('networking_personal_website')" />
+																<small class="text-danger"
+															*ngIf="isSubmittedProfessionalNetworkingForm && professionalNetworkingForm.get('networking_personal_website')?.invalid">
+															Personal Website is required with valid url </small>
 													</div>
 												</div>
 											</ng-container>
@@ -1178,8 +1181,8 @@
 															(focus)="updateMessageBox('career_preference_video_link')" />
 													</div>
 													<small class="text-danger"
-														*ngIf="isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_video_link')?.errors?.required">
-														Introduction Video is valid url </small>
+														*ngIf="isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_video_link')?.invalid">
+														Enter valid Introduction Video url </small>
 												</div>
 
 												<div class="col-md-6 mb-3">
@@ -1206,7 +1209,7 @@
 														</div>
 													</div>
 													<small class="text-danger"
-														*ngIf="isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_portfolio_upload_link')?.errors?.required">
+														*ngIf="isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_portfolio_upload_link')?.invalid">
 														Enter valid Portfolio url.</small>
 												</div>
 											</div>
