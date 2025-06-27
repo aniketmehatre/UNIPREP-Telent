@@ -230,7 +230,7 @@ export class AboutUsComponent implements OnInit {
 
   callToActionData: CallToActionCard = {
     title: 'WANT TO KNOW MORE?',
-    description: 'REQUEST A DEMO OR JOIN THE UNIPREP NETWORK TODAY.',
+    description: 'JOIN UNIPREP TODAY AND EXPLORE 70+ PREMIUM FEATURES.',
     buttonText: 'Join Now',
     buttonLink: '/register', // Replace with the actual link
   };

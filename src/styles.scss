@@ -178,7 +178,7 @@ p {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	font-size:1rem;
+	font-size: 1rem;
 }
 
 span {
@@ -319,43 +319,17 @@ small {
 	overflow-y: auto;
 	/* Allows scrolling if content overflows */
 }
-
-.lightmode {
-	.lightmodelogo {
-		display: inline;
-		width: 100%;
-		max-height: 70px;
-	}
-
-	.darkmodelogo {
-		display: none;
-	}
-
-	.smalllogowhite {
-		display: none;
-	}
-
-	.smalllogodark {
-		display: none;
-	}
-
-	.menuclosed {
-		.lightmodelogo {
-			display: none;
-		}
-
-		.darkmodelogo {
-			display: none;
-		}
-
-		.smalllogowhite {
-			display: inline;
-		}
-
-		.smalllogodark {
-			display: none;
-		}
-	}
+//Logo Style
+.app-title {
+	width: 100%;
+	padding: 0.25rem 1rem;
+	display: flex;
+	justify-content: start;
+}
+.app-logo {
+	height: 100%;
+	max-height: 75px;
+	object-fit: contain;
 }
 
 .company-logo {
@@ -594,7 +568,7 @@ uni-salary-converter {
 	}
 }
 
-uni-bloglist{
+uni-bloglist {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
@@ -633,7 +607,7 @@ uni-landing-new,
 uni-landing-partner,
 uni-landing-institute,
 uni-partner-login,
-uni-institution-login{
+uni-institution-login {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -773,8 +747,8 @@ uni-subscription {
 }
 
 .btn {
-  font-weight: 600 !important;
-  border-radius: 5px !important;
+	font-weight: 600 !important;
+	border-radius: 5px !important;
 }
 
 .btn-primary {
@@ -2485,7 +2459,6 @@ uni-global-employment-insights {
 	line-height: 2rem;
 }
 
-
 .noscrollbar {
 	&::-webkit-scrollbar {
 		scrollbar-width: none;
@@ -2965,15 +2938,17 @@ uni-global-employment-insights {
 	}
 }
 
-.previewBodyForm, .previewBodyFormFull {
-	p,span {
+.previewBodyForm,
+.previewBodyFormFull {
+	p,
+	span {
 		font-size: calc(0.4vw + 0.4vh);
 	}
 }
 
 .custom-editor .ql-editor ol li:before {
-    // content: counter(list-0, decimal) '. ';
-    content: none;
+	// content: counter(list-0, decimal) '. ';
+	content: none;
 }
 uni-partner-register,
 uni-institute-register {
