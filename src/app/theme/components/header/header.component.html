@@ -566,8 +566,8 @@
 							</strong>
 						</span>
 					</div>
-					<div class="mt-1 text-center">
-						<span *ngIf="!userTypeId">
+					<div class="mt-1 text-center" *ngIf="!userTypeId">
+						<span>
 							<strong class="firsttimelogin">
 								<h2 style="color: #f0780e; margin-bottom: 0">You have unlocked</h2>
 							</strong>
@@ -575,12 +575,11 @@
 								<h2 style="color: #f0780e; margin-top: 0">{{ timeLeftInfo }} free trial.</h2>
 							</strong>
 						</span>
-						<span *ngIf="userTypeId">
+					</div>
+					<div class="mt-1 text-center" *ngIf="userTypeId">
+						<span>
 							<strong class="firsttimelogin">
-								<h2 style="color: #f0780e; margin-bottom: 0">Enjoy exclusive </h2>
-								<strong class="firsttimelogin">
-									<h2 style="color: #f0780e; margin-top: 0">UNIPREP Features!</h2>
-								</strong>
+								<h2 style="color: #f0780e; margin-bottom: 0">Enjoy exclusive UNIPREP Features!</h2>
 							</strong>
 						</span>
 					</div>
