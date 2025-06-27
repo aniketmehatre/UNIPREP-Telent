@@ -2989,7 +2989,7 @@ uni-institute-register {
 
 .btn-outline-primary-bg {
 	color: var(--uniprep-primary) !important;
-		background: var(--uniprep-gray) !important;
+	background: #d0d4cb !important;
 	border-radius: 10px !important;
 	border: 1px solid var(--uniprep-primary);
 
@@ -3013,4 +3013,9 @@ uni-institute-register {
 		justify-content: center;
 		align-items: center;
 	}
+}
+
+.py-2-5 {
+    padding-top: 0.8rem !important;
+    padding-bottom: 0.8rem !important;
 }
