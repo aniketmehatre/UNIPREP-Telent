@@ -56,6 +56,7 @@ export class JobListComponent implements OnInit {
   ];
   hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'Future_Hiring', name: 'Future Hiring' }];
   jobStatusList:any[] = [];
+  hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' },{ id: 3, name: 'Campus Hire' }];
 
   constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder) { }
 
@@ -140,6 +141,7 @@ export class JobListComponent implements OnInit {
       experienceLevel: [null],
       status: [''],
       hiringStatus: [null],
+      hiring_type:[null]
     });
   }
 

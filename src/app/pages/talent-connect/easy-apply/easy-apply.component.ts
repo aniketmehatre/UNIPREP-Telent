@@ -58,6 +58,7 @@ export class EasyApplyComponent {
   applicantCurrencyValue = signal<number>(0);
   currencyList: any[] = [];
   isSkeletonVisible: boolean = true;
+  hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' },{ id: 3, name: 'Campus Hire' }];
 
   //Service
   socialShareService = inject(SocialShareService);
@@ -95,6 +96,7 @@ export class EasyApplyComponent {
       salary_currency: [null],
       hiringStatus: [null],
       intro: [null],
+      hiring_type:[null]
     });
   }
 

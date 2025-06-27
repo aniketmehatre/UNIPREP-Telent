@@ -217,8 +217,18 @@
 						</div>
 					</div>
 					<div class="card-footer bg-transparent border-0">
-						<p class="text-muted text-small text-end">Posted On: {{ job.created_at | date : "dd-MM-yyyy" }}
-						</p>
+						<div class="row align-items-center">
+							<div class="col-md-6 col-6">
+								<div *ngIf="job?.hiring_type != 'Company'" class="text-white px-3 py-1 d-table-cell"
+									style="border-radius: 30px;"
+									[ngStyle]="job?.hiring_type == 'Co-Hire' ? {'background-color': 'var(--uniprep-secondary)'} : {'background-color': '#6a35cd'}">
+									{{job?.hiring_type}}</div>
+							</div>
+							<div class="col-md-6 col-6">
+								<p class="text-muted" style="font-size: 0.80rem;">Posted On: {{ job.created_at | date :
+									"dd-MM-yyyy" }}</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -303,11 +313,11 @@
 								formControlName="salary_currency" [filter]="true" filterBy="currency_code"
 								[style]="{ width: '150px' }"> </p-select>
 							<div class="d-flex gap-2 align-items-center flex-grow-1">
-								<p-inputNumber placeholder="Min" styleClass="w-100"
-									[showButtons]="false" class="w-100" formControlName="min_salary"></p-inputNumber>
+								<p-inputNumber placeholder="Min" styleClass="w-100" [showButtons]="false" class="w-100"
+									formControlName="min_salary"></p-inputNumber>
 								<div>To</div>
-								<p-inputNumber placeholder="Max" styleClass="w-100"
-									[showButtons]="false" class="w-100" formControlName="max_salary"></p-inputNumber>
+								<p-inputNumber placeholder="Max" styleClass="w-100" [showButtons]="false" class="w-100"
+									formControlName="max_salary"></p-inputNumber>
 							</div>
 						</div>
 					</div>
@@ -324,9 +334,15 @@
 							placeholder="Select the Hiring Status" optionValue="id" appendTo="body" display="chip"
 							class="w-100"> </p-multiSelect>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<label class="form-label fw-bold">Introduction Video </label>
 						<p-multiSelect [options]="introductionVideoTypes" formControlName="intro" optionLabel="name"
+							placeholder="Select the Introduction video" optionValue="id" appendTo="body" display="chip"
+							class="w-100"> </p-multiSelect>
+					</div>
+					<div class="col-md-6">
+						<label class="form-label fw-bold">Hiring Type </label>
+						<p-multiSelect [options]="hiringTypes" formControlName="hiring_type" optionLabel="name"
 							placeholder="Select the Introduction video" optionValue="id" appendTo="body" display="chip"
 							class="w-100"> </p-multiSelect>
 					</div>
