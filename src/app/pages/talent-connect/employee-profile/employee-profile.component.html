@@ -821,40 +821,42 @@
 																		(focusout)="resetMessageBox()"
 																		(focus)="updateMessageBox('certifications_certificate_name')" />
 																</div>
-																<div class="col position-relative">
-																	<button
-																		class="btn btn-light d-flex align-items-center justify-content-center w-100 border border-dash p-2"
-																		(click)="certificateFile.click()"
-																		(focusout)="resetMessageBox()"
-																		(onFocus)="updateMessageBox('certifications_certificate_file')">
-																		<i class="pi pi-upload me-2"></i>
-																		{{
-																		certificate.get("certifications_certificate_file")?.value
-																		?
-																		extractLastName(certificate.get("certifications_certificate_file")?.value)
-																		: "Upload certificate" }}
-																	</button>
-																	<input type="file" accept="application/pdf"
-																		(change)="uploadFile(fileType.CERTIFICATIONS, $event, i)"
-																		style="visibility: hidden; position: absolute"
-																		#certificateFile />
+																<div class="col-md-6 d-flex gap-3 align-items-center">
+																	<div class="position-relative w-100">
+																		<button
+																			class="btn btn-light d-flex align-items-center justify-content-center w-100 border border-dash p-2"
+																			(click)="certificateFile.click()"
+																			(focusout)="resetMessageBox()"
+																			(onFocus)="updateMessageBox('certifications_certificate_file')">
+																			<i class="pi pi-upload me-2"></i>
+																			{{
+																			certificate.get("certifications_certificate_file")?.value
+																			?
+																			extractLastName(certificate.get("certifications_certificate_file")?.value)
+																			: "Upload certificate" }}
+																		</button>
+																		<input type="file" accept="application/pdf"
+																			(change)="uploadFile(fileType.CERTIFICATIONS, $event, i)"
+																			style="visibility: hidden; position: absolute"
+																			#certificateFile />
+																	</div>
+																	<div *ngIf="i != 0">
+																		<button
+																			class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
+																			(click)="removeCertification(i)">
+																			<span><i
+																					class="fa-regular fa-trash fa-lg"></i></span>
+																		</button>
+																	</div>
+																	<div>
+																		<button
+																			class="btn btn-outline-primary d-flex align-items-center justify-content-center px-3 py-2-5"
+																			(click)="addCertifications()">
+																			<i class="pi pi-plus"></i>
+																		</button>
+																	</div>
 																</div>
-																<div class="col-md-1 d-flex justify-content-center">
-																	<button
-																		class="btn btn-outline-primary d-flex align-items-center justify-content-center p-2"
-																		(click)="addCertifications()">
-																		<i class="pi pi-plus"></i>
-																	</button>
-																</div>
-																<div *ngIf="i != 0"
-																	class="col-md-1 d-flex justify-content-center">
-																	<button
-																		class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
-																		(click)="removeCertification(i)">
-																		<span><i
-																				class="fa-regular fa-trash fa-lg"></i></span>
-																	</button>
-																</div>
+																
 															</div>
 														</ng-container>
 													</ng-container>
@@ -871,39 +873,40 @@
 																		(focusout)="resetMessageBox()"
 																		(focus)="updateMessageBox('certifications_achievement_name')" />
 																</div>
-																<div class="col position-relative">
-																	<button
-																		class="btn btn-light d-flex align-items-center justify-content-center w-100 border p-2"
-																		(click)="acheivementFile.click()"
-																		(focusout)="resetMessageBox()"
-																		(onFocus)="updateMessageBox('certifications_achievement_file')">
-																		<i class="pi pi-upload me-2"></i>
-																		{{
-																		certificate.get("certifications_achievement_file")?.value
-																		?
-																		extractLastName(certificate.get("certifications_achievement_file")?.value)
-																		: "Upload Supporting Document" }}
-																	</button>
-																	<input type="file" accept="application/pdf"
-																		(change)="uploadFile(fileType.ACHIEVEMENTS, $event, i)"
-																		style="visibility: hidden; position: absolute"
-																		#acheivementFile />
-																</div>
-																<div class="col-md-1 d-flex justify-content-center">
-																	<button
-																		class="btn btn-outline-primary d-flex align-items-center justify-content-center p-2"
-																		(click)="addAcheivements()">
-																		<i class="pi pi-plus"></i>
-																	</button>
-																</div>
-																<div *ngIf="i != 0"
-																	class="col-md-1 d-flex justify-content-center">
-																	<button
-																		class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
-																		(click)="removeAchievement(i)">
-																		<span><i
-																				class="fa-regular fa-trash fa-lg"></i></span>
-																	</button>
+																<div class="col-md-6 d-flex gap-3 align-items-center">
+																	<div class="position-relative w-100">
+																		<button
+																			class="btn btn-light d-flex align-items-center justify-content-center w-100 border p-2"
+																			(click)="acheivementFile.click()"
+																			(focusout)="resetMessageBox()"
+																			(onFocus)="updateMessageBox('certifications_achievement_file')">
+																			<i class="pi pi-upload me-2"></i>
+																			{{
+																			certificate.get("certifications_achievement_file")?.value
+																			?
+																			extractLastName(certificate.get("certifications_achievement_file")?.value)
+																			: "Upload Supporting Document" }}
+																		</button>
+																		<input type="file" accept="application/pdf"
+																			(change)="uploadFile(fileType.ACHIEVEMENTS, $event, i)"
+																			style="visibility: hidden; position: absolute"
+																			#acheivementFile />
+																	</div>
+																	<div *ngIf="i != 0">
+																		<button
+																			class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
+																			(click)="removeAchievement(i)">
+																			<span><i
+																					class="fa-regular fa-trash fa-lg"></i></span>
+																		</button>
+																	</div>
+																	<div>
+																		<button
+																			class="btn btn-outline-primary d-flex align-items-center justify-content-center px-3 py-2-5"
+																			(click)="addAcheivements()">
+																			<i class="pi pi-plus"></i>
+																		</button>
+																	</div>
 																</div>
 															</div>
 														</ng-container>

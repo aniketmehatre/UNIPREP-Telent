@@ -105,6 +105,7 @@ export interface UserProfile {
   languages: Language[];
   networking: any[]; // Type is not clear from provided data
   updated_at?: Date;
+  updated_at_formatted: string;
 }
 
 export interface Departments {
