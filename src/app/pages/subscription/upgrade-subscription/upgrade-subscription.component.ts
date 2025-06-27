@@ -15,7 +15,7 @@ import { Router } from "@angular/router"
 import { WindowRefService } from "../window-ref.service"
 import { HttpClient } from "@angular/common/http"
 import { StripeCardElementOptions, StripeElementsOptions, StripePaymentElementOptions } from "@stripe/stripe-js"
-import { injectStripe, StripeCardComponent, StripePaymentElementComponent, StripeService } from "ngx-stripe"
+import { injectStripe, NgxStripeModule, StripeCardComponent, StripePaymentElementComponent, StripeService } from "ngx-stripe"
 import { switchMap } from "rxjs"
 // import CryptoJS from "crypto-js";
 import { CommonModule } from "@angular/common";
@@ -41,7 +41,7 @@ import { landingServices } from '../../landing/landing.service';
 	templateUrl: "./upgrade-subscription.component.html",
 	styleUrls: ["./upgrade-subscription.component.scss"],
 	standalone: true,
-  imports: [CommonModule,TabViewModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmDialogModule, ToastModule],
+    imports: [CommonModule,TabViewModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmDialogModule, ToastModule,NgxStripeModule],
 })
 export class UpgradeSubscriptionComponent implements OnInit {
 	selectedButton: any
@@ -792,6 +792,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
 				redirect: "if_required",
 			})
 			.subscribe((result: any) => {
+				console.log("Payment Status:", result)
 				if (result.error) {
 					console.log(result.error.message)
 					this.toast.add({

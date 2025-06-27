@@ -467,6 +467,7 @@ export class SubscriptionComponent implements OnInit {
 				redirect: "if_required",
 			})
 			.subscribe((result: any) => {
+				console.log("Payment Status:", result)
 				if (result.error) {
 					console.log(result.error.message)
 					this.toastr.add({
