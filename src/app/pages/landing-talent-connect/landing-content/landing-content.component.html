@@ -38,17 +38,19 @@
 </section>
 
 <!-- Features Section with Card Stack -->
-<section class="features-section py-5 darksection">
+<section class="features-section py-5 darksection" style="position: relative;">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 col-12">
         <ul class="p-0" id="">
-          <li class="card-sticky card bg-black border-secondary mb-3 h-100" id="card-1" *ngFor="let feature of templateCardFeatures; let i = index">
+          <li class="card-sticky card bg-black border-secondary mb-3 h-100" id="card-{{i+1}}" *ngFor="let feature of templateCardFeatures; let i = index">
             <div class="card-body">
-              <div class="feature-icon" [ngStyle]="{ 'background-color': feature.color }">
-                <i class="{{ feature.icon }}"></i>
+              <div class="top-bar">
+                <div class="feature-icon" [ngStyle]="{ 'background-color': feature.color }">
+                  <i class="{{ feature.icon }}"></i>
+                </div>
+                <h3 class="card-title mt-3 text-white">{{ feature.title }}</h3>
               </div>
-              <h3 class="card-title mt-3 text-white">{{ feature.title }}</h3>
               <div class="card-text text-white" *ngIf="feature.description.length > 0">
                 <p *ngFor="let line of feature.description" class="text-white" [innerHTML]="line"></p>
               </div>
@@ -58,7 +60,7 @@
       </div>
     </div>
   </div>
-</section>
+</section>  
 
 <section class="darksection">
   <div class="container-fluid">
