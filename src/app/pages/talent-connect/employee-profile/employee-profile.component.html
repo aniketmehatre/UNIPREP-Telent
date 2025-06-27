@@ -840,23 +840,21 @@
 																			style="visibility: hidden; position: absolute"
 																			#certificateFile />
 																	</div>
-																	<div *ngIf="i != 0">
-																		<button
-																			class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
-																			(click)="removeCertification(i)">
-																			<span><i
-																					class="fa-regular fa-trash fa-lg"></i></span>
-																		</button>
-																	</div>
-																	<div>
+																	<button *ngIf="i != 0; else showCertPlusIcon"
+																		class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
+																		(click)="removeCertification(i)">
+																		<span><i
+																				class="fa-regular fa-trash fa-lg"></i></span>
+																	</button>
+																	<ng-template #showCertPlusIcon>
 																		<button
 																			class="btn btn-outline-primary d-flex align-items-center justify-content-center px-3 py-2-5"
 																			(click)="addCertifications()">
 																			<i class="pi pi-plus"></i>
 																		</button>
-																	</div>
+																	</ng-template>
 																</div>
-																
+
 															</div>
 														</ng-container>
 													</ng-container>
@@ -892,21 +890,19 @@
 																			style="visibility: hidden; position: absolute"
 																			#acheivementFile />
 																	</div>
-																	<div *ngIf="i != 0">
-																		<button
-																			class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
-																			(click)="removeAchievement(i)">
-																			<span><i
-																					class="fa-regular fa-trash fa-lg"></i></span>
-																		</button>
-																	</div>
-																	<div>
+																	<button *ngIf="i != 0; else showAchievPlusIcon"
+																		class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2"
+																		(click)="removeAchievement(i)">
+																		<span><i
+																				class="fa-regular fa-trash fa-lg"></i></span>
+																	</button>
+																	<ng-template #showAchievPlusIcon>
 																		<button
 																			class="btn btn-outline-primary d-flex align-items-center justify-content-center px-3 py-2-5"
 																			(click)="addAcheivements()">
 																			<i class="pi pi-plus"></i>
 																		</button>
-																	</div>
+																	</ng-template>
 																</div>
 															</div>
 														</ng-container>
@@ -1107,7 +1103,7 @@
 															placeholder="Website link" class="form-control w-100"
 															(focusout)="resetMessageBox()"
 															(focus)="updateMessageBox('networking_personal_website')" />
-																<small class="text-danger"
+														<small class="text-danger"
 															*ngIf="isSubmittedProfessionalNetworkingForm && professionalNetworkingForm.get('networking_personal_website')?.invalid">
 															Personal Website is required with valid url </small>
 													</div>
@@ -1489,78 +1485,6 @@
 								</div>
 							</div>
 						</ng-template>
-
-						<!-- <div class="d-flex justify-content-between gap-2 w-100">
-							<button pButton type="button" class="btn btn-outline-primary-bg py-2 px-3"
-								[style.visibility]="activePageIndex == 0 ? 'hidden' : 'visible'" (click)="previous()">
-								<i class="fa fa-arrow-left"></i>{{getPreviousIndexValue()}}
-							</button>
-							<ng-container *ngIf="!profileScore">
-								<div class="d-flex flex-column align-items-center gap-2 w-100">
-									<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile Completion: {{
-										profileCompletion
-										}}%</span>
-									<div class="w-100">
-										<p-progressBar [style]="{ height: '12px' }" color="#f0780e"
-											styleClass="rounded-pill" [showValue]="false"
-											[value]="profileCompletion"></p-progressBar>
-									</div>
-								</div>
-							</ng-container>
-							<button pButton type="button" (click)="next()" class="btn btn-primary py-2 px-3">
-								{{getNextIndexValue()}}<i class="fa fa-arrow-right"></i>
-							</button>
-						</div> -->
-						<!-- <div class="row align-items-center">
-							<div class="col-8 col-md-8">
-								<ng-container *ngIf="!profileScore">
-									<div class="d-flex align-items-center gap-2">
-										<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile
-											Completion: {{
-											profileCompletion
-											}}%</span>
-										<div class="w-100">
-											<p-progressBar [style]="{ height: '12px' }" color="#f0780e"
-												styleClass="rounded-pill" [showValue]="false"
-												[value]="profileCompletion"></p-progressBar>
-										</div>
-									</div>
-								</ng-container>
-								<ng-container *ngIf="profileScore">
-									<div class="d-flex align-items-center gap-2">
-										<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile Score: {{
-											profileScore
-											}}%</span>
-										<div class="w-100">
-											<p-progressBar [style]="{ height: '12px' }" color="#f0780e"
-												styleClass="rounded-pill" [showValue]="false"
-												[value]="profileScore"></p-progressBar>
-										</div>
-									</div>
-								</ng-container>
-							</div>
-							<div class="col-4 col-md-4 text-end">
-								<ng-container *ngIf="!isShowAiEvaluation">
-									<button pButton type="button" (click)="onCallAIEvaluation()"
-										class="btn btn-primary btn-rounded px-3 py-2 me-2">
-										<span>AI Review</span>
-									</button>
-								</ng-container>
-								<ng-container>
-									<button *ngIf="isShowAiEvaluation" pButton type="button"
-										(click)="isShowAiEvaluation = false; aiEvaluationContent = ''"
-										class="btn btn-primary btn-rounded p-1 ps-4 me-2">
-										<span class="me-2">Edit Profile</span><span class="btn-icon px-2 py-2"><i
-												class="pi pi-arrow-left text-white"></i></span>
-									</button>
-									<button pButton type="button" (click)="onSubmit()"
-										class="btn btn-success btn-rounded p-1 ps-4">
-										<span class="me-2">Complete Your Profile</span><span
-											class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
-									</button>
-								</ng-container>
-							</div>
-						</div> -->
 					</div>
 					<ng-template #showAIValuationBodyContent>
 						<div class="card-body h-100 overflow-y-auto" *ngIf="isShowAiEvaluation">
@@ -1955,53 +1879,6 @@
 			</p-drawer>
 		</div>
 	</div>
-	<!-- <div class="card-footer bg-white">
-		<div class="row align-items-center">
-			<div class="col-8 col-md-8">
-				<ng-container *ngIf="!profileScore">
-					<div class="d-flex align-items-center gap-2">
-						<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile Completion: {{
-							profileCompletion
-							}}%</span>
-						<div class="w-100">
-							<p-progressBar [style]="{ height: '12px' }" color="#f0780e" styleClass="rounded-pill"
-								[showValue]="false" [value]="profileCompletion"></p-progressBar>
-						</div>
-					</div>
-				</ng-container>
-				<ng-container *ngIf="profileScore">
-					<div class="d-flex align-items-center gap-2">
-						<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile Score: {{ profileScore
-							}}%</span>
-						<div class="w-100">
-							<p-progressBar [style]="{ height: '12px' }" color="#f0780e" styleClass="rounded-pill"
-								[showValue]="false" [value]="profileScore"></p-progressBar>
-						</div>
-					</div>
-				</ng-container>
-			</div>
-			<div class="col-4 col-md-4 text-end">
-				<ng-container *ngIf="!isShowAiEvaluation">
-					<button pButton type="button" (click)="onCallAIEvaluation()"
-						class="btn btn-primary btn-rounded px-3 py-2 me-2">
-						<span>AI Review</span>
-					</button>
-				</ng-container>
-				<ng-container>
-					<button *ngIf="isShowAiEvaluation" pButton type="button"
-						(click)="isShowAiEvaluation = false; aiEvaluationContent = ''"
-						class="btn btn-primary btn-rounded p-1 ps-4 me-2">
-						<span class="me-2">Edit Profile</span><span class="btn-icon px-2 py-2"><i
-								class="pi pi-arrow-left text-white"></i></span>
-					</button>
-					<button pButton type="button" (click)="onSubmit()" class="btn btn-success btn-rounded p-1 ps-4">
-						<span class="me-2">Complete Your Profile</span><span class="btn-icon px-2 py-2"><i
-								class="pi pi-check text-white"></i></span>
-					</button>
-				</ng-container>
-			</div>
-		</div>
-	</div> -->
 </div>
 <p-confirmdialog id="confirm-dialog" styleClass="p-3 w-25" [visible]="isShowCreatedSuccessfullyPopup"
 	[closable]="false">
