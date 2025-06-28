@@ -61,7 +61,7 @@ export class ContactUsComponent {
       mapUrl: `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.2334321935673!2d-0.091397823871224!3d51.527278209251634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761ca671d5df0b%3A0x368e18d29207f698!2s128%20City%20Rd%2C%20London%20EC1V%202NX%2C%20UK!5e0!3m2!1sen!2sin!4v1746784936807!5m2!1sen!2sin`
     },
     {
-      name: 'Indian Office',
+      name: 'India',
       address: '728, 2nd Floor, Thanishka Tower, 1st Main Rd, Yelahanka New Town, Bengaluru, Karnataka 560064',
       phone: '+91 63627 16586',
       phoneCode: '+91',

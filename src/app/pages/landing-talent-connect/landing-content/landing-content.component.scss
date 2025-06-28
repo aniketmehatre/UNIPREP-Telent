@@ -367,48 +367,65 @@ h2 {
 
 #card-1 {
 	--index: 1;
+	top: 20px;
 }
 
 #card-2 {
 	--index: 2;
+	top: 105px;
 }
 
 #card-3 {
 	--index: 3;
+	top: 188px;
 }
 
 #card-4 {
 	--index: 4;
+	top: 283px;
 }
 
 #card-5 {
 	--index: 5;
+	top: 368px;
 }
 
 #card-6 {
 	--index: 6;
+	top: 452px;
 }
 
 #card-7 {
 	--index: 7;
+	top: 546px;
 }
 
 #card-8 {
 	--index: 8;
+	top: 628px;
 }
 
 #card-9 {
 	--index: 9;
+	top: 724px;
 }
 
 #card-10 {
 	--index: 10;
+	top: 820px;
 }
 
 .card-sticky {
 	position: sticky;
-	top: 0%;
+	top: 10%;
 	padding-top: calc(var(--index) * var(--card-top-offset));
+}
+
+.top-bar {
+  display: flex;
+  align-items: center; /* Vertically center icon and text */
+  gap: 12px;            /* Optional: space between icon and title */
+  margin: 5px;
 }
 
 .card {
