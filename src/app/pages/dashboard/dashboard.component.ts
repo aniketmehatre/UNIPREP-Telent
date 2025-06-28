@@ -355,7 +355,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	checkIfProfileCreated() {
 		this.talentConnectService.getMyProfileData().subscribe({
 			next: response => {
-				if (response && response.count) {
+				if (response && response.count > 0 && response.data[0].profile_completion_flag) {
 					if (response.count > 0) {
 						this.isProfileCreated = true;
 						this.cdr.detectChanges();
