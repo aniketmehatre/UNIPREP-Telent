@@ -30,7 +30,7 @@ interface DropdownOption {
 })
 export class CompanyConnect1Component implements OnInit {
     displayModal: boolean = false;
-    totalCount: number;
+    totalCount: number = 0;
     first: number = 0;
     page: number = 1;
     perPage: number = 12;
@@ -41,8 +41,8 @@ export class CompanyConnect1Component implements OnInit {
     foundedYears: DropdownOption[] = [];
     companyTypes: DropdownOption[] = [];
     companyDataList = []
-    totalJob: number;
-    totalVacancies: number;
+    totalJob: number = 0;
+    totalVacancies: number = 0;
     companyObj: any
 
     constructor(private talentConnectService: TalentConnectService,
