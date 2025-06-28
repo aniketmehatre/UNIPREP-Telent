@@ -78,4 +78,9 @@ export class landingServices {
   getCountryName() {
     return this.http.get('https://ipapi.co/json/');
   }
+
+  getJobInviteDetails(uuid: string): Observable<any> {
+    return this.http.post<any>('/getjobsharedetails', { uuid });
+  }
+  
 }
