@@ -58,8 +58,9 @@ export class EasyApplyComponent {
   applicantCurrencyValue = signal<number>(0);
   currencyList: any[] = [];
   isSkeletonVisible: boolean = true;
-  hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' },{ id: 3, name: 'Campus Hire' }];
-
+  hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' }, { id: 3, name: 'Campus Hire' }];
+  selectedCurrency: string = '';
+  
   //Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
@@ -96,7 +97,7 @@ export class EasyApplyComponent {
       salary_currency: [null],
       hiringStatus: [null],
       intro: [null],
-      hiring_type:[null]
+      hiring_type: [null]
     });
   }
 
@@ -159,7 +160,7 @@ export class EasyApplyComponent {
     this.page = event.first / this.pageSize + 1;
     this.pageSize = event.rows;
     this.first = event.first;
-    this.getList();
+    this.getList(this.filterForm.value);
   }
 
   show(): void {
@@ -183,6 +184,7 @@ export class EasyApplyComponent {
 
   onCurrencyExchange(event: any) {
     const convertTo = event.value.currency_code;
+    this.selectedCurrency = convertTo;
 
     const endDate = new Date(); // today
     const formattedEnd = endDate.toISOString().split("T")[0]; // 'YYYY-MM-DD'
@@ -229,6 +231,7 @@ export class EasyApplyComponent {
     });
   }
   onClearCurrency(event: Event) {
+    this.selectedCurrency = "";
     this.getList({});
   }
 
