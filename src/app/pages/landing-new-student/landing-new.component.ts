@@ -5,7 +5,7 @@ import { AuthService } from "../../Auth/auth.service"
 import { LocationService } from "../../location.service"
 import { environment } from "@env/environment"
 import { LocalStorageService } from "ngx-localstorage"
-import { Router, RouterModule } from "@angular/router"
+import { ActivatedRoute, Router, RouterModule } from "@angular/router"
 import { ScrollTop, ScrollTopModule } from "primeng/scrolltop"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
@@ -78,7 +78,9 @@ export class LandingNewComponent implements OnInit {
 		this.displaycontactform = true
 	}
 
-	constructor(private themeService: ThemeService, private formbuilder: FormBuilder, private service: LocationService, private storage: LocalStorageService, private router: Router, private authService: AuthService) {
+	constructor(private themeService: ThemeService, private formbuilder: FormBuilder,
+		private service: LocationService, private storage: LocalStorageService,
+		private router: Router, private authService: AuthService, private route: ActivatedRoute,) {
 		// Initialize the isDarkMode property with the value from the service
 		this.isDarkMode = this.themeService.getInitialSwitchState()
 	}
@@ -252,9 +254,18 @@ export class LandingNewComponent implements OnInit {
 		}
 	}
 	timeLeftInfoCard: any
+	uuid: any
 	ngOnInit() {
+		// if (this.authService.isTokenValid()) {
+		// 	this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
+		// }
+		this.uuid = this.route.snapshot.paramMap.get('uuid');
 		if (this.authService.isTokenValid()) {
-			this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
+			if (this.uuid) {
+
+			} else {
+				this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
+			}
 		}
 		// const token = this.storage.get<string>('token');
 		// let req = {

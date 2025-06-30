@@ -1,161 +1,163 @@
 .uuid-card-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    padding: 30px 15px;
-    background-color: #121212;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 30px 15px;
+  background-color: #121212;
 
-    .uuid-card {
-      background: #fff;
-      width: 100%;
-      max-width: 1100px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      padding: 25px;
-    }
-  
-    .uuid-header {
+  .uuid-card {
+    background: #fff;
+    width: 100%;
+    max-width: 1100px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+  }
+
+  .uuid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .logo-info {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-  
-      .logo-info {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-  
-        img {
-          width: 100px;
-          height: 100px;
-          object-fit: contain;
-          border-radius: 8px;
-          border: 1px solid #ddd;
-        }
-  
-        .company-info {
-          h2 {
-            margin: 0;
-            font-size: 22px;
-            font-weight: 700;
-          }
-  
-          .updated {
-            margin: 3px 0;
-            color: #777;
-          }
-  
-          .completion {
-            font-size: 14px;
-            color: #4573d2;
-            font-weight: 500;
-          }
-        }
+      gap: 20px;
+
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        border-radius: 8px;
+        border: 1px solid #ddd;
       }
-  
-      .action-buttons {
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
-  
-        .btn {
-          padding: 8px 14px;
-          border-radius: 8px;
-          border: none;
-          color: white;
+
+      .company-info {
+        h2 {
+          margin: 0;
+          font-size: 22px;
+          font-weight: 700;
+        }
+
+        .updated {
+          margin: 3px 0;
+          color: #777;
+        }
+
+        .completion {
+          font-size: 14px;
+          color: #4573d2;
           font-weight: 500;
-          cursor: pointer;
-        }
-  
-        .close-btn {
-          background-color: #3f4c83;
-        }
-  
-        .chat-btn {
-          background-color: #85ad18;
         }
       }
     }
-  
-    .uuid-details {
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+
+      .btn {
+        padding: 8px 14px;
+        border-radius: 8px;
+        border: none;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .close-btn {
+        background-color: #3f4c83;
+      }
+
+      .chat-btn {
+        background-color: #85ad18;
+      }
+    }
+  }
+
+  .uuid-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 30px;
+
+    .detail-box {
+      flex: 1 1 100px;
+
+      .label {
+        display: block;
+        font-size: 13px;
+        color: #999;
+      }
+
+      .value {
+        font-weight: 600;
+      }
+    }
+  }
+
+  hr {
+    margin: 30px 0;
+    border: none;
+    border-top: 1px solid #eee;
+  }
+
+  .education-section {
+    h3 {
+      margin-bottom: 20px;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .edu-details {
       display: flex;
       flex-wrap: wrap;
       gap: 30px;
-      margin-top: 30px;
-  
-      .detail-box {
-        flex: 1 1 100px;
-  
-        .label {
-          display: block;
-          font-size: 13px;
-          color: #999;
-        }
-  
-        .value {
-          font-weight: 600;
-        }
+
+      > div {
+        flex: 1 1 200px;
       }
-    }
-  
-    hr {
-      margin: 30px 0;
-      border: none;
-      border-top: 1px solid #eee;
-    }
-  
-    .education-section {
-      h3 {
-        margin-bottom: 20px;
-        font-weight: 700;
-        font-size: 18px;
+
+      .edu-label {
+        font-size: 13px;
+        color: #999;
+        margin: 0 0 2px;
       }
-  
-      .edu-details {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 30px;
-  
-        > div {
-          flex: 1 1 200px;
-        }
-  
-        .edu-label {
-          font-size: 13px;
-          color: #999;
-          margin: 0 0 2px;
-        }
-  
-        .edu-value {
-          font-weight: 600;
-          margin: 0;
-        }
+
+      .edu-value {
+        font-weight: 600;
+        margin: 0;
       }
     }
   }
-  
-  .job-overview {
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-    padding: 10px;
-    font-size: 15px;
-    line-height: 1.6;
-    color: #333;
-  
-    .overview-title {
-      flex: 0 0 180px;
-      font-size: 20px;
-      font-weight: 700;
-      color: #0f1d3a;
-      margin: 0;
-    }
-  
-    .overview-description {
-      flex: 1;
-      margin: 0;
-      color: #222;
-    }
+}
+
+.job-overview {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  padding: 10px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+
+  .overview-title {
+    flex: 0 0 180px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f1d3a;
+    margin: 0;
   }
-  
+
+  .overview-description {
+    flex: 1;
+    margin: 0;
+    color: #222;
+  }
+}
+.bg-warning {
+  background-color: #f9e9d8 !important;
+}

@@ -265,8 +265,18 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
   timeLeftInfoCard: any;
 
   ngOnInit() {
+
+    // if (this.authService.isTokenValid()) {
+    //   this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
+    // }
+    this.uuid = this.route.snapshot.paramMap.get('uuid');
     if (this.authService.isTokenValid()) {
-      this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
+      if (this.uuid) {
+        console.log('uuid', this.uuid);
+      } else {
+        console.log('no uuid', this.uuid);
+        this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
+      }
     }
 
     this.uuid = this.route.snapshot.paramMap.get('uuid');

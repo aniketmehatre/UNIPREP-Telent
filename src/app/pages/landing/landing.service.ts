@@ -1,45 +1,50 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {environment} from '@env/environment';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { environment } from '@env/environment';
+import { Observable } from 'rxjs';
 import { IPAddress } from './pricing/pricing.component';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class landingServices {
-    headers = new HttpHeaders().set("Accept", "application/json");
+  headers = new HttpHeaders().set("Accept", "application/json");
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    getLandingPageBasedOnCategory(category: number) {
-      return this.http.post<any>(environment.ApiUrl + "/landingpageview",{category: category}, {
-        headers: this.headers});
-    }
+  getLandingPageBasedOnCategory(category: number) {
+    return this.http.post<any>(environment.ApiUrl + "/landingpageview", { category: category }, {
+      headers: this.headers
+    });
+  }
 
   getLandingPageChooseUs(slug: string) {
     return this.http.post<any>(environment.ApiUrl + "/landingpagechooseus", { slug: slug }, {
-        headers: this.headers});
-    }
+      headers: this.headers
+    });
+  }
 
   getLandingPageFAQ(slug: string) {
     return this.http.post<any>(environment.ApiUrl + "/landingpagefaqs", { slug: slug }, {
-        headers: this.headers});
-    }
+      headers: this.headers
+    });
+  }
 
   getLandingPageHowItsWorks(slug: string) {
     return this.http.post<any>(environment.ApiUrl + "/landingpagehowitsworks", { slug: slug }, {
-        headers: this.headers});
-    }
+      headers: this.headers
+    });
+  }
 
   getLandingPageWhoItsFors(slug: string) {
     return this.http.post<any>(environment.ApiUrl + "/landingpagewhoitsfors", { slug: slug }, {
-        headers: this.headers});
-    }
+      headers: this.headers
+    });
+  }
 
   getLandingPageData(slug: string) {
     return this.http.post<any>(`${environment.ApiUrl}/landingpageedit`, { slug: slug });
-    }
+  }
 
   getLandingCategories(id: number) {
     return this.http.post<any>(environment.ApiUrl + "/showCategory", { id: id }, {
@@ -79,8 +84,9 @@ export class landingServices {
     return this.http.get('https://ipapi.co/json/');
   }
 
+
   getJobInviteDetails(uuid: string): Observable<any> {
-    return this.http.post<any>('/getjobsharedetails', { uuid });
+    return this.http.post<any>(`${environment.ApiUrl}/getjobsharedetails`, { uuid });
   }
-  
+
 }

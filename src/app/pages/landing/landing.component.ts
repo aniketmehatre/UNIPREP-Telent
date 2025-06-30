@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from "@angular/core"
-import {ThemeService} from "../../theme.service"
-import {AuthService} from "../../Auth/auth.service"
-import {environment} from "@env/environment"
-import {Router} from "@angular/router"
-import {HeaderLogoStore} from "./landing-page.store"
+import { Component, OnDestroy, OnInit } from "@angular/core"
+import { ThemeService } from "../../theme.service"
+import { AuthService } from "../../Auth/auth.service"
+import { environment } from "@env/environment"
+import { ActivatedRoute, Router } from "@angular/router"
+import { HeaderLogoStore } from "./landing-page.store"
 
 @Component({
     selector: "uni-landing",
@@ -15,16 +15,23 @@ export class LandingComponent implements OnInit, OnDestroy {
     isDarkMode: boolean
     logoUrl$ = this.logoStore.logoUrl$;
 
-    constructor(private logoStore: HeaderLogoStore, private themeService: ThemeService, private router: Router, private authService: AuthService) {
+    constructor(private logoStore: HeaderLogoStore, private themeService: ThemeService,
+        private router: Router, private authService: AuthService, private route: ActivatedRoute,) {
         // Initialize the isDarkMode property with the value from the service
         this.isDarkMode = this.themeService.getInitialSwitchState()
     }
 
-
+    uuid: any
     ngOnInit() {
-        if (this.authService.isTokenValid()) {
-            this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
-        }
+        // this.uuid = this.route.snapshot.paramMap.get('uuid');
+        // if (this.authService.isTokenValid()) {
+        //     if (this.uuid) {
+        //         console.log('uuid', this.uuid);
+        //     } else {
+        //         console.log('no uuid', this.uuid);
+        //         this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
+        //     }
+        // }
         // const token = this.storage.get<string>('token');
         // let req = {
         //   token: token
@@ -53,7 +60,7 @@ export class LandingComponent implements OnInit, OnDestroy {
             setTimeout(() => {
                 const section = document.querySelector(`#${sectionId}`)
                 if (section) {
-                    section.scrollIntoView({behavior: "smooth"})
+                    section.scrollIntoView({ behavior: "smooth" })
                 }
             }, 0)
         });

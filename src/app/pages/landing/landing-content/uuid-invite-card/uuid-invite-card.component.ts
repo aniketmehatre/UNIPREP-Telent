@@ -1,12 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { landingServices } from '../../landing.service';  
+import { ActivatedRoute, Router } from '@angular/router';
+import { landingServices } from '../../landing.service';
+import { Rating, RatingModule } from 'primeng/rating';
+import { ChipModule } from 'primeng/chip';
+import { ButtonModule } from 'primeng/button';
+import { StepsModule } from 'primeng/steps';
+import { FormsModule } from '@angular/forms';
+import { StorageService } from 'src/app/storage.service';
 
 @Component({
   selector: 'app-uuid-invite-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [ChipModule, ButtonModule, StepsModule, CommonModule, RatingModule, FormsModule],
   templateUrl: './uuid-invite-card.component.html',
   styleUrls: ['./uuid-invite-card.component.scss']
 })
@@ -16,23 +22,26 @@ export class UuidInviteCardComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private landingService: landingServices
-  ) {}
+    private landingService: landingServices,
+    private router: Router,
+    private storage: StorageService
+  ) { }
 
   ngOnInit(): void {
     this.uuid = this.route.snapshot.paramMap.get('uuid');
+    console.log('UUID from route:', this.uuid);
 
-    // if (this.uuid) {
-    //   this.landingService.getJobInviteDetails(this.uuid).subscribe({
-    //     next: (response: any) => {
-    //       console.log('✅ Received from backend:', response);
-    //       this.data = response; // once format is confirmed, map if needed
-    //     },
-    //     error: (err: any) => {
-    //       console.error('❌ Error fetching job details:', err);
-    //     }
-    //   });
-    // }
+    if (this.uuid) {
+      this.landingService.getJobInviteDetails(this.uuid).subscribe({
+        next: (response: any) => {
+          console.log('✅ Received from backend:', response);
+          this.data = response.data[0]; // once format is confirmed, map if needed
+        },
+        error: (err: any) => {
+          console.error('❌ Error fetching job details:', err);
+        }
+      });
+    }
 
 
     if (this.uuid) {
@@ -61,5 +70,21 @@ export class UuidInviteCardComponent implements OnInit {
         ]
       };
     }
+  }
+
+  getProficiencyRating(proficiency: string) {
+    const proficiencyList: { [key: string]: number } = {
+      "Beginner": 2,
+      "Fluent": 3,
+      "Proficient": 4,
+      "Native": 5
+    }
+    return proficiencyList[proficiency] || 0;
+  }
+
+  onClickApply(jobId: any) {
+    this.storage.set('jobId', `/pages/talent-connect/easy-apply/${jobId}`)
+    
+    this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
   }
 }
