@@ -302,10 +302,9 @@ export class TalentConnectService {
     }
 
     getUUID(jobId: any) {
-        let req = {
-            job_id: jobId
-        }
+        const formData = new FormData();
+        formData.append('job_id', jobId);
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post(`${environment.ApiUrlEmployer}/getjobsharelink`, req, { headers: headers });
+        return this.http.post<any>(`${environment.ApiUrlEmployer}/getjobsharelink`, formData, { headers: headers });
     }
 }
