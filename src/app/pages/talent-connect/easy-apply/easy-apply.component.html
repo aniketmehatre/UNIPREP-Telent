@@ -214,12 +214,17 @@
 		</div>
 	</div>
 	<div class="card-footer py-1 border-0 bg-transparent">
-		<div class="row d-flex align-items-center justify-content-between">
-			<p-paginator *ngIf="totalJobs != 0" [rows]="pageSize" [totalRecords]="totalJobs" [first]="(page - 1) * pageSize" (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="[8, 50, 100, 300, 500, 1000]" [disabled]="totalJobs <= pageSize"> </p-paginator>
-		</div>
-		<div>
-			<span class="uniprep-secondary fw-bold">Disclaimer: </span>
-			<span> Jobs listed here are from publicly available sources. We are currently onboarding official partners.</span>
+		<div class="row align-items-center">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<p-paginator *ngIf="totalJobs != 0" [rows]="pageSize" [totalRecords]="totalJobs" [first]="(page - 1) * pageSize" (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="[8, 50, 100, 300, 500, 1000]" [disabled]="totalJobs <= pageSize"> </p-paginator>
+			</div>
+			<div class="col-md-3">
+				<div class="text-small">
+					<span class="uniprep-secondary fw-bold">Disclaimer: </span>
+					<span> Jobs listed here are from publicly available sources. We are currently onboarding official partners.</span>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div>
