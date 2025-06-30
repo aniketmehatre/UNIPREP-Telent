@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
 import { Meta } from '@angular/platform-browser';
 import { SocialShareService } from 'src/app/shared/social-share.service';
@@ -67,11 +67,13 @@ export class EasyApplyComponent {
   meta = inject(Meta);
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private talentConnectService: TalentConnectService,
-    private messageService: MessageService, private pageFacade: PageFacadeService) {
+    private messageService: MessageService, private pageFacade: PageFacadeService,
+    private router: Router) {
 
   }
 
   ngOnInit(): void {
+    this.checkIfProfileCreated()
     this.route.queryParams.subscribe(params => {
       if (params['company']) {
         this.getList({ company: params['company'] });
@@ -82,6 +84,26 @@ export class EasyApplyComponent {
     this.initializeForm();
     this.getOptionsList();
     this.getCountries();
+
+
+  }
+
+  checkIfProfileCreated() {
+    this.talentConnectService.getMyProfileData().subscribe({
+      next: response => {
+        console.log('resp', response);
+
+        if (response && response.count > 0 && response.data[0].profile_completion_flag) {
+        }
+        else {
+          this.router.navigate(["/pages/talent-connect/list"])
+        }
+      },
+      error: error => {
+        console.log('error while calling get profile!.');
+        this.router.navigate(["/pages/talent-connect/list"])
+      }
+    });
   }
 
   initializeForm() {
