@@ -6,8 +6,7 @@
 	cursor: not-allowed; /* Shows a disabled cursor */
 }
 .icon-container {
-	width: 130px;
-	height: 130px;
+	max-width: 75px;
 	border-radius: 100%;
 	margin: 0;
 }
