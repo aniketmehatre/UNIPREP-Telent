@@ -44,7 +44,8 @@ export class CompanyConnect1Component implements OnInit {
     totalJob: number = 0;
     totalVacancies: number = 0;
     companyObj: any
-
+    isSkeletonVisible: boolean = true;
+    
     constructor(private talentConnectService: TalentConnectService,
         private router: Router, private messageService: MessageService, private pageFacade: PageFacadeService) {
     }
@@ -67,8 +68,10 @@ export class CompanyConnect1Component implements OnInit {
                 this.totalJob = data.totaljob;
                 this.totalVacancies = data.totalvacancies;
                 this.displayModal = false;
+                this.isSkeletonVisible = false;
             },
             error: err => {
+                this.isSkeletonVisible = false;
                 console.log(err)
             }
         })

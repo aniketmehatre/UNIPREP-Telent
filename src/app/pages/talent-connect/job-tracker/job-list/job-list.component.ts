@@ -55,8 +55,8 @@ export class JobListComponent implements OnInit {
     { label: 'All Jobs', active: true }
   ];
   hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'Future_Hiring', name: 'Future Hiring' }];
-  jobStatusList:any[] = [];
-  hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' },{ id: 3, name: 'Campus Hire' }];
+  jobStatusList: any[] = [];
+  hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' }, { id: 3, name: 'Campus Hire' }];
 
   constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder) { }
 
@@ -116,7 +116,7 @@ export class JobListComponent implements OnInit {
       return;
     }
     this.page = this.page + 1;
-    this.getAppliedJobList();
+    this.getAppliedJobList(this.filterForm.value);
   }
 
   onBackClick() {
@@ -124,7 +124,7 @@ export class JobListComponent implements OnInit {
       return;
     }
     this.page = this.page - 1;
-    this.getAppliedJobList();
+    this.getAppliedJobList(this.filterForm.value);
   }
 
   initializeForm() {
@@ -141,7 +141,7 @@ export class JobListComponent implements OnInit {
       experienceLevel: [null],
       status: [''],
       hiringStatus: [null],
-      hiring_type:[null]
+      hiring_type: [null]
     });
   }
 
@@ -156,25 +156,19 @@ export class JobListComponent implements OnInit {
     });
   }
 
-
-  onPageChange(event: any) {
-    this.page = event.first / this.pageSize + 1;
-    this.pageSize = event.rows;
-    this.first = event.first;
-    this.getAppliedJobList();
-  }
-
   applyFilter(): void {
     this.getAppliedJobList(this.filterForm.value);
     this.displayModal = false;
     this.closeFilter.emit(true);
     this.emitId.emit(NaN);
+    this.jobDetails = {};
   }
 
   resetFilter(): void {
     this.getAppliedJobList();
     this.displayModal = false;
     this.closeFilter.emit(true);
+    this.jobDetails = {};
   }
 
   getOptionsList() {

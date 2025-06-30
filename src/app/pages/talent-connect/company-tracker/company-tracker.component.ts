@@ -77,7 +77,6 @@ export class CompanyTracker1Component {
   }
 
   onClickJobId(event: any) {
-
     if (event) {
       this.selectedCompanyId = event.id;
       this.getCompanyDetails();

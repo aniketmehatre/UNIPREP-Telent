@@ -44,7 +44,7 @@ export class EasyApplyComponent {
   workModes: any[] = [];
   employmentTypes: any[] = [];
   experienceLevels: any[] = [];
-  totalJobs: number = 4;
+  totalJobs: number = 0;
   currencies: any[] = [];
   hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'Future_Hiring', name: 'Future Hiring' }];
   introductionVideoTypes: { id: string, name: string }[] = [{ id: 'Yes', name: 'Mandatory' }, { id: 'No', name: 'Not Mandatory' }];
@@ -162,6 +162,9 @@ export class EasyApplyComponent {
             salary_per_month: job.salary_per_month
           }));
         this.isSkeletonVisible = false;
+        if (this.selectedCurrency) {
+          this.onCurrencyExchange({ value: { currency_code: this.selectedCurrency } });
+        }
       },
       error: error => {
         this.isSkeletonVisible = false;
