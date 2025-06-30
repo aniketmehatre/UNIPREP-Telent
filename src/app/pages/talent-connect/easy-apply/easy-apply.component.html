@@ -46,14 +46,14 @@
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
 		<div class="row" *ngIf="!isSkeletonVisible && jobListings.length > 0">
-			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2" *ngFor="let job of jobListings"
+			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2" *ngFor="let job of jobListings; let i=index;"
 				[routerLink]="['/pages/talent-connect/easy-apply', job.id]">
 				<div class="card card-inside h-100 text-start position-relative" role="button">
 					<button class="btn btn-link text-warning p-0 position-absolute"
-						style="right: 0.5rem; top: 0.5rem; z-index: 999" (click)="showSocialSharingList($event)">
+						style="right: 0.5rem; top: 0.5rem; z-index: 999" (click)="showSocialSharingList($event, i)">
 						<i class="fa-regular fa-share-alt"></i>
 					</button>
-					<p-card id="socialSharingList">
+					<p-card class="socialSharingList" id="socialSharingList-{{i}}">
 						<ul style="list-style: none; cursor: pointer">
 							<li (click)="shareQuestion($event, 'Whatsapp', job)"><i class="pi pi-whatsapp"></i>Whatsapp
 							</li>
