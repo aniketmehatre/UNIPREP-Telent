@@ -14,7 +14,7 @@
 						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName" [attr.aria-label]="'Selected country: ' + homeCountryName">
 							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 						</div>
-						<p-avatar (click)="openchat()" class="mr-2" size="large" role="button" aria-label="Open chat"><i class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
+						<p-avatar *ngIf="false" (click)="openchat()" class="mr-2" size="large" role="button" aria-label="Open chat"><i class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
 						<p-avatar class="" label="" *ngIf="false" (click)="np.toggle($event)" icon="pi pi-bell" size="large" role="button" aria-label="Notifications"> </p-avatar>
 						<p-avatar routerLink="/pages/usermanagement" aria-expanded="false" role="button" size="large" aria-label="User profile">
 							<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
@@ -96,7 +96,7 @@
 						</button>
 					</div>
 					<div class="d-none d-md-flex align-items-center">
-						<a (click)="openchat()" class="me-3" aria-label="Open chat">
+						<a *ngIf="false" (click)="openchat()" class="me-3" aria-label="Open chat">
 							<p-avatar class="" label="" role="button" style="padding: 19px"> <i class="fa-solid fa-comments text-dark" aria-hidden="true"></i> </p-avatar>
 						</a>
 						<a *ngIf="false" (click)="np.toggle($event)" class="me-3" aria-label="Notifications">
