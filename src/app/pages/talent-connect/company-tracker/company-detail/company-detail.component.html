@@ -5,34 +5,28 @@
 			<div class="card-header bg-transparent">
 				<div class="d-flex gap-3">
 					<div class="logo-container border rounded-2">
-						<img src="{{ companyDetails?.company_logo }}" alt="Company Logo" class="img-fluid"
-							onerror="this.src" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" />
+						<img src="{{ companyDetails?.company_logo }}" alt="Company Logo" class="img-fluid" onerror="this.src" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" />
 					</div>
 					<div class="container-fluid">
 						<div class="row">
-							<div class="col ">
+							<div class="col">
 								<h1 class="fw-bold">{{ companyDetails?.company_name }}</h1>
 								<p class="text-muted">Founded : {{ companyDetails?.founded_year }}</p>
 								<div *ngIf="isSkeletonVisible; else showFollowBtn">
 									<p-skeleton width="8rem" height="2.5rem" />
 								</div>
 								<ng-template #showFollowBtn>
-									<button
-										class="btn {{ companyDetails?.shortlisted == 0 ? 'btn-outline-primary' : 'btn-primary' }}"
-										(click)="followCompany(companyDetails?.shortlisted)">
+									<button class="btn {{ companyDetails?.shortlisted == 0 ? 'btn-outline-primary' : 'btn-primary' }}" (click)="followCompany(companyDetails?.shortlisted)">
 										{{ companyDetails?.shortlisted == 0 ? "Follow " : "Following " }}
-										<i [ngClass]="companyDetails?.shortlisted == 0 ? 'pi pi-plus' : 'pi pi-check'"
-											class="fs-6"></i>
+										<i [ngClass]="companyDetails?.shortlisted == 0 ? 'pi pi-plus' : 'pi pi-check'" class="fs-6"></i>
 									</button>
 								</ng-template>
 							</div>
 
 							<div class="col-md-3">
 								<div class="d-flex gap-2 justify-content-end">
-									<button pButton label="Close Info" class="btn btn-primary w-100"
-										(click)="closeInfo.emit(false)" *ngIf="showChat"></button>
-									<button pButton class="p-button-success chat-btn w-100" *ngIf="!showChat"
-										(click)="openChat.emit(true)"><i class="pi pi-comments"></i> Chat</button>
+									<button pButton label="Close Info" class="btn btn-primary w-100" (click)="closeInfo.emit(false)" *ngIf="showChat"></button>
+									<button pButton class="p-button-success chat-btn w-100" *ngIf="!showChat" (click)="openChat.emit(true)"><i class="pi pi-comments"></i> Chat</button>
 								</div>
 							</div>
 						</div>
@@ -78,15 +72,13 @@
 									</div> -->
 									<div class="col-md-3 mb-3">
 										<h6 class="text-muted text-primary">Official Website</h6>
-										<p (click)="openUrl(companyDetails?.website)" role="button"
-											class="text-break text-primary">
+										<p (click)="openUrl(companyDetails?.website)" role="button" class="text-break text-primary">
 											<i class="pi pi-globe fs-3"></i>
 										</p>
 									</div>
 									<div class="col-md-3">
 										<h6 class="text-muted text-primary">LinkedIn Profile</h6>
-										<p (click)="openUrl(companyDetails?.linkedin_link)" role="button"
-											class="text-break text-primary">
+										<p (click)="openUrl(companyDetails?.linkedin_link)" role="button" class="text-break text-primary">
 											<i class="pi pi-linkedin fs-3"></i>
 										</p>
 									</div>
@@ -111,17 +103,13 @@
 									<div class="col-md-6">
 										<h5 class="text-primary">Work Life Balance Policies</h5>
 										<div class="mt-2">
-											<p-chip *ngFor="let policy of companyDetails?.work_life_balance_policy"
-												label="{{ policy }}"
-												styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
+											<p-chip *ngFor="let policy of companyDetails?.work_life_balance_policy" label="{{ policy }}" styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<h5 class="text-primary">Employee Benefits & Perks</h5>
 										<div class="mt-2">
-											<p-chip *ngFor="let benefit of companyDetails?.benefits"
-												label="{{ benefit }}"
-												styleClass="m-1 bg-info bg-opacity-25 text-dark"></p-chip>
+											<p-chip *ngFor="let benefit of companyDetails?.benefits" label="{{ benefit }}" styleClass="m-1 bg-info bg-opacity-25 text-dark"></p-chip>
 										</div>
 									</div>
 								</div>
@@ -139,8 +127,7 @@
 							<div class="col-md-9">
 								<h5 class="text-primary">Hiring Process Stages</h5>
 								<div class="mt-2">
-									<p-chip *ngFor="let hire of companyDetails?.hiring_process_stages"
-										label="{{ hire }}" styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
+									<p-chip *ngFor="let hire of companyDetails?.hiring_process_stages" label="{{ hire }}" styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
 								</div>
 
 								<div class="mt-4">

@@ -18,7 +18,7 @@
 			<div class="h-100 overflow-hidden" [ngClass]="!isShowApplyChat ? 'col-sm-12' : 'col-sm-12 col-md-7 col-lg-8 col-xl-9'" *ngIf="showInfo">
 				<div class="card h-100 overflow-y-auto">
 					<div class="card-header bg-transparent p-4">
-						<div class="row align-items-center">
+						<div class="row align-items-start">
 							<div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-4">
 								<div class="rounded-2 border overflow-hidden">
 									<img class="company-logo" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="jobDetails?.company_logo_url" alt="company_logo" />

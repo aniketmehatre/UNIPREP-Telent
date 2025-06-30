@@ -11,10 +11,9 @@
 				<!-- Job 1 -->
 				<ng-container *ngFor="let company of companyList">
 					<div class="card mb-3 position-relative" role="button" (click)="onClickJobCard(company)">
-						<div class="card-body d-flex align-items-center gap-2 ">
-							<div class="w-100 border rounded-2 overflow-hidden" style="max-width: 65px">
-								<img src="{{ company.company_logo }}" (error)="$event.target.src = '/uniprep-assets/images/job.webp'"
-									class="w-100 h-100" style="object-fit: contain" alt="UNIPREP" />
+						<div class="card-body d-flex align-items-center gap-2">
+							<div class="w-100 border rounded-2 overflow-hidden" style="max-width: 65px; background-color: white; aspect-ratio: 1">
+								<img src="{{ company.company_logo }}" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" class="w-100 h-100" style="object-fit: contain" alt="UNIPREP" />
 							</div>
 							<div class="job-details text-left">
 								<h5 class="job-title mb-1 text-left">{{ company.company_name }}</h5>
@@ -24,8 +23,7 @@
 								</div>
 								<span class="status-badge" [ngClass]="getStatusClass(company.status)">{{ company.status }}</span>
 							</div>
-							<span class="notification-badge position-absolute top-0 right-0"
-								[ngClass]="{ 'bg-secondary-subtle text-white': !(company.notification_count > 0) }">
+							<span class="notification-badge position-absolute top-0 right-0" [ngClass]="{ 'bg-secondary-subtle text-white': !(company.notification_count > 0) }">
 								{{ company?.notification_count || 0 }}
 							</span>
 						</div>
@@ -42,5 +40,4 @@
 		</div>
 	</div>
 </div>
-<app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false; triggerCloseFilter.emit()"
-	(triggerApplyFiler)="applyFilter($event)" (resetFilter)="applyFilter({})" [isListView]="false"></app-company-filter>
+<app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false; triggerCloseFilter.emit()" (triggerApplyFiler)="applyFilter($event)" (resetFilter)="applyFilter({})" [isListView]="false"></app-company-filter>
