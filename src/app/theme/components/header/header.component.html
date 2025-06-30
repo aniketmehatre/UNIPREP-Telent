@@ -14,7 +14,7 @@
 						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName" [attr.aria-label]="'Selected country: ' + homeCountryName">
 							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 						</div>
-						<p-avatar (click)="openchat()" class="mr-2" size="large" role="button" aria-label="Open chat"><i class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
+						<p-avatar *ngIf="false" (click)="openchat()" class="mr-2" size="large" role="button" aria-label="Open chat"><i class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
 						<p-avatar class="" label="" *ngIf="false" (click)="np.toggle($event)" icon="pi pi-bell" size="large" role="button" aria-label="Notifications"> </p-avatar>
 						<p-avatar routerLink="/pages/usermanagement" aria-expanded="false" role="button" size="large" aria-label="User profile">
 							<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
@@ -96,7 +96,7 @@
 						</button>
 					</div>
 					<div class="d-none d-md-flex align-items-center">
-						<a (click)="openchat()" class="me-3" aria-label="Open chat">
+						<a *ngIf="false" (click)="openchat()" class="me-3" aria-label="Open chat">
 							<p-avatar class="" label="" role="button" style="padding: 19px"> <i class="fa-solid fa-comments text-dark" aria-hidden="true"></i> </p-avatar>
 						</a>
 						<a *ngIf="false" (click)="np.toggle($event)" class="me-3" aria-label="Notifications">
@@ -487,7 +487,7 @@
 							{{ freeTrialErrorMsg }}
 						</div>
 						<div class="icon-container mt-2 d-flex justify-content-center mb-2">
-							<h6 style="color: rgb(63 76 131)">Enjoy access to <strong>UNIPREP</strong> V 1.0</h6>
+							<h6 style="color: rgb(63 76 131)">Enjoy access to <strong>UNIPREP</strong> V 2.0</h6>
 						</div>
 						<div class="d-flex justify-content-center">
 							<button *ngIf="!userTypeId" [disabled]="!mobileForm.get('home_country')?.value || !mobileForm.get('study_level')?.value" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
