@@ -44,6 +44,8 @@ export class CompanyListsComponent implements OnInit {
   companyId: any;
   private echo!: Echo<any>;
   studentId: any;
+  companyObj:any;
+
   constructor(private talentConnectService: TalentConnectService, private courcelist: AuthService,) {
   }
 
@@ -146,14 +148,16 @@ export class CompanyListsComponent implements OnInit {
   }
 
   applyFilter(event: any) {
+    this.companyObj = event;
+    this.onClickJobCard(0);
     if (this.activeIndex == 0) {
-      this.getCompanyTrackerList(event);
+      this.getCompanyTrackerList(this.companyObj);
     } else if (this.activeIndex == 1) {
-      this.shortListedList(event);
+      this.shortListedList(this.companyObj);
     } else if (this.activeIndex == 2) {
-      this.sendMessageList(event);
+      this.sendMessageList(this.companyObj);
     } else if (this.activeIndex == 3) {
-      this.receivedMessageList(event);
+      this.receivedMessageList(this.companyObj);
     }
   }
 
@@ -162,7 +166,7 @@ export class CompanyListsComponent implements OnInit {
       return;
     }
     this.page = this.page + 1;
-    this.applyFilter({});
+    this.applyFilter(this.companyObj);
   }
 
   onBackClick() {
@@ -170,13 +174,13 @@ export class CompanyListsComponent implements OnInit {
       return;
     }
     this.page = this.page - 1;
-    this.applyFilter({});
+    this.applyFilter(this.companyObj);
   }
 
   onTabChange(event: any) {
     this.page = 1;
     this.activeIndex = event.index;
-    this.applyFilter({});
+    this.applyFilter(this.companyObj);
   }
 
   getStatusClass(status: string): string {
