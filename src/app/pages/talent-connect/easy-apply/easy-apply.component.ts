@@ -60,7 +60,8 @@ export class EasyApplyComponent {
   isSkeletonVisible: boolean = true;
   hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' }, { id: 3, name: 'Campus Hire' }];
   selectedCurrency: string = '';
-  
+  hiring_stages: string | Array<{ id: number; name: string }>;
+
   //Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
@@ -283,8 +284,18 @@ export class EasyApplyComponent {
 
   copyLink(event: any, jobId: number) {
     event.stopPropagation();
-    const textToCopy = encodeURI(window.location.origin + '/pages/talent-connect/easy-apply/' + jobId);
-    this.socialShareService.copyQuestion(textToCopy);
+    this.talentConnectService.getUUID(jobId).subscribe({
+      next: response => {
+        console.log(response);
+        this.isSkeletonVisible = false;
+      },
+      error: error => {
+        this.isSkeletonVisible = false;
+        console.log(error);
+      }
+    });
+    // const textToCopy = encodeURI(window.location.origin + '/job' + jobId);
+    // this.socialShareService.copyQuestion(textToCopy);
   }
 
 }

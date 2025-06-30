@@ -55,7 +55,7 @@ export const landingRoutes: Routes = [
         component: LandingComponent,
         children: [
             {
-                path: 'invite/:uuid',
+                path: 'job/:uuid',
                 loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),
             },
             {

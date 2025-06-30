@@ -12,7 +12,7 @@ import {
     ViewChild
 } from "@angular/core"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
-import { Router, RouterModule } from "@angular/router"
+import { ActivatedRoute, Router, RouterModule } from "@angular/router"
 import { environment } from "@env/environment"
 import { LocalStorageService } from "ngx-localstorage"
 import { MessageService } from "primeng/api"
@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private cdr = inject(ChangeDetectorRef);
     private subs = new SubSink()
     loading = true;
+    jobId: any
 
     get canSubmit() {
         return this.loginForm.valid && !this.isLoading();
@@ -87,7 +88,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        localStorage.clear()
+        if (this.service.isTokenValid()) {
+            this.route.navigate(["/pages/dashboard"])
+        }
+
+        this.jobId = this.storage.get('job-id')
+        if (!this.jobId) {
+            localStorage.clear()
+        }
         this.initializeComponent()
         this.setupSocialAuth()
         this.apiToCheckPartnerOrInstitute()
@@ -159,7 +167,6 @@ export class LoginComponent implements OnInit, OnDestroy {
                 if (!disallowedDomains.includes(response.domain)) {
                     console.log('Allowed domain:', response.domain);
                     // this.handleSuccessfulLogin1(response.token, response.domain)
-                    console.error(`${response.domain}/pages/dashboard?token=${response.token}`)
                     window.location.href = `${response.domain}/pages/dashboard?token=${response.token}`;
                 } else {
                     console.warn('Blocked domain:', response.domain);
@@ -269,6 +276,9 @@ export class LoginComponent implements OnInit, OnDestroy {
                 };
                 this.locationService.sendSessionData(req, "login").subscribe();
                 this.toast.add({ severity: "success", summary: "Success", detail: "Login Successful" })
+                if (this.jobId) {
+                    this.route.navigate([this.jobId], { replaceUrl: true })
+                }
                 this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
             },
             error: (error) => {

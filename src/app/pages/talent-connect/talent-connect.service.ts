@@ -300,4 +300,12 @@ export class TalentConnectService {
     profileCreationReferenceInfo(formData: any) {
         return this.http.post(`${environment.ApiUrl}/studentprofile/reference`, formData);
     }
+
+    getUUID(jobId: any) {
+        let req = {
+            job_id: jobId
+        }
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post(`${environment.ApiUrlEmployer}/getjobsharelink`, req, { headers: headers });
+    }
 }
