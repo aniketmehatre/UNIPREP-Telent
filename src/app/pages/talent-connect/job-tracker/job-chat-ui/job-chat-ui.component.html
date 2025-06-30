@@ -1,9 +1,9 @@
-<div class="card h-100">
+<div class="card h-100 bg-white">
 	<div class="card-header bg-transparent d-flex justify-content-between align-items-center">
 		<div class="d-flex align-items-center gap-2">
 			<button *ngIf="!showInfo" pButton icon="pi pi-info-circle" label="Open Info"
 				class="btn-primary text-dark me-1" (click)="openInfo.emit(true)"></button>
-			<p-avatar [image]="jobDetails?.company_logo_url ?? 'uniprep-assets/images/avatar.webp'" size="large"
+			<p-avatar styleClass="avatar-img" [image]="jobDetails?.company_logo_url ?? 'uniprep-assets/images/avatar.webp'" size="large"
 				shape="circle" />
 			<div>
 				<h5 class="mb-0 fw-bold text-start">{{ jobDetails?.company_name }}</h5>
