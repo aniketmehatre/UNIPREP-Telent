@@ -67,13 +67,11 @@ export class EasyApplyComponent {
   meta = inject(Meta);
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private talentConnectService: TalentConnectService,
-    private messageService: MessageService, private pageFacade: PageFacadeService,
-    private router: Router) {
+    private messageService: MessageService, private pageFacade: PageFacadeService) {
 
   }
 
   ngOnInit(): void {
-    this.checkIfProfileCreated()
     this.route.queryParams.subscribe(params => {
       if (params['company']) {
         this.getList({ company: params['company'] });
@@ -86,24 +84,6 @@ export class EasyApplyComponent {
     this.getCountries();
 
 
-  }
-
-  checkIfProfileCreated() {
-    this.talentConnectService.getMyProfileData().subscribe({
-      next: response => {
-        console.log('resp', response);
-
-        if (response && response.count > 0 && response.data[0].profile_completion_flag) {
-        }
-        else {
-          this.router.navigate(["/pages/talent-connect/list"])
-        }
-      },
-      error: error => {
-        console.log('error while calling get profile!.');
-        this.router.navigate(["/pages/talent-connect/list"])
-      }
-    });
   }
 
   initializeForm() {
