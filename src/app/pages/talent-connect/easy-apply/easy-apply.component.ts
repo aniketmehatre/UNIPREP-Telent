@@ -241,9 +241,9 @@ export class EasyApplyComponent {
     this.getList({});
   }
 
-  showSocialSharingList(event: any) {
+  showSocialSharingList(event: any, index:number) {
     event.stopPropagation();
-    let socialShare: any = document.getElementById("socialSharingList");
+    let socialShare: any = document.getElementById("socialSharingList-"+index);
     if (socialShare.style.display == "") {
       socialShare.style.display = "block";
     }
@@ -289,18 +289,8 @@ export class EasyApplyComponent {
 
   copyLink(event: any, jobId: number) {
     event.stopPropagation();
-    this.talentConnectService.getUUID(jobId).subscribe({
-      next: response => {
-        console.log(response);
-        this.isSkeletonVisible = false;
-      },
-      error: error => {
-        this.isSkeletonVisible = false;
-        console.log(error);
-      }
-    });
-    // const textToCopy = encodeURI(window.location.origin + '/job' + jobId);
-    // this.socialShareService.copyQuestion(textToCopy);
+    const textToCopy = encodeURI(window.location.origin + '/pages/talent-connect/easy-apply/' + jobId);
+    this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
   }
 
 }
