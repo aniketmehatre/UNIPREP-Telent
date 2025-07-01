@@ -16,6 +16,8 @@ export class LandingFooterComponent {
   displaycancellationpolicy: boolean = false;
   displaytandc: boolean = false;
   displayprivacypolicy: boolean = false;
+  displayCookiePolicy: boolean = false;
+  displayRefundPolicy: boolean = false;
 
   socialLinks = [
     { icon: "facebook", url: "https://www.facebook.com/uniprepindia" },
@@ -51,6 +53,7 @@ export class LandingFooterComponent {
     { text: "Terms & Conditions", url: "/terms-conditions", type: 'terms' },
     { text: "Cancellation Policy", url: "/cancellation-policy", type: 'cancellation' },
     { text: "Refund Policy", url: "/refund-policy", type: 'refund' },
+    { text: "Cookie Policy", url: "", type: 'cookie' },
   ]
 
   contactInfo = {
@@ -73,7 +76,12 @@ export class LandingFooterComponent {
         this.displaycancellationpolicy = true;
         break;
       case 'refund':
-        window.open('/refund-policy', '_blank');
+        // window.open('/refund-policy', '_blank');
+        this.displayRefundPolicy = true;
+        break;
+      case 'cookie':
+        // window.open('/refund-policy', '_blank');
+        this.displayCookiePolicy = true;
         break;
       default:
         break;

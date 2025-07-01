@@ -52,7 +52,8 @@ export class LandingInstituteContentComponent {
   wantToKnowMoreTitle: string = 'WANT TO KNOW MORE?';
   wantToKnowMoreLead: string = 'GET IN TOUCH WITH US NOW.';
   joinNowButtonText: string = 'Schedule a Demo';
-
+  imagePath: string = `${environment.imagePath}Landing-page-images/institute`;
+  videoThumbImage: string = `${this.imagePath}/video-thumb.webp`;
   landingSections: LandingSection[] = [
     {
       title: 'Virtual Campus Hiring & Employer Connect',
@@ -63,7 +64,7 @@ export class LandingInstituteContentComponent {
         'Smart filters and AI-powered job matching',
         'Smart filters to match students with the right roles',
       ],
-      image: 'uniprep-assets/images/landing-institutes/institute1.webp', // Assuming a naming convention based on the order
+      image: this.imagePath+'/institute-1.webp',
       imageAlt: 'A person using a virtual platform to connect with potential employers',
       isRight: true,
     },
@@ -76,7 +77,7 @@ export class LandingInstituteContentComponent {
         'Language Hub with 25+ global languages',
         'All future upgrades and new tools automatically included at no extra cost',
       ],
-      image: 'uniprep-assets/images/landing-institutes/institute2.webp', // Assuming a naming convention
+      image: this.imagePath+'/institute-2.webp',
       imageAlt: 'A student confidently walking with a laptop and coffee',
       isRight: false,
     },
@@ -90,7 +91,7 @@ export class LandingInstituteContentComponent {
         'Accessed via your own unique link or subdomain',
         'Ideal for showcasing innovation, student services, and placement readiness',
       ],
-      image: 'uniprep-assets/images/landing-institutes/institute3.webp', // Assuming a naming convention based on the order
+      image: this.imagePath+'/institute-3.webp',
       imageAlt: 'Two professionals shaking hands, representing a co-branded partnership',
       isRight: true,
     },
@@ -102,7 +103,7 @@ export class LandingInstituteContentComponent {
         'Designed to support placement cells, training teams, and career services departments',
         'Simple, guided onboarding with dedicated support',
       ],
-      image: 'uniprep-assets/images/landing-institutes/institute4.webp', // Assuming a naming convention based on the order
+      image: this.imagePath+'/institute-4.webp',
       imageAlt: 'Two colleagues collaborating on a computer, highlighting customized support',
       isRight: false,
     },
@@ -113,7 +114,7 @@ export class LandingInstituteContentComponent {
         'Biannual usage reports tracking logins, tool use, certifications, and job applications',
         'Engagement insights to support placement decisions and academic planning',
       ],
-      image: 'uniprep-assets/images/landing-institutes/institute5.webp', // Assuming a naming convention based on the order
+      image: this.imagePath+'/institute-5.webp',
       imageAlt: 'A person analyzing data on a computer screen for better planning',
       isRight: true,
     },
@@ -125,7 +126,7 @@ export class LandingInstituteContentComponent {
         'Affordable for institutions of all sizes with tiered access models',
         'Continuous upgrades and all features included without extra charges',
       ],
-      image: 'uniprep-assets/images/landing-institutes/institute6.webp', // Assuming a naming convention based on the order
+      image: this.imagePath+'/institute-6.webp',
       imageAlt: 'A professional working on a laptop, emphasizing ease of setup and scalability',
       isRight: false,
     },

@@ -25,7 +25,7 @@
 					<iframe *ngIf="isPlaying" (click)="toggleVideo()" class="youtube-iframe" [src]="embedUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen> </iframe>
 
 					<!-- Video thumbnail (shown when not playing) -->
-					<img *ngIf="!isPlaying" class="video-thumbnail" src="uniprep-assets/images/landing-partners/Partners-video-thumb.webp" alt="Video thumbnail" onerror="this.src='uniprep-assets/images/landing-partners/partner-home-mock.webp'" />
+					<img *ngIf="!isPlaying" class="video-thumbnail" [src]="videoThumbImage" alt="Video thumbnail" />
 				</div>
 				<!-- <div class="video-container">
 					<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying" (click)="toggleVideo()"></i> -->
@@ -96,12 +96,12 @@
 				<div class="container-fluid pb-5 pb-mb-0">
 					<div class="row justify-content-center">
 						<div class="col-md-8 col-12">
-							<div class="row justify-content-md-between align-items-center">
-								<div class="col-md-6" [ngClass]="{ 'order-lg-2 order-2': !section.isRight, 'order-lg-1 order-2': section.isRight }">
+							<div class="row justify-content-md-between align-items-center py-40">
+								<div class="col-md-5" [ngClass]="{ 'order-lg-2 order-2': !section.isRight, 'order-lg-1 order-2': section.isRight }">
 									<div class="fs-2 fw-bold mb-3" [innerHTML]="section.title"></div>
-									<div class="fs-5 fw-bold uniprep-secondary mb-3" [innerHTML]="section.subTitle"></div>
+									<div class="fs-5 uniprep-secondary mb-3" [innerHTML]="section.subTitle"></div>
 									<div class="feature-list">
-										<div class="d-flex align-items-start mb-3" *ngFor="let feature of section.features">
+										<div class="d-flex align-items-start mb-4" *ngFor="let feature of section.features">
 											<div class="me-2">
 												<i class="fa-light fs-4 fa-square-check text-white"></i>
 											</div>
@@ -110,8 +110,10 @@
 									</div>
 								</div>
 
-								<div class="col-md-5" [ngClass]="{ 'order-lg-1 order-1': !section.isRight, 'order-lg-2 order-1': section.isRight }">
-									<img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border-0" style="width: 100%; height: 80%" />
+								<div class="col-md-6" [ngClass]="{ 'order-lg-1 order-1': !section.isRight, 'order-lg-2 order-1': section.isRight }">
+									<div class="landing-content">
+										<img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border-0"/>
+									</div>
 								</div>
 							</div>
 						</div>
