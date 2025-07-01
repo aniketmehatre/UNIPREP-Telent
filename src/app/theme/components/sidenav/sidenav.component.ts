@@ -363,14 +363,12 @@ export class SidenavComponent {
     let userTypeId = this.authService._user?.student_type_id == 2
     //  this condition for after refreshing also subscription menu need to hide for institute
     if (this.authService._user?.student_type_id == 2) {
-       console.log("2");
       this.menus = userTypeId
         ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
         : this.menus;
     }
     this.authService.userData.subscribe((data) => {
       if (data?.student_type_id == 2) {
-        console.log("3");
         this.menus = userTypeId
           ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
           : this.menus;
