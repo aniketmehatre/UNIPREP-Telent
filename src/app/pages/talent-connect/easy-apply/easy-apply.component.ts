@@ -28,6 +28,7 @@ interface JobListing {
   currency_code: string;
   isChecked: boolean;
   salary_per_month: string;
+  hiring_status: string;
 }
 
 
@@ -151,6 +152,10 @@ export class EasyApplyComponent {
         console.log(error);
       }
     });
+  }
+
+  getStatus(value: string) {
+    return value?.replace(/\s+/g, ' ')?.trim()?.toLowerCase() === "future hiring";
   }
 
   getOptionsList() {
