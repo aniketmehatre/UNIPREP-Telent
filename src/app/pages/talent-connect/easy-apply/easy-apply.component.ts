@@ -28,6 +28,7 @@ interface JobListing {
   currency_code: string;
   isChecked: boolean;
   salary_per_month: string;
+  uuid: string;
 }
 
 
@@ -255,7 +256,7 @@ export class EasyApplyComponent {
   shareQuestion(event: any, type: string, job: JobListing) {
     event.stopPropagation();
     const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-    const url = window.location.origin + '/pages/talent-connect/easy-apply/' + job.id;
+    const url = window.location.origin + '/job/' + job.uuid;
     const encodedUrl = encodeURIComponent(url);
     const title = encodeURIComponent('UNIPREP | ' + job?.position + ' | ' + job.company_name);
 
@@ -287,19 +288,10 @@ export class EasyApplyComponent {
     window.open(shareUrl, '_blank');
   }
 
-  copyLink(event: any, jobId: number) {
+  copyLink(event: any, job: any) {
     event.stopPropagation();
-    this.talentConnectService.getUUID(jobId).subscribe({
-      next: (response: any) => {
-        this.isSkeletonVisible = false;
-        const textToCopy = encodeURI(window.location.origin + '/job/' + response.uuid);
-        this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
-      },
-      error: error => {
-        this.isSkeletonVisible = false;
-        console.log(error);
-      }
-    });
+    const textToCopy = encodeURI(window.location.origin + '/job/' + job.uuid);
+    this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
   }
 
 }
