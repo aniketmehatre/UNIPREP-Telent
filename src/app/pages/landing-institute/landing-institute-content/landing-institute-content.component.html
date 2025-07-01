@@ -29,8 +29,7 @@
 						allowfullscreen> </iframe>
 
 					<!-- Video thumbnail (shown when not playing) -->
-					<img *ngIf="!isPlaying" class="video-thumbnail"
-						src="uniprep-assets/images/landing-institutes/institute-home-mock.webp" alt="Video thumbnail" />
+					<img *ngIf="!isPlaying" class="video-thumbnail" [src]="videoThumbImage" alt="Video thumbnail" />
 				</div>
 			</div>
 		</div>
@@ -97,11 +96,11 @@
 		<div class="container-fluid pb-5 pb-mb-0">
 			<div class="row justify-content-center">
 				<div class="col-md-8 col-12">
-					<div class="row justify-content-md-between align-items-center">
+					<div class="row justify-content-md-between align-items-center py-40">
 						<div class="col-md-6"
 							[ngClass]="{ 'order-lg-2 order-2': !section.isRight, 'order-lg-1 order-2': section.isRight }">
 							<div class="fs-1 fw-bold mb-3" [innerHTML]="section.title"></div>
-							<p class="text-secondary mb-4">{{ section.subtitle }}</p>
+							<div class="fs-5 uniprep-secondary mb-3" [innerHTML]="section.subTitle"></div>
 							<div class="feature-list">
 								<div class="d-flex align-items-start mb-3" *ngFor="let feature of section.features">
 									<div class="me-2">
@@ -112,10 +111,11 @@
 							</div>
 						</div>
 
-						<div class="col-md-5"
-							[ngClass]="{ 'order-lg-1 order-1': !section.isRight, 'order-lg-2 order-1': section.isRight }">
-							<img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border-0"
-								style="width: 100%; height: 80%" />
+						<div class="col-md-5" [ngClass]="{ 'order-lg-1 order-1': !section.isRight, 'order-lg-2 order-1': section.isRight }">
+							<div class="landing-content">
+								<img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border-0"/>
+							</div>
+							
 						</div>
 					</div>
 				</div>
