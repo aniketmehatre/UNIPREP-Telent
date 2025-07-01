@@ -31,11 +31,11 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'institute/login',
+    path: 'login',
     loadComponent: () => import('../institution-login/institution-login.component').then(m => m.InstitutionLoginComponent),
   },
     {
-    path: 'institute/register',
+    path: 'register',
     loadComponent: () => import('./institute-register/institute-register.component').then(m => m.InstituteRegisterComponent),
   },
 ]

@@ -28,11 +28,11 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'partner/login',
+    path: 'login',
     loadComponent: () => import('./partner-login/partner-login.component').then(m => m.PartnerLoginComponent)
   },
   {
-    path: 'partner/register',
+    path: 'register',
     loadComponent: () => import('../landing-partner/partner-register/partner-register.component').then(m => m.PartnerRegisterComponent)
   },
 
