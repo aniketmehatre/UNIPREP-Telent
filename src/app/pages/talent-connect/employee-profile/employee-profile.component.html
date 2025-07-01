@@ -679,7 +679,7 @@
 														<label for="careerInterest" class="form-label">
 															Interested Industry<span
 																class="text-danger">*</span></label>
-														<p-multiSelect id="careerInterest"
+														<p-multiSelect id="careerInterest" appendTo="body"
 															formControlName="career_preference_career_interest_id"
 															[options]="careerInterests" placeholder="Select Industry"
 															styleClass="w-100" optionLabel="interest" optionValue="id"
@@ -717,7 +717,7 @@
 														<p-multiSelect id="preferredEmployementType"
 															formControlName="career_preference_preferred_employment_type"
 															[options]="preferredEmploymentType"
-															placeholder="Select Work Type"
+															placeholder="Select Work Type" appendTo="body"
 															styleClass="w-100"></p-multiSelect>
 														<small class="text-danger"
 															*ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_preferred_employment_type')?.errors?.required">
@@ -997,14 +997,14 @@
 													<div class="col-md-6">
 														<label class="form-label">
 															Soft skills</label>
-														<p-multi-select pInputText fluid
+														<p-multiSelect
 															formControlName="career_preference_soft_skill_id"
 															[options]="softSkills" optionValue="id"
 															optionLabel="soft_skill"
 															placeholder="Select your acquired soft skills"
 															class="form-control p-1 w-100"
-															(focusout)="resetMessageBox()"
-															(focus)="updateMessageBox('career_preference_soft_skill_id')"></p-multi-select>
+															(focusout)="resetMessageBox()" appendTo="body"
+															(focus)="updateMessageBox('career_preference_soft_skill_id')"></p-multiSelect>
 														<small class="text-danger"
 															*ngIf="isSubmittedProfessionalTraitsForm && professionalTraitsForm.get('career_preference_soft_skill_id')?.errors?.required">
 															Soft skills is required </small>

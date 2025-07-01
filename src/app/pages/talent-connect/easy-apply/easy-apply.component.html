@@ -87,12 +87,10 @@
 									</span>
 								</p>
 								<p class="mb-0">Job Id: {{ job.id }}</p>
-								<button *ngIf="(job.start_date | dateDiffInMonths) > 4" pButton
-									class="btn btn-rounded btn-primary text-nowrap !fs-6 py-1"><i
-										class="fa-solid fa-clock"></i>Future Hiring</button>
-								<button *ngIf="!((job.start_date | dateDiffInMonths) > 4)" pButton
-									class="btn btn-rounded btn-success text-nowrap !fs-6 py-1"><i
-										class="fa-solid fa-check"></i>Actively Hiring</button>
+								<button  pButton [ngClass]="getStatus(job?.hiring_status) ? 'btn-primary' : 'btn-success'"
+									class="btn btn-rounded text-nowrap !fs-6 py-1">
+									<i class="fa-solid" [ngClass]="getStatus(job?.hiring_status) ? 'fa-clock' : 'fa-check'"></i>{{job?.hiring_status}}
+								</button>
 							</div>
 						</div>
 						<hr class="my-2" />
@@ -349,7 +347,7 @@
 					<div class="col-md-6">
 						<label class="form-label fw-bold">Hiring Type </label>
 						<p-multiSelect [options]="hiringTypes" formControlName="hiring_type" optionLabel="name"
-							placeholder="Select the Introduction video" optionValue="id" appendTo="body" display="chip"
+							placeholder="Select the Hiring Type" optionValue="id" appendTo="body" display="chip"
 							class="w-100" [showClear]="true"> </p-multiSelect>
 					</div>
 					<div class="col-md-6 h-full mt-auto">
