@@ -241,9 +241,9 @@ export class EasyApplyComponent {
     this.getList({});
   }
 
-  showSocialSharingList(event: any) {
+  showSocialSharingList(event: any, index: number) {
     event.stopPropagation();
-    let socialShare: any = document.getElementById("socialSharingList");
+    let socialShare: any = document.getElementById("socialSharingList-" + index);
     if (socialShare.style.display == "") {
       socialShare.style.display = "block";
     }
@@ -290,17 +290,16 @@ export class EasyApplyComponent {
   copyLink(event: any, jobId: number) {
     event.stopPropagation();
     this.talentConnectService.getUUID(jobId).subscribe({
-      next: response => {
-        console.log(response);
+      next: (response: any) => {
         this.isSkeletonVisible = false;
+        const textToCopy = encodeURI(window.location.origin + '/job/' + response.uuid);
+        this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
       },
       error: error => {
         this.isSkeletonVisible = false;
         console.log(error);
       }
     });
-    // const textToCopy = encodeURI(window.location.origin + '/job' + jobId);
-    // this.socialShareService.copyQuestion(textToCopy);
   }
 
 }

@@ -50,8 +50,8 @@ export class LandingInstituteContentComponent {
   // whyPartnerParagraph2: string = 'Launch fast. Empower users. Earn more.';
 
   wantToKnowMoreTitle: string = 'WANT TO KNOW MORE?';
-  wantToKnowMoreLead: string = 'REQUEST A DEMO OR JOIN THE UNIPREP NETWORK TODAY.';
-  joinNowButtonText: string = 'Join Now';
+  wantToKnowMoreLead: string = 'GET IN TOUCH WITH US NOW.';
+  joinNowButtonText: string = 'Schedule a Demo';
 
   landingSections: LandingSection[] = [
     {

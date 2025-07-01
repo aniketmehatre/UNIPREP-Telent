@@ -49,8 +49,8 @@ export class LandingPartnerContentComponent implements OnInit {
   whyPartnerParagraph1: string = 'UNIPREP is more than a platform — it’s your gateway to expansion and impact. Deliver unmatched value to your audience, boost your brand trust, and open doors to global opportunities for your learners.';
   isInitialLoadVideo: boolean = true;
   wantToKnowMoreTitle: string = 'WANT TO KNOW MORE?';
-  wantToKnowMoreLead: string = 'REQUEST A DEMO OR JOIN THE UNIPREP NETWORK TODAY.';
-  joinNowButtonText: string = 'Join Now';
+  wantToKnowMoreLead: string = 'GET IN TOUCH WITH US NOW';
+  joinNowButtonText: string = 'Schedule a Demo';
 
   partnerCategories: PartnerCategory[] = [
     { title: 'Study Abroad Consultants', emoji: '🌍' },
