@@ -190,7 +190,7 @@ export class InstituteRegisterComponent {
       company_name: this.registrationForm.value.companyName,
       company_website: this.registrationForm.value.companyWebsite,
       company_designation: this.registrationForm.value.designation,
-      phone_country_code: this.registrationForm.value.mobileNumber?.dialCode,
+      phone: this.registrationForm.value.mobileNumber,
       gender: this.registrationForm.value.gender
     };
 
