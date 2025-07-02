@@ -50,8 +50,8 @@ export class CHCountryListsComponent implements OnInit {
 	backtoMain() {
 		this.router.navigateByUrl("/pages/job-tool/career-tool")
 	}
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("career-hacks")
 	}
 	onModuleClick(moduledata: any) {
 		if (this.authService.isInvalidSubscription('career_tools')) {

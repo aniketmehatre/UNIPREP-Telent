@@ -340,8 +340,8 @@ export class CareerPlannerComponent implements OnInit {
 		})
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("career-planner")
 	}
 
 	goBack() {

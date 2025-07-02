@@ -74,8 +74,8 @@ export class LearnsubModulesComponent implements OnInit {
         this.storage.set("parent_id", String(res.previous_id));
       });
   }
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("unilearn");
   }
   onModuleClick(moduledata: submoduledata) {
     if (moduledata.isTestmodule == 1) {

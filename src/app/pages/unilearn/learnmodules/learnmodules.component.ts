@@ -47,8 +47,8 @@ export class LearnModulesComponent implements OnInit {
     });
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("unilearn");
   }
 
   onModuleClick(moduledata: learnModules) {

@@ -58,8 +58,8 @@ export class TestModulesComponent implements OnInit {
 			this.storage.set("parent_id", String(res.previous_id))
 		})
 	}
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("unilearn")
 	}
 	
 	contentalignment = false

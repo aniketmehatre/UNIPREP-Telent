@@ -63,8 +63,8 @@ export class WealthleaderslistComponent implements OnInit {
   goBack() {
     this.router.navigate(['/pages/education-tools']);
   }
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("wealth-leaders");
   }
   performSearch() {
     if (this.authService.isInvalidSubscription('education_tools')) {

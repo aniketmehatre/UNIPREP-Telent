@@ -130,8 +130,8 @@ export class CategoryListComponent implements OnInit {
 		this.init()
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("language-hub")
 	}
 
 	checkplanExpire(): void {

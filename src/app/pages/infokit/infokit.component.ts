@@ -178,7 +178,7 @@ export class InfoKitComponent implements OnInit {
     }
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("startup-kit");
   }
 }

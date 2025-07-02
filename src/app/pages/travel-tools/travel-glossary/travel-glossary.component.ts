@@ -71,8 +71,8 @@ export class TravelGlossaryComponent implements OnInit {
 		this.getStartUpGlossary(null)
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("travel-glossary")
 	}
 
 	isSelected(id: number): boolean {

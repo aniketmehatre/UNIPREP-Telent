@@ -59,8 +59,8 @@ export class LearningVideosComponent implements OnInit {
 		return this.languageArrayGlobalService.getItems().join(" > ")
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("language-hub")
 	}
 
 	goToHome(event: any) {

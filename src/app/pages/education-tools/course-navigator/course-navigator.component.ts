@@ -21,6 +21,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { SocialShareService } from 'src/app/shared/social-share.service';
+import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
   selector: 'uni-course-navigator',
@@ -91,8 +92,8 @@ export class CourseNavigatorComponent implements OnInit {
     private toast: MessageService,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private socialShareService: SocialShareService
-
+    private socialShareService: SocialShareService,
+    private pageFacade: PageFacadeService
   ) { }
 
   ngOnInit(): void {
@@ -157,6 +158,10 @@ export class CourseNavigatorComponent implements OnInit {
         this.isRecommendationData = false;
       }
     });
+  }
+
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("course-navigator");
   }
 
   resetRecommendation() {

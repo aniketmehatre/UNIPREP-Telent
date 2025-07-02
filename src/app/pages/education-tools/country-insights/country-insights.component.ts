@@ -16,6 +16,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { StorageService } from "../../../storage.service";
 import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { PageFacadeService } from '../../page-facade.service';
 @Component({
   selector: 'uni-country-insights',
   templateUrl: './country-insights.component.html',
@@ -35,7 +36,7 @@ export class CountryInsightsComponent implements OnInit {
     perpage: this.pageSize,
   };
   constructor(private educationtoolService: EducationToolsService, private router: Router,
-    private storage: StorageService, private authService: AuthService) { }
+    private storage: StorageService, private authService: AuthService, private pageFacade: PageFacadeService) { }
 
   ngOnInit(): void {
     this.getList();
@@ -69,4 +70,7 @@ export class CountryInsightsComponent implements OnInit {
     this.getList();
   }
 
+  openVideoPopup(){
+    this.pageFacade.openHowitWorksVideoPopup("country-insights");
+  }
 }

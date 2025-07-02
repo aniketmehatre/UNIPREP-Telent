@@ -153,7 +153,7 @@ export class RecommendationsComponent implements OnInit {
     this.router.navigate([`/pages/${moduleLink}`]);
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("recommendations");
   }
 }

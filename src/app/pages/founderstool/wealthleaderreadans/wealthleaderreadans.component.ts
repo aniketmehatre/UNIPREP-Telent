@@ -54,8 +54,8 @@ export class WealthleaderreadansComponent implements OnInit {
     let searchText = this.route.snapshot.queryParamMap.get('search');
     this.router.navigate(['/pages/education-tools/wealthleaderslist'], { queryParams: { country: countryId, search: searchText } });
   }
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("wealth-leaders");
   }
   answerid: any;
   seeAnswer(id: any) {

@@ -18,6 +18,7 @@ import { StorageService } from "../../../../storage.service";
 import { PaginatorModule } from 'primeng/paginator';
 import { DataService } from 'src/app/data.service';
 import { SocialShareService } from 'src/app/shared/social-share.service';
+import { PageFacadeService } from 'src/app/pages/page-facade.service';
 @Component({
   selector: 'uni-country-insights-submodule',
   templateUrl: './country-insights-submodule.component.html',
@@ -41,7 +42,8 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
   questionId: number = 0;
 
   constructor(private educationToolService: EducationToolsService, private route: ActivatedRoute, private meta: Meta,
-    private storage: StorageService, private dataService: DataService, private socialShareService: SocialShareService) {
+    private storage: StorageService, private dataService: DataService, private socialShareService: SocialShareService,
+  private pageFacade: PageFacadeService) {
 
   }
 
@@ -133,4 +135,7 @@ export class CountryInsightsSubmoduleComponent implements OnInit {
     this.getQuizQuestionData();
   }
 
+   openVideoPopup(){
+    this.pageFacade.openHowitWorksVideoPopup("country-insights");
+  }
 }

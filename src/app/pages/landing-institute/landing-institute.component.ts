@@ -127,10 +127,8 @@ export class LandingInstituteComponent {
 
     if (url === 'home') {
       window.location.href = targetUrl
-    } else if (url === 'institute/compare/uk') {
-      window.location.href = window.location.href + `/compare/uk`
     } else if (url === 'compare') {
-      window.location.href = targetUrl + `/${url}`
+      window.location.href = window.location.href + `/compare`
     } else if (validUrls.includes(url)) {
       window.location.href = targetUrl + `/${url}`
     } else if (url === 'employer') {

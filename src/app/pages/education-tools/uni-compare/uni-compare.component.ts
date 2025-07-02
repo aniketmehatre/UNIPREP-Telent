@@ -394,7 +394,7 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     window.removeEventListener('resize', this.updatePanelStyle);
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("unicompare");
   }
 }
