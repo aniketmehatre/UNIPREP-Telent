@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
-import { Form, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
 import { Meta } from '@angular/platform-browser';
 import { SocialShareService } from 'src/app/shared/social-share.service';
@@ -84,8 +84,6 @@ export class EasyApplyComponent {
     this.initializeForm();
     this.getOptionsList();
     this.getCountries();
-
-
   }
 
   initializeForm() {
