@@ -65,7 +65,7 @@ export class LevelsComponent implements OnInit {
 		this.router.navigate([`/pages/language-hub/category`])
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("language-hub")
 	}
 }

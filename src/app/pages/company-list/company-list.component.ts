@@ -353,8 +353,8 @@ export class CompanyListComponent implements OnInit {
 
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("company-list");
   }
 
   previous(): void {

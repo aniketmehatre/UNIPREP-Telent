@@ -82,8 +82,8 @@ export class SeekercountriesComponent implements OnInit {
     this.router.navigateByUrl("/pages/job-tool/career-tool");
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("job-seeker-success-stories");
   }
 
   onModuleClick(moduledata: any) {

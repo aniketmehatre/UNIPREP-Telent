@@ -198,7 +198,7 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentApiSlug = "SubmoduleListForStudents"
 					; (this.infoMessage = "Upgrade to access the Pre-admission section"), (this.unlockMessage = "Unlock the power of success with our exclusive Pre-admission!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
 					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Scholarships, document checklist, Education loan, letter of Recommendation and many more!")
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/aR06d8kMeio?si=-5Ivte_5ZgdcndS-"
+				this.howItWorksVideoLink = "pre-admission"
 				this.description = "Prepare effectively for college with information on entrance requirements, application tips, and more."
 				break
 			case "travel-and-tourism":
@@ -207,7 +207,7 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentApiSlug = "SubmoduleListForStudents"
 					; (this.infoMessage = "Upgrade to access the travel-and-tourism"), (this.unlockMessage = "Unlock the power of success with our exclusive travel-and-tourism!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
 					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Visa, departure, healthcare, tuition fees and many more!")
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/PZERtrH1zh8?si=zKQ80B27zz6V9-mk"
+				this.howItWorksVideoLink = "travel-and-tourism"
 				this.description = "Discover travel destinations, tips, and essential travel information."
 				break
 			case "post-admission":
@@ -216,7 +216,7 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentApiSlug = "SubmoduleListForStudents"
 					; (this.infoMessage = "Upgrade to access the post-admission"), (this.unlockMessage = "Unlock the power of success with our exclusive post-admission!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
 					; (this.aboutModule = "Post-admission offers information about:"), (this.moduleDetails = " Arrival, student discounts, banking, full time jobs, post study work and many more!")
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/g_KWlnmOEtc?si=KFpkpjdYMwkCIOV1"
+				this.howItWorksVideoLink = "post-admission"
 				this.description = "Find guidance on navigating your new academic environment after securing admission."
 				break
 			case "career-hub":
@@ -225,7 +225,7 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentApiSlug = "SubmoduleListForStudents"
 					; (this.infoMessage = "Upgrade to access the Career Hub"), (this.unlockMessage = ""), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
 					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = " Arrival, student discounts, banking, full time jobs, post study work and many more!")
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/dBNASRavBk0?si=M2WtoOTl3ahORz8V"
+				this.howItWorksVideoLink = "career-hub"
 				this.description = "Discover career opportunities and get resources to help you plan your professional path."
 				break
 			case "university":
@@ -233,7 +233,7 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentModuleName = "University"
 				this.currentApiSlug = "SubmoduleListForStudents"
 				this.selectedModule = "university"
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/6mukBsCTgtw?si=aFBa9JMWI2k2QuzP"
+				this.howItWorksVideoLink = "university"
 				this.description = "Explore detailed profiles of universities worldwide, including programs, campus life, and application processes."
 				break
 			case "skill-mastery":
@@ -242,7 +242,7 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentApiSlug = "SubmoduleListForStudents"
 					; (this.infoMessage = "Upgrade to access the Skill Mastery"), (this.unlockMessage = " "), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
 					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = " Arrival, student discounts, banking, full time jobs, post study work and many more!")
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/mzyfeeL1b4Y?si=SYUFI6bW4xU-QZbT"
+				this.howItWorksVideoLink = "skill-mastery"
 				this.description = "Enhance your expertise in soft skills through targeted courses and assessments."
 				break
 			case "learning-hub":
@@ -251,7 +251,7 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentApiSlug = "SubmoduleListForStudents"
 					; (this.infoMessage = "Upgrade to access the Learning Hub"), (this.unlockMessage = "Unlock the power of success with our exclusive Learning Hub!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
 					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Scholarships, document checklist, Education loan, letter of Recommendation and many more!")
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/prvvJsgnya8?si=QSAeOB9qPMF-ya-D"
+				this.howItWorksVideoLink = "learning-hub"
 				this.description = "Upskill with over 1000 specializations across various industries"
 				break
 			case "k12-category":
@@ -260,7 +260,7 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentApiSlug = "SubmoduleListForStudents"
 					; (this.infoMessage = "Upgrade to access the K12"), (this.unlockMessage = "Unlock the power of success with our exclusive k12!"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
 					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Scholarships, document checklist, Education loan, letter of Recommendation and many more!")
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/Zh4pPEZ160c?si=i8vkRTgh70TuoqDn"
+				this.howItWorksVideoLink = "k-12"
 				this.description = "Explore curriculum-focused content and resources for students in Grades 9 through 12."
 				break
 			default:
@@ -269,7 +269,7 @@ export class ListSubModulesComponent implements OnInit {
 				this.currentApiSlug = "SubmoduleListForStudents"
 					; (this.infoMessage = "Upgrade to access information about life in your chosen destination"), (this.unlockMessage = "Unlock the power of success with our exclusive destination"), (this.upgradePlanMsg = "Upgrade your plan now to gain instant access.")
 					; (this.aboutModule = "Explore a vast database of Q&A about:"), (this.moduleDetails = "Festivals, events, currency, budget, housing and many more!"), (this.selectedModule = "life-at-country")
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/7VFZp47tfLU?si=GPLVjR5vKlNno-cZ"
+				this.howItWorksVideoLink = "life-in"
 				this.description = `Explore insights and tips about daily life and cultural nuances in ${this.countryName}`
 				break
 		}

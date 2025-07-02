@@ -46,8 +46,8 @@ export class QuizinfowindowComponent implements OnInit {
 		// console.log(Number(this.storage.get("parent_id")));
 		// console.log(Number(this.storage.get("parent_folderid")));
 	}
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("unilearn")
 	}
 	enablequizWindow() {
 		this.quizwindowvisibility = true

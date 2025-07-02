@@ -272,7 +272,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
 		this.promptService.responseBuilder(params);
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink);
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("startup-risk-assessment");
 	}
 }

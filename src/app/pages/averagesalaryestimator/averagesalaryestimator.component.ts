@@ -204,8 +204,8 @@ export class AverageSalaryComponent implements OnInit {
     this.preparedvisibility = data;
     this.ngOnInit();
   }
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("average-salary-estimator");
   }
   goBack() {
     if (this.preparedvisibility) {

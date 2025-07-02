@@ -107,8 +107,8 @@ export class PoliticianInsightsComponent implements OnInit {
     });
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("politician-insights");
   }
 
   get getCountryName() {

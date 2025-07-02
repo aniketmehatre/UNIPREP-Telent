@@ -14,7 +14,7 @@
 						<h5 role="button" class="mb-0" tooltipPosition="top" pTooltip="">Founders Academy</h5>
 					</div>
 					<div>
-						<button pButton (click)="openVideoPopup('https://www.youtube.com/embed/KO9kxe3KSFw?si=x3hkz-VoddLXQ4Oq')" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button pButton (click)="openVideoPopup()" class="how-it-works-button">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
 			</div>
@@ -34,7 +34,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-3 mb-3 col-12" *ngFor="let acade of academyllist">
-					<div class="card h-100 position-relative tutcard" role="button" (click)="openVideoPopup(acade.link)" style="aspect-ratio: 16/9">
+					<div class="card h-100 position-relative tutcard" role="button" (click)="openVideoPopupNew(acade.link)" style="aspect-ratio: 16/9">
 						<div class="tutgradient"></div>
 						<div class="d-flex justify-content-center align-items-center h-100">
 							<img [src]="getThumbnailUrl(acade.link)" style="max-width: 100%; height: auto" alt="founders academy" />

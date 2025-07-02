@@ -159,8 +159,8 @@ export class StudentBudgetPlannerComponent implements OnInit {
   previous() {
     this.activePageIndex--;
   }
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("education-roi");
   }
   submit() {
     this.recommendationData = "";

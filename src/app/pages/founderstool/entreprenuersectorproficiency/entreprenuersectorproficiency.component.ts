@@ -61,7 +61,7 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
     this.router.navigate([`/pages/founderstool/${this.currentModuleSlug}/entrpreneurquiz`]);
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("entrepreneur-sector-procifiency-test");
   }
 }

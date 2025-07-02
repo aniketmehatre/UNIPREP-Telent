@@ -182,8 +182,8 @@ export class CareerplannercountrywiseComponent implements OnInit {
   goBackcareerPlanList() {
     this.router.navigate(['/pages/job-tool/career-tool']);
   }
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("career-planner-country-wise");
   }
   onSaveRes() {
     this.toast.add({ severity: "success", summary: "Success", detail: "Response saved successfully" });

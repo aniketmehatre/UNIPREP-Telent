@@ -90,8 +90,8 @@ export class SalaryhacksListsComponent {
 		this.gethackList();
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("salary-negotiation-hacks")
 	}
 
 	showSocialSharingList() {

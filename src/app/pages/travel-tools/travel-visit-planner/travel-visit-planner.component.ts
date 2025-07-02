@@ -198,7 +198,7 @@ export class TravelVisitPlannerComponent implements OnInit {
 		this.router.navigateByUrl("/pages/travel-tools")
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink);
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("travel-visit-planner");
 	}
 }

@@ -172,8 +172,8 @@ export class CourseListComponent implements OnInit {
 			})
 		})
 	}
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("unifinder")
 	}
 
 	getRecommendationList() {

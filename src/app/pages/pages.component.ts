@@ -19,7 +19,7 @@ import { HeaderSearchComponent } from "./header-search/header-search.component"
 import { StorageService } from "../storage.service";
 import { RestrictionDialogComponent } from "../shared/restriction-dialog/restriction-dialog.component";
 import { ScrollTopModule } from "primeng/scrolltop";
-
+import { howItWorksLinks } from "../shared/commonData";
 @Component({
   selector: "uni-pages",
   templateUrl: "./pages.component.html",
@@ -69,6 +69,7 @@ export class PagesComponent implements OnInit, OnDestroy {
   private subs = new SubSink();
   visibleExhastedUser!: boolean;
   restrict: boolean = false;
+  howItWorkVideoLinks: any = howItWorksLinks;
 
   constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
     public meta: Meta, private locationService: LocationService,
@@ -272,9 +273,9 @@ export class PagesComponent implements OnInit, OnDestroy {
   }
 
   // vedio pop-up code
-  openVideoPopup(link: string): void {
-    if (!link) return;
-
+  openVideoPopup(moduleName: string): void {
+    if (!moduleName) return;
+    let link = this.howItWorkVideoLinks[moduleName].video_link;
     this.howItWorksVideoModal = true;
     try {
       if (this.isYoutubeVideoLink(link)) {

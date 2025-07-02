@@ -142,8 +142,8 @@ export class BusinessForecastingToolComponent implements OnInit {
 		})
 	}
 
-	openHowItWorksVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openHowItWorksVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("revenue-forecasting-tool")
 	}
 
 	checkUserRecommendation() {

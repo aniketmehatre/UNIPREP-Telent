@@ -60,7 +60,7 @@ export class InvestorpitchtrainingComponent implements OnInit {
     this.router.navigate(['/pages/founderstool/founderstoollist']);
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("investor-pitch-training");
   }
 }

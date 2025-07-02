@@ -102,7 +102,7 @@ export class PvlComponent implements OnInit {
     // this.lhs.setDataLanguageType(languageTypeId);
     // this.router.navigate([`/pages/language-hub/category`]);
   }
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("language-hub");
   }
 }
