@@ -40,7 +40,7 @@ interface JobListing {
   standalone: false,
 })
 export class EasyApplyComponent {
-  totalVacancies: string = '';
+  totalVacancies: string = '0';
   jobListings: JobListing[] = [];
   locations: any[] = [];
   workModes: any[] = [];
