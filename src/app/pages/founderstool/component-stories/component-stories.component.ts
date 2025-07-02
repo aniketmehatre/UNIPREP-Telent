@@ -35,6 +35,7 @@ export class ComponentStoriesComponent implements OnInit {
   countryId: any;
   moduleid: any;
   countryname: any;
+  howItWorksVideoLink: string;
   ngOnInit(): void {
     this.locationService.getAllCountryList().subscribe((res: any) => {
       this.countrylist = res.data
@@ -44,22 +45,27 @@ export class ComponentStoriesComponent implements OnInit {
       this.headertooltipname = "Startup Funding Hacks"
       this.modename = "startup_funding_hacks";
       this.moduleid = 23;
+      this.howItWorksVideoLink = 'startup-funding-hacks'; 
     } else if (this.currentRoute.includes('founder-success-stories')) {
       this.headertooltipname = "Founder Success Stories"
       this.modename = "founder_success_stories";
       this.moduleid = 24;
+      this.howItWorksVideoLink = 'founder-success-stories';
     } else if (this.currentRoute.includes('founder-failure-stories')) {
       this.modename = "founder_failure_stories";
       this.headertooltipname = "Founder Failure Stories"
       this.moduleid = 25;
+      this.howItWorksVideoLink = 'founder-failure-stories';
     } else if (this.currentRoute.includes('startup-success-stories')) {
       this.modename = "startup_success_stories";
       this.headertooltipname = "Startup Success Stories"
       this.moduleid = 26;
+      this.howItWorksVideoLink = 'startup-success-stories';
     } else if (this.currentRoute.includes('startup-failure-stories')) {
       this.headertooltipname = "Startup Failure Stories"
       this.modename = "startup_failure_stories";
       this.moduleid = 27;
+      this.howItWorksVideoLink = 'startup-failure-stories';
     }
     this.activatedRoute.params.subscribe(params => {
       if (params['id'] && params['question_id']) {
@@ -80,8 +86,8 @@ export class ComponentStoriesComponent implements OnInit {
     });
     this.countryname = localStorage.getItem("countrynameforcomponentstorie")
   }
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup(moduleName: string) {
+    this.pageFacade.openHowitWorksVideoPopup(moduleName);
   }
   goBack() {
     if (this.isShowCountryData) {

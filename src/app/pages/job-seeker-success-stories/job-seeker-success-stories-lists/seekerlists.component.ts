@@ -91,8 +91,8 @@ export class SeekerListsComponent implements OnInit {
     }
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("job-seeker-success-stories");
   }
   selectedQuestion = "";
   selectedAnswer: any;

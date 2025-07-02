@@ -329,7 +329,7 @@ export class EventsComponent implements OnInit {
 		this.newfile = "none"
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("events")
 	}
 }

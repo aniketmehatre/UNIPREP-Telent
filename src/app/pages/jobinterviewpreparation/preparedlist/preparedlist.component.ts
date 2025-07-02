@@ -103,8 +103,8 @@ export class JobPreparedListComponent implements OnInit {
     this.perpage = event.rows;
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("job-interview-preparation");
   }
 
   readAnswer(quizdata: any) {

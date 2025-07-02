@@ -70,7 +70,7 @@ export class LanguageListComponent implements OnInit {
 		this.init()
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("language-hub")
 	}
 }

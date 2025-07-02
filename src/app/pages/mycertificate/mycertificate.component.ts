@@ -153,7 +153,7 @@ export class MycertificateComponent implements OnInit {
 		window.open(url, "_blank")
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("certification")
 	}
 }

@@ -16,6 +16,7 @@ import { AuthTokenService } from "../core/services/auth-token.service";
 import { StorageService } from "../storage.service";
 import { SubscriptionResponse } from "../@Models/subscription";
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
+import { howItWorksLinks } from "../shared/commonData";
 
 @Injectable({
   providedIn: "root",
@@ -39,6 +40,7 @@ export class AuthService {
   public hasUserSubscription$ = new BehaviorSubject<boolean>(false);
   public aiCreditCount$ = new BehaviorSubject<boolean>(true);
   public _creditCount: number = 0;
+  public readonly howItWorks = howItWorksLinks;
   constructor(
     private http: HttpClient,
     private store: Store<AuthState>,

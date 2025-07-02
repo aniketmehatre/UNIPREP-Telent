@@ -227,7 +227,7 @@ export class EduLoanCompareComponent implements OnInit {
     }
   }
 
-  openHowItWorksVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openHowItWorksVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("eduloan-repayment-advisor");
   }
 }

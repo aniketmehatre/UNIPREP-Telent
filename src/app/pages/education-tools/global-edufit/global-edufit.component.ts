@@ -144,8 +144,8 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
 
-  openHowItWorksVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openHowItWorksVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("global-edufit");
   }
 
   getRecommendation() {

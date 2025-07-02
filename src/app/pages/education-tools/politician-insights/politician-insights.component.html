@@ -20,6 +20,11 @@
 						<h5 *ngIf="isShowPoliticians || isShowCountryQuesAns" class="mb-0">{{ getCountryName }} Insights
 						</h5>
 					</div>
+					<div>
+                        <button pButton class="how-it-works-button" severity="warn"
+                            (click)="openVideoPopup()">How
+                            it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
 				</div>
 				<!-- Politician Selection Section -->
 				<div class="w-25 w-md-100" *ngIf="isShowPoliticians">

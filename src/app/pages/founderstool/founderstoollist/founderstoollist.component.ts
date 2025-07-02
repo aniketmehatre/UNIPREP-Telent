@@ -36,9 +36,6 @@ export class FounderstoollistComponent implements OnInit {
       return this.founderToolsList.filter(tool => !excludedTitles.includes(tool.title));
     }
   }
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
-  }
   openAcademy() {
     if (this.planExpired) {
       this.authService.hasUserSubscription$.next(true);

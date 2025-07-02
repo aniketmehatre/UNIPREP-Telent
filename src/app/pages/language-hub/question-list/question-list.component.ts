@@ -861,8 +861,8 @@ export class QuestionListComponent implements OnInit {
     }
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("language-hub");
   }
 
   readQuestion(data: any) {

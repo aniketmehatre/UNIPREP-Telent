@@ -83,8 +83,8 @@ export class TravelCostEstimatorComponent implements OnInit {
 		})
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink);
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("travel-cost-estimator");
 	}
 
 	
