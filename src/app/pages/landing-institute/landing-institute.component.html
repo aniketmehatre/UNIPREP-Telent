@@ -48,11 +48,11 @@
 			</li>
 			<li class="nav-item">
 				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page"
-					(click)="navigateConnectUrl('institute/compare/uk')">Compare</a>
+					(click)="navigateConnectUrl('compare')">Compare</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page"
-					(click)="navigateConnectUrl('institute/pricing/india')">Pricing</a>
+					(click)="navigateConnectUrl('/institute/pricing/india')">Pricing</a>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link text-white fw-regular dropdown-toggle cursor-pointer" id="exploreDropdown"
@@ -130,10 +130,6 @@
 						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
 							(click)="navigateConnectUrl('about')">About</a>
 					</li>
-					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
-							(click)="navigateConnectUrl('compare')">About</a>
-					</li>
 
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#"
@@ -157,6 +153,10 @@
 									Entrepreneurs</a></li>
 						</ul>
 					</li>
+                    <li class="nav-item" data-bs-dismiss="offcanvas">
+                        <a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
+                           (click)="navigateConnectUrl('compare')">Compare</a>
+                    </li>
 					<li class="nav-item" data-bs-dismiss="offcanvas">
 						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ"
 							href="/pricing/india">Pricing</a>
@@ -179,7 +179,7 @@
 					</li>
 					<!-- Add other mobile menu items as needed -->
 					<li class="nav-item text-center">
-						<a [routerLink]="['/institute/login']"
+						<a [routerLink]="['/login']"
 							class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
 					</li>
 					<li class="nav-item">
