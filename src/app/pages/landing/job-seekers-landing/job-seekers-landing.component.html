@@ -18,14 +18,14 @@
 					<div class="col-md-12 mt-5" *ngFor="let step of steps">
 						<ng-container *ngIf="getCardsForStep(step.tag_title).length">
 							<div class="row">
-								<div class="col-md-3">
-									<div class="sticky-sidebar">
+								<div class="col-md-3 col-12">
+									<div class="sticky-sidebar mb-5 mb-md-0">
 										<span class="emoji h3 mb-2">{{ step.tag_icon }}</span>
 										<h2 class="uniprep-secondary mb-0">{{ step.tag_title }}</h2>
 										<p>{{ step.tag_subtitle }}</p>
 									</div>
 								</div>
-								<div class="col-md-9">
+								<div class="col-md-9 col-12">
 									<div class="row g-3">
 										<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12" *ngFor="let card of getCardsForStep(step.tag_title)">
 											<div class="card h-100 p-2" role="button" [routerLink]="card.status == 4 ? null : ['/',this.categorySlug, card.feature_urlslug]">
@@ -80,7 +80,7 @@
 		</div>
 	</div>
 </section>
-<section class="pt-5 pb-5 cta-field darksection">
+<section class="pt-5 pb-5 text-md-start text-center cta-field darksection">
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-md-10">
@@ -89,7 +89,7 @@
 						<div class="row align-items-center justify-content-center">
 							<div class="col-md-10">
 								<h2 class="fw-bold text-white">UNIPREP IS YOUR CAREER CO-PILOT</h2>
-								<p class="cta-subtitle">READY WHEN YOU ARE</p>
+								<h5 class="fw-normal text-white">READY WHEN YOU ARE</h5>
 							</div>
 							<div class="col-md-2 col-7">
 								<a href="/register" class="btn cta-btn m-0 h5 py-4">REGISTER NOW</a>
