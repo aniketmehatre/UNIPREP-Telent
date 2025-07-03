@@ -95,7 +95,7 @@ export class TripLengthFinderComponent implements OnInit {
         next: (response: any) => {
           this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
           this.isResponseSkeleton = false;
-
+          this.authService.aiCreditCount$.next(true);
         },
         error: (error) => {
           console.error(error);

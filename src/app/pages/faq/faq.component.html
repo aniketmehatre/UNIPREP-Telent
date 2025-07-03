@@ -21,9 +21,9 @@
         </ul>
       </div>
       <div class="col-md-9 col-12 overflow-y-auto">
-        <p-accordion [multiple]="true" class="plain" expandIcon="fa-solid fa-plus" collapseIcon="fa-solid fa-minus">
-          <div *ngFor="let faqlist of faqanswelist">
-            <p-accordionTab>
+        <p-accordion [multiple]="false" class="plain" expandIcon="fa-solid fa-plus" collapseIcon="fa-solid fa-minus">
+          <div *ngFor="let faqlist of faqanswelist; index as i">
+            <p-accordionTab [value]="i">
               <ng-template pTemplate="header">{{ faqlist.question }}</ng-template>
               <p>{{ faqlist.answer }}</p>
             </p-accordionTab>

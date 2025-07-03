@@ -46,6 +46,7 @@
 
   th {
     background-color: #663c1a !important;
+    padding: 1rem;
   }
 
   th,
@@ -53,7 +54,6 @@
     background-color: transparent;
     color: white;
     border: none; // Remove internal borders
-    padding: 2rem;
     text-align: center;
   }
 
@@ -63,7 +63,7 @@
 
   td {
     vertical-align: middle;
-    padding: 1rem;
+    padding: 3rem;
   }
 }
 

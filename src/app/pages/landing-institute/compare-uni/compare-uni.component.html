@@ -44,40 +44,20 @@
         <table class="table table-bordered comparison-table">
           <thead>
             <tr>
-              <th scope="col">Platform</th>
-              <th scope="col">Inbuilt Hiring Platform</th>
-              <th scope="col">Career Preparation Tools</th>
-              <th scope="col">Entrepreneurship Tools</th>
-              <th scope="col">Global Education Tools</th>
-              <th scope="col">Co Branding to Institutes</th>
+              <th class="text-center align-middle" scope="col">Feature</th>
+              <th *ngFor="let platform of platformsInUK" class="text-center">
+                <div class="platform-logo">
+                  <img [src]="platform.logo" [alt]="platform.name + ' logo'" class="img-fluid">
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let platform of getPlatformList" [@fadeAnimation]>
-              <td class="platform-cell">
-                <div class="platform-logo">
-                  <img [src]="platform.logo" [alt]="platform.name + ' logo'" class="img-fluid" [@slideAnimation]>
-                </div>
-              </td>
-              <td class="text-center">
-                <i *ngIf="hasFeature(platform, 'inbuiltHiring')" class="fas fa-check text-success fs-3"></i>
-                <i *ngIf="!hasFeature(platform, 'inbuiltHiring')" class="fas fa-xmark text-danger fs-3"></i>
-              </td>
-              <td class="text-center">
-                <i *ngIf="hasFeature(platform, 'careerPrep')" class="fas fa-check text-success fs-3"></i>
-                <i *ngIf="!hasFeature(platform, 'careerPrep')" class="fas fa-xmark text-danger fs-3"></i>
-              </td>
-              <td class="text-center">
-                <i *ngIf="hasFeature(platform, 'entrepreneurship')" class="fas fa-check text-success fs-3"></i>
-                <i *ngIf="!hasFeature(platform, 'entrepreneurship')" class="fas fa-xmark text-danger fs-3"></i>
-              </td>
-              <td class="text-center">
-                <i *ngIf="hasFeature(platform, 'globalEducation')" class="fas fa-check text-success fs-3"></i>
-                <i *ngIf="!hasFeature(platform, 'globalEducation')" class="fas fa-xmark text-danger fs-3"></i>
-              </td>
-              <td class="text-center">
-                <i *ngIf="hasFeature(platform, 'coBranding')" class="fas fa-check text-success fs-3"></i>
-                <i *ngIf="!hasFeature(platform, 'coBranding')" class="fas fa-xmark text-danger fs-3"></i>
+            <tr *ngFor="let feature of featureList">
+              <td>{{ feature.label }}</td>
+              <td *ngFor="let platform of platformsInUK" class="text-center">
+                <i *ngIf="platform.features[feature.key]" class="fas fa-check text-success fs-3"></i>
+                <i *ngIf="!platform.features[feature.key]" class="fas fa-xmark text-danger fs-3"></i>
               </td>
             </tr>
           </tbody>
