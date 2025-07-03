@@ -21,6 +21,12 @@ export class TalentConnectService {
     constructor(private http: HttpClient) { }
 
 
+    generateUUIDLink(companyId: number): Observable<{ uuid: string }> {
+        return this.http.post<{ uuid: string }>(
+          '/api/generate-link', { companyId }
+        );
+      }
+
     getCountries() {
         return this.http.post<any>(environment.ApiUrl + "/getcountryandcurrency", {
             headers: this.headers
