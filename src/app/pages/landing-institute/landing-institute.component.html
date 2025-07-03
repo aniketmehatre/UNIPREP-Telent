@@ -1,76 +1,52 @@
 <nav class="navbar navbar-expand-md flex-column navbar-light sticky-top pt-0" id="mainmenu">
-	<div class="topmarquee container-fluid justify-content-center">
-		<div class="row">
-			<div class="col-md-12">
-				<p class="mb-0 py-2 text-center text-white"><span class="h5 fw-semibold">UNIPREP 2.0</span> Is Here!
-					Discover the All-New Features – <a href="/register" class="text-white">Try now for
-						free</a></p>
-			</div>
-		</div>
-		<!-- <marquee class="text-white py-2">Enjoy free access to UNIPREP till 1st January 2024.</marquee> -->
-	</div>
-	<div class="container-fluid d-md-flex d-none">
-		<!-- Your brand/logo (optional) -->
-		<div class="institute-logo-div">
-			<img class="institute-logo" src="/uniprep-assets/uniprep-logos/institution-connect-dark.svg" />
-			<!-- <img class="darkmodelogo" src="/uniprep-assets/uniprep-logos/institution-connect-dark.svg" /> -->
-		</div>
+  <div class="topmarquee container-fluid justify-content-center">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="mb-0 py-2 text-center text-white"><span class="h5 fw-semibold">UNIPREP 2.0</span> Is Here! Discover the All-New Features – <a href="/register" class="text-white">Try now for free</a></p>
+      </div>
+    </div>
+    <!-- <marquee class="text-white py-2">Enjoy free access to UNIPREP till 1st January 2024.</marquee> -->
+  </div>
+  <div class="container-fluid d-md-flex d-none">
+    <!-- Your brand/logo (optional) -->
+    <div class="institute-logo-div">
+      <img class="institute-logo" src="/uniprep-assets/uniprep-logos/institution-connect-dark.svg" />
+      <!-- <img class="darkmodelogo" src="/uniprep-assets/uniprep-logos/institution-connect-dark.svg" /> -->
+    </div>
 
-		<ul class="nav flex-row gap-2">
-			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page"
-					(click)="navigateConnectUrl('home')">Home</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page"
-					(click)="navigateConnectUrl('about')">About Us</a>
-			</li>
-			<li class="nav-item dropdown">
-				<a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown" role="button"
-					data-bs-toggle="dropdown" aria-expanded="false">
-					Features
-				</a>
-				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-					<li><a class="dropdown-item text-white hover-black cursor-pointer"
-							(click)="navigateConnectUrl('job-seekers')" data-bs-dismiss="offcanvas" role="button"
-							aria-expanded="false">For Job Seekers</a>
-					</li>
-					<li><a class="dropdown-item text-white hover-black cursor-pointer"
-							(click)="navigateConnectUrl('international-students')" data-bs-dismiss="offcanvas">For
-							International Students</a></li>
-					<li><a class="dropdown-item text-white hover-black cursor-pointer"
-							(click)="navigateConnectUrl('global-travellers')" data-bs-dismiss="offcanvas">For
-							Global Travellers</a></li>
-					<li><a class="dropdown-item text-white hover-black cursor-pointer"
-							(click)="navigateConnectUrl('entrepreneurs')" data-bs-dismiss="offcanvas">For
-							Entrepreneurs</a></li>
-				</ul>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page"
-					(click)="navigateConnectUrl('compare')">Compare</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page"
-					(click)="navigateConnectUrl('/institute/pricing/india')">Pricing</a>
-			</li>
-			<li class="nav-item dropdown">
-				<a class="nav-link text-white fw-regular dropdown-toggle cursor-pointer" id="exploreDropdown"
-					role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					Resources
-				</a>
-				<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-					<li><a class="dropdown-item text-white hover-black cursor-pointer"
-							(click)="navigateConnectUrl('blogs')">Blogs</a></li>
-					<li><a class="dropdown-item text-white hover-black cursor-pointer"
-							(click)="navigateConnectUrl('certificates')">Certificates</a></li>
-				</ul>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page"
-					(click)="navigateConnectUrl('contact-us');">Contact Us</a>
-			</li>
-			<!-- <li class="nav-item">
+    <ul class="nav flex-row gap-2">
+      <li class="nav-item">
+        <a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page" (click)="navigateConnectUrl('home')">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page" (click)="navigateConnectUrl('about')">About Us</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Features </a>
+        <ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
+          <li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('job-seekers')" data-bs-dismiss="offcanvas" role="button" aria-expanded="false">For Job Seekers</a></li>
+          <li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('international-students')" data-bs-dismiss="offcanvas">For International Students</a></li>
+          <li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('global-travellers')" data-bs-dismiss="offcanvas">For Global Travellers</a></li>
+          <li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('entrepreneurs')" data-bs-dismiss="offcanvas">For Entrepreneurs</a></li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page" (click)="navigateConnectUrl('compare')">Compare</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page" (click)="navigateConnectUrl('/institute/pricing/india')">Pricing</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link text-white fw-regular dropdown-toggle cursor-pointer" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Resources </a>
+        <ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
+          <li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('blogs')">Blogs</a></li>
+          <li><a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('certificates')">Certificates</a></li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active text-white fw-regular cursor-pointer" aria-current="page" (click)="navigateConnectUrl('contact-us')">Contact Us</a>
+      </li>
+      <!-- <li class="nav-item">
 							<a class="nav-link text-white fw-regular" aria-label="Key Features" href="#keyfeatures"
 								(click)="scrollToSection($event, 'keyfeatures')">Key Features</a>
 						</li>
@@ -81,118 +57,89 @@
 						<li class="nav-item">
 							<a class="nav-link text-white fw-regular" aria-label="Blogs" href="/blogs">Blogs</a>
 						</li> -->
-			<!-- <li class="nav-item">
+      <!-- <li class="nav-item">
 				<a class="nav-link text-white fw-regular" aria-label="FAQ" href="#faq"
 					(click)="scrollToSection($event, 'faq')">F.A.Q</a>
 			</li> -->
-			<!-- Add other desktop menu items as needed -->
-		</ul>
+      <!-- Add other desktop menu items as needed -->
+    </ul>
 
-		<div class="d-flex gap-4 align-items-center">
-			<a [routerLink]="['/login']" class="text-decoration-none text-white cursor-pointer">Login</a>
-			<a [routerLink]="['/register']" class="text-decoration-none"><button type="button"
-					class="btn btn-secondary px-4 py-2 m-0 cursor-pointer">Register</button></a>
-		</div>
-	</div>
+    <div class="d-flex gap-4 align-items-center">
+      <a [routerLink]="['/login']" class="text-decoration-none text-white cursor-pointer">Login</a>
+      <a [routerLink]="['/register']" class="text-decoration-none"><button type="button" class="btn btn-secondary px-4 py-2 m-0 cursor-pointer">Register</button></a>
+    </div>
+  </div>
 
-	<div class="container-fluid d-md-none">
-		<!-- Your brand/logo (optional) -->
-		<!-- <a class="navbar-brand py-0" href="#">
+  <div class="container-fluid d-md-none">
+    <!-- Your brand/logo (optional) -->
+    <!-- <a class="navbar-brand py-0" href="#">
 			<img class="lightmodelogo" src="/uniprep-assets/images/uniprep-dark.png" />
 			<img class="darkmodelogo" src="/uniprep-assets/images/uniprep-dark.png" />
 		</a> -->
-		<div class="institute-logo-div">
-			<img class="institute-logo" src="/uniprep-assets/uniprep-logos/institution-connect-dark.svg" />
-			<!-- <img class="darkmodelogo" src="/uniprep-assets/uniprep-logos/institution-connect-dark.svg" /> -->
-		</div>
-		<!-- Hamburger button for mobile -->
-		<button class="navbar-toggler text-white" type="button" data-bs-toggle="offcanvas" data-bs-placement="right"
-			data-bs-target="#sidebarNav" aria-controls="sidebarNav">
-			<!-- <span class="navbar-toggler-icon text-white"></span> -->
-			<i class="fa-regular fa-bars fa-2xl" role="button"></i>
-		</button>
+    <div class="institute-logo-div">
+      <img class="institute-logo" src="/uniprep-assets/uniprep-logos/institution-connect-dark.svg" />
+      <!-- <img class="darkmodelogo" src="/uniprep-assets/uniprep-logos/institution-connect-dark.svg" /> -->
+    </div>
+    <!-- Hamburger button for mobile -->
+    <button class="navbar-toggler text-white" type="button" data-bs-toggle="offcanvas" data-bs-placement="right" data-bs-target="#sidebarNav" aria-controls="sidebarNav">
+      <!-- <span class="navbar-toggler-icon text-white"></span> -->
+      <i class="fa-regular fa-bars fa-2xl" role="button"></i>
+    </button>
 
-		<!-- Sidebar navigation (offcanvas) -->
-		<div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" tabindex="-1" id="sidebarNav"
-			aria-labelledby="sidebarNavLabel">
-			<div class="offcanvas-header justify-content-end mt-2">
-				<!-- Close button (X) to close the sidebar -->
-				<i class="fa-solid fa-xmark text-white fa-2xl" role="button" data-bs-dismiss="offcanvas"></i>
-			</div>
-			<div class="offcanvas-body justify-content-center d-flex align-items-center">
-				<!-- Mobile menu items -->
-				<ul class="nav flex-column gap-5 w-100">
-					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/"
-							(click)="navigateConnectUrl('home')">Home</a>
-					</li>
-					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
-							(click)="navigateConnectUrl('about')">About</a>
-					</li>
+    <!-- Sidebar navigation (offcanvas) -->
+    <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" tabindex="-1" id="sidebarNav" aria-labelledby="sidebarNavLabel">
+      <div class="offcanvas-header justify-content-end mt-2">
+        <!-- Close button (X) to close the sidebar -->
+        <i class="fa-solid fa-xmark text-white fa-2xl" role="button" data-bs-dismiss="offcanvas"></i>
+      </div>
+      <div class="offcanvas-body">
+        <!-- Mobile menu items -->
+        <ul class="navbar-nav justify-content-start flex-grow-1 gap-4">
+          <li class="nav-item" data-bs-dismiss="offcanvas">
+            <a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/" (click)="navigateConnectUrl('home')">Home</a>
+          </li>
+          <li class="nav-item" data-bs-dismiss="offcanvas">
+            <a class="nav-link active text-white fw-medium text-center h4" aria-current="page" (click)="navigateConnectUrl('about')">About</a>
+          </li>
 
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#"
-							id="featureDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Feature
-						</a>
-						<ul class="dropdown-menu bg-dark" aria-labelledby="featureDropdown">
-							<li><a class="dropdown-item text-white hover-black"
-									(click)="navigateConnectUrl('job-seekers')" data-bs-dismiss="offcanvas"
-									role="button" aria-expanded="false">For Job Seekers</a>
-							</li>
-							<li><a class="dropdown-item text-white hover-black"
-									(click)="navigateConnectUrl('international-students')"
-									data-bs-dismiss="offcanvas">For
-									International Students</a></li>
-							<li><a class="dropdown-item text-white hover-black"
-									(click)="navigateConnectUrl('global-travellers')" data-bs-dismiss="offcanvas">For
-									Global Travellers</a></li>
-							<li><a class="dropdown-item text-white hover-black"
-									(click)="navigateConnectUrl('entrepreneurs')" data-bs-dismiss="offcanvas">For
-									Entrepreneurs</a></li>
-						</ul>
-					</li>
-                    <li class="nav-item" data-bs-dismiss="offcanvas">
-                        <a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
-                           (click)="navigateConnectUrl('compare')">Compare</a>
-                    </li>
-					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ"
-							href="/pricing/india">Pricing</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#"
-							id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Resources
-						</a>
-						<ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
-							<li><a class="dropdown-item text-white hover-black" style="cursor: pointer"
-									(click)="navigateConnectUrl('blogs')">Blogs</a></li>
-							<li><a class="dropdown-item text-white hover-black"
-									(click)="navigateConnectUrl('certificates')">Certificates</a></li>
-						</ul>
-					</li>
-					<li class="nav-item" data-bs-dismiss="offcanvas">
-						<a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/"
-							(click)="navigateConnectUrl('contact-us')">Contact Us</a>
-					</li>
-					<!-- Add other mobile menu items as needed -->
-					<li class="nav-item text-center">
-						<a [routerLink]="['/login']"
-							class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
-					</li>
-					<li class="nav-item">
-						<a class="text-decoration-none"><button type="button"
-								class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
-					</li>
-
-				</ul>
-			</div>
-			<!-- "Try for Free" button (common for both mobile and desktop) -->
-		</div>
-	</div>
-	<!-- <div class="landingmodeswitch">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#" id="featureDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Feature </a>
+            <ul class="dropdown-menu border-0 text-center bg-dark" aria-labelledby="featureDropdown">
+              <li class="py-2"><a class="dropdown-item text-white hover-black" (click)="navigateConnectUrl('job-seekers')" data-bs-dismiss="offcanvas" role="button" aria-expanded="false">For Job Seekers</a></li>
+              <li class="py-2"><a class="dropdown-item text-white hover-black" (click)="navigateConnectUrl('international-students')" data-bs-dismiss="offcanvas">For International Students</a></li>
+              <li class="py-2"><a class="dropdown-item text-white hover-black" (click)="navigateConnectUrl('global-travellers')" data-bs-dismiss="offcanvas">For Global Travellers</a></li>
+              <li class="py-2"><a class="dropdown-item text-white hover-black" (click)="navigateConnectUrl('entrepreneurs')" data-bs-dismiss="offcanvas">For Entrepreneurs</a></li>
+            </ul>
+          </li>
+          <li class="nav-item" data-bs-dismiss="offcanvas">
+            <a class="nav-link active text-white fw-medium text-center h4" aria-current="page" (click)="navigateConnectUrl('compare')">Compare</a>
+          </li>
+          <li class="nav-item" data-bs-dismiss="offcanvas">
+            <a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="/pricing/india">Pricing</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Resources </a>
+            <ul class="dropdown-menu border-0 text-center bg-dark" aria-labelledby="exploreDropdown">
+              <li class="py-2"><a class="dropdown-item text-white hover-black" style="cursor: pointer" (click)="navigateConnectUrl('blogs')">Blogs</a></li>
+              <li class="py-2"><a class="dropdown-item text-white hover-black" (click)="navigateConnectUrl('certificates')">Certificates</a></li>
+            </ul>
+          </li>
+          <li class="nav-item" data-bs-dismiss="offcanvas">
+            <a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/" (click)="navigateConnectUrl('contact-us')">Contact Us</a>
+          </li>
+          <!-- Add other mobile menu items as needed -->
+          <li class="nav-item text-center">
+            <a [routerLink]="['/login']" class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="text-decoration-none"><button type="button" class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
+          </li>
+        </ul>
+      </div>
+      <!-- "Try for Free" button (common for both mobile and desktop) -->
+    </div>
+  </div>
+  <!-- <div class="landingmodeswitch">
 		<label class="me-2">
 			<i class="fa-solid fa-sun"></i>
 		</label>
@@ -206,14 +153,13 @@
 </nav>
 
 <ng-container>
-	<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </ng-container>
 
 <uni-landing-footer></uni-landing-footer>
 
 <div class="position-absolute gototop">
-	<p-scrolltop target="window" [threshold]="100" icon="pi pi-arrow-up"
-		[buttonProps]="{ raised: true, rounded: true }" />
+  <p-scrolltop target="window" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ raised: true, rounded: true }" />
 </div>
 <!--<div class="floating-buttons1">-->
 <!--	<div class="floating-btn1 whatsapp" (mouseenter)="hovered1 = 'wa'" (mouseleave)="hovered1 = null">-->
