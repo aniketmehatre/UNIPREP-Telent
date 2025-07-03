@@ -83,6 +83,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   disableIfDoctorateSelected: number[] = [5];
   graduationYearList: any[] = []
   careerInterests: any[] = [];
+  departmentList:any[] = [];
   profileDetail!: EmployeeConnectProfile;
   isDisableAddMoreEducation: boolean = false;
   cgpaPercentageList: any = [
@@ -193,7 +194,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_preferred_workplace_type: [[], Validators.required],
       career_preference_willingness_to_relocate: [null, Validators.required],
       career_preference_expected_salary: [null, Validators.required],
-      career_preference_currency_id: [null, Validators.required]
+      career_preference_currency_id: [null, Validators.required],
+      career_preference_department_id: [[], Validators.required],
     });
     this.certificationsForm = this.fb.group({
       certifications: this.fb.array([this.createCertificateGroup()]),
@@ -486,6 +488,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         isSample: isSample,
         currencies: this.currencies,
         careerInterests: this.careerInterests,
+        departments: this.departmentList,
         jobTitles: this.jobTitles,
         languageList: this.languageList,
         locations: this.locations,
@@ -662,6 +665,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.genderOptions = response.gender
         this.languageProficiency = response.language_proficiency
         this.nationalityList = response.nationalites
+        this.departmentList = response.department
       },
       error: (error) => {
         console.log(error)
@@ -702,6 +706,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_career_status: response.careerPreference?.career_status || "",
       career_preference_job_title_id: response.careerPreference?.job_title || "",
       career_preference_career_interest_id: response.careerPreference?.career_interest_id || [],
+      career_preference_department_id: response.careerPreference?.department_id || [],
       career_preference_preferred_work_location_id: response.careerPreference?.preferred_work_location_id || [],
       career_preference_preferred_employment_type: response.careerPreference?.preferred_employment_type || [],
       career_preference_preferred_workplace_type: response.careerPreference?.preferred_workplace_type || [],
@@ -1940,6 +1945,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_career_status: this.originalProfileData?.career_preference_career_status,
       career_preference_job_title_id: this.originalProfileData?.career_preference_job_title_id,
       career_preference_career_interest_id: this.originalProfileData?.career_preference_career_interest_id || [],
+      career_preference_department_id: this.originalProfileData?.career_preference_department_id || [],
       career_preference_preferred_work_location_id: this.originalProfileData?.career_preference_preferred_work_location_id || [],
       career_preference_preferred_employment_type: this.originalProfileData?.career_preference_preferred_employment_type || [],
       career_preference_preferred_workplace_type: this.originalProfileData?.career_preference_preferred_workplace_type || [],

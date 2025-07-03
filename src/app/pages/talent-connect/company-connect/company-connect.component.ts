@@ -9,6 +9,7 @@ import { CompanyFilterComponent } from "./company-filter/company-filter.componen
 import { MessageService } from 'primeng/api';
 import { PageFacadeService } from '../../page-facade.service';
 import { ToastModule } from 'primeng/toast';
+import { StorageService } from 'src/app/storage.service';
 
 interface DropdownOption {
     label: string;
@@ -26,7 +27,7 @@ interface DropdownOption {
         PaginatorModule,
         TagModule,
         CompanyFilterComponent,
-        ToastModule 
+        ToastModule
     ],
     standalone: true
 })
@@ -49,19 +50,22 @@ export class CompanyConnect1Component implements OnInit {
     isSkeletonVisible: boolean = true;
     activeDropdownCompanyId: number | null = null;
 
-    
+
+    currentLocationDetails: any;
+
     constructor(private talentConnectService: TalentConnectService,
-        private router: Router, private messageService: MessageService, private pageFacade: PageFacadeService) {
+        private router: Router, private messageService: MessageService, private pageFacade: PageFacadeService, private storage: StorageService,) {
     }
 
     ngOnInit() {
+        this.currentLocationDetails = this.storage.get("currentCountryByGEOLocation");
         this.listCompanyData()
     }
 
     toggleShareDropdown(event: MouseEvent, companyId: number) {
         event.stopPropagation();
         this.activeDropdownCompanyId = this.activeDropdownCompanyId === companyId ? null : companyId;
-      }
+    }
 
     generateCompanyLink(company: any) {
 
@@ -76,34 +80,41 @@ export class CompanyConnect1Component implements OnInit {
             });
         });
         */
-            
+
         const uuid = 'abc123-fake-uuid';
-        const link = `${window.location.origin}/pages/job/${uuid}`; 
+        const link = `${window.location.origin}/pages/job/${uuid}`;
         const message = `Check out this job at ${company.company_name}:\n${link}`;
-      
+
         navigator.clipboard.writeText(message).then(() => {
             this.messageService.add({
                 severity: 'success',
                 summary: 'Link Copied!',
                 detail: message,
                 life: 5000
-              });
+            });
         });
-      
-        this.activeDropdownCompanyId = null;
-      }
 
-      generateUUIDLink(companyId: number) {
+        this.activeDropdownCompanyId = null;
+    }
+
+    generateUUIDLink(companyId: number) {
         return this.talentConnectService.generateUUIDLink(companyId);
-      }
-      
+    }
+
     listCompanyData(params?: any) {
-        const requestData = {
+        let requestData = {
             perpage: this.perPage,
             page: this.page,
             ...params
         };
-
+        if (this.currentLocationDetails) {
+            requestData = {
+                ...requestData,
+                country: this.currentLocationDetails?.country,
+                state: this.currentLocationDetails?.state,
+                city: this.currentLocationDetails?.county
+            }
+        }
         this.talentConnectService.getTalentConnectCompanies(requestData).subscribe({
             next: data => {
                 this.companyDataList = data.companies;

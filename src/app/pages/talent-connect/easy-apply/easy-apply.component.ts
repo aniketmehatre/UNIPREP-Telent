@@ -2,10 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
 import { Meta } from '@angular/platform-browser';
 import { SocialShareService } from 'src/app/shared/social-share.service';
+import { StorageService } from 'src/app/storage.service';
 
 interface JobListing {
   id: number;
@@ -63,13 +64,14 @@ export class EasyApplyComponent {
   hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' }, { id: 3, name: 'Campus Hire' }];
   selectedCurrency: string = '';
   hiring_stages: string | Array<{ id: number; name: string }>;
-
+  currentLocationDetails: any;
+  
   //Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private talentConnectService: TalentConnectService,
-    private messageService: MessageService, private pageFacade: PageFacadeService) {
+    private messageService: MessageService, private pageFacade: PageFacadeService, private storage: StorageService,) {
 
   }
 
@@ -85,7 +87,7 @@ export class EasyApplyComponent {
     this.getOptionsList();
     this.getCountries();
   }
-
+  
   initializeForm() {
     this.filterForm = this.fb.group({
       keyword: [''],
@@ -103,17 +105,26 @@ export class EasyApplyComponent {
       hiring_type: [null]
     });
   }
-
+  
   getCountries() {
     this.talentConnectService.getEasyApplyWorkLocationList().subscribe(data => {
       this.locations = [{ id: 0, work_location: "Any" }, ...data.worklocations];
     });
   }
-
+  
   getList(params?: any) {
-    let data = {
+    this.currentLocationDetails = this.storage.get("currentCountryByGEOLocation");
+    let data: any = {
       page: this.page,
       perPage: this.pageSize,
+    }
+    if (this.currentLocationDetails) {
+      data = {
+        ...data,
+        country: this.currentLocationDetails?.country,
+        state: this.currentLocationDetails?.state,
+        city: this.currentLocationDetails?.county
+      }
     }
     if (params) {
       data = { ...data, ...params }

@@ -228,6 +228,10 @@
               <div>{{profileData.careerPreference.career_interest_name?.join(',') || 'Not specified'}}</div>
             </div>
             <div class="col-md-4 col-xl-3 mb-3">
+              <div class="text-primary fw-bold">Department</div>
+              <div>{{profileData.careerPreference.department_name?.join(',')}}</div>
+            </div>
+            <div class="col-md-4 col-xl-3 mb-3">
               <div class="text-primary fw-bold">Preferred Work Location</div>
               <div>{{profileData?.careerPreference?.preferred_work_location?.join(',') || 'Not specified'}}</div>
             </div>
@@ -393,9 +397,9 @@
             </div>
             <ng-container *ngIf="profileData.networking && profileData.networking.length > 0">
               <div class="col-md-4 mb-3" *ngFor="let social of profileData.networking">
-                  <a [href]="social.social_media_link" target="_blank" class="text-break text-primary">
-                    <i class="pi pi-{{getSocialMediaIconName(social.social_media)}} fs-3"></i>
-                  </a>
+                <a [href]="social.social_media_link" target="_blank" class="text-break text-primary">
+                  <i class="pi pi-{{getSocialMediaIconName(social.social_media)}} fs-3"></i>
+                </a>
                 <div class="text-primary fw-bold">{{social.social_media + ' Profile'}}</div>
               </div>
             </ng-container>
@@ -438,9 +442,10 @@
             </div>
             <div class="col-md-4 mb-3">
               <div class="text-primary fw-bold">Upload CV / Resume</div>
-                <button *ngIf="profileData.careerPreference.cv_filename" pButton [label]="extractFileName(profileData.careerPreference.cv_filename)"
-                  icon="pi pi-download" class="p-button-outlined p-button-secondary mb-2 justify-content-between"
-                  (click)="openView(profileData.careerPreference.cv_filename);" iconPos="right"></button>
+              <button *ngIf="profileData.careerPreference.cv_filename" pButton
+                [label]="extractFileName(profileData.careerPreference.cv_filename)" icon="pi pi-download"
+                class="p-button-outlined p-button-secondary mb-2 justify-content-between"
+                (click)="openView(profileData.careerPreference.cv_filename);" iconPos="right"></button>
               <div *ngIf="!profileData.careerPreference.cv_filename" class="text-muted">No CV uploaded</div>
             </div>
           </div>

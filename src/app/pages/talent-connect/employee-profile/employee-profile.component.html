@@ -786,6 +786,22 @@
 															Salary per month with currency is required </small>
 													</div>
 												</div>
+												<div class="row">
+													<div class="col-md-6">
+														<label class="form-label">
+															Department<span
+																class="text-danger">*</span></label>
+														<p-multiSelect appendTo="body"
+															formControlName="career_preference_department_id"
+															[options]="departmentList" placeholder="Select Department"
+															styleClass="w-100" optionLabel="department" optionValue="id"
+															[filter]="true" (focusout)="resetMessageBox()"
+															(onFocus)="updateMessageBox('career_preference_department_id')"></p-multiSelect>
+														<small class="text-danger"
+															*ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_department_id')?.errors?.required">
+															Department is required </small>
+													</div>
+												</div>
 											</ng-container>
 										</form>
 									</ng-template>
@@ -997,8 +1013,7 @@
 													<div class="col-md-6">
 														<label class="form-label">
 															Soft skills</label>
-														<p-multiSelect
-															formControlName="career_preference_soft_skill_id"
+														<p-multiSelect formControlName="career_preference_soft_skill_id"
 															[options]="softSkills" optionValue="id"
 															optionLabel="soft_skill"
 															placeholder="Select your acquired soft skills"
