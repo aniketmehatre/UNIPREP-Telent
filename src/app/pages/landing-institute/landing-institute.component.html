@@ -115,7 +115,7 @@
             <a class="nav-link active text-white fw-medium text-center h4" aria-current="page" (click)="navigateConnectUrl('compare')">Compare</a>
           </li>
           <li class="nav-item" data-bs-dismiss="offcanvas">
-            <a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" href="/pricing/india">Pricing</a>
+            <a class="nav-link text-white fw-medium text-center h4" aria-label="FAQ" (click)="navigateConnectUrl('/institute/pricing/india')">Pricing</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Resources </a>
@@ -132,7 +132,7 @@
             <a [routerLink]="['/login']" class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
           </li>
           <li class="nav-item">
-            <a class="text-decoration-none"><button type="button" class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
+            <a class="text-decoration-none"><button type="button" [routerLink]="['/register']" data-bs-dismiss="offcanvas" class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
           </li>
         </ul>
       </div>

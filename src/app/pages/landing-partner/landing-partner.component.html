@@ -154,12 +154,15 @@
               <li class="py-2"><a class="dropdown-item text-white hover-black" (click)="navigateConnectUrl('certificates')">Certificates</a></li>
             </ul>
           </li>
+          <li class="nav-item" data-bs-dismiss="offcanvas">
+            <a class="nav-link active text-white fw-medium text-center h4" aria-current="page" (click)="navigateConnectUrl('contact-us')">Contact Us</a>
+          </li>
           <!-- Add other mobile menu items as needed -->
           <li class="nav-item text-center">
             <a [routerLink]="['/login']" class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
           </li>
           <li class="nav-item">
-            <a class="text-decoration-none"><button type="button" class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
+            <a class="text-decoration-none"><button type="button" [routerLink]="['/register']" class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Try for Free</button></a>
           </li>
         </ul>
       </div>
