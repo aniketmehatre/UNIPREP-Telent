@@ -20,6 +20,7 @@ import { StorageService } from "../storage.service";
 import { RestrictionDialogComponent } from "../shared/restriction-dialog/restriction-dialog.component";
 import { ScrollTopModule } from "primeng/scrolltop";
 import { howItWorksLinks } from "../shared/commonData";
+import { HttpClient } from "@angular/common/http";
 @Component({
   selector: "uni-pages",
   templateUrl: "./pages.component.html",
@@ -74,7 +75,8 @@ export class PagesComponent implements OnInit, OnDestroy {
   constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
     public meta: Meta, private locationService: LocationService,
     private service: AuthService, private deviceService: DeviceDetectorService,
-    private sanitizer: DomSanitizer, private storage: StorageService, private route: ActivatedRoute) {
+    private sanitizer: DomSanitizer, private storage: StorageService, private route: ActivatedRoute,
+    private http: HttpClient) {
     // dev
     //  Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
 
@@ -194,6 +196,7 @@ export class PagesComponent implements OnInit, OnDestroy {
       }
       this.isPageLoad = true; // after page loading completed this will changed because first time needs to hide the how it works popup
     });
+    this.getGEOLocation();
   }
 
   onClickSubscribedUser(): void {
@@ -326,4 +329,29 @@ export class PagesComponent implements OnInit, OnDestroy {
   onCloseRestrictModal(event: boolean) {
     this.service.hasUserSubscription$.next(event);
   }
+
+  getGEOLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+        this.getCountryBYGEOLocation(longitude, latitude);
+      })
+    } else {
+      console.log("No support for geolocation")
+    }
+  }
+
+  getCountryBYGEOLocation(longitude: number, latitude: number) {
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+    this.http.get<any>(url).subscribe(
+      (data: any) => {
+        this.storage.set("currentCountryByGEOLocation", data?.address);
+      },
+      (error: any) => {
+        console.log("Error fetching location:", error)
+      }
+    )
+  }
+
 }

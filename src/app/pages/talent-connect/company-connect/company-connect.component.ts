@@ -8,6 +8,7 @@ import { TagModule } from "primeng/tag";
 import { CompanyFilterComponent } from "./company-filter/company-filter.component";
 import { MessageService } from 'primeng/api';
 import { PageFacadeService } from '../../page-facade.service';
+import { StorageService } from 'src/app/storage.service';
 
 interface DropdownOption {
     label: string;
@@ -45,22 +46,31 @@ export class CompanyConnect1Component implements OnInit {
     totalVacancies: number = 0;
     companyObj: any
     isSkeletonVisible: boolean = true;
-    
+    currentLocationDetails: any;
+
     constructor(private talentConnectService: TalentConnectService,
-        private router: Router, private messageService: MessageService, private pageFacade: PageFacadeService) {
+        private router: Router, private messageService: MessageService, private pageFacade: PageFacadeService, private storage: StorageService,) {
     }
 
     ngOnInit() {
+        this.currentLocationDetails = this.storage.get("currentCountryByGEOLocation");
         this.listCompanyData()
     }
 
     listCompanyData(params?: any) {
-        const requestData = {
+        let requestData = {
             perpage: this.perPage,
             page: this.page,
             ...params
         };
-
+        if (this.currentLocationDetails) {
+            requestData = {
+                ...requestData,
+                country: this.currentLocationDetails?.country,
+                state: this.currentLocationDetails?.state,
+                city: this.currentLocationDetails?.county
+            }
+        }
         this.talentConnectService.getTalentConnectCompanies(requestData).subscribe({
             next: data => {
                 this.companyDataList = data.companies;
