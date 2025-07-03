@@ -26,7 +26,7 @@ export class LandingPartnerServices {
         const formData = new FormData();
         formData.append('name', formValue.name);
         formData.append('email', formValue.email);
-        formData.append('phone', formValue.phone_number);
+        formData.append('phone', formValue.phone);
         formData.append('phonenumber', formValue.phonenumber);
         formData.append('password', formValue.password);
         formData.append('password_confirmation', formValue.password_confirmation);
