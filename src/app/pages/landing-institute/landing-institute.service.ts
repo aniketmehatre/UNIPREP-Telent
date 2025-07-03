@@ -24,12 +24,12 @@ export class LandingInstituteService {
     return this.http.post<string[]>(environment.ApiUrl + "/", { type: type });
   }
   // register api
-   registerEmployer(formValue: any): Observable<any> {
+   registerInstitute(formValue: any): Observable<any> {
         const formData = new FormData();
         formData.append('name', formValue.name);
         formData.append('email', formValue.email);
-        formData.append('phone', formValue.phone_number);
-        formData.append('phone_country_code', formValue.phone_country_code);
+        formData.append('phone', formValue.phone);
+        formData.append('phonenumber', formValue.phonenumber);
         formData.append('password', formValue.password);
         formData.append('password_confirmation', formValue.password_confirmation);
         formData.append('country_id', formValue.country_id);

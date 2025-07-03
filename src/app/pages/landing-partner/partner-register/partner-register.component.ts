@@ -194,7 +194,7 @@ export class PartnerRegisterComponent {
 			gender: this.registrationForm.value.gender
 		};
 
-		this.landingService.registerEmployer(data).subscribe({
+		this.landingService.registerPartner(data).subscribe({
 			next: (res: any) => {
 				console.log(res);
 				this.toast.add({
