@@ -181,7 +181,7 @@ export class PartnerRegisterComponent {
 		this.submitted = true;
 		let data = {
 			name: this.registrationForm.value.full_name,
-			phone_number: this.registrationForm.value.mobileNumber?.number,
+			phonenumber: this.registrationForm.value.mobileNumber?.number,
 			email: this.registrationForm.value.emailAddress,
 			password: this.registrationForm.value.password,
 			password_confirmation: this.registrationForm.value.confirmPassword,
