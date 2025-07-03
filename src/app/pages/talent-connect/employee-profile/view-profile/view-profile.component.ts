@@ -74,6 +74,7 @@ interface ProfileData {
   careerPreferences: {
     careerStatus: string;
     careerInterest: string;
+    department: string;
     jobTitle: string;
     preferredWorkLocation: string;
     preferredEmploymentType: string;
@@ -145,6 +146,7 @@ export class ViewProfileComponent implements OnInit {
   graduationYears: any[] = [];
   currencies: any[] = [];
   careerInterests: any[] = [];
+  departments: any[] = [];
   fieldsOfStudy: any[] = [];
   hobbies: any[] = [];
   jobTitles: any[] = [];
@@ -192,6 +194,7 @@ export class ViewProfileComponent implements OnInit {
     careerPreferences: {
       careerStatus: 'Working',
       careerInterest: 'Education Industry, Real Estate',
+      department: 'Human Resource (HR)',
       jobTitle: 'Human Resource',
       preferredWorkLocation: 'Bangalore - Mysore',
       preferredEmploymentType: 'Full Time',
@@ -262,6 +265,7 @@ export class ViewProfileComponent implements OnInit {
 
     if (!this.isSample && data?.profileData) {
       this.careerInterests = data?.careerInterests;
+      this.departments = data?.departments;
       this.currencies = data?.currencies;
       this.jobTitles = data?.jobTitles;
       this.locations = [{ id: 0, work_location: "Any" }, ...data?.locations];
@@ -478,6 +482,7 @@ export class ViewProfileComponent implements OnInit {
     const careerPreferences = {
       careerStatus: formData.career_preference_career_status || '',
       careerInterest: this.getListValue(this.careerInterests, formData.career_preference_career_interest_id, 'interest') || '',
+      department: this.getListValue(this.departments, formData.career_preference_department_id, 'department') || '',
       jobTitle: formData.career_preference_job_title_id || '',
       preferredWorkLocation: this.getListValue(this.locations, formData.career_preference_preferred_work_location_id, 'work_location') || '',
       preferredEmploymentType: formData.career_preference_preferred_employment_type || '',

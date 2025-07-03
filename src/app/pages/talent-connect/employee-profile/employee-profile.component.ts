@@ -488,6 +488,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         isSample: isSample,
         currencies: this.currencies,
         careerInterests: this.careerInterests,
+        departments: this.departmentList,
         jobTitles: this.jobTitles,
         languageList: this.languageList,
         locations: this.locations,
