@@ -24,7 +24,7 @@ export class LandingInstituteService {
     return this.http.post<string[]>(environment.ApiUrl + "/", { type: type });
   }
   // register api
-   registerEmployer(formValue: any): Observable<any> {
+   registerInstitute(formValue: any): Observable<any> {
         const formData = new FormData();
         formData.append('name', formValue.name);
         formData.append('email', formValue.email);

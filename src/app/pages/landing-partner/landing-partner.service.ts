@@ -22,7 +22,7 @@ export class LandingPartnerServices {
     }
     // register partner
 
-    registerEmployer(formValue: any): Observable<any> {
+    registerPartner(formValue: any): Observable<any> {
         const formData = new FormData();
         formData.append('name', formValue.name);
         formData.append('email', formValue.email);
