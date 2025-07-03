@@ -1,53 +1,55 @@
-.darksection
-{
+.darksection {
 	background-color: #07070B;
-	p
-	{
+
+	p {
 		color: #000;
 	}
-	
+
 }
+
 #socialSharingList {
 	display: none;
-    position: absolute;
-    top: 3rem;
-    right: 0;
-  }
-  
-  ::ng-deep .p-card-body {
+	position: absolute;
+	top: 3rem;
+	right: 0;
+}
+
+::ng-deep .p-card-body {
 	padding: 0px;
-  }
-  
-  ::ng-deep .p-card-content {
+}
+
+::ng-deep .p-card-content {
 	padding: 0px !important;
-  }
-  
-  #socialSharingList ul {
+}
+
+#socialSharingList ul {
 	padding: 0px !important;
 	margin-bottom: 0;
-  }
-  
-  #socialSharingList ul li {
+}
+
+#socialSharingList ul li {
 	display: flex;
 	align-items: center;
 	margin-bottom: 8px;
 	font-size: 1.2rem;
-  }
-  
-  #socialSharingList ul li i {
-	margin-right: 10px;
-  }
-  
-  #socialSharingList.show {
-	display: block;
-  }
+}
 
-  .sharebtn
-  {
+#socialSharingList ul li i {
+	margin-right: 10px;
+}
+
+#socialSharingList.show {
+	display: block;
+	background-color:white;
+	border-radius: 5px;
+	padding: 7px;
+}
+
+.sharebtn {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height:35px;
+	height: 35px;
 	width: 35px;
-	border:none;
-  }
+	border: none;
+}

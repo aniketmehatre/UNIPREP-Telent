@@ -19,6 +19,7 @@ export class CertificatesComponent implements OnInit {
 	certificateAvailable: boolean = false
 	certificateStatus: any
 	certificatecount: number = 0
+	certificateValidOrInvalid!: SafeResourceUrl;
 	constructor(private service: ValidcertificatesService, public fb: FormBuilder, private sanitizer: DomSanitizer,
 		private meta: Meta, private toast: MessageService, private socialShareService: SocialShareService) { }
 
@@ -36,10 +37,13 @@ export class CertificatesComponent implements OnInit {
 		this.service.getValidCertificates(data).subscribe((res) => {
 			if (res && res.certificatelink) {
 				this.certificateforcopy = res.certificatelink
+				console.log(this.certificateforcopy);
+
 				this.certificateStatus = res.status
 				this.certificatecount = res.count
 				if (res.count == 1) {
 					this.certificateAvailable = true
+					this.certificateValidOrInvalid = this.sanitizer.bypassSecurityTrustResourceUrl(res.certificatelink);
 				} else {
 					this.certificateAvailable = false
 				}

@@ -6,6 +6,7 @@ import { WindowRefService } from '../subscription/window-ref.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
+import { AssessmentService } from '../assessment/assessment.service';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class ExportCreditComponent implements OnInit {
     private winRef: WindowRefService,
     private router: Router,
     private http: HttpClient,
-    private _location: Location
+    private _location: Location,
+    private creditEvents: AssessmentService,
   ) { }
 
   ngOnInit(): void {
@@ -240,6 +242,7 @@ export class ExportCreditComponent implements OnInit {
               detail: response.message,
             });
             if (response.status == "success") {
+               this.creditEvents.requestUpdate(); 
               this.router.navigate(["/pages/subscriptions"]);
             } else {
               return;
