@@ -30,6 +30,37 @@ interface SeoConfig {
 	};
 }
 
+// Default SEO configuration for UNI PREP
+const DEFAULT_SEO_CONFIG: SeoConfig = {
+	title: 'UNI PREP - Your Gateway to Global Opportunities',
+	author: 'UNI PREP',
+	canonicalUrl: 'https://uniprep.ai',
+	robots: 'index, follow',
+	language: 'en',
+	description: 'UNI PREP is your comprehensive platform for global education, career development, and professional growth. Access tools for job seekers, international students, entrepreneurs, and global travelers.',
+	keywords: 'UNI PREP, global education, career development, job seekers, international students, entrepreneurs, global opportunities, professional growth, skill development',
+	ogTitle: 'UNI PREP - Your Gateway to Global Opportunities',
+	ogDescription: 'UNI PREP is your comprehensive platform for global education, career development, and professional growth.',
+	ogImage: 'https://uniprep.ai/uniprep-assets/images/og-default.jpg',
+	ogUrl: 'https://uniprep.ai',
+	ogType: 'website',
+	twitterCard: 'summary_large_image',
+	twitterSite: '@uniprep',
+	twitterTitle: 'UNI PREP - Your Gateway to Global Opportunities',
+	twitterDescription: 'UNI PREP is your comprehensive platform for global education, career development, and professional growth.',
+	twitterImage: 'https://uniprep.ai/uniprep-assets/images/og-default.jpg',
+	schema: {
+		name: 'UNI PREP',
+		url: 'https://uniprep.ai',
+		logo: 'https://uniprep.ai/uniprep-assets/images/logo.png',
+		sameAs: [
+			'https://www.linkedin.com/company/uniprep',
+			'https://twitter.com/uniprep',
+			'https://www.facebook.com/uniprep'
+		]
+	}
+};
+
 @Injectable({
 	providedIn: "root",
 })
@@ -37,10 +68,52 @@ export class SeoService {
 	constructor(private meta: Meta, private title: Title) {}
 
 	updateMetaTags(config: SeoConfig) {
-		this.updateBasicMeta(config);
-		this.updateFacebookMeta(config);
-		this.updateTwitterMeta(config);
-		this.updateSchema(config);
+		// Merge provided config with defaults
+		const mergedConfig = this.mergeWithDefaults(config);
+		console.log('Updating SEO meta tags with config:', mergedConfig);
+		console.log('Schema config:', mergedConfig.schema);
+		
+		this.updateBasicMeta(mergedConfig);
+		this.updateFacebookMeta(mergedConfig);
+		this.updateTwitterMeta(mergedConfig);
+		this.updateSchema(mergedConfig);
+		
+		// Verify schema was added
+		setTimeout(() => {
+			this.verifySchemaAdded();
+		}, 100);
+	}
+
+	private mergeWithDefaults(config: SeoConfig): SeoConfig {
+		const merged: SeoConfig = { ...DEFAULT_SEO_CONFIG };
+
+		Object.keys(config).forEach(key => {
+			const configKey = key as keyof SeoConfig;
+			if (config[configKey] !== undefined && config[configKey] !== null) {
+				(merged as any)[configKey] = config[configKey];
+			}
+		});
+
+		// Always ensure schema is present
+		if (!merged.schema) {
+			merged.schema = { ...DEFAULT_SEO_CONFIG.schema! };
+		} else if (config.schema) {
+			merged.schema = { ...DEFAULT_SEO_CONFIG.schema!, ...config.schema };
+		}
+
+		return merged;
+	}
+
+	// Method to set default SEO tags for the main landing page
+	setDefaultSeoTags() {
+		console.log('Setting default SEO tags for main landing page');
+		this.updateMetaTags({});
+	}
+
+	// Method to set SEO tags for specific pages with custom overrides
+	setPageSeoTags(pageConfig: Partial<SeoConfig>) {
+		console.log('Setting page-specific SEO tags:', pageConfig);
+		this.updateMetaTags(pageConfig);
 	}
 
 	private updateBasicMeta(config: SeoConfig) {
@@ -174,38 +247,77 @@ export class SeoService {
 	}
 
 	private updateSchema(config: SeoConfig) {
+		console.log('Updating schema with config:', config.schema);
+		
 		if (config.schema) {
-			// Add Schema section comment
-			const schemaStartComment = document.createComment(" Schema ");
-			document.head.appendChild(schemaStartComment);
+			try {
+				// Add Schema section comment
+				const schemaStartComment = document.createComment(" Schema ");
+				document.head.appendChild(schemaStartComment);
 
-			const schemaScript = document.createElement("script");
-			schemaScript.type = "application/ld+json";
+				const schemaScript = document.createElement("script");
+				schemaScript.type = "application/ld+json";
 
-			// Format the JSON with proper indentation
-			const schemaData = {
-				"@context": "https://schema.org",
-				"@type": "Organization",
-				name: config.schema.name,
-				url: config.schema.url,
-				logo: config.schema.logo,
-				sameAs: config.schema.sameAs,
-			};
+				// Create a more comprehensive schema for UNI PREP
+				const schemaData = {
+					"@context": "https://schema.org",
+					"@type": "Organization",
+					"name": config.schema.name,
+					"url": config.schema.url,
+					"logo": config.schema.logo,
+					"sameAs": config.schema.sameAs,
+					"description": "UNI PREP is your comprehensive platform for global education, career development, and professional growth.",
+					"foundingDate": "2020",
+					"contactPoint": {
+						"@type": "ContactPoint",
+						"contactType": "customer service",
+						"email": "support@uniprep.ai"
+					},
+					"address": {
+						"@type": "PostalAddress",
+						"addressCountry": "Global"
+					},
+					"serviceArea": {
+						"@type": "GeoCircle",
+						"geoMidpoint": {
+							"@type": "GeoCoordinates",
+							"latitude": 0,
+							"longitude": 0
+						}
+					}
+				};
 
-			// Use JSON.stringify with indentation
-			schemaScript.text = JSON.stringify(schemaData, null, 4);
+				// Use JSON.stringify with indentation
+				schemaScript.textContent = JSON.stringify(schemaData, null, 2);
+				console.log('Schema JSON:', schemaScript.textContent);
 
-			// Remove existing schema script if any
-			const existingSchema = document.querySelector('script[type="application/ld+json"]');
-			if (existingSchema) {
-				existingSchema.remove();
+				// Remove existing schema script if any
+				const existingSchema = document.querySelector('script[type="application/ld+json"]');
+				if (existingSchema) {
+					existingSchema.remove();
+				}
+
+				document.head.appendChild(schemaScript);
+				console.log('Schema script added to DOM');
+
+				// Add Schema End section comment
+				const schemaEndComment = document.createComment(" Schema End ");
+				document.head.appendChild(schemaEndComment);
+			} catch (error) {
+				console.error('Error updating schema:', error);
 			}
+		} else {
+			console.warn('No schema configuration provided');
+		}
+	}
 
-			document.head.appendChild(schemaScript);
-
-			// Add Schema End section comment
-			const schemaEndComment = document.createComment(" Schema End ");
-			document.head.appendChild(schemaEndComment);
+	// Method to verify schema was added to DOM
+	private verifySchemaAdded() {
+		const schemaScript = document.querySelector('script[type="application/ld+json"]');
+		if (schemaScript) {
+			console.log('✅ Schema script found in DOM:', schemaScript.textContent);
+		} else {
+			console.warn('❌ Schema script not found in DOM');
 		}
 	}
 }

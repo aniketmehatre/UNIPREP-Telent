@@ -43,7 +43,9 @@ export class landingServices {
   }
 
   getLandingPageData(slug: string) {
-    return this.http.post<any>(`${environment.ApiUrl}/landingpageedit`, { slug: slug });
+    return this.http.post<any>(`${environment.ApiUrl}/landingpageedit`, { slug: slug }, {
+      headers: this.headers
+    });
   }
 
   getLandingCategories(id: number) {

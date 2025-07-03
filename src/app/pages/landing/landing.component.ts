@@ -4,6 +4,7 @@ import { AuthService } from "../../Auth/auth.service"
 import { environment } from "@env/environment"
 import { ActivatedRoute, Router } from "@angular/router"
 import { HeaderLogoStore } from "./landing-page.store"
+import { SeoService } from "../../services/seo.service"
 
 @Component({
     selector: "uni-landing",
@@ -15,14 +16,23 @@ export class LandingComponent implements OnInit, OnDestroy {
     isDarkMode: boolean
     logoUrl$ = this.logoStore.logoUrl$;
 
-    constructor(private logoStore: HeaderLogoStore, private themeService: ThemeService,
-        private router: Router, private authService: AuthService, private route: ActivatedRoute,) {
+    constructor(
+        private logoStore: HeaderLogoStore, 
+        private themeService: ThemeService,
+        private router: Router, 
+        private authService: AuthService, 
+        private route: ActivatedRoute,
+        private seoService: SeoService
+    ) {
         // Initialize the isDarkMode property with the value from the service
         this.isDarkMode = this.themeService.getInitialSwitchState()
     }
 
     uuid: any
     ngOnInit() {
+        // Set default SEO tags for the main landing page
+        this.seoService.setDefaultSeoTags();
+        
         // this.uuid = this.route.snapshot.paramMap.get('uuid');
         // if (this.authService.isTokenValid()) {
         //     if (this.uuid) {
