@@ -101,8 +101,8 @@ export class CareerListsComponent implements OnInit {
 		this.gethackList()
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("career-hacks")
 	}
 
 	readAnswer(quizdata: any) {

@@ -95,8 +95,8 @@ export class GlobalEmploymentDataListComponent implements OnInit {
     }
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("global-employment-insights");
   }
 
   showSocialSharingList() {

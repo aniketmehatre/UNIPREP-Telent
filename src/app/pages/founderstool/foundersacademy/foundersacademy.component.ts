@@ -4,7 +4,8 @@ import { FounderstoolService } from "../founderstool.service"
 import { Router, RouterModule } from "@angular/router"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
-import { AuthService } from "src/app/Auth/auth.service"
+import { AuthService } from "src/app/Auth/auth.service";
+import { PageFacadeService } from "../../page-facade.service"
 @Component({
 	selector: "uni-foundersacademy",
 	templateUrl: "./foundersacademy.component.html",
@@ -23,7 +24,8 @@ export class FoundersacademyComponent implements OnInit {
 	selectedCategoryId: number | null = null
 
 	constructor(private service: FounderstoolService, private sanitizer: DomSanitizer, private router: Router,
-		private authService: AuthService
+		private authService: AuthService,
+		private pageFacade: PageFacadeService
 	) { }
 
 	ngOnInit(): void {
@@ -34,7 +36,7 @@ export class FoundersacademyComponent implements OnInit {
 		})
 	}
 	openNextPageLink: any
-	openVideoPopup(link: any): void {
+	openVideoPopupNew(link: any): void {
 		if (this.authService.isInvalidSubscription('founders_tools')) {
 			this.authService.hasUserSubscription$.next(true);
 			return;
@@ -66,6 +68,9 @@ export class FoundersacademyComponent implements OnInit {
 		return match ? match[1] : ""
 	}
 
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("founders-academy");
+	}
 	@HostListener("document:keydown", ["$event"])
 	onKeyDown(event: KeyboardEvent): void {
 		// Check if the pressed key is the Escape key (code 27)

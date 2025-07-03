@@ -159,8 +159,8 @@ export class AverageSalaryPreparedListComponent implements OnInit {
     }
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("average-salary-estimator");
   }
   selectedQuestion = "";
   selectedAnswer: any;

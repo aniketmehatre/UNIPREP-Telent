@@ -118,7 +118,7 @@ export class ResourceComponent implements OnInit {
 			return
 		}
 	}
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("resource")
 	}
 }

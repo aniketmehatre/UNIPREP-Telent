@@ -4,7 +4,6 @@ import { ArrayHeaderService } from "../../unilearn/array-header.service"
 import { SalaryHacksService } from "../salaryhacks.service"
 import { PageFacadeService } from "../../page-facade.service"
 import { Router } from "@angular/router"
-import { count } from "console"
 import { RouterModule } from "@angular/router"
 import { DialogModule } from "primeng/dialog"
 import { CardModule } from "primeng/card"
@@ -50,8 +49,8 @@ export class SalaryhacksCountryListsComponent implements OnInit {
 	backtoMain() {
 		this.router.navigateByUrl("/pages/job-tool/career-tool")
 	}
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("salary-negotiation-hacks")
 	}
 	onModuleClick(moduledata: any) {
 		if (this.authService.isInvalidSubscription('career_tools')) {

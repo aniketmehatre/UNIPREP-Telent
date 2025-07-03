@@ -380,8 +380,8 @@ export class InvestorListComponent implements OnInit {
     this.dataService.openReportWindow(data);
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("investor-list");
   }
 
   previous(): void {

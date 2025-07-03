@@ -441,7 +441,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 		this.dataService.openReportWindow(data)
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("pitch-deck")
 	}
 }

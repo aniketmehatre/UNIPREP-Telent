@@ -180,8 +180,8 @@ export class AdvisorComponent implements OnInit {
         }
     }
 
-    openVideoPopup(videoLink: string) {
-        this.pageFacade.openHowitWorksVideoPopup(videoLink)
+    openVideoPopup() {
+        this.pageFacade.openHowitWorksVideoPopup("ai-global-advisor")
     }
 
 }

@@ -10,13 +10,16 @@
 						<h5 routerLink="/pages/mycertificate" role="button" class="mb-0" tooltipPosition="top" pTooltip="Learn new skills and concepts through step-by-step tutorials in a variety of subjects.">Subscription</h5>
 					</div>
 				</div>
-        <div style="font-size: smaller !important;" *ngIf="studentType!=2">
-          <button pButton class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(1)"
-          [ngStyle]="button1Style">Monthly</button> &nbsp;
-         <button pButton class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(2)"
-          [ngStyle]="button2Style">Half Yearly</button>&nbsp;
-          <button pButton class="btn btn-outline-light theme-blue px-3 py-3" (click)="setActiveButton(3)"
-          [ngStyle]="button3Style">Annualy</button>
+        <div class="d-flex flex-wrap justify-content-start gap-2" *ngIf="studentType != 2">
+          <button pButton class="btn btn-outline-light theme-blue flex-grow-1" style="min-width: 120px;" (click)="setActiveButton(1)" [ngStyle]="button1Style">
+            Monthly
+          </button>
+          <button pButton class="btn btn-outline-light theme-blue flex-grow-1" style="min-width: 120px;" (click)="setActiveButton(2)" [ngStyle]="button2Style">
+            Half Yearly
+          </button>
+          <button pButton class="btn btn-outline-light theme-blue flex-grow-1" style="min-width: 120px;" (click)="setActiveButton(3)" [ngStyle]="button3Style">
+            Annualy
+          </button>
         </div>
 			</div>
 		</div>

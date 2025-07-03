@@ -582,8 +582,8 @@ export class ScholarshipListComponent implements OnInit {
 		}
 	}
 
-	openHowItWorksVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openHowItWorksVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("unischolar")
 	}
 
 	checkUserRecommendation() {

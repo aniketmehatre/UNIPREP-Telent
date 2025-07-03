@@ -66,8 +66,8 @@ export class StartupglossaryComponent implements OnInit {
     this.getStartUpGlossary(null);
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("startup-glossary");
   }
 
   isSelected(id: number): boolean {

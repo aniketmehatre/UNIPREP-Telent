@@ -110,8 +110,8 @@ export class VocabularyComponent implements OnInit {
 			.filter((group) => group.words.length > 0)
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("language-hub")
 	}
 
 	goToHome(event: any) {

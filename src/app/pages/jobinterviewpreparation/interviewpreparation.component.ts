@@ -229,8 +229,8 @@ export class JobPreparationComponent implements OnInit {
     this.selectedCardIndex = null;
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink);
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("job-interview-preparation");
   }
 
   goBack() {
