@@ -11,8 +11,6 @@ export class SeoManagerComponent implements OnInit {
 
 	ngOnInit() {
     this.updateDynamicContent("UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship")
-		// Set default SEO settings
-		
 	}
 
   updateDynamicContent(title: string) {

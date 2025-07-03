@@ -41,18 +41,18 @@ const DEFAULT_SEO_CONFIG: SeoConfig = {
 	keywords: 'UNI PREP, global education, career development, job seekers, international students, entrepreneurs, global opportunities, professional growth, skill development',
 	ogTitle: 'UNI PREP - Your Gateway to Global Opportunities',
 	ogDescription: 'UNI PREP is your comprehensive platform for global education, career development, and professional growth.',
-	ogImage: 'https://uniprep.ai/uniprep-assets/images/og-default.jpg',
+	ogImage: 'https://uniprep.ai/uniprep-assets/images/uniprep_banner.jpg',
 	ogUrl: 'https://uniprep.ai',
 	ogType: 'website',
 	twitterCard: 'summary_large_image',
 	twitterSite: '@uniprep',
 	twitterTitle: 'UNI PREP - Your Gateway to Global Opportunities',
 	twitterDescription: 'UNI PREP is your comprehensive platform for global education, career development, and professional growth.',
-	twitterImage: 'https://uniprep.ai/uniprep-assets/images/og-default.jpg',
+	twitterImage: 'https://uniprep.ai/uniprep-assets/images/uniprep_banner.jpg',
 	schema: {
 		name: 'UNI PREP',
 		url: 'https://uniprep.ai',
-		logo: 'https://uniprep.ai/uniprep-assets/images/logo.png',
+		logo: 'https://uniprep.ai/uniprep-assets/images/uniprep_banner.jpg',
 		sameAs: [
 			'https://www.linkedin.com/company/uniprep',
 			'https://twitter.com/uniprep',
@@ -70,8 +70,6 @@ export class SeoService {
 	updateMetaTags(config: SeoConfig) {
 		// Merge provided config with defaults
 		const mergedConfig = this.mergeWithDefaults(config);
-		console.log('Updating SEO meta tags with config:', mergedConfig);
-		console.log('Schema config:', mergedConfig.schema);
 		
 		this.updateBasicMeta(mergedConfig);
 		this.updateFacebookMeta(mergedConfig);
@@ -106,13 +104,18 @@ export class SeoService {
 
 	// Method to set default SEO tags for the main landing page
 	setDefaultSeoTags() {
-		console.log('Setting default SEO tags for main landing page');
-		this.updateMetaTags({});
+		// Ensure DOM is ready before updating meta tags
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', () => {
+				this.updateMetaTags({});
+			});
+		} else {
+			this.updateMetaTags({});
+		}
 	}
 
 	// Method to set SEO tags for specific pages with custom overrides
 	setPageSeoTags(pageConfig: Partial<SeoConfig>) {
-		console.log('Setting page-specific SEO tags:', pageConfig);
 		this.updateMetaTags(pageConfig);
 	}
 
@@ -247,8 +250,6 @@ export class SeoService {
 	}
 
 	private updateSchema(config: SeoConfig) {
-		console.log('Updating schema with config:', config.schema);
-		
 		if (config.schema) {
 			try {
 				// Add Schema section comment
@@ -289,7 +290,6 @@ export class SeoService {
 
 				// Use JSON.stringify with indentation
 				schemaScript.textContent = JSON.stringify(schemaData, null, 2);
-				console.log('Schema JSON:', schemaScript.textContent);
 
 				// Remove existing schema script if any
 				const existingSchema = document.querySelector('script[type="application/ld+json"]');
@@ -298,11 +298,22 @@ export class SeoService {
 				}
 
 				document.head.appendChild(schemaScript);
-				console.log('Schema script added to DOM');
 
 				// Add Schema End section comment
 				const schemaEndComment = document.createComment(" Schema End ");
 				document.head.appendChild(schemaEndComment);
+				
+				// Immediate verification
+				this.verifySchemaAdded();
+				
+				// Add a more persistent verification with multiple checks
+				setTimeout(() => {
+					this.verifySchemaAdded();
+				}, 1000);
+				
+				setTimeout(() => {
+					this.verifySchemaAdded();
+				}, 3000);
 			} catch (error) {
 				console.error('Error updating schema:', error);
 			}
@@ -315,9 +326,9 @@ export class SeoService {
 	private verifySchemaAdded() {
 		const schemaScript = document.querySelector('script[type="application/ld+json"]');
 		if (schemaScript) {
-			console.log('✅ Schema script found in DOM:', schemaScript.textContent);
+			console.log('Schema script found in DOM');
 		} else {
-			console.warn('❌ Schema script not found in DOM');
+			console.warn('Schema script not found in DOM');
 		}
 	}
 }

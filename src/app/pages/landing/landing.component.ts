@@ -30,8 +30,8 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     uuid: any
     ngOnInit() {
-        // Set default SEO tags for the main landing page
-        this.seoService.setDefaultSeoTags();
+        // The SEO manager component already handles SEO tags globally
+        // We don't need to call setDefaultSeoTags here as it might conflict
         
         // this.uuid = this.route.snapshot.paramMap.get('uuid');
         // if (this.authService.isTokenValid()) {
