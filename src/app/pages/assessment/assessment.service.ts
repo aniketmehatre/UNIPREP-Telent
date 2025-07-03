@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { AssessmentQuiz, AssessmentResponse, StoreQuizResponse, UserquizResponseData } from 'src/app/@Models/assessment.model';
 import { ILearnChallengeData, ILearnChallengeResponse, LeaderBoard } from 'src/app/@Models/ilearn-challenge.model';
 
@@ -15,6 +15,9 @@ export class AssessmentService {
   iLearnChallengeData$ = this.iLearnChallenge.asObservable();
   sideMenuiLearnChallenge = new BehaviorSubject<boolean>(false);
   sideMenuiLearnChallengeData$ = this.sideMenuiLearnChallenge.asObservable();
+  // after ai credit buy , the header ai credit count automatically refresh 
+  private updateTrigger = new Subject<void>();
+  updateRequested$ = this.updateTrigger.asObservable();
 
   constructor(
     private http: HttpClient
@@ -58,8 +61,11 @@ export class AssessmentService {
   }
 
   getLeaderBoardUsers(grpId: string) {
-    return this.http.get<{ leaderBoard: LeaderBoard[]}>(`${environment.ApiUrl}/leaderBoardUsers?cluster_id=${grpId}`, {
+    return this.http.get<{ leaderBoard: LeaderBoard[] }>(`${environment.ApiUrl}/leaderBoardUsers?cluster_id=${grpId}`, {
       headers: this.headers,
     });
+  }
+  requestUpdate() {
+    this.updateTrigger.next(); // 🔔 Emit update signal
   }
 }

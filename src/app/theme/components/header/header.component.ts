@@ -206,7 +206,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private authTokenService: AuthTokenService,
 		private storage: StorageService,
 		private promptService: PromptService,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
 	) {
 		this.dataService.openReportWindowSource.subscribe({
 			next: (data) => {
@@ -277,6 +277,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.getAICreditCount();
 			}
 		})
+		this.assessmentService.updateRequested$.subscribe(() => {
+			this.getAICreditCount();
+		});
 	}
 
 	buyCredits() {
@@ -1259,7 +1262,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	continueTrial(): void {
 		let data: any = {}
-		if (this.mobileForm.get('home_country')?.valid && this.mobileForm.get('study_level')?.valid) {	
+		if (this.mobileForm.get('home_country')?.valid && this.mobileForm.get('study_level')?.valid) {
 			data.home_country = this.mobileForm.value.home_country
 			data.study_level = this.mobileForm.value.study_level
 		}
@@ -1300,10 +1303,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		)
 	}
 	onClickSubscribedUser(): void {
-		if (this.imagewhitlabeldomainname.toLowerCase()  === "uniprep" || this.imagewhitlabeldomainname === "Partner") {
+		if (this.imagewhitlabeldomainname.toLowerCase() === "uniprep" || this.imagewhitlabeldomainname === "Partner") {
 			this.visibleExhastedUser = false
 			let data: any = {}
-			if (this.mobileForm.get('home_country')?.valid && this.mobileForm.get('study_level')?.valid) {	
+			if (this.mobileForm.get('home_country')?.valid && this.mobileForm.get('study_level')?.valid) {
 				data.home_country = this.mobileForm.value.home_country
 				data.study_level = this.mobileForm.value.study_level
 			}
@@ -1394,7 +1397,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.subs.sink = this.locationService.getHomeCountry(2).subscribe({
 			next: (res: any) => {
 				this.countryList = res;
-       
+
 				// First try to get country from localStorage
 				const storedHomeCountryId = this.storage.get('homeCountryId');
 				// Find selected home country with fallbacks
@@ -1403,7 +1406,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					res.find((data: any) => data.id === this.homeCountryId) ||
 					res.find((data: any) => data.id === 122);
 
-				if (selectedHomeCountry) {				
+				if (selectedHomeCountry) {
 					this.headerHomeFlag = selectedHomeCountry.flag;
 					this.selectedHomeCountry = selectedHomeCountry;
 					this.homeCountryName = selectedHomeCountry.country;
@@ -1416,7 +1419,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 						id: 122,
 						country: 'India',
 						flag: `../../uniprep-assets/icons/india.png`
-					};					
+					};
 					this.headerHomeFlag = defaultCountry.flag;
 					this.homeCountryName = defaultCountry.country;
 					this.selectedHomeCountry = defaultCountry;
