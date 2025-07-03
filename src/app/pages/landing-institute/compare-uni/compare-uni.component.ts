@@ -116,6 +116,17 @@ export class CompareUniComponent implements OnInit {
 
   platformsInUK = [
     {
+      name: 'UNIPREP',
+      logo: 'uniprep-assets/brands/uniprep.webp',
+      features: {
+        inbuiltHiring: true,
+        careerPrep: true,
+        entrepreneurship: true,
+        globalEducation: true,
+        coBranding: true
+      }
+    },
+    {
       name: 'Superset',
       logo: 'uniprep-assets/brands/superset.webp',
       features: {
@@ -181,18 +192,15 @@ export class CompareUniComponent implements OnInit {
         globalEducation: true,
         coBranding: false
       }
-    },
-    {
-      name: 'UNIPREP',
-      logo: 'uniprep-assets/brands/uniprep.webp',
-      features: {
-        inbuiltHiring: true,
-        careerPrep: true,
-        entrepreneurship: true,
-        globalEducation: true,
-        coBranding: true
-      }
     }
+  ];
+
+  featureList = [
+    { key: 'inbuiltHiring', label: 'Inbuilt Hiring Platform' },
+    { key: 'careerPrep', label: 'Career Preparation Tools' },
+    { key: 'entrepreneurship', label: 'Entrepreneurship Tools' },
+    { key: 'globalEducation', label: 'Global Education Tools' },
+    { key: 'coBranding', label: 'Co Branding to Institutes' }
   ];
 
   benefits = [
