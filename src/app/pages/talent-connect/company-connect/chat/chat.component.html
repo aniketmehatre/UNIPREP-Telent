@@ -71,7 +71,7 @@
 									<div *ngIf="message.attachment_url" class="message-content file-message text-start" style="min-width: 50%" [ngClass]="message.added_by == 'Student' ? 'bg-secondary text-white' : 'bg-secondary-subtle'">
 										<a [href]="message.attachment_url" target="_blank" class="text-decoration-none d-flex align-items-center" [ngClass]="message.added_by == 'Student' ? 'text-white' : 'text-black'" download>
 											<i class="fas fa-file-pdf fa-large me-2"></i>
-											{{ message.attachment_name || "File" }}
+											{{ message.attachment || "File" }}
 										</a>
 										<div class="">{{ message.content }}</div>
 										<small class="message-time text-start" [ngClass]="message.added_by == 'Student' ? 'text-white' : 'text-muted'">{{ message.time }}</small>

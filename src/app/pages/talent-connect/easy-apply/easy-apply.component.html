@@ -20,18 +20,18 @@
 			</div>
 		</div>
 		<div class="row justify-content-center align-items-center mt-2">
-			<div class="col-md-3 col-sm-4 d-flex gap-2">
+			<div class="col-md-4 col-sm-4 d-flex gap-2">
 				<span class="fw-bold border border-primary px-2 py-1 rounded-pill me-1 text-gray"
 					style="background-color: #e6edf6">Total Job : {{ totalJobs }}</span>
 				<span class="fw-bold border border-sucess px-2 py-1 rounded-pill text-gray"
 					style="background-color: #f0f9d4">Total Vacancies : {{ totalVacancies }}</span>
 			</div>
-			<div class="col-md-6 col-sm-4 d-flex justify-content-center gap-2 mb-md-0 mb-2">
+			<div class="col-md-4 col-sm-4 d-flex justify-content-center gap-2 mb-md-0 mb-2">
 				<button pButton class="btn border bg-primary px-3 py-3">Job Search</button>
 				<button pButton class="btn border px-3 py-3 bg-white" style="color: var(--uniprep-primary)"
 					routerLink="/pages/talent-connect/job-tracker">Job Tracker</button>
 			</div>
-			<div class="col-md-3 col-sm-4 d-flex justify-content-md-end justify-content-center gap-2">
+			<div class="col-md-4 col-sm-4 d-flex justify-content-md-end justify-content-center gap-2">
 				<p-select [options]="currencies" optionLabel="currency_code" dataKey="currency_code"
 					[virtualScroll]="true" [virtualScrollItemSize]="40" [filter]="true" filterBy="currency_code"
 					[showClear]="true" placeholder="Currency : Select" appendTo="body" class="w-auto"
@@ -86,7 +86,7 @@
 										<i class="fas fa-check-circle"></i>
 									</span>
 								</p>
-								<p class="mb-0">Job Id: {{ job.id }}</p>
+								<!-- <p class="mb-0">Job Id: {{ job.id }}</p> -->
 								<button  pButton [ngClass]="getStatus(job?.hiring_status) ? 'btn-primary' : 'btn-success'"
 									class="btn btn-rounded text-nowrap !fs-6 py-1">
 									<i class="fa-solid" [ngClass]="getStatus(job?.hiring_status) ? 'fa-clock' : 'fa-check'"></i>{{job?.hiring_status}}
@@ -247,7 +247,7 @@
 			<div class="col-md-6">
 				<p-paginator *ngIf="totalJobs != 0" [rows]="pageSize" [totalRecords]="totalJobs"
 					[first]="(page - 1) * pageSize" (onPageChange)="onPageChange($event)"
-					[rowsPerPageOptions]="[8, 50, 100, 300, 500, 1000]" [disabled]="totalJobs <= pageSize">
+					[rowsPerPageOptions]="[8, 48]" [disabled]="totalJobs <= pageSize">
 				</p-paginator>
 			</div>
 			<div class="col-md-3">
@@ -334,15 +334,15 @@
 					</div>
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Hiring Status</label>
-						<p-multiSelect [options]="hiringStatuses" formControlName="hiringStatus" optionLabel="name"
+						<p-select [options]="hiringStatuses" formControlName="hiringStatus" optionLabel="name"
 							placeholder="Select the Hiring Status" optionValue="id" appendTo="body" display="chip"
-							class="w-100" [showClear]="true"> </p-multiSelect>
+							class="w-100" [showClear]="true"> </p-select>
 					</div>
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Introduction Video </label>
-						<p-multiSelect [options]="introductionVideoTypes" formControlName="intro" optionLabel="name"
+						<p-select [options]="introductionVideoTypes" formControlName="intro" optionLabel="name"
 							placeholder="Select the Introduction video" optionValue="id" appendTo="body" display="chip"
-							class="w-100" [showClear]="true"> </p-multiSelect>
+							class="w-100" [showClear]="true"> </p-select>
 					</div>
 					<div class="col-md-6">
 						<label class="form-label fw-bold">Hiring Type </label>

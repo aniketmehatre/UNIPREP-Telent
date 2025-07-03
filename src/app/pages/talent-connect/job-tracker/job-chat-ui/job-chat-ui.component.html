@@ -82,7 +82,7 @@
 											class="text-decoration-none d-flex align-items-center"
 											[ngClass]="message.sender ? 'text-white' : 'text-black'" download>
 											<i class="fas fa-file-pdf fa-large me-2"></i>
-											{{ message.attachment_name || 'File' }}
+											<div class="overflow-auto">{{ message.attachment || 'File' }}</div>
 										</a>
 									</div>
 									<div class="">{{ message.content }}</div>
