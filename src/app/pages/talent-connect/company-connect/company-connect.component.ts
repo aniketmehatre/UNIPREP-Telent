@@ -8,6 +8,7 @@ import { TagModule } from "primeng/tag";
 import { CompanyFilterComponent } from "./company-filter/company-filter.component";
 import { MessageService } from 'primeng/api';
 import { PageFacadeService } from '../../page-facade.service';
+import { ToastModule } from 'primeng/toast';
 
 interface DropdownOption {
     label: string;
@@ -24,7 +25,8 @@ interface DropdownOption {
         ReactiveFormsModule,
         PaginatorModule,
         TagModule,
-        CompanyFilterComponent
+        CompanyFilterComponent,
+        ToastModule 
     ],
     standalone: true
 })
@@ -45,6 +47,8 @@ export class CompanyConnect1Component implements OnInit {
     totalVacancies: number = 0;
     companyObj: any
     isSkeletonVisible: boolean = true;
+    activeDropdownCompanyId: number | null = null;
+
     
     constructor(private talentConnectService: TalentConnectService,
         private router: Router, private messageService: MessageService, private pageFacade: PageFacadeService) {
@@ -54,6 +58,45 @@ export class CompanyConnect1Component implements OnInit {
         this.listCompanyData()
     }
 
+    toggleShareDropdown(event: MouseEvent, companyId: number) {
+        event.stopPropagation();
+        this.activeDropdownCompanyId = this.activeDropdownCompanyId === companyId ? null : companyId;
+      }
+
+    generateCompanyLink(company: any) {
+
+        /*
+        this.generateUUIDLink(company.id).subscribe((res) => {
+            const uuid = res.uuid;
+            const link = `${window.location.origin}/pages/job/${uuid}`;
+            const message = `Check out this job at ${company.company_name}:\n${link}`;
+
+            navigator.clipboard.writeText(message).then(() => {
+            alert("Link copied to clipboard:\n\n" + message);
+            });
+        });
+        */
+            
+        const uuid = 'abc123-fake-uuid';
+        const link = `${window.location.origin}/pages/job/${uuid}`; 
+        const message = `Check out this job at ${company.company_name}:\n${link}`;
+      
+        navigator.clipboard.writeText(message).then(() => {
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Link Copied!',
+                detail: message,
+                life: 5000
+              });
+        });
+      
+        this.activeDropdownCompanyId = null;
+      }
+
+      generateUUIDLink(companyId: number) {
+        return this.talentConnectService.generateUUIDLink(companyId);
+      }
+      
     listCompanyData(params?: any) {
         const requestData = {
             perpage: this.perPage,
