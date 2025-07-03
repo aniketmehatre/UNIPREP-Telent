@@ -15,14 +15,22 @@ export class LandingComponent implements OnInit, OnDestroy {
     isDarkMode: boolean
     logoUrl$ = this.logoStore.logoUrl$;
 
-    constructor(private logoStore: HeaderLogoStore, private themeService: ThemeService,
-        private router: Router, private authService: AuthService, private route: ActivatedRoute,) {
+    constructor(
+        private logoStore: HeaderLogoStore, 
+        private themeService: ThemeService,
+        private router: Router, 
+        private authService: AuthService, 
+        private route: ActivatedRoute
+    ) {
         // Initialize the isDarkMode property with the value from the service
         this.isDarkMode = this.themeService.getInitialSwitchState()
     }
 
     uuid: any
     ngOnInit() {
+        // The SEO manager component already handles SEO tags globally
+        // We don't need to call setDefaultSeoTags here as it might conflict
+        
         // this.uuid = this.route.snapshot.paramMap.get('uuid');
         // if (this.authService.isTokenValid()) {
         //     if (this.uuid) {

@@ -27,7 +27,7 @@ import { TableModule } from "primeng/table"
 import { TabViewModule } from "primeng/tabview"
 import { MessageService } from "primeng/api"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { SeoManagerComponent } from 'src/app/components/seo-manager/seo-manager.component';
+
 import { PopoverModule } from 'primeng/popover';
 import { TextareaModule } from 'primeng/textarea';
 import { FavouriteList, FeatureFavourite } from './favourites-data';
@@ -44,7 +44,7 @@ import { TalentConnectService } from '../talent-connect/talent-connect.service';
 		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule,
 		PopoverModule, TextareaModule
 	],
-	providers: [DashboardService, DataService, LocationService, SeoManagerComponent],
+	providers: [DashboardService, DataService, LocationService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
@@ -85,7 +85,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	viewAllJobAndCompanies: boolean = false;
 	constructor(private dashboardService: DashboardService, private service: AuthService, private router: Router,
 		private dataService: DataService, private authService: AuthService, private locationService: LocationService,
-		private cdr: ChangeDetectorRef, private toaster: MessageService, private seoManagerComponent: SeoManagerComponent,
+		private cdr: ChangeDetectorRef, private toaster: MessageService,
 		private formBuilder: FormBuilder, private sanitizer: DomSanitizer, private route: ActivatedRoute, private talentConnectService: TalentConnectService
 	) {
 		this.reportSubmitForm = this.formBuilder.group({
@@ -139,7 +139,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		this.recentJobs();
 		this.recentCompanies();
 		this.handleUserData();
-		this.seoManagerComponent.updateDynamicContent('UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship');
+		// SEO is now handled statically in index.html
 	}
 
 	recentJobs() {
@@ -336,7 +336,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 	ngOnDestroy(): void {
 		this.subs.unsubscribe();
-		this.seoManagerComponent.updateDynamicContent("UNIPREP | Your Gateway to International Education, Career Success & Entrepreneurship");
+		// SEO is now handled statically in index.html
 	}
 
 	apiToCheckPartnerOrInstitute() {
