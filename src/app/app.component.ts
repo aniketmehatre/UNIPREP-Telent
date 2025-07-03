@@ -4,14 +4,12 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { ToastModule } from "primeng/toast";
 import { Router, RouterModule } from "@angular/router";
 import { MessageService } from "primeng/api";
-import { SeoManagerComponent } from "./components/seo-manager/seo-manager.component";
 import { SocialShareService } from "./shared/social-share.service";
 import { ScrollTopModule } from "primeng/scrolltop";
 
 @Component({
     selector: "app-root",
     template: `
-        <app-seo-manager></app-seo-manager>
         <router-outlet></router-outlet>
         <p-scrolltop class="position-absolute" [threshold]="100" icon="pi pi-arrow-up"
                      [buttonProps]="{ raised: true, rounded: true }"></p-scrolltop>
@@ -20,7 +18,7 @@ import { ScrollTopModule } from "primeng/scrolltop";
                        bgsType="three-bounce" [bgsOpacity]="1" bgsColor="#f0780e" fgsOpacity="1" fgsColor="#f0780e"
                        [hasProgressBar]="false"></ngx-ui-loader>`,
     standalone: true,
-    imports: [NgxUiLoaderModule, ToastModule, RouterModule, ScrollTopModule, SeoManagerComponent],
+    imports: [NgxUiLoaderModule, ToastModule, RouterModule, ScrollTopModule],
     providers: [MessageService, SocialShareService],
 })
 export class AppComponent implements OnInit {

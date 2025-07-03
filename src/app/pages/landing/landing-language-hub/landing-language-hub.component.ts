@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import {Component, ElementRef, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
@@ -9,7 +9,6 @@ import { AvatarModule } from 'primeng/avatar';
 import { landingServices } from '../landing.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { HeaderLogoStore } from '../landing-page.store';
-import {SeoService} from "../../../services/seo.service";
 import { CarouselModule } from 'primeng/carousel';
 
 @Component({
@@ -27,7 +26,6 @@ import { CarouselModule } from 'primeng/carousel';
   styleUrls: ['./landing-language-hub.component.scss']
 })
 export class LandingLanguageHubComponent implements OnInit, OnDestroy {
-  private seoService = inject(SeoService)
   @ViewChild("videoPlayer")
   videoPlayer!: ElementRef
   isPlaying = false;
@@ -69,14 +67,6 @@ export class LandingLanguageHubComponent implements OnInit, OnDestroy {
   constructor(private logoStore: HeaderLogoStore, private sanitizer: DomSanitizer, private route: ActivatedRoute, private landingPageService: landingServices, public location: Location) { }
 
   ngOnInit() {
-    // Test SEO service on component initialization
-    console.log('Component initialized, testing SEO service...');
-    this.seoService.setPageSeoTags({
-      title: 'Language Hub - UNI PREP (Initial)',
-      description: 'Initial meta description for testing',
-      keywords: 'language, testing, UNI PREP'
-    });
-    
     this.route.params.subscribe(params => {
       if (params?.['slug']) {
         this.landingPageId = params?.['slug'];
@@ -225,25 +215,8 @@ export class LandingLanguageHubComponent implements OnInit, OnDestroy {
         this.landingPageData = response.landingpages;
         console.log('Landing page data:', this.landingPageData);
         
-        // Check if SEO data exists before accessing it
-        if (this.landingPageData?.seo) {
-          console.log('SEO Title:', this.landingPageData.seo.seo_title);
-          
-          this.seoService.setPageSeoTags({
-            title: this.landingPageData.seo.seo_title || 'Language Hub - UNI PREP',
-            description: this.landingPageData.seo.meta_description || 'Explore language learning resources and tools',
-            keywords: this.landingPageData.seo.meta_tag || 'language learning, education, UNI PREP',
-            ogImage: this.landingPageData?.herocover?.image_url || 'uniprep-assets/images/landing-page-mock.png',
-          });
-        } else {
-          console.warn('SEO data not found in response');
-          // Set default meta tags if SEO data is missing
-          this.seoService.setPageSeoTags({
-            title: 'Language Hub - UNI PREP',
-            description: 'Explore language learning resources and tools',
-            keywords: 'language learning, education, UNI PREP',
-          });
-        }
+        // SEO is now handled statically in index.html
+        console.log('SEO Title:', this.landingPageData?.seo?.seo_title);
 
         // Handle poster image
         const poster = this.landingPageData?.herocover?.image_url;
@@ -277,21 +250,8 @@ export class LandingLanguageHubComponent implements OnInit, OnDestroy {
         console.log('Using mock data as fallback');
         this.landingPageData = mockResponse.landingpages;
         
-        if (this.landingPageData?.seo) {
-          this.seoService.setPageSeoTags({
-            title: this.landingPageData.seo.seo_title,
-            description: this.landingPageData.seo.meta_description,
-            keywords: this.landingPageData.seo.meta_tag,
-            ogImage: this.landingPageData?.herocover?.image_url,
-          });
-        } else {
-          // Set default meta tags on error
-          this.seoService.setPageSeoTags({
-            title: 'Language Hub - UNI PREP',
-            description: 'Explore language learning resources and tools',
-            keywords: 'language learning, education, UNI PREP',
-          });
-        }
+        // SEO is now handled statically in index.html
+        console.log('Using mock data as fallback');
       }
     });
   }

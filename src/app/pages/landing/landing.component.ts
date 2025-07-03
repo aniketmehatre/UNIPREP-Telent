@@ -4,7 +4,6 @@ import { AuthService } from "../../Auth/auth.service"
 import { environment } from "@env/environment"
 import { ActivatedRoute, Router } from "@angular/router"
 import { HeaderLogoStore } from "./landing-page.store"
-import { SeoService } from "../../services/seo.service"
 
 @Component({
     selector: "uni-landing",
@@ -21,8 +20,7 @@ export class LandingComponent implements OnInit, OnDestroy {
         private themeService: ThemeService,
         private router: Router, 
         private authService: AuthService, 
-        private route: ActivatedRoute,
-        private seoService: SeoService
+        private route: ActivatedRoute
     ) {
         // Initialize the isDarkMode property with the value from the service
         this.isDarkMode = this.themeService.getInitialSwitchState()
