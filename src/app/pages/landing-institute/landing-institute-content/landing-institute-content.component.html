@@ -1,8 +1,8 @@
 <section class="pb-2 pt-5 py-md-3 darksection" id="home">
   <div class="container-fluid pt-5 text-center">
     <div class="row justify-content-center">
-      <div class="col-md-8 d-flex flex-column justify-content-center align-items-center">
-        <div class="display-2"><span class="text-white fw-extralight">From Classroom to Career</span><br /><span class="text-white fw-bold">Equip Student for the Real World</span></div>
+      <div class="col-md-9 d-flex flex-column justify-content-center align-items-center">
+        <h1><span class="text-white fw-extralight">From Classroom to Career</span><br /><span class="text-white fw-bold">Equip Student for the Real World</span></h1>
         <div class="text-center mb-4 mt-4">
           <a href="/institute/register" class="text-decoration-none"
             ><button type="button" class="btn btn-secondary px-4 py-3 m-0">
@@ -17,7 +17,7 @@
 <section class="pb-0 darksection homebg">
   <div class="container-fluid pt-3 text-center">
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-md-6 col-12">
         <div class="video-container">
           <i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying" (click)="toggleVideo()"></i>
 
@@ -84,11 +84,11 @@
       <div class="row justify-content-center">
         <div class="col-md-8 col-12">
           <div class="row justify-content-md-between align-items-center py-40">
-			<div class="col-md-5" [ngClass]="{ 'order-lg-1 order-1': !section.isRight, 'order-lg-2 order-1': section.isRight }">
-				<div class="landing-content">
-				  <img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border-0" />
-				</div>
-			  </div>
+            <div class="col-md-5" [ngClass]="{ 'order-lg-1 order-1': !section.isRight, 'order-lg-2 order-1': section.isRight }">
+              <div class="landing-content">
+                <img [src]="section.image" [alt]="section.imageAlt" class="img-fluid rounded border-0" />
+              </div>
+            </div>
             <div class="col-md-6" [ngClass]="{ 'order-lg-2 order-2': !section.isRight, 'order-lg-1 order-2': section.isRight }">
               <div class="fs-1 fw-bold mb-3" [innerHTML]="section.title"></div>
               <div class="fs-5 uniprep-secondary mb-3" [innerHTML]="section.subTitle"></div>
@@ -151,9 +151,7 @@
     <div class="row justify-content-center align-items-center">
       <div class="col-md-8">
         <h3 class="text-white fw-light mb-4">Our <span class="fw-bold">Advisors</span></h3>
-        <p-carousel [value]="advisors" [numVisible]="4" [numScroll]="1" [circular]="true" 
-          [autoplayInterval]="3000" [showNavigators]="false" [showIndicators]="false"
-          [responsiveOptions]="responsiveOptions" styleClass="advisors-carousel">
+        <p-carousel [value]="advisors" [numVisible]="4" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [showNavigators]="false" [showIndicators]="false" [responsiveOptions]="responsiveOptions" styleClass="advisors-carousel">
           <ng-template let-advisor pTemplate="item">
             <div class="advisor-item">
               <img [src]="advisor.image" [alt]="advisor.alt" class="advisor-image" />
