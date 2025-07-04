@@ -43,7 +43,7 @@ import { StorageService } from "../../../storage.service";
 import { DropdownModule } from "primeng/dropdown";
 import { PromptService } from "src/app/pages/prompt.service"
 import { User } from "src/app/@Models/user.model"
-
+import { CountryLocationService } from "src/app/shared/country-location.service"
 @Component({
 	selector: "uni-header",
 	templateUrl: "./header.component.html",
@@ -207,6 +207,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private storage: StorageService,
 		private promptService: PromptService,
 		private cdr: ChangeDetectorRef,
+		private countryLocationService: CountryLocationService
 	) {
 		this.dataService.openReportWindowSource.subscribe({
 			next: (data) => {
@@ -1355,12 +1356,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	checkNewUSerLogin() {
+	async checkNewUSerLogin() {
+		
 		if (this.authService._user?.login_status === 4) {
 			if (this.authService._user.is_phn_or_whs_verified === 0) {
 				this.whatsappVerification = true;
 			}
 			else {
+				let userLocation: any = await this.countryLocationService.getUserCountry();
+				let findcountry = this.homeCountryList.find((country: any)=> userLocation === country.country);
+				if(findcountry){
+					this.mobileForm.patchValue({
+						home_country : findcountry.id
+					});
+				}
 				this.freeTrial = true;
 				this.formvisbility = true;
 			}
