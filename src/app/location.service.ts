@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../environments/environment';
+import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {LocationData} from './@Models/location.model'
-import {DeviceDetectorService} from "ngx-device-detector";
-import {LocalStorageService} from "ngx-localstorage";
-import {BehaviorSubject, Observable, of, shareReplay, tap} from 'rxjs';
-import {educationLevel} from './@Models/module.model';
+import { LocationData } from './@Models/location.model'
+import { DeviceDetectorService } from "ngx-device-detector";
+import { LocalStorageService } from "ngx-localstorage";
+import { BehaviorSubject, Observable, of, shareReplay, tap } from 'rxjs';
+import { educationLevel } from './@Models/module.model';
 import { Blog } from './pages/landing/bloglist/bloglist.component';
 
 @Injectable({
@@ -14,7 +14,7 @@ import { Blog } from './pages/landing/bloglist/bloglist.component';
 export class LocationService {
 
     constructor(private http: HttpClient,
-                private deviceService: DeviceDetectorService, private storage: LocalStorageService) {
+        private deviceService: DeviceDetectorService, private storage: LocalStorageService) {
     }
 
 
@@ -31,7 +31,12 @@ export class LocationService {
             headers: headers,
         });
     }
-
+    getAllCountryLocation(data: any) {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/getLocationsByCountry", data, {
+            headers: headers,
+        });
+    }
     getProgramLevel() {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + "/programlevel", {
@@ -41,7 +46,7 @@ export class LocationService {
 
     getUniPerpModuleList() {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/modulecountry", {countryId: Number(this.storage.get('countryId'))}, {
+        return this.http.post<any>(environment.ApiUrl + "/modulecountry", { countryId: Number(this.storage.get('countryId')) }, {
             headers: headers,
         });
     }
@@ -58,9 +63,9 @@ export class LocationService {
 
     GetQuestionsCount(data: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
-            return this.http.post<any>(environment.ApiUrl + "/SubmoduleListForStudents", data, {
-                headers: headers,
-            });
+        return this.http.post<any>(environment.ApiUrl + "/SubmoduleListForStudents", data, {
+            headers: headers,
+        });
     }
 
     getK12MainCategory(data: any) {
@@ -120,10 +125,10 @@ export class LocationService {
         });
     }
     private dataCache$: Observable<any[]> | null = null;
-    getCountry(): Observable<any>  {
+    getCountry(): Observable<any> {
         if (!this.dataCache$) {
             this.dataCache$ = this.http.get<any[]>(environment.ApiUrl + "/country").pipe(
-                tap((data) => {}),
+                tap((data) => { }),
                 shareReplay(1)
             );
         }
@@ -216,7 +221,7 @@ export class LocationService {
         });
     }
 
-      getEducationLevel() {
+    getEducationLevel() {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<educationLevel[]>(environment.ApiUrl + "/geteducationtype", {
             headers: headers,
@@ -247,8 +252,8 @@ export class LocationService {
     // }
 
 
-    getSourceByDomain(data : any) {
-        let req= {
+    getSourceByDomain(data: any) {
+        let req = {
             domain: data,
         }
         const headers = new HttpHeaders().set("Accept", "application/json");

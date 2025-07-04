@@ -38,7 +38,7 @@ export class PartnerRegisterComponent {
 
 	public registrationForm: any = FormGroup;
 	displayTerms = "none";
-	locationList: any;
+	locationList: any[] = [];
 	countryList: any;
 	currentLocationCountry: string = "";
 	currentLocationCity: string = "";
@@ -124,28 +124,22 @@ export class PartnerRegisterComponent {
 	}
 
 	GetLocationList() {
-		if (this.registrationForm.get("home_country").value == 122) {
-			this.registrationForm.get('location')?.enable();
-			this.registrationForm.get('location')?.reset();
-			this.locationService.getLocation().subscribe(
-				(res: any) => {
-					this.locationList = res;
-				},
-				(error: any) => {
-					this.toast.add({
-						severity: "warning",
-						summary: "Warning",
-						detail: error.error.message,
-					});
-				}
-			);
-		} else {
-			this.locationList = [{
-				id: 0, district: "Others", state: "Others" 
-			}];
-			this.registrationForm.get("location").setValue(0);
-			this.registrationForm.get('location')?.disable();
+		this.locationList = [];
+		var data = {
+			country_id: this.registrationForm.get('home_country').value
 		}
+		this.locationService.getAllCountryLocation(data).subscribe(
+			(res: any) => {
+				this.locationList = res.data;
+			},
+			(error: any) => {
+				this.toast.add({
+					severity: "warning",
+					summary: "Warning",
+					detail: error.error.message,
+				});
+			}
+		);
 	}
 
 	fetchCountryList() {
