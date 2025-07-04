@@ -25,7 +25,8 @@
 									<h4>0 {{ studentSubscription?.currency }} <small class="text-secondary">/ 60 Minutes</small></h4>
 									<button class="btn pricing-col-btn text-white w-100 mt-3" routerLink="/register">Try Now</button>
 								</div>
-								<ul class="list-unstyled pricing-list p-3 pt-0">
+								<!-- Desktop view - show full list -->
+								<ul class="list-unstyled pricing-list p-3 pt-0 d-none d-md-flex">
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
@@ -40,6 +41,36 @@
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Pitch Deck</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Founded Tools</li>
 								</ul>
+
+								<!-- Mobile view - accordion -->
+								<div class="accordion d-md-none" id="accordionFree">
+									<div class="accordion-item">
+										<h2 class="accordion-header">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFree" aria-expanded="false" aria-controls="collapseFree">
+												View Features
+											</button>
+										</h2>
+										<div id="collapseFree" class="accordion-collapse collapse" data-bs-parent="#accordionFree">
+											<div class="accordion-body">
+												<ul class="list-unstyled pricing-list text-white p-0">
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education Tools</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Travel Tools</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Learning Hub</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Employer Connect</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Career Tools</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Pitch Deck</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Founded Tools</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 
@@ -60,7 +91,8 @@
 									</h4>
 									<button class="btn pricing-col-btn w-100 mt-3" routerLink="/register">Get Started with the Student plan</button>
 								</div>
-								<ul class="list-unstyled pricing-list p-3 pt-0">
+								<!-- Desktop view - show full list -->
+								<ul class="list-unstyled pricing-list p-3 pt-0 d-none d-md-flex">
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
@@ -75,6 +107,36 @@
 									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Pitch Deck</li>
 									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Founded Tools</li>
 								</ul>
+
+								<!-- Mobile view - accordion -->
+								<div class="accordion d-md-none" id="accordionStudent">
+									<div class="accordion-item">
+										<h2 class="accordion-header">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStudent" aria-expanded="false" aria-controls="collapseStudent">
+												View Features
+											</button>
+										</h2>
+										<div id="collapseStudent" class="accordion-collapse collapse" data-bs-parent="#accordionStudent">
+											<div class="accordion-body">
+												<ul class="list-unstyled pricing-list text-white p-0">
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education Tools</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub</li>
+													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Travel Tools</li>
+													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Learning Hub</li>
+													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Employer Connect</li>
+													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Career Tools</li>
+													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Pitch Deck</li>
+													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Founded Tools</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 
@@ -96,7 +158,8 @@
 									</h4>
 									<button class="btn pricing-col-btn w-100 mt-3" routerLink="/register">Get Started with the Career plan</button>
 								</div>
-								<ul class="list-unstyled pricing-list p-3 pt-0">
+								<!-- Desktop view - show full list -->	
+								<ul class="list-unstyled pricing-list p-3 pt-0 d-none d-md-flex">
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
@@ -111,6 +174,36 @@
 									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Pitch Deck</li>
 									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Founded Tools</li>
 								</ul>
+
+								<!-- Mobile view - accordion -->
+								<div class="accordion d-md-none" id="accordionCareer">
+									<div class="accordion-item">
+										<h2 class="accordion-header">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCareer" aria-expanded="false" aria-controls="collapseCareer">
+												View Features
+											</button>
+										</h2>
+										<div id="collapseCareer" class="accordion-collapse collapse" data-bs-parent="#accordionCareer">
+											<div class="accordion-body">
+												<ul class="list-unstyled pricing-list text-white p-0">
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education Tools</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Travel Tools</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Learning Hub</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Employer Connect</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Career Tools</li>
+													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Pitch Deck</li>
+													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Founded Tools</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 
@@ -133,7 +226,8 @@
 										<button class="btn pricing-col-btn w-100 mt-3" routerLink="/register">Get Started with the Entrepreneur plan</button>
 									</div>
 								</div>
-								<ul class="list-unstyled pricing-list p-3 pt-0">
+								<!-- Desktop view - show full list -->
+								<ul class="list-unstyled pricing-list p-3 pt-0 d-none d-md-flex">
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
@@ -148,6 +242,36 @@
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Pitch Deck</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Founded Tools</li>
 								</ul>
+
+								<!-- Mobile view - accordion -->
+								<div class="accordion d-md-none" id="accordionEntrepreneur">
+									<div class="accordion-item">
+										<h2 class="accordion-header">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEntrepreneur" aria-expanded="false" aria-controls="collapseEntrepreneur">
+												View Features
+											</button>
+										</h2>
+										<div id="collapseEntrepreneur" class="accordion-collapse collapse" data-bs-parent="#accordionEntrepreneur">
+											<div class="accordion-body">
+												<ul class="list-unstyled pricing-list text-white p-0">
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education Tools</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Travel Tools</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Learning Hub</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Employer Connect</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Career Tools</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Pitch Deck</li>
+													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Founded Tools</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
