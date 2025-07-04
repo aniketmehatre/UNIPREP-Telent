@@ -208,7 +208,7 @@
 														<label class="labelText col col-12" for="gender">Gender<span
 																class="required">*</span></label>
 														<p-inputgroup>
-															<p-select (ngModelChange)="onChangeCountry($event)"
+															<p-select
 																[options]="genderOptions" appendTo="body"
 																placeholder="Select your gender"
 																formControlName="gender" id="gender" optionLabel="name"
@@ -248,18 +248,10 @@
 																	class="required">*</span></label>
 															<p-inputgroup>
 																<p-select formControlName="location" optionValue="id"
-																	optionLabel="state" styleClass="w-100"
+																	optionLabel="work_location" styleClass="w-100"
 																	[options]="locationList"
 																	placeholder="Select Location" [filter]="true"
-																	filterBy="state,district" [appendTo]="'body'">
-																	<ng-template let-data pTemplate="item">
-																		<div>{{data.state}} - {{data.district}}</div>
-																	</ng-template>
-																	<ng-template pTemplate="selectedItem"
-																		let-selectedOption>
-																		{{ selectedOption.state }} - {{
-																		selectedOption.district }}
-																	</ng-template>
+																	filterBy="work_location" [appendTo]="'body'">
 																</p-select>
 															</p-inputgroup>
 															<div *ngIf="submitted && f['location']['errors']"
@@ -427,7 +419,7 @@
 											<h4 class="header">Awaiting Confirmation</h4>
 											<h6>
 												Our team will be in touch with you shortly to explore the next
-												steps.We’re excited about building impactful partnerships.
+												steps. We’re excited about building impactful partnerships.
 											</h6>
 
 											<div class="mt-3">

@@ -22,25 +22,11 @@ export class LandingPartnerServices {
     }
     // register partner
 
-    registerPartner(formValue: any): Observable<any> {
-        const formData = new FormData();
-        formData.append('name', formValue.name);
-        formData.append('email', formValue.email);
-        formData.append('phone', formValue.phone);
-        formData.append('phonenumber', formValue.phonenumber);
-        formData.append('password', formValue.password);
-        formData.append('password_confirmation', formValue.password_confirmation);
-        formData.append('country_id', formValue.country_id);
-        formData.append('location_id', formValue.location_id);
-        formData.append('organization_name', formValue.company_name);
-        formData.append('organization_website', formValue.company_website);
-        formData.append('designation', formValue.company_designation);
-        formData.append('gender', formValue.gender);
+    registerPartner(data: any): Observable<any> {
         const headers = new HttpHeaders({
             'Accept': 'application/json'
         });
-
-        return this.http.post<any>(environment.ApiUrl + "/partnerregister", formData, { headers });
+        return this.http.post<any>(environment.ApiUrl + "/partnerregister", data, { headers });
     }
 
     sendEmailOTP(email: any, name: any, mobile: any): Observable<any> {
