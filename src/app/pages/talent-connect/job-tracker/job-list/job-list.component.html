@@ -24,6 +24,7 @@
 							</p>
 							<span class="status-badge" [style.color]="'white'"
 								[style.backgroundColor]="job.color_code">{{ job.stage }}</span>
+								<p class="uniprep-secondary text-extrasmall mb-0">{{ job.matching_skills }}</p>
 						</div>
 						<span class="notification-badge"
 							[ngClass]="{ 'bg-secondary-subtle text-white': !(job.unreadmessageCount > 0) }">
@@ -118,7 +119,7 @@
 						optionValue="experienceLevel" display="chip" class="w-100" appendTo="body"
 						[showClear]="true"> </p-multiSelect>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" *ngIf="activeIndex == 0">
 					<label class="form-label fw-bold">Status</label>
 					<p-multiSelect [options]="jobStatusList" appendTo="body" [filter]="true" formControlName="status"
 						display="chip" placeholder="Select your status" optionLabel="hiringstage" optionValue="id"

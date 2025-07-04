@@ -18,6 +18,7 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class CompanyFilterComponent implements OnInit, OnChanges {
   @Input() openModal: boolean = false;
+  @Input() cerrentTabIndex: number = 0;
   @Output() triggerApplyFiler: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeFilter: EventEmitter<any> = new EventEmitter<any>();
   @Output() resetFilter: EventEmitter<any> = new EventEmitter<any>();
@@ -45,7 +46,7 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
       hq: [],
       globalpresence: [[]], // Array values
       foundedyear: [],
-      status:[]
+      status: []
     });
     this.setIsListViewFromRoute();
     this.loadFoundedYears();
@@ -115,7 +116,11 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
 
   triggerFilter() {
     this.openModal = false;
-    this.triggerApplyFiler.emit(this.companyForm.value);
+    const formData = this.companyForm.value;
+    if (this.cerrentTabIndex !== 0) {
+      formData.status = null;
+    }
+    this.triggerApplyFiler.emit(formData);
   }
 
   onResetFilter() {
