@@ -14,11 +14,6 @@
 	--uniprep-secondaryhighlight: #f6895a;
 	--uniprep-tertiary: #ffffff;
 }
-* {
-	font-family: "Poppins", sans-serif !important;
-	overflow: hidden !important;
- }
-
 .pricing-col {
 	border: 1px solid rgba(230, 221, 254, 0.031372549);
 	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
@@ -52,7 +47,7 @@
 	li {
 		span.tick {
 			font-weight: bold;
-			color: green;
+			color: #9BC329;
 		}
 		span.close {
 			font-weight: bold;
