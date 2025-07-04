@@ -12,6 +12,7 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { UuidInviteCardComponent } from './uuid-invite-card/uuid-invite-card.component';
+import { CompanyInviteCardComponent } from './company-invite-card/company-invite-card.component';
 
 @Component({
   selector: 'uni-landing-content',
@@ -22,7 +23,8 @@ import { UuidInviteCardComponent } from './uuid-invite-card/uuid-invite-card.com
     DialogModule,
     RouterModule,
     ScrollTopModule,
-    UuidInviteCardComponent
+    UuidInviteCardComponent,
+    CompanyInviteCardComponent
   ],
   templateUrl: './landing-content.component.html',
   styleUrls: ['./landing-content.component.scss']
@@ -232,6 +234,9 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
 
   isFromUUID = false;
   uuidCardData: any = null;
+  currentUrl: string = '';
+  isJobLink: boolean = false;
+  isCompanyLink: boolean = false;
 
   constructor(private sanitizer: DomSanitizer, private themeService: ThemeService,
     private formbuilder: FormBuilder, private service: LocationService,
@@ -266,37 +271,19 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
 
-    // if (this.authService.isTokenValid()) {
-    //   this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
-    // }
-    this.uuid = this.route.snapshot.paramMap.get('uuid');
-    if (this.authService.isTokenValid()) {
-      if (this.uuid) {
-        console.log('uuid', this.uuid);
-      } else {
-        console.log('no uuid', this.uuid);
-        this.router.navigate(["/pages/dashboard"]) // Redirect to dashboard
-      }
-    }
+    this.currentUrl = this.router.url;
+  this.uuid = this.route.snapshot.paramMap.get('uuid');
+  this.isFromUUID = !!this.uuid;
 
-    this.uuid = this.route.snapshot.paramMap.get('uuid');
-    this.isFromUUID = !!this.uuid;
-    // const token = this.storage.get<string>('token');
-    // let req = {
-    //   token: token
-    // }
-    // console.log('token', token)
-    // this.service.getValidateToken(req).subscribe((data) => {
-    //   console.log('data', data)
+  this.isJobLink = this.currentUrl.startsWith('/job');
+  this.isCompanyLink = this.currentUrl.startsWith('/company');
 
-    //   if (data.message == 'valid token') {
-    //     console.log('come')
-    //     this.router.navigateByUrl('/login');
-    //   } else {
-    //     this.router.navigateByUrl('/');
-    //   }
-    // });
-
+  if (this.uuid && (this.isJobLink || this.isCompanyLink)) {
+    console.log('UUID found:', this.uuid);
+  } else {
+    console.log('No UUID, redirecting to dashboard');
+    this.router.navigate(['/pages/dashboard']);
+  }
     this.service.getFeatBlogs().subscribe((response) => {
       this.blogs = response.slice(0, 8)
     })

@@ -91,4 +91,7 @@ export class landingServices {
     return this.http.post<any>(`${environment.ApiUrl}/getjobsharedetails`, { uuid });
   }
 
+  getCompanyInviteDetails(uuid: string): Observable<any> {
+    return this.http.post(`${environment.ApiUrl}/getCompanyInviteDetails`, { uuid });
+  }
 }
