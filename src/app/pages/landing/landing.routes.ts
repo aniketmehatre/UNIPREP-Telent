@@ -21,7 +21,7 @@ export const landingRoutes: Routes = [
         component: LandingComponent
     },
     {
-        path: 'institute',
+        path: '',
         loadChildren: () => import('../landing-institute/landing-institute.module').then(c => c.LandingInstituteModule)
     },
     {
@@ -30,8 +30,8 @@ export const landingRoutes: Routes = [
     },
     { path: "co", component: CoBrandedComponent },
     { path: "students/login", component: LoginComponent },
-    { path: "register", component: RegistrationComponent },
-    { path: "login", component: LoginComponent },
+    // { path: "register", component: RegistrationComponent },
+    // { path: "login", component: LoginComponent },
     { path: "privacy", component: PrivacyComponent },
     { path: "certificates", component: CertificatesComponent },
     { path: "enterprisepayment/:id", component: EnterpriseSubscriptionComponent },
@@ -51,7 +51,7 @@ export const landingRoutes: Routes = [
         },
     },
     {
-        path: '',
+        path: 'land',
         component: LandingComponent,
         children: [
             {
