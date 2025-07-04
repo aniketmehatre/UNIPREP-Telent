@@ -9,6 +9,7 @@ import { ThemeService } from 'src/app/theme.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ScrollTopModule } from 'primeng/scrolltop';
+import { CarouselModule } from 'primeng/carousel';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { UuidInviteCardComponent } from './uuid-invite-card/uuid-invite-card.component';
@@ -22,6 +23,7 @@ import { UuidInviteCardComponent } from './uuid-invite-card/uuid-invite-card.com
     DialogModule,
     RouterModule,
     ScrollTopModule,
+    CarouselModule,
     UuidInviteCardComponent
   ],
   templateUrl: './landing-content.component.html',
@@ -40,6 +42,24 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
   embedUrl!: SafeResourceUrl;
   isInitialLoadVideo: boolean = true;
   uuid: string | null = null;
+
+  responsiveOptions = [
+    {
+      breakpoint: '1199px',
+      numVisible: 3,
+      numScroll: 1
+    },
+    {
+      breakpoint: '991px',
+      numVisible: 2,
+      numScroll: 1
+    },
+    {
+      breakpoint: '767px',
+      numVisible: 1,
+      numScroll: 1
+    }
+  ];
 
   stats = [
     {

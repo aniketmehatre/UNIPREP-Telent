@@ -579,17 +579,6 @@ uni-salary-converter {
 	}
 }
 
-uni-bloglist {
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	height: 100%;
-	/* Ensure flex children stack vertically */
-	overflow-x: hidden;
-	overflow-y: auto;
-	min-height: 100vh;
-}
-
 uni-chat {
 	display: flex;
 	flex: 1;
