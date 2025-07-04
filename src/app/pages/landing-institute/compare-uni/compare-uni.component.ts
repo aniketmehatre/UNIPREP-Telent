@@ -126,17 +126,17 @@ export class CompareUniComponent implements OnInit {
         coBranding: true
       }
     },
-    {
-      name: 'Superset',
-      logo: 'uniprep-assets/brands/superset.webp',
-      features: {
-        inbuiltHiring: true,
-        careerPrep: false,
-        entrepreneurship: false,
-        globalEducation: false,
-        coBranding: true
-      }
-    },
+    // {
+    //   name: 'Superset',
+    //   logo: 'uniprep-assets/brands/superset.webp',
+    //   features: {
+    //     inbuiltHiring: true,
+    //     careerPrep: false,
+    //     entrepreneurship: false,
+    //     globalEducation: false,
+    //     coBranding: true
+    //   }
+    // },
     {
       name: 'Handshake',
       logo: 'uniprep-assets/brands/handshake.webp',
