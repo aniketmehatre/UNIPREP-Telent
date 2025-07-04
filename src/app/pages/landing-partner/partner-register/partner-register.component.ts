@@ -187,9 +187,9 @@ export class PartnerRegisterComponent {
 			password_confirmation: this.registrationForm.value.confirmPassword,
 			country_id: this.registrationForm.value.home_country,
 			location_id: this.registrationForm.value.location,
-			company_name: this.registrationForm.value.companyName,
-			company_website: this.registrationForm.value.companyWebsite,
-			company_designation: this.registrationForm.value.designation,
+			organization_name: this.registrationForm.value.companyName,
+			organization_website: this.registrationForm.value.companyWebsite,
+			designation: this.registrationForm.value.designation,
 			phone: this.registrationForm.value.mobileNumber,
 			gender: this.registrationForm.value.gender
 		};
