@@ -7,6 +7,7 @@ import { Country } from 'src/app/@Models/country.model';
 import { SelectModule } from 'primeng/select';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
+import { CarouselModule } from 'primeng/carousel';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -34,7 +35,7 @@ interface InstituteCategory {
 
 @Component({
   selector: 'uni-landing-institute-content',
-  imports: [CommonModule, RouterModule, FormsModule, SelectModule, InputGroupAddonModule, InputGroupModule],
+  imports: [CommonModule, RouterModule, FormsModule, SelectModule, InputGroupAddonModule, InputGroupModule, CarouselModule],
   templateUrl: './landing-institute-content.component.html',
   styleUrl: './landing-institute-content.component.scss'
 })
@@ -155,6 +156,34 @@ export class LandingInstituteContentComponent {
   videoUrl: string = `https://www.youtube.com/embed/42B2CeFKC3U?si=oOPvw0g2JPqducFG?rel=0&autoplay=1`;
   embedUrl!: SafeResourceUrl;
   isInitialLoadVideo: boolean = true;
+
+  advisors = [
+    { image: 'uniprep-assets/images/partner-advisors/advisor-1.png', alt: 'Advisor 1' },
+    { image: 'uniprep-assets/images/partner-advisors/advisor-2.png', alt: 'Advisor 2' },
+    { image: 'uniprep-assets/images/partner-advisors/advisor-3.png', alt: 'Advisor 3' },
+    { image: 'uniprep-assets/images/partner-advisors/advisor-4.png', alt: 'Advisor 4' },
+    { image: 'uniprep-assets/images/partner-advisors/advisor-1.png', alt: 'Advisor 1' },
+    { image: 'uniprep-assets/images/partner-advisors/advisor-2.png', alt: 'Advisor 2' },
+  ];
+
+  responsiveOptions = [
+    {
+      breakpoint: '1199px',
+      numVisible: 4,
+      numScroll: 1
+    },
+    {
+      breakpoint: '991px',
+      numVisible: 3,
+      numScroll: 1
+    },
+    {
+      breakpoint: '767px',
+      numVisible: 3,
+      numScroll: 1
+    }
+  ];
+
   constructor(private landingInstituteService: LandingInstituteService, private sanitizer: DomSanitizer) { }
 
   selectCountry(country: string): void {
