@@ -5,9 +5,7 @@
         <h1><span class="text-white fw-extralight">Power the</span><br /><span class="text-white fw-bold">Next Generation of Talent</span></h1>
         <div class="text-center mb-4 mt-4">
           <a href="/partner/register" class="text-decoration-none"
-            ><button type="button" class="btn btn-secondary-1 px-4 py-3 m-0">
-              <h5 class="mb-0">REGISTER NOW!</h5>
-            </button></a
+            ><button type="button" class="btn btn-secondary-1 px-4 py-3 m-0"><h6 class="mb-0">REGISTER NOW!</h6></button></a
           >
         </div>
       </div>
@@ -117,7 +115,7 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-8 text-center text-md-start">
-        <h3 class="mb-2 text-white fw-light">Who We <span class="text-secondary fw-bold">Work With</span></h3>
+        <h4 class="mb-2 text-white fw-light">Who We <span class="text-secondary fw-bold">Work With</span></h4>
         <p class="mb-4 text-white fs-5">Empowering the Ecosystem of Education, Employment, and Global Mobility</p>
         <div class="row g-3">
           <div *ngFor="let category of partnerCategories; let i = index" class="col-12 col-md-4">
@@ -140,7 +138,7 @@
       <div class="col-md-8 col-12">
         <div class="row">
           <div class="col-12">
-            <h3 class="mb-4 text-white fw-light">Why Partner with <span class="text-orange fw-bold">UNIPREP?</span></h3>
+            <h4 class="mb-4 text-white fw-light">Why Partner with <span class="text-orange fw-bold">UNIPREP?</span></h4>
 
             <div class="p-4 rounded card">
               <p class="mb-1 text-white">{{ whyPartnerParagraph1 }}</p>
@@ -155,7 +153,7 @@
   <div class="container-fluid">
     <div class="row justify-content-center align-items-center">
       <div class="col-md-8 col-12">
-        <h3 class="mb-4 text-white fw-light">Our <span class="fw-bold">Advisors</span></h3>
+        <h4 class="mb-4 text-white fw-light">Our <span class="fw-bold">Advisors</span></h4>
         <p-carousel [value]="advisorImages" [numVisible]="4" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [showNavigators]="false" [showIndicators]="false" [responsiveOptions]="responsiveOptions" styleClass="advisor-carousel">
           <ng-template let-advisor pTemplate="item">
             <div class="advisor-item">
@@ -175,11 +173,8 @@
           <div class="card-body">
             <div class="row align-items-center justify-content-center">
               <div class="col-md-9">
-                <h3 class="mb-md-0 mb-3 text-md-start text-center text-white">{{ wantToKnowMoreTitle }}</h3>
-                <h5 class="fw-medium text-white d-md-block d-none">
-                  {{ wantToKnowMoreLead }}
-                </h5>
-                <h5 class="fw-medium text-white text-center d-md-none d-block">{{ wantToKnowMoreLead }}</h5>
+                <h4 class="mb-md-0 mb-3 text-md-start text-center text-white">{{ wantToKnowMoreTitle }}</h4>
+                <h6 class="fw-medium text-white text-md-start text-center">{{ wantToKnowMoreLead }}</h6>
               </div>
               <div class="col-md-3 col-9 text-center text-md-end">
                 <a href="/partner/register" class="btn cta-btn m-0 h5 py-3">{{ joinNowButtonText }}</a>
