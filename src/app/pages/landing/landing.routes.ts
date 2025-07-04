@@ -30,8 +30,8 @@ export const landingRoutes: Routes = [
     },
     { path: "co", component: CoBrandedComponent },
     { path: "students/login", component: LoginComponent },
-    { path: "register", component: RegistrationComponent },
-    { path: "login", component: LoginComponent },
+    // { path: "register", component: RegistrationComponent },
+    // { path: "login", component: LoginComponent },
     { path: "privacy", component: PrivacyComponent },
     { path: "certificates", component: CertificatesComponent },
     { path: "enterprisepayment/:id", component: EnterpriseSubscriptionComponent },
@@ -39,7 +39,7 @@ export const landingRoutes: Routes = [
     { path: "verification/:email", component: VerificationComponent },
     { path: "setpassword/:otp/:email", component: SetpasswordComponent },
     {
-        path: 'talent',
+        path: '',
         loadChildren: () => import('../landing-talent-connect/landing-new.module').then(c => c.LandingModule)
     },
     {
@@ -51,7 +51,7 @@ export const landingRoutes: Routes = [
         },
     },
     {
-        path: '',
+        path: 'land',
         component: LandingComponent,
         children: [
             {
