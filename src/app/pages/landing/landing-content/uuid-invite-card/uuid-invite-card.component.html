@@ -1,14 +1,15 @@
 <section class="darksection py-5" *ngIf="data">
 	<div class="container-fluid">
 		<div class="row justify-content-center">
-			<div class="col-md-8">
-				<div class="row g-3">
+			<div class="col-md-9">
+				<div class="row g-3 p-4">
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-header">
 								<div class="row">
 									<div class="col-md-2 col-4 mb-md-0 mb-3">
-										<div class="d-flex justify-content-center align-items-center logo-container bg-white rounded border" style="aspect-ratio: 1">
+										<div class="d-flex justify-content-center align-items-center logo-container bg-white rounded border"
+											style="aspect-ratio: 1">
 											<img class="w-100" [src]="data.company_logo_url" alt="Company Logo" />
 										</div>
 									</div>
@@ -22,14 +23,16 @@
 														<i class="fas fa-badge-check"></i>
 													</span>
 												</div>
-												<p class="text-muted text-small">
+												<!-- <p class="text-muted text-small">
 													Job id: <strong>{{ data.job_id }}</strong>
-												</p>
+												</p> -->
 											</div>
 											<div class="col-md-3">
 												<div class="d-flex justify-content-end gap-3">
-													<button pButton type="button" class="btn btn-success w-100">Share</button>
-													<button pButton type="button" class="btn primary-btn w-100" (click)="onClickApply(data.job_id)">Apply</button>
+													<!-- <button pButton type="button"
+														class="btn btn-success w-100">Share</button> -->
+													<button pButton type="button" class="btn primary-btn w-100"
+														(click)="onClickApply(data.job_id)">Apply</button>
 												</div>
 											</div>
 										</div>
@@ -38,14 +41,17 @@
 												<div class="d-flex gap-3 align-items-center">
 													<div class="">
 														<div class="d-flex gap-2 text-left align-items-center">
-															<i class="fas fa-user-magnifying-glass me-2 mt-1 color-black"></i>
+															<i
+																class="fas fa-user-magnifying-glass me-2 mt-1 color-black"></i>
 															<div>
-																<p class="text-muted text-small mb-1">Available Vacancies</p>
-																<p class="fw-bold h3 mb-0">{{ data.available_vacancies }}</p>
+																<p class="text-muted text-small mb-1">Available
+																	Vacancies</p>
+																<p class="fw-bold h3 mb-0">{{ data.available_vacancies
+																	}}</p>
 															</div>
 														</div>
 													</div>
-													<div class="">
+													<div class="d-none">
 														<div class="d-flex gap-2 text-left align-items-center">
 															<i class="fas fa-user-tie me-2 mt-1 color-orange"></i>
 															<div>
@@ -58,8 +64,10 @@
 														<div class="d-flex gap-2 text-left align-items-center">
 															<i class="fas fa-video me-2 mt-1 color-gray"></i>
 															<div>
-																<p class="text-muted text-small mb-1">Introduction Video</p>
-																<p class="fw-bold mb-0">{{ data.intro_video === 1 ? "Mandatory" : "Not Mandatory" }}</p>
+																<p class="text-muted text-small mb-1">Introduction Video
+																</p>
+																<p class="fw-bold mb-0">{{ data.intro_video === 1 ?
+																	"Mandatory" : "Not Mandatory" }}</p>
 															</div>
 														</div>
 													</div>
@@ -71,7 +79,7 @@
 							</div>
 							<div class="card-body">
 								<div class="row">
-									<div class="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6 mb-3">
+									<!-- <div class="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6 mb-3">
 										<div class="d-flex gap-2 text-left align-items-center">
 											<i class="fas fa-users me-2 mt-1 color-gray"></i>
 											<div>
@@ -79,7 +87,7 @@
 												<p class="fw-bold mb-0">{{ data.experience_level }}</p>
 											</div>
 										</div>
-									</div>
+									</div> -->
 									<div class="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6 mb-3">
 										<div class="d-flex gap-2 text-left align-items-center">
 											<i class="fas fa-calendar me-2 mt-1 color-purple"></i>
@@ -114,7 +122,7 @@
 												<p class="text-small text-muted mb-1">Work Mode</p>
 												<p class="fw-bold mb-0" *ngIf="data?.work_mode?.length">
 													{{ data.work_mode.join(", ") }}
-												  </p>
+												</p>
 											</div>
 										</div>
 									</div>
@@ -132,7 +140,8 @@
 											<i class="fas fa-dollar me-2 mt-1 color-green"></i>
 											<div>
 												<p class="text-small text-muted mb-1">Salary / Month</p>
-												<p class="fw-bold mb-0">{{ data.salary_offer }} {{ data.currency_code }}</p>
+												<p class="fw-bold mb-0">{{ data.salary_offer }} {{ data.currency_code }}
+												</p>
 											</div>
 										</div>
 									</div>
@@ -210,7 +219,9 @@
 											<li *ngFor="let lang of data.languages" class="mb-3">
 												<div class="d-flex align-items-center gap-2">
 													<span class="me-2">{{ lang.lang }}</span>
-													<p-rating *ngIf="lang.level" style="font-size: large" [ngModel]="getProficiencyRating(lang.level)" [readonly]="true"></p-rating>
+													<p-rating *ngIf="lang.level" style="font-size: large"
+														[ngModel]="getProficiencyRating(lang.level)"
+														[readonly]="true"></p-rating>
 												</div>
 											</li>
 										</ul>
@@ -229,7 +240,8 @@
 									</div>
 									<div class="col-md-9">
 										<div class="d-flex flex-wrap gap-2">
-											<span *ngFor="let resp of data.compensation_structure" class="custom-badge">{{ resp }}</span>
+											<span *ngFor="let resp of data.compensation_structure"
+												class="custom-badge">{{ resp }}</span>
 										</div>
 									</div>
 								</div>
@@ -246,7 +258,8 @@
 									</div>
 									<div class="col-md-9">
 										<div class="d-flex flex-wrap gap-2">
-											<span *ngFor="let benefit of data.benefits_perks" class="custom-badge">{{ benefit }}</span>
+											<span *ngFor="let benefit of data.benefits_perks" class="custom-badge">{{
+												benefit }}</span>
 										</div>
 									</div>
 								</div>
@@ -263,7 +276,8 @@
 									</div>
 									<div class="col-md-9">
 										<div class="d-flex flex-wrap gap-2">
-											<span *ngFor="let skill of data.soft_skills" class="custom-badge">{{ skill }}</span>
+											<span *ngFor="let skill of data.soft_skills" class="custom-badge">{{ skill
+												}}</span>
 										</div>
 									</div>
 								</div>
@@ -283,15 +297,18 @@
 											<div class="col-12 col-md-12 font-bold">
 												<p class="mb-2 uniprep-primary fw-semibold">Hiring Process Stages</p>
 												<div class="d-flex flex-wrap gap-2 mb-4">
-													<span *ngFor="let stage of data.hiring_stages" class="custom-badge">{{ stage }}</span>
+													<span *ngFor="let stage of data.hiring_stages"
+														class="custom-badge">{{ stage }}</span>
 												</div>
 
-												<p class="mb-2 uniprep-primary fw-semibold">Estimated Hiring Decision Timeframe</p>
+												<p class="mb-2 uniprep-primary fw-semibold">Estimated Hiring Decision
+													Timeframe</p>
 												<p class="mb-4">{{ data.hiring_timeframe }} Weeks</p>
 
 												<p class="mb-2 uniprep-primary fw-semibold">Interview Format</p>
 												<div class="d-flex flex-wrap gap-2 mb-4">
-													<span *ngFor="let stage of data.interview_format" class="custom-badge">
+													<span *ngFor="let stage of data.interview_format"
+														class="custom-badge">
 														{{ stage }}
 													</span>
 												</div>
