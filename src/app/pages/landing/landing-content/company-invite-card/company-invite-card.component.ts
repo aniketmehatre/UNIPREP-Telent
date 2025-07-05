@@ -1,18 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { landingServices } from '../../landing.service';
 import { StorageService } from 'src/app/storage.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'uni-company-invite-card',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './company-invite-card.component.html',
   styleUrl: './company-invite-card.component.scss'
 })
-export class CompanyInviteCardComponent {
+export class CompanyInviteCardComponent  implements OnInit {
 
-  data: any = null;
+  dataDetails: any = null;
   uuid: string | null = null;
 
   constructor(
@@ -24,50 +25,39 @@ export class CompanyInviteCardComponent {
 
   ngOnInit(): void {
     this.uuid = this.route.snapshot.paramMap.get('uuid');
-    console.log('UUID from route:', this.uuid);
+
+    // if (this.uuid) {
+    //   this.landingService.getCompanyInviteDetails(this.uuid).subscribe({
+    //     next: (response: any) => {
+    //       this.dataDetails = response.dataDetails[0];  
+    //     },
+    //     error: (err: any) => {
+    //       console.error('❌ Error fetching job details:', err);
+    //     }
+    //   });
+    // }
 
     if (this.uuid) {
-      this.landingService.getCompanyInviteDetails(this.uuid).subscribe({
-        next: (response: any) => {
-          console.log('✅ Received from backend:', response);
-          this.data = response.data[0]; // once format is confirmed, map if needed
-        },
-        error: (err: any) => {
-          console.error('❌ Error fetching job details:', err);
-        }
-      });
-    }
-
-
-    if (this.uuid) {
-      this.data = {
-        companyLogo: '',
-        title: 'Senior UI/UX Designer',
-        postedDate: '19–02–2025',
-        vacancies: 50,
-        applied: 10,
-        video: 'Not Mandatory',
-        startDate: '19–02–2025',
-        deadline: '25–02–2025',
-        location: 'Mysore, India',
-        workMode: 'Onsite',
-        experience: '0–50',
-        position: 'UI Designer',
-        salary: '₹50,000/mo',
-        level: 'Mid Level',
-        degree: "Bachelor's",
-        industry: 'Tech Industry',
-        overview: `We are looking for a creative and detail-oriented UI/UX Designer to join our team at UNIABROAD. The ideal candidate will be responsible for designing user-friendly, engaging, and visually appealing interfaces for our digital platforms, ensuring a seamless user experience for students and stakeholders.`,
-        responsibilities: [
-          'Design and implement intuitive, user-centered interfaces for web and mobile applications.',
-          'Conduct user research and usability testing to understand pain points and improve UI/UX designs.',
-          'Develop wireframes, prototypes, and mockups that effectively communicate design ideas.'
-        ]
+      this.dataDetails = {
+        founded: "2019",
+        companyName: "Swiggy",
+        companyLogo: "https://uniprep.ai/uniprepapi/storage/app/public/CompanyConnectIcons/Swiggy.png",
+        industryType: "Food & Beverage Services (Restaurants, Cafés)",
+        companySize: "10,001-25,000",
+        headquarters: "Bengaluru, India",
+        globalPresence: "India, United Kingdom, Singapore, Ireland, Poland",
+        department: "IT",
+        website: "https://www.swiggy.com/",
+        linkedinLink: "https://www.linkedin.com/company/swiggy-in/",
+        aboutCompany: `Swiggy, founded in 2014 and headquartered in Bengaluru, India, has rapidly emerged as a leading food delivery service in the country. 
+        With a workforce of over 10,000 employees, the company has established itself as a pivotal player in the Indian food tech landscape, 
+        revolutionizing the way consumers experience dining.
+    
+        With a commitment to quality and customer satisfaction, Swiggy offers a seamless platform for users to order from a diverse range of restaurants. 
+        Its innovative approach to logistics and technology ensures timely deliveries, making it a preferred choice for millions across India who seek 
+        convenience and variety in their food options.`
       };
     }
   }
-
-
-
 
 }

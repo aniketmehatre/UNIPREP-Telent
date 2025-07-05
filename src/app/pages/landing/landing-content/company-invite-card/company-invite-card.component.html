@@ -1,1 +1,105 @@
-<p>company-invite-card works!</p>
+<section class="darksection py-5" *ngIf="dataDetails">
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="row g-3">
+					<div class="col-md-12">
+						<div class="card mb-2">
+						  <div class="card-header bg-white d-flex justify-content-between align-items-center flex-wrap">
+							<div class="d-flex align-items-center flex-grow-1 flex-wrap">
+							  <!-- Logo -->
+							  <div class="me-3 mb-2 logo-container bg-white rounded border d-flex align-items-center justify-content-center">
+								<img [src]="dataDetails?.companyLogo" alt="Company Logo" class="w-100" />
+							  </div>
+					  
+							  <!-- Company Name and Founded Year -->
+							  <div class="d-flex flex-column">
+								<h3 class="fw-bold mb-1">{{ dataDetails?.companyName }}</h3>
+								<p class="text-muted mb-0">Founded : {{ dataDetails?.founded || 'N/A' }}</p>
+							  </div>
+							</div>
+					  
+							<!-- Action Buttons -->
+							<div class="d-flex flex-wrap gap-2">
+							  <button class="btn btn-success d-flex align-items-center">
+								Share <i class="pi pi-share-alt ms-1"></i>
+							  </button>
+							  <button class="btn btn-primary d-flex align-items-center">
+								Follow <i class="pi pi-plus ms-1"></i>
+							  </button>
+							</div>
+						  </div>
+						</div>
+					</div>
+					<div class="card-body overflow-y-auto">
+						<div class="container-fluid">
+						  <div class="row">
+							<!-- About Organization Section -->
+							<div class="card mb-4">
+							  <div class="card-body">
+								<div class="row">
+								  <div class="col-md-2">
+									<h2 class="fw-bold mb-4">About Organization</h2>
+								  </div>
+								  <div class="col">
+									<div class="row">
+									  <div class="col-md-3 mb-3">
+										<h6 class="text-muted text-primary">Industry Type</h6>
+										<p>{{ dataDetails?.industryType }}</p>
+									  </div>
+									  <div class="col-md-3 mb-3">
+										<h6 class="text-muted text-primary">Company Size</h6>
+										<p>{{ dataDetails?.companySize }}</p>
+									  </div>
+									  <div class="col-md-3 mb-3">
+										<h6 class="text-muted text-primary">Headquarters</h6>
+										<p>{{ dataDetails?.headquarters }}</p>
+									  </div>
+									  <div class="col-md-3 mb-3">
+										<h6 class="text-muted text-primary">Global Presence</h6>
+										<p>{{ dataDetails?.globalPresence }}</p>
+									  </div>
+									  <div class="col-md-3 mb-3">
+										<h6 class="text-muted text-primary">Department</h6>
+										<p>{{ dataDetails?.department }}</p>
+									  </div>
+									  <div class="col-md-3 mb-3">
+										<h6 class="text-muted text-primary">Official Website</h6>
+										<p (click)="openUrl(dataDetails?.website)" role="button" class="text-break text-primary">
+										  <i class="pi pi-globe fs-3"></i>
+										</p>
+									  </div>
+									  <div class="col-md-3 mb-3">
+										<h6 class="text-muted text-primary">LinkedIn Profile</h6>
+										<p (click)="openUrl(dataDetails?.linkedinLink)" role="button" class="text-break text-primary">
+										  <i class="pi pi-linkedin fs-3"></i>
+										</p>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+					  
+							<!-- Company Insights Section -->
+							<div class="card mb-4">
+							  <div class="card-body">
+								<div class="row">
+								  <div class="col-md-2">
+									<h2 class="fw-bold mb-4">Company Insights</h2>
+								  </div>
+								  <div class="col">
+									<h5 class="text-primary">About Company</h5>
+									<div style="white-space: pre-line">{{ dataDetails?.aboutCompany }}</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
