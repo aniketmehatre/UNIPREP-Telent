@@ -1357,17 +1357,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	async checkNewUSerLogin() {
-		
+
 		if (this.authService._user?.login_status === 4) {
 			if (this.authService._user.is_phn_or_whs_verified === 0) {
 				this.whatsappVerification = true;
 			}
 			else {
 				let userLocation: any = await this.countryLocationService.getUserCountry();
-				let findcountry = this.homeCountryList.find((country: any)=> userLocation === country.country);
-				if(findcountry){
+				let findcountry = this.homeCountryList.find((country: any) => userLocation === country.country);
+				if (findcountry) {
 					this.mobileForm.patchValue({
-						home_country : findcountry.id
+						home_country: findcountry.id
 					});
 				}
 				this.freeTrial = true;

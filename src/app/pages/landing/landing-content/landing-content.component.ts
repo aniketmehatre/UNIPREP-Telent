@@ -26,7 +26,7 @@ import { CompanyInviteCardComponent } from './company-invite-card/company-invite
     ScrollTopModule,
     CarouselModule,
     UuidInviteCardComponent,
-    CompanyInviteCardComponent
+    // CompanyInviteCardComponent
   ],
   templateUrl: './landing-content.component.html',
   styleUrls: ['./landing-content.component.scss']
@@ -296,14 +296,25 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
     this.isFromUUID = !!this.uuid;
 
     this.isJobLink = this.currentUrl.startsWith('/job');
-    this.isCompanyLink = this.currentUrl.startsWith('/company');
+    // this.isCompanyLink = this.currentUrl.startsWith('/company');
 
-    if (this.uuid && (this.isJobLink || this.isCompanyLink)) {
+    if (this.uuid && (this.isJobLink)) {
       console.log('UUID found:', this.uuid);
     } else {
       console.log('No UUID, redirecting to dashboard');
-      this.router.navigate(['/pages/dashboard']);
+      //this.router.navigate(['/pages/dashboard']);
     }
+
+
+    // this.isJobLink = this.currentUrl.startsWith('/job');
+    // this.isCompanyLink = this.currentUrl.startsWith('/company');
+
+    // if (this.uuid && (this.isJobLink || this.isCompanyLink)) {
+    //   console.log('UUID found:', this.uuid);
+    // } else {
+    //   console.log('No UUID, redirecting to dashboard');
+    //   this.router.navigate(['/pages/dashboard']);
+    // }
     this.service.getFeatBlogs().subscribe((response) => {
       this.blogs = response.slice(0, 8)
     })
