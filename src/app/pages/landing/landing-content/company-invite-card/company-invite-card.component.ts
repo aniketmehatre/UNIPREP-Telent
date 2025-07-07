@@ -25,39 +25,39 @@ export class CompanyInviteCardComponent  implements OnInit {
 
   ngOnInit(): void {
     this.uuid = this.route.snapshot.paramMap.get('uuid');
-
-    // if (this.uuid) {
-    //   this.landingService.getCompanyInviteDetails(this.uuid).subscribe({
-    //     next: (response: any) => {
-    //       this.dataDetails = response.dataDetails[0];  
-    //     },
-    //     error: (err: any) => {
-    //       console.error('❌ Error fetching job details:', err);
-    //     }
-    //   });
-    // }
-
+  
     if (this.uuid) {
-      this.dataDetails = {
-        founded: "2019",
-        companyName: "Swiggy",
-        companyLogo: "https://uniprep.ai/uniprepapi/storage/app/public/CompanyConnectIcons/Swiggy.png",
-        industryType: "Food & Beverage Services (Restaurants, Cafés)",
-        companySize: "10,001-25,000",
-        headquarters: "Bengaluru, India",
-        globalPresence: "India, United Kingdom, Singapore, Ireland, Poland",
-        department: "IT",
-        website: "https://www.swiggy.com/",
-        linkedinLink: "https://www.linkedin.com/company/swiggy-in/",
-        aboutCompany: `Swiggy, founded in 2014 and headquartered in Bengaluru, India, has rapidly emerged as a leading food delivery service in the country. 
-        With a workforce of over 10,000 employees, the company has established itself as a pivotal player in the Indian food tech landscape, 
-        revolutionizing the way consumers experience dining.
-    
-        With a commitment to quality and customer satisfaction, Swiggy offers a seamless platform for users to order from a diverse range of restaurants. 
-        Its innovative approach to logistics and technology ensures timely deliveries, making it a preferred choice for millions across India who seek 
-        convenience and variety in their food options.`
-      };
+      this.landingService.getCompanyInviteDetails(this.uuid).subscribe({
+        next: (response: any) => {
+          const data = response.dataDetails?.[0];
+  
+          if (data) {
+            this.dataDetails = {
+              founded: data.founded_year,
+              companyName: data.company_name,
+              companyLogo: data.company_logo,
+              industryType: data.industry_type,
+              companySize: data.size || data.company_size,
+              headquarters: `${data.HQ_city}, ${data.HQ_country}`,
+              globalPresence: data.global_presence,
+              website: data.website,
+              linkedinLink: data.linkedin_link,
+              aboutCompany: data.insight
+            };
+          }
+        },
+        error: (err: any) => {
+          console.error('❌ Error fetching company details:', err);
+        }
+      });
     }
   }
 
+  openUrl(url: string) {
+    if (url && !url.startsWith('http')) {
+      url = 'https://' + url;
+    }
+    window.open(url, '_blank');
+  }
+  
 }
