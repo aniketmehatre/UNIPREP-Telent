@@ -51,6 +51,7 @@
 						*ngIf="!isShowAiEvaluation else showAIValuationBodyContent">
 						<p-stepper [value]="activePageIndex">
 							<p-step-panels>
+								<!-- Personal Information -->
 								<p-step-panel [value]="0">
 									<ng-template #content>
 										<form [formGroup]="personalInformationForm">
@@ -158,7 +159,8 @@
 																optionLabel="nationality_name" optionValue="id"
 																[filter]="true" filterBy="nationality_name"
 																[appendTo]="'body'" (focusout)="resetMessageBox()"
-																(onFocus)="updateMessageBox('nationality_id')"></p-select>
+																(onFocus)="updateMessageBox('nationality_id')"
+																></p-select>
 															<small class="text-danger"
 																*ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('nationality_id')?.errors?.required">
 																Nationality is required </small>
@@ -187,7 +189,7 @@
 										</form>
 									</ng-template>
 								</p-step-panel>
-
+								<!-- Education Details -->
 								<p-step-panel [value]="1">
 									<ng-template #content>
 										<form [formGroup]="educationDetailsForm">
@@ -240,7 +242,7 @@
 													</div>
 													<div class="row mb-3">
 														<div class="col-md-6">
-															<label for="fieldOfStudy" class="form-label">Field of
+															<label class="form-label">Field of
 																study
 																<span class="text-danger">*</span></label>
 															<p-select formControlName="education_field_id"
@@ -273,8 +275,7 @@
 													</div>
 													<div class="row mb-3">
 														<div class="col-md-6">
-															<label for="fieldOfStudy" class="form-label">Graduation
-																Year
+															<label class="form-label">Graduation Year
 																<span class="text-danger">*</span></label>
 															<div class="p-inputgroup">
 																<p-select formControlName="education_graduation_year_id"
@@ -283,6 +284,7 @@
 																	placeholder="Select Graduation Year"
 																	styleClass="w-100"
 																	optionLabel="graduation_year_name" optionValue="id"
+																	(onChange)="onChangeGraduationYear($event, i)"
 																	(focusout)="resetMessageBox()"
 																	(onFocus)="updateMessageBox('education_graduation_year_id')"></p-select>
 															</div>
@@ -360,7 +362,7 @@
 										</form>
 									</ng-template>
 								</p-step-panel>
-
+								<!-- Work Experience Details -->
 								<p-step-panel [value]="2">
 									<ng-template #content>
 										<form [formGroup]="workExperienceForm">
@@ -394,7 +396,7 @@
 																Company Name is required </small>
 														</div>
 														<div class="col-md-6 mb-3">
-															<label for="fieldOfStudy" class="form-label">Job
+															<label class="form-label">Job
 																Title</label>
 															<p-select [virtualScroll]="true"
 																[virtualScrollItemSize]="50"
@@ -617,10 +619,9 @@
 										</form>
 									</ng-template>
 								</p-step-panel>
-
+								<!-- Career Prefrenences -->
 								<p-step-panel [value]="3">
 									<ng-template #content>
-
 										<h2 class="card-title mb-1">Career Prefrenences & Aspirations</h2>
 										<div class="mb-2">
 											<span class="text-danger fw-bold">Confused about your career?</span>
@@ -789,8 +790,7 @@
 												<div class="row">
 													<div class="col-md-6">
 														<label class="form-label">
-															Department<span
-																class="text-danger">*</span></label>
+															Department<span class="text-danger">*</span></label>
 														<p-multiSelect appendTo="body"
 															formControlName="career_preference_department_id"
 															[options]="departmentList" placeholder="Select Department"
@@ -806,7 +806,7 @@
 										</form>
 									</ng-template>
 								</p-step-panel>
-
+								<!-- Certifications -->
 								<p-step-panel [value]="4">
 									<ng-template #content>
 										<form [formGroup]="certificationsForm">
@@ -928,7 +928,7 @@
 										</form>
 									</ng-template>
 								</p-step-panel>
-
+								<!-- Key Strengths -->
 								<p-step-panel [value]="5">
 									<ng-template #content>
 										<h2 class="card-title mb-1">Key Strengths & Professional Traits</h2>
@@ -1012,7 +1012,7 @@
 												<div class="row mb-3">
 													<div class="col-md-6">
 														<label class="form-label">
-															Soft skills</label>
+															Soft skills<span class="text-danger">*</span></label>
 														<p-multiSelect formControlName="career_preference_soft_skill_id"
 															[options]="softSkills" optionValue="id"
 															optionLabel="soft_skill"
@@ -1029,7 +1029,7 @@
 										</form>
 									</ng-template>
 								</p-step-panel>
-
+								<!-- Professional Networking -->
 								<p-step-panel [value]="6">
 									<ng-template #content>
 										<h2 class="card-title mb-3">Professional Networking & Online Presence</h2>
@@ -1127,7 +1127,7 @@
 										</form>
 									</ng-template>
 								</p-step-panel>
-
+								<!-- Attachments & Media -->
 								<p-step-panel [value]="7">
 									<ng-template #content>
 										<h2 class="card-title mb-3">Attachments & Media</h2>
@@ -1227,10 +1227,10 @@
 										</form>
 									</ng-template>
 								</p-step-panel>
-
+								<!-- References -->
 								<p-step-panel [value]="8">
 									<ng-template #content>
-										<h2 class="card-title mb-3">Reference & Endorsement</h2>
+										<h2 class="card-title mb-3">References & Endorsements</h2>
 										<form [formGroup]="referencesForm">
 											<ng-container class="work-experience" formArrayName="academicReferences">
 												<ng-container
@@ -1397,7 +1397,7 @@
 										</form>
 									</ng-template>
 								</p-step-panel>
-
+								<!-- Additional Notes -->
 								<p-step-panel [value]="9">
 									<ng-template #content>
 										<form [formGroup]="additionalNotesForm">
@@ -1900,7 +1900,7 @@
 	<ng-template #message let-message>
 		<div class="d-flex flex-column align-items-center w-100 gap-4 mt-1">
 			<i class="text-success fa-solid fa-check-circle" style="font-size: 50px"></i>
-			<p>Created your profile successfully</p>
+			<p>Your Talent profile has been successfully created.</p>
 		</div>
 	</ng-template>
 	<ng-template #footer>

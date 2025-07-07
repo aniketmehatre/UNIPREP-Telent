@@ -33,6 +33,7 @@ export class JobListComponent implements OnInit {
   @Output() emitId: EventEmitter<number> = new EventEmitter();
   @Input() displayModal: boolean = false;
   @Output() closeFilter: EventEmitter<boolean> = new EventEmitter<boolean>(true);
+  @Output() onJobTotalCount: EventEmitter<any> = new EventEmitter<any>();
 
   activeIndex: number = 0;
   first: number = 0;
@@ -83,10 +84,14 @@ export class JobListComponent implements OnInit {
   }
 
   getAppliedJobList(params?: any) {
-    const data = {
+    let isAppliedFilter = false;
+    let data = {
       page: this.page,
       perPage: this.pageSize,
-      ...params
+    }
+    if (params) {
+      isAppliedFilter = true;
+      data = { ...data, ...params };
     }
     this.talentConnectService.getAppliedJobList(data).subscribe({
       next: response => {
@@ -103,6 +108,10 @@ export class JobListComponent implements OnInit {
         ];
         this.jobStatusList = response.hiringStages;
         this.totalPage = Math.ceil(response.totaljobs / this.pageSize);
+        this.onJobTotalCount.emit({
+          appliedFilter: isAppliedFilter,
+          jobCount: response.totaljobs
+        });
       },
       error: error => {
         console.log(error);
@@ -158,7 +167,7 @@ export class JobListComponent implements OnInit {
 
   applyFilter(): void {
     const formData = this.filterForm.value;
-    if(this.activeIndex !== 0) {
+    if (this.activeIndex !== 0) {
       formData.status = null;
     }
     this.getAppliedJobList(formData);

@@ -40,7 +40,6 @@ export class JobTrackerComponent {
 	restrict: boolean = false;
 	howItWorksVideoLink: string = "";
 	selectedJobId: number | null = null;
-	totalJobs: number = 100; // As shown in the UI
 	activeTab: string = "All Jobs";
 	tabs = ["All Jobs", "Job Applied", "Application Received", "Shortlisted"];
 	currentPage: number = 1;
@@ -51,6 +50,8 @@ export class JobTrackerComponent {
 	messages: ChatMessage[] = [];
 	newMessage: string = "";
 	jobDetails: Job;
+	jobTotalCount: number = 0;
+	isAppliedFilter: boolean = false;
 	
 	constructor(private talentConnectService: TalentConnectService, private pageFacade: PageFacadeService) { }
 
@@ -88,5 +89,10 @@ export class JobTrackerComponent {
 
 	openVideoPopup(videoLink: string) {
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	}
+
+	getJobTotalCount(data: any) {
+		this.jobTotalCount = data?.jobCount;
+		this.isAppliedFilter = data?.appliedFilter;
 	}
 }

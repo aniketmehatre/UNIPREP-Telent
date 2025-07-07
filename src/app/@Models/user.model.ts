@@ -55,4 +55,5 @@ export interface User {
     home_country_id: number;
     subscription_exists: number;
     social_password: number;
+    city_id: number;
 }

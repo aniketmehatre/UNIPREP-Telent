@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
 import { Meta } from '@angular/platform-browser';
 import { SocialShareService } from 'src/app/shared/social-share.service';
-import { StorageService } from 'src/app/storage.service';
+import { AuthService } from 'src/app/Auth/auth.service';
 
 interface JobListing {
   id: number;
@@ -64,16 +64,13 @@ export class EasyApplyComponent {
   hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' }, { id: 3, name: 'Campus Hire' }];
   selectedCurrency: string = '';
   hiring_stages: string | Array<{ id: number; name: string }>;
-  currentLocationDetails: any;
-  
+
   //Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private talentConnectService: TalentConnectService,
-    private messageService: MessageService, private pageFacade: PageFacadeService, private storage: StorageService,) {
-
-  }
+    private messageService: MessageService, private pageFacade: PageFacadeService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -87,7 +84,7 @@ export class EasyApplyComponent {
     this.getOptionsList();
     this.getCountries();
   }
-  
+
   initializeForm() {
     this.filterForm = this.fb.group({
       keyword: [''],
@@ -105,26 +102,18 @@ export class EasyApplyComponent {
       hiring_type: [null]
     });
   }
-  
+
   getCountries() {
     this.talentConnectService.getEasyApplyWorkLocationList().subscribe(data => {
       this.locations = [{ id: 0, work_location: "Any" }, ...data.worklocations];
     });
   }
-  
+
   getList(params?: any) {
-    this.currentLocationDetails = this.storage.get("currentCountryByGEOLocation");
     let data: any = {
       page: this.page,
       perPage: this.pageSize,
-    }
-    if (this.currentLocationDetails) {
-      data = {
-        ...data,
-        country: this.currentLocationDetails?.country,
-        state: this.currentLocationDetails?.state,
-        city: this.currentLocationDetails?.county
-      }
+      city_id: this.authService._user?.city_id
     }
     if (params) {
       data = { ...data, ...params }

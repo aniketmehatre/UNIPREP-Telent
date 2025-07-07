@@ -83,7 +83,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   disableIfDoctorateSelected: number[] = [5];
   graduationYearList: any[] = []
   careerInterests: any[] = [];
-  departmentList:any[] = [];
+  departmentList: any[] = [];
   profileDetail!: EmployeeConnectProfile;
   isDisableAddMoreEducation: boolean = false;
   cgpaPercentageList: any = [
@@ -203,7 +203,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     });
     this.professionalTraitsForm = this.fb.group({
       languages: this.fb.array([this.createLanguageGroup()]),
-      career_preference_soft_skill_id: [[]],
+      career_preference_soft_skill_id: [[], Validators.required],
     });
     this.professionalNetworkingForm = this.fb.group({
       networking_linkedin_profile: [
@@ -438,17 +438,27 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onUploadPhoto(event: any) {
-    const file = event.target.files[0]
-    if (!file) return
-
+    const file = event.target.files[0];
+    if (!file) return;
+    const maxSizeInMB = 5;
+    const isImage = file.type.startsWith('image/');
+    const isUnderSizeLimit = file.size <= maxSizeInMB * 1024 * 1024;
+    if (!isImage) {
+      this.toastService.add({ severity: "error", summary: "Error", detail: "Please upload your profile picture in the image format." });
+      return;
+    }
+    if (!isUnderSizeLimit) {
+      this.toastService.add({ severity: "error", summary: "Error", detail: "Image must be less than 5MB." });
+      return;
+    }
     // Display preview
-    const reader = new FileReader()
+    const reader = new FileReader();
     reader.onload = () => {
-      this.logo = reader.result
+      this.logo = reader.result;
       this.personalInformationForm.get("profile_image")?.setValue(reader.result);
     }
-    reader.readAsDataURL(file)
-    this.uploadedFiles["profile_image"] = file
+    reader.readAsDataURL(file);
+    this.uploadedFiles["profile_image"] = file;
   }
 
   onRemovePhoto() {
@@ -679,10 +689,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         if (response.status) {
           const responses = response.data[(response?.data).length - 1]
           this.profileDetail = responses;
-          this.profileId = responses.id
+          this.profileId = responses?.id
           this.patchFormData(responses)
-          this.profileCreationId = responses.id;
-          this.isUpdatedProfile = responses.profile_completion_flag ? true : false;
+          this.profileCreationId = responses?.id;
+          this.isUpdatedProfile = responses?.profile_completion_flag ? true : false;
         }
       },
       error: (error) => {
@@ -1225,6 +1235,17 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       ...item,
       disabled: Number(item.graduation_year_name) >= Number(prevYear)
     }));
+  }
+
+  onChangeGraduationYear(event: SelectChangeEvent, index: number) {
+    const selectedYear = this.graduationYears.find(y => y.id === event?.value)?.graduation_year_name;
+    const selectedDOB = this.personalInformationForm.get('date_of_birth')?.value;
+    const minimumYearGap = selectedDOB?.getFullYear() + 15
+    if (minimumYearGap > Number(selectedYear)) {
+      this.educationDetails.at(index).get('education_graduation_year_id')?.setValue("");
+      this.toastService.add({ severity: "error", summary: "Error", detail: "Your graduation year cannot be older than your Date of Birth." });
+      return;
+    }
   }
 
   onChangeCurrentlyWorking(event: any, index: number) {
