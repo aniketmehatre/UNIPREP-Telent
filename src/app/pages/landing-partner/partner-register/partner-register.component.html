@@ -208,8 +208,7 @@
 														<label class="labelText col col-12" for="gender">Gender<span
 																class="required">*</span></label>
 														<p-inputgroup>
-															<p-select
-																[options]="genderOptions" appendTo="body"
+															<p-select [options]="genderOptions" appendTo="body"
 																placeholder="Select your gender"
 																formControlName="gender" id="gender" optionLabel="name"
 																optionValue="id" styleClass="w-100"></p-select>
@@ -249,10 +248,10 @@
 															<p-inputgroup>
 																<p-select formControlName="location" optionValue="id"
 																	optionLabel="work_location" styleClass="w-100"
-																	[options]="locationList"
+																	[options]="locationList" [virtualScroll]="true"
 																	placeholder="Select Location" [filter]="true"
-																	filterBy="work_location" [appendTo]="'body'">
-																</p-select>
+																	filterBy="work_location" [appendTo]="'body'"
+																	[virtualScrollItemSize]="38"></p-select>
 															</p-inputgroup>
 															<div *ngIf="submitted && f['location']['errors']"
 																class="UserInfoValidation">
