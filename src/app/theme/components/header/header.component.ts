@@ -231,6 +231,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			phone: [undefined, [Validators.required]],
 			home_country: [122, Validators.required],
 			study_level: ["", Validators.required],
+			current_city: [""]
 		})
 
 		this.currentEducationForm = this.formBuilder.group({
@@ -658,6 +659,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			phone: [undefined, [Validators.required]],
 			home_country: [122, Validators.required],
 			study_level: ["", Validators.required],
+			current_city: [""]
 		})
 
 		this.currentEducationForm = this.formBuilder.group({
@@ -1266,6 +1268,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		if (this.mobileForm.get('home_country')?.valid && this.mobileForm.get('study_level')?.valid) {
 			data.home_country = this.mobileForm.value.home_country
 			data.study_level = this.mobileForm.value.study_level
+			data.current_city = this.mobileForm.value.current_city
 		}
 		if (this.demoTrial == true) {
 			data.demo_user = 1
@@ -1363,11 +1366,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.whatsappVerification = true;
 			}
 			else {
-				let userLocation: any = await this.countryLocationService.getUserCountry();
-				let findcountry = this.homeCountryList.find((country: any) => userLocation === country.country);
+				let userLocation: { country: string; city: string } = await this.countryLocationService.getUserCountry();
+				let findcountry = this.homeCountryList.find((country: any) => userLocation.country === country.country);
 				if (findcountry) {
 					this.mobileForm.patchValue({
-						home_country: findcountry.id
+						home_country: findcountry.id,
+						current_city: userLocation.city
 					});
 				}
 				this.freeTrial = true;

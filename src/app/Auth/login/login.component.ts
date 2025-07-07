@@ -31,6 +31,8 @@ import { finalize } from 'rxjs/operators'
 import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login'
 import { Image } from "primeng/image";
 import { SkeletonModule } from "primeng/skeleton"
+import { firstValueFrom } from 'rxjs';
+import { HttpClient } from "@angular/common/http"
 
 declare var google: any;
 
@@ -72,6 +74,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authTokenService = inject(AuthTokenService);
     private cdr = inject(ChangeDetectorRef);
     private subs = new SubSink()
+    private  http = inject(HttpClient);
     loading = true;
     jobId: any
 
@@ -267,6 +270,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.storage.set(environment.tokenKey, token)
         this.service.getMe().subscribe({
             next: (userData) => {
+                console.log(userData, "userdata");
                 this.loadCountryList(userData)
 
                 let req = {
@@ -280,6 +284,18 @@ export class LoginComponent implements OnInit, OnDestroy {
                     this.route.navigate([this.jobId], { replaceUrl: true })
                 }
                 this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
+                // let userDetails = userData.userdetails[0];
+                // if(!userDetails.city_id){
+                //     this.updateCurrentLocation().then((userLocation) => {
+                //         if(userLocation.country != "Unknown" && userLocation.city != "Unknown"){
+                //             this.locationService.updateUserLocation(userLocation).subscribe({
+                //                 next: (res: any) => {
+                //                     console.log(res, "response");
+                //                 }
+                //             })
+                //         }
+                //     })
+                // }
             },
             error: (error) => {
                 this.toast.add({
@@ -289,5 +305,25 @@ export class LoginComponent implements OnInit, OnDestroy {
                 })
             }
         })
+    }
+
+    private getCountryFromIP() {
+        const url = 'https://ipapi.co/json/';
+        return this.http.get<any>(url);
+    }
+
+    async updateCurrentLocation(): Promise<{ country: string; city: string }> {
+        try {
+            const ipData = await firstValueFrom(this.getCountryFromIP());
+            return {
+                country: ipData.country_name || 'Unknown',
+                city: ipData.city || 'Unknown'
+            };
+        } catch {
+            return {
+                country: 'Unknown',
+                city: 'Unknown'
+            };
+        }
     }
 }
