@@ -9,6 +9,7 @@ import { ThemeService } from 'src/app/theme.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ScrollTopModule } from 'primeng/scrolltop';
+import { CarouselModule } from 'primeng/carousel';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { UuidInviteCardComponent } from './uuid-invite-card/uuid-invite-card.component';
@@ -23,8 +24,9 @@ import { CompanyInviteCardComponent } from './company-invite-card/company-invite
     DialogModule,
     RouterModule,
     ScrollTopModule,
+    CarouselModule,
     UuidInviteCardComponent,
-    CompanyInviteCardComponent
+    // CompanyInviteCardComponent
   ],
   templateUrl: './landing-content.component.html',
   styleUrls: ['./landing-content.component.scss']
@@ -42,6 +44,24 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
   embedUrl!: SafeResourceUrl;
   isInitialLoadVideo: boolean = true;
   uuid: string | null = null;
+
+  responsiveOptions = [
+    {
+      breakpoint: '1199px',
+      numVisible: 3,
+      numScroll: 1
+    },
+    {
+      breakpoint: '991px',
+      numVisible: 2,
+      numScroll: 1
+    },
+    {
+      breakpoint: '767px',
+      numVisible: 1,
+      numScroll: 1
+    }
+  ];
 
   stats = [
     {
@@ -272,18 +292,29 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
   ngOnInit() {
 
     this.currentUrl = this.router.url;
-  this.uuid = this.route.snapshot.paramMap.get('uuid');
-  this.isFromUUID = !!this.uuid;
+    this.uuid = this.route.snapshot.paramMap.get('uuid');
+    this.isFromUUID = !!this.uuid;
 
-  this.isJobLink = this.currentUrl.startsWith('/job');
-  this.isCompanyLink = this.currentUrl.startsWith('/company');
+    this.isJobLink = this.currentUrl.startsWith('/job');
+    // this.isCompanyLink = this.currentUrl.startsWith('/company');
 
-  if (this.uuid && (this.isJobLink || this.isCompanyLink)) {
-    console.log('UUID found:', this.uuid);
-  } else {
-    console.log('No UUID, redirecting to dashboard');
-    this.router.navigate(['/pages/dashboard']);
-  }
+    if (this.uuid && (this.isJobLink)) {
+      console.log('UUID found:', this.uuid);
+    } else {
+      console.log('No UUID, redirecting to dashboard');
+      //this.router.navigate(['/pages/dashboard']);
+    }
+
+
+    // this.isJobLink = this.currentUrl.startsWith('/job');
+    // this.isCompanyLink = this.currentUrl.startsWith('/company');
+
+    // if (this.uuid && (this.isJobLink || this.isCompanyLink)) {
+    //   console.log('UUID found:', this.uuid);
+    // } else {
+    //   console.log('No UUID, redirecting to dashboard');
+    //   this.router.navigate(['/pages/dashboard']);
+    // }
     this.service.getFeatBlogs().subscribe((response) => {
       this.blogs = response.slice(0, 8)
     })

@@ -14,11 +14,6 @@
 	--uniprep-secondaryhighlight: #f6895a;
 	--uniprep-tertiary: #ffffff;
 }
-* {
-	font-family: "Poppins", sans-serif !important;
-	overflow: hidden !important;
- }
-
 .pricing-col {
 	border: 1px solid rgba(230, 221, 254, 0.031372549);
 	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
@@ -52,7 +47,7 @@
 	li {
 		span.tick {
 			font-weight: bold;
-			color: green;
+			color: #9BC329;
 		}
 		span.close {
 			font-weight: bold;
@@ -570,5 +565,60 @@ h5 {
 
 	.text-caption {
 		font-size: 0.71em;
+	}
+}
+
+// Mobile accordion styles for pricing
+.accordion {
+	.accordion-item {
+		background: transparent;
+		border: none;
+		margin-bottom: 10px;
+
+		.accordion-header {
+			.accordion-button {
+				background: rgba(255, 255, 255, 0.05);
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				color: white;
+				font-weight: 500;
+				padding: 12px 16px;
+				border-radius: 8px;
+				box-shadow: none;
+
+				&:not(.collapsed) {
+					background: rgba(240, 120, 14, 0.1);
+					border-color: rgba(240, 120, 14, 0.3);
+					color: white;
+					box-shadow: none;
+				}
+
+				&:focus {
+					box-shadow: 0 0 0 0.25rem rgba(240, 120, 14, 0.25);
+				}
+
+				&::after {
+					background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+				}
+			}
+		}
+
+		.accordion-collapse {
+			.accordion-body {
+				background: rgba(255, 255, 255, 0.02);
+				border: 1px solid rgba(255, 255, 255, 0.05);
+				border-top: none;
+				border-radius: 0 0 8px 8px;
+				padding: 16px;
+
+				.pricing-list {
+					margin-bottom: 0;
+					
+					li {
+						padding: 4px 0;
+						font-size: 0.9rem;
+					}
+				}
+			}
+		}
 	}
 }

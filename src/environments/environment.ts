@@ -20,10 +20,10 @@ const dev_institute = 'https://dev-institutes.uniprep.ai';
 const prod_institute = 'https://institutes.uniprep.ai';
 
 export const environment = {
-    domain: dev_domain,
+    domain: prod_domain,
     maintenanceMode: false,
     production: false,
-    ApiUrl: dev_url,
+    ApiUrl: prod_url,
     ApiUrlEmployer: prod_url + '/employer',
     employerDomain: prod_employer_url,
     tokenKey: 'token',

@@ -873,3 +873,72 @@ h5 {
 		text-overflow: ellipsis;
 	}
 }
+
+// Custom carousel styles for blogs
+::ng-deep .custom-carousel {
+	.p-carousel-container {
+		padding: 0 20px;
+	}
+
+	.p-carousel-items-container {
+		gap: 20px;
+	}
+
+	.p-carousel-item {
+		padding: 0 10px;
+	}
+
+	.p-carousel-prev,
+	.p-carousel-next {
+		background-color: rgba(240, 120, 14, 0.8) !important;
+		border: none !important;
+		border-radius: 50% !important;
+		width: 40px !important;
+		height: 40px !important;
+		color: white !important;
+		transition: all 0.3s ease;
+
+		&:hover {
+			background-color: rgba(240, 120, 14, 1) !important;
+			transform: scale(1.1);
+		}
+
+		&:focus {
+			box-shadow: 0 0 0 2px rgba(240, 120, 14, 0.3) !important;
+		}
+	}
+
+	.p-carousel-indicators {
+		margin-top: 20px;
+
+		.p-carousel-indicator {
+			background-color: rgba(255, 255, 255, 0.3) !important;
+			border: none !important;
+			border-radius: 50% !important;
+			width: 10px !important;
+			height: 10px !important;
+			margin: 0 5px !important;
+
+			&.p-highlight {
+				background-color: rgba(240, 120, 14, 1) !important;
+			}
+		}
+	}
+
+	// Responsive adjustments
+	@media (max-width: 768px) {
+		.p-carousel-container {
+			padding: 0 10px;
+		}
+
+		.p-carousel-item {
+			padding: 0 5px;
+		}
+
+		.p-carousel-prev,
+		.p-carousel-next {
+			width: 35px !important;
+			height: 35px !important;
+		}
+	}
+}

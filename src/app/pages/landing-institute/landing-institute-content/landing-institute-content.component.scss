@@ -33,38 +33,44 @@ body {
 
 h1,
 .text-size-h1 {
-	font-weight: 700;
-	margin-top: 0;
-	font-size: 5rem;
+  font-size: 5.61em;
 }
 
 h2,
 .text-size-h2 {
-	font-size: 4em;
+  font-size: 4.209em;
 }
 
 h3,
 .text-size-h3 {
-	font-size: 2.83em;
+  font-size: 3.157em;
 }
 
 h4,
 .text-size-h4 {
-	font-size: 2em;
+  font-size: 2.369em;
 }
 
 h5,
 .text-size-h5 {
-	font-size: 1.41em;
+  font-size: 1.777em;
 }
 
-.text-caption {
-	font-size: 0.71em;
+h6,
+.text-size-h6 {
+  font-size: 1.333em;
 }
 
 small,
 .text-small {
-	font-size: 0.833em;
+  font-size: 0.833em;
+}
+
+p {
+  font-family: "Poppins", sans-serif;
+  line-height: 2;
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 h1,
@@ -127,7 +133,6 @@ video::-webkit-media-controls-panel {
 .video-thumbnail {
     width: 100%;
     height: auto;
-    aspect-ratio: 16/9;
     border-radius: 1rem;
     cursor: pointer;
     object-fit: contain;
@@ -261,23 +266,90 @@ kbd {
 ::ng-deep .p-select .p-select-label {
     color: #fff !important;
 }
-.slider-container {
-	width: 100%;
-	overflow: hidden;
-	position: relative;
-	height: 200px;
-	/* Adjust height as needed */
-}
+// PrimeNG Carousel styles for advisors
+::ng-deep .advisors-carousel {
+	.p-carousel-container {
+		padding: 0 20px;
+	}
 
-.slider-track {
-	display: flex;
-	width: calc(100%);
-}
+	.p-carousel-items-container {
+		gap: 20px;
+	}
 
-.slider-track img {
-	width: 17.2%;
-	padding: 10px;
-	object-fit: contain;
+	.p-carousel-item {
+		padding: 0 10px;
+	}
+  .advisor-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .advisor-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    max-height: 75px;
+  }
+
+	.p-carousel-prev,
+	.p-carousel-next {
+		background-color: rgba(240, 120, 14, 0.8) !important;
+		border: none !important;
+		border-radius: 50% !important;
+		width: 40px !important;
+		height: 40px !important;
+		color: white !important;
+		transition: all 0.3s ease;
+
+		&:hover {
+			background-color: rgba(240, 120, 14, 1) !important;
+			transform: scale(1.1);
+		}
+
+		&:focus {
+			box-shadow: 0 0 0 2px rgba(240, 120, 14, 0.3) !important;
+		}
+	}
+
+	.p-carousel-indicators {
+		margin-top: 20px;
+
+		.p-carousel-indicator {
+			background-color: rgba(255, 255, 255, 0.3) !important;
+			border: none !important;
+			border-radius: 50% !important;
+			width: 10px !important;
+			height: 10px !important;
+			margin: 0 5px !important;
+
+			&.p-highlight {
+				background-color: rgba(240, 120, 14, 1) !important;
+			}
+		}
+	}
+
+	// Responsive adjustments
+	@media (max-width: 768px) {
+		.p-carousel-container {
+			padding: 0 10px;
+		}
+
+		.p-carousel-item {
+			padding: 0 5px;
+		}
+
+		.advisor-item {
+			height: 150px;
+		}
+
+		.p-carousel-prev,
+		.p-carousel-next {
+			width: 35px !important;
+			height: 35px !important;
+		}
+	}
 }
 
 p {
@@ -339,4 +411,52 @@ h5 {
 
 .py-40{
 	padding: 40px 0px;
+}
+
+@media screen and (max-width: 768px) {
+	h1,
+	.text-size-h1 {
+		font-size: 2.986em;
+	}
+
+	h2,
+	.text-size-h2 {
+		font-size: 2.488em;
+	}
+
+	h3,
+	.text-size-h3 {
+		font-size: 2.074em;
+	}
+
+	h4,
+	.text-size-h4 {
+		font-size: 1.728em;
+	}
+
+	h5,
+	.text-size-h5 {
+		font-size: 1.44em;
+	}
+
+	h6,
+	.text-size-h6 {
+		font-size: 1.2em;
+	}
+
+	small,
+	.text-small {
+		font-size: 0.833em;
+	}
+
+	p {
+		font-family: "Poppins", sans-serif;
+		line-height: 2;
+		font-weight: 500;
+		font-size: 1rem;
+	}
+
+	.text-caption {
+		font-size: 0.71em;
+	}
 }

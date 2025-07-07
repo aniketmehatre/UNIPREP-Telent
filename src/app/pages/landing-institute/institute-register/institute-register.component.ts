@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
 import { SubSink } from 'subsink';
 import { CommonModule } from '@angular/common';
-import {Router, RouterModule} from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { FluidModule } from 'primeng/fluid';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -19,7 +19,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
 import { LandingInstituteService } from '../landing-institute.service';
-import {PasswordModule} from "primeng/password";
+import { PasswordModule } from "primeng/password";
 
 @Component({
   selector: 'uni-institute-register',
@@ -38,7 +38,7 @@ export class InstituteRegisterComponent {
 
   public registrationForm: any = FormGroup;
   displayTerms = "none";
-  locationList: any;
+  locationList: any[] = [];
   countryList: any;
   currentLocationCountry: string = "";
   currentLocationCity: string = "";
@@ -124,28 +124,22 @@ export class InstituteRegisterComponent {
   }
 
   GetLocationList() {
-    if (this.registrationForm.get("home_country").value == 122) {
-      this.registrationForm.get('location')?.enable();
-      this.registrationForm.get('location')?.reset();
-      this.locationService.getLocation().subscribe(
-        (res: any) => {
-          this.locationList = res;
-        },
-        (error: any) => {
-          this.toast.add({
-            severity: "warning",
-            summary: "Warning",
-            detail: error.error.message,
-          });
-        }
-      );
-    } else {
-      this.locationList = [{
-        id: 0, district: "Others", state: "Others"
-      }];
-      this.registrationForm.get("location").setValue(0);
-      this.registrationForm.get('location')?.disable();
+    this.locationList = [];
+    var data = {
+      country_id: this.registrationForm.get('home_country').value
     }
+    this.locationService.getAllCountryLocation(data).subscribe(
+      (res: any) => {
+        this.locationList = res.data;
+      },
+      (error: any) => {
+        this.toast.add({
+          severity: "warning",
+          summary: "Warning",
+          detail: error.error.message,
+        });
+      }
+    );
   }
 
   fetchCountryList() {
@@ -187,13 +181,12 @@ export class InstituteRegisterComponent {
       password_confirmation: this.registrationForm.value.confirmPassword,
       country_id: this.registrationForm.value.home_country,
       location_id: this.registrationForm.value.location,
-      company_name: this.registrationForm.value.companyName,
-      company_website: this.registrationForm.value.companyWebsite,
-      company_designation: this.registrationForm.value.designation,
+      organization_name: this.registrationForm.value.companyName,
+      organization_website: this.registrationForm.value.companyWebsite,
+      designation: this.registrationForm.value.designation,
       phone: this.registrationForm.value.mobileNumber,
       gender: this.registrationForm.value.gender
     };
-
     this.landingService.registerInstitute(data).subscribe({
       next: (res: any) => {
         console.log(res);

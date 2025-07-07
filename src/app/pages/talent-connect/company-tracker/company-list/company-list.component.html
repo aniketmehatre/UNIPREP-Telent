@@ -40,4 +40,4 @@
 		</div>
 	</div>
 </div>
-<app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false; triggerCloseFilter.emit()" (triggerApplyFiler)="applyFilter($event)" (resetFilter)="applyFilter({})" [isListView]="false"></app-company-filter>
+<app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false; triggerCloseFilter.emit()" (triggerApplyFiler)="applyFilter($event)" (resetFilter)="applyFilter({})" [isListView]="false" [cerrentTabIndex]="activeIndex"></app-company-filter>

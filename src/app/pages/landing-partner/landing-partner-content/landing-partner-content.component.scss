@@ -4,26 +4,24 @@
 
 :root,
 [data-bs-theme="light"] {
-	--bs-primary-rgb: 63, 76, 131;
-	--bs-secondary-rgb: 240, 120, 14;
-	--bs-primary: var(--uniprep-primary);
-	--bs-secondary: #f0780e;
-	--uniprep-primary: var(--uniprep-primary);
-	--uniprep-primaryop10: var(--uniprep-primary) 25;
-	--uniprep-primaryop30: var(--uniprep-primary) 5b;
-	--uniprep-secondary: #f0780e;
-	--uniprep-secondaryop10: #f0780e25;
-	--uniprep-secondaryop30: #f0780e5b;
-	--uniprep-primaryhighlight: #4552a3;
-	--uniprep-secondaryhighlight: #f6895a;
-	--uniprep-tertiary: #ffffff;
+  --bs-primary-rgb: 63, 76, 131;
+  --bs-secondary-rgb: 240, 120, 14;
+  --bs-primary: var(--uniprep-primary);
+  --bs-secondary: #f0780e;
+  --uniprep-primary: var(--uniprep-primary);
+  --uniprep-primaryop10: var(--uniprep-primary) 25;
+  --uniprep-primaryop30: var(--uniprep-primary) 5b;
+  --uniprep-secondary: #f0780e;
+  --uniprep-secondaryop10: #f0780e25;
+  --uniprep-secondaryop30: #f0780e5b;
+  --uniprep-primaryhighlight: #4552a3;
+  --uniprep-secondaryhighlight: #f6895a;
+  --uniprep-tertiary: #ffffff;
 }
 
-
 html {
-	scroll-behavior: smooth;
-	overflow: auto !important;
-
+  scroll-behavior: smooth;
+  overflow: auto !important;
 }
 
 ::ng-deep .custom-country-select {
@@ -35,161 +33,170 @@ html {
 }
 
 .btn-secondary-1 {
-	color: white;
-	background-color: var(--uniprep-secondary);
+  color: white;
+  background-color: var(--uniprep-secondary);
 }
 
 body {
-	font-family: "Poppins", sans-serif !important;
-	overflow: auto !important;
+  font-family: "Poppins", sans-serif !important;
+  overflow: auto !important;
 }
 
 .text-secondary {
-    color: var(--uniprep-secondary) !important;
+  color: var(--uniprep-secondary) !important;
 }
 
 video::-webkit-media-controls-panel {
-	background-image: none !important;
+  background-image: none !important;
 }
 
 .video-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .fa-circle-play {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 5em;
-    z-index: 2;
-    cursor: pointer;
-	background-color: white;
-	border-radius: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5em;
+  z-index: 2;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 100%;
 }
 
 .youtube-iframe {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16/9; /* Maintains proper video aspect ratio */
-    border-radius: 1rem; /* Equivalent to rounded-4 */
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9; /* Maintains proper video aspect ratio */
+  border-radius: 1rem; /* Equivalent to rounded-4 */
 }
 
 .video-thumbnail {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16/9;
-    border-radius: 1rem;
-    cursor: pointer;
-	object-fit: contain;
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  cursor: pointer;
+  object-fit: contain;
 }
 
 .video-gradient {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 200px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
 }
 
 body {
-	font-family: "Poppins", sans-serif !important;
-	overflow: auto !important;
+  font-family: "Poppins", sans-serif !important;
+  overflow: auto !important;
 }
 
 h1,
 .text-size-h1 {
-	font-weight: 700;
-	margin-top: 0;
-	font-size: 5rem;
+  font-size: 5.61em;
 }
 
 h2,
 .text-size-h2 {
-	font-size: 4em;
+  font-size: 4.209em;
 }
 
 h3,
 .text-size-h3 {
-	font-size: 2.83em;
+  font-size: 3.157em;
 }
 
 h4,
 .text-size-h4 {
-	font-size: 2em;
+  font-size: 2.369em;
 }
 
 h5,
 .text-size-h5 {
-	font-size: 1.41em;
+  font-size: 1.777em;
 }
 
-.text-caption {
-	font-size: 0.71em;
+h6,
+.text-size-h6 {
+  font-size: 1.333em;
 }
 
 small,
 .text-small {
-	font-size: 0.833em;
+  font-size: 0.833em;
+}
+
+p {
+  font-family: "Poppins", sans-serif;
+  line-height: 2;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.text-caption {
+  font-size: 0.71em;
 }
 
 h1,
 h2 {
-	font-weight: 700;
+  font-weight: 700;
 }
 h3,
 h4 {
-	font-weight: 600;
+  font-weight: 600;
 }
 h5,
 h6 {
-	font-weight: 500;
+  font-weight: 500;
 }
 
 .cta-field {
-	.card {
-		background: rgb(219, 83, 175);
-		background: linear-gradient(90deg, #e78e60 0%,  #d14283 100%);
-		border: none;
-	}
-	.cta-btn {
-		background: black;
-		color: white;
-		padding: 0.8rem;
-	}
+  .card {
+    background: rgb(219, 83, 175);
+    background: linear-gradient(90deg, #e78e60 0%, #d14283 100%);
+    border: none;
+  }
+  .cta-btn {
+    background: black;
+    color: white;
+    padding: 0.8rem;
+  }
 }
 
 .card {
-	border-radius: 1.5rem;
-	border: 1px solid #e6ddfe08;
-	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
-	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
-	color: white;
-	&:hover {
-		.card-title {
-			color: var(--uniprep-secondary);
-		}
-		.cardicon {
-			font-weight: 700;
-		}
-	}
+  border-radius: 1.5rem;
+  border: 1px solid #e6ddfe08;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
+  box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
+  color: white;
+  &:hover {
+    .card-title {
+      color: var(--uniprep-secondary);
+    }
+    .cardicon {
+      font-weight: 700;
+    }
+  }
 }
 
 .darksection {
-	background-color: #07070b;
-	p {
-		color: #000;
-	}
+  background-color: #07070b;
+  p {
+    color: #000;
+  }
 }
 
 section {
-	scroll-margin-top: 3rem;
+  scroll-margin-top: 3rem;
 }
 
 .bg-dark {
@@ -216,7 +223,8 @@ section {
   padding: 0.75rem 1rem;
 }
 
-.form-control, .input-group-text {
+.form-control,
+.input-group-text {
   background-color: #333 !important;
 }
 
@@ -236,62 +244,202 @@ kbd {
   padding: 2px 5px;
   border-radius: 3px;
 }
+// PrimeNG Carousel Styles
+::ng-deep .advisor-carousel {
+  .p-carousel-container {
+    padding: 0;
+  }
 
-// Responsive adjustments
-@media (max-width: 992px) {
-  .order-lg-1 {
-    order: 1;
+  .p-carousel-items-container {
+    align-items: center;
   }
-  
-  .order-lg-2 {
-    order: 2;
+
+  .p-carousel-item {
+    padding: 10px;
   }
-  
-  h1 {
-    font-size: 2rem;
+
+  .advisor-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  
-  .display-4, .display-5 {
-    font-size: 1.8rem;
+
+  .advisor-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    max-height: 75px;
+  }
+
+  // Navigation buttons
+  .p-carousel-prev,
+  .p-carousel-next {
+    background: rgba(240, 120, 14, 0.8) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 40px !important;
+    height: 40px !important;
+    color: white !important;
+
+    &:hover {
+      background: rgba(240, 120, 14, 1) !important;
+    }
+
+    .p-carousel-icon {
+      font-size: 1.2rem;
+    }
+  }
+
+  // Indicators
+  .p-carousel-indicators {
+    .p-carousel-indicator {
+      button {
+        background: rgba(240, 120, 14, 0.5) !important;
+        border: none !important;
+        border-radius: 50% !important;
+        width: 12px !important;
+        height: 12px !important;
+
+        &.p-highlight {
+          background: rgba(240, 120, 14, 1) !important;
+        }
+      }
+    }
   }
 }
-.slider-container {
-	width: 100%;
-	overflow: hidden;
-	position: relative;
-	height: 175px;
-	/* Adjust height as needed */
+
+// Responsive styles for carousel
+@media screen and (max-width: 1199px) {
+  ::ng-deep .advisor-carousel {
+    .advisor-item {
+      height: 160px;
+    }
+    
+    .advisor-image {
+      max-height: 70px;
+    }
+  }
 }
 
-.slider-track {
-	display: flex;
-	width: calc(100%);
+@media screen and (max-width: 991px) {
+  ::ng-deep .advisor-carousel {
+    .advisor-item {
+      height: 140px;
+    }
+    
+    .advisor-image {
+      max-height: 65px;
+    }
+    
+    .p-carousel-prev,
+    .p-carousel-next {
+      width: 35px !important;
+      height: 35px !important;
+      
+      .p-carousel-icon {
+        font-size: 1rem;
+      }
+    }
+  }
 }
 
-.slider-track img {
-	width: 17.2%;
-	padding: 10px;
-	object-fit: contain;
+@media screen and (max-width: 767px) {
+  ::ng-deep .advisor-carousel {
+    .advisor-item {
+      height: 120px;
+    }
+    
+    .advisor-image {
+      max-height: 60px;
+    }
+    
+    .p-carousel-prev,
+    .p-carousel-next {
+      width: 30px !important;
+      height: 30px !important;
+      
+      .p-carousel-icon {
+        font-size: 0.9rem;
+      }
+    }
+    
+    .p-carousel-indicators {
+      .p-carousel-indicator {
+        button {
+          width: 10px !important;
+          height: 10px !important;
+        }
+      }
+    }
+  }
 }
 
-.dropdown-content{
+.dropdown-content {
   max-height: 300px;
   overflow-y: scroll;
 }
 
-.gap-95{
-	gap:95px;
+.gap-95 {
+  gap: 95px;
 }
 
-.py-40{
-	padding: 40px 0px;
+.py-40 {
+  padding: 40px 0px;
 }
 
-.landing-content{
+.landing-content {
   aspect-ratio: 16/9;
   overflow: hidden;
-  img{
-    width:100%; 
-    object-fit:contain;
+  img {
+    width: 100%;
+    object-fit: contain;
+  }
+}
+@media screen and (max-width: 768px) {
+  h1,
+  .text-size-h1 {
+    font-size: 2.986em;
+  }
+
+  h2,
+  .text-size-h2 {
+    font-size: 2.488em;
+  }
+
+  h3,
+  .text-size-h3 {
+    font-size: 2.074em;
+  }
+
+  h4,
+  .text-size-h4 {
+    font-size: 1.728em;
+  }
+
+  h5,
+  .text-size-h5 {
+    font-size: 1.44em;
+  }
+
+  h6,
+  .text-size-h6 {
+    font-size: 1.2em;
+  }
+
+  small,
+  .text-small {
+    font-size: 0.833em;
+  }
+
+  p {
+    font-family: "Poppins", sans-serif;
+    line-height: 2;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
+  .text-caption {
+    font-size: 0.71em;
   }
 }
