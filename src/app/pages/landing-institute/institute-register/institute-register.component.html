@@ -248,10 +248,10 @@
 															<p-inputgroup>
 																<p-select formControlName="location" optionValue="id"
 																	optionLabel="work_location" styleClass="w-100"
-																	[options]="locationList"
+																	[options]="locationList" [virtualScroll]="true"
 																	placeholder="Select Location" [filter]="true"
-																	filterBy="work_location" [appendTo]="'body'">
-																</p-select>
+																	filterBy="work_location" [appendTo]="'body'"
+																	[virtualScrollItemSize]="38"></p-select>
 															</p-inputgroup>
 															<div *ngIf="submitted && f['location']['errors']"
 																class="UserInfoValidation">
