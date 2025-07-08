@@ -270,9 +270,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.storage.set(environment.tokenKey, token)
         this.service.getMe().subscribe({
             next: (userData) => {
-                console.log(userData, "userdata");
                 this.loadCountryList(userData)
-
+                let userDetails = userData.userdetails[0];
                 let req = {
                     userId: userData.userdetails[0].user_id,
                     location: this.locationData.city,
@@ -280,22 +279,16 @@ export class LoginComponent implements OnInit, OnDestroy {
                 };
                 this.locationService.sendSessionData(req, "login").subscribe();
                 this.toast.add({ severity: "success", summary: "Success", detail: "Login Successful" })
+                if(!userDetails.city_id){
+                    setTimeout(() => {
+                        this.updateLocation();
+                    }, 1000); //because of the token is not set. so i added the timeout
+                }
+                
                 if (this.jobId) {
                     this.route.navigate([this.jobId], { replaceUrl: true })
                 }
                 this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
-                // let userDetails = userData.userdetails[0];
-                // if(!userDetails.city_id){
-                //     this.updateCurrentLocation().then((userLocation) => {
-                //         if(userLocation.country != "Unknown" && userLocation.city != "Unknown"){
-                //             this.locationService.updateUserLocation(userLocation).subscribe({
-                //                 next: (res: any) => {
-                //                     console.log(res, "response");
-                //                 }
-                //             })
-                //         }
-                //     })
-                // }
             },
             error: (error) => {
                 this.toast.add({
@@ -303,6 +296,14 @@ export class LoginComponent implements OnInit, OnDestroy {
                     summary: "Error",
                     detail: error.message || 'Failed to load user data'
                 })
+            }
+        })
+    }
+
+    updateLocation(){
+        this.updateCurrentLocation().then((userLocation) => {
+            if(userLocation.country != "Unknown" && userLocation.city != "Unknown"){
+                this.locationService.updateUserLocation(userLocation).subscribe()
             }
         })
     }
