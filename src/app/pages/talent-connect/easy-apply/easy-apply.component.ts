@@ -7,6 +7,8 @@ import { PageFacadeService } from '../../page-facade.service';
 import { Meta } from '@angular/platform-browser';
 import { SocialShareService } from 'src/app/shared/social-share.service';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { LocationService } from 'src/app/location.service';
+import { MultiSelectChangeEvent } from 'primeng/multiselect';
 
 interface JobListing {
   id: number;
@@ -64,13 +66,15 @@ export class EasyApplyComponent {
   hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' }, { id: 3, name: 'Campus Hire' }];
   selectedCurrency: string = '';
   hiring_stages: string | Array<{ id: number; name: string }>;
-
+  countries: any[] = [];
+  industries: any[] = [];
   //Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private talentConnectService: TalentConnectService,
-    private messageService: MessageService, private pageFacade: PageFacadeService, private authService: AuthService) { }
+    private messageService: MessageService, private pageFacade: PageFacadeService, private authService: AuthService,
+    private locationService: LocationService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -89,6 +93,8 @@ export class EasyApplyComponent {
     this.filterForm = this.fb.group({
       keyword: [''],
       position: [''],
+      industry:[null],
+      country: [null],
       worklocation: [null],
       work_mode: [null],
       employment_type: [null],
@@ -104,8 +110,15 @@ export class EasyApplyComponent {
   }
 
   getCountries() {
-    this.talentConnectService.getEasyApplyWorkLocationList().subscribe(data => {
-      this.locations = [{ id: 0, work_location: "Any" }, ...data.worklocations];
+    this.locationService.getHomeCountry(2).subscribe({
+      next: res => {
+        this.countries = res;
+      }
+    });
+    this.talentConnectService.getEasyApplyWorkLocationList().subscribe({
+      next: res => {
+        this.locations = res.worklocations;
+      }
     });
   }
 
@@ -163,6 +176,7 @@ export class EasyApplyComponent {
       this.workModes = data?.workmode;
       this.employmentTypes = data?.employmenttype;
       this.currencies = data?.currencycode;
+      this.industries = data?.industrytypes;
     });
   }
 
@@ -295,6 +309,17 @@ export class EasyApplyComponent {
     event.stopPropagation();
     const textToCopy = encodeURI(window.location.origin + '/job/' + job.uuid);
     this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
+  }
+
+  onChangeLocation(event: MultiSelectChangeEvent, type: string) {
+    if (type == 'location') {
+      const contryCtrl = this.filterForm.get('country');
+      event?.value?.length > 0 ? contryCtrl?.disable() : contryCtrl?.enable();
+    }
+    else {
+      const locationCtrl = this.filterForm.get('worklocation');
+      event?.value?.length > 0 ? locationCtrl?.disable() : locationCtrl?.enable();
+    }
   }
 
 }

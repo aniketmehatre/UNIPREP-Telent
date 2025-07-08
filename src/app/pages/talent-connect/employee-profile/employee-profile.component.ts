@@ -270,7 +270,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       id: [""],
       years_of_experience: [""],
       work_experience_company_name: [""],
-      work_experience_job_title: [""],
+      work_experience_job_title: [null],
       work_experience_employment_type: [""],
       work_experience_duration_from: [""],
       currently_working: [false],
