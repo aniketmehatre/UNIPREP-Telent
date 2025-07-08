@@ -995,10 +995,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       this.toastService.add({
         severity: "error",
         summary: "Required",
-        detail:
-          mode == "joboverview"
-            ? "Please fill{ job_title} and {company_name} fields before generating summary."
-            : "Please fill {industry type} and {career status} and {job title} fields before generating summary.",
+        detail: "Please fill Job title, company name and duration fields before generating summary.",
       })
     }
   }
