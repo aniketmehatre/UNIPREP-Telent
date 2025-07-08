@@ -144,7 +144,7 @@
 															<p-select id="gender" formControlName="gender"
 																[options]="genderOptions"
 																placeholder="Select your gender" styleClass="w-100"
-																(onFocus)="updateMessageBox('gender')"
+																(onShow)="updateMessageBox('gender')"
 																(focusout)="resetMessageBox()"></p-select>
 															<small class="text-danger"
 																*ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('gender')?.errors?.required">
@@ -159,7 +159,7 @@
 																optionLabel="nationality_name" optionValue="id"
 																[filter]="true" filterBy="nationality_name"
 																[appendTo]="'body'" (focusout)="resetMessageBox()"
-																(onFocus)="updateMessageBox('nationality_id')"
+																(onShow)="updateMessageBox('nationality_id')"
 																></p-select>
 															<small class="text-danger"
 																*ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('nationality_id')?.errors?.required">
@@ -178,7 +178,7 @@
 																optionValue="id" [filter]="true"
 																filterBy="work_location" [appendTo]="'body'"
 																(focusout)="resetMessageBox()"
-																(onFocus)="updateMessageBox('location_id')"></p-select>
+																(onShow)="updateMessageBox('location_id')"></p-select>
 															<small class="text-danger"
 																*ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('location_id')?.errors?.required">
 																Current Location is required </small>
@@ -219,7 +219,7 @@
 																optionValue="id" [filter]="true"
 																filterBy="qualification_name"
 																(focusout)="resetMessageBox()" [appendTo]="'body'"
-																(onFocus)="updateMessageBox('education_qualification_id')"></p-select>
+																(onShow)="updateMessageBox('education_qualification_id')"></p-select>
 															<small class="text-danger"
 																*ngIf="isSubmittedEducationDetailsForm && education.get('education_qualification_id')?.errors?.required">
 																Highest Qualification is required </small>
@@ -251,7 +251,7 @@
 																optionLabel="field_name" optionValue="id"
 																[filter]="true" filterBy="field_name"
 																(focusout)="resetMessageBox()"
-																(onFocus)="updateMessageBox('education_field_id')"
+																(onShow)="updateMessageBox('education_field_id')"
 																[appendTo]="'body'"></p-select>
 															<small class="text-danger"
 																*ngIf="isSubmittedEducationDetailsForm && education.get('education_field_id')?.errors?.required">
@@ -286,7 +286,7 @@
 																	optionLabel="graduation_year_name" optionValue="id"
 																	(onChange)="onChangeGraduationYear($event, i)"
 																	(focusout)="resetMessageBox()"
-																	(onFocus)="updateMessageBox('education_graduation_year_id')"></p-select>
+																	(onShow)="updateMessageBox('education_graduation_year_id')"></p-select>
 															</div>
 															<small class="text-danger"
 																*ngIf="isSubmittedEducationDetailsForm && education.get('education_graduation_year_id')?.errors?.required">
@@ -406,7 +406,7 @@
 																optionValue="job_title" [filter]="true"
 																filterBy="job_title" (focusout)="resetMessageBox()"
 																[appendTo]="'body'" [showClear]="true"
-																(onFocus)="updateMessageBox('work_experience_job_title')">
+																(onShow)="updateMessageBox('work_experience_job_title')">
 																<ng-template #header>
 																	<div class="p-2">
 																		<p-inputgroup>
@@ -487,7 +487,7 @@
 																[options]="preferredEmploymentType" [appendTo]="'body'"
 																placeholder="Select employement type" styleClass="w-100"
 																(focusout)="resetMessageBox()" [showClear]="true"
-																(onFocus)="updateMessageBox('work_experience_employment_type')"></p-select>
+																(onShow)="updateMessageBox('work_experience_employment_type')"></p-select>
 															<small class="text-danger"
 																*ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_employment_type')?.errors?.required">
 																Employment Type is required </small>
@@ -639,7 +639,7 @@
 															[options]="careerStatus" placeholder="Select Career Status"
 															styleClass="w-100" (focusout)="resetMessageBox()"
 															appendTo="body"
-															(onFocus)="updateMessageBox('career_preference_career_status')"></p-select>
+															(onShow)="updateMessageBox('career_preference_career_status')"></p-select>
 														<small class="text-danger"
 															*ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_career_status')?.errors?.required">
 															Career Status is required </small>
@@ -655,7 +655,7 @@
 															styleClass="w-100" optionLabel="job_title"
 															optionValue="job_title" [filter]="true" filterBy="job_title"
 															(focusout)="resetMessageBox()"
-															(onFocus)="updateMessageBox('career_preference_job_title_id')">
+															(onShow)="updateMessageBox('career_preference_job_title_id')">
 															<ng-template #header>
 																<div class="p-2">
 																	<p-inputgroup>
@@ -685,7 +685,7 @@
 															[options]="careerInterests" placeholder="Select Industry"
 															styleClass="w-100" optionLabel="interest" optionValue="id"
 															[filter]="true" (focusout)="resetMessageBox()"
-															(onFocus)="updateMessageBox('career_preference_career_interest_id')"></p-multiSelect>
+															(onShow)="updateMessageBox('career_preference_career_interest_id')"></p-multiSelect>
 														<small class="text-danger"
 															*ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_career_interest_id')?.errors?.required">
 															Interested Industry is required </small>
@@ -703,7 +703,7 @@
 																optionLabel="work_location" optionValue="id"
 																[filter]="true" filterBy="work_location"
 																[appendTo]="'body'" (focusout)="resetMessageBox()"
-																(onFocus)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
+																(onShow)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
 														</div>
 														<small class="text-danger"
 															*ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_preferred_work_location_id')?.errors?.required">
@@ -734,7 +734,7 @@
 																[options]="preferredWorkplaceType"
 																placeholder="Select Work Mode" styleClass="w-100"
 																(focusout)="resetMessageBox()" [appendTo]="'body'"
-																(onFocus)="updateMessageBox('career_preference_preferred_workplace_type')"
+																(onShow)="updateMessageBox('career_preference_preferred_workplace_type')"
 																(ngModelChange)="handleValidationsForFields(careerPreferenceForm?.get('career_preference_willingness_to_relocate'), $event == 'Remote Work')"></p-multiSelect>
 														</div>
 														<small class="text-danger"
@@ -754,7 +754,7 @@
 														{ label: 'No', value: 'No' }
 													]" placeholder="Wiiling to relocate" styleClass="w-100" optionLabel="label" optionValue="value"
 															(focusout)="resetMessageBox()" appendTo="body"
-															(onFocus)="updateMessageBox('career_preference_willingness_to_relocate')"></p-select>
+															(onShow)="updateMessageBox('career_preference_willingness_to_relocate')"></p-select>
 														<small class="text-danger"
 															*ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_willingness_to_relocate')?.errors?.required">
 															Willingness to Relocate is required </small>
@@ -772,7 +772,7 @@
 																formControlName="career_preference_currency_id"
 																[style]="{ width: '150px' }"
 																(focusout)="resetMessageBox()"
-																(onFocus)="updateMessageBox('career_preference_currency_id')">
+																(onShow)="updateMessageBox('career_preference_currency_id')">
 															</p-select>
 															<div class="flex-grow-1 me-2">
 																<p-inputNumber id="salary"
@@ -796,7 +796,7 @@
 															[options]="departmentList" placeholder="Select Department"
 															styleClass="w-100" optionLabel="department" optionValue="id"
 															[filter]="true" (focusout)="resetMessageBox()"
-															(onFocus)="updateMessageBox('career_preference_department_id')"></p-multiSelect>
+															(onShow)="updateMessageBox('career_preference_department_id')"></p-multiSelect>
 														<small class="text-danger"
 															*ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_department_id')?.errors?.required">
 															Department is required </small>
@@ -962,7 +962,7 @@
 																optionLabel="language" optionValue="id" [filter]="true"
 																filterBy="language" appendTo="body"
 																(focusout)="resetMessageBox()"
-																(onFocus)="updateMessageBox('languages_language_id')"></p-select>
+																(onShow)="updateMessageBox('languages_language_id')"></p-select>
 															<small class="text-danger"
 																*ngIf="isSubmittedProfessionalTraitsForm && language.get('languages_language_id')?.errors?.required">
 																Language known is required </small>
@@ -975,7 +975,7 @@
 																		placeholder="Enter language proficiency"
 																		styleClass="w-100"
 																		(focusout)="resetMessageBox()"
-																		(onFocus)="updateMessageBox('languages_proficiency')"></p-select>
+																		(onShow)="updateMessageBox('languages_proficiency')"></p-select>
 																	<small class="text-danger"
 																		*ngIf="isSubmittedProfessionalTraitsForm && language.get('languages_proficiency')?.errors?.required">
 																		Language Proficiency is required </small>
@@ -1019,7 +1019,7 @@
 															placeholder="Select your acquired soft skills"
 															class="form-control p-1 w-100"
 															(focusout)="resetMessageBox()" appendTo="body"
-															(focus)="updateMessageBox('career_preference_soft_skill_id')"></p-multiSelect>
+															(onShow)="updateMessageBox('career_preference_soft_skill_id')"></p-multiSelect>
 														<small class="text-danger"
 															*ngIf="isSubmittedProfessionalTraitsForm && professionalTraitsForm.get('career_preference_soft_skill_id')?.errors?.required">
 															Soft skills is required </small>
@@ -1069,7 +1069,7 @@
 																placeholder="Select any social media platform"
 																styleClass="w-100" (focusout)="resetMessageBox()"
 																(ngModelChange)="changeSocialMedia($event)"
-																(onFocus)="updateMessageBox('networking_social_media')"
+																(onShow)="updateMessageBox('networking_social_media')"
 																[optionDisabled]="isDisabled">
 																<ng-template let-socialMedia #item>
 																	<span>{{ socialMedia }}&nbsp;<span
