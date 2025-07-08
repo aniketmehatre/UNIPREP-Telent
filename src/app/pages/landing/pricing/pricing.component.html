@@ -8,9 +8,15 @@
 					<!-- Billing Toggle -->
 					<div class="d-flex justify-content-center mb-4">
 						<div class="pricing-btn-group">
-							<button type="button" class="pricing-toggle-btn" [ngClass]="{ selected: selectedPeriod == 1 }" (click)="onSelectPeriod(1)">Monthly</button>
-							<button type="button" class="pricing-toggle-btn" [ngClass]="{ selected: selectedPeriod == 6 }" (click)="onSelectPeriod(6)">Half Yearly</button>
-							<button type="button" class="pricing-toggle-btn" [ngClass]="{ selected: selectedPeriod == 12 }" (click)="onSelectPeriod(12)">Annually</button>
+							<button type="button" class="pricing-toggle-btn"
+								[ngClass]="{ selected: selectedPeriod == 1 }"
+								(click)="onSelectPeriod(1)">Monthly</button>
+							<button type="button" class="pricing-toggle-btn"
+								[ngClass]="{ selected: selectedPeriod == 6 }" (click)="onSelectPeriod(6)">Half
+								Yearly</button>
+							<button type="button" class="pricing-toggle-btn"
+								[ngClass]="{ selected: selectedPeriod == 12 }"
+								(click)="onSelectPeriod(12)">Annually</button>
 						</div>
 					</div>
 
@@ -21,51 +27,94 @@
 							<div class="card h-100 text-white rounded-4 pricing-col">
 								<div class="card-body pricing-card-body" style="margin-top: 35px">
 									<h5 class="card-title fw-bold mb-2">FREE</h5>
-									<p class="card-text text-secondary">Get started with basic features and explore our platform at no cost.</p>
-									<h4>0 {{ studentSubscription?.currency }} <small class="text-secondary">/ 60 Minutes</small></h4>
-									<button class="btn pricing-col-btn text-white w-100 mt-3" routerLink="/register">Try Now</button>
+									<p class="card-text text-secondary">Get started with basic features and explore our
+										platform at no cost.</p>
+									<h4>0 {{ studentSubscription?.currency }} <small class="text-secondary">/ 60
+											Minutes</small></h4>
+									<button class="btn pricing-col-btn text-white w-100 mt-3" routerLink="/register">Try
+										Now</button>
 								</div>
 								<!-- Desktop view - show full list -->
 								<ul class="list-unstyled pricing-list p-3 pt-0 d-none d-md-flex">
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global
+										Advisor</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global
+										Repository</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education Tools</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Travel Tools</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Learning Hub</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Employer Connect</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Career Tools</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Pitch Deck</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Founded Tools</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education
+										Tools</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Travel Tools
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Learning Hub
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Employer
+										Connect</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Career Tools
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Pitch Deck
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Founded Tools
+									</li>
 								</ul>
 
 								<!-- Mobile view - accordion -->
 								<div class="accordion d-md-none" id="accordionFree">
 									<div class="accordion-item">
 										<h2 class="accordion-header">
-											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFree" aria-expanded="false" aria-controls="collapseFree">
+											<button class="accordion-button collapsed" type="button"
+												data-bs-toggle="collapse" data-bs-target="#collapseFree"
+												aria-expanded="false" aria-controls="collapseFree">
 												View Features
 											</button>
 										</h2>
-										<div id="collapseFree" class="accordion-collapse collapse" data-bs-parent="#accordionFree">
+										<div id="collapseFree" class="accordion-collapse collapse"
+											data-bs-parent="#accordionFree">
 											<div class="accordion-body">
 												<ul class="list-unstyled pricing-list text-white p-0">
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education Tools</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Travel Tools</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Learning Hub</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Employer Connect</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Career Tools</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Pitch Deck</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Founded Tools</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; AI Global
+														Advisor</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Global
+														Repository</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; UNILEARN
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Education
+														Tools</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Language Hub
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Travel Tools
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Learning Hub
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Employer
+														Connect</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Career Tools
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Pitch Deck
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Founded
+														Tools</li>
 												</ul>
 											</div>
 										</div>
@@ -78,60 +127,107 @@
 						<div class="col-lg-3 col-md-6 cursor-pointer">
 							<div class="card h-100 pricing-col text-white rounded-4">
 								<div class="card-body pricing-card-body">
-									<div class="d-flex justify-content-between align-items-center mb-2" style="margin-top: 35px">
+									<div class="d-flex justify-content-between align-items-center mb-2"
+										style="margin-top: 35px">
 										<h5 class="card-title fw-bold">Student</h5>
-										<div class="d-flex justify-content-between align-items-center gap-2" *ngIf="studentSubscription?.actual_price !== studentSubscription?.givenprice">
-											<span class="p-2 badge">Save {{ studentSubscription?.discount | number : "1.2" }}%</span> &nbsp;
-											<del class="text-white">{{ studentSubscription?.actual_price }} {{ studentSubscription?.currency }}</del>
+										<div class="d-flex justify-content-between align-items-center gap-2"
+											*ngIf="studentSubscription?.actual_price !== studentSubscription?.givenprice">
+											<span class="p-2 badge">Save {{ studentSubscription?.discount | number :
+												"1.2" }}%</span> &nbsp;
+											<del class="text-white">{{ studentSubscription?.actual_price }} {{
+												studentSubscription?.currency }}</del>
 										</div>
 									</div>
-									<p class="card-text text-secondary">Access essential tools and resources tailored for students and learners.</p>
+									<p class="card-text text-secondary">Access essential tools and resources tailored
+										for students and learners.</p>
 									<h4>
-										{{ studentSubscription?.givenprice }} {{ studentSubscription?.currency }} <small class="text-secondary">/ {{ selectedPeriod }} Month</small>
+										{{ studentSubscription?.givenprice }} {{ studentSubscription?.currency }} <small
+											class="text-secondary">/ {{ selectedPeriod }} Month</small>
 									</h4>
-									<button class="btn pricing-col-btn w-100 mt-3" routerLink="/register">Get Started with the Student plan</button>
+									<button class="btn pricing-col-btn w-100 mt-3" routerLink="/register">Get Started
+										with the Student plan</button>
 								</div>
 								<!-- Desktop view - show full list -->
 								<ul class="list-unstyled pricing-list p-3 pt-0 d-none d-md-flex">
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global
+										Advisor</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global
+										Repository</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education Tools</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub</li>
-									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Travel Tools</li>
-									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Learning Hub</li>
-									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Employer Connect</li>
-									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Career Tools</li>
-									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Pitch Deck</li>
-									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Founded Tools</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education
+										Tools</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub
+									</li>
+									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Travel Tools
+									</li>
+									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Learning Hub
+									</li>
+									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Employer
+										Connect</li>
+									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Career Tools
+									</li>
+									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Pitch Deck
+									</li>
+									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Founded Tools
+									</li>
 								</ul>
 
 								<!-- Mobile view - accordion -->
 								<div class="accordion d-md-none" id="accordionStudent">
 									<div class="accordion-item">
 										<h2 class="accordion-header">
-											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStudent" aria-expanded="false" aria-controls="collapseStudent">
+											<button class="accordion-button collapsed" type="button"
+												data-bs-toggle="collapse" data-bs-target="#collapseStudent"
+												aria-expanded="false" aria-controls="collapseStudent">
 												View Features
 											</button>
 										</h2>
-										<div id="collapseStudent" class="accordion-collapse collapse" data-bs-parent="#accordionStudent">
+										<div id="collapseStudent" class="accordion-collapse collapse"
+											data-bs-parent="#accordionStudent">
 											<div class="accordion-body">
 												<ul class="list-unstyled pricing-list text-white p-0">
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education Tools</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub</li>
-													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Travel Tools</li>
-													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Learning Hub</li>
-													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Employer Connect</li>
-													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Career Tools</li>
-													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Pitch Deck</li>
-													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Founded Tools</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; AI Global
+														Advisor</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Global
+														Repository</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; UNILEARN
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Education
+														Tools</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Language Hub
+													</li>
+													<li><span class="close"><i
+																class="fa-solid fa-xmark"></i></span>&nbsp; Travel Tools
+													</li>
+													<li><span class="close"><i
+																class="fa-solid fa-xmark"></i></span>&nbsp; Learning Hub
+													</li>
+													<li><span class="close"><i
+																class="fa-solid fa-xmark"></i></span>&nbsp; Employer
+														Connect</li>
+													<li><span class="close"><i
+																class="fa-solid fa-xmark"></i></span>&nbsp; Career Tools
+													</li>
+													<li><span class="close"><i
+																class="fa-solid fa-xmark"></i></span>&nbsp; Pitch Deck
+													</li>
+													<li><span class="close"><i
+																class="fa-solid fa-xmark"></i></span>&nbsp; Founded
+														Tools</li>
 												</ul>
 											</div>
 										</div>
@@ -143,62 +239,109 @@
 						<!-- Career Plan (Most Popular) -->
 						<div class="col-lg-3 col-md-6 cursor-pointer">
 							<div class="card h-100 pricing-col text-white rounded-4 border-primary">
-								<div class="card-header bg-primary text-white text-center fw-bold rounded-top-4">Most Popular Plan</div>
+								<div class="card-header bg-primary text-white text-center fw-bold rounded-top-4">Most
+									Popular Plan</div>
 								<div class="card-body pricing-card-body">
 									<div class="d-flex justify-content-between align-items-center mb-2">
 										<h5 class="card-title fw-bold">Career</h5>
-										<div class="d-flex justify-content-between align-items-center gap-2" *ngIf="careerSubscription?.actual_price !== careerSubscription?.givenprice">
-											<span class="p-2 badge">Save {{ careerSubscription?.discount | number : "1.2" }}%</span> &nbsp;
-											<del class="text-white">{{ careerSubscription?.actual_price }} {{ careerSubscription?.currency }}</del>
+										<div class="d-flex justify-content-between align-items-center gap-2"
+											*ngIf="careerSubscription?.actual_price !== careerSubscription?.givenprice">
+											<span class="p-2 badge">Save {{ careerSubscription?.discount | number :
+												"1.2" }}%</span> &nbsp;
+											<del class="text-white">{{ careerSubscription?.actual_price }} {{
+												careerSubscription?.currency }}</del>
 										</div>
 									</div>
-									<p class="card-text text-secondary">Unlock advanced features to boost your professional growth and opportunities.</p>
+									<p class="card-text text-secondary">Unlock advanced features to boost your
+										professional growth and opportunities.</p>
 									<h4>
-										{{ careerSubscription?.givenprice }} {{ careerSubscription?.currency }} <small class="text-secondary">/ {{ selectedPeriod }} Month</small>
+										{{ careerSubscription?.givenprice }} {{ careerSubscription?.currency }} <small
+											class="text-secondary">/ {{ selectedPeriod }} Month</small>
 									</h4>
-									<button class="btn pricing-col-btn w-100 mt-3" routerLink="/register">Get Started with the Career plan</button>
+									<button class="btn pricing-col-btn w-100 mt-3" routerLink="/register">Get Started
+										with the Career plan</button>
 								</div>
-								<!-- Desktop view - show full list -->	
+								<!-- Desktop view - show full list -->
 								<ul class="list-unstyled pricing-list p-3 pt-0 d-none d-md-flex">
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global
+										Advisor</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global
+										Repository</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education Tools</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Travel Tools</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Learning Hub</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Employer Connect</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Career Tools</li>
-									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Pitch Deck</li>
-									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Founded Tools</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education
+										Tools</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Travel Tools
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Learning Hub
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Employer
+										Connect</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Career Tools
+									</li>
+									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Pitch Deck
+									</li>
+									<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Founded Tools
+									</li>
 								</ul>
 
 								<!-- Mobile view - accordion -->
 								<div class="accordion d-md-none" id="accordionCareer">
 									<div class="accordion-item">
 										<h2 class="accordion-header">
-											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCareer" aria-expanded="false" aria-controls="collapseCareer">
+											<button class="accordion-button collapsed" type="button"
+												data-bs-toggle="collapse" data-bs-target="#collapseCareer"
+												aria-expanded="false" aria-controls="collapseCareer">
 												View Features
 											</button>
 										</h2>
-										<div id="collapseCareer" class="accordion-collapse collapse" data-bs-parent="#accordionCareer">
+										<div id="collapseCareer" class="accordion-collapse collapse"
+											data-bs-parent="#accordionCareer">
 											<div class="accordion-body">
 												<ul class="list-unstyled pricing-list text-white p-0">
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education Tools</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Travel Tools</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Learning Hub</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Employer Connect</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Career Tools</li>
-													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Pitch Deck</li>
-													<li><span class="close"><i class="fa-solid fa-xmark"></i></span>&nbsp; Founded Tools</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; AI Global
+														Advisor</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Global
+														Repository</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; UNILEARN
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Education
+														Tools</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Language Hub
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Travel Tools
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Learning Hub
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Employer
+														Connect</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Career Tools
+													</li>
+													<li><span class="close"><i
+																class="fa-solid fa-xmark"></i></span>&nbsp; Pitch Deck
+													</li>
+													<li><span class="close"><i
+																class="fa-solid fa-xmark"></i></span>&nbsp; Founded
+														Tools</li>
 												</ul>
 											</div>
 										</div>
@@ -212,61 +355,109 @@
 							<div class="card h-100 pricing-col text-white rounded-4">
 								<div class="d-flex justify-content-between align-items-center" style="margin-top: 35px">
 									<div class="card-body pricing-card-body">
-										<div class="d-flex justify-content-between align-items-center gap-4" [ngClass]="{ 'mb-2': entrepreneurSubscription?.actual_price == entrepreneurSubscription?.givenprice }">
+										<div class="d-flex justify-content-between align-items-center gap-4"
+											[ngClass]="{ 'mb-2': entrepreneurSubscription?.actual_price == entrepreneurSubscription?.givenprice }">
 											<h5 class="card-title fw-bold text-nowrap">Entrepreneur</h5>
-											<div class="d-flex flex-column align-items-center" *ngIf="entrepreneurSubscription?.actual_price !== entrepreneurSubscription?.givenprice">
-												<span class="p-2 badge">Save {{ entrepreneurSubscription?.discount | number : "1.2" }}%</span>
-												<del class="text-white">{{ entrepreneurSubscription?.actual_price }} {{ entrepreneurSubscription?.currency }}</del>
+											<div class="d-flex flex-column align-items-center"
+												*ngIf="entrepreneurSubscription?.actual_price !== entrepreneurSubscription?.givenprice">
+												<span class="p-2 badge">Save {{ entrepreneurSubscription?.discount |
+													number : "1.2" }}%</span>
+												<del class="text-white">{{ entrepreneurSubscription?.actual_price }} {{
+													entrepreneurSubscription?.currency }}</del>
 											</div>
 										</div>
-										<p class="card-text text-secondary">Full access to premium tools designed to grow and scale your business.</p>
+										<p class="card-text text-secondary">Full access to premium tools designed to
+											grow and scale your business.</p>
 										<h4>
-											{{ entrepreneurSubscription?.givenprice }} {{ entrepreneurSubscription?.currency }} <small class="text-secondary">/ {{ selectedPeriod }} Month</small>
+											{{ entrepreneurSubscription?.givenprice }} {{
+											entrepreneurSubscription?.currency }} <small class="text-secondary">/ {{
+												selectedPeriod }} Month</small>
 										</h4>
-										<button class="btn pricing-col-btn w-100 mt-3" routerLink="/register">Get Started with the Entrepreneur plan</button>
+										<button class="btn pricing-col-btn w-100 mt-3" routerLink="/register">Get
+											Started with the Entrepreneur plan</button>
 									</div>
 								</div>
 								<!-- Desktop view - show full list -->
 								<ul class="list-unstyled pricing-list p-3 pt-0 d-none d-md-flex">
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global
+										Advisor</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global
+										Repository</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
 									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education Tools</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Travel Tools</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Learning Hub</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Employer Connect</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Career Tools</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Pitch Deck</li>
-									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Founded Tools</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education
+										Tools</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Travel Tools
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Learning Hub
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Employer
+										Connect</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Career Tools
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Pitch Deck
+									</li>
+									<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Founded Tools
+									</li>
 								</ul>
 
 								<!-- Mobile view - accordion -->
 								<div class="accordion d-md-none" id="accordionEntrepreneur">
 									<div class="accordion-item">
 										<h2 class="accordion-header">
-											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEntrepreneur" aria-expanded="false" aria-controls="collapseEntrepreneur">
+											<button class="accordion-button collapsed" type="button"
+												data-bs-toggle="collapse" data-bs-target="#collapseEntrepreneur"
+												aria-expanded="false" aria-controls="collapseEntrepreneur">
 												View Features
 											</button>
 										</h2>
-										<div id="collapseEntrepreneur" class="accordion-collapse collapse" data-bs-parent="#accordionEntrepreneur">
+										<div id="collapseEntrepreneur" class="accordion-collapse collapse"
+											data-bs-parent="#accordionEntrepreneur">
 											<div class="accordion-body">
 												<ul class="list-unstyled pricing-list text-white p-0">
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; AI Global Advisor</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Global Repository</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNILEARN</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Education Tools</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Language Hub</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Travel Tools</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Learning Hub</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Employer Connect</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Career Tools</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Pitch Deck</li>
-													<li><span class="tick"><i class="fa-solid fa-check"></i></span>&nbsp; Founded Tools</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; AI Global
+														Advisor</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Global
+														Repository</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; UNILEARN
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; UNIFINDER
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; UNISCHOLAR
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Education
+														Tools</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Language Hub
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Travel Tools
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Learning Hub
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Employer
+														Connect</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Career Tools
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Pitch Deck
+													</li>
+													<li><span class="tick"><i
+																class="fa-solid fa-check"></i></span>&nbsp; Founded
+														Tools</li>
 												</ul>
 											</div>
 										</div>

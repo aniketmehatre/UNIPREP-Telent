@@ -114,10 +114,18 @@
 													<div *ngIf="isEmailOTPSend" class="col-md-12 mt-2">
 														<form (ngSubmit)="onValidateEmailOTP()"
 															[formGroup]="emailOTPForm" class="formOTP">
-															<h5 class="mt-3 text-center">Enter your OTP</h5>
+															<!-- <h5 class="mt-3 text-center">Enter your OTP</h5>
 															<p class="text-center text-muted">We have sent you a
-																one-time password to your email for verification</p>
-
+																one-time password to your email for verification</p> -->
+															<h5 class="mt-3 text-center">Enter your OTP</h5>
+															<p class="text-center text-muted mb-3">We've sent a 4-digit
+																code to your email.<br>
+																Please enter it below to verify your account. <br>
+															</p>
+															<p class="text-center uniprep-secondary">Note: If you
+																haven’t received the email, please check your spam or
+																promotions folder.</p>
+															<br>
 															<div _ngcontent-wta-c50="" class="row">
 																<div _ngcontent-wta-c50=""
 																	class="col-lg-3 col-md-3 col-3">&nbsp;</div>
@@ -208,8 +216,7 @@
 														<label class="labelText col col-12" for="gender">Gender<span
 																class="required">*</span></label>
 														<p-inputgroup>
-															<p-select
-																[options]="genderOptions" appendTo="body"
+															<p-select [options]="genderOptions" appendTo="body"
 																placeholder="Select your gender"
 																formControlName="gender" id="gender" optionLabel="name"
 																optionValue="id" styleClass="w-100"></p-select>
@@ -249,10 +256,10 @@
 															<p-inputgroup>
 																<p-select formControlName="location" optionValue="id"
 																	optionLabel="work_location" styleClass="w-100"
-																	[options]="locationList"
+																	[options]="locationList" [virtualScroll]="true"
 																	placeholder="Select Location" [filter]="true"
-																	filterBy="work_location" [appendTo]="'body'">
-																</p-select>
+																	filterBy="work_location" [appendTo]="'body'"
+																	[virtualScrollItemSize]="38"></p-select>
 															</p-inputgroup>
 															<div *ngIf="submitted && f['location']['errors']"
 																class="UserInfoValidation">

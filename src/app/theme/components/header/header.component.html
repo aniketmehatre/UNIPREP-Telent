@@ -493,14 +493,15 @@
 					</div>
 					<form [formGroup]="phoneVerification" role="form" aria-label="Phone verification form">
 						<div class="w-100 phonenumberblock mt-2">
-							<p class="m-2">Enter Your {{ haveWhatsapp }} number to continue the experience</p>
-							<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom-less-padding'"
-								[preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" appendTo="body"
-								[enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
-								[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-								[phoneValidation]="true" [selectedCountryISO]="preferredCountry"
-								customPlaceholder="Enter {{ haveWhatsapp }} Number" formControlName="verification_phone"
-								[attr.disabled]="isSendingOTP" aria-label="Enter WhatsApp number"></ngx-intl-tel-input>
+							<p class="m-2">Enter your Number for Job Alerts on {{haveWhatsapp}}>
+								<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom-less-padding'"
+									[preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" appendTo="body"
+									[enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
+									[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+									[phoneValidation]="true" [selectedCountryISO]="preferredCountry"
+									customPlaceholder="Enter {{ haveWhatsapp }} Number"
+									formControlName="verification_phone" [attr.disabled]="isSendingOTP"
+									aria-label="Enter WhatsApp number"></ngx-intl-tel-input>
 							<div class="d-flex align-items-center justify-content-between mt-2">
 								<div class="d-flex align-items-center">
 									<input type="checkbox" formControlName="choice" class="form-check-input mt-0"

@@ -14,6 +14,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { UuidInviteCardComponent } from './uuid-invite-card/uuid-invite-card.component';
 import { CompanyInviteCardComponent } from './company-invite-card/company-invite-card.component';
+import { landingServices } from '../landing.service';
 
 @Component({
   selector: 'uni-landing-content',
@@ -261,7 +262,7 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
   constructor(private sanitizer: DomSanitizer, private themeService: ThemeService,
     private formbuilder: FormBuilder, private service: LocationService,
     private storage: LocalStorageService, private router: Router,
-    private authService: AuthService, private route: ActivatedRoute, private renderer: Renderer2) {
+    private authService: AuthService, private route: ActivatedRoute, private renderer: Renderer2, private landingService: landingServices) {
     // Initialize the isDarkMode property with the value from the service
     this.isDarkMode = this.themeService.getInitialSwitchState()
   }
@@ -290,38 +291,34 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
   timeLeftInfoCard: any;
 
   ngOnInit() {
-
-    this.currentUrl = this.router.url;
-    this.uuid = this.route.snapshot.paramMap.get('uuid');
-    this.isFromUUID = !!this.uuid;
-
-    this.isJobLink = this.currentUrl.startsWith('/job');
-    // this.isCompanyLink = this.currentUrl.startsWith('/company');
-
-    if (this.uuid && (this.isJobLink)) {
-      console.log('UUID found:', this.uuid);
-    } else {
-      console.log('No UUID, redirecting to dashboard');
-      //this.router.navigate(['/pages/dashboard']);
-    }
-
-
-    // this.isJobLink = this.currentUrl.startsWith('/job');
-    // this.isCompanyLink = this.currentUrl.startsWith('/company');
-
-    // if (this.uuid && (this.isJobLink || this.isCompanyLink)) {
-    //   console.log('UUID found:', this.uuid);
-    // } else {
-    //   console.log('No UUID, redirecting to dashboard');
-    //   this.router.navigate(['/pages/dashboard']);
-    // }
+    this.route.params.subscribe(params => {
+      this.uuid = params['uuid'];
+      this.currentUrl = this.router.url;
+      this.isFromUUID = !!this.uuid;
+      this.isJobLink = this.currentUrl.startsWith('/job');
+      this.isCompanyLink = this.currentUrl.startsWith('/company');
+  
+      console.log("UUID from route:", this.uuid);
+  
+      if (this.uuid && this.isJobLink) {
+        this.landingService.getJobInviteDetails(this.uuid).subscribe((res) => {
+          this.uuidCardData = res?.data;
+        });
+      } else if (this.uuid && this.isCompanyLink) {
+        this.landingService.getCompanyInviteDetails(this.uuid).subscribe((res) => {
+          this.uuidCardData = res?.data;
+        });
+      } else {
+        this.router.navigate(['/pages/dashboard']);
+      }
+    });
+  
     this.service.getFeatBlogs().subscribe((response) => {
-      this.blogs = response.slice(0, 8)
-    })
-
-    this.timeLeftInfoCard = "24 Hours"
-    // Any additional initialization can go here
-    this.currentImage = "/uniprep-assets/images/uf1.webp"
+      this.blogs = response.slice(0, 8);
+    });
+  
+    this.timeLeftInfoCard = "24 Hours";
+    this.currentImage = "/uniprep-assets/images/uf1.webp";
   }
 
   ngAfterViewInit(): void {
