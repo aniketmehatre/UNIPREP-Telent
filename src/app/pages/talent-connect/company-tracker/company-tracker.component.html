@@ -56,10 +56,10 @@
 							[companyId]="selectedCompanyId"
 							(studentIdRelay)="onStudentIdRelay($event)"></uni-company-detail>
 					</div>
-					<div [ngClass]="{ 'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo}"
+					<div class="h-100 overflow-y-auto" [ngClass]="{ 'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo}"
 						*ngIf="showChat">
-						<uni-chat (openInfo)="showInfo = true" [showInfo]="showInfo" [companyDetails]="companyDetails"
-							(closeChat)="showChat = false" (studentIdEmit)="onStudentIdFromChat($event)"></uni-chat>
+						<uni-company-chat (openInfo)="showInfo = true" [showInfo]="showInfo" [companyDetails]="companyDetails"
+							(closeChat)="showChat = false" (studentIdEmit)="onStudentIdFromChat($event)"></uni-company-chat>
 					</div>
 				</div>
 				<ng-template #showEmptyContainer>
@@ -86,8 +86,8 @@
 
 			<p-drawer #drawerRef [(visible)]="visiblechat" position="right" [style]="{ width: '80%' }">
 				<ng-template #headless>
-					<uni-chat (openInfo)="showInfo = true" [showInfo]="showInfo" [companyDetails]="companyDetails"
-						(closeChat)="showChat = false" (studentIdEmit)="onStudentIdFromChat($event)"></uni-chat>
+					<uni-company-chat (openInfo)="showInfo = true" [showInfo]="showInfo" [companyDetails]="companyDetails"
+						(closeChat)="showChat = false" (studentIdEmit)="onStudentIdFromChat($event)"></uni-company-chat>
 				</ng-template>
 			</p-drawer>
 		</div>

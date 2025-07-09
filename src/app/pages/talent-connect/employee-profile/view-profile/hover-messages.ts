@@ -7,9 +7,9 @@ export const HOVER_MESSAGES: any = {
   gender:
     "Select your gender from the options provided. This information helps employers foster inclusive hiring practices while respecting your privacy.",
   nationality_id:
-    "Choose your nationality. This will help employers understand your legal eligibility to work in specific regions or countries.",
+    "Please select yournationality, as this will help employers match you with opportunities that align with their hiring preferences.",
   location_id:
-    "Select your current location, including the city and country you reside in. This will help employers match you with nearby opportunities.",
+  "Select your current location, including the city and country you reside in. This will help employers match you with nearby opportunities.",
   profile_image:
     "Upload a professional photo of yourself in jpg format. This helps create a more personal connection with employers and enhances the chances of being noticed.",
 

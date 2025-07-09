@@ -10,7 +10,7 @@ import { forkJoin } from "rxjs";
 import { PageFacadeService } from '../../page-facade.service';
 import { DrawerModule } from 'primeng/drawer';
 import { Company } from 'src/app/@Models/company-connect.model';
-import { ChatComponent } from '../company-connect/chat/chat.component';
+import { CompanyChatComponent } from '../company-connect/company-chat/company-chat.component';
 
 interface DropdownOption {
   label: string;
@@ -21,7 +21,7 @@ interface DropdownOption {
   templateUrl: './company-tracker.component.html',
   styleUrls: ['./company-tracker.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, CompanyListsComponent, CompanyDetailComponent, RouterLink, DrawerModule, ChatComponent]
+  imports: [CommonModule, DialogModule, CompanyListsComponent, CompanyDetailComponent, RouterLink, DrawerModule, CompanyChatComponent]
 })
 export class CompanyTracker1Component {
   @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();

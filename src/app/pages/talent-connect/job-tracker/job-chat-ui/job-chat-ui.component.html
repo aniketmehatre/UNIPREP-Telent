@@ -1,4 +1,4 @@
-<div class="card h-100 bg-white">
+<div class="card h-100 bg-white overflow-y-auto">
 	<div class="card-header bg-transparent d-flex justify-content-between align-items-center">
 		<div class="d-flex align-items-center gap-2">
 			<button *ngIf="!showInfo" pButton icon="pi pi-info-circle" label="Open Info"
@@ -17,7 +17,7 @@
 		<div class="h-100 d-flex flex-column">
 			<!-- Body - Scrollable content -->
 			<div class="card-body p-0 flex-grow-1 overflow-hidden d-flex flex-column"
-				style="height: calc(100vh - 450px)">
+				style="height: calc(100vh - 455px)">
 				<!-- Initial View (Empty State) -->
 				<div class="chat-body h-100 overflow-y-auto" *ngIf="messages?.length < 1">
 					<div class="description-box m-3 py-4 rounded-3" style="background-color: #edeff4">

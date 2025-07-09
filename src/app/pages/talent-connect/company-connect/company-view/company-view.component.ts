@@ -4,7 +4,7 @@ import { ChipModule } from "primeng/chip";
 import { ButtonModule } from 'primeng/button';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TalentConnectService } from "../../talent-connect.service";
-import { ChatComponent } from "../chat/chat.component";
+import { CompanyChatComponent } from "../company-chat/company-chat.component";
 import { SkeletonModule } from 'primeng/skeleton';
 import { DrawerModule } from 'primeng/drawer';
 
@@ -18,7 +18,7 @@ import { DrawerModule } from 'primeng/drawer';
     CommonModule,
     ChipModule,
     RouterModule,
-    ChatComponent,
+    CompanyChatComponent,
     SkeletonModule,DrawerModule
   ]
 })
