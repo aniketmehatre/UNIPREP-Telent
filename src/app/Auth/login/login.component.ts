@@ -31,6 +31,8 @@ import { finalize } from 'rxjs/operators'
 import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login'
 import { Image } from "primeng/image";
 import { SkeletonModule } from "primeng/skeleton"
+import { firstValueFrom } from 'rxjs';
+import { HttpClient } from "@angular/common/http"
 
 declare var google: any;
 
@@ -72,6 +74,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authTokenService = inject(AuthTokenService);
     private cdr = inject(ChangeDetectorRef);
     private subs = new SubSink()
+    private  http = inject(HttpClient);
     loading = true;
     jobId: any
 
@@ -268,7 +271,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.service.getMe().subscribe({
             next: (userData) => {
                 this.loadCountryList(userData)
-
+                let userDetails = userData.userdetails[0];
                 let req = {
                     userId: userData.userdetails[0].user_id,
                     location: this.locationData.city,
@@ -276,6 +279,12 @@ export class LoginComponent implements OnInit, OnDestroy {
                 };
                 this.locationService.sendSessionData(req, "login").subscribe();
                 this.toast.add({ severity: "success", summary: "Success", detail: "Login Successful" })
+                if(!userDetails.city_id){
+                    setTimeout(() => {
+                        this.updateLocation();
+                    }, 1000); //because of the token is not set. so i added the timeout
+                }
+                
                 if (this.jobId) {
                     this.route.navigate([this.jobId], { replaceUrl: true })
                 }
@@ -289,5 +298,33 @@ export class LoginComponent implements OnInit, OnDestroy {
                 })
             }
         })
+    }
+
+    updateLocation(){
+        this.updateCurrentLocation().then((userLocation) => {
+            if(userLocation.country != "Unknown" && userLocation.city != "Unknown"){
+                this.locationService.updateUserLocation(userLocation).subscribe()
+            }
+        })
+    }
+
+    private getCountryFromIP() {
+        const url = 'https://ipapi.co/json/';
+        return this.http.get<any>(url);
+    }
+
+    async updateCurrentLocation(): Promise<{ country: string; city: string }> {
+        try {
+            const ipData = await firstValueFrom(this.getCountryFromIP());
+            return {
+                country: ipData.country_name || 'Unknown',
+                city: ipData.city || 'Unknown'
+            };
+        } catch {
+            return {
+                country: 'Unknown',
+                city: 'Unknown'
+            };
+        }
     }
 }

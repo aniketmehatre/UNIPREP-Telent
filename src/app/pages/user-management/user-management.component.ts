@@ -45,7 +45,7 @@ export class UserManagementComponent implements OnInit {
 	user!: User | null
 	locationList: any;
 	registrationForm!: FormGroup
-	countryList: any
+	countryList: any = [];
 	currentDate = new Date()
 	dateTime = new Date()
 	maximumTime = new Date()
@@ -84,7 +84,7 @@ export class UserManagementComponent implements OnInit {
 
 		this.registrationForm = this.formBuilder.group({
 			name: [""],
-			location_id: [""],
+			// location_id: [""],
 			phone: [""],
 			home_country: [""],
 			last_degree_passing_year: [""],
@@ -140,42 +140,47 @@ export class UserManagementComponent implements OnInit {
 
 	// using get location
 	// test command
-	GetLocationList() {
-		if (this.registrationForm.get("home_country")?.value == 122) {
-			this.locationService.getLocation().subscribe(
-				(res: any) => {
-					this.locationList = res
-				},
-				(error: any) => {
-					this.toast.add({
-						severity: "warning",
-						summary: "Warning",
-						detail: error.error.message,
-					})
-				}
-			)
-		} else {
-			this.locationList = [{ id: 0, district: "Others" }]
-			this.registrationForm?.get("location_id")?.setValue(0)
-		}
-	}
+	// GetLocationList() {
+	// 	if (this.registrationForm.get("home_country")?.value == 122) {
+	// 		this.locationService.getLocation().subscribe(
+	// 			(res: any) => {
+	// 				this.locationList = res
+	// 			},
+	// 			(error: any) => {
+	// 				this.toast.add({
+	// 					severity: "warning",
+	// 					summary: "Warning",
+	// 					detail: error.error.message,
+	// 				})
+	// 			}
+	// 		)
+	// 	} else {
+	// 		this.locationList = [{ id: 0, district: "Others" }]
+	// 		this.registrationForm?.get("location_id")?.setValue(0)
+	// 	}
+	// }
 
 	getCountryList() {
-		this.locationService.getHomeCountry(2).subscribe(
-			(res: any) => {
-				this.countryList = res
-			},
-			(error: any) => { }
-		)
+		// this.locationService.getHomeCountry(2).subscribe(
+		// 	(res: any) => {
+		// 		this.countryList = res
+		// 	},
+		// 	(error: any) => { }
+		// )
+		this.locationService.getWorkLocation().subscribe({
+			next: (res: any) => {
+				this.countryList = res.worklocations;
+			}
+		})
 	}
 
-	changeLocation(event: any) {
-		const selectedCountry = this.countryList.find((country: any) => country.id === event.value)
-		if (selectedCountry) {
-			this.dataService.changeHomeCountryFlag(selectedCountry.flag)
-		}
-		this.GetLocationList()
-	}
+	// changeLocation(event: any) {
+	// 	const selectedCountry = this.countryList.find((country: any) => country.id === event.value)
+	// 	if (selectedCountry) {
+	// 		this.dataService.changeHomeCountryFlag(selectedCountry.flag)
+	// 	}
+	// 	this.GetLocationList()
+	// }
 
 	formatPhoneNumber(countryCode: string, phone: string): string {
 		if (!countryCode || !phone) return '';
@@ -236,8 +241,9 @@ export class UserManagementComponent implements OnInit {
 			];
 			this.registrationForm.patchValue({
 				name: this.PersonalInfo?.name,
-				location_id: this.PersonalInfo?.location_id,
-				home_country: this.PersonalInfo?.home_country_id == null ? null : Number(this.PersonalInfo?.country),
+				// location_id: this.PersonalInfo?.location_id,
+				// home_country: this.PersonalInfo?.home_country_id == null ? null : Number(this.PersonalInfo?.country),
+				home_country: this.PersonalInfo?.city_id,
 				last_degree_passing_year: this.PersonalInfo?.last_degree_passing_year,
 				phone: `${this.PersonalInfo?.country_code || ''} ${this.PersonalInfo?.phone || ''}`,
 				email: this.PersonalInfo?.email,
@@ -246,7 +252,7 @@ export class UserManagementComponent implements OnInit {
 			this.selectedDate = new Date()
 			this.selectedDate.setFullYear(this.registrationForm.get("intake_year_looking")?.value)
 			this.selectedDate.setMonth(this.registrationForm.get("intake_month_looking")?.value)
-			this.GetLocationList()
+			// this.GetLocationList()
 			this.registrationForm.get("intake_month_looking")?.setValue(this.registrationForm.get("intake_month_looking")?.value || this.registrationForm.get("intake_month_looking")?.value == 0 ? this.selectedDate : "")
 			var selectedYear = this.registrationForm.get("intake_year_looking")?.value
 
@@ -507,19 +513,19 @@ export class UserManagementComponent implements OnInit {
 	onSubmit() {
 		if (this.submitName == "Edit") {
 			this.registrationForm.get('last_degree_passing_year')?.enable();
-			this.registrationForm.get('location_id')?.enable();
+			this.registrationForm.get('home_country')?.enable();
 			this.submitName = "Update"
 			return;
 		}
 		let data = {
-			location_id: this.registrationForm.value.location_id,
+			home_country: this.registrationForm.value.home_country,
 			last_degree_passing_year: this.extractYear(this.registrationForm.value.last_degree_passing_year),
 		}
 		this.userManagementService.updateUserDetails(data).subscribe({
 			next: (data: any) => {
 				this.toast.add({ severity: 'success', summary: 'Success', detail: data.message });
 				this.registrationForm.get('last_degree_passing_year')?.disable();
-				this.registrationForm.get('location_id')?.disable();
+				this.registrationForm.get('home_country')?.disable();
 				this.submitName = "Edit"
 				this.GetPersonalProfileData();
 			},
