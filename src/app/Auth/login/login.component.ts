@@ -33,6 +33,7 @@ import { Image } from "primeng/image";
 import { SkeletonModule } from "primeng/skeleton"
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from "@angular/common/http"
+import {StorageService} from "../../storage.service";
 
 declare var google: any;
 
@@ -71,6 +72,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private locationService = inject(LocationService);
     private authService = inject(SocialAuthService);
     private storage = inject(LocalStorageService);
+    private storageService = inject(StorageService);
     private authTokenService = inject(AuthTokenService);
     private cdr = inject(ChangeDetectorRef);
     private subs = new SubSink()
@@ -94,11 +96,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (this.service.isTokenValid()) {
             this.route.navigate(["/pages/dashboard"])
         }
-
-        this.jobId = this.storage.get('job-id')
-        if (!this.jobId) {
-            localStorage.clear()
-        }
+        setTimeout(() => {
+            this.jobId = this.storageService.get('position')
+            console.log(this.jobId)
+        }, 3000);
+        // if (!this.jobId) {
+        //     localStorage.clear()
+        // }
         this.initializeComponent()
         this.setupSocialAuth()
         this.apiToCheckPartnerOrInstitute()

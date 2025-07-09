@@ -23,6 +23,7 @@ import { ButtonDirective } from "primeng/button";
 import { AuthTokenService } from "src/app/core/services/auth-token.service"
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { Image } from "primeng/image";
+import {StorageService} from "../../storage.service";
 
 @Component({
     selector: "app-registration",
@@ -80,14 +81,23 @@ export class RegistrationComponent implements OnInit {
         private toastr: MessageService,
         private authService: SocialAuthService,
         private storage: LocalStorageService,
+        private storageService: StorageService,
         private authTokenService: AuthTokenService
     ) {
     }
 
     dateTime = new Date()
-
+    jobId: any
     ngOnInit() {
-        localStorage.clear()
+
+        setTimeout(() => {
+            this.jobId = this.storageService.get('position')
+            console.log(this.jobId)
+        }, 3000);
+        if (!this.jobId) {
+            localStorage.clear()
+        }
+        //localStorage.clear()
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
             this.imageUrlWhitelabel = data.logo
         })
