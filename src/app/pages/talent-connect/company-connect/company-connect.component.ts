@@ -9,7 +9,7 @@ import { CompanyFilterComponent } from "./company-filter/company-filter.componen
 import { MessageService } from 'primeng/api';
 import { PageFacadeService } from '../../page-facade.service';
 import { ToastModule } from 'primeng/toast';
-import { StorageService } from 'src/app/storage.service';
+import { AuthService } from 'src/app/Auth/auth.service';
 
 interface DropdownOption {
     label: string;
@@ -50,15 +50,11 @@ export class CompanyConnect1Component implements OnInit {
     isSkeletonVisible: boolean = true;
     activeDropdownCompanyId: number | null = null;
 
-
-    currentLocationDetails: any;
-
     constructor(private talentConnectService: TalentConnectService,
-        private router: Router, private messageService: MessageService, private pageFacade: PageFacadeService, private storage: StorageService,) {
+        private router: Router, private messageService: MessageService, private pageFacade: PageFacadeService, private authService: AuthService,) {
     }
 
     ngOnInit() {
-        this.currentLocationDetails = this.storage.get("currentCountryByGEOLocation");
         this.listCompanyData()
     }
 
@@ -105,16 +101,10 @@ export class CompanyConnect1Component implements OnInit {
         let requestData = {
             perpage: this.perPage,
             page: this.page,
+            city_id: this.authService._user?.city_id,
             ...params
         };
-        if (this.currentLocationDetails) {
-            requestData = {
-                ...requestData,
-                country: this.currentLocationDetails?.country,
-                state: this.currentLocationDetails?.state,
-                city: this.currentLocationDetails?.county
-            }
-        }
+
         this.talentConnectService.getTalentConnectCompanies(requestData).subscribe({
             next: data => {
                 this.companyDataList = data.companies;

@@ -46,7 +46,8 @@
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
 		<div class="row" *ngIf="!isSkeletonVisible && jobListings.length > 0">
-			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2" *ngFor="let job of jobListings; let i=index;"
+			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2"
+				*ngFor="let job of jobListings; let i=index;"
 				[routerLink]="['/pages/talent-connect/easy-apply', job.id]">
 				<div class="card card-inside h-100 text-start position-relative" role="button">
 					<button class="btn btn-link text-warning p-0 position-absolute"
@@ -87,9 +88,11 @@
 									</span>
 								</p>
 								<p class="mb-0 uniprep-secondary text-extrasmall">{{ job.matching_skills }}</p>
-								<button  pButton [ngClass]="getStatus(job?.hiring_status) ? 'btn-primary' : 'btn-success'"
+								<button pButton
+									[ngClass]="getStatus(job?.hiring_status) ? 'btn-primary' : 'btn-success'"
 									class="btn btn-rounded text-nowrap !fs-6 py-1">
-									<i class="fa-solid" [ngClass]="getStatus(job?.hiring_status) ? 'fa-clock' : 'fa-check'"></i>{{job?.hiring_status}}
+									<i class="fa-solid"
+										[ngClass]="getStatus(job?.hiring_status) ? 'fa-clock' : 'fa-check'"></i>{{job?.hiring_status}}
 								</button>
 							</div>
 						</div>
@@ -182,7 +185,7 @@
 										<p class="text-muted mb-0 text-small">Experience Level</p>
 										<p class="mb-0 fw-medium text-truncate">{{ job.experience_level == "Fresher" ?
 											job.experience_level : job.experience_level == "1" ? job.experience_level +
-											"year" : job.experience_level + " years" }}</p>
+											" year" : job.experience_level + " years" }}</p>
 									</div>
 								</div>
 							</div>
@@ -246,8 +249,8 @@
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
 				<p-paginator *ngIf="totalJobs != 0" [rows]="pageSize" [totalRecords]="totalJobs"
-					[first]="(page - 1) * pageSize" (onPageChange)="onPageChange($event)"
-					[rowsPerPageOptions]="[8, 48]" [disabled]="totalJobs <= pageSize">
+					[first]="(page - 1) * pageSize" (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="[8, 48]"
+					[disabled]="totalJobs <= pageSize">
 				</p-paginator>
 			</div>
 			<div class="col-md-3">
@@ -264,15 +267,14 @@
 			[baseZIndex]="10000" [draggable]="false" [resizable]="false" styleClass="container">
 			<form [formGroup]="filterForm" class="p-3">
 				<div class="row g-4">
-					<div class="col-md-12">
-						<label class="form-label fw-bold">Search</label>
+					<div class="col-md-6">
+						<label class="form-label fw-bold">Company Name</label>
 						<div class="p-inputgroup">
-							<input type="text" pInputText placeholder="Search by Keyword" class="form-control"
+							<input type="text" pInputText placeholder="Search by company name" class="form-control"
 								formControlName="keyword" />
 						</div>
 					</div>
-
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<label class="form-label fw-bold">Position Title</label>
 						<div class="p-inputgroup">
 							<input type="text" pInputText formControlName="position" placeholder="Enter position title"
@@ -280,41 +282,52 @@
 						</div>
 					</div>
 					<div class="col-md-4">
+						<label class="form-label fw-bold">Industry </label>
+						<p-multiSelect [options]="industries" formControlName="industry" placeholder="Select industry"
+							optionLabel="industry_name" optionValue="id" appendTo="body" display="chip" class="w-100"
+							[showClear]="true"> </p-multiSelect>
+					</div>
+					<div class="col-md-4">
 						<label class="form-label fw-bold">Work Location </label>
 						<p-multiSelect [options]="locations" formControlName="worklocation" [virtualScroll]="true"
 							[virtualScrollItemSize]="50" placeholder="Select work location" optionLabel="work_location"
-							optionValue="id" display="chip" appendTo="body" class="w-100" [showClear]="true">
+							optionValue="id" display="chip" appendTo="body" class="w-100" [showClear]="true"
+							(onChange)="onChangeLocation($event, 'location')" (onClear)="onChangeLocation($event, 'location')">
 						</p-multiSelect>
 					</div>
-
+					<div class="col-md-4">
+						<label class="form-label fw-bold">Country </label>
+						<p-multiSelect [options]="countries" formControlName="country" [virtualScroll]="true"
+							[virtualScrollItemSize]="50" placeholder="Select Country" optionLabel="country"
+							optionValue="id" display="chip" appendTo="body" class="w-100" [showClear]="true"
+							(onChange)="onChangeLocation($event, 'country')" (onClear)="onChangeLocation($event, 'country')">
+						</p-multiSelect>
+					</div>
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Work Mode </label>
 						<p-multiSelect [options]="workModes" formControlName="work_mode" placeholder="Select work mode"
 							optionLabel="work_mode" optionValue="id" appendTo="body" display="chip" class="w-100"
 							[showClear]="true"> </p-multiSelect>
 					</div>
-
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Work Type </label>
 						<p-multiSelect [options]="employmentTypes" formControlName="employment_type"
 							placeholder="Select work type" optionLabel="employment_type" optionValue="id"
 							appendTo="body" display="chip" class="w-100" [showClear]="true"> </p-multiSelect>
 					</div>
-
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Currency display for salaries</label>
 						<p-select [options]="currencies" formControlName="currency" optionLabel="currency_code"
 							optionValue="currency_code" appendTo="body" [filter]="true" filterBy="currency_code"
 							class="w-100" placeholder="Select Currency" [showClear]="true"> </p-select>
 					</div>
-
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Salary range offered per month</label>
 						<div class="d-flex w-100 gap-2">
 							<p-select [options]="currencies" styleClass="p-select p-component"
 								optionLabel="currency_code" optionValue="currency_code" placeholder="Select Currency"
 								formControlName="salary_currency" [filter]="true" filterBy="currency_code"
-								[style]="{ width: '150px' }" [showClear]="true"> </p-select>
+								[style]="{ width: '150px' }" [showClear]="true" appendTo="body"> </p-select>
 							<div class="d-flex gap-2 align-items-center flex-grow-1">
 								<p-inputNumber placeholder="Min" styleClass="w-100" [showButtons]="false" class="w-100"
 									formControlName="min_salary"></p-inputNumber>
@@ -324,7 +337,6 @@
 							</div>
 						</div>
 					</div>
-
 					<div class="col-md-4">
 						<label class="form-label fw-bold">Experience Level </label>
 						<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel"
@@ -339,18 +351,18 @@
 							class="w-100" [showClear]="true"> </p-select>
 					</div>
 					<div class="col-md-4">
-						<label class="form-label fw-bold">Introduction Video </label>
-						<p-select [options]="introductionVideoTypes" formControlName="intro" optionLabel="name"
-							placeholder="Select the Introduction video" optionValue="id" appendTo="body" display="chip"
-							class="w-100" [showClear]="true"> </p-select>
-					</div>
-					<div class="col-md-6">
 						<label class="form-label fw-bold">Hiring Type </label>
 						<p-multiSelect [options]="hiringTypes" formControlName="hiring_type" optionLabel="name"
 							placeholder="Select the Hiring Type" optionValue="id" appendTo="body" display="chip"
 							class="w-100" [showClear]="true"> </p-multiSelect>
 					</div>
-					<div class="col-md-6 h-full mt-auto">
+					<div class="col-md-4">
+						<label class="form-label fw-bold">Introduction Video </label>
+						<p-select [options]="introductionVideoTypes" formControlName="intro" optionLabel="name"
+							placeholder="Select the Introduction video" optionValue="id" appendTo="body" display="chip"
+							class="w-100" [showClear]="true"> </p-select>
+					</div>
+					<div class="col-md-4 h-full mt-auto">
 						<button pButton label="Apply Filter" (click)="applyFilter()"
 							class="btn-primary w-100 p-2"></button>
 					</div>

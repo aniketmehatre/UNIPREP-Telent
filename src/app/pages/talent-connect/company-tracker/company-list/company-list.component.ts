@@ -28,6 +28,8 @@ export class CompanyListsComponent implements OnInit {
   @Output() triggerCloseFilter: EventEmitter<boolean> = new EventEmitter();
   @Input() incomingStudentId!: number;
   @Input() incomingStudentIdLive!: number;
+  @Output() onCompanyTotalCount: EventEmitter<any> = new EventEmitter<any>();
+
   activeIndex: number = 0;
   tabs = [
     { label: 'All Companies', active: true },
@@ -44,7 +46,7 @@ export class CompanyListsComponent implements OnInit {
   companyId: any;
   private echo!: Echo<any>;
   studentId: any;
-  companyObj:any;
+  companyObj: any;
 
   constructor(private talentConnectService: TalentConnectService, private courcelist: AuthService,) {
   }
@@ -79,17 +81,25 @@ export class CompanyListsComponent implements OnInit {
   }
 
   getCompanyTrackerList(params?: any) {
-    const requestData = {
+    let isAppliedFilter = false;
+    let data = {
       page: this.page,
       perpage: this.perPage,
-      ...params
     };
-    this.talentConnectService.getCompanyTracker(requestData).subscribe({
+    if (params && Object.keys(params)?.length !== 0) {
+      isAppliedFilter = true;
+      data = { ...data, ...params };
+    }
+    this.talentConnectService.getCompanyTracker(data).subscribe({
       next: data => {
         this.companyList = data.companies;
         this.companyCount = data.count;
         this.totalPage = Math.ceil(data.count / this.perPage);
-        this.triggerCloseFilter.emit();
+        this.triggerCloseFilter.emit(true);
+        this.onCompanyTotalCount.emit({
+          appliedFilter: isAppliedFilter,
+          companyCount: data.count
+        });
       },
       error: err => { }
     });
@@ -97,51 +107,75 @@ export class CompanyListsComponent implements OnInit {
   }
 
   shortListedList(params?: any) {
-    const requestData = {
+    let isAppliedFilter = false;
+    let data = {
       page: this.page,
       perpage: this.perPage,
-      ...params
     };
-    this.talentConnectService.getShortListedCompanyList(requestData).subscribe({
+    if (params && Object.keys(params)?.length !== 0) {
+      isAppliedFilter = true;
+      data = { ...data, ...params };
+    }
+    this.talentConnectService.getShortListedCompanyList(data).subscribe({
       next: data => {
         this.companyList = data.companies;
         this.companyCount = data.count;
         this.totalPage = Math.ceil(data.count / this.perPage);
-        this.triggerCloseFilter.emit();
+        this.triggerCloseFilter.emit(true);
+        this.onCompanyTotalCount.emit({
+          appliedFilter: isAppliedFilter,
+          companyCount: data.count
+        });
       },
       error: err => { }
     });
   }
 
   sendMessageList(params?: any) {
-    const requestData = {
+    let isAppliedFilter = false;
+    let data = {
       page: this.page,
       perpage: this.perPage,
-      ...params
     };
-    this.talentConnectService.getSendMessageCompanyTracker(requestData).subscribe({
+    if (params && Object.keys(params)?.length !== 0) {
+      isAppliedFilter = true;
+      data = { ...data, ...params };
+    }
+    this.talentConnectService.getSendMessageCompanyTracker(data).subscribe({
       next: data => {
         this.companyList = data.companies;
         this.companyCount = data.count;
         this.totalPage = Math.ceil(data.count / this.perPage);
-        this.triggerCloseFilter.emit();
+        this.triggerCloseFilter.emit(true);
+        this.onCompanyTotalCount.emit({
+          appliedFilter: isAppliedFilter,
+          companyCount: data.count
+        });
       },
       error: err => { }
     });
   }
 
   receivedMessageList(params?: any) {
-    const requestData = {
+    let isAppliedFilter = false;
+    let data = {
       page: this.page,
       perpage: this.perPage,
-      ...params
     };
-    this.talentConnectService.getReceivedMessageCompanyTracker(requestData).subscribe({
+    if (params && Object.keys(params)?.length !== 0) {
+      isAppliedFilter = true;
+      data = { ...data, ...params };
+    }
+    this.talentConnectService.getReceivedMessageCompanyTracker(data).subscribe({
       next: data => {
         this.companyList = data.companies;
         this.companyCount = data.count;
         this.totalPage = Math.ceil(data.count / this.perPage);
-        this.triggerCloseFilter.emit();
+        this.triggerCloseFilter.emit(true);
+        this.onCompanyTotalCount.emit({
+          appliedFilter: isAppliedFilter,
+          companyCount: data.count
+        });
       },
       error: err => { }
     });
@@ -200,12 +234,12 @@ export class CompanyListsComponent implements OnInit {
     if (changes['incomingStudentId'] && changes['incomingStudentId'].currentValue) {
       const count = changes['incomingStudentId'].currentValue;
       console.log(count);
-      
+
       this.companyList = this.companyList.map((item: any) => {
         if (item.id === this.companyId.id && item.notification_count >= 1) {
           return {
             ...item,
-            notification_count: count==1?0:count
+            notification_count: count == 1 ? 0 : count
           };
         }
         return item;

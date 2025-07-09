@@ -137,7 +137,7 @@
 			</div>
 			<div class="col-md-12">
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-12" *ngIf="jobDetails?.job_overview">
 						<div class="card mb-4 bg-secondary-subtle">
 							<div class="card-body">
 								<div class="row">
@@ -151,7 +151,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-12" *ngIf="jobDetails?.key_responsibilities">
 						<div class="card mb-4 bg-secondary-subtle">
 							<div class="card-body">
 								<div class="row">
@@ -165,7 +165,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-12" *ngIf="jobDetails?.languages?.length > 0">
 						<div class="card mb-4 bg-secondary-subtle">
 							<div class="card-body">
 								<div class="row">
@@ -188,7 +188,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-12" *ngIf="jobDetails?.compensation_structure?.length > 0">
 						<div class="card mb-4 bg-secondary-subtle">
 							<div class="card-body">
 								<div class="row">
@@ -214,7 +214,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-12" *ngIf="jobDetails?.benefits_perks?.length > 0">
 						<div class="card mb-4 bg-secondary-subtle">
 							<div class="card-body">
 								<div class="row">
@@ -240,7 +240,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-12" *ngIf="jobDetails?.soft_skills?.length > 0">
 						<div class="card mb-4 bg-secondary-subtle">
 							<div class="card-body">
 								<div class="row">
@@ -266,7 +266,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-12" *ngIf="jobDetails?.hiring_stages?.length > 0">
 						<div class="card mb-4 bg-secondary-subtle">
 							<div class="card-body">
 								<div class="row">
@@ -305,7 +305,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-12" *ngIf="jobDetails?.additional_notes">
 						<div class="card mb-4 bg-secondary-subtle">
 							<div class="card-body">
 								<div class="row">

@@ -6,10 +6,11 @@ import { PaginatorModule } from 'primeng/paginator';
 import { TabsModule } from 'primeng/tabs';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
-import { MultiSelectModule } from 'primeng/multiselect';
+import { MultiSelectChangeEvent, MultiSelectModule } from 'primeng/multiselect';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { LocationService } from 'src/app/location.service';
 
 @Component({
   selector: 'uni-job-list',
@@ -33,6 +34,7 @@ export class JobListComponent implements OnInit {
   @Output() emitId: EventEmitter<number> = new EventEmitter();
   @Input() displayModal: boolean = false;
   @Output() closeFilter: EventEmitter<boolean> = new EventEmitter<boolean>(true);
+  @Output() onJobTotalCount: EventEmitter<any> = new EventEmitter<any>();
 
   activeIndex: number = 0;
   first: number = 0;
@@ -57,8 +59,9 @@ export class JobListComponent implements OnInit {
   hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'Future_Hiring', name: 'Future Hiring' }];
   jobStatusList: any[] = [];
   hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' }, { id: 3, name: 'Campus Hire' }];
-
-  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder) { }
+  countries: any[] = [];
+  
+  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder, private locationService: LocationService) { }
 
 
   ngOnInit(): void {
@@ -83,10 +86,14 @@ export class JobListComponent implements OnInit {
   }
 
   getAppliedJobList(params?: any) {
-    const data = {
+    let isAppliedFilter = false;
+    let data = {
       page: this.page,
       perPage: this.pageSize,
-      ...params
+    }
+    if (params) {
+      isAppliedFilter = true;
+      data = { ...data, ...params };
     }
     this.talentConnectService.getAppliedJobList(data).subscribe({
       next: response => {
@@ -103,6 +110,10 @@ export class JobListComponent implements OnInit {
         ];
         this.jobStatusList = response.hiringStages;
         this.totalPage = Math.ceil(response.totaljobs / this.pageSize);
+        this.onJobTotalCount.emit({
+          appliedFilter: isAppliedFilter,
+          jobCount: response.totaljobs
+        });
       },
       error: error => {
         console.log(error);
@@ -132,6 +143,7 @@ export class JobListComponent implements OnInit {
       keyword: [''],
       position: [''],
       industry: [null],
+      country: [null],
       worklocation: [null],
       work_mode: [null],
       employment_type: [null],
@@ -158,7 +170,7 @@ export class JobListComponent implements OnInit {
 
   applyFilter(): void {
     const formData = this.filterForm.value;
-    if(this.activeIndex !== 0) {
+    if (this.activeIndex !== 0) {
       formData.status = null;
     }
     this.getAppliedJobList(formData);
@@ -176,6 +188,11 @@ export class JobListComponent implements OnInit {
   }
 
   getOptionsList() {
+    this.locationService.getHomeCountry(2).subscribe({
+      next: res => {
+        this.countries = res;
+      }
+    });
     this.talentConnectService.getEasyApplyWorkLocationList().subscribe(data => {
       this.locations = data.worklocations;
     });
@@ -189,5 +206,15 @@ export class JobListComponent implements OnInit {
     });
   }
 
+  onChangeLocation(event: MultiSelectChangeEvent, type: string) {
+    if (type == 'location') {
+      const contryCtrl = this.filterForm.get('country');
+      event?.value?.length > 0 ? contryCtrl?.disable() : contryCtrl?.enable();
+    }
+    else {
+      const locationCtrl = this.filterForm.get('worklocation');
+      event?.value?.length > 0 ? locationCtrl?.disable() : locationCtrl?.enable();
+    }
+  }
 
 }

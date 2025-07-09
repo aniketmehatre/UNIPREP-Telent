@@ -10,24 +10,30 @@
 						<h5 class="mb-0">Easy Apply - Job Tracker</h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+						<button class="how-it-works-button"
+							(click)="openVideoPopup('https://www.youtube.com/embed/01xivveciUI?si=Cdi3e7ycApMa8sWO')">How
+							it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
-				<button type="button" class="border-primary bg-primary text-white rounded-2 px-2 mt-2" (click)="displayModal = true"><i class="fa-solid fa-filter"></i>&nbsp;&nbsp;Filter</button>
+				<button type="button" class="border-primary bg-primary text-white rounded-2 px-2 mt-2"
+					(click)="displayModal = true"><i class="fa-solid fa-filter"></i>&nbsp;&nbsp;Filter</button>
 			</div>
 			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
 		</div>
 		<div class="row mt-2 justify-content-center align-items-center">
 			<div class="col-md-12 col-12 mb-2">
 				<div class="d-flex gap-2 justify-content-center">
-					<button pButton class="btn border bg-white px-3 py-3" style="color: var(--uniprep-primary)" routerLink="/pages/talent-connect/easy-apply">Job Search</button>
+					<button pButton class="btn border bg-white px-3 py-3" style="color: var(--uniprep-primary)"
+						routerLink="/pages/talent-connect/easy-apply">Job Search</button>
 					<button pButton class="btn border bg-primary px-3 py-3 text-white">Job Tracker</button>
 				</div>
 			</div>
 			<div class="col-md-12 col-12 d-lg-none d-block">
 				<div class="d-flex gap-3 align-items-center justify-content-between">
-					<button *ngIf="selectedJobId" pButton class="btn btn-primary w-100 rounded px-4 py-3 text-small" (click)="visible = true" icon="fa-solid fa-student">Applications</button>
-					<button class="btn btn-success w-100 rounded px-4 py-3 text-small" pButton *ngIf="selectedJobId" (click)="visiblechat = true">Chat</button>
+					<button *ngIf="selectedJobId" pButton class="btn btn-primary w-100 rounded px-4 py-3 text-small"
+						(click)="visible = true" icon="fa-solid fa-student">Applications</button>
+					<button class="btn btn-success w-100 rounded px-4 py-3 text-small" pButton *ngIf="selectedJobId"
+						(click)="visiblechat = true">Chat</button>
 				</div>
 			</div>
 		</div>
@@ -37,22 +43,29 @@
 		<div class="row h-100">
 			<p-drawer #drawerRef [(visible)]="visible" position="left" [style]="{ width: '80vw' }">
 				<ng-template #headless>
-					<uni-job-list class="h-100" (emitId)="onClickJobId($event)" [displayModal]="displayModal" (closeFilter)="displayModal = false"></uni-job-list>
+					<uni-job-list class="h-100" (emitId)="onClickJobId($event)" [displayModal]="displayModal"
+						(closeFilter)="displayModal = false"
+						(onJobTotalCount)="getJobTotalCount($event)"></uni-job-list>
 				</ng-template>
 			</p-drawer>
 			<!-- Sidebar with job list -->
 			<div class="col-xxl-3 col-xl-3 col-lg-4 h-100 d-lg-block d-none" [ngClass]="{ '': !showInfo }">
-				<uni-job-list class="h-100" (emitId)="onClickJobId($event)" [displayModal]="displayModal" (closeFilter)="displayModal = false"></uni-job-list>
+				<uni-job-list class="h-100" (emitId)="onClickJobId($event)" [displayModal]="displayModal"
+					(closeFilter)="displayModal = false" (onJobTotalCount)="getJobTotalCount($event)"></uni-job-list>
 			</div>
 
 			<!-- Main content with job details and chat -->
 			<div class="col-xxl-9 col-xl-9 col-lg-8 col-12 h-100">
 				<div class="row h-100" *ngIf="selectedJobId; else showEmptyContainer">
-					<div class="col-lg-8 col-md-7 col-12 h-100" *ngIf="showInfo" [ngClass]="{ 'col-lg-12 col-md-12': !showChat }">
-						<uni-job-details (closeInfo)="showInfo = false" [showInfo]="showInfo" [showChat]="showChat" [jobDetails]="jobDetails" (openChat)="showChat = true"></uni-job-details>
+					<div class="col-lg-8 col-md-7 col-12 h-100" *ngIf="showInfo"
+						[ngClass]="{ 'col-lg-12 col-md-12': !showChat }">
+						<uni-job-details (closeInfo)="showInfo = false" [showInfo]="showInfo" [showChat]="showChat"
+							[jobDetails]="jobDetails" (openChat)="showChat = true"></uni-job-details>
 					</div>
-					<div [ngClass]="{ 'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo, '': !showInfo }" *ngIf="showChat">
-						<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails" [jobId]="jobDetails?.id" (closeChat)="showChat = false"></uni-job-chat-ui>
+					<div class="h-100 overflow-y-auto" [ngClass]="{ 'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo }"
+						*ngIf="showChat">
+						<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails"
+							[jobId]="jobDetails?.id" (closeChat)="showChat = false"></uni-job-chat-ui>
 					</div>
 				</div>
 				<ng-template #showEmptyContainer>
@@ -61,12 +74,21 @@
 							<div class="mb-4">
 								<i class="fa-solid fa-file uniprep-secondaryhighlight" style="font-size: 10rem"></i>
 							</div>
-							<h4 class="mb-3">No Application Selected</h4>
-							<p class="text-muted mb-3">
-								Select a application to check your information<br />
-								and move forward with your interview
-							</p>
-							<button pButton class="btn btn-primary d-lg-none d-block rounded px-4 py-3" (click)="visible = true" icon="fa-solid fa-student">View Applications</button>
+							<ng-container *ngIf="!isAppliedFilter && jobTotalCount == 0;">
+								<h4 class="mb-3">No applications yet.</h4>
+								<p class="text-muted mb-3">Apply now and check here for any updates.</p>
+							</ng-container>
+							<ng-container *ngIf="!isAppliedFilter && jobTotalCount != 0;">
+								<h4 class="mb-3">No Application Selected.</h4>
+								<p class="text-muted mb-3">
+									Please click on the job of your choice to view more information
+								</p>
+							</ng-container>
+							<ng-container *ngIf="isAppliedFilter && jobTotalCount == 0;">
+								<h4 class="mb-3">No jobs match your search right now — try adjusting your criteria!</h4>
+							</ng-container>
+							<button pButton class="btn btn-primary d-lg-none d-block rounded px-4 py-3"
+								(click)="visible = true" icon="fa-solid fa-student">View Applications</button>
 						</div>
 					</div>
 				</ng-template>
@@ -74,10 +96,11 @@
 
 			<p-drawer #drawerRef [(visible)]="visiblechat" position="right" [style]="{ width: '80%' }">
 				<ng-template #headless>
-					<uni-job-chat-ui class="h-100" (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails" [jobId]="jobDetails?.id" (closeChat)="showChat = false"></uni-job-chat-ui>
+					<uni-job-chat-ui class="h-100" (openInfo)="showInfo = true" [showInfo]="showInfo"
+						[jobDetails]="jobDetails" [jobId]="jobDetails?.id"
+						(closeChat)="showChat = false"></uni-job-chat-ui>
 				</ng-template>
 			</p-drawer>
 		</div>
 	</div>
 </div>
- 

@@ -57,6 +57,9 @@ export class CompanyTracker1Component {
   visible: boolean = false;
   showInfo: boolean = false;
   companyDetails!: Company;
+  companyTotalCount: number = 0;
+  isAppliedFilter: boolean = false;
+
   constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder, private pageFacade: PageFacadeService) {
     this.companyForm = this.fb.group({
       companyname: [''],
@@ -136,5 +139,10 @@ export class CompanyTracker1Component {
 
   openVideoPopup(videoLink: string) {
     this.pageFacade.openHowitWorksVideoPopup(videoLink)
+  }
+
+  getCompanyTotalCount(data: any) {
+    this.companyTotalCount = data?.companyCount;
+    this.isAppliedFilter = data?.appliedFilter;
   }
 }
