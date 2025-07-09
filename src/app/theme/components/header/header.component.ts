@@ -1359,24 +1359,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	async checkNewUSerLogin() {
-
+	checkNewUSerLogin() {
 		if (this.authService._user?.login_status === 4) {
+			this.gettingLocationForNewUsers();
 			if (this.authService._user.is_phn_or_whs_verified === 0) {
 				this.whatsappVerification = true;
 			}
 			else {
-				let userLocation: { country: string; city: string } = await this.countryLocationService.getUserCountry();
-				let findcountry = this.homeCountryList.find((country: any) => userLocation.country === country.country);
-				if (findcountry) {
-					this.mobileForm.patchValue({
-						home_country: findcountry.id,
-						current_city: userLocation.city
-					});
-				}
 				this.freeTrial = true;
 				this.formvisbility = true;
 			}
+		}
+	}
+
+	async gettingLocationForNewUsers(){
+		let userLocation: { country: string; city: string } = await this.countryLocationService.getUserCountry();
+		let findcountry = this.homeCountryList.find((country: any) => userLocation.country === country.country);
+		if (findcountry) {
+			this.mobileForm.patchValue({
+				home_country: findcountry.id,
+				current_city: userLocation.city
+			});
 		}
 	}
 

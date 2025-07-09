@@ -523,8 +523,8 @@ $background-color_4: #fff;
   height: 45px;
   text-align: center;
   font-size: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: none;
+  border-bottom: 2px solid #333;
   outline: none;
   transition: border-color 0.3s;
 }

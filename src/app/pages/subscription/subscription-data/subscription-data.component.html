@@ -250,6 +250,7 @@
                     (click)="selectedSubscriptionPlan(subscription)">Select Plan</button>
                 </div>
               </li>
+              <p class="orange fw-bolder" *ngIf="subscription.validity != 1">That's only {{ subscription.currency }} {{ getWholePricePerMonth(subscription.givenprice, subscription.validity)  }} a month </p>
             </ul>
           </div>
 
