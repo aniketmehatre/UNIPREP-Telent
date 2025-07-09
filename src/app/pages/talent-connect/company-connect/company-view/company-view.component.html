@@ -174,11 +174,11 @@
 				</div>
 			</div>
 			<div class="col-12 d-md-block d-none" *ngIf="showChat" [ngClass]="{ 'col-md-5 col-lg-4 col-xl-3 overflow-y-auto': showInfo }">
-				<uni-chat (openInfo)="showInfo = true" [showInfo]="showInfo" [companyDetails]="companyDetails" (closeChat)="showChat = false" [isFollowed]="false" (onCompanyConnect)="followCompany($event)"></uni-chat>
+				<uni-company-chat (openInfo)="showInfo = true" [showInfo]="showInfo" [companyDetails]="companyDetails" (closeChat)="showChat = false" [isFollowed]="false" (onCompanyConnect)="followCompany($event)"></uni-company-chat>
 			</div>
 			<p-drawer #drawerRef [(visible)]="visible" position="right" [style]="{ width: '80vw' }">
 				<ng-template #headless>
-					<uni-chat (openInfo)="showInfo = true" [showInfo]="showInfo" [companyDetails]="companyDetails" (closeChat)="showChat = false" [isFollowed]="false"></uni-chat>
+					<uni-company-chat (openInfo)="showInfo = true" [showInfo]="showInfo" [companyDetails]="companyDetails" (closeChat)="showChat = false" [isFollowed]="false"></uni-company-chat>
 				</ng-template>
 			</p-drawer>
 		</div>

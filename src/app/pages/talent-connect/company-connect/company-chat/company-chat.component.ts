@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, inject, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, EventEmitter, inject, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
 import { AvatarModule } from "primeng/avatar";
 import { ButtonModule } from "primeng/button";
 import { CommonModule } from "@angular/common";
-import { ProgressBar, ProgressBarModule } from "primeng/progressbar";
+import { ProgressBarModule } from "primeng/progressbar";
 import { FormsModule } from "@angular/forms";
 import { TalentConnectService } from "../../talent-connect.service";
 import { Company, CompanyMessage } from 'src/app/@Models/company-connect.model';
@@ -18,19 +18,18 @@ declare global {
   }
 }
 @Component({
-  selector: 'uni-chat',
+  selector: 'uni-company-chat',
   imports: [
     ButtonModule,
-    ProgressBar,
     AvatarModule,
     FormsModule,
     CommonModule,
     ProgressBarModule
   ],
-  templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss'
+  templateUrl: './company-chat.component.html',
+  styleUrl: './company-chat.component.scss'
 })
-export class ChatComponent implements OnInit, OnChanges {
+export class CompanyChatComponent implements OnInit, OnChanges {
   @Input() companyDetails!: Company;
   @Output() openInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() closeChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
