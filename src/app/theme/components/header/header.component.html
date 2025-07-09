@@ -484,16 +484,9 @@
 		<div class="row mb-2">
 			<div class="col-md-12 px-4">
 				<div class="d-flex flex-column">
-					<div class="mt-1 mb-1">
-						<span>
-							<strong class="firsttimelogin">
-								<h3 style="color: #f0780e; margin-bottom: 0">User Verification</h3>
-							</strong>
-						</span>
-					</div>
 					<form [formGroup]="phoneVerification" role="form" aria-label="Phone verification form">
 						<div class="w-100 phonenumberblock mt-2">
-							<p class="m-2">Enter your Number for Job Alerts on {{haveWhatsapp}}>
+							<p class="m-2">Enter your Number for Job Alerts on {{haveWhatsapp}} </p>
 								<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom-less-padding'"
 									[preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" appendTo="body"
 									[enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
@@ -551,17 +544,17 @@
 		<div class="row mb-2 p-2">
 			<div class="col-md-12 px-4">
 				<div class="d-flex flex-column">
-					<div class="icon-container d-flex justify-content-center p-2">
+					<!-- <div class="icon-container d-flex justify-content-center p-2">
 						<img src="../../../uniprep-assets/images/TrialStart.png" alt="clock" width="65" />
-					</div>
-					<div class="mt-1 mb-1">
+					</div> -->
+					<!-- <div class="mt-1 mb-1">
 						<span>
 							<strong class="firsttimelogin">
 								<h5 style="color: rgb(63 76 131)">Congratulations</h5>
 							</strong>
 						</span>
-					</div>
-					<div class="mt-1 text-center" *ngIf="!userTypeId">
+					</div> -->
+					<!-- <div class="mt-1 text-center" *ngIf="!userTypeId">
 						<span>
 							<strong class="firsttimelogin">
 								<h2 style="color: #f0780e; margin-bottom: 0">You have unlocked</h2>
@@ -570,7 +563,7 @@
 								<h2 style="color: #f0780e; margin-top: 0">{{ timeLeftInfo }} free trial.</h2>
 							</strong>
 						</span>
-					</div>
+					</div> -->
 					<div class="mt-1 text-center" *ngIf="userTypeId">
 						<span>
 							<strong class="firsttimelogin">
@@ -607,10 +600,10 @@
 						<div *ngIf="freeTrialErrorMsg" class="text-danger text-center">
 							{{ freeTrialErrorMsg }}
 						</div>
-						<div class="icon-container mt-2 d-flex justify-content-center mb-2">
+						<!-- <div class="icon-container mt-2 d-flex justify-content-center mb-2">
 							<h6 style="color: rgb(63 76 131)">Enjoy access to <strong>UNIPREP</strong> V 2.0</h6>
-						</div>
-						<div class="d-flex justify-content-center">
+						</div> -->
+						<div class="d-flex justify-content-center mt-4">
 							<!-- <button *ngIf="!userTypeId" [disabled]="!mobileForm.get('home_country')?.value || !mobileForm.get('study_level')?.value" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
 								<span class="text-small fw-normal px-3">Subscribe Now</span>
 							</button> -->

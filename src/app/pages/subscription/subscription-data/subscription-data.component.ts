@@ -255,6 +255,10 @@ export class SubscriptionDataComponent implements OnInit {
 		this.subscriptionTotal = this.subscriptionAmt
 	}
 
+	getWholePricePerMonth(price: number, months: number): number {
+		return Math.floor(price / months);
+	}
+
 	selectedTopupCountryPlan(sub: any) {
 		if (sub?.selectedCoutriesList?.length > 0) {
 			this.showCheckout = false
