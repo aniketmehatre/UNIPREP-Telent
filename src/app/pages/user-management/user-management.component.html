@@ -108,8 +108,7 @@
                         }}</span> |
                     <span class="fontsizecontent"> <i class="fab fa-whatsapp text-success"></i>&nbsp;{{
                         PersonalInfo?.country_code}} {{PersonalInfo?.phone}}</span> <br>
-                    <span class="fontsizecontent">{{ PersonalInfo?.district }} ,{{ PersonalInfo?.state }},{{
-                        PersonalInfo?.home_country_name }}</span>
+                    <span class="fontsizecontent">{{ PersonalInfo?.city_name }}</span>
                 </div>
 
                 <button class="btn custom-logout-btn btn-sm" (click)="logout()"><i class="fa-solid fa-power-off"></i>
@@ -178,13 +177,13 @@
                                                         <div class="mb-3">
                                                             <p-select styleClass="w-100" formControlName="home_country"
                                                                 appendTo="body" [options]="countryList" [filter]="true"
-                                                                (onChange)="changeLocation($event)" filterBy="country"
-                                                                optionLabel="country" optionValue="id"
-                                                                [autoDisplayFirst]="false"></p-select>
+                                                                filterBy="work_location" optionLabel="work_location" optionValue="id"
+                                                                [virtualScroll]="true" [virtualScrollItemSize]="50">
+                                                            </p-select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+                                                <!-- <div class="col-md-6 col-lg-6 col-sm-12 p-2">
                                                     <label>Location</label>
                                                     <div class="form-group">
                                                         <div class="mb-3">
@@ -196,7 +195,7 @@
                                                             </p-select>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="col-md-6 col-lg-6 col-sm-12 p-2">
                                                     <label>Current Education</label>
                                                     <div class="form-group">

@@ -48,6 +48,6 @@ const routes: Routes = [
   declarations: [LandingNewComponent],
   providers: [MessageService, AuthService],
 })
-export class LandingModule {
+export class LandingNewModule {
 
 }

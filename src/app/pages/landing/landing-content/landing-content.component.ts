@@ -309,7 +309,7 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
           this.uuidCardData = res?.data;
         });
       } else {
-        this.router.navigate(['/pages/dashboard']);
+        this.isFromUUID = false;
       }
     });
   

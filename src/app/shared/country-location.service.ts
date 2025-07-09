@@ -18,10 +18,10 @@ export class CountryLocationService {
     return this.http.get<any>(url);
   }
 
-  async getUserCountry(): Promise<string> {
+  async getUserCountry(): Promise<{ country: string; city: string }> {
     try {
       if (navigator.geolocation) {
-        return new Promise<string>((resolve) => {
+        return new Promise<{ country: string; city: string }>((resolve) => {
           navigator.geolocation.getCurrentPosition(
             async (position) => {
               const lat = position.coords.latitude;
@@ -71,32 +71,51 @@ export class CountryLocationService {
 
               try {
                 const data = await firstValueFrom(this.getCountryFromCoords(lat, lon));
-                resolve(data.address?.country || 'Unknown');
+                resolve({
+                  country: data.address?.country || 'Unknown',
+                  city: data.address?.city || data.address?.town || data.address?.village || 'Unknown'
+                });
               } catch {
                 try {
                   const ipData = await firstValueFrom(this.getCountryFromIP());
-                  resolve(ipData.country_name || 'Unknown');
+                  resolve({
+                    country: ipData.country_name || 'Unknown',
+                    city: ipData.city || 'Unknown'
+                  });
                 } catch {
-                  resolve('Unknown');
+                  resolve({ 
+                    country: 'Unknown', 
+                    city: 'Unknown' 
+                  });
                 }
               }
             },
             async () => {
               try {
                 const ipData = await firstValueFrom(this.getCountryFromIP());
-                resolve(ipData.country_name || 'Unknown');
+                resolve({
+                  country: ipData.country_name || 'Unknown',
+                  city: ipData.city || 'Unknown'
+                });
               } catch {
-                resolve('Unknown');
+                resolve({ 
+                  country: 'Unknown', 
+                  city: 'Unknown' 
+                });
+
               }
             }
           );
         });
       } else {
         const ipData = await firstValueFrom(this.getCountryFromIP());
-        return ipData.country_name || 'Unknown';
+        return {
+          country: ipData.country_name || 'Unknown',
+          city: ipData.city || 'Unknown'
+        };
       }
     } catch {
-      return 'Unknown';
+      return { country: 'Unknown', city: 'Unknown' };
     }
   }
 }

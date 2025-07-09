@@ -20,14 +20,6 @@ export const landingRoutes: Routes = [
         path: "landing",
         component: LandingComponent
     },
-    {
-        path: 'institute',
-        loadChildren: () => import('../landing-institute/landing-institute.module').then(c => c.LandingInstituteModule)
-    },
-    {
-        path: 'partner',
-        loadChildren: () => import('../landing-partner/landing-partner.module').then(c => c.LandingPartnerModule)
-    },
     { path: "co", component: CoBrandedComponent },
     { path: "students/login", component: LoginComponent },
     { path: "register", component: RegistrationComponent },
@@ -38,10 +30,7 @@ export const landingRoutes: Routes = [
     { path: "forgot-password", component: ForgotPasswordComponent },
     { path: "verification/:email", component: VerificationComponent },
     { path: "setpassword/:otp/:email", component: SetpasswordComponent },
-    {
-        path: 'talent',
-        loadChildren: () => import('../landing-talent-connect/landing-new.module').then(c => c.LandingModule)
-    },
+   
     {
         path: "pages",
         loadChildren: () => import("../../pages/pages.module").then((m) => m.PagesModule),

@@ -265,4 +265,18 @@ export class LocationService {
     // getSourceByDomain(window.location.hostname): Observable<any | null> {
     //     return this.sourceDomain$
     // }
+
+    getWorkLocation(){
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<any>(environment.ApiUrl + "/easyappyworklocations", {
+            headers: headers,
+        }); 
+    }
+
+    updateUserLocation(data: {country: string; city: string}): Observable<any> {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/updateCurrentLocation", data , {
+            headers: headers,
+        }); 
+    }
 }

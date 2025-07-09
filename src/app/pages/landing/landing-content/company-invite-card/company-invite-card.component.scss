@@ -1,0 +1,91 @@
+.darksection {
+	background-color: #07070b;
+}
+.custom-badge {
+	background-color: var(--uniprep-secondaryop10);
+	border: 1px solid var(--uniprep-secondary);
+	color: black;
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+	font-size: 0.8rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	margin-right: 0.5rem;
+}
+:host ::ng-deep .p-rating-option-active .p-rating-icon {
+	color: #EAB308;
+}
+.color-gray
+{
+  color: #707070;
+}
+.color-blue
+{
+  color: #0052B4;
+}
+.color-purple
+{
+  color: #6537CF;
+}
+.color-red
+{
+  color: #CF373A;
+}
+.color-green
+{
+  color: #97C13D;
+}
+.color-orange
+{
+  color: var(--uniprep-secondary);
+}
+.color-darkblue
+{
+  color: #000088;
+}
+
+.logo-container {
+	max-width: 120px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	background-color: #f8f9fa;
+	aspect-ratio: 1;
+	width: 100%;
+  }
+  
+  h1 {
+	font-size: 1.8rem;
+	color: #212529;
+  }
+  
+  h2 {
+	font-size: 1.5rem;
+	color: #212529;
+  }
+  
+  h5.text-primary,
+  h6.text-primary {
+	color: var(--uniprep-primary) !important;
+	font-weight: 600;
+  }
+  
+  // Override PrimeNG chip styles
+  :host ::ng-deep .p-chip {
+	background-color: transparent;
+	border-radius: 4px;
+	padding: 3px 8px !important;
+	margin: 2px;
+	font-size: 0.9rem;
+  }
+  
+  .btn {
+	border-radius: 5px !important;
+  }
+  
+  .card {
+	border-radius: 0.75rem !important; /* adjust as needed for smoother corners */
+	overflow: hidden; /* ensures child elements don't spill over rounded corners */
+  }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PaginatorModule } from "primeng/paginator";
 import { TalentConnectService } from "../talent-connect.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -10,6 +10,7 @@ import { MessageService } from 'primeng/api';
 import { PageFacadeService } from '../../page-facade.service';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { SocialShareService } from 'src/app/shared/social-share.service';
 
 interface DropdownOption {
     label: string;
@@ -49,6 +50,7 @@ export class CompanyConnect1Component implements OnInit {
     companyObj: any
     isSkeletonVisible: boolean = true;
     activeDropdownCompanyId: number | null = null;
+    socialShareService = inject(SocialShareService);
 
     constructor(private talentConnectService: TalentConnectService,
         private router: Router, private messageService: MessageService, private pageFacade: PageFacadeService, private authService: AuthService,) {
@@ -63,35 +65,30 @@ export class CompanyConnect1Component implements OnInit {
         this.activeDropdownCompanyId = this.activeDropdownCompanyId === companyId ? null : companyId;
     }
 
-    generateCompanyLink(company: any) {
-
-        /*
-        this.generateUUIDLink(company.id).subscribe((res) => {
-            const uuid = res.uuid;
-            const link = `${window.location.origin}/pages/job/${uuid}`;
-            const message = `Check out this job at ${company.company_name}:\n${link}`;
-
-            navigator.clipboard.writeText(message).then(() => {
-            alert("Link copied to clipboard:\n\n" + message);
-            });
-        });
-        */
-
-        const uuid = 'abc123-fake-uuid';
-        const link = `${window.location.origin}/pages/job/${uuid}`;
-        const message = `Check out this job at ${company.company_name}:\n${link}`;
-
-        navigator.clipboard.writeText(message).then(() => {
+    generateCompanyLink(event: MouseEvent, company: any) {
+        event.stopPropagation(); // Prevent card click behavior
+      
+        this.generateUUIDLink(company.id).subscribe({
+          next: (res: any) => {
+            const uuid = res?.uuid;
+            const link = `${window.location.origin}/company/${uuid}`;
+      
+            this.socialShareService.copyQuestion(
+              link,
+              'Company Link copied successfully'
+            );
+      
+            this.activeDropdownCompanyId = null;
+          },
+          error: () => {
             this.messageService.add({
-                severity: 'success',
-                summary: 'Link Copied!',
-                detail: message,
-                life: 5000
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Could not generate link. Please try again.'
             });
+          }
         });
-
-        this.activeDropdownCompanyId = null;
-    }
+      }
 
     generateUUIDLink(companyId: number) {
         return this.talentConnectService.generateUUIDLink(companyId);
