@@ -17,12 +17,21 @@
 				</div>
 				<button type="button" title="Close Popup"
 					class="btn btn-primary btn-lg rounded-3 shadow-sm px-4 text-normal"
-					(click)="displayModal = true">Filter&nbsp;&nbsp;<i class="fa-solid fa-caret-down"></i></button>
+					(click)="displayModal = true"><i class="fa-solid fa-filter"></i>&nbsp;&nbsp;Filter</button>
 			</div>
 		</div>
 		<div class="row mt-2 align-items-center">
-			<!-- Left Spacer (Keeps Buttons Centered) -->
-			<div class="col-md-4 d-none d-md-block"></div>
+			<!-- Left Spacer: Chips / Badges -->
+			<div class="col-md-4 col-12 mb-md-0 mb-2">
+				<div class="d-flex gap-2 justify-content-md-end justify-content-center">
+					<p-tag [style]="{ border: '2px solid var(--uniprep-secondary)', color: 'var(--text-color)' }"
+						[rounded]="true" severity="danger">Total Companies : {{ totalCount }} </p-tag>
+					<p-tag [style]="{ border: '2px solid var(--uniprep-primary)', color: 'var(--text-color)' }"
+						[rounded]="true" severity="info">Total Jobs : {{ totalJob }} </p-tag>
+					<p-tag [style]="{ border: '2px solid green', color: 'var(--text-color)' }" [rounded]="true"
+						severity="success">Total Vacancies : {{ totalVacancies }} </p-tag>
+				</div>
+			</div>
 
 			<!-- Centered Buttons -->
 			<div class="col-md-4 col-12 mb-md-0 mb-2">
@@ -34,17 +43,8 @@
 				</div>
 			</div>
 
-			<!-- Right Section: Chips / Badges -->
-			<div class="col-md-4 col-12">
-				<div class="d-flex gap-2 justify-content-md-end justify-content-center">
-					<p-tag [style]="{ border: '2px solid var(--uniprep-secondary)', color: 'var(--text-color)' }"
-						[rounded]="true" severity="danger">Total Companies : {{ totalCount }} </p-tag>
-					<p-tag [style]="{ border: '2px solid var(--uniprep-primary)', color: 'var(--text-color)' }"
-						[rounded]="true" severity="info">Total Jobs : {{ totalJob }} </p-tag>
-					<p-tag [style]="{ border: '2px solid green', color: 'var(--text-color)' }" [rounded]="true"
-						severity="success">Total Vacancies : {{ totalVacancies }} </p-tag>
-				</div>
-			</div>
+			<!-- Right Section: Space -->
+			<div class="col-md-4 col-12"></div>
 		</div>
 	</div>
 	<div class="card-body flex-fill overflow-y-auto">
