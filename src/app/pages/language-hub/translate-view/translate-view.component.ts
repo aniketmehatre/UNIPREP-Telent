@@ -16,6 +16,7 @@ import { CarouselModule } from "primeng/carousel"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { StorageService } from "../../../storage.service"
+import { PageFacadeService } from "../../page-facade.service"
 @Component({
 	selector: "uni-translate-view",
 	templateUrl: "./translate-view.component.html",
@@ -30,7 +31,7 @@ export class TranslateViewComponent implements OnInit {
 	selectedLanguageName: any = ""
 	questionId: string | null = ""
 
-	constructor(private translateViewService: TranslateViewService, private lhs: LanguageHubDataService, private _location: Location, private route: ActivatedRoute, private languageHubService: LanguageHubService, private toast: MessageService, private storage: StorageService) {
+	constructor(private translateViewService: TranslateViewService, private lhs: LanguageHubDataService, private _location: Location, private route: ActivatedRoute, private languageHubService: LanguageHubService, private toast: MessageService, private storage: StorageService, private pageFacade: PageFacadeService) {
 		this.lhs.dataLanguageCode$.subscribe((data) => {
 			this.selectedLanguage = data
 		})
@@ -68,6 +69,10 @@ export class TranslateViewComponent implements OnInit {
 		this._location.back()
 	}
 
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("language-hub");
+	}
+	
 	translateText(text1: any, text2: any) {
 		if (text1) {
 			this.translateViewService.translate(text1, this.selectedLanguage).subscribe((response: any) => {

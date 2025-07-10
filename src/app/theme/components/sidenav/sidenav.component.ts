@@ -1,7 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, ContentChild, EventEmitter, Input, Output, signal, TemplateRef } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
-import { error } from "console";
 import { TieredMenuModule } from "primeng/tieredmenu";
 import { filter } from "rxjs";
 import { map } from "rxjs/operators";
@@ -10,6 +9,7 @@ import { DataService } from "src/app/data.service";
 import { LocationService } from "src/app/location.service";
 import { AssessmentService } from "src/app/pages/assessment/assessment.service";
 import { StorageService } from "src/app/storage.service";
+import { TalentConnectService } from "src/app/pages/talent-connect/talent-connect.service";
 
 export interface SideMenu {
   title: string;
@@ -29,11 +29,12 @@ export interface SideMenu {
   imports: [CommonModule, TieredMenuModule],
 })
 export class SidenavComponent {
-
+  talentUrl: string;
   isPartner = signal(false)
   @ContentChild("appTitle") appTitle!: TemplateRef<any>;
   @Output() active = new EventEmitter<SideMenu>();
   @Input() isOverlap = false;
+  
   @Input() menus: SideMenu[] = [
     {
       title: "Dashboard",
@@ -321,7 +322,8 @@ export class SidenavComponent {
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private dataService: DataService,
     private authService: AuthService, private locationService: LocationService,
-    private assessmentService: AssessmentService, private storage: StorageService) {
+    private assessmentService: AssessmentService, private storage: StorageService,
+    private talentService: TalentConnectService) {
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.menus.filter((data) => {
         if (data.title.includes("Life in")) data.title = "Life in " + countryName;
@@ -358,6 +360,7 @@ export class SidenavComponent {
 
   enterpriseSubscriptionLink: any;
   ngOnInit(): void {
+    this.addEasyJob()
     this.apiToCheckPartnerOrInstitute()
     //this.sampleMenus = this.menus;
     let userTypeId = this.authService._user?.student_type_id == 2
@@ -426,9 +429,22 @@ export class SidenavComponent {
         this.menus = this.menus.filter((item) => !this.careerMenus.includes(item.title));
       }
       this.menus = this.menus.filter((item) => !this.collegeStudentMenus.includes(item.title));
-    }
+    }  
+  }
 
-    //this.changeSubscriptionUrl();
+  addEasyJob(){
+    const exploreJobsUrl = this.talentService._employerProfileData == null ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/easy-apply";
+    // Find index of "Employer Connect"
+    const index = this.menus.findIndex(menu => menu.title === "Employer Connect");
+
+    // Insert after it (index + 1)
+    if (index !== -1) {
+      this.menus.splice(index + 1, 0, {
+        title: "Explore Jobs",
+        url: exploreJobsUrl,
+        image: "fa-solid fa-user-tie-hair",
+      });
+    }
   }
 
   changeSubscriptionUrl() {
@@ -472,14 +488,17 @@ export class SidenavComponent {
   }
 
   listClick(event: any, newValue: any) {
-    this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
-      if (data.plan === "expired" && newValue.title != "Dashboard" && newValue.title != "Tutorials" && newValue.title != "FAQ" && newValue.title != "24x7 Support") {
-        this.visibleExhasted = false;
-      } else {
-        this.visibleExhasted = false;
-      }
-    });
+    // return;
+    this.visibleExhasted = false;
+    
+    // this.authService.getNewUserTimeLeft().subscribe((res) => {
+    //   let data = res.time_left;
+    //   if (data.plan === "expired" && newValue.title != "Dashboard" && newValue.title != "Tutorials" && newValue.title != "FAQ" && newValue.title != "24x7 Support") {
+    //     this.visibleExhasted = false;
+    //   } else {
+    //     this.visibleExhasted = false;
+    //   }
+    // });
   }
 
   onClickSubscribedUser(): void {

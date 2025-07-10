@@ -1470,7 +1470,7 @@ uni-subscription {
 }
 
 .how-it-works-button {
-  background-color: var(--uniprep-secondary);
+  background-color: var(--uniprep-secondary) !important;
   color: white;
   padding: 5px;
   border-radius: 25px;
