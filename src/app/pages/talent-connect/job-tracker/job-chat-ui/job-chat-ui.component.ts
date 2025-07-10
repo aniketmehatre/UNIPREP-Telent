@@ -44,7 +44,7 @@ interface AiGenerateChatDetails {
     RouterModule
   ]
 })
-export class JobChatUiComponent implements OnChanges {
+export class JobChatUiComponent implements OnInit, OnChanges {
   organizationName: string = 'UNIABROAD';
   organizationStatus: string = 'Active';
   @Input() jobDetails!: Job;
@@ -67,31 +67,25 @@ export class JobChatUiComponent implements OnChanges {
   attachmentFile: any;
   message: string = '';
   userActiveStatus: string = '';
-  profileData!: EmployeeConnectProfile;
+  profileData: EmployeeConnectProfile | null = null;
   @Input() isJobApplied: boolean = true;
 
   //Inject Service
   private toast = inject(MessageService);
   constructor(private talentConnectService: TalentConnectService, private authService: AuthService) { }
 
+  ngOnInit(): void {
+    this.profileData = this.talentConnectService._employerProfileData;
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes?.['jobId']) {
       this.message = '';
       this.messages = [];
-      this.checkIfProfileCreated();
       if (this.jobId) {
         this.getMessages(this.jobId);
       }
     }
-  }
-
-  checkIfProfileCreated() {
-    this.talentConnectService.getMyProfileData().subscribe({
-      next: response => {
-        this.profileData = response.data[0];
-      }
-    });
   }
 
   getMessages(job_id: number) {

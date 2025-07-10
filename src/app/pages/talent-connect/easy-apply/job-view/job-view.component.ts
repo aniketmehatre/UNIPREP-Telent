@@ -95,7 +95,7 @@ export class JobViewComponent implements OnInit {
 		private message: MessageService, private router: Router) { }
 
 	ngOnInit(): void {
-		this.checkIfProfileCreated()
+		this.checkIfProfileCreated();
 		this.jobId = Number(this.route.snapshot.paramMap.get("id"));
 		if (this.jobId) {
 			this.getJobDetails(this.jobId);
@@ -103,21 +103,9 @@ export class JobViewComponent implements OnInit {
 	}
 
 	checkIfProfileCreated() {
-		this.talentConnectService.getMyProfileData().subscribe({
-			next: response => {
-				console.log('resp', response);
-
-				if (response && response.count > 0 && response.data[0].profile_completion_flag) {
-				}
-				else {
-					this.router.navigate(["/pages/talent-connect/list"])
-				}
-			},
-			error: error => {
-				this.toast.add({ severity: "error", summary: "Error", detail: 'Please create your profile first.' })
-				this.router.navigate(["/pages/talent-connect/list"])
-			}
-		});
+		if (!this.talentConnectService._employerProfileData?.profile_completion_flag) {
+			this.router.navigate(["/pages/talent-connect/list"])
+		}
 	}
 
 	switchToConversationView(): void {
