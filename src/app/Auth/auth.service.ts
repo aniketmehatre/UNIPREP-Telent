@@ -17,6 +17,7 @@ import { StorageService } from "../storage.service";
 import { SubscriptionResponse } from "../@Models/subscription";
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
 import { howItWorksLinks } from "../shared/commonData";
+import { TalentConnectService } from "../pages/talent-connect/talent-connect.service";
 
 @Injectable({
   providedIn: "root",
@@ -48,6 +49,7 @@ export class AuthService {
     private dataService: DataService,
     private authTokenService: AuthTokenService,
     private storage: StorageService,
+    private talentConnectService: TalentConnectService
   ) { }
 
   getToken(): string | null {
@@ -207,24 +209,28 @@ export class AuthService {
 
   getMe(): Observable<any> {
     const token = this.getToken();
-
     if (!token) {
       this.logout().subscribe();
       return throwError(() => new Error('No authentication token'));
     }
-
     const request$ = this.http.get<any>(`${environment.ApiUrl}/getuserdetails`, {
       headers: new HttpHeaders()
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
     }).pipe(
-      map(response => {
+      switchMap(response => {
         if (!response?.userdetails?.[0]) {
-          throw new Error('Invalid response format');
+          return throwError(() => new Error('Invalid response format'));
         }
         this.user = response.userdetails[0];
         this.storeUserData(this.user);
-        return response;
+        // Wait for this API to finish before returning the response
+        return this.talentConnectService.getMyProfileData(token).pipe(
+          catchError(error => {
+            return of(null); // Swallow the error and continue
+          }),
+          map(() => response) // Still return the original getMe response
+        );
       }),
       shareReplay({ bufferSize: 1, refCount: false }),
       timeout(30000),
