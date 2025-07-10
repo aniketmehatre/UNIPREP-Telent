@@ -36,6 +36,7 @@ import { ToastModule } from "primeng/toast"
 import { TabViewModule } from "primeng/tabview"
 import { log } from "node:console"
 import { landingServices } from '../../landing/landing.service';
+import { LocationService } from "src/app/location.service"
 @Component({
 	selector: "uni-upgrade-subscription",
 	templateUrl: "./upgrade-subscription.component.html",
@@ -84,7 +85,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
 	activeTabIndex: number = 0
 	education_level: string = ""
 	activeButton: number = 1
-	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, private router: Router, private winRef: WindowRefService, private store: Store<SubscriptionState>, private http: HttpClient, private confirmationService: ConfirmationService, private messageService: MessageService, private stripeService: StripeService,private landingPageService: landingServices) {}
+	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, private router: Router, private winRef: WindowRefService, private store: Store<SubscriptionState>, private http: HttpClient, private confirmationService: ConfirmationService, private messageService: MessageService, private stripeService: StripeService,private landingPageService: landingServices, private locationService: LocationService) {}
 	timeLeftInfoCard: any
 	userName: any
 	phone: any
@@ -146,7 +147,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
 
 			// Load country list
 			this.ngxService.startBackground()
-			this.authService.getCountry().subscribe({
+			this.locationService.getCountry().subscribe({
 				next: (data) => {
 					this.countryList = data
 					this.ngxService.stopBackground()

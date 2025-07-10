@@ -160,10 +160,7 @@ export class ModuleServiceService {
       headers: headers,
     });
   }
-  // countryList() {
-  //   const headers = new HttpHeaders().set("Accept", "application/json");
-  //   return this.http.get(environment.ApiUrl + "/country", { headers: headers });
-  // }
+
   getSubjectList() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.get<any>(environment.ApiUrl + `/getlearninghublists?category_flag=1`, { headers: headers, });

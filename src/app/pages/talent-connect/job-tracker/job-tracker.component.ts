@@ -94,5 +94,6 @@ export class JobTrackerComponent {
 	getJobTotalCount(data: any) {
 		this.jobTotalCount = data?.jobCount;
 		this.isAppliedFilter = data?.appliedFilter;
+		this.selectedJobId = null;
 	}
 }

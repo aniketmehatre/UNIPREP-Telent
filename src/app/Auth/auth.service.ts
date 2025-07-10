@@ -257,13 +257,6 @@ export class AuthService {
     }
   }
 
-  getCountry() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/country", {
-      headers: headers,
-    });
-  }
-
   isAuthenticated(val: any): Observable<UserData> {
     return this.http.post<UserData>(environment.ApiUrl + "/login", val);
   }

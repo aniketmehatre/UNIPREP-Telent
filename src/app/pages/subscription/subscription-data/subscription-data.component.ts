@@ -24,6 +24,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { landingServices } from '../../landing/landing.service';
+import { LocationService } from "src/app/location.service"
 @Component({
 	selector: "uni-subscription-data",
 	templateUrl: "./subscription-data.component.html",
@@ -75,10 +76,12 @@ export class SubscriptionDataComponent implements OnInit {
 	monthlyPlan: number = 1
 	education_level: string = ""
 	activeButton: number = 1
-	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, private http: HttpClient,private landingPageService: landingServices) {}
 	timeLeftInfoCard: any
 	couponTab: boolean = false
 	currentLocationCountry: any
+	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, 
+		private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, 
+		private http: HttpClient,private landingPageService: landingServices, private locationService: LocationService) {}
 
 	async ngOnInit(): Promise<void> {
 		try {
@@ -117,7 +120,7 @@ export class SubscriptionDataComponent implements OnInit {
 			this.studentType = this.user?.student_type_id || 0;
 
 			this.ngxService.startBackground();
-			this.authService.getCountry().subscribe(
+			this.locationService.getCountry().subscribe(
 				(data) => {
 					this.ngxService.stopBackground();
 					this.countryList = data;
