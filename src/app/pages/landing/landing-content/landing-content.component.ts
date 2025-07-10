@@ -27,7 +27,7 @@ import { landingServices } from '../landing.service';
     ScrollTopModule,
     CarouselModule,
     UuidInviteCardComponent,
-    // CompanyInviteCardComponent
+    CompanyInviteCardComponent
   ],
   templateUrl: './landing-content.component.html',
   styleUrls: ['./landing-content.component.scss']
