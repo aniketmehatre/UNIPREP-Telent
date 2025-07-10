@@ -54,6 +54,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	private subs = new SubSink()
 	userName: any
 	responsiveOptions: any
+	responsiveOptions1: any;
 	sendInvite: any = ""
 	partnerTrusterLogo: any[] = []
 	planExpired: boolean = false
@@ -112,6 +113,28 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 				breakpoint: '560px',
 				numVisible: 1,
 				numScroll: 1
+			}
+		],
+		this.responsiveOptions1 = [
+			{
+				breakpoint: '1280px',
+				numVisible: 4,
+				numScroll: 4
+			},
+			{
+				breakpoint: '1024px',
+				numVisible: 3,
+				numScroll: 3
+			},
+			{
+				breakpoint: '768px',
+				numVisible: 2,
+				numScroll: 2
+			},
+			{
+				breakpoint: '560px',
+				numVisible: 2,
+				numScroll: 2
 			}
 		]
 	}
