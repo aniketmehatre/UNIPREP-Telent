@@ -145,51 +145,59 @@ export class QuestionListComponent implements OnInit {
 						this.currentModuleId = 1
 						this.currentModuleName = "Pre-Admission"
 						this.currentApiSlug = "getpreapplicationsubmoduleqcount"
-						this.howItWorksVideoLink = "https://www.youtube.com/embed/Kae2KQnmWko?si=vjUQ7eyurP2Mbg-n"
+						this.howItWorksVideoLink = "pre-admission"
 						break
 					case "travel-and-tourism":
 						this.currentModuleId = 7
 						this.currentModuleName = "Travel-and-Tourism"
 						this.currentApiSlug = "getpostapplicationsubmoduleqcount"
-						this.howItWorksVideoLink = "https://www.youtube.com/embed/s35R5o7cOOU?si=DvR3LyQ1C8uRaAN3"
+						this.howItWorksVideoLink = "travel-and-tourism"
 						break
 					case "post-admission":
 						this.currentModuleId = 3
 						this.currentModuleName = "Post-Admission"
 						this.currentApiSlug = "getpostadmissionsubmoduleqcount"
-						this.howItWorksVideoLink = "https://www.youtube.com/embed/Q9-cUbwFNZI?si=LIdazrVO_qAQKiFk"
+						this.howItWorksVideoLink = "post-admission"
 						break
 					case "career-hub":
 						this.currentModuleId = 4
 						this.currentModuleName = "Career Hub"
 						this.currentApiSlug = "getcareerhubsubmoduleqcount"
-						this.howItWorksVideoLink = "https://www.youtube.com/embed/7ogHhrekZjE?si=NADxga9qB4_RkCtw"
+						this.howItWorksVideoLink = "career-hub"
 						break
 					case "university":
 						this.currentModuleId = 5
 						this.currentModuleName = "University"
 						this.currentApiSlug = "getuniversitysubmoduleqcount"
-						this.howItWorksVideoLink = "https://www.youtube.com/embed/Bsg1CTnVmYc?si=cWYQIexHAoeXvsyR"
+						this.howItWorksVideoLink = "university"
 						this.tooltip = ""
 						break
 					case "skill-mastery":
 						this.currentModuleId = 10
 						this.currentModuleName = "Skill Mastery"
 						this.currentApiSlug = ""
-						this.howItWorksVideoLink = "https://www.youtube.com/embed/dHhq2xrBn5s?si=2dMsQcwwOY17dDHi"
+						this.howItWorksVideoLink = "skill-mastery"
+						this.tooltip = ""
+						break
+					case "learning-hub":
+						this.currentModuleId = 8
+						this.currentModuleName = "Learning Hub"
+						this.currentApiSlug = ""
+						this.howItWorksVideoLink = "learning-hub"
 						this.tooltip = ""
 						break
 					case "k12-category":
 						this.currentModuleId = 14
 						this.currentModuleName = "K12"
 						this.currentApiSlug = "StudentsSubmoduleQuestions"
+						this.howItWorksVideoLink = "k-12"
 						this.tooltip = ""
 						break
 					default:
 						this.currentModuleId = 6
 						this.currentModuleName = "Life In " + countryName
 						this.currentApiSlug = "getlifeincountrysubmoduleqcount"
-						this.howItWorksVideoLink = "https://www.youtube.com/embed/O35ypi2WJVI?si=CSxuFC1Zma9gk8SG"
+						this.howItWorksVideoLink = "life-in"
 						this.tooltip = ""
 						break
 				}
@@ -233,35 +241,35 @@ export class QuestionListComponent implements OnInit {
 				this.currentModuleId = 1
 				this.currentModuleName = "Pre-Admission"
 				this.currentApiSlug = "getpreapplicationsubmoduleqcount"
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/aR06d8kMeio?si=-5Ivte_5ZgdcndS-"
+				this.howItWorksVideoLink = "pre-admission"
 				this.currentModuleSlug = "pre-admission"
 				break
 			case "travel-and-tourism":
 				this.currentModuleId = 7
 				this.currentModuleName = "Travel-and-Tourism"
 				this.currentApiSlug = "getpostapplicationsubmoduleqcount"
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/PZERtrH1zh8?si=zKQ80B27zz6V9-mk"
+				this.howItWorksVideoLink = "travel-and-tourism"
 				this.currentModuleSlug = "travel-and-tourism"
 				break
 			case "post-admission":
 				this.currentModuleId = 3
 				this.currentModuleName = "Post-Admission"
 				this.currentApiSlug = "getpostadmissionsubmoduleqcount"
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/g_KWlnmOEtc?si=KFpkpjdYMwkCIOV1"
+				this.howItWorksVideoLink = "post-admission"
 				this.currentModuleSlug = "post-admission"
 				break
 			case "career-hub":
 				this.currentModuleId = 4
 				this.currentModuleName = "Career Hub"
 				this.currentApiSlug = "getcareerhubsubmoduleqcount"
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/dBNASRavBk0?si=M2WtoOTl3ahORz8V"
+				this.howItWorksVideoLink = "career-hub"
 				this.currentModuleSlug = "career-hub"
 				break
 			case "university":
 				this.currentModuleId = 5
 				this.currentModuleName = "University"
 				this.currentApiSlug = "getuniversitysubmoduleqcount"
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/6mukBsCTgtw?si=aFBa9JMWI2k2QuzP"
+				this.howItWorksVideoLink = "university"
 				this.currentModuleSlug = "university"
 				this.tooltip = ""
 				break
@@ -272,7 +280,7 @@ export class QuestionListComponent implements OnInit {
 				this.storage.set("learningHubQuizBreadCrumb", this.learningHubQuizBreadCrumb)
 				this.currentModuleName = "Learning Hub"
 				this.currentApiSlug = "getlearninghubsubmoduleqcount"
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/prvvJsgnya8?si=QSAeOB9qPMF-ya-D"
+				this.howItWorksVideoLink = "learning-hub"
 				this.currentModuleSlug = "learning-hub"
 				this.isHidGlobalRepository = false;
 				break
@@ -280,7 +288,7 @@ export class QuestionListComponent implements OnInit {
 				this.currentModuleId = 10
 				this.currentModuleName = "Skill Mastery"
 				this.currentApiSlug = "getskillmasterysubmoduleqcount"
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/mzyfeeL1b4Y?si=SYUFI6bW4xU-QZbT"
+				this.howItWorksVideoLink = "skill-mastery"
 				this.currentModuleSlug = "skill-mastery"
 				this.isHidGlobalRepository = false;
 				break
@@ -288,7 +296,7 @@ export class QuestionListComponent implements OnInit {
 				this.currentModuleId = 14
 				this.currentModuleName = "K12 Academy"
 				this.currentApiSlug = "StudentsSubmoduleQuestions"
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/Zh4pPEZ160c?si=i8vkRTgh70TuoqDn"
+				this.howItWorksVideoLink = "k-12"
 				this.currentModuleSlug = "k12-category"
 				this.tooltip = ""
 				break
@@ -296,7 +304,7 @@ export class QuestionListComponent implements OnInit {
 				this.currentModuleId = 6
 				this.currentModuleName = "Life In " + countryName
 				this.currentApiSlug = "getlifeincountrysubmoduleqcount"
-				this.howItWorksVideoLink = "https://www.youtube.com/embed/7VFZp47tfLU?si=GPLVjR5vKlNno-cZ"
+				this.howItWorksVideoLink = "life-in"
 				this.currentModuleSlug = "life-at-country"
 				this.tooltip = ""
 				break
@@ -769,6 +777,7 @@ export class QuestionListComponent implements OnInit {
 		}
 	}
 	openHowItWorksVideoPopup(videoLink: string) {
+		console.log(videoLink, "video link");
 		this.pageFacade.openHowitWorksVideoPopup(videoLink)
 	}
 	// scroll code
