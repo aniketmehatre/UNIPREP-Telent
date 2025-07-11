@@ -80,7 +80,8 @@ export const HttpErrorInterceptor: HttpInterceptorFn = (
         dataService.loggedInAnotherDevice("block")
         return throwError(() => error);
       }
-      if ((error.status === 500 || error.status === 401) && !isPublicRoute) {
+      let isTokenExpired = error?.error?.message == 'Token has expired';
+       if (((error.status === 500 && isTokenExpired) || error.status === 401) && !isPublicRoute) {
         toast.add({
           severity: 'error',
           summary: 'Session Expired',
