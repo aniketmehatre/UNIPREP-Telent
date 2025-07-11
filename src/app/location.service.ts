@@ -128,19 +128,12 @@ export class LocationService {
     getCountry(): Observable<any> {
         if (!this.dataCache$) {
             this.dataCache$ = this.http.get<any[]>(environment.ApiUrl + "/country").pipe(
-                tap((data) => { }),
                 shareReplay(1)
             );
         }
         return this.dataCache$;
     }
 
-    dashboardLocationList() {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrl + "/country", {
-            headers: headers,
-        });
-    }
     getAllCountryList() {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + "/getallcountrylist", {

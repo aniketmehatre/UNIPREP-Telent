@@ -142,7 +142,7 @@ export class ListSubModulesComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.locationService.dashboardLocationList().subscribe((countryList: any) => {
+		this.locationService.getCountry().subscribe((countryList: any) => {
 			this.countryLists = countryList
 			const storedCountryId = Number(this.storage.get("countryId")) || 0
 

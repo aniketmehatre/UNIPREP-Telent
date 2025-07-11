@@ -23,6 +23,7 @@ import { SubscriptionListComponent } from "./subscription-list/subscription-list
 import { SubscriptionBillingComponent } from "./subscription-billing/subscription-billing.component"
 import { SubscriptionSuccessComponent } from "./subscription-success/subscription-success.component"
 import { StorageService } from "../../storage.service";
+import { LocationService } from "src/app/location.service"
 @Component({
 	selector: "uni-subscription",
 	templateUrl: "./subscription.component.html",
@@ -77,7 +78,7 @@ export class SubscriptionComponent implements OnInit {
 		private authService: AuthService, private toastr: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
 		private stripeService: StripeService, private ngxService: NgxUiLoaderService,
-		private storage: StorageService) { }
+		private storage: StorageService, private locationService: LocationService) { }
 	async ngOnInit(): Promise<void> {
 		try {
 			let homeCountryName = this.storage.get("home_country_name");
@@ -139,7 +140,7 @@ export class SubscriptionComponent implements OnInit {
 			this.studentType = this.user?.student_type_id || 0;
 
 			this.ngxService.startBackground();
-			this.authService.getCountry().subscribe(
+			this.locationService.getCountry().subscribe(
 				(data) => {
 					this.ngxService.stopBackground();
 					this.countryList = data;

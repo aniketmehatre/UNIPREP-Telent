@@ -185,6 +185,7 @@ export class JobListComponent implements OnInit {
     this.displayModal = false;
     this.closeFilter.emit(true);
     this.jobDetails = {};
+    this.filterForm.reset();
   }
 
   getOptionsList() {
