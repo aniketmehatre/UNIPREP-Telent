@@ -2,6 +2,7 @@
 //@use "@awesome.me/kit-e84fad3bc1/icons/css/all.css";
 @use "primeicons/primeicons.css";
 @use "customprimeng.scss";
+// @use "uniprep-assets/buttons";
 
 * {
 	box-sizing: border-box;
@@ -25,20 +26,6 @@ $font-size-h3: 1.602rem;
 $font-size-h4: 1.424rem;
 $font-size-h5: 1.266rem;
 $font-size-h6: 1.125rem;
-$transition-base: 200ms linear;
-$box-shadow-light: 0 0 10px rgba(0, 0, 0, 0.1);
-$box-shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.05);
-
-// === CENTRALIZED MIXINS ===
-@mixin transition-base {
-	transition: $transition-base;
-}
-@mixin box-shadow-light {
-	box-shadow: $box-shadow-light;
-}
-@mixin box-shadow-soft {
-	box-shadow: $box-shadow-soft;
-}
 
 :root {
 	--uniprep-primary: rgb(63, 76, 131);
@@ -134,12 +121,6 @@ input:-webkit-autofill:active {
 	flex: 1;
 	flex-direction: column;
 	overflow-y: auto;
-}
-
-@mixin btn-disabled {
-	background-color: #343a40;
-	background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
-	border-color: #343a40;
 }
 
 .ngx-loading-logo {
@@ -830,7 +811,9 @@ uni-subscription {
 	@extend %btn-radius-10;
 
 	&:disabled {
-		@include btn-disabled;
+		background-color: #343a40;
+		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
+		border-color: #343a40;
 	}
 
 	&:hover {
@@ -851,7 +834,9 @@ uni-subscription {
 	border: 1px solid var(--uniprep-primary);
 
 	&:disabled {
-		@include btn-disabled;
+		background-color: #343a40;
+		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
+		border-color: #343a40;
 	}
 
 	&:hover {
@@ -934,7 +919,9 @@ uni-subscription {
 	border: 1px solid var(--uniprep-green) !important;
 
 	&:disabled {
-		@include btn-disabled;
+		background-color: #343a40;
+		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
+		border-color: #343a40;
 	}
 
 	&:hover,
@@ -1044,7 +1031,9 @@ uni-subscription {
 	@extend %btn-radius-10;
 
 	&:disabled {
-		@include btn-disabled;
+		background-color: #343a40;
+		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
+		border-color: #343a40;
 	}
 
 	&:hover {
