@@ -13,6 +13,7 @@ import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile
 import { SelectChangeEvent } from "primeng/select";
 import { environment } from "@env/environment";
 import { InputNumberInputEvent } from "primeng/inputnumber";
+import { PageFacadeService } from "../../page-facade.service";
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -134,7 +135,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     private talentConnectService: TalentConnectService,
     private toastService: MessageService,
     private authService: AuthService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private pageFacade: PageFacadeService
   ) { }
 
   ngOnInit() {
@@ -497,8 +499,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
 
-  openVideoPopup(id: string) {
-    // Implement video popup functionality
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("company-connect")
   }
 
   openProfileDialog(isSample: boolean) {

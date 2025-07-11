@@ -17,7 +17,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { PipesModule } from '@pipes/pipes.module';
 import { CardModule } from 'primeng/card';
 import { MessageModule } from 'primeng/message';
-
 const routes: Routes = [
   {
     path: '',

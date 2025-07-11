@@ -14,12 +14,16 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { debounceTime, Subject } from 'rxjs';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { ButtonModule } from 'primeng/button';
+
 @Component({
   selector: 'uni-wealthleaderslist',
   templateUrl: './wealthleaderslist.component.html',
   styleUrls: ['./wealthleaderslist.component.scss'],
   standalone: true,
-  imports: [SelectModule, CommonModule, RouterModule, FormsModule, ReactiveFormsModule, DialogModule, PaginatorModule, InputGroupModule, InputGroupAddonModule, InputTextModule],
+  imports: [SelectModule, CommonModule, RouterModule, FormsModule, ReactiveFormsModule, DialogModule, PaginatorModule, InputGroupModule, InputGroupAddonModule, InputTextModule,
+    ButtonModule
+  ],
 })
 export class WealthleaderslistComponent implements OnInit {
   valueNearYouFilter: string = '';

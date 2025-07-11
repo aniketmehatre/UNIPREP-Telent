@@ -7,6 +7,7 @@ import { TalentConnectService } from "../../talent-connect.service";
 import { CompanyChatComponent } from "../company-chat/company-chat.component";
 import { SkeletonModule } from 'primeng/skeleton';
 import { DrawerModule } from 'primeng/drawer';
+import { PageFacadeService } from 'src/app/pages/page-facade.service';
 
 @Component({
   selector: 'uni-company-view',
@@ -53,7 +54,7 @@ export class CompanyViewComponent implements OnInit {
   @Input() showInfo: boolean = true;
 	visible: boolean = false;
 
-  constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService) {
+  constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService, private pageFacade: PageFacadeService) {
   }
 
   ngOnInit(): void {
@@ -85,7 +86,9 @@ export class CompanyViewComponent implements OnInit {
     });
   }
 
-  openVideoPopup(id: string) { }
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("company-connect");
+  }
 
   openUrl(url: string) {
     if (url && !url.startsWith('http')) {

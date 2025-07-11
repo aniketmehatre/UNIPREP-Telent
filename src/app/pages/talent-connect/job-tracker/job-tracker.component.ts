@@ -13,6 +13,7 @@ import { InputNumberModule } from "primeng/inputnumber";
 import { ReactiveFormsModule } from "@angular/forms";
 import { DrawerModule } from "primeng/drawer";
 import { PageFacadeService } from "../../page-facade.service";
+import { ButtonModule } from "primeng/button";
 
 interface ChatMessage {
 	id: number;
@@ -28,7 +29,9 @@ interface ChatMessage {
 	templateUrl: "./job-tracker.component.html",
 	styleUrls: ["./job-tracker.component.scss"],
 	standalone: true,
-	imports: [ReactiveFormsModule, JobListComponent, DrawerModule, JobDetailsComponent, JobChatUiComponent, InputNumberModule, MultiSelectModule, CommonModule, RouterModule],
+	imports: [ReactiveFormsModule, JobListComponent, DrawerModule, JobDetailsComponent, JobChatUiComponent, InputNumberModule, MultiSelectModule, CommonModule, RouterModule, 
+		ButtonModule
+	],
 })
 export class JobTrackerComponent {
 	orgnamewhitlabel: any;
@@ -87,8 +90,8 @@ export class JobTrackerComponent {
 		this.displayModal = true;
 	}
 
-	openVideoPopup(videoLink: string) {
-		this.pageFacade.openHowitWorksVideoPopup(videoLink)
+	openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("company-connect")
 	}
 
 	getJobTotalCount(data: any) {

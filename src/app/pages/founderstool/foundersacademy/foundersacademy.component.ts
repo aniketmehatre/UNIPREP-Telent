@@ -6,12 +6,13 @@ import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { AuthService } from "src/app/Auth/auth.service";
 import { PageFacadeService } from "../../page-facade.service"
+import { ButtonModule } from "primeng/button"
 @Component({
 	selector: "uni-foundersacademy",
 	templateUrl: "./foundersacademy.component.html",
 	styleUrls: ["./foundersacademy.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule],
+	imports: [CommonModule, DialogModule, RouterModule, ButtonModule],
 })
 export class FoundersacademyComponent implements OnInit {
 	@ViewChild("videoFrame") videoFrame: ElementRef | undefined

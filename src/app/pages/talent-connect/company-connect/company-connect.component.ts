@@ -118,8 +118,8 @@ export class CompanyConnect1Component implements OnInit {
         })
     }
 
-    openVideoPopup(videoLink: string) {
-        this.pageFacade.openHowitWorksVideoPopup(videoLink)
+    openVideoPopup() {
+        this.pageFacade.openHowitWorksVideoPopup("company-connect")
     }
 
     routerToJobListingPageWithCompanyId(event: any, id: number) {

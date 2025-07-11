@@ -13,12 +13,13 @@ import { PaginatorModule } from "primeng/paginator";
 import { DataService } from "src/app/data.service";
 import { SkeletonModule } from "primeng/skeleton";
 import { SocialShareService } from "src/app/shared/social-share.service";
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: "uni-seekerlists",
   templateUrl: "./seekerlists.component.html",
   styleUrls: ["./seekerlists.component.scss"],
   standalone: true,
-  imports: [CommonModule, CardModule, DialogModule, PaginatorModule, SkeletonModule],
+  imports: [CommonModule, CardModule, DialogModule, PaginatorModule, SkeletonModule, ButtonModule],
 })
 export class SeekerListsComponent implements OnInit {
   isSkeletonVisible: boolean = true;

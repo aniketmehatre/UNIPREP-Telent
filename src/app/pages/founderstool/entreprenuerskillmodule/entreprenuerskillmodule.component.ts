@@ -8,12 +8,13 @@ import { PageFacadeService } from '../../page-facade.service';
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { StorageService } from "../../../storage.service";
+import { ButtonModule } from "primeng/button"
 @Component({
   selector: 'uni-entreprenuerskillmodule',
   templateUrl: './entreprenuerskillmodule.component.html',
   styleUrls: ['./entreprenuerskillmodule.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, RouterModule]
+  imports: [CommonModule, DialogModule, RouterModule, ButtonModule]
 })
 export class EntreprenuerskillmoduleComponent implements OnInit {
   categoryCount: number = 0;

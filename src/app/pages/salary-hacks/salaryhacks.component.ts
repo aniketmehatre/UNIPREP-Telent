@@ -43,7 +43,6 @@ import { SalaryHacksService } from "./salaryhacks.service";
   ],
   providers: [
     MessageService,
-    PageFacadeService,
     SalaryHacksService
   ]
 })
