@@ -52,6 +52,10 @@ export const landingRoutes: Routes = [
                 loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),
             },
             {
+                path: 'talent/:uuid',
+                loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),
+            },
+            {
                 path: '',
                 loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),
             },

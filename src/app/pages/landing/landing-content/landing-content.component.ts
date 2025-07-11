@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UuidInviteCardComponent } from './uuid-invite-card/uuid-invite-card.component';
 import { CompanyInviteCardComponent } from './company-invite-card/company-invite-card.component';
 import { landingServices } from '../landing.service';
+import { TalentInviteCardComponent } from './talent-invite-card/talent-invite-card.component';
 
 @Component({
   selector: 'uni-landing-content',
@@ -27,7 +28,8 @@ import { landingServices } from '../landing.service';
     ScrollTopModule,
     CarouselModule,
     UuidInviteCardComponent,
-    CompanyInviteCardComponent
+    CompanyInviteCardComponent,
+    TalentInviteCardComponent
   ],
   templateUrl: './landing-content.component.html',
   styleUrls: ['./landing-content.component.scss']
@@ -258,6 +260,7 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
   currentUrl: string = '';
   isJobLink: boolean = false;
   isCompanyLink: boolean = false;
+  isTalentLink: boolean = false;
 
   constructor(private sanitizer: DomSanitizer, private themeService: ThemeService,
     private formbuilder: FormBuilder, private service: LocationService,
@@ -297,7 +300,8 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
       this.isFromUUID = !!this.uuid;
       this.isJobLink = this.currentUrl.startsWith('/job');
       this.isCompanyLink = this.currentUrl.startsWith('/company');
-  
+      this.isTalentLink = this.currentUrl.startsWith('/talent');
+
       console.log("UUID from route:", this.uuid);
   
       if (this.uuid && this.isJobLink) {
@@ -306,6 +310,10 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
         });
       } else if (this.uuid && this.isCompanyLink) {
         this.landingService.getCompanyInviteDetails(this.uuid).subscribe((res) => {
+          this.uuidCardData = res?.data;
+        });
+      } else if (this.uuid && this.isTalentLink) {
+        this.landingService.getTalentInviteDetails(this.uuid).subscribe(res => {
           this.uuidCardData = res?.data;
         });
       } else {
