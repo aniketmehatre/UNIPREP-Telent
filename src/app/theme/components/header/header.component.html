@@ -13,6 +13,20 @@
 						</div>
 					</div>
 					<div class="d-md-none gap-2 d-flex align-items-center">
+						<div class="d-flex align-items-center">
+							<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
+								class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+								type="button">
+								AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
+							</button>
+	
+							<!-- Buy Credits template -->
+							<ng-template #buyCreditTpl>
+								<button pButton class="btn btn-secondary text-small btn-rounded flex-fill"
+									[disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()"
+									type="button">Buy Credits</button>
+							</ng-template>
+						</div>
 						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName"
 							[attr.aria-label]="'Selected country: ' + homeCountryName">
 							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'"
@@ -35,7 +49,7 @@
 			<div class="col-lg-6 col-md-6 col-12" *ngIf="userLoginTimeLeftCount">
 				<div
 					class="d-flex justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0 gap-3">
-					<div class="d-flex align-items-center">
+					<div class="d-md-flex d-none align-items-center">
 						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
 							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
 							type="button">
