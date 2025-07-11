@@ -39,7 +39,8 @@ $font-size-h6: 1.125rem;
 	--uniprep-secondaryop30: #f0780e5b;
 	--uniprep-primaryhighlight: rgb(69, 82, 163);
 	--uniprep-secondaryhighlight: #f6895a;
-	--uniprep-tertiary: #ffffff;
+	--uniprep-white: #ffffff;
+	--uniprep-black: #000000;
 	--uniprep-lightgray: #b3b3b3;
 	--uniprep-gray: #f1f1f1;
 	--uniprep-darkgray: #636363;
@@ -49,11 +50,14 @@ $font-size-h6: 1.125rem;
 	--uniprep-tealgreen: #07855e;
 	--uniprep-skyblue: #4d9cff;
 	--uniprep-basil: #008762;
-	scrollbar-face-color: rgb(63, 76, 131);
-	/* Firefox 63 compatibility */
-	scrollbar-track-color: rgba(63, 76, 131, 0.145);
-	/* Firefox 63 compatibility */
-	scrollbar-color: rgb(63, 76, 131) rgba(63, 76, 131, 0.145);
+	--uniprep-blue: #007bff;
+	--uniprep-warning: #ffc107;
+	--uniprep-danger: #df3e3e;
+	--uniprep-info: #0dcaf0;
+	--uniprep-success: #198754;
+	scrollbar-face-color: var(--uniprep-primary);
+	scrollbar-track-color: var(--uniprep-primaryop10);
+	scrollbar-color: var(--uniprep-primary) var(--uniprep-primaryop10);
 	scrollbar-width: auto;
 	--viewer-container-height: 0px !important;
 }
@@ -2265,18 +2269,18 @@ uni-talent-connect {
 
 .btn-outline-secondary {
 	color: var(--uniprep-secondary);
-	background: var(--uniprep-tertiary);
+	background: var(--uniprep-white);
 	border-radius: 10px;
 	border: 1px solid var(--uniprep-secondary);
 
 	&:hover {
-		color: var(--uniprep-tertiary);
+		color: var(--uniprep-white);
 		background: var(--uniprep-secondary);
 		border: 1px solid var(--uniprep-secondary);
 	}
 
 	&:focus {
-		color: var(--uniprep-tertiary);
+		color: var(--uniprep-white);
 		background: var(--uniprep-secondary);
 		box-shadow: 0 0 0 0.25rem var(--uniprep-secondaryop10);
 		border-color: var(--uniprep-secondary);
@@ -2294,7 +2298,7 @@ uni-talent-connect {
 	&.p-highlight {
 		background: var(--uniprep-primary);
 		border-color: var(--uniprep-primary);
-		color: var(--uniprep-tertiary);
+		color: var(--uniprep-white);
 
 		&:hover {
 			background: var(--uniprep-primaryhighlight);
@@ -2629,18 +2633,18 @@ uni-global-employment-insights {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #000000;
-	color: var(--uniprep-tertiary);
+	background-color: var(--uniprep-black);
+	color: var(--uniprep-white);
 
 	&:hover {
-		background-color: #000000 !important;
-		color: var(--uniprep-tertiary) !important;
+		background-color: var(--uniprep-black) !important;
+		color: var(--uniprep-white) !important;
 	}
 
 	&:focus,
 	&:active {
-		background-color: #000000 !important;
-		color: var(--uniprep-tertiary) !important;
+		background-color: var(--uniprep-black) !important;
+		color: var(--uniprep-white) !important;
 	}
 }
 
@@ -2654,7 +2658,7 @@ uni-global-employment-insights {
 	min-height: 40px;
 	border-radius: 8px;
 	background-color: #1c1b17;
-	color: white;
+	color: var(--uniprep-white);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -2666,7 +2670,7 @@ uni-global-employment-insights {
 	min-height: 40px;
 	border-radius: 8px;
 	background-color: var(--uniprep-secondary);
-	color: white;
+	color: var(--uniprep-white);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -2678,7 +2682,7 @@ uni-global-employment-insights {
 	min-height: 40px;
 	border-radius: 8px;
 	background-color: var(--uniprep-primary);
-	color: white;
+	color: var(--uniprep-white);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -2688,15 +2692,15 @@ uni-global-employment-insights {
 	height: 18px;
 	padding: 0px 4px 20px 4px;
 	font-size: 10px;
-	color: #fff !important;
+	color: var(--uniprep-white) !important;
 	background: var(--uniprep-green);
 	border-radius: 10px !important;
 	border: 1px solid var(--uniprep-green);
 }
 
 .is-ai-bg-blue {
-	background-color: #007bff; /* Bootstrap primary */
-	color: white;
+	background-color: var(--uniprep-blue); /* Bootstrap primary */
+	color: var(--uniprep-white);
 	padding: 3px 10px;
 	border-radius: 12px;
 	font-size: 10px;
@@ -2725,14 +2729,14 @@ uni-global-employment-insights {
 	}
 	.header {
 		background: #1f3c88;
-		color: white;
+		color: var(--uniprep-white);
 		padding: 15px 25px;
 		font-size: 1.2em;
 		font-weight: 600;
 	}
 
 	.label1 {
-		color: #f97316;
+		color: var(--uniprep-secondary);
 		font-size: 30px;
 		font-weight: 600;
 	}
@@ -2750,7 +2754,7 @@ uni-global-employment-insights {
 		font-size: 1.1em;
 		font-weight: 600;
 		margin-bottom: 15px;
-		color: #f97316;
+		color: var(--uniprep-secondary);
 	}
 
 	.highlight-box {
@@ -2838,8 +2842,8 @@ uni-global-employment-insights {
 		margin: auto;
 	}
 	.header {
-		background: #1f3c88;
-		color: white;
+		background: var(--uniprep-primary);
+		color: var(--uniprep-white);
 		padding: 15px 25px;
 		font-size: 1.2em;
 		font-weight: 600;
@@ -2855,7 +2859,7 @@ uni-global-employment-insights {
 		font-size: 1.1em;
 		font-weight: 600;
 		margin-bottom: 15px;
-		color: #f97316;
+		color: var(--uniprep-secondary);
 	}
 	.highlight-box {
 		background: #fefefe;
@@ -2874,7 +2878,7 @@ uni-global-employment-insights {
 		flex: 1;
 	}
 	.label1 {
-		color: #f97316;
+		color: var(--uniprep-secondary);
 		font-size: 30px;
 		font-weight: 600;
 	}
@@ -2882,7 +2886,7 @@ uni-global-employment-insights {
 		display: block;
 		font-size: 1.5em;
 		font-weight: 700;
-		color: #ea580c;
+		color: var(--uniprep-secondary);
 	}
 	ul {
 		list-style: none;
@@ -2914,7 +2918,7 @@ uni-global-employment-insights {
 	}
 	.progress-label {
 		font-weight: bold;
-		color: #e2762d;
+		color: var(--uniprep-secondary);
 		margin-bottom: 6px;
 	}
 	.progress-bar {
@@ -2928,7 +2932,7 @@ uni-global-employment-insights {
 	.progress-fill {
 		height: 100%;
 		width: 10%; /* Change this percentage to dynamically update the bar */
-		background-color: #e2762d;
+		background-color: var(--uniprep-secondary);
 		border-radius: 999px 0 0 999px;
 	}
 }
