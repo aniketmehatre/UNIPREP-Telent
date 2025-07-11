@@ -15,7 +15,7 @@
 						<h5 class="mb-0">Talent Profile</h5>
 					</div>
 					<div>
-						<button class="how-it-works-button" (click)="openVideoPopup('')">How it works?<i
+						<button class="how-it-works-button" pButton (click)="openVideoPopup()">How it works?<i
 								class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>
@@ -647,7 +647,7 @@
 													<div class="col-md-6">
 														<label class="form-label">Desired Job title<span
 																class="text-danger">*</span></label>
-														<p-select pTooltip="Not able to find please type in Job Title"
+														<p-select
 															[virtualScroll]="true" [virtualScrollItemSize]="50"
 															formControlName="career_preference_job_title_id"
 															[options]="jobTitles" appendTo="body"

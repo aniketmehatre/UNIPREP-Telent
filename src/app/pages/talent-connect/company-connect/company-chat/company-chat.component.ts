@@ -31,16 +31,15 @@ declare global {
 })
 export class CompanyChatComponent implements OnInit, OnChanges {
   @Input() companyDetails!: Company;
+  @Input() showInfo: boolean = true;
+  @Input() isFollowed: boolean = true;
   @Output() openInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() closeChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
-  @Input() showInfo: boolean = true;
   @Output() studentIdEmit = new EventEmitter<number>();
   @Output() onCompanyConnect: EventEmitter<number> = new EventEmitter<number>();
 
   isLoadingAiSummary: boolean = false;
-  organizationName: string = 'UNIABROAD';
   organizationStatus: string = 'Active';
-  currentStage: number = 2;
   stages: Array<{ number: number, name: string, completed: boolean }> = [
     { number: 1, name: 'Initial Round', completed: true },
     { number: 2, name: 'HR Round', completed: false },
@@ -48,17 +47,15 @@ export class CompanyChatComponent implements OnInit, OnChanges {
   ];
   message: string = '';
   messages: CompanyMessage[] = [];
-  userLogo: string = '';
   attachmentFile: File | null = null;
   aiGenerateChatDetails: any;
-  private echo!: Echo<any>;
+  profileData: EmployeeConnectProfile | null = null;
   studentId: any
+  private echo!: Echo<any>;
   // scroll and take visible message ids
   @ViewChildren('msgRef') msgElements!: QueryList<ElementRef>;
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   observer!: IntersectionObserver;
-  profileData: EmployeeConnectProfile | null = null;
-  @Input() isFollowed: boolean = true;
 
   //Inject Service
   private toast = inject(MessageService);
@@ -68,32 +65,32 @@ export class CompanyChatComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.profileData = this.talentConnectService._employerProfileData;
-      this.studentId = this.profileData?.id
-      window.Pusher = Pusher;
-      this.echo = new Echo({
-        broadcaster: 'pusher',
-        key: '5b1022406406fbdcc0f9',
-        cluster: 'ap2',
-        forceTLS: true,
-      });
-      this.echo.channel(`company-connect-employer-chat-${this.studentId}`)
-        .listen('CompanyConnectMessageSentEmployer', (event: any) => {
-          if (event) {
-            const hasMatchingStudentId = this.companyDetails?.id === event.company_id;
-            if (hasMatchingStudentId) {
-              this.messages.push({
-                added_by: event.added_by,
-                chat: event.chat,
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                attachment_url: event.attachment ? event.attachment : "",
-                attachment: event.attachment ? event.attachment.name : '',
-                icon: event.icon
-              });
-              this.markReadmessage(event.id)
-              this.attachmentFile = null;
-            }
+    this.studentId = this.profileData?.id
+    window.Pusher = Pusher;
+    this.echo = new Echo({
+      broadcaster: 'pusher',
+      key: '5b1022406406fbdcc0f9',
+      cluster: 'ap2',
+      forceTLS: true,
+    });
+    this.echo.channel(`company-connect-employer-chat-${this.studentId}`)
+      .listen('CompanyConnectMessageSentEmployer', (event: any) => {
+        if (event) {
+          const hasMatchingStudentId = this.companyDetails?.id === event.company_id;
+          if (hasMatchingStudentId) {
+            this.messages.push({
+              added_by: event.added_by,
+              chat: event.chat,
+              time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+              attachment_url: event.attachment ? event.attachment : "",
+              attachment: event.attachment ? event.attachment.name : '',
+              icon: event.icon
+            });
+            this.markReadmessage(event.id)
+            this.attachmentFile = null;
           }
-        });
+        }
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -106,9 +103,6 @@ export class CompanyChatComponent implements OnInit, OnChanges {
     this.talentConnectService.getChatMessageForCompanyConnect(id).subscribe({
       next: data => {
         this.messages = data.message;
-        if (this.messages.length > 0) {
-          this.userLogo = this.messages[0].icon;
-        }
         this.aiGenerateChatDetails = {
           job_id: this.companyDetails?.id,
           companyName: this.companyDetails?.company_name,
@@ -144,7 +138,7 @@ export class CompanyChatComponent implements OnInit, OnChanges {
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             attachment_url: this.attachmentFile ? `https://${environment.domain}/uniprepapi/storage/app/public/CompanyConnectAttachment/${this.attachmentFile.name}` : '',
             attachment: this.attachmentFile ? this.attachmentFile.name : '',
-            icon: this.userLogo
+            icon: this.profileData?.dp_image ?? 'uniprep-assets/images/avatar.webp'
           });
         }
         this.attachmentFile = null;

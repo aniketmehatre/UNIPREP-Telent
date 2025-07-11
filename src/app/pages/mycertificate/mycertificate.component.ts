@@ -10,12 +10,14 @@ import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { StorageService } from "../../storage.service"
 import { SocialShareService } from "src/app/shared/social-share.service"
+import { ButtonModule } from "primeng/button"
+
 @Component({
 	selector: "uni-mycertificate",
 	templateUrl: "./mycertificate.component.html",
 	styleUrls: ["./mycertificate.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RouterModule],
+	imports: [CommonModule, DialogModule, RouterModule, ButtonModule],
 })
 export class MycertificateComponent implements OnInit {
 	certificatesList: any[] = []

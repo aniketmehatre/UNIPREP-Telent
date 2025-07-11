@@ -4,6 +4,7 @@ import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
     selector: 'uni-main-list',
@@ -16,7 +17,7 @@ export class MainListComponent implements OnInit {
     protected domainUrl: string = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;
     
     constructor(private router: Router, private talentConnectService: TalentConnectService, private messageService: MessageService,
-        private cdr: ChangeDetectorRef, private authService: AuthService) {
+        private cdr: ChangeDetectorRef, private authService: AuthService, private pageFacade: PageFacadeService) {
 
         this.talentConnectMainList = [
             {
@@ -91,4 +92,8 @@ export class MainListComponent implements OnInit {
         }
 
     }
+
+    openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("company-connect");
+	}
 }

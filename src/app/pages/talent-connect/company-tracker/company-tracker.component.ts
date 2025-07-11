@@ -11,7 +11,7 @@ import { PageFacadeService } from '../../page-facade.service';
 import { DrawerModule } from 'primeng/drawer';
 import { Company } from 'src/app/@Models/company-connect.model';
 import { CompanyChatComponent } from '../company-connect/company-chat/company-chat.component';
-
+import { ButtonModule } from 'primeng/button';
 interface DropdownOption {
   label: string;
   value: string;
@@ -21,7 +21,7 @@ interface DropdownOption {
   templateUrl: './company-tracker.component.html',
   styleUrls: ['./company-tracker.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, CompanyListsComponent, CompanyDetailComponent, RouterLink, DrawerModule, CompanyChatComponent]
+  imports: [CommonModule, DialogModule, CompanyListsComponent, CompanyDetailComponent, RouterLink, DrawerModule, CompanyChatComponent, ButtonModule]
 })
 export class CompanyTracker1Component {
   @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();
@@ -137,8 +137,8 @@ export class CompanyTracker1Component {
     this.studentIdForList = id;
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink)
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("company-connect")
   }
 
   getCompanyTotalCount(data: any) {

@@ -7,12 +7,13 @@ import { Location, CommonModule } from '@angular/common';
 import { CourseListService } from '../course-list/course-list.service';
 import { TooltipModule } from 'primeng/tooltip';
 import {StorageService} from "../../storage.service";
+import { ButtonModule } from 'primeng/button';
 @Component({
     selector: 'uni-job-tool',
     templateUrl: './job-tool.component.html',
     styleUrls: ['./job-tool.component.scss'],
     standalone: true,
-    imports: [CommonModule, RouterModule, TooltipModule]
+    imports: [CommonModule, RouterModule, TooltipModule, ButtonModule]
 })
 export class JobToolComponent implements OnInit {
   currentRoute: string = '';

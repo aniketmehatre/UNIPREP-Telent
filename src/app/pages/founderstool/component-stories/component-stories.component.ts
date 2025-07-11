@@ -10,12 +10,13 @@ import { DialogModule } from "primeng/dialog";
 import { CardModule } from "primeng/card";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { SocialShareService } from 'src/app/shared/social-share.service';
+import { ButtonModule } from "primeng/button"
 @Component({
   selector: 'uni-component-stories',
   templateUrl: './component-stories.component.html',
   styleUrls: ['./component-stories.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, CardModule, RouterModule]
+  imports: [CommonModule, DialogModule, CardModule, RouterModule, ButtonModule]
 })
 export class ComponentStoriesComponent implements OnInit {
 

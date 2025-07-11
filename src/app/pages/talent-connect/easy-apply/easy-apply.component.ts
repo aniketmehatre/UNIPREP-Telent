@@ -205,8 +205,8 @@ export class EasyApplyComponent {
     this.isAppliedFilter = false;
   }
 
-  openVideoPopup(videoLink: string) {
-    this.pageFacade.openHowitWorksVideoPopup(videoLink)
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("company-connect")
   }
 
   onCurrencyExchange(event: any) {

@@ -13,6 +13,7 @@ import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile
 import { SelectChangeEvent } from "primeng/select";
 import { environment } from "@env/environment";
 import { InputNumberInputEvent } from "primeng/inputnumber";
+import { PageFacadeService } from "../../page-facade.service";
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -134,7 +135,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     private talentConnectService: TalentConnectService,
     private toastService: MessageService,
     private authService: AuthService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private pageFacade: PageFacadeService
   ) { }
 
   ngOnInit() {
@@ -411,9 +413,24 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   uploadFile(type: FileType, event: any, index: number) {
-    const previewUrl = ""
     const file: File = event.target.files[0]
-    if (!file) return
+    if (!file) return;
+    if (type == FileType.CV) {
+      const maxSizeInMB = 2;
+      const isUnderSizeLimit = file.size <= maxSizeInMB * 1024 * 1024;
+      if (!isUnderSizeLimit) {
+        this.toastService.add({ severity: "error", summary: "Error", detail: "CV must be less than 2MB." });
+        return;
+      }
+    }
+    else{
+      const maxSizeInMB = 5;
+      const isUnderSizeLimit = file.size <= maxSizeInMB * 1024 * 1024;
+      if (!isUnderSizeLimit) {
+        this.toastService.add({ severity: "error", summary: "Error", detail: type +" must be less than 5MB." });
+        return;
+      }
+    }
     // Store the file in uploadedFiles with a unique key
     const fileId = `${type}_${index}`
     this.uploadedFiles[fileId] = file;
@@ -422,17 +439,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     sessionStorage.setItem(file.name, fileId);
     switch (type) {
       case FileType.CERTIFICATIONS:
-        // ; (this.certifications.at(index) as FormGroup).get("certifications_certificate_file")?.setValue(file.name)
         (this.certifications.at(index) as FormGroup).get("certifications_certificate_file")?.setValue(file.name);
         break;
       case FileType.ACHIEVEMENTS:
-        ; (this.achievements.at(index) as FormGroup).get("certifications_achievement_file")?.setValue(file.name)
+        (this.achievements.at(index) as FormGroup).get("certifications_achievement_file")?.setValue(file.name);
         break
       case FileType.CV:
-        this.attachmentsForm.get("career_preference_cv_filename")?.setValue(file.name)
+        this.attachmentsForm.get("career_preference_cv_filename")?.setValue(file.name);
         break
       case FileType.EXPERIENCE_LETTER:
-        ; (this.workExperience.at(index) as FormGroup).get("work_experience_experience_letter")?.setValue(file.name)
+        (this.workExperience.at(index) as FormGroup).get("work_experience_experience_letter")?.setValue(file.name);
         break
     }
   }
@@ -483,8 +499,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
 
-  openVideoPopup(id: string) {
-    // Implement video popup functionality
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("company-connect")
   }
 
   openProfileDialog(isSample: boolean) {
@@ -645,9 +661,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.talentConnectService.getEasyApplyWorkLocationList().subscribe({
       next: (response) => {
         this.locations = response.worklocations
-        this.preferredLocationsList = [...response.worklocations];
-        this.preferredLocationsList.unshift({ id: 0, work_location: "Any" });
-
+        this.preferredLocationsList = response.worklocations;
       },
     })
   }
@@ -1670,6 +1684,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         if (isUpdate) {
           this.toastService.add({ severity: "success", summary: "Success", detail: "Education details Updated Successfully" });
         }
+      },
+      error: err => {
+        this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
+        this.previous();
       }
     });
   }
@@ -1716,6 +1734,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           if (isUpdate) {
             this.toastService.add({ severity: "success", summary: "Success", detail: "Work Experience details Updated Successfully" });
           }
+        },
+        error: err => {
+          this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
+          this.previous();
         }
       });
     }
@@ -1739,6 +1761,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         if (isUpdate) {
           this.toastService.add({ severity: "success", summary: "Success", detail: "Career Information Updated Successfully" });
         }
+      },
+      error: err => {
+        this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
+        this.previous();
       }
     });
   }
@@ -1789,6 +1815,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           if (isUpdate) {
             this.toastService.add({ severity: "success", summary: "Success", detail: "Certifications Updated Successfully" });
           }
+        },
+        error: err => {
+          this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
+          this.previous();
         }
       });
     }
@@ -1812,6 +1842,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         if (isUpdate) {
           this.toastService.add({ severity: "success", summary: "Success", detail: "Professional Traits Updated Successfully" });
         }
+      },
+      error: err => {
+        this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
+        this.previous();
       }
     });
   }
@@ -1834,6 +1868,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         if (isUpdate) {
           this.toastService.add({ severity: "success", summary: "Success", detail: "Professional Networking Updated Successfully" });
         }
+      },
+      error: err => {
+        this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
+        this.previous();
       }
     });
   }
@@ -1861,6 +1899,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         if (isUpdate) {
           this.toastService.add({ severity: "success", summary: "Success", detail: "Attachments Updated Successfully" });
         }
+      },
+      error: err => {
+        this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
+        this.previous();
       }
     });
   }
@@ -1883,6 +1925,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         if (isUpdate) {
           this.toastService.add({ severity: "success", summary: "Success", detail: "References Updated Successfully" });
         }
+      },
+      error: err => {
+        this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
+        this.previous();
       }
     });
   }
@@ -1905,6 +1951,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.getProfileData();
         this.isShowCreatedSuccessfullyPopup = true;
         this.toastService.add({ severity: "success", summary: "Success", detail: "Profile Created Successfully" });
+      },
+      error: err => {
+        this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
       }
     });
   }

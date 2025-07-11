@@ -165,25 +165,25 @@ export const howItWorksLinks: { [key: string]: { video_link: string } } = {
     video_link: "https://www.youtube.com/embed/v6OkUBLyo9g?si=Xn-zHskCHISTveWQ"
   },
   "pre-admission":{
-    video_link: "https://www.youtube.com/embed/aR06d8kMeio?si=-5Ivte_5ZgdcndS-"
+    video_link: "https://www.youtube.com/embed/AgpftQuN8xE?si=j_OHqncqC7bAKCG7"
   },
   "travel-and-tourism":{
-    video_link: "https://www.youtube.com/embed/PZERtrH1zh8?si=zKQ80B27zz6V9-mk"
+    video_link: "https://www.youtube.com/embed/wHL_3to7LCA?si=HVpqa3SNd4i_wQix" 
   },
   "post-admission":{
-    video_link: "https://www.youtube.com/embed/g_KWlnmOEtc?si=KFpkpjdYMwkCIOV1"
+    video_link: "https://www.youtube.com/embed/ZPcDLaA9ek0?si=R-qhh-GLoDKrIs1H"
   },
   "career-hub":{
-    video_link: "https://www.youtube.com/embed/dBNASRavBk0?si=M2WtoOTl3ahORz8V"
+    video_link: "https://www.youtube.com/embed/ZMvdoyD7iOU?si=1CyOGnlYem_Cb80k"
   },
   "university":{
-    video_link: "https://www.youtube.com/embed/6mukBsCTgtw?si=aFBa9JMWI2k2QuzP"
+    video_link: "https://www.youtube.com/embed/7AfJL5a3NNg?si=AVYkGbMRNXaFJmic"
   },
   "learning-hub":{
     video_link: "https://www.youtube.com/embed/rXUTHl8G5lQ?si=qNdxxM0D_UjnR0FU"
   },
   "life-in":{
-    video_link: "https://www.youtube.com/embed/7VFZp47tfLU?si=GPLVjR5vKlNno-cZ"
+    video_link: "https://www.youtube.com/embed/TAsEr6qGwak?si=js68wWK5yi0HTbRD"
   },
   "k-12":{
     video_link: "https://www.youtube.com/embed/Zh4pPEZ160c?si=i8vkRTgh70TuoqDn"
@@ -196,5 +196,8 @@ export const howItWorksLinks: { [key: string]: { video_link: string } } = {
   },
   "resource":{
     video_link: "https://www.youtube.com/embed/1KA9phVhkgM?si=mSwMe9gquEWEtI9a"
-  }
+  },
+  "company-connect":{
+    video_link: "https://www.youtube.com/embed/UMRenyPjO6E?si=vynfuwkpEPpqeYbo"
+  },
 };

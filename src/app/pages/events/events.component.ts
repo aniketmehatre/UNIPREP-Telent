@@ -14,6 +14,7 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { InputTextModule } from "primeng/inputtext"
 import { SelectModule } from "primeng/select"
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ButtonModule } from "primeng/button"
 
 interface country {
 	id: number
@@ -40,7 +41,9 @@ const dateRangeValidator: any = (control: FormGroup): ValidationErrors | null =>
 	templateUrl: "./events.component.html",
 	styleUrls: ["./events.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule, MultiSelectModule, InputGroupModule, InputGroupAddonModule, InputTextModule],
+	imports: [CommonModule, RouterModule, DialogModule, FormsModule, ReactiveFormsModule, SelectModule, MultiSelectModule, InputGroupModule, InputGroupAddonModule, InputTextModule,
+		ButtonModule
+	],
 })
 export class EventsComponent implements OnInit {
 	activeButton: number = 1

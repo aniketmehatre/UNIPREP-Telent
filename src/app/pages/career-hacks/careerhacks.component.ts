@@ -15,7 +15,6 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { CHCountryListsComponent } from "./career-countries/careercountries.component";
 import { CareerListsComponent } from "./career-lists/careerlists.component";
 import { CareerJobHacksService } from "./careerhacks.service";
-import { PageFacadeService } from "../page-facade.service";
 
 @Component({
   selector: "uni-career-hacks",
@@ -40,8 +39,7 @@ import { PageFacadeService } from "../page-facade.service";
     CareerListsComponent
   ],
   providers: [
-    CareerJobHacksService,
-    PageFacadeService
+    CareerJobHacksService
   ]
 })
 export class CareerhacksComponent implements OnInit {

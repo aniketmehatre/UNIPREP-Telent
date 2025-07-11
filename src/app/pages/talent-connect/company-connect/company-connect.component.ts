@@ -11,6 +11,7 @@ import { PageFacadeService } from '../../page-facade.service';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { SocialShareService } from 'src/app/shared/social-share.service';
+import { ButtonModule } from 'primeng/button';
 
 interface DropdownOption {
     label: string;
@@ -28,7 +29,8 @@ interface DropdownOption {
         PaginatorModule,
         TagModule,
         CompanyFilterComponent,
-        ToastModule
+        ToastModule,
+        ButtonModule
     ],
     standalone: true
 })
@@ -118,8 +120,8 @@ export class CompanyConnect1Component implements OnInit {
         })
     }
 
-    openVideoPopup(videoLink: string) {
-        this.pageFacade.openHowitWorksVideoPopup(videoLink)
+    openVideoPopup() {
+        this.pageFacade.openHowitWorksVideoPopup("company-connect")
     }
 
     routerToJobListingPageWithCompanyId(event: any, id: number) {
