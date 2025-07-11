@@ -87,14 +87,10 @@ export class RegistrationComponent implements OnInit {
     }
 
     dateTime = new Date()
-    jobId: any
+    position: any
     ngOnInit() {
-
-        setTimeout(() => {
-            this.jobId = this.storageService.get('position')
-            console.log(this.jobId)
-        }, 3000);
-        if (!this.jobId) {
+        this.position = this.storage.get('position')
+        if (!this.position) {
             localStorage.clear()
         }
         //localStorage.clear()
@@ -208,6 +204,7 @@ export class RegistrationComponent implements OnInit {
             password_confirmation: this.registrationForm.value.confirmPassword,
             platform_id: 1,
             usertype_id: 1,
+            position: this.position ? this.position : ''
         }
 
         this.service.Registraion(data).subscribe({

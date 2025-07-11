@@ -120,12 +120,12 @@
 						<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span>&nbsp;Apply for jobs</h5>
 						<button class="btn btn-rounded text-extrasmall px-4 py-2 m-0 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()" aria-label="View all job applications">View All</button>
 					</div>
-					<p-carousel #carousel [circular]="false" [autoplayInterval]="3000" [numScroll]="1" [numVisible]="3" *ngIf="!isNoApplicationsData" [responsiveOptions]="responsiveOptions" [value]="recentJobApplication" [showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Recent Job Applications Carousel">
+					<p-carousel #carousel [circular]="true" [autoplayInterval]="3000" [numScroll]="3" [numVisible]="3" *ngIf="!isNoApplicationsData" [responsiveOptions]="responsiveOptions" [value]="recentJobApplication" [showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Recent Job Applications Carousel">
 						<ng-template let-group pTemplate="item">
-							<div role="button" tabindex="0" class="card mt-0 m-2 bg-white" style="border: none" (keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
+							<div role="button" tabindex="0" class="card bg-white" style="border: none" (keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
 								<div class="card-body">
 									<div class="d-flex justify-content-center align-items-center h-100 image-border">
-										<img alt="{{ group.company_name }} logo" class="jobImage" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" src="{{ group.image }}" />
+										<img alt="{{ group.company_name }} logo" class="jobImage w-100" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" src="{{ group.image }}" />
 									</div>
 								</div>
 							</div>
@@ -142,12 +142,12 @@
 						<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="seedling">💼</span>&nbsp;Companies</h5>
 						<button class="btn btn-rounded text-extrasmall px-4 py-2 m-0 mb-2 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()" aria-label="View all educational partners">View All</button>
 					</div>
-					<p-carousel [numScroll]="8" [numVisible]="4" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions" [showIndicators]="true" [value]="partnerTrusterLogo" class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Educational Partners Carousel">
+					<p-carousel [numScroll]="4" [numVisible]="4" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions1" [showIndicators]="true" [value]="partnerTrusterLogo" class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Educational Partners Carousel">
 						<ng-template let-uni pTemplate="item">
-							<div role="button" tabindex="0" class="card mt-0 m-2 bg-white" style="border: none">
+							<div role="button" tabindex="0" class="card bg-white" style="border: none">
 								<div class="card-body">
 									<div class="text-center image-border d-flex justify-content-center align-items-center h-100">
-										<img class="logo-wrapper" alt="{{ uni.company_name }} logo" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="uni.company_logo" />
+										<img class="logo-wrapper w-100" alt="{{ uni.company_name }} logo" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="uni.company_logo" />
 									</div>
 								</div>
 							</div>

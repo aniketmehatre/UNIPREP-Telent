@@ -96,13 +96,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (this.service.isTokenValid()) {
             this.route.navigate(["/pages/dashboard"])
         }
-        setTimeout(() => {
-            this.jobId = this.storageService.get('position')
-            console.log(this.jobId)
-        }, 3000);
-        // if (!this.jobId) {
-        //     localStorage.clear()
-        // }
+        this.jobId = this.storage.get('jobId');
+        if (!this.jobId) {
+            localStorage.clear()
+        }
         this.initializeComponent()
         this.setupSocialAuth()
         this.apiToCheckPartnerOrInstitute()
@@ -289,10 +286,14 @@ export class LoginComponent implements OnInit, OnDestroy {
                     }, 1000); //because of the token is not set. so i added the timeout
                 }
                 
-                if (this.jobId) {
-                    this.route.navigate([this.jobId], { replaceUrl: true })
+                // if (this.jobId) {
+                //     this.route.navigate([this.jobId], { replaceUrl: true })
+                // }
+                if (this.jobId){
+                    this.route.navigate([this.storage.get('jobId')], { replaceUrl: true })
+                }else {
+                    this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
                 }
-                this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
             },
             error: (error) => {
                 this.toast.add({

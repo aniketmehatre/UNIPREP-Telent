@@ -1,5 +1,5 @@
 import { InputGroupModule } from 'primeng/inputgroup';
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ElementRef, signal } from "@angular/core"
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ElementRef, signal, inject } from "@angular/core"
 import { DashboardService } from "./dashboard.service"
 import { AuthService } from "../../Auth/auth.service"
 import { SubSink } from "subsink"
@@ -33,6 +33,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { FavouriteList, FeatureFavourite } from './favourites-data';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TalentConnectService } from '../talent-connect/talent-connect.service';
+import { LocalStorageService } from 'ngx-localstorage';
 
 @Component({
 	selector: "uni-dashboard",
@@ -48,12 +49,15 @@ import { TalentConnectService } from '../talent-connect/talent-connect.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
+	private storage = inject(LocalStorageService);
+
 	@ViewChild("op") op!: ElementRef<HTMLInputElement>
 	@ViewChild("carousel") carousel!: Carousel
 	@Input() progress: number = 0
 	private subs = new SubSink()
 	userName: any
 	responsiveOptions: any
+	responsiveOptions1: any;
 	sendInvite: any = ""
 	partnerTrusterLogo: any[] = []
 	planExpired: boolean = false
@@ -113,10 +117,32 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 				numVisible: 1,
 				numScroll: 1
 			}
+		],
+		this.responsiveOptions1 = [
+			{
+				breakpoint: '1280px',
+				numVisible: 4,
+				numScroll: 4
+			},
+			{
+				breakpoint: '1024px',
+				numVisible: 3,
+				numScroll: 3
+			},
+			{
+				breakpoint: '768px',
+				numVisible: 2,
+				numScroll: 2
+			},
+			{
+				breakpoint: '560px',
+				numVisible: 2,
+				numScroll: 2
+			}
 		]
 	}
 
-
+	jobId: any
 	ngOnInit() {
 		this.route.queryParamMap.subscribe(params => {
 			const token = params.get('token');
@@ -130,6 +156,10 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 					queryParams: {},
 					replaceUrl: true
 				});
+			}
+			this.jobId = this.storage.get('jobId');
+			if (!this.jobId) {
+				this.router.navigate([this.storage.get('jobId')], { replaceUrl: true })
 			}
 		});
 		// Initialize essential data first

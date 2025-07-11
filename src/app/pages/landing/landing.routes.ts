@@ -30,7 +30,7 @@ export const landingRoutes: Routes = [
     { path: "forgot-password", component: ForgotPasswordComponent },
     { path: "verification/:email", component: VerificationComponent },
     { path: "setpassword/:otp/:email", component: SetpasswordComponent },
-   
+
     {
         path: "pages",
         loadChildren: () => import("../../pages/pages.module").then((m) => m.PagesModule),
