@@ -11,7 +11,10 @@
 	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
-	margin-right: 0.5rem;
+	cursor: pointer;
+	&:hover {
+		background-color: var(--uniprep-secondaryop30);
+	}
 }
 :host ::ng-deep .p-rating-option-active .p-rating-icon {
 	color: #EAB308;
