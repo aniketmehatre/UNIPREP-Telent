@@ -116,11 +116,11 @@
 				<span class="system-main__name d-flex flex-column">
 					<span>{{ item.title }}</span>
 					<span class="badge"
-						*ngIf="item.title == 'Language Hub' || item.title == 'Career Tools' || item.title == 'Pitch Deck' || item.title == 'UNILEARN' || item.title == 'UNIFINDER' || item.title == 'Quiz' || item.title == 'Employer Connect' || item.title == 'Cost of Living' || item.title == 'Travel Tools'"
+						*ngIf="item.title == 'Language Hub' || item.title == 'Career Tools' || item.title == 'Pitch Deck' || item.title == 'UNILEARN' || item.title == 'UNIFINDER' || item.title == 'Quiz' || item.title == 'Employer Connect' || item.title == 'Cost of Living' || item.title == 'Travel Tools' || item.title == 'Explore Jobs'"
 						style="width: fit-content" [ngStyle]="{
-					  'background-color': item.title === 'Employer Connect' ? 'var(--uniprep-secondary)' : 'var(--uniprep-darkgreen)'
+					  'background-color': item.title === 'Explore Jobs' ? 'var(--uniprep-secondary)' : 'var(--uniprep-darkgreen)'
 					}">
-						{{ item.title === 'Employer Connect' ? 'Most Popular' : 'Popular' }}
+						{{ item.title === 'Explore Jobs' ? 'Most Popular' : 'Popular' }}
 					</span> </span>
 			</div>
 		</ng-template>

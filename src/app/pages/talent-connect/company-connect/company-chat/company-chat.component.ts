@@ -57,7 +57,7 @@ export class CompanyChatComponent implements OnInit, OnChanges {
   @ViewChildren('msgRef') msgElements!: QueryList<ElementRef>;
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   observer!: IntersectionObserver;
-  profileData!: EmployeeConnectProfile;
+  profileData: EmployeeConnectProfile | null = null;
   @Input() isFollowed: boolean = true;
 
   //Inject Service
@@ -67,8 +67,8 @@ export class CompanyChatComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-    this.authService.getMe().subscribe((res: any) => {
-      this.studentId = res.employee_user_id
+    this.profileData = this.talentConnectService._employerProfileData;
+      this.studentId = this.profileData?.id
       window.Pusher = Pusher;
       this.echo = new Echo({
         broadcaster: 'pusher',
@@ -81,7 +81,6 @@ export class CompanyChatComponent implements OnInit, OnChanges {
           if (event) {
             const hasMatchingStudentId = this.companyDetails?.id === event.company_id;
             if (hasMatchingStudentId) {
-
               this.messages.push({
                 added_by: event.added_by,
                 chat: event.chat,
@@ -95,16 +94,6 @@ export class CompanyChatComponent implements OnInit, OnChanges {
             }
           }
         });
-    })
-    this.getProfileData();
-  }
-
-  getProfileData() {
-    this.talentConnectService.getMyProfileData().subscribe({
-      next: response => {
-        this.profileData = response.data[0];
-      }
-    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

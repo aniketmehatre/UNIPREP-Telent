@@ -1,5 +1,5 @@
 import { InputGroupModule } from 'primeng/inputgroup';
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ElementRef, signal } from "@angular/core"
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ElementRef, signal, inject } from "@angular/core"
 import { DashboardService } from "./dashboard.service"
 import { AuthService } from "../../Auth/auth.service"
 import { SubSink } from "subsink"
@@ -33,6 +33,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { FavouriteList, FeatureFavourite } from './favourites-data';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TalentConnectService } from '../talent-connect/talent-connect.service';
+import { LocalStorageService } from 'ngx-localstorage';
 
 @Component({
 	selector: "uni-dashboard",
@@ -48,6 +49,8 @@ import { TalentConnectService } from '../talent-connect/talent-connect.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
+	private storage = inject(LocalStorageService);
+
 	@ViewChild("op") op!: ElementRef<HTMLInputElement>
 	@ViewChild("carousel") carousel!: Carousel
 	@Input() progress: number = 0
@@ -139,7 +142,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		]
 	}
 
-
+	jobId: any
 	ngOnInit() {
 		this.route.queryParamMap.subscribe(params => {
 			const token = params.get('token');
@@ -153,6 +156,10 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 					queryParams: {},
 					replaceUrl: true
 				});
+			}
+			this.jobId = this.storage.get('jobId');
+			if (!this.jobId) {
+				this.router.navigate([this.storage.get('jobId')], { replaceUrl: true })
 			}
 		});
 		// Initialize essential data first
@@ -376,19 +383,9 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		})
 	}
 	checkIfProfileCreated() {
-		this.talentConnectService.getMyProfileData().subscribe({
-			next: response => {
-				if (response && response.count > 0 && response.data[0].profile_completion_flag) {
-					if (response.count > 0) {
-						this.isProfileCreated = true;
-						this.cdr.detectChanges();
-					}
-				}
-			},
-			error: error => {
-				console.log('error while calling get profile!.');
-			}
-		});
+		if(this.talentConnectService._employerProfileData?.profile_completion_flag) {
+			this.isProfileCreated = true;
+		}
 	}
 	redirectEmployerProfile() {
 		this.router.navigate(["/pages/talent-connect/my-profile"]);

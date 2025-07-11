@@ -113,7 +113,7 @@ export class GlobalRepositoryComponent implements OnInit {
 
   ngOnInit() {
     this.locationService
-      .dashboardLocationList()
+      .getCountry()
       .subscribe((countryList: any) => {
         this.countryLists = countryList;
         const storedCountryId = Number(this.storage.get("countryId")) || 0;

@@ -4,6 +4,7 @@ import { environment } from "@env/environment";
 import { BehaviorSubject, Observable, of, throwError, timer } from "rxjs";
 import { catchError, timeout, tap, map, shareReplay, retryWhen, delay, take, finalize } from "rxjs/operators";
 import {StorageService} from "../../storage.service";
+import { LocationService } from "src/app/location.service";
 
 @Injectable({
   providedIn: "root",
@@ -17,11 +18,11 @@ export class DashboardService {
   private readonly API_TIMEOUT = 10000; // 10 seconds timeout
   private activeRequest$: Observable<any> | null = null;
 
-  constructor(private http: HttpClient, private storage: StorageService) {
+  constructor(private http: HttpClient, private storage: StorageService, private locationService:LocationService) {
     // Initialize with stored country if available
     const storedCountryId = this.storage.get('selectedCountryId');
     if (storedCountryId) {
-      this.getCountries().subscribe(countries => {
+      this.locationService.getCountry().subscribe(countries => {
         const country = countries.find((c: any) => c.id.toString() === storedCountryId);
         if (country) {
           this.selectedCountrySubject.next(country);
@@ -128,13 +129,6 @@ export class DashboardService {
     );
   }
 
-  getCountries() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get<any>(environment.ApiUrl + "/country", {
-      headers: headers,
-    });
-  }
-
   searchKeyword(val: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/searchkeyword", val, {
@@ -149,20 +143,6 @@ export class DashboardService {
       val,
       { headers: headers }
     );
-  }
-
-  // getModuleQuizProgression(val: any) {
-  //   const headers = new HttpHeaders().set("Accept", "application/json");
-  //   return this.http.post<any>(
-  //     environment.ApiUrl + "/getmodulequizprogression",
-  //     val,
-  //     { headers: headers }
-  //   );
-  // }
-
-  countryList() {
-    const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.http.get(environment.ApiUrl + "/country", { headers: headers });
   }
 
   getTrustedPartners() {

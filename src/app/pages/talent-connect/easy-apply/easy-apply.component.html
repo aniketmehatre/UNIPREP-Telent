@@ -238,9 +238,15 @@
 				<div class="building-icon mb-4">
 					<img src="uniprep-assets/images/job.webp" alt="Building" class="img-fluid" />
 				</div>
-				<h4 class="mb-3">No jobs found matching your search.</h4>
-				<p class="text-muted">Please try adjusting your filters or check back soon — new opportunities are added
-					regularly</p>
+				<ng-container *ngIf="isAppliedFilter; else noData">
+					<h4 class="mb-3">No jobs found matching your search.</h4>
+					<p class="text-muted">Please try adjusting your filters or check back soon — new opportunities are
+						added
+						regularly</p>
+				</ng-container>
+				<ng-template #noData>
+					<h4 class="mb-3">No jobs found.</h4>
+				</ng-template>
 			</div>
 		</div>
 	</div>
@@ -292,7 +298,8 @@
 						<p-multiSelect [options]="locations" formControlName="worklocation" [virtualScroll]="true"
 							[virtualScrollItemSize]="50" placeholder="Select work location" optionLabel="work_location"
 							optionValue="id" display="chip" appendTo="body" class="w-100" [showClear]="true"
-							(onChange)="onChangeLocation($event, 'location')" (onClear)="onChangeLocation($event, 'location')">
+							(onChange)="onChangeLocation($event, 'location')"
+							(onClear)="onChangeLocation($event, 'location')">
 						</p-multiSelect>
 					</div>
 					<div class="col-md-4">
@@ -300,7 +307,8 @@
 						<p-multiSelect [options]="countries" formControlName="country" [virtualScroll]="true"
 							[virtualScrollItemSize]="50" placeholder="Select Country" optionLabel="country"
 							optionValue="id" display="chip" appendTo="body" class="w-100" [showClear]="true"
-							(onChange)="onChangeLocation($event, 'country')" (onClear)="onChangeLocation($event, 'country')">
+							(onChange)="onChangeLocation($event, 'country')"
+							(onClear)="onChangeLocation($event, 'country')">
 						</p-multiSelect>
 					</div>
 					<div class="col-md-4">

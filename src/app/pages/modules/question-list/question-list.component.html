@@ -26,11 +26,8 @@
 								class="questiontooltip fa-solid fa-circle-question"></i>
 						</h5>
 					</div>
-					<div *ngIf="currentModuleName != 'K12' && currentModuleName != 'K12 Academy'&& currentModuleName != 'Pre-Admission'
-					&& currentModuleName != 'Travel-and-Tourism'&& currentModuleName != 'Post-Admission'&& currentModuleName != 'Career Hub'
-					&& currentModuleName != 'University'&& currentModuleId != '6'">
-						<button pButton class="how-it-works-button" severity="warn"
-							(click)="openHowItWorksVideoPopup(howItWorksVideoLink)">How it works?<i
+					<div>
+						<button pButton class="how-it-works-button" severity="warn" (click)="openHowItWorksVideoPopup(howItWorksVideoLink)">How it works?<i
 								class="fa-solid fa-play d-md-block d-none"></i></button>
 					</div>
 				</div>

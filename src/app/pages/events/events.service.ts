@@ -21,13 +21,7 @@ export class EventsService {
         headers: headers,
     });
   }
-  // GetCountryList(): Observable<any> {
-  //   const headers= new HttpHeaders()
-  //   .set('Accept', "application/json")
-  //   return this.http.get(environment.ApiUrl + "/country", {
-  //     headers: headers,
-  // });
-  // }
+
   registered(data:any):Observable<any>{
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl+'/RegisterEvent',data, {

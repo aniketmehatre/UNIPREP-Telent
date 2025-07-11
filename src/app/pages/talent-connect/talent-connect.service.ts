@@ -27,18 +27,14 @@ export class TalentConnectService {
         );
     }
 
-    // getCountries() {
-    //     return this.http.post<any>(environment.ApiUrl + "/getcountryandcurrency", {
-    //         headers: this.headers
-    //     });
-    // }
-
-    // getCityCountries(search?: string) {
-    //     return this.http.get<any>(environment.ApiUrl + `/getworldcitiescountry?search=${search ?? ''}`);
-    // }
     //Profile Creation 
-    getMyProfileData() {
-        const request$ = this.http.get<EmployeeConnectProfileRes>(environment.ApiUrl + "/getstudentprofiles", { headers: this.headers }).pipe(
+    getMyProfileData(token?: string) {
+        //  The token is not taken by the public route (login). that's why this header added for manually for after getMe Api call
+        let headers = new HttpHeaders()
+            .set('Accept', 'application/json')
+            .set('Authorization', `Bearer ${token}`)
+
+        const request$ = this.http.get<EmployeeConnectProfileRes>(environment.ApiUrl + "/getstudentprofiles", { headers: token ? headers : this.headers }).pipe(
             map(response => {
                 if (response?.data?.length > 0) {
                     this._employerProfileData = response.data[0];

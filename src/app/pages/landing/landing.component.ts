@@ -128,6 +128,6 @@ export class LandingComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        localStorage.clear();
+        //localStorage.clear();
     }
 }

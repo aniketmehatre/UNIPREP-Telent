@@ -68,6 +68,7 @@ export class EasyApplyComponent {
   hiring_stages: string | Array<{ id: number; name: string }>;
   countries: any[] = [];
   industries: any[] = [];
+  isAppliedFilter: boolean = false;
   //Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
@@ -194,12 +195,14 @@ export class EasyApplyComponent {
   applyFilter(): void {
     this.getList(this.filterForm.value);
     this.displayModal = false;
+    this.isAppliedFilter = true;
   }
 
   resetFilter(): void {
     this.getList({});
     this.displayModal = false;
     this.filterForm.reset();
+    this.isAppliedFilter = false;
   }
 
   openVideoPopup(videoLink: string) {

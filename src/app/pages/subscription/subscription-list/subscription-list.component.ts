@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {customsopSubscriptionplans} from "../../../@Models/subscription";
-import {AuthService} from "../../../Auth/auth.service";
+import { LocationService } from "src/app/location.service";
 import {SubscriptionService} from "../subscription.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
@@ -37,7 +37,7 @@ export class SubscriptionListComponent implements OnInit {
     @Input() whichOneVisible: any;
 
     constructor(
-        private authService: AuthService,
+        private locationService: LocationService,
         private subscriptionService: SubscriptionService
     ) {
     }
@@ -50,7 +50,7 @@ export class SubscriptionListComponent implements OnInit {
             this.isNormalPlanSelected = false;
             this.isBuyCreditSelected = true;
         }
-        this.authService.getCountry().subscribe((data) => {
+        this.locationService.getCountry().subscribe((data) => {
             this.countryList = data;
         });
         this.subscriptionService.getQuestionCredit().subscribe(

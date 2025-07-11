@@ -1,11 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit, signal, } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { environment } from "@env/environment";
 import { TalentConnectService } from '../talent-connect.service';
-import { Observable } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { EmployeeConnectProfile } from 'src/app/@Models/employee-connect-profile';
 
 @Component({
     selector: 'uni-main-list',
@@ -16,10 +14,7 @@ import { EmployeeConnectProfile } from 'src/app/@Models/employee-connect-profile
 export class MainListComponent implements OnInit {
     protected talentConnectMainList: any[] = []
     protected domainUrl: string = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;
-    isLoading: boolean = false;
-    isProfileCreated: boolean = false;
-    private dpImage = signal('');
-    profileData: EmployeeConnectProfile[] = [];
+    
     constructor(private router: Router, private talentConnectService: TalentConnectService, private messageService: MessageService,
         private cdr: ChangeDetectorRef, private authService: AuthService) {
 
@@ -59,30 +54,12 @@ export class MainListComponent implements OnInit {
     }
 
     checkIfProfileCreated() {
-        this.isLoading = true;
-        this.talentConnectService.getMyProfileData().subscribe({
-            next: response => {
-                this.isLoading = false;
-                if (response && response.count > 0 && response.data[0].profile_completion_flag) {
-                    this.dpImage.set(response.data[0].dp_image)
-                    this.talentConnectMainList[0].image = response.data[0].dp_image;
-                    this.isProfileCreated = true;
-                    this.profileData = response.data;
-                    this.cdr.detectChanges();
-                }
-                else {
-                    const profileItem = this.talentConnectMainList.find(item => item.id === 1);
-                    if (profileItem) {
-                        profileItem.title = "Create Profile";
-                    }
-                }
-            },
-            error: error => {
-                this.isLoading = false;
-                this.talentConnectMainList[0].title = 'Create Profile';
-                console.log('error while calling get profile!.');
-            }
-        });
+        if (this.talentConnectService._employerProfileData?.profile_completion_flag) {
+            this.talentConnectMainList[0].image = this.talentConnectService._employerProfileData?.dp_image ?? 'uniprep-assets/images/employer-connect/YourProfile.svg';
+        }
+        else {
+            this.talentConnectMainList[0].title = 'Create Profile';
+        }
     }
 
 
@@ -91,7 +68,7 @@ export class MainListComponent implements OnInit {
             this.authService.hasUserSubscription$.next(true);
             return;
         }
-        if (!this.isProfileCreated) {
+        if (!this.talentConnectService._employerProfileData?.profile_completion_flag) {
             if (moduleId === 2 || moduleId === 3) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -106,7 +83,7 @@ export class MainListComponent implements OnInit {
             }
         } else {
             if (moduleId == 1) {
-                this.router.navigate([url, this.profileData[0].id]);
+                this.router.navigate([url, this.talentConnectService._employerProfileData?.id]);
             }
             else {
                 this.router.navigateByUrl(url);

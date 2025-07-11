@@ -1,0 +1,518 @@
+<section class="darksection py-5">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="row g-3">
+            <!-- Profile Header Card -->
+            <div class="col-md-12">
+                <div class="card mb-2">
+                <div class="card-header bg-white d-flex justify-content-between align-items-start flex-wrap">
+                    
+                    <div class="me-3 mb-3 logo-container bg-white rounded border d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                    <img [src]="data?.dp_image || 'https://via.placeholder.com/100'" [alt]="data?.full_name" class="w-100 rounded" />
+                    </div>
+            
+                    <div class="flex-grow-1 mb-3">
+                    <h3 class="fw-bold mb-1">{{ data?.full_name }}</h3>
+            
+                    <p class="text-muted mb-1">Profile Updated On:</p>
+            
+                    <button class="btn btn-success btn-sm mb-3">
+                        Checkout my introduction Video <i class="pi pi-play ms-1"></i>
+                    </button>
+            
+                    <!-- Details Row -->
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3 mb-2">
+                        <small class="text-muted">Date of Birth:</small>
+                        <p class="mb-1">{{ data?.date_of_birth | date:'dd/MM/yyyy' }}</p>
+                        </div>
+                        <div class="col-sm-6 col-md-3 mb-2">
+                        <small class="text-muted">Gender:</small>
+                        <p class="mb-1">{{ data?.gender }}</p>
+                        </div>
+                        <div class="col-sm-6 col-md-3 mb-2">
+                        <small class="text-muted">Nationality:</small>
+                        <p class="mb-1">{{ data?.nationality_name }}</p>
+                        </div>
+                        <div class="col-sm-6 col-md-3 mb-2">
+                        <small class="text-muted">Current Location:</small>
+                        <p class="mb-1">{{ data?.current_location }}</p>
+                        </div>
+                    </div>
+                    </div>
+            
+                    <!-- Right Side: Chat Button -->
+                    <div class="ms-auto mb-2">
+                    <button class="btn btn-primary">Chat</button>
+                    </div>
+            
+                </div>
+                </div>
+            </div>
+  
+            <!-- Education Section -->
+            <div class="col-md-12">
+                <div class="card mb-4 p-3">
+                <div class="row">
+                    <!-- Left: Title -->
+                    <div class="col-md-2 d-flex align-items-start">
+                    <h4 class="fw-bold">Education Details</h4>
+                    </div>
+            
+                    <!-- Right: 4x2 field-value layout -->
+                    <div class="col-md-10">
+                    <div class="row">
+                        <!-- Highest Qualification -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Highest Qualification</h6>
+                        <p class="mb-0">{{ data?.education?.[0]?.qualification_name || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Institution Name -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Institution Name</h6>
+                        <p class="mb-0">{{ data?.education?.[0]?.university_name || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Field of Study -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Field of Study</h6>
+                        <p class="mb-0">{{ data?.education?.[0]?.field_of_study || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Course Name -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Course Name</h6>
+                        <p class="mb-0">{{ data?.education?.[0]?.course_name || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Graduation Year -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Graduation Year</h6>
+                        <p class="mb-0">{{ data?.education?.[0]?.graduation_year_name || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- GPA / Percentage -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">GPA / Percentage</h6>
+                        <p class="mb-0">
+                            {{ data?.education?.[0]?.gpa_percentage || 'N/A' }}
+                            {{ data?.education?.[0]?.gpa_percentage_type || '' }}
+                        </p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+  
+            <!-- Work Experience -->
+            <div class="col-md-12">
+                <div class="card mb-4 p-3">
+                <div class="row">
+                    <!-- Left: Section Title -->
+                    <div class="col-md-2 d-flex align-items-start">
+                    <h4 class="fw-bold">Work Experience & Internships</h4>
+                    </div>
+            
+                    <!-- Right: Work Experience Data -->
+                    <div class="col-md-10">
+                    <!-- Total Experience -->
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Total Years of Experience</h6>
+                        <p class="mb-0">{{ data?.total_years_of_experience || 'N/A' }}</p>
+                        </div>
+                    </div>
+            
+                    <!-- Work Experience Blocks -->
+                    <div *ngIf="data?.work_experience?.length > 0">
+                        <div *ngFor="let work of data.work_experience">
+                        <h5 class="fw-semibold mb-3">Work Experience Details</h5>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                            <h6 class="fw-semibold text-primary mb-1">Company Name</h6>
+                            <p class="mb-0">{{ work.company_name }}</p>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                            <h6 class="fw-semibold text-primary mb-1">Job Title</h6>
+                            <p class="mb-0">{{ work.job_title }}</p>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                            <h6 class="fw-semibold text-primary mb-1">Duration</h6>
+                            <p class="mb-0">{{ work.duration_from }} - {{ work.duration_to || 'Currently Employed' }}</p>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                            <h6 class="fw-semibold text-primary mb-1">Years of Experience</h6>
+                            <p class="mb-0">{{ work.years_of_experience || 'N/A' }}</p>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                            <h6 class="fw-semibold text-primary mb-1">Employment Type</h6>
+                            <p class="mb-0">{{ work.employment_type || 'N/A' }}</p>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                            <h6 class="fw-semibold text-primary mb-1">Salary per month</h6>
+                            <p class="mb-0">INR {{ work.salary_per_month || 'N/A' }}</p>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                            <h6 class="fw-semibold text-primary mb-1">Job Responsibilities</h6>
+                            <p class="mb-0" [innerHTML]="work.job_responsibilities"></p>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                            <h6 class="fw-semibold text-primary mb-1">Experience Letter</h6>
+                            <a
+                                *ngIf="work.experience_letter_url"
+                                [href]="work.experience_letter_url"
+                                target="_blank"
+                                class="btn btn-outline-primary"
+                            >
+                                Experience Letter.pdf
+                            </a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div> <!-- End col-md-10 -->
+                </div> <!-- End row -->
+                </div>
+            </div>
+  
+            <!-- Career Preferences -->
+            <div class="col-md-12">
+                <div class="card mb-4 p-3">
+                <div class="row">
+                    <!-- Left: Section Title + Call to Action -->
+                    <div class="col-md-2 d-flex flex-column align-items-start">
+                    <h4 class="fw-bold">Career Preferences & Aspirations</h4>
+                    <div class="bg-warning-subtle border border-warning rounded mt-2 px-2 py-1 small text-center">
+                        <div class="fw-semibold text-warning">Confused about your career?</div>
+                        <a href="#" class="text-warning fw-semibold d-block">Click here to plan now!</a>
+                    </div>
+                    </div>
+            
+                    <!-- Right: Grid of Preferences -->
+                    <div class="col-md-10">
+                    <div class="row">
+                        <!-- Career Status -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Career Status</h6>
+                        <p class="mb-0">{{ data?.careerPreference?.career_status || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Desired Job Title -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Desired Job Title</h6>
+                        <p class="mb-0">{{ data?.careerPreference?.job_title || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Interested Industry -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Interested Industry</h6>
+                        <p class="mb-0">{{ data?.careerPreference?.industry || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Department -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Department</h6>
+                        <p class="mb-0">{{ data?.careerPreference?.department || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Preferred Work Location -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Preferred Work Location</h6>
+                        <p class="mb-0">{{ data?.careerPreference?.preferred_work_location?.[0] || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Preferred Work Type -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Preferred Work Type</h6>
+                        <p class="mb-0">{{ data?.careerPreference?.preferred_work_type || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Preferred Work Mode -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Preferred Work Mode</h6>
+                        <p class="mb-0">{{ data?.careerPreference?.preferred_work_mode || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Willingness to Relocate -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Willingness to Relocate?</h6>
+                        <p class="mb-0">{{ data?.careerPreference?.willingness_to_relocate || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Expected Salary -->
+                        <div class="col-md-3 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Expected Salary Per Month</h6>
+                        <p class="mb-0">INR {{ data?.careerPreference?.expected_salary || 'N/A' }}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+  
+            <!-- Certifications & Achievements -->
+            <div class="col-md-12">
+                <div class="card mb-4 p-3">
+                <div class="row">
+                    <!-- LEFT: Title + CTA -->
+                    <div class="col-md-2 d-flex flex-column align-items-start">
+                    <h4 class="fw-bold">Certifications &<br />Achievements</h4>
+                    <div class="bg-warning-subtle border border-warning rounded mt-2 px-2 py-1 small text-center">
+                        <div class="fw-semibold text-warning">Want to add more skills?</div>
+                        <a href="#" class="text-warning fw-semibold d-block">Click here to add more to your list!</a>
+                    </div>
+                    </div>
+            
+                    <!-- RIGHT: Content -->
+                    <div class="col-md-10">
+                    <div class="row">
+                        <!-- Professional / Online Certification -->
+                        <div class="col-md-4 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Professional / online Certifications</h6>
+                        <p class="mb-0">{{ data?.certification?.certificate_name || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Achievement Name -->
+                        <div class="col-md-4 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Achievement Name</h6>
+                        <p class="mb-0">{{ data?.certification?.achievement_name || 'N/A' }}</p>
+                        </div>
+            
+                        <!-- Certificate File -->
+                        <div class="col-md-4 mb-3" *ngIf="data?.certification?.certificate_file">
+                        <a
+                            [href]="data?.certification?.certificate_file"
+                            target="_blank"
+                            class="btn btn-outline-secondary w-100 text-start"
+                        >
+                            {{ data?.certification?.certificate_file_name || 'Certificate.pdf' }}
+                            <i class="bi bi-download ms-2"></i>
+                        </a>
+                        </div>
+            
+                        <!-- Achievement File -->
+                        <div class="col-md-4 mb-3" *ngIf="data?.certification?.achievement_file">
+                        <a
+                            [href]="data?.certification?.achievement_file"
+                            target="_blank"
+                            class="btn btn-outline-secondary w-100 text-start"
+                        >
+                            {{ data?.certification?.achievement_file_name || 'Achievement.pdf' }}
+                            <i class="bi bi-download ms-2"></i>
+                        </a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+  
+            <!-- Key Strengths & Professional Traits -->
+            <div class="col-md-12">
+                <div class="card mb-4 p-3">
+                <div class="row">
+                    <!-- LEFT: Title + CTA -->
+                    <div class="col-md-3 d-flex flex-column align-items-start">
+                    <h4 class="fw-bold">Key Strengths &<br />Professional Traits</h4>
+                    <div class="bg-warning-subtle border border-warning rounded mt-2 px-2 py-1 small text-center">
+                        <div class="fw-semibold text-warning">Looking to add more languages?</div>
+                        <a href="#" class="text-warning fw-semibold d-block">Click here to start learning!</a>
+                    </div>
+                    </div>
+            
+                    <!-- RIGHT: Languages and Soft Skills -->
+                    <div class="col-md-9">
+                        <div class="row">
+                            <!-- Languages Known -->
+                            <div class="col-md-6 mb-3">
+                            <h6 class="fw-semibold text-primary mb-1">Languages Known</h6>
+                            <div *ngFor="let lang of data?.languages">
+                                <span class="fw-semibold">{{ lang.language }}</span>
+                                <!-- <ng-container *ngFor="let star of [].constructor(lang.rating)">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                </ng-container>
+                                <ng-container *ngFor="let empty of [].constructor(5 - lang.rating)">
+                                <i class="bi bi-star text-warning"></i>
+                                </ng-container> -->
+                            </div>
+                            </div>
+                
+                            <!-- Soft Skills -->
+                            <div class="col-md-6 mb-3">
+                            <h6 class="fw-semibold text-primary mb-1">Soft Skills</h6>
+                            <div *ngIf="data?.skills?.length > 0">
+                                <p class="mb-0" *ngFor="let skill of data.skills">{{ skill }}</p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+  
+            <!-- Professional Networking & Online Presence -->
+            <div class="col-md-12">
+                <div class="card mb-4 p-3">
+                <div class="row">
+                    <div class="col-md-3 d-flex align-items-start">
+                    <h4 class="fw-bold">Professional<br />Networking &<br />Online Presence</h4>
+                    </div>
+                    <div class="col-md-9">
+                    <div class="row text-center text-md-start">
+                        <div class="col-md-3 mb-2" *ngIf="data?.linkedin_profile">
+                        <i class="bi bi-linkedin fs-4 me-1"></i>
+                        <a [href]="data.linkedin_profile" target="_blank" class="fw-semibold text-primary">LinkedIn Profile</a>
+                        </div>
+                        <div class="col-md-3 mb-2" *ngIf="data?.social?.twitter">
+                        <i class="bi bi-twitter fs-4 me-1"></i>
+                        <a [href]="data.social.twitter" target="_blank" class="fw-semibold text-primary">Twitter Profile</a>
+                        </div>
+                        <div class="col-md-3 mb-2" *ngIf="data?.networking">
+                        <i class="bi bi-facebook fs-4 me-1"></i>
+                        <a [href]="data?.networking?.social_media_link" target="_blank" class="fw-semibold text-primary">Facebook Profile</a>
+                        </div>
+                        <div class="col-md-3 mb-2" *ngIf="data?.social?.instagram">
+                        <i class="bi bi-instagram fs-4 me-1"></i>
+                        <a [href]="data.social.instagram" target="_blank" class="fw-semibold text-primary">Instagram Profile</a>
+                        </div>
+                        <div class="col-md-3 mb-2" *ngIf="data?.personal_website">
+                        <i class="bi bi-globe fs-4 me-1"></i>
+                        <a [href]="data.personal_website" target="_blank" class="fw-semibold text-primary">Personal Website</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Attachments & Media -->
+            <div class="col-md-12">
+                <div class="card mb-4 p-3">
+                <div class="row">
+                    <!-- LEFT: Section Title + CTA -->
+                    <div class="col-md-3 d-flex flex-column align-items-start">
+                    <h4 class="fw-bold">Attachments &<br />Media</h4>
+                    <div class="bg-warning-subtle border border-warning rounded mt-2 px-2 py-1 small text-center">
+                        <div class="fw-semibold text-warning">Want to update your CV?</div>
+                        <a href="#" class="text-warning fw-semibold d-block">Click here to create or edit your resume!</a>
+                    </div>
+                    </div>
+            
+                    <!-- RIGHT: Portfolio & Resume Files -->
+                    <div class="col-md-9">
+                    <div class="row">
+                        <!-- Portfolio -->
+                        <div class="col-md-6 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Portfolio</h6>
+                        <a
+                            *ngIf="data?.media?.portfolio_url"
+                            [href]="data.media.portfolio_url"
+                            target="_blank"
+                            class="btn btn-light border"
+                        >
+                             Portfolio <i class="bi bi-paperclip"></i>
+                        </a>
+                        </div>
+            
+                        <!-- Resume -->
+                        <div class="col-md-6 mb-3">
+                        <h6 class="fw-semibold text-primary mb-1">Uploaded CV / Resume</h6>
+                        <a
+                            *ngIf="data?.media?.resume_url"
+                            [href]="data.media.resume_url"
+                            target="_blank"
+                            class="btn btn-light border"
+                        >
+                            My CV.pdf <i class="bi bi-upload"></i>
+                        </a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- References & Endorsements -->
+            <div class="col-md-12">
+                <div class="card mb-4 p-3">
+                <div class="row">
+                    <!-- LEFT: Section Title -->
+                    <div class="col-md-3 d-flex align-items-start">
+                    <h4 class="fw-bold">References &<br />Endorsements</h4>
+                    </div>
+            
+                    <!-- RIGHT: Academic + Professional Reference -->
+                    <div class="col-md-9">
+                    <!-- Academic Reference -->
+                    <div class="row mb-3">
+                        <h5 class="fw-semibold mb-3">Academic Reference</h5>
+                        <div class="col-md-3 mb-2">
+                        <h6 class="text-primary mb-1">College Name</h6>
+                        <p class="mb-0">{{ data?.academic_reference?.college_name || 'N/A' }}</p>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                        <h6 class="text-primary mb-1">Reference Name</h6>
+                        <p class="mb-0">{{ data?.academic_reference?.reference_name || 'N/A' }}</p>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                        <h6 class="text-primary mb-1">Designation</h6>
+                        <p class="mb-0">{{ data?.academic_reference?.designation || 'N/A' }}</p>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                        <h6 class="text-primary mb-1">Email ID</h6>
+                        <p class="mb-0">{{ data?.academic_reference?.email || 'N/A' }}</p>
+                        </div>
+                    </div>
+            
+                    <hr class="my-2" />
+            
+                    <!-- Professional Reference -->
+                    <div class="row">
+                        <h5 class="fw-semibold mb-3">Professional Reference</h5>
+                        <div class="col-md-3 mb-2">
+                        <h6 class="text-primary mb-1">Organization Name</h6>
+                        <p class="mb-0">{{ data?.professional_reference?.organization_name || 'N/A' }}</p>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                        <h6 class="text-primary mb-1">Reference Name</h6>
+                        <p class="mb-0">{{ data?.professional_reference?.reference_name || 'N/A' }}</p>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                        <h6 class="text-primary mb-1">Designation</h6>
+                        <p class="mb-0">{{ data?.professional_reference?.designation || 'N/A' }}</p>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                        <h6 class="text-primary mb-1">Email ID</h6>
+                        <p class="mb-0">{{ data?.professional_reference?.email || 'N/A' }}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+  
+            <!-- Additional Notes -->
+            <div class="col-md-12">
+                <div class="card mb-4 p-3">
+                <div class="row">
+                    <!-- LEFT: Section Title -->
+                    <div class="col-md-3 d-flex align-items-start">
+                    <h4 class="fw-bold">Additional Notes</h4>
+                    </div>
+            
+                    <!-- RIGHT: Notes Content -->
+                    <div class="col-md-9">
+                    <p [innerHTML]="data?.additional_notes || 'No additional notes provided.'"></p>
+                    </div>
+                </div>
+                </div>
+            </div>
+  
+          </div> <!-- row g-3 -->
+        </div> <!-- col-md-8 -->
+      </div> <!-- row -->
+    </div> <!-- container -->
+  </section>
+  
