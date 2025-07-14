@@ -38,7 +38,7 @@
                     <p-carousel [value]="questions" [responsiveOptions]="responsiveOptions" [numVisible]="5"
                                 [numScroll]="1" [circular]="true" [showIndicators]="false" [showNavigators]="true">
                         <ng-template let-question pTemplate="item">
-                            <div class="card h-100 mx-2 mb-1" style="border: 1px solid var(--uniprep-secondary)">
+                            <div class="card h-100 mx-2 mb-1" style="border: 1px solid var(--secondary-500)">
                                 <div class="card-body">
                                     <p class="mb-2"><i class="fa-regular fa-xl {{ question.icons }}"></i></p>
                                     <h6 style="cursor: pointer" (click)="triggerSample(question.question)">{{
@@ -181,7 +181,7 @@
                 <!-- <div class="advisor-answer" *ngIf="chat.input == 3">
                     <div class="d-flex align-items-center">
                         <p
-                            style="margin-right: 10px; background-color: var(--uniprep-primaryop30); padding: 1rem; text-transform: uppercase; font-weight: bold; border-radius: 100%">
+                            style="margin-right: 10px; background-color: var(--primary-200); padding: 1rem; text-transform: uppercase; font-weight: bold; border-radius: 100%">
                             {{ chat.name.slice(0, 2) }}</p>
                         <div class="d-flex flex-column">
                             <p>{{ chat.name }}</p>

@@ -1,15 +1,15 @@
 .deskcard{
-  border:1px solid var(--uniprep-secondary);
+  border:1px solid var(--secondary-500);
   &:hover
   {
-    border:1px solid var(--uniprep-primaryhighlight);
-    background:var(--uniprep-primaryop10);
+    border:1px solid var(--primary-500highlight);
+    background:var(--primary-100);
   }
   
   // Add styles for when card is selected
   &.selected {
-    border: 1px solid var(--uniprep-primary);
-    background: var(--uniprep-primaryop10);
+    border: 1px solid var(--primary-500);
+    background: var(--primary-100);
   }
 }
 
@@ -36,18 +36,18 @@
 ::ng-deep .p-datatable a
 {
   text-decoration: none;
-  color:var(--uniprep-primaryhighlight);
+  color:var(--primary-500highlight);
 }
 
 ::ng-deep .p-datatable th
 {
-  background-color: var(--uniprep-primaryhighlight) !important;
-  border-right: 1px solid var(--uniprep-primaryop30);
+  background-color: var(--primary-500highlight) !important;
+  border-right: 1px solid var(--primary-200);
 }
 
 ::ng-deep .p-datatable .p-datatable-tbody > tr > td
 {
-  border:1px solid var(--uniprep-primaryop10);
+  border:1px solid var(--primary-100);
 }
 
 :host ::ng-deep .p-paginator .p-select-panel {
@@ -98,7 +98,7 @@
 
 .guidelinecard
 {
-    border: 1px solid var(--uniprep-primary);
+    border: 1px solid var(--primary-500);
 }
 
 .pitchicon

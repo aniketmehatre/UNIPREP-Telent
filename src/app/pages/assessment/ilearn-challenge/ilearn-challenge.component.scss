@@ -7,8 +7,8 @@
 .contest-rules-btn {
     padding: 5px 20px;
     border-radius: 15px;
-    background: var(--uniprep-primaryop10);
-    color: var(--uniprep-primarydark);
+    background: var(--primary-100);
+    color: var(--primary-900);
     cursor: pointer;
 }
 .leaderboard-sec {
@@ -19,7 +19,7 @@
 }
 
 .uniprep-secondary {
-    color: var(--uniprep-secondary) !important;
+    color: var(--secondary-500) !important;
 }
 
 @media (min-width: 992px) {

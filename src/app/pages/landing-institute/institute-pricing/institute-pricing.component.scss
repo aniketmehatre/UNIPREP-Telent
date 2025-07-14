@@ -56,15 +56,15 @@ table {
     width: 100%;
     border-collapse: collapse;
     color: white;
-    border: 1px solid var(--uniprep-secondary);
+    border: 1px solid var(--secondary-500);
 }
 
 th,
 td {
     padding: 15px;
     text-align: left;
-    border-bottom: 1px solid var(--uniprep-secondary);
-    border-top: 1px solid var(--uniprep-secondary)}
+    border-bottom: 1px solid var(--secondary-500);
+    border-top: 1px solid var(--secondary-500)}
 
 .header-row {
     background-color: #8B4513;
@@ -121,7 +121,7 @@ tbody tr:nth-child(even) {
 .faqcard .accordion-button:not(.collapsed) {
     background: #18181d;
     border-radius: 10px;
-    color: var(--uniprep-primary);
+    color: var(--primary-500);
     border: none;
 }
 

@@ -3,11 +3,11 @@
     max-height: 185px;
     border-radius: 16px;
     cursor: pointer;
-    border-color: var(--uniprep-secondary) !important;
+    border-color: var(--secondary-500) !important;
 }
 .country-card:hover {
     background-color: lightgray !important;
-    border-color: var(--uniprep-primary) !important;
+    border-color: var(--primary-500) !important;
 }
 .flag-circle {
     width: 60px;

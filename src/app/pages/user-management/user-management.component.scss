@@ -62,7 +62,7 @@
 $borderWidth: 10px;
 $animationTime: 0.5s;
 $border-color-default: #efefef;
-$border-color-fill: var(--uniprep-secondary);
+$border-color-fill: var(--secondary-500);
 $size: 100px;
 $howManySteps: 100; //this needs to be even.
 
@@ -149,7 +149,7 @@ $howManySteps: 100; //this needs to be even.
 
 		div {
 			//margin-top: 10px;
-			background-color: var(--uniprep-primary);
+			background-color: var(--primary-500);
 			border-radius: 100%;
 			padding: 10px;
 			color: white;

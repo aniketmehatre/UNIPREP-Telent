@@ -118,12 +118,12 @@ label {
   border-radius: 10px;
   font-weight: bold;
   background-color: white;
-  color: var(--uniprep-primary);
+  color: var(--primary-500);
 
   &:hover,
   &:active,
   &:focus {
     color: white;
-    background-color: var(--uniprep-primary);
+    background-color: var(--primary-500);
   }
 }

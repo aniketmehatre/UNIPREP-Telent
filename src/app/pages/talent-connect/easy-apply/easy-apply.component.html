@@ -28,7 +28,7 @@
 			</div>
 			<div class="col-md-4 col-sm-4 d-flex justify-content-center gap-2 mb-md-0 mb-2">
 				<button pButton class="btn border bg-primary px-3 py-3">Job Search</button>
-				<button pButton class="btn border px-3 py-3 bg-white" style="color: var(--uniprep-primary)"
+				<button pButton class="btn border px-3 py-3 bg-white" style="color: var(--primary-500)"
 					routerLink="/pages/talent-connect/job-tracker">Job Tracker</button>
 			</div>
 			<div class="col-md-4 col-sm-4 d-flex justify-content-md-end justify-content-center gap-2">
@@ -220,7 +220,7 @@
 							<div class="col-md-6 col-6">
 								<div *ngIf="job?.hiring_type != 'Company'" class="text-white px-3 py-1 d-table-cell"
 									style="border-radius: 30px"
-									[ngStyle]="job?.hiring_type == 'Co-Hire' ? { 'background-color': 'var(--uniprep-secondary)' } : { 'background-color': '#6a35cd' }">
+									[ngStyle]="job?.hiring_type == 'Co-Hire' ? { 'background-color': 'var(--secondary-500)' } : { 'background-color': '#6a35cd' }">
 									{{ job?.hiring_type }}
 								</div>
 							</div>

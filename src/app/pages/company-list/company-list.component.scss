@@ -5,7 +5,7 @@
 
 .industryicon
 {
-  color:var(--uniprep-secondary);
+  color:var(--secondary-500);
 }
 
 .locationicon
@@ -20,18 +20,18 @@
 
 .companycard
 {
-  border:1px solid var(--uniprep-secondary);
+  border:1px solid var(--secondary-500);
   &:hover
   {
-    border:1px solid var(--uniprep-primaryhighlight);
-    background:var(--uniprep-primaryop10);
+    border:1px solid var(--primary-500highlight);
+    background:var(--primary-100);
   }
 }
 
 ::ng-deep .p-datatable th
 {
-  background-color: var(--uniprep-primaryhighlight) !important;
-  border-right: 1px solid var(--uniprep-primaryop30);
+  background-color: var(--primary-500highlight) !important;
+  border-right: 1px solid var(--primary-200);
 }
 
 :host ::ng-deep .p-paginator .p-select-panel {
@@ -45,13 +45,13 @@
 
 ::ng-deep .p-datatable .p-datatable-tbody > tr > td
 {
-  border:1px solid var(--uniprep-primaryop10);
+  border:1px solid var(--primary-100);
 }
 
 ::ng-deep .p-datatable a
 {
   text-decoration: none;
-  color:var(--uniprep-primaryhighlight);
+  color:var(--primary-500highlight);
 }
 
 
@@ -80,14 +80,14 @@
 //   background-color: #EBEDF2;
 // }
 .card1:hover {
-  border: 3px solid var(--uniprep-primary);
+  border: 3px solid var(--primary-500);
 }
 .resterbutton {
   background-color: #fff;
-  color: var(--uniprep-primary);
+  color: var(--primary-500);
 }
 .resterbutton:hover {
-  background-color: var(--uniprep-primary);
+  background-color: var(--primary-500);
   color: #fff;
 }
 .custom-input {
@@ -101,19 +101,19 @@
   border-radius: 20px !important;
   &:hover
   {
-    border: 1px solid var(--uniprep-primary);
+    border: 1px solid var(--primary-500);
     .event-top
     {
-      border-bottom: 1px solid  var(--uniprep-primary);
+      border-bottom: 1px solid  var(--primary-500);
     }
     .event-bottom
     {
-      background-color: var(--uniprep-primaryop10);
+      background-color: var(--primary-100);
     }
     .registerbtn
     {
       background-color:white !important;
-      color:var(--uniprep-primary) !important;
+      color:var(--primary-500) !important;
     }
   }
   .eventcomplete
@@ -142,7 +142,7 @@
     min-height: 175px;
     .eventtime
     {
-      background-color:var(--uniprep-primary);
+      background-color:var(--primary-500);
       color: white;
       font-size: 0.8rem;
       padding: 0.5rem 1.5rem;
@@ -161,7 +161,7 @@
 }
 
 .theme-blue{
-  border: 1px solid (--uniprep-primary) !important;
+  border: 1px solid (--primary-500) !important;
 }
 
 .mobile{
@@ -382,10 +382,10 @@ border: none;
 }
 .universityicon
 {
-  color:var(--uniprep-secondary);
+  color:var(--secondary-500);
 }
 .primary-color{
-  color: var(--uniprep-primary);
+  color: var(--primary-500);
 }
 
 :host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button {

@@ -2,7 +2,7 @@
 // {
 //   width: 40px;
 //     height: 40px;
-//     border: 2px solid var(--uniprep-primaryop10);
+//     border: 2px solid var(--primary-100);
 //     border-radius: 100%;
 // }
 // sop
@@ -47,7 +47,7 @@
 //     display: flex;
 //     gap: 5px;
 //     .pi {
-//       background: var(--uniprep-primary);
+//       background: var(--primary-500);
 //       color: white;
 //       text-align: center;
 //       line-height: 22px;
@@ -61,7 +61,7 @@
 //   background: white;
 // }
 // .input-group {
-//   border: 1px solid var(--uniprep-primary);
+//   border: 1px solid var(--primary-500);
 //   border-radius: 3px;
 //   input {
 //     outline: none !important;
@@ -69,13 +69,13 @@
 //   }
 //   flex-wrap: nowrap;
 //   .input-group-text {
-//     background: var(--uniprep-primary);
+//     background: var(--primary-500);
 //     color: white;
 //     cursor: pointer;
 //   }
 // }
 // .download {
-//   background: var(--uniprep-primary);
+//   background: var(--primary-500);
 //   color: white;
 //   padding: 5px 10px;
 //   border-radius: 5px;
@@ -91,7 +91,7 @@
 }
 
 .buttonactive.active {
-  background-color: var(--uniprep-primary);
+  background-color: var(--primary-500);
   color: #fff !important;
   /* Add other styles for active buttons */
 }
@@ -110,7 +110,7 @@
     gap: 5px;
 
     .pi {
-      background: var(--uniprep-primary);
+      background: var(--primary-500);
       color: white;
       text-align: center;
       line-height: 22px;
@@ -134,7 +134,7 @@
 }
 
 .mostpopular {
-  background: var(--uniprep-primary);
+  background: var(--primary-500);
   color: #fff;
   text-align: center;
   padding: 10px;
@@ -157,8 +157,8 @@
   }
 
   &:hover {
-    background-color: var(--uniprep-primaryop10);
-    border: 2px solid var(--uniprep-primary);
+    background-color: var(--primary-100);
+    border: 2px solid var(--primary-500);
 
     // height: 445px;
     .getstartedbtn {
@@ -173,8 +173,8 @@
   }
 
   &:focus {
-    background-color: var(--uniprep-primaryop10);
-    border: 2px solid var(--uniprep-primary);
+    background-color: var(--primary-100);
+    border: 2px solid var(--primary-500);
 
     .getstartedbtn {
       display: block;
@@ -199,8 +199,8 @@
 }
 
 .subscriptioncard.active {
-  background-color: var(--uniprep-primaryop10);
-  border: 2px solid var(--uniprep-primary);
+  background-color: var(--primary-100);
+  border: 2px solid var(--primary-500);
 
   // height: 480px;
   .getstartedbtn {
@@ -228,8 +228,8 @@
 
   &:hover {
     // height: 465px;
-    background-color: var(--uniprep-primaryop10);
-    border: 2px solid var(--uniprep-primary);
+    background-color: var(--primary-100);
+    border: 2px solid var(--primary-500);
 
     .getstartedbtn {
       display: block;
@@ -243,8 +243,8 @@
   }
 
   &:focus {
-    background-color: var(--uniprep-primaryop10);
-    border: 2px solid var(--uniprep-primary);
+    background-color: var(--primary-100);
+    border: 2px solid var(--primary-500);
 
     .getstartedbtn {
       display: block;
@@ -316,7 +316,7 @@
     width: 80%;
     margin: auto;
     padding: 5px 0px;
-    background: var(--uniprep-primary);
+    background: var(--primary-500);
     color: white;
     text-align: center;
     border-bottom-right-radius: 35px;
@@ -330,7 +330,7 @@
     width: 80%;
     margin: auto;
     padding: 5px 0px;
-    background: var(--uniprep-primary);
+    background: var(--primary-500);
     color: white;
     text-align: center;
     border-radius: 35px;
@@ -370,7 +370,7 @@
   }
 
   .scardPriceCurrent {
-    color: var(--uniprep-primary);
+    color: var(--primary-500);
     font-size: 1.1rem;
     text-align: center;
     text-overflow: ellipsis;
@@ -402,7 +402,7 @@
   z-index: 1;
   background-color: #fff;
   /* Set the desired background color */
-  color: var(--uniprep-primary);
+  color: var(--primary-500);
   /* Set the desired text color */
   padding: 4px;
   /* Adjust the padding as needed */
@@ -414,7 +414,7 @@
 
   background-color: #fff;
   /* Set the desired background color */
-  color: var(--uniprep-primary);
+  color: var(--primary-500);
   /* Set the desired text color */
   padding: 4px;
   /* Adjust the padding as needed */

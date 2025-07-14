@@ -62,9 +62,9 @@
 		transition: transform 0.3s ease, height 0.3s ease;
 	}
 	// &:hover {
-	// 	-webkit-box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
-	// 	-moz-box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
-	// 	box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
+	// 	-webkit-box-shadow: 0px 0px 50px 0px var(--primary-100);
+	// 	-moz-box-shadow: 0px 0px 50px 0px var(--primary-100);
+	// 	box-shadow: 0px 0px 50px 0px var(--primary-100);
 	// }
 }
 .previewcontainer {
@@ -90,7 +90,7 @@
 }
 
 .HistoryDownloadIcon {
-	background-color: var(--uniprep-primary);
+	background-color: var(--primary-500);
     color: white;
     border-radius: 100px;
     height: 40px;
@@ -129,7 +129,7 @@
 }
 
 .createResumeButton {
-	background-color: var(--uniprep-primary);
+	background-color: var(--primary-500);
 	color: white;
 	padding: 15px 75px 15px 75px;
 	border: none;
@@ -202,7 +202,7 @@
 	font-size: medium;
 	font-weight: 600;
 	margin: 0;
-	color: var(--uniprep-primarydark);
+	color: var(--primary-900);
 }
 
 .borderClass {
@@ -218,7 +218,7 @@
 }
 
 .addMoreButton {
-	background-color: var(--uniprep-primary);
+	background-color: var(--primary-500);
 	color: white;
 	padding: 5px 5px;
 	border: none;
@@ -350,7 +350,7 @@
 }
 
 .templateButton {
-	background-color: var(--uniprep-primaryhighlight);
+	background-color: var(--primary-500highlight);
 	color: white;
 	border-radius: 20px;
 	border: none;
@@ -361,7 +361,7 @@
 }
 
 .colorButton {
-	background-color: var(--uniprep-primaryhighlight);
+	background-color: var(--primary-500highlight);
 	color: white;
 	border-radius: 100px;
 	border: none;
@@ -518,7 +518,7 @@
 }
 
 .template-dropdown-content a:hover {
-	background-color: var(--uniprep-primaryhighlight);
+	background-color: var(--primary-500highlight);
 	color: white;
 	border-radius: 25px;
 }
@@ -540,7 +540,7 @@
 	margin-left: 0;
 	width: auto !important;
 	position: absolute;
-	background-color: var(--uniprep-primaryhighlight);
+	background-color: var(--primary-500highlight);
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 	border-radius: 20px;
@@ -555,7 +555,7 @@
 	padding: 5px;
 	position: relative;
 	&:hover {
-		background-color: var(--uniprep-primaryhighlight);
+		background-color: var(--primary-500highlight);
 		border-radius: 25px;
 	}
 }
@@ -594,7 +594,7 @@
 }
 
 .downloadButton {
-	background-color: var(--uniprep-primary);
+	background-color: var(--primary-500);
 	color: white;
 	padding: 5px 15px;
 	border: none;
@@ -635,7 +635,7 @@
 	text-align: center;
 	display: flex;
 	justify-content: center;
-	color: var(--uniprep-primary);
+	color: var(--primary-500);
 	font-weight: 700;
 	pdf-viewer {
 		border-radius: 9px;
@@ -788,7 +788,7 @@ body {
 }
 
 .activeTemplate {
-	background-color: var(--uniprep-primaryhighlight);
+	background-color: var(--primary-500highlight);
 	border-radius: 25px;
 	color: white !important;
 }
@@ -903,13 +903,13 @@ body {
 			gap: 1rem;
 			.p-steps-title {
 				margin: 0;
-				color: var(--uniprep-primary);
+				color: var(--primary-500);
 				font-weight: 600;
 			}
 			.p-steps-number {
 				background: #e5e5e5;
 				border: none;
-				color: var(--uniprep-primary);
+				color: var(--primary-500);
 				font-weight: 700;
 			}
 		}

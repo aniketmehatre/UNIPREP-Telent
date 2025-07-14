@@ -15,7 +15,7 @@
 .costofliving-card {
   font-size: 12px;
   text-align: center;
-  border: 1px solid var(--uniprep-secondary);
+  border: 1px solid var(--secondary-500);
   border-radius: 10px !important;
 }
 .dropdownimg {
@@ -28,7 +28,7 @@
     height: 100%;
     width: 100%;
     border-radius: 100%;
-    border: 2px solid var(--uniprep-primaryop10);
+    border: 2px solid var(--primary-100);
     object-fit: cover;
   }
 }
@@ -36,7 +36,7 @@
 .salarytext {
   b 
   {
-    color: var(--uniprep-primary);
+    color: var(--primary-500);
   }
 }
  

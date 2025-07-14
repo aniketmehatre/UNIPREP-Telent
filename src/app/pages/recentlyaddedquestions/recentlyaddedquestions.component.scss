@@ -6,19 +6,19 @@
 }
 
 .application-border {
-  border: 2px solid var(--uniprep-primary);
+  border: 2px solid var(--primary-500);
   border-radius: 5%;
   font-size: 0.8rem;
 }
 
 .unselected-border {
-  border: 2px solid var(--uniprep-primaryhighlight);
+  border: 2px solid var(--primary-500highlight);
   border-radius: 5px;
   font-size: 0.8rem;
 }
 
 .selected-border {
-  background-color: var(--uniprep-primary);
+  background-color: var(--primary-500);
   border: 0;
 }
 
@@ -51,31 +51,31 @@
   filter: grayscale(1);
 }
 .questioncard {
-  border: 3px solid var(--uniprep-primaryhighlight);
+  border: 3px solid var(--primary-500highlight);
   width: 100%;
   margin: 8px 0px;
 
   .primary-btn {
-    border: 2px solid var(--uniprep-primary);
+    border: 2px solid var(--primary-500);
   }
 
   &:focus {
-    background-color: var(--uniprep-primaryop10);
-    border: 3px solid var(--uniprep-primary);
+    background-color: var(--primary-100);
+    border: 3px solid var(--primary-500);
 
     .primary-btn {
-      background-color: var(--uniprep-primaryhighlight);
-      border: 2px solid var(--uniprep-primary);
+      background-color: var(--primary-500highlight);
+      border: 2px solid var(--primary-500);
     }
   }
 
   &:hover {
-    background-color: var(--uniprep-primaryop10);
-    border: 3px solid var(--uniprep-primary);
+    background-color: var(--primary-100);
+    border: 3px solid var(--primary-500);
 
     .primary-btn {
-      background-color: var(--uniprep-primaryhighlight);
-      border: 2px solid var(--uniprep-primary);
+      background-color: var(--primary-500highlight);
+      border: 2px solid var(--primary-500);
     }
   }
 
@@ -92,7 +92,7 @@
   height: 40px;
   padding: 7px;
   background: #fff;
-  border: 5px solid var(--uniprep-primary);
+  border: 5px solid var(--primary-500);
   color: black;
   text-align: center;
   align-items: center;
@@ -160,7 +160,7 @@
 }
 
 .card-color {
-  background: var(--uniprep-primary) !important;
+  background: var(--primary-500) !important;
   width: 100%;
   height: 100%;
 
@@ -206,7 +206,7 @@
 }
 
 .btn-warning {
-  background-color: var(--uniprep-secondary);
+  background-color: var(--secondary-500);
   color: white;
 }
 

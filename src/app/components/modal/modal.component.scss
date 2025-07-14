@@ -1,5 +1,5 @@
 $color_1: white;
-$color_2: var(--uniprep-primary);
+$color_2: var(--primary-500);
 $color_3: #222;
 $color_4: #180660;
 $color_5: #343434;
@@ -8,7 +8,7 @@ $color_7: #061061;
 $color_8: #fff;
 $color_9: #343945;
 $color_10: black;
-$background-color_1: var(--uniprep-primary);
+$background-color_1: var(--primary-500);
 $background-color_2: white;
 $background-color_3: darken(#ebe084, 15%);
 $background-color_4: #fff;
@@ -22,7 +22,7 @@ $border-color_1: transparent transparent #000;
 $border-color_2: transparent transparent #f5f5f5 transparent;
 $border-color_3: transparent transparent #daf395 transparent;
 $border-color_4: rgba(0, 0, 0, 0.127);
-$border-color_5: var(--uniprep-primary);
+$border-color_5: var(--primary-500);
 
 /*.modal-body {*/
 /*  width: 100%;*/
@@ -88,7 +88,7 @@ $border-color_5: var(--uniprep-primary);
   padding: 4px 10px;
   border-radius: 50%;
   text-decoration: none;
-  border: 1px solid var(--uniprep-primary);
+  border: 1px solid var(--primary-500);
 
   &:hover {
     background-color: $background-color_3;
@@ -106,7 +106,7 @@ $border-color_5: var(--uniprep-primary);
   padding: 3px 13px;
   border-radius: 50%;
   text-decoration: none;
-  border: 1px solid var(--uniprep-primary);
+  border: 1px solid var(--primary-500);
 
   &:hover {
     background-color: $background-color_3;
@@ -473,7 +473,7 @@ li.reply {
 
   button {
     border: none;
-    background: var(--uniprep-primary);
+    background: var(--primary-500);
     color: $color_8;
     width: 10%;
     border-radius: 50%;
@@ -505,7 +505,7 @@ button {
 .terms_p {
   font-size: small;
   color: $color_1;
-  background: var(--uniprep-primary);
+  background: var(--primary-500);
   width: 20%;
   border-radius: 2px;
   padding-left: 1rem;
@@ -525,7 +525,7 @@ button {
 
 .round-button {
   border: none;
-  background: var(--uniprep-primary);
+  background: var(--primary-500);
   color: $color_8;
   width: 10%;
   border-radius: 50%;
@@ -591,7 +591,7 @@ button {
   height: 40px;
   padding: 7px;
   background: #fff;
-  border: 3px solid var(--uniprep-primary);
+  border: 3px solid var(--primary-500);
   color: black;
   text-align: center;
   align-items: center;
@@ -608,7 +608,7 @@ button {
   .btn-label {
     position: relative;
     left: 10px;
-    background: var(--uniprep-primary);
+    background: var(--primary-500);
     padding: 4px;
     border-radius: 50%;
   }

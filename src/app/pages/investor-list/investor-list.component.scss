@@ -1,5 +1,5 @@
 .subjectcard {
-	border: 1px solid var(--uniprep-secondary);
+	border: 1px solid var(--secondary-500);
 	width: 100%;
 
 	.submoduleicon {
@@ -17,13 +17,13 @@
 	}
 
 	&:focus {
-		background-color: var(--uniprep-primaryop10);
-		border: 1px solid var(--uniprep-primary);
+		background-color: var(--primary-100);
+		border: 1px solid var(--primary-500);
 	}
 
 	&:hover {
-		background-color: var(--uniprep-primaryop10);
-		border: 1px solid var(--uniprep-primary);
+		background-color: var(--primary-100);
+		border: 1px solid var(--primary-500);
 	}
 
 	// .subjecttitle {
@@ -38,11 +38,11 @@ input[type="checkbox"] {
 
 .universityicon
 {
-  color:var(--uniprep-secondary);
+  color:var(--secondary-500);
 }
 
 .primary-color{
-  color: var(--uniprep-primary);
+  color: var(--primary-500);
 }
 
 
@@ -100,18 +100,18 @@ input[type="checkbox"] {
 }
 
 .cube:hover {
-	border-color: var(--uniprep-primary);
+	border-color: var(--primary-500);
 }
 
 .tickPlacement {
 	position: absolute;
 	top: 1rem;
 	right: 1rem;
-	color: var(--uniprep-primary);
+	color: var(--primary-500);
 }
 
 .cube.selected {
-	border-color: 2px solid var(--uniprep-primary);
+	border-color: 2px solid var(--primary-500);
 }
 
 ::ng-deep .p-multiselect .p-multiselect-label {

@@ -19,17 +19,17 @@
 
 .footer-card {
 	.card {
-		border: 1px solid var(--uniprep-secondary);
+		border: 1px solid var(--secondary-500);
 	}
 
 	svg {
-		color: var(--uniprep-primary);
+		color: var(--primary-500);
 	}
 
 	&:hover {
 		.card {
-			background-color: var(--uniprep-primaryop10);
-			border: 1px solid var(--uniprep-primary);
+			background-color: var(--primary-100);
+			border: 1px solid var(--primary-500);
 		}
 		.cardinactive {
 			background-color: white;
@@ -38,8 +38,8 @@
 
 	&:focus {
 		.card {
-			background-color: var(--uniprep-primaryop10);
-			border: 1px solid var(--uniprep-primary);
+			background-color: var(--primary-100);
+			border: 1px solid var(--primary-500);
 		}
 		.cardinactive {
 			background-color: white;
