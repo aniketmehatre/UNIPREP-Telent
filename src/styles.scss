@@ -892,7 +892,7 @@ uni-subscription {
     color: #fff !important;
     background: var(--secondary-500);
     border-color: var(--secondary-500) !important;
-    box-shadow: 0 0 0 0.25rem var(--secondary-100);
+    box-shadow: 0 0 0 0.25rem var(--secondary-50);
   }
 
   .btn-icon {
@@ -2295,7 +2295,7 @@ uni-talent-connect {
 	&:focus {
 		color: var(--uniprep-white);
 		background: var(--secondary-500);
-		box-shadow: 0 0 0 0.25rem var(--secondary-100);
+		box-shadow: 0 0 0 0.25rem var(--secondary-50);
 		border-color: var(--secondary-500);
 	}
 }
@@ -2528,7 +2528,7 @@ uni-global-employment-insights {
     background: linear-gradient(
       to right,
       var(--primary-50),
-      var(--secondary-100)
+      var(--secondary-50)
     );
     margin: 20px 0;
   }
