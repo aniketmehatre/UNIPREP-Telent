@@ -9,14 +9,11 @@ import { Observable } from 'rxjs';
 export class BrandColorService {
   constructor(private http: HttpClient) {}
 
-  fetchAndApplyColors(): Observable<{brand_primary_color: string, brand_secondary_color: string}> {
+  fetchAndApplyColors(brand_primary_color: any, brand_secondary_color: any):void {
+
     // Replace with your actual API endpoint
-    return this.http.get<{brand_primary_color: string, brand_secondary_color: string}>('/api/brand/colors')
-      .pipe(
-        tap(colors => {
-          this.setThemeColors(colors.brand_primary_color, colors.brand_secondary_color);
-        })
-      );
+    console.log('fetchAndApplyColors');
+    this.setThemeColors(brand_primary_color, brand_secondary_color);
   }
 
   private setThemeColors(primary: string, secondary: string) {
