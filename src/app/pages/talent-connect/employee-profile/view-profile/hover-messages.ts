@@ -131,32 +131,3 @@ export const HOVER_MESSAGES: any = {
   additional_notes: "",
   career_preference_notes: "",
 }
-
-export const JobResponsibility = `Led recruitment and payroll activities for 80-85 employees.
-
-
-Managed intern coordination, asset tracking, timesheets, and accommodation logistics.
-
-
-Initiated and executed employee engagement programs.
-
-
-Oversaw project tasks, including data validation, verification, and retrieval for seamless execution.
-
-
-Managed schedule coordination for senior team members, ensuring timely meetings and travel arrangements.
-
-
-Prepared and maintained internal reports on recruitment and project progress for leadership review.
-
-
-Acted as a point of contact between departments and external stakeholders, streamlining communication.
-
-
-Provided administrative support to senior management, maintaining confidential records and handling correspondence.
-
-
-Coordinated calendars, meetings, and travel logistics for the team, ensuring efficient operations.
-
-
-`;

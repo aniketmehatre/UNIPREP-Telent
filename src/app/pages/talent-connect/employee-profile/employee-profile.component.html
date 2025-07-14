@@ -159,8 +159,7 @@
 																optionLabel="nationality_name" optionValue="id"
 																[filter]="true" filterBy="nationality_name"
 																[appendTo]="'body'" (focusout)="resetMessageBox()"
-																(onShow)="updateMessageBox('nationality_id')"
-																></p-select>
+																(onShow)="updateMessageBox('nationality_id')"></p-select>
 															<small class="text-danger"
 																*ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('nationality_id')?.errors?.required">
 																Nationality is required </small>
@@ -647,8 +646,7 @@
 													<div class="col-md-6">
 														<label class="form-label">Desired Job title<span
 																class="text-danger">*</span></label>
-														<p-select
-															[virtualScroll]="true" [virtualScrollItemSize]="50"
+														<p-select [virtualScroll]="true" [virtualScrollItemSize]="50"
 															formControlName="career_preference_job_title_id"
 															[options]="jobTitles" appendTo="body"
 															placeholder="Select the Job role you are looking for"
@@ -1051,12 +1049,10 @@
 												</div>
 												<div class="row mb-3">
 													<div class="col-md-6">
-														<label class="form-label">
-															Social Media</label>
+														<label class="form-label">Social Media</label>
 													</div>
 													<div class="col-md-6">
-														<label class="form-label">Provide the
-															link</label>
+														<label class="form-label">Provide the link</label>
 													</div>
 												</div>
 												<ng-container formArrayName="networking_social_media">
@@ -1070,7 +1066,7 @@
 																styleClass="w-100" (focusout)="resetMessageBox()"
 																(ngModelChange)="changeSocialMedia($event)"
 																(onShow)="updateMessageBox('networking_social_media')"
-																[optionDisabled]="isDisabled">
+																[optionDisabled]="isDisabledSocialMedia">
 																<ng-template let-socialMedia #item>
 																	<span>{{ socialMedia }}&nbsp;<span
 																			*ngIf="selectedSocialMedias?.includes(socialMedia)">(Selected)</span></span>
@@ -1905,8 +1901,8 @@
 	</ng-template>
 	<ng-template #footer>
 		<div class="text-center w-100 mt-2">
-			<button class="btn btn-secondary px-4"
-				[routerLink]="['/pages/talent-connect/my-profile', this.profileId]">My Profile</button>
+			<button class="btn btn-secondary px-4" [routerLink]="['/pages/talent-connect/my-profile', profileId]">My
+				Profile</button>
 		</div>
 	</ng-template>
 </p-confirmdialog>

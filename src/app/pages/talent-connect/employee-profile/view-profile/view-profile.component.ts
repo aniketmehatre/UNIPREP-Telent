@@ -11,115 +11,8 @@ import { formatDate } from '@angular/common';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RatingModule } from 'primeng/rating';
 import { RouterModule } from '@angular/router';
-import { JobResponsibility } from './hover-messages';
-import { environment } from '@env/environment';
-
-// Process academic references
-interface AcademicReference {
-  collegeName: string;
-  name: string;
-  designation: string;
-  email: string;
-}
-
-interface ProfessionalReference {
-  companyName: string;
-  name: string;
-  designation: string;
-  email: string;
-}
-
-interface UserAchievement {
-  name: string;
-  file: string;
-}
-interface Certification {
-  name: string;
-  file: string;
-}
-interface SocialMedia {
-  media: string;
-  link: string;
-}
-
-interface ProfileData {
-  personalInfo: {
-    fullName: string;
-    dateOfBirth: string;
-    gender: string;
-    nationality: string;
-    location: string;
-    logo: string | null;
-    total_years_of_experience: string;
-  };
-  educationDetails: Array<{
-    highestQualification: string;
-    university: string;
-    fieldOfStudy: string;
-    courseName: string;
-    graduationYear: number | string;
-    gpa: string;
-  }> | null;
-  workExperience: Array<{
-    totalExperience: number | string;
-    companyName: string;
-    jobTitle: string;
-    duration: string;
-    salary: string;
-    employmentType: string;
-    responsibilities: string;
-    experienceLetter: { name: string; file: string | null };
-    exp_currency: string;
-  }> | null;
-  careerPreferences: {
-    careerStatus: string;
-    careerInterest: string;
-    department: string;
-    jobTitle: string;
-    preferredWorkLocation: string;
-    preferredEmploymentType: string;
-    preferredWorkplaceType: string;
-    willingToRelocate: string;
-    salaryRange: string;
-    currency: string;
-  } | null;
-  certifications: Array<{ name: string; file: string | null }> | null;
-  userAchievements: Array<{ name: string; file: string | null }> | null;
-  additionalDetails: {
-    languagesKnown: { lang: string, prof: string }[];
-    hobbiesAndInterests: string;
-    softSkills: string[];
-  } | null;
-  keyStrengths: {
-    industryDifferentiators: string | string[];
-    topProfessionalStrength: string;
-    solvedRealWorldChallenge: string;
-    leadershipRoles: string;
-    mostAdmiredQuality: string;
-  } | null;
-  networking: {
-    linkedinProfile: string;
-    socialMedia: Array<{ media: string, link: string }> | null;
-    personalWebsite: string;
-  } | null;
-  attachments: Array<{ name: string; type: string }> | null;
-  academicReference: Array<{
-    collegeName?: string;
-    name: string;
-    designation: string;
-    phoneNumber?: string;
-    email: string;
-  }> | null;
-  professionalReference: Array<{
-    companyName?: string;
-    name: string;
-    designation: string;
-    phoneNumber?: string;
-    email: string;
-  }> | null;
-  additionalInfo: string;
-}
-
+import { ProfileAcademicReference, ProfileCertification, ProfileData, ProfileProfessionalReference, ProfileSocialMedia, ProfileUserAchievement } from 'src/app/@Models/employee-connect-view-profile.model';
+import { SampleProfileData } from './sample-profile-data';
 
 @Component({
   selector: 'uni-view-profile',
@@ -151,97 +44,7 @@ export class ViewProfileComponent implements OnInit {
   profileCompletionPercentage: number = 0;
   introductionVideo: string = '';
   updatedAtDate: Date | null = null;
-  // Define a single profile data object
-  profileData: ProfileData = {
-    personalInfo: {
-      fullName: 'Darshini',
-      dateOfBirth: '30/01/2003',
-      gender: 'Female',
-      nationality: 'Indian',
-      location: 'Mysore',
-      logo: 'uniprep-assets/images/employer-connect/darshini.jpg',
-      total_years_of_experience: '2 Years 5 Months',
-    },
-    educationDetails: [{
-      highestQualification: 'BBA',
-      university: 'MICA College',
-      fieldOfStudy: 'UG',
-      courseName: 'BBA IN Human Resource Management ',
-      graduationYear: 2022,
-      gpa: '8.6 GPA'
-    }],
-    workExperience: [{
-      totalExperience: '1 Year 5 Months',
-      companyName: 'UNIABROAD Technology Pvt Ltd',
-      jobTitle: 'Recruitment Specialist',
-      employmentType: 'Full Time',
-      duration: '10-01-2023 - Currently Employed',
-      salary: '45000',
-      responsibilities: JobResponsibility,
-      exp_currency: 'INR',
-      experienceLetter: { name: 'ExperienceLetter.pdf', file: environment.imagePath + 'sample/Darshini_Experience_Certificate.pdf ' },
-    }],
-    careerPreferences: {
-      careerStatus: 'Working',
-      careerInterest: 'Education Industry, Real Estate',
-      department: 'Human Resource (HR)',
-      jobTitle: 'Human Resource',
-      preferredWorkLocation: 'Bangalore - Mysore',
-      preferredEmploymentType: 'Full Time',
-      preferredWorkplaceType: 'Onsite',
-      willingToRelocate: 'Yes',
-      salaryRange: '55000',
-      currency: 'INR'
-    },
-    certifications: [
-      { name: 'Talent Acquisition and Recruitment in Human Resource Management', file: 'https://drive.google.com/file/d/1YDdn-B_THfbJ0NKLRP6i1nVLXNzbWpSW/view' }
-    ],
-    userAchievements: [
-      { name: "Awarded HR Team's Best Performer of the Month", file: 'https://drive.google.com/file/d/1sZLWDD0QFAyUnZK6yM-lBUkmvufnWe6M/view?usp=drive_link' }
-    ],
-    additionalDetails: {
-      languagesKnown: [
-        { lang: 'English', prof: 'Fluent' },
-        { lang: 'Kannada', prof: 'Proficient' },
-        { lang: 'Hindi', prof: 'Fluent' },
-        { lang: 'Marathi ', prof: 'Proficient' },
-      ],
-      hobbiesAndInterests: 'Reading, Traveling, Fitness and yoga, Exploring new cuisines, Volunteering for social causes',
-      softSkills: ['Strong communication skills', 'Active listening', 'Conflict resolution', 'Empathy and compassion', 'Adaptability to change', 'Problem-solving ability', 'Ethical decision-making', 'Team collaboration', 'Effective time management', 'High emotional intelligence'],
-    },
-    keyStrengths: {
-      industryDifferentiators: 'Strong interpersonal skills that build trust and rapport across all levels of the organization. Ability to handle sensitive matters with discretion and professionalism. A proactive approach to employee engagement and workplace culture. Balanced mindset between employee advocacy and organizational goals. Skilled in conflict resolution and fostering a positive work environment. Continuous learner who stays updated with HR trends and compliance. Empathetic listener with a solution-oriented approach',
-      topProfessionalStrength: 'Excellent communication and interpersonal skills,Strong organizational and time management abilities,Conflict resolution and problem-solving expertise,High emotional intelligence and empathy,Confidentiality and ethical decision-making,Adaptability to dynamic work environments,Team leadership and collaboration,Strategic thinking and planning,Talent acquisition and retention skills,Commitment to continuous improvement and learning',
-      solvedRealWorldChallenge: 'Yes',
-      leadershipRoles: 'Yes',
-      mostAdmiredQuality: 'Ability to stay calm and composed under pressure'
-    },
-    networking: {
-      linkedinProfile: 'https://www.linkedin.com/in/darshini-p-ruknor-a09b49223/',
-      socialMedia: [{ media: 'Instagram', link: 'https://www.instagram.com/darshu_ruknor?igsh=cGl1NWVrd204ajF5&utm_source=qr' },
-      { media: 'Facebook', link: 'https://www.facebook.com/Darshini' },
-      { media: 'X', link: 'https://twitter.com/Darshini' }
-      ],
-      personalWebsite: 'https://www.darshini-portfolio.com'
-    },
-    attachments: [
-      { name: 'https://drive.google.com/file/d/1ISjq6bYNWCFTKjRhStrgdpN6J5ZnSxIi/view?usp=drive_link', type: 'document' },
-      { name: 'https://drive.google.com/file/d/1hIV_NnPxa7xnXsXbwKB0y6k9PCng6EP7/view', type: 'video' }
-    ],
-    academicReference: [{
-      collegeName: 'MICA College',
-      name: 'Anitha KR',
-      designation: 'Professor',
-      email: 'Anitha@micacollege.com'
-    }],
-    professionalReference: [{
-      companyName: 'UNIABROAD Technology Pvt Ltd',
-      name: 'Kalyani',
-      designation: 'HR Manager',
-      email: 'Kalyani.hr@uniabraod.co.in'
-    }],
-    additionalInfo: 'Some Content'
-  };
+  profileData: ProfileData = SampleProfileData;
 
   constructor(
     private ref: DynamicDialogRef,
@@ -249,8 +52,7 @@ export class ViewProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const data = this.config.data
-    // Set theme color based on sample or real profile
+    const data = this.config.data;
     this.isSample = data?.isSample ?? true;
 
     if (!this.isSample && data?.profileData) {
@@ -266,8 +68,8 @@ export class ViewProfileComponent implements OnInit {
       this.softSkills = data?.softSkills;
       this.fieldsOfStudy = data?.fieldsOfStudy;
       this.graduationYears = data?.graduationYears;
-      this.nationalityList = data?.nationalityList
-      this.files = data?.uploadFiles
+      this.nationalityList = data?.nationalityList;
+      this.files = data?.uploadFiles;
       this.profileData = this.mapToProfileData(this.config.data.profileData);
     }
     else {
@@ -403,17 +205,15 @@ export class ViewProfileComponent implements OnInit {
       exp_currency: exp.work_experience_currency_id ? this.currencies.find(item => item.id == exp.work_experience_currency_id)?.currency_code : ''
     }));
 
-
-    const certifications: Certification[] = (formData.certifications || []).map((cert: any): Certification => ({
+    const certifications: ProfileCertification[] = (formData.certifications || []).map((cert: any): ProfileCertification => ({
       name: cert.certifications_certificate_name || '',
       file: cert.certifications_certificate_file || ''
-    })).filter((cert: Certification) => cert.name || cert.file);
+    })).filter((cert: ProfileCertification) => cert.name || cert.file);
 
-
-    const userAchievements: UserAchievement[] = (formData.acheivements || []).map((ach: any): UserAchievement => ({
+    const userAchievements: ProfileUserAchievement[] = (formData.acheivements || []).map((ach: any): ProfileUserAchievement => ({
       name: ach.certifications_achievement_name || '',
       file: ach.certifications_achievement_file || ''
-    })).filter((ach: UserAchievement) => ach.name || ach.file);
+    })).filter((ach: ProfileUserAchievement) => ach.name || ach.file);
 
     // Process languages
     const languagesKnown = (formData.languages || [])
@@ -423,7 +223,6 @@ export class ViewProfileComponent implements OnInit {
         return language ? { lang: language, prof: proficiency } : null;
       })
       .filter((item: any) => item !== null);
-
 
     const softSkills = this.config.data.softSkills
       .filter((item: any) => formData.career_preference_soft_skill_id.includes(item.id))
@@ -438,12 +237,12 @@ export class ViewProfileComponent implements OnInit {
       formData.languages_hobby_id || '';
 
     // Process social media
-    const socialMedia: SocialMedia[] = (formData.networking_social_media || [])
-      .map((media: any): SocialMedia => ({
+    const socialMedia: ProfileSocialMedia[] = (formData.networking_social_media || [])
+      .map((media: any): ProfileSocialMedia => ({
         media: media.networking_social_media || '',
         link: media.networking_social_media_link || ''
       }))
-      .filter((media: SocialMedia) => media.media || media.link);
+      .filter((media: ProfileSocialMedia) => media.media || media.link);
 
     // Process attachments
     const attachments = [
@@ -453,20 +252,20 @@ export class ViewProfileComponent implements OnInit {
     ].filter(att => att.name);
     this.introductionVideo = formData.career_preference_video_link || '';
 
-    const academicReference: AcademicReference[] = (formData.academicReferences || []).map((ref: any): AcademicReference => ({
+    const academicReference: ProfileAcademicReference[] = (formData.academicReferences || []).map((ref: any): ProfileAcademicReference => ({
       collegeName: ref.references_college_name || '',
       name: ref.references_reference_name || '',
       designation: ref.references_designation || '',
       email: ref.references_email || ''
-    })).filter((ref: AcademicReference) => ref.collegeName || ref.name || ref.designation || ref.email);
+    })).filter((ref: ProfileAcademicReference) => ref.collegeName || ref.name || ref.designation || ref.email);
 
     // Process professional references
-    const professionalReference: ProfessionalReference[] = (formData.professional_references || []).map((ref: any): ProfessionalReference => ({
+    const professionalReference: ProfileProfessionalReference[] = (formData.professional_references || []).map((ref: any): ProfileProfessionalReference => ({
       companyName: ref.references_company_name || '',
       name: ref.references_reference_name || '',
       designation: ref.references_designation || '',
       email: ref.references_email || ''
-    })).filter((ref: ProfessionalReference) => ref.companyName || ref.name || ref.designation || ref.email);
+    })).filter((ref: ProfileProfessionalReference) => ref.companyName || ref.name || ref.designation || ref.email);
 
     // Career preferences object
     const careerPreferences = {
