@@ -37,9 +37,6 @@
 				<!-- Conversation View -->
 				<div class="chat-body h-100 overflow-y-auto p-3" *ngIf="messages?.length > 0">
 					<ng-container *ngFor="let message of messages">
-						<!-- Sender ID for UNIPREP -->
-
-
 						<!-- Fix alignment based on boolean sender -->
 						<div class="d-flex mb-2"
 							[ngClass]="{ 'justify-content-start': !message.sender, 'justify-content-end': message.sender }">
@@ -66,7 +63,6 @@
 										</small>
 									</div>
 								</div>
-
 							</div>
 							<!-- File Attachment -->
 
@@ -76,7 +72,6 @@
 								</div>
 								<div class="message-content file-message text-start"
 									[ngClass]="message.sender ? 'bg-secondary text-white' : 'bg-secondary-subtle'">
-
 									<div class="file-wrapper">
 										<a [href]="message.attachment_url" target="_blank"
 											class="text-decoration-none d-flex align-items-center"
@@ -112,7 +107,6 @@
 						<div *ngIf="message.job_status" class="uniprep-secondary text-start"
 							style="max-width: 75%; margin-left: 25px;">
 							Status: {{message.job_status}}</div>
-
 					</ng-container>
 				</div>
 			</div>
@@ -136,7 +130,7 @@
 			#fileAttachment (change)="uploadFilesChat($event);">
 		<div *ngIf="attachmentFile" class="border d-flex justify-content-between align-items-center p-2">
 			<div>{{attachmentFile.name}}</div>
-			<i class="fas fa-xmark" (click)="attachmentFile = null; attachmentFileName = null;"></i>
+			<i class="fas fa-xmark cursor-pointer" (click)="attachmentFile = null; attachmentFileName = null;"></i>
 		</div>
 		<div class="d-flex gap-2 align-items-center">
 			<div class="input-group border rounded-4 p-1 h-auto">

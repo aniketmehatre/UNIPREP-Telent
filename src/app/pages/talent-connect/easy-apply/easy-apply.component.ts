@@ -9,32 +9,7 @@ import { SocialShareService } from 'src/app/shared/social-share.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/location.service';
 import { MultiSelectChangeEvent } from 'primeng/multiselect';
-
-interface JobListing {
-  id: number;
-  company_logo: string;
-  company_name: string;
-  position: string;
-  isVerified: boolean;
-  matchedSkills: number;
-  totalSkills: number;
-  available_vacancies: number;
-  worklocation: string;
-  start_date: string;
-  companySize: string;
-  work_mode: string;
-  employment_type: string;
-  salary_offer: string;
-  postedDate: string;
-  total_applied: number;
-  due_date: string;
-  currency_code: string;
-  isChecked: boolean;
-  salary_per_month: string;
-  uuid: string;
-  hiring_status: string;
-}
-
+import { JobListing } from 'src/app/@Models/employee-connect-job.model';
 
 @Component({
   selector: 'uni-easy-apply',
@@ -58,17 +33,14 @@ export class EasyApplyComponent {
   displayModal: boolean = false;
   first: number = 0;
   filterForm: FormGroup = new FormGroup({});
-  currencyOptions: any[] = [];
-  applicantCurrencyCode = signal<string>('');
-  applicantCurrencyValue = signal<number>(0);
   currencyList: any[] = [];
   isSkeletonVisible: boolean = true;
   hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' }, { id: 3, name: 'Campus Hire' }];
   selectedCurrency: string = '';
-  hiring_stages: string | Array<{ id: number; name: string }>;
   countries: any[] = [];
   industries: any[] = [];
   isAppliedFilter: boolean = false;
+  
   //Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
@@ -257,6 +229,7 @@ export class EasyApplyComponent {
         });
     });
   }
+
   onClearCurrency(event: Event) {
     this.selectedCurrency = "";
     this.getList({});

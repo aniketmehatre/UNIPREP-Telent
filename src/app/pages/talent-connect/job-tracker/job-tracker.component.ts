@@ -4,7 +4,6 @@ import { Select } from "primeng/select";
 import { JobListComponent } from "./job-list/job-list.component";
 import { CommonModule } from "@angular/common";
 import { TalentConnectService } from "../talent-connect.service";
-import { Job } from "../easy-apply/job-view/job-view.component";
 import { RouterModule } from "@angular/router";
 import { JobDetailsComponent } from "./job-details/job-details.component";
 import { JobChatUiComponent } from "./job-chat-ui/job-chat-ui.component";
@@ -14,6 +13,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { DrawerModule } from "primeng/drawer";
 import { PageFacadeService } from "../../page-facade.service";
 import { ButtonModule } from "primeng/button";
+import { Job } from "src/app/@Models/employee-connect-job.model";
 
 interface ChatMessage {
 	id: number;
@@ -52,7 +52,7 @@ export class JobTrackerComponent {
 	showChat: boolean = false;
 	messages: ChatMessage[] = [];
 	newMessage: string = "";
-	jobDetails: Job;
+	jobDetails: Job | null = null;
 	jobTotalCount: number = 0;
 	isAppliedFilter: boolean = false;
 	

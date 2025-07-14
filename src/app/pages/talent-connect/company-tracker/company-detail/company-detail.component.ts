@@ -16,12 +16,12 @@ import { SkeletonModule } from 'primeng/skeleton';
 export class CompanyDetailComponent implements OnInit {
 
   @Input() companyId!: any;
-  @Output() openChat = new EventEmitter<boolean>(true);
-  @Output() closeInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
+  @Input() companyDetails!: Company;
   @Input() showInfo: boolean = true;
   @Input() showChat: boolean = false;
+  @Output() openChat = new EventEmitter<boolean>(true);
+  @Output() closeInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() studentIdRelay = new EventEmitter<number>();
-  @Input() companyDetails!: Company;
   isSkeletonVisible: boolean = false;
 
   constructor(private talentConnectService: TalentConnectService) {

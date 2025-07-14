@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from "@env/environment";
 import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
@@ -15,9 +15,9 @@ import { PageFacadeService } from '../../page-facade.service';
 export class MainListComponent implements OnInit {
     protected talentConnectMainList: any[] = []
     protected domainUrl: string = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;
-    
+
     constructor(private router: Router, private talentConnectService: TalentConnectService, private messageService: MessageService,
-        private cdr: ChangeDetectorRef, private authService: AuthService, private pageFacade: PageFacadeService) {
+        private authService: AuthService, private pageFacade: PageFacadeService) {
 
         this.talentConnectMainList = [
             {
@@ -94,6 +94,6 @@ export class MainListComponent implements OnInit {
     }
 
     openVideoPopup() {
-		this.pageFacade.openHowitWorksVideoPopup("company-connect");
-	}
+        this.pageFacade.openHowitWorksVideoPopup("company-connect");
+    }
 }
