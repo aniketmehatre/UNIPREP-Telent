@@ -35,10 +35,13 @@ import { Meta } from '@angular/platform-browser';
 export class CompleteProfileViewComponent implements OnInit {
   profileData!: UserProfile;
   userId: string = '';
+
+  // Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
 
-  constructor(private activatedRoute: ActivatedRoute, private talentConnectService: TalentConnectService, private message: MessageService, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private talentConnectService: TalentConnectService,
+    private message: MessageService, private router: Router) { }
 
   ngOnInit() {
     this.userId = this.activatedRoute.snapshot.params?.['id'];

@@ -19,13 +19,7 @@ declare global {
 }
 @Component({
   selector: 'uni-company-chat',
-  imports: [
-    ButtonModule,
-    AvatarModule,
-    FormsModule,
-    CommonModule,
-    ProgressBarModule
-  ],
+  imports: [ButtonModule, AvatarModule, FormsModule, CommonModule, ProgressBarModule],
   templateUrl: './company-chat.component.html',
   styleUrl: './company-chat.component.scss'
 })
@@ -128,8 +122,6 @@ export class CompanyChatComponent implements OnInit, OnChanges {
     }
     this.talentConnectService.sendCompanyConnectUserMessage(req).subscribe({
       next: response => {
-        // this.getChatMessageForCompanyConnect(this.companyDetails.id);
-
         // If there's a response message from the server, add it
         if (response.message) {
           this.messages.push({
@@ -254,6 +246,6 @@ export class CompanyChatComponent implements OnInit, OnChanges {
       chatId: id
     }
     this.talentConnectService.markReadMessage(data).subscribe((res: any) => {
-    })
+    });
   }
 }

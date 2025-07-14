@@ -5,11 +5,11 @@ import { CommonModule } from "@angular/common";
 import { ChipModule } from 'primeng/chip';
 import { ButtonModule } from 'primeng/button';
 import { TalentConnectService } from '../../talent-connect.service';
-import { Job } from '../../easy-apply/job-view/job-view.component';
 import { RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { EmployeeConnectProfile } from 'src/app/@Models/employee-connect-profile';
 import { MessageService } from 'primeng/api';
+import { Job } from 'src/app/@Models/employee-connect-job.model';
 
 interface ChatMessage {
   sender: boolean; // Changed from isSender to sender for clarity
@@ -22,53 +22,28 @@ interface ChatMessage {
   attachment?: string | null;
 }
 
-interface AiGenerateChatDetails {
-  job_id: number;
-  companyName: string;
-  positionName: string;
-  studentName: string;
-  createdAt: string;
-}
-
 @Component({
   selector: 'uni-job-chat-ui',
   templateUrl: './job-chat-ui.component.html',
   styleUrls: ['./job-chat-ui.component.scss'],
   standalone: true,
-  imports: [
-    FormsModule,
-    AvatarModule,
-    CommonModule,
-    ChipModule,
-    ButtonModule,
-    RouterModule
+  imports: [FormsModule, AvatarModule, CommonModule, ChipModule, ButtonModule, RouterModule
   ]
 })
 export class JobChatUiComponent implements OnInit, OnChanges {
-  organizationName: string = 'UNIABROAD';
-  organizationStatus: string = 'Active';
   @Input() jobDetails!: Job;
   @Input() jobId!: number;
+  @Input() showInfo: boolean = true;
+  @Input() isJobApplied: boolean = true;
   @Output() openInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() closeChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
-  @Input() showInfo: boolean = true;
-  isLoadingAiSummary: boolean = false;
-  currentStage: number = 2;
-  id: number = NaN;
-  stages: Array<{ number: number, name: string, completed: boolean }> = [
-    { number: 1, name: 'Initial Round', completed: true },
-    { number: 2, name: 'HR Round', completed: false },
-    { number: 3, name: 'Selected', completed: false }
-  ];
 
+  isLoadingAiSummary: boolean = false;
   messages: ChatMessage[] = [];
-  newMessage: string = '';
-  currentUser: string = '@uniabroad';
   attachmentFile: any;
   message: string = '';
   userActiveStatus: string = '';
   profileData: EmployeeConnectProfile | null = null;
-  @Input() isJobApplied: boolean = true;
 
   //Inject Service
   private toast = inject(MessageService);
@@ -192,7 +167,7 @@ export class JobChatUiComponent implements OnInit, OnChanges {
         this.isLoadingAiSummary = false;
         console.error(error)
       },
-    })
+    });
 
   }
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, input, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { PaginatorModule } from 'primeng/paginator';
 import { TabsModule } from 'primeng/tabs';
 import { TabViewModule } from 'primeng/tabview';
@@ -12,32 +12,26 @@ import { AuthService } from 'src/app/Auth/auth.service';
 @Component({
   selector: 'uni-company-list',
   standalone: true,
-  imports: [
-    TabsModule,
-    TabViewModule,
-    PaginatorModule,
-    CommonModule,
-    CompanyFilterComponent
+  imports: [TabsModule, TabViewModule, PaginatorModule, CommonModule, CompanyFilterComponent
   ],
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss']
 })
 export class CompanyListsComponent implements OnInit {
-  @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();
   @Input() displayModal: boolean = false;
-  @Output() triggerCloseFilter: EventEmitter<boolean> = new EventEmitter();
   @Input() incomingStudentId!: number;
   @Input() incomingStudentIdLive!: number;
+  @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();
+  @Output() triggerCloseFilter: EventEmitter<boolean> = new EventEmitter();
   @Output() onCompanyTotalCount: EventEmitter<any> = new EventEmitter<any>();
 
-  activeIndex: number = 0;
   tabs = [
     { label: 'All Companies', active: true },
     { label: 'Following', active: false },
     { label: 'Sent', active: false },
     { label: 'Recieved', active: false }
   ];
-
+  activeIndex: number = 0;
   companyList: Company[] = [];
   page: number = 1;
   perPage: number = 10;
@@ -230,6 +224,7 @@ export class CompanyListsComponent implements OnInit {
     this.companyId = id;
     this.companyTrackerEmit.emit(id);
   }
+  
   ngOnChanges(changes: SimpleChanges) {
     if (changes['incomingStudentId'] && changes['incomingStudentId'].currentValue) {
       const count = changes['incomingStudentId'].currentValue;

@@ -18,11 +18,12 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class CompanyFilterComponent implements OnInit, OnChanges {
   @Input() openModal: boolean = false;
-  @Input() cerrentTabIndex: number = 0;
+  @Input() currentTabIndex: number = 0;
+  @Input() isListView: boolean = true;
   @Output() triggerApplyFiler: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeFilter: EventEmitter<any> = new EventEmitter<any>();
   @Output() resetFilter: EventEmitter<any> = new EventEmitter<any>();
-  @Input() isListView: boolean = true;
+
   industryTypes: any = [];
   globalPresence: any = [];
   locations: any = [];
@@ -99,7 +100,7 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
 
     this.talentConnectService.getCompanySizes().subscribe({
       next: (data) => {
-        this.companySizes = data; // assuming it's nested like this
+        this.companySizes = data;
       },
       error: (err) => {
         console.error('Error loading company sizes:', err);
@@ -117,7 +118,7 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
   triggerFilter() {
     this.openModal = false;
     const formData = this.companyForm.value;
-    if (this.cerrentTabIndex !== 0) {
+    if (this.currentTabIndex !== 0) {
       formData.status = null;
     }
     this.triggerApplyFiler.emit(formData);

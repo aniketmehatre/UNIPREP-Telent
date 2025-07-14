@@ -71,16 +71,12 @@
 											"Company Name" }}</h5>
 										<p class="text-muted text-small">Founded: {{ company.founded_year }}</p>
 									</div>
-									
-									
-
 									<div class="position-relative" style="z-index: 1000">
 										<i class="fa-regular fa-share-alt fa-xl"
 											role="button"
 											style="color: #fda172"
 											(click)="toggleShareDropdown($event, company.id)">
 										</i>
-									  
 										<div *ngIf="activeDropdownCompanyId === company.id"
 											class="position-absolute bg-white border rounded shadow-sm mt-2 px-3 py-2"
 											style="min-width: 150px; right: 0" (click)="$event.stopPropagation()">
@@ -89,9 +85,6 @@
 											</div>
 										</div>
 									  </div>
-
-
-									  
 								</div>
 								<div class="text-start">
 									<button class="px-3 py-2 rounded-1 text-small btn" pButton
@@ -185,8 +178,6 @@
 		<p-paginator *ngIf="totalCount != 0" [rows]="perPage" [totalRecords]="totalCount" [first]="(page - 1) * perPage"
 			(onPageChange)="pageChange($event)" [rowsPerPageOptions]="[12, 48, 96, 300, 600, 900]"></p-paginator>
 	</div>
-
-	<p-toast></p-toast>
 </div> 
 
 <app-company-filter [openModal]="displayModal" (closeFilter)="displayModal = false"

@@ -20,13 +20,6 @@ export class TalentConnectService {
     _employerProfileData!: EmployeeConnectProfile | null;
     constructor(private http: HttpClient) { }
 
-
-    generateUUIDLink(companyId: number): Observable<{ uuid: string }> {
-        return this.http.post<{ uuid: string }>(
-            '/api/generate-link', { companyId }
-        );
-    }
-
     //Profile Creation 
     getMyProfileData(token?: string) {
         //  The token is not taken by the public route (login). that's why this header added for manually for after getMe Api call
@@ -273,5 +266,8 @@ export class TalentConnectService {
     getDepartments() {
         return this.http.get<Departments[]>(environment.ApiUrl + `/getdepartments`);
     }
-
+    
+    generateUUIDLink(companyId: number): Observable<{ uuid: string }> {
+        return this.http.post<{ uuid: string }>( '/api/generate-link', { companyId });
+    }
 }

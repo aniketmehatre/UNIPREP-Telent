@@ -31,14 +31,16 @@ import { LocationService } from 'src/app/location.service';
   ]
 })
 export class JobListComponent implements OnInit {
-  @Output() emitId: EventEmitter<number> = new EventEmitter();
   @Input() displayModal: boolean = false;
+  @Output() emitId: EventEmitter<number> = new EventEmitter();
   @Output() closeFilter: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() onJobTotalCount: EventEmitter<any> = new EventEmitter<any>();
 
   activeIndex: number = 0;
   first: number = 0;
   page: number = 1;
+  pageSize: number = 10;
+  totalPage: number = 0;
   jobDetails: any;
   appliedJobList!: any;
   filteredAppliedJob!: any;
@@ -49,19 +51,18 @@ export class JobListComponent implements OnInit {
   employmentTypes: any[] = [];
   experienceLevels: any[] = [];
   currencies: any[] = [];
-  pageSize: number = 10;
-  filterForm: FormGroup = new FormGroup({});
-  totalPage: number = 0;
-
+  countries: any[] = [];
+  jobStatusList: any[] = [];
   tabs = [
     { label: 'All Jobs', active: true }
   ];
   hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'Future_Hiring', name: 'Future Hiring' }];
-  jobStatusList: any[] = [];
   hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' }, { id: 3, name: 'Campus Hire' }];
-  countries: any[] = [];
+  filterForm: FormGroup = new FormGroup({});
   
-  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder, private locationService: LocationService) { }
+  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder, private locationService: LocationService) { 
+    
+  }
 
 
   ngOnInit(): void {
@@ -203,7 +204,6 @@ export class JobListComponent implements OnInit {
       this.workModes = data?.workmode;
       this.employmentTypes = data?.employmenttype;
       this.currencies = data?.currencycode;
-      // this.locations = data?.locations;
     });
   }
 

@@ -42,7 +42,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   aiEvaluationContent: SafeHtml;
   hoverMessages = HOVER_MESSAGES;
   defaultMessage = "Hi, I am here to help you";
-  recommendationMessage = ' To maximize your chances of being hired, it is crucial to implement all the recommendations provided in this evaluation.';
+  recommendationMessage = "To maximize your chances of being hired, it is crucial to implement all the recommendations provided in this evaluation.";
   currentMessage = "Hi, I am here to help you";
 
   languageProficiency!: any

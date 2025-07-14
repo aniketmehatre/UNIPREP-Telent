@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CompanyTracker1Component } from './company-tracker/company-tracker.component';
 import {MainListComponent} from "./main-list/main-list.component";
-import {JobTrackerComponent} from "./job-tracker/job-tracker.component";
 
 const routes: Routes = [
   {

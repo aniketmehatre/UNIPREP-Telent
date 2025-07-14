@@ -124,18 +124,8 @@ interface ProfileData {
 @Component({
   selector: 'uni-view-profile',
   standalone: true,
-  imports: [
-    DialogModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CardModule,
-    ButtonModule,
-    TooltipModule,
-    AvatarModule,
-    ProgressBarModule,
-    RatingModule,
-    RouterModule
+  imports: [DialogModule, CommonModule, FormsModule, ReactiveFormsModule, CardModule, ButtonModule, TooltipModule, AvatarModule,
+    ProgressBarModule, RatingModule, RouterModule
   ],
   templateUrl: './view-profile.component.html',
   styleUrl: './view-profile.component.scss'
@@ -229,8 +219,8 @@ export class ViewProfileComponent implements OnInit {
     networking: {
       linkedinProfile: 'https://www.linkedin.com/in/darshini-p-ruknor-a09b49223/',
       socialMedia: [{ media: 'Instagram', link: 'https://www.instagram.com/darshu_ruknor?igsh=cGl1NWVrd204ajF5&utm_source=qr' },
-        { media: 'Facebook', link: 'https://www.facebook.com/Darshini' },
-        { media: 'X', link: 'https://twitter.com/Darshini' }
+      { media: 'Facebook', link: 'https://www.facebook.com/Darshini' },
+      { media: 'X', link: 'https://twitter.com/Darshini' }
       ],
       personalWebsite: 'https://www.darshini-portfolio.com'
     },

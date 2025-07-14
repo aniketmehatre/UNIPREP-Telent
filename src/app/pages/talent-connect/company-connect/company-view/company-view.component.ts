@@ -19,14 +19,15 @@ import { PageFacadeService } from 'src/app/pages/page-facade.service';
 })
 export class CompanyViewComponent implements OnInit {
 
-  showChat: boolean = true;
+  @Input() showInfo: boolean = true;
   companyDetails: any;
   companyId: any
+  showChat: boolean = true;
   isSkeletonVisible: boolean = true;
-  @Input() showInfo: boolean = true;
   visible: boolean = false;
 
-  constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService, private pageFacade: PageFacadeService) {
+  constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService, 
+    private pageFacade: PageFacadeService) {
   }
 
   ngOnInit(): void {

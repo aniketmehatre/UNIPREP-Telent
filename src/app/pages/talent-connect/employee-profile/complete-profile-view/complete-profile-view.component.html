@@ -333,53 +333,6 @@
     </div>
   </div>
 
-  <!-- Key Strengths Section -->
-  <!-- <div class="card mb-4" *ngIf="profileData?.careerPreference">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-3">
-          <h3 class="fw-bold text-navy">Key Strengths & Professional Traits</h3>
-          <div class="mt-3 text-warning">Want to add more skills?</div>
-          <button pButton label="Click here to add more to your list!" class="p-button-outlined p-button-warning mt-2"
-            (click)="routingToPage('/pages/modules/skill-mastery')"></button>
-        </div>
-        <div class="col-md-9">
-          <div class="mb-4">
-            <div class="text-primary fw-bold">What sets you apart in your industry?</div>
-            <p [innerHTML]="profileData?.careerPreference?.set_industry_apart || 'Not specified'"></p>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <div class="text-primary fw-bold">Have you solved a real-world challenge in your field?</div>
-              <div>{{profileData?.careerPreference?.real_world_challenge || 'Not specified'}}</div>
-            </div>
-            <div class="col-md-4 mb-3">
-              <div class="text-primary fw-bold">Your top professional strength</div>
-              <div *ngIf="profileData?.careerPreference?.professional_strength?.length > 0; else noProfessionalData">
-                <div *ngFor="let item of profileData?.careerPreference?.professional_strength">
-                  {{item}}
-                </div>
-              </div>
-              <ng-template #noProfessionalData>Not specified</ng-template>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <div class="text-primary fw-bold">Have you taken on leadership roles?</div>
-              <div>{{profileData?.careerPreference?.leadership_experience || 'Not specified'}}</div>
-            </div>
-            <div class="col-md-6 mb-3">
-              <div class="text-primary fw-bold">One quality others admire most about you</div>
-              <div>{{profileData?.careerPreference?.admired_quality || 'Not specified'}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
   <!-- Professional Networking Section -->
   <div class="card mb-4">
     <div class="card-body">

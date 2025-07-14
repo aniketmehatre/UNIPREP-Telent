@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { TalentConnectService } from "../../talent-connect.service";
@@ -9,64 +9,7 @@ import { JobChatUiComponent } from "../../job-tracker/job-chat-ui/job-chat-ui.co
 import { MessageService } from "primeng/api";
 import { RatingModule } from "primeng/rating";
 import { DrawerModule } from "primeng/drawer";
-
-export interface Job {
-	isChecked: number;
-	id: number;
-	experience_level: string;
-	job_overview: string;
-	key_responsibilities: string | string[];
-	technical_proficiency: string | string[];
-	language_proficiency: string | Array<{ language: string; level: string }>;
-	start_date: string;
-	due_date: string;
-	available_vacancies: number;
-	hiring_timeframe: string;
-	created_at: string;
-	interview_format: string[];
-	position: string;
-	work_location: string;
-	company_name: string;
-	industry_name: string;
-	company_size: number;
-	compensation_structure: string | string[];
-	work_mode: string | string[];
-	employment_type: string | string[];
-	benefits_perks: string | string[];
-	soft_skills: string | string[];
-	hiring_stages: string | Array<{ id: number; name: string }>;
-	total_applied: number;
-	company_logo_url: string;
-	educational_degree: string;
-	salary_range: number;
-	matching_skills: string;
-	stage: string | null;
-	company_logo?: string;
-	jobsoftskills: JobSoftSkills[];
-	languages: LangProficiency[];
-}
-
-interface LangProficiency {
-	lang: string;
-	level: string
-}
-
-export interface JobSoftSkills {
-	id: number;
-	softskill: string;
-	ismatch: number;
-}
-
-interface Message {
-	sender: boolean; // Changed from isSender to sender for clarity
-	content: string;
-	time: string;
-	markAsRead?: boolean;
-	profile_image?: string;
-	type: "text" | "file" | "button";
-	attachment?: string | null;
-	attachment_url?: any | null;
-}
+import { Job } from "src/app/@Models/employee-connect-job.model";
 
 @Component({
 	selector: "uni-job-view",
@@ -76,20 +19,17 @@ interface Message {
 	imports: [CommonModule, ButtonModule, DrawerModule, TooltipModule, FormsModule, JobChatUiComponent, RouterLink, RatingModule],
 })
 export class JobViewComponent implements OnInit {
-	private toast = inject(MessageService)
+	@Input() showInfo: boolean = true;
 	jobId!: number;
 	visible: boolean = false;
 	public Array = Array;
 	appliedId: number = NaN;
 	attachmentFileName: string = "";
 	isApplied: boolean = false;
-	@Input() showInfo: boolean = true;
 	attachmentFile!: File | null;
-	jobDetails: Job;
-
+	jobDetails: Job | null = null;
 	isShowApplyChat: boolean = false;
 	currentView: "initial" | "conversation" = "initial";
-
 
 	constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService,
 		private message: MessageService, private router: Router) { }
@@ -104,7 +44,7 @@ export class JobViewComponent implements OnInit {
 
 	checkIfProfileCreated() {
 		if (!this.talentConnectService._employerProfileData?.profile_completion_flag) {
-			this.router.navigate(["/pages/talent-connect/list"])
+			this.router.navigate(["/pages/talent-connect/list"]);
 		}
 	}
 
@@ -118,7 +58,6 @@ export class JobViewComponent implements OnInit {
 				// Process the response data to match our Job interface
 				if (response.job && response.job[0]) {
 					const jobData = response.job[0];
-					console.log(jobData);
 					// Parse string arrays if they come as comma-separated strings
 					this.jobDetails = {
 						...jobData,
@@ -139,7 +78,6 @@ export class JobViewComponent implements OnInit {
 					if (response?.applied_jobid) {
 						this.appliedId = response?.applied_jobid;
 					}
-					// this.isApplied = response?.isapplied;
 					this.isApplied = true;
 					if (this.isApplied) {
 						this.isShowApplyChat = this.isApplied;
@@ -191,11 +129,7 @@ export class JobViewComponent implements OnInit {
 					this.isApplied = true;
 					this.appliedId = response.id;
 				} else {
-					this.message.add({
-						severity: "error",
-						summary: "Error",
-						detail: response.message,
-					});
+					this.message.add({ severity: "error", summary: "Error", detail: response.message });
 				}
 				if (response.job && response.job[0]) {
 					this.jobDetails = response.job[0];
