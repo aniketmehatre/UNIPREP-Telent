@@ -132,6 +132,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             })
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
             this.coBrandedImageUrl.set(data.logo)
+            console.log(data.brand_primary_color, data.brand_secondary_color)
             if(data.brand_primary_color && data.brand_secondary_color){
                 this.brandColorService.fetchAndApplyColors(data.brand_primary_color, data.brand_secondary_color)
             }

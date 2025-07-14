@@ -1,11 +1,11 @@
 .card-inside {
-  border: 1px solid #fda172;
+  border: 1px solid var(--secondary-500);
   /* Light orange border */
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    background-color: #fff5ec;
-    border: 1px solid #f4a261;
+    background-color: var(--secondary-50);
+    border: 1px solid var(--secondary-500);
   }
 }
 

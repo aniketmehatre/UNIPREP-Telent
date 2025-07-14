@@ -28,12 +28,12 @@
   margin: 0px;
 
   &:focus {
-    background-color: var(--primary-100);
+    background-color: var(--primary-50);
     border: 1px solid var(--primary-500);
   }
 
   &:hover {
-    background-color: var(--primary-100);
+    background-color: var(--primary-50);
     border: 1px solid var(--primary-500);
   }
 }

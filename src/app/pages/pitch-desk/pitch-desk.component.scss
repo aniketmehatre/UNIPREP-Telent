@@ -2,14 +2,14 @@
   border:1px solid var(--secondary-500);
   &:hover
   {
-    border:1px solid var(--primary-500highlight);
-    background:var(--primary-100);
+    border:1px solid var(--primary-600);
+    background:var(--primary-50);
   }
   
   // Add styles for when card is selected
   &.selected {
     border: 1px solid var(--primary-500);
-    background: var(--primary-100);
+    background: var(--primary-50);
   }
 }
 
@@ -36,18 +36,18 @@
 ::ng-deep .p-datatable a
 {
   text-decoration: none;
-  color:var(--primary-500highlight);
+  color:var(--primary-600);
 }
 
 ::ng-deep .p-datatable th
 {
-  background-color: var(--primary-500highlight) !important;
+  background-color: var(--primary-600) !important;
   border-right: 1px solid var(--primary-200);
 }
 
 ::ng-deep .p-datatable .p-datatable-tbody > tr > td
 {
-  border:1px solid var(--primary-100);
+  border:1px solid var(--primary-50);
 }
 
 :host ::ng-deep .p-paginator .p-select-panel {

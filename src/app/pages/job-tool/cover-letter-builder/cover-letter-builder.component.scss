@@ -98,9 +98,9 @@
 	}
 
 	// &:hover {
-	// 	-webkit-box-shadow: 0px 0px 50px 0px var(--primary-100);
-	// 	-moz-box-shadow: 0px 0px 50px 0px var(--primary-100);
-	// 	box-shadow: 0px 0px 50px 0px var(--primary-100);
+	// 	-webkit-box-shadow: 0px 0px 50px 0px var(--primary-50);
+	// 	-moz-box-shadow: 0px 0px 50px 0px var(--primary-50);
+	// 	box-shadow: 0px 0px 50px 0px var(--primary-50);
 	// }
 }
 
@@ -581,7 +581,7 @@
 }
 
 .template-dropdown-content a:hover {
-	background-color: var(--primary-500highlight);
+	background-color: var(--primary-600);
 	color: white;
 	border-radius: 25px;
 }
@@ -604,7 +604,7 @@
 	margin-left: 0;
 	width: auto !important;
 	position: absolute;
-	background-color: var(--primary-500highlight);
+	background-color: var(--primary-600);
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 	border-radius: 20px;
@@ -620,7 +620,7 @@
 	position: relative;
 
 	&:hover {
-		background-color: var(--primary-500highlight);
+		background-color: var(--primary-600);
 		border-radius: 25px;
 	}
 }

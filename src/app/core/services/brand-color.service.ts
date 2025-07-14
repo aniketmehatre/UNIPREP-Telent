@@ -20,19 +20,20 @@ export class BrandColorService {
     const root = document.documentElement;
     const stops = [
       { key: '50', t: 0 },
-      { key: '100', t: 0.1 },
-      { key: '200', t: 0.2 },
-      { key: '300', t: 0.3 },
-      { key: '400', t: 0.4 },
+      { key: '100', t: 0.08 },
+      { key: '200', t: 0.16 },
+      { key: '300', t: 0.24 },
+      { key: '400', t: 0.32 },
       { key: '500', t: 0.5 },
-      { key: '600', t: 0.6 },
-      { key: '700', t: 0.7 },
-      { key: '800', t: 0.8 },
-      { key: '900', t: 0.9 },
+      { key: '600', t: 0.68 },
+      { key: '700', t: 0.76 },
+      { key: '800', t: 0.84 },
+      { key: '900', t: 0.92 },
       { key: '1000', t: 1 }
     ];
+    // Use a more moderate brighten value for the lightest shade
     const scale = chroma.scale([
-      chroma(baseColor).brighten(2.5),
+      chroma(baseColor).brighten(1.2), // not too close to white
       baseColor,
       chroma(baseColor).darken(2.5)
     ]).mode('lab');

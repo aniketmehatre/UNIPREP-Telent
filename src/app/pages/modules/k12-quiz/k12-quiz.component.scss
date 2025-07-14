@@ -33,7 +33,7 @@
 }
 
 .unselected-border {
-  border: 3px solid var(--primary-500highlight);
+  border: 3px solid var(--primary-600);
   border-radius: 5px;
   font-size: 0.8rem;
 }
@@ -66,12 +66,12 @@
   }
 
   &:focus {
-    background-color: var(--primary-100);
+    background-color: var(--primary-50);
     border: 3px solid var(--primary-500);
   }
 
   &:hover {
-    background-color: var(--primary-100);
+    background-color: var(--primary-50);
     border: 3px solid var(--primary-500);
   }
 

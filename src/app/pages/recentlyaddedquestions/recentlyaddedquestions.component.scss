@@ -12,7 +12,7 @@
 }
 
 .unselected-border {
-  border: 2px solid var(--primary-500highlight);
+  border: 2px solid var(--primary-600);
   border-radius: 5px;
   font-size: 0.8rem;
 }
@@ -51,7 +51,7 @@
   filter: grayscale(1);
 }
 .questioncard {
-  border: 3px solid var(--primary-500highlight);
+  border: 3px solid var(--primary-600);
   width: 100%;
   margin: 8px 0px;
 
@@ -60,21 +60,21 @@
   }
 
   &:focus {
-    background-color: var(--primary-100);
+    background-color: var(--primary-50);
     border: 3px solid var(--primary-500);
 
     .primary-btn {
-      background-color: var(--primary-500highlight);
+      background-color: var(--primary-600);
       border: 2px solid var(--primary-500);
     }
   }
 
   &:hover {
-    background-color: var(--primary-100);
+    background-color: var(--primary-50);
     border: 3px solid var(--primary-500);
 
     .primary-btn {
-      background-color: var(--primary-500highlight);
+      background-color: var(--primary-600);
       border: 2px solid var(--primary-500);
     }
   }

@@ -99,7 +99,7 @@
   }
 
   &:hover {
-    background-color: var(--primary-100);
+    background-color: var(--primary-50);
     border: 2px solid var(--primary-500);
     .card-header {
       border-bottom: none;
@@ -118,7 +118,7 @@
     }
   }
   &:focus {
-    background-color: var(--primary-100);
+    background-color: var(--primary-50);
     border: 2px solid var(--primary-500);
     .card-header {
       border-bottom: none;
@@ -167,7 +167,7 @@
   }
   &:hover {
     // height: 465px;
-    background-color: var(--primary-100);
+    background-color: var(--primary-50);
     border: 2px solid var(--primary-500);
     .getstartedbtn {
       display: block;
@@ -179,7 +179,7 @@
     }
   }
   &:focus {
-    background-color: var(--primary-100);
+    background-color: var(--primary-50);
     border: 2px solid var(--primary-500);
     .getstartedbtn {
       display: block;

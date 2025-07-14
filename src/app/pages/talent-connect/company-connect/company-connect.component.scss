@@ -1,10 +1,10 @@
 .card-inside {
-  border: 10px solid #f4a261; /* Light orange border */
+  border: 10px solid var(--secondary-500); /* Light orange border */
   transition: all 0.3s ease-in-out;
 }
 
 .card-inside:hover {
-  background-color: #fff5ec;
+  background-color: var(--secondary-50);
   border: 0px 2px 6px rgba(244, 162, 97, 0.5); /* Soft orange shadow */
 }
 

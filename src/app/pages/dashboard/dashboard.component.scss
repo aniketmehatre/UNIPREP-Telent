@@ -350,7 +350,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 .progress-bar {
   height: 8px;
-  background-color: #ff7000;
+  background-color: var(--secondary-500);
   /* Orange progress color */
   border-radius: 5px;
   transition: width 0.5s ease-in-out;
@@ -358,7 +358,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 .progress-bar2 {
   height: 8px;
-  background-color: #394d83;
+  background-color: var(--primary-500);
   /* Green color for progress */
   border-radius: 5px;
   transition: width 0.3s ease-in-out;
