@@ -22,6 +22,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { SocialShareService } from 'src/app/shared/social-share.service';
 import { PageFacadeService } from '../../page-facade.service';
+import { CourseSubmodules } from './course-navigator.data';
 
 @Component({
   selector: 'uni-course-navigator',
@@ -52,34 +53,8 @@ export class CourseNavigatorComponent implements OnInit {
   selectedState: string = 'default';
   selectedQuestionData: CourseNavigator;
   recommandedQandAList: CourseNavigator[] = [];
-  courseSubmodules: CourseSubmodulesList[] = [
-    {
-      id: 1,
-      icon: `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/education-tools/career-choice.svg`,
-      submodule_name: "Career Opportunities & Job Roles"
-    },
-    {
-      id: 2,
-      icon: `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/education-tools/job-description.svg`,
-      submodule_name: "Industry Relevance & Practical Exposure"
-    },
-    {
-      id: 3,
-      icon: `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/education-tools/skills.svg`,
-      submodule_name: "Skills & Compentency Developement"
-    },
-    {
-      id: 4,
-      icon: `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/education-tools/worldwide.svg`,
-      submodule_name: "Global & Regional Career Scope"
-    },
-    {
-      id: 5,
-      icon: `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/education-tools/return-of-investment.svg`,
-      submodule_name: "ROI (Return on Investment) & Financial Aspects"
-    },
-  ];
-  selectedDegreeId: number;
+  courseSubmodules: CourseSubmodulesList[] = CourseSubmodules;
+  selectedDegreeId: number = 0;
   selectedDegreeName: string = '';
   specializationFilter: string = '';
   degreeFilter: string = '';

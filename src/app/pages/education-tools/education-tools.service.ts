@@ -153,13 +153,6 @@ export class EducationToolsService {
     });
   }
 
-  // getCourseListBoxDropdown() {
-  //   return this.http.post<any>(environment.ApiUrl + "/CourseListSelectBox", {
-  //     headers: this.headers,
-  //   });
-  // }
-
-
   getCountries() {
     return this.http.post<any>(environment.ApiUrl + "/getcountryandcurrency", {
       headers: this.headers

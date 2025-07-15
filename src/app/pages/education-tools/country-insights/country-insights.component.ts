@@ -25,13 +25,13 @@ import { PageFacadeService } from '../../page-facade.service';
   imports: [FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, PaginatorModule, InputGroupAddonModule]
 })
 export class CountryInsightsComponent implements OnInit {
-  first = 0;
-  page = 1;
-  pageSize = 25;
+  first:number = 0;
+  page:number = 1;
+  pageSize:number = 25;
   countryInsightsList: CountryInsight[] = [];
   countryInsightsCount: number = 0;
   isSkeletonVisible: boolean = false;
-  data: any = {
+  countryData: any = {
     page: this.page,
     perpage: this.pageSize,
   };
@@ -44,7 +44,7 @@ export class CountryInsightsComponent implements OnInit {
 
   getList() {
     this.isSkeletonVisible = true;
-    this.educationtoolService.getCountryInsightsList(this.data).subscribe((response) => {
+    this.educationtoolService.getCountryInsightsList(this.countryData).subscribe((response) => {
       this.isSkeletonVisible = false;
       this.countryInsightsList = response.data;
       this.countryInsightsCount = response.count;
@@ -65,8 +65,8 @@ export class CountryInsightsComponent implements OnInit {
       this.authService.hasUserSubscription$.next(true);
       return;
     }
-    this.data.page = event.page + 1;
-    this.data.pageSize = event.rows;
+    this.countryData.page = event.page + 1;
+    this.countryData.pageSize = event.rows;
     this.getList();
   }
 

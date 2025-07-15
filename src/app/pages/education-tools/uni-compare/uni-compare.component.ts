@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
 import { CommonModule } from '@angular/common';
@@ -34,27 +33,19 @@ import { removeExtraResponse } from "../../prompt"
 })
 export class UniCompareComponent implements OnInit, OnDestroy {
   panelStyle: { width: string } = { width: '360px' };
-
-  universityCountryList: any[];
-  compareUniversityList: any[];
-  universityList: any = [];
-  specializationList: any = [];
-  compareSpecializationList: any = [];
+  universityCountryList: any[] = [];
+  compareUniversityList: any[] = [];
+  universityList: any[] = [];
+  specializationList: any[] = [];
+  compareSpecializationList: any[] = [];
   stayBackAfterGraduations: { name: string }[] = uniCompareOptions.stayBack;
   allUniversityList: any[] = [];
   isFromSavedData: boolean = false;
-  recommadationSavedQuestionList: any = [];
-  page = 1;
-  pageSize = 25;
-  first: number = 0;
+  recommadationSavedQuestionList: any[] = [];
   recommendRestrict: boolean = false;
   form: FormGroup = new FormGroup({});
   locationName: string = '';
   submitted: boolean = false;
-  data: any = {
-    page: this.page,
-    perpage: this.pageSize,
-  };
   countriesList: any;
   currenciesList: any;
   isRecommendationQuestion: boolean = true;
@@ -62,11 +53,31 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml = '';
   isResponseSkeleton: boolean = false;
-  
+  enableModule: boolean = true;
+  activePageIndex: number = 0;
+  recommendations: any[] = [
+    {
+      id: 1,
+      question: {
+        heading: 'University Details',
+        branches: ['Which country are you planning to study in?', 'Which university are you applying to?', 'What is your chosen specialization or field of study?']
+      },
+    },
+    {
+      id: 2,
+      question: {
+        heading: 'Addtional Details',
+        branches: ['What is the overall tuition fees per year for the selected course?', 'How many months of stayback are allowed after graduation?']
+      },
+    },
+  ];
+  invalidClass: boolean = false;
+  selectedData: { [key: string]: any } = {};
+  userInputs: any;
+
   constructor(
     private fb: FormBuilder,
     private educationToolService: EducationToolsService,
-    private locationService: LocationService,
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
@@ -93,9 +104,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
       period: ['', Validators.required],
       compare_period: ['', Validators.required],
     });
-    // this.form.get('compare_currency_code')?.disable();
-    // this.form.get('expense_currency_code')?.disable();
-    // this.form.get('compare_expense_currency_code')?.disable();
 
     this.form.controls['country'].valueChanges.subscribe(value => {
       if (value) {
@@ -120,34 +128,10 @@ export class UniCompareComponent implements OnInit, OnDestroy {
     })
   }
 
-  enableModule: boolean = true;
-  activePageIndex: number = 0;
-  recommendations: any = [
-    {
-      id: 1,
-      question: {
-        heading: 'University Details',
-        branches: ['Which country are you planning to study in?', 'Which university are you applying to?', 'What is your chosen specialization or field of study?']
-      },
-    },
-    {
-      id: 2,
-      question: {
-        heading: 'Addtional Details',
-        branches: ['What is the overall tuition fees per year for the selected course?', 'How many months of stayback are allowed after graduation?']
-      },
-    },
-  ];
-  invalidClass: boolean = false;
-  selectedData: { [key: string]: any } = {};
-  userInputs: any;
-
   ngOnInit(): void {
     this.updatePanelStyle();
     window.addEventListener('resize', this.updatePanelStyle);
-
     this.getCountryandSpecilizationList();
-    
   }
 
   getAndSetCourseNameList(universityId: number, mode: string) {
@@ -158,7 +142,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
         } else if (mode == "compare_university") {
           this.compareSpecializationList = response;
         }
-
       }
     })
   }
@@ -191,7 +174,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
         this.universityCountryList = response;
       }
     });
-
     this.educationToolService.getCurrencies().subscribe(data => {
       this.currenciesList = data;
     });
@@ -206,8 +188,8 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   getRecommendation() {
-    if(this.authService._creditCount === 0){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+    if (this.authService._creditCount === 0) {
+      this.toast.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
       this.router.navigateByUrl('/pages/export-credit')
       return;
     }

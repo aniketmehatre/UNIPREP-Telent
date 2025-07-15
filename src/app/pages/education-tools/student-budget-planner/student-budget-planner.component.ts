@@ -31,7 +31,9 @@ import { removeExtraResponse } from "../../prompt"
   templateUrl: './student-budget-planner.component.html',
   styleUrls: ['./student-budget-planner.component.scss'],
   standalone: true,
-  imports: [CommonModule, InputTextModule, InputGroupModule, InputGroupAddonModule, SelectModule, FormsModule, ReactiveFormsModule, ButtonModule, SkeletonModule, CarouselModule, PaginatorModule, FluidModule, DialogModule, MultiSelectModule, CardModule, RouterModule, TooltipModule, InputIconModule, SharedModule]
+  imports: [CommonModule, InputTextModule, InputGroupModule, InputGroupAddonModule, SelectModule, FormsModule, ReactiveFormsModule,
+    ButtonModule, SkeletonModule, CarouselModule, PaginatorModule, FluidModule, DialogModule, MultiSelectModule, CardModule,
+    RouterModule, TooltipModule, InputIconModule, SharedModule]
 })
 export class StudentBudgetPlannerComponent implements OnInit {
 
@@ -45,15 +47,13 @@ export class StudentBudgetPlannerComponent implements OnInit {
     private pageFacade: PageFacadeService,
     private authService: AuthService
   ) { }
+
   recommendations: { id: number, question: string }[] = [
-    {
-      id: 1, question: 'Student Information'
-    }
+    { id: 1, question: 'Student Information' }
   ];
   activePageIndex: number = 0;
   countriesList: AllCountryRes[] = [];
   allUniversityList: UniversityRes[] = [];
-  currencyList: CurrencyList[] = [];
   universityList: any[] = [];
   recommendationData: SafeHtml;
   isRecommendation: boolean = true;
@@ -73,9 +73,7 @@ export class StudentBudgetPlannerComponent implements OnInit {
     mode: 'student_budget_planner',
   }
   selectedData: any = { ...this.selectedDataArray }
-  
   userInputs: any;
-
   courseDurationList: { value: string }[] = [
     { value: '6 Months' },
     { value: '12 Months' },
@@ -88,7 +86,6 @@ export class StudentBudgetPlannerComponent implements OnInit {
     { value: '54 Months' },
     { value: '60 Months' },
   ];
-
   stayBackList: any[] = [
     { value: 'Upto 6 Months' },
     { value: 'Upto 12 Months' },
@@ -106,7 +103,6 @@ export class StudentBudgetPlannerComponent implements OnInit {
 
   ngOnInit(): void {
     this.dropdownValues();
-    
   }
 
   dropdownValues() {
@@ -170,14 +166,14 @@ export class StudentBudgetPlannerComponent implements OnInit {
       return;
     }
     let fillables: any = ['country', 'university', 'course_duration', 'stay_back', 'tution'];
-    
+
     fillables.forEach((element: any) => {
       console.log(this.selectedData[element], element);
       if (!this.selectedData[element] || this.selectedData[element] === '') {
         this.notfilledArray.push(element);
       }
     });
-    if(this.notfilledArray.length){
+    if (this.notfilledArray.length) {
       return;
     }
     this.isOldResponse = true;
