@@ -50,6 +50,18 @@ export class CompleteProfileViewComponent implements OnInit {
     }
   }
 
+  getStudentDetails(id: string) {
+    this.talentConnectService.getStudentProfilesUsingId(id).subscribe({
+      next: response => {
+        this.profileData = response.data[0];
+      },
+      error: error => {
+        this.message.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong' });
+        this.router.navigateByUrl('/pages/talent-connect/my-profile');
+      }
+    });
+  }
+  
   extractFileName(url: string): string {
     if (!url) return '';
     let fileName = url.split('/').pop() || '';
@@ -58,22 +70,6 @@ export class CompleteProfileViewComponent implements OnInit {
 
   hasNoCertificationFiles(): boolean {
     return !this.profileData?.certifications?.some(cert => cert.file_name);
-  }
-
-  getStudentDetails(id: string) {
-    this.talentConnectService.getStudentProfilesUsingId(id).subscribe({
-      next: response => {
-        this.profileData = response.data[0];
-      },
-      error: error => {
-        this.message.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Something went wrong'
-        });
-        this.router.navigateByUrl('/pages/talent-connect/my-profile');
-      }
-    });
   }
 
   getProficiencyRating(proficiency: string) {
@@ -127,4 +123,10 @@ export class CompleteProfileViewComponent implements OnInit {
     return iconList[icon] || '';
   }
 
+  getArraytoStringData(data: string[]): string {
+    if (!data || data.length === 0) {
+      return 'Not specified';
+    }
+    return data.length > 1 ? `${data[0]} +${data.length - 1}` : data[0];
+  }
 }

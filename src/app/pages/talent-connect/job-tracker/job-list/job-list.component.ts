@@ -17,17 +17,8 @@ import { LocationService } from 'src/app/location.service';
   templateUrl: './job-list.component.html',
   styleUrls: ['./job-list.component.scss'],
   standalone: true,
-  imports: [
-    TabsModule,
-    TabViewModule,
-    PaginatorModule,
-    CommonModule,
-    SelectModule,
-    MultiSelectModule,
-    InputNumberModule,
-    DialogModule,
-    ReactiveFormsModule,
-    ButtonModule
+  imports: [TabsModule, TabViewModule, PaginatorModule, CommonModule, SelectModule, MultiSelectModule, InputNumberModule,
+    DialogModule, ReactiveFormsModule, ButtonModule
   ]
 })
 export class JobListComponent implements OnInit {
@@ -53,17 +44,14 @@ export class JobListComponent implements OnInit {
   currencies: any[] = [];
   countries: any[] = [];
   jobStatusList: any[] = [];
-  tabs = [
-    { label: 'All Jobs', active: true }
-  ];
+  tabs = [{ label: 'All Jobs', active: true }];
   hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'Future_Hiring', name: 'Future Hiring' }];
   hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' }, { id: 3, name: 'Campus Hire' }];
   filterForm: FormGroup = new FormGroup({});
-  
-  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder, private locationService: LocationService) { 
-    
-  }
 
+  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder, private locationService: LocationService) {
+
+  }
 
   ngOnInit(): void {
     this.initializeForm();

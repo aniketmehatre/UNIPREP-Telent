@@ -29,39 +29,36 @@ export enum FileType {
   styleUrl: "./employee-profile.component.scss",
 })
 export class EmployeeProfileComponent implements OnInit, OnDestroy {
-  @ViewChild("fileUploadImage") fileInput: ElementRef
-  @ViewChild("header", { static: true }) headerTemplate!: TemplateRef<any>
+  @ViewChild("fileUploadImage") fileInput: ElementRef;
+  @ViewChild("header", { static: true }) headerTemplate!: TemplateRef<any>;
   today: Date = new Date();
-  nationalityList: any = [];
-  isLoadingAiSummary = false;
-  haveErrorWhileAddExp: boolean = false;
-  selectedSocialMedias: string[] = []
-  isShowCreatedSuccessfullyPopup = false
-  isShowAiEvaluation = false
-  visible: boolean = false
+  nationalityList: any[] = [];
+  isLoadingAiSummary: boolean = false;
+  selectedSocialMedias: string[] = [];
+  isShowCreatedSuccessfullyPopup: boolean = false;
+  isShowAiEvaluation: boolean = false;
+  visible: boolean = false;
   aiEvaluationContent: SafeHtml;
   hoverMessages = HOVER_MESSAGES;
-  defaultMessage = "Hi, I am here to help you";
-  recommendationMessage = "To maximize your chances of being hired, it is crucial to implement all the recommendations provided in this evaluation.";
-  currentMessage = "Hi, I am here to help you";
-
-  languageProficiency!: any
-  updateArrayIds!: any
-  originalProfileData: any
-  profileData: any
-  fileType = FileType
-  profileCompletion = 0
-  profileScore = 0
-  ref: DynamicDialogRef | undefined
-  logo: any
-  uploadedFiles: { [key: string]: File } = {}
-  profileId: number | null = null
+  defaultMessage: string = "Hi, I am here to help you";
+  recommendationMessage: string = "To maximize your chances of being hired, it is crucial to implement all the recommendations provided in this evaluation.";
+  currentMessage: string = "Hi, I am here to help you";
+  languageProficiency!: any;
+  originalProfileData: any;
+  profileData: any;
+  fileType = FileType;
+  profileCompletion: number = 0;
+  profileScore: number = 0;
+  ref: DynamicDialogRef | undefined;
+  logo: any;
+  uploadedFiles: { [key: string]: File } = {};
+  profileId: number | null = null;
 
   // Dropdown options
-  preferredEmploymentType: any = []
-  preferredWorkplaceType: any = []
-  careerStatus: any = []
-  totalYearExperienceList: any = []
+  preferredEmploymentType: any[] = [];
+  preferredWorkplaceType: any[] = [];
+  careerStatus: any[] = []
+  totalYearExperienceList: any[] = []
   genderOptions: any[] = []
   graduationYears: any[] = []
   currencies: any[] = []
@@ -76,13 +73,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   socialMedias: any[] = ["Facebook", "Instagram", "X"]
   preferredLocationsList: any[] = []
   totalDurations: { years: number, months: number }[] = [];
-  aiSummaryScreen = false
+  aiSummaryScreen: boolean = false;
   qualificationList: any[] = [];
-  disableIfBachelorSelected: number[] = [2, 3, 4, 5];
-  disableIfMasterSelected: number[] = [3, 5];
-  disableIfPostgraduateSelected: number[] = [4, 5];
-  disableIfDoctorateSelected: number[] = [5];
-  graduationYearList: any[] = []
+  graduationYearList: any[] = [];
   careerInterests: any[] = [];
   departmentList: any[] = [];
   profileDetail!: EmployeeConnectProfile;
@@ -129,6 +122,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   profileCreationId: number = 0;
   isUpdatedProfile: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private dialogService: DialogService,
@@ -380,6 +374,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   removeEducation(index: number): void {
     this.removeFormArrayItem(this.educationDetails, index, true)
   }
+
   removeWorkExperience(index: number): void {
     // this.removeFormArrayItem(this.workExperience, index, false, FileType.EXPERIENCE_LETTER)
     this.removeFormArrayItem(this.workExperience, index, false, FileType.EXPERIENCE_LETTER);
@@ -393,23 +388,23 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.updateTotalWorkExperience();
   }
   removeLanguage(index: number): void {
-    this.removeFormArrayItem(this.languages, index, true)
+    this.removeFormArrayItem(this.languages, index, true);
   }
   removeSocialMedia(index: number, value: string): void {
-    this.removeFormArrayItem(this.socialMedia, index, false)
+    this.removeFormArrayItem(this.socialMedia, index, false);
     this.removeSelectedSocialMedia(value)
   }
   removeAcademicReference(index: number): void {
-    this.removeFormArrayItem(this.academicReferences, index, false)
+    this.removeFormArrayItem(this.academicReferences, index, false);
   }
   removeProfessionalReference(index: number): void {
-    this.removeFormArrayItem(this.professionalReferences, index, false)
+    this.removeFormArrayItem(this.professionalReferences, index, false);
   }
   removeCertification(index: number): void {
-    this.removeFormArrayItem(this.certifications, index, false, FileType.CERTIFICATIONS)
+    this.removeFormArrayItem(this.certifications, index, false, FileType.CERTIFICATIONS);
   }
   removeAchievement(index: number): void {
-    this.removeFormArrayItem(this.achievements, index, false, FileType.ACHIEVEMENTS)
+    this.removeFormArrayItem(this.achievements, index, false, FileType.ACHIEVEMENTS);
   }
 
   uploadFile(type: FileType, event: any, index: number) {
@@ -423,11 +418,11 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         return;
       }
     }
-    else{
+    else {
       const maxSizeInMB = 5;
       const isUnderSizeLimit = file.size <= maxSizeInMB * 1024 * 1024;
       if (!isUnderSizeLimit) {
-        this.toastService.add({ severity: "error", summary: "Error", detail: type +" must be less than 5MB." });
+        this.toastService.add({ severity: "error", summary: "Error", detail: type + " must be less than 5MB." });
         return;
       }
     }
@@ -478,15 +473,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onRemovePhoto() {
-    this.logo = null
-    delete this.uploadedFiles["profile_image"]
-    this.fileInput.nativeElement.value = ""
+    this.logo = null;
+    delete this.uploadedFiles["profile_image"];
+    this.fileInput.nativeElement.value = "";
     this.personalInformationForm.get("profile_image")?.setValue("");
-
   }
 
   removeCV() {
-    delete this.uploadedFiles["CV"]
+    delete this.uploadedFiles["CV"];
     this.attachmentsForm.get("career_preference_cv_filename")?.setValue("");
   }
 
@@ -498,9 +492,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     return `${year}-${month}-${day}`;
   }
 
-
   openVideoPopup() {
-    this.pageFacade.openHowitWorksVideoPopup("company-connect")
+    this.pageFacade.openHowitWorksVideoPopup("company-connect");
   }
 
   openProfileDialog(isSample: boolean) {
@@ -536,7 +529,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     })
   }
 
-  calculateProfileCompletion(): any {
+  calculateProfileCompletion() {
     const totalWeight = 100
     let filledWeight = 0
 
@@ -652,7 +645,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         }
       })
     }
-
     this.profileCompletion = Math.round((filledWeight / totalWeight) * 100)
   }
 
@@ -704,7 +696,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           const responses = response.data[(response?.data).length - 1]
           this.profileDetail = responses;
           this.profileId = responses?.id
-          this.patchFormData(responses)
+          this.patchFormData(responses);
           this.profileCreationId = responses?.id;
           this.isUpdatedProfile = responses?.profile_completion_flag ? true : false;
         }
@@ -959,15 +951,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     return fileName
   }
 
-  disableFieldsWhenClickFresher(controls: AbstractControl, isFresher: boolean) {
-    if (isFresher) {
-      controls?.disable()
-      controls.get("years_of_experience")?.enable()
-    } else {
-      controls?.enable()
-    }
-  }
-
   routingToPage(pageUrl: string) {
     const url = window.location.origin + pageUrl;
     window.open(url, "_blank");
@@ -1014,23 +997,23 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  changeSocialMedia(value: string) {
-    this.selectedSocialMedias = this.socialMedia.controls
-      .map((control) => control.get("networking_social_media")?.value)
-      .filter((value) => value !== null && value !== undefined)
-  }
-
   focusInput(input: HTMLInputElement) {
     setTimeout(() => {
       input.focus()
     }, 0)
   }
 
+  changeSocialMedia(value: string) {
+    this.selectedSocialMedias = this.socialMedia.controls
+      .map((control) => control.get("networking_social_media")?.value)
+      .filter((value) => value !== null && value !== undefined)
+  }
+
   removeSelectedSocialMedia(value: string) {
     this.selectedSocialMedias = this.selectedSocialMedias.filter((item) => item !== value)
   }
 
-  isDisabled = (socialMedia: string): boolean => {
+  isDisabledSocialMedia = (socialMedia: string): boolean => {
     return this.selectedSocialMedias.includes(socialMedia)
   }
 
@@ -1119,12 +1102,12 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   getWordCountUsingControl(control: FormControl) {
-    let wordCount = 0
+    let wordCount = 0;
     if (control.value) {
-      const words = control.value.replace(/<\/?[^>]+(>|$)/g, "").match(/\b\w+\b/g) || []
-      wordCount = words.length
+      const words = control.value.replace(/<\/?[^>]+(>|$)/g, "").match(/\b\w+\b/g) || [];
+      wordCount = words.length;
     }
-    return wordCount
+    return wordCount;
   }
 
   isNotEmptyHtml(value: string): boolean {
@@ -1136,57 +1119,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       val !== "<p>&nbsp;</p>" &&
       val.replace(/<[^>]*>/g, "").trim() !== ""
     )
-  }
-
-  parseExperienceRange(expString: string): { min: number, max: number } {
-    if (expString === 'Fresher') {
-      return { min: 0, max: 0 };
-    }
-
-    if (expString.includes('+')) {
-      const min = parseFloat(expString.replace('+', '').replace(' Years', ''));
-      return { min, max: Infinity };
-    }
-
-    if (expString.includes('-')) {
-      const parts = expString.replace(' Years', '').split('-');
-      return {
-        min: parseFloat(parts[0]),
-        max: parseFloat(parts[1])
-      };
-    }
-
-    const years = parseFloat(expString.replace(' Years', ''));
-    return { min: years, max: years };
-  }
-
-
-  calculateTotalExperience(): number {
-    let totalMonths = 0;
-
-    // Iterate through all work experience entries
-    this.workExperience.controls.forEach(control => {
-      const fromDate = control.get('work_experience_duration_from')?.value;
-      const toDate = control.get('work_experience_duration_to')?.value;
-
-      // Skip if either date is missing
-      if (fromDate && toDate) {
-        // Calculate months between the dates
-        const months = differenceInMonths(new Date(toDate), new Date(fromDate));
-        totalMonths += months;
-      }
-    });
-
-    // Convert total months to years with one decimal place
-    return parseFloat((totalMonths / 12).toFixed(1));
-  }
-
-  clearStoredFiles(): void {
-    Object.keys(sessionStorage).forEach(key => {
-      if (key.includes('FileType.')) {
-        sessionStorage.removeItem(key);
-      }
-    });
   }
 
   aiRePhraseSummary(mode: string, content: Record<string, any>, formControl: FormControl) {
@@ -1534,6 +1466,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
     return previousIndexValueList[this.activePageIndex] || '';
   }
+
   getNextIndexValue() {
     const nextIndexValueList: { [key: number]: string } = {
       0: "Eduation Details",
@@ -2104,6 +2037,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       professional_references: this.professionalReferences.value
     };
     return JSON.stringify(current) !== JSON.stringify(originalReferencesForm);
+  }
+
+  clearStoredFiles(): void {
+    Object.keys(sessionStorage).forEach(key => {
+      if (key.includes('FileType.')) {
+        sessionStorage.removeItem(key);
+      }
+    });
   }
 
   ngOnDestroy(): void {

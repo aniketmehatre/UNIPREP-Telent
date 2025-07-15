@@ -75,7 +75,7 @@ interface CareerPreference {
   notes: string | null;
   preferred_work_location: string[] | null;
   job_title: string | null;
-  career_interest_name: string | null;
+  career_interest_name: string[] | null;
   soft_skill_name: string | null;
   professional_strength: string | null;
 }
