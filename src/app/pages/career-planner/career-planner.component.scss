@@ -41,7 +41,7 @@
 }
 
 .bg-primary {
-	background: var(--primary-500) !important;
+	background: var(--p-primary-500) !important;
 }
 
 .careerimage {
@@ -56,13 +56,13 @@
 }
 
 .subjectcard {
-	border: 1px solid var(--primary-500);
+	border: 1px solid var(--p-primary-500);
 }
 
 .inactiveButton {
 	background: transparent !important;
 	border: none !important;
-	color: var(--primary-500) !important;
+	color: var(--p-primary-500) !important;
 }
 
 // .container {

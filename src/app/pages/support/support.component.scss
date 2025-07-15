@@ -44,12 +44,12 @@
 
 .unibg-primary
 {
-  background-color: var(--primary-500);
+  background-color: var(--p-primary-500);
 }
 
 .unibg-primaryop10
 {
-  background-color: var(--primary-50);
+  background-color: var(--p-primary-50);
 }
 
 .card-style {
@@ -63,7 +63,7 @@
   }
 
   &:hover {
-    background-color: var(--primary-500);
+    background-color: var(--p-primary-500);
     color: var(--p-neutral-50);
 
     a {

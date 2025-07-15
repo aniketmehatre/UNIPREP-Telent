@@ -2,16 +2,16 @@
 [data-bs-theme="light"] {
 	--bs-primary-rgb: 63, 76, 131;
 	--bs-secondary-rgb: 240, 120, 14;
-	--bs-primary: var(--primary-500);
+	--bs-primary: var(--p-primary-500);
 	--bs-secondary: #f0780e;
-	--primary-500: var(--primary-500);
-	--primary-100: var(--primary-500) 25;
-	--primary-200: var(--primary-500) 5b;
-	--secondary-500: #f0780e;
-	--secondary-100: #f0780e25;
-	--secondary-200: #f0780e5b;
-	--primary-600: #4552a3;
-	--secondary-600: #f6895a;
+	--p-primary-500: var(--p-primary-500);
+	--p-primary-100: var(--p-primary-500) 25;
+	--p-primary-200: var(--p-primary-500) 5b;
+	--p-secondary-500: #f0780e;
+	--p-secondary-100: #f0780e25;
+	--p-secondary-200: #f0780e5b;
+	--p-primary-600: #4552a3;
+	--p-secondary-600: #f6895a;
 	--p-neutral-50: var(--p-neutral-50);
 }
 
@@ -84,7 +84,7 @@ body {
 // ::ng-deep ::-webkit-scrollbar-thumb {
 // 	border-radius: 8px !important;
 // 	-webkit-box-shadow: none !important;
-// 	background-color: var(--secondary-500) !important;
+// 	background-color: var(--p-secondary-500) !important;
 // }
 
 section {
@@ -228,8 +228,8 @@ p {
 	font-family: "Work Sans", sans-serif;
 }
 .btn-primary {
-	--bs-btn-bg: var(--primary-500);
-	--bs-btn-border-color: var(--primary-500);
+	--bs-btn-bg: var(--p-primary-500);
+	--bs-btn-border-color: var(--p-primary-500);
 }
 .footerbg
 {
@@ -262,7 +262,7 @@ p {
 	{
 		.card-title
 		{
-			color:var(--secondary-500);
+			color:var(--p-secondary-500);
 		}
 		.cardicon
 		{
@@ -302,7 +302,7 @@ p {
 		position: absolute;
 		opacity: 0.2;
 		line-height: 0;
-		color: var(--primary-500);
+		color: var(--p-primary-500);
 	}
 }
 
@@ -369,7 +369,7 @@ p {
     box-shadow: none;
     padding: 0.75rem 1rem;
     font-weight:600;
-    color:var(--primary-500);
+    color:var(--p-primary-500);
 	background:none;
 	padding-left: 0;
 }
@@ -399,7 +399,7 @@ p {
 .faqcard .accordion-button:not(.collapsed) {
 	background: #18181D;
 	border-radius: 10px;
-	color: var(--primary-500);
+	color: var(--p-primary-500);
 	border:none;
 }
 
@@ -583,7 +583,7 @@ p {
 }
 
 .comparision-card-uniprep hr {
-	border-top: 1px solid var(--primary-500);
+	border-top: 1px solid var(--p-primary-500);
 	opacity: 1;
 }
 

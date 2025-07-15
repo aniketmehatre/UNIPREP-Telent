@@ -11,7 +11,7 @@
       }
 
       .cls-3 {
-        fill: var(--primary-500);
+        fill: var(--p-primary-500);
       }
     </style>
     <clipPath id="clippath">

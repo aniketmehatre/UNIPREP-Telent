@@ -6,11 +6,11 @@
 }
 
 .universityicon {
-	color: var(--secondary-500);
+	color: var(--p-secondary-500);
 }
 
 .primary-color {
-	color: var(--primary-500);
+	color: var(--p-primary-500);
 }
 
 .popup-header {
@@ -55,7 +55,7 @@
 
 	.card-header {
 		font-size: large;
-		color: var(--primary-500);
+		color: var(--p-primary-500);
 		font-weight: 700;
 		text-align: center;
 		background: #ebedf2;
@@ -80,7 +80,7 @@
 
 .quesHeading {
 	font-size: x-large;
-	color: var(--primary-500);
+	color: var(--p-primary-500);
 	font-weight: 700;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .questioncard:hover {
-	border: 1px solid var(--secondary-500);
+	border: 1px solid var(--p-secondary-500);
 }
 
 .questioncard::after {
@@ -106,7 +106,7 @@
 	right: 13px;
 	opacity: 0;
 	transition: opacity 0.3sease-in-out, transform 0.3sease-in-out;
-	background-color: var(--secondary-500);
+	background-color: var(--p-secondary-500);
 	border-radius: 0.5rem;
 	width: 30px;
 }
@@ -120,7 +120,7 @@
 .questioncard {
 	// border: 1px solid #ececec;
 	padding: 0;
-	border: 1px solid var(--secondary-500);
+	border: 1px solid var(--p-secondary-500);
 
 	.homecountry {
 		width: 25px;
@@ -276,7 +276,7 @@
 	width: 80px;
 	min-height: 40px;
 	border-radius: 8px;
-	background-color: var(--secondary-500);
+	background-color: var(--p-secondary-500);
 	color: white;
 	display: flex;
 	align-items: center;
@@ -288,7 +288,7 @@
 	width: 90px;
 	min-height: 40px;
 	border-radius: 8px;
-	background-color: var(--primary-500);
+	background-color: var(--p-primary-500);
 	color: white;
 	display: flex;
 	align-items: center;

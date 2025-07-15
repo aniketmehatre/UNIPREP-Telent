@@ -149,21 +149,21 @@
     </div>
     <div class="row mt-3 mt-1">
       <button pButton class="ps-3 pe-3 pt-2 pb-2" pButton type="submit"
-        style="background-color: var(--primary-500); border-radius: 8px; border: aliceblue; color: var(--p-neutral-50)"
+        style="background-color: var(--p-primary-500); border-radius: 8px; border: aliceblue; color: var(--p-neutral-50)"
         label="SUBMIT"></button>
     </div>
   </form>
 </p-popover>
 <p-dialog [visible]="visibility" [closable]="false" [modal]="true">
   <div
-    style="background: var(--primary-500) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer"
+    style="background: var(--p-primary-500) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer"
     (click)="visibility = !visibility">
     <i style="color: var(--p-neutral-50)" class="fa fa-close"></i>
   </div>
   <div class="row mt-1">
     <div class="col-2" style="margin: auto; padding: 1.5rem">
       <span
-        style="color: white; text-align: center; vertical-align: middle; background-color: var(--primary-500); border-radius: 50%"><i
+        style="color: white; text-align: center; vertical-align: middle; background-color: var(--p-primary-500); border-radius: 50%"><i
           style="height: 20px; width: 20px" class="fa fa-info"></i></span>
     </div>
     <div class="col-10 mb-4" style="margin: auto; padding: 1rem">
@@ -173,14 +173,14 @@
 </p-dialog>
 <p-dialog [visible]="creditspopupVisibility" [closable]="false" [modal]="true" [style]="{ width: '20vw' }">
   <div
-    style="background: var(--primary-500) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer"
+    style="background: var(--p-primary-500) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer"
     (click)="creditspopupVisibility = !creditspopupVisibility">
     <i style="color: var(--p-neutral-50)" class="fa fa-close"></i>
   </div>
   <div class="row mt-1">
     <div class="col-2" style="margin: auto; padding: 1.5rem">
       <span
-        style="color: white; text-align: center; vertical-align: middle; background-color: var(--secondary-500); border-radius: 50%"><i
+        style="color: white; text-align: center; vertical-align: middle; background-color: var(--p-secondary-500); border-radius: 50%"><i
           style="height: 20px; width: 20px" class="fa fa-info"></i></span>
     </div>
     <div class="col-10" style="margin: auto; padding: 1rem">Your question credits are exhausted! Additional credits will

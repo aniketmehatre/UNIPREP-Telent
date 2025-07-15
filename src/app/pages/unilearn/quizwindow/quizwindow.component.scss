@@ -1,5 +1,5 @@
 .subjectcard {
-	border: 1px solid var(--secondary-500);
+	border: 1px solid var(--p-secondary-500);
 	width: 100%;
 	margin: 10px 0px;
 
@@ -24,13 +24,13 @@
 		}
 	}
 	&:focus {
-		background-color: var(--primary-50);
-		border: 1px solid var(--primary-500);
+		background-color: var(--p-primary-50);
+		border: 1px solid var(--p-primary-500);
 	}
 
 	&:hover {
-		background-color: var(--primary-50);
-		border: 1px solid var(--primary-500);
+		background-color: var(--p-primary-50);
+		border: 1px solid var(--p-primary-500);
 	}
 }
 .subjecttitle {
@@ -55,7 +55,7 @@
 	border-radius: 2rem;
 }
 .intermediatetimespan {
-	background: var(--secondary-500);
+	background: var(--p-secondary-500);
 	color: white;
 	border-radius: 2rem;
 }
@@ -66,7 +66,7 @@
 }
 .btn-primary .btn-customicon {
 	border-radius: 100px;
-	background-color: var(--primary-400);
+	background-color: var(--p-primary-400);
 	width: 25px;
 	height: 25px;
 	display: flex;
@@ -74,11 +74,11 @@
 	align-items: center;
 }
 .btn-previous {
-	background-color: var(--primary-900) !important;
+	background-color: var(--p-primary-900) !important;
 }
 .btn-primary .btn-custompreviousicon {
 	border-radius: 100px;
-	background-color: var(--primary-1000);
+	background-color: var(--p-primary-1000);
 	width: 25px;
 	height: 25px;
 	display: flex;
@@ -99,14 +99,14 @@
 	align-items: center;
 }
 .outline-primary {
-	border-color: var(--primary-500) !important;
-	color: var(--primary-500) !important;
+	border-color: var(--p-primary-500) !important;
+	color: var(--p-primary-500) !important;
 	&:hover {
 		background-color: transparent !important;
 	}
 }
 .customactive {
-	background-color: var(--primary-500) !important;
+	background-color: var(--p-primary-500) !important;
 	color: white !important;
 }
 .quizinfo {
@@ -119,7 +119,7 @@
 		flex-direction: row;
 		width: 100%;
 		.mat-slider-thumb {
-			background-color: var(--secondary-500);
+			background-color: var(--p-secondary-500);
 		}
 		.mat-slider-track-wrapper {
 			height: 5px !important;
@@ -134,7 +134,7 @@
 			right: 8px !important;
 		}
 		.mat-slider-track-fill {
-			background-color: var(--primary-500);
+			background-color: var(--p-primary-500);
 			height: 5px !important;
 		}
 		mat-icon {

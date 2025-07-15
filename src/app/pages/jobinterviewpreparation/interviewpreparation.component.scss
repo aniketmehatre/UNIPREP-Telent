@@ -3,7 +3,7 @@
 }
 
 .industryicon {
-  color: var(--secondary-500);
+  color: var(--p-secondary-500);
 }
 
 .locationicon {
@@ -15,8 +15,8 @@
 }
 
 ::ng-deep .p-datatable th {
-  background-color: var(--primary-600) !important;
-  border-right: 1px solid var(--primary-200);
+  background-color: var(--p-primary-600) !important;
+  border-right: 1px solid var(--p-primary-200);
 }
 
 :host ::ng-deep .p-paginator .p-select-panel {
@@ -29,12 +29,12 @@
 }
 
 ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
-  border: 1px solid var(--primary-50);
+  border: 1px solid var(--p-primary-50);
 }
 
 ::ng-deep .p-datatable a {
   text-decoration: none;
-  color: var(--primary-600);
+  color: var(--p-primary-600);
 }
 
 .card-container {
@@ -52,16 +52,16 @@
 }
 
 .card1:hover {
-  border: 3px solid var(--primary-500);
+  border: 3px solid var(--p-primary-500);
 }
 
 .resterbutton {
   background-color: var(--p-neutral-50);
-  color: var(--primary-500);
+  color: var(--p-primary-500);
 }
 
 .resterbutton:hover {
-  background-color: var(--primary-500);
+  background-color: var(--p-primary-500);
   color: var(--p-neutral-50);
 }
 
@@ -76,7 +76,7 @@
 }
 
 .eventcard:hover {
-  border: 1px solid var(--primary-500);
+  border: 1px solid var(--p-primary-500);
 }
 
 .eventcard .event-top {
@@ -90,7 +90,7 @@
 }
 
 .theme-blue {
-  border: 1px solid var(--primary-500) !important;
+  border: 1px solid var(--p-primary-500) !important;
 }
 
 .mobile {
@@ -305,11 +305,11 @@
 }
 
 .universityicon {
-  color: var(--secondary-500);
+  color: var(--p-secondary-500);
 }
 
 .primary-color {
-  color: var(--primary-500);
+  color: var(--p-primary-500);
 }
 
 :host
@@ -406,7 +406,7 @@
 .dropdown-list {
   overflow-y: auto;
   position: absolute;
-  border: 1px solid var(--secondary-500);
+  border: 1px solid var(--p-secondary-500);
   list-style: none;
   padding: 0.25rem;
   border-radius: 20px;

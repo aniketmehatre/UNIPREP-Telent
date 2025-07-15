@@ -1,5 +1,5 @@
 .editcard {
-  border: 1px solid var(--primary-500);
+  border: 1px solid var(--p-primary-500);
   height: 100%;
   width: 100%;
   border-radius: 0.35rem;
@@ -34,8 +34,8 @@
 }
 
 hr.borderline {
-  border-top: 5px solid var(--primary-500);
-  background-color: var(--primary-500);
+  border-top: 5px solid var(--p-primary-500);
+  background-color: var(--p-primary-500);
   width: 97%;
   margin: 10px
 }
@@ -76,11 +76,11 @@ hr.borderline {
 }
 
 .label {
-  color: var(--primary-500);
+  color: var(--p-primary-500);
 }
 
 .btncolor {
-  background-color: var(--primary-500);
+  background-color: var(--p-primary-500);
   color: white;
   margin-right: 0px;
   border: none;
@@ -88,7 +88,7 @@ hr.borderline {
 }
 
 .btncolor2 {
-  background-color: var(--primary-500);
+  background-color: var(--p-primary-500);
   color: white;
   margin-right: 0px;
   border: none;

@@ -1,13 +1,13 @@
 .startupkitcard {
-  border: 1px solid var(--primary-500);
+  border: 1px solid var(--p-primary-500);
   &:hover {
-    background: var(--primary-50);
+    background: var(--p-primary-50);
   }
 }
 
 .searchinput {
   background: transparent;
-  border: 1px solid #dfe4f8;
+  border: 1px solid var(--p-primary-100);
   height: 50px;
   border-radius: 12px;
 }

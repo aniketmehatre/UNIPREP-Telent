@@ -75,10 +75,10 @@
     border-radius: 10px;
     font-weight: bold;
     background-color: white;
-    color: var(--primary-500);
+    color: var(--p-primary-500);
     &:hover, &:active, &:focus {
       color: white;
-      background-color: var(--primary-500);
+      background-color: var(--p-primary-500);
     }
   }
   button.p-button-primary {
@@ -90,19 +90,19 @@
     border-color: #3f51b5;
   }
   .active-button {
-    background-color: var(--primary-500); /* Change to your primary color */
+    background-color: var(--p-primary-500); /* Change to your primary color */
     color: white;
-    border: 2px solid var(--primary-500);
+    border: 2px solid var(--p-primary-500);
     font-weight: bold;
   }
 
   .card-inside {
-    border: 10px solid var(--secondary-500); /* Light orange border */
+    border: 10px solid var(--p-secondary-500); /* Light orange border */
     transition: all 0.3s ease-in-out;
   }
 
   .card-inside:hover {
-    background-color: var(--secondary-50);
+    background-color: var(--p-secondary-50);
     border: 0px 2px 6px rgba(244, 162, 97, 0.5); /* Soft orange shadow */
   }
 
@@ -147,14 +147,14 @@
     border-radius: 10px;
     font-weight: bold;
     background-color: white;
-    color: var(--primary-500);
+    color: var(--p-primary-500);
     &:hover, &:active, &:focus {
       color: white;
-      background-color: var(--primary-500);
+      background-color: var(--p-primary-500);
     }
   }
   button.p-button-primary {
-    background-color: var(--primary-500);
+    background-color: var(--p-primary-500);
   }
 
   .inActive-shortlist {
@@ -164,7 +164,7 @@
   }
 
   .active-shortlist {
-    background-color: var(--primary-500);
+    background-color: var(--p-primary-500);
     color: white;
     border-radius: 5px !important;
   }
@@ -236,8 +236,8 @@
     color: #4CAF50;
   }
   .active-button {
-    background-color: var(--primary-500); /* Change to your primary color */
+    background-color: var(--p-primary-500); /* Change to your primary color */
     color: white;
-    border: 2px solid var(--primary-500);
+    border: 2px solid var(--p-primary-500);
     font-weight: bold;
   }

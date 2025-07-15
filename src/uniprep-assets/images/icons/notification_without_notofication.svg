@@ -3,7 +3,7 @@
   <defs>
     <style>
       .cls-1 {
-        fill: var(--primary-500);
+        fill: var(--p-primary-500);
         opacity: .28;
       }
 

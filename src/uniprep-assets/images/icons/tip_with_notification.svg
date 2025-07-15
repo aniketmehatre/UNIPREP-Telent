@@ -7,7 +7,7 @@
       }
 
       .cls-1, .cls-2 {
-        fill: var(--primary-500);
+        fill: var(--p-primary-500);
       }
 
       .cls-3 {

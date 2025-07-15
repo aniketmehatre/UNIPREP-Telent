@@ -80,7 +80,7 @@ export class ViewProfileComponent implements OnInit {
     // Set theme color based on profile type
     document.documentElement.style.setProperty(
       '--dynamic-heading-color',
-      this.isSample ? 'var(--secondary-500)' : 'var(--primary-500)'
+      this.isSample ? 'var(--p-secondary-500)' : 'var(--p-primary-500)'
     );
   }
 

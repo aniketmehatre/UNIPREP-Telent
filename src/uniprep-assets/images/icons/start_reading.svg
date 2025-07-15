@@ -22,7 +22,7 @@
     </style>
     <linearGradient id="linear-gradient" x1="-2541.49" y1="3936.39" x2="-2541.49" y2="3935.39" gradientTransform="translate(307581 476303) scale(121 -121)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#b5e331"/>
-      <stop offset="1" stop-color="var(--primary-500)"/>
+      <stop offset="1" stop-color="var(--p-primary-500)"/>
     </linearGradient>
   </defs>
   <g id="Group_6768" data-name="Group 6768">

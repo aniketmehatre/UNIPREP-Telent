@@ -69,7 +69,7 @@ small,
 
 // Text colors
 .text-orange {
-  color: var(--secondary-500) !important;
+  color: var(--p-secondary-500) !important;
 }
 
 // Background colors
@@ -100,7 +100,7 @@ small,
 
   &:hover {
     .card-title {
-      color: var(--secondary-500);
+      color: var(--p-secondary-500);
     }
 
     .cardicon {
@@ -273,7 +273,7 @@ video::-webkit-media-controls-panel {
 .down-arrow {
   font-size: 18px;
   color: white;
-  background-color: var(--secondary-500);
+  background-color: var(--p-secondary-500);
   padding: 0px 7px;
   border-radius: 50%;
 }
@@ -285,14 +285,14 @@ video::-webkit-media-controls-panel {
   width: 25px;
   height: 25px;
   background-color: var(--p-neutral-50);
-  border: 4px solid var(--secondary-500);
+  border: 4px solid var(--p-secondary-500);
   border-radius: 50%;
   z-index: 3;
   transition: background-color 0.3s ease;
 }
 
 .timeline-step-dot.filled {
-  background-color: var(--secondary-500);
+  background-color: var(--p-secondary-500);
 }
 
 .timeline-item {
@@ -357,7 +357,7 @@ html {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: var(--secondary-500);
+  background-color: var(--p-secondary-500);
   transition: height 0.3s ease-out;
   z-index: 2;
 }

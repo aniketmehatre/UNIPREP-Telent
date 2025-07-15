@@ -17,7 +17,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: var(--primary-50);
+	background-color: var(--p-primary-50);
 	border-radius: 100%;
 }
 .guidebutton {
@@ -39,7 +39,7 @@
 	font-weight: 600;
 }
 .replyfield {
-	background-color: var(--secondary-50);
+	background-color: var(--p-secondary-50);
 	padding: 0.5rem 1rem;
 	border-radius: 100px;
 	width: fit-content;
@@ -48,10 +48,10 @@
 	}
 }
 .chatbox {
-	border: 1px solid var(--primary-200);
+	border: 1px solid var(--p-primary-200);
 	border-radius: 100px;
 	.creditsbtn {
-		background-color: var(--secondary-50);
+		background-color: var(--p-secondary-50);
 		padding: 0.5rem;
 		.credits {
 			background: white;
@@ -103,13 +103,13 @@
 
 .datebadge
 {
-  background: var(--primary-50);
+  background: var(--p-primary-50);
   color: black;
   width: fit-content;
 }
 
 .creditsbtn {
-	background-color: var(--secondary-50);
+	background-color: var(--p-secondary-50);
 	padding: 0.5rem;
 	.credits {
 		background: white;

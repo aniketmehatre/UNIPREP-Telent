@@ -1,7 +1,7 @@
 .contributor-img-sec {
     width: 80px;
     height: 80px;
-    border: 1px solid #dfe4f8;
+    border: 1px solid var(--p-primary-100);
     border-radius: 50%;
     overflow: hidden;
 
@@ -13,7 +13,7 @@
 }
 
 .contributor-tag {
-    background: var(--primary-400);
+    background: var(--p-primary-400);
     color: var(--p-neutral-50);
     padding: 3px 10px;
     border-radius: 15px;
@@ -41,13 +41,13 @@
 }
 
 .questioncard {
-	border: 1px solid var(--primary-500);
+	border: 1px solid var(--p-primary-500);
 	padding: 0;
 }
 
 .answercard {
-	background-color: var(--primary-50);
-	border: 2px solid var(--primary-500);
+	background-color: var(--p-primary-50);
+	border: 2px solid var(--p-primary-500);
 	overflow-y: auto;
 }
 

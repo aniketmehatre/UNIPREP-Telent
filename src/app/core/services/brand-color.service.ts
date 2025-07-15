@@ -82,8 +82,8 @@ export class BrandColorService {
     const palette: { [key: string]: string } = {};
     stops.forEach(stop => {
       const color = scale(stop.t).hex();
-      root.style.setProperty(`--${prefix}-${stop.key}`, color);
-      palette[`${prefix}-${stop.key}`] = color;
+      root.style.setProperty(`--p-${prefix}-${stop.key}`, color);
+      palette[`p-${prefix}-${stop.key}`] = color;
     });
     return palette;
   }

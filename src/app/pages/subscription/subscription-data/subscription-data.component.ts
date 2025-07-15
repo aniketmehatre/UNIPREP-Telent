@@ -510,35 +510,35 @@ export class SubscriptionDataComponent implements OnInit {
 		// Button styles
 		button1Style = {
 			"background-color": "#FFFFFF",
-			border: "1px solid var(--primary-500)",
+			border: "1px solid var(--p-primary-500)",
 			color: "var(--p-neutral-950)",
 		}
 	
 		button2Style = {
 			"background-color": "#FFFFFF",
-			border: "1px solid var(--primary-500)",
+			border: "1px solid var(--p-primary-500)",
 			color: "var(--p-neutral-950)",
 		}
 		button3Style = {
 			"background-color": "#FFFFFF",
-			border: "1px solid var(--primary-500)",
+			border: "1px solid var(--p-primary-500)",
 			color: "var(--p-neutral-950)",
 		}
 	setActiveButton(buttonNumber: number): void {
 		this.button1Style = {
 			"background-color": "#FFFFFF",
-			border: "1px solid var(--primary-500)",
+			border: "1px solid var(--p-primary-500)",
 			color: "var(--p-neutral-950)",
 		}
 
 		this.button2Style = {
 			"background-color": "#FFFFFF",
-			border: "1px solid var(--primary-500)",
+			border: "1px solid var(--p-primary-500)",
 			color: "var(--p-neutral-950)",
 		}
 		this.button3Style = {
 			"background-color": "#FFFFFF",
-			border: "1px solid var(--primary-500)",
+			border: "1px solid var(--p-primary-500)",
 			color: "var(--p-neutral-950)",
 		}
 		this.couponTab = false
@@ -546,23 +546,23 @@ export class SubscriptionDataComponent implements OnInit {
 		if (buttonNumber === 1) {
 			this.activeButton = 1
 			this.button1Style = {
-				"background-color": "var(--primary-500)",
-				border: "1px solid var(--primary-500)",
+				"background-color": "var(--p-primary-500)",
+				border: "1px solid var(--p-primary-500)",
 				color: "#FFFFFF",
 			}
 			this.couponTab = true
 		} else if (buttonNumber === 2) {
 			this.activeButton = 2
 			this.button2Style = {
-				"background-color": "var(--primary-500)",
-				border: "1px solid var(--primary-500)",
+				"background-color": "var(--p-primary-500)",
+				border: "1px solid var(--p-primary-500)",
 				color: "#FFFFFF",
 			}
 		} else if (buttonNumber === 3) {
 			this.activeButton = 3
 			this.button3Style = {
-				"background-color": "var(--primary-500)",
-				border: "1px solid var(--primary-500)",
+				"background-color": "var(--p-primary-500)",
+				border: "1px solid var(--p-primary-500)",
 				color: "#FFFFFF",
 			}
 		}

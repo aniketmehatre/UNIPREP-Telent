@@ -16,7 +16,7 @@
     </style>
     <linearGradient id="linear-gradient" x1="-1442.78" y1="4744.11" x2="-1442.78" y2="4743.11" gradientTransform="translate(176080.5 175532) scale(122 -37)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#b5e331"/>
-      <stop offset="1" stop-color="var(--primary-500)"/>
+      <stop offset="1" stop-color="var(--p-primary-500)"/>
     </linearGradient>
   </defs>
   <rect id="Rectangle_17040" data-name="Rectangle 17040" class="cls-3" width="122" height="37" rx="11" ry="11"/>

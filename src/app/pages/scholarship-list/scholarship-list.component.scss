@@ -1,9 +1,9 @@
 .universityicon
 {
-  color:var(--secondary-500);
+  color:var(--p-secondary-500);
 }
 .primary-color{
-  color: var(--primary-500);
+  color: var(--p-primary-500);
 }
 
 .locationicon
@@ -56,18 +56,18 @@
 }
 
 .cube:hover {
-  border-color: var(--primary-500);
+  border-color: var(--p-primary-500);
 }
 
 .tickPlacement {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  color: var(--primary-500);
+  color: var(--p-primary-500);
 }
 
 .cube.selected {
-  border-color: 2px solid var(--primary-500);
+  border-color: 2px solid var(--p-primary-500);
 }
 
 :host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button {

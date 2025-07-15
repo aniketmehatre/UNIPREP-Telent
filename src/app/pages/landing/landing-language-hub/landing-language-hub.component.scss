@@ -11,7 +11,7 @@
 }
 
 .uniprep-secondary {
-	color: var(--secondary-500) !important;
+	color: var(--p-secondary-500) !important;
 }
 
 video::-webkit-media-controls-panel {
@@ -93,7 +93,7 @@ video::-webkit-media-controls-panel {
 	}
 	&:hover {
 		.card-title {
-			color: var(--secondary-500);
+			color: var(--p-secondary-500);
 		}
 		p {
 			color: white !important;
@@ -135,7 +135,7 @@ video::-webkit-media-controls-panel {
 .faqcard .accordion-button:not(.collapsed) {
 	background: #18181d;
 	border-radius: 10px;
-	color: var(--primary-500);
+	color: var(--p-primary-500);
 	border: none;
 }
 

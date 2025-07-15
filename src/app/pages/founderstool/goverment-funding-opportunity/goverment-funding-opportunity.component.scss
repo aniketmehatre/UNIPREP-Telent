@@ -1,13 +1,13 @@
 
 .primary-color{
-  color: var(--primary-500);
+  color: var(--p-primary-500);
 }
 
 .tickPlacement {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  color: var(--primary-500);
+  color: var(--p-primary-500);
 }
 
 :host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button {
@@ -45,7 +45,7 @@ input[type="checkbox"] {
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  border: 1px solid var(--secondary-500);
+  border: 1px solid var(--p-secondary-500);
 }
 
 .card:hover {
@@ -69,11 +69,11 @@ input[type="checkbox"] {
 
 /* Custom color for the selected card border */
 .border-primary {
-  border: 1px solid var(--secondary-500) !important;
+  border: 1px solid var(--p-secondary-500) !important;
   border-radius: 10px;
   &:hover {
     background-color: lightgrey;
-    border-color: var(--primary-500);
+    border-color: var(--p-primary-500);
   }
 }
 
