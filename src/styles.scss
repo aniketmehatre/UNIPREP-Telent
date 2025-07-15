@@ -11,44 +11,44 @@
 }
 
 :root {
-	--primary-50: #{$primary-50};
-	--primary-100: #{$primary-100};
-	--primary-200: #{$primary-200};
-	--primary-300: #{$primary-300};
-	--primary-400: #{$primary-400};
-	--primary-500: #{$primary-500};
-	--primary-600: #{$primary-600};
-	--primary-700: #{$primary-700};
-	--primary-800: #{$primary-800};
-	--primary-900: #{$primary-900};
-	--primary-1000: #{$primary-1000};
-	--secondary-50: #{$secondary-50};
-	--secondary-100: #{$secondary-100};
-	--secondary-200: #{$secondary-200};
-	--secondary-300: #{$secondary-300};
-	--secondary-400: #{$secondary-400};
-	--secondary-500: #{$secondary-500};
-	--secondary-600: #{$secondary-600};
-	--secondary-700: #{$secondary-700};
-	--secondary-800: #{$secondary-800};
-	--secondary-900: #{$secondary-900};
-	--secondary-1000: #{$secondary-1000};
-	--uniprep-white: #ffffff;
-	--uniprep-black: #000000;
-	--uniprep-lightgray: #b3b3b3;
-	--uniprep-gray: #f1f1f1;
-	--uniprep-darkgray: #636363;
-	--uniprep-lightgreen: #b7e044;
-	--uniprep-green: #9bc329;
-	--uniprep-darkgreen: #85ad18;
-	--uniprep-tealgreen: #07855e;
-	--uniprep-skyblue: #{$blue-400};
-	--uniprep-basil: #008762;
-	--uniprep-blue:#{$blue-500};
-	--uniprep-warning: #{$yellow-500};
-	--uniprep-danger: #{$red-500};
-	--uniprep-info: #{$blue-300};
-	--uniprep-success: #{$green-500};
+  --primary-50: #{$primary-50};
+  --primary-100: #{$primary-100};
+  --primary-200: #{$primary-200};
+  --primary-300: #{$primary-300};
+  --primary-400: #{$primary-400};
+  --primary-500: #{$primary-500};
+  --primary-600: #{$primary-600};
+  --primary-700: #{$primary-700};
+  --primary-800: #{$primary-800};
+  --primary-900: #{$primary-900};
+  --primary-1000: #{$primary-1000};
+  --secondary-50: #{$secondary-50};
+  --secondary-100: #{$secondary-100};
+  --secondary-200: #{$secondary-200};
+  --secondary-300: #{$secondary-300};
+  --secondary-400: #{$secondary-400};
+  --secondary-500: #{$secondary-500};
+  --secondary-600: #{$secondary-600};
+  --secondary-700: #{$secondary-700};
+  --secondary-800: #{$secondary-800};
+  --secondary-900: #{$secondary-900};
+  --secondary-1000: #{$secondary-1000};
+  --uniprep-white: #ffffff;
+  --uniprep-black: #000000;
+  --uniprep-lightgray: #b3b3b3;
+  --uniprep-gray: #f1f1f1;
+  --uniprep-darkgray: #636363;
+  --uniprep-lightgreen: #b7e044;
+  --uniprep-green: #9bc329;
+  --uniprep-darkgreen: #85ad18;
+  --uniprep-tealgreen: #07855e;
+  --uniprep-skyblue: #{$blue-400};
+  --uniprep-basil: #008762;
+  --uniprep-blue: #{$blue-500};
+  --uniprep-warning: #{$yellow-500};
+  --uniprep-danger: #{$red-500};
+  --uniprep-info: #{$blue-300};
+  --uniprep-success: #{$green-500};
   --neutral-50: #{$neutral-50};
   --neutral-100: #{$neutral-100};
   --neutral-200: #{$neutral-200};
@@ -57,11 +57,11 @@
   --neutral-500: #{$neutral-500};
   --neutral-600: #{$neutral-600};
   --neutral-700: #{$neutral-700};
-	scrollbar-face-color: var(--primary-500);
-	scrollbar-track-color: var(--primary-50);
-	scrollbar-color: var(--primary-500) var(--neutral-100);
-	scrollbar-width: auto;
-	--viewer-container-height: 0px !important;
+  scrollbar-face-color: var(--primary-500);
+  scrollbar-track-color: var(--primary-50);
+  scrollbar-color: var(--primary-500) var(--neutral-100);
+  scrollbar-width: auto;
+  --viewer-container-height: 0px !important;
   // ...repeat for all you need
 }
 
@@ -818,11 +818,11 @@ uni-subscription {
   @extend %btn-radius-10;
   border: 1px solid var(--primary-500);
 
-	&:disabled {
-		background-color: #343a40;
-		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
-		border-color: #343a40;
-	}
+  &:disabled {
+    background-color: #343a40;
+    background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
+    border-color: #343a40;
+  }
 
   &:hover {
     color: #fff !important;
@@ -841,11 +841,11 @@ uni-subscription {
   @extend %btn-radius-10;
   border: 1px solid var(--primary-500);
 
-	&:disabled {
-		background-color: #343a40;
-		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
-		border-color: #343a40;
-	}
+  &:disabled {
+    background-color: #343a40;
+    background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
+    border-color: #343a40;
+  }
 
   &:hover {
     color: var(--primary-500) !important;
@@ -869,7 +869,6 @@ uni-subscription {
   color: #fff !important;
   background: var(--secondary-500) !important;
   border-color: var(--secondary-500) !important;
-
 
   .btn-icon {
     width: 35px;
@@ -935,11 +934,11 @@ uni-subscription {
   @extend %btn-radius-10;
   border: 1px solid var(--uniprep-green) !important;
 
-	&:disabled {
-		background-color: #343a40;
-		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
-		border-color: #343a40;
-	}
+  &:disabled {
+    background-color: #343a40;
+    background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
+    border-color: #343a40;
+  }
 
   &:hover,
   &:focus {
@@ -1047,11 +1046,11 @@ uni-subscription {
   background: var(--uniprep-gray) !important;
   @extend %btn-radius-10;
 
-	&:disabled {
-		background-color: #343a40;
-		background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
-		border-color: #343a40;
-	}
+  &:disabled {
+    background-color: #343a40;
+    background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
+    border-color: #343a40;
+  }
 
   &:hover {
     color: var(--primary-900) !important;
@@ -1471,7 +1470,7 @@ uni-subscription {
 }
 
 .how-it-works-button {
-  background-color: var(--secondary-500);
+  background-color: var(--secondary-500) !important;
   color: white;
   padding: 5px;
   border-radius: 25px;
@@ -2281,23 +2280,23 @@ uni-talent-connect {
 }
 
 .btn-outline-secondary {
-	color: var(--secondary-500);
-	background: var(--uniprep-white);
-	border-radius: 10px;
-	border: 1px solid var(--secondary-500);
+  color: var(--secondary-500);
+  background: var(--uniprep-white);
+  border-radius: 10px;
+  border: 1px solid var(--secondary-500);
 
-	&:hover {
-		color: var(--uniprep-white);
-		background: var(--secondary-500);
-		border: 1px solid var(--secondary-500);
-	}
+  &:hover {
+    color: var(--uniprep-white);
+    background: var(--secondary-500);
+    border: 1px solid var(--secondary-500);
+  }
 
-	&:focus {
-		color: var(--uniprep-white);
-		background: var(--secondary-500);
-		box-shadow: 0 0 0 0.25rem var(--secondary-50);
-		border-color: var(--secondary-500);
-	}
+  &:focus {
+    color: var(--uniprep-white);
+    background: var(--secondary-500);
+    box-shadow: 0 0 0 0.25rem var(--secondary-50);
+    border-color: var(--secondary-500);
+  }
 }
 
 .p-selectbutton .p-button {
@@ -2308,10 +2307,10 @@ uni-talent-connect {
     font-weight: 600;
   }
 
-	&.p-highlight {
-		background: var(--primary-500);
-		border-color: var(--primary-500);
-		color: var(--uniprep-white);
+  &.p-highlight {
+    background: var(--primary-500);
+    border-color: var(--primary-500);
+    color: var(--uniprep-white);
 
     &:hover {
       background: var(--primary-600);
@@ -2643,26 +2642,26 @@ uni-global-employment-insights {
 }
 
 .socialShareBtn {
-	height: 38px;
-	width: 38px;
-	border-radius: 5px !important;
-	margin: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: var(--uniprep-black);
-	color: var(--uniprep-white);
+  height: 38px;
+  width: 38px;
+  border-radius: 5px !important;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--uniprep-black);
+  color: var(--uniprep-white);
 
-	&:hover {
-		background-color: var(--uniprep-black) !important;
-		color: var(--uniprep-white) !important;
-	}
+  &:hover {
+    background-color: var(--uniprep-black) !important;
+    color: var(--uniprep-white) !important;
+  }
 
-	&:focus,
-	&:active {
-		background-color: var(--uniprep-black) !important;
-		color: var(--uniprep-white) !important;
-	}
+  &:focus,
+  &:active {
+    background-color: var(--uniprep-black) !important;
+    color: var(--uniprep-white) !important;
+  }
 }
 
 .select-title {
@@ -2670,59 +2669,59 @@ uni-global-employment-insights {
 }
 
 .career-closeIcon {
-	height: 100%;
-	width: 50px;
-	min-height: 40px;
-	border-radius: 8px;
-	background-color: #1c1b17;
-	color: var(--uniprep-white);
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  height: 100%;
+  width: 50px;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: #1c1b17;
+  color: var(--uniprep-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .career-homeIcon {
-	height: 100%;
-	width: 80px;
-	min-height: 40px;
-	border-radius: 8px;
-	background-color: var(--secondary-500);
-	color: var(--uniprep-white);
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  height: 100%;
+  width: 80px;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: var(--secondary-500);
+  color: var(--uniprep-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .career-reportIcon {
-	height: 100%;
-	width: 90px;
-	min-height: 40px;
-	border-radius: 8px;
-	background-color: var(--primary-500);
-	color: var(--uniprep-white);
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  height: 100%;
+  width: 90px;
+  min-height: 40px;
+  border-radius: 8px;
+  background-color: var(--primary-500);
+  color: var(--uniprep-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ai-generate-btn {
-	height: 18px;
-	padding: 0px 4px 20px 4px;
-	font-size: 10px;
-	color: var(--uniprep-white) !important;
-	background: var(--uniprep-green);
-	border-radius: 10px !important;
-	border: 1px solid var(--uniprep-green);
+  height: 18px;
+  padding: 0px 4px 20px 4px;
+  font-size: 10px;
+  color: var(--uniprep-white) !important;
+  background: var(--uniprep-green);
+  border-radius: 10px !important;
+  border: 1px solid var(--uniprep-green);
 }
 
 .is-ai-bg-blue {
-	background-color: var(--uniprep-blue); /* Bootstrap primary */
-	color: var(--uniprep-white);
-	padding: 3px 10px;
-	border-radius: 12px;
-	font-size: 10px;
-	font-weight: 500;
-	white-space: nowrap;
+  background-color: var(--uniprep-blue); /* Bootstrap primary */
+  color: var(--uniprep-white);
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .is-ai-div {
@@ -2736,27 +2735,27 @@ uni-global-employment-insights {
 }
 
 .profile-content {
-	.profile-box {
-		border: 2px solid #f6d5af;
-		border-radius: 16px;
-		padding: 30px;
-		background-color: #fdf8f5;
-		max-width: 1100px;
-		margin: auto;
-	}
-	.header {
-		background: #1f3c88;
-		color: var(--uniprep-white);
-		padding: 15px 25px;
-		font-size: 1.2em;
-		font-weight: 600;
-	}
+  .profile-box {
+    border: 2px solid #f6d5af;
+    border-radius: 16px;
+    padding: 30px;
+    background-color: #fdf8f5;
+    max-width: 1100px;
+    margin: auto;
+  }
+  .header {
+    background: #1f3c88;
+    color: var(--uniprep-white);
+    padding: 15px 25px;
+    font-size: 1.2em;
+    font-weight: 600;
+  }
 
-	.label1 {
-		color: var(--secondary-500);
-		font-size: 30px;
-		font-weight: 600;
-	}
+  .label1 {
+    color: var(--secondary-500);
+    font-size: 30px;
+    font-weight: 600;
+  }
 
   .section {
     padding: 25px;
@@ -2767,12 +2766,12 @@ uni-global-employment-insights {
     border-bottom: none;
   }
 
-	.section-title {
-		font-size: 1.1em;
-		font-weight: 600;
-		margin-bottom: 15px;
-		color: var(--secondary-500);
-	}
+  .section-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--secondary-500);
+  }
 
   .highlight-box {
     background: #fefefe;
@@ -2842,116 +2841,116 @@ uni-global-employment-insights {
   }
 }
 .your_profile_ai_preview {
-	.container {
-		max-width: 800px;
-		margin: auto;
-		background: white;
-		border-radius: 12px;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-		overflow: hidden;
-	}
-	.profile-box {
-		border: 2px solid #f6d5af;
-		border-radius: 16px;
-		padding: 30px;
-		background-color: #fdf8f5;
-		max-width: 1100px;
-		margin: auto;
-	}
-	.header {
-		background: var(--primary-500);
-		color: var(--uniprep-white);
-		padding: 15px 25px;
-		font-size: 1.2em;
-		font-weight: 600;
-	}
-	.section {
-		padding: 25px;
-		border-bottom: 1px solid #e5e7eb;
-	}
-	.section:last-child {
-		border-bottom: none;
-	}
-	.section-title {
-		font-size: 1.1em;
-		font-weight: 600;
-		margin-bottom: 15px;
-		color: var(--secondary-500);
-	}
-	.highlight-box {
-		background: #fefefe;
-		border-radius: 10px;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-		padding: 15px;
-		margin-top: 10px;
-	}
-	.score-boxes {
-		display: flex;
-		justify-content: space-between;
-		margin-top: 20px;
-	}
-	.score-box {
-		text-align: center;
-		flex: 1;
-	}
-	.label1 {
-		color: var(--secondary-500);
-		font-size: 30px;
-		font-weight: 600;
-	}
-	.score-box span {
-		display: block;
-		font-size: 1.5em;
-		font-weight: 700;
-		color: var(--secondary-500);
-	}
-	ul {
-		list-style: none;
-		padding-left: 0;
-		margin-left: 0;
-	}
-	.tag {
-		display: inline-block;
-		padding: 6px 12px;
-		background: #fcd34d;
-		color: #78350f;
-		font-weight: 600;
-		border-radius: 20px;
-		margin-top: 8px;
-	}
-	.score-container {
-		display: flex;
-		justify-content: space-around;
-		text-align: center;
-	}
-	.label {
-		color: #3d3d5c;
-		font-size: 16px;
-		font-weight: 600;
-	}
-	.progress-container {
-		max-width: 700px;
-		margin: 0 auto;
-	}
-	.progress-label {
-		font-weight: bold;
-		color: var(--secondary-500);
-		margin-bottom: 6px;
-	}
-	.progress-bar {
-		background-color: #fef3e6;
-		border: 1px solid #f2b272;
-		border-radius: 999px;
-		height: 16px;
-		width: 100%;
-		overflow: hidden;
-	}
-	.progress-fill {
-		height: 100%;
-		width: 10%; /* Change this percentage to dynamically update the bar */
-		background-color: var(--secondary-500);
-		border-radius: 999px 0 0 999px;
-	}
+  .container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  .profile-box {
+    border: 2px solid #f6d5af;
+    border-radius: 16px;
+    padding: 30px;
+    background-color: #fdf8f5;
+    max-width: 1100px;
+    margin: auto;
+  }
+  .header {
+    background: var(--primary-500);
+    color: var(--uniprep-white);
+    padding: 15px 25px;
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+  .section {
+    padding: 25px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .section:last-child {
+    border-bottom: none;
+  }
+  .section-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--secondary-500);
+  }
+  .highlight-box {
+    background: #fefefe;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    margin-top: 10px;
+  }
+  .score-boxes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .score-box {
+    text-align: center;
+    flex: 1;
+  }
+  .label1 {
+    color: var(--secondary-500);
+    font-size: 30px;
+    font-weight: 600;
+  }
+  .score-box span {
+    display: block;
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--secondary-500);
+  }
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+  }
+  .tag {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #fcd34d;
+    color: #78350f;
+    font-weight: 600;
+    border-radius: 20px;
+    margin-top: 8px;
+  }
+  .score-container {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+  }
+  .label {
+    color: #3d3d5c;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .progress-container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .progress-label {
+    font-weight: bold;
+    color: var(--secondary-500);
+    margin-bottom: 6px;
+  }
+  .progress-bar {
+    background-color: #fef3e6;
+    border: 1px solid #f2b272;
+    border-radius: 999px;
+    height: 16px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 10%; /* Change this percentage to dynamically update the bar */
+    background-color: var(--secondary-500);
+    border-radius: 999px 0 0 999px;
+  }
 }
 
 .previewBodyForm,
