@@ -33,6 +33,8 @@ export class AppComponent implements OnInit {
 	private isInstitute = signal(false);
 
 	ngOnInit() {
+		// Apply palettes from localStorage on app startup
+		this.brandColorService.applyPalettesFromLocalStorage();
 		this.apiToCheckPartnerOrInstitute();
 		if (this.isInstitute()) {
 			if (window.location.href.includes("/register")) {
