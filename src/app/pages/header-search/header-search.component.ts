@@ -221,7 +221,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 					searchedResult.forEach((element: any) => {
 						//if (element !== 'an'){
 						const small = new RegExp(`\\b${element}\\b`, "gi")
-						const tagData = '<span class="fw-bold sec-color" style="color:var(--uniprep-secondary)">' + element + "</span>"
+						const tagData = '<span class="fw-bold sec-color" style="color:var(--secondary-500)">' + element + "</span>"
 						data.question = data.question.replace(small, tagData)
 						//}
 					})

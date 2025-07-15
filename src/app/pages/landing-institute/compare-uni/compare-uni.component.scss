@@ -6,7 +6,7 @@
 }
 
 .uniprep-text {
-  color: var(--uniprep-secondary);
+  color: var(--secondary-500);
   font-weight: bold;
 }
 
@@ -22,19 +22,19 @@
 }
 
 .form-check-input {
-  background-color: var(--uniprep-secondary);
-  border-color: var(--uniprep-secondary);
+  background-color: var(--secondary-500);
+  border-color: var(--secondary-500);
   width: 3rem;
   height: 1.5rem;
 
   &:checked {
-    background-color: var(--uniprep-secondary);
-    border-color: var(--uniprep-secondary);
+    background-color: var(--secondary-500);
+    border-color: var(--secondary-500);
   }
 
   &:focus {
     box-shadow: 0 0 0 0.25rem rgba(255, 140, 0, 0.25);
-    border-color: var(--uniprep-secondary);
+    border-color: var(--secondary-500);
   }
 }
 
@@ -42,7 +42,7 @@
 .comparison-table {
   border-collapse: collapse;
   background-color: transparent;
-  border: 2px solid var(--uniprep-secondary); // Outer border (top, right, bottom, left)
+  border: 2px solid var(--secondary-500); // Outer border (top, right, bottom, left)
 
   th {
     background-color: #663c1a !important;
@@ -107,7 +107,7 @@
   color: white;
   &:hover {
     .card-title {
-      color: var(--uniprep-secondary);
+      color: var(--secondary-500);
     }
     .cardicon {
       font-weight: 700;
@@ -152,7 +152,7 @@
 
   &:hover {
     .card-title {
-      color: var(--uniprep-secondary);
+      color: var(--secondary-500);
     }
 
     .cardicon {

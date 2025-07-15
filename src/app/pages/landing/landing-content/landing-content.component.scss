@@ -2,16 +2,16 @@
 [data-bs-theme="light"] {
 	--bs-primary-rgb: 63, 76, 131;
 	--bs-secondary-rgb: 240, 120, 14;
-	--bs-primary: var(--uniprep-primary);
+	--bs-primary: var(--primary-500);
 	--bs-secondary: #f0780e;
-	--uniprep-primary: var(--uniprep-primary);
-	--uniprep-primaryop10: var(--uniprep-primary) 25;
-	--uniprep-primaryop30: var(--uniprep-primary) 5b;
-	--uniprep-secondary: #f0780e;
-	--uniprep-secondaryop10: #f0780e25;
-	--uniprep-secondaryop30: #f0780e5b;
-	--uniprep-primaryhighlight: #4552a3;
-	--uniprep-secondaryhighlight: #f6895a;
+	--primary-500: var(--primary-500);
+	--primary-100: var(--primary-500) 25;
+	--primary-200: var(--primary-500) 5b;
+	--secondary-500: #f0780e;
+	--secondary-100: #f0780e25;
+	--secondary-200: #f0780e5b;
+	--primary-600: #4552a3;
+	--secondary-600: #f6895a;
 	--uniprep-white: #ffffff;
 }
 
@@ -228,8 +228,8 @@ h6 {
 }
 
 .btn-primary {
-	--bs-btn-bg: var(--uniprep-primary);
-	--bs-btn-border-color: var(--uniprep-primary);
+	--bs-btn-bg: var(--primary-500);
+	--bs-btn-border-color: var(--primary-500);
 }
 
 .footerbg {
@@ -261,7 +261,7 @@ h6 {
 
 	&:hover {
 		.card-title {
-			color: var(--uniprep-secondary);
+			color: var(--secondary-500);
 		}
 
 		.cardicon {
@@ -298,7 +298,7 @@ h6 {
 		position: absolute;
 		opacity: 0.2;
 		line-height: 0;
-		color: var(--uniprep-primary);
+		color: var(--primary-500);
 	}
 }
 
@@ -362,7 +362,7 @@ h6 {
 	box-shadow: none;
 	padding: 0.75rem 1rem;
 	font-weight: 600;
-	color: var(--uniprep-primary);
+	color: var(--primary-500);
 	background: none;
 	padding-left: 0;
 	font-size: medium;
@@ -392,7 +392,7 @@ h6 {
 .faqcard .accordion-button:not(.collapsed) {
 	background: #18181d;
 	border-radius: 10px;
-	color: var(--uniprep-primary);
+	color: var(--primary-500);
 	border: none;
 }
 
@@ -587,7 +587,7 @@ h6 {
 }
 
 .comparision-card-uniprep hr {
-	border-top: 1px solid var(--uniprep-primary);
+	border-top: 1px solid var(--primary-500);
 	opacity: 1;
 }
 

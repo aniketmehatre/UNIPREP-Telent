@@ -8,7 +8,7 @@
 
   .card-body {
     .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
-      background-color: var(--uniprep-primary);
+      background-color: var(--primary-500);
       height: 5px;
     }
   }
@@ -35,7 +35,7 @@
   }
 
   .country-text {
-    color: var(--uniprep-primaryop30);
+    color: var(--primary-200);
     font-weight: 600;
     font-size: 1rem;
   }
@@ -47,7 +47,7 @@
   }
 
   .country-border {
-    border: 1px solid var(--uniprep-primaryop30);
+    border: 1px solid var(--primary-200);
     border-radius: 10px;
     display: flex;
   }
@@ -57,7 +57,7 @@
 $borderWidth: 10px;
 $animationTime: 0.5s;
 $border-color-default: #efefef;
-$border-color-fill: var(--uniprep-secondary);
+$border-color-fill: var(--secondary-500);
 $size: 100px;
 $howManySteps: 100; //this needs to be even.
 
@@ -144,7 +144,7 @@ $howManySteps: 100; //this needs to be even.
 
     div {
       //margin-top: 10px;
-      background-color: var(--uniprep-primary);
+      background-color: var(--primary-500);
       border-radius: 100%;
       padding: 10px;
       color: white;
@@ -309,7 +309,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 20px;
-  color: var(--uniprep-primary);
+  color: var(--primary-500);
 }
 
 // new ui
@@ -350,7 +350,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 .progress-bar {
   height: 8px;
-  background-color: #ff7000;
+  background-color: var(--secondary-500);
   /* Orange progress color */
   border-radius: 5px;
   transition: width 0.5s ease-in-out;
@@ -358,7 +358,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 .progress-bar2 {
   height: 8px;
-  background-color: #394d83;
+  background-color: var(--primary-500);
   /* Green color for progress */
   border-radius: 5px;
   transition: width 0.3s ease-in-out;

@@ -11,7 +11,7 @@
     display: flex;
     gap: 5px;
     .pi {
-      background: var(--uniprep-primary);
+      background: var(--primary-500);
       color: white;
       text-align: center;
       line-height: 22px;
@@ -32,7 +32,7 @@
 }
 .mostpopular
 {
-  background: var(--uniprep-primary);
+  background: var(--primary-500);
   color: #fff;
   text-align: center;
   padding: 10px;
@@ -55,8 +55,8 @@
   }
   &:hover
   {
-    background-color: var(--uniprep-primaryop10);
-    border:2px solid var(--uniprep-primary);
+    background-color: var(--primary-50);
+    border:2px solid var(--primary-500);
     .getstartedbtn
     {
       display:block;
@@ -70,8 +70,8 @@
   }
   &:focus
   {
-    background-color: var(--uniprep-primaryop10);
-    border:2px solid var(--uniprep-primary);
+    background-color: var(--primary-50);
+    border:2px solid var(--primary-500);
     .getstartedbtn
     {
       display:block;
@@ -139,7 +139,7 @@
     width: 80%;
     margin: auto;
     padding: 5px 0px;
-    background: var(--uniprep-primary);
+    background: var(--primary-500);
     color: white;
     text-align: center;
     border-bottom-right-radius: 35px;
@@ -152,7 +152,7 @@
     width: 80%;
     margin: auto;
     padding: 5px 0px;
-    background: var(--uniprep-primary);
+    background: var(--primary-500);
     color: white;
     text-align: center;
     border-radius: 35px;
@@ -188,7 +188,7 @@
     width: 150px;
   }
   .scardPriceCurrent {
-    color: var(--uniprep-primary);
+    color: var(--primary-500);
     font-size: 1.1rem;
     text-align: center;
     text-overflow: ellipsis;

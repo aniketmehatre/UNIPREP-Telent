@@ -77,7 +77,7 @@
 	height: 40px;
 	width: 40px;
 	border-radius: 20px;
-	background-color: var(--uniprep-primary);
+	background-color: var(--primary-500);
 	color: white;
 	display: flex;
 	align-items: center;
@@ -98,9 +98,9 @@
 	}
 
 	// &:hover {
-	// 	-webkit-box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
-	// 	-moz-box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
-	// 	box-shadow: 0px 0px 50px 0px var(--uniprep-primaryop10);
+	// 	-webkit-box-shadow: 0px 0px 50px 0px var(--primary-50);
+	// 	-moz-box-shadow: 0px 0px 50px 0px var(--primary-50);
+	// 	box-shadow: 0px 0px 50px 0px var(--primary-50);
 	// }
 }
 
@@ -129,7 +129,7 @@
 }
 
 .HistoryDownloadIcon {
-	background-color: var(--uniprep-primary);
+	background-color: var(--primary-500);
 	color: white;
 	border-radius: 100px;
 	height: 40px;
@@ -247,7 +247,7 @@
 }
 
 .PageTitle {
-	color: var(--uniprep-primary);
+	color: var(--primary-500);
 	// margin: 10px;
 }
 
@@ -264,7 +264,7 @@
 }
 
 .addMoreButton {
-	background-color: var(--uniprep-primary);
+	background-color: var(--primary-500);
 	color: white;
 	padding: 5px 5px;
 	border: none;
@@ -581,7 +581,7 @@
 }
 
 .template-dropdown-content a:hover {
-	background-color: var(--uniprep-primaryhighlight);
+	background-color: var(--primary-600);
 	color: white;
 	border-radius: 25px;
 }
@@ -604,7 +604,7 @@
 	margin-left: 0;
 	width: auto !important;
 	position: absolute;
-	background-color: var(--uniprep-primaryhighlight);
+	background-color: var(--primary-600);
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 	border-radius: 20px;
@@ -620,7 +620,7 @@
 	position: relative;
 
 	&:hover {
-		background-color: var(--uniprep-primaryhighlight);
+		background-color: var(--primary-600);
 		border-radius: 25px;
 	}
 }
@@ -656,7 +656,7 @@
 
 
 .downloadButton {
-	background-color: var(--uniprep-primary);
+	background-color: var(--primary-500);
 	color: white;
 	padding: 5px 15px;
 	border: none;
@@ -669,7 +669,7 @@
 	text-align: center;
 	display: flex;
 	justify-content: space-around;
-	color: var(--uniprep-primary);
+	color: var(--primary-500);
 	font-weight: 700;
 
 	img {
@@ -1086,14 +1086,14 @@ body {
 
 			.p-steps-title {
 				margin: 0;
-				color: var(--uniprep-primary);
+				color: var(--primary-500);
 				font-weight: 600;
 			}
 
 			.p-steps-number {
 				background: #e5e5e5;
 				border: none;
-				color: var(--uniprep-primary);
+				color: var(--primary-500);
 				font-weight: 700;
 			}
 		}
@@ -1148,7 +1148,7 @@ body {
 	text-align: center;
 	display: flex;
 	justify-content: center;
-	color: var(--uniprep-primary);
+	color: var(--primary-500);
 	font-weight: 700;
 
 	pdf-viewer {
@@ -1164,7 +1164,7 @@ body {
 }
 
 .createResumeButton {
-	background-color: var(--uniprep-primary);
+	background-color: var(--primary-500);
 	color: white;
 	padding: 15px 75px 15px 75px;
 	border: none;
@@ -1302,7 +1302,7 @@ body {
 }
 
 .history-Button {
-	background-color: var(--uniprep-primary);
+	background-color: var(--primary-500);
 	color: white;
 	padding: 15px 75px 15px 75px;
 	border: none;
@@ -1312,7 +1312,7 @@ body {
 }
 
 .history-Button2 {
-	background-color: var(--uniprep-primary);
+	background-color: var(--primary-500);
 	color: white;
 	padding: 10px 45px;
 	border: none;

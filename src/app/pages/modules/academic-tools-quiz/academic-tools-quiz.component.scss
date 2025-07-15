@@ -44,20 +44,20 @@
 }
 
 .optionanswered {
-    border: 1px solid var(--uniprep-primary);
+    border: 1px solid var(--primary-500);
     border-radius: 8px;
     color: #001631;
 }
 
 .optionreviewcorrect {
-    border: 1px solid var(--uniprep-primary);
+    border: 1px solid var(--primary-500);
     background: green;
     border-radius: 8px;
     color: #fff;
 }
 
 .answercorct {
-    border: 1px solid var(--uniprep-primary);
+    border: 1px solid var(--primary-500);
     background: green;
     border-radius: 8px;
     color: #fff;
@@ -177,7 +177,7 @@ iframe {
 .la-square-jelly-box {
     display: block;
     font-size: 0;
-    color: var(--uniprep-primary);
+    color: var(--primary-500);
     width: 64px;
     height: 64px;
     position: absolute;

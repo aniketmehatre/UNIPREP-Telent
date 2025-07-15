@@ -2,8 +2,8 @@
 	background-color: #07070b;
 }
 .custom-badge {
-	background-color: var(--uniprep-secondaryop10);
-	border: 1px solid var(--uniprep-secondary);
+	background-color: var(--secondary-50);
+	border: 1px solid var(--secondary-500);
 	color: black;
 	padding: 0.5rem 1rem;
 	border-radius: 0.5rem;
@@ -13,7 +13,7 @@
 	letter-spacing: 0.05em;
 	cursor: pointer;
 	&:hover {
-		background-color: var(--uniprep-secondaryop30);
+		background-color: var(--secondary-200);
 	}
 }
 :host ::ng-deep .p-rating-option-active .p-rating-icon {
@@ -41,7 +41,7 @@
 }
 .color-orange
 {
-  color: var(--uniprep-secondary);
+  color: var(--secondary-500);
 }
 .color-darkblue
 {

@@ -32,8 +32,8 @@
 		vertical-align: middle;
 		display: flex;
 		font-size: 1.5rem;
-		color: var(--uniprep-primary);
-		// border-right: 1px solid var(--uniprep-primary);
+		color: var(--primary-500);
+		// border-right: 1px solid var(--primary-500);
 		padding: 10px;
 	}
 }
@@ -103,7 +103,7 @@
 // }
 // .fw-bold-yellow{
 //   font-weight: 700;
-//   color: var(--uniprep-secondary);
+//   color: var(--secondary-500);
 //   text-transform: capitalize;
 // }
 
@@ -165,7 +165,7 @@
 // }
 
 // .btn-warning {
-//   background-color: var(--uniprep-secondary);
+//   background-color: var(--secondary-500);
 //   color: white;
 // }
 
@@ -305,8 +305,8 @@
 	align-items: center;
 }
 .answercard {
-	background-color: var(--uniprep-primaryop10);
-	border: 2px solid var(--uniprep-primary);
+	background-color: var(--primary-50);
+	border: 2px solid var(--primary-500);
 	overflow-y: auto;
 }
 //.answercard {

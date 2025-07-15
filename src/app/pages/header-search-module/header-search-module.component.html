@@ -12,7 +12,7 @@
             <button pButton  (click)="searchKeyWord(searchInput)" style="border-radius: 8px 0px 0px 8px !important;" class="btn-primary"
                  pButton pRipple type="button">{{flobalsearchbuttonname}}</button>
             <button pButton  (click)="showQuestionSearch()" class="btn-primary"
-                style="background-color: #D9D9D9 !important; color:#394D83 !important ; border-color: #D9D9D9;border-radius: 0px 8px 8px 0px !important;"
+                style="background-color: #D9D9D9 !important; color:var(--primary-500) !important ; border-color: #D9D9D9;border-radius: 0px 8px 8px 0px !important;"
                 label="Questions" pButton pRipple type="button"></button>
                 <div *ngIf="filteredData.length" class="dropdown-container text-start">
                     <div *ngFor="let result of filteredData" class="dropdown-item">

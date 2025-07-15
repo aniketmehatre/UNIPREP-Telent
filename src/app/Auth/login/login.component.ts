@@ -34,7 +34,7 @@ import { SkeletonModule } from "primeng/skeleton"
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from "@angular/common/http"
 import {StorageService} from "../../storage.service";
-
+import { BrandColorService } from "src/app/core/services/brand-color.service";
 declare var google: any;
 
 @Component({
@@ -77,6 +77,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private cdr = inject(ChangeDetectorRef);
     private subs = new SubSink()
     private  http = inject(HttpClient);
+    private brandColorService = inject(BrandColorService);
     loading = true;
     jobId: any
 
@@ -131,6 +132,10 @@ export class LoginComponent implements OnInit, OnDestroy {
             })
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
             this.coBrandedImageUrl.set(data.logo)
+            console.log(data.brand_primary_color, data.brand_secondary_color)
+            if(data.brand_primary_color && data.brand_secondary_color){
+                this.brandColorService.fetchAndApplyColors(data.brand_primary_color, data.brand_secondary_color)
+            }
             this.loading = false
             this.cdr.markForCheck()
         })

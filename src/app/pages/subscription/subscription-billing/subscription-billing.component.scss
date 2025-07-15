@@ -8,7 +8,7 @@
     height: 2px;
     display: block;
     margin-top: 20px !important;
-    background-color: var(--uniprep-primary);
+    background-color: var(--primary-500);
     border-radius: 5px;
   }
 }
@@ -17,7 +17,7 @@
 }
 .scardStart {
   padding: 5px 20px;
-  background: var(--uniprep-primary);
+  background: var(--primary-500);
   color: white;
   text-align: center;
   border-radius: 10px;
@@ -46,7 +46,7 @@
     display: flex;
     gap: 5px;
     .pi {
-      background: var(--uniprep-primary);
+      background: var(--primary-500);
       color: white;
       text-align: center;
       line-height: 22px;
@@ -60,7 +60,7 @@
   background: white;
 }
 .input-group {
-  border: 1px solid var(--uniprep-primary);
+  border: 1px solid var(--primary-500);
   border-radius: 3px;
   input {
     outline: none !important;
@@ -68,14 +68,14 @@
   }
   flex-wrap: nowrap;
   .input-group-text {
-    background: var(--uniprep-primary);
+    background: var(--primary-500);
     color: white;
     cursor: pointer;
   }
 }
 .contnr {
   background: #F5F5F5 0% 0% no-repeat padding-box;
-  border: 1px solid var(--uniprep-primary);
+  border: 1px solid var(--primary-500);
   border-radius: 5px;
   padding: 15px;
 }

@@ -48,7 +48,7 @@
   aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 10px;
-  border:1px solid var(--uniprep-primaryop10);
+  border:1px solid var(--primary-50);
 }
 
 /* Image */
@@ -57,7 +57,7 @@
   height: 100%;
   object-fit: cover;
   border-radius: 10px;
-  border:1px solid var(--uniprep-primaryop10);
+  border:1px solid var(--primary-50);
 }
 
 /* Label inside Image (Full Width) */

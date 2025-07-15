@@ -2,8 +2,8 @@
 	background-color: #07070b;
 }
 .custom-badge {
-	background-color: var(--uniprep-secondaryop10);
-	border: 1px solid var(--uniprep-secondary);
+	background-color: var(--secondary-50);
+	border: 1px solid var(--secondary-500);
 	color: black;
 	padding: 0.5rem 1rem;
 	border-radius: 0.5rem;
@@ -38,7 +38,7 @@
 }
 .color-orange
 {
-  color: var(--uniprep-secondary);
+  color: var(--secondary-500);
 }
 .color-darkblue
 {
@@ -68,7 +68,7 @@
   
   h5.text-primary,
   h6.text-primary {
-	color: var(--uniprep-primary) !important;
+	color: var(--primary-500) !important;
 	font-weight: 600;
   }
   

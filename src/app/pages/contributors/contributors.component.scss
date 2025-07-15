@@ -13,7 +13,7 @@
 }
 
 .contributor-tag {
-    background: var(--uniprep-primarylight);
+    background: var(--primary-400);
     color: var(--uniprep-white);
     padding: 3px 10px;
     border-radius: 15px;
@@ -41,13 +41,13 @@
 }
 
 .questioncard {
-	border: 1px solid var(--uniprep-primary);
+	border: 1px solid var(--primary-500);
 	padding: 0;
 }
 
 .answercard {
-	background-color: var(--uniprep-primaryop10);
-	border: 2px solid var(--uniprep-primary);
+	background-color: var(--primary-50);
+	border: 2px solid var(--primary-500);
 	overflow-y: auto;
 }
 

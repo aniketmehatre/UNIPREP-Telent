@@ -41,7 +41,7 @@
 }
 
 .bg-primary {
-	background: var(--uniprep-primary) !important;
+	background: var(--primary-500) !important;
 }
 
 .careerimage {
@@ -56,13 +56,13 @@
 }
 
 .subjectcard {
-	border: 1px solid var(--uniprep-primary);
+	border: 1px solid var(--primary-500);
 }
 
 .inactiveButton {
 	background: transparent !important;
 	border: none !important;
-	color: var(--uniprep-primary) !important;
+	color: var(--primary-500) !important;
 }
 
 // .container {

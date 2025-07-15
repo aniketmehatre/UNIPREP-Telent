@@ -27,7 +27,7 @@ h2 {
 
 h5.text-primary,
 h6.text-primary {
-	color: var(--uniprep-primary) !important;
+	color: var(--primary-500) !important;
 	font-weight: 600;
 }
 
@@ -85,7 +85,7 @@ h6.text-primary {
 }
 
 .detail-label {
-	color: var(--uniprep-primary);
+	color: var(--primary-500);
 	font-size: 14px;
 	font-weight: 500;
 	margin-bottom: 4px;
@@ -112,7 +112,7 @@ h6.text-primary {
 }
 
 .insight-heading {
-	color: var(--uniprep-primary);
+	color: var(--primary-500);
 	font-size: 16px;
 	font-weight: 500;
 	margin-bottom: 16px;

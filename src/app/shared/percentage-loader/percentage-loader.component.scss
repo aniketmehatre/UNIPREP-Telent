@@ -7,7 +7,7 @@
 .outer-container {
     height: 100px;
     width: 100px;
-    background: linear-gradient(135deg, var(--uniprep-primary), var(--uniprep-secondary));
+    background: linear-gradient(135deg, var(--primary-500), var(--secondary-500));
     // background: linear-gradient(135deg, #ff6ec4, #7873f5);
     border-radius: 50%;
     animation: rotate2 1.2s linear infinite;
@@ -29,7 +29,7 @@
 .inner-container span {
     font-size: 25px;
     font-weight: 800;
-    background: linear-gradient(135deg, var(--uniprep-secondary), var(--uniprep-primary));
+    background: linear-gradient(135deg, var(--secondary-500), var(--primary-500));
     // background: linear-gradient(135deg, #ff6ec4, #7873f5);
     color: transparent;
     -webkit-background-clip: text;

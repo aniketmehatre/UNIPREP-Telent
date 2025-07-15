@@ -33,8 +33,6 @@ export class AppComponent implements OnInit {
 	private isInstitute = signal(false);
 
 	ngOnInit() {
-		// Fetch and apply brand colors
-		this.brandColorService.fetchAndApplyColors().subscribe();
 		this.apiToCheckPartnerOrInstitute();
 		if (this.isInstitute()) {
 			if (window.location.href.includes("/register")) {

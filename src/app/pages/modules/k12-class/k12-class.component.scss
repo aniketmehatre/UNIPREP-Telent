@@ -1,5 +1,5 @@
 .subjectcard {
-	border: 1px solid var(--uniprep-secondary);
+	border: 1px solid var(--secondary-500);
 	width: 100%;
 	margin: 10px 0px;
 
@@ -18,13 +18,13 @@
 	}
 
 	&:focus {
-		background-color: var(--uniprep-primaryop10);
-		border: 1px solid var(--uniprep-primary);
+		background-color: var(--primary-50);
+		border: 1px solid var(--primary-500);
 	}
 
 	&:hover {
-		background-color: var(--uniprep-primaryop10);
-		border: 1px solid var(--uniprep-primary);
+		background-color: var(--primary-50);
+		border: 1px solid var(--primary-500);
 	}
 
 }

@@ -22,7 +22,7 @@
       <rect class="cls-3" x=".57" y="1.08" width="46" height="46"/>
     </clipPath>
     <linearGradient id="linear-gradient" x1="-1452.6" y1="4418.22" x2="-1452.6" y2="4417.22" gradientTransform="translate(51735.87 157259.83) scale(35.6 -35.59)" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="var(--uniprep-primary)"/>
+      <stop offset="0" stop-color="var(--primary-500)"/>
       <stop offset=".09" stop-color="#90b721"/>
       <stop offset=".39" stop-color="#81a616"/>
       <stop offset="1" stop-color="#80a515"/>

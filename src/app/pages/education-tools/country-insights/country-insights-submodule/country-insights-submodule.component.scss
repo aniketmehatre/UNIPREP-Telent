@@ -3,16 +3,16 @@
 	max-height: 185px;
 	border-radius: 16px;
 	cursor: pointer;
-	border-color: var(--uniprep-secondary) !important;
+	border-color: var(--secondary-500) !important;
 }
 .country-card:hover {
 	background-color: lightgray !important;
-	border-color: var(--uniprep-primary) !important;
+	border-color: var(--primary-500) !important;
 }
 .text-card
 {
   border-radius: 16px;
-//   border:1px solid var(--uniprep-primary);
+//   border:1px solid var(--primary-500);
 }
 .flag-circle {
 	width: 60px;
@@ -112,7 +112,7 @@
 	width: 80px;
 	min-height: 40px;
 	border-radius: 8px;
-	background-color: var(--uniprep-secondary);
+	background-color: var(--secondary-500);
 	color: white;
 	display: flex;
 	align-items: center;
@@ -124,7 +124,7 @@
 	width: 90px;
 	min-height: 40px;
 	border-radius: 8px;
-	background-color: var(--uniprep-primary);
+	background-color: var(--primary-500);
 	color: white;
 	display: flex;
 	align-items: center;

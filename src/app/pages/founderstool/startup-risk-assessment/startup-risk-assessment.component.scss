@@ -1,13 +1,13 @@
 
 .primary-color{
-    color: var(--uniprep-primary);
+    color: var(--primary-500);
   }
   
   .tickPlacement {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    color: var(--uniprep-primary);
+    color: var(--primary-500);
   }
   
   :host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button {

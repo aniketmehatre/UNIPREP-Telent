@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+// @ts-ignore
+import chroma from 'chroma-js';
 
 @Injectable({
   providedIn: 'root'
@@ -9,25 +11,36 @@ import { Observable } from 'rxjs';
 export class BrandColorService {
   constructor(private http: HttpClient) {}
 
-  fetchAndApplyColors(): Observable<{brand_primary_color: string, brand_secondary_color: string}> {
-    // Replace with your actual API endpoint
-    return this.http.get<{brand_primary_color: string, brand_secondary_color: string}>('/api/brand/colors')
-      .pipe(
-        tap(colors => {
-          this.setThemeColors(colors.brand_primary_color, colors.brand_secondary_color);
-        })
-      );
+  fetchAndApplyColors(brand_primary_color: any, brand_secondary_color: any): void {
+    this.setThemePalette(brand_primary_color, 'primary');
+    this.setThemePalette(brand_secondary_color, 'secondary');
   }
 
-  private setThemeColors(primary: string, secondary: string) {
+  private setThemePalette(baseColor: string, prefix: string) {
     const root = document.documentElement;
-    root.style.setProperty('--uniprep-primary', primary);
-    root.style.setProperty('--uniprep-secondary', secondary);
-    // Optionally, set opacity variants
-    root.style.setProperty('--uniprep-primaryop10', this.hexToRgba(primary, 0.1));
-    root.style.setProperty('--uniprep-primaryop30', this.hexToRgba(primary, 0.3));
-    root.style.setProperty('--uniprep-secondaryop10', this.hexToRgba(secondary, 0.1));
-    root.style.setProperty('--uniprep-secondaryop30', this.hexToRgba(secondary, 0.3));
+    const stops = [
+      { key: '50', t: 0 },
+      { key: '100', t: 0.08 },
+      { key: '200', t: 0.16 },
+      { key: '300', t: 0.24 },
+      { key: '400', t: 0.32 },
+      { key: '500', t: 0.5 },
+      { key: '600', t: 0.68 },
+      { key: '700', t: 0.76 },
+      { key: '800', t: 0.84 },
+      { key: '900', t: 0.92 },
+      { key: '1000', t: 1 }
+    ];
+    // Use a more moderate brighten value for the lightest shade
+    const scale = chroma.scale([
+      chroma(baseColor).brighten(1.2), // not too close to white
+      baseColor,
+      chroma(baseColor).darken(2.5)
+    ]).mode('lab');
+    stops.forEach(stop => {
+      const color = scale(stop.t).hex();
+      root.style.setProperty(`--${prefix}-${stop.key}`, color);
+    });
   }
 
   private hexToRgba(hex: string, alpha: number): string {

@@ -6,16 +6,16 @@
 [data-bs-theme="light"] {
   --bs-primary-rgb: 63, 76, 131;
   --bs-secondary-rgb: 240, 120, 14;
-  --bs-primary: var(--uniprep-primary);
+  --bs-primary: var(--primary-500);
   --bs-secondary: #f0780e;
-  --uniprep-primary: var(--uniprep-primary);
-  --uniprep-primaryop10: var(--uniprep-primary) 25;
-  --uniprep-primaryop30: var(--uniprep-primary) 5b;
-  --uniprep-secondary: #f0780e;
-  --uniprep-secondaryop10: #f0780e25;
-  --uniprep-secondaryop30: #f0780e5b;
-  --uniprep-primaryhighlight: #4552a3;
-  --uniprep-secondaryhighlight: #f6895a;
+  --primary-500: var(--primary-500);
+  --primary-100: var(--primary-500) 25;
+  --primary-200: var(--primary-500) 5b;
+  --secondary-500: #f0780e;
+  --secondary-100: #f0780e25;
+  --secondary-200: #f0780e5b;
+  --primary-600: #4552a3;
+  --secondary-600: #f6895a;
   --uniprep-white: #ffffff;
 }
 
@@ -34,7 +34,7 @@ html {
 
 .btn-secondary-1 {
   color: white;
-  background-color: var(--uniprep-secondary);
+  background-color: var(--secondary-500);
 }
 
 body {
@@ -43,7 +43,7 @@ body {
 }
 
 .text-secondary {
-  color: var(--uniprep-secondary) !important;
+  color: var(--secondary-500) !important;
 }
 
 video::-webkit-media-controls-panel {
@@ -180,7 +180,7 @@ h6 {
   color: white;
   &:hover {
     .card-title {
-      color: var(--uniprep-secondary);
+      color: var(--secondary-500);
     }
     .cardicon {
       font-weight: 700;
@@ -204,16 +204,16 @@ section {
 }
 
 .text-orange {
-  color: var(--uniprep-secondary) !important;
+  color: var(--secondary-500) !important;
 }
 
 .border-orange {
-  border-color: var(--uniprep-secondary) !important;
+  border-color: var(--secondary-500) !important;
 }
 
 .btn-orange {
-  background-color: var(--uniprep-secondary) !important;
-  border-color: var(--uniprep-secondary) !important;
+  background-color: var(--secondary-500) !important;
+  border-color: var(--secondary-500) !important;
 }
 
 .dropdown-toggle {

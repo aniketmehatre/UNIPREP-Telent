@@ -18,7 +18,7 @@
     </div>
   </div>
   <div class="card-body flex-fill overflow-y-auto">
-    <small class="font-semibold" style="color: #394d83; font-weight: 600">Question Number {{ this.page + 1 }}</small>
+    <small class="font-semibold" style="color: var(--primary-500); font-weight: 600">Question Number {{ this.page + 1 }}</small>
     <h4>{{this.activeQuestion}}</h4>
     <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px"
       class="{{ 1 === this.answer && 1 === this.selectedValue ? ' green' : ' notgreen' }}{{ 1 === this.answer && 1 !== this.selectedValue ? ' green' : ' notgreen' }}{{ 1 !== this.answer && 1 !== this.selectedValue ? ' white' : ' notwhite' }}{{1 !== this.answer && 1 === this.selectedValue ? ' red' : ' notred'}}">

@@ -1,6 +1,6 @@
 .dataCard{
     background-color: white;
-    border: 1px solid var(--uniprep-primary);
+    border: 1px solid var(--primary-500);
     // padding: 5px;
 }
 
@@ -22,7 +22,7 @@
 }
 
 .buy-credits-button{
-    background-color: var(--uniprep-secondary) !important;
+    background-color: var(--secondary-500) !important;
     color: white;
     border-radius: 20px !important;
     border: none;
@@ -36,7 +36,7 @@
 }
 
 .courseNameTag{
-    background-color: var(--uniprep-primary) !important;
+    background-color: var(--primary-500) !important;
     font-weight: 700;
     color: white;
     border-radius: 10px;
@@ -72,7 +72,7 @@
 
 .guidelinecard
 {
-    border: 1px solid var(--uniprep-primary);
+    border: 1px solid var(--primary-500);
 }
 
 .universityName{
@@ -127,26 +127,26 @@
 }
 
 .cube:hover {
-    border-color: var(--uniprep-primary);
+    border-color: var(--primary-500);
 }
 
 .tickPlacement{
     position: absolute;
     top: 1rem;
     right: 1rem;
-    color: var(--uniprep-primary);
+    color: var(--primary-500);
 }
 
 .primary-color{
-    color: var(--uniprep-primary);
+    color: var(--primary-500);
 }
 
 .secondary-color{
-    color: var(--uniprep-secondary);
+    color: var(--secondary-500);
 }
 
 .cube.selected {
-    border-color: 2px solid var(--uniprep-primary);
+    border-color: 2px solid var(--primary-500);
 }
 
 :host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button {

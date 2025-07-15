@@ -1,5 +1,5 @@
 .questioncard {
-  border: 1px solid var(--uniprep-primarylight);
+  border: 1px solid var(--primary-400);
   padding: 0;
   .homecountry {
     width: 25px;
@@ -22,10 +22,10 @@
   border: none;
 }
 .universityicon {
-  color: var(--uniprep-secondary);
+  color: var(--secondary-500);
 }
 .primary-color {
-  color: var(--uniprep-primary);
+  color: var(--primary-500);
 }
 .popup-header {
   background-color: #2e2f89;
@@ -64,7 +64,7 @@
   height: 75vh;
   .card-header {
     font-size: large;
-    color: var(--uniprep-primary);
+    color: var(--primary-500);
     font-weight: 700;
     text-align: center;
     background: #ebedf2;
@@ -86,7 +86,7 @@
 
 .quesHeading {
   font-size: x-large;
-  color: var(--uniprep-primary);
+  color: var(--primary-500);
   font-weight: 700;
 }
 
