@@ -41,7 +41,7 @@
                 "output": "/assets/pdfjs"
               },
               {
-                "input": "src/robots.txt",
+                "input": "src",
                 "output": "./",
                 "glob": "robots.txt"
               },
