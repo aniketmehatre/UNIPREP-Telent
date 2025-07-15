@@ -52,7 +52,7 @@
 
 .progress-bar3 {
 	height: 8px;
-	background-color: #c8cfe5;
+	background-color: var(--p-primary-200);
 	/* Green color for progress */
 	border-radius: 5px;
 	transition: width 0.3s ease-in-out;
@@ -273,7 +273,7 @@ html, body {
 }
 .sidebar .menu li:hover,
 .sidebar .menu li.active {
-	background-color: #ECEDF3;
+	background-color: var(--p-primary-100);
 }
 
 
