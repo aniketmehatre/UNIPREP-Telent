@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://uniprep.ai/sitemaps/sitemap_employer.xml</loc>
+    <lastmod>2025-07-07</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://uniprep.ai/sitemaps/sitemap_institutes.xml</loc>
+    <lastmod>2025-07-07</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://uniprep.ai/sitemaps/sitemap_talent.xml</loc>
+    <lastmod>2025-07-07</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://uniprep.ai/sitemaps/sitemap_partners.xml</loc>
+    <lastmod>2025-07-07</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://uniprep.ai/sitemaps/sitemap_uniprep_ai.xml</loc>
+    <lastmod>2025-07-07</lastmod>
+  </sitemap>
+</sitemapindex>
