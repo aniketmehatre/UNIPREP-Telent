@@ -437,7 +437,7 @@ export class SubscriptionComponent implements OnInit {
 		iconStyle: "solid",
 		style: {
 			base: {
-				color: "#000000",
+				color: "var(--p-neutral-950)",
 			},
 			invalid: {
 				color: "red",

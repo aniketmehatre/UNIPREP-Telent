@@ -36,7 +36,7 @@ section {
     /* Ensure content can shrink */
     overflow-y: auto;
     /* Allow scrolling within #page-container */
-    background: #efefef;
+    background: var(--p-neutral-100);
     border-radius: 20px;
     padding: 1rem;
   }

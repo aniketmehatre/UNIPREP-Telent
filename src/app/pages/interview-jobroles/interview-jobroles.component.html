@@ -34,7 +34,7 @@
 							<li *ngFor="let job of filteredJobRoles" (click)="interviewQuestions(job.slug)">{{ job.jobrole }}</li>
 						</ul>
 					</div>
-					<!-- <div class="rounded-3" style="margin-top: 1rem; border: 1px solid var(--secondary-500); padding: 10px; position:absolute;width:100%;height: 30vh;overflow-y: auto;" *ngIf="searchDiv">
+					<!-- <div class="rounded-3" style="margin-top: 1rem; border: 1px solid var(--p-secondary-500); padding: 10px; position:absolute;width:100%;height: 30vh;overflow-y: auto;" *ngIf="searchDiv">
 						  <ng-container *ngFor="let item of jobRoles">
 							  <option style="cursor: pointer" (click)="interviewQuestions(item.slug)" value="{{ item.slug }}">{{ item.jobrole }}</option>
 						  </ng-container> -->

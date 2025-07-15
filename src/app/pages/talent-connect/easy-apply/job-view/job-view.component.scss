@@ -20,7 +20,7 @@
   
   
   .bg-warning {
-    background-color: #F9E9D8 !important;
+    background-color: var(--p-secondary-200)!important;
   }
   
   .text-dark {
@@ -142,11 +142,11 @@
   }
 
   .bg-badge-color {
-    background-color: var(--secondary-500);
+    background-color: var(--p-secondary-500);
   }
 
   .text-warn {
-    color: var(--secondary-500);
+    color: var(--p-secondary-500);
   }
 
   .bg-secondary-subtle {

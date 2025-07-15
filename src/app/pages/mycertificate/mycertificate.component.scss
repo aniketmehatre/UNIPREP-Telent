@@ -1,8 +1,8 @@
 .resourcecard {
-  border: 1px solid var(--primary-500);
+  border: 1px solid var(--p-primary-500);
 
   &:hover {
-    background-color: var(--primary-50);
+    background-color: var(--p-primary-50);
   }
 
   .resourceimg {
@@ -97,6 +97,6 @@
 
 [id^="socialSharingList"].show {
   display: block;
-  background-color: #c8cfe5;
+  background-color: var(--p-primary-200);
   border-radius: 5px;
 }

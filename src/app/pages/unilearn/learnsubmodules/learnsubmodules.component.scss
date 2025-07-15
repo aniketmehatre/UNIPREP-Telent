@@ -1,5 +1,5 @@
 .subjectcard {
-  border: 1px solid var(--secondary-500);
+  border: 1px solid var(--p-secondary-500);
   width: 100%;
   margin: 10px 0px;
   justify-content: center;
@@ -26,13 +26,13 @@
     }
   }
   &:focus {
-    background-color: var(--primary-50);
-    border: 1px solid var(--primary-500);
+    background-color: var(--p-primary-50);
+    border: 1px solid var(--p-primary-500);
   }
 
   &:hover {
-    background-color: var(--primary-50);
-    border: 1px solid var(--primary-500);
+    background-color: var(--p-primary-50);
+    border: 1px solid var(--p-primary-500);
   }
 }
 .subjecttitle {

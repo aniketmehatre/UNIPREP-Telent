@@ -1,10 +1,10 @@
 .eventcard
 {
-  border:1px solid var(--primary-500);
+  border:1px solid var(--p-primary-500);
   overflow: hidden;
   .card-body
   {
-    background-color: var(--primary-50);
+    background-color: var(--p-primary-50);
   }
   .eventimage {
 		height: 75px;
@@ -35,11 +35,11 @@
 
 .eventcardgray
 {
-  border:1px solid var(--uniprep-lightgray);
+  border:1px solid var(--p-neutral-200);
   overflow: hidden;
   .card-body
   {
-    background-color: var(--uniprep-gray);
+    background-color: var(--p-neutral-100);
   }
   .eventimage {
 		height: 75px;

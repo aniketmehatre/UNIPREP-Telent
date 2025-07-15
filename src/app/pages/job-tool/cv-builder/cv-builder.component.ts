@@ -62,7 +62,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   certificateLimit: number = 3;
   submitted: boolean = false;
   selectedThemeColor: string = "#172a99";
-  selectedFontColor: string = "#000000";
+  selectedFontColor: string = "var(--p-neutral-950)";
   selectedColorCode: number = 1;
   userNameSplit: { firstWord: string; secondWord: string } = { firstWord: "", secondWord: "" };
   stableFileName = Math.floor(100000000 + Math.random() * 900000);
@@ -565,7 +565,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     this.selectedThemeColor = selectedColor;
     this.selectedColorCode = selectedColorCode;
     if (this.selectedColorCode == 5) {
-      this.selectedFontColor = "#000000";
+      this.selectedFontColor = "var(--p-neutral-950)";
     } else {
       this.selectedFontColor = "#FFFFFF";
     }
@@ -805,7 +805,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.selectedColorCode = 1;
     } else if (resumeLevel == "Creative") {
       this.selectedThemeColor = "#E2C742";
-      this.selectedFontColor = "#000000";
+      this.selectedFontColor = "var(--p-neutral-950)";
       this.selectedColorCode = 5;
     } else if (resumeLevel == "Functional") {
       this.selectedThemeColor = "#469199";
@@ -822,7 +822,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
       this.selectedColorCode = 1;
     } else if (resumeTemplate == "Creative") {
       this.selectedThemeColor = "#E2C742";
-      this.selectedFontColor = "#000000";
+      this.selectedFontColor = "var(--p-neutral-950)";
       this.selectedColorCode = 5;
     } else if (resumeTemplate == "Functional") {
       this.selectedThemeColor = "#469199";

@@ -1,6 +1,6 @@
 
   .text-primary {
-    color: var(--primary-500) !important;
+    color: var(--p-primary-500) !important;
   }
   
   .text-left {
@@ -8,7 +8,7 @@
   }
 
   .job-detail-container {
-    background-color: #fff;
+    background-color: var(--p-neutral-50);
     border-radius: 0.5rem;
     padding: 1.25rem;
     height: 100%;
@@ -45,5 +45,5 @@
     padding: 0.5rem 0.75rem;
   }
     .bg-warning {
-    background-color: #F9E9D8 !important;
+    background-color: var(--p-secondary-200)!important;
   }

@@ -23,7 +23,7 @@
 .darksection {
 	background-color: #07070b;
 	p {
-		color: #fff !important;
+		color: var(--p-neutral-50) !important;
 	}
 }
 
@@ -41,7 +41,7 @@
 	color: white;
 	&:hover {
 		.card-title {
-			color: var(--secondary-500);
+			color: var(--p-secondary-500);
 		}
 		.cardicon {
 			font-weight: 700;

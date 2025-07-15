@@ -26,34 +26,34 @@
 	}
 }
 .quiznotanswered {
-	border: 2px solid var(--uniprep-lightgray);
+	border: 2px solid var(--p-neutral-200);
     padding: 1rem 1rem;
     border-radius: 10px;
 }
 
 .optionanswered {
-	border: 2px solid var(--primary-500);
+	border: 2px solid var(--p-primary-500);
     border-radius: 10px;
     color: var(--uniprepprimarydark);
 }
 
 .optionreviewcorrect {
-	border: 2px solid var(--uniprep-darkgreen);
-	background: var(--uniprep-green);
+	border: 2px solid var(--p-lime-500);
+	background: var(--p-green-600);
 	border-radius: 8px;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 .answercorct{
-	border: 2px solid var(--uniprep-darkgreen);
-	background: var(--uniprep-green);
+	border: 2px solid var(--p-lime-500);
+	background: var(--p-green-600);
 	border-radius: 8px;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 .optionreviewwrong {
 	border: 2px solid #df3e3e;
 	background: #df3e3e;
 	border-radius: 8px;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 :host ::ng-deep .p-dialog 
 {

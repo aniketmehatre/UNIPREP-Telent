@@ -1,5 +1,5 @@
 .overall-sec {
-    background: var(--uniprep-skyblue);
+    background: var(--p-sky-500);
     padding: 5px 15px;
     border-radius: 15px;
     color: white;
@@ -7,19 +7,19 @@
 .contest-rules-btn {
     padding: 5px 20px;
     border-radius: 15px;
-    background: var(--primary-50);
-    color: var(--primary-900);
+    background: var(--p-primary-50);
+    color: var(--p-primary-900);
     cursor: pointer;
 }
 .leaderboard-sec {
-    background: var(--uniprep-basil);
+    background: var(--p-green-500);
     padding: 7px 15px;
     border-radius: 15px;
     color: white;
 }
 
 .uniprep-secondary {
-    color: var(--secondary-500) !important;
+    color: var(--p-secondary-500) !important;
 }
 
 @media (min-width: 992px) {

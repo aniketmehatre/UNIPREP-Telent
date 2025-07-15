@@ -27,19 +27,19 @@
 }
 
 .application-border {
-	border: 3px solid var(--primary-500);
+	border: 3px solid var(--p-primary-500);
 	border-radius: 5%;
 	font-size: 0.8rem;
 }
 
 .unselected-border {
-	border: 3px solid var(--primary-600);
+	border: 3px solid var(--p-primary-600);
 	border-radius: 5px;
 	font-size: 0.8rem;
 }
 
 .selected-border {
-	background-color: var(--primary-500);
+	background-color: var(--p-primary-500);
 	border: 0;
 }
 
@@ -62,7 +62,7 @@
 }
 selctedQuizTiny {
 	font-size: 10px;
-	color: var(--primary-500);
+	color: var(--p-primary-500);
 }
 .quizprogress {
 	.p-progressbar {
@@ -80,28 +80,28 @@ selctedQuizTiny {
 }
 
 .optionanswered {
-	border: 1px solid var(--primary-500);
+	border: 1px solid var(--p-primary-500);
 	border-radius: 8px;
 	color: #001631;
 }
 
 .optionreviewcorrect {
-	border: 1px solid var(--primary-500);
+	border: 1px solid var(--p-primary-500);
 	background: green;
 	border-radius: 8px;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 .answercorct{
-	border: 1px solid var(--primary-500);
+	border: 1px solid var(--p-primary-500);
 	background: green;
 	border-radius: 8px;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 .optionreviewwrong {
 	border: 1px solid #df3e3e;
 	background: #df3e3e;
 	border-radius: 8px;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 .homecardbtnquiz {
 	background-color: black;
@@ -135,7 +135,7 @@ selctedQuizTiny {
 .float-right {
 	float: right;
 	.warning {
-		background-color: var(--secondary-500) !important;
+		background-color: var(--p-secondary-500) !important;
 		border-radius: 25px !important;
 		color: white;
 		font-weight: 300;

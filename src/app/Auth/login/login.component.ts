@@ -135,6 +135,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             console.log(data.brand_primary_color, data.brand_secondary_color)
             if(data.brand_primary_color && data.brand_secondary_color){
                 this.brandColorService.fetchAndApplyColors(data.brand_primary_color, data.brand_secondary_color)
+            } else {
+                this.brandColorService.clearColorLocalStorage();
             }
             this.loading = false
             this.cdr.markForCheck()

@@ -2,8 +2,8 @@
 	background-color: #07070b;
 }
 .custom-badge {
-	background-color: var(--secondary-50);
-	border: 1px solid var(--secondary-500);
+	background-color: var(--p-secondary-50);
+	border: 1px solid var(--p-secondary-500);
 	color: black;
 	padding: 0.5rem 1rem;
 	border-radius: 0.5rem;
@@ -38,7 +38,7 @@
 }
 .color-orange
 {
-  color: var(--secondary-500);
+  color: var(--p-secondary-500);
 }
 .color-darkblue
 {
@@ -68,7 +68,7 @@
   
   h5.text-primary,
   h6.text-primary {
-	color: var(--primary-500) !important;
+	color: var(--p-primary-500) !important;
 	font-weight: 600;
   }
   

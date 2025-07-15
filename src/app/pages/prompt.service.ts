@@ -160,7 +160,7 @@ export class PromptService {
         //    let newStyle: string = `<style>
         //             body {
         //                 font-family: DejaVu Sans, sans-serif;
-        //                 color: #000;
+        //                 color: var(--p-neutral-950);
         //                 margin: 0;
         //                 padding: 0;
         //                 font-size: 16px;

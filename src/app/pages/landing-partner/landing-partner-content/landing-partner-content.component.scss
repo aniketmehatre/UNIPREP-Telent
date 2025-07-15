@@ -6,17 +6,17 @@
 [data-bs-theme="light"] {
   --bs-primary-rgb: 63, 76, 131;
   --bs-secondary-rgb: 240, 120, 14;
-  --bs-primary: var(--primary-500);
+  --bs-primary: var(--p-primary-500);
   --bs-secondary: #f0780e;
-  --primary-500: var(--primary-500);
-  --primary-100: var(--primary-500) 25;
-  --primary-200: var(--primary-500) 5b;
-  --secondary-500: #f0780e;
-  --secondary-100: #f0780e25;
-  --secondary-200: #f0780e5b;
-  --primary-600: #4552a3;
-  --secondary-600: #f6895a;
-  --uniprep-white: #ffffff;
+  --p-primary-500: var(--p-primary-500);
+  --p-primary-100: var(--p-primary-500) 25;
+  --p-primary-200: var(--p-primary-500) 5b;
+  --p-secondary-500: #f0780e;
+  --p-secondary-100: #f0780e25;
+  --p-secondary-200: #f0780e5b;
+  --p-primary-600: #4552a3;
+  --p-secondary-600: #f6895a;
+  --p-neutral-50: var(--p-neutral-50);
 }
 
 html {
@@ -29,12 +29,12 @@ html {
   border-radius: 8px;
   border: 1px solid orange;
   background: transparent;
-  color: #fff;
+  color: var(--p-neutral-50);
 }
 
 .btn-secondary-1 {
   color: white;
-  background-color: var(--secondary-500);
+  background-color: var(--p-secondary-500);
 }
 
 body {
@@ -43,7 +43,7 @@ body {
 }
 
 .text-secondary {
-  color: var(--secondary-500) !important;
+  color: var(--p-secondary-500) !important;
 }
 
 video::-webkit-media-controls-panel {
@@ -180,7 +180,7 @@ h6 {
   color: white;
   &:hover {
     .card-title {
-      color: var(--secondary-500);
+      color: var(--p-secondary-500);
     }
     .cardicon {
       font-weight: 700;
@@ -191,7 +191,7 @@ h6 {
 .darksection {
   background-color: #07070b;
   p {
-    color: #000;
+    color: var(--p-neutral-950);
   }
 }
 
@@ -204,16 +204,16 @@ section {
 }
 
 .text-orange {
-  color: var(--secondary-500) !important;
+  color: var(--p-secondary-500) !important;
 }
 
 .border-orange {
-  border-color: var(--secondary-500) !important;
+  border-color: var(--p-secondary-500) !important;
 }
 
 .btn-orange {
-  background-color: var(--secondary-500) !important;
-  border-color: var(--secondary-500) !important;
+  background-color: var(--p-secondary-500) !important;
+  border-color: var(--p-secondary-500) !important;
 }
 
 .dropdown-toggle {

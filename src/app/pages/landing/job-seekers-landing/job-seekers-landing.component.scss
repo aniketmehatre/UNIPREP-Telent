@@ -21,7 +21,7 @@
 }
 
 .badge {
-  background-color: var(--secondary-500);
+  background-color: var(--p-secondary-500);
   color: white;
   border-radius: 1.5rem;
   font-size: 0.6rem;
@@ -30,7 +30,7 @@
 .darksection {
   background-color: #07070b;
   p {
-    color: #fff !important;
+    color: var(--p-neutral-50) !important;
   }
 }
 .card {
@@ -50,7 +50,7 @@
   }
   &:hover {
     .card-title {
-      color: var(--secondary-500);
+      color: var(--p-secondary-500);
     }
     p {
       color: white !important;

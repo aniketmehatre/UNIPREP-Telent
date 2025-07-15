@@ -7,7 +7,7 @@
       }
 
       .cls-2 {
-        stroke: var(--primary-500);
+        stroke: var(--p-primary-500);
       }
 
       .cls-2, .cls-3 {

@@ -1,7 +1,7 @@
 <div class="readingcard card">
   <div class="card h-100 justify-content-between">
     <div class="card-header d-flex justify-content-between mt-4"
-      style="background-color: #fafafa; border-bottom: 0px solid #fafafa">
+      style="background-color: var(--p-neutral-50); border-bottom: 0px solid var(--p-neutral-50)">
       <h5>{{10 - this.page}}/10 Question Left</h5>
       <button pButton  [routerLink]="['/pages/national-exams', categoryId]" class="btn btn-quit btn-rounded mt-2 px-2 py-2">
         <div class="d-flex align-items-center">
@@ -11,7 +11,7 @@
       </button>
     </div>
     <div class="card-body flex-grow-1">
-      <small class="font-semibold" style="color: var(--primary-500); font-weight: 600">Question Number {{ this.page + 1 }}</small>
+      <small class="font-semibold" style="color: var(--p-primary-500); font-weight: 600">Question Number {{ this.page + 1 }}</small>
       <h3>{{this.activeQuestion}}</h3>
       <div class="d-flex p-3 my-1" style="border: 1px solid #e3e3e3; border-radius: 10px"
         class="{{ 'A' === this.answer && 'A' === this.selectedValue ? ' green' : ' notgreen' }}{{ 'A' === this.answer && 'A' !== this.selectedValue ? ' green' : ' notgreen' }}{{ 'A' !== this.answer && 'A' !== this.selectedValue ? ' white' : ' notwhite' }}{{'A' !== this.answer && 'A' === this.selectedValue ? ' red' : ' notred'}}">

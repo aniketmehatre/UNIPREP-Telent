@@ -1,5 +1,5 @@
 .text-navy {
-  color: var(--primary-900);
+  color: var(--p-primary-900);
 }
 
 .card {
@@ -9,31 +9,31 @@
 }
 
 .text-primary {
-  color: var(--primary-500) !important;
+  color: var(--p-primary-500) !important;
 }
 
 .text-warning {
-  color: var(--secondary-500) !important;
+  color: var(--p-secondary-500) !important;
 }
 
 .p-button-warning {
-  background-color: #fff;
-  color: var(--secondary-500);
-  border-color: var(--secondary-500);
+  background-color: var(--p-neutral-50);
+  color: var(--p-secondary-500);
+  border-color: var(--p-secondary-500);
 
   &:hover {
     background-color: #fff9e6;
-    color: var(--secondary-500);
-    border-color: var(--secondary-500);
+    color: var(--p-secondary-500);
+    border-color: var(--p-secondary-500);
   }
 }
 
 .p-progressbar .p-progressbar-value {
-  background: linear-gradient(to right, var(--secondary-500), #ff5722);
+  background: linear-gradient(to right, var(--p-secondary-500), #ff5722);
 }
 
 .p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
-  color: var(--secondary-500);
+  color: var(--p-secondary-500);
 }
 
 .student-details {
@@ -43,7 +43,7 @@
 }
 
 ::ng-deep .custom-progress .p-progressbar-value {
-  background-color: var(--secondary-500);
+  background-color: var(--p-secondary-500);
 }
 
 #socialSharingList {

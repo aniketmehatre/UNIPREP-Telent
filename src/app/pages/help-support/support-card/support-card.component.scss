@@ -1,7 +1,7 @@
 .km {
   margin-top: 8px;
   font-size: .8rem;
-  color: var(--primary-500);
+  color: var(--p-primary-500);
   font-weight: 700;
 
   span {
@@ -25,14 +25,14 @@
       background-color: rgba(155, 195, 41, 1);
 
       & * {
-        color: #ffffff !important;
+        color: var(--p-neutral-50) !important;
       }
     }
   }
 }
 
 .lnk {
-  color: var(--primary-500);
+  color: var(--p-primary-500);
   font-weight: 700;
   cursor: pointer;
 

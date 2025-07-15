@@ -11,11 +11,11 @@
     max-width: 100%;
     border: 1px solid #dee2e6;
     border-radius: 0.25rem;
-    background-color: #fff;
+    background-color: var(--p-neutral-50);
   }
   
   .chat-header {
-    background-color: #fff;
+    background-color: var(--p-neutral-50);
   }
   
   .progress-container {
@@ -122,7 +122,7 @@
   }
   
   .chat-input {
-    background-color: #fff;
+    background-color: var(--p-neutral-50);
   }
   
   /* Override PrimeNG button styles to match the design */

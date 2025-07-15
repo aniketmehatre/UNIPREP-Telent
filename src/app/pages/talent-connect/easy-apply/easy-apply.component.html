@@ -22,13 +22,13 @@
 		<div class="row justify-content-center align-items-center mt-2">
 			<div class="col-md-4 col-sm-4 d-flex gap-2">
 				<span class="fw-bold border border-primary px-2 py-1 rounded-pill me-1 text-gray"
-					style="background-color: #e6edf6">Total Job : {{ totalJobs }}</span>
+					style="background-color: var(--p-primary-100)">Total Job : {{ totalJobs }}</span>
 				<span class="fw-bold border border-sucess px-2 py-1 rounded-pill text-gray"
 					style="background-color: #f0f9d4">Total Vacancies : {{ totalVacancies }}</span>
 			</div>
 			<div class="col-md-4 col-sm-4 d-flex justify-content-center gap-2 mb-md-0 mb-2">
 				<button pButton class="btn border bg-primary px-3 py-3">Job Search</button>
-				<button pButton class="btn border px-3 py-3 bg-white" style="color: var(--primary-500)"
+				<button pButton class="btn border px-3 py-3 bg-white" style="color: var(--p-primary-500)"
 					routerLink="/pages/talent-connect/job-tracker">Job Tracker</button>
 			</div>
 			<div class="col-md-4 col-sm-4 d-flex justify-content-md-end justify-content-center gap-2">
@@ -220,7 +220,7 @@
 							<div class="col-md-6 col-6">
 								<div *ngIf="job?.hiring_type != 'Company'" class="text-white px-3 py-1 d-table-cell"
 									style="border-radius: 30px"
-									[ngStyle]="job?.hiring_type == 'Co-Hire' ? { 'background-color': 'var(--secondary-500)' } : { 'background-color': '#6a35cd' }">
+									[ngStyle]="job?.hiring_type == 'Co-Hire' ? { 'background-color': 'var(--p-secondary-500)' } : { 'background-color': '#6a35cd' }">
 									{{ job?.hiring_type }}
 								</div>
 							</div>

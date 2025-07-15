@@ -19,17 +19,17 @@
 
 .footer-card {
 	.card {
-		border: 1px solid var(--secondary-500);
+		border: 1px solid var(--p-secondary-500);
 	}
 
 	svg {
-		color: var(--primary-500);
+		color: var(--p-primary-500);
 	}
 
 	&:hover {
 		.card {
-			background-color: var(--primary-50);
-			border: 1px solid var(--primary-500);
+			background-color: var(--p-primary-50);
+			border: 1px solid var(--p-primary-500);
 		}
 		.cardinactive {
 			background-color: white;
@@ -38,8 +38,8 @@
 
 	&:focus {
 		.card {
-			background-color: var(--primary-50);
-			border: 1px solid var(--primary-500);
+			background-color: var(--p-primary-50);
+			border: 1px solid var(--p-primary-500);
 		}
 		.cardinactive {
 			background-color: white;

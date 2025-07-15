@@ -11,7 +11,7 @@
   
   /* Job Tracker Panel */
   .job-tracker-panel {
-    background-color: #fff;
+    background-color: var(--p-neutral-50);
     border-radius: 0.5rem;
     padding: 5px;
     height: 100%;
@@ -45,7 +45,7 @@
   
   /* Job Cards */
   .job-card {
-    background-color: #fff;
+    background-color: var(--p-neutral-50);
     border-radius: 0.5rem;
     padding: 1rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
@@ -146,7 +146,7 @@
     top: 20px;
     right: 10px;
     background-color: #ff0000;
-    color: #fafafa;
+    color: var(--p-neutral-50);
     border-radius: 50%;
     padding-inline: 3px;
     display: flex;

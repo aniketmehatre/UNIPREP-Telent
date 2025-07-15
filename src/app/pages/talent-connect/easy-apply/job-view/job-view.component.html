@@ -158,7 +158,7 @@
 									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
-												<i class="fa fa-building-user me-2" style="color: var(--secondary-500)"></i>
+												<i class="fa fa-building-user me-2" style="color: var(--p-secondary-500)"></i>
 												<div>
 													<span class="text-muted">Work Mode</span>
 													<div class="fw-bold text-break">{{ Array.isArray(jobDetails.work_mode) ? jobDetails.work_mode.join(", ") : jobDetails.work_mode }}</div>
@@ -311,7 +311,7 @@
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
-												<span *ngFor="let comp of jobDetails.compensation_structure" class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ comp }}</span>
+												<span *ngFor="let comp of jobDetails.compensation_structure" class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ comp }}</span>
 											</div>
 										</div>
 									</div>
@@ -329,7 +329,7 @@
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
-												<span *ngFor="let benefit of jobDetails.benefits_perks" class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ benefit }}</span>
+												<span *ngFor="let benefit of jobDetails.benefits_perks" class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ benefit }}</span>
 											</div>
 										</div>
 									</div>
@@ -347,7 +347,7 @@
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
-												<span *ngFor="let skill of jobDetails?.soft_skills" class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ skill }}</span>
+												<span *ngFor="let skill of jobDetails?.soft_skills" class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ skill }}</span>
 											</div>
 										</div>
 									</div>
@@ -368,10 +368,10 @@
 											<div class="d-flex flex-wrap gap-2 mb-4">
 												<ng-container *ngIf="Array.isArray(jobDetails.hiring_stages) && jobDetails.hiring_stages.length > 0">
 													<ng-container *ngIf="jobDetails.hiring_stages[0].id !== undefined">
-														<span *ngFor="let stage of jobDetails.hiring_stages" class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage.name }}</span>
+														<span *ngFor="let stage of jobDetails.hiring_stages" class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage.name }}</span>
 													</ng-container>
 													<ng-container *ngIf="jobDetails.hiring_stages[0].id === undefined">
-														<span *ngFor="let stage of jobDetails.hiring_stages" class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage }}</span>
+														<span *ngFor="let stage of jobDetails.hiring_stages" class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage }}</span>
 													</ng-container>
 												</ng-container>
 												<ng-container *ngIf="!Array.isArray(jobDetails.hiring_stages)">
@@ -384,7 +384,7 @@
 
 											<h6 class="mb-2 text-primary">Interview Format</h6>
 											<div class="d-flex flex-wrap gap-2 mb-4">
-												<span *ngFor="let stage of jobDetails.interview_format" class="border border-warning badge bg-warning text-dark p-2 rounded mb-2 fs-6">
+												<span *ngFor="let stage of jobDetails.interview_format" class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">
 													{{ stage }}
 												</span>
 											</div>

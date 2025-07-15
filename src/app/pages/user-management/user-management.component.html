@@ -1,7 +1,7 @@
 <div class="card container-fluid h-100 d-flex flex-column justify-content-center bg-white">
     <div class="row p-2">
         <div class="col-12">
-            <div class="card text-center" style="background-color: black; color: #fff;">
+            <div class="card text-center" style="background-color: black; color: var(--p-neutral-50);">
                 <h4 class="p-2">Settings</h4>
             </div>
         </div>
@@ -100,7 +100,7 @@
                     </span>
                     <h5>{{ PersonalInfo?.name }} <span *ngIf="PersonalInfo?.subscription_plan"><button
                                 class="student-plan-btn">
-                                <i class="fa-solid fa-web-awesome" style="color: #fff;"></i>
+                                <i class="fa-solid fa-web-awesome" style="color: var(--p-neutral-50);"></i>
                                 {{PersonalInfo?.subscription_plan }}
                             </button></span></h5>
                     <!-- <span class="badge bg-warning">Student Plan</span> -->
@@ -222,7 +222,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12"><button type="submit" class="btn btn-dark w-100"
-                                                    style="background-color: var(--primary-500) !important">
+                                                    style="background-color: var(--p-primary-500) !important">
                                                     {{submitName}}</button></div>
                                         </div>
                                     </form>

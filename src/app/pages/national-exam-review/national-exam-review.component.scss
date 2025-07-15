@@ -1,24 +1,24 @@
 .optionanswered {
-	border: 2px solid var(--primary-500);
+	border: 2px solid var(--p-primary-500);
     border-radius: 10px;
-    background: var(--uniprep-green);
+    background: var(--p-green-600);
     color: var(--uniprepprimarydark);
 }
 
 .optionreviewcorrect {
-	border: 2px solid var(--uniprep-darkgreen);
-	background: var(--uniprep-green);
+	border: 2px solid var(--p-lime-500);
+	background: var(--p-green-600);
 	border-radius: 8px;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 .optionreviewnotcorrect {
-	border: 2px solid var(--uniprep-darkgreen);
+	border: 2px solid var(--p-lime-500);
 	background: white;
 	border-radius: 8px;
 }
 .answercorct{
-	border: 2px solid var(--uniprep-darkgreen);
-	background: var(--uniprep-green);
+	border: 2px solid var(--p-lime-500);
+	background: var(--p-green-600);
 	border-radius: 8px;
 	color: white;
 
@@ -37,8 +37,8 @@
 }
 
 .green{
-	border: 2px solid var(--uniprep-darkgreen);
-	background: var(--uniprep-green);
+	border: 2px solid var(--p-lime-500);
+	background: var(--p-green-600);
 	border-radius: 8px;
 	color: white;
 }

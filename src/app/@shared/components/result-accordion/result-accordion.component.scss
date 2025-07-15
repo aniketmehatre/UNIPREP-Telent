@@ -15,7 +15,7 @@
   margin-top: 10px;
   padding: 5px;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: var(--p-neutral-50);
   background-clip: border-box;
   border: 1px solid rgba(0,0,0,.125);
   border-radius: 0.25rem;
@@ -57,7 +57,7 @@
   }
   .dsrp-score, .dsrp-content {
     &.success {
-      color: var(--primary-500);
+      color: var(--p-primary-500);
     }
     &.warning {
       color: orange;
@@ -88,7 +88,7 @@
   stroke: #ff0000;
 }
 .circular-chart.success .circle {
-  stroke: var(--primary-500);
+  stroke: var(--p-primary-500);
 }
 .percentage {
   fill: #666;
