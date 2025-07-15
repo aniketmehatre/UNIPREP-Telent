@@ -25,37 +25,53 @@ import { removeExtraResponse } from "../../prompt"
   templateUrl: './global-edufit.component.html',
   styleUrls: ['./global-edufit.component.scss'],
   standalone: true,
-  imports: [CommonModule, SelectModule, RouterModule, DialogModule, CardModule, PaginatorModule, CarouselModule, ButtonModule, FormsModule, ReactiveFormsModule, SkeletonModule, SharedModule]
+  imports: [CommonModule, SelectModule, RouterModule, DialogModule, CardModule, PaginatorModule, CarouselModule, ButtonModule,
+    FormsModule, ReactiveFormsModule, SkeletonModule, SharedModule
+  ]
 })
 export class GlobalEdufitComponent implements OnInit {
-  universityList: any = [];
-  countryList: any = [];
-  interestedCountryList: any = [];
-  specializationList: any = [];
-  degreeList: any = optionsGlobal.Degree;
+  universityList: any[] = [];
+  countryList: any[] = [];
+  interestedCountryList: any[] = [];
+  specializationList: any[] = [];
+  degreeList: any[] = optionsGlobal.Degree;
   durationList: { name: string }[] = optionsGlobal.CourseDuration;
-  // costEstimationList: { name: string }[] = optionsGlobal.;
   periodsList: { name: string }[] = optionsGlobal.Stayback;
   isFromSavedData: boolean = false;
-  recommadationSavedQuestionList: any = [];
-  page = 1;
-  pageSize = 25;
-  first: number = 0;
+  recommadationSavedQuestionList: any[] = [];
+  page: number = 1;
+  pageSize: number = 25;
   form: FormGroup = new FormGroup({});
-  locationName: string = '';
   submitted: boolean = false;
-  data: any = {
-    page: this.page,
-    perpage: this.pageSize,
-  };
   currencyandCountryList: any;
   isRecommendationQuestion: boolean = true;
   isRecommendationData: boolean = false;
   isRecommendationSavedData: boolean = false;
   recommendationData: SafeHtml;
   isResponseSkeleton: boolean = false;
-  
   userInputs: any;
+  activePageIndex: number = 0;
+  invalidClass: boolean = false;
+  data: any = {
+    page: this.page,
+    perpage: this.pageSize,
+  };
+  recommendations: any = [
+    {
+      id: 1,
+      question: {
+        heading: 'Basic Information',
+        branches: ["Which country are you planning to study in?", "Which university are you considering?", "What Course are you interested in?"]
+      }
+    },
+    {
+      id: 2,
+      question: {
+        heading: 'Finance',
+        branches: ["What is the tuition fee for the program?", "What is the estimated cost of living per year?", "What is the stay back period in the country?"]
+      }
+    }
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -91,30 +107,8 @@ export class GlobalEdufitComponent implements OnInit {
     })
   }
 
-  enableModule: boolean = true;
-  activePageIndex: number = 0;
-  recommendations: any = [
-    {
-      id: 1,
-      question: {
-        heading: 'Basic Information',
-        branches: ["Which country are you planning to study in?", "Which university are you considering?", "What Course are you interested in?"]
-      },
-    },
-    {
-      id: 2,
-      question: {
-        heading: 'Finance',
-        branches: ["What is the tuition fee for the program?", "What is the estimated cost of living per year?", "What is the stay back period in the country?"]
-      },
-    },
-  ];
-  invalidClass: boolean = false;
-  selectedData: { [key: string]: any } = {};
-
   ngOnInit(): void {
     this.getCurrenyandLocation();
-    
   }
 
   goBack() {
@@ -149,8 +143,8 @@ export class GlobalEdufitComponent implements OnInit {
   }
 
   getRecommendation() {
-    if(this.authService._creditCount === 0){
-      this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+    if (this.authService._creditCount === 0) {
+      this.toast.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
       this.router.navigateByUrl('/pages/export-credit')
       return;
     }

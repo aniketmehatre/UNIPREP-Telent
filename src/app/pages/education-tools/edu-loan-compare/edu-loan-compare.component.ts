@@ -37,7 +37,7 @@ import { removeExtraResponse } from '../../prompt';
 })
 export class EduLoanCompareComponent implements OnInit {
 
-  recommendations: { id: number, heading: string, questions: string[] }[] = eduloanRecommendations
+  recommendations: { id: number, heading: string, questions: string[] }[] = eduloanRecommendations;
   loanTensureMonthList: CommonType[] = loanTensureMonths;
   moratoriumPeriodList: CommonType[] = moratoriumPeriods;
   courseDurationList: CommonType[] = courseDuration;
@@ -53,7 +53,6 @@ export class EduLoanCompareComponent implements OnInit {
   recommendationData: string = '';
   activePageIndex: number = 0;
   isResponseSkeleton: boolean = false;
-  
   userInputs: any;
 
   constructor(
@@ -79,7 +78,6 @@ export class EduLoanCompareComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCountryList();
-    
   }
 
   getCountryList() {

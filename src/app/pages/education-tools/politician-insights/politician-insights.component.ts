@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EducationToolsService } from '../education-tools.service';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { MessageService } from 'primeng/api';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
@@ -17,7 +16,6 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ActivatedRoute } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { DataService } from 'src/app/data.service';
-import { LocationService } from 'src/app/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { Location } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
@@ -38,11 +36,11 @@ export interface Politician {
   templateUrl: './politician-insights.component.html',
   styleUrls: ['./politician-insights.component.scss'],
   standalone: true,
-  imports: [PaginatorModule, SkeletonModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
+  imports: [PaginatorModule, SkeletonModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, CommonModule, 
+    RouterModule, DialogModule, MultiSelectModule, SelectModule, CardModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class PoliticianInsightsComponent implements OnInit {
   countrylist: any[] = [];
-  headertooltipname: string = "Education Tools - Politician Insights";
   isShowCountryData: boolean = false;
   isShowCountryQuesAns: boolean = false;
   questuionanswerlist: any[] = [];
@@ -54,8 +52,6 @@ export class PoliticianInsightsComponent implements OnInit {
   politicians: Politician[] = [];
   isSkeletonVisible: boolean = false;
   isShowPoliticians: boolean = false;
-  readonly modeName: string = "politician_insights";
-  politicianName: string = '';
   countryName: string = '';
   page: number = 1;
   pageSize: number = 10;
@@ -71,7 +67,6 @@ export class PoliticianInsightsComponent implements OnInit {
     private dataService: DataService,
     private activatedRoute: ActivatedRoute,
     private meta: Meta,
-    private toast: MessageService,
     private router: Router,
     private educationToolService: EducationToolsService,
     private location: Location,

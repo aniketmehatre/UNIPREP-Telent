@@ -20,8 +20,8 @@ import { StorageService } from 'src/app/storage.service';
 })
 export class EducationToolsListComponent implements OnInit {
 
-  EducationToolsList = EducationToolsData;
-  isLaunchingSoon: true;
+  educationToolsList = EducationToolsData;
+  
   constructor(private storage: StorageService) { }
 
   ngOnInit(): void {
@@ -29,14 +29,14 @@ export class EducationToolsListComponent implements OnInit {
 
   get filteredEducationTools(): any[] {
     if (this.storage.get('home_country_name') === 'India') {
-      return EducationToolsData;
+      return this.educationToolsList;
     } else {
       const excludedTitles = [
         'UNILOAN',
         'Executive Education',
         'Distance Learning Education'
       ];
-      return EducationToolsData.filter(tool => !excludedTitles.includes(tool.title));
+      return this.educationToolsList.filter(tool => !excludedTitles.includes(tool.title));
     }
   }
 }

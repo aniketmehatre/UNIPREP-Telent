@@ -28,15 +28,14 @@ import { PageFacadeService } from 'src/app/pages/page-facade.service';
 })
 export class CountryInsightsSubmoduleComponent implements OnInit {
   questionsList: QuestionsList[] = [];
-  first = 0;
-  page = 1;
-  pageSize = 25;
+  first: number = 0;
+  page: number = 1;
+  pageSize: number = 25;
   moduleId: number = 0;
   countryId: number = 0;
   questionModal: boolean = false;
   questionDetail: any;
   totalQuizCount: number = 0;
-  selectedIndex: number = 0;
   countryname: string = '';
   isSkeletonVisible: boolean = false;
   questionId: number = 0;
