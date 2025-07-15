@@ -19,7 +19,7 @@ footer {
   }
   .footer-section {
   background-color: #121212;
-  color: #ffffff;
+  color: var(--p-neutral-50);
   padding: 60px 0 0;
   font-family: 'Inter', sans-serif;
 }
@@ -48,9 +48,9 @@ footer {
     justify-content: center;
     width: 36px;
     height: 36px;
-    background-color: #ffffff;
+    background-color: var(--p-neutral-50);
     border-radius: 50%;
-    color: #000000;
+    color: var(--p-neutral-950);
     text-decoration: none;
     transition: all 0.3s ease;
     
@@ -65,7 +65,7 @@ footer {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 20px;
-  color: #ffffff;
+  color: var(--p-neutral-50);
 }
 
 .footer-links {
@@ -83,7 +83,7 @@ footer {
       font-size: 0.9rem;
       cursor: pointer;
       &:hover {
-        color: #ffffff;
+        color: var(--p-neutral-50);
       }
     }
   }

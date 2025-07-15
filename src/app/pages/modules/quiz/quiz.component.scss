@@ -41,19 +41,19 @@
 	border: 2px solid var(--p-lime-500);
 	background: var(--p-green-600);
 	border-radius: 8px;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 .answercorct{
 	border: 2px solid var(--p-lime-500);
 	background: var(--p-green-600);
 	border-radius: 8px;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 .optionreviewwrong {
 	border: 2px solid #df3e3e;
 	background: #df3e3e;
 	border-radius: 8px;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 :host ::ng-deep .p-dialog 
 {

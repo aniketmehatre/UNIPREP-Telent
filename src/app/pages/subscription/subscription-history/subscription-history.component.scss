@@ -92,7 +92,7 @@
 
 .buttonactive.active {
   background-color: var(--primary-500);
-  color: #fff !important;
+  color: var(--p-neutral-50) !important;
   /* Add other styles for active buttons */
 }
 
@@ -135,7 +135,7 @@
 
 .mostpopular {
   background: var(--primary-500);
-  color: #fff;
+  color: var(--p-neutral-50);
   text-align: center;
   padding: 10px;
   border-radius: 12px 12px 0 0;
@@ -285,7 +285,7 @@
     background-color: #FF8800;
     font-size: 0.8em;
     border-radius: 5px !important;
-    color: #fff;
+    color: var(--p-neutral-50);
     font-weight: 500;
   }
 
@@ -296,7 +296,7 @@
     background-color: #FF8800;
     font-size: 0.8em;
     border-radius: 5px !important;
-    color: #fff;
+    color: var(--p-neutral-50);
     font-weight: 500;
   }
 }
@@ -400,7 +400,7 @@
   border-radius: 50%;
   cursor: pointer;
   z-index: 1;
-  background-color: #fff;
+  background-color: var(--p-neutral-50);
   /* Set the desired background color */
   color: var(--primary-500);
   /* Set the desired text color */
@@ -412,7 +412,7 @@
 
 .custom-icon1 {
 
-  background-color: #fff;
+  background-color: var(--p-neutral-50);
   /* Set the desired background color */
   color: var(--primary-500);
   /* Set the desired text color */
@@ -468,7 +468,7 @@
 
 .p-inputgroup {
   padding: 0px;
-  background: #fff;
+  background: var(--p-neutral-50);
   border-radius: 10px;
 
   .p-button {

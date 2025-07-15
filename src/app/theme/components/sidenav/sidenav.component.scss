@@ -56,7 +56,7 @@
 		}
 		&.active {
 			.system-main__apps {
-				color: #fff;
+				color: var(--p-neutral-50);
 				background-color: var(--primary-500);
 				border-radius: 10px 10px;
 			}

@@ -52,7 +52,7 @@
 // 	flex: 1 1 calc(20% - 1rem); /* Adjust this to fit five cards per row */
 // 	box-sizing: border-box;
 // 	max-width: calc(20% - 1rem); /* Adjust this to fit five cards per row */
-// 	background-color: #fff !important;
+// 	background-color: var(--p-neutral-50) !important;
 // 	border: 3px solid #dfe4f8 !important;
 // 	padding: 0;
 // }
@@ -105,7 +105,7 @@
 
 .retry-button{
 	background-color: red;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 
 

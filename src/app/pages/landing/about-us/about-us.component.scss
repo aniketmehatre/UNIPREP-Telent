@@ -79,11 +79,11 @@ small,
 
 .btn-outline-dark {
   border-color: #333;
-  color: #fff;
+  color: var(--p-neutral-50);
 
   &:hover {
     background-color: #333;
-    color: #fff;
+    color: var(--p-neutral-50);
   }
 }
 
@@ -284,7 +284,7 @@ video::-webkit-media-controls-panel {
   transform: translate(-50%, -50%);
   width: 25px;
   height: 25px;
-  background-color: #fff;
+  background-color: var(--p-neutral-50);
   border: 4px solid var(--secondary-500);
   border-radius: 50%;
   z-index: 3;

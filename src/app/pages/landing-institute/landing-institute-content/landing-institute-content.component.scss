@@ -16,7 +16,7 @@
 	--secondary-200: #f0780e5b;
 	--primary-600: #4552a3;
 	--secondary-600: #f6895a;
-	--p-neutral-50: #ffffff;
+	--p-neutral-50: var(--p-neutral-50);
 }
 
 
@@ -183,7 +183,7 @@ body {
 .darksection {
 	background-color: #07070b;
 	p {
-		color: #000;
+		color: var(--p-neutral-950);
 	}
 }
 
@@ -264,7 +264,7 @@ kbd {
 }
 
 ::ng-deep .p-select .p-select-label {
-    color: #fff !important;
+    color: var(--p-neutral-50) !important;
 }
 // PrimeNG Carousel styles for advisors
 ::ng-deep .advisors-carousel {

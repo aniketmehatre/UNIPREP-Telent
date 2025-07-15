@@ -50,7 +50,7 @@
     bottom: -100px;
     text-align: center;
     font-weight: bold;
-    color: #ffffff;
+    color: var(--p-neutral-50);
     .fs3{
       font-size: 3rem !important;
     }
@@ -63,7 +63,7 @@
       color: var(--primary-500);
     }
     .header {
-      color: #ffffff;
+      color: var(--p-neutral-50);
       p {
         display: block;
       }

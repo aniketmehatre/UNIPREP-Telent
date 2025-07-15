@@ -11,7 +11,7 @@
 
 .buttonactive.active {
   background-color: var(--primary-500);
-  color: #fff !important;
+  color: var(--p-neutral-50) !important;
   /* Add other styles for active buttons */
 }
 // sop
@@ -72,7 +72,7 @@
 }
 .mostpopular {
   background: var(--primary-500);
-  color: #fff;
+  color: var(--p-neutral-50);
   text-align: center;
   padding: 10px 10px 12px;
   border-radius: 12px 12px 0 0;
@@ -299,13 +299,13 @@
   border-radius: 50%;
   cursor: pointer;
   z-index: 1;
-  background-color: #fff; /* Set the desired background color */
+  background-color: var(--p-neutral-50); /* Set the desired background color */
   color: var(--primary-500); /* Set the desired text color */
   padding: 4px; /* Adjust the padding as needed */
   border-radius: 50%; /* Create a circular shape */
 }
 .custom-icon1 {
-  background-color: #fff; /* Set the desired background color */
+  background-color: var(--p-neutral-50); /* Set the desired background color */
   color: var(--primary-500); /* Set the desired text color */
   padding: 4px; /* Adjust the padding as needed */
   border-radius: 50%; /* Create a circular shape */
@@ -352,7 +352,7 @@
 
 .p-inputgroup {
   padding: 0px;
-  // background: #fff;
+  // background: var(--p-neutral-50);
   border-radius: 10px;
   .p-button {
     border-radius: 0px 8px 8px 0 !important;
@@ -452,7 +452,7 @@
 
 .mostpopular {
   background: var(--primary-500);
-  color: #fff;
+  color: var(--p-neutral-50);
   text-align: center;
   padding: 10px 10px 12px;
   border-radius: 12px 12px 0 0;
@@ -543,7 +543,7 @@
 
   .mostpopular {
     background: var(--primary-500);
-    color: #fff;
+    color: var(--p-neutral-50);
     text-align: center;
     padding: 10px 10px 12px;
     border-radius: 12px 12px 0 0;
@@ -577,7 +577,7 @@
   color: #ff9113;
 }
 .btn-grey:hover {
-  color: #fff !important;
+  color: var(--p-neutral-50) !important;
   background: var(--primary-500);
 }
 

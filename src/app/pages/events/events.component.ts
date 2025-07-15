@@ -92,13 +92,13 @@ export class EventsComponent implements OnInit {
 	button1Style = {
 		"background-color": "#FFFFFF",
 		border: "1px solid var(--primary-500)",
-		color: "#000000",
+		color: "var(--p-neutral-950)",
 	}
 
 	button2Style = {
 		"background-color": "#FFFFFF",
 		border: "1px solid var(--primary-500)",
-		color: "#000000",
+		color: "var(--p-neutral-950)",
 	}
 
 	setActiveButton(buttonNumber: number): void {
@@ -107,13 +107,13 @@ export class EventsComponent implements OnInit {
 		this.button1Style = {
 			"background-color": "#FFFFFF",
 			border: "1px solid var(--primary-500)",
-			color: "#000000",
+			color: "var(--p-neutral-950)",
 		}
 
 		this.button2Style = {
 			"background-color": "#FFFFFF",
 			border: "1px solid var(--primary-500)",
-			color: "#000000",
+			color: "var(--p-neutral-950)",
 		}
 
 		// Set styles for the clicked button

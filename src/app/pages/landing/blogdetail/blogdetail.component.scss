@@ -12,7 +12,7 @@
 	--secondary-200: #f0780e5b;
 	--primary-600: #4552a3;
 	--secondary-600: #f6895a;
-	--p-neutral-50: #ffffff;
+	--p-neutral-50: var(--p-neutral-50);
 }
 
 .topmarquee
@@ -183,7 +183,7 @@ p {
 	background-color: #07070B;
 	p
 	{
-		color: #000;
+		color: var(--p-neutral-950);
 	}
 	
 }
@@ -213,7 +213,7 @@ p {
 .scrolled {
 	font-size: 14px;
 	transition: 0.2s;
-	background-color: #ffffff;
+	background-color: var(--p-neutral-50);
 }
 .scrolled button {
 	font-size: 14px;

@@ -107,7 +107,7 @@ video::-webkit-media-controls-panel {
 	background-color: #07070b;
 
 	p {
-		color: #000;
+		color: var(--p-neutral-950);
 	}
 }
 .background-overlay {
@@ -520,7 +520,7 @@ video::-webkit-media-controls-panel {
 	}
 
 	.btn-dark {
-		background-color: #000;
+		background-color: var(--p-neutral-950);
 		border-radius: 6px;
 		font-weight: 500;
 		transition: all 0.3s ease;
@@ -738,7 +738,7 @@ video::-webkit-media-controls-panel {
 }
 
 .bg-black{
-	background-color: #000;
+	background-color: var(--p-neutral-950);
 	color: white;
 }
 @media screen and (max-width: 768px) {

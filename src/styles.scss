@@ -789,7 +789,7 @@ uni-subscription {
 }
 
 .btn-primary {
-  color: #fff !important;
+  color: var(--p-neutral-50) !important;
   background: var(--primary-500) !important;
   @extend %btn-radius-10;
   border: 1px solid var(--primary-500);
@@ -801,7 +801,7 @@ uni-subscription {
   }
 
   &:hover {
-    color: #fff !important;
+    color: var(--p-neutral-50) !important;
     background: var(--primary-600) !important;
   }
 
@@ -842,7 +842,7 @@ uni-subscription {
 }
 
 .btn-secondary {
-  color: #fff !important;
+  color: var(--p-neutral-50) !important;
   background: var(--secondary-500) !important;
   border-color: var(--secondary-500) !important;
 
@@ -858,13 +858,13 @@ uni-subscription {
   }
 
   &:hover {
-    color: #fff !important;
+    color: var(--p-neutral-50) !important;
     background: var(--secondary-500) !important;
     border-color: var(--secondary-500) !important;
   }
 
   &:focus {
-    color: #fff !important;
+    color: var(--p-neutral-50) !important;
     background: var(--secondary-500);
     border-color: var(--secondary-500) !important;
     box-shadow: 0 0 0 0.25rem var(--secondary-50);
@@ -877,7 +877,7 @@ uni-subscription {
 }
 
 .btn-tertiary {
-  color: #000 !important;
+  color: var(--p-neutral-950) !important;
   background: rgb(89, 140, 223) !important;
   background: linear-gradient(
     0deg,
@@ -889,7 +889,7 @@ uni-subscription {
 
   &:hover,
   &:focus {
-    color: #000 !important;
+    color: var(--p-neutral-950) !important;
     background: rgb(89, 140, 223);
     background: linear-gradient(
       0deg,
@@ -905,7 +905,7 @@ uni-subscription {
 }
 
 .btn-success {
-  color: #fff !important;
+  color: var(--p-neutral-50) !important;
   background: var(--p-green-600) !important;
   @extend %btn-radius-10;
   border: 1px solid var(--p-green-600) !important;
@@ -918,7 +918,7 @@ uni-subscription {
 
   &:hover,
   &:focus {
-    color: #fff !important;
+    color: var(--p-neutral-50) !important;
     background: var(--p-green-500) !important;
     border: 1px solid var(--p-green-500) !important;
   }
@@ -934,7 +934,7 @@ uni-subscription {
 }
 
 .btn-quit {
-  color: #fff !important;
+  color: var(--p-neutral-50) !important;
   background: #df3e3e !important;
   padding: 5px;
   border-color: #ffb2b2 !important;
@@ -954,7 +954,7 @@ uni-subscription {
   &:hover,
   &:focus,
   &:focus-visible {
-    color: #fff !important;
+    color: var(--p-neutral-50) !important;
     background: #df3e3e;
     border-color: #ffb2b2 !important;
     box-shadow: 0 0 0 0.25rem #ffb2b280;
@@ -962,7 +962,7 @@ uni-subscription {
 }
 
 .btn-start {
-  color: #fff !important;
+  color: var(--p-neutral-50) !important;
   background: var(--primary-500) !important;
   padding: 5px !important;
   border-color: var(--primary-600) !important;
@@ -982,7 +982,7 @@ uni-subscription {
   &:hover,
   &:focus,
   &:focus-visible {
-    color: #fff !important;
+    color: var(--p-neutral-50) !important;
     background: var(--primary-500);
     border-color: var(--primary-600) !important;
     box-shadow: 0 0 0 0.25rem var(--primary-600) 80;
@@ -990,7 +990,7 @@ uni-subscription {
 }
 
 .btn-back {
-  color: #fff !important;
+  color: var(--p-neutral-50) !important;
   background: #001631 !important;
   padding: 5px 10px !important;
   border-color: #708fb5 !important;
@@ -1010,7 +1010,7 @@ uni-subscription {
   &:hover,
   &:focus,
   &:focus-visible {
-    color: #fff !important;
+    color: var(--p-neutral-50) !important;
     background: #001631;
     border-color: #708fb5 !important;
     box-shadow: 0 0 0 0.25rem #708fb580;
@@ -1047,12 +1047,12 @@ uni-subscription {
 }
 
 .btn-basic {
-  color: #000;
+  color: var(--p-neutral-950);
   @extend %btn-radius-20;
-  border: 1px solid #000;
+  border: 1px solid var(--p-neutral-950);
 
   &:hover {
-    border: 1px solid #000;
+    border: 1px solid var(--p-neutral-950);
   }
 }
 
@@ -1207,7 +1207,7 @@ uni-subscription {
     .p-dialog {
       .p-dialog-header {
         .p-dialog-header-icon {
-          color: #fff;
+          color: var(--p-neutral-50);
           margin-right: 10px;
 
           &:hover {
@@ -1223,13 +1223,13 @@ uni-subscription {
       .p-dialog-content::-webkit-scrollbar-track {
         -webkit-box-shadow: none !important;
         border-radius: 10px !important;
-        background-color: #fff !important;
+        background-color: var(--p-neutral-50) !important;
       }
 
       .p-dialog-content::-webkit-scrollbar {
         border-radius: 10px;
         width: 8px !important;
-        background-color: #fff !important;
+        background-color: var(--p-neutral-50) !important;
       }
 
       .p-dialog-content::-webkit-scrollbar-thumb {
@@ -1356,7 +1356,7 @@ uni-subscription {
 
 .uniprepchat {
   .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
-    color: #ffffff;
+    color: var(--p-neutral-50);
     background: var(--primary-500);
   }
 
@@ -1430,7 +1430,7 @@ uni-subscription {
 
 .select-title {
   background: #1c1b17;
-  color: #fff;
+  color: var(--p-neutral-50);
   padding: 8px 8px 8px 15px;
   border-radius: 10px;
   position: relative;
@@ -1909,7 +1909,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
     border-radius: 10px;
     width: 6px !important;
     height: 5px !important;
-    background-color: #fff !important;
+    background-color: var(--p-neutral-50) !important;
     margin-top: 5px;
   }
 
@@ -3002,7 +3002,7 @@ p-inputotp .p-inputotp-input {
 }
 
 p-inputotp .p-inputotp-input:focus {
-  border-bottom: 2px solid #000 !important;
+  border-bottom: 2px solid var(--p-neutral-950) !important;
 }
 
 // === RESPONSIVE MEDIA QUERIES (CONSOLIDATED & GROUPED) ===
@@ -3192,7 +3192,7 @@ p-inputotp .p-inputotp-input:focus {
     border-radius: 10px;
     width: 6px !important;
     height: 5px !important;
-    background-color: #fff !important;
+    background-color: var(--p-neutral-50) !important;
     margin-top: 5px;
   }
   :host .p-paginator .p-paginator-first,

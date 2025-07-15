@@ -33,7 +33,7 @@
 .mostpopular
 {
   background: var(--primary-500);
-  color: #fff;
+  color: var(--p-neutral-50);
   text-align: center;
   padding: 10px;
   border-radius: 12px 12px 0 0;
@@ -112,7 +112,7 @@
     background-color: #FF8800;
     font-size: 0.8em;
     border-radius: 5px !important;
-    color: #fff;
+    color: var(--p-neutral-50);
     font-weight: 500;
   }&:hover
    {
@@ -122,7 +122,7 @@
      background-color: #FF8800;
      font-size: 0.8em;
      border-radius: 5px !important;
-     color: #fff;
+     color: var(--p-neutral-50);
      font-weight: 500;
    }
 }

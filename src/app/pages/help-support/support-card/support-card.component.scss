@@ -25,7 +25,7 @@
       background-color: rgba(155, 195, 41, 1);
 
       & * {
-        color: #ffffff !important;
+        color: var(--p-neutral-50) !important;
       }
     }
   }

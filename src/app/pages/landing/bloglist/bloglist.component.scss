@@ -12,7 +12,7 @@
 	--secondary-200: #f0780e5b;
 	--primary-600: #4552a3;
 	--secondary-600: #f6895a;
-	--p-neutral-50: #ffffff;
+	--p-neutral-50: var(--p-neutral-50);
 }
 
 :host {
@@ -48,7 +48,7 @@
 .darksection {
 	background-color: #07070b;
 	p {
-		color: #fff !important;
+		color: var(--p-neutral-50) !important;
 	}
 }
 

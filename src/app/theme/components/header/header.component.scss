@@ -6,12 +6,12 @@ nav {
 
   .btn-primary {
     font-size: 1rem;
-    color: #000;
+    color: var(--p-neutral-950);
   }
 
   .btn-secondary {
     font-size: 1rem;
-    color: #000;
+    color: var(--p-neutral-950);
   }
 
   .p-breadcrumb {
@@ -270,7 +270,7 @@ form {
   width: 30px;
   height: 30px;
   padding: 0px;
-  background: #fff;
+  background: var(--p-neutral-50);
   border: 1px solid var(--primary-500);
   border-radius: 5px;
   text-align: center;
@@ -301,7 +301,7 @@ form {
 .darkmode {
   .menutoggle {
     button {
-      color: #fff;
+      color: var(--p-neutral-50);
       background: #202124;
     }
   }
@@ -383,7 +383,7 @@ form {
 //   z-index: 99999999 !important;
 // }
 $color_3: #222;
-$background-color_4: #fff;
+$background-color_4: var(--p-neutral-50);
 // .form-control {
 //   display: block;
 //   width: 80%;

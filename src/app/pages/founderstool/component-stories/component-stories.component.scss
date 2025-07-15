@@ -25,7 +25,7 @@
 
 .popup-body {
 	padding: 20px;
-	background-color: #ffffff;
+	background-color: var(--p-neutral-50);
 }
 
 .popup-sections {
@@ -100,7 +100,7 @@
 	// content: "\2197";
 	/* Unicode for right arrow (→) */
 	font-size: 20px;
-	color: #ffffff;
+	color: var(--p-neutral-50);
 	position: absolute;
 	bottom: 10px;
 	right: 13px;

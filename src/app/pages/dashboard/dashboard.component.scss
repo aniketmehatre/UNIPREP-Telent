@@ -139,7 +139,7 @@ $howManySteps: 100; //this needs to be even.
     justify-content: center;
     height: 100%;
     width: 100%;
-    background-color: #fff;
+    background-color: var(--p-neutral-50);
     font-weight: 300;
 
     div {
@@ -216,7 +216,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
 
 //.homecardbtn {
 //  padding: 10px !important;
-//  color: #fff !important;
+//  color: var(--p-neutral-50) !important;
 //  background-color: #f0780e;
 //}
 
@@ -230,7 +230,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
   padding: 10px 35px;
   height: auto;
   //background-color: #f0780e;
-  background-color: #000;
+  background-color: var(--p-neutral-950);
   border-radius: 50px;
   display: flex;
   justify-content: center;

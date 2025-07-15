@@ -89,19 +89,19 @@ selctedQuizTiny {
 	border: 1px solid var(--primary-500);
 	background: green;
 	border-radius: 8px;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 .answercorct{
 	border: 1px solid var(--primary-500);
 	background: green;
 	border-radius: 8px;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 .optionreviewwrong {
 	border: 1px solid #df3e3e;
 	background: #df3e3e;
 	border-radius: 8px;
-	color: #fff;
+	color: var(--p-neutral-50);
 }
 .homecardbtnquiz {
 	background-color: black;

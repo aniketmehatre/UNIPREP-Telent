@@ -282,7 +282,7 @@
                         *ngIf="!subscription.selected && (existingSubscription[0]?.plan != subscription.subscription_plan || (existingSubscription[0]?.plan == subscription.subscription_plan && isPlanExpired) || (existingSubscription[0]?.monthlyPlan != monthlyPlan && subscription.available) || (existingSubscription[0]?.plan == subscription.subscription_plan && existingSubscription[0]?.monthlyPlan != monthlyPlan))"
                         [ngClass]="{ greyButton: !subscription.available }" [disabled]="!subscription.available"
                         (click)="selectedSubscriptionPlan(subscription)">
-                        <span *ngIf="subscription.available" style="color:#fff">Upgrade Plan</span>
+                        <span *ngIf="subscription.available" style="color:var(--p-neutral-50)">Upgrade Plan</span>
                         <span *ngIf="!subscription.available">Unavailable</span>
                       </button>
                     </div>

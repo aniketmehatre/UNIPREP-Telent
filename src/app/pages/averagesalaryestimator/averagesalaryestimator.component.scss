@@ -72,13 +72,13 @@
 }
 
 .resterbutton {
-  background-color: #fff;
+  background-color: var(--p-neutral-50);
   color: var(--primary-500);
 }
 
 .resterbutton:hover {
   background-color: var(--primary-500);
-  color: #fff;
+  color: var(--p-neutral-50);
 }
 
 .custom-input {

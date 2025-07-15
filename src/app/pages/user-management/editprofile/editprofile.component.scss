@@ -8,7 +8,7 @@
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: var(--p-neutral-50);
   background-clip: border-box;
   border-radius: 0.35rem;
 }
@@ -46,7 +46,7 @@ hr.borderline {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: var(--p-neutral-50);
   background-clip: border-box;
   /* border: 1px solid rgba(0,0,0,.125); */
   /* border-radius: 0.25rem; */
@@ -58,7 +58,7 @@ hr.borderline {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: var(--p-neutral-50);
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
@@ -70,7 +70,7 @@ hr.borderline {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: var(--p-neutral-50);
   border: none;
 
 }
