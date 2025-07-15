@@ -21,7 +21,7 @@
   --primary-700: #{$primary-700};
   --primary-800: #{$primary-800};
   --primary-900: #{$primary-900};
-  --primary-1000: #{$primary-1000};
+  --primary-950: #{$primary-950};
   --secondary-50: #{$secondary-50};
   --secondary-100: #{$secondary-100};
   --secondary-200: #{$secondary-200};
@@ -32,7 +32,7 @@
   --secondary-700: #{$secondary-700};
   --secondary-800: #{$secondary-800};
   --secondary-900: #{$secondary-900};
-  --secondary-1000: #{$secondary-1000};
+  --secondary-950: #{$secondary-950};
   scrollbar-face-color: var(--primary-500);
   scrollbar-track-color: var(--primary-50);
   scrollbar-color: var(--primary-500) var(--p-neutral-100);
@@ -46,7 +46,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-background-clip: text;
-  -webkit-text-fill-color: black;
+  -webkit-text-fill-color: var(--p-neutral-950);
   transition: none;
   background-color: transparent;
   box-shadow: none;
@@ -1488,11 +1488,11 @@ uni-subscription {
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--primary-50);
-    background: #fafafa;
+    background: var(--p-neutral-50);
 
     .accordion-button {
       background: transparent;
-      color: black;
+      color: var(--p-neutral-950);
       box-shadow: none;
     }
 
@@ -1506,12 +1506,12 @@ uni-subscription {
 
 .notify {
   background-color: transparent !important;
-  border: 1px solid #efefef;
+  border: 1px solid var(--p-neutral-200);
 }
 
 .navbar {
   transition: 200ms linear;
-  background: white;
+  background: var(--p-neutral-50);
 }
 
 .darksection {
@@ -1560,31 +1560,31 @@ uni-subscription {
 }
 
 .btn-basic {
-  color: #000;
+  color: var(--p-neutral-950);
   @extend %btn-radius-20;
-  border: 1px solid #000;
+  border: 1px solid var(--p-neutral-950);
 
   &:hover {
-    border: 1px solid #000;
+    border: 1px solid var(--p-neutral-950);
   }
 }
 
 .subscriptioncard1 .p-chip,
 .subscriptioncard .p-chip {
-  background-color: #fff;
-  color: #000;
+  background-color: var(--p-neutral-50);
+  color: var(--p-neutral-950);
   border: 2px solid var(--primary-500);
   border-radius: 100px;
 }
 
 .subscriptiontable .p-datatable th {
-  background-color: #fff !important;
-  color: #000 !important;
+  background-color: var(--p-neutral-50) !important;
+  color: var(--p-neutral-950) !important;
   border-right: none !important;
 }
 
 .subscriptiontable .p-datatable .p-datatable-thead > tr > th {
-  border: 2px solid #f1f1f1;
+  border: 2px solid var(--p-neutral-200);
   border-width: 0 0 2px 0;
   font-size: 20px;
 }
@@ -1664,18 +1664,18 @@ p-accordion.plain .p-accordion-tab-active .p-accordion-header-link:after {
 .exhausted-plan-icon {
   padding: 10px;
   border-radius: 25px;
-  background-color: #df7905;
-  color: white;
+  background-color: var(--secondary-500);
+  color: var(--p-neutral-50);
   margin-left: 5px;
 }
 
 .p-dialog .p-dialog-header .p-dialog-header-icon {
-  background-color: #3f4c83 !important;
-  color: white !important;
+  background-color: var(--primary-500) !important;
+  color: var(--p-neutral-50) !important;
 }
 
 .theme-dark-blue {
-  background-color: #001631;
+  background-color: var(--primary-900);
 }
 
 p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
