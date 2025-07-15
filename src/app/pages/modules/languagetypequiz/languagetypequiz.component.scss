@@ -26,7 +26,7 @@
 	}
 }
 .quiznotanswered {
-	border: 2px solid var(--uniprep-lightgray);
+	border: 2px solid var(--p-neutral-200);
     padding: 1rem 1rem;
     border-radius: 10px;
 }
@@ -38,14 +38,14 @@
 }
 
 .optionreviewcorrect {
-	border: 2px solid var(--uniprep-darkgreen);
-	background: var(--uniprep-green);
+	border: 2px solid var(--p-lime-500);
+	background: var(--p-green-600);
 	border-radius: 8px;
 	color: #fff;
 }
 .answercorct{
-	border: 2px solid var(--uniprep-darkgreen);
-	background: var(--uniprep-green);
+	border: 2px solid var(--p-lime-500);
+	background: var(--p-green-600);
 	border-radius: 8px;
 	color: #fff;
 }

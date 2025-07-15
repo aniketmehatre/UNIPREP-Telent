@@ -33,33 +33,9 @@
   --secondary-800: #{$secondary-800};
   --secondary-900: #{$secondary-900};
   --secondary-1000: #{$secondary-1000};
-  --uniprep-white: #ffffff;
-  --uniprep-black: #000000;
-  --uniprep-lightgray: #b3b3b3;
-  --uniprep-gray: #f1f1f1;
-  --uniprep-darkgray: #636363;
-  --uniprep-lightgreen: #b7e044;
-  --uniprep-green: #9bc329;
-  --uniprep-darkgreen: #85ad18;
-  --uniprep-tealgreen: #07855e;
-  --uniprep-skyblue: var(--p-blue-400);
-  --uniprep-basil: #008762;
-  --uniprep-blue: var(--p-blue-500);
-  --uniprep-warning: var(--p-yellow-500);
-  --uniprep-danger: var(--p-red-500);
-  --uniprep-info: var(--p-blue-300);
-  --uniprep-success:var(--p-green-500);
-  --neutral-50: var(--p-neutral-50);
-  --neutral-100: var(--p-neutral-100);
-  --neutral-200: var(--p-neutral-200);
-  --neutral-300: var(--p-neutral-300);
-  --neutral-400: var(--p-neutral-400);
-  --neutral-500: var(--p-neutral-500);
-  --neutral-600: var(--p-neutral-600);
-  --neutral-700: var(--p-neutral-700);
   scrollbar-face-color: var(--primary-500);
   scrollbar-track-color: var(--primary-50);
-  scrollbar-color: var(--primary-500) var(--neutral-100);
+  scrollbar-color: var(--primary-500) var(--p-neutral-100);
   scrollbar-width: auto;
   --viewer-container-height: 0px !important;
   // ...repeat for all you need
@@ -165,11 +141,11 @@ input:-webkit-autofill:active {
 }
 
 .uniprep-lightgray {
-  color: var(--uniprep-lightgray);
+  color: var(--p-neutral-200);
 }
 
 .uniprep-darkgray {
-  color: var(--uniprep-darkgray);
+  color: var(--p-neutral-300);
 }
 
 .worksans {
@@ -243,11 +219,11 @@ body {
 }
 
 .bg-lightgray {
-  background: var(--uniprep-lightgray) !important;
+  background: var(--p-neutral-200) !important;
 }
 
 .bg-darkgray {
-  background: var(--uniprep-darkgray) !important;
+  background: var(--p-neutral-300) !important;
 }
 
 p {
@@ -849,12 +825,12 @@ uni-subscription {
 
   &:hover {
     color: var(--primary-500) !important;
-    background: var(--uniprep-gray) !important;
+    background: var(--p-neutral-100) !important;
   }
 
   &:focus {
     color: var(--primary-500) !important;
-    background: var(--uniprep-gray) !important;
+    background: var(--p-neutral-100) !important;
     box-shadow: 0 0 0 0.25rem var(--primary-50) !important;
     border-color: var(--primary-900) !important;
   }
@@ -930,9 +906,9 @@ uni-subscription {
 
 .btn-success {
   color: #fff !important;
-  background: var(--uniprep-green) !important;
+  background: var(--p-green-600) !important;
   @extend %btn-radius-10;
-  border: 1px solid var(--uniprep-green) !important;
+  border: 1px solid var(--p-green-600) !important;
 
   &:disabled {
     background-color: #343a40;
@@ -943,17 +919,17 @@ uni-subscription {
   &:hover,
   &:focus {
     color: #fff !important;
-    background: var(--uniprep-lightgreen) !important;
-    border: 1px solid var(--uniprep-lightgreen) !important;
+    background: var(--p-green-500) !important;
+    border: 1px solid var(--p-green-500) !important;
   }
 
   &:focus {
-    box-shadow: 0 0 0 0.25rem var(--uniprep-lightgreen) !important;
+    box-shadow: 0 0 0 0.25rem var(--p-green-500) !important;
   }
 
   .btn-icon {
     @extend %btn-icon-base;
-    background-color: var(--uniprep-darkgreen);
+    background-color: var(--p-lime-500);
   }
 }
 
@@ -1043,7 +1019,7 @@ uni-subscription {
 
 .btn-gray {
   color: var(--primary-900) !important;
-  background: var(--uniprep-gray) !important;
+  background: var(--p-neutral-100) !important;
   @extend %btn-radius-10;
 
   &:disabled {
@@ -1054,19 +1030,19 @@ uni-subscription {
 
   &:hover {
     color: var(--primary-900) !important;
-    background: var(--uniprep-lightgray) !important;
+    background: var(--p-neutral-200) !important;
   }
 
   &:focus {
     color: var(--primary-900) !important;
-    background: var(--uniprep-darkgray) !important;
+    background: var(--p-neutral-300) !important;
     box-shadow: 0 0 0 0.25rem var(--primary-50) !important;
-    border-color: var(--uniprep-darkgray) !important;
+    border-color: var(--p-neutral-300) !important;
   }
 
   .btn-icon {
     @extend %btn-icon-base;
-    background-color: var(--uniprep-lightgray);
+    background-color: var(--p-neutral-200);
   }
 }
 
@@ -2188,7 +2164,7 @@ uni-talent-connect {
   position: absolute;
   right: 5px;
   top: 5px;
-  background: var(--uniprep-skyblue);
+  background: var(--p-sky-500);
   color: white;
   padding: 2px 10px;
   border-radius: 15px;
@@ -2281,18 +2257,18 @@ uni-talent-connect {
 
 .btn-outline-secondary {
   color: var(--secondary-500);
-  background: var(--uniprep-white);
+  background: var(--p-neutral-50);
   border-radius: 10px;
   border: 1px solid var(--secondary-500);
 
   &:hover {
-    color: var(--uniprep-white);
+    color: var(--p-neutral-50);
     background: var(--secondary-500);
     border: 1px solid var(--secondary-500);
   }
 
   &:focus {
-    color: var(--uniprep-white);
+    color: var(--p-neutral-50);
     background: var(--secondary-500);
     box-shadow: 0 0 0 0.25rem var(--secondary-50);
     border-color: var(--secondary-500);
@@ -2310,7 +2286,7 @@ uni-talent-connect {
   &.p-highlight {
     background: var(--primary-500);
     border-color: var(--primary-500);
-    color: var(--uniprep-white);
+    color: var(--p-neutral-50);
 
     &:hover {
       background: var(--primary-600);
@@ -2649,18 +2625,18 @@ uni-global-employment-insights {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--uniprep-black);
-  color: var(--uniprep-white);
+  background-color: var(--p-neutral-950);
+  color: var(--p-neutral-50);
 
   &:hover {
-    background-color: var(--uniprep-black) !important;
-    color: var(--uniprep-white) !important;
+    background-color: var(--p-neutral-950) !important;
+    color: var(--p-neutral-50) !important;
   }
 
   &:focus,
   &:active {
-    background-color: var(--uniprep-black) !important;
-    color: var(--uniprep-white) !important;
+    background-color: var(--p-neutral-950) !important;
+    color: var(--p-neutral-50) !important;
   }
 }
 
@@ -2674,7 +2650,7 @@ uni-global-employment-insights {
   min-height: 40px;
   border-radius: 8px;
   background-color: #1c1b17;
-  color: var(--uniprep-white);
+  color: var(--p-neutral-50);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2686,7 +2662,7 @@ uni-global-employment-insights {
   min-height: 40px;
   border-radius: 8px;
   background-color: var(--secondary-500);
-  color: var(--uniprep-white);
+  color: var(--p-neutral-50);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2698,7 +2674,7 @@ uni-global-employment-insights {
   min-height: 40px;
   border-radius: 8px;
   background-color: var(--primary-500);
-  color: var(--uniprep-white);
+  color: var(--p-neutral-50);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2708,15 +2684,15 @@ uni-global-employment-insights {
   height: 18px;
   padding: 0px 4px 20px 4px;
   font-size: 10px;
-  color: var(--uniprep-white) !important;
-  background: var(--uniprep-green);
+  color: var(--p-neutral-50) !important;
+  background: var(--p-green-600);
   border-radius: 10px !important;
-  border: 1px solid var(--uniprep-green);
+  border: 1px solid var(--p-green-600);
 }
 
 .is-ai-bg-blue {
-  background-color: var(--uniprep-blue); /* Bootstrap primary */
-  color: var(--uniprep-white);
+  background-color: var(--p-blue-500); /* Bootstrap primary */
+  color: var(--p-neutral-50);
   padding: 3px 10px;
   border-radius: 12px;
   font-size: 10px;
@@ -2745,7 +2721,7 @@ uni-global-employment-insights {
   }
   .header {
     background: #1f3c88;
-    color: var(--uniprep-white);
+    color: var(--p-neutral-50);
     padding: 15px 25px;
     font-size: 1.2em;
     font-weight: 600;
@@ -2859,7 +2835,7 @@ uni-global-employment-insights {
   }
   .header {
     background: var(--primary-500);
-    color: var(--uniprep-white);
+    color: var(--p-neutral-50);
     padding: 15px 25px;
     font-size: 1.2em;
     font-weight: 600;
@@ -2991,7 +2967,7 @@ uni-institute-register {
 
   &:hover {
     color: var(--primary-500) !important;
-    background: var(--uniprep-gray) !important;
+    background: var(--p-neutral-100) !important;
   }
 
   .btn-icon {

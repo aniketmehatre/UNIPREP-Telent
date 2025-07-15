@@ -72,7 +72,7 @@
 						<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
 						<span class="system-main__name"> {{ item.title }} <span class="badge bg-success"
 								*ngIf="item.title == 'Language Hub' || item.title == 'Career Tools' || item.title == 'Pitch Deck' || item.title == 'UNILEARN' || item.title == 'Employer Connect' || item.title == 'UNIFINDER' || item.title == 'Quiz'"
-								style="width: fit-content; background: var(--uniprep-darkgreen) !important">Popular</span>
+								style="width: fit-content; background: var(--p-lime-500) !important">Popular</span>
 						</span>
 					</div>
 				</ng-template>
@@ -118,7 +118,7 @@
 					<span class="badge"
 						*ngIf="item.title == 'Language Hub' || item.title == 'Career Tools' || item.title == 'Pitch Deck' || item.title == 'UNILEARN' || item.title == 'UNIFINDER' || item.title == 'Quiz' || item.title == 'Employer Connect' || item.title == 'Cost of Living' || item.title == 'Travel Tools' || item.title == 'Explore Jobs'"
 						style="width: fit-content" [ngStyle]="{
-					  'background-color': item.title === 'Explore Jobs' ? 'var(--secondary-500)' : 'var(--uniprep-darkgreen)'
+					  'background-color': item.title === 'Explore Jobs' ? 'var(--secondary-500)' : 'var(--p-lime-500)'
 					}">
 						{{ item.title === 'Explore Jobs' ? 'Most Popular' : 'Popular' }}
 					</span> </span>
