@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, FormControl } from "@angular/forms";
 import { ViewProfileComponent } from "./view-profile/view-profile.component";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
@@ -14,6 +14,7 @@ import { SelectChangeEvent } from "primeng/select";
 import { environment } from "@env/environment";
 import { InputNumberInputEvent } from "primeng/inputnumber";
 import { PageFacadeService } from "../../page-facade.service";
+import { Router } from "@angular/router";
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -86,18 +87,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   ];
   isMaxGpaPercentageValue: boolean = false;
   //new design code
-  profileFormList = [
-    { id: 1, value: "personalInformationForm" },
-    { id: 2, value: "educationDetailsForm" },
-    { id: 3, value: "workExperienceForm" },
-    { id: 4, value: "careerPreferenceForm" },
-    { id: 5, value: "certificationsForm" },
-    { id: 6, value: "professionalTraitsForm" },
-    { id: 7, value: "professionalNetworkingForm" },
-    { id: 8, value: "attachmentsForm" },
-    { id: 9, value: "referencesForm" },
-    { id: 10, value: "additionalNotesForm" }
-  ];
   activePageIndex: number = 0;
   personalInformationForm: FormGroup = new FormGroup({});
   educationDetailsForm: FormGroup = new FormGroup({});
@@ -123,6 +112,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   profileCreationId: number = 0;
   isUpdatedProfile: boolean = false;
 
+  sampleProfileImages: string[] = [
+    environment.imagePath + 'uploads/Mask-group.jpg',
+    environment.imagePath + 'uploads/Mask-group-1.jpg',
+    environment.imagePath + 'uploads/Mask-group-2.jpg'
+  ];
+  sampleProfilePdf: string = environment.imagePath + 'uploads/Profile-Image-Guide.pdf';
+  isSampleProfilePdf: boolean = false;
+  isSampleProfileImgVisible: boolean = false;
+  isMobileView: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private dialogService: DialogService,
@@ -130,7 +129,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     private toastService: MessageService,
     private authService: AuthService,
     private sanitizer: DomSanitizer,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -206,17 +206,13 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         "",
         [
           Validators.required,
-          Validators.pattern(
-            /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
-          ),
+          Validators.pattern(/^(https?:\/\/)[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i)
         ],
       ],
       networking_social_media: this.fb.array([this.createSocialMediaGroup()]),
       networking_personal_website: [
         null,
-        Validators.pattern(
-          /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
-        ),
+        Validators.pattern(/^(https?:\/\/)[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i)
       ],
     });
     this.attachmentsForm = this.fb.group({
@@ -224,16 +220,12 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_video_link: [
         "",
         [
-          Validators.pattern(
-            /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
-          ),
+          Validators.pattern(/^(https?:\/\/)[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i)
         ],
       ],
       career_preference_portfolio_upload_link: [
         "",
-        Validators.pattern(
-          /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/,
-        ),
+        Validators.pattern(/^(https?:\/\/)[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i)
       ],
     });
     this.referencesForm = this.fb.group({
@@ -498,7 +490,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   openProfileDialog(isSample: boolean) {
     this.ref = this.dialogService.open(ViewProfileComponent, {
-      width: "65%",
+      width: this.isMobileView ? "90%" : "65%",
       height: "100vh",
       showHeader: false,
       closable: false,
@@ -1620,7 +1612,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       },
       error: err => {
         this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
-        this.previous();
+        if (!isUpdate) {
+          this.previous();
+        }
       }
     });
   }
@@ -1670,7 +1664,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         },
         error: err => {
           this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
-          this.previous();
+          if (!isUpdate) {
+            this.previous();
+          }
         }
       });
     }
@@ -1697,7 +1693,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       },
       error: err => {
         this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
-        this.previous();
+        if (!isUpdate) {
+          this.previous();
+        }
       }
     });
   }
@@ -1751,7 +1749,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         },
         error: err => {
           this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
-          this.previous();
+          if (!isUpdate) {
+            this.previous();
+          }
         }
       });
     }
@@ -1778,7 +1778,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       },
       error: err => {
         this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
-        this.previous();
+        if (!isUpdate) {
+          this.previous();
+        }
       }
     });
   }
@@ -1804,7 +1806,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       },
       error: err => {
         this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
-        this.previous();
+        if (!isUpdate) {
+          this.previous();
+        }
       }
     });
   }
@@ -1835,7 +1839,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       },
       error: err => {
         this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
-        this.previous();
+        if (!isUpdate) {
+          this.previous();
+        }
       }
     });
   }
@@ -1861,7 +1867,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       },
       error: err => {
         this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
-        this.previous();
+        if (!isUpdate) {
+          this.previous();
+        }
       }
     });
   }
@@ -2037,6 +2045,15 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       professional_references: this.professionalReferences.value
     };
     return JSON.stringify(current) !== JSON.stringify(originalReferencesForm);
+  }
+
+  goBack() {
+    this.isSampleProfilePdf ? this.isSampleProfilePdf = false : this.router.navigateByUrl('/pages/talent-connect/list');
+  }
+
+  @HostListener("window:resize", ["$event"])
+  onResize(event: any) {
+    this.isMobileView = event.target.innerWidth < 992 ? true : false;
   }
 
   clearStoredFiles(): void {
