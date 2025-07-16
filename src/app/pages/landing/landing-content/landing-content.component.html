@@ -1,11 +1,11 @@
 <ng-container *ngIf="isFromUUID; else normalLanding">
 	<app-uuid-invite-card *ngIf="isJobLink"></app-uuid-invite-card>
 	<uni-company-invite-card *ngIf="isCompanyLink"></uni-company-invite-card>
-	<uni-talent-invite-card *ngIf="isTalentLink"></uni-talent-invite-card>
-  </ng-container>
+	<!-- <uni-talent-invite-card *ngIf="isTalentLink"></uni-talent-invite-card> -->
+</ng-container>
 <!-- For enabling the right click, added the homeSection id -->
 <ng-template #normalLanding>
-	<section #homeSection> 
+	<section #homeSection>
 		<section class="pb-2 pt-5 py-md-3 darksection" id="home">
 			<div class="container-fluid pt-5 text-center">
 				<div class="row justify-content-center">
@@ -33,8 +33,8 @@
 				<div class="row justify-content-center align-items-center">
 					<div class="col-md-8">
 						<div class="video-container">
-							<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button" *ngIf="!isPlaying"
-								(click)="toggleVideo()"></i>
+							<i class="fa-solid fa-circle-play uniprep-secondary fa-beat" role="button"
+								*ngIf="!isPlaying" (click)="toggleVideo()"></i>
 
 							<!-- YouTube iframe (shown when playing) -->
 							<iframe *ngIf="isPlaying" (click)="toggleVideo()" class="youtube-iframe" [src]="embedUrl"
@@ -75,8 +75,10 @@
 									<i class="fa-solid fa-quote-left"></i>
 								</span>
 								<h5 class="p-5 text-white text-center fw-300 italic">
-									<span class="fw-bold uniprep-secondary">UNIPREP</span> is a Career Tech Platform that connects employers with top talents.<br />
-									We help you build an exceptional profile and land the right job — with 70+ premium features designed to make you stand out and get hired.
+									<span class="fw-bold uniprep-secondary">UNIPREP</span> is a Career Tech Platform
+									that connects employers with top talents.<br />
+									We help you build an exceptional profile and land the right job — with 70+ premium
+									features designed to make you stand out and get hired.
 								</h5>
 								<!-- Bottom-right flipped quote -->
 								<span class="quote-icon quote-bottom-right">
@@ -118,7 +120,8 @@
 			<div class="container-fluid py-5">
 				<div class="row justify-content-center">
 					<div class="col-md-12 text-center mb-3">
-						<h3 class="text-white fw-extralight mb-4"><span class="fw-semibold uniprep-secondary">UNIPREP</span>
+						<h3 class="text-white fw-extralight mb-4"><span
+								class="fw-semibold uniprep-secondary">UNIPREP</span>
 							Is for
 							you, If...</h3>
 					</div>
@@ -129,7 +132,8 @@
 									<div class="card-body d-flex justify-content-center py-4 px-4">
 										<div
 											class="d-flex flex-column gap-2 align-items-center justify-content-center card-title">
-											<span class="mb-2"><i class="{{ card.icon }} fw-light cardicon h1"></i></span>
+											<span class="mb-2"><i
+													class="{{ card.icon }} fw-light cardicon h1"></i></span>
 											<h6 class="text-center mb-0 fw-normal">{{ card.text }}</h6>
 										</div>
 									</div>
@@ -185,7 +189,8 @@
 										<h6 class="card-title text-center text-md-start">
 											{{ category.title }}
 										</h6>
-										<p class="card-description text-light-emphasis mt-auto text-center text-md-start">
+										<p
+											class="card-description text-light-emphasis mt-auto text-center text-md-start">
 											{{ category.description }}
 										</p>
 									</div>
@@ -511,14 +516,15 @@
 				<div class="row justify-content-center">
 					<div class="col-md-10">
 						<h3 class="text-center mb-5">Blogs</h3>
-						<p-carousel [value]="blogs" [numVisible]="4" [numScroll]="1" [circular]="true" 
+						<p-carousel [value]="blogs" [numVisible]="4" [numScroll]="1" [circular]="true"
 							[autoplayInterval]="5000" [showNavigators]="true" [showIndicators]="false"
 							[responsiveOptions]="responsiveOptions" styleClass="custom-carousel">
 							<ng-template let-post pTemplate="item">
 								<div class="cursor-pointer" [routerLink]="['/blogs', post.slug]">
 									<div class="card h-100 p-2">
 										<div class="blog-image-container">
-											<img [src]="post.featured_img" class="card-img-top blog-image" [alt]="post.title" />
+											<img [src]="post.featured_img" class="card-img-top blog-image"
+												[alt]="post.title" />
 										</div>
 										<div class="card-body d-flex flex-column">
 											<h6 class="card-title">{{ post.title }}</h6>
@@ -589,8 +595,8 @@
 							<div class="accordion-item faqcard p-2" *ngFor="let faq of faqItems; let i = index">
 								<h2 class="accordion-header">
 									<button class="accordion-button text-white collapsed fs-5" type="button"
-										data-bs-toggle="collapse" [attr.data-bs-target]="'#' + faq.id" aria-expanded="false"
-										[attr.aria-controls]="faq.id">
+										data-bs-toggle="collapse" [attr.data-bs-target]="'#' + faq.id"
+										aria-expanded="false" [attr.aria-controls]="faq.id">
 										{{ faq.question }}
 									</button>
 								</h2>

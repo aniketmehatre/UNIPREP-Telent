@@ -13,7 +13,6 @@ import { UserResolver } from 'src/app/resolvers/user.resolver';
 import { CertificatesComponent } from '../certificates/certificates.component';
 import { PrivacyComponent } from '../privacy/privacy.component';
 import { LandingComponent } from './landing.component';
-import { LandingContentComponent } from './landing-content/landing-content.component';
 
 export const landingRoutes: Routes = [
     {
@@ -51,10 +50,10 @@ export const landingRoutes: Routes = [
                 path: 'company/:uuid',
                 loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),
             },
-            {
-                path: 'talent/:uuid',
-                loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),
-            },
+            // {
+            //     path: 'talent/:uuid',
+            //     loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),
+            // },
             {
                 path: '',
                 loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),

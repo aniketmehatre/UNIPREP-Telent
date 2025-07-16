@@ -15,7 +15,6 @@ import { ActivatedRoute } from '@angular/router';
 import { UuidInviteCardComponent } from './uuid-invite-card/uuid-invite-card.component';
 import { CompanyInviteCardComponent } from './company-invite-card/company-invite-card.component';
 import { landingServices } from '../landing.service';
-import { TalentInviteCardComponent } from './talent-invite-card/talent-invite-card.component';
 
 @Component({
   selector: 'uni-landing-content',
@@ -28,8 +27,7 @@ import { TalentInviteCardComponent } from './talent-invite-card/talent-invite-ca
     ScrollTopModule,
     CarouselModule,
     UuidInviteCardComponent,
-    CompanyInviteCardComponent,
-    TalentInviteCardComponent
+    CompanyInviteCardComponent
   ],
   templateUrl: './landing-content.component.html',
   styleUrls: ['./landing-content.component.scss']
@@ -303,7 +301,7 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
       this.isTalentLink = this.currentUrl.startsWith('/talent');
 
       console.log("UUID from route:", this.uuid);
-  
+
       if (this.uuid && this.isJobLink) {
         this.landingService.getJobInviteDetails(this.uuid).subscribe((res) => {
           this.uuidCardData = res?.data;
@@ -320,11 +318,11 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
         this.isFromUUID = false;
       }
     });
-  
+
     this.service.getFeatBlogs().subscribe((response) => {
       this.blogs = response.slice(0, 8);
     });
-  
+
     this.timeLeftInfoCard = "24 Hours";
     this.currentImage = "/uniprep-assets/images/uf1.webp";
   }
