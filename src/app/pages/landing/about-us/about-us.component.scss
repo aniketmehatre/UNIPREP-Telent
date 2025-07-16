@@ -48,7 +48,7 @@ small,
   border-radius: 100%;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--p-neutral-50);
   border: 1px solid white;
   background: transparent;
 }
@@ -92,7 +92,7 @@ small,
     rgba(255, 255, 255, 0.05) 100%
   );
   box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
-  color: white;
+  color: var(--p-neutral-50);
 
   &:hover {
     .card-title {
@@ -127,7 +127,7 @@ video::-webkit-media-controls-panel {
   font-size: 5em;
   z-index: 2;
   cursor: pointer;
-  background-color: white;
+  background-color: var(--p-neutral-50);
   border-radius: 100%;
 }
 
@@ -170,7 +170,7 @@ video::-webkit-media-controls-panel {
 
   .cta-btn {
     background: black;
-    color: white;
+    color: var(--p-neutral-50);
     padding: 0.8rem;
   }
 }
@@ -268,7 +268,7 @@ video::-webkit-media-controls-panel {
 
 .down-arrow {
   font-size: 18px;
-  color: white;
+  color: var(--p-neutral-50);
   background-color: var(--p-secondary-500);
   padding: 0px 7px;
   border-radius: 50%;

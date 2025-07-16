@@ -141,11 +141,11 @@ input:-webkit-autofill:active {
 }
 
 .uniprep-lightgray {
-  color: var(--p-neutral-200);
+  color: var(--p-neutral-400);
 }
 
 .uniprep-darkgray {
-  color: var(--p-neutral-300);
+  color: var(--p-neutral-500);
 }
 
 .worksans {
@@ -391,21 +391,21 @@ small {
   width: 100%;
   height: 100%;
   aspect-ratio: 1;
-  background-color: white;
+  background-color: var(--p-neutral-50);
 }
 
 .avatar-img {
   border: 1px solid var(--bs-border-color);
   img {
     object-fit: contain;
-    background-color: white;
+    background-color: var(--p-neutral-50);
   }
 }
 
 .country-dropdown {
   max-height: 40vh;
   overflow-y: auto;
-  background: white !important;
+  background: var(--p-neutral-50) !important;
 }
 
 .p-carousel-content-container {
@@ -670,7 +670,7 @@ uni-job-hunt {
 
 uni-cover-letter-builder {
   overflow-y: auto;
-  background-color: white;
+  background-color: var(--p-neutral-50);
 }
 
 uni-sidenav {
@@ -817,7 +817,7 @@ uni-subscription {
 
 .btn-outline-primary {
   color: var(--p-primary-500) !important;
-  background: white !important;
+  background: var(--p-neutral-50) !important;
   @extend %btn-radius-10;
   border: 1px solid var(--p-primary-500);
 
@@ -989,7 +989,7 @@ uni-subscription {
     color: var(--p-neutral-50) !important;
     background: var(--p-primary-500);
     border-color: var(--p-primary-600) !important;
-    box-shadow: 0 0 0 0.25rem var(--p-primary-600) 80;
+    box-shadow: 0 0 0 0.25rem var(--p-primary-600);
   }
 }
 
@@ -1066,7 +1066,7 @@ uni-subscription {
   min-height: 40px;
   border-radius: 8px;
   background-color: var(--p-primary-500);
-  color: white;
+  color: var(--p-neutral-50);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1244,7 +1244,7 @@ uni-subscription {
 
       .p-dialog-footer {
         padding: 10px;
-        background: #f5f5f5;
+        background: var(--p-neutral-100);
 
         .p-inputgroup {
           border: 1px solid #e7e7e7 !important;
@@ -1275,11 +1275,11 @@ uni-subscription {
     box-shadow: none;
 
     .p-dialog-header {
-      background: white;
+      background: var(--p-neutral-50);
     }
 
     .p-dialog-content {
-      background: white;
+      background: var(--p-neutral-50);
     }
   }
 }
@@ -1452,7 +1452,7 @@ uni-subscription {
 .how-it-works-button {
   background-color: var(--p-secondary-500) !important;
   border: 1px solid var(--p-secondary-700) !important;
-  color: white;
+  color: var(--p-neutral-50);
   padding: 5px;
   border-radius: 25px;
   border: none;
@@ -1872,7 +1872,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
   }
 
   .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    color: white;
+    color: var(--p-neutral-50);
     background-color: var(--p-primary-500);
   }
 
@@ -1966,22 +1966,6 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
   }
 }
 
-.exportCount {
-  padding: 6px;
-  border-radius: 25px;
-  background-color: var(--p-primary-500);
-  color: white;
-  margin-left: 5px;
-}
-
-.exportButton {
-  background-color: var(--p-secondary-100);
-  color: var(--p-secondary-800) !important;
-  border-radius: 20px !important;
-  border: none;
-  padding: 10px;
-}
-
 .monthly-subscription {
   .p-tabview-nav-content {
     border: 1px solid var(--p-primary-500);
@@ -2009,7 +1993,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
   }
 
   .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    color: white;
+    color: var(--p-neutral-50);
     background-color: var(--p-primary-500);
   }
 
@@ -2109,7 +2093,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
   }
 
   .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    color: white;
+    color: var(--p-neutral-50);
     background-color: var(--p-primary-500);
     height: 20px;
   }
@@ -2170,7 +2154,7 @@ uni-talent-connect {
   right: 5px;
   top: 5px;
   background: var(--p-sky-500);
-  color: white;
+  color: var(--p-neutral-50);
   padding: 2px 10px;
   border-radius: 15px;
   font-size: 10px;
@@ -2180,7 +2164,7 @@ uni-talent-connect {
   position: absolute;
   right: 5px;
   top: 5px;
-  color: white;
+  color: var(--p-neutral-50);
   padding: 2px 10px;
   border-radius: 15px;
   font-size: 10px;
@@ -2189,7 +2173,7 @@ uni-talent-connect {
 .ilearn-challenge-table .p-datatable {
   .p-datatable-thead > tr > th {
     background: var(--p-primary-500);
-    color: white;
+    color: var(--p-neutral-50);
     border: 1px solid var(--p-primary-900);
   }
 
@@ -2525,7 +2509,7 @@ uni-global-employment-insights {
   .forecast-table th,
   .budget-table th {
     background-color: #1a237e;
-    color: white;
+    color: var(--p-neutral-50);
   }
 
   .comparison-table,
@@ -2558,7 +2542,7 @@ uni-global-employment-insights {
 
   .comparison-table th {
     background-color: #1a237e;
-    color: white;
+    color: var(--p-neutral-50);
   }
 
   .insights,
@@ -2618,7 +2602,7 @@ uni-global-employment-insights {
 }
 
 .answercard {
-  background-color: white;
+  background-color: var(--p-neutral-50);
   overflow-y: auto;
 }
 
@@ -2825,7 +2809,7 @@ uni-global-employment-insights {
   .container {
     max-width: 800px;
     margin: auto;
-    background: white;
+    background: var(--p-neutral-50);
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;

@@ -33,7 +33,7 @@ html {
 }
 
 .btn-secondary-1 {
-  color: white;
+  color: var(--p-neutral-50);
   background-color: var(--p-secondary-500);
 }
 
@@ -68,7 +68,7 @@ video::-webkit-media-controls-panel {
   font-size: 5em;
   z-index: 2;
   cursor: pointer;
-  background-color: white;
+  background-color: var(--p-neutral-50);
   border-radius: 100%;
 }
 
@@ -167,7 +167,7 @@ h6 {
   }
   .cta-btn {
     background: black;
-    color: white;
+    color: var(--p-neutral-50);
     padding: 0.8rem;
   }
 }
@@ -177,7 +177,7 @@ h6 {
   border: 1px solid #e6ddfe08;
   background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
   box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
-  color: white;
+  color: var(--p-neutral-50);
   &:hover {
     .card-title {
       color: var(--p-secondary-500);
