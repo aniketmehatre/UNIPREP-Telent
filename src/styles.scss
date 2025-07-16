@@ -1975,7 +1975,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 }
 
 .exportButton {
-  background-color: #ebedf2;
+  background-color: var(--p-secondary-100);
   color: var(--p-secondary-800) !important;
   border-radius: 20px !important;
   border: none;

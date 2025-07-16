@@ -231,12 +231,12 @@
   }
   button {
     color: var(--p-primary-500);
-    background-color: #ebedf2;
+    background-color: var(--p-secondary-100);
     border-radius: 5rem !important;
   }
 }
 .sec-color {
-  background-color: #ebedf2;
+  background-color: var(--p-secondary-100);
   min-height: 250px;
   max-height: 250px;
   border-radius: 1rem;
@@ -254,7 +254,7 @@
   }
 }
 .secondary-color {
-  background-color: #ebedf2;
+  background-color: var(--p-secondary-100);
   border-radius: 1rem;
   padding: 1rem;
   font-size: 1.2rem;
