@@ -65,8 +65,8 @@
   font-size: small;
   font-weight: 700;
   background-color: #ebedf2;
-  color: #3f4c83;
-  border: 2px solid #3f4c83;
+  color: var(--p-primary-500);
+  border: 2px solid var(--p-primary-500);
 }
 
 ::ng-deep .p-confirm-popup-footer {
@@ -81,19 +81,19 @@
     font-size: small;
     background: none !important;
     border: none !important;
-    color: #3f4c83;
+    color: var(--p-primary-500);
     :active {
       background: none !important;
       border: none !important;
-      color: #3f4c83;
+      color: var(--p-primary-500);
     }
     :focus {
       background: none !important;
       border: none !important;
-      color: #3f4c83;
+      color: var(--p-primary-500);
     }
     :hover {
-      color: #3f4c83;
+      color: var(--p-primary-500);
     }
   }
 }
@@ -276,7 +276,7 @@
 // .msg-info-name {
 //   margin-right: 10px;
 //   font-weight: bold;
-//   color: #3f4c83;
+//   color: var(--p-primary-500);
 //   font-size: smaller;
 // }
 // .msg-info-time {

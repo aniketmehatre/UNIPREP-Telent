@@ -30,7 +30,7 @@
   .mobileview {
       width: 100px;
       border-radius: 25px !important;
-      border: 1px solid #3f4c83;
+      border: 1px solid var(--p-primary-500);
   }
 
   .desktop {
@@ -55,7 +55,7 @@
 }
 
 .primary-header {
-  background: #3f4c83 !important;
+  background: var(--p-primary-500) !important;
 }
 
 .fs-10 {
@@ -127,7 +127,7 @@
 
 .question-number {
   font-size: 18px;
-  color: #3f4c83;
+  color: var(--p-primary-500);
   font-weight: 500;
 }
 
@@ -162,7 +162,7 @@
 
   .question-number {
       font-size: 12px;
-      color: #3f4c83;
+      color: var(--p-primary-500);
       font-weight: 500;
   }
 

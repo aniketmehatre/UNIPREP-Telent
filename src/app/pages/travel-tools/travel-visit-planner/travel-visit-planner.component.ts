@@ -174,7 +174,7 @@ export class TravelVisitPlannerComponent implements OnInit {
 	downloadRecommadation() {
 		let addingInput: string = '';
 		this.recommendations.forEach((values) => {
-			addingInput += `<p style="color: #3f4c83;"><strong>${values.question}</strong></p>`
+			addingInput += `<p style="color: var(--p-primary-500);"><strong>${values.question}</strong></p>`
 			let currentAnswer = ""
 			if (values.id == 1) {
 				currentAnswer = this.userInputs.destination

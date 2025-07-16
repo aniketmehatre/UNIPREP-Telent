@@ -148,7 +148,7 @@
               <div class="columns col-lg-2 col-md-2 p-0 br-1" *ngFor="let subscription of subscriptionList"
                 [ngClass]="{'br-1':subscription}">
                 <ul class="price text-center list-unstyled">
-                  <li style="background-color: #3f4c83; color: white;margin-top:5px;" *ngIf="subscription.popular == 1">
+                  <li style="background-color: var(--p-primary-500); color: white;margin-top:5px;" *ngIf="subscription.popular == 1">
                     Most Popular Plan
                   </li>
                   <li class="header" [ngClass]="{

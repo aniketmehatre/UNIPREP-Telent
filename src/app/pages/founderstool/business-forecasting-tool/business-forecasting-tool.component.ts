@@ -297,7 +297,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 		this.recommendations.forEach((category: any) => {
 			addingInput += `<p><strong>${category.question.heading}</strong></p>`
 			category.question.branches.forEach((branchQuestion: any) => {
-				addingInput += `<p style="color: #3f4c83;><strong>${branchQuestion}</strong></p>`
+				addingInput += `<p style="color: var(--p-primary-500);><strong>${branchQuestion}</strong></p>`
 				let currentAnswer = ""
 				const currentFormField = formValue[formValueIndex]
 				if (this.userInputs[currentFormField]) {

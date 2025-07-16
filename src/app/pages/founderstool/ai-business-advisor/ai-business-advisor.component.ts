@@ -203,7 +203,7 @@ export class AiBusinessAdvisorComponent implements OnInit {
 	downloadRecommadation() {
 		let addingInput: string = '';
 		this.recommendations.forEach((item) => {
-			addingInput += `<p style="color: #3f4c83;"><strong>${item.question}</strong></p>`
+			addingInput += `<p style="color: var(--p-primary-500);"><strong>${item.question}</strong></p>`
 			let currentAnswer = ""
 			if (item.id == 1) {
 				currentAnswer = this.userInputs.type

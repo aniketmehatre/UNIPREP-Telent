@@ -191,11 +191,11 @@ export class CareerplannercountrywiseComponent implements OnInit {
 
   downloadRecommadation() {
     let addingInput: string = `
-      <p style="color: #3f4c83;"><strong>Which country are you interested in pursuing your career?</strong></p>
+      <p style="color: var(--p-primary-500);"><strong>Which country are you interested in pursuing your career?</strong></p>
       <p>${this.userInputs.country}</p><br>
-      <p style="color: #3f4c83;"><strong>Select Your Specialization</strong></p>
+      <p style="color: var(--p-primary-500);"><strong>Select Your Specialization</strong></p>
       <p>${this.userInputs.specialization_name}</p>
-      <p style="color: #3f4c83;"><strong>How many years of experience do you have?</strong></p>
+      <p style="color: var(--p-primary-500);"><strong>How many years of experience do you have?</strong></p>
       <p>${this.userInputs.experience}</p>
       <br>
     `;

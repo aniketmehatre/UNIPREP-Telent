@@ -42,7 +42,7 @@
 					<h2 *ngIf="alphabet.key" class="uniprep-secondary">{{ alphabet.key }}</h2>
 					<hr />
 					<div *ngFor="let term of alphabet.value">
-						<h5 style="color: #3f4c83">{{ term.glossaryterm }}</h5>
+						<h5 style="color: var(--p-primary-500)">{{ term.glossaryterm }}</h5>
 						<h6 style="font-size: 0.9rem">{{ term.summary }}</h6>
 						<hr />
 					</div>
@@ -51,7 +51,7 @@
 					<h2 *ngIf="alphabet.key" class="uniprep-secondary">{{ alphabet.key }}</h2>
 					<hr />
 					<div *ngFor="let term of alphabet.value">
-					  <h5 style="color: #3f4c83">
+					  <h5 style="color: var(--p-primary-500)">
 						<ng-container *ngFor="let part of term.glossarytermParts">
 						  <span [ngClass]="{ 'highlight': part.highlight }">{{ part.word }}</span>
 						</ng-container>

@@ -162,7 +162,7 @@ export class TripLengthFinderComponent implements OnInit {
   downloadRecommadation() {
     // let selectedCityAndCountry = this.selectedData[1].city_name + ', ' + this.selectedData[1].country_name;
     let addingInput: string = `
-      <p style="color: #3f4c83;"><strong>Which Destination are you planning to visit?</strong></p>
+      <p style="color: var(--p-primary-500);"><strong>Which Destination are you planning to visit?</strong></p>
       <p>${this.userInputs.country}</p>`;
     let params: any = {
       module_name: "Trip Length Finder",

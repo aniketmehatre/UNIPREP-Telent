@@ -163,7 +163,7 @@
 						Last updated at: {{ oneQuestionContent?.updated_at | date }}
 						<span *ngIf="oneQuestionContent?.verified === 1" class="badge" style="background-color: #2b8902">Verified</span>
 						<span *ngIf="oneQuestionContent?.pre_verified === 1 && oneQuestionContent?.verified !== 1" style="background-color: darkorchid" class="badge">Pre Verified</span>
-						<span *ngIf="oneQuestionContent?.pre_verified !== 1 && oneQuestionContent?.verified !== 1" style="background-color: #3f4c83" class="badge">Non Pre-Verified</span>
+						<span *ngIf="oneQuestionContent?.pre_verified !== 1 && oneQuestionContent?.verified !== 1" style="background-color: var(--p-primary-500)" class="badge">Non Pre-Verified</span>
 					</span>
 					<button pButton class="btn btn-primary socialShareBtn" (click)="showSocialSharingList()"><i class="fa-light fa-xl fa-share-nodes"></i></button>
 					<p-card id="socialSharingList">
