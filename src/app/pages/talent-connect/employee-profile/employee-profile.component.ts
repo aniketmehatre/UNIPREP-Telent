@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, FormControl } from "@angular/forms";
 import { ViewProfileComponent } from "./view-profile/view-profile.component";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
@@ -113,13 +113,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   isUpdatedProfile: boolean = false;
 
   sampleProfileImages: string[] = [
-   environment.imagePath +  'uploads/Mask-group.jpg',
-   environment.imagePath +  'uploads/Mask-group-1.jpg',
-   environment.imagePath +  'uploads/Mask-group-2.jpg'
+    environment.imagePath + 'uploads/Mask-group.jpg',
+    environment.imagePath + 'uploads/Mask-group-1.jpg',
+    environment.imagePath + 'uploads/Mask-group-2.jpg'
   ];
   sampleProfilePdf: string = environment.imagePath + 'uploads/Profile-Image-Guide.pdf';
   isSampleProfilePdf: boolean = false;
   isSampleProfileImgVisible: boolean = false;
+  isMobileView: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -489,7 +490,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   openProfileDialog(isSample: boolean) {
     this.ref = this.dialogService.open(ViewProfileComponent, {
-      width: "65%",
+      width: this.isMobileView ? "90%" : "65%",
       height: "100vh",
       showHeader: false,
       closable: false,
@@ -2048,6 +2049,11 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   goBack() {
     this.isSampleProfilePdf ? this.isSampleProfilePdf = false : this.router.navigateByUrl('/pages/talent-connect/list');
+  }
+
+  @HostListener("window:resize", ["$event"])
+  onResize(event: any) {
+    this.isMobileView = event.target.innerWidth < 992 ? true : false;
   }
 
   clearStoredFiles(): void {
