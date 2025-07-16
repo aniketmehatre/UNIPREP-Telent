@@ -276,15 +276,15 @@ export class StudentBudgetPlannerComponent implements OnInit {
       currentCurrency = getCurrencyName?.currency || '';  // Default to empty string
     }
     let addingInput: string = `
-      <p style="color: #3f4c83;"><strong>In which country do you plan to study?</strong></p>
+      <p style="color: var(--p-primary-500);"><strong>In which country do you plan to study?</strong></p>
       <p>${this.userInputs.countryName}</p><br>
-      <p style="color: #3f4c83;"><strong>Which university will you be attending?</strong></p>
+      <p style="color: var(--p-primary-500);"><strong>Which university will you be attending?</strong></p>
       <p>${this.userInputs.university}</p><br>
-      <p style="color: #3f4c83;"><strong>What is the length of your course?</strong></p>
+      <p style="color: var(--p-primary-500);"><strong>What is the length of your course?</strong></p>
       <p>${this.userInputs.course_duration}</p><br>
-      <p style="color: #3f4c83;"><strong>What is the duration of the post-study stay-back period?</strong></p>
+      <p style="color: var(--p-primary-500);"><strong>What is the duration of the post-study stay-back period?</strong></p>
       <p>${this.userInputs.stay_back}</p><br>
-      <p style="color: #3f4c83;"><strong>What is the net tuition fee for your entire course?</strong></p>
+      <p style="color: var(--p-primary-500);"><strong>What is the net tuition fee for your entire course?</strong></p>
       <p>${this.userInputs.tution} in ${currentCurrency}</p><br>
     `;
 

@@ -140,7 +140,7 @@
             [ngClass]="{'br-1':subscription}">
             <ul class="price text-center list-unstyled ">
               <!-- add this to hide career and entrepreneur for k10 -->
-              <li style="background-color: #3f4c83; color: white;margin-top:5px;" *ngIf="subscription.popular == 1">Most Popular Plan
+              <li style="background-color: var(--p-primary-500); color: white;margin-top:5px;" *ngIf="subscription.popular == 1">Most Popular Plan
               </li>
               <li class="header" [ngClass]="{
                     header: subscription.popular === 1,

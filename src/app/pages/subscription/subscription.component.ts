@@ -321,7 +321,7 @@ export class SubscriptionComponent implements OnInit {
 				escape: false,
 			},
 			theme: {
-				color: "#3f4c83",
+				color: "var(--p-primary-500)",
 			},
 		}
 

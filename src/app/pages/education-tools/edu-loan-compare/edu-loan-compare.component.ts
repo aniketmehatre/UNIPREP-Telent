@@ -199,7 +199,7 @@ export class EduLoanCompareComponent implements OnInit {
     let addingInput: string = '';
     this.recommendations.forEach(({ id, questions }) => {
       questions.forEach((question, index) => {
-        addingInput += `<p style="color: #3f4c83;"><strong>${question}</strong></p>`;
+        addingInput += `<p style="color: var(--p-primary-500);"><strong>${question}</strong></p>`;
         const answersMap: any = {
           1: [this.userInputs.currency + ' ' + this.userInputs.loan_amount, this.userInputs.interest_rate + ' %', this.userInputs.loan_tenure, this.userInputs.course_duration],
           2: [this.userInputs.moratorium_period, this.userInputs.repayment_year]

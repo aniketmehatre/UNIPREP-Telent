@@ -112,7 +112,7 @@
 					<div class="card-body text-start">
 						<p class="text-small blockquote text-start mb-0">Last updated at: {{ val.updated_at | date }}
 							<span class="badge"
-								style="background-color: {{val.pre_verified == 1 ? 'darkorchid' : '#3f4c83'}};">
+								style="background-color: {{val.pre_verified == 1 ? 'darkorchid' : 'var(--p-primary-500)'}};">
 								{{val.pre_verified == 1 ? 'Pre Verified' : 'Non Pre-Verified'}}</span></p>
 						<h3 class="unselectable">{{ val.question }}</h3>
 						<div class="fw-medium worksans unselectable" style="white-space: pre-wrap"

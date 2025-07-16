@@ -360,7 +360,7 @@
   }
 
   .scardDiscount {
-    background: #FFA500;
+    background: var(--p-secondary-400);
     color: white;
     text-align: center;
     padding: 5px;
@@ -491,7 +491,8 @@
   font-weight: 500;
 }
 .upgradeplan{
-  background: #FFA500;
+  background: var(--p-secondary-400);
+  border: 1px solid var(--p-secondary-400);
   color: white;
   text-align: center;
   padding: 6px 12px;

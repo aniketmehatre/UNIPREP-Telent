@@ -1401,8 +1401,8 @@
 					</div>
 					<div class="d-flex justify-content-around" style="width:40%;">
 						<div>
-							<button pButton type="button" (click)="onProfileReview()"
-								class="btn btn-rounded p-1 ps-4 aiReviewBtn">
+							<button pButton type="button" severity="success" (click)="onProfileReview()"
+								class="btn btn-rounded p-1 ps-4">
 								<span class="me-2">AI Review</span><span class="ai-btn-icon px-2 py-2"><i
 										class="fa-solid fa-microchip-ai"></i></span>
 							</button>
@@ -1434,9 +1434,9 @@
 
 	<p-sidebar [(visible)]="fullScreenVisible" [fullScreen]="true" [showCloseIcon]="false">
 		<div class="col-md-12 h-100">
-			<div class="card h-100 border-0" style="background-color: #3f4c83 !important;">
+			<div class="card h-100 border-0" style="background-color: var(--p-primary-500) !important;">
 				<ng-container *ngTemplateOutlet="previewHeader"></ng-container>
-				<div class="card-body overflow-y-auto" style="background-color: #3f4c83">
+				<div class="card-body overflow-y-auto" style="background-color: var(--p-primary-500)">
 					<div class="row justify-content-center">
 						<div class="col-md-5">
 							<div class="previewcontainer">
@@ -1453,7 +1453,7 @@
 
 	<ng-template #previewHeader>
 		<div class="card-header d-flex justify-content-between align-items-center border-0 bg-transparent">
-			<h4 class="uniprep-primary mb-0">Preview</h4>
+			<h4 class="text-white mb-0">Preview</h4>
 			<div class="d-flex gap-2 align-items-center">
 				<span class="templateButton gap-2">Template
 					<div class="template-dropdown position-relative">

@@ -139,7 +139,7 @@ export class EnterpriseSubscriptionComponent implements OnInit,OnDestroy {
         escape: false,
       },
       theme: {
-        color: "#3f4c83",
+        color: "var(--p-primary-500)",
       },
     };
     options.handler = (response: any, error: any) => {

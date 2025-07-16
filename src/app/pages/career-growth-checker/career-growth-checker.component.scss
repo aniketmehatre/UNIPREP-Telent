@@ -43,7 +43,7 @@
 }
 
 .detail-4 {
-	background-color: #3f4c83;
+	background-color: var(--p-primary-500);
 }
 
 .role-detail:not(:last-child)::after {
@@ -72,7 +72,7 @@
 }
 
 .role-detail.detail-4::after {
-	border-left-color: #3f4c83;
+	border-left-color: var(--p-primary-500);
 }
 
 .arrow-container {
@@ -82,7 +82,7 @@
 
 .arrow-icon {
 	font-size: 24px;
-	color: #3f4c83;
+	color: var(--p-primary-500);
 	display: block;
 }
 
