@@ -3,13 +3,10 @@
   overflow: hidden;
   .tutgradient
   {
-    background: hsla(229, 35%, 38%, 1);
-
-    background: linear-gradient(90deg, hsla(229, 35%, 38%, 1) 0%, hsla(229, 35%, 38%, 0.1) 100%);
-    
-    background: -moz-linear-gradient(90deg, hsla(229, 35%, 38%, 1) 0%, hsla(229, 35%, 38%, 0.1) 100%);
-    
-    background: -webkit-linear-gradient(90deg, hsla(229, 35%, 38%, 1) 0%, hsla(229, 35%, 38%, 0.1) 100%);
+    background: var(--p-primary-500);
+    background: linear-gradient(90deg, var(--p-primary-500) 0%, rgba(60, 71, 102, 0.1) 100%);
+    background: -moz-linear-gradient(90deg, var(--p-primary-500) 0%, rgba(60, 71, 102, 0.1) 100%);
+    background: -webkit-linear-gradient(90deg, var(--p-primary-500) 0%, rgba(60, 71, 102, 0.1) 100%);
     position: absolute;
     left:0;
     right: 0;
