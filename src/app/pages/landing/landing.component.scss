@@ -3,15 +3,15 @@
 	--bs-primary-rgb: 63, 76, 131;
 	--bs-secondary-rgb: 240, 120, 14;
 	--bs-primary: var(--p-primary-500);
-	--bs-secondary: #f0780e;
+	--bs-secondary: var(--p-secondary-500);
 	--p-primary-500: var(--p-primary-500);
 	--p-primary-100: var(--p-primary-500) 25;
 	--p-primary-200: var(--p-primary-500) 5b;
-	--p-secondary-500: #f0780e;
-	--p-secondary-100: #f0780e25;
-	--p-secondary-200: #f0780e5b;
-	--p-primary-600: #4552a3;
-	--p-secondary-600: #f6895a;
+	--p-secondary-500: var(--p-secondary-500);
+	--p-secondary-100: var(--p-secondary-500)25;
+	--p-secondary-200: var(--p-secondary-500)5b;
+	--p-primary-600: var(--p-primary-600);
+	--p-secondary-600: var(--p-secondary-600);
 	--p-neutral-50: var(--p-neutral-50);
 }
 
@@ -20,11 +20,11 @@
 }
 
 .topmarquee {
-	background: linear-gradient(90deg, #e78e60 0%,  #d14283 100%);
+	background: linear-gradient(90deg, var(--p-secondary-400) 0%,  var(--p-rose-500) 100%);
 }
 .white-divider {
 	border-color: grey;
-	background-color: white;
+	background-color: var(--p-neutral-50);
 }
 html {
 	scroll-behavior: smooth;
@@ -63,7 +63,7 @@ video {
 	left: 0;
 	right: 0;
 	height: 200px; /* Adjust this value to change the height of the gradient */
-	background: linear-gradient(to top, #07070b, transparent);
+	background: linear-gradient(to top, var(--p-neutral-900), transparent);
 }
 body {
 	font-family: "Poppins", sans-serif !important;
@@ -85,7 +85,7 @@ body {
   
 	.btn-content1 {
 	  background-color: #25d366;
-	  color: white;
+	  color: var(--p-neutral-50);
 	  display: flex;
 	  align-items: center;
 	  padding: 15px;
@@ -235,7 +235,7 @@ h6 {
 }
 
 .darksection {
-	background-color: #07070b;
+	background-color: var(--p-neutral-950);
 	p {
 		color: var(--p-neutral-50) !important;
 	}
@@ -248,7 +248,7 @@ h6 {
 // 	border-style: solid;
 // }
 .navbar {
-	background: #07070b;
+	background: var(--p-neutral-950);
 }
 
 .navbar-toggler:focus {
@@ -291,18 +291,18 @@ h6 {
 }
 .footerbg {
 	background: rgb(219, 83, 175);
-	background: linear-gradient(90deg, #e78e60 0%,  #d14283 100%);
+	background: linear-gradient(90deg, var(--p-secondary-400) 0%,  var(--p-rose-500) 100%);
 	border: none;
 }
 .cta-field {
 	.card {
 		background: rgb(219, 83, 175);
-		background: linear-gradient(90deg, #e78e60 0%,  #d14283 100%);
+		background: linear-gradient(90deg, var(--p-secondary-400) 0%,  var(--p-rose-500) 100%);
 		border: none;
 	}
 	.cta-btn {
 		background: black;
-		color: white;
+		color: var(--p-neutral-50);
 		padding: 0.8rem;
 	}
 }
@@ -311,7 +311,7 @@ h6 {
 	border: 1px solid #e6ddfe08;
 	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
 	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
-	color: white;
+	color: var(--p-neutral-50);
 	&:hover {
 		.card-title {
 			color: var(--p-secondary-500);
@@ -336,7 +336,7 @@ h6 {
 	background-position: center;
 }
 .text-grey {
-	color: #c0c0c0 !important;
+	color: var(--p-neutral-300) !important;
 }
 
 .quotesymbole {
@@ -356,28 +356,28 @@ h6 {
 	transition: 0.2s;
 }
 .benefitcard .card-header {
-	background-color: #f5f5f5;
+	background-color: var(--p-neutral-100);
 	border: none;
 	border-radius: 35px;
 	transition: 0.2s;
 }
 
 .benefitcard:hover {
-	background: #f5f5f5;
+	background: var(--p-neutral-100);
 	transition: 0.2s;
 }
 .benefitcard:hover .card-header {
 	background-color: var(--bs-primary);
-	color: white;
+	color: var(--p-neutral-50);
 	transition: 0.2s;
 }
 
 .promocard {
-	background: #f5f7ff;
+	background: var(--p-neutral-100);
 }
 
 .featurecard {
-	background: #07070b;
+	background: var(--p-neutral-950);
 	border-radius: 12px !important;
 	overflow: hidden;
 	margin-bottom: 10px;
@@ -389,7 +389,7 @@ h6 {
 .featureimage {
 	border-radius: 10px;
 	overflow: hidden;
-	border: 1px solid #07070b;
+	border: 1px solid var(--p-neutral-950);
 }
 
 // .featurecard .accordion-button::after
@@ -398,11 +398,11 @@ h6 {
 // }
 
 .featurecard .accordion-collapse {
-	background: #07070b;
+	background: var(--p-neutral-950);
 }
 
 .featurecard .accordion-button:not(.collapsed) {
-	background: #07070b;
+	background: var(--p-neutral-950);
 }
 
 .featurecard .accordion-header button {
@@ -457,7 +457,7 @@ h6 {
 .faqcard .accordion-body {
 	text-align: start;
 	padding: 0.75rem 1rem;
-	color: white;
+	color: var(--p-neutral-50);
 }
 
 .comparisionchart {
@@ -574,7 +574,7 @@ h6 {
 }
 
 .comparision-card {
-	background: white;
+	background: var(--p-neutral-50);
 	border: 1px solid #e2e2e2;
 }
 
@@ -583,7 +583,7 @@ h6 {
 }
 
 .comparision-card hr {
-	border-top: 1px solid #f5f7ff;
+	border-top: 1px solid var(--p-neutral-100);
 	opacity: 1;
 }
 
@@ -594,17 +594,17 @@ h6 {
 }
 
 .comparision-card .crossmark {
-	color: #f33f3f;
+	color: var(--p-rose-500);
 	margin-right: 0.5rem;
 }
 
 .comparision-card .checkmark {
-	color: #5fbe14;
+	color: var(--p-lime-500);
 	margin-right: 0.5rem;
 }
 
 .comparision-card-uniprep {
-	background: #f5f7ff;
+	background: var(--p-neutral-100);
 	border: 1px solid #8d98cc;
 }
 
@@ -624,12 +624,12 @@ h6 {
 }
 
 .comparision-card-uniprep .crossmark {
-	color: #f33f3f;
+	color: var(--p-rose-500);
 	margin-right: 0.5rem;
 }
 
 .comparision-card-uniprep .checkmark {
-	color: #5fbe14;
+	color: var(--p-lime-500);
 	margin-right: 0.5rem;
 }
 

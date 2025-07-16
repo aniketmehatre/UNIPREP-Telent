@@ -13,7 +13,7 @@ import { BrandColorService } from "./core/services/brand-color.service";
 	template: ` <router-outlet></router-outlet>
 		<p-scrolltop class="position-absolute" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ raised: true, rounded: true }"></p-scrolltop>
 		<p-toast position="top-right"></p-toast>
-		<ngx-ui-loader overlayColor="rgba(0,0,0,0.8)" logoUrl="uniprep-assets/images/icon-loader.svg" [bgsSize]="40" bgsType="three-bounce" [bgsOpacity]="1" bgsColor="#f0780e" fgsOpacity="1" fgsColor="#f0780e" [hasProgressBar]="false"></ngx-ui-loader>`,
+		<ngx-ui-loader overlayColor="rgba(0,0,0,0.8)" logoUrl="uniprep-assets/images/icon-loader.svg" [bgsSize]="40" bgsType="three-bounce" [bgsOpacity]="1" bgsColor="var(--p-secondary-500)" fgsOpacity="1" fgsColor="var(--p-secondary-500)" [hasProgressBar]="false"></ngx-ui-loader>`,
 	standalone: true,
 	imports: [NgxUiLoaderModule, ToastModule, RouterModule, ScrollTopModule],
 	providers: [MessageService, SocialShareService],

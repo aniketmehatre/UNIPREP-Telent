@@ -3,15 +3,15 @@
 	--bs-primary-rgb: 63, 76, 131;
 	--bs-secondary-rgb: 240, 120, 14;
 	--bs-primary: var(--p-primary-500);
-	--bs-secondary: #f0780e;
+	--bs-secondary: var(--p-secondary-500);
 	--p-primary-500: var(--p-primary-500);
 	--p-primary-100: var(--p-primary-500) 25;
 	--p-primary-200: var(--p-primary-500) 5b;
-	--p-secondary-500: #f0780e;
-	--p-secondary-100: #f0780e25;
-	--p-secondary-200: #f0780e5b;
-	--p-primary-600: #4552a3;
-	--p-secondary-600: #f6895a;
+	--p-secondary-500: var(--p-secondary-500);
+	--p-secondary-100: var(--p-secondary-500)25;
+	--p-secondary-200: var(--p-secondary-500)5b;
+	--p-primary-600: var(--p-primary-600);
+	--p-secondary-600: var(--p-secondary-600);
 	--p-neutral-50: var(--p-neutral-50);
 }
 .pricing-col {
@@ -23,17 +23,17 @@
 .pricing-col-btn {
 	background: transparent;
 	border: 0.5px solid white;
-	color: white;
+	color: var(--p-neutral-50);
 	font-size: 0.8rem;
 	border-radius: 10px;
 	padding: 10px;
 	&.pricing-col-btn-sel {
-		background: #ff5c02;
-		border: 0.5px solid #ff5c02;
+		background: var(--p-secondary-600);
+		border: 0.5px solid var(--p-secondary-600);
 	}
 	&:hover {
-		background: #ff5c02;
-		border: 0.5px solid #ff5c02;
+		background: var(--p-secondary-600);
+		border: 0.5px solid var(--p-secondary-600);
 	}
 }
 .pricing-card-body {
@@ -51,7 +51,7 @@
 		}
 		span.close {
 			font-weight: bold;
-			color: #ff5c02;
+			color: var(--p-secondary-600);
 		}
 	}
 }
@@ -71,8 +71,8 @@
 		color: gray;
 		font-size: 1.2rem;
 		&.selected {
-			background: #ff5c02;
-			color: white;
+			background: var(--p-secondary-600);
+			color: var(--p-neutral-50);
 		}
 	}
 }
@@ -82,15 +82,15 @@
 	--bs-primary-rgb: 63, 76, 131;
 	--bs-secondary-rgb: 240, 120, 14;
 	--bs-primary: var(--p-primary-500);
-	--bs-secondary: #f0780e;
+	--bs-secondary: var(--p-secondary-500);
 	--p-primary-500: var(--p-primary-500);
 	--p-primary-100: var(--p-primary-500) 25;
 	--p-primary-200: var(--p-primary-500) 5b;
-	--p-secondary-500: #f0780e;
-	--p-secondary-100: #f0780e25;
-	--p-secondary-200: #f0780e5b;
-	--p-primary-600: #4552a3;
-	--p-secondary-600: #f6895a;
+	--p-secondary-500: var(--p-secondary-500);
+	--p-secondary-100: var(--p-secondary-500)25;
+	--p-secondary-200: var(--p-secondary-500)5b;
+	--p-primary-600: var(--p-primary-600);
+	--p-secondary-600: var(--p-secondary-600);
 	--p-neutral-50: var(--p-neutral-50);
 }
 
@@ -99,7 +99,7 @@
 }
 .white-divider {
 	border-color: grey;
-	background-color: white;
+	background-color: var(--p-neutral-50);
 }
 html {
 	scroll-behavior: smooth;
@@ -210,7 +210,7 @@ p {
 	font-weight: 500;
 }
 .darksection {
-	background-color: #07070b;
+	background-color: var(--p-neutral-950);
 	p {
 		color: var(--p-neutral-950);
 	}
@@ -223,7 +223,7 @@ p {
 // 	border-style: solid;
 // }
 .navbar {
-	background: #07070b;
+	background: var(--p-neutral-950);
 }
 
 .navbar-toggler:focus {
@@ -252,7 +252,7 @@ p {
 	border: 1px solid #e6ddfe08;
 	background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%);
 	box-shadow: 0px 10px 25px 0px rgba(230, 221, 254, 0.1) inset;
-	color: white;
+	color: var(--p-neutral-50);
 	&:hover {
 		.card-title {
 			color: var(--p-secondary-500);
@@ -264,7 +264,7 @@ p {
 }
 
 .text-grey {
-	color: #c0c0c0 !important;
+	color: var(--p-neutral-300) !important;
 }
 
 .quotesymbole {
@@ -366,7 +366,7 @@ h5 {
 }
 
 .bg-dark {
-	background-color: #121212 !important;
+	background-color: var(--p-neutral-900) !important;
   }
   
   .bg-dark-subtle {
@@ -390,15 +390,15 @@ h5 {
   }
 
   .blog-section {
-	background-color: #07070b;
-	color: white;
+	background-color: var(--p-neutral-950);
+	color: var(--p-neutral-50);
   
 	.blog-card {
 	  background-color: #1a1a1a;
 	  border-radius: 12px;
 	  overflow: hidden;
 	  border: none;
-	  color: white;
+	  color: var(--p-neutral-50);
 	  transition: transform 0.3s ease;
   
 	  &:hover {
@@ -579,7 +579,7 @@ h5 {
 			.accordion-button {
 				background: rgba(255, 255, 255, 0.05);
 				border: 1px solid rgba(255, 255, 255, 0.1);
-				color: white;
+				color: var(--p-neutral-50);
 				font-weight: 500;
 				padding: 12px 16px;
 				border-radius: 8px;
@@ -588,7 +588,7 @@ h5 {
 				&:not(.collapsed) {
 					background: rgba(240, 120, 14, 0.1);
 					border-color: rgba(240, 120, 14, 0.3);
-					color: white;
+					color: var(--p-neutral-50);
 					box-shadow: none;
 				}
 
