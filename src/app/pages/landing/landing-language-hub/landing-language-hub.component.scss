@@ -64,7 +64,7 @@ video::-webkit-media-controls-panel {
 }
 
 .darksection {
-	background-color: #07070b;
+	background-color: var(--p-neutral-950);
 	p {
 		color: var(--p-neutral-50) !important;
 	}
@@ -103,7 +103,7 @@ video::-webkit-media-controls-panel {
 .cta-field {
   .card {
 	background: rgb(219, 83, 175);
-	background: linear-gradient(90deg, #d14283 0%, #e78e60 100%);
+	background: linear-gradient(90deg, var(--p-rose-500) 0%, var(--p-secondary-400) 100%);
     border: none;
   }
   .cta-btn {

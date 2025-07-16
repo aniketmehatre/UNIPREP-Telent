@@ -1,5 +1,5 @@
 // Main container with background
-$orange: #f0780e;
+$orange: var(--p-secondary-500);
 :host {
 	font-family: "Poppins", sans-serif;
 }
@@ -104,7 +104,7 @@ video::-webkit-media-controls-panel {
 }
 
 .darksection {
-	background-color: #07070b;
+	background-color: var(--p-neutral-950);
 
 	p {
 		color: var(--p-neutral-950);

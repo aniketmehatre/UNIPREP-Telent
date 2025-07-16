@@ -136,7 +136,7 @@ p {
   margin-top: 3rem;
   padding: 2rem;
   background: rgb(219, 83, 175);
-  background: linear-gradient(90deg, #e78e60 0%,  #d14283 100%);
+  background: linear-gradient(90deg, var(--p-secondary-400) 0%,  var(--p-rose-500) 100%);
   border-radius: 8px;
   display: flex;
   justify-content: space-between;

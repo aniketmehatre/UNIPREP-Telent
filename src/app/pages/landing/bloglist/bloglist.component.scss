@@ -3,15 +3,15 @@
 	--bs-primary-rgb: 63, 76, 131;
 	--bs-secondary-rgb: 240, 120, 14;
 	--bs-primary: var(--p-primary-500);
-	--bs-secondary: #f0780e;
+	--bs-secondary: var(--p-secondary-500);
 	--p-primary-500: var(--p-primary-500);
 	--p-primary-100: var(--p-primary-500) 25;
 	--p-primary-200: var(--p-primary-500) 5b;
-	--p-secondary-500: #f0780e;
-	--p-secondary-100: #f0780e25;
-	--p-secondary-200: #f0780e5b;
-	--p-primary-600: #4552a3;
-	--p-secondary-600: #f6895a;
+	--p-secondary-500: var(--p-secondary-500);
+	--p-secondary-100: var(--p-secondary-500)25;
+	--p-secondary-200: var(--p-secondary-500)5b;
+	--p-primary-600: var(--p-primary-600);
+	--p-secondary-600: var(--p-secondary-600);
 	--p-neutral-50: var(--p-neutral-50);
 }
 
@@ -46,7 +46,7 @@
 }
 
 .darksection {
-	background-color: #07070b;
+	background-color: var(--p-neutral-950);
 	p {
 		color: var(--p-neutral-50) !important;
 	}
@@ -94,8 +94,8 @@ section {
 .blog-card {
   transition: transform 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  background-color: #07070b;
-  border: #07070b;
+  background-color: var(--p-neutral-950);
+  border: var(--p-neutral-950);
   &:hover {
     transform: translateY(-5px);
 	color: var(--p-secondary-500) !important;

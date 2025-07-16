@@ -3,15 +3,15 @@
   --bs-primary-rgb: 63, 76, 131;
   --bs-secondary-rgb: 240, 120, 14;
   --bs-primary: var(--p-primary-500);
-  --bs-secondary: #f0780e;
+  --bs-secondary: var(--p-secondary-500);
   --p-primary-500: var(--p-primary-500);
   --p-primary-100: var(--p-primary-500) 25;
   --p-primary-200: var(--p-primary-500) 5b;
-  --p-secondary-500: #f0780e;
-  --p-secondary-100: #f0780e25;
-  --p-secondary-200: #f0780e5b;
-  --p-primary-600: #4552a3;
-  --p-secondary-600: #f6895a;
+  --p-secondary-500: var(--p-secondary-500);
+  --p-secondary-100: var(--p-secondary-500)25;
+  --p-secondary-200: var(--p-secondary-500)5b;
+  --p-primary-600: var(--p-primary-600);
+  --p-secondary-600: var(--p-secondary-600);
   --p-neutral-50: var(--p-neutral-50);
 }
 
@@ -32,7 +32,7 @@
 }
 
 .topmarquee {
-  background: linear-gradient(90deg, #e78e60 0%, #d14283 100%);
+  background: linear-gradient(90deg, var(--p-secondary-400) 0%, var(--p-rose-500) 100%);
 }
 .white-divider {
   border-color: grey;
@@ -75,7 +75,7 @@ video {
   left: 0;
   right: 0;
   height: 200px; /* Adjust this value to change the height of the gradient */
-  background: linear-gradient(to top, #07070b, transparent);
+  background: linear-gradient(to top, var(--p-neutral-900), transparent);
 }
 body {
   font-family: "Poppins", sans-serif !important;
@@ -255,7 +255,7 @@ p {
   font-weight: 500;
 }
 .darksection {
-  background-color: #07070b;
+  background-color: var(--p-neutral-950);
   p {
     color: var(--p-neutral-50) !important;
   }
@@ -268,7 +268,7 @@ p {
 // 	border-style: solid;
 // }
 .navbar {
-  background: #07070b;
+  background: var(--p-neutral-950);
 }
 
 .navbar-toggler:focus {
@@ -310,13 +310,13 @@ p {
 }
 .footerbg {
   background: rgb(219, 83, 175);
-  background: linear-gradient(90deg, #e78e60 0%, #d14283 100%);
+  background: linear-gradient(90deg, var(--p-secondary-400) 0%, var(--p-rose-500) 100%);
   border: none;
 }
 .cta-field {
   .card {
     background: rgb(219, 83, 175);
-    background: linear-gradient(90deg, #e78e60 0%, #d14283 100%);
+    background: linear-gradient(90deg, var(--p-secondary-400) 0%, var(--p-rose-500) 100%);
     border: none;
   }
   .cta-btn {
@@ -400,7 +400,7 @@ p {
 }
 
 .featurecard {
-  background: #07070b;
+  background: var(--p-neutral-950);
   border-radius: 12px !important;
   overflow: hidden;
   margin-bottom: 10px;
@@ -412,7 +412,7 @@ p {
 .featureimage {
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid #07070b;
+  border: 1px solid var(--p-neutral-950);
 }
 
 // .featurecard .accordion-button::after
@@ -421,11 +421,11 @@ p {
 // }
 
 .featurecard .accordion-collapse {
-  background: #07070b;
+  background: var(--p-neutral-950);
 }
 
 .featurecard .accordion-button:not(.collapsed) {
-  background: #07070b;
+  background: var(--p-neutral-950);
 }
 
 .featurecard .accordion-header button {
@@ -617,12 +617,12 @@ p {
 }
 
 .comparision-card .crossmark {
-  color: #f33f3f;
+  color: var(--p-rose-500);
   margin-right: 0.5rem;
 }
 
 .comparision-card .checkmark {
-  color: #5fbe14;
+  color: var(--p-lime-500);
   margin-right: 0.5rem;
 }
 
@@ -647,12 +647,12 @@ p {
 }
 
 .comparision-card-uniprep .crossmark {
-  color: #f33f3f;
+  color: var(--p-rose-500);
   margin-right: 0.5rem;
 }
 
 .comparision-card-uniprep .checkmark {
-  color: #5fbe14;
+  color: var(--p-lime-500);
   margin-right: 0.5rem;
 }
 

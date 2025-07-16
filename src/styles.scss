@@ -351,7 +351,7 @@ small {
 }
 
 .font-secondarycolor {
-  color: #001631;
+  color: var(--p-secondary-800);
 }
 
 .line-clamp {
@@ -711,7 +711,7 @@ uni-certificates {
   flex-direction: column;
   /* Ensure flex children stack vertically */
   overflow: hidden;
-  background: #07070b;
+  background: var(--p-neutral-950);
   justify-content: space-between;
 }
 
@@ -799,9 +799,9 @@ uni-subscription {
   border: 1px solid var(--p-primary-500);
 
   &:disabled {
-    background-color: #343a40;
+    background-color: var(--p-neutral-700);
     background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
-    border-color: #343a40;
+    border-color: var(--p-neutral-700);
   }
 
   &:hover {
@@ -822,9 +822,9 @@ uni-subscription {
   border: 1px solid var(--p-primary-500);
 
   &:disabled {
-    background-color: #343a40;
+    background-color: var(--p-neutral-700);
     background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
-    border-color: #343a40;
+    border-color: var(--p-neutral-700);
   }
 
   &:hover {
@@ -888,7 +888,7 @@ uni-subscription {
     rgba(89, 140, 223, 1) 0%,
     rgba(186, 222, 242, 1) 100%
   );
-  border-color: #598cdf !important;
+  border-color: var(--p-sky-500) !important;
   @extend %btn-radius-10;
 
   &:hover,
@@ -904,7 +904,7 @@ uni-subscription {
   }
 
   &:focus {
-    box-shadow: 0 0 0 0.25rem #598cdf80;
+    box-shadow: 0 0 0 0.25rem var(--p-sky-500);
   }
 }
 
@@ -915,9 +915,9 @@ uni-subscription {
   border: 1px solid var(--p-green-600) !important;
 
   &:disabled {
-    background-color: #343a40;
+    background-color: var(--p-neutral-700);
     background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
-    border-color: #343a40;
+    border-color: var(--p-neutral-700);
   }
 
   &:hover,
@@ -939,15 +939,15 @@ uni-subscription {
 
 .btn-quit {
   color: var(--p-neutral-50) !important;
-  background: #df3e3e !important;
+  background: var(--p-red-500) !important;
   padding: 5px;
-  border-color: #ffb2b2 !important;
+  border-color: var(--p-red-600) !important;
   @extend %btn-radius-10;
 
   .btn-icon {
     width: 35px;
     height: 35px;
-    background: #bc1818;
+    background: var(--p-red-700);
     margin-left: 5px;
     display: flex;
     align-items: center;
@@ -959,9 +959,9 @@ uni-subscription {
   &:focus,
   &:focus-visible {
     color: var(--p-neutral-50) !important;
-    background: #df3e3e;
-    border-color: #ffb2b2 !important;
-    box-shadow: 0 0 0 0.25rem #ffb2b280;
+    background: var(--p-red-600);
+    border-color: var(--p-red-600) !important;
+    box-shadow: 0 0 0 0.25rem var(--p-red-500);
   }
 }
 
@@ -995,7 +995,7 @@ uni-subscription {
 
 .btn-back {
   color: var(--p-neutral-50) !important;
-  background: #001631 !important;
+  background: var(--p-secondary-800) !important;
   padding: 5px 10px !important;
   border-color: #708fb5 !important;
   @extend %btn-radius-10;
@@ -1015,7 +1015,7 @@ uni-subscription {
   &:focus,
   &:focus-visible {
     color: var(--p-neutral-50) !important;
-    background: #001631;
+    background: var(--p-secondary-800);
     border-color: #708fb5 !important;
     box-shadow: 0 0 0 0.25rem #708fb580;
   }
@@ -1027,9 +1027,9 @@ uni-subscription {
   @extend %btn-radius-10;
 
   &:disabled {
-    background-color: #343a40;
+    background-color: var(--p-neutral-700);
     background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
-    border-color: #343a40;
+    border-color: var(--p-neutral-700);
   }
 
   &:hover {
@@ -1215,7 +1215,7 @@ uni-subscription {
           margin-right: 10px;
 
           &:hover {
-            color: #001631;
+            color: var(--p-secondary-800);
           }
         }
       }
@@ -1433,7 +1433,7 @@ uni-subscription {
 }
 
 .select-title {
-  background: #1c1b17;
+  background: var(--p-neutral-950);
   color: var(--p-neutral-50);
   padding: 8px 8px 8px 15px;
   border-radius: 10px;
@@ -1663,7 +1663,7 @@ p-accordion.plain .p-accordion-tab-active .p-accordion-header-link:after {
 }
 
 .offer {
-  color: #ff9113;
+  color: var(--p-secondary-500);
 }
 
 .exhausted-plan-icon {
@@ -1976,7 +1976,7 @@ p-dialog.restrictionDialog .p-dialog .p-dialog-header .p-dialog-header-icon {
 
 .exportButton {
   background-color: #ebedf2;
-  color: #001631 !important;
+  color: var(--p-secondary-800) !important;
   border-radius: 20px !important;
   border: none;
   padding: 10px;
@@ -2654,7 +2654,7 @@ uni-global-employment-insights {
   width: 50px;
   min-height: 40px;
   border-radius: 8px;
-  background-color: #1c1b17;
+  background-color: var(--p-neutral-950);
   color: var(--p-neutral-50);
   display: flex;
   align-items: center;
@@ -2965,9 +2965,9 @@ uni-institute-register {
   border: 1px solid var(--p-primary-500);
 
   &:disabled {
-    background-color: #343a40;
+    background-color: var(--p-neutral-700);
     background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(77, 77, 77) 100%);
-    border-color: #343a40;
+    border-color: var(--p-neutral-700);
   }
 
   &:hover {
