@@ -28,8 +28,8 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { SharedModule } from "../../../shared/shared.module";
 import { DrawerModule } from 'primeng/drawer';
 import { PanelModule } from 'primeng/panel';
-import { CarouselModule } from 'primeng/carousel';
 import { StepperModule } from 'primeng/stepper';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 const routes: Routes = [
   {
@@ -74,8 +74,8 @@ const routes: Routes = [
     SharedModule,
     ButtonModule,
     PanelModule,
-    CarouselModule,
-    StepperModule
+    StepperModule,
+    PdfViewerModule,
   ]
 })
 export class EmployeeProfileModule { }

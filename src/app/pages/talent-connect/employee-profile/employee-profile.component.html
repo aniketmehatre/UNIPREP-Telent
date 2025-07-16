@@ -7,12 +7,12 @@
 	<div class="card-header border-0 bg-transparent">
 		<div class="row">
 			<div class="col-md-12 d-flex gap-2 text-center">
-				<div class="backIcon d-md-flex d-none" role="button" routerLink="/pages/talent-connect/list">
+				<div class="backIcon d-md-flex d-none" role="button" (click)="goBack()">
 					<span class="fa-solid fa-chevron-left"></span>
 				</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div>
-						<h5 class="mb-0">Talent Profile</h5>
+						<h5 class="mb-0"> {{ isSampleProfilePdf ? 'Sample Profile Photo Guide' : 'Talent Profile'}}</h5>
 					</div>
 					<div>
 						<button class="how-it-works-button" pButton (click)="openVideoPopup()">How it works?<i
@@ -23,7 +23,7 @@
 		</div>
 	</div>
 	<div class="card-body flex-fill overflow-y-auto">
-		<div class="row h-100">
+		<div class="row h-100" *ngIf="!isSampleProfilePdf else showSampleProfilePdf">
 			<div class="col-xxl-9 col-xl-8 col-lg-8 col-md-7 col-sm-7 col-12 mb-2 d-flex flex-fill h-100">
 				<div class="card overflow-y-hidden w-100">
 					<div class="card-header bg-primary">
@@ -49,16 +49,17 @@
 					</div>
 					<div class="card-body h-100 overflow-y-auto"
 						*ngIf="!isShowAiEvaluation else showAIValuationBodyContent">
-						<p-stepper [value]="activePageIndex">
+							<p-stepper [value]="activePageIndex">
 							<p-step-panels>
 								<!-- Personal Information -->
 								<p-step-panel [value]="0">
 									<ng-template #content>
 										<form [formGroup]="personalInformationForm">
-											<div class="row">
-												<div class="col-md-12">
-													<div class="text-center mb-2 p-3 rounded-4 position-relative"
-														style="border: 1px solid lightgray">
+											<div class="row py-3 rounded-4 mb-2 mx-1"
+												style="border: 1px solid lightgray">
+												<div class="col-md-3"></div>
+												<div class="col-md-6">
+													<div class="text-center position-relative">
 														<span
 															class="text-danger fs-4 position-absolute profile-sec-req">*</span>
 														<div class="bg-light p-3 rounded-4"
@@ -66,7 +67,7 @@
 															<div class="position-relative mx-auto mb-3">
 																<ng-container *ngIf="logo; else showSample">
 																	<img [src]="logo" styleClass="object-fit"
-																		style=" max-width:120px;width:100%;aspect-ratio:1/1;"
+																		style="max-width:120px;width:100%;aspect-ratio:1/1;"
 																		class="rounded-2 border img-fluid" />
 																</ng-container>
 																<ng-template #showSample>
@@ -105,6 +106,19 @@
 														</div>
 													</div>
 												</div>
+												<div class="col-md-3">
+													<div class="d-flex justify-content-end">
+														<button pButton type="button"
+															(click)="isSampleProfileImgVisible=true;"
+															class="btn btn-primary btn-rounded p-1 px-3 me-2">Sample
+														</button>
+														<button pButton type="button" (click)="isSampleProfilePdf=true;"
+															class="btn btn-secondary btn-rounded p-1 px-3">Guide
+														</button>
+													</div>
+												</div>
+											</div>
+											<div class="row">
 												<div class="col-md-12">
 													<h2 class="card-title mb-4 fw-bold">Personal Information
 													</h2>
@@ -1424,6 +1438,7 @@
 								</p-step-panel>
 							</p-step-panels>
 						</p-stepper>
+						
 					</div>
 					<div class="card-footer bg-white">
 						<div *ngIf="!isShowAiEvaluation; else showAIValuationFooter"
@@ -1444,9 +1459,8 @@
 							<div class="text-nowrap">
 								<div *ngIf="activePageIndex != 9">
 									<button *ngIf="isUpdatedProfile" pButton type="button" (click)="next(true)"
-										class="btn btn-success btn-rounded p-1 ps-4 me-2">
-										<span class="me-2">Update</span><span class="btn-icon px-2 py-2"><i
-												class="pi pi-check text-white"></i></span>
+										class="btn btn-success py-2 px-3 me-2">
+										Update <i class="pi pi-check text-white"></i>
 									</button>
 									<button pButton type="button" (click)="next()" class="btn btn-primary py-2 px-3">
 										{{getNextIndexValue()}}<i class="fa fa-arrow-right"></i>
@@ -1602,7 +1616,8 @@
 										<div class="col-6 mb-3">
 											<div class="d-flex align-items-start gap-2">
 												<div style="max-width: 20px; width: 100%">
-													<i class="fa-solid fa-car-building me-2" style="color: var(--p-neutral-950)"></i>
+													<i class="fa-solid fa-car-building me-2"
+														style="color: var(--p-neutral-950)"></i>
 												</div>
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Preferred Work Mode</p>
@@ -1764,7 +1779,8 @@
 													<div class="overflow-hidden">
 														<p class="text-muted text-small">Desired Job Title</p>
 														<p class="text-small text-truncate">
-															{{ careerPreferenceForm?.get("career_preference_job_title_id")?.value
+															{{
+															careerPreferenceForm?.get("career_preference_job_title_id")?.value
 															|| "-" }}
 														</p>
 													</div>
@@ -1888,6 +1904,11 @@
 				</ng-template>
 			</p-drawer>
 		</div>
+		<ng-template #showSampleProfilePdf>
+							<pdf-viewer [src]="sampleProfilePdf" [original-size]="true" [show-all]="true" [fit-to-page]="true"
+								[zoom]="1.0" [autoresize]="true" [render-text]="false" [external-link-target]="'blank'"
+								style="width: 100%; height: 100%"></pdf-viewer>
+						</ng-template>
 	</div>
 </div>
 <p-confirmdialog id="confirm-dialog" styleClass="p-3 w-25" [visible]="isShowCreatedSuccessfullyPopup"
@@ -1905,3 +1926,16 @@
 		</div>
 	</ng-template>
 </p-confirmdialog>
+<p-dialog [(visible)]="isSampleProfileImgVisible" [modal]="true">
+	<ng-template #header>
+		<h3 class="w-100 text-center">Profile Photo Samples</h3>
+	</ng-template>
+	<div class="card-body px-4 pb-4">
+		<div class="d-flex gap-3 justify-content-center">
+			<div *ngFor="let item of sampleProfileImages">
+				<img [src]="item" style="max-width:200px;width:100%;aspect-ratio:1/1;"
+					class="rounded-2 border img-fluid" alt="Sample Img" />
+			</div>
+		</div>
+	</div>
+</p-dialog>
