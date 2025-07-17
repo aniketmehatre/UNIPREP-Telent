@@ -1,21 +1,19 @@
 <div class="row" style="overflow-y: auto; max-height: 100%">
-	<div *ngFor="let modules of filteredModulesList" class="col-custom-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
-		<div class="row w-100 m-0 justify-content-center h-100">
-			<div [class.disabled]="modules.launch_soon" (click)="chooseOneOption(modules.mode, modules.launch_soon)"
-				class="card subjectcard position-relative" role="button">
-				<div class="is-ai-div" *ngIf="modules.is_ai"><span class="is-ai-bg-blue"><i
-							class="fa-solid fa-stars"></i> AI</span></div>
-				<!-- Launch Soon Tag -->
-				<uni-launch-soon-tag *ngIf="modules.launch_soon" message="Launching soon"></uni-launch-soon-tag>
-				<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
-					<div>
-						<div class="submoduleicon">
-							<img [src]="modules?.imageLink" class="selectimage" />
-						</div>
-						<h5 class="text-center mt-3 fw-bold mb-0">{{ modules.moduleName }}</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div *ngFor="let modules of filteredModulesList" class="col-custom-lg-2 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+    <div class="row w-100 m-0 justify-content-center h-100">
+      <div [class.disabled]="modules.launch_soon" (click)="chooseOneOption(modules.mode, modules.launch_soon)" class="card subjectcard position-relative" role="button">
+        <div class="is-ai-div" *ngIf="modules.is_ai">
+          <span class="is-ai-bg-blue"><i class="fa-solid fa-stars"></i> AI</span>
+        </div>
+        <!-- Launch Soon Tag -->
+        <uni-launch-soon-tag *ngIf="modules.launch_soon" message="Launching soon"></uni-launch-soon-tag>
+        <div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center">
+          <div class="submoduleicon">
+            <img [src]="modules?.imageLink" class="selectimage" />
+          </div>
+          <h5 class="text-md-center text-start w-100 mt-3 fw-bold mb-0">{{ modules.moduleName }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
