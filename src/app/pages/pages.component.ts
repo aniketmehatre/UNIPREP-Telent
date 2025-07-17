@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener, OnDestroy, OnInit, Output, ViewChi
 import { PageFacadeService } from "./page-facade.service";
 import { SubSink } from "subsink";
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/router";
-import { DataService } from "../data.service";
+import { DataService } from "../services/data.service";
 import { DashboardService } from "./dashboard/dashboard.service";
 import { AuthService } from "../Auth/auth.service";
 import { DeviceDetectorService } from "ngx-device-detector";
@@ -10,13 +10,13 @@ import { CommonModule } from "@angular/common";
 // @ts-ignore
 import Contlo from "contlo-web-sdk";
 import { DomSanitizer, Meta, SafeResourceUrl, Title } from "@angular/platform-browser";
-import { LocationService } from "../location.service";
+import { LocationService } from "../services/location.service";
 import { HeaderComponent } from "@theme/components/header/header.component";
 import { SidenavComponent } from "@theme/components/sidenav/sidenav.component";
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { HeaderSearchComponent } from "./header-search/header-search.component"
-import { StorageService } from "../storage.service";
+import { StorageService } from "../services/storage.service";
 import { RestrictionDialogComponent } from "../shared/restriction-dialog/restriction-dialog.component";
 import { ScrollTopModule } from "primeng/scrolltop";
 import { howItWorksLinks } from "../shared/commonData";

@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { Router } from '@angular/router';
 import { UserManagementService } from '../user-management/user-management.service';
 import { MessageService } from 'primeng/api';
-import { DataService } from 'src/app/data.service';
+import { DataService } from 'src/app/services/data.service';
 import { PageFacadeService } from '../page-facade.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {customsopSubscriptionplans} from "../../../@Models/subscription";
-import { LocationService } from "src/app/location.service";
+import { LocationService } from "src/app/services/location.service";
 import {SubscriptionService} from "../subscription.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";

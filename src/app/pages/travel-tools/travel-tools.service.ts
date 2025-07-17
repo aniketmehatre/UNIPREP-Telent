@@ -5,7 +5,7 @@ import { ChatGPTResponse } from 'src/app/@Models/chat-gpt.model';
 import { Countries } from 'src/app/@Models/country.model';
 import { CountryandCurrency } from 'src/app/@Models/currency.model';
 import { map } from 'rxjs';
-import { removeExtraResponse } from '../prompt';
+import { removeExtraResponse } from '../../@Supports/prompt';
 // import html2pdf from 'html2pdf.js';
 
 @Injectable({

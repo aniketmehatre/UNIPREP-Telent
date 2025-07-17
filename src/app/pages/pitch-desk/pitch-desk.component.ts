@@ -4,10 +4,10 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angul
 import { AuthService } from "src/app/Auth/auth.service"
 import { Router, RouterModule } from "@angular/router"
 import { MessageService } from "primeng/api"
-import { DataService } from "src/app/data.service"
+import { DataService } from "src/app/services/data.service"
 import { PageFacadeService } from "../page-facade.service"
 import { UserManagementService } from "../user-management/user-management.service"
-import { LocationService } from "src/app/location.service"
+import { LocationService } from "src/app/services/location.service"
 
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"

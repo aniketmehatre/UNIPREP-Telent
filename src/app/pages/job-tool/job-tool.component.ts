@@ -6,7 +6,7 @@ import { filter } from 'rxjs';
 import { Location, CommonModule } from '@angular/common';
 import { CourseListService } from '../course-list/course-list.service';
 import { TooltipModule } from 'primeng/tooltip';
-import {StorageService} from "../../storage.service";
+import {StorageService} from "../../services/storage.service";
 import { ButtonModule } from 'primeng/button';
 @Component({
     selector: 'uni-job-tool',

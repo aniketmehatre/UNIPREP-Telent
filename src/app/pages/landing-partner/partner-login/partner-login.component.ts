@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SelectModule } from 'primeng/select';
-import { LocationService } from 'src/app/location.service';
+import { LocationService } from 'src/app/services/location.service';
 import { LandingPartnerServices } from '../landing-partner.service';
 import { Router } from '@angular/router';
 import { ImageModule } from 'primeng/image';

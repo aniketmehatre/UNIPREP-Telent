@@ -21,7 +21,7 @@ import { CardModule } from "primeng/card"
 import { InputNumberModule } from "primeng/inputnumber"
 import { PageFacadeService } from '../../page-facade.service';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
-import { PromptService } from "../../prompt.service"
+import { PromptService } from "src/app/services/prompt.service";
 import { SharedModule } from "src/app/shared/shared.module"
 import { AuthService } from "src/app/Auth/auth.service"
 @Component({

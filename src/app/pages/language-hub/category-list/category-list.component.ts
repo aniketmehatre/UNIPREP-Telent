@@ -7,7 +7,7 @@ import { MessageService } from "primeng/api"
 import { PageFacadeService } from "../../page-facade.service"
 import { AuthService } from "src/app/Auth/auth.service"
 import { LanguageArrayGlobalService } from "../language-array-global.service"
-import { LocationService } from "src/app/location.service"
+import { LocationService } from "src/app/services/location.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { PaginatorModule } from "primeng/paginator"
@@ -18,7 +18,7 @@ import { MultiSelectModule } from "primeng/multiselect"
 import { CarouselModule } from "primeng/carousel"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { StorageService } from "../../../storage.service"
+import { StorageService } from "../../../services/storage.service"
 @Component({
 	selector: "uni-category-list",
 	templateUrl: "./category-list.component.html",

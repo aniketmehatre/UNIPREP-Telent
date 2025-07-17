@@ -18,7 +18,7 @@ import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
 import { matchValidator } from 'src/app/@Supports/matchvalidator';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/location.service';
+import { LocationService } from 'src/app/services/location.service';
 import { SubSink } from 'subsink';
 import { LandingPartnerServices } from '../landing-partner.service';
 

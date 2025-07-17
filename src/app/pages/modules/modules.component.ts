@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {StorageService} from "../../storage.service";
+import {StorageService} from "../../services/storage.service";
 @Component({
     selector: 'uni-modules',
     templateUrl: './modules.component.html',

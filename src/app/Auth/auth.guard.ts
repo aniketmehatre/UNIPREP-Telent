@@ -2,9 +2,9 @@ import {Injectable, signal} from '@angular/core';
 import {ActivatedRouteSnapshot, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
 import {LocalStorageService} from 'ngx-localstorage';
-import {DataService} from '../data.service';
-import {AuthTokenService} from '../core/services/auth-token.service';
-import {LocationService} from "../location.service";
+import {DataService} from '../services/data.service';
+import {AuthTokenService} from '../services/auth-token.service';
+import {LocationService} from "../services/location.service";
 
 @Injectable({
     providedIn: 'root'

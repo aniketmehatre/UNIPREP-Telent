@@ -16,7 +16,7 @@ import { TooltipModule } from "primeng/tooltip";
 import { DialogModule } from "primeng/dialog";
 import { ButtonModule } from "primeng/button";
 import { PageFacadeService } from "../page-facade.service";
-import { LocationService } from "src/app/location.service";
+import { LocationService } from "src/app/services/location.service";
 import { FormsModule } from "@angular/forms";
 @Component({
   selector: "uni-infokit",

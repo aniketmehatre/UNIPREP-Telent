@@ -14,10 +14,10 @@ import { CardModule } from 'primeng/card';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { StorageService } from "../../../../storage.service";
+import { StorageService } from "../../../../services/storage.service";
 import { PaginatorModule } from 'primeng/paginator';
-import { DataService } from 'src/app/data.service';
-import { SocialShareService } from 'src/app/shared/social-share.service';
+import { DataService } from 'src/app/services/data.service';
+import { SocialShareService } from 'src/app/services/social-share.service';
 import { PageFacadeService } from 'src/app/pages/page-facade.service';
 @Component({
   selector: 'uni-country-insights-submodule',

@@ -5,7 +5,7 @@ import { debounceTime, switchMap, distinctUntilChanged, catchError, map } from "
 import { Observable, of } from "rxjs"
 import { FormBuilder, FormGroup } from "@angular/forms"
 import { AuthService } from "src/app/Auth/auth.service"
-import { LocationService } from "src/app/location.service"
+import { LocationService } from "src/app/services/location.service"
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { RouterModule } from '@angular/router';

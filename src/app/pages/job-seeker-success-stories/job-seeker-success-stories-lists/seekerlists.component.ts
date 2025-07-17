@@ -10,9 +10,9 @@ import { CommonModule } from "@angular/common";
 import { CardModule } from "primeng/card";
 import { DialogModule } from "primeng/dialog";
 import { PaginatorModule } from "primeng/paginator";
-import { DataService } from "src/app/data.service";
+import { DataService } from "src/app/services/data.service";
 import { SkeletonModule } from "primeng/skeleton";
-import { SocialShareService } from "src/app/shared/social-share.service";
+import { SocialShareService } from "src/app/services/social-share.service";
 import { ButtonModule } from 'primeng/button';
 @Component({
   selector: "uni-seekerlists",

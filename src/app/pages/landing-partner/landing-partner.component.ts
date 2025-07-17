@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { environment } from '@env/environment';
 import { LocalStorageService } from 'ngx-localstorage';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/location.service';
-import { ThemeService } from "../../theme.service"
+import { LocationService } from 'src/app/services/location.service';
+import { ThemeService } from "../../services/theme.service"
 
 @Component({
   selector: 'uni-landing-partner',

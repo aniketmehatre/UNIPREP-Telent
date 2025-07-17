@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs/internal/Observable';
-import {LocalStorageService} from "ngx-localstorage";
+import { LocalStorageService } from "ngx-localstorage";
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ import {LocalStorageService} from "ngx-localstorage";
 export class ThemeService {
   private theme: 'light' | 'dark' = 'light';
 
-  constructor(private http:HttpClient, private storage: LocalStorageService, ) {
+  constructor(private http: HttpClient, private storage: LocalStorageService,) {
     this.loadTheme();
   }
 
@@ -24,7 +24,7 @@ export class ThemeService {
   isDarkMode(): boolean {
     return this.theme === 'dark';
   }
-  
+
   getInitialSwitchState(): boolean {
     const checked = this.getCookie('checked');
     return checked === 'true'; // Convert string to boolean
@@ -68,8 +68,8 @@ export class ThemeService {
     return undefined;
   }
 
-  
-  storeContatForm(val:any):Observable<any> {
-    return this.http.post(environment.ApiUrl +'/storeContactForm',val);
+
+  storeContatForm(val: any): Observable<any> {
+    return this.http.post(environment.ApiUrl + '/storeContactForm', val);
   }
 }

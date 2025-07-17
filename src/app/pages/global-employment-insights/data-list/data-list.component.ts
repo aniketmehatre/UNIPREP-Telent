@@ -6,8 +6,8 @@ import { PageFacadeService } from "../../page-facade.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { Meta } from "@angular/platform-browser";
 import { GlobalEmploymentService } from "../global-employment-insights.service";
-import { DataService } from "src/app/data.service";
-import { SocialShareService } from "src/app/shared/social-share.service";
+import { DataService } from "src/app/services/data.service";
+import { SocialShareService } from "src/app/services/social-share.service";
 
 @Component({
   selector: "uni-global-employment-data-list",

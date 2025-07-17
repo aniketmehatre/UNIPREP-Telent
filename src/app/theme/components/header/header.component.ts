@@ -17,9 +17,9 @@ import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/ro
 import { MenuItem, MessageService } from "primeng/api"
 import { AuthService } from "../../../Auth/auth.service"
 import { SubSink } from "subsink"
-import { LocationService } from "../../../location.service"
-import { DataService } from "src/app/data.service"
-import { ThemeService } from "../../../theme.service"
+import { LocationService } from "../../../services/location.service"
+import { DataService } from "src/app/services/data.service"
+import { ThemeService } from "../../../services/theme.service"
 import { DashboardService } from "src/app/pages/dashboard/dashboard.service"
 import { catchError, count, EMPTY, finalize, forkJoin, Observable, timeout } from "rxjs"
 import { CountryISO, NgxIntlTelInputModule, SearchCountryField } from "ngx-intl-tel-input"
@@ -37,13 +37,13 @@ import { TabViewModule } from "primeng/tabview"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { TextareaModule } from 'primeng/textarea'
-import { AuthTokenService } from 'src/app/core/services/auth-token.service'
+import { AuthTokenService } from 'src/app/services/auth-token.service'
 import { AvatarGroupModule } from 'primeng/avatargroup';
-import { StorageService } from "../../../storage.service";
+import { StorageService } from "../../../services/storage.service";
 import { DropdownModule } from "primeng/dropdown";
-import { PromptService } from "src/app/pages/prompt.service"
+import { PromptService } from "src/app/services/prompt.service";
 import { User } from "src/app/@Models/user.model"
-import { CountryLocationService } from "src/app/shared/country-location.service"
+import { CountryLocationService } from "src/app/services/country-location.service"
 @Component({
 	selector: "uni-header",
 	templateUrl: "./header.component.html",

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
 import { map } from 'rxjs';
-import { removeExtraResponse } from '../prompt';
+import { removeExtraResponse } from '../../@Supports/prompt';
 @Injectable({
   providedIn: "root",
 })

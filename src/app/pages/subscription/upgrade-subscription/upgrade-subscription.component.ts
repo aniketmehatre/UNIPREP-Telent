@@ -36,7 +36,7 @@ import { ToastModule } from "primeng/toast"
 import { TabViewModule } from "primeng/tabview"
 import { log } from "node:console"
 import { landingServices } from '../../landing/landing.service';
-import { LocationService } from "src/app/location.service"
+import { LocationService } from "src/app/services/location.service"
 @Component({
 	selector: "uni-upgrade-subscription",
 	templateUrl: "./upgrade-subscription.component.html",

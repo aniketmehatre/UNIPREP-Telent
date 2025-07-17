@@ -3,10 +3,10 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MenuItem, MessageService } from 'primeng/api';
 import { interval, Observable, Subscription, takeWhile } from 'rxjs';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/location.service';
+import { LocationService } from 'src/app/services/location.service';
 import { ModuleServiceService } from '../../module-store/module-service.service';
 import { Router } from '@angular/router';
-import { DataService } from 'src/app/data.service';
+import { DataService } from 'src/app/services/data.service';
 import { FounderstoolService } from '../founderstool.service';
 import { Location } from '@angular/common';
 import { CommonModule } from "@angular/common";
@@ -22,7 +22,7 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { StorageService } from "../../../storage.service";
+import { StorageService } from "../../../services/storage.service";
 @Component({
   selector: 'uni-entreprenuerquiz',
   templateUrl: './entreprenuerquiz.component.html',

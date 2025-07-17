@@ -7,7 +7,7 @@ import { CommonModule } from "@angular/common"
 import { SkeletonModule } from "primeng/skeleton"
 import { TooltipModule } from "primeng/tooltip"
 import { RouterModule, Router } from "@angular/router"
-import { StorageService } from "../../../storage.service";
+import { StorageService } from "../../../services/storage.service";
 import { AuthService } from "src/app/Auth/auth.service"
 
 @Component({

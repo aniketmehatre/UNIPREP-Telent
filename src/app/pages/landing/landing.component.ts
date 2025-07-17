@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit, signal } from "@angular/core"
-import { ThemeService } from "../../theme.service"
+import { ThemeService } from "../../services/theme.service"
 import { AuthService } from "../../Auth/auth.service"
 import { environment } from "@env/environment"
 import { ActivatedRoute, Router } from "@angular/router"
 import { HeaderLogoStore } from "./landing-page.store"
 import { landingServices } from "./landing.service"
-import { LocationService } from "src/app/location.service"
+import { LocationService } from "../../services/location.service"
 
 @Component({
     selector: "uni-landing",

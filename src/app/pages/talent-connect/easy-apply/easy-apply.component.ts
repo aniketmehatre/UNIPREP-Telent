@@ -5,9 +5,9 @@ import { MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
 import { Meta } from '@angular/platform-browser';
-import { SocialShareService } from 'src/app/shared/social-share.service';
+import { SocialShareService } from 'src/app/services/social-share.service';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/location.service';
+import { LocationService } from 'src/app/services/location.service';
 import { MultiSelectChangeEvent } from 'primeng/multiselect';
 import { JobListing } from 'src/app/@Models/employee-connect-job.model';
 

@@ -3,7 +3,7 @@ import { GlobalworkvisaService } from "../global-work-visa/global-work-visa.serv
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { Meta } from "@angular/platform-browser";
 import { MessageService } from "primeng/api";
-import { DataService } from "src/app/data.service";
+import { DataService } from "src/app/services/data.service";
 import { Carousel } from "primeng/carousel";
 import { Select, SelectModule } from "primeng/select";
 import { NgClass, CommonModule } from "@angular/common";
@@ -12,8 +12,8 @@ import { Card } from "primeng/card";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
 import { AuthService } from "src/app/Auth/auth.service";
-import { SocialShareService } from "src/app/shared/social-share.service";
 import { PageFacadeService } from "../page-facade.service";
+import { SocialShareService } from "src/app/services/social-share.service";
 
 @Component({
   selector: "uni-global-work-visa",

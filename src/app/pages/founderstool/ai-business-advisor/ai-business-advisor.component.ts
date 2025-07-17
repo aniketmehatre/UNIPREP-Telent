@@ -19,11 +19,11 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { PageFacadeService } from '../../page-facade.service';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
-import { PromptService } from "../../prompt.service"
+import { PromptService } from "src/app/services/prompt.service";
 import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
 import { AuthService } from "src/app/Auth/auth.service"
-import { removeExtraResponse } from "../../prompt"
+import { removeExtraResponse } from "../../../@Supports/prompt"
 @Component({
 	selector: "uni-ai-business-advisor",
 	templateUrl: "./ai-business-advisor.component.html",
