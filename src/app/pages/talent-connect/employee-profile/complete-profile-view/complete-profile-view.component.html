@@ -177,7 +177,7 @@
             <div class="fw-bold fs-5 mb-3" *ngIf="profileData?.work_experience && profileData?.work_experience.length > 0">Work Experience Details</div>
 
             <div class="row" *ngIf="profileData?.work_experience && profileData?.work_experience.length > 0">
-              <ng-container *ngFor="let exp of profileData?.work_experience">
+              <ng-container *ngFor="let exp of profileData?.work_experience; let last = last">
                 <div class="col-md-4 col-xl-3 mb-3">
                   <div class="text-primary fw-bold">Company Name</div>
                   <div>{{ exp?.company_name || "Not specified" }}</div>
@@ -210,7 +210,7 @@
                   <div class="text-primary fw-bold">Experience Letter</div>
                   <button *ngIf="exp?.experience_letter" pButton [label]="extractFileName(exp?.experience_letter)" icon="pi pi-download" class="p-button-outlined p-button-secondary mb-2 justify-content-between" (click)="openView(exp?.experience_letter)" iconPos="right"></button>
                 </div>
-                <div class="col-12">
+                <div class="col-12" *ngIf="!last">
                   <hr />
                 </div>
               </ng-container>
