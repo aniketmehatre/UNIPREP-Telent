@@ -64,13 +64,17 @@ export class LandingNewComponent {
 
 	navigateConnectUrl(url: string) {
 		const baseUrl = window.location.origin;
-		const isDev = baseUrl.includes('dev') || baseUrl.includes('localhost');
+				const isDev = baseUrl.includes('dev') || baseUrl.includes('localhost');
+		const talentUrl = 'https://talent.uniprep.ai';
 		const targetUrl = isDev ? 'https://dev-student.uniprep.ai' : 'https://uniprep.ai';
 		const validUrls = ['about', 'contact-us', 'job-seekers', 'international-students', 'global-travellers', 'entrepreneurs', 'compare/uk', 'blogs', 'certificates', 'register', 'pricing', 'login'];
 		if (url === 'home') {
-			window.location.href = targetUrl
-		} else if (validUrls.includes(url)) {
-			window.location.href = targetUrl + `/${url}`
+			window.location.href = targetUrl;
+		} else if (url === 'active-jobs' || url === 'employers') {
+			window.location.href = talentUrl + `/${url}`;
+		}
+		else if (validUrls.includes(url)) {
+			window.location.href = targetUrl + `/${url}`;
 		} else {
 			window.location.href = `${environment.studentDomain}/${url}`
 		}
