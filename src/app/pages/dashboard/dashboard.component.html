@@ -1,242 +1,237 @@
 <div class="row py-3">
-	<div class="col-xl-6 col-lg-6 col-md-7 col-sm-12 col-12">
-		<h4 class="fw-semibold mb-0">Hello, {{ userName }} <span class="emoji" aria-label="clapping hands">👋</span></h4>
-		<p class="fw-normal lh-base mb-2 mb-md-0">
-			Welcome to <span class="highlight-text"><b>UNIPREP</b></span
-			>! Let's get started on your journey to a brighter future!
-		</p>
-	</div>
-	<div class="col-xl-6 col-lg-6 col-md-5 col-sm-12 col-12">
-		<h4 class="text-md-end mb-0 fw-bold">Missing Something?</h4>
-		<p class="text-md-end">
-			<span class="text-decoration-underline" (click)="openReportModal(op, $event)"
-				><span class="text-primary cursor-pointer"><strong> Let us know </strong></span>
-			</span>
-			<span> and we will build the feature you need in 15 days!</span>
-		</p>
-	</div>
+  <div class="col-xl-6 col-lg-6 col-md-7 col-sm-12 col-12">
+    <h4 class="fw-semibold mb-0">Hello, {{ userName }} <span class="emoji" aria-label="clapping hands">👋</span></h4>
+    <p class="fw-normal lh-base mb-2 mb-md-0">
+      Welcome to <span class="highlight-text"><b>UNIPREP</b></span
+      >! Let's get started on your journey to a brighter future!
+    </p>
+  </div>
+  <div class="col-xl-6 col-lg-6 col-md-5 col-sm-12 col-12">
+    <h4 class="text-md-end mb-0 fw-bold">Missing Something?</h4>
+    <p class="text-md-end">
+      <span class="text-decoration-underline" (click)="openReportModal(op, $event)"
+        ><span class="text-primary cursor-pointer"><strong> Let us know </strong></span>
+      </span>
+      <span> and we will build the feature you need in 15 days!</span>
+    </p>
+  </div>
 </div>
 <div class="row g-3 mb-3" role="main">
-	<div class="col-lg-3 col-md-6 col-sm-12">
-		<div class="card mt-2 bg-white" style="height: 100%">
-			<div class="card-body">
-				<h5 class="mb-2 text-start"><span class="emoji" aria-label="video camera">🎥</span> Introduction to UNIPREP</h5>
-				<iframe width="100%" height="100%" style="border-radius: 15px" [src]="safeSrc" title="UNIPREP Introduction Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen aria-label="UNIPREP Introduction Video"> </iframe>
-			</div>
-		</div>
-	</div>
-	<!-- my profile -->
-	<div class="col-lg-3 col-md-6 col-sm-12">
-		<div class="card h-100 mt-2 bg-white">
-			<div class="card-body d-flex flex-column justify-content-between">
-				<div class="row g-2 align-items-center">
-					<div class="col-12">
-						<h5><span class="emoji" aria-label="user">👤</span> Profile Completion</h5>
-					</div>
-					<div class="col-6">
-						<div style="display: flex; justify-content: space-between">
-							<div style="font-size: 3rem" aria-label="Profile completion percentage">{{ totalPercentage }}%</div>
-						</div>
-					</div>
-					<div class="col-6">
-						<button *ngIf="isShowingCompletion" class="justify-content-center gap-2 px-4 py-2 border rounded-full w-100" style="border-radius: 15px; font-size: 10px" aria-label="Profile completion status">
-							<span class="text-gray-700 uniprep-primary fw-semibold">You are almost there!</span>
-						</button>
-					</div>
-					<div class="col-6">
-						<div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="progress" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
-							<div class="progress-bar" [style.width.%]="progress"></div>
-						</div>
-						<span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700 text-extrasmall">Basic Details</span>
-					</div>
-					<div class="col-3">
-						<div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="talentConnectPercentage" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
-							<div class="progress-bar2" [style.width.%]="talentConnectPercentage"></div>
-						</div>
-						<span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700 text-extrasmall">Job Profile</span>
-					</div>
-					<div class="col-3">
-						<div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="cvBuilderPercentage" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
-							<div class="progress-bar3" [style.width.%]="cvBuilderPercentage"></div>
-						</div>
-						<span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700 text-extrasmall">CV Details</span>
-					</div>
-					<div class="col-12 mt-4">
-						<p class="mb-0 text-start text-extrasmall">Complete your profile today:</p>
-					</div>
-					<div class="col-12 d-flex gap-2 mt-2">
-						<button class="px-2 py-2 border rounded-3 bg-white cursor-pointer w-100 text-extrasmall" (click)="openMyProfile()" aria-label="Open My Profile">
-							<span class="uniprep-primary">My Profile <i class="fa-solid fa-user uniprep-primary" aria-hidden="true"></i></span>
-						</button>
-						<button (click)="redirectToCvBuilder()" class="px-2 py-2 border rounded-3 bg-white cursor-pointer w-100 text-extrasmall" aria-label="Open CV Builder">
-							<span class="uniprep-primary">CV Builder <i class="fa-solid fa-file-lines uniprep-primary" aria-hidden="true"></i></span>
-						</button>
-						<button (click)="redirectToTalentConnect()" class="px-2 py-2 border rounded-3 bg-white cursor-pointer w-100 text-extrasmall" aria-label="Open Talent Connect">
-							<span class="uniprep-primary">Talent Connect <i class="fa-solid fa-user-tie uniprep-primary" aria-hidden="true"></i></span>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-6 col-md-12 col-sm-12">
-		<div class="card fav-card mt-2 bg-white">
-			<div class="card-body text-center">
-				<h5 class="mb-0 text-start"><span class="emoji" aria-label="star">⭐</span> Feature Favourites</h5>
+  <div class="col-lg-3 col-md-6 col-sm-12">
+    <div class="card mt-2 bg-white" style="height: 100%">
+      <div class="card-body">
+        <h5 class="mb-2 text-start"><span class="emoji" aria-label="video camera">🎥</span> Introduction to UNIPREP</h5>
+        <iframe width="100%" height="100%" style="border-radius: 15px" [src]="safeSrc" title="UNIPREP Introduction Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen aria-label="UNIPREP Introduction Video"> </iframe>
+      </div>
+    </div>
+  </div>
+  <!-- my profile -->
+  <div class="col-lg-3 col-md-6 col-sm-12">
+    <div class="card h-100 mt-2 bg-white">
+      <div class="card-body d-flex flex-column justify-content-between">
+        <div class="row g-2 align-items-center">
+          <div class="col-12">
+            <h5><span class="emoji" aria-label="user">👤</span> Profile Completion</h5>
+          </div>
+          <div class="col-6">
+            <div style="display: flex; justify-content: space-between">
+              <div style="font-size: 3rem" aria-label="Profile completion percentage">{{ totalPercentage }}%</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <button *ngIf="isShowingCompletion" class="justify-content-center gap-2 px-4 py-2 border rounded-full w-100" style="border-radius: 15px; font-size: 10px" aria-label="Profile completion status">
+              <span class="text-gray-700 uniprep-primary fw-semibold">You are almost there!</span>
+            </button>
+          </div>
+          <div class="col-6">
+            <div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="progress" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
+              <div class="progress-bar" [style.width.%]="progress"></div>
+            </div>
+            <span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700 text-extrasmall">Basic Details</span>
+          </div>
+          <div class="col-3">
+            <div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="talentConnectPercentage" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
+              <div class="progress-bar2" [style.width.%]="talentConnectPercentage"></div>
+            </div>
+            <span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700 text-extrasmall">Job Profile</span>
+          </div>
+          <div class="col-3">
+            <div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="cvBuilderPercentage" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
+              <div class="progress-bar3" [style.width.%]="cvBuilderPercentage"></div>
+            </div>
+            <span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700 text-extrasmall">CV Details</span>
+          </div>
+          <div class="col-12 mt-4">
+            <p class="mb-0 text-start text-extrasmall">Complete your profile today:</p>
+          </div>
+          <div class="col-12 d-flex gap-2 mt-2">
+            <button class="px-2 py-2 border rounded-3 bg-white cursor-pointer w-100 text-extrasmall" (click)="openMyProfile()" aria-label="Open My Profile">
+              <span class="uniprep-primary">My Profile <i class="fa-solid fa-user uniprep-primary" aria-hidden="true"></i></span>
+            </button>
+            <button (click)="redirectToCvBuilder()" class="px-2 py-2 border rounded-3 bg-white cursor-pointer w-100 text-extrasmall" aria-label="Open CV Builder">
+              <span class="uniprep-primary">CV Builder <i class="fa-solid fa-file-lines uniprep-primary" aria-hidden="true"></i></span>
+            </button>
+            <button (click)="redirectToTalentConnect()" class="px-2 py-2 border rounded-3 bg-white cursor-pointer w-100 text-extrasmall" aria-label="Open Talent Connect">
+              <span class="uniprep-primary">Talent Connect <i class="fa-solid fa-user-tie uniprep-primary" aria-hidden="true"></i></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-12 col-sm-12">
+    <div class="card fav-card mt-2 bg-white">
+      <div class="card-body text-center">
+        <h5 class="mb-0 text-start"><span class="emoji" aria-label="star">⭐</span> Feature Favourites</h5>
 
-				<!-- Carousel Component -->
-				<p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1" [responsiveOptions]="responsiveOptions" [value]="groupedListFav" [showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Feature Favourites Carousel">
-					<ng-template let-group pTemplate="item">
-						<div class="grid-container">
-							<div *ngFor="let v of group">
-								<div (click)="selectFav(v)" role="button" tabindex="0" class="card-body country-border" (keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
-									<div class="d-flex justify-content-start gap-3 align-items-center">
-										<div>
-											<img alt="{{ v.moduleName }} icon" class="countryicon" [src]="v.imageLink != '' ? v.imageLink : '../../uniprep-assets/images/mstile-150x150.png'" />
-										</div>
-										<div class="text-start">
-											<p class="mb-0 text-sm text-capitalize" style="font-size: larger">
-												<b>{{ v.moduleName | uppercase }}</b>
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
+        <!-- Carousel Component -->
+        <p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1" [responsiveOptions]="responsiveOptions" [value]="groupedListFav" [showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Feature Favourites Carousel">
+          <ng-template let-group pTemplate="item">
+            <div class="grid-container px-1">
+              <div *ngFor="let v of group">
+                <div (click)="selectFav(v)" role="button" tabindex="0" class="card" (keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
+                  <div class="card-body">
+					<div class="row align-items-center">
+						<div class="col-md-4 col-4">
+							<img alt="{{ v.moduleName }} icon" class="countryicon" [src]="v.imageLink != '' ? v.imageLink : '../../uniprep-assets/images/mstile-150x150.png'" />
 						</div>
-					</ng-template>
-				</p-carousel>
-			</div>
-		</div>
-	</div>
+						<div class="col-md-8 col-8">
+							<h6 class="mb-0 fw-semibold text-start">{{ v.moduleName | uppercase }}</h6>
+						</div>
+					</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- second line -->
 <div class="row g-3">
-	<!-- Left Column - 70% -->
-	<div class="col-lg-9 col-md-8">
-		<div class="d-flex flex-column h-100">
-			<div class="card mb-2 flex-fill bg-white">
-				<div class="card-body d-flex flex-column justify-content-between">
-					<div class="flex justify-content-between">
-						<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span>&nbsp;Apply for jobs</h5>
-						<button class="btn btn-rounded text-extrasmall px-4 py-2 m-0 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()" aria-label="View all job applications">View All</button>
-					</div>
-					<p-carousel #carousel [circular]="true" [autoplayInterval]="3000" [numScroll]="3" [numVisible]="3" *ngIf="!isNoApplicationsData" [responsiveOptions]="responsiveOptions" [value]="recentJobApplication" [showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Recent Job Applications Carousel">
-						<ng-template let-group pTemplate="item">
-							<div role="button" tabindex="0" class="card bg-white" style="border: none" (keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
-								<div class="card-body">
-									<div class="d-flex justify-content-center align-items-center h-100 image-border">
-										<img alt="{{ group.company_name }} logo" class="jobImage w-100" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" src="{{ group.image }}" />
-									</div>
-								</div>
-							</div>
-						</ng-template>
-					</p-carousel>
-					<div *ngIf="isNoApplicationsData" class="text-center mt-3">
-						<h4>No Recent Jobs Yet</h4>
-					</div>
-				</div>
-			</div>
-			<div class="card flex-fill bg-white">
-				<div class="card-body text-center pb-3 bodyclass d-flex flex-column justify-content-between h-100">
-					<div class="flex justify-content-between">
-						<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="seedling">💼</span>&nbsp;Companies</h5>
-						<button class="btn btn-rounded text-extrasmall px-4 py-2 m-0 mb-2 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()" aria-label="View all educational partners">View All</button>
-					</div>
-					<p-carousel [numScroll]="4" [numVisible]="4" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions1" [showIndicators]="true" [value]="partnerTrusterLogo" class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Educational Partners Carousel">
-						<ng-template let-uni pTemplate="item">
-							<div role="button" tabindex="0" class="card bg-white" style="border: none">
-								<div class="card-body">
-									<div class="text-center image-border d-flex justify-content-center align-items-center h-100">
-										<img class="logo-wrapper w-100" alt="{{ uni.company_name }} logo" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="uni.company_logo" />
-									</div>
-								</div>
-							</div>
-						</ng-template>
-					</p-carousel>
-				</div>
-			</div>
-		</div>
-	</div>
+  <!-- Left Column - 70% -->
+  <div class="col-lg-9 col-md-8">
+    <div class="d-flex flex-column h-100">
+      <div class="card mb-2 flex-fill bg-white">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div class="flex justify-content-between">
+            <h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="briefcase">💼</span>&nbsp;Apply for jobs</h5>
+            <button class="btn btn-rounded text-extrasmall px-4 py-2 m-0 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="viewMoreOpenJobApplication()" aria-label="View all job applications">View All</button>
+          </div>
+          <p-carousel #carousel [circular]="true" [autoplayInterval]="3000" [numScroll]="3" [numVisible]="3" *ngIf="!isNoApplicationsData" [responsiveOptions]="responsiveOptions" [value]="recentJobApplication" [showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Recent Job Applications Carousel">
+            <ng-template let-group pTemplate="item">
+              <div role="button" tabindex="0" class="card bg-white" style="border: none" (keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
+                <div class="card-body">
+                  <div class="d-flex justify-content-center align-items-center h-100 image-border">
+                    <img alt="{{ group.company_name }} logo" class="jobImage w-100" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" src="{{ group.image }}" />
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </p-carousel>
+          <div *ngIf="isNoApplicationsData" class="text-center mt-3">
+            <h4>No Recent Jobs Yet</h4>
+          </div>
+        </div>
+      </div>
+      <div class="card flex-fill bg-white">
+        <div class="card-body text-center pb-3 bodyclass d-flex flex-column justify-content-between h-100">
+          <div class="flex justify-content-between">
+            <h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="seedling">💼</span>&nbsp;Companies</h5>
+            <button class="btn btn-rounded text-extrasmall px-4 py-2 m-0 mb-2 bg-white" style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()" aria-label="View all educational partners">View All</button>
+          </div>
+          <p-carousel [numScroll]="4" [numVisible]="4" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions1" [showIndicators]="true" [value]="partnerTrusterLogo" class="text-center" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }" aria-label="Educational Partners Carousel">
+            <ng-template let-uni pTemplate="item">
+              <div role="button" tabindex="0" class="card bg-white" style="border: none">
+                <div class="card-body">
+                  <div class="text-center image-border d-flex justify-content-center align-items-center h-100">
+                    <img class="logo-wrapper w-100" alt="{{ uni.company_name }} logo" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="uni.company_logo" />
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </p-carousel>
+        </div>
+      </div>
+    </div>
+  </div>
 
-	<!-- Right Column - 30% -->
-	<div class="col-lg-3 col-md-4">
-		<div class="d-flex flex-column h-100">
-			<div class="card mb-2 flex-fill bg-white">
-				<div class="card-body d-flex flex-column justify-content-between">
-					<div class="text-start">
-						<h5 class="uppercase"><span class="emoji" aria-label="hourglass">⌛</span> Quiz</h5>
-						<p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
-					</div>
-					<button pButton severity="warn" (click)="openQuiz()" class="btn btn-rounded font-weight-bold mt-2 bg-white" style="color: var(--p-secondary-500); border-color: var(--p-secondary-500); background-color: #fff1e7" aria-label="Start Quiz">Start Quiz</button>
-				</div>
-			</div>
-			<div class="card mb-2 flex-fill bg-white">
-				<div class="card-body d-flex flex-column justify-content-between">
-					<div class="text-start">
-						<h5 class="uppercase"><span class="emoji" aria-label="scroll">📜</span> Certification</h5>
-						<p class="mb-0">Get all your certificates in one place to share them on social media.</p>
-					</div>
-					<button pButton (click)="openCertificate()" class="btn btn-rounded mt-2 bg-white" style="color: var(--p-primary-500); border-color: var(--p-primary-500)" aria-label="View My Certificates">My Certificates</button>
-				</div>
-			</div>
-			<div class="card flex-fill bg-white">
-				<div class="card-body d-flex flex-column justify-content-between">
-					<div class="text-start">
-						<h5 class="mt-2 uppercase"><span class="emoji" aria-label="envelope">💌</span> Invite People to Try <span style="color: var(--p-secondary-500)">UNIPREP</span></h5>
-						<p class="mb-3">We'll email them instructions and a link to create an account</p>
-					</div>
-					<p-inputgroup>
-						<p-inputgroup-addon>
-							<i class="fa-regular fa-envelope" aria-hidden="true"></i>
-						</p-inputgroup-addon>
-						<input pInputText [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address" aria-label="Email address to send invite" />
-					</p-inputgroup>
-					<button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold mt-4 bg-white text-extrasmall" style="color: #666666; border-color: #666666; font-size: 10px" aria-label="Send invite email">Send Invite</button>
-				</div>
-			</div>
-		</div>
-	</div>
+  <!-- Right Column - 30% -->
+  <div class="col-lg-3 col-md-4">
+    <div class="d-flex flex-column h-100">
+      <div class="card mb-2 flex-fill bg-white">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div class="text-start">
+            <h5 class="uppercase"><span class="emoji" aria-label="hourglass">⌛</span> Quiz</h5>
+            <p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
+          </div>
+          <button pButton severity="warn" (click)="openQuiz()" class="btn btn-rounded font-weight-bold mt-2 bg-white" style="color: var(--p-secondary-500); border-color: var(--p-secondary-500); background-color: #fff1e7" aria-label="Start Quiz">Start Quiz</button>
+        </div>
+      </div>
+      <div class="card mb-2 flex-fill bg-white">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div class="text-start">
+            <h5 class="uppercase"><span class="emoji" aria-label="scroll">📜</span> Certification</h5>
+            <p class="mb-0">Get all your certificates in one place to share them on social media.</p>
+          </div>
+          <button pButton (click)="openCertificate()" class="btn btn-rounded mt-2 bg-white" style="color: var(--p-primary-500); border-color: var(--p-primary-500)" aria-label="View My Certificates">My Certificates</button>
+        </div>
+      </div>
+      <div class="card flex-fill bg-white">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div class="text-start">
+            <h5 class="mt-2 uppercase"><span class="emoji" aria-label="envelope">💌</span> Invite People to Try <span style="color: var(--p-secondary-500)">UNIPREP</span></h5>
+            <p class="mb-3">We'll email them instructions and a link to create an account</p>
+          </div>
+          <p-inputgroup>
+            <p-inputgroup-addon>
+              <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+            </p-inputgroup-addon>
+            <input pInputText [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address" aria-label="Email address to send invite" />
+          </p-inputgroup>
+          <button pButton (click)="sendInviteMail()" severity="warn" class="btn btn-rounded font-weight-bold mt-4 bg-white text-extrasmall" style="color: #666666; border-color: #666666; font-size: 10px" aria-label="Send invite email">Send Invite</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <p-popover #op styleClass="reportwidthfix" appendTo="body" aria-label="Report form">
-	<ng-template pTemplate="content">
-		<div class="container px-0">
-			<form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)" role="form" aria-label="Report submission form">
-				<div class="row report">
-					<p class="report-label text-left mb-0">Issue Type</p>
-					<span class="report-modal">
-						<p-select [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id" formControlName="reportOption" class="w-100" id="reportOption" placeholder="Select Issue Type" optionLabel="reportoption_name" aria-label="Select issue type"></p-select>
-					</span>
-					<p class="report-label text-left mb-0">Comment</p>
-					<span class="report-modal">
-						<textarea formControlName="comment" fluid pTextarea autoResize="true" id="comment" aria-label="Enter your comment" placeholder="Enter your comment"></textarea>
-					</span>
-					<span>
-						<button pButton class="btn btn-primary w-100 m-0" aria-label="Submit report">Submit</button>
-					</span>
-				</div>
-			</form>
-		</div>
-	</ng-template>
+  <ng-template pTemplate="content">
+    <div class="container px-0">
+      <form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)" role="form" aria-label="Report submission form">
+        <div class="row report">
+          <p class="report-label text-left mb-0">Issue Type</p>
+          <span class="report-modal">
+            <p-select [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id" formControlName="reportOption" class="w-100" id="reportOption" placeholder="Select Issue Type" optionLabel="reportoption_name" aria-label="Select issue type"></p-select>
+          </span>
+          <p class="report-label text-left mb-0">Comment</p>
+          <span class="report-modal">
+            <textarea formControlName="comment" fluid pTextarea autoResize="true" id="comment" aria-label="Enter your comment" placeholder="Enter your comment"></textarea>
+          </span>
+          <span>
+            <button pButton class="btn btn-primary w-100 m-0" aria-label="Submit report">Submit</button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </ng-template>
 </p-popover>
-<p-dialog [(visible)]="viewAllJobAndCompanies" [modal]="true" [closable]="true" [style]="{ width: '30vw' }"
-	[draggable]="false" [resizable]="false" class="restrictionDialog"
-	[breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }">
-	<div class="text-center  mb-2">
-		<h3 class="fw-bold mb-4" style="color: #002D62;">Talent Profile Completion</h3>
+<p-dialog [(visible)]="viewAllJobAndCompanies" [modal]="true" [closable]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }">
+  <div class="text-center mb-2">
+    <h3 class="fw-bold mb-4" style="color: #002d62">Talent Profile Completion</h3>
 
-		<div class="mb-4">
-			<i class="fa-solid fa-user-tie fa-9x" style="color: #ffe7d5;"></i>
-		</div>
+    <div class="mb-4">
+      <i class="fa-solid fa-user-tie fa-9x" style="color: #ffe7d5"></i>
+    </div>
 
-		<h6 class="mb-4 text-muted">
-			Please complete your talent profile to <br />
-			view company and job details
-		</h6>
+    <h6 class="mb-4 text-muted">
+      Please complete your talent profile to <br />
+      view company and job details
+    </h6>
 
-		<button pButton class="btn m-0 mt-3 btn-primary send-btn" type="button"
-			style="background-color: #ff6f2c !important; border: none !important;" (click)="redirectEmployerProfile()">
-			Create Profile
-		</button>
-	</div>
+    <button pButton class="btn m-0 mt-3 btn-primary send-btn" type="button" style="background-color: #ff6f2c !important; border: none !important" (click)="redirectEmployerProfile()">Create Profile</button>
+  </div>
 </p-dialog>
