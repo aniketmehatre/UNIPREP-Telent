@@ -30,6 +30,7 @@
   display: flex;
   overflow-x: hidden;
   align-items: center;
+  width: 100%;
 }
 
 .answercard {
@@ -114,7 +115,7 @@
 }
 
 .homecardbtnquiz {
-  background-color: black;
+  background-color: var(--p-neutral-950);
   color: white;
 }
 
@@ -137,14 +138,6 @@
   overflow-y: auto;
 }
 
-::ng-deep .p-dialog {
-  max-width: 60% !important;
-}
-
-::ng-deep .p-dialog-header {
-  padding: 3px !important;
-}
-
 .socialShareBtn {
   height: 38px;
   width: 38px;
@@ -159,89 +152,6 @@
 
 .select-title {
   border-radius: 5px !important;
-}
-
-.career-closeIcon {
-  height: 100%;
-  width: 50px;
-  min-height: 40px;
-  border-radius: 8px;
-  background-color: #1c1b17;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.career-homeIcon {
-  height: 100%;
-  width: 80px;
-  min-height: 40px;
-  border-radius: 8px;
-  background-color: var(--p-secondary-500);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.career-reportIcon {
-  height: 100%;
-  width: 90px;
-  min-height: 40px;
-  border-radius: 8px;
-  background-color: var(--p-primary-500);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.careerreadingcardgrid {
-  flex: 0 0 25%;
-  max-width: 25%;
-}
-
-@media (max-width: 1499.98px) {
-  .careerreadingcardgrid {
-    flex: 0 0 25%;
-    max-width: 25%;
-  }
-}
-
-@media (max-width: 1399.98px) {
-  .careerreadingcardgrid {
-    flex: 0 0 25%;
-    max-width: 25%;
-  }
-}
-
-@media (max-width: 1299.98px) {
-  .careerreadingcardgrid {
-    flex: 0 0 25%;
-    max-width: 25%;
-  }
-}
-
-@media (max-width: 1199.98px) {
-  .careerreadingcardgrid {
-    flex: 0 0 33%;
-    max-width: 33%;
-  }
-}
-
-@media (max-width: 991.98px) {
-  .careerreadingcardgrid {
-    flex: 0 0 33%;
-    max-width: 33%;
-  }
-}
-
-@media (max-width: 767.98px) {
-  .careerreadingcardgrid {
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
 }
 
 .questioncard .content-preview {
@@ -325,96 +235,32 @@ p {
   background: rgba(0, 0, 0, 0.8);
 }
 
-/* Default (Desktop) */
-.col-custom-4-5 {
-  flex: 0 0 37.5%; /* 4.5/12 */
-  max-width: 37.5%;
-}
-
-.col-custom-3 {
-  flex: 0 0 25%; /* 3/12 */
-  max-width: 25%;
-}
-
-/* Medium Screens (Tablets) */
-@media (max-width: 992px) {
-  .col-custom-4-5 {
-    flex: 0 0 50%; /* 2 columns */
-    max-width: 50%;
-  }
-
-  .col-custom-3 {
-    flex: 0 0 100%; /* Stacks below */
-    max-width: 100%;
-  }
-}
-
-/* Small Screens (Phones) */
-@media (max-width: 768px) {
-  .col-custom-4-5,
-  .col-custom-3 {
-    flex: 0 0 100%; /* Full-width stack */
-    max-width: 100%;
-  }
-}
 // question card ui
 .readingcardgrid1 {
   flex: 0 0 25% !important;
   max-width: 25% !important;
 }
 
-@media (max-width: 1499.98px) {
-  .readingcardgrid1 {
-    flex: 0 0 25% !important;
-    max-width: 25% !important;
-  }
-}
-
-@media (max-width: 1399.98px) {
-  .readingcardgrid1 {
-    flex: 0 0 25% !important;
-    max-width: 25% !important;
-  }
-}
-
-@media (max-width: 1299.98px) {
-  .readingcardgrid1 {
-    flex: 0 0 25% !important;
-    max-width: 25% !important;
-  }
-}
-
+// 3 columns on medium screens
 @media (max-width: 1199.98px) {
   .readingcardgrid1 {
-    flex: 0 0 33%;
-    max-width: 33%;
+    flex: 0 0 33.333% !important;
+    max-width: 33.333% !important;
   }
 }
 
-@media (max-width: 991.98px) {
-  .readingcardgrid1 {
-    flex: 0 0 33%;
-    max-width: 33%;
-  }
-}
-
+// 2 columns on small screens
 @media (max-width: 767.98px) {
   .readingcardgrid1 {
-    flex: 0 0 50%;
-    max-width: 50%;
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
   }
 }
 
+// 1 column on mobile
 @media (max-width: 575.98px) {
   .readingcardgrid1 {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .readingcardgrid1 {
-    flex: 0 0 100%;
-    max-width: 100%;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
   }
 }
