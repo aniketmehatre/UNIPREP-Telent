@@ -1,8 +1,9 @@
-<nav class="navbar navbar-expand-md flex-column navbar-light sticky-top pt-0" id="mainmenu">
+<nav class="navbar navbar-expand-md flex-column navbar-light sticky-top pt-0" id="mainmenu" *ngIf="!isCoBrandingURL()">
   <div class="topmarquee container-fluid justify-content-center">
     <div class="row">
       <div class="col-md-12">
-        <p class="mb-0 py-2 text-center text-white"><span class="h5 fw-semibold">UNIPREP 2.0</span> Is Here! Discover the All-New Features – <a href="/register" class="text-white">Try now for free</a></p>
+        <p class="mb-0 py-2 text-center text-white"><span class="h5 fw-semibold">UNIPREP 2.0</span> Is Here! Discover
+          the All-New Features – <a href="/register" class="text-white">Try now for free</a></p>
       </div>
     </div>
     <!-- <marquee class="text-white py-2">Enjoy free access to UNIPREP till 1st January 2024.</marquee> -->
@@ -34,28 +35,36 @@
 				</ul>
 			</li> -->
       <li class="nav-item dropdown">
-        <a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Feature </a>
+        <a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown" role="button"
+          data-bs-toggle="dropdown" aria-expanded="false"> Feature </a>
         <ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
           <li><a class="dropdown-item text-white hover-black" routerLink="/job-seekers">For Job Seekers</a></li>
-          <li><a class="dropdown-item text-white hover-black" routerLink="/international-students">For International Students</a></li>
-          <li><a class="dropdown-item text-white hover-black" routerLink="/global-travellers">For Global Travelers</a></li>
+          <li><a class="dropdown-item text-white hover-black" routerLink="/international-students">For International
+              Students</a></li>
+          <li><a class="dropdown-item text-white hover-black" routerLink="/global-travellers">For Global Travelers</a>
+          </li>
           <li><a class="dropdown-item text-white hover-black" routerLink="/entrepreneurs">For Entrepreneurs</a></li>
         </ul>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Explore </a>
+        <a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown" role="button"
+          data-bs-toggle="dropdown" aria-expanded="false"> Explore </a>
         <ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
           <li>
-            <a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('employer')">For Employers</a>
+            <a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('employer')">For
+              Employers</a>
           </li>
           <li>
-            <a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('talent')">For Talents</a>
+            <a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('talent')">For
+              Talents</a>
           </li>
           <li>
-            <a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('partner')">For Partners</a>
+            <a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('partner')">For
+              Partners</a>
           </li>
           <li>
-            <a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('institute')">For Institutes</a>
+            <a class="dropdown-item text-white hover-black cursor-pointer" (click)="navigateConnectUrl('institute')">For
+              Institutes</a>
           </li>
         </ul>
       </li>
@@ -63,7 +72,8 @@
         <a class="nav-link active text-white fw-regular" aria-current="page" href="/pricing">Pricing</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Resources </a>
+        <a class="nav-link text-white fw-regular dropdown-toggle" id="exploreDropdown" role="button"
+          data-bs-toggle="dropdown" aria-expanded="false"> Resources </a>
         <ul class="dropdown-menu bg-dark" aria-labelledby="exploreDropdown">
           <li><a class="dropdown-item text-white hover-black" href="/certificates">Certificates</a></li>
           <li><a class="dropdown-item text-white hover-black" href="/blogs">Blogs</a></li>
@@ -92,7 +102,8 @@
 
     <div class="d-flex gap-4 align-items-center">
       <a [routerLink]="['/login']" class="text-decoration-none text-white">Login</a>
-      <a [routerLink]="['/register']" class="text-decoration-none"><button type="button" class="btn btn-secondary px-4 py-2 m-0">Register</button></a>
+      <a [routerLink]="['/register']" class="text-decoration-none"><button type="button"
+          class="btn btn-secondary px-4 py-2 m-0">Register</button></a>
     </div>
   </div>
 
@@ -103,13 +114,15 @@
     </a>
 
     <!-- Hamburger button for mobile -->
-    <button class="navbar-toggler text-white" type="button" data-bs-toggle="offcanvas" data-bs-placement="right" data-bs-target="#sidebarNav" aria-controls="sidebarNav">
+    <button class="navbar-toggler text-white" type="button" data-bs-toggle="offcanvas" data-bs-placement="right"
+      data-bs-target="#sidebarNav" aria-controls="sidebarNav">
       <!-- <span class="navbar-toggler-icon text-white"></span> -->
       <i class="fa-regular fa-bars fa-2xl" role="button"></i>
     </button>
 
     <!-- Sidebar navigation (offcanvas) -->
-    <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" tabindex="-1" id="sidebarNav" aria-labelledby="sidebarNavLabel">
+    <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" tabindex="-1" id="sidebarNav"
+      aria-labelledby="sidebarNavLabel">
       <div class="offcanvas-header justify-content-end mt-2">
         <!-- Close button (X) to close the sidebar -->
         <i class="fa-solid fa-xmark text-white fa-2xl" role="button" data-bs-dismiss="offcanvas"></i>
@@ -118,7 +131,8 @@
         <!-- Mobile menu items -->
         <ul class="navbar-nav justify-content-start flex-grow-1 gap-4">
           <li class="nav-item" data-bs-dismiss="offcanvas">
-            <a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="#home" (click)="scrollToSection($event, 'home')">Home</a>
+            <a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="#home"
+              (click)="scrollToSection($event, 'home')">Home</a>
           </li>
           <li class="nav-item" data-bs-dismiss="offcanvas">
             <a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/about">About</a>
@@ -133,29 +147,39 @@
 					</li> -->
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white fw-medium text-center h4" id="featureDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Feature </a>
+            <a class="nav-link dropdown-toggle text-white fw-medium text-center h4" id="featureDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false"> Feature </a>
             <ul class="dropdown-menu border-0 text-center bg-dark" aria-labelledby="featureDropdown">
-              <li class="py-2"><a class="dropdown-item text-white hover-black" routerLink="/job-seekers" data-bs-dismiss="offcanvas" role="button" aria-expanded="false">For Job Seekers</a></li>
-              <li class="py-2"><a class="dropdown-item text-white hover-black" routerLink="/international-students" data-bs-dismiss="offcanvas">For International Students</a></li>
-              <li class="py-2"><a class="dropdown-item text-white hover-black" routerLink="/global-travellers" data-bs-dismiss="offcanvas">For Global Travellers</a></li>
-              <li class="py-2"><a class="dropdown-item text-white hover-black" routerLink="/entrepreneurs" data-bs-dismiss="offcanvas">For Entrepreneurs</a></li>
+              <li class="py-2"><a class="dropdown-item text-white hover-black" routerLink="/job-seekers"
+                  data-bs-dismiss="offcanvas" role="button" aria-expanded="false">For Job Seekers</a></li>
+              <li class="py-2"><a class="dropdown-item text-white hover-black" routerLink="/international-students"
+                  data-bs-dismiss="offcanvas">For International Students</a></li>
+              <li class="py-2"><a class="dropdown-item text-white hover-black" routerLink="/global-travellers"
+                  data-bs-dismiss="offcanvas">For Global Travellers</a></li>
+              <li class="py-2"><a class="dropdown-item text-white hover-black" routerLink="/entrepreneurs"
+                  data-bs-dismiss="offcanvas">For Entrepreneurs</a></li>
             </ul>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white fw-medium text-center h4" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Explore </a>
+            <a class="nav-link dropdown-toggle text-white fw-medium text-center h4" id="exploreDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false"> Explore </a>
             <ul class="dropdown-menu border-0 text-center bg-dark" aria-labelledby="exploreDropdown">
               <li class="py-2">
-                <a class="dropdown-item text-white hover-black cursor-pointer" data-bs-dismiss="offcanvas" (click)="navigateConnectUrl('employer')">For Employers</a>
+                <a class="dropdown-item text-white hover-black cursor-pointer" data-bs-dismiss="offcanvas"
+                  (click)="navigateConnectUrl('employer')">For Employers</a>
               </li>
               <li class="py-2">
-                <a class="dropdown-item text-white hover-black cursor-pointer" data-bs-dismiss="offcanvas" (click)="navigateConnectUrl('talent')">For Talents</a>
+                <a class="dropdown-item text-white hover-black cursor-pointer" data-bs-dismiss="offcanvas"
+                  (click)="navigateConnectUrl('talent')">For Talents</a>
               </li>
               <li class="py-2">
-                <a class="dropdown-item text-white hover-black cursor-pointer" data-bs-dismiss="offcanvas" (click)="navigateConnectUrl('partner')">For Partners</a>
+                <a class="dropdown-item text-white hover-black cursor-pointer" data-bs-dismiss="offcanvas"
+                  (click)="navigateConnectUrl('partner')">For Partners</a>
               </li>
               <li class="py-2">
-                <a class="dropdown-item text-white hover-black cursor-pointer" data-bs-dismiss="offcanvas" (click)="navigateConnectUrl('institute')">For Institutes</a>
+                <a class="dropdown-item text-white hover-black cursor-pointer" data-bs-dismiss="offcanvas"
+                  (click)="navigateConnectUrl('institute')">For Institutes</a>
               </li>
             </ul>
           </li>
@@ -171,21 +195,26 @@
             <a class="nav-link text-white fw-medium text-center h4" aria-label="PRICING" href="/pricing">Pricing</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Resources </a>
+            <a class="nav-link dropdown-toggle text-white fw-medium text-center h4" href="#" id="exploreDropdown"
+              role="button" data-bs-toggle="dropdown" aria-expanded="false"> Resources </a>
             <ul class="dropdown-menu border-0 text-center bg-dark" aria-labelledby="exploreDropdown">
-              <li class="py-2"><a class="dropdown-item text-white hover-black cursor-pointer" data-bs-dismiss="offcanvas" routerLink="/blogs">Blogs</a></li>
-              <li class="py-2"><a class="dropdown-item text-white hover-black cursor-pointer" data-bs-dismiss="offcanvas" routerLink="/certificates">Certificates</a></li>
+              <li class="py-2"><a class="dropdown-item text-white hover-black cursor-pointer"
+                  data-bs-dismiss="offcanvas" routerLink="/blogs">Blogs</a></li>
+              <li class="py-2"><a class="dropdown-item text-white hover-black cursor-pointer"
+                  data-bs-dismiss="offcanvas" routerLink="/certificates">Certificates</a></li>
             </ul>
           </li>
           <li class="nav-item" data-bs-dismiss="offcanvas">
-            <a class="nav-link active text-white fw-medium text-center h4" aria-current="page" href="/contact-us">Contact Us</a>
+            <a class="nav-link active text-white fw-medium text-center h4" aria-current="page"
+              href="/contact-us">Contact Us</a>
           </li>
           <!-- Add other mobile menu items as needed -->
           <li class="nav-item text-center">
             <a [routerLink]="['/login']" class="text-decoration-none text-center h4 text-white fw-regular">Login</a>
           </li>
           <li class="nav-item">
-            <a href="/register" class="text-decoration-none"><button type="button" class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Register</button></a>
+            <a href="/register" class="text-decoration-none"><button type="button"
+                class="w-100 h4 btn btn-secondary px-4 py-2 m-0">Register</button></a>
           </li>
         </ul>
       </div>
@@ -204,12 +233,15 @@
 		</label>
 	</div> -->
 </nav>
-
-<ng-container>
+<ng-container *ngIf="isCoBrandingURL()">
+  <app-uuid-invite-card *ngIf="isJobLink"></app-uuid-invite-card>
+  <!-- <uni-talent-invite-card *ngIf="isTalentLink"></uni-talent-invite-card> -->
+</ng-container>
+<ng-container *ngIf="!isCoBrandingURL()">
   <router-outlet></router-outlet>
 </ng-container>
 
-<uni-landing-footer></uni-landing-footer>
+<uni-landing-footer *ngIf="!isCoBrandingURL()"></uni-landing-footer>
 
 <!--<div class="floating-buttons1">-->
 <!--	<div class="floating-btn1 whatsapp" (mouseenter)="hovered1 = 'wa'" (mouseleave)="hovered1 = null">-->

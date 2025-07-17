@@ -1,15 +1,15 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ActivatedRoute, Router} from '@angular/router';
-import {landingServices} from '../../landing.service';
-import {Rating, RatingModule} from 'primeng/rating';
-import {ChipModule} from 'primeng/chip';
-import {ButtonModule} from 'primeng/button';
-import {StepsModule} from 'primeng/steps';
-import {FormsModule} from '@angular/forms';
-import {AuthService} from "../../../../Auth/auth.service";
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { landingServices } from '../../landing.service';
+import { Rating, RatingModule } from 'primeng/rating';
+import { ChipModule } from 'primeng/chip';
+import { ButtonModule } from 'primeng/button';
+import { StepsModule } from 'primeng/steps';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from "../../../../Auth/auth.service";
 import { LocalStorageService } from "ngx-localstorage"
-import {StorageService} from "../../../../storage.service";
+import { StorageService } from "../../../../storage.service";
 @Component({
     selector: 'app-uuid-invite-card',
     standalone: true,
@@ -89,11 +89,10 @@ export class UuidInviteCardComponent implements OnInit {
     onClickApply(jobId: any) {
         this.storage.set('jobId', `/pages/talent-connect/easy-apply/${jobId}`)
         this.storage.set('position', this.data.position)
-        console.log(this.storage.get('position'))
         if (this.service.isTokenValid()) {
             this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
         } else {
-            this.router.navigate([`/login`])
+            this.router.navigate([`/register`])
         }
     }
 }
