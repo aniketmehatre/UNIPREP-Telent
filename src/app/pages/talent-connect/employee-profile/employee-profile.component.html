@@ -836,27 +836,31 @@
             </p-stepper>
           </div>
           <div class="card-footer bg-white">
-            <div class="row g-2 align-items-center" *ngIf="!isShowAiEvaluation; else showAIValuationFooter">
-              <div class="col-md-3 col-4 order-md-1 order-2">
-                <div *ngIf="activePageIndex !== 0">
-                  <button pButton type="button" class="btn btn-outline-primary-bg" (click)="previous()"><i class="fa fa-arrow-left"></i>{{ getPreviousIndexValue() }}</button>
-                </div>
+            <div class="row w-100 g-2 align-items-center" *ngIf="!isShowAiEvaluation; else showAIValuationFooter">
+              <div class="col-md-2 col-6 order-md-1 order-2" *ngIf="activePageIndex !== 0">
+                <button pButton type="button" class="btn btn-outline-primary-bg" (click)="previous()"><i class="fa fa-arrow-left"></i>{{ getPreviousIndexValue() }}</button>
               </div>
-              <div class="col-md-5 order-md-2 order-1">
+              <div class="col-md-7 order-md-2 order-1" [ngClass]="{ 'col-md-9': activePageIndex == 0 }">
                 <div class="uniprep-secondary fw-bold mb-1">Profile Completion: {{ profileCompletion }}%</div>
                 <p-progressBar [style]="{ height: '12px' }" color="#f0780e" styleClass="rounded-pill" [showValue]="false" [value]="profileCompletion"></p-progressBar>
               </div>
-              <div class="col-md-2 col-8 order-md-3 order-3" *ngIf="activePageIndex != 9">
+              <div class="col-md-3 col-6 order-md-3 order-3" *ngIf="activePageIndex != 9">
                 <div class="d-flex justify-content-end gap-2 align-items-center">
-                  <button *ngIf="isUpdatedProfile" pButton type="button" (click)="next(true)" class="btn btn-success">Update <i class="pi pi-check text-white"></i></button>
+                  <button *ngIf="isUpdatedProfile" pButton type="button" (click)="next(true)" class="btn btn-success d-none d-md-block">Update <i class="pi pi-check text-white"></i></button>
                   <button pButton type="button" (click)="next()" class="btn btn-primary">{{ getNextIndexValue() }}<i class="fa fa-arrow-right"></i></button>
                 </div>
               </div>
-              <div class="col-md-2 col-8 order-md-3 order-3" *ngIf="activePageIndex == 9">
+              <div class="col-md-3 col-6 order-md-3 order-3" *ngIf="activePageIndex == 9">
                 <div class="d-flex justify-content-end gap-2 align-items-center">
-                  <button pButton type="button" (click)="onCallAIEvaluation()" class="btn btn-primary">AI Review <i class="pi pi-microchip-ai text-white"></i></button>
+                  <button pButton type="button" (click)="onCallAIEvaluation()" class="btn btn-primary d-none d-md-block">AI Review <i class="pi pi-microchip-ai text-white"></i></button>
                   <button pButton type="button" (click)="next()" class="btn btn-success">Complete Profile <i class="pi pi-check text-white"></i></button>
                 </div>
+              </div>
+              <div class="col-md-12 d-md-none d-block order-4" *ngIf="activePageIndex != 9">
+                <button *ngIf="isUpdatedProfile" pButton type="button" (click)="next(true)" class="btn btn-success w-100">Update <i class="pi pi-check text-white"></i></button>
+              </div>
+              <div class="col-md-12 d-md-none d-block order-4" *ngIf="activePageIndex == 9">
+                <button pButton type="button" (click)="onCallAIEvaluation()" class="btn btn-primary w-100">AI Review <i class="pi pi-microchip-ai text-white"></i></button>
               </div>
             </div>
 
@@ -1182,19 +1186,17 @@
     </ng-template>
   </div>
 </div>
-<p-confirmdialog id="confirm-dialog" styleClass="p-3 w-25" [visible]="isShowCreatedSuccessfullyPopup" [closable]="false">
-  <ng-template #message let-message>
-    <div class="d-flex flex-column align-items-center w-100 gap-4 mt-1">
-      <i class="text-success fa-solid fa-check-circle" style="font-size: 50px"></i>
-      <p>Your Talent profile has been successfully created.</p>
-    </div>
-  </ng-template>
+<p-dialog [style]="{ width: '25vw' }" [modal]="true" [breakpoints]="{ '960px': '75vw', '640px': '90vw' }" id="confirm-dialog" styleClass="p-3" [visible]="isShowCreatedSuccessfullyPopup" [closable]="false">
+  <div class="d-flex flex-column align-items-center w-100 gap-4 mt-1">
+    <i class="text-success fa-solid fa-check-circle" style="font-size: 50px"></i>
+    <h4 class="text-center">Your Talent profile has been successfully created.</h4>
+  </div>
   <ng-template #footer>
     <div class="text-center w-100 mt-2">
       <button class="btn btn-secondary px-4" [routerLink]="['/pages/talent-connect/my-profile', profileId]">My Profile</button>
     </div>
   </ng-template>
-</p-confirmdialog>
+</p-dialog>
 <p-dialog [(visible)]="isSampleProfileImgVisible" [modal]="true">
   <ng-template #header>
     <h3 class="w-100 text-center">Profile Photo Samples</h3>
