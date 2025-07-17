@@ -71,7 +71,15 @@
               "jquery/dist/jquery.min.js",
               "slick-carousel/slick/slick.min.js"
             ],
-            "browser": "src/main.ts"
+            "browser": "src/main.ts",
+            "allowedCommonJsDependencies": [
+              "pusher-js",
+              "quill-delta",
+              "google-libphonenumber",
+              "speak-tts",
+              "transliteration",
+              "file-saver"
+            ]
           },
           "configurations": {
             "production": {
