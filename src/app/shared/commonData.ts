@@ -200,4 +200,16 @@ export const howItWorksLinks: { [key: string]: { video_link: string } } = {
   "company-connect":{
     video_link: "https://www.youtube.com/embed/UMRenyPjO6E?si=vynfuwkpEPpqeYbo"
   },
+  "work-visa":{
+    video_link: "https://www.youtube.com/embed/JeQNhc6pYKU?si=BrsCwce5W-_649vO"
+  },
+  "global_study_visa":{
+    video_link: "https://www.youtube.com/embed/PEp47UJ7EFE?si=_78cW7nJTQZ4fRLP"
+  },
+  "global_entrepreneur_visa":{
+    video_link: "https://www.youtube.com/embed/RgoaOV4lz9M?si=i3VE82xd-f_-acKN"
+  },
+  "global_travel_visa":{
+    video_link: "https://www.youtube.com/embed/7IweqsTkefI?si=fbcFsW_L6dd63nZ9"
+  },
 };
