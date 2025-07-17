@@ -16,14 +16,14 @@
 					</div>
 				</div>
 				<button type="button" title="Close Popup"
-					class="btn btn-primary btn-lg rounded-3 shadow-sm px-4 text-normal"
-					(click)="displayModal = true"><i class="fa-solid fa-filter"></i>&nbsp;&nbsp;Filter</button>
+					class="btn btn-primary btn-lg rounded-3 shadow-sm px-4 d-flex align-items-center"
+					(click)="displayModal = true"><i class="fa-solid fa-filter"></i><span class="d-md-block d-none">&nbsp;&nbsp;Filter</span></button>
 			</div>
 		</div>
 		<div class="row mt-2 align-items-center">
 			<!-- Left Spacer: Chips / Badges -->
-			<div class="col-md-4 col-12 mb-md-0 mb-2">
-				<div class="d-flex gap-2 justify-content-md-end justify-content-center">
+			<div class="col-md-4 col-12 mb-md-0 mb-2 order-md-1 order-2">
+				<div class="d-flex gap-2 justify-content-md-start justify-content-center">
 					<p-tag [style]="{ border: '2px solid var(--p-secondary-500)', color: 'var(--text-color)' }"
 						[rounded]="true" severity="danger">Total Companies : {{ totalCount }} </p-tag>
 					<p-tag [style]="{ border: '2px solid var(--p-primary-500)', color: 'var(--text-color)' }"
@@ -34,7 +34,7 @@
 			</div>
 
 			<!-- Centered Buttons -->
-			<div class="col-md-4 col-12 mb-md-0 mb-2">
+			<div class="col-md-4 col-12 mb-md-0 mb-2 order-md-2 order-1">
 				<div class="d-flex gap-3 justify-content-center">
 					<button type="button" class="btn border btn-primary px-3 py-3">Company Search</button>
 					<button type="button" style="color: var(--p-primary-500)"
@@ -44,7 +44,7 @@
 			</div>
 
 			<!-- Right Section: Space -->
-			<div class="col-md-4 col-12"></div>
+			<div class="col-md-4 col-12 order-md-3 order-3"></div>
 		</div>
 	</div>
 	<div class="card-body flex-fill overflow-y-auto">

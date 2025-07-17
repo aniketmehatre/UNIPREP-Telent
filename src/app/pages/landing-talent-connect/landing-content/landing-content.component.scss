@@ -1,7 +1,7 @@
 // Main container with background
 $orange: var(--p-secondary-500);
 :host {
-	font-family: "Poppins", sans-serif;
+	
 }
 
 h1,
@@ -40,7 +40,7 @@ small,
 }
 
 p {
-  font-family: "Poppins", sans-serif;
+  
   line-height: 2;
   font-weight: 500;
   font-size: 1rem;
@@ -778,7 +778,7 @@ video::-webkit-media-controls-panel {
 	}
 
 	p {
-		font-family: "Poppins", sans-serif;
+		
 		line-height: 2;
 		font-weight: 500;
 		font-size: 1rem;
