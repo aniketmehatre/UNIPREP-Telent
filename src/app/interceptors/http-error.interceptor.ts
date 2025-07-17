@@ -4,10 +4,10 @@ import { MessageService } from "primeng/api";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { inject } from "@angular/core";
 import { environment } from "../../environments/environment";
-import { AuthTokenService } from "../core/services/auth-token.service";
-import { LocationService } from "../location.service";
+import { AuthTokenService } from "../services/auth-token.service";
+import { LocationService } from "../services/location.service";
 import { Router } from "@angular/router";
-import { DataService } from "../data.service";
+import { DataService } from "../services/data.service";
 
 // Cache for public routes check
 const publicRoutesSet = new Set([

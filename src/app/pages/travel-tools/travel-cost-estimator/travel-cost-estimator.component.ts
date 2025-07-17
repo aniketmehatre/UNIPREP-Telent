@@ -23,10 +23,10 @@ import { SelectModule } from "primeng/select"
 import { SkeletonModule } from "primeng/skeleton"
 import { TooltipModule } from "primeng/tooltip"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
-import { PromptService } from "../../prompt.service"
+import { PromptService } from "src/app/services/prompt.service"
 import { SharedModule } from "src/app/shared/shared.module"
 import { AuthService } from "src/app/Auth/auth.service";
-import { removeExtraResponse } from "../../prompt"
+import { removeExtraResponse } from "../../../@Supports/prompt"
 
 @Component({
 	selector: "uni-travel-cost-estimator",
@@ -36,15 +36,15 @@ import { removeExtraResponse } from "../../prompt"
 	imports: [CommonModule, RouterModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule, SharedModule],
 })
 export class TravelCostEstimatorComponent implements OnInit {
-	recommendations: { id: number; question: string }[] = TravelCostEstimatorQuestionList
+	recommendations: { id: number; question: string }[] = TravelCostEstimatorQuestionList;
 	trvelExperienceList: { id: number; name: string }[] = [
 		{ id: 1, name: "Basic" },
 		{ id: 2, name: "Standard" },
 		{ id: 3, name: "Luxury" },
-	]
-	activePageIndex: number = 0
-	selectedData: { [key: string]: any } = {}
-	invalidClass: boolean = false
+	];
+	activePageIndex: number = 0;
+	selectedData: { [key: string]: any } = {};
+	invalidClass: boolean = false;
 	// currencyList: CountryandCurrency[] = [];
 	departureLocationList: City[] = []
 	destinationLocationList: City[] = []
@@ -55,15 +55,15 @@ export class TravelCostEstimatorComponent implements OnInit {
 	recommadationSavedQuestionList: TravelCostEstimator[] = []
 	isFromSavedData: boolean = false
 	isResponseSkeleton: boolean = false;
-	
 	userInputs: any = [];
 
-	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService, private pageFacade: PageFacadeService, private authService: AuthService) { }
+	constructor(private travelToolsService: TravelToolsService, private router: Router, private costOfLivingService: CostOfLivingService,
+		private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,
+		private pageFacade: PageFacadeService, private authService: AuthService) { }
 
 	ngOnInit(): void {
 		this.selectedData = { 3: 1 }
 		this.getCityList();
-		
 	}
 
 	buyCredits() {
@@ -77,22 +77,20 @@ export class TravelCostEstimatorComponent implements OnInit {
 	getCityList() {
 		this.costOfLivingService.getCities().subscribe({
 			next: (response) => {
-				this.departureLocationList = response
-				this.destinationLocationList = response
-			},
-		})
+				this.departureLocationList = response;
+				this.destinationLocationList = response;
+			}
+		});
 	}
 
 	openVideoPopup() {
 		this.pageFacade.openHowitWorksVideoPopup("travel-cost-estimator");
 	}
 
-	
-
 	previous() {
-		this.invalidClass = false
+		this.invalidClass = false;
 		if (this.activePageIndex > 0) {
-			this.activePageIndex--
+			this.activePageIndex--;
 		}
 	}
 
@@ -101,20 +99,20 @@ export class TravelCostEstimatorComponent implements OnInit {
 			this.authService.hasUserSubscription$.next(true);
 			return;
 		}
-		this.invalidClass = false
+		this.invalidClass = false;
 		if (itemId in this.selectedData) {
 			if (this.activePageIndex < this.recommendations.length - 1) {
-				this.activePageIndex++
+				this.activePageIndex++;
 			}
 		} else {
-			this.invalidClass = true
+			this.invalidClass = true;
 		}
 	}
 
 	getRecommendation() {
-		if(this.authService._creditCount === 0){
-			this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
-			this.router.navigateByUrl('/pages/export-credit')
+		if (this.authService._creditCount === 0) {
+			this.toast.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
+			this.router.navigateByUrl('/pages/export-credit');
 			return;
 		}
 		this.recommendationData = "";
@@ -127,31 +125,31 @@ export class TravelCostEstimatorComponent implements OnInit {
 			mode: "travelcostestimator",
 		}
 		this.userInputs = data;
-		this.isRecommendationQuestion = false
-		this.isRecommendationSavedData = false
-		this.isRecommendationData = true
+		this.isRecommendationQuestion = false;
+		this.isRecommendationSavedData = false;
+		this.isRecommendationData = true;
 		this.isResponseSkeleton = true;
 		this.travelToolsService.getChatgptRecommendations(data).subscribe({
 			next: (response) => {
 				this.isResponseSkeleton = false;
-				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response)
+				this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(response.response);
 				this.authService.aiCreditCount$.next(true);
 			},
 			error: (error) => {
 				console.error(error);
 				this.isResponseSkeleton = false;
-				this.isRecommendationData = false
+				this.isRecommendationData = false;
 			}
 		});
 	}
 
 	resetRecommendation() {
-		this.activePageIndex = 0
-		this.selectedData = { 3: 1 }
-		this.isRecommendationQuestion = true
-		this.isRecommendationData = false
-		this.isRecommendationSavedData = false
-		this.isFromSavedData = false
+		this.activePageIndex = 0;
+		this.selectedData = { 3: 1 };
+		this.isRecommendationQuestion = true;
+		this.isRecommendationData = false;
+		this.isRecommendationSavedData = false;
+		this.isFromSavedData = false;
 	}
 
 	saveRecommadation() {
@@ -162,29 +160,27 @@ export class TravelCostEstimatorComponent implements OnInit {
 		if (!this.isFromSavedData) {
 			this.travelToolsService.getTripList("travelcostestimator").subscribe({
 				next: (response) => {
-					this.isRecommendationQuestion = false
-					this.isRecommendationData = false
-					this.isRecommendationSavedData = true
-					this.recommadationSavedQuestionList = response.data
+					this.isRecommendationQuestion = false;
+					this.isRecommendationData = false;
+					this.isRecommendationSavedData = true;
+					this.recommadationSavedQuestionList = response.data;
 				},
-				error: (error) => { },
-			})
+				error: (error) => { }
+			});
 		} else {
-			this.isRecommendationQuestion = false
-			this.isRecommendationData = false
-			this.isRecommendationSavedData = true
+			this.isRecommendationQuestion = false;
+			this.isRecommendationData = false;
+			this.isRecommendationSavedData = true;
 		}
 	}
 
 	showRecommandationData(data: string, userInputs: any) {
-		// console.log(userInputs);
-		this.isRecommendationQuestion = false
-		this.isRecommendationData = true
-		this.isRecommendationSavedData = false
-		this.isFromSavedData = true
+		this.isRecommendationQuestion = false;
+		this.isRecommendationData = true;
+		this.isRecommendationSavedData = false;
+		this.isFromSavedData = true;
 		// this.recommendationData = data
 		this.recommendationData = removeExtraResponse(data);
-
 		const encodedJson = userInputs;
 		const decodedInput = JSON.parse(encodedJson);
 		this.userInputs = decodedInput;
@@ -220,6 +216,6 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	goBack() {
-		this.router.navigateByUrl("/pages/travel-tools")
+		this.router.navigateByUrl("/pages/travel-tools");
 	}
 }

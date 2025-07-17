@@ -2,7 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from "@angular/core"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
 import { Router, RouterModule } from "@angular/router"
 import { matchValidator } from "src/app/@Supports/matchvalidator"
-import { LocationService } from "src/app/location.service"
+import { LocationService } from "src/app/services/location.service"
 import { AuthService } from "../auth.service"
 import { MessageService } from "primeng/api"
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input"
@@ -20,10 +20,10 @@ import { ToastModule } from "primeng/toast"
 import { SelectModule } from "primeng/select"
 import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login';
 import { ButtonDirective } from "primeng/button";
-import { AuthTokenService } from "src/app/core/services/auth-token.service"
+import { AuthTokenService } from "src/app/services/auth-token.service"
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { Image } from "primeng/image";
-import {StorageService} from "../../storage.service";
+import {StorageService} from "../../services/storage.service";
 
 @Component({
     selector: "app-registration",

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { landingServices } from '../../landing.service';
-import { StorageService } from 'src/app/storage.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

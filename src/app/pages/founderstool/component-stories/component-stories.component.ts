@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { PageFacadeService } from '../../page-facade.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { LocationService } from 'src/app/location.service';
+import { LocationService } from 'src/app/services/location.service';
 import { FounderstoolService } from '../founderstool.service';
 import { Meta } from '@angular/platform-browser';
-import { DataService } from 'src/app/data.service';
+import { DataService } from 'src/app/services/data.service';
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { CardModule } from "primeng/card";
 import { AuthService } from 'src/app/Auth/auth.service';
-import { SocialShareService } from 'src/app/shared/social-share.service';
+import { SocialShareService } from 'src/app/services/social-share.service';
 import { ButtonModule } from "primeng/button"
 @Component({
   selector: 'uni-component-stories',

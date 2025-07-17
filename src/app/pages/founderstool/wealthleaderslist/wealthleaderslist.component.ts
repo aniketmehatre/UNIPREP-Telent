@@ -8,7 +8,7 @@ import { SelectModule } from 'primeng/select';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
-import { StorageService } from "../../../storage.service";
+import { StorageService } from "../../../services/storage.service";
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';

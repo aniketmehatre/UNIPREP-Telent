@@ -6,7 +6,7 @@ import { CommonModule } from "@angular/common"
 import { MessageService } from 'primeng/api'
 import { DialogModule } from "primeng/dialog"
 import { SidebarModule } from "primeng/sidebar"
-import { PromptService } from "../prompt.service";
+import { PromptService } from "src/app/services/prompt.service";
 import { CardModule } from "primeng/card"
 import { PaginatorModule } from "primeng/paginator"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"

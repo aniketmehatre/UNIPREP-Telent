@@ -10,7 +10,7 @@ import { MessageService } from 'primeng/api';
 import { PageFacadeService } from '../../page-facade.service';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { SocialShareService } from 'src/app/shared/social-share.service';
+import { SocialShareService } from 'src/app/services/social-share.service';
 import { ButtonModule } from 'primeng/button';
 
 @Component({

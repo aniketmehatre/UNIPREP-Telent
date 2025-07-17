@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, HostListener } from "@angular
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { ListQuestion } from "src/app/@Models/question-list.model";
-import { DataService } from "src/app/data.service";
+import { DataService } from "src/app/services/data.service";
 import { ModuleServiceService } from "../module-store/module-service.service";
 import { ReadQuestion } from "src/app/@Models/read-question.model";
 import { RecentlyaddedquestionService } from "./recentlyaddedquestion.service";
@@ -11,13 +11,13 @@ import { ModuleListSub } from "../../@Models/module.model";
 import { MenuItem } from "primeng/api";
 import { DomSanitizer } from "@angular/platform-browser";
 import { loadQuestionList } from "../module-store/module-store.actions";
-import { LocationService } from "../../location.service";
+import { LocationService } from "../../services/location.service";
 import { ButtonModule } from "primeng/button";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { CarouselModule } from "primeng/carousel";
 import { PaginatorModule } from "primeng/paginator";
-import {StorageService} from "../../storage.service";
+import {StorageService} from "../../services/storage.service";
 @Component({
   selector: "uni-recentlyaddedquestions",
   templateUrl: "./recentlyaddedquestions.component.html",

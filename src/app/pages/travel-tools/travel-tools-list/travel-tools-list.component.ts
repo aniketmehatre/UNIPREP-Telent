@@ -14,7 +14,7 @@ import { SelectModule } from 'primeng/select';
 import { RouterModule } from '@angular/router';
 import { environment } from "@env/environment";
 import { SharedModule } from 'src/app/shared/shared.module';
-import { StorageService } from 'src/app/storage.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 export interface TravelToolsMain {
   title: string,

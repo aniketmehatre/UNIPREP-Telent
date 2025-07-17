@@ -6,7 +6,7 @@ import { ToastModule } from "primeng/toast"
 import { SocialLoginModule, SocialAuthServiceConfig } from "@abacritt/angularx-social-login"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { InputGroupModule } from "primeng/inputgroup"
-import {LocationService} from "../location.service";
+import {LocationService} from "../services/location.service";
 @Component({
 	selector: "uni-auth",
 	templateUrl: "./auth.component.html",

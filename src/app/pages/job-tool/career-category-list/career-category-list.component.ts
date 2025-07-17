@@ -5,7 +5,7 @@ import { CategoryResponse, GetCategoriesPayload } from 'src/app/@Models/career-t
 import { EmployerGlobalService } from '../employer-global.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { CommonModule } from '@angular/common';
-import { StorageService } from "../../../storage.service";
+import { StorageService } from "../../../services/storage.service";
 import { PaginatorModule } from 'primeng/paginator';
 
 @Component({

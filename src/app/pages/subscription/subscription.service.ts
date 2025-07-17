@@ -25,7 +25,7 @@ import {
 } from "../../@Models/subscription";
 import { Observable } from "rxjs";
 import { PaymentIntent } from "@stripe/stripe-js";
-import {StorageService} from "../../storage.service";
+import {StorageService} from "../../services/storage.service";
 
 @Injectable({
   providedIn: "root",

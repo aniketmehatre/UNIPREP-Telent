@@ -20,9 +20,8 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { RadioButtonModule } from "primeng/radiobutton"
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { TravelToolsService } from "src/app/pages/travel-tools/travel-tools.service";
-import { PromptService } from "src/app/pages/prompt.service";
+import { PromptService } from "src/app/services/prompt.service";
 
 @Component({
   selector: "uni-jopreparedlist",

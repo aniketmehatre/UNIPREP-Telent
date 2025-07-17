@@ -3,11 +3,11 @@ import { FounderstoolService } from '../founderstool.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/location.service';
+import { LocationService } from 'src/app/services/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
-import { StorageService } from "../../../storage.service";
+import { StorageService } from "../../../services/storage.service";
 import { ButtonModule } from "primeng/button"
 @Component({
   selector: 'uni-entreprenuersectorproficiency',

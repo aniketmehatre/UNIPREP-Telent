@@ -4,7 +4,7 @@ import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { ChatGPTResponse } from 'src/app/@Models/chat-gpt.model';
 import { map } from 'rxjs';
-import { removeExtraResponse } from '../prompt';
+import { removeExtraResponse } from '../../@Supports/prompt';
 
 @Injectable({
   providedIn: 'root'

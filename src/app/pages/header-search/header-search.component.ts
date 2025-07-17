@@ -1,8 +1,8 @@
 import { Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, Renderer2, ViewChild } from "@angular/core"
 import { DashboardService } from "../dashboard/dashboard.service"
-import { DataService } from "../../data.service"
+import { DataService } from "../../services/data.service"
 import { MenuItem, MessageService } from "primeng/api"
-import { LocationService } from "../../location.service"
+import { LocationService } from "../../services/location.service"
 import { SubSink } from "subsink"
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router"
 import { Observable } from "rxjs"
@@ -18,7 +18,7 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupModule } from "primeng/inputgroup"
 import { ButtonModule } from "primeng/button"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import {StorageService} from "../../storage.service";
+import {StorageService} from "../../services/storage.service";
 @Component({
 	selector: "uni-header-search",
 	templateUrl: "./header-search.component.html",

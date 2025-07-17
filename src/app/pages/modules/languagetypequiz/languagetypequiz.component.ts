@@ -5,8 +5,8 @@ import { Observable, Subscription, interval, takeWhile } from "rxjs";
 import { ModuleListSub } from "../../../@Models/module.model";
 import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
-import { DataService } from "../../../data.service";
-import { LocationService } from "../../../location.service";
+import { DataService } from "../../../services/data.service";
+import { LocationService } from "../../../services/location.service";
 import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { StorageService } from "../../../storage.service";
+import { StorageService } from "../../../services/storage.service";
 @Component({
   selector: 'uni-languagetypequiz',
   templateUrl: './languagetypequiz.component.html',

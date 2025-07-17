@@ -6,9 +6,9 @@ import { MessageService } from 'primeng/api';
 })
 export class SocialShareService {
 
-  constructor(
-    private toast: MessageService,
-  ) { }
+  constructor( private toast: MessageService ) { 
+    
+  }
 
   socialMediaList: { [key: string]: string } = {
     "Whatsapp": "whatsapp://send?text=",

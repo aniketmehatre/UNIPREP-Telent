@@ -13,7 +13,7 @@ import { CardModule } from 'primeng/card';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { StorageService } from "../../../storage.service";
+import { StorageService } from "../../../services/storage.service";
 import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { PageFacadeService } from '../../page-facade.service';

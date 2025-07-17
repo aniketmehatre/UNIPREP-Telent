@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core"
-import { ThemeService } from "../../theme.service"
+import { ThemeService } from "../../services/theme.service"
 import { AuthService } from "../../Auth/auth.service"
 import { environment } from "@env/environment"
 import { ActivatedRoute, Router } from "@angular/router"

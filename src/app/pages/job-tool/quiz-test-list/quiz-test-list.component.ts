@@ -3,10 +3,10 @@ import { TestQuizService } from "../test-quiz.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { GetQuizPayload, Quiz } from "src/app/@Models/career-tool-category.model";
 import { AuthService } from "src/app/Auth/auth.service";
-import { LocationService } from "src/app/location.service";
+import { LocationService } from "src/app/services/location.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
-import { StorageService } from "../../../storage.service";
+import { StorageService } from "../../../services/storage.service";
 @Component({
   selector: "uni-quiz-test-list",
   templateUrl: "./quiz-test-list.component.html",

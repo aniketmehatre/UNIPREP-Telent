@@ -4,7 +4,7 @@ import { ReadQuestion } from "../../../@Models/read-question.model"
 import { MenuItem, MessageService } from "primeng/api"
 import { ModuleServiceService } from "../../module-store/module-service.service"
 import { ModuleStoreService } from "../../module-store/module-store.service"
-import { DataService } from "../../../data.service"
+import { DataService } from "../../../services/data.service"
 import { ActivatedRoute, Router, RouterModule } from "@angular/router"
 import { CommonModule, Location } from "@angular/common"
 import { DomSanitizer, Meta, SafeResourceUrl, Title } from "@angular/platform-browser"
@@ -12,7 +12,7 @@ import { Carousel, CarouselModule } from "primeng/carousel"
 import { AuthService } from "src/app/Auth/auth.service"
 import { NgxUiLoaderService } from "ngx-ui-loader"
 import { PageFacadeService } from "../../page-facade.service"
-import { LocationService } from "src/app/location.service"
+import { LocationService } from "src/app/services/location.service"
 import { MarkdownService } from "ngx-markdown"
 import { DialogModule } from "primeng/dialog"
 import { CardModule } from "primeng/card"
@@ -23,8 +23,8 @@ import { ButtonModule } from "primeng/button"
 import { MultiSelectModule } from "primeng/multiselect"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { StorageService } from "../../../storage.service";
-import { SocialShareService } from "src/app/shared/social-share.service"
+import { StorageService } from "../../../services/storage.service";
+import { SocialShareService } from "src/app/services/social-share.service"
 
 @Component({
 	selector: "uni-question-list",

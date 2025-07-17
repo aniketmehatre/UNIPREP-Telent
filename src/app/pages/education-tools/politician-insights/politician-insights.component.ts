@@ -15,12 +15,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ActivatedRoute } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
-import { DataService } from 'src/app/data.service';
+import { DataService } from 'src/app/services/data.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { Location } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
 import { SkeletonModule } from 'primeng/skeleton';
-import { SocialShareService } from 'src/app/shared/social-share.service';
+import { SocialShareService } from 'src/app/services/social-share.service';
 
 export interface Politician {
   name: string;

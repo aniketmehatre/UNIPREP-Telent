@@ -4,15 +4,15 @@ import { MenuItem, MessageService } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
 import { AuthService } from "../../../Auth/auth.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { DataService } from "../../../data.service";
+import { DataService } from "../../../services/data.service";
 import { Location } from "@angular/common";
-import { LocationService } from "../../../location.service";
+import { LocationService } from "../../../services/location.service";
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { StorageService } from "../../../storage.service";
+import { StorageService } from "../../../services/storage.service";
 @Component({
   selector: 'uni-k12-quiz',
   templateUrl: './k12-quiz.component.html',

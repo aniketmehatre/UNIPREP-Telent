@@ -4,7 +4,7 @@ import { MessageService } from "primeng/api"
 import { SubSink } from "subsink"
 import { AuthService } from "../../Auth/auth.service"
 import { interval } from "rxjs"
-import { ScrollToBottomDirective } from "src/app/scroll-to-bottom.directive"
+import { ScrollToBottomDirective } from "src/app/shared/directives/scroll-to-bottom.directive"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { SelectModule } from 'primeng/select';

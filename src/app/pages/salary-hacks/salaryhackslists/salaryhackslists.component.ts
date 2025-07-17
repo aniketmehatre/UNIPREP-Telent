@@ -15,9 +15,9 @@ import { SelectModule } from "primeng/select"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { DataService } from "src/app/data.service";
+import { DataService } from "src/app/services/data.service";
 import { SkeletonModule } from "primeng/skeleton";
-import { SocialShareService } from "src/app/shared/social-share.service"
+import { SocialShareService } from "src/app/services/social-share.service"
 import { ObjectModel } from "src/app/@Models/object.model"
 @Component({
 	selector: "uni-salaryhackslists",

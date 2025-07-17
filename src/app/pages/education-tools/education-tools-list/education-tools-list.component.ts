@@ -8,7 +8,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { PaginatorModule } from 'primeng/paginator';
 import { FluidModule } from 'primeng/fluid';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { StorageService } from 'src/app/storage.service';
+import { StorageService } from 'src/app/services/storage.service';
 @Component({
   selector: 'uni-education-tools-list',
   templateUrl: './education-tools-list.component.html',

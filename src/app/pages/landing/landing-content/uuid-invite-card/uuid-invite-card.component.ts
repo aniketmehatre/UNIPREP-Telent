@@ -9,7 +9,7 @@ import {StepsModule} from 'primeng/steps';
 import {FormsModule} from '@angular/forms';
 import {AuthService} from "../../../../Auth/auth.service";
 import { LocalStorageService } from "ngx-localstorage"
-import {StorageService} from "../../../../storage.service";
+import {StorageService} from "../../../../services/storage.service";
 @Component({
     selector: 'app-uuid-invite-card',
     standalone: true,

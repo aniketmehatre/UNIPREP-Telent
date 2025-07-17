@@ -24,7 +24,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { landingServices } from '../../landing/landing.service';
-import { LocationService } from "src/app/location.service"
+import { LocationService } from "src/app/services/location.service"
 @Component({
 	selector: "uni-subscription-data",
 	templateUrl: "./subscription-data.component.html",

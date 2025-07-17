@@ -1,9 +1,6 @@
-import { ChangeDetectorRef, Component, inject, OnInit, ViewEncapsulation } from "@angular/core"
+import { Component, inject, OnInit, ViewEncapsulation } from "@angular/core"
 import { SalaryConverterService } from "./salary-converter.service"
 import { Location } from "@angular/common"
-import { Router } from "@angular/router"
-import { LocationService } from "../../../location.service"
-import { PlanService } from "../../../shared/plan.service"
 import { AuthService } from "../../../Auth/auth.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
@@ -51,7 +48,7 @@ export class SalaryConverterComponent implements OnInit {
 		return this.taxData[1]
 	}
 
-	constructor(private salaryConverterService: SalaryConverterService, private _location: Location, private authService: AuthService, private router: Router, private locationService: LocationService, private cdr: ChangeDetectorRef) {
+	constructor(private salaryConverterService: SalaryConverterService, private _location: Location, private authService: AuthService) {
 		this.responsiveOptions = [
 			{
 				breakpoint: "1024px",

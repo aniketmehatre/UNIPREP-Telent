@@ -8,13 +8,13 @@ import { PaginatorModule } from 'primeng/paginator';
 import { DropdownModule } from 'primeng/dropdown';
 import { ContributorsService } from './contributors.service';
 import { Contributiontier, Contributor, QuestionAnswer } from 'src/app/@Models/contributor.model';
-import { LocationService } from 'src/app/location.service';
+import { LocationService } from 'src/app/services/location.service';
 import { LocationData } from 'src/app/@Models/location.model';
 import { MessageService } from 'primeng/api';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Select } from "primeng/select";
-import { SocialShareService } from 'src/app/shared/social-share.service';
+import { SocialShareService } from 'src/app/services/social-share.service';
 
 @Component({
   selector: 'uni-contributors',

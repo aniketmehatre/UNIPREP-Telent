@@ -18,12 +18,12 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
-import { PromptService } from "../../prompt.service"
+import { PromptService } from "src/app/services/prompt.service";
 import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
 import { PageFacadeService } from '../../page-facade.service';
 import { AuthService } from "src/app/Auth/auth.service"
-import { removeExtraResponse } from "../../prompt"
+import { removeExtraResponse } from "../../../@Supports/prompt"
 interface DropDown {
 	[key: string]: string
 }

@@ -5,7 +5,7 @@ import { City, CostOfLiving, Price } from 'src/app/@Models/cost-of-living';
 import { Router, RouterModule } from "@angular/router";
 import { AuthService } from "../../../Auth/auth.service";
 import { MessageService } from 'primeng/api';
-import { LocationService } from 'src/app/location.service';
+import { LocationService } from 'src/app/services/location.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { CarouselModule } from 'primeng/carousel';

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/location.service';
+import { LocationService } from 'src/app/services/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { FounderstoolService } from '../founderstool.service';
 import { CommonModule } from '@angular/common';
@@ -22,10 +22,10 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { CostOfLivingService } from '../../job-tool/cost-of-living/cost-of-living.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marketingAnalysisData } from './marketing-analysis.data';
-import { PromptService } from '../../prompt.service';
+import { PromptService } from "src/app/services/prompt.service";
 import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { removeExtraResponse } from '../../prompt';
+import { removeExtraResponse } from '../../../@Supports/prompt';
 export interface selectList {
   name: string;
 }

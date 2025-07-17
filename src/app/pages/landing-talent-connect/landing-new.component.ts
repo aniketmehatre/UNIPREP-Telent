@@ -7,8 +7,8 @@ import { Router } from "@angular/router"
 import { trigger, state, style, animate, transition } from "@angular/animations"
 import { environment } from "@env/environment";
 import { FormBuilder, Validators } from "@angular/forms";
-import { ThemeService } from "src/app/theme.service";
-import { LocationService } from "src/app/location.service";
+import { ThemeService } from "src/app/services/theme.service";
+import { LocationService } from "src/app/services/location.service";
 import { AuthService } from "src/app/Auth/auth.service";
 import { LocalStorageService } from "ngx-localstorage";
 import { HeaderLogoStore } from "../landing/landing-page.store";

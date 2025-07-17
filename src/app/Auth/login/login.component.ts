@@ -22,10 +22,10 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { InputIconModule } from "primeng/inputicon"
 import { InputTextModule } from "primeng/inputtext"
 import { PasswordModule } from "primeng/password"
-import { AuthTokenService } from "src/app/core/services/auth-token.service"
-import { DataService } from "src/app/data.service"
+import { AuthTokenService } from "src/app/services/auth-token.service"
+import { DataService } from "src/app/services/data.service"
 import { SubSink } from "subsink"
-import { LocationService } from "../../location.service"
+import { LocationService } from "../../services/location.service"
 import { AuthService } from "../auth.service"
 import { finalize } from 'rxjs/operators'
 import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login'
@@ -33,8 +33,8 @@ import { Image } from "primeng/image";
 import { SkeletonModule } from "primeng/skeleton"
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from "@angular/common/http"
-import {StorageService} from "../../storage.service";
-import { BrandColorService } from "src/app/core/services/brand-color.service";
+import {StorageService} from "../../services/storage.service";
+import { BrandColorService } from "src/app/services/brand-color.service";
 declare var google: any;
 
 @Component({

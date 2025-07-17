@@ -3,7 +3,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Country } from 'ngx-intl-tel-input/lib/model/country.model';
 import { SelectModule } from 'primeng/select';
-import { LocationService } from 'src/app/location.service';
+import { LocationService } from 'src/app/services/location.service';
 import { LandingInstituteService } from '../landing-institute/landing-institute.service';
 import { ImageModule } from 'primeng/image';
 interface Institute {

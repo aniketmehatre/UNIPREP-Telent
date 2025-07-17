@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { Router, RouterModule } from "@angular/router"
 import { MessageService } from "primeng/api"
 import { AuthService } from "src/app/Auth/auth.service"
-import { LocationService } from "src/app/location.service"
+import { LocationService } from "src/app/services/location.service"
 import { PageFacadeService } from "../../page-facade.service"
 import { FounderstoolService } from "../founderstool.service"
 import { CommonModule } from "@angular/common"
@@ -21,10 +21,10 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { TravelToolsService } from "../../travel-tools/travel-tools.service"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
-import { PromptService } from "../../prompt.service"
+import { PromptService } from "src/app/services/prompt.service";
 import { SkeletonModule } from "primeng/skeleton"
 import { SharedModule } from "src/app/shared/shared.module"
-import { removeExtraResponse } from "../../prompt"
+import { removeExtraResponse } from "../../../@Supports/prompt"
 
 @Component({
 	selector: "uni-business-forecasting-tool",

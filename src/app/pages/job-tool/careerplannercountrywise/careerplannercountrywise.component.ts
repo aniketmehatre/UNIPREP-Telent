@@ -21,12 +21,12 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { EducationToolsService } from '../../education-tools/education-tools.service';
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { PromptService } from '../../prompt.service';
+import { PromptService } from "src/app/services/prompt.service";
 import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/location.service';
-import { removeExtraResponse } from '../../prompt';
+import { LocationService } from 'src/app/services/location.service';
+import { removeExtraResponse } from '../../../@Supports/prompt';
 @Component({
   selector: 'uni-careerplannercountrywise',
   templateUrl: './careerplannercountrywise.component.html',

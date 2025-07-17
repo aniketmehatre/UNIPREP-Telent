@@ -5,7 +5,7 @@ import {Observable, throwError} from "rxjs";
 import {PlaceOrderResponse, SubscriptionDetailResponse} from "../../../@Models/subscription";
 import { tap, catchError } from 'rxjs/operators';
 import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage";
-import {StorageService} from "../../../storage.service";
+import {StorageService} from "../../../services/storage.service";
 
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
 

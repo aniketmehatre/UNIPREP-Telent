@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {LocationService} from "../../../location.service";
+import {LocationService} from "../../../services/location.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { RouterModule } from '@angular/router';
