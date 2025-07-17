@@ -34,11 +34,10 @@ export class LandingComponent implements OnInit, OnDestroy {
     isCompanyLink: boolean = false;
     isTalentLink: boolean = false;
     uuid: any
-    isCoBrandingURL = signal<boolean>(false)
+    isCoBrandingURL = 0
     isPartner = signal<boolean>(false)
 
     ngOnInit() {
-        console.log('5');
 
         this.apiToCheckPartnerOrInstitute()
         this.route.params.subscribe(params => {
@@ -46,10 +45,9 @@ export class LandingComponent implements OnInit, OnDestroy {
             this.currentUrl = this.router.url;
             this.isFromUUID = !!this.uuid;
             this.isJobLink = this.currentUrl.startsWith('/job');
-            // if (this.isPartner()) {
-            //     this.isCoBrandingURL.set(true)
-            // }
-            console.log("UUID from route:", this.uuid);
+            if (this.isPartner()) {
+                this.isCoBrandingURL = 1
+            }
 
             if (this.uuid && this.isJobLink) {
                 this.landingService.getJobInviteDetails(this.uuid).subscribe((res: any) => {

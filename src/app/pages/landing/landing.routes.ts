@@ -29,7 +29,10 @@ export const landingRoutes: Routes = [
     { path: "forgot-password", component: ForgotPasswordComponent },
     { path: "verification/:email", component: VerificationComponent },
     { path: "setpassword/:otp/:email", component: SetpasswordComponent },
-
+    {
+        path: 'job/:uuid',
+        loadComponent: () => import('./landing-content/landing-content.component').then(m => m.LandingContentComponent),
+    },
     {
         path: "pages",
         loadChildren: () => import("../../pages/pages.module").then((m) => m.PagesModule),
