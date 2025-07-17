@@ -11,9 +11,10 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { LandingFooterComponent } from "./landing-footer/landing-footer.component";
 import { landingRoutes } from './landing.routes';
+import { UuidInviteCardComponent } from './landing-content/uuid-invite-card/uuid-invite-card.component';
 
 @NgModule({
-    imports: [
+  imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -21,7 +22,8 @@ import { landingRoutes } from './landing.routes';
     RouterModule.forChild(landingRoutes),
     ScrollTopModule,
     LandingLanguageHubComponent,
-    JobSeekersLandingComponent
+    JobSeekersLandingComponent,
+    UuidInviteCardComponent
     // Empty reducer configuration or actual reducers here
     ,
     LandingFooterComponent
@@ -31,4 +33,4 @@ import { landingRoutes } from './landing.routes';
 })
 export class LandingModule {
 
- }
+}

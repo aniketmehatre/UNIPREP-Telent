@@ -33,7 +33,8 @@ import { landingServices } from '../landing.service';
   styleUrls: ['./landing-content.component.scss']
 })
 export class LandingContentComponent implements OnInit, AfterViewInit {
-  @ViewChild('homeSection', { static: true }) homeSectionRef!: ElementRef;
+  @ViewChild('homeSection') homeSectionRef!: ElementRef;
+
   @ViewChild("videoPlayer")
   videoPlayer!: ElementRef
   isPlaying = false
@@ -308,10 +309,6 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
         });
       } else if (this.uuid && this.isCompanyLink) {
         this.landingService.getCompanyInviteDetails(this.uuid).subscribe((res) => {
-          this.uuidCardData = res?.data;
-        });
-      } else if (this.uuid && this.isTalentLink) {
-        this.landingService.getTalentInviteDetails(this.uuid).subscribe(res => {
           this.uuidCardData = res?.data;
         });
       } else {
