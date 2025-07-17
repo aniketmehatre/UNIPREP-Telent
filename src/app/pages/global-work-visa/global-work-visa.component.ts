@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
 import { AuthService } from "src/app/Auth/auth.service";
 import { SocialShareService } from "src/app/shared/social-share.service";
+import { PageFacadeService } from "../page-facade.service";
 
 @Component({
   selector: "uni-global-work-visa",
@@ -77,7 +78,8 @@ export class GlobalWorkVisaComponent implements OnInit {
     private dataService: DataService,
     private authService: AuthService,
     protected socialShareService: SocialShareService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private pageFacade: PageFacadeService
   ) { }
 
   ngOnInit(): void {
@@ -183,6 +185,10 @@ export class GlobalWorkVisaComponent implements OnInit {
       .subscribe((response) => {
         this.eachVisaQuestionCategory = response;
       });
+  }
+
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("work-visa");
   }
 
   viewOneQuestion(data: any) {

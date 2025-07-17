@@ -20,6 +20,7 @@ import { environment } from "@env/environment"
 import { AuthService } from "src/app/Auth/auth.service"
 import { SocialShareService } from "src/app/shared/social-share.service"
 import { ObjectModel } from "src/app/@Models/object.model"
+import { PageFacadeService } from "../../page-facade.service"
 
 @Component({
 	selector: "uni-global-travel-visa",
@@ -76,12 +77,17 @@ export class GlobalTravelVisaComponent implements OnInit {
 
 	constructor(private travelToolService: TravelToolsService, private router: Router, private meta: Meta,
 		private dataService: DataService, private authService: AuthService,
-		private socialShareService: SocialShareService) { }
+		private socialShareService: SocialShareService, private pageFacade: PageFacadeService) { }
 
 	ngOnInit(): void {
 		this.getCurrentModule()
 		this.getCountriesList()
 		this.getVisaCountriesList()
+	}
+
+	openVideoPopup() {
+		//this mode name I setted in commonData.ts. so it take the link there.
+		this.pageFacade.openHowitWorksVideoPopup(this.modeName); 
 	}
 
 	getCurrentModule() {
