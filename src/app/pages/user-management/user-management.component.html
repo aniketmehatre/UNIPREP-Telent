@@ -1,189 +1,151 @@
 <div class="card container-fluid h-100 d-flex flex-column justify-content-center bg-white">
-    <div class="row p-2">
-        <div class="col-12">
-            <div class="card text-center" style="background-color: black; color: var(--p-neutral-50);">
-                <h4 class="p-2">Settings</h4>
-            </div>
-        </div>
+  <div class="row p-2">
+    <div class="col-12">
+      <div class="card text-center" style="background-color: var(--p-neutral-950); color: var(--p-neutral-50)">
+        <h4 class="p-2">Settings</h4>
+      </div>
     </div>
-    <div class="main-container d-flex">
-        <button class="btn btn-light d-md-none" (click)="toggleSidebar()">
-            ☰ Menu
-        </button>
-        <aside class="sidebar p-2" [class.mobile-visible]="isSidebarVisible">
-            <ul class="menu list-unstyled">
-                <!-- Scroll to section -->
-                <li [class.active]="!isSwitchSection() && isActive('profileCard')"
-                    (click)="scrollToSection('profileCard'); activeSection='profileCard'; closeMobileMenu()"><i
-                        class="fa-regular fa-user"></i>&nbsp;&nbsp;My Profile</li>
-                <li [class.active]="!isSwitchSection() && isActive('securityCard')"
-                    (click)="scrollToSection('securityCard'); activeSection='securityCard';closeMobileMenu()"><i
-                        class="fa-light fa-shield"></i>&nbsp;&nbsp;Security</li>
-                <li [class.active]="!isSwitchSection() && isActive('emailerCard')"
-                    (click)="scrollToSection('emailerCard'); activeSection='emailerCard';closeMobileMenu()"><i
-                        class="fa-regular fa-envelope"></i>&nbsp;&nbsp;Emailer Settings</li>
-                <li [class.active]="!isSwitchSection() && isActive('integrationsCard')"
-                    (click)="scrollToSection('integrationsCard'); activeSection='integrationsCard';closeMobileMenu()"><i
-                        class="fas fa-link" style="color:#2c3e50; font-size: 18px;"></i>&nbsp;&nbsp;Integrations</li>
-                <li [class.active]="!isSwitchSection() && isActive('inviteCard')"
-                    (click)="scrollToSection('inviteCard'); activeSection='inviteCard';closeMobileMenu()"> <i
-                        class="fa-regular fa-user-plus"></i>&nbsp;&nbsp;Invite A Friend</li>
-                <hr />
-                <!-- Switch case below -->
-                <li>
-                    <a routerLink="/pages/talent-connect/my-profile" class="nav-link"><i
-                            class="fa-regular fa-user-tie"></i>&nbsp;&nbsp;Talent Profile</a>
-                </li>
-                <li>
-                    <a routerLink="/pages/job-tool/cv-builder" class="nav-link"><i
-                            class="fa-light fa-file-zipper"></i>&nbsp;&nbsp;My Resumes</a>
-                </li>
-                <hr />
+  </div>
+  <div class="main-container d-flex">
+    <button class="btn btn-light d-md-none" (click)="toggleSidebar()">☰ Menu</button>
+    <aside class="sidebar p-2" [class.mobile-visible]="isSidebarVisible">
+      <ul class="menu list-unstyled">
+        <!-- Scroll to section -->
+        <li [class.active]="!isSwitchSection() && isActive('profileCard')" (click)="scrollToSection('profileCard'); activeSection = 'profileCard'; closeMobileMenu()"><i class="fa-regular fa-user"></i>&nbsp;&nbsp;My Profile</li>
+        <li [class.active]="!isSwitchSection() && isActive('securityCard')" (click)="scrollToSection('securityCard'); activeSection = 'securityCard'; closeMobileMenu()"><i class="fa-light fa-shield"></i>&nbsp;&nbsp;Security</li>
+        <li [class.active]="!isSwitchSection() && isActive('emailerCard')" (click)="scrollToSection('emailerCard'); activeSection = 'emailerCard'; closeMobileMenu()"><i class="fa-regular fa-envelope"></i>&nbsp;&nbsp;Emailer Settings</li>
+        <li [class.active]="!isSwitchSection() && isActive('integrationsCard')" (click)="scrollToSection('integrationsCard'); activeSection = 'integrationsCard'; closeMobileMenu()"><i class="fas fa-link" style="color: #2c3e50; font-size: 18px"></i>&nbsp;&nbsp;Integrations</li>
+        <li [class.active]="!isSwitchSection() && isActive('inviteCard')" (click)="scrollToSection('inviteCard'); activeSection = 'inviteCard'; closeMobileMenu()"><i class="fa-regular fa-user-plus"></i>&nbsp;&nbsp;Invite A Friend</li>
+        <hr />
+        <!-- Switch case below -->
+        <li>
+          <a routerLink="/pages/talent-connect/my-profile" class="nav-link"><i class="fa-regular fa-user-tie"></i>&nbsp;&nbsp;Talent Profile</a>
+        </li>
+        <li>
+          <a routerLink="/pages/job-tool/cv-builder" class="nav-link"><i class="fa-light fa-file-zipper"></i>&nbsp;&nbsp;My Resumes</a>
+        </li>
+        <hr />
 
-                <li *ngIf="!userTypeId" [class.active]="isActive('subscription')"
-                    (click)="setSwitchSection('subscription');closeMobileMenu()"> <i
-                        class="fa-solid fa-web-awesome"></i>&nbsp;&nbsp;My Subscription
-                </li>
-
-            </ul>
-            <div class="card mt-2 bg-white">
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <div class="row align-items-center">
-                        <div class="col-12">
-                            <h5><span class="emoji" aria-label="user">👤</span> Profile Completion</h5>
-                        </div>
-                        <div class="col-12 mb-4">
-                            <div style="display: flex; justify-content: space-between">
-                                <div style="font-size: 2.5rem" aria-label="Profile completion percentage">{{
-                                    totalPercentage
-                                    }}%</div>
-                            </div>
-                        </div>
-                        <div class="col-12 mt-2">
-                            <div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="progress"
-                                [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
-                                <div class="progress-bar" [style.width.%]="progress"></div>
-                            </div>
-                            <span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700"
-                                style="font-size: 0.8rem">Basic Details</span>
-                        </div>
-                        <div class="col-12 mt-2">
-                            <div class="progress-bar-container" role="progressbar"
-                                [attr.aria-valuenow]="talentConnectPercentage" [attr.aria-valuemin]="0"
-                                [attr.aria-valuemax]="100">
-                                <div class="progress-bar2" [style.width.%]="talentConnectPercentage"></div>
-                            </div>
-                            <span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700"
-                                style="font-size: 0.8rem">Job Profile</span>
-                        </div>
-                        <div class="col-12 mt-2">
-                            <div class="progress-bar-container" role="progressbar"
-                                [attr.aria-valuenow]="cvBuilderPercentage" [attr.aria-valuemin]="0"
-                                [attr.aria-valuemax]="100">
-                                <div class="progress-bar3" [style.width.%]="cvBuilderPercentage"></div>
-                            </div>
-                            <span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700"
-                                style="font-size: 0.8rem">CV Details</span>
-                        </div>
-                    </div>
-                </div>
+        <li *ngIf="!userTypeId" [class.active]="isActive('subscription')" (click)="setSwitchSection('subscription'); closeMobileMenu()"><i class="fa-solid fa-web-awesome"></i>&nbsp;&nbsp;My Subscription</li>
+      </ul>
+      <div class="card mt-2 bg-white">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div class="row align-items-center">
+            <div class="col-12">
+              <h5><span class="emoji" aria-label="user">👤</span> Profile Completion</h5>
             </div>
-        </aside>
-
-        <!-- Right Side -->
-        <div class="content flex-grow-1 p-3 pt-0">
-            <!-- Header -->
-            <div class="header d-flex justify-content-between align-items-center">
-                <div>
-                    <span class="user-initials">
-                        {{ getInitials(PersonalInfo?.name) }}
-                    </span>
-                    <h5>{{ PersonalInfo?.name }} <span *ngIf="PersonalInfo?.subscription_plan"><button
-                                class="student-plan-btn">
-                                <i class="fa-solid fa-web-awesome" style="color: var(--p-neutral-50);"></i>
-                                {{PersonalInfo?.subscription_plan }}
-                            </button></span></h5>
-                    <!-- <span class="badge bg-warning">Student Plan</span> -->
-                    <span class="fontsizecontent"><i class="fab fa-google text-danger"></i>&nbsp;{{ PersonalInfo?.email
-                        }}</span> |
-                    <span class="fontsizecontent"> <i class="fab fa-whatsapp text-success"></i>&nbsp;{{
-                        PersonalInfo?.country_code}} {{PersonalInfo?.phone}}</span> <br>
-                    <span class="fontsizecontent">{{ PersonalInfo?.city_name }}</span>
-                </div>
-
-                <button class="btn custom-logout-btn btn-sm" (click)="logout()"><i class="fa-solid fa-power-off"></i>
-                    &nbsp;Logout</button>
+            <div class="col-12 mb-4">
+              <div style="display: flex; justify-content: space-between">
+                <div style="font-size: 2.5rem" aria-label="Profile completion percentage">{{ totalPercentage }}%</div>
+              </div>
             </div>
+            <div class="col-12 mt-2">
+              <div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="progress" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
+                <div class="progress-bar" [style.width.%]="progress"></div>
+              </div>
+              <span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 0.8rem">Basic Details</span>
+            </div>
+            <div class="col-12 mt-2">
+              <div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="talentConnectPercentage" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
+                <div class="progress-bar2" [style.width.%]="talentConnectPercentage"></div>
+              </div>
+              <span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 0.8rem">Job Profile</span>
+            </div>
+            <div class="col-12 mt-2">
+              <div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="cvBuilderPercentage" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
+                <div class="progress-bar3" [style.width.%]="cvBuilderPercentage"></div>
+              </div>
+              <span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 0.8rem">CV Details</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
 
-            <!-- Body -->
-            <div class="body p-4">
-                <!-- First 5 Section Cards -->
-                <div *ngIf="!isSwitchSection()" class="row">
-                    <div class="col-md-12 mb-3" id="profileCard">
-                        <div class="card p-3 bg-white">
-                            <div class="row">
-                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                    <h6><strong>My Profile</strong></h6>
-                                    <p>Name, Email, Country, Location, education & Last degree passing year</p>
-                                </div>
-                                <div class="col-md-9 col-lg-9 col-sm-12">
-                                    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-12 p-2">
-                                                    <label>Name</label>
-                                                    <div class="form-group">
-                                                        <div class="mb-3">
-                                                            <input class="w-100" formControlName="name" pInputText
-                                                                type="text" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+    <!-- Right Side -->
+    <div class="content flex-grow-1 p-3 pt-0">
+      <!-- Header -->
+      <div class="header d-flex justify-content-between align-items-center">
+        <div>
+          <span class="user-initials">
+            {{ getInitials(PersonalInfo?.name) }}
+          </span>
+          <h5>
+            {{ PersonalInfo?.name }}
+            <span *ngIf="PersonalInfo?.subscription_plan"
+              ><button class="student-plan-btn">
+                <i class="fa-solid fa-web-awesome" style="color: var(--p-neutral-50)"></i>
+                {{ PersonalInfo?.subscription_plan }}
+              </button></span
+            >
+          </h5>
+          <!-- <span class="badge bg-warning">Student Plan</span> -->
+          <span class="fontsizecontent"><i class="fab fa-google text-danger"></i>&nbsp;{{ PersonalInfo?.email }}</span> | <span class="fontsizecontent"> <i class="fab fa-whatsapp text-success"></i>&nbsp;{{ PersonalInfo?.country_code }} {{ PersonalInfo?.phone }}</span> <br />
+          <span class="fontsizecontent">{{ PersonalInfo?.city_name }}</span>
+        </div>
 
-                                                    <div
-                                                        style="display: flex;  justify-content: space-between;  font-weight: 500;">
-                                                        <label>Email</label>
-                                                        <label *ngIf="PersonalInfo?.is_phn_or_whs_verified == 1" style="color: #0a7fc7;"><span><i
-                                                                    class="fa-regular fa-envelope"></i>&nbsp;</span>Email
-                                                            Verified</label>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="mb-3">
-                                                            <input class="w-100" formControlName="email" pInputText
-                                                                type="text" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 col-sm-12 p-2">
-                                                    <div
-                                                        style="display: flex;  justify-content: space-between;  font-weight: 500;">
-                                                        <label>Phone Number</label>
-                                                        <label *ngIf="PersonalInfo?.is_phn_or_whs_verified == 1" style="color: #25D366;"><span><i
-                                                                    class="fa-brands fa-whatsapp"></i>&nbsp;</span>Whatsapp
-                                                            Verified</label>
-                                                    </div>
+        <button class="btn custom-logout-btn btn-sm" (click)="logout()"><i class="fa-solid fa-power-off"></i> &nbsp;Logout</button>
+      </div>
 
-                                                    <div class="form-group">
-                                                        <div class="mb-3">
-                                                            <input class="w-100" formControlName="phone" pInputText
-                                                                type="text" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 col-sm-12 p-2">
-                                                    <label>Country</label>
-                                                    <div class="form-group">
-                                                        <div class="mb-3">
-                                                            <p-select styleClass="w-100" formControlName="home_country"
-                                                                appendTo="body" [options]="countryList" [filter]="true"
-                                                                filterBy="work_location" optionLabel="work_location" optionValue="id"
-                                                                [virtualScroll]="true" [virtualScrollItemSize]="50">
-                                                            </p-select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+      <!-- Body -->
+      <div class="mt-2 body">
+        <!-- First 5 Section Cards -->
+        <div *ngIf="!isSwitchSection()" class="row">
+          <div class="col-md-12 mb-3" id="profileCard">
+            <div class="card p-3 bg-white">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                  <h6><strong>My Profile</strong></h6>
+                  <p>Name, Email, Country, Location, education & Last degree passing year</p>
+                </div>
+                <div class="col-md-9 col-lg-9 col-sm-12">
+                  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12 p-2">
+                          <label>Name</label>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <input class="w-100" formControlName="name" pInputText type="text" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+                          <div style="display: flex; justify-content: space-between; font-weight: 500">
+                            <label>Email</label>
+                            <label *ngIf="PersonalInfo?.is_phn_or_whs_verified == 1" style="color: #0a7fc7"
+                              ><span><i class="fa-regular fa-envelope"></i>&nbsp;</span>Email Verified</label
+                            >
+                          </div>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <input class="w-100" formControlName="email" pInputText type="text" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+                          <div style="display: flex; justify-content: space-between; font-weight: 500">
+                            <label>Phone Number</label>
+                            <label *ngIf="PersonalInfo?.is_phn_or_whs_verified == 1" style="color: #25d366"
+                              ><span><i class="fa-brands fa-whatsapp"></i>&nbsp;</span>Whatsapp Verified</label
+                            >
+                          </div>
+
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <input class="w-100" formControlName="phone" pInputText type="text" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+                          <label>Country</label>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <p-select styleClass="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" filterBy="work_location" optionLabel="work_location" optionValue="id" [virtualScroll]="true" [virtualScrollItemSize]="50"> </p-select>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <div class="col-md-6 col-lg-6 col-sm-12 p-2">
                                                     <label>Location</label>
                                                     <div class="form-group">
                                                         <div class="mb-3">
@@ -196,307 +158,254 @@
                                                         </div>
                                                     </div>
                                                 </div> -->
-                                                <div class="col-md-6 col-lg-6 col-sm-12 p-2">
-                                                    <label>Current Education</label>
-                                                    <div class="form-group">
-                                                        <div class="mb-3">
-                                                            <input class="w-100" formControlName="current_education"
-                                                                pInputText type="text" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 col-sm-12 p-2">
-                                                    <label>Last Degree Passing Year</label>
-                                                    <div class="form-group">
-                                                        <div class="mb-3">
-                                                            <p-calendar [maxDate]="today" [showIcon]="true"
-                                                                appendTo="body" dateFormat="yy" view="year"
-                                                                [yearNavigator]="true" type="number"
-                                                                [yearRange]="'1950:' + currentYear" inputId="pickYear"
-                                                                formControlName="last_degree_passing_year"
-                                                                placeholder="Enter or pick year"
-                                                                (input)="onYearInput($event)"
-                                                                (keypress)="onKeyPress($event)"></p-calendar>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12"><button type="submit" class="btn btn-dark w-100"
-                                                    style="background-color: var(--p-primary-500) !important">
-                                                    {{submitName}}</button></div>
-                                        </div>
-                                    </form>
-                                </div>
+                        <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+                          <label>Current Education</label>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <input class="w-100" formControlName="current_education" pInputText type="text" />
                             </div>
+                          </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 mb-3" id="securityCard">
-                        <div class="card p-3 bg-white">
-                            <div class="row">
-                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                    <h6><strong>Security</strong></h6>
-                                    <p class="fontsizecontent">Update your password</p>
-                                </div>
-                                <div class="col-md-9 col-lg-9 col-sm-12">
-                                    <form [formGroup]="updatedPasswords"
-                                        (ngSubmit)="UserUpdatePassword(updatedpasswords)">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <label class="mb-1">Current Password</label>
-                                                    <div class="position-relative">
-                                                        <input [type]="passwordFields.current.type"
-                                                            class="form-control w-100"
-                                                            formControlName="current_password" />
-                                                        <span class="passwordvisibility" role="button"
-                                                            (click)="togglePassword('current')">
-                                                            <i class="fa-solid"
-                                                                [ngClass]="passwordFields.current.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
-                                                        </span>
-                                                    </div>
-                                                    <div *ngIf="PasswordSubmitted && updatePassword['current_password']['errors']"
-                                                        class="UserInfoValidation">
-                                                        <div class="text-danger"
-                                                            *ngIf="updatePassword['current_password']['errors']['required']">
-                                                            Current Password is required</div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6 col-lg-6 col-sm-12">
-                                                    <label class="mb-1">Set New Password</label>
-                                                    <div class="position-relative">
-                                                        <input [type]="passwordFields.new.type"
-                                                            class="form-control w-100" formControlName="new_password" />
-                                                        <span class="passwordvisibility" role="button"
-                                                            (click)="togglePassword('new')">
-                                                            <i class="fa-solid"
-                                                                [ngClass]="passwordFields.new.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
-                                                        </span>
-                                                    </div>
-                                                    <div *ngIf="PasswordSubmitted && updatePassword['new_password']['errors']"
-                                                        class="UserInfoValidation">
-                                                        <div class="text-danger"
-                                                            *ngIf="updatePassword['new_password']['errors']['required']">
-                                                            New Password is required</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 col-sm-12">
-                                                    <label class="mb-1">Enter New Password Again</label>
-                                                    <div class="position-relative">
-                                                        <input [type]="passwordFields.confirm.type"
-                                                            class="form-control w-100"
-                                                            formControlName="confirm_password" />
-                                                        <span class="passwordvisibility" role="button"
-                                                            (click)="togglePassword('confirm')">
-                                                            <i class="fa-solid"
-                                                                [ngClass]="passwordFields.confirm.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
-                                                        </span>
-                                                    </div>
-                                                    <div *ngIf="PasswordSubmitted && updatePassword['confirm_password']['errors']"
-                                                        class="UserInfoValidation">
-                                                        <div class="text-danger"
-                                                            *ngIf="updatePassword['confirm_password']['errors']['required']">
-                                                            Confirm Password is required</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 col-12 text-md-end text-center mt-3">
-                                                    <button pButton type="submit" class="btn btn-primary p-button">
-                                                        Update Password</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                        <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+                          <label>Last Degree Passing Year</label>
+                          <div class="form-group">
+                            <div class="mb-3">
+                              <p-calendar [maxDate]="today" [showIcon]="true" appendTo="body" dateFormat="yy" view="year" [yearNavigator]="true" type="number" [yearRange]="'1950:' + currentYear" inputId="pickYear" formControlName="last_degree_passing_year" placeholder="Enter or pick year" (input)="onYearInput($event)" (keypress)="onKeyPress($event)"></p-calendar>
                             </div>
+                          </div>
                         </div>
+                      </div>
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-dark w-100" style="background-color: var(--p-primary-500) !important">
+                          {{ submitName }}
+                        </button>
+                      </div>
                     </div>
-                    <div class="col-12 mb-3" id="emailerCard">
-                        <div class="card p-3 bg-white">
-                            <div class="row">
-                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                    <h6><strong>Emailer Settings</strong></h6>
-                                    <p class="fontsizecontent">
-                                        Update your emailer notification settings.
-                                    </p>
-                                </div>
-                                <div class="col-md-9 col-lg-9 col-sm-12">
-                                    <div class="card p-2 mt-2" *ngFor="let setting of settings">
-                                        <div class="setting-row">
-                                            <div>
-                                                <strong>{{ setting.title }}</strong>
-                                                <div class="text-muted small">{{ setting.description }}</div>
-                                            </div>
-                                            <p-inputSwitch (onChange)="confirmEmailToggle($event, setting)"
-                                                [ngModel]="setting.enabled === 1"
-                                                (ngModelChange)="setting.enabled = $event ? 1 : 0"></p-inputSwitch>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 mb-3" id="integrationsCard">
-                        <div class="card p-3 bg-white">
-                            <div class="row">
-                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                    <h6><strong>Integrations</strong></h6>
-                                    <div class="text-muted small">Any accounts that you have used to login to UNIPREP.
-                                    </div>
-                                </div>
-                                <div class="col-md-9 col-lg-9 col-sm-12">
-                                    <div class="card p-2 mt-2">
-                                        <div class="setting-row">
-                                            <div>
-                                                <strong>Google</strong>
-                                                <div class="text-muted small"><span *ngIf="associatedMail"><i
-                                                            class="fab fa-google text-danger"></i></span>&nbsp;{{associatedMail}}
-                                                </div>
-                                            </div>
-                                            <div [ngClass]="associatedMail ? 'text-success' : 'text-danger'"
-                                                class="small">
-                                                {{ associatedMail ? "Linked" : "Not Linked" }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-md-12 mb-3" id="inviteCard">
-                        <div class="card p-3 bg-white">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                    <div class="text-start">
-                                        <h6 class="mb-1 mt-2"><span class="emoji" aria-label="envelope">💌</span>
-                                            <strong>Invite a friend to
-                                                try UNIPREP</strong>
-                                        </h6>
-                                        <p class="mb-0 fontsizecontent">We will email them instructions and a link to
-                                            create an account
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-md-7 col-lg-7 col-sm-12">
-                                    <p-inputgroup>
-                                        <p-inputgroup-addon>
-                                            <i class="fa-regular fa-envelope" aria-hidden="true"></i>
-                                        </p-inputgroup-addon>
-                                        <input pInputText [(ngModel)]="sendInvite" type="email"
-                                            placeholder="Enter Email Address" aria-label="Email address to send invite"
-                                             />
-                                    </p-inputgroup>
-                                </div>
-                                <div class="col-md-2 col-lg-2 col-sm-12 text-end mt-1">
-                                    <button (click)="sendInviteMail()" pButton type="submit"
-                                        class="btn btn-primary p-button"> Send Invite</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  </form>
                 </div>
-
-                <!-- ngSwitch Section -->
-                <ng-container [ngSwitch]="activeSection">
-                    <div *ngSwitchCase="'subscription'">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card p-3 bg-white">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <div class="text-start">
-                                                <h6 class="mb-1 mt-2 ">
-                                                    <strong>Subscription History</strong>
-                                                </h6>
-                                                <p class="mb-0 fontsizecontent">All the details about your previous
-                                                    subscription parchases
-                                                </p>
-                                                <button pButton class="btn btn-primary p-button"
-                                                    (click)="onClickUpgradePlan();" style="font-size: 0.8rem;"> Upgrade
-                                                    Your Current Plan &nbsp; <i class="fa-solid fa-stars"></i></button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-9 col-lg-9 col-sm-12">
-                                            <p-table [value]="subscribedHistoryList" responsiveLayout="scroll">
-                                                <ng-template pTemplate="header">
-                                                    <tr>
-                                                        <th class="border-cell">Subscription Plan</th>
-                                                        <th class="border-cell">Validity</th>
-                                                        <th class="border-cell">Subscription Start</th>
-                                                        <th class="border-cell">Subscription End</th>
-                                                        <th class="border-cell">Amount</th>
-                                                    </tr>
-                                                </ng-template>
-                                                <ng-template pTemplate="body" let-data>
-                                                    <tr class="subscription-history-header"
-                                                        style="background-color: #F9F9F9;">
-                                                        <td class="border-cell">{{ data.product }}</td>
-                                                        <td class="border-cell">{{ data.validity }} {{data.validity
-                                                            ==1?'Month':'Months'}}</td>
-                                                        <td class="border-cell">{{ data.startdate }} </td>
-                                                        <td class="border-cell">{{ data.enddate }}</td>
-                                                        <td class="border-cell">{{ data.amount }} {{data.currency}}</td>
-                                                    </tr>
-                                                </ng-template>
-                                            </p-table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-2">
-                                <div class="card p-3 bg-white">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <div class="text-start">
-                                                <h6 class="mb-1 mt-2 ">
-                                                    <strong>Transaction History</strong>
-                                                </h6>
-                                                <p class="mb-0 fontsizecontent">Your complete transaction history in our
-                                                    platform
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-9 col-lg-9 col-sm-12">
-                                            <p-table [value]="subscribedTransactionList" responsiveLayout="scroll">
-                                                <ng-template pTemplate="header">
-                                                    <tr>
-                                                        <th class="border-cell">Product</th>
-                                                        <th class="border-cell">Transaction ID</th>
-                                                        <th class="border-cell">Payment Date</th>
-                                                        <th class="border-cell">Status</th>
-                                                        <th class="border-cell">Amount</th>
-                                                        <th class="border-cell">Invoice</th>
-                                                    </tr>
-                                                </ng-template>
-                                                <ng-template pTemplate="body" let-data>
-                                                    <tr class="subscription-history-header"
-                                                        style="background-color: #F9F9F9;">
-                                                        <td class="border-cell">{{ data.product}}</td>
-                                                        <td class="border-cell">{{ data.reference }}</td>
-                                                        <td class="border-cell">{{ data.date }}</td>
-                                                        <td class="border-cell"> <span *ngIf="data.reference"><i
-                                                                    class="fa-solid fa-check"
-                                                                    style="color: aquamarine"></i></span></td>
-                                                        <td class="border-cell">{{ data.amount }}</td>
-                                                        <td class="border-cell">
-                                                            <button pButton class="btn btn-primary" style="background-color: #90C436 !important;
-                                                                border-color: #90C436;"
-                                                                (click)="downloadInvoice(data.id)"
-                                                                *ngIf="data.invoice != 'no' else noData">
-                                                                Download</button>
-                                                        </td>
-                                                    </tr>
-                                                </ng-template>
-                                            </p-table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-container>
+              </div>
             </div>
+          </div>
+          <div class="col-md-12 mb-3" id="securityCard">
+            <div class="card p-3 bg-white">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                  <h6><strong>Security</strong></h6>
+                  <p class="fontsizecontent">Update your password</p>
+                </div>
+                <div class="col-md-9 col-lg-9 col-sm-12">
+                  <form [formGroup]="updatedPasswords" (ngSubmit)="UserUpdatePassword(updatedpasswords)">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12">
+                          <label class="mb-1">Current Password</label>
+                          <div class="position-relative">
+                            <input [type]="passwordFields.current.type" class="form-control w-100" formControlName="current_password" />
+                            <span class="passwordvisibility" role="button" (click)="togglePassword('current')">
+                              <i class="fa-solid" [ngClass]="passwordFields.current.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                            </span>
+                          </div>
+                          <div *ngIf="PasswordSubmitted && updatePassword['current_password']['errors']" class="UserInfoValidation">
+                            <div class="text-danger" *ngIf="updatePassword['current_password']['errors']['required']">Current Password is required</div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6 col-sm-12">
+                          <label class="mb-1">Set New Password</label>
+                          <div class="position-relative">
+                            <input [type]="passwordFields.new.type" class="form-control w-100" formControlName="new_password" />
+                            <span class="passwordvisibility" role="button" (click)="togglePassword('new')">
+                              <i class="fa-solid" [ngClass]="passwordFields.new.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                            </span>
+                          </div>
+                          <div *ngIf="PasswordSubmitted && updatePassword['new_password']['errors']" class="UserInfoValidation">
+                            <div class="text-danger" *ngIf="updatePassword['new_password']['errors']['required']">New Password is required</div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-sm-12">
+                          <label class="mb-1">Enter New Password Again</label>
+                          <div class="position-relative">
+                            <input [type]="passwordFields.confirm.type" class="form-control w-100" formControlName="confirm_password" />
+                            <span class="passwordvisibility" role="button" (click)="togglePassword('confirm')">
+                              <i class="fa-solid" [ngClass]="passwordFields.confirm.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                            </span>
+                          </div>
+                          <div *ngIf="PasswordSubmitted && updatePassword['confirm_password']['errors']" class="UserInfoValidation">
+                            <div class="text-danger" *ngIf="updatePassword['confirm_password']['errors']['required']">Confirm Password is required</div>
+                          </div>
+                        </div>
+                        <div class="col-md-12 col-12 text-md-end text-center mt-3">
+                          <button pButton type="submit" class="btn btn-primary p-button">Update Password</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 mb-3" id="emailerCard">
+            <div class="card p-3 bg-white">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                  <h6><strong>Emailer Settings</strong></h6>
+                  <p class="fontsizecontent">Update your emailer notification settings.</p>
+                </div>
+                <div class="col-md-9 col-lg-9 col-sm-12">
+                  <div class="card p-2 mt-2" *ngFor="let setting of settings">
+                    <div class="setting-row">
+                      <div>
+                        <strong>{{ setting.title }}</strong>
+                        <div class="text-muted small">{{ setting.description }}</div>
+                      </div>
+                      <p-inputSwitch (onChange)="confirmEmailToggle($event, setting)" [ngModel]="setting.enabled === 1" (ngModelChange)="setting.enabled = $event ? 1 : 0"></p-inputSwitch>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 mb-3" id="integrationsCard">
+            <div class="card p-3 bg-white">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                  <h6><strong>Integrations</strong></h6>
+                  <div class="text-muted small">Any accounts that you have used to login to UNIPREP.</div>
+                </div>
+                <div class="col-md-9 col-lg-9 col-sm-12">
+                  <div class="card p-2 mt-2">
+                    <div class="setting-row">
+                      <div>
+                        <strong>Google</strong>
+                        <div class="text-muted small">
+                          <span *ngIf="associatedMail"><i class="fab fa-google text-danger"></i></span>&nbsp;{{ associatedMail }}
+                        </div>
+                      </div>
+                      <div [ngClass]="associatedMail ? 'text-success' : 'text-danger'" class="small">
+                        {{ associatedMail ? "Linked" : "Not Linked" }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-3" id="inviteCard">
+            <div class="card p-3 bg-white">
+              <div class="row align-items-center">
+                <div class="col-md-3 col-lg-3 col-sm-12">
+                  <div class="text-start">
+                    <h6 class="mb-1 mt-2">
+                      <span class="emoji" aria-label="envelope">💌</span>
+                      <strong>Invite a friend to try UNIPREP</strong>
+                    </h6>
+                    <p class="mb-0 fontsizecontent">We will email them instructions and a link to create an account</p>
+                  </div>
+                </div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                  <p-inputgroup>
+                    <p-inputgroup-addon>
+                      <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                    </p-inputgroup-addon>
+                    <input pInputText [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address" aria-label="Email address to send invite" />
+                  </p-inputgroup>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-12 text-end mt-1">
+                  <button (click)="sendInviteMail()" pButton type="submit" class="btn btn-primary p-button">Send Invite</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- ngSwitch Section -->
+        <ng-container [ngSwitch]="activeSection">
+          <div *ngSwitchCase="'subscription'">
+            <div class="row">
+              <div class="col-12">
+                <div class="card p-3 bg-white">
+                  <div class="row align-items-center">
+                    <div class="col-md-3 col-lg-3 col-sm-12">
+                      <div class="text-start">
+                        <h6 class="mb-1 mt-2">
+                          <strong>Subscription History</strong>
+                        </h6>
+                        <p class="mb-0 fontsizecontent">All the details about your previous subscription parchases</p>
+                        <button pButton class="btn btn-primary p-button" (click)="onClickUpgradePlan()" style="font-size: 0.8rem">Upgrade Your Current Plan &nbsp; <i class="fa-solid fa-stars"></i></button>
+                      </div>
+                    </div>
+                    <div class="col-md-9 col-lg-9 col-sm-12">
+                      <p-table [value]="subscribedHistoryList" responsiveLayout="scroll">
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th class="border-cell">Subscription Plan</th>
+                            <th class="border-cell">Validity</th>
+                            <th class="border-cell">Subscription Start</th>
+                            <th class="border-cell">Subscription End</th>
+                            <th class="border-cell">Amount</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-data>
+                          <tr class="subscription-history-header" style="background-color: #f9f9f9">
+                            <td class="border-cell">{{ data.product }}</td>
+                            <td class="border-cell">{{ data.validity }} {{ data.validity == 1 ? "Month" : "Months" }}</td>
+                            <td class="border-cell">{{ data.startdate }}</td>
+                            <td class="border-cell">{{ data.enddate }}</td>
+                            <td class="border-cell">{{ data.amount }} {{ data.currency }}</td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 mt-2">
+                <div class="card p-3 bg-white">
+                  <div class="row align-items-center">
+                    <div class="col-md-3 col-lg-3 col-sm-12">
+                      <div class="text-start">
+                        <h6 class="mb-1 mt-2">
+                          <strong>Transaction History</strong>
+                        </h6>
+                        <p class="mb-0 fontsizecontent">Your complete transaction history in our platform</p>
+                      </div>
+                    </div>
+                    <div class="col-md-9 col-lg-9 col-sm-12">
+                      <p-table [value]="subscribedTransactionList" responsiveLayout="scroll">
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th class="border-cell">Product</th>
+                            <th class="border-cell">Transaction ID</th>
+                            <th class="border-cell">Payment Date</th>
+                            <th class="border-cell">Status</th>
+                            <th class="border-cell">Amount</th>
+                            <th class="border-cell">Invoice</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-data>
+                          <tr class="subscription-history-header" style="background-color: #f9f9f9">
+                            <td class="border-cell">{{ data.product }}</td>
+                            <td class="border-cell">{{ data.reference }}</td>
+                            <td class="border-cell">{{ data.date }}</td>
+                            <td class="border-cell">
+                              <span *ngIf="data.reference"><i class="fa-solid fa-check" style="color: aquamarine"></i></span>
+                            </td>
+                            <td class="border-cell">{{ data.amount }}</td>
+                            <td class="border-cell">
+                              <button pButton class="btn btn-primary" style="background-color: #90c436 !important; border-color: #90c436" (click)="downloadInvoice(data.id)" *ngIf="data.invoice != 'no'; else noData">Download</button>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
     </div>
+  </div>
 </div>
 <p-confirmDialog></p-confirmDialog>
