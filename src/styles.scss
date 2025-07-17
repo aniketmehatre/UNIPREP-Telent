@@ -2595,6 +2595,38 @@ uni-global-employment-insights {
   }
 }
 
+#socialSharingListMobile,
+.socialSharingListMobile {
+  display: none;
+  position: absolute;
+  right: 0rem;
+  top: 3rem;
+  z-index: 10;
+
+  .p-card-body {
+    padding: 0px;
+
+    .p-card-content {
+      padding: 0px;
+    }
+  }
+
+  ul {
+    padding: 10px !important;
+    margin-bottom: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    i {
+      margin-right: 10px;
+    }
+  }
+}
+
 .answercard {
   background-color: var(--p-neutral-50);
   overflow-y: auto;

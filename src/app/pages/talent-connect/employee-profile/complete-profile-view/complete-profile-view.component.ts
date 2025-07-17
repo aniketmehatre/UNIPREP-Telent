@@ -100,6 +100,15 @@ export class CompleteProfileViewComponent implements OnInit {
       socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
     }
   }
+  showSocialSharingListMobile() {
+    let socialShare: any = document.getElementById("socialSharingListMobile");
+    if (socialShare.style.display == "") {
+      socialShare.style.display = "block";
+    }
+    else {
+      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
+    }
+  }
 
   shareQuestion(type: string) {
     const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
