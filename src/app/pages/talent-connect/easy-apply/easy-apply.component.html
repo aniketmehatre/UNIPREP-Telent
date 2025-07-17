@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<div class="col-md-4 col-sm-4 col-4 text-end order-md-3 order-2">
-				<p-select [options]="currencies" optionLabel="currency_code" dataKey="currency_code" [virtualScroll]="true" [virtualScrollItemSize]="40" [filter]="true" filterBy="currency_code" [showClear]="true" placeholder="Currency" appendTo="body" class="w-auto" (onChange)="onCurrencyExchange($event)" (onClear)="onClearCurrency($event)">
+				<p-select  [options]="currencies" optionLabel="currency_code" dataKey="currency_code" [virtualScroll]="true" [virtualScrollItemSize]="40" [filter]="true" filterBy="currency_code" [showClear]="true" placeholder="Currency" appendTo="body" class="w-auto" (onChange)="onCurrencyExchange($event)" (onClear)="onClearCurrency($event)">
 					<ng-template #selectedItem let-selectedOption>
 						<div *ngIf="selectedOption">
 							<div class="d-md-none d-block text-small">
@@ -242,7 +242,7 @@
 		</div>
 	</div>
 	<div>
-		<p-dialog header="Filter" [(visible)]="displayModal" [modal]="true" [style]="{ width: '80%' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false" styleClass="container">
+		<p-dialog header="Filter" [(visible)]="displayModal" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '65vw' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false" styleClass="container">
 			<form [formGroup]="filterForm" class="p-3">
 				<div class="row g-4">
 					<div class="col-md-6">
