@@ -168,7 +168,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   initializeForm() {
     this.personalInformationForm = this.fb.group({
       profile_image: [null, Validators.required],
-      full_name: ["", [Validators.required]],
+      full_name: [this.authService?._user?.name, [Validators.required]],
       date_of_birth: [null, Validators.required],
       nationality_id: [null, Validators.required],
       gender: [null, Validators.required],
