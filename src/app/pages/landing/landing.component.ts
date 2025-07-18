@@ -40,23 +40,6 @@ export class LandingComponent implements OnInit, OnDestroy {
     ngOnInit() {
 
         this.apiToCheckPartnerOrInstitute()
-        this.route.params.subscribe(params => {
-            this.uuid = params['uuid'];
-            this.currentUrl = this.router.url;
-            this.isFromUUID = !!this.uuid;
-            this.isJobLink = this.currentUrl.startsWith('/job');
-            if (this.isPartner()) {
-                this.isCoBrandingURL = 1
-            }
-
-            if (this.uuid && this.isJobLink) {
-                this.landingService.getJobInviteDetails(this.uuid).subscribe((res: any) => {
-                    this.uuidCardData = res?.data;
-                });
-            } else {
-                this.isFromUUID = false;
-            }
-        });
         // The SEO manager component already handles SEO tags globally
         // We don't need to call setDefaultSeoTags here as it might conflict
 
@@ -161,13 +144,29 @@ export class LandingComponent implements OnInit, OnDestroy {
     }
 
     apiToCheckPartnerOrInstitute() {
-        this.isPartner.set(true)
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
             if (response.source == 'Partner') {
                 this.isPartner.set(true)
             } else if (response.source == 'Institute') {
                 this.isPartner.set(true)
             }
+            this.route.params.subscribe(params => {
+                this.uuid = params['uuid'];
+                this.currentUrl = this.router.url;
+                this.isFromUUID = !!this.uuid;
+                this.isJobLink = this.currentUrl.startsWith('/job');
+                if (this.isPartner()) {
+                    this.isCoBrandingURL = 1
+                }
+
+                if (this.uuid && this.isJobLink) {
+                    this.landingService.getJobInviteDetails(this.uuid).subscribe((res: any) => {
+                        this.uuidCardData = res?.data;
+                    });
+                } else {
+                    this.isFromUUID = false;
+                }
+            });
         })
     }
 }
