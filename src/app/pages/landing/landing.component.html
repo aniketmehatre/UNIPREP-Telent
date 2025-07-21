@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-md flex-column navbar-light sticky-top pt-0" id="mainmenu">
+<nav class="navbar navbar-expand-md flex-column navbar-light sticky-top pt-0 {{ isCoBrandingURL == 1 ? 'd-none' : ''}}"
+  id="mainmenu">
   <div class="topmarquee container-fluid justify-content-center">
     <div class="row">
       <div class="col-md-12">
@@ -240,7 +241,7 @@
   <router-outlet></router-outlet>
 </ng-container>
 
-<uni-landing-footer></uni-landing-footer>
+<uni-landing-footer class="{{ isCoBrandingURL == 1 ? 'd-none' : ''}}"></uni-landing-footer>
 
 <!--<div class="floating-buttons1">-->
 <!--	<div class="floating-btn1 whatsapp" (mouseenter)="hovered1 = 'wa'" (mouseleave)="hovered1 = null">-->
