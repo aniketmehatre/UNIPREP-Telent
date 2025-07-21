@@ -7,6 +7,10 @@ import { TalentConnectService } from '../../talent-connect.service';
 import { StepsModule } from 'primeng/steps';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { PageFacadeService } from 'src/app/pages/page-facade.service';
+import { DrawerModule } from 'primeng/drawer';
+import { JobChatUiComponent } from '../job-chat-ui/job-chat-ui.component';
 
 interface Job {
   isChecked: number;
@@ -52,26 +56,44 @@ interface LangProficiency {
   selector: 'uni-job-details',
   templateUrl: './job-details.component.html',
   styleUrls: ['./job-details.component.scss'],
-  imports: [ChipModule, ButtonModule, StepsModule, CommonModule, RatingModule, FormsModule],
+  imports: [ChipModule, ButtonModule, StepsModule, CommonModule, RatingModule, FormsModule, RouterLink, DrawerModule, JobChatUiComponent],
   standalone: true,
 })
 export class JobDetailsComponent implements OnInit, OnChanges {
 
-  @Input() showInfo: boolean = false;
+  @Input() showInfo: boolean = true;
   @Input() jobDetails: Job = {} as Job;
-  @Input() showChat: boolean = false;
+  @Input() showChat: boolean = true;
   @Output() closeInfo: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() openChat: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   activeIndex: number = 0;
   steps: MenuItem[] = [];
   activeStepIndex: number = 0; // Changed to start from 0
   public array = Array;
+  jobId: number = 0;
+	visible: boolean = false;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService, private pageFacade: PageFacadeService) { }
 
   ngOnInit(): void {
-    this.initJobData();
-    this.setActiveStep(this.jobDetails?.stage || undefined);
+    this.jobId = Number(this.route.snapshot.paramMap.get("id"));
+    if (this.jobId) {
+      this.getJobTrackDetails(this.jobId);
+    }
+  }
+
+  getJobTrackDetails(id: number) {
+    this.talentConnectService.getJobTrackerDetail(id).subscribe({
+      next: (response) => {
+        this.jobDetails = response.job[0];
+        this.showInfo = true;
+        this.initJobData();
+        this.setActiveStep(this.jobDetails?.stage || undefined);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -127,4 +149,8 @@ export class JobDetailsComponent implements OnInit, OnChanges {
     }
     return proficiencyList[proficiency] || 0;
   }
+
+  openVideoPopup() {
+		this.pageFacade.openHowitWorksVideoPopup("company-connect")
+	}
 }

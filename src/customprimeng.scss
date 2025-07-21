@@ -48,7 +48,7 @@
   align-items: center;
 }
 
-.iti__flag-container.open + input {
+.iti__flag-container.open+input {
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
@@ -152,7 +152,7 @@ ngx-intl-tel-input input[disabled] {
 }
 
 .whatsappVerification .p-dialog-content {
-    overflow-y: visible;
+  overflow-y: visible;
 }
 
 .p-multiselect-option {
@@ -161,4 +161,31 @@ ngx-intl-tel-input input[disabled] {
 
 .p-inputnumber-input {
   margin: 0 !important;
+}
+
+.custom-tab {
+  .p-tablist-tab-list {
+    gap: 10px;
+    border: 0;
+  }
+
+  .p-tab {
+    background-color: var(--p-neutral-200);
+    color: var(--p-neutral-500);
+    padding: 5px 10px;
+    border-radius: 6px;
+
+    &:hover {
+      background-color: var(--p-neutral-200) !important;
+    }
+  }
+
+  .p-tab-active {
+    background-color: var(--p-secondary-500);
+    color: var(--p-neutral-50);
+
+    &:hover {
+      background-color: var(--p-secondary-500) !important;
+    }
+  }
 }

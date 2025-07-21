@@ -1,12 +1,8 @@
-import { Component, Output, EventEmitter } from "@angular/core";
-import { Dialog } from "primeng/dialog";
-import { Select } from "primeng/select";
+import { Component } from "@angular/core";
 import { JobListComponent } from "./job-list/job-list.component";
 import { CommonModule } from "@angular/common";
 import { TalentConnectService } from "../talent-connect.service";
 import { RouterModule } from "@angular/router";
-import { JobDetailsComponent } from "./job-details/job-details.component";
-import { JobChatUiComponent } from "./job-chat-ui/job-chat-ui.component";
 import { MultiSelectModule } from "primeng/multiselect";
 import { InputNumberModule } from "primeng/inputnumber";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -29,7 +25,7 @@ interface ChatMessage {
 	templateUrl: "./job-tracker.component.html",
 	styleUrls: ["./job-tracker.component.scss"],
 	standalone: true,
-	imports: [ReactiveFormsModule, JobListComponent, DrawerModule, JobDetailsComponent, JobChatUiComponent, InputNumberModule, MultiSelectModule, CommonModule, RouterModule, 
+	imports: [ReactiveFormsModule, JobListComponent, DrawerModule, InputNumberModule, MultiSelectModule, CommonModule, RouterModule, 
 		ButtonModule
 	],
 })
