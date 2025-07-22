@@ -15,7 +15,7 @@ import { PopoverModule } from 'primeng/popover';
 import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { ButtonModule } from "primeng/button";
 import { SelectModule } from "primeng/select";
-import { StorageService } from "../../storage.service";
+import { StorageService } from "../../services/storage.service";
 @Component({
   selector: "uni-chat",
   templateUrl: "./chat.component.html",

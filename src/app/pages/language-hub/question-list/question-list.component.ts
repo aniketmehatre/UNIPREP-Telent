@@ -23,7 +23,7 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { CarouselModule } from "primeng/carousel";
 import { InputGroupModule } from "primeng/inputgroup";
 import { InputGroupAddonModule } from "primeng/inputgroupaddon";
-import { StorageService } from "../../../storage.service";
+import { StorageService } from "../../../services/storage.service";
 @Component({
   selector: "uni-question-list",
   templateUrl: "./question-list.component.html",

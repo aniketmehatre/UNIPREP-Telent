@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { PageFacadeService } from "../../page-facade.service";
 import { Meta } from "@angular/platform-browser";
 import { FortuneCompaniesService } from "../fortune-companies.service";
-import { DataService } from "src/app/data.service";
-import { SocialShareService } from "src/app/shared/social-share.service";
+import { DataService } from "src/app/services/data.service";
+import { SocialShareService } from "src/app/services/social-share.service";
 
 @Component({
   selector: "uni-fortune-companies-data-list",

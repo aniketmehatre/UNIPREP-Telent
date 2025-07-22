@@ -28,7 +28,7 @@
                             {{visaCategoryTitle}}</h5>
                     </div>
                     <div>
-                        <button pButton class="how-it-works-button" severity="warn">How it works? <i
+                        <button pButton (click)="openVideoPopup()"  class="how-it-works-button" severity="warn">How it works? <i
                                 class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div>
                 </div>
@@ -48,8 +48,6 @@
                             <div>&nbsp;</div>
                             <div class="row justify-content-center text-start">
                                 <div class="col-md-12 mb-4">
-                                    <!-- <h5 class="text-center uniprep-primary fw-semibold mb-0">Question Number {{ recommendation.id }}
-                                    </h5> -->
                                     <h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
                                 </div>
                                 <div class="col-md-6">

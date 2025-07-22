@@ -2,8 +2,8 @@ import { Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/co
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { DataService } from 'src/app/data.service';
-import { LocationService } from 'src/app/location.service';
+import { DataService } from 'src/app/services/data.service';
+import { LocationService } from 'src/app/services/location.service';
 import { ModuleServiceService } from '../module-store/module-service.service';
 import { ModuleStoreService } from '../module-store/module-store.service';
 import {FormsModule} from "@angular/forms";

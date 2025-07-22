@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
 import { BehaviorSubject, Observable, of, throwError, timer } from "rxjs";
 import { catchError, timeout, tap, map, shareReplay, retryWhen, delay, take, finalize } from "rxjs/operators";
-import {StorageService} from "../../storage.service";
-import { LocationService } from "src/app/location.service";
+import {StorageService} from "../../services/storage.service";
+import { LocationService } from "src/app/services/location.service";
 
 @Injectable({
   providedIn: "root",

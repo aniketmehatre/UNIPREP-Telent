@@ -15,7 +15,7 @@ import { MultiSelectModule } from "primeng/multiselect"
 import { CarouselModule } from "primeng/carousel"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { StorageService } from "../../../storage.service"
+import { StorageService } from "../../../services/storage.service"
 import { PageFacadeService } from "../../page-facade.service"
 @Component({
 	selector: "uni-translate-view",

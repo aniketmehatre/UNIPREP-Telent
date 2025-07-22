@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { map } from 'rxjs';
-import { removeExtraResponse } from '../prompt';
+import { removeExtraResponse } from '../../@Supports/prompt';
 import { EmployeeConnectProfile, EmployeeConnectProfileRes } from 'src/app/@Models/employee-connect-profile';
 import { Departments } from 'src/app/@Models/user-profile.model';
 

@@ -22,8 +22,8 @@ import { Meta } from "@angular/platform-browser";
 import { SkeletonModule } from "primeng/skeleton";
 import { SharedModule } from "src/app/shared/shared.module";
 import { SavedJobInterviewQuestion } from "src/app/@Models/job-interview.model";
-import { SocialShareService } from "src/app/shared/social-share.service";
-import { DataService } from "src/app/data.service";
+import { SocialShareService } from "src/app/services/social-share.service";
+import { DataService } from "src/app/services/data.service";
 @Component({
   selector: "uni-preparedlist",
   templateUrl: "./preparedlist.component.html",

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModuleServiceService } from '../module-store/module-service.service';
-import { LocationService } from 'src/app/location.service';
-import { DataService } from 'src/app/data.service';
+import { LocationService } from 'src/app/services/location.service';
+import { DataService } from 'src/app/services/data.service';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { PageFacadeService } from '../page-facade.service';
 import { DialogModule } from 'primeng/dialog';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
-import { StorageService } from "../../storage.service";
+import { StorageService } from "../../services/storage.service";
 @Component({
   selector: 'uni-quizmenu',
   templateUrl: './quizmenu.component.html',

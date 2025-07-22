@@ -22,11 +22,11 @@ import { CommonType } from 'src/app/@Models/common-type';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { Currencies } from 'src/app/@Models/currency.model';
 import { DomSanitizer } from '@angular/platform-browser';
-import { PromptService } from '../../prompt.service';
+import { PromptService } from "src/app/services/prompt.service";
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SkeletonModule } from 'primeng/skeleton';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { removeExtraResponse } from '../../prompt';
+import { removeExtraResponse } from '../../../@Supports/prompt';
 
 @Component({
   selector: 'uni-edu-loan-compare',

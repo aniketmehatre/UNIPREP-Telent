@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { landingServices } from '../landing.service';
 import { ButtonModule } from 'primeng/button';
@@ -23,8 +23,8 @@ interface CareerCard {
 }
 
 @Component({
-  selector: 'app-job-seekers-landing',
-  standalone: true,
+	selector: 'app-job-seekers-landing',
+	standalone: true,
 	imports: [
 		CommonModule,
 		FormsModule,
@@ -33,8 +33,8 @@ interface CareerCard {
 		RouterModule,
 		ButtonModule
 	],
-  templateUrl: './job-seekers-landing.component.html',
-  styleUrls: ['./job-seekers-landing.component.scss']
+	templateUrl: './job-seekers-landing.component.html',
+	styleUrls: ['./job-seekers-landing.component.scss']
 })
 export class JobSeekersLandingComponent implements OnInit {
 	steps: any = [];
@@ -48,7 +48,7 @@ export class JobSeekersLandingComponent implements OnInit {
 	categoryDescription: string = '';
 	benefits: any = [];
 
-	constructor(private landingService: landingServices, private route: ActivatedRoute) { }
+	constructor(private landingService: landingServices, private route: ActivatedRoute, private router: Router) { }
 
 	ngOnInit() {
 		this.steps = [
@@ -164,10 +164,19 @@ export class JobSeekersLandingComponent implements OnInit {
 		});
 	}
 
-
-
 	getCardsForStep(step: string): CareerCard[] {
 		return this.careerCards[step] || [];
-  }
+	}
 
+	navigateToCard(card: CareerCard) {
+		if (card.status === 4) {
+			return;
+		}
+		if (card.feature_name == 'Employer Connect') {
+		  window.location.href = 'https://talent.uniprep.ai/';
+		}
+		else {
+			this.router.navigate(['/', this.categorySlug, card.feature_urlslug]);
+		}
+	}
 }

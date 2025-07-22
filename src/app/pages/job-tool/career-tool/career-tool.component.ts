@@ -4,7 +4,7 @@ import { environment } from '@env/environment';
 import { EmployerGlobalService } from "../employer-global.service";
 import { CommonModule } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
-import { StorageService } from "../../../storage.service";
+import { StorageService } from "../../../services/storage.service";
 import { SharedModule } from 'src/app/shared/shared.module';
 export interface CareerTools {
   id: number

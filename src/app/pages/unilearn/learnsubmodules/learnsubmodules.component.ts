@@ -21,7 +21,7 @@ import { Location } from "@angular/common";
 import { AuthService } from "src/app/Auth/auth.service";
 import { DialogModule } from "primeng/dialog";
 
-import { StorageService } from "../../../storage.service";
+import { StorageService } from "../../../services/storage.service";
 import { PdfViewerModule } from "ng2-pdf-viewer";
 
 @Component({

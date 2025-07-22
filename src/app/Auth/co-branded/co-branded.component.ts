@@ -22,10 +22,10 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { InputIconModule } from "primeng/inputicon"
 import { InputTextModule } from "primeng/inputtext"
 import { PasswordModule } from "primeng/password"
-import { AuthTokenService } from "src/app/core/services/auth-token.service"
-import { DataService } from "src/app/data.service"
+import { AuthTokenService } from "src/app/services/auth-token.service"
+import { DataService } from "src/app/services/data.service"
 import { SubSink } from "subsink"
-import { LocationService } from "../../location.service"
+import { LocationService } from "../../services/location.service"
 import { AuthService } from "../auth.service"
 import { finalize } from 'rxjs/operators';
 

@@ -5,7 +5,7 @@ import { Location } from "@angular/common"
 import { AuthService } from "src/app/Auth/auth.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
-import { StorageService } from "../../storage.service";
+import { StorageService } from "../../services/storage.service";
 @Component({
 	selector: "uni-national-exam-tests",
 	templateUrl: "./national-exam-tests.component.html",

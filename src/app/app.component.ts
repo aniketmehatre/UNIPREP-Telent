@@ -1,12 +1,12 @@
 import { Component, inject, OnInit, signal } from "@angular/core";
-import { LocationService } from "./location.service";
+import { LocationService } from "./services/location.service";
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { ToastModule } from "primeng/toast";
 import { Router, RouterModule } from "@angular/router";
 import { MessageService } from "primeng/api";
-import { SocialShareService } from "./shared/social-share.service";
+import { SocialShareService } from "./services/social-share.service";
 import { ScrollTopModule } from "primeng/scrolltop";
-import { BrandColorService } from "./core/services/brand-color.service";
+import { BrandColorService } from "./services/brand-color.service";
 
 @Component({
 	selector: "app-root",

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NationalExamService } from './national-exam.service';
 import { Router } from '@angular/router';
 import { Location } from "@angular/common"
-import {StorageService} from "../../storage.service";
+import {StorageService} from "../../services/storage.service";
 
 @Component({
     selector: 'uni-national-exam-categories',

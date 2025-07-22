@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } 
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/location.service';
+import { LocationService } from 'src/app/services/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { EducationToolsService } from '../education-tools.service';
 import { optionsGlobal } from './global-edufit.data';
@@ -16,10 +16,10 @@ import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { PromptService } from '../../prompt.service';
+import { PromptService } from "src/app/services/prompt.service";
 import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { removeExtraResponse } from "../../prompt"
+import { removeExtraResponse } from "../../../@Supports/prompt"
 @Component({
   selector: 'uni-global-edufit',
   templateUrl: './global-edufit.component.html',

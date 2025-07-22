@@ -20,10 +20,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { uniCompareOptions } from './uni-compare.data';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { PromptService } from '../../prompt.service';
+import { PromptService } from "src/app/services/prompt.service";
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SkeletonModule } from 'primeng/skeleton';
-import { removeExtraResponse } from "../../prompt"
+import { removeExtraResponse } from "../../../@Supports/prompt"
 @Component({
   selector: 'uni-uni-compare',
   templateUrl: './uni-compare.component.html',

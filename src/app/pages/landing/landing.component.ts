@@ -1,9 +1,11 @@
-import { Component, OnDestroy, OnInit } from "@angular/core"
-import { ThemeService } from "../../theme.service"
+import { Component, OnDestroy, OnInit, signal } from "@angular/core"
+import { ThemeService } from "../../services/theme.service"
 import { AuthService } from "../../Auth/auth.service"
 import { environment } from "@env/environment"
 import { ActivatedRoute, Router } from "@angular/router"
 import { HeaderLogoStore } from "./landing-page.store"
+import { landingServices } from "./landing.service"
+import { LocationService } from "../../services/location.service"
 
 @Component({
     selector: "uni-landing",
@@ -14,23 +16,33 @@ import { HeaderLogoStore } from "./landing-page.store"
 export class LandingComponent implements OnInit, OnDestroy {
     isDarkMode: boolean
     logoUrl$ = this.logoStore.logoUrl$;
-
     constructor(
-        private logoStore: HeaderLogoStore, 
+        private logoStore: HeaderLogoStore,
         private themeService: ThemeService,
-        private router: Router, 
-        private authService: AuthService, 
-        private route: ActivatedRoute
+        private router: Router,
+        private authService: AuthService, private locationService: LocationService,
+        private route: ActivatedRoute, private landingService: landingServices
     ) {
         // Initialize the isDarkMode property with the value from the service
         this.isDarkMode = this.themeService.getInitialSwitchState()
     }
 
+    isFromUUID = false;
+    uuidCardData: any = null;
+    currentUrl: string = '';
+    isJobLink: boolean = false;
+    isCompanyLink: boolean = false;
+    isTalentLink: boolean = false;
     uuid: any
+    isCoBrandingURL = 0
+    isPartner = signal<boolean>(false)
+
     ngOnInit() {
+
+        this.apiToCheckPartnerOrInstitute()
         // The SEO manager component already handles SEO tags globally
         // We don't need to call setDefaultSeoTags here as it might conflict
-        
+
         // this.uuid = this.route.snapshot.paramMap.get('uuid');
         // if (this.authService.isTokenValid()) {
         //     if (this.uuid) {
@@ -129,5 +141,32 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         //localStorage.clear();
+    }
+
+    apiToCheckPartnerOrInstitute() {
+        this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
+            if (response.source == 'Partner') {
+                this.isPartner.set(true)
+            } else if (response.source == 'Institute') {
+                this.isPartner.set(true)
+            }
+            this.route.params.subscribe(params => {
+                this.uuid = params['uuid'];
+                this.currentUrl = this.router.url;
+                this.isFromUUID = !!this.uuid;
+                this.isJobLink = this.currentUrl.startsWith('/job');
+                if (this.isPartner()) {
+                    this.isCoBrandingURL = 1
+                }
+
+                if (this.uuid && this.isJobLink) {
+                    this.landingService.getJobInviteDetails(this.uuid).subscribe((res: any) => {
+                        this.uuidCardData = res?.data;
+                    });
+                } else {
+                    this.isFromUUID = false;
+                }
+            });
+        })
     }
 }

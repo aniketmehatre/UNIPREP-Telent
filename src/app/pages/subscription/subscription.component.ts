@@ -7,7 +7,7 @@ import { Billinginfo, OrderHistory, Subscription, SubscriptionPlan, Subscription
 import { Observable, switchMap } from "rxjs"
 import { selectBillingInfo } from "./store/selectors"
 import { select } from "@ngrx/store"
-import { DataService } from "src/app/data.service"
+import { DataService } from "src/app/services/data.service"
 import { environment } from "@env/environment"
 import { DashboardService } from "../dashboard/dashboard.service"
 import { NgxStripeModule, StripeCardComponent, StripePaymentElementComponent, StripeService } from "ngx-stripe"
@@ -22,8 +22,8 @@ import { SubscriptionDataComponent } from "./subscription-data/subscription-data
 import { SubscriptionListComponent } from "./subscription-list/subscription-list.component"
 import { SubscriptionBillingComponent } from "./subscription-billing/subscription-billing.component"
 import { SubscriptionSuccessComponent } from "./subscription-success/subscription-success.component"
-import { StorageService } from "../../storage.service";
-import { LocationService } from "src/app/location.service"
+import { StorageService } from "../../services/storage.service";
+import { LocationService } from "src/app/services/location.service"
 @Component({
 	selector: "uni-subscription",
 	templateUrl: "./subscription.component.html",

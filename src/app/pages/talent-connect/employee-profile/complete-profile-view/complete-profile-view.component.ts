@@ -12,30 +12,22 @@ import { UserProfile } from 'src/app/@Models/user-profile.model';
 import { TalentConnectService } from '../../talent-connect.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import { SocialShareService } from 'src/app/shared/social-share.service';
+import { SocialShareService } from 'src/app/services/social-share.service';
 import { Meta } from '@angular/platform-browser';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-complete-profile-view',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    ButtonModule,
-    ProgressBarModule,
-    RatingModule,
-    CardModule,
-    DividerModule,
-    FormsModule,
-    ProgressBarModule,
-    TooltipModule],
+  imports: [CommonModule, RouterModule, ButtonModule, ProgressBarModule, RatingModule, CardModule, DividerModule, FormsModule,
+    ProgressBarModule, TooltipModule, SkeletonModule],
   templateUrl: './complete-profile-view.component.html',
   styleUrls: ['./complete-profile-view.component.scss']
 })
 export class CompleteProfileViewComponent implements OnInit {
   profileData!: UserProfile;
   userId: string = '';
-
+  isSkeletonVisible: boolean = true;
   // Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
@@ -54,14 +46,15 @@ export class CompleteProfileViewComponent implements OnInit {
     this.talentConnectService.getStudentProfilesUsingId(id).subscribe({
       next: response => {
         this.profileData = response.data[0];
+        this.isSkeletonVisible = false;
       },
       error: error => {
+        this.isSkeletonVisible = false;
         this.message.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong' });
-        this.router.navigateByUrl('/pages/talent-connect/my-profile');
       }
     });
   }
-  
+
   extractFileName(url: string): string {
     if (!url) return '';
     let fileName = url.split('/').pop() || '';

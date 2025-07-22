@@ -7,7 +7,7 @@ import { CountryInsightPayload, CountryInsightsResponse, QuestionListSuccess, Qu
 import { EducatiionsRec,CourseNavigator } from 'src/app/@Models/course-navigator.model';
 import { CountryAndUniversity } from 'src/app/@Models/education-tools.model';
 import { map } from 'rxjs';
-import { removeExtraResponse } from '../prompt';
+import { removeExtraResponse } from '../../@Supports/prompt';
 
 @Injectable({
   providedIn: 'root'

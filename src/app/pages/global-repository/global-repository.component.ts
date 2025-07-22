@@ -2,14 +2,14 @@ import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { Router, RouterModule } from "@angular/router";
 import { DialogModule } from "primeng/dialog";
-import { DataService } from "src/app/data.service";
-import { LocationService } from "src/app/location.service";
+import { DataService } from "src/app/services/data.service";
+import { LocationService } from "src/app/services/location.service";
 import { DropdownModule } from "primeng/dropdown";
 import { SkeletonModule } from "primeng/skeleton";
 import { TooltipModule } from "primeng/tooltip";
 import { SelectModule } from "primeng/select";
 import { FormControl, FormGroup, FormsModule } from "@angular/forms";
-import { StorageService } from "../../storage.service";
+import { StorageService } from "../../services/storage.service";
 import { Carousel } from "primeng/carousel";
 import { AuthService } from "src/app/Auth/auth.service";
 @Component({

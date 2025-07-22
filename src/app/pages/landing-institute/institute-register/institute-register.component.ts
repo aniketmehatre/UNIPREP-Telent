@@ -5,7 +5,7 @@ import { LocalStorageService } from 'ngx-localstorage';
 import { MessageService } from 'primeng/api';
 import { matchValidator } from 'src/app/@Supports/matchvalidator';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/location.service';
+import { LocationService } from 'src/app/services/location.service';
 import { SubSink } from 'subsink';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';

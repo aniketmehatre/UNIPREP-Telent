@@ -5,10 +5,10 @@ import { TieredMenuModule } from "primeng/tieredmenu";
 import { filter } from "rxjs";
 import { map } from "rxjs/operators";
 import { AuthService } from "src/app/Auth/auth.service";
-import { DataService } from "src/app/data.service";
-import { LocationService } from "src/app/location.service";
+import { DataService } from "src/app/services/data.service";
+import { LocationService } from "src/app/services/location.service";
 import { AssessmentService } from "src/app/pages/assessment/assessment.service";
-import { StorageService } from "src/app/storage.service";
+import { StorageService } from "src/app/services/storage.service";
 import { TalentConnectService } from "src/app/pages/talent-connect/talent-connect.service";
 
 export interface SideMenu {

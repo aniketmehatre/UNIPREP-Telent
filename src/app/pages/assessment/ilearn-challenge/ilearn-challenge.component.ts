@@ -11,7 +11,7 @@ import { SelectModule } from 'primeng/select';
 import { DialogModule } from 'primeng/dialog';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TooltipModule } from 'primeng/tooltip';
-import {StorageService} from "../../../storage.service";
+import {StorageService} from "../../../services/storage.service";
 
 
 @Component({

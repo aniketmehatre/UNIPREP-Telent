@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { PageFacadeService } from '../../page-facade.service';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/location.service';
+import { LocationService } from 'src/app/services/location.service';
 import { FoundersToolsData } from './founders-tool-list-data';
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { SharedModule } from 'src/app/shared/shared.module';
-import { StorageService } from 'src/app/storage.service';
+import { StorageService } from 'src/app/services/storage.service';
 @Component({
   selector: 'uni-founderstoollist',
   templateUrl: './founderstoollist.component.html',

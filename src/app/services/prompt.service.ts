@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { TravelToolsService } from './travel-tools/travel-tools.service';
+import { TravelToolsService } from '../pages/travel-tools/travel-tools.service';
 import { DownloadRespose } from 'src/app/@Models/travel-tools.model';
 import { environment } from '@env/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { removeExtraResponse } from './prompt';
+import { removeExtraResponse } from '../@Supports/prompt';
 @Injectable({
     providedIn: 'root'
 })

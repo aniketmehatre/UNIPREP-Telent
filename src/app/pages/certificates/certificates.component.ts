@@ -5,7 +5,7 @@ import { DomSanitizer, Meta, SafeResourceUrl } from "@angular/platform-browser"
 import { MessageService } from "primeng/api"
 import { CommonModule } from "@angular/common"
 import { InputTextModule } from "primeng/inputtext"
-import { SocialShareService } from "src/app/shared/social-share.service"
+import { SocialShareService } from "src/app/services/social-share.service"
 @Component({
 	selector: "uni-certificates",
 	templateUrl: "./certificates.component.html",

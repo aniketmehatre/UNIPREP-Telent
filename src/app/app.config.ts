@@ -30,10 +30,10 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { provideServiceWorker } from '@angular/service-worker';
 import MyPreset from "./mypreset"
 import { LandingModule } from "./pages/landing/landing.module"
-import { AuthTokenService } from "./core/services/auth-token.service"
-import { StorageService } from "./storage.service"
-import { LocationService } from "./location.service"
-import { DataService } from "./data.service"
+import { AuthTokenService } from "./services/auth-token.service"
+import { StorageService } from "./services/storage.service"
+import { LocationService } from "./services/location.service"
+import { DataService } from "./services/data.service"
 
 // Assuming ngxLocalstorageConfiguration is properly defined elsewhere in your code
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as {

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
 import { FounderstoolService } from '../founderstool.service';
 import { Meta } from '@angular/platform-browser';
-import { DataService } from 'src/app/data.service';
+import { DataService } from 'src/app/services/data.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { CommonModule } from '@angular/common';
@@ -18,8 +18,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { PaginatorModule } from 'primeng/paginator';
 import { TooltipModule } from 'primeng/tooltip';
-import { StorageService } from "../../../storage.service";
-import { SocialShareService } from 'src/app/shared/social-share.service';
+import { StorageService } from "../../../services/storage.service";
+import { SocialShareService } from 'src/app/services/social-share.service';
 @Component({
   selector: 'uni-wealthleaderreadans',
   templateUrl: './wealthleaderreadans.component.html',
