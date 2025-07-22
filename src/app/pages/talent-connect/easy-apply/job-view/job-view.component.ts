@@ -61,19 +61,15 @@ export class JobViewComponent implements OnInit {
 					// Parse string arrays if they come as comma-separated strings
 					this.jobDetails = {
 						...jobData,
-						interview_format: Array.isArray(jobData.interview_format) ? jobData.interview_format : [jobData.interview_format],
+						interview_format: this.getArrayFormat(jobData?.interview_format),
 						technical_proficiency: this.parseArrayData(jobData.technical_proficiency),
-						key_responsibilities: jobData.key_responsibilities, // ✅ keep as-is since it's HTML
 						language_proficiency: this.parseLanguageProficiency(jobData.language_proficiency),
-						compensation_structure: Array.isArray(jobData.compensation_structure) ? jobData.compensation_structure : [jobData.compensation_structure],
-						work_mode: Array.isArray(jobData.work_mode) ? jobData.work_mode : [jobData.work_mode],
-						employment_type: Array.isArray(jobData.employment_type) ? jobData.employment_type : [jobData.employment_type],
-						benefits_perks: Array.isArray(jobData.benefits_perks) ? jobData.benefits_perks : [jobData.benefits_perks],
-						soft_skills: Array.isArray(jobData.soft_skills) ? jobData.soft_skills : [jobData.soft_skills],
-						hiring_stages: Array.isArray(jobData.hiring_stages) ? jobData.hiring_stages : [jobData.hiring_stages],
-						company_name: jobData.company_name || jobData.company_name,
-						company_logo: jobData.company_logo_url || jobData.company_logo,
-						work_location: jobData.work_location || jobData.worklocation,
+						compensation_structure: this.getArrayFormat(jobData?.compensation_structure),
+						work_mode:this.getArrayFormat(jobData?.work_mode),
+						employment_type:this.getArrayFormat(jobData?.employment_type),
+						benefits_perks: this.getArrayFormat(jobData?.benefits_perks),
+						soft_skills: this.getArrayFormat(jobData?.soft_skills),
+						hiring_stages: this.getArrayFormat(jobData?.hiring_stages)
 					};
 					if (response?.applied_jobid) {
 						this.appliedId = response?.applied_jobid;
@@ -88,6 +84,10 @@ export class JobViewComponent implements OnInit {
 				console.log(error);
 			},
 		});
+	}
+
+	getArrayFormat(data: any) {
+		return data ? (Array.isArray(data) ? data : [data]) : [];
 	}
 
 	// Helper method to parse string data into arrays
