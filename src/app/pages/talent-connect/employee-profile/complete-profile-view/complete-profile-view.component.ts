@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { SocialShareService } from 'src/app/services/social-share.service';
 import { Meta } from '@angular/platform-browser';
 import { SkeletonModule } from 'primeng/skeleton';
+import { PageFacadeService } from 'src/app/pages/page-facade.service';
 
 @Component({
   selector: 'app-complete-profile-view',
@@ -31,6 +32,7 @@ export class CompleteProfileViewComponent implements OnInit {
   // Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
+  pageFacade = inject(PageFacadeService);
 
   constructor(private activatedRoute: ActivatedRoute, private talentConnectService: TalentConnectService,
     private message: MessageService, private router: Router) { }
@@ -130,5 +132,9 @@ export class CompleteProfileViewComponent implements OnInit {
       return 'Not specified';
     }
     return data.length > 1 ? `${data[0]} +${data.length - 1}` : data[0];
+  }
+
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("");
   }
 }

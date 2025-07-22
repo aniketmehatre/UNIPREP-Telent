@@ -79,7 +79,7 @@ export class CompanyTracker1Component {
   }
 
   openVideoPopup() {
-    this.pageFacade.openHowitWorksVideoPopup("company-connect");
+    this.pageFacade.openHowitWorksVideoPopup("company-tracker");
   }
 
   getCompanyTotalCount(data: any) {

@@ -485,7 +485,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   openVideoPopup() {
-    this.pageFacade.openHowitWorksVideoPopup("company-connect");
+    this.pageFacade.openHowitWorksVideoPopup("easy-apply");
   }
 
   openProfileDialog(isSample: boolean) {

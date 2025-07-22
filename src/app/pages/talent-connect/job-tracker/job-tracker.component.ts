@@ -87,7 +87,7 @@ export class JobTrackerComponent {
 	}
 
 	openVideoPopup() {
-		this.pageFacade.openHowitWorksVideoPopup("company-connect")
+		this.pageFacade.openHowitWorksVideoPopup("job-tracker")
 	}
 
 	getJobTotalCount(data: any) {

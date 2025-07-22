@@ -178,7 +178,7 @@ export class EasyApplyComponent {
   }
 
   openVideoPopup() {
-    this.pageFacade.openHowitWorksVideoPopup("company-connect")
+    this.pageFacade.openHowitWorksVideoPopup("easy-apply")
   }
 
   onCurrencyExchange(event: any) {

@@ -158,58 +158,70 @@ export const howItWorksLinks: { [key: string]: { video_link: string } } = {
   "investor-pitch-training": {
     video_link: "https://www.youtube.com/embed/woLzNBNWs8M?si=kqipnzSifB_1FqqS"
   },
-   "career-growth-checker": {
+  "career-growth-checker": {
     video_link: "https://www.youtube.com/embed/50nA5D_6A0k?si=Nigra4mWamGf04x-"
   },
   "skill-mastery": {
     video_link: "https://www.youtube.com/embed/v6OkUBLyo9g?si=Xn-zHskCHISTveWQ"
   },
-  "pre-admission":{
+  "pre-admission": {
     video_link: "https://www.youtube.com/embed/AgpftQuN8xE?si=j_OHqncqC7bAKCG7"
   },
-  "travel-and-tourism":{
-    video_link: "https://www.youtube.com/embed/wHL_3to7LCA?si=HVpqa3SNd4i_wQix" 
+  "travel-and-tourism": {
+    video_link: "https://www.youtube.com/embed/wHL_3to7LCA?si=HVpqa3SNd4i_wQix"
   },
-  "post-admission":{
+  "post-admission": {
     video_link: "https://www.youtube.com/embed/ZPcDLaA9ek0?si=R-qhh-GLoDKrIs1H"
   },
-  "career-hub":{
+  "career-hub": {
     video_link: "https://www.youtube.com/embed/ZMvdoyD7iOU?si=1CyOGnlYem_Cb80k"
   },
-  "university":{
+  "university": {
     video_link: "https://www.youtube.com/embed/7AfJL5a3NNg?si=AVYkGbMRNXaFJmic"
   },
-  "learning-hub":{
+  "learning-hub": {
     video_link: "https://www.youtube.com/embed/rXUTHl8G5lQ?si=qNdxxM0D_UjnR0FU"
   },
-  "life-in":{
+  "life-in": {
     video_link: "https://www.youtube.com/embed/TAsEr6qGwak?si=js68wWK5yi0HTbRD"
   },
-  "k-12":{
+  "k-12": {
     video_link: "https://www.youtube.com/embed/Zh4pPEZ160c?si=i8vkRTgh70TuoqDn"
   },
-  "career-planner-country-wise":{
+  "career-planner-country-wise": {
     video_link: "https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS"
   },
-  "recommendations":{
+  "recommendations": {
     video_link: "https://www.youtube.com/embed/0i_5mQ0zV74?si=myAIQqaAi3-5osvO"
   },
-  "resource":{
+  "resource": {
     video_link: "https://www.youtube.com/embed/1KA9phVhkgM?si=mSwMe9gquEWEtI9a"
   },
-  "company-connect":{
-    video_link: "https://www.youtube.com/embed/UMRenyPjO6E?si=vynfuwkpEPpqeYbo"
-  },
-  "work-visa":{
+  "work-visa": {
     video_link: "https://www.youtube.com/embed/JeQNhc6pYKU?si=BrsCwce5W-_649vO"
   },
-  "global_study_visa":{
+  "global_study_visa": {
     video_link: "https://www.youtube.com/embed/PEp47UJ7EFE?si=_78cW7nJTQZ4fRLP"
   },
-  "global_entrepreneur_visa":{
+  "global_entrepreneur_visa": {
     video_link: "https://www.youtube.com/embed/RgoaOV4lz9M?si=i3VE82xd-f_-acKN"
   },
-  "global_travel_visa":{
+  "global_travel_visa": {
     video_link: "https://www.youtube.com/embed/7IweqsTkefI?si=fbcFsW_L6dd63nZ9"
+  },
+  "easy-apply": {
+    video_link: "https://www.youtube.com/embed/icxpTyvF4v0?si=dllg2O-VbKuC7gIL"
+  },
+  "company-connect" : {
+    video_link: "https://www.youtube.com/embed/sOblWXWfYAk?si=G78qhPbA_oayf62Q"
+  },
+  "company-tracker" : {
+    video_link: "https://www.youtube.com/embed/bfRHZklLeT0?si=BhwWTKCGARHVunBs"
+  },
+  "job-tracker" : {
+    video_link: "https://www.youtube.com/embed/fpJW6if1Z3o?si=h1ixq073QyTB5DcE"
+  },
+  "talent-profile-creation" : {
+    video_link: "https://www.youtube.com/embed/UMRenyPjO6E?si=6HXjTZ58F5sSboDi"
   },
 };
