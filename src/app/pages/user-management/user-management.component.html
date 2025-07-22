@@ -89,6 +89,7 @@
 
       <!-- Body -->
       <div class="mt-2 body">
+        <uni-complete-profile-view [userid]="employerProfileData?.id"></uni-complete-profile-view>
         <!-- First 5 Section Cards -->
         <div *ngIf="!isSwitchSection()" class="row">
           <div class="col-md-12 mb-3" id="profileCard">

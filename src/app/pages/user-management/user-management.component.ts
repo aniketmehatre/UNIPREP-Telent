@@ -8,7 +8,6 @@ import { UserManagementService } from "./user-management.service"
 import { SubSink } from "subsink"
 import { Router, RouterModule } from "@angular/router"
 import { DashboardService } from "../dashboard/dashboard.service"
-import { DataService } from "../../services/data.service"
 import { Location } from "@angular/common"
 import { CommonModule } from "@angular/common"
 import { SkeletonModule } from "primeng/skeleton"
@@ -24,8 +23,7 @@ import { SelectModule } from "primeng/select"
 import { DialogModule } from "primeng/dialog"
 import { CardModule } from "primeng/card"
 import { InputNumberModule } from "primeng/inputnumber"
-import { StorageService } from "../../services/storage.service";
-import { catchError, combineLatest, EMPTY, finalize, forkJoin, of, timeout } from "rxjs"
+import { catchError, EMPTY, finalize, forkJoin, timeout } from "rxjs"
 import { InputSwitchModule } from "primeng/inputswitch"
 import { TableModule } from "primeng/table"
 import { SubscriptionService } from "../subscription/subscription.service"
@@ -33,12 +31,18 @@ import { ConfirmDialogModule } from "primeng/confirmdialog"
 import { AuthTokenService } from "src/app/services/auth-token.service"
 import { CalendarModule } from "primeng/calendar"
 import { PasswordModule } from "primeng/password"
+import { CompleteProfileViewComponent } from "../talent-connect/employee-profile/complete-profile-view/complete-profile-view.component"
+import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile"
+import { TalentConnectService } from "../talent-connect/talent-connect.service"
 @Component({
 	selector: "uni-user-management",
 	templateUrl: "./user-management.component.html",
 	styleUrls: ["./user-management.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, PasswordModule, ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
+	imports: [CommonModule, RouterModule, PasswordModule, ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule,
+		FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule,
+		CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule,
+		DialogModule, CardModule, InputNumberModule, CompleteProfileViewComponent],
 	providers: [ConfirmationService]
 })
 export class UserManagementComponent implements OnInit {
@@ -75,12 +79,12 @@ export class UserManagementComponent implements OnInit {
 	editLabelIsShow: boolean = true;
 	imageWhiteLabelDomainName: any;
 	userTypeId: boolean = true;
-	constructor(private authService: AuthService, private formBuilder: FormBuilder,
-		private locationService: LocationService, private toast: MessageService,
-		private dataService: DataService, private dashboardService: DashboardService,
-		private userManagementService: UserManagementService, private router: Router,
-		private _location: Location, private storage: StorageService, private subscription: SubscriptionService,
-		private confirmationService: ConfirmationService, private authTokenService: AuthTokenService,) {
+	employerProfileData: EmployeeConnectProfile | null;
+
+	constructor(private authService: AuthService, private formBuilder: FormBuilder, private locationService: LocationService,
+		private toast: MessageService, private dashboardService: DashboardService, private userManagementService: UserManagementService,
+		private router: Router, private _location: Location, private subscription: SubscriptionService, private confirmationService: ConfirmationService,
+		private authTokenService: AuthTokenService, private talentConnectService: TalentConnectService) {
 
 		this.registrationForm = this.formBuilder.group({
 			name: [""],
@@ -108,6 +112,7 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.employerProfileData = this.talentConnectService._employerProfileData;
 		this.userTypeId = this.authService._user?.student_type_id === 2
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.imageWhiteLabelDomainName = data.source

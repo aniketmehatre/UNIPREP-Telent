@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
@@ -18,7 +18,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { PageFacadeService } from 'src/app/pages/page-facade.service';
 
 @Component({
-  selector: 'app-complete-profile-view',
+  selector: 'uni-complete-profile-view',
   standalone: true,
   imports: [CommonModule, RouterModule, ButtonModule, ProgressBarModule, RatingModule, CardModule, DividerModule, FormsModule,
     ProgressBarModule, TooltipModule, SkeletonModule],
@@ -29,6 +29,7 @@ export class CompleteProfileViewComponent implements OnInit {
   profileData!: UserProfile;
   userId: string = '';
   isSkeletonVisible: boolean = true;
+  @Input() userid: number = 0;
   // Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
@@ -38,7 +39,7 @@ export class CompleteProfileViewComponent implements OnInit {
     private message: MessageService, private router: Router) { }
 
   ngOnInit() {
-    this.userId = this.activatedRoute.snapshot.params?.['id'];
+    this.userId = this.activatedRoute.snapshot.params?.['id'] ?? this.userid;
     if (this.userId) {
       this.getStudentDetails(this.userId);
     }
