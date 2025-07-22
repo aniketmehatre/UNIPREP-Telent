@@ -127,8 +127,12 @@ export class LandingInstituteComponent {
 
     if (url === 'home') {
       window.location.href = targetUrl
+    } else if (url === 'pricing/india') {
+      this.router.navigate(['/pricing/india'], { replaceUrl: true });
+      //window.location.href = window.location.href + `/pricing/india`
     } else if (url === 'compare') {
-      window.location.href = window.location.href + `/compare`
+      this.router.navigate(['/compare'], { replaceUrl: true });
+      //window.location.href = window.location.href + `/compare`
     } else if (validUrls.includes(url)) {
       window.location.href = targetUrl + `/${url}`
     } else if (url === 'employer') {
