@@ -1,9 +1,9 @@
 <div class="card h-100 bg-white border-0">
-	<div class="card-body overflow-y-auto p-0 h-100 border-0">
+	<div class="card-body overflow-y-auto p-0 border-0">
 		<p-tabView [(activeIndex)]="activeIndex" [scrollable]="true" styleClass="p-0"
-			(activeIndexChange)="selectTab($event)" class="custom-tab">
+			(activeIndexChange)="selectTab($event)" class="custom-tab" *ngIf="!isSkeletonVisible">
 			<p-tabPanel *ngFor="let tab of tabs" [header]="tab.label" class="p-0 h-100">
-				<div class="row" *ngIf="filteredAppliedJob.length > 0; else showEmptyContainer">
+				<div class="row" *ngIf="filteredAppliedJob.length > 0">
 					<div class="col-md-3 mb-2" *ngFor="let job of filteredAppliedJob">
 						<div class="card bg-white" role="button" (click)="onClickJobCard(job.id)">
 							<div class="card-body d-flex align-items-start gap-2 position-relative">
@@ -32,30 +32,28 @@
 						</div>
 					</div>
 				</div>
-				<ng-template #showEmptyContainer>
-					<div class="card bg-white h-100 border-0">
-						<div class="card-body d-flex flex-column align-items-center justify-content-center">
-							<div class="mb-4">
-								<i class="fa-solid fa-file uniprep-secondaryhighlight" style="font-size: 10rem"></i>
-							</div>
-							<ng-container *ngIf="!isAppliedFilter && totalAppliedJobs == 0;">
-								<h4 class="mb-3">No applications yet.</h4>
-								<p class="text-muted mb-3">Apply now and check here for any updates.</p>
-							</ng-container>
-							<ng-container *ngIf="totalAppliedJobs != 0;">
-								<h4 class="mb-3">No Application Selected.</h4>
-								<p class="text-muted mb-3">
-									Please click on the job of your choice to view more information
-								</p>
-							</ng-container>
-							<ng-container *ngIf="isAppliedFilter && totalAppliedJobs == 0;">
-								<h4 class="mb-3">No jobs match your search right now — try adjusting your criteria!</h4>
-							</ng-container>
-						</div>
-					</div>
-				</ng-template>
 			</p-tabPanel>
 		</p-tabView>
+		<ng-container *ngIf="!isSkeletonVisible && filteredAppliedJob.length == 0">
+			<div class="card-body d-flex flex-column align-items-center justify-content-center">
+				<div class="mb-4">
+					<i class="fa-solid fa-file uniprep-secondaryhighlight" style="font-size: 10rem"></i>
+				</div>
+				<ng-container *ngIf="!isAppliedFilter && totalAppliedJobs == 0;">
+					<h4 class="mb-3">No applications yet.</h4>
+					<p class="text-muted mb-3">Apply now and check here for any updates.</p>
+				</ng-container>
+				<ng-container *ngIf="totalAppliedJobs != 0;">
+					<h4 class="mb-3">No Application Selected.</h4>
+					<p class="text-muted mb-3">
+						Please click on the job of your choice to view more information
+					</p>
+				</ng-container>
+				<ng-container *ngIf="isAppliedFilter && totalAppliedJobs == 0;">
+					<h4 class="mb-3">No jobs match your search right now — try adjusting your criteria!</h4>
+				</ng-container>
+			</div>
+		</ng-container>
 	</div>
 	<div class="card-footer bg-transparent border-0">
 		<div class="pagination-container d-flex justify-content-between align-items-center">

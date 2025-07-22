@@ -22,74 +22,25 @@
 			<!-- <div class="col-md-3 mt-2 text-end desktop justify-content-end d-none d-md-flex"></div> -->
 		</div>
 		<div class="row mt-2 align-items-center justify-content-center">
-			<!-- Centered Buttons -->
-			<div class="col-md-4">
-				<div class="d-flex gap-3 justify-content-center">
+			<div class="col-md-3 col-12 mb-2"></div>
+			<div class="col-md-6 col-12 mb-2">
+				<div class="d-flex gap-2 justify-content-center">
 					<button type="button" class="btn border px-3 py-3 bg-white"
 						routerLink="/pages/talent-connect/company-connect">Company Search</button>
 					<button type="button" class="btn border btn-primary px-3 py-3">Company Tracker</button>
 				</div>
 			</div>
+			<div class="col-md-3 col-12 mb-2">
+				<div class="text-muted text-end">Total Companies : {{ companyTotalCount }}</div>
+			</div>
 		</div>
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
 		<div class="row h-100">
-			<p-drawer #drawerRef [(visible)]="visible" position="left" [style]="{ width: '80vw' }">
-				<ng-template #headless>
-					<uni-company-list (companyTrackerEmit)="onClickJobId($event)" [incomingStudentId]="studentIdForList"
-						(triggerCloseFilter)="displayModal = false" [displayModal]="displayModal" (onCompanyTotalCount)="getCompanyTotalCount($event)"></uni-company-list>
-				</ng-template>
-			</p-drawer>
-			<!-- Sidebar with job list -->
-			<div class="col-xxl-3 col-xl-3 col-lg-4 h-100 d-lg-block d-none">
-				<uni-company-list (companyTrackerEmit)="onClickJobId($event)" [incomingStudentId]="studentIdForList"
+			<div class="col-xxl-12 col-xl-12 col-lg-12 h-100">
+			<uni-company-list (companyTrackerEmit)="onClickJobId($event)" [incomingStudentId]="studentIdForList"
 					(triggerCloseFilter)="displayModal = false" [displayModal]="displayModal" (onCompanyTotalCount)="getCompanyTotalCount($event)"></uni-company-list>
 			</div>
-
-			<!-- Main content with job details and chat -->
-			<div class="col-xxl-9 col-xl-9 col-lg-8 col-12 h-100">
-				<div class="row h-100" *ngIf="selectedCompanyId && companyTotalCount > 0; else showEmptyContainer">
-					<div class="col-lg-8 col-md-7 col-12 h-100" *ngIf="showInfo"
-						[ngClass]="{ 'col-lg-12 col-md-12': !showChat }">
-						<uni-company-detail (closeInfo)="showInfo = false" [showInfo]="showInfo" [showChat]="showChat"
-							[companyDetails]="companyDetails" (openChat)="showChat = true"
-							[companyId]="selectedCompanyId"
-							(studentIdRelay)="onStudentIdRelay($event)"></uni-company-detail>
-					</div>
-					<div class="h-100 overflow-y-auto" [ngClass]="{ 'col-lg-4 col-md-12': showInfo, 'col-lg-12 col-md-12': !showInfo}"
-						*ngIf="showChat">
-						<uni-company-chat (openInfo)="showInfo = true" [showInfo]="showInfo" [companyDetails]="companyDetails"
-							(closeChat)="showChat = false" (studentIdEmit)="onStudentIdFromChat($event)"></uni-company-chat>
-					</div>
-				</div>
-				<ng-template #showEmptyContainer>
-					<div class="card bg-white h-100">
-						<div class="card-body d-flex flex-column align-items-center justify-content-center">
-							<div class="mb-4">
-								<i class="fa-solid fa-building uniprep-secondaryhighlight" style="font-size: 10rem"></i>
-							</div>
-							<ng-container *ngIf="isAppliedFilter && companyTotalCount == 0; else showNoCompany">
-								<h4 class="mb-3">No company match your search right now — try adjusting your criteria!</h4>
-							</ng-container>
-							<ng-template #showNoCompany>
-								<h4 class="mb-3">No Company selected.</h4>
-								<p class="text-muted mb-3">
-									Please click on the company of your choice to view more information.
-								</p>
-							</ng-template>
-							<button pButton class="btn btn-primary d-lg-none d-block rounded px-4 py-3"
-								(click)="visible = true" icon="fa-solid fa-student">View Applications</button>
-						</div>
-					</div>
-				</ng-template>
-			</div>
-
-			<p-drawer #drawerRef [(visible)]="visiblechat" position="right" [style]="{ width: '80%' }">
-				<ng-template #headless>
-					<uni-company-chat (openInfo)="showInfo = true" [showInfo]="showInfo" [companyDetails]="companyDetails"
-						(closeChat)="showChat = false" (studentIdEmit)="onStudentIdFromChat($event)"></uni-company-chat>
-				</ng-template>
-			</p-drawer>
 		</div>
 	</div>
 </div>

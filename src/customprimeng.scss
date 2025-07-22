@@ -188,4 +188,10 @@ ngx-intl-tel-input input[disabled] {
       background-color: var(--p-secondary-500) !important;
     }
   }
+  &.company-tracker-tab {
+    .p-tab {
+      width: 24%;
+      justify-content: center;
+    }
+  }
 }

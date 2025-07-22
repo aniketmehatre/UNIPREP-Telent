@@ -20,6 +20,10 @@ const routes: Routes = [
     loadComponent: () => import('./company-tracker/company-tracker.component').then(m => m.CompanyTracker1Component)
   },
   {
+    path: 'company-tracker/:id',
+    loadComponent: () => import('./company-connect/company-view/company-view.component').then(m => m.CompanyViewComponent)
+  },
+  {
     path: 'company-connect',
     loadChildren: () => import('./company-connect/company-connect.module').then(m => m.CompanyConnectModule)
   },
