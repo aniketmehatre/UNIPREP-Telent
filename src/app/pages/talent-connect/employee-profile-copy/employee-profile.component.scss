@@ -1,0 +1,196 @@
+p-editor ::ng-deep .p-editor-toolbar.ql-snow {
+  border: gray 1px solid;
+}
+
+p-editor ::ng-deep .ql-editor {
+  border: gray 1px solid;
+}
+
+
+.card {
+  border-radius: 12px;
+  background: var(--p-neutral-50);
+}
+
+.card-body {
+  p-select {
+    padding: 2.5px;
+  }
+}
+
+h5 {
+  font-weight: bold;
+}
+
+.message-box {
+  background-color: #fdeedb;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: start;
+  gap: 10px;
+}
+
+.profile-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+}
+
+.profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+}
+
+.status-badge {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.shortlisted {
+  background-color: #4caf50;
+  color: white;
+}
+
+.profile-completion {
+  font-size: 12px;
+  font-weight: bold;
+  color: #f08c40;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  margin-bottom: 8px;
+}
+
+.info-item i {
+  color: #f08c40;
+}
+
+.button-profile-top {
+  border: 1px solid var(--p-secondary-500);
+  background-color: white;
+  color: var(--p-secondary-500);
+
+  &:hover {
+    background-color: #fff9e6 !important;
+    color: var(--p-secondary-500) !important;
+    border: 1px solid var(--p-secondary-500) !important;
+  }
+}
+
+label {
+  font-weight: bolder;
+  font-size: 16px;
+  color: var(--p-primary-500);
+}
+
+.upload-box {
+  width: 100%;
+  height: 100px;
+  border: 1px dashed var(--p-primary-500);
+  background-color: var(--p-neutral-100);
+  border-radius: 6px;
+}
+
+.scroll-hidden {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+}
+
+.scroll-hidden::-webkit-scrollbar {
+  width: 4px;
+  /* Chrome, Safari, Edge */
+}
+
+/* For the dialog content */
+.employee-profile-dialog {
+  padding: 0px;
+  overflow: hidden !important;
+  /* Prevent scroll inside the dialog */
+}
+
+/* Optional: prevent scroll of the background when dialog is open */
+body.p-overflow-hidden {
+  overflow: hidden !important;
+}
+
+::ng-deep .confirm-dialog {
+  padding: 10px;
+}
+
+.content-card {
+  p {
+    font-weight: 600;
+  }
+}
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 9999;
+  /* make sure it's on top */
+}
+
+
+.loader {
+  --dim: 4rem;
+  margin: auto;
+  width: var(--dim);
+  height: var(--dim);
+  position: absolute;
+  text-align: center;
+  z-index: 3;
+}
+
+.h-fit-content {
+  height: fit-content;
+}
+
+::ng-deep .p-dialog-content {
+  padding: 0 !important;
+}
+
+
+/* Your profile - evaluation css code start */
+.body_content {
+  font-family: 'Poppins', sans-serif;
+  background: #f3f4f6;
+  padding: 20px;
+  color: #1f2937;
+}
+
+/* Your profile - evaluation css code end here */
+
+.profile-sec-req {
+  top: -10px;
+  right: -5px;
+}
+
+.exp-remove {
+  top: 5px;
+  right: 5px;
+  z-index: 999;
+}
+
+.certificate-remove{
+    top: -10px;
+    right: -5px;
+    z-index: 999;
+}

@@ -30,6 +30,7 @@ export class CompleteProfileViewComponent implements OnInit {
   profileData!: UserProfile;
   userId: string = '';
   isSkeletonVisible: boolean = true;
+  @Input() userid: number = 0;
   // Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
@@ -39,7 +40,7 @@ export class CompleteProfileViewComponent implements OnInit {
     private message: MessageService, private router: Router) { }
 
   ngOnInit() {
-    this.userId = this.activatedRoute.snapshot.params?.['id'];
+    this.userId = this.activatedRoute.snapshot.params?.['id'] ?? this.userid;
     if (this.userId) {
       this.getStudentDetails(this.userId);
     }

@@ -31,7 +31,7 @@ import { ConfirmDialogModule } from "primeng/confirmdialog"
 import { AuthTokenService } from "src/app/services/auth-token.service"
 import { CalendarModule } from "primeng/calendar"
 import { PasswordModule } from "primeng/password"
-import { CompleteProfileViewComponent } from "../talent-connect/employee-profile/complete-profile-view/complete-profile-view.component"
+import { CompleteProfileViewComponent } from "../talent-connect/employee-profile-copy/complete-profile-view/complete-profile-view.component"
 import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile"
 import { TalentConnectService } from "../talent-connect/talent-connect.service"
 @Component({
@@ -60,7 +60,8 @@ export class UserManagementComponent implements OnInit {
 	PersonalInfo: any = []
 	hideToolTip: boolean = true
 	private subs = new SubSink()
-	activeSection: string = 'profileCard';
+	activeSection: string = 'myprofile';
+	activeSectionCard: string = 'profileCard';
 	sendInvite: any = ""
 	cvBuilderPercentage: number = 0;
 	talentConnectPercentage: number = 0;
@@ -79,7 +80,11 @@ export class UserManagementComponent implements OnInit {
 	editLabelIsShow: boolean = true;
 	imageWhiteLabelDomainName: any;
 	userTypeId: boolean = true;
+	// Employer Profile Section
 	employerProfileData: EmployeeConnectProfile | null;
+	isUpdateEmployerProfile: boolean = false;
+	isEmployerProfileCompleteSection: boolean = false;
+	profileSectionList: string[] = ['profileCard', 'securityCard', 'emailerCard', 'integrationsCard', 'inviteCard'];
 
 	constructor(private authService: AuthService, private formBuilder: FormBuilder, private locationService: LocationService,
 		private toast: MessageService, private dashboardService: DashboardService, private userManagementService: UserManagementService,
@@ -112,6 +117,7 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.setSwitchSection('profileCard');
 		this.employerProfileData = this.talentConnectService._employerProfileData;
 		this.userTypeId = this.authService._user?.student_type_id === 2
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
@@ -203,15 +209,20 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	setSwitchSection(section: string): void {
-		this.activeSection = section;
+		this.activeSectionCard = section;
+		this.activeSection = this.isSwitchSection(section) ? 'myprofile' : section;
+		this.closeMobileMenu();
+		if(this.activeSection == 'jobProfile') {
+			this.onClickJobPrifile();
+		}
 	}
 
-	isSwitchSection(): boolean {
-		return ['subscription'].includes(this.activeSection);
+	isSwitchSection(section: string): boolean {
+		return this.profileSectionList.includes(section);
 	}
 
 	isActive(section: string): boolean {
-		return this.activeSection === section;
+		return this.activeSectionCard === section;
 	}
 	GetPersonalProfileData() {
 		this.registrationForm.disable();
@@ -563,5 +574,11 @@ export class UserManagementComponent implements OnInit {
 		const passwordField = this.passwordFields[field];
 		passwordField.visible = !passwordField.visible;
 		passwordField.type = passwordField.visible ? 'text' : 'password';
+	}
+
+	onClickJobPrifile() {
+		if (this.talentConnectService._employerProfileData?.profile_completion_flag) {
+			this.isEmployerProfileCompleteSection = true;
+		}
 	}
 }
