@@ -15,6 +15,33 @@ import { environment } from "@env/environment";
 import { InputNumberInputEvent } from "primeng/inputnumber";
 import { PageFacadeService } from "../../page-facade.service";
 import { Router } from "@angular/router";
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DialogModule } from 'primeng/dialog';
+import { BadgeModule } from 'primeng/badge';
+import { SelectModule } from 'primeng/select';
+import { DatePickerModule } from 'primeng/datepicker';
+import { ToastModule } from 'primeng/toast';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { FluidModule } from 'primeng/fluid';
+import { EditorModule } from 'primeng/editor';
+import { TooltipModule } from 'primeng/tooltip';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { SharedModule } from "../../../shared/shared.module";
+import { DrawerModule } from 'primeng/drawer';
+import { PanelModule } from 'primeng/panel';
+import { StepperModule } from 'primeng/stepper';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+// import { DialogService } from 'primeng/dynamicdialog';
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -25,9 +52,40 @@ export enum FileType {
 
 @Component({
   selector: "uni-employee-profile",
-  standalone: false,
+  standalone: true,
   templateUrl: "./employee-profile.component.html",
   styleUrl: "./employee-profile.component.scss",
+  imports:[CommonModule,
+      FormsModule,
+      FluidModule,
+      ReactiveFormsModule,
+      InputTextModule,
+      DropdownModule,
+      DrawerModule,
+      ButtonModule,
+      CardModule,
+      ProgressBarModule,
+      FileUploadModule,
+      InputNumberModule,
+      DialogModule,
+      BadgeModule,
+      SelectModule,
+      DatePickerModule,
+      ToastModule,
+      MultiSelectModule,
+      EditorModule,
+      TooltipModule,
+      ConfirmDialogModule,
+      InputGroupAddonModule,
+      InputGroupModule,
+      SharedModule,
+      ButtonModule,
+      PanelModule,
+      StepperModule,
+      PdfViewerModule,
+      // DialogService
+    ],
+    providers:[DialogService]
 })
 export class EmployeeProfileComponent implements OnInit, OnDestroy {
   @ViewChild("fileUploadImage") fileInput: ElementRef;

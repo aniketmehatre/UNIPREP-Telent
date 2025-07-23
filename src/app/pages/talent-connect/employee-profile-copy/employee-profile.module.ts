@@ -44,7 +44,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [EmployeeProfileComponent],
+  declarations: [],
   providers: [DialogService, ConfirmationService],
   imports: [
     CommonModule,

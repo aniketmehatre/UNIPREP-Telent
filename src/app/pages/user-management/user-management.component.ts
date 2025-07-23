@@ -34,6 +34,8 @@ import { PasswordModule } from "primeng/password"
 import { CompleteProfileViewComponent } from "../talent-connect/employee-profile-copy/complete-profile-view/complete-profile-view.component"
 import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile"
 import { TalentConnectService } from "../talent-connect/talent-connect.service"
+import { EmployeeProfileComponent } from "../talent-connect/employee-profile-copy/employee-profile.component"
+import { EmployeeProfileModule } from "../talent-connect/employee-profile-copy/employee-profile.module"
 @Component({
 	selector: "uni-user-management",
 	templateUrl: "./user-management.component.html",
@@ -42,7 +44,7 @@ import { TalentConnectService } from "../talent-connect/talent-connect.service"
 	imports: [CommonModule, RouterModule, PasswordModule, ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule,
 		FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule,
 		CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule,
-		DialogModule, CardModule, InputNumberModule, CompleteProfileViewComponent],
+		DialogModule, CardModule, InputNumberModule, CompleteProfileViewComponent, EmployeeProfileComponent],
 	providers: [ConfirmationService]
 })
 export class UserManagementComponent implements OnInit {
@@ -212,7 +214,7 @@ export class UserManagementComponent implements OnInit {
 		this.activeSectionCard = section;
 		this.activeSection = this.isSwitchSection(section) ? 'myprofile' : section;
 		this.closeMobileMenu();
-		if(this.activeSection == 'jobProfile') {
+		if (this.activeSection == 'jobProfile') {
 			this.onClickJobPrifile();
 		}
 	}
@@ -224,6 +226,7 @@ export class UserManagementComponent implements OnInit {
 	isActive(section: string): boolean {
 		return this.activeSectionCard === section;
 	}
+
 	GetPersonalProfileData() {
 		this.registrationForm.disable();
 		this.userManagementService.GetUserPersonalInfo().subscribe((data) => {
@@ -577,8 +580,6 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	onClickJobPrifile() {
-		if (this.talentConnectService._employerProfileData?.profile_completion_flag) {
-			this.isEmployerProfileCompleteSection = true;
-		}
+		this.isEmployerProfileCompleteSection = !this.talentConnectService._employerProfileData?.profile_completion_flag ? true : false;
 	}
 }

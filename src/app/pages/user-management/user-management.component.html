@@ -409,6 +409,9 @@
               <ng-conatiner *ngIf="isEmployerProfileCompleteSection">
                 <uni-complete-profile-view [userid]="employerProfileData?.id"></uni-complete-profile-view>
               </ng-conatiner>
+              <ng-conatiner *ngIf="!isEmployerProfileCompleteSection">
+                <uni-employee-profile></uni-employee-profile>
+              </ng-conatiner>
           </div>
         </ng-container>
       </div>
