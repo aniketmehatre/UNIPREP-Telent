@@ -94,6 +94,6 @@ export class MainListComponent implements OnInit {
     }
 
     openVideoPopup() {
-        this.pageFacade.openHowitWorksVideoPopup("company-connect");
+        this.pageFacade.openHowitWorksVideoPopup("talent-profile-creation");
     }
 }

@@ -11,9 +11,17 @@ const routes: Routes = [
     path: 'job-tracker',
     loadComponent: () => import('./job-tracker/job-tracker.component').then(m => m.JobTrackerComponent)
   },
+    {
+    path: 'job-tracker/:id',
+    loadComponent: () => import('./job-tracker/job-details/job-details.component').then(m => m.JobDetailsComponent)
+  },
   {
     path: 'company-tracker',
     loadComponent: () => import('./company-tracker/company-tracker.component').then(m => m.CompanyTracker1Component)
+  },
+  {
+    path: 'company-tracker/:id',
+    loadComponent: () => import('./company-connect/company-view/company-view.component').then(m => m.CompanyViewComponent)
   },
   {
     path: 'company-connect',

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { ChipModule } from "primeng/chip";
 import { ButtonModule } from 'primeng/button';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TalentConnectService } from "../../talent-connect.service";
 import { CompanyChatComponent } from "../company-chat/company-chat.component";
 import { SkeletonModule } from 'primeng/skeleton';
@@ -25,12 +25,14 @@ export class CompanyViewComponent implements OnInit {
   showChat: boolean = true;
   isSkeletonVisible: boolean = true;
   visible: boolean = false;
+  isCompanyTrackerView: boolean = false;
 
-  constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService, 
-    private pageFacade: PageFacadeService) {
+  constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService,
+    private pageFacade: PageFacadeService, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.isCompanyTrackerView = this.router.url.includes('company-tracker');
     this.companyId = this.route.snapshot.paramMap.get('id');
     this.getCompanyDetail(this.companyId)
   }

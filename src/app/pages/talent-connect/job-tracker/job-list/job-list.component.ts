@@ -11,6 +11,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { LocationService } from 'src/app/services/location.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-job-list',
@@ -34,7 +35,7 @@ export class JobListComponent implements OnInit {
   totalPage: number = 0;
   jobDetails: any;
   appliedJobList!: any;
-  filteredAppliedJob!: any;
+  filteredAppliedJob: any[] = [];
   totalAppliedJobs: number = 0;
   industries: any[] = [];
   locations: any[] = [];
@@ -48,8 +49,11 @@ export class JobListComponent implements OnInit {
   hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'Future_Hiring', name: 'Future Hiring' }];
   hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' }, { id: 3, name: 'Campus Hire' }];
   filterForm: FormGroup = new FormGroup({});
+  isSkeletonVisible: boolean = true;
+  isAppliedFilter: boolean = false;
 
-  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder, private locationService: LocationService) {
+  constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder,
+    private locationService: LocationService, private router: Router) {
 
   }
 
@@ -60,7 +64,7 @@ export class JobListComponent implements OnInit {
   }
 
   onClickJobCard(id: number) {
-    this.emitId.emit(id);
+    this.router.navigate(['/pages/talent-connect/job-tracker', id]);
   }
 
   selectTab(tab: any) {
@@ -103,13 +107,15 @@ export class JobListComponent implements OnInit {
           appliedFilter: isAppliedFilter,
           jobCount: response.totaljobs
         });
+        this.isAppliedFilter = isAppliedFilter;
+        this.isSkeletonVisible = false;
       },
       error: error => {
+        this.isSkeletonVisible = false;
         console.log(error);
       }
     });
   }
-
 
   onNextClick() {
     if (this.page >= this.totalPage) {

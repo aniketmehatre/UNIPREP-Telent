@@ -1,16 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
-import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { CompanyListsComponent } from './company-list/company-list.component';
 import { RouterLink } from '@angular/router';
 import { TalentConnectService } from "../talent-connect.service";
-import { FormGroup } from "@angular/forms";
-import { forkJoin } from "rxjs";
 import { PageFacadeService } from '../../page-facade.service';
 import { DrawerModule } from 'primeng/drawer';
 import { Company } from 'src/app/@Models/company-connect.model';
-import { CompanyChatComponent } from '../company-connect/company-chat/company-chat.component';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -18,7 +14,7 @@ import { ButtonModule } from 'primeng/button';
   templateUrl: './company-tracker.component.html',
   styleUrls: ['./company-tracker.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, CompanyListsComponent, CompanyDetailComponent, RouterLink, DrawerModule, CompanyChatComponent, ButtonModule]
+  imports: [CommonModule, DialogModule, CompanyListsComponent, RouterLink, DrawerModule, ButtonModule]
 })
 export class CompanyTracker1Component {
   @Output() companyTrackerEmit: EventEmitter<number> = new EventEmitter();
@@ -83,7 +79,7 @@ export class CompanyTracker1Component {
   }
 
   openVideoPopup() {
-    this.pageFacade.openHowitWorksVideoPopup("company-connect");
+    this.pageFacade.openHowitWorksVideoPopup("company-tracker");
   }
 
   getCompanyTotalCount(data: any) {

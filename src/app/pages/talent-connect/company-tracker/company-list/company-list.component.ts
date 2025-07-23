@@ -9,6 +9,7 @@ import { Company } from 'src/app/@Models/company-connect.model';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import { AuthService } from 'src/app/Auth/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'uni-company-list',
   standalone: true,
@@ -41,8 +42,10 @@ export class CompanyListsComponent implements OnInit {
   private echo!: Echo<any>;
   studentId: any;
   companyObj: any;
+  isSkeletonVisible: boolean = true;
+  isAppliedFilter: boolean = false;
 
-  constructor(private talentConnectService: TalentConnectService, private courcelist: AuthService,) {
+  constructor(private talentConnectService: TalentConnectService, private courcelist: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -84,6 +87,7 @@ export class CompanyListsComponent implements OnInit {
       isAppliedFilter = true;
       data = { ...data, ...params };
     }
+    this.isSkeletonVisible = true;
     this.talentConnectService.getCompanyTracker(data).subscribe({
       next: data => {
         this.companyList = data.companies;
@@ -94,8 +98,12 @@ export class CompanyListsComponent implements OnInit {
           appliedFilter: isAppliedFilter,
           companyCount: data.count
         });
+        this.isAppliedFilter = isAppliedFilter;
+        this.isSkeletonVisible = false;
       },
-      error: err => { }
+      error: err => { 
+        this.isSkeletonVisible = false;
+      }
     });
 
   }
@@ -110,6 +118,7 @@ export class CompanyListsComponent implements OnInit {
       isAppliedFilter = true;
       data = { ...data, ...params };
     }
+    this.isSkeletonVisible = true;
     this.talentConnectService.getShortListedCompanyList(data).subscribe({
       next: data => {
         this.companyList = data.companies;
@@ -120,8 +129,12 @@ export class CompanyListsComponent implements OnInit {
           appliedFilter: isAppliedFilter,
           companyCount: data.count
         });
+        this.isAppliedFilter = isAppliedFilter;
+        this.isSkeletonVisible = false;
       },
-      error: err => { }
+      error: err => { 
+        this.isSkeletonVisible = false;
+      }
     });
   }
 
@@ -135,6 +148,7 @@ export class CompanyListsComponent implements OnInit {
       isAppliedFilter = true;
       data = { ...data, ...params };
     }
+    this.isSkeletonVisible = true;
     this.talentConnectService.getSendMessageCompanyTracker(data).subscribe({
       next: data => {
         this.companyList = data.companies;
@@ -145,8 +159,12 @@ export class CompanyListsComponent implements OnInit {
           appliedFilter: isAppliedFilter,
           companyCount: data.count
         });
+        this.isAppliedFilter = isAppliedFilter;
+        this.isSkeletonVisible = false;
       },
-      error: err => { }
+      error: err => { 
+        this.isSkeletonVisible = false;
+      }
     });
   }
 
@@ -160,6 +178,7 @@ export class CompanyListsComponent implements OnInit {
       isAppliedFilter = true;
       data = { ...data, ...params };
     }
+    this.isSkeletonVisible = true;
     this.talentConnectService.getReceivedMessageCompanyTracker(data).subscribe({
       next: data => {
         this.companyList = data.companies;
@@ -170,14 +189,17 @@ export class CompanyListsComponent implements OnInit {
           appliedFilter: isAppliedFilter,
           companyCount: data.count
         });
+        this.isAppliedFilter = isAppliedFilter;
+        this.isSkeletonVisible = false;
       },
-      error: err => { }
+      error: err => { 
+        this.isSkeletonVisible = false;
+      }
     });
   }
 
   applyFilter(event: any) {
     this.companyObj = event;
-    this.onClickJobCard(0);
     if (this.activeIndex == 0) {
       this.getCompanyTrackerList(this.companyObj);
     } else if (this.activeIndex == 1) {
@@ -221,8 +243,9 @@ export class CompanyListsComponent implements OnInit {
   }
 
   onClickJobCard(id: number) {
-    this.companyId = id;
-    this.companyTrackerEmit.emit(id);
+    // this.companyId = id;
+    // this.companyTrackerEmit.emit(id);
+     this.router.navigate(['/pages/talent-connect/company-tracker', id]);
   }
   
   ngOnChanges(changes: SimpleChanges) {

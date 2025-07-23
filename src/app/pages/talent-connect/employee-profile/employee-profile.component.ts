@@ -485,7 +485,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   openVideoPopup() {
-    this.pageFacade.openHowitWorksVideoPopup("company-connect");
+    this.pageFacade.openHowitWorksVideoPopup("easy-apply");
   }
 
   openProfileDialog(isSample: boolean) {
@@ -711,16 +711,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     });
 
     this.careerPreferenceForm.patchValue({
-      career_preference_career_status: response.careerPreference?.career_status || "",
-      career_preference_job_title_id: response.careerPreference?.job_title || "",
+      career_preference_career_status: response.careerPreference?.career_status || null,
+      career_preference_job_title_id: response.careerPreference?.job_title || null,
       career_preference_career_interest_id: response.careerPreference?.career_interest_id || [],
       career_preference_department_id: response.careerPreference?.department_id || [],
       career_preference_preferred_work_location_id: response.careerPreference?.preferred_work_location_id || [],
       career_preference_preferred_employment_type: response.careerPreference?.preferred_employment_type || [],
       career_preference_preferred_workplace_type: response.careerPreference?.preferred_workplace_type || [],
-      career_preference_willingness_to_relocate: response.careerPreference?.willingness_to_relocate || "",
-      career_preference_expected_salary: response.careerPreference?.expected_salary || "",
-      career_preference_currency_id: response.careerPreference?.currency_id || "",
+      career_preference_willingness_to_relocate: response.careerPreference?.willingness_to_relocate || null,
+      career_preference_expected_salary: response.careerPreference?.expected_salary || null,
+      career_preference_currency_id: response.careerPreference?.currency_id || null,
     });
 
     this.additionalNotesForm.patchValue({
