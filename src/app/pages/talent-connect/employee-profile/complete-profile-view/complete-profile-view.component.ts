@@ -16,6 +16,7 @@ import { SocialShareService } from 'src/app/services/social-share.service';
 import { Meta } from '@angular/platform-browser';
 import { SkeletonModule } from 'primeng/skeleton';
 import { PageFacadeService } from 'src/app/pages/page-facade.service';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-complete-profile-view',
@@ -107,15 +108,15 @@ export class CompleteProfileViewComponent implements OnInit {
 
   shareQuestion(type: string) {
     const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-    const url = encodeURI(window.location.origin + '/pages/talent-connect/my-profile/' + this.userId);
+    const url = encodeURI(environment.employerDomain +'/talent/' + this.profileData?.uuid);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
 
   copyLink() {
-    const textToCopy = encodeURI(window.location.origin + '/pages/talent-connect/my-profile/' + this.userId);
-    this.socialShareService.copyQuestion(textToCopy);
+    const textToCopy = encodeURI(environment.employerDomain +'/talent/' + this.profileData?.uuid);
+    this.socialShareService.copyQuestion(textToCopy, 'Profile Link copied successfully');
   }
 
   getSocialMediaIconName(icon: string) {
