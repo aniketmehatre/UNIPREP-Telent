@@ -26,7 +26,7 @@
 							</div>
 							<div class="col-xxl-11 col-xl-11 col-lg-10 col-md-10 col-sm-9 col-8">
 								<div class="row">
-									<div class="col-xxl-10 col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12 mb-3">
+									<div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 mb-3">
 										<h3 class="fw-bold mb-0">{{ jobDetails?.position }}</h3>
 										<div class="d-flex align-items-center">
 											<span class="me-2 text-muted">{{ jobDetails.company_name }}</span>
@@ -36,16 +36,48 @@
 										</div>
 										<div>Job Id: {{ jobDetails.id }}</div>
 									</div>
-									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12 mb-3">
+									<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-3">
 										<div class="row">
 											<div class="col-12 text-md-end text-center mb-2 d-md-block d-none">
-												<button pButton label="Close Info" class="btn btn-primary w-100" (click)="showInfo = false" *ngIf="isShowApplyChat && isApplied"></button>
-												<button pButton class="p-button-success chat-btn w-100" *ngIf="!isShowApplyChat && isApplied" (click)="isShowApplyChat = true"><i class="pi pi-comments"></i> Chat</button>
-												<button *ngIf="!isApplied" pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary px-4" (click)="applyJob(jobId)" [disabled]="isApplied"></button>
+												<div class="d-flex gap-2">
+													<div class="position-relative w-100">
+														<button pButton label="Share Job" iconPos="right" icon="pi pi-share-alt"
+															class="btn btn-secondary w-100"
+															(click)="showSocialSharingList('socialSharingList')"> </button>
+														<p-card id="socialSharingList">
+															<ul style="list-style: none; cursor: pointer">
+																<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+																<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+																<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+																<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+																<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+																<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
+																<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+															</ul>
+														</p-card>
+													</div>
+													<button pButton label="Close Info" class="btn btn-primary w-100" (click)="showInfo = false" *ngIf="isShowApplyChat && isApplied"></button>
+													<button pButton class="p-button-success chat-btn w-100" *ngIf="!isShowApplyChat && isApplied" (click)="isShowApplyChat = true"><i class="pi pi-comments"></i> Chat</button>
+												</div>
 											</div>
-											<div class="d-block d-md-none">
-												<button *ngIf="!isApplied" pButton label="Apply" icon="fa fa-arrow-pointer" iconPos="right" class="p-button-primary w-100" (click)="applyJob(jobId)" [disabled]="isApplied"></button>
-												<button class="p-button-success chat-btn w-100" pButton *ngIf="isApplied" (click)="visible = true"><i class="pi pi-comments"></i> Chat</button>
+											<div class="col-12 d-block d-md-none">
+												<button class="p-button-success chat-btn w-100 mb-2" pButton *ngIf="isApplied" (click)="visible = true"><i class="pi pi-comments"></i> Chat</button>
+												<div class="position-relative w-100">
+														<button pButton label="Share Job" iconPos="right" icon="pi pi-share-alt"
+															class="btn btn-secondary w-100"
+															(click)="showSocialSharingList('socialSharingListMobile')"> </button>
+														<p-card id="socialSharingListMobile">
+															<ul style="list-style: none; cursor: pointer">
+																<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+																<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+																<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+																<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+																<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+																<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
+																<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+															</ul>
+														</p-card>
+													</div>
 											</div>
 											<div class="col-12 text-lg-end text-start">
 												<p class="posted-date">Posted On : {{ jobDetails.created_at | date : "dd-MM-yyyy" }}</p>

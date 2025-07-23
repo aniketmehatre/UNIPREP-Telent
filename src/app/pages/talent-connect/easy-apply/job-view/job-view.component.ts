@@ -10,13 +10,16 @@ import { MessageService } from "primeng/api";
 import { RatingModule } from "primeng/rating";
 import { DrawerModule } from "primeng/drawer";
 import { Job } from "src/app/@Models/employee-connect-job.model";
+import { CardModule } from "primeng/card";
+import { SocialShareService } from "src/app/services/social-share.service";
+import { Meta } from "@angular/platform-browser";
 
 @Component({
 	selector: "uni-job-view",
 	templateUrl: "./job-view.component.html",
 	styleUrls: ["./job-view.component.scss"],
 	standalone: true,
-	imports: [CommonModule, ButtonModule, DrawerModule, TooltipModule, FormsModule, JobChatUiComponent, RouterLink, RatingModule],
+	imports: [CommonModule, ButtonModule, DrawerModule, TooltipModule, FormsModule, JobChatUiComponent, RouterLink, RatingModule, CardModule],
 })
 export class JobViewComponent implements OnInit {
 	@Input() showInfo: boolean = true;
@@ -32,7 +35,7 @@ export class JobViewComponent implements OnInit {
 	currentView: "initial" | "conversation" = "initial";
 
 	constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService,
-		private message: MessageService, private router: Router) { }
+		private message: MessageService, private router: Router, private socialShareService: SocialShareService, private meta: Meta) { }
 
 	ngOnInit(): void {
 		this.checkIfProfileCreated();
@@ -65,8 +68,8 @@ export class JobViewComponent implements OnInit {
 						technical_proficiency: this.parseArrayData(jobData.technical_proficiency),
 						language_proficiency: this.parseLanguageProficiency(jobData.language_proficiency),
 						compensation_structure: this.getArrayFormat(jobData?.compensation_structure),
-						work_mode:this.getArrayFormat(jobData?.work_mode),
-						employment_type:this.getArrayFormat(jobData?.employment_type),
+						work_mode: this.getArrayFormat(jobData?.work_mode),
+						employment_type: this.getArrayFormat(jobData?.employment_type),
 						benefits_perks: this.getArrayFormat(jobData?.benefits_perks),
 						soft_skills: this.getArrayFormat(jobData?.soft_skills),
 						hiring_stages: this.getArrayFormat(jobData?.hiring_stages)
@@ -156,4 +159,51 @@ export class JobViewComponent implements OnInit {
 		return proficiencyList[proficiency] || 0;
 	}
 
+	showSocialSharingList(cardId: string) {
+		let socialShare: any = document.getElementById(cardId);
+		if (socialShare.style.display == "") {
+			socialShare.style.display = "block";
+		}
+		else {
+			socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
+		}
+	}
+
+	shareQuestion(type: string) {
+		const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+		const url = window.location.origin + '/job/' + this.jobDetails?.uuid;
+		const encodedUrl = encodeURIComponent(url);
+		const title = encodeURIComponent('UNIPREP | ' + this.jobDetails?.position + ' | ' + this.jobDetails?.company_name);
+		this.meta.updateTag({ property: 'og:url', content: url });
+		this.meta.updateTag({ property: 'og:title', content: title });
+		let shareUrl = '';
+		switch (type) {
+			case 'Whatsapp':
+				shareUrl = `${socialMedias[type]}${title}%0A${encodedUrl}`;
+				break;
+			case 'Mail':
+				shareUrl = `${socialMedias[type]}${title}%0A${encodedUrl}`;
+				break;
+			case 'LinkedIn':
+				shareUrl = `${socialMedias[type]}${encodedUrl}&title=${title}`;
+				break;
+			case 'Twitter':
+				shareUrl = `${socialMedias[type]}${encodedUrl}&text=${title}`;
+				break;
+			case 'Facebook':
+				shareUrl = `${socialMedias[type]}${encodedUrl}`;
+				break;
+			case 'Instagram':
+				shareUrl = `${socialMedias[type]}${encodedUrl}`;
+				break;
+			default:
+				shareUrl = `${socialMedias[type]}${encodedUrl}`;
+		}
+		window.open(shareUrl, '_blank');
+	}
+
+	copyLink() {
+		const textToCopy = encodeURI(window.location.origin + '/job/' + this.jobDetails?.uuid);
+		this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
+	}
 }

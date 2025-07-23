@@ -106,6 +106,7 @@ export interface UserProfile {
   networking: any[]; // Type is not clear from provided data
   updated_at?: Date;
   updated_at_formatted: string;
+  uuid: string;
 }
 
 export interface Departments {
