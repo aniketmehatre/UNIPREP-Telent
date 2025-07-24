@@ -18,6 +18,7 @@ const dev_partner = 'https://partners.uniprep.ai';
 const prod_partner = 'https://partners.uniprep.ai';
 const dev_institute = 'https://dev-institutes.uniprep.ai';
 const prod_institute = 'https://institutes.uniprep.ai';
+const prod_job_url = 'https://job.uniprep.ai';
 
 export const environment = {
     domain: prod_domain,
@@ -35,6 +36,7 @@ export const environment = {
     instituteDomain: prod_institute,
     talentDomain: prod_talents,
     studentDomain: prod_student,
+    jobDomain: prod_job_url,
     googleCloud: {
         apiKey: 'AIzaSyCxrgn6ZZL3IsY_3xrSqQJi_3yT_OKr-n0'
     },

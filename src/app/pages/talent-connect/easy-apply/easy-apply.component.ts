@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/services/location.service';
 import { MultiSelectChangeEvent } from 'primeng/multiselect';
 import { JobListing } from 'src/app/@Models/employee-connect-job.model';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'uni-easy-apply',
@@ -40,7 +41,7 @@ export class EasyApplyComponent {
   countries: any[] = [];
   industries: any[] = [];
   isAppliedFilter: boolean = false;
-  
+
   //Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
@@ -66,7 +67,7 @@ export class EasyApplyComponent {
     this.filterForm = this.fb.group({
       keyword: [''],
       position: [''],
-      industry:[null],
+      industry: [null],
       country: [null],
       worklocation: [null],
       work_mode: [null],
@@ -249,7 +250,7 @@ export class EasyApplyComponent {
   shareQuestion(event: any, type: string, job: JobListing) {
     event.stopPropagation();
     const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-    const url = window.location.origin + '/job/' + job.uuid;
+    const url = environment.jobDomain + '/view/' + job.uuid;
     const encodedUrl = encodeURIComponent(url);
     const title = encodeURIComponent('UNIPREP | ' + job?.position + ' | ' + job.company_name);
 
@@ -283,7 +284,7 @@ export class EasyApplyComponent {
 
   copyLink(event: any, job: any) {
     event.stopPropagation();
-    const textToCopy = encodeURI(window.location.origin + '/job/' + job.uuid);
+    const textToCopy = encodeURI(environment.jobDomain + '/view/' + job.uuid);
     this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
   }
 
