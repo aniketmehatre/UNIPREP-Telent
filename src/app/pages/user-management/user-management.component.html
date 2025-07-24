@@ -105,6 +105,39 @@
                     <div class="col-md-9 col-lg-9 col-sm-12">
                       <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
                         <div class="container-fluid">
+                          <label>Profile Picture</label>
+                          <div class="row py-3 rounded-4 mb-2 mx-1" style="border: 1px solid lightgray">
+                            <div class="col-md-3">
+                              <div class="position-relative mx-auto">
+                                <ng-container *ngIf="logo; else showSample">
+                                  <img [src]="logo" styleClass="object-fit" style="max-width: 120px; width: 100%; aspect-ratio: 1/1" class="rounded-2 border img-fluid" />
+                                </ng-container>
+                                <ng-template #showSample>
+                                  <div class="mx-auto border rounded-2 d-flex align-items-center justify-content-center" style="background-color: var(--p-primary-50); max-width: 120px; width: 100%; aspect-ratio: 1/1">
+                                    <i style="color: var(--p-primary-200)" class="fa-solid fa-user fa-2x"></i>
+                                  </div>
+                                </ng-template>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="d-flex gap-2 mb-2">
+                                  <input name="image" type="file" (change)="onUploadPhoto($event)" accept="image/*" #fileUploadImage style="display: none" />
+                                  <p-button label="{{ logo ? 'Change Photo' : 'Upload Photo' }}" icon="pi pi-upload" styleClass="p-button-sm" (click)="fileUploadImage.click()" [disabled]="submitBtnName == 'Edit'"></p-button>
+                                  <p-button *ngIf="logo" label="Remove Photo" icon="pi pi-times" (onClick)="onRemovePhoto()" styleClass="p-button-sm p-button-outlined" [disabled]="submitBtnName == 'Edit'"></p-button>
+                              </div>
+                              <div class="d-flex align-items-center gap-2 mt-2">
+                                <span><i class="fa-solid fa-face-viewfinder fa-xl"></i></span>
+                                <p class="fw-medium text-small text-start d-block">You have to upload a close, straight faced photo with plain background.</p>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="d-flex justify-content-end">
+                                <button pButton type="button" (click)="isSampleProfileImgVisible = true" class="btn btn-primary btn-rounded p-1 px-3 me-2">Sample</button>
+                                <button pButton type="button" (click)="openGuideUrl()" class="btn btn-secondary btn-rounded p-1 px-3">Guide</button>
+                              </div>
+                            </div>
+                          </div>
+                          <small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && registrationForm.get('profile_image')?.errors?.required"> Profile Picture is required </small>
                           <div class="row">
                             <div class="col-12 p-2">
                               <label>Name</label>
@@ -181,7 +214,7 @@
                           </div>
                           <div class="col-12">
                             <button type="submit" class="btn btn-dark w-100" style="background-color: var(--p-primary-500) !important">
-                              {{ submitName }}
+                              {{ submitBtnName }}
                             </button>
                           </div>
                         </div>
@@ -419,3 +452,15 @@
   </div>
 </div>
 <p-confirmDialog></p-confirmDialog>
+<p-dialog [(visible)]="isSampleProfileImgVisible" [modal]="true">
+  <ng-template #header>
+    <h3 class="w-100 text-center">Profile Photo Samples</h3>
+  </ng-template>
+  <div class="card-body px-4 pb-4">
+    <div class="d-flex gap-3 justify-content-center">
+      <div *ngFor="let item of sampleProfileImages">
+        <img [src]="item" style="max-width: 200px; width: 100%; aspect-ratio: 1/1" class="rounded-2 border img-fluid" alt="Sample Img" />
+      </div>
+    </div>
+  </div>
+</p-dialog>

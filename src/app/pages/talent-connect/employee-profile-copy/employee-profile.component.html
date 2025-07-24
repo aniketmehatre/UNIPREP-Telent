@@ -336,13 +336,13 @@
                 <!-- Career Prefrenences -->
                 <p-step-panel [value]="3">
                   <ng-template #content>
+                    <form [formGroup]="careerPreferenceForm">
                     <h2 class="card-title mb-1">Career Prefrenences & Aspirations</h2>
                     <div class="mb-2">
                       <span class="text-danger fw-bold">Confused about your career?</span>
                       <a (click)="routingToPage('/pages/job-tool/career-tool')" class="px-1" role="button">Click here</a>
                       to plan it!
                     </div>
-                    <form [formGroup]="careerPreferenceForm">
                       <ng-container class="career-experience">
                         <div class="row mb-3">
                           <div class="col-md-6">
@@ -460,7 +460,7 @@
                 <p-step-panel [value]="4">
                   <ng-template #content>
                     <form [formGroup]="certificationsForm">
-                      <div class="row h-100">
+                      <div class="row">
                         <div class="col-12">
                           <h2 class="card-title mb-1">Certifications & Achievements</h2>
                           <div class="mb-2">
@@ -538,12 +538,12 @@
                 <!-- Key Strengths -->
                 <p-step-panel [value]="5">
                   <ng-template #content>
+                    <form [formGroup]="professionalTraitsForm">
                     <h2 class="card-title mb-1">Key Strengths & Professional Traits</h2>
                     <div class="mb-2">
                       <span class="text-danger fw-bold">Want to learn a new language?</span>
                       <a (click)="routingToPage('/pages/language-hub/languages')" class="px-1" role="button">Click here</a> to plan it!
                     </div>
-                    <form [formGroup]="professionalTraitsForm">
                       <ng-container class="work-experience">
                         <div class="row">
                           <div class="col-md-6">
@@ -599,8 +599,8 @@
                 <!-- Professional Networking -->
                 <p-step-panel [value]="6">
                   <ng-template #content>
-                    <h2 class="card-title mb-3">Professional Networking & Online Presence</h2>
                     <form [formGroup]="professionalNetworkingForm">
+                    <h2 class="card-title mb-3">Professional Networking & Online Presence</h2>
                       <ng-container class="work-experience">
                         <div class="row mb-3">
                           <div class="col-md-12">
@@ -659,13 +659,13 @@
                 <!-- Attachments & Media -->
                 <p-step-panel [value]="7">
                   <ng-template #content>
+                    <form [formGroup]="attachmentsForm">
                     <h2 class="card-title mb-3">Attachments & Media</h2>
                     <div class="mb-2">
                       <span class="text-danger fw-bold">Don't have a resume </span>
                       <a class="text-primary px-1" (click)="routingToPage('/pages/job-tool/cv-builder')" role="button">Click here</a>
                       to create one!
                     </div>
-                    <form [formGroup]="attachmentsForm">
                       <div class="row justify-content-center mt-3">
                         <div class="upload-section text-center mb-4 py-2" style="border: 1px dashed lightgray">
                           <h4>{{ attachmentsForm.get("career_preference_cv_filename")?.value ? extractLastName(attachmentsForm.get("career_preference_cv_filename")?.value) : "Upload CV / Resume" }}</h4>
@@ -719,8 +719,8 @@
                 <!-- References -->
                 <p-step-panel [value]="8">
                   <ng-template #content>
-                    <h2 class="card-title mb-3">References & Endorsements</h2>
                     <form [formGroup]="referencesForm">
+                    <h2 class="card-title mb-3">References & Endorsements</h2>
                       <ng-container class="work-experience" formArrayName="academicReferences">
                         <ng-container *ngFor="let academic of academicReferences.controls; let i = index" [formGroupName]="i">
                           <div class="d-flex justify-content-between">
@@ -829,7 +829,7 @@
 							class="d-lg-flex justify-content-between gap-3 w-100">
 							<div class="text-nowrap mb-2 mb-lg-0 d-flex d-lg-block" [ngClass]="activePageIndex ? 'justify-content-between' : 'justify-content-end'">
 								<button pButton type="button" class="btn btn-outline-primary-bg py-2 px-3 me-2 me-lg-0"
-									(click)="previous()" *ngIf="activePageIndex > 2">
+									(click)="previous()" *ngIf="activePageIndex > 1">
 									<i class="fa fa-arrow-left"></i>{{getPreviousIndexValue()}}
 								</button>
                 <button *ngIf="activePageIndex != 9" pButton type="button" (click)="next()" class="btn btn-primary py-2 px-3 d-flex d-lg-none">

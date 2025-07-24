@@ -145,7 +145,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   ];
   isMaxGpaPercentageValue: boolean = false;
   //new design code
-  activePageIndex: number = 0;
+  activePageIndex: number = 1;
   personalInformationForm: FormGroup = new FormGroup({});
   educationDetailsForm: FormGroup = new FormGroup({});
   workExperienceForm: FormGroup = new FormGroup({});

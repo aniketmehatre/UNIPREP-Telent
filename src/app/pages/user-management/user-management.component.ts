@@ -36,6 +36,7 @@ import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile
 import { TalentConnectService } from "../talent-connect/talent-connect.service"
 import { EmployeeProfileComponent } from "../talent-connect/employee-profile-copy/employee-profile.component"
 import { EmployeeProfileModule } from "../talent-connect/employee-profile-copy/employee-profile.module"
+import { environment } from "@env/environment"
 @Component({
 	selector: "uni-user-management",
 	templateUrl: "./user-management.component.html",
@@ -78,7 +79,7 @@ export class UserManagementComponent implements OnInit {
 	subscribedHistoryList: any[] = [];
 	subscribedTransactionList: any[] = [];
 	studentType: number = 0;
-	submitName: any = "Edit"
+	submitBtnName: string = "Edit"
 	editLabelIsShow: boolean = true;
 	imageWhiteLabelDomainName: any;
 	userTypeId: boolean = true;
@@ -87,6 +88,15 @@ export class UserManagementComponent implements OnInit {
 	isUpdateEmployerProfile: boolean = false;
 	isEmployerProfileCompleteSection: boolean = false;
 	profileSectionList: string[] = ['profileCard', 'securityCard', 'emailerCard', 'integrationsCard', 'inviteCard'];
+	logo: any;
+	isSubmittedPersonalInformationForm: boolean = false;
+	uploadedFiles: { [key: string]: File } = {};
+	isSampleProfileImgVisible: boolean = false;
+	sampleProfileImages: string[] = [
+		environment.imagePath + 'uploads/Mask-group.jpg',
+		environment.imagePath + 'uploads/Mask-group-1.jpg',
+		environment.imagePath + 'uploads/Mask-group-2.jpg'
+	];
 
 	constructor(private authService: AuthService, private formBuilder: FormBuilder, private locationService: LocationService,
 		private toast: MessageService, private dashboardService: DashboardService, private userManagementService: UserManagementService,
@@ -100,7 +110,8 @@ export class UserManagementComponent implements OnInit {
 			home_country: [""],
 			last_degree_passing_year: [""],
 			email: [""],
-			current_education: [""]
+			current_education: [""],
+			profile_image: [null, [Validators.required]],
 		})
 
 		this.updatedPasswords = this.formBuilder.group({
@@ -139,7 +150,7 @@ export class UserManagementComponent implements OnInit {
 				this.newsLetter = this.user.newsletter_consent == 1 ? true : false
 			}
 		})
-		this.GetPersonalProfileData()
+		this.GetPersonalProfileData();
 		setTimeout(() => {
 			this.hideToolTip = false
 		}, 10000)
@@ -266,8 +277,10 @@ export class UserManagementComponent implements OnInit {
 				last_degree_passing_year: this.PersonalInfo?.last_degree_passing_year,
 				phone: `${this.PersonalInfo?.country_code || ''} ${this.PersonalInfo?.phone || ''}`,
 				email: this.PersonalInfo?.email,
-				current_education: this.PersonalInfo?.programlevel
-			})
+				current_education: this.PersonalInfo?.programlevel,
+				profile_image: this.employerProfileData?.dp_image
+			});
+			this.logo = this.employerProfileData?.dp_image;
 			this.selectedDate = new Date()
 			this.selectedDate.setFullYear(this.registrationForm.get("intake_year_looking")?.value)
 			this.selectedDate.setMonth(this.registrationForm.get("intake_month_looking")?.value)
@@ -525,28 +538,37 @@ export class UserManagementComponent implements OnInit {
 	closeMobileMenu() {
 		this.isSidebarVisible = false;
 	}
-	extractYear(dateString: string): number {
+	extractYear(dateString: string) {
+		if (!dateString) return null;
 		const date = new Date(dateString);
 		return date.getFullYear();
 	}
 	onSubmit() {
-		if (this.submitName == "Edit") {
+		if (this.submitBtnName == "Edit") {
 			this.registrationForm.get('last_degree_passing_year')?.enable();
 			this.registrationForm.get('home_country')?.enable();
-			this.submitName = "Update"
+			this.registrationForm.get('profile_image')?.enable();
+			this.submitBtnName = "Update"
 			return;
 		}
-		let data = {
-			home_country: this.registrationForm.value.home_country,
-			last_degree_passing_year: this.extractYear(this.registrationForm.value.last_degree_passing_year),
+		this.isSubmittedPersonalInformationForm = true;
+		if (this.registrationForm.invalid) {
+			return;
 		}
-		this.userManagementService.updateUserDetails(data).subscribe({
+		const formDataValue = this.registrationForm.value;
+		const lastDegree = this.extractYear(formDataValue.last_degree_passing_year)?.toString();
+		const formData = new FormData();
+		formData.append("profile_image", this.uploadedFiles["profile_image"] ?? formDataValue?.profile_image);
+		formData.append("home_country", formDataValue.home_country ?? '');
+		formData.append("last_degree_passing_year", lastDegree ?? '');
+		this.userManagementService.updateUserDetails(formData).subscribe({
 			next: (data: any) => {
 				this.toast.add({ severity: 'success', summary: 'Success', detail: data.message });
 				this.registrationForm.get('last_degree_passing_year')?.disable();
 				this.registrationForm.get('home_country')?.disable();
-				this.submitName = "Edit"
+				this.submitBtnName = "Edit"
 				this.GetPersonalProfileData();
+				this.isSubmittedPersonalInformationForm = false;
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
@@ -580,6 +602,41 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	onClickJobPrifile() {
-		this.isEmployerProfileCompleteSection = !this.talentConnectService._employerProfileData?.profile_completion_flag ? true : false;
+		this.isEmployerProfileCompleteSection = !this.employerProfileData?.profile_completion_flag ? true : false;
+	}
+
+	onUploadPhoto(event: any) {
+		const file = event.target.files[0];
+		if (!file) return;
+		const maxSizeInMB = 5;
+		const isImage = file.type.startsWith('image/');
+		const isUnderSizeLimit = file.size <= maxSizeInMB * 1024 * 1024;
+		if (!isImage) {
+			this.toast.add({ severity: "error", summary: "Error", detail: "Please upload your profile picture in the image format." });
+			return;
+		}
+		if (!isUnderSizeLimit) {
+			this.toast.add({ severity: "error", summary: "Error", detail: "Image must be less than 5MB." });
+			return;
+		}
+		// Display preview
+		const reader = new FileReader();
+		reader.onload = () => {
+			this.logo = reader.result;
+			this.registrationForm.get("profile_image")?.setValue(reader.result);
+		}
+		reader.readAsDataURL(file);
+		this.uploadedFiles["profile_image"] = file;
+	}
+
+	onRemovePhoto() {
+		this.logo = null;
+		delete this.uploadedFiles["profile_image"];
+		this.registrationForm.get("profile_image")?.setValue("");
+	}
+
+	openGuideUrl() {
+		const url = environment.imagePath + 'uploads/Profile-Image-Guide.pdf';
+		window.open(url, '_blank');
 	}
 }
