@@ -45,26 +45,56 @@ export class CompanyConnectComponent implements OnInit {
         this.listCompanyData();
     }
 
-    toggleShareDropdown(event: MouseEvent, companyId: number) {
-        event.stopPropagation();
+    toggleCompanyDropdown(companyId: number): void {
         this.activeDropdownCompanyId = this.activeDropdownCompanyId === companyId ? null : companyId;
-    }
-
-    generateCompanyLink(event: MouseEvent, company: any) {
-        event.stopPropagation(); // Prevent card click behavior
-
-        this.talentConnectService.generateUUIDLink(company.id).subscribe({
-            next: (res: any) => {
-                const uuid = res?.uuid;
-                const link = `${window.location.origin}/company/${uuid}`;
-                this.socialShareService.copyQuestion(link, 'Company Link copied successfully');
-                this.activeDropdownCompanyId = null;
-            },
-            error: () => {
-                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not generate link. Please try again.' });
-            }
+      }
+      
+      private buildCompanyLink(company: any): string {
+        return encodeURI(`${window.location.origin}/company/${company.uuid}`);
+      }
+      
+      shareCompanyViaWhatsapp(company: any): void {
+        const url = this.buildCompanyLink(company);
+        window.open(`whatsapp://send?text=${url}`, "_blank");
+      }
+      
+      shareCompanyViaMail(company: any): void {
+        const url = this.buildCompanyLink(company);
+        window.open(`mailto:?body=${url}`, "_blank");
+      }
+      
+      shareCompanyViaFacebook(company: any): void {
+        const url = this.buildCompanyLink(company);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, "_blank");
+      }
+      
+      shareCompanyViaTwitter(company: any): void {
+        const url = this.buildCompanyLink(company);
+        window.open(`https://twitter.com/intent/tweet?url=${url}`, "_blank");
+      }
+      
+      shareCompanyViaInstagram(company: any): void {
+        const url = this.buildCompanyLink(company);
+        window.open(`https://www.instagram.com?url=${url}`, "_blank");
+      }
+      
+      shareCompanyViaLinkedIn(company: any): void {
+        const url = this.buildCompanyLink(company);
+        window.open(`https://www.linkedin.com/shareArticle?url=${url}`, "_blank");
+      }
+      
+      copyCompanyLink(company: any): void {
+        console.log(company)
+        const url = this.buildCompanyLink(company);
+        navigator.clipboard.writeText(url);
+        this.messageService.add({
+          severity: "success",
+          summary: "Copied",
+          detail: "Company link copied successfully!",
         });
-    }
+      }
+
+      
 
     listCompanyData(params?: any) {
         let requestData = {

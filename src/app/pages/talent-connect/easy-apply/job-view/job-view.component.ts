@@ -13,6 +13,7 @@ import { Job } from "src/app/@Models/employee-connect-job.model";
 import { CardModule } from "primeng/card";
 import { SocialShareService } from "src/app/services/social-share.service";
 import { Meta } from "@angular/platform-browser";
+import { environment } from "@env/environment";
 
 @Component({
 	selector: "uni-job-view",
@@ -171,7 +172,7 @@ export class JobViewComponent implements OnInit {
 
 	shareQuestion(type: string) {
 		const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-		const url = window.location.origin + '/job/' + this.jobDetails?.uuid;
+		const url = environment.jobDomain + '/view/' + this.jobDetails?.uuid;
 		const encodedUrl = encodeURIComponent(url);
 		const title = encodeURIComponent('UNIPREP | ' + this.jobDetails?.position + ' | ' + this.jobDetails?.company_name);
 		this.meta.updateTag({ property: 'og:url', content: url });
@@ -203,7 +204,7 @@ export class JobViewComponent implements OnInit {
 	}
 
 	copyLink() {
-		const textToCopy = encodeURI(window.location.origin + '/job/' + this.jobDetails?.uuid);
+		const textToCopy = encodeURI(environment.jobDomain + '/view/' + this.jobDetails?.uuid);
 		this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
 	}
 }
