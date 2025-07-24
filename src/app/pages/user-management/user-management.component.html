@@ -438,7 +438,7 @@
               </div>
             </div>
           </div>
-          <div *ngSwitchCase="'jobProfile'">
+          <div *ngSwitchCase="'jobProfile'" class="h-100">
               <ng-conatiner *ngIf="isEmployerProfileCompleteSection; else showCreateEditSection">
                 <uni-complete-profile-view [userId]="employerProfileData?.id" (completeProfile)="onEditCompleteProfile($event)"></uni-complete-profile-view>
               </ng-conatiner>
