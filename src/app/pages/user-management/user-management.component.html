@@ -439,12 +439,12 @@
             </div>
           </div>
           <div *ngSwitchCase="'jobProfile'">
-              <ng-conatiner *ngIf="isEmployerProfileCompleteSection">
-                <uni-complete-profile-view [userid]="employerProfileData?.id"></uni-complete-profile-view>
+              <ng-conatiner *ngIf="isEmployerProfileCompleteSection; else showCreateEditSection">
+                <uni-complete-profile-view [userId]="employerProfileData?.id" (completeProfile)="onEditCompleteProfile($event)"></uni-complete-profile-view>
               </ng-conatiner>
-              <ng-conatiner *ngIf="!isEmployerProfileCompleteSection">
-                <uni-employee-profile></uni-employee-profile>
-              </ng-conatiner>
+              <ng-template #showCreateEditSection>
+                <uni-employee-profile (completeProfile)="onEditCompleteProfile($event)"></uni-employee-profile>
+              </ng-template>
           </div>
         </ng-container>
       </div>

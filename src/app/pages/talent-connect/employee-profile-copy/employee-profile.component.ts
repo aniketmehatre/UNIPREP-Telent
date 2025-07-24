@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, Output, TemplateRef, ViewChild, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, FormControl } from "@angular/forms";
 import { ViewProfileComponent } from "./view-profile/view-profile.component";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
@@ -41,7 +41,6 @@ import { DrawerModule } from 'primeng/drawer';
 import { PanelModule } from 'primeng/panel';
 import { StepperModule } from 'primeng/stepper';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-// import { DialogService } from 'primeng/dynamicdialog';
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -55,37 +54,37 @@ export enum FileType {
   standalone: true,
   templateUrl: "./employee-profile.component.html",
   styleUrl: "./employee-profile.component.scss",
-  imports:[CommonModule,
-      FormsModule,
-      FluidModule,
-      ReactiveFormsModule,
-      InputTextModule,
-      DropdownModule,
-      DrawerModule,
-      ButtonModule,
-      CardModule,
-      ProgressBarModule,
-      FileUploadModule,
-      InputNumberModule,
-      DialogModule,
-      BadgeModule,
-      SelectModule,
-      DatePickerModule,
-      ToastModule,
-      MultiSelectModule,
-      EditorModule,
-      TooltipModule,
-      ConfirmDialogModule,
-      InputGroupAddonModule,
-      InputGroupModule,
-      SharedModule,
-      ButtonModule,
-      PanelModule,
-      StepperModule,
-      PdfViewerModule,
-      // DialogService
-    ],
-    providers:[DialogService]
+  imports: [CommonModule,
+    FormsModule,
+    FluidModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    DropdownModule,
+    DrawerModule,
+    ButtonModule,
+    CardModule,
+    ProgressBarModule,
+    FileUploadModule,
+    InputNumberModule,
+    DialogModule,
+    BadgeModule,
+    SelectModule,
+    DatePickerModule,
+    ToastModule,
+    MultiSelectModule,
+    EditorModule,
+    TooltipModule,
+    ConfirmDialogModule,
+    InputGroupAddonModule,
+    InputGroupModule,
+    SharedModule,
+    ButtonModule,
+    PanelModule,
+    StepperModule,
+    PdfViewerModule,
+    // DialogService
+  ],
+  providers: [DialogService]
 })
 export class EmployeeProfileComponent implements OnInit, OnDestroy {
   @ViewChild("fileUploadImage") fileInput: ElementRef;
@@ -179,6 +178,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   isSampleProfilePdf: boolean = false;
   isSampleProfileImgVisible: boolean = false;
   isMobileView: boolean = false;
+  @Output() completeProfile: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
   constructor(
     private fb: FormBuilder,
@@ -1936,7 +1936,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.additionalNotesForm.value.additional_notes = this.additionalNotesForm.value.additional_notes == '<p></p>' ? '' : this.additionalNotesForm.value.additional_notes;
     if (this.additionalNotesForm.value.additional_notes == this.originalProfileData?.additional_notes && this.isUpdatedProfile) {
       this.isShowCreatedSuccessfullyPopup = true;
-      this.toastService.add({ severity: "success", summary: "Success", detail: "Profile Created Successfully" });
       return;
     }
     let data = {
@@ -1949,7 +1948,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       next: res => {
         this.getProfileData();
         this.isShowCreatedSuccessfullyPopup = true;
-        this.toastService.add({ severity: "success", summary: "Success", detail: "Profile Created Successfully" });
       },
       error: err => {
         this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
@@ -2107,6 +2105,11 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   goBack() {
     this.isSampleProfilePdf ? this.isSampleProfilePdf = false : this.router.navigateByUrl('/pages/talent-connect/list');
+  }
+
+  onCompleteProfile() {
+    this.isShowCreatedSuccessfullyPopup = false;
+    this.completeProfile.emit(true);
   }
 
   @HostListener("window:resize", ["$event"])

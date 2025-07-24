@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
@@ -28,9 +28,9 @@ import { environment } from '@env/environment';
 })
 export class CompleteProfileViewComponent implements OnInit {
   profileData!: UserProfile;
-  userId: string = '';
   isSkeletonVisible: boolean = true;
-  @Input() userid: number = 0;
+  @Input() userId: number = 0;
+  @Output() completeProfile: EventEmitter<boolean> = new EventEmitter<boolean>(false);
   // Service
   socialShareService = inject(SocialShareService);
   meta = inject(Meta);
@@ -40,14 +40,13 @@ export class CompleteProfileViewComponent implements OnInit {
     private message: MessageService, private router: Router) { }
 
   ngOnInit() {
-    this.userId = this.activatedRoute.snapshot.params?.['id'] ?? this.userid;
     if (this.userId) {
-      this.getStudentDetails(this.userId);
+      this.getStudentDetails();
     }
   }
 
-  getStudentDetails(id: string) {
-    this.talentConnectService.getStudentProfilesUsingId(id).subscribe({
+  getStudentDetails() {
+    this.talentConnectService.getStudentProfilesUsingId(this.userId).subscribe({
       next: response => {
         this.profileData = response.data[0];
         this.isSkeletonVisible = false;
@@ -109,14 +108,14 @@ export class CompleteProfileViewComponent implements OnInit {
 
   shareQuestion(type: string) {
     const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-    const url = encodeURI(environment.employerDomain +'/talent/' + this.profileData?.uuid);
+    const url = encodeURI(environment.employerDomain + '/talent/' + this.profileData?.uuid);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
 
   copyLink() {
-    const textToCopy = encodeURI(environment.employerDomain +'/talent/' + this.profileData?.uuid);
+    const textToCopy = encodeURI(environment.employerDomain + '/talent/' + this.profileData?.uuid);
     this.socialShareService.copyQuestion(textToCopy, 'Profile Link copied successfully');
   }
 
@@ -138,5 +137,9 @@ export class CompleteProfileViewComponent implements OnInit {
 
   openVideoPopup() {
     this.pageFacade.openHowitWorksVideoPopup("");
+  }
+
+  onEdit() {
+    this.completeProfile.emit(false);
   }
 }

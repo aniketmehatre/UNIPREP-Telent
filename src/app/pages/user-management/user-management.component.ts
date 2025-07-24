@@ -602,7 +602,11 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	onClickJobPrifile() {
-		this.isEmployerProfileCompleteSection = !this.employerProfileData?.profile_completion_flag ? true : false;
+		this.isEmployerProfileCompleteSection = this.employerProfileData?.profile_completion_flag ? true : false;
+	}
+
+	onEditCompleteProfile(event: boolean) {
+		this.isEmployerProfileCompleteSection = event;
 	}
 
 	onUploadPhoto(event: any) {
