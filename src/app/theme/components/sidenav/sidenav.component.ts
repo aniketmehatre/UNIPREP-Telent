@@ -34,7 +34,7 @@ export class SidenavComponent {
   @ContentChild("appTitle") appTitle!: TemplateRef<any>;
   @Output() active = new EventEmitter<SideMenu>();
   @Input() isOverlap = false;
-  
+
   @Input() menus: SideMenu[] = [
     {
       title: "Dashboard",
@@ -86,10 +86,20 @@ export class SidenavComponent {
     //   url: "/pages/job-portal/job-search",
     //   image: "fa-solid fa-briefcase",
     // },
+    // {
+    //   title: "Employer Connect",
+    //   url: "/pages/talent-connect/list",
+    //   image: "fa-solid fa-briefcase",
+    // },
     {
-      title: "Employer Connect",
-      url: "/pages/talent-connect/list",
+      title: "Copmany Connect",
+      url: "",
       image: "fa-solid fa-briefcase",
+    },
+    {
+      title: "Explore Jobs",
+      url: "",
+      image: "fa-solid fa-user-tie-hair",
     },
     {
       title: "Learning Hub",
@@ -429,22 +439,18 @@ export class SidenavComponent {
         this.menus = this.menus.filter((item) => !this.careerMenus.includes(item.title));
       }
       this.menus = this.menus.filter((item) => !this.collegeStudentMenus.includes(item.title));
-    }  
+    }
   }
 
-  addEasyJob(){
-    const exploreJobsUrl = this.talentService._employerProfileData == null ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/easy-apply";
-    // Find index of "Employer Connect"
-    const index = this.menus.findIndex(menu => menu.title === "Employer Connect");
+  addEasyJob() {
+    const exploreJobsUrl = this.talentService._employerProfileData == null ? "/pages/usermanagement" : "/pages/talent-connect/easy-apply";
+    const exploreJob = this.menus.find(menu => menu.title === "Explore Jobs") as SideMenu;
+    exploreJob.url = exploreJobsUrl;
 
-    // Insert after it (index + 1)
-    if (index !== -1) {
-      this.menus.splice(index + 1, 0, {
-        title: "Explore Jobs",
-        url: exploreJobsUrl,
-        image: "fa-solid fa-user-tie-hair",
-      });
-    }
+    const copmanyConnectUrl = this.talentService._employerProfileData == null ? "/pages/usermanagement" : "/pages/talent-connect/company-connect";
+    const companyConnect = this.menus.find(menu => menu.title === "Copmany Connect") as SideMenu;
+    companyConnect.url = copmanyConnectUrl;
+
   }
 
   changeSubscriptionUrl() {
@@ -490,7 +496,7 @@ export class SidenavComponent {
   listClick(event: any, newValue: any) {
     // return;
     this.visibleExhasted = false;
-    
+
     // this.authService.getNewUserTimeLeft().subscribe((res) => {
     //   let data = res.time_left;
     //   if (data.plan === "expired" && newValue.title != "Dashboard" && newValue.title != "Tutorials" && newValue.title != "FAQ" && newValue.title != "24x7 Support") {
