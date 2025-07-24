@@ -20,7 +20,7 @@
                                                         alt="UNIPREP" (load)="loading = false"
                                                         (error)="onImageError($event)" width="200" loading="eager"
                                                         class="small-image text-left mb-2"
-                                                        src="{{ imageUrlWhitelabel }}" />
+                                                        src="{{ whiteLabelImage }}" />
                                                 </div>
 
                                                 <h4 class="mt-3 mb-2 fw-semibold text-center">Welcome, Please create
@@ -109,11 +109,14 @@
                                                             <form [formGroup]="emailOTPForm" class="formOTP"
                                                                 (ngSubmit)="onValidateEmailOTP()">
                                                                 <h5 class="mt-3 text-center">Enter your OTP</h5>
-                                                                <p class="text-center text-muted mb-3">We've sent a 4-digit
+                                                                <p class="text-center text-muted mb-3">We've sent a
+                                                                    4-digit
                                                                     code to your email.<br>
                                                                     Please enter it below to verify your account. <br>
                                                                 </p>
-                                                                <p class="text-center uniprep-secondary">Note: If you haven’t received the email, please check your spam or promotions folder.</p>
+                                                                <p class="text-center uniprep-secondary">Note: If you
+                                                                    haven’t received the email, please check your spam
+                                                                    or promotions folder.</p>
                                                                 <br>
                                                                 <div class="d-flex justify-content-center">
                                                                     <p-inputotp formControlName="otp"
@@ -229,8 +232,9 @@
                                                 <div class="d-flex justify-content-between">
                                                     <div class="w-100">&nbsp;</div>
                                                     <div class="w-100">
-                                                        <asl-google-signin-button width="300" logo_alignment="center" text="signup_with"
-                                                            type="standard" size="large"></asl-google-signin-button>
+                                                        <asl-google-signin-button width="300" logo_alignment="center"
+                                                            text="signup_with" type="standard"
+                                                            size="large"></asl-google-signin-button>
                                                     </div>
                                                     <div class="w-100">&nbsp;</div>
                                                 </div>

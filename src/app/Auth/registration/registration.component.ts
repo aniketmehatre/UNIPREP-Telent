@@ -1,6 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from "@angular/core"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
-import { Router, RouterModule } from "@angular/router"
+import { ActivatedRoute, Router, RouterModule } from "@angular/router"
 import { matchValidator } from "src/app/@Supports/matchvalidator"
 import { LocationService } from "src/app/services/location.service"
 import { AuthService } from "../auth.service"
@@ -23,7 +23,7 @@ import { ButtonDirective } from "primeng/button";
 import { AuthTokenService } from "src/app/services/auth-token.service"
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { Image } from "primeng/image";
-import {StorageService} from "../../services/storage.service";
+import { StorageService } from "../../services/storage.service";
 
 @Component({
     selector: "app-registration",
@@ -66,7 +66,7 @@ export class RegistrationComponent implements OnInit {
     registerFormInvalid: boolean = true
     submitted = false
 
-    imageUrlWhitelabel: string = '../../../uniprep-assets/images/uniprep-light.svg'
+    whiteLabelImage: string = '../../../uniprep-assets/images/uniprep-light.svg'
 
     showPassword: boolean = false
     otpError: boolean = false
@@ -81,7 +81,7 @@ export class RegistrationComponent implements OnInit {
         private toastr: MessageService,
         private authService: SocialAuthService,
         private storage: LocalStorageService,
-        private storageService: StorageService,
+        private route: ActivatedRoute,
         private authTokenService: AuthTokenService
     ) {
     }
@@ -89,16 +89,32 @@ export class RegistrationComponent implements OnInit {
     dateTime = new Date()
     position: any
     ngOnInit() {
+        this.route.queryParams.subscribe(params => {
+            const position = params['position'];
+            const jobId = params['job_id'];
+
+            if (position && jobId) {
+                this.position = position;
+                this.storage.set('position', position)
+                this.storage.set('jobId', jobId)
+                this.router.navigate([], {
+                    relativeTo: this.route,
+                    queryParams: {},
+                    replaceUrl: true
+                });
+            } else {
+                // console.log('One or both query params are missing.');
+            }
+        });
         this.position = this.storage.get('position')
         if (!this.position) {
             localStorage.clear()
         }
         //localStorage.clear()
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
-            this.imageUrlWhitelabel = data.logo
+            this.whiteLabelImage = data.logo
         })
         this.authService.authState.subscribe((user) => {
-            console.log('comees');
 
             this.service.googlesignUp(user).subscribe(
                 (data) => {
