@@ -224,4 +224,13 @@ export const howItWorksLinks: { [key: string]: { video_link: string } } = {
   "talent-profile-creation" : {
     video_link: "https://www.youtube.com/embed/UMRenyPjO6E?si=6HXjTZ58F5sSboDi"
   },
+  "uniprep-student-register" : {
+    video_link: "https://www.youtube.com/embed/-pGBxRnHpKE?si=VKs-n6KlpK3cobGe",
+  },
+  "institute-register" : {
+    video_link: "https://www.youtube.com/embed/xXPETC_SIRE?si=TCqos26suSahxqGr"
+  }, 
+  "partner-register" : {
+    video_link: "https://www.youtube.com/embed/ecwpL5HQb9A?si=E6BjWLaiveX-nZpu"
+  }
 };

@@ -20,11 +20,13 @@ import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
 import { LandingInstituteService } from '../landing-institute.service';
 import { PasswordModule } from "primeng/password";
-
+import { ButtonModule } from 'primeng/button';
+import { HowItWorksService } from 'src/app/shared/how-it-works/how-it-works.service';
+import { HowItWorksComponent } from 'src/app/shared/how-it-works/how-it-works.component';
 @Component({
   selector: 'uni-institute-register',
   imports: [CommonModule, GoogleSigninButtonModule, InputOtpModule, FluidModule, PasswordModule,
-    RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule],
+    RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, ButtonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule, HowItWorksComponent],
   standalone: true,
   templateUrl: './institute-register.component.html',
   styleUrl: './institute-register.component.scss'
@@ -65,7 +67,7 @@ export class InstituteRegisterComponent {
   isShowConfirmationResponse: boolean = false;
   genderOptions: any[] = []
   afterRegisterAwaitingConfirmation: boolean = false;
-  constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder, private locationService: LocationService, private toast: MessageService, private authService: SocialAuthService, private storage: LocalStorageService, private landingService: LandingInstituteService) { }
+  constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder, private locationService: LocationService, private toast: MessageService, private authService: SocialAuthService, private storage: LocalStorageService, private landingService: LandingInstituteService, private howItWorkService: HowItWorksService) { }
 
   dateTime = new Date();
   private subs = new SubSink();
@@ -388,5 +390,9 @@ export class InstituteRegisterComponent {
     if (!pattern.test(inputChar)) {
       event.preventDefault();
     }
+  }
+
+  openVideoPopup(){
+    this.howItWorkService.open('institute-register');
   }
 }
