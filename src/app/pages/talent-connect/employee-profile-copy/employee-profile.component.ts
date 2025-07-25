@@ -995,10 +995,15 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.currentMessage = this.defaultMessage // Default message
   }
 
-  extractLastName(url: string): string {
-    if (!url) return ""
-    const fileName = url.split("/").pop() || "" // "1742015348_cv_letter.pdf"
-    return fileName
+  extractLastName(fileName: string): string {
+    if(!fileName) return "";
+    const extension = fileName.split('.').pop(); // get "extension"
+    const baseName = fileName.split("/").pop() as string; // remove extension
+    let shortened = baseName;
+    if (baseName.length > 15) {
+      shortened = baseName.slice(0, 12) + '...';
+    }
+    return `${shortened}.${extension}`;
   }
 
   routingToPage(pageUrl: string) {
