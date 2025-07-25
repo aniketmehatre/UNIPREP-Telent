@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from "@angular/core"
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from "@angular/core"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
 import { ActivatedRoute, Router, RouterModule } from "@angular/router"
 import { matchValidator } from "src/app/@Supports/matchvalidator"
@@ -102,6 +102,9 @@ export class RegistrationComponent implements OnInit {
                     queryParams: {},
                     replaceUrl: true
                 });
+                if (this.service.isTokenValid()) {
+                    this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+                }
             } else {
                 // console.log('One or both query params are missing.');
             }

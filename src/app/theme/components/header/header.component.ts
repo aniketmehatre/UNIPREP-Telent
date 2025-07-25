@@ -1290,6 +1290,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.authService._userContineTrial = false
 				setTimeout(() => {
 					this.checkNewUser()
+					let jobId = this.storage.get('jobId')
+					if (jobId) {
+						this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+					}
 					window.location.reload()
 				}, 2000)
 				return res
@@ -1372,7 +1376,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	async gettingLocationForNewUsers(){
+	async gettingLocationForNewUsers() {
 		let userLocation: { country: string; city: string } = await this.countryLocationService.getUserCountry();
 		let findcountry = this.homeCountryList.find((country: any) => userLocation.country === country.country);
 		if (findcountry) {
