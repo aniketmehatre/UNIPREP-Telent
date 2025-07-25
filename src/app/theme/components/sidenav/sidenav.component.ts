@@ -92,7 +92,7 @@ export class SidenavComponent {
     //   image: "fa-solid fa-briefcase",
     // },
     {
-      title: "Copmany Connect",
+      title: "Company Connect",
       url: "",
       image: "fa-solid fa-briefcase",
     },
@@ -448,7 +448,7 @@ export class SidenavComponent {
     exploreJob.url = exploreJobsUrl;
 
     const copmanyConnectUrl = this.talentService._employerProfileData == null ? "/pages/usermanagement" : "/pages/talent-connect/company-connect";
-    const companyConnect = this.menus.find(menu => menu.title === "Copmany Connect") as SideMenu;
+    const companyConnect = this.menus.find(menu => menu.title === "Company Connect") as SideMenu;
     companyConnect.url = copmanyConnectUrl;
 
   }
