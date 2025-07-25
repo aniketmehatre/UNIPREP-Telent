@@ -8,7 +8,6 @@ import { UserManagementService } from "./user-management.service"
 import { SubSink } from "subsink"
 import { Router, RouterModule } from "@angular/router"
 import { DashboardService } from "../dashboard/dashboard.service"
-import { DataService } from "../../services/data.service"
 import { Location } from "@angular/common"
 import { CommonModule } from "@angular/common"
 import { SkeletonModule } from "primeng/skeleton"
@@ -24,8 +23,7 @@ import { SelectModule } from "primeng/select"
 import { DialogModule } from "primeng/dialog"
 import { CardModule } from "primeng/card"
 import { InputNumberModule } from "primeng/inputnumber"
-import { StorageService } from "../../services/storage.service";
-import { catchError, combineLatest, EMPTY, finalize, forkJoin, of, timeout } from "rxjs"
+import { catchError, EMPTY, finalize, forkJoin, timeout } from "rxjs"
 import { InputSwitchModule } from "primeng/inputswitch"
 import { TableModule } from "primeng/table"
 import { SubscriptionService } from "../subscription/subscription.service"
@@ -33,12 +31,21 @@ import { ConfirmDialogModule } from "primeng/confirmdialog"
 import { AuthTokenService } from "src/app/services/auth-token.service"
 import { CalendarModule } from "primeng/calendar"
 import { PasswordModule } from "primeng/password"
+import { CompleteProfileViewComponent } from "../talent-connect/employee-profile-copy/complete-profile-view/complete-profile-view.component"
+import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile"
+import { TalentConnectService } from "../talent-connect/talent-connect.service"
+import { EmployeeProfileComponent } from "../talent-connect/employee-profile-copy/employee-profile.component"
+import { EmployeeProfileModule } from "../talent-connect/employee-profile-copy/employee-profile.module"
+import { environment } from "@env/environment"
 @Component({
 	selector: "uni-user-management",
 	templateUrl: "./user-management.component.html",
 	styleUrls: ["./user-management.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, PasswordModule, ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule, FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule, CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule, DialogModule, CardModule, InputNumberModule],
+	imports: [CommonModule, RouterModule, PasswordModule, ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule,
+		FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule,
+		CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule,
+		DialogModule, CardModule, InputNumberModule, CompleteProfileViewComponent, EmployeeProfileComponent],
 	providers: [ConfirmationService]
 })
 export class UserManagementComponent implements OnInit {
@@ -56,7 +63,8 @@ export class UserManagementComponent implements OnInit {
 	PersonalInfo: any = []
 	hideToolTip: boolean = true
 	private subs = new SubSink()
-	activeSection: string = 'profileCard';
+	activeSection: string = 'myprofile';
+	activeSectionCard: string = 'profileCard';
 	sendInvite: any = ""
 	cvBuilderPercentage: number = 0;
 	talentConnectPercentage: number = 0;
@@ -71,16 +79,29 @@ export class UserManagementComponent implements OnInit {
 	subscribedHistoryList: any[] = [];
 	subscribedTransactionList: any[] = [];
 	studentType: number = 0;
-	submitName: any = "Edit"
+	submitBtnName: string = "Edit"
 	editLabelIsShow: boolean = true;
 	imageWhiteLabelDomainName: any;
 	userTypeId: boolean = true;
-	constructor(private authService: AuthService, private formBuilder: FormBuilder,
-		private locationService: LocationService, private toast: MessageService,
-		private dataService: DataService, private dashboardService: DashboardService,
-		private userManagementService: UserManagementService, private router: Router,
-		private _location: Location, private storage: StorageService, private subscription: SubscriptionService,
-		private confirmationService: ConfirmationService, private authTokenService: AuthTokenService,) {
+	// Employer Profile Section
+	employerProfileData: EmployeeConnectProfile | null;
+	isUpdateEmployerProfile: boolean = false;
+	isEmployerProfileCompleteSection: boolean = false;
+	profileSectionList: string[] = ['profileCard', 'securityCard', 'emailerCard', 'integrationsCard', 'inviteCard'];
+	logo: any;
+	isSubmittedPersonalInformationForm: boolean = false;
+	uploadedFiles: { [key: string]: File } = {};
+	isSampleProfileImgVisible: boolean = false;
+	sampleProfileImages: string[] = [
+		environment.imagePath + 'uploads/Mask-group.jpg',
+		environment.imagePath + 'uploads/Mask-group-1.jpg',
+		environment.imagePath + 'uploads/Mask-group-2.jpg'
+	];
+
+	constructor(private authService: AuthService, private formBuilder: FormBuilder, private locationService: LocationService,
+		private toast: MessageService, private dashboardService: DashboardService, private userManagementService: UserManagementService,
+		private router: Router, private _location: Location, private subscription: SubscriptionService, private confirmationService: ConfirmationService,
+		private authTokenService: AuthTokenService, private talentConnectService: TalentConnectService) {
 
 		this.registrationForm = this.formBuilder.group({
 			name: [""],
@@ -89,7 +110,8 @@ export class UserManagementComponent implements OnInit {
 			home_country: [""],
 			last_degree_passing_year: [""],
 			email: [""],
-			current_education: [""]
+			current_education: [""],
+			profile_image: [null, [Validators.required]],
 		})
 
 		this.updatedPasswords = this.formBuilder.group({
@@ -108,6 +130,8 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.setSwitchSection('profileCard');
+		this.employerProfileData = this.talentConnectService._employerProfileData;
 		this.userTypeId = this.authService._user?.student_type_id === 2
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.imageWhiteLabelDomainName = data.source
@@ -126,7 +150,7 @@ export class UserManagementComponent implements OnInit {
 				this.newsLetter = this.user.newsletter_consent == 1 ? true : false
 			}
 		})
-		this.GetPersonalProfileData()
+		this.GetPersonalProfileData();
 		setTimeout(() => {
 			this.hideToolTip = false
 		}, 10000)
@@ -198,16 +222,22 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	setSwitchSection(section: string): void {
-		this.activeSection = section;
+		this.activeSectionCard = section;
+		this.activeSection = this.isSwitchSection(section) ? 'myprofile' : section;
+		this.closeMobileMenu();
+		if (this.activeSection == 'jobProfile') {
+			this.onClickJobPrifile();
+		}
 	}
 
-	isSwitchSection(): boolean {
-		return ['subscription'].includes(this.activeSection);
+	isSwitchSection(section: string): boolean {
+		return this.profileSectionList.includes(section);
 	}
 
 	isActive(section: string): boolean {
-		return this.activeSection === section;
+		return this.activeSectionCard === section;
 	}
+
 	GetPersonalProfileData() {
 		this.registrationForm.disable();
 		this.userManagementService.GetUserPersonalInfo().subscribe((data) => {
@@ -247,8 +277,10 @@ export class UserManagementComponent implements OnInit {
 				last_degree_passing_year: this.PersonalInfo?.last_degree_passing_year,
 				phone: `${this.PersonalInfo?.country_code || ''} ${this.PersonalInfo?.phone || ''}`,
 				email: this.PersonalInfo?.email,
-				current_education: this.PersonalInfo?.programlevel
-			})
+				current_education: this.PersonalInfo?.programlevel,
+				profile_image: this.employerProfileData?.dp_image
+			});
+			this.logo = this.employerProfileData?.dp_image;
 			this.selectedDate = new Date()
 			this.selectedDate.setFullYear(this.registrationForm.get("intake_year_looking")?.value)
 			this.selectedDate.setMonth(this.registrationForm.get("intake_month_looking")?.value)
@@ -506,28 +538,37 @@ export class UserManagementComponent implements OnInit {
 	closeMobileMenu() {
 		this.isSidebarVisible = false;
 	}
-	extractYear(dateString: string): number {
+	extractYear(dateString: string) {
+		if (!dateString) return null;
 		const date = new Date(dateString);
 		return date.getFullYear();
 	}
 	onSubmit() {
-		if (this.submitName == "Edit") {
+		if (this.submitBtnName == "Edit") {
 			this.registrationForm.get('last_degree_passing_year')?.enable();
 			this.registrationForm.get('home_country')?.enable();
-			this.submitName = "Update"
+			this.registrationForm.get('profile_image')?.enable();
+			this.submitBtnName = "Update"
 			return;
 		}
-		let data = {
-			home_country: this.registrationForm.value.home_country,
-			last_degree_passing_year: this.extractYear(this.registrationForm.value.last_degree_passing_year),
+		this.isSubmittedPersonalInformationForm = true;
+		if (this.registrationForm.invalid) {
+			return;
 		}
-		this.userManagementService.updateUserDetails(data).subscribe({
+		const formDataValue = this.registrationForm.value;
+		const lastDegree = this.extractYear(formDataValue.last_degree_passing_year)?.toString();
+		const formData = new FormData();
+		formData.append("profile_image", this.uploadedFiles["profile_image"] ?? formDataValue?.profile_image);
+		formData.append("home_country", formDataValue.home_country ?? '');
+		formData.append("last_degree_passing_year", lastDegree ?? '');
+		this.userManagementService.updateUserDetails(formData).subscribe({
 			next: (data: any) => {
 				this.toast.add({ severity: 'success', summary: 'Success', detail: data.message });
 				this.registrationForm.get('last_degree_passing_year')?.disable();
 				this.registrationForm.get('home_country')?.disable();
-				this.submitName = "Edit"
+				this.submitBtnName = "Edit"
 				this.GetPersonalProfileData();
+				this.isSubmittedPersonalInformationForm = false;
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
@@ -558,5 +599,48 @@ export class UserManagementComponent implements OnInit {
 		const passwordField = this.passwordFields[field];
 		passwordField.visible = !passwordField.visible;
 		passwordField.type = passwordField.visible ? 'text' : 'password';
+	}
+
+	onClickJobPrifile() {
+		this.isEmployerProfileCompleteSection = this.employerProfileData?.profile_completion_flag ? true : false;
+	}
+
+	onEditCompleteProfile(event: boolean) {
+		this.isEmployerProfileCompleteSection = event;
+	}
+
+	onUploadPhoto(event: any) {
+		const file = event.target.files[0];
+		if (!file) return;
+		const maxSizeInMB = 5;
+		const isImage = file.type.startsWith('image/');
+		const isUnderSizeLimit = file.size <= maxSizeInMB * 1024 * 1024;
+		if (!isImage) {
+			this.toast.add({ severity: "error", summary: "Error", detail: "Please upload your profile picture in the image format." });
+			return;
+		}
+		if (!isUnderSizeLimit) {
+			this.toast.add({ severity: "error", summary: "Error", detail: "Image must be less than 5MB." });
+			return;
+		}
+		// Display preview
+		const reader = new FileReader();
+		reader.onload = () => {
+			this.logo = reader.result;
+			this.registrationForm.get("profile_image")?.setValue(reader.result);
+		}
+		reader.readAsDataURL(file);
+		this.uploadedFiles["profile_image"] = file;
+	}
+
+	onRemovePhoto() {
+		this.logo = null;
+		delete this.uploadedFiles["profile_image"];
+		this.registrationForm.get("profile_image")?.setValue("");
+	}
+
+	openGuideUrl() {
+		const url = environment.imagePath + 'uploads/Profile-Image-Guide.pdf';
+		window.open(url, '_blank');
 	}
 }

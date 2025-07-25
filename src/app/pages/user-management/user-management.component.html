@@ -11,22 +11,23 @@
     <aside class="sidebar p-2" [class.mobile-visible]="isSidebarVisible">
       <ul class="menu list-unstyled">
         <!-- Scroll to section -->
-        <li [class.active]="!isSwitchSection() && isActive('profileCard')" (click)="scrollToSection('profileCard'); activeSection = 'profileCard'; closeMobileMenu()"><i class="fa-regular fa-user"></i>&nbsp;&nbsp;My Profile</li>
-        <li [class.active]="!isSwitchSection() && isActive('securityCard')" (click)="scrollToSection('securityCard'); activeSection = 'securityCard'; closeMobileMenu()"><i class="fa-light fa-shield"></i>&nbsp;&nbsp;Security</li>
-        <li [class.active]="!isSwitchSection() && isActive('emailerCard')" (click)="scrollToSection('emailerCard'); activeSection = 'emailerCard'; closeMobileMenu()"><i class="fa-regular fa-envelope"></i>&nbsp;&nbsp;Emailer Settings</li>
-        <li [class.active]="!isSwitchSection() && isActive('integrationsCard')" (click)="scrollToSection('integrationsCard'); activeSection = 'integrationsCard'; closeMobileMenu()"><i class="fas fa-link" style="color: #2c3e50; font-size: 18px"></i>&nbsp;&nbsp;Integrations</li>
-        <li [class.active]="!isSwitchSection() && isActive('inviteCard')" (click)="scrollToSection('inviteCard'); activeSection = 'inviteCard'; closeMobileMenu()"><i class="fa-regular fa-user-plus"></i>&nbsp;&nbsp;Invite A Friend</li>
+        <li [class.active]="isActive('profileCard')" (click)="scrollToSection('profileCard'); setSwitchSection('profileCard');"><i class="fa-regular fa-user"></i>&nbsp;&nbsp;My Profile</li>
+        <li [class.active]="isActive('securityCard')" (click)="scrollToSection('securityCard'); setSwitchSection('securityCard');"><i class="fa-light fa-shield"></i>&nbsp;&nbsp;Security</li>
+        <li [class.active]="isActive('emailerCard')" (click)="scrollToSection('emailerCard'); setSwitchSection('emailerCard');"><i class="fa-regular fa-envelope"></i>&nbsp;&nbsp;Emailer Settings</li>
+        <li [class.active]="isActive('integrationsCard')" (click)="scrollToSection('integrationsCard'); setSwitchSection('integrationsCard');"><i class="fas fa-link" style="color: #2c3e50; font-size: 18px"></i>&nbsp;&nbsp;Integrations</li>
+        <li [class.active]="isActive('inviteCard')" (click)="scrollToSection('inviteCard'); setSwitchSection('inviteCard');"><i class="fa-regular fa-user-plus"></i>&nbsp;&nbsp;Invite A Friend</li>
         <hr />
         <!-- Switch case below -->
-        <li>
+        <li [class.active]="isActive('jobProfile')" (click)="setSwitchSection('jobProfile')"><i class="fa-regular fa-user-tie"></i>&nbsp;&nbsp;Job Profile</li>
+        <!-- <li>
           <a routerLink="/pages/talent-connect/my-profile" class="nav-link"><i class="fa-regular fa-user-tie"></i>&nbsp;&nbsp;Talent Profile</a>
-        </li>
+        </li> -->
         <li>
           <a routerLink="/pages/job-tool/cv-builder" class="nav-link"><i class="fa-light fa-file-zipper"></i>&nbsp;&nbsp;My Resumes</a>
         </li>
         <hr />
 
-        <li *ngIf="!userTypeId" [class.active]="isActive('subscription')" (click)="setSwitchSection('subscription'); closeMobileMenu()"><i class="fa-solid fa-web-awesome"></i>&nbsp;&nbsp;My Subscription</li>
+        <li *ngIf="!userTypeId" [class.active]="isActive('subscription')" (click)="setSwitchSection('subscription');"><i class="fa-solid fa-web-awesome"></i>&nbsp;&nbsp;My Subscription</li>
       </ul>
       <div class="card mt-2 bg-white">
         <div class="card-body d-flex flex-column justify-content-between">
@@ -89,237 +90,271 @@
 
       <!-- Body -->
       <div class="mt-2 body">
-        <!-- First 5 Section Cards -->
-        <div *ngIf="!isSwitchSection()" class="row">
-          <div class="col-md-12 mb-3" id="profileCard">
-            <div class="card p-3 bg-white">
-              <div class="row">
-                <div class="col-md-3 col-lg-3 col-sm-12">
-                  <h6><strong>My Profile</strong></h6>
-                  <p>Name, Email, Country, Location, education & Last degree passing year</p>
-                </div>
-                <div class="col-md-9 col-lg-9 col-sm-12">
-                  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-                    <div class="container-fluid">
-                      <div class="row">
-                        <div class="col-12 p-2">
-                          <label>Name</label>
-                          <div class="form-group">
-                            <div class="mb-3">
-                              <input class="w-100" formControlName="name" pInputText type="text" />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-sm-12 p-2">
-                          <div style="display: flex; justify-content: space-between; font-weight: 500">
-                            <label>Email</label>
-                            <label *ngIf="PersonalInfo?.is_phn_or_whs_verified == 1" style="color: #0a7fc7"
-                              ><span><i class="fa-regular fa-envelope"></i>&nbsp;</span>Email Verified</label
-                            >
-                          </div>
-                          <div class="form-group">
-                            <div class="mb-3">
-                              <input class="w-100" formControlName="email" pInputText type="text" />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-sm-12 p-2">
-                          <div style="display: flex; justify-content: space-between; font-weight: 500">
-                            <label>Phone Number</label>
-                            <label *ngIf="PersonalInfo?.is_phn_or_whs_verified == 1" style="color: #25d366"
-                              ><span><i class="fa-brands fa-whatsapp"></i>&nbsp;</span>Whatsapp Verified</label
-                            >
-                          </div>
-
-                          <div class="form-group">
-                            <div class="mb-3">
-                              <input class="w-100" formControlName="phone" pInputText type="text" />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-sm-12 p-2">
-                          <label>Country</label>
-                          <div class="form-group">
-                            <div class="mb-3">
-                              <p-select styleClass="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" filterBy="work_location" optionLabel="work_location" optionValue="id" [virtualScroll]="true" [virtualScrollItemSize]="50"> </p-select>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- <div class="col-md-6 col-lg-6 col-sm-12 p-2">
-                                                    <label>Location</label>
-                                                    <div class="form-group">
-                                                        <div class="mb-3">
-                                                            <p-select styleClass="w-100" [filter]="true" appendTo="body"
-                                                                [options]="locationList" formControlName="location_id"
-                                                                optionLabel="district" optionValue="id"
-                                                                [autoDisplayFirst]="false"
-                                                                [readonly]="registrationForm.get('home_country')?.value == 122 ? false : true">
-                                                            </p-select>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-                        <div class="col-md-6 col-lg-6 col-sm-12 p-2">
-                          <label>Current Education</label>
-                          <div class="form-group">
-                            <div class="mb-3">
-                              <input class="w-100" formControlName="current_education" pInputText type="text" />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-sm-12 p-2">
-                          <label>Last Degree Passing Year</label>
-                          <div class="form-group">
-                            <div class="mb-3">
-                              <p-calendar [maxDate]="today" [showIcon]="true" appendTo="body" dateFormat="yy" view="year" [yearNavigator]="true" type="number" [yearRange]="'1950:' + currentYear" inputId="pickYear" formControlName="last_degree_passing_year" placeholder="Enter or pick year" (input)="onYearInput($event)" (keypress)="onKeyPress($event)"></p-calendar>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <button type="submit" class="btn btn-dark w-100" style="background-color: var(--p-primary-500) !important">
-                          {{ submitName }}
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 mb-3" id="securityCard">
-            <div class="card p-3 bg-white">
-              <div class="row">
-                <div class="col-md-3 col-lg-3 col-sm-12">
-                  <h6><strong>Security</strong></h6>
-                  <p class="fontsizecontent">Update your password</p>
-                </div>
-                <div class="col-md-9 col-lg-9 col-sm-12">
-                  <form [formGroup]="updatedPasswords" (ngSubmit)="UserUpdatePassword(updatedpasswords)">
-                    <div class="container-fluid">
-                      <div class="row">
-                        <div class="col-12">
-                          <label class="mb-1">Current Password</label>
-                          <div class="position-relative">
-                            <input [type]="passwordFields.current.type" class="form-control w-100" formControlName="current_password" />
-                            <span class="passwordvisibility" role="button" (click)="togglePassword('current')">
-                              <i class="fa-solid" [ngClass]="passwordFields.current.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
-                            </span>
-                          </div>
-                          <div *ngIf="PasswordSubmitted && updatePassword['current_password']['errors']" class="UserInfoValidation">
-                            <div class="text-danger" *ngIf="updatePassword['current_password']['errors']['required']">Current Password is required</div>
-                          </div>
-                        </div>
-
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-                          <label class="mb-1">Set New Password</label>
-                          <div class="position-relative">
-                            <input [type]="passwordFields.new.type" class="form-control w-100" formControlName="new_password" />
-                            <span class="passwordvisibility" role="button" (click)="togglePassword('new')">
-                              <i class="fa-solid" [ngClass]="passwordFields.new.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
-                            </span>
-                          </div>
-                          <div *ngIf="PasswordSubmitted && updatePassword['new_password']['errors']" class="UserInfoValidation">
-                            <div class="text-danger" *ngIf="updatePassword['new_password']['errors']['required']">New Password is required</div>
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-sm-12">
-                          <label class="mb-1">Enter New Password Again</label>
-                          <div class="position-relative">
-                            <input [type]="passwordFields.confirm.type" class="form-control w-100" formControlName="confirm_password" />
-                            <span class="passwordvisibility" role="button" (click)="togglePassword('confirm')">
-                              <i class="fa-solid" [ngClass]="passwordFields.confirm.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
-                            </span>
-                          </div>
-                          <div *ngIf="PasswordSubmitted && updatePassword['confirm_password']['errors']" class="UserInfoValidation">
-                            <div class="text-danger" *ngIf="updatePassword['confirm_password']['errors']['required']">Confirm Password is required</div>
-                          </div>
-                        </div>
-                        <div class="col-md-12 col-12 text-md-end text-center mt-3">
-                          <button pButton type="submit" class="btn btn-primary p-button">Update Password</button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 mb-3" id="emailerCard">
-            <div class="card p-3 bg-white">
-              <div class="row">
-                <div class="col-md-3 col-lg-3 col-sm-12">
-                  <h6><strong>Emailer Settings</strong></h6>
-                  <p class="fontsizecontent">Update your emailer notification settings.</p>
-                </div>
-                <div class="col-md-9 col-lg-9 col-sm-12">
-                  <div class="card p-2 mt-2" *ngFor="let setting of settings">
-                    <div class="setting-row">
-                      <div>
-                        <strong>{{ setting.title }}</strong>
-                        <div class="text-muted small">{{ setting.description }}</div>
-                      </div>
-                      <p-inputSwitch (onChange)="confirmEmailToggle($event, setting)" [ngModel]="setting.enabled === 1" (ngModelChange)="setting.enabled = $event ? 1 : 0"></p-inputSwitch>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 mb-3" id="integrationsCard">
-            <div class="card p-3 bg-white">
-              <div class="row">
-                <div class="col-md-3 col-lg-3 col-sm-12">
-                  <h6><strong>Integrations</strong></h6>
-                  <div class="text-muted small">Any accounts that you have used to login to UNIPREP.</div>
-                </div>
-                <div class="col-md-9 col-lg-9 col-sm-12">
-                  <div class="card p-2 mt-2">
-                    <div class="setting-row">
-                      <div>
-                        <strong>Google</strong>
-                        <div class="text-muted small">
-                          <span *ngIf="associatedMail"><i class="fab fa-google text-danger"></i></span>&nbsp;{{ associatedMail }}
-                        </div>
-                      </div>
-                      <div [ngClass]="associatedMail ? 'text-success' : 'text-danger'" class="small">
-                        {{ associatedMail ? "Linked" : "Not Linked" }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 mb-3" id="inviteCard">
-            <div class="card p-3 bg-white">
-              <div class="row align-items-center">
-                <div class="col-md-3 col-lg-3 col-sm-12">
-                  <div class="text-start">
-                    <h6 class="mb-1 mt-2">
-                      <span class="emoji" aria-label="envelope">💌</span>
-                      <strong>Invite a friend to try UNIPREP</strong>
-                    </h6>
-                    <p class="mb-0 fontsizecontent">We will email them instructions and a link to create an account</p>
-                  </div>
-                </div>
-                <div class="col-md-7 col-lg-7 col-sm-12">
-                  <p-inputgroup>
-                    <p-inputgroup-addon>
-                      <i class="fa-regular fa-envelope" aria-hidden="true"></i>
-                    </p-inputgroup-addon>
-                    <input pInputText [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address" aria-label="Email address to send invite" />
-                  </p-inputgroup>
-                </div>
-                <div class="col-md-2 col-lg-2 col-sm-12 text-end mt-1">
-                  <button (click)="sendInviteMail()" pButton type="submit" class="btn btn-primary p-button">Send Invite</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- ngSwitch Section -->
         <ng-container [ngSwitch]="activeSection">
+          <!-- First 5 Section Cards -->
+          <div *ngSwitchCase="'myprofile'">
+            <div class="row">
+              <div class="col-md-12 mb-3" id="profileCard">
+                <div class="card p-3 bg-white">
+                  <div class="row">
+                    <div class="col-md-3 col-lg-3 col-sm-12">
+                      <h6><strong>My Profile</strong></h6>
+                      <p>Name, Email, Country, Location, education & Last degree passing year</p>
+                    </div>
+                    <div class="col-md-9 col-lg-9 col-sm-12">
+                      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                        <div class="container-fluid">
+                          <label>Profile Picture</label>
+                          <div class="row py-3 rounded-4 mb-2 mx-1" style="border: 1px solid lightgray">
+                            <div class="col-md-3">
+                              <div class="position-relative mx-auto">
+                                <ng-container *ngIf="logo; else showSample">
+                                  <img [src]="logo" styleClass="object-fit" style="max-width: 120px; width: 100%; aspect-ratio: 1/1" class="rounded-2 border img-fluid" />
+                                </ng-container>
+                                <ng-template #showSample>
+                                  <div class="mx-auto border rounded-2 d-flex align-items-center justify-content-center" style="background-color: var(--p-primary-50); max-width: 120px; width: 100%; aspect-ratio: 1/1">
+                                    <i style="color: var(--p-primary-200)" class="fa-solid fa-user fa-2x"></i>
+                                  </div>
+                                </ng-template>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="d-flex gap-2 mb-2">
+                                  <input name="image" type="file" (change)="onUploadPhoto($event)" accept="image/*" #fileUploadImage style="display: none" />
+                                  <p-button label="{{ logo ? 'Change Photo' : 'Upload Photo' }}" icon="pi pi-upload" styleClass="p-button-sm" (click)="fileUploadImage.click()" [disabled]="submitBtnName == 'Edit'"></p-button>
+                                  <p-button *ngIf="logo" label="Remove Photo" icon="pi pi-times" (onClick)="onRemovePhoto()" styleClass="p-button-sm p-button-outlined" [disabled]="submitBtnName == 'Edit'"></p-button>
+                              </div>
+                              <div class="d-flex align-items-center gap-2 mt-2">
+                                <span><i class="fa-solid fa-face-viewfinder fa-xl"></i></span>
+                                <p class="fw-medium text-small text-start d-block">You have to upload a close, straight faced photo with plain background.</p>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="d-flex justify-content-end">
+                                <button pButton type="button" (click)="isSampleProfileImgVisible = true" class="btn btn-primary btn-rounded p-1 px-3 me-2">Sample</button>
+                                <button pButton type="button" (click)="openGuideUrl()" class="btn btn-secondary btn-rounded p-1 px-3">Guide</button>
+                              </div>
+                            </div>
+                          </div>
+                          <small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && registrationForm.get('profile_image')?.errors?.required"> Profile Picture is required </small>
+                          <div class="row">
+                            <div class="col-12 p-2">
+                              <label>Name</label>
+                              <div class="form-group">
+                                <div class="mb-3">
+                                  <input class="w-100" formControlName="name" pInputText type="text" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+                              <div style="display: flex; justify-content: space-between; font-weight: 500">
+                                <label>Email</label>
+                                <label *ngIf="PersonalInfo?.is_phn_or_whs_verified == 1" style="color: #0a7fc7"
+                                  ><span><i class="fa-regular fa-envelope"></i>&nbsp;</span>Email Verified</label
+                                >
+                              </div>
+                              <div class="form-group">
+                                <div class="mb-3">
+                                  <input class="w-100" formControlName="email" pInputText type="text" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+                              <div style="display: flex; justify-content: space-between; font-weight: 500">
+                                <label>Phone Number</label>
+                                <label *ngIf="PersonalInfo?.is_phn_or_whs_verified == 1" style="color: #25d366"
+                                  ><span><i class="fa-brands fa-whatsapp"></i>&nbsp;</span>Whatsapp Verified</label
+                                >
+                              </div>
+    
+                              <div class="form-group">
+                                <div class="mb-3">
+                                  <input class="w-100" formControlName="phone" pInputText type="text" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+                              <label>Country</label>
+                              <div class="form-group">
+                                <div class="mb-3">
+                                  <p-select styleClass="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" filterBy="work_location" optionLabel="work_location" optionValue="id" [virtualScroll]="true" [virtualScrollItemSize]="50"> </p-select>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+                                                        <label>Location</label>
+                                                        <div class="form-group">
+                                                            <div class="mb-3">
+                                                                <p-select styleClass="w-100" [filter]="true" appendTo="body"
+                                                                    [options]="locationList" formControlName="location_id"
+                                                                    optionLabel="district" optionValue="id"
+                                                                    [autoDisplayFirst]="false"
+                                                                    [readonly]="registrationForm.get('home_country')?.value == 122 ? false : true">
+                                                                </p-select>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                            <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+                              <label>Current Education</label>
+                              <div class="form-group">
+                                <div class="mb-3">
+                                  <input class="w-100" formControlName="current_education" pInputText type="text" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+                              <label>Last Degree Passing Year</label>
+                              <div class="form-group">
+                                <div class="mb-3">
+                                  <p-calendar [maxDate]="today" [showIcon]="true" appendTo="body" dateFormat="yy" view="year" [yearNavigator]="true" type="number" [yearRange]="'1950:' + currentYear" inputId="pickYear" formControlName="last_degree_passing_year" placeholder="Enter or pick year" (input)="onYearInput($event)" (keypress)="onKeyPress($event)"></p-calendar>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-dark w-100" style="background-color: var(--p-primary-500) !important">
+                              {{ submitBtnName }}
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 mb-3" id="securityCard">
+                <div class="card p-3 bg-white">
+                  <div class="row">
+                    <div class="col-md-3 col-lg-3 col-sm-12">
+                      <h6><strong>Security</strong></h6>
+                      <p class="fontsizecontent">Update your password</p>
+                    </div>
+                    <div class="col-md-9 col-lg-9 col-sm-12">
+                      <form [formGroup]="updatedPasswords" (ngSubmit)="UserUpdatePassword(updatedpasswords)">
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-12">
+                              <label class="mb-1">Current Password</label>
+                              <div class="position-relative">
+                                <input [type]="passwordFields.current.type" class="form-control w-100" formControlName="current_password" />
+                                <span class="passwordvisibility" role="button" (click)="togglePassword('current')">
+                                  <i class="fa-solid" [ngClass]="passwordFields.current.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                                </span>
+                              </div>
+                              <div *ngIf="PasswordSubmitted && updatePassword['current_password']['errors']" class="UserInfoValidation">
+                                <div class="text-danger" *ngIf="updatePassword['current_password']['errors']['required']">Current Password is required</div>
+                              </div>
+                            </div>
+    
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                              <label class="mb-1">Set New Password</label>
+                              <div class="position-relative">
+                                <input [type]="passwordFields.new.type" class="form-control w-100" formControlName="new_password" />
+                                <span class="passwordvisibility" role="button" (click)="togglePassword('new')">
+                                  <i class="fa-solid" [ngClass]="passwordFields.new.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                                </span>
+                              </div>
+                              <div *ngIf="PasswordSubmitted && updatePassword['new_password']['errors']" class="UserInfoValidation">
+                                <div class="text-danger" *ngIf="updatePassword['new_password']['errors']['required']">New Password is required</div>
+                              </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                              <label class="mb-1">Enter New Password Again</label>
+                              <div class="position-relative">
+                                <input [type]="passwordFields.confirm.type" class="form-control w-100" formControlName="confirm_password" />
+                                <span class="passwordvisibility" role="button" (click)="togglePassword('confirm')">
+                                  <i class="fa-solid" [ngClass]="passwordFields.confirm.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                                </span>
+                              </div>
+                              <div *ngIf="PasswordSubmitted && updatePassword['confirm_password']['errors']" class="UserInfoValidation">
+                                <div class="text-danger" *ngIf="updatePassword['confirm_password']['errors']['required']">Confirm Password is required</div>
+                              </div>
+                            </div>
+                            <div class="col-md-12 col-12 text-md-end text-center mt-3">
+                              <button pButton type="submit" class="btn btn-primary p-button">Update Password</button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 mb-3" id="emailerCard">
+                <div class="card p-3 bg-white">
+                  <div class="row">
+                    <div class="col-md-3 col-lg-3 col-sm-12">
+                      <h6><strong>Emailer Settings</strong></h6>
+                      <p class="fontsizecontent">Update your emailer notification settings.</p>
+                    </div>
+                    <div class="col-md-9 col-lg-9 col-sm-12">
+                      <div class="card p-2 mt-2" *ngFor="let setting of settings">
+                        <div class="setting-row">
+                          <div>
+                            <strong>{{ setting.title }}</strong>
+                            <div class="text-muted small">{{ setting.description }}</div>
+                          </div>
+                          <p-inputSwitch (onChange)="confirmEmailToggle($event, setting)" [ngModel]="setting.enabled === 1" (ngModelChange)="setting.enabled = $event ? 1 : 0"></p-inputSwitch>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 mb-3" id="integrationsCard">
+                <div class="card p-3 bg-white">
+                  <div class="row">
+                    <div class="col-md-3 col-lg-3 col-sm-12">
+                      <h6><strong>Integrations</strong></h6>
+                      <div class="text-muted small">Any accounts that you have used to login to UNIPREP.</div>
+                    </div>
+                    <div class="col-md-9 col-lg-9 col-sm-12">
+                      <div class="card p-2 mt-2">
+                        <div class="setting-row">
+                          <div>
+                            <strong>Google</strong>
+                            <div class="text-muted small">
+                              <span *ngIf="associatedMail"><i class="fab fa-google text-danger"></i></span>&nbsp;{{ associatedMail }}
+                            </div>
+                          </div>
+                          <div [ngClass]="associatedMail ? 'text-success' : 'text-danger'" class="small">
+                            {{ associatedMail ? "Linked" : "Not Linked" }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 mb-3" id="inviteCard">
+                <div class="card p-3 bg-white">
+                  <div class="row align-items-center">
+                    <div class="col-md-3 col-lg-3 col-sm-12">
+                      <div class="text-start">
+                        <h6 class="mb-1 mt-2">
+                          <span class="emoji" aria-label="envelope">💌</span>
+                          <strong>Invite a friend to try UNIPREP</strong>
+                        </h6>
+                        <p class="mb-0 fontsizecontent">We will email them instructions and a link to create an account</p>
+                      </div>
+                    </div>
+                    <div class="col-md-7 col-lg-7 col-sm-12">
+                      <p-inputgroup>
+                        <p-inputgroup-addon>
+                          <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                        </p-inputgroup-addon>
+                        <input pInputText [(ngModel)]="sendInvite" type="email" placeholder="Enter Email Address" aria-label="Email address to send invite" />
+                      </p-inputgroup>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-12 text-end mt-1">
+                      <button (click)="sendInviteMail()" pButton type="submit" class="btn btn-primary p-button">Send Invite</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div *ngSwitchCase="'subscription'">
             <div class="row">
               <div class="col-12">
@@ -403,9 +438,29 @@
               </div>
             </div>
           </div>
+          <div *ngSwitchCase="'jobProfile'" class="h-100">
+              <ng-conatiner *ngIf="isEmployerProfileCompleteSection; else showCreateEditSection">
+                <uni-complete-profile-view [userId]="employerProfileData?.id" (completeProfile)="onEditCompleteProfile($event)"></uni-complete-profile-view>
+              </ng-conatiner>
+              <ng-template #showCreateEditSection>
+                <uni-employee-profile (completeProfile)="onEditCompleteProfile($event)"></uni-employee-profile>
+              </ng-template>
+          </div>
         </ng-container>
       </div>
     </div>
   </div>
 </div>
 <p-confirmDialog></p-confirmDialog>
+<p-dialog [(visible)]="isSampleProfileImgVisible" [modal]="true">
+  <ng-template #header>
+    <h3 class="w-100 text-center">Profile Photo Samples</h3>
+  </ng-template>
+  <div class="card-body px-4 pb-4">
+    <div class="d-flex gap-3 justify-content-center">
+      <div *ngFor="let item of sampleProfileImages">
+        <img [src]="item" style="max-width: 200px; width: 100%; aspect-ratio: 1/1" class="rounded-2 border img-fluid" alt="Sample Img" />
+      </div>
+    </div>
+  </div>
+</p-dialog>
