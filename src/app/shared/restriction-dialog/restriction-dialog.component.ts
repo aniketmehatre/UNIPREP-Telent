@@ -14,7 +14,9 @@ import { LocationService } from 'src/app/services/location.service';
 export class RestrictionDialogComponent implements OnInit {
 
   @Input() isShowRestrict: boolean = false;
+  @Input() isShowMenuRestrict: boolean = false;
   @Output() closeRestrictModal: EventEmitter<boolean> = new EventEmitter<boolean>(false);
+  @Output() closeMenuRestrictModal: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
   isWhiteLabelVisible: boolean = false;
   whiteLabelName: string = '';
@@ -28,13 +30,12 @@ export class RestrictionDialogComponent implements OnInit {
       this.orgLogo = data.logo
       this.orgName = data.name;
       this.whiteLabelName = data.source
-      if (this.whiteLabelName === "Uniprep" ||
-      this.whiteLabelName === "Partner" ) {
-      this.isWhiteLabelVisible = false;
-    } else {
-      this.isWhiteLabelVisible = true;
-    }
-    })
+      if (this.whiteLabelName === "Uniprep" || this.whiteLabelName === "Partner") {
+        this.isWhiteLabelVisible = false;
+      } else {
+        this.isWhiteLabelVisible = true;
+      }
+    });
   }
 
   upgradePlan(): void {

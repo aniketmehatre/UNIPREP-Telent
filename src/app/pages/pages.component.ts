@@ -21,6 +21,7 @@ import { RestrictionDialogComponent } from "../shared/restriction-dialog/restric
 import { ScrollTopModule } from "primeng/scrolltop";
 import { howItWorksLinks } from "../shared/commonData";
 import { HttpClient } from "@angular/common/http";
+import { UserSubscriptionService } from "../services/user-subscription.service";
 @Component({
   selector: "uni-pages",
   templateUrl: "./pages.component.html",
@@ -70,13 +71,14 @@ export class PagesComponent implements OnInit, OnDestroy {
   private subs = new SubSink();
   visibleExhastedUser!: boolean;
   restrict: boolean = false;
+  restrictMenu: boolean = true;
   howItWorkVideoLinks: any = howItWorksLinks;
 
   constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
     public meta: Meta, private locationService: LocationService,
     private service: AuthService, private deviceService: DeviceDetectorService,
     private sanitizer: DomSanitizer, private storage: StorageService, private route: ActivatedRoute,
-    private http: HttpClient) {
+    private http: HttpClient, private userSubscriptionService: UserSubscriptionService) {
     // dev
     //  Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
 
@@ -115,6 +117,9 @@ export class PagesComponent implements OnInit, OnDestroy {
     });
     this.service.hasUserSubscription$.subscribe(value => {
       this.restrict = value;
+    });
+    this.userSubscriptionService.hasUserSubscriptionNew$.subscribe(value => {
+      this.restrictMenu = value;
     });
   }
 
@@ -328,6 +333,10 @@ export class PagesComponent implements OnInit, OnDestroy {
 
   onCloseRestrictModal(event: boolean) {
     this.service.hasUserSubscription$.next(event);
+  }
+
+  onCloseRestrictMenuModal(event: boolean) {
+    this.userSubscriptionService.hasUserSubscriptionNew$.next(event);
   }
 
   getGEOLocation() {

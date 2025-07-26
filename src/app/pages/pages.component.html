@@ -375,5 +375,6 @@
 		</div>
 	</div>
 </div> -->
-<uni-restriction-dialog *ngIf="restrict" [isShowRestrict]="restrict"
-	(closeRestrictModal)="onCloseRestrictModal($event)" />
+<uni-restriction-dialog *ngIf="restrict && restrictMenu" [isShowRestrict]="restrict"
+	(closeRestrictModal)="onCloseRestrictModal($event)" [isShowMenuRestrict]="restrictMenu"
+	(closeMenuRestrictModal)="onCloseRestrictMenuModal($event)"/>
