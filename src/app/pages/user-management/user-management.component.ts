@@ -35,8 +35,8 @@ import { CompleteProfileViewComponent } from "../talent-connect/employee-profile
 import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile"
 import { TalentConnectService } from "../talent-connect/talent-connect.service"
 import { EmployeeProfileComponent } from "../talent-connect/employee-profile-copy/employee-profile.component"
-import { EmployeeProfileModule } from "../talent-connect/employee-profile-copy/employee-profile.module"
 import { environment } from "@env/environment"
+import { TagModule } from "primeng/tag"
 @Component({
 	selector: "uni-user-management",
 	templateUrl: "./user-management.component.html",
@@ -45,7 +45,7 @@ import { environment } from "@env/environment"
 	imports: [CommonModule, RouterModule, PasswordModule, ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule,
 		FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule,
 		CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule,
-		DialogModule, CardModule, InputNumberModule, CompleteProfileViewComponent, EmployeeProfileComponent],
+		DialogModule, CardModule, InputNumberModule, CompleteProfileViewComponent, EmployeeProfileComponent, TagModule],
 	providers: [ConfirmationService]
 })
 export class UserManagementComponent implements OnInit {
@@ -60,7 +60,7 @@ export class UserManagementComponent implements OnInit {
 	updatedPasswords: FormGroup
 	PasswordSubmitted = false
 	newsLetter: boolean = false
-	PersonalInfo: any = []
+	PersonalInfo: any = {};
 	hideToolTip: boolean = true
 	private subs = new SubSink()
 	activeSection: string = 'myprofile';
@@ -241,7 +241,7 @@ export class UserManagementComponent implements OnInit {
 	GetPersonalProfileData() {
 		this.registrationForm.disable();
 		this.userManagementService.GetUserPersonalInfo().subscribe((data) => {
-			this.PersonalInfo = data
+			this.PersonalInfo = data;
 			this.newsletter_consent = this.PersonalInfo?.newsletter_consent == 1 ? 1 : 0;
 			this.promotional_email_consent = this.PersonalInfo?.promotional_email_consent == 1 ? 1 : 0;
 			this.product_update_email_consent = this.PersonalInfo?.product_update_email_consent == 1 ? 1 : 0;
