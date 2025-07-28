@@ -73,12 +73,15 @@
           </span>
           <h5>
             {{ PersonalInfo?.name }}
-            <span *ngIf="PersonalInfo?.subscription_plan"
-              ><button class="student-plan-btn">
-                <i class="fa-solid fa-web-awesome" style="color: var(--p-neutral-50)"></i>
-                {{ PersonalInfo?.subscription_plan }}
-              </button></span
-            >
+            <span *ngIf="PersonalInfo?.plan_name" class="me-2">
+              <p-tag [style]="{ border: '1px solid var(--p-secondary-600)', background:'var(--p-secondary-500)', color: 'var(--p-neutral-50)'}"
+              icon="fa-solid fa-web-awesome me-1"
+               [value]="PersonalInfo?.plan_name" [rounded]="true" />
+            </span>
+            <span *ngIf="PersonalInfo?.plan_expire_date">
+              <p-tag [style]="{ border: '1px solid #b91c1c', color: 'var(--p-primary-950)'}"
+              severity="danger" [value]="'Expires On : ' + PersonalInfo?.plan_expire_date" [rounded]="true" />
+            </span>
           </h5>
           <!-- <span class="badge bg-warning">Student Plan</span> -->
           <span class="fontsizecontent"><i class="fab fa-google text-danger"></i>&nbsp;{{ PersonalInfo?.email }}</span> | <span class="fontsizecontent"> <i class="fab fa-whatsapp text-success"></i>&nbsp;{{ PersonalInfo?.country_code }} {{ PersonalInfo?.phone }}</span> <br />
