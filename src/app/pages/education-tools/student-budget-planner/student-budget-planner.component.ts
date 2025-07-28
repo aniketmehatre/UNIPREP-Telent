@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EducationToolsService } from '../education-tools.service';
 import { TravelToolsService } from '../../travel-tools/travel-tools.service';
-import { AllCountryRes, UniversityRes, CurrencyList, SaveResponse, SavedReponseArray } from 'src/app/@Models/education-tools.model';
+import { AllCountryRes, UniversityRes, SaveResponse, SavedReponseArray } from 'src/app/@Models/education-tools.model';
 import { Router, RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -125,10 +125,6 @@ export class StudentBudgetPlannerComponent implements OnInit {
   }
 
   // next(productId: number): void {
-  //   if (this.authService.isInvalidSubscription('education_tools')) {
-  //     this.authService.hasUserSubscription$.next(true);
-  //     return;
-  //   }
   //   this.isSubmitted = true;
   //   let fillables: any = [];
   //   this.notfilledArray = [];
@@ -161,10 +157,6 @@ export class StudentBudgetPlannerComponent implements OnInit {
   submit() {
     this.recommendationData = "";
     this.notfilledArray = [];
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     let fillables: any = ['country', 'university', 'course_duration', 'stay_back', 'tution'];
 
     fillables.forEach((element: any) => {
@@ -233,10 +225,6 @@ export class StudentBudgetPlannerComponent implements OnInit {
   }
 
   listOfSavedResponse() {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.educationService.getSavedRes().subscribe({
       next: response => {
         this.recommadationSavedQuestionList = response.data;

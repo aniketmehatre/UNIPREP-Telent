@@ -1,20 +1,19 @@
-import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from "@angular/core"
-import {AdvisorService} from "./advisor.service"
-import {NgxUiLoaderService} from "ngx-ui-loader"
-import {RouterModule} from "@angular/router"
-import {PageFacadeService} from "../page-facade.service"
-import {AuthService} from "src/app/Auth/auth.service"
-import {MessageService} from "primeng/api"
-import {CommonModule} from "@angular/common"
-import {DialogModule} from "primeng/dialog"
-import {FormsModule, ReactiveFormsModule} from "@angular/forms"
-import {InputTextModule} from "primeng/inputtext"
-import {InputGroupModule} from "primeng/inputgroup"
-import {InputGroupAddonModule} from "primeng/inputgroupaddon"
-import {TextareaModule} from "primeng/textarea"
-import {ButtonModule} from "primeng/button"
-import {SkeletonModule} from "primeng/skeleton"
-import {CarouselModule} from "primeng/carousel"
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from "@angular/core"
+import { AdvisorService } from "./advisor.service"
+import { NgxUiLoaderService } from "ngx-ui-loader"
+import { RouterModule } from "@angular/router"
+import { PageFacadeService } from "../page-facade.service"
+import { MessageService } from "primeng/api"
+import { CommonModule } from "@angular/common"
+import { DialogModule } from "primeng/dialog"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { InputTextModule } from "primeng/inputtext"
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { TextareaModule } from "primeng/textarea"
+import { ButtonModule } from "primeng/button"
+import { SkeletonModule } from "primeng/skeleton"
+import { CarouselModule } from "primeng/carousel"
 
 @Component({
     selector: "uni-advisor",
@@ -42,21 +41,20 @@ export class AdvisorComponent implements OnInit {
     responsiveOptions: any[] = []
 
     constructor(private service: AdvisorService, private ngxService: NgxUiLoaderService,
-                private pageFacade: PageFacadeService, private authService: AuthService,
-                private messageService: MessageService) {
+        private pageFacade: PageFacadeService, private messageService: MessageService) {
     }
 
     ngOnInit() {
         this.questions = [
-            {question: "Must visit places in Milan.", icons: "fa-earth-americas"},
-            {question: "Top 10 fully funded scholarships for international students in the UK.", icons: "fa-diploma"},
-            {question: "Step-by-step guide to starting a business in France", icons: "fa-briefcase"},
-            {question: "High-paying job opportunities for finance graduates in the US.", icons: "fa-coins"},
-            {question: "Oxford University admission criteria for international students", icons: "fa-university"},
-            {question: "Number of Public holidays for full-time staff in the UK", icons: "fa-calendar"},
-            {question: "Document checklist required for Spain travel visa application", icons: "fa-folder"},
-            {question: "Top 10 in-demand jobs in the healthcare industry", icons: "fa-hospital"},
-            {question: "Top 20 government funding opportunities for startups in the UK", icons: "fa-rocket"},
+            { question: "Must visit places in Milan.", icons: "fa-earth-americas" },
+            { question: "Top 10 fully funded scholarships for international students in the UK.", icons: "fa-diploma" },
+            { question: "Step-by-step guide to starting a business in France", icons: "fa-briefcase" },
+            { question: "High-paying job opportunities for finance graduates in the US.", icons: "fa-coins" },
+            { question: "Oxford University admission criteria for international students", icons: "fa-university" },
+            { question: "Number of Public holidays for full-time staff in the UK", icons: "fa-calendar" },
+            { question: "Document checklist required for Spain travel visa application", icons: "fa-folder" },
+            { question: "Top 10 in-demand jobs in the healthcare industry", icons: "fa-hospital" },
+            { question: "Top 20 government funding opportunities for startups in the UK", icons: "fa-rocket" },
         ]
         this.responsiveOptions = [
             {
@@ -90,17 +88,13 @@ export class AdvisorComponent implements OnInit {
                 const lastChatId = `chat-${this.chatData.length - 2}`
                 const lastChatElement = document.getElementById(lastChatId)
                 if (lastChatElement) {
-                    lastChatElement.scrollIntoView({behavior: "smooth", block: "start"})
+                    lastChatElement.scrollIntoView({ behavior: "smooth", block: "start" })
                 }
             }
         }, 300)
     }
 
     getChatHistory() {
-        if (this.authService.isInvalidSubscription('ai_global_advisor')) {
-            this.authService.hasUserSubscription$.next(true);
-            return;
-        }
         this.isQuestionAsked = true
         this.showSkeleton = true
         this.isQuestionNotAsked = false
@@ -114,10 +108,6 @@ export class AdvisorComponent implements OnInit {
     }
 
     getAns() {
-        if (this.authService.isInvalidSubscription('ai_global_advisor')) {
-            this.authService.hasUserSubscription$.next(true);
-            return;
-        }
         if (this.userQuestion && this.userQuestion.trim() === "") {
             return;
         }

@@ -87,10 +87,6 @@ export class CostOfLivingComponent implements OnInit {
   }
 
   compare() {
-    if (this.authService.isInvalidSubscription('travel_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.sourcecountryName = this.form.value.sourceCity.country_name;
     this.targetcountryName = this.form.value.targetCity.country_name;
     this.costOfLivingService.calculatePrices(this.form.value.sourceCity).subscribe(response => {

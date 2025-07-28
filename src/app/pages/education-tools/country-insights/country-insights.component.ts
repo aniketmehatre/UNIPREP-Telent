@@ -14,8 +14,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { StorageService } from "../../../services/storage.service";
-import { Paginator, PaginatorModule } from 'primeng/paginator';
-import { AuthService } from 'src/app/Auth/auth.service';
+import { PaginatorModule } from 'primeng/paginator';
 import { PageFacadeService } from '../../page-facade.service';
 @Component({
   selector: 'uni-country-insights',
@@ -36,7 +35,7 @@ export class CountryInsightsComponent implements OnInit {
     perpage: this.pageSize,
   };
   constructor(private educationtoolService: EducationToolsService, private router: Router,
-    private storage: StorageService, private authService: AuthService, private pageFacade: PageFacadeService) { }
+    private storage: StorageService, private pageFacade: PageFacadeService) { }
 
   ngOnInit(): void {
     this.getList();
@@ -52,19 +51,11 @@ export class CountryInsightsComponent implements OnInit {
   }
 
   onClickSubModule(countryId: string, id: string, countryname: string) {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.storage.set('country_insights_country_name', countryname);
     this.router.navigate(['/pages/education-tools/country-insights', id, countryId]);
   }
 
   paginate(event: any) {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.countryData.page = event.page + 1;
     this.countryData.pageSize = event.rows;
     this.getList();

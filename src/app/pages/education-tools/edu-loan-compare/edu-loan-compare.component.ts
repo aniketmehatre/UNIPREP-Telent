@@ -93,10 +93,6 @@ export class EduLoanCompareComponent implements OnInit {
   }
 
   next() {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.submitted = false;
     const formData = this.form.value;
     if (this.activePageIndex == 0) {
@@ -148,10 +144,6 @@ export class EduLoanCompareComponent implements OnInit {
   }
 
   saveRecommadation(type?: string) {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     if (!this.isFromSavedData) {
       this.educationToolService.getAnalysisList('loan_comparison_tool').subscribe({
         next: response => {

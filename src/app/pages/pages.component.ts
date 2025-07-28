@@ -3,12 +3,10 @@ import { PageFacadeService } from "./page-facade.service";
 import { SubSink } from "subsink";
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/router";
 import { DataService } from "../services/data.service";
-import { DashboardService } from "./dashboard/dashboard.service";
 import { AuthService } from "../Auth/auth.service";
 import { DeviceDetectorService } from "ngx-device-detector";
 import { CommonModule } from "@angular/common";
 // @ts-ignore
-import Contlo from "contlo-web-sdk";
 import { DomSanitizer, Meta, SafeResourceUrl, Title } from "@angular/platform-browser";
 import { LocationService } from "../services/location.service";
 import { HeaderComponent } from "@theme/components/header/header.component";
@@ -17,7 +15,6 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { HeaderSearchComponent } from "./header-search/header-search.component"
 import { StorageService } from "../services/storage.service";
-import { RestrictionDialogComponent } from "../shared/restriction-dialog/restriction-dialog.component";
 import { ScrollTopModule } from "primeng/scrolltop";
 import { howItWorksLinks } from "../shared/commonData";
 import { HttpClient } from "@angular/common/http";
@@ -36,7 +33,6 @@ import { UserSubscriptionService } from "../services/user-subscription.service";
     HeaderComponent,
     SidenavComponent,
     HeaderSearchComponent,
-    RestrictionDialogComponent
   ],
 })
 export class PagesComponent implements OnInit, OnDestroy {
@@ -50,7 +46,6 @@ export class PagesComponent implements OnInit, OnDestroy {
   isFooterBoxVisible = false;
   showReportSuccess = false;
   conditionSubscribed = true;
-  visibleExhasted!: boolean;
   isDeviceStatusPopupView: boolean = false;
   MultiLoginPopup: string = "";
   isDeviceStatus: any = "none";
@@ -69,9 +64,7 @@ export class PagesComponent implements OnInit, OnDestroy {
 
   @Output() expandicon = !this.sidebarClass ? "pi-align-right" : "pi-align-justify";
   private subs = new SubSink();
-  visibleExhastedUser!: boolean;
-  restrict: boolean = false;
-  restrictMenu: boolean = true;
+
   howItWorkVideoLinks: any = howItWorksLinks;
 
   constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
@@ -115,12 +108,6 @@ export class PagesComponent implements OnInit, OnDestroy {
         }
       }
     });
-    this.service.hasUserSubscription$.subscribe(value => {
-      this.restrict = value;
-    });
-    this.userSubscriptionService.hasUserSubscriptionNew$.subscribe(value => {
-      this.restrictMenu = value;
-    });
   }
 
   ngOnDestroy() {
@@ -147,7 +134,6 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.isDeviceStatusPopupView = true;
     this.storage.set("allowmobile", "1");
   }
-  enterpriseSubscriptionLink: any;
   imageWhiteLabelDomainName: any;
   ngOnInit(): void {
     // Update the user details
@@ -167,7 +153,6 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.service.getTimeInfoForCard().subscribe((data) => {
       this.storage.set("time_card_info", data.card_message);
     });
-    this.subScribedUserCount();
     // this.videoPopupTrigger('refresh');
     this.subs.sink = this.pageFacade.sideBarState$().subscribe({
       next: (state) => {
@@ -204,33 +189,6 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.getGEOLocation();
   }
 
-  onClickSubscribedUser(): void {
-    this.visibleExhasted = false;
-    this.visibleExhastedUser = false;
-    if (this.enterpriseSubscriptionLink != "") {
-      window.open(this.enterpriseSubscriptionLink, "_target");
-      return;
-    }
-    this.router.navigate(["/pages/subscriptions"]);
-  }
-
-  subScribedUserCount(): void {
-    this.service.getNewUserTimeLeft().subscribe((res) => {
-      this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
-      let data = res.time_left;
-      if (data.plan === "expired") {
-        this.visibleExhasted = true;
-        this.visibleExhastedUser = false;
-      } else if (data.plan === "subscription_expired") {
-        this.visibleExhastedUser = true;
-        this.visibleExhasted = false;
-      } else {
-        this.visibleExhasted = false;
-        this.visibleExhastedUser = false;
-      }
-    });
-  }
-
   @HostListener("window:resize", ["$event"])
   onResize(event: any) {
     if (event.target.innerWidth > 765 && this.sidebarClass) {
@@ -248,11 +206,6 @@ export class PagesComponent implements OnInit, OnDestroy {
 
   togleSidebar() {
     this.pageFacade.togleSideBar(!this.sidebarClass);
-  }
-
-  closeQuiz(): void {
-    this.visibleExhasted = false;
-    this.visibleExhastedUser = false;
   }
 
   // selectedLink:string = "https://www.youtube.com/watch?v=3-5YyylOgKw";
@@ -329,14 +282,6 @@ export class PagesComponent implements OnInit, OnDestroy {
     }
 
     return null;
-  }
-
-  onCloseRestrictModal(event: boolean) {
-    this.service.hasUserSubscription$.next(event);
-  }
-
-  onCloseRestrictMenuModal(event: boolean) {
-    this.userSubscriptionService.hasUserSubscriptionNew$.next(event);
   }
 
   getGEOLocation() {

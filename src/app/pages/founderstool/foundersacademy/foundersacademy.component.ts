@@ -4,7 +4,6 @@ import { FounderstoolService } from "../founderstool.service"
 import { Router, RouterModule } from "@angular/router"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
-import { AuthService } from "src/app/Auth/auth.service";
 import { PageFacadeService } from "../../page-facade.service"
 import { ButtonModule } from "primeng/button"
 @Component({
@@ -25,7 +24,6 @@ export class FoundersacademyComponent implements OnInit {
 	selectedCategoryId: number | null = null
 
 	constructor(private service: FounderstoolService, private sanitizer: DomSanitizer, private router: Router,
-		private authService: AuthService,
 		private pageFacade: PageFacadeService
 	) { }
 
@@ -38,10 +36,6 @@ export class FoundersacademyComponent implements OnInit {
 	}
 	openNextPageLink: any
 	openVideoPopupNew(link: any): void {
-		if (this.authService.isInvalidSubscription('founders_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.openNextPageLink = link
 		// Check if it's a YouTube video link
 		if (this.isYoutubeVideoLink(link)) {
@@ -95,11 +89,8 @@ export class FoundersacademyComponent implements OnInit {
 		window.open(this.openNextPageLink)
 	}
 	filterCat(id: any) {
-		if (id) {
-			if (this.authService.isInvalidSubscription('founders_tools')) {
-				this.authService.hasUserSubscription$.next(true);
-				return;
-			}
+		if (!id) {
+			return;
 		}
 		var data = {
 			category: id,

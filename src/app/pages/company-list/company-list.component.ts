@@ -1,23 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
-// import { Location } from "@angular/common";
 import { CompanyListService } from "./company-list.service";
-import { AuthService } from 'src/app/Auth/auth.service';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserManagementService } from '../user-management/user-management.service';
 import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/services/data.service';
 import { PageFacadeService } from '../page-facade.service';
-import { LocationService } from 'src/app/services/location.service';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
-import { Paginator, PaginatorModule } from 'primeng/paginator';
+import { Paginator } from 'primeng/paginator';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -76,13 +72,11 @@ export class CompanyListComponent implements OnInit {
     // private _location: Location,
     private fb: FormBuilder,
     private companyListService: CompanyListService,
-    private authService: AuthService,
     private router: Router,
     private userManagementService: UserManagementService,
     private toast: MessageService,
     private dataService: DataService,
     private pageFacade: PageFacadeService,
-    private locationService: LocationService,
   ) {
     this.filterForm = this.fb.group({
       company_name: [''],
@@ -253,10 +247,6 @@ export class CompanyListComponent implements OnInit {
   }
 
   buyCredits(): void {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.router.navigate(["/pages/export-credit"]);
   }
 
@@ -291,11 +281,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   exportData() {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
-    else if (this.exportCreditCount != 0) {
+    if (this.exportCreditCount != 0) {
       this.exportDataIds = [];
       this.companyListData.forEach(item => {
         if (item.isChecked == 1) {
@@ -316,7 +302,6 @@ export class CompanyListComponent implements OnInit {
       } else {
         if (this.exportCreditCount < this.exportDataIds.length) {
           this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan.", });
-          this.authService.hasUserSubscription$.next(true);
           return;
         }
       }
@@ -334,8 +319,6 @@ export class CompanyListComponent implements OnInit {
       if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
         this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits.", });
         this.router.navigate(["/pages/export-credit"]);
-      } else {
-        this.authService.hasUserSubscription$.next(true);
       }
     }
 
@@ -365,10 +348,6 @@ export class CompanyListComponent implements OnInit {
   }
 
   next(productId: number): void {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.invalidClass = false;
     if (productId in this.selectedData) {
       if (this.activePageIndex < this.recommendations.length - 1) {

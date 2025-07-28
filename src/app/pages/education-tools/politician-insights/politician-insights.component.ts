@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { EducationToolsService } from '../education-tools.service';
-import { AuthService } from 'src/app/Auth/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
@@ -70,7 +69,6 @@ export class PoliticianInsightsComponent implements OnInit {
     private router: Router,
     private educationToolService: EducationToolsService,
     private location: Location,
-    private authService: AuthService,
     private socialShareService: SocialShareService
   ) { }
 
@@ -126,10 +124,6 @@ export class PoliticianInsightsComponent implements OnInit {
   }
 
   showDatas(data: any) {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.countryName = data?.country;
     this.politicians = [];
     this.router.navigate(['/pages/education-tools/politician-insights', data.id]);

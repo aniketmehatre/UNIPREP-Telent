@@ -2,9 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { MessageService } from "primeng/api";
-import { AuthService } from "src/app/Auth/auth.service";
 import { DataService } from "src/app/services/data.service";
-import { LocationService } from "src/app/services/location.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { UserManagementService } from "../../user-management/user-management.service";
 import { FounderstoolService } from "../founderstool.service";
@@ -61,7 +59,7 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 		page: this.page,
 		perpage: this.pageSize,
 	}
-	constructor(private fb: FormBuilder, private fundListService: FounderstoolService, private locationService: LocationService, private toast: MessageService, private authService: AuthService, private router: Router, private userManagementService: UserManagementService, private dataService: DataService, private pageFacade: PageFacadeService) {
+	constructor(private fb: FormBuilder, private fundListService: FounderstoolService, private toast: MessageService, private router: Router, private userManagementService: UserManagementService, private dataService: DataService, private pageFacade: PageFacadeService) {
 		this.filterForm = this.fb.group({
 			country: [null],
 			region: [null],
@@ -338,7 +336,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 			} else {
 				if (this.exportCreditCount < this.exportDataIds.length) {
 					this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan." })
-					this.authService.hasUserSubscription$.next(true);
 					return
 				}
 			}
@@ -357,8 +354,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 			if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
 				this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits." })
 				this.router.navigate(["/pages/export-credit"])
-			} else {
-				this.authService.hasUserSubscription$.next(true);
 			}
 		}
 	}
@@ -429,10 +424,6 @@ export class GovermentFundingOppurtunityComponent implements OnInit {
 	}
 
 	next(productId: number): void {
-		if (this.authService.isInvalidSubscription('founders_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.invalidClass = false
 		if (productId in this.selectedData) {
 			if (this.activePageIndex < this.recommendations.length - 1) {

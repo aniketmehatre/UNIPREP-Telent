@@ -17,7 +17,6 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { SkeletonModule } from 'primeng/skeleton';
-import { AuthService } from "src/app/Auth/auth.service";
 
 @Component({
   selector: "uni-seekercountries",
@@ -48,7 +47,6 @@ export class SeekercountriesComponent implements OnInit {
     private arrayHeaderService: ArrayHeaderService,
     private service: JobseekerSuccessStoriesService,
     private pageFacade: PageFacadeService,
-    private authService: AuthService
   ) { }
 
   isSkeletonVisible: boolean = true;
@@ -87,10 +85,6 @@ export class SeekercountriesComponent implements OnInit {
   }
 
   onModuleClick(moduledata: any) {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     const data = {
       country_id: moduledata.id,
       countryName: moduledata.country,

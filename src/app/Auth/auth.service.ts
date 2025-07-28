@@ -38,7 +38,6 @@ export class AuthService {
   private getMeCache$: Observable<any> | null = null;
   private readonly CACHE_DURATION = 300000; // 5 minutes cache duration
   _userSubscrition!: SubscriptionResponse;
-  public hasUserSubscription$ = new BehaviorSubject<boolean>(false);
   public aiCreditCount$ = new BehaviorSubject<boolean>(true);
   public _creditCount: number = 0;
   public readonly howItWorks = howItWorksLinks;
@@ -472,40 +471,5 @@ export class AuthService {
   validateSignIn(req: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/login", req, { headers: headers });
-  }
-
-  isInvalidSubscription(module: string): boolean {
-    let planExpired: boolean = false;
-    //|| module === 'ai_credit_count' 
-    if (module === 'ai_global_advisor' || module === 'education_tools' || module === 'travel_tools' || module === 'events'
-      || module === 'global_repository' || module === 'uni_scholar' || module === 'uni_finder' || module === 'uni_learn'
-      || module === 'language_hub'
-    ) {
-      if (this._userSubscrition?.time_left?.plan === "expired" ||
-        this._userSubscrition?.time_left?.plan === "subscription_expired") {
-        planExpired = true;
-      }
-    }
-    else if (
-      module === 'career_tools' ||
-      // module === 'employer_connect' ||
-      module === 'learning_hub' ||
-      module === 'pitch_desk'
-    ) {
-      if (this._userSubscrition?.time_left?.plan === "expired" ||
-        this._userSubscrition?.time_left?.plan === "subscription_expired" ||
-        this._userSubscrition?.subscription_details?.subscription_plan === "Student") {
-        planExpired = true;
-      }
-    }
-    else if (module === 'founders_tools') {
-      if (this._userSubscrition?.time_left?.plan === "expired" ||
-        this._userSubscrition?.time_left?.plan === "subscription_expired" ||
-        this._userSubscrition?.subscription_details?.subscription_plan === "Student" ||
-        this._userSubscrition?.subscription_details?.subscription_plan === "Career") {
-        planExpired = true;
-      }
-    }
-    return planExpired;
   }
 }

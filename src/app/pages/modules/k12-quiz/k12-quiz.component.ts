@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { interval, Observable, Subscription, takeWhile } from "rxjs";
 import { MenuItem, MessageService } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
-import { AuthService } from "../../../Auth/auth.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { DataService } from "../../../services/data.service";
 import { Location } from "@angular/common";
@@ -60,17 +59,15 @@ export class K12QuizComponent implements OnInit {
   timer: number = 0;
   timerSubscription: Subscription | null = null;
   restrict: boolean = false;
-  planExpired: boolean = false;
   selectedQuizArrayForTimer: any[] = [];
   totalquiztime: any = 0;
 
-  constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
+  constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService,
     private toast: MessageService, private activatedRoute: ActivatedRoute, private storage: StorageService) { }
 
   ngOnInit(): void {
     this.init();
-    this.checkplanExpire();
   }
 
   init() {
@@ -124,17 +121,6 @@ export class K12QuizComponent implements OnInit {
         this.isInstructionVisible = false;
       }
     });
-  }
-
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
-
   }
 
   loadModuleAndSubModule() {
@@ -391,10 +377,6 @@ export class K12QuizComponent implements OnInit {
     })
   }
   openCertificate() {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     window.open(this.certificatesurl, '_blank');
   }
   takeAnotherquiz() {

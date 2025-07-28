@@ -41,10 +41,6 @@ export class EntreprenuerskillmoduleComponent implements OnInit {
     });
   }
   openQuiz(id: any, name: string) {
-    if (this.authService.isInvalidSubscription('founders_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.storage.set('conditionrevieworquiz', '0')
     this.storage.set('entrpreneursubid', id)
     this.storage.set('submodulename', name);

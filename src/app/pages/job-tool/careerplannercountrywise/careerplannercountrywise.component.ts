@@ -25,7 +25,6 @@ import { PromptService } from "src/app/services/prompt.service";
 import { SkeletonModule } from 'primeng/skeleton';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/services/location.service';
 import { removeExtraResponse } from '../../../@Supports/prompt';
 @Component({
   selector: 'uni-careerplannercountrywise',
@@ -66,7 +65,7 @@ export class CareerplannercountrywiseComponent implements OnInit {
   
   constructor(private router: Router, private service: JobSearchService, private fb: FormBuilder, private pageFacade: PageFacadeService,
     private toast: MessageService, private educationService: EducationToolsService, private sanitizer: DomSanitizer,
-    private promptService: PromptService, private authService: AuthService, private locationService: LocationService
+    private promptService: PromptService, private authService: AuthService,
   ) {
     this.form = this.fb.group({
       country: ['', [Validators.required]],
@@ -85,21 +84,13 @@ export class CareerplannercountrywiseComponent implements OnInit {
         this.specializationList = response;
       }
     });
-    
-
   }
-
 
   get f() {
     return this.form.controls;
   }
   formSubmit() {
     this.recommendationData = "";
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
-
     this.submitted = true;
     if (this.form.valid) {
       var data = {
@@ -137,10 +128,6 @@ export class CareerplannercountrywiseComponent implements OnInit {
     this.form.reset();
   }
   saveRecommadation() {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.service.getTripList('careerplanner').subscribe({
       next: response => {
         this.isFormVisible = false;
@@ -208,10 +195,6 @@ export class CareerplannercountrywiseComponent implements OnInit {
     this.promptService.responseBuilder(params);
   }
   buyCredits(): void {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.router.navigate(["/pages/export-credit"])
   }
 

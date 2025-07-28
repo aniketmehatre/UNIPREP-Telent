@@ -30,7 +30,6 @@ export class ResourceComponent implements OnInit {
 	filterform: FormGroup
 	newfile = "none"
 	countries: country[] = []
-	planExpired!: boolean
 	showSkeleton: boolean = false
 
 	constructor(private fb: FormBuilder, private resourceService: ResourceService, private toast: MessageService, private locationService: LocationService, private authService: AuthService, private pageFacade: PageFacadeService, private router: Router) {
@@ -55,7 +54,6 @@ export class ResourceComponent implements OnInit {
 			coutryname: this.filterform.value.coutryname,
 		}
 		this.getResources(data)
-		this.checkplanExpire()
 	}
 	getResources(data: any) {
 		this.resourceService.getResources(data).subscribe((response: any) => {
@@ -90,10 +88,6 @@ export class ResourceComponent implements OnInit {
 	}
 	// filterpop-up
 	filterPopUp() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.newfile = "block"
 	}
 	onLocationSelect(event: any) {
@@ -102,21 +96,8 @@ export class ResourceComponent implements OnInit {
 			this.filterform.get("coutryname")!.setValue([0])
 		}
 	}
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
-	}
 
 	canSeeResources() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 	}
 	openVideoPopup() {
 		this.pageFacade.openHowitWorksVideoPopup("resource")

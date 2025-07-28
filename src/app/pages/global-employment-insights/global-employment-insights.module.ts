@@ -24,7 +24,6 @@ import { GlobalEmploymentComponent } from "./global-employment-insights.componen
 import { GlobalEmploymentDataListComponent } from "./data-list/data-list.component";
 import { GlobalEmploymentCountryListsComponent } from "./global-employment-insights-countries/global-employment-insights-countrylist.component";
 import { GlobalEmploymentRoutingModule } from "./global-employment-insights-routing.module";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 @NgModule({
   declarations: [
     GlobalEmploymentComponent,
@@ -56,7 +55,6 @@ import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/re
     TooltipModule,
     SkeletonModule,
     AutoCompleteModule,
-    RestrictionDialogComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService]

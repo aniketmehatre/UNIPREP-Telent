@@ -161,10 +161,6 @@ export class JobPreparationComponent implements OnInit {
   }
 
   next(productId: number): void {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     if (productId == 2) {
       this.gethardSkills(this.selectedData[1]);
     }

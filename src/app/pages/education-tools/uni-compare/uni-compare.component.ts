@@ -250,10 +250,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   next() {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.submitted = false;
     const formData = this.form.value;
     if (this.activePageIndex == 0) {
@@ -272,10 +268,6 @@ export class UniCompareComponent implements OnInit, OnDestroy {
   }
 
   saveRecommadation() {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     if (!this.isFromSavedData) {
       this.educationToolService.getAnalysisList('uni_compare').subscribe({
         next: response => {

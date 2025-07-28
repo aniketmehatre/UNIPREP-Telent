@@ -71,7 +71,9 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	isResponseSkeleton: boolean = false;
 	
 
-	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private locationService: LocationService, private toast: MessageService, private authService: AuthService, private router: Router, private travelToolService: TravelToolsService, private pageFacade: PageFacadeService, private costOfLiving: CostOfLivingService, private sanitizer: DomSanitizer, private promptService: PromptService) {
+	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, 
+		 private toast: MessageService, private authService: AuthService, private router: Router, 
+		 private pageFacade: PageFacadeService, private costOfLiving: CostOfLivingService, private sanitizer: DomSanitizer, private promptService: PromptService) {
 		this.marketingForm = this.fb.group({
 			industry: ["", Validators.required],
 			location: [null, Validators.required],
@@ -215,10 +217,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	}
 
 	next() {
-		if (this.authService.isInvalidSubscription('founders_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.submitted = false
 		const formData = this.marketingForm.value
 		if (this.activePageIndex == 0) {
@@ -243,10 +241,6 @@ export class StartUpExpenseEstimateComponent implements OnInit {
 	}
 
 	saveRecommadation() {
-		if (this.authService.isInvalidSubscription('founders_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		if (!this.isFromSavedData) {
 			this.foundersToolsService.getAnalysisList("startup_expense_estimator").subscribe({
 				next: (response) => {

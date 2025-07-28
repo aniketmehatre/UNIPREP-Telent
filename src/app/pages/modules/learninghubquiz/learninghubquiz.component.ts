@@ -2,12 +2,10 @@ import { EmployerGlobalService } from './../../job-tool/employer-global.service'
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, Subscription, interval, takeWhile } from "rxjs";
-import { ModuleListSub } from "../../../@Models/module.model";
-import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
+import { MenuItem, MessageService } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
 import { DataService } from "../../../services/data.service";
 import { LocationService } from "../../../services/location.service";
-import { AuthService } from 'src/app/Auth/auth.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Location } from '@angular/common';
 import { CommonModule } from '@angular/common';
@@ -62,19 +60,17 @@ export class LearninghubquizComponent implements OnInit {
   timer: number = 0;
   timerSubscription: Subscription | null = null;
   restrict: boolean = false;
-  planExpired: boolean = false;
   selectedQuizArrayForTimer: any[] = [];
   totalquiztime: any = 0;
   quizSubModuleName: any
   mainTitle: any
-  constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
+  constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
     private location: Location, private locationService: LocationService, private ngxService: NgxUiLoaderService,
     private toast: MessageService, private activatedRoute: ActivatedRoute, private employerGlobalService: EmployerGlobalService,
     private storage: StorageService) { }
 
   ngOnInit(): void {
     this.init();
-    this.checkplanExpire();
   }
 
   init() {
@@ -172,16 +168,6 @@ export class LearninghubquizComponent implements OnInit {
 
   getFormattedValues(): string {
     return this.employerGlobalService.getItems().join(' -> ');
-  }
-
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
   }
 
   loadModuleAndSubModule() {
@@ -441,10 +427,6 @@ export class LearninghubquizComponent implements OnInit {
     })
   }
   openCertificate() {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     window.open(this.certificatesurl, '_blank');
   }
   takeAnotherquiz() {

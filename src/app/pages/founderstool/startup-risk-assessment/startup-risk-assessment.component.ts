@@ -73,7 +73,7 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	
 	userInputs: any;
 
-	constructor(private fb: FormBuilder, private founderToolService: FounderstoolService, private router: Router,
+	constructor( private founderToolService: FounderstoolService, private router: Router,
 		private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService,
 		private pageFacade: PageFacadeService, private authService: AuthService) { }
 
@@ -109,10 +109,6 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	}
 
 	next(productId: number): void {
-		if (this.authService.isInvalidSubscription('founders_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.inValidClass = false
 		if (productId in this.selectedData) {
 			if (productId == 8) {
@@ -188,10 +184,6 @@ export class StartupRiskAssessmentComponent implements OnInit {
 	}
 
 	saveRecommadation() {
-		if (this.authService.isInvalidSubscription('founders_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		if (!this.isFromSavedData) {
 			this.founderToolService.getAnalysisList("startup_risk_assessment").subscribe({
 				next: (response) => {

@@ -3,7 +3,6 @@ import { environment } from "@env/environment";
 import { TalentConnectService } from '../talent-connect.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/Auth/auth.service';
 import { PageFacadeService } from '../../page-facade.service';
 
 @Component({
@@ -17,7 +16,7 @@ export class MainListComponent implements OnInit {
     protected domainUrl: string = `https://${environment.domain}/uniprepapi/storage/app/public/ToolIcons/travel-tools/`;
 
     constructor(private router: Router, private talentConnectService: TalentConnectService, private messageService: MessageService,
-        private authService: AuthService, private pageFacade: PageFacadeService) {
+         private pageFacade: PageFacadeService) {
 
         this.talentConnectMainList = [
             {
@@ -65,10 +64,6 @@ export class MainListComponent implements OnInit {
 
 
     checkAndNotAllowAccessModules(event: any, moduleId: number, url: string, launchMode: boolean) {
-        if (this.authService.isInvalidSubscription('employer_connect')) {
-            this.authService.hasUserSubscription$.next(true);
-            return;
-        }
         if (!this.talentConnectService._employerProfileData?.profile_completion_flag) {
             if (moduleId === 2 || moduleId === 3) {
                 event.preventDefault();

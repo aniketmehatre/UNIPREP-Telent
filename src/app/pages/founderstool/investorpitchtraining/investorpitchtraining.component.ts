@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
@@ -16,7 +15,6 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { AuthService } from 'src/app/Auth/auth.service';
 @Component({
   selector: 'uni-investorpitchtraining',
   templateUrl: './investorpitchtraining.component.html',
@@ -27,8 +25,8 @@ import { AuthService } from 'src/app/Auth/auth.service';
 export class InvestorpitchtrainingComponent implements OnInit {
   investorlists: any[] = [];
   currentIndex = 0;
-  constructor(private service: FounderstoolService, private sanitizer: DomSanitizer, private router: Router,
-    private pageFacade: PageFacadeService, private authService: AuthService) { }
+  constructor(private service: FounderstoolService,private router: Router,
+    private pageFacade: PageFacadeService) { }
 
   ngOnInit(): void {
     this.service.getAInvestorTraining().subscribe((response) => {
@@ -43,10 +41,6 @@ export class InvestorpitchtrainingComponent implements OnInit {
   }
 
   nextQuestion() {
-    if (this.authService.isInvalidSubscription('founders_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     if (this.currentIndex < this.investorlists.length - 1) {
       this.currentIndex++;
       // this.updateCard();
