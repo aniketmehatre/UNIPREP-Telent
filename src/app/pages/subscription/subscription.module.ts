@@ -36,6 +36,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from '@env/environment';
 import { RouterModule } from '@angular/router';
+import { CollegeSubscriptionDataComponent } from './clg-subscription-data/clg-subscription-data.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -44,6 +45,7 @@ import { RouterModule } from '@angular/router';
         BuyCreditsComponent,
         SubscriptionBillingComponent,
         SubscriptionDataComponent,
+        CollegeSubscriptionDataComponent,
         SubscriptionListComponent,
         SubscriptionSuccessComponent,
         SubscriptionHistoryComponent,
