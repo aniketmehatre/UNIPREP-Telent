@@ -11,6 +11,7 @@ import { LocationService } from 'src/app/services/location.service';
 import { MultiSelectChangeEvent } from 'primeng/multiselect';
 import { JobListing } from 'src/app/@Models/employee-connect-job.model';
 import { environment } from '@env/environment';
+import {LocalStorageService} from "ngx-localstorage";
 
 @Component({
   selector: 'uni-easy-apply',
@@ -48,6 +49,7 @@ export class EasyApplyComponent {
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private talentConnectService: TalentConnectService,
     private messageService: MessageService, private pageFacade: PageFacadeService, private authService: AuthService,
+    private storage: LocalStorageService,
     private locationService: LocationService) { }
 
   ngOnInit(): void {
@@ -284,7 +286,13 @@ export class EasyApplyComponent {
 
   copyLink(event: any, job: any) {
     event.stopPropagation();
-    const textToCopy = encodeURI(environment.jobDomain + '/view/' + job.uuid);
+    let textToCopy: any
+    let domainName = this.storage.get('domainname');
+    if (domainName) {
+      textToCopy = encodeURI(environment.jobDomain + `/view/${domainName}/` + job.uuid);
+    }else {
+      textToCopy = encodeURI(environment.jobDomain + `/view/` + job.uuid);
+    }
     this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
   }
 

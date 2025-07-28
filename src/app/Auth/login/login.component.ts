@@ -132,11 +132,14 @@ export class LoginComponent implements OnInit, OnDestroy {
             })
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
             this.coBrandedImageUrl.set(data.logo)
-            console.log(data.brand_primary_color, data.brand_secondary_color)
             if(data.brand_primary_color && data.brand_secondary_color){
                 this.brandColorService.fetchAndApplyColors(data.brand_primary_color, data.brand_secondary_color)
             } else {
                 this.brandColorService.clearColorLocalStorage();
+            }
+            if (data.domainname){
+                const firstPart = data.domainname.split('.')[0];
+                this.storage.set('domainname', firstPart)
             }
             this.loading = false
             this.cdr.markForCheck()
