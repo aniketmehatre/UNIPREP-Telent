@@ -40,6 +40,12 @@
 			display: flex;
 			text-decoration: none;
 			align-items: center;
+			&.restricted-menu {
+				color: gray;
+				&:hover {
+				color: gray;
+				}
+			}
 			.system-main__icon img {
 				font-size: 0.9rem;
 				//padding: 10px;

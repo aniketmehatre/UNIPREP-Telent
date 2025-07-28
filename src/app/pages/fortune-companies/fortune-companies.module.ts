@@ -28,7 +28,6 @@ import { RouterModule } from "@angular/router";
 import { InputIconModule } from "primeng/inputicon";
 import { IconFieldModule } from 'primeng/iconfield';
 import { SelectModule } from "primeng/select";
-import { RestrictionDialogComponent } from "src/app/shared/restriction-dialog/restriction-dialog.component";
 import { MultiSelectModule } from "primeng/multiselect";
 import { CalendarModule } from "primeng/calendar";
 @NgModule({
@@ -67,7 +66,6 @@ import { CalendarModule } from "primeng/calendar";
     IconFieldModule,
     InputIconModule,
     SelectModule,
-    RestrictionDialogComponent,
     MultiSelectModule ,
     CalendarModule 
   ],

@@ -1,9 +1,7 @@
 import { Component, OnInit } from "@angular/core"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { ScholarshipListService } from "./scholarship-list.service"
-import { LocationService } from "src/app/services/location.service"
 import { MessageService } from "primeng/api"
-import { AuthService } from "src/app/Auth/auth.service"
 import { Router, RouterModule } from "@angular/router"
 import { UserManagementService } from "../user-management/user-management.service"
 import { DataService } from "src/app/services/data.service"
@@ -68,7 +66,7 @@ export class ScholarshipListComponent implements OnInit {
 	selectedScholarship: number = 0
 	favCount: number = 0
 
-	constructor(private fb: FormBuilder, private scholarshipListService: ScholarshipListService, private locationService: LocationService, private toast: MessageService, private authService: AuthService, private router: Router, private userManagementService: UserManagementService, private dataService: DataService, private pageFacade: PageFacadeService) {
+	constructor(private fb: FormBuilder, private scholarshipListService: ScholarshipListService, private toast: MessageService, private router: Router, private userManagementService: UserManagementService, private dataService: DataService, private pageFacade: PageFacadeService) {
 		// Initialize form with empty arrays for MultiSelect controls
 		this.filterForm = this.fb.group({
 			country: [[]],
@@ -383,10 +381,6 @@ export class ScholarshipListComponent implements OnInit {
 		perpage: this.pageSize,
 	}
 	pageChange(event: any) {
-		if (this.authService.isInvalidSubscription('uni_scholar')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.selectAllCheckboxes = false
 		this.selectedScholarship = 0
 		this.page = event.first / this.pageSize + 1
@@ -402,10 +396,6 @@ export class ScholarshipListComponent implements OnInit {
 	}
 
 	filterBy() {
-		if (this.authService.isInvalidSubscription('uni_scholar')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.isFilterVisible = true
 	}
 
@@ -439,10 +429,6 @@ export class ScholarshipListComponent implements OnInit {
 		})
 	}
 	viewFavourites() {
-		if (this.authService.isInvalidSubscription('uni_scholar')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.viewFavouritesLabel = this.viewFavouritesLabel == "View Favourites" ? "View All" : "View Favourites"
 		if (this.viewFavouritesLabel == "View All") {
 			this.loadScholarShipData(1)
@@ -493,10 +479,6 @@ export class ScholarshipListComponent implements OnInit {
 	}
 
 	buyCredits(): void {
-		if (this.authService.isInvalidSubscription('uni_scholar')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.router.navigate(["/pages/export-credit"])
 	}
 
@@ -516,10 +498,7 @@ export class ScholarshipListComponent implements OnInit {
 	}
 
 	exportData() {
-		if (this.authService.isInvalidSubscription('uni_scholar')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		} else if (this.exportCreditCount != 0) {
+		if (this.exportCreditCount != 0) {
 			this.exportDataIds = []
 			this.scholarshipData.forEach((item) => {
 				if (item.isChecked == 1) {
@@ -539,7 +518,6 @@ export class ScholarshipListComponent implements OnInit {
 			} else {
 				if (this.exportCreditCount < this.exportDataIds.length) {
 					this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan." })
-					this.authService.hasUserSubscription$.next(true);
 					return
 				}
 			}
@@ -558,17 +536,11 @@ export class ScholarshipListComponent implements OnInit {
 			if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
 				this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits." })
 				this.router.navigate(["/pages/export-credit"])
-			} else {
-				this.authService.hasUserSubscription$.next(true);
 			}
 		}
 	}
 
 	onCheckboxChange(event: any) {
-		if (this.authService.isInvalidSubscription('uni_scholar')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		const isChecked = (event.target as HTMLInputElement).checked
 		this.selectedScholarship = isChecked ? this.selectedScholarship + 1 : this.selectedScholarship - 1
 		if (isChecked == false) {
@@ -640,10 +612,6 @@ export class ScholarshipListComponent implements OnInit {
 	}
 
 	next(productId: number): void {
-		if (this.authService.isInvalidSubscription('uni_scholar')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.invalidClass = false
 		if (productId in this.selectedData) {
 			if (this.activePageIndex < this.recommendations.length - 1) {

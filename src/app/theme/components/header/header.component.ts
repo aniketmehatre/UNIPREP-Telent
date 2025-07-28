@@ -197,8 +197,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private formBuilder: FormBuilder,
 		public authService: AuthService,
 		private toast: MessageService,
-		private themeService: ThemeService,
-		route: ActivatedRoute,
+		private route: ActivatedRoute,
 		private socialService: SocialAuthService,
 		private dataService: DataService,
 		private dashboardService: DashboardService,
@@ -285,11 +284,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	buyCredits() {
-		if (this.authService.isInvalidSubscription('ai_credit_count')) {
-			this.authService.hasUserSubscription$.next(true);
-		} else {
-			this.router.navigate(["/pages/export-credit"]);
-		}
+		this.router.navigate(["/pages/export-credit"]);
 	}
 
 	loadCountryList() {

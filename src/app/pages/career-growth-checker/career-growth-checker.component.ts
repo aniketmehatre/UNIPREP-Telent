@@ -4,8 +4,6 @@ import { Router } from "@angular/router"
 import { debounceTime, switchMap, distinctUntilChanged, catchError, map } from "rxjs/operators"
 import { Observable, of } from "rxjs"
 import { FormBuilder, FormGroup } from "@angular/forms"
-import { AuthService } from "src/app/Auth/auth.service"
-import { LocationService } from "src/app/services/location.service"
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { RouterModule } from '@angular/router';
@@ -64,7 +62,7 @@ interface Country {
 	imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule]
 })
 export class CareerGrowthCheckerComponent implements OnInit {
-	constructor(private careerGrowthService: CareerGrowthService, private router: Router, private fb: FormBuilder, private authService: AuthService, private locationService: LocationService) { }
+	constructor(private careerGrowthService: CareerGrowthService, private router: Router, private fb: FormBuilder) { }
 
 	options: JobRole[] = []
 	jobDetails: JobDetail[] = []
@@ -194,10 +192,6 @@ export class CareerGrowthCheckerComponent implements OnInit {
 	// }
 
 	search() {
-		if (this.authService.isInvalidSubscription('career_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		const jobSearchValue = this.checkForm.value.jobSearch
 
 		const isValidJobRole = this.filteredOptions.some((option) => option.jobrole === jobSearchValue)

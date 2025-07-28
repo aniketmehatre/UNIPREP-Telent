@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Router, RouterModule } from "@angular/router";
 import { AveragesalaryestimatorService } from "../../averagesalaryestimator/averagesalaryestimator.service";
 import { PageFacadeService } from "../../page-facade.service";
@@ -20,7 +20,6 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { RadioButtonModule } from "primeng/radiobutton"
 import { PdfViewerModule } from "ng2-pdf-viewer";
 import { JobOfferPreparedListComponent } from "./preparedlist/preparedlist.component";
-import { AuthService } from "src/app/Auth/auth.service";
 @Component({
   selector: "uni-joboffercomparisontool",
   templateUrl: "./joboffercomparisontool.component.html",
@@ -42,7 +41,6 @@ export class JoboffercomparisontoolComponent implements OnInit {
     private avgestservice: AveragesalaryestimatorService,
     private service: JobOfferComparisionService,
     private fb: FormBuilder,
-    private authService: AuthService
   ) {
     this.basicInformationForm = this.fb.group({
       basicInformation: this.fb.array([
@@ -250,10 +248,6 @@ export class JoboffercomparisontoolComponent implements OnInit {
   }
 
   next(selectedId: number): void {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     if (selectedId == 1) {
       if (this.basicInformationForm.invalid) {
         this.basicInformationForm.markAllAsTouched();

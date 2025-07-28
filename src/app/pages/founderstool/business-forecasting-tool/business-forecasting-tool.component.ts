@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { Router, RouterModule } from "@angular/router"
 import { MessageService } from "primeng/api"
 import { AuthService } from "src/app/Auth/auth.service"
-import { LocationService } from "src/app/services/location.service"
 import { PageFacadeService } from "../../page-facade.service"
 import { FounderstoolService } from "../founderstool.service"
 import { CommonModule } from "@angular/common"
@@ -19,7 +18,6 @@ import { SelectModule } from "primeng/select"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { TravelToolsService } from "../../travel-tools/travel-tools.service"
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { PromptService } from "src/app/services/prompt.service";
 import { SkeletonModule } from "primeng/skeleton"
@@ -93,7 +91,7 @@ export class BusinessForecastingToolComponent implements OnInit {
 	
 	userInputs: any;
 
-	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private locationService: LocationService, private authService: AuthService, private router: Router, private pageFacade: PageFacadeService, private toast: MessageService, private travelToolService: TravelToolsService, private sanitizer: DomSanitizer, private promptService: PromptService) {
+	constructor(private fb: FormBuilder, private foundersToolsService: FounderstoolService, private authService: AuthService, private router: Router, private pageFacade: PageFacadeService, private toast: MessageService, private sanitizer: DomSanitizer, private promptService: PromptService) {
 		this.form = this.fb.group({
 			industry: ["", Validators.required],
 			seasons: [[]],
@@ -203,10 +201,6 @@ export class BusinessForecastingToolComponent implements OnInit {
 	}
 
 	next() {
-		if (this.authService.isInvalidSubscription('founders_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.submitted = false
 		const formData = this.form.value
 		if (this.activePageIndex == 0) {
@@ -231,10 +225,6 @@ export class BusinessForecastingToolComponent implements OnInit {
 	}
 
 	saveRecommadation() {
-		if (this.authService.isInvalidSubscription('founders_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		if (!this.isFromSavedData) {
 			this.foundersToolsService.getAnalysisList("revenue_forescasting_tool").subscribe({
 				next: (response) => {

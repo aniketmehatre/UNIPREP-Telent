@@ -60,7 +60,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	responsiveOptions1: any;
 	sendInvite: any = ""
 	partnerTrusterLogo: any[] = []
-	planExpired: boolean = false
 	groupedListFav: any[] = [];
 	cvBuilderPercentage: number = 0;
 	talentConnectPercentage: number = 0;
@@ -224,22 +223,9 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	openQuiz(): void {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.router.navigate([`pages/modules/quizmodule`]);
 	}
-	// plan check code , don't remove
-	// checkPlanExpire(): void {
-	// 	if (this.authService._userSubscrition.time_left.plan === "expired" ||
-	// 		this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-	// 		this.planExpired = true;
-	// 	}
-	// 	else {
-	// 		this.planExpired = false;
-	// 	}
-	// }
+
 	openCertificate() {
 		this.router.navigate([`pages/mycertificate`])
 	}

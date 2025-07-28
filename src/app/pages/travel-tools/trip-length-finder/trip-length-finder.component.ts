@@ -55,7 +55,7 @@ export class TripLengthFinderComponent implements OnInit {
   savedResponse: any = [];
   destinationLocationList: City[] = [];
   isResponseSkeleton: boolean = false;
-  
+
   userInputs: any;
 
   ngOnInit(): void {
@@ -71,16 +71,12 @@ export class TripLengthFinderComponent implements OnInit {
   }
 
   getRecommendation(productId: number) {
-    if(this.authService._creditCount === 0){
-			this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
-			this.router.navigateByUrl('/pages/export-credit')
-			return;
-		}
-    this.recommendationData = "";
-    if (this.authService.isInvalidSubscription('travel_tools')) {
-      this.authService.hasUserSubscription$.next(true);
+    if (this.authService._creditCount === 0) {
+      this.toast.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
+      this.router.navigateByUrl('/pages/export-credit')
       return;
     }
+    this.recommendationData = "";
     this.hideWarning(productId);
     if (!this.invalidClass) {
       let data = {
@@ -106,11 +102,7 @@ export class TripLengthFinderComponent implements OnInit {
   }
 
   buyCredits() {
-    if (this.authService.isInvalidSubscription('travel_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-    } else {
-      this.router.navigate(["/pages/export-credit"]);
-    }
+    this.router.navigate(["/pages/export-credit"]);
   }
 
   hideWarning(productId: number) {
@@ -131,10 +123,6 @@ export class TripLengthFinderComponent implements OnInit {
   }
 
   savedRecommendations() {
-    if (this.authService.isInvalidSubscription('travel_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.isRecommendation = false;
     this.isResponsePage = false;
     this.isSavedPage = true;

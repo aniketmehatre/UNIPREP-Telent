@@ -2,16 +2,14 @@ import { Component, OnInit } from "@angular/core";
 import { GlobalworkvisaService } from "../global-work-visa/global-work-visa.service";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { Meta } from "@angular/platform-browser";
-import { MessageService } from "primeng/api";
 import { DataService } from "src/app/services/data.service";
 import { Carousel } from "primeng/carousel";
-import { Select, SelectModule } from "primeng/select";
+import { SelectModule } from "primeng/select";
 import { NgClass, CommonModule } from "@angular/common";
-import { Dialog, DialogModule } from "primeng/dialog";
+import { DialogModule } from "primeng/dialog";
 import { Card } from "primeng/card";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
-import { AuthService } from "src/app/Auth/auth.service";
 import { PageFacadeService } from "../page-facade.service";
 import { SocialShareService } from "src/app/services/social-share.service";
 
@@ -74,9 +72,7 @@ export class GlobalWorkVisaComponent implements OnInit {
     private service: GlobalworkvisaService,
     private router: Router,
     private meta: Meta,
-    private toast: MessageService,
     private dataService: DataService,
-    private authService: AuthService,
     protected socialShareService: SocialShareService,
     private route: ActivatedRoute,
     private pageFacade: PageFacadeService
@@ -120,10 +116,6 @@ export class GlobalWorkVisaComponent implements OnInit {
   }
 
   next(itemId: number) {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.invalidClass = !(itemId in this.selectedData);
     if (!this.invalidClass) {
       this.activePageIndex < this.recommendations.length - 1

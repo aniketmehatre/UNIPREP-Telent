@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { FounderstoolService } from '../founderstool.service';
 import { Router } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
@@ -16,7 +15,6 @@ import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { AuthService } from 'src/app/Auth/auth.service';
 @Component({
   selector: 'uni-startupglossary',
   templateUrl: './startupglossary.component.html',
@@ -30,8 +28,8 @@ export class StartupglossaryComponent implements OnInit {
   startupglossarylists: any[] = [];
   groupedTerms: { [key: string]: any[] } = {};
   valueNearYouFilter: string = '';
-  constructor(private service: FounderstoolService, private sanitizer: DomSanitizer, private router: Router,
-    private pageFacade: PageFacadeService, private authService: AuthService) { }
+  constructor(private service: FounderstoolService, private router: Router,
+    private pageFacade: PageFacadeService) { }
   ngOnInit(): void {
     this.category_dropdown = [
       { id: null, name: "All" },
@@ -78,11 +76,8 @@ export class StartupglossaryComponent implements OnInit {
     this.getStartUpGlossary(id);
   }
   getStartUpGlossary(data: any) {
-    if (data) {
-      if (this.authService.isInvalidSubscription('founders_tools')) {
-        this.authService.hasUserSubscription$.next(true);
-        return;
-      }
+    if (!data) {
+      return;
     }
     var val = {
       alphabet: data
@@ -106,10 +101,7 @@ export class StartupglossaryComponent implements OnInit {
   }
   performSearch(from?: string) {
     if (!from) {
-      if (this.authService.isInvalidSubscription('founders_tools')) {
-        this.authService.hasUserSubscription$.next(true);
-        return;
-      }
+     
     }
     // highlights the words
     const search = this.valueNearYouFilter?.trim();

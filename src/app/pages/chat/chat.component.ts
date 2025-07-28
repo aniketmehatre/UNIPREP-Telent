@@ -330,10 +330,6 @@ export class ChatComponent implements OnInit {
     window.open(url);
   }
   canChangeChat() {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.textareavisbility = !this.textareavisbility;
   }
 

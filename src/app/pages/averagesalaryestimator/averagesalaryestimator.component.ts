@@ -3,7 +3,6 @@ import { Router, RouterModule } from "@angular/router";
 import { PageFacadeService } from "../page-facade.service";
 import { AveragesalaryestimatorService } from "./averagesalaryestimator.service";
 import { CommonModule } from "@angular/common"
-import { MessageService } from 'primeng/api'
 import { DialogModule } from "primeng/dialog"
 import { SidebarModule } from "primeng/sidebar"
 import { PromptService } from "src/app/services/prompt.service";
@@ -22,7 +21,6 @@ import { City } from "src/app/@Models/cost-of-living";
 import { EducationToolsService } from "../education-tools/education-tools.service";
 import { AverageSalaryPreparedListComponent } from "./preparedlist/preparedlist.component";
 import { PdfViewerModule } from "ng2-pdf-viewer";
-import { AuthService } from "src/app/Auth/auth.service";
 
 @Component({
   selector: "uni-averagesalaryestimator",
@@ -40,8 +38,6 @@ export class AverageSalaryComponent implements OnInit {
     private service: AveragesalaryestimatorService,
     private educationService: EducationToolsService,
     private promptService: PromptService,
-    private toast: MessageService,
-    private authService: AuthService
   ) {
     this.getJobRoles();
   }
@@ -155,10 +151,6 @@ export class AverageSalaryComponent implements OnInit {
   }
 
   next(selectedId: number): void {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.invalidClass = false;
     if (this.selectedData[selectedId]?.length == 0) {
       this.invalidClass = true;
@@ -257,10 +249,6 @@ export class AverageSalaryComponent implements OnInit {
   ListData: any;
   totalDataCount: number = 0;
   saveRecommadation() {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.service.getavgsalarysavedresponse().subscribe((response: any) => {
       this.ListData = response;
       this.totalDataCount = this.ListData.length;

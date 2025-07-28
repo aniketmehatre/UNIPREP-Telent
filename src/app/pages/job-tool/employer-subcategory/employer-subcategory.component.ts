@@ -36,7 +36,6 @@ export class EmployerSubcategoryComponent implements OnInit {
       this.category_id = params['id'];
       this.getSubCategoryList();
     });
-    this.checkplanExpire()
   }
   getSubCategoryList() {
     const params: GetSubcategoryPayload = {
@@ -50,26 +49,10 @@ export class EmployerSubcategoryComponent implements OnInit {
   }
 
   navigateToQuiz(category: any, categoryId: number): void {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.employerGlobalService.addItem(category.category)
     this.storage.set('employerName', category.category);
     this.storage.set('learningHubMainModuleName', category);
     this.router.navigate(['/pages/job-tool/quiz/employer/list', categoryId]);
-  }
-  planExpired: boolean = false;
-
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-      this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
   }
 
 }

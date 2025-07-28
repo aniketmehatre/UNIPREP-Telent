@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common" // Import CommonModule
+import { CommonModule } from "@angular/common"
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core"
 import { ArrayHeaderService } from "../../unilearn/array-header.service"
 import { SalaryHacksService } from "../salaryhacks.service"
@@ -17,7 +17,6 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { SkeletonModule } from "primeng/skeleton";
-import { AuthService } from "src/app/Auth/auth.service"
 @Component({
 	selector: "uni-salaryhackscountries",
 	templateUrl: "./salaryhackcountries.component.html",
@@ -27,7 +26,7 @@ import { AuthService } from "src/app/Auth/auth.service"
 })
 export class SalaryhacksCountryListsComponent implements OnInit {
 	constructor(private router: Router, private arrayHeaderService: ArrayHeaderService, private service: SalaryHacksService,
-		private pageFacade: PageFacadeService, private authService: AuthService) { }
+		private pageFacade: PageFacadeService) { }
 	isSkeletonVisible: boolean = true
 	moduleList: any
 	@Input() prepData: any
@@ -53,10 +52,6 @@ export class SalaryhacksCountryListsComponent implements OnInit {
 		this.pageFacade.openHowitWorksVideoPopup("salary-negotiation-hacks")
 	}
 	onModuleClick(moduledata: any) {
-		if (this.authService.isInvalidSubscription('career_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.prepData = {
 			country_id: moduledata.id,
 			stage: 2,

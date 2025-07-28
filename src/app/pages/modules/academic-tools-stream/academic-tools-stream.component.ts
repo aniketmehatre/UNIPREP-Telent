@@ -26,7 +26,6 @@ export class AcademicToolsStreamComponent implements OnInit {
 	currentModuleName: string = ""
 	tooltip: string = ""
 	submoduleId: string = ""
-	planExpired: boolean = false
 	constructor(private activatedRoute: ActivatedRoute, private location: Location, private router: Router, private academicService: AcademicService, private route: Router, private authService: AuthService) { }
 
 	ngOnInit(): void {
@@ -34,16 +33,9 @@ export class AcademicToolsStreamComponent implements OnInit {
 			this.submoduleId = response["id"]
 			this.getList()
 			this.getAcademicToolList()
-			this.checkplanExpire()
 		})
 	}
 	navigateToQuiz(moduleId: number, academicCategoryId: number): void {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
-		// Navigate to the quiz route
-		console.log(moduleId)
 		this.router.navigate(["quiz/", moduleId, academicCategoryId], { relativeTo: this.activatedRoute })
 	}
 	getList() {
@@ -79,15 +71,6 @@ export class AcademicToolsStreamComponent implements OnInit {
 		this.academicService.getAcademicToolList(req).subscribe((response: CategoryResponse) => {
 			this.currentModuleName = response.data?.find((category) => category.id === Number(this.submoduleId))?.category as string
 		})
-	}
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
 	}
 
 }

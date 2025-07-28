@@ -145,17 +145,9 @@ export class EventsComponent implements OnInit {
 	// filterpop-up
 	filterPopUp() {
 		// this.setActiveButton(1)
-		if (this.authService.isInvalidSubscription('events')) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.newfile = "block"
 	}
 	paginate(event: any) {
-		if (this.authService.isInvalidSubscription('events')) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.pageno = event.page + 1
 		this.perpage = event.rows
 		let data = {
@@ -169,10 +161,6 @@ export class EventsComponent implements OnInit {
 		this.getEventUpComming(data)
 	}
 	paginatepost(event: any) {
-		if (this.authService.isInvalidSubscription('events')) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.pageno = event.page + 1
 		this.perpage = event.rows
 		let data = {
@@ -270,11 +258,6 @@ export class EventsComponent implements OnInit {
 	}
 
 	performSearch(events: any) {
-		if (this.authService.isInvalidSubscription('events')) {
-			this.authService.hasUserSubscription$.next(true);
-			this.valueNearYouFilter = ""
-			return
-		}
 		var data = {
 			nearby_search: this.valueNearYouFilter,
 		}
@@ -282,10 +265,6 @@ export class EventsComponent implements OnInit {
 		this.getPostEvent(data)
 	}
 	registerButton(event: any) {
-		if (this.authService.isInvalidSubscription('events')) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		if (event.registered == 1) {
 			this.toast.add({ severity: "error", summary: "Error", detail: "Already Registered" })
 			return
@@ -308,13 +287,9 @@ export class EventsComponent implements OnInit {
 	}
 
 	searchClick() {
-		if (this.authService.isInvalidSubscription('events')) {
-			this.authService.hasUserSubscription$.next(true);
-			this.valueNearYouFilter = ""
-			let searchInput = document.getElementById("searchInput") as HTMLInputElement
-			if (searchInput !== null) {
-				searchInput.disabled = true
-			}
+		let searchInput = document.getElementById("searchInput") as HTMLInputElement
+		if (searchInput !== null) {
+			searchInput.disabled = true
 		}
 	}
 	resetFilter() {

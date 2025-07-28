@@ -19,6 +19,7 @@ export interface SideMenu {
   header?: boolean;
   children?: SideMenu[];
   active?: boolean;
+  restricted?: boolean;
 }
 
 @Component({
@@ -72,6 +73,26 @@ export class SidenavComponent {
       image: "fa-solid fa-scribble",
     },
     {
+      title: "Job Board",
+      url: "",
+      image: "",
+    },
+    // {
+    //   title: "Employer Connect",
+    //   url: "/pages/talent-connect/list",
+    //   image: "fa-solid fa-briefcase",
+    // },
+    {
+      title: "Explore Jobs",
+      url: "",
+      image: "fa-solid fa-user-tie-hair",
+    },
+    {
+      title: "Company Connect",
+      url: "",
+      image: "fa-solid fa-briefcase",
+    },
+    {
       title: "Career",
       url: "",
       image: "",
@@ -81,26 +102,6 @@ export class SidenavComponent {
     //   url: "/pages/modules/career-hub",
     //   image: "fa-solid fa-briefcase",
     // },
-    // {
-    //   title: "Job Portal",
-    //   url: "/pages/job-portal/job-search",
-    //   image: "fa-solid fa-briefcase",
-    // },
-    // {
-    //   title: "Employer Connect",
-    //   url: "/pages/talent-connect/list",
-    //   image: "fa-solid fa-briefcase",
-    // },
-    {
-      title: "Company Connect",
-      url: "",
-      image: "fa-solid fa-briefcase",
-    },
-    {
-      title: "Explore Jobs",
-      url: "",
-      image: "fa-solid fa-user-tie-hair",
-    },
     {
       title: "Learning Hub",
       url: "/pages/modules/learning-hub",
@@ -145,11 +146,6 @@ export class SidenavComponent {
     //   title: "Life in",
     //   url: "/pages/modules/life-at-country",
     //   image: "fa-solid fa-earth-americas",
-    // },
-    // {
-    //   title: "Cost of Living",
-    //   url: "/pages/job-tool/cost-of-living",
-    //   image: "fa-solid fa-dollar-sign",
     // },
     {
       title: "Travel Tools",
@@ -329,6 +325,9 @@ export class SidenavComponent {
   orgnamewhitlabel: any;
   collegeStudentRestrictedMenus = ["Assessment"];
   currentUserSubscriptionPlan: string = "";
+  premiumPlanMenus: string[] = ["Learning Hub", "Skill Mastery", "Career Tools", "Language Hub", "Travel Tools", "Global Repository",
+    "UNILEARN", "UNISCHOLAR", "UNIFINDER", "Education Tools", "Startup Kit", "Founders Tool", "Pitch Deck",
+    "AI Global Advisor", "Events", "Certificates"];
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private dataService: DataService,
     private authService: AuthService, private locationService: LocationService,
@@ -404,7 +403,7 @@ export class SidenavComponent {
     })
     this.markCurrentMenu();
     this.authService.getNewUserTimeLeft().subscribe((res) => {
-      let data = res.time_left;
+      let data = res?.time_left;
       this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
       if (data.plan === "expired" || data.plan === "subscription_expired") {
         this.conditionSubscribed = false;
@@ -414,7 +413,7 @@ export class SidenavComponent {
       if (this.imageWhiteLabelDomainName === "Uniprep" || this.imageWhiteLabelDomainName === "Partner" || this.imageWhiteLabelDomainName === "uniprep.ai") {
         this.whiteLabelIsShow = true;
       } else {
-        if (res.subscription_details.subscription_plan === "free_trail" && res.time_left.plan === "on_progress") {
+        if (res?.subscription_details?.subscription_plan === "free_trail" && res?.time_left.plan === "on_progress") {
           this.menus = this.menus.filter((item) => !this.whitlabelmenuFreeTrails?.includes(item?.title));
           this.whiteLabelIsShow = false;
         } else {
@@ -422,11 +421,11 @@ export class SidenavComponent {
           this.whiteLabelIsShow = false;
         }
       }
-      if (res.subscription_details.subscription_plan == "free_trail" && res.enterprise_subscription_link != "") {
-        this.enterpriseSubscriptionLink = res.enterprise_subscription_link;
-        if (res.enterprise_subscription_plan == "Student") {
+      if (res?.subscription_details?.subscription_plan == "free_trail" && res?.enterprise_subscription_link != "") {
+        this.enterpriseSubscriptionLink = res?.enterprise_subscription_link;
+        if (res?.enterprise_subscription_plan == "Student") {
           this.menus = this.menus.filter((item) => !this.studentMenus.includes(item.title));
-        } else if (res.enterprise_subscription_plan == "Career") {
+        } else if (res?.enterprise_subscription_plan == "Career") {
           this.menus = this.menus.filter((item) => !this.careerMenus.includes(item.title));
         }
       }
@@ -440,8 +439,24 @@ export class SidenavComponent {
       }
       this.menus = this.menus.filter((item) => !this.collegeStudentMenus.includes(item.title));
     }
+    this.updateMenuUrlBasedOnSubscription();
   }
 
+  updateMenuUrlBasedOnSubscription() {
+    if (this.authService._user?.student_type_id == 2) {
+      if (this.authService._user?.current_plan_detail?.current_plan == "Standard") {
+        this.menus.forEach((item) => {
+          if (this.premiumPlanMenus.includes(item.title)) {
+            item.url = '/pages/subscriptions';
+            item.restricted = true;
+          }
+          else {
+            item.restricted = false;
+          }
+        });
+      }
+    }
+  }
   addEasyJob() {
     const exploreJobsUrl = this.talentService._employerProfileData == null ? "/pages/usermanagement" : "/pages/talent-connect/easy-apply";
     const exploreJob = this.menus.find(menu => menu.title === "Explore Jobs") as SideMenu;

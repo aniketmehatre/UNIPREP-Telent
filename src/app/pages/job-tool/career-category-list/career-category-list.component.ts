@@ -55,10 +55,6 @@ export class CareerCategoryListComponent implements OnInit {
     });
   }
   navigate(category: any, category_id: number) {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     let moduleUrl = "";
     switch (this.module_id) {
       case '11':
@@ -81,10 +77,6 @@ export class CareerCategoryListComponent implements OnInit {
     }
   }
   pageChange(event: any) {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.first = event.page;
     if (this.module_id === '13') {
       this.page = event.page + 1;

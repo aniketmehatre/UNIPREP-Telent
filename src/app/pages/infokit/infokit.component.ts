@@ -26,7 +26,6 @@ import { FormsModule } from "@angular/forms";
   styleUrls: ["./infokit.component.scss"],
 })
 export class InfoKitComponent implements OnInit {
-  planExpired!: boolean;
   searchText: any;
   allFoldersAndFiles: any[] = [];
   filteredFiles: any[] = [];
@@ -40,7 +39,6 @@ export class InfoKitComponent implements OnInit {
   parentfilelists: any = [];
   totalcount = 0;
   ngOnInit() {
-    this.checkplanExpire();
     this.folderdata = {
       parent_id: 0,
       page: 1,
@@ -81,10 +79,6 @@ export class InfoKitComponent implements OnInit {
     }
   }
   pageChange(event: any) {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.folderdata.page = event.page + 1;
     this.folderdata.perpage = event.rows;
     this.getFolderData();
@@ -156,26 +150,9 @@ export class InfoKitComponent implements OnInit {
     }
   }
   openFile(url: any) {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     window.open(url, "_blank");
     this.filteredFiles = [];
     this.searchText = "";
-  }
-
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-      this.authService._userSubscrition.subscription_details.subscription_plan === "free_trail" ||
-      this.authService._userSubscrition.subscription_details.subscription_plan === "Student" ||
-      this.authService._userSubscrition.subscription_details.subscription_plan === "Career") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
   }
 
   openVideoPopup() {

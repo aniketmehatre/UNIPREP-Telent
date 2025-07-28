@@ -79,10 +79,6 @@ export class TravelGlossaryComponent implements OnInit {
 		return this.selectedCategoryId === id // Check if this category is selected
 	}
 	filterCat(id: any) {
-		if (this.authService.isInvalidSubscription('travel_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.selectedCategoryId = id
 		this.getStartUpGlossary(id)
 	}
@@ -99,7 +95,7 @@ export class TravelGlossaryComponent implements OnInit {
 					this.groupedTerms[item.alphabet] = []
 				}
 				this.groupedTerms[item.alphabet].push(item)
-				this.performSearch("init");
+				this.performSearch();
 			})
 		})
 	}
@@ -107,13 +103,7 @@ export class TravelGlossaryComponent implements OnInit {
 		this.router.navigate(["/pages/travel-tools"])
 	}
 
-	performSearch(from?: string) {
-		if (!from) {
-			if (this.authService.isInvalidSubscription('travel_tools')) {
-				this.authService.hasUserSubscription$.next(true);
-				return;
-			}
-		}
+	performSearch() {
 		// highlights the words
 		const search = this.valueNearYouFilter?.trim();
 		if (!search) {

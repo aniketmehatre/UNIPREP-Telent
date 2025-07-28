@@ -73,11 +73,9 @@ export class EntreprenuerquizComponent implements OnInit {
   restrict: boolean = false;
   selectedQuizArrayForTimer: any[] = [];
   totalquiztime: any = 0;
-  planExpired: boolean = false;
   submoduleidquiz: any;
   subModuleName: string = '';
-  constructor(private moduleListService: ModuleServiceService, private authService: AuthService, private router: Router, private dataService: DataService,
-    private locationService: LocationService, private ngxService: NgxUiLoaderService, private toast: MessageService,
+  constructor(private router: Router, private dataService: DataService, private toast: MessageService,
     private service: FounderstoolService, private location: Location, private storage: StorageService) { }
 
   ngOnInit(): void {
@@ -88,11 +86,9 @@ export class EntreprenuerquizComponent implements OnInit {
     } else {
       // this.quizmoduleredirectcountryid = Number(this.storage.get('modalcountryid'));
       this.init();
-      this.checkplanExpire();
     }
     // this.quizmoduleredirectcountryid = Number(this.storage.get('modalcountryid'));
     // this.init();
-    // this.checkplanExpire();
   }
   forDirectReviewOpen() {
     this.currentModuleSlug = this.router.url.split('/').slice(-2, -1).pop();
@@ -192,17 +188,6 @@ export class EntreprenuerquizComponent implements OnInit {
     this.storage.set("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
     this.checkquizquestioncount()
-  }
-
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-      this.authService._userSubscrition.subscription_details.subscription_plan === "free_trail") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
   }
 
   loadModuleAndSubModule() {
@@ -447,10 +432,6 @@ export class EntreprenuerquizComponent implements OnInit {
   }
   openCertificate() {
     this.stopTimer();
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     window.open(this.certificatesurl, '_blank');
   }
   takeAnotherquiz() {

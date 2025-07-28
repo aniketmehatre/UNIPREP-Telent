@@ -92,7 +92,7 @@ export class ListSubModulesComponent implements OnInit {
 		public authService: AuthService, private locationService: LocationService, private route: ActivatedRoute,
 		private ngxService: NgxUiLoaderService, private confirmationService: ConfirmationService,
 		private pageFacade: PageFacadeService, private meta: Meta, private cdRef: ChangeDetectorRef,
-		private titleService: Title, private storage: StorageService, private location: Location,) {
+		private titleService: Title, private storage: StorageService) {
 		this.countryId = Number(this.storage.get("countryId"))
 
 		this.dataService.countryIdSource.subscribe((data) => {
@@ -475,10 +475,6 @@ export class ListSubModulesComponent implements OnInit {
 	}
 
 	startQuiz() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`])
 		// let cName = "";
 		// this.dataService.countryNameSource.subscribe(countryName => {
@@ -503,12 +499,6 @@ export class ListSubModulesComponent implements OnInit {
 	}
 
 	onSubModuleClick(id: any, submodule: any) {
-		if (this.currentModuleName == 'Learning Hub') {
-			if (this.authService.isInvalidSubscription('learning_hub')) {
-				this.authService.hasUserSubscription$.next(true);
-				return;
-			}
-		}
 		this.selectSubmoduleName = submodule.submodule_name
 		if (this.currentModuleId == 5) {
 			this.storage.set("QuizModuleName", submodule.submodule_name)
@@ -637,12 +627,6 @@ export class ListSubModulesComponent implements OnInit {
 	filteredData: any[] = []
 
 	performSearch() {
-		if (this.currentModuleName == 'Learning Hub') {
-			if (this.authService.isInvalidSubscription('learning_hub')) {
-				this.authService.hasUserSubscription$.next(true);
-				return;
-			}
-		}
 		if (this.searchLearning) {
 			this.filteredData = this.allSearchedResult
 				.filter((item: any) => item.submodule_name.toLowerCase().includes(this.searchLearning.toLowerCase()) || item.category_name.toLowerCase().includes(this.searchLearning.toLowerCase()))

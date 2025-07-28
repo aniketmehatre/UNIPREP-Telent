@@ -114,36 +114,20 @@ export class FortuneCompaniesListsComponent implements OnInit {
   }
 
   selectCountry(selectedId: any): void {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.getFortuneCompanyList();
   }
 
   performSearch() {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.searchSubject.next(this.valueNearYouFilter);
   }
 
   paginate(event: any) {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.page = event.page + 1;
     this.perpage = event.rows;
     this.getFortuneCompanyList();
   }
 
   onClear(event: Event) {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.selectedCountryId = null;
     this.getFortuneCompanyList();
   }
@@ -157,10 +141,6 @@ export class FortuneCompaniesListsComponent implements OnInit {
   }
 
   onModuleClick(moduledata: any) {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.prepData = {
       fortune_company_id: moduledata.id,
       companyName: moduledata.company_name,

@@ -36,7 +36,6 @@ export class CategoryListComponent implements OnInit {
 	quizpercentage: any = 0
 	page: number = 1
 	perpage: number = 25
-	planExpired: boolean = false
 	selectedLevelName: string = ""
 
 	constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService, private router: Router, private toast: MessageService, private languageArrayGlobalService: LanguageArrayGlobalService, private location: Location, private pageFacade: PageFacadeService, private authService: AuthService, private locationService: LocationService, private storage: StorageService) {
@@ -62,7 +61,6 @@ export class CategoryListComponent implements OnInit {
 		}
 		this.init()
 		this.checkLanguageQuizCompletedOrNot()
-		this.checkplanExpire()
 	}
 
 	getFormattedValues(): string {
@@ -114,10 +112,6 @@ export class CategoryListComponent implements OnInit {
 	}
 
 	startQuiz() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.storage.set("languagetypeidforquiz", this.selectedLanguageType)
 		this.storage.set("languageidforquiz", this.selectedLanguageId)
 		this.currentModuleSlug = "language-hub"
@@ -134,13 +128,4 @@ export class CategoryListComponent implements OnInit {
 		this.pageFacade.openHowitWorksVideoPopup("language-hub")
 	}
 
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
-	}
 }

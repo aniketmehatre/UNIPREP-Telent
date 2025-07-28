@@ -258,10 +258,6 @@ export class CoverLetterBuilderComponent implements OnInit {
 	}
 
 	next() {
-		if (this.authService.isInvalidSubscription('career_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.activePageIndex++
 		if (this.activePageIndex == 1) {
 			this.onLoadCarousal()
@@ -269,10 +265,6 @@ export class CoverLetterBuilderComponent implements OnInit {
 	}
 
 	downloadResume() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		let formData = this.resumeFormInfoData.value
 		const userSummary = formData.user_summary;
 		//this user summary contains &nbsp; when we edit the content so removed the &nbsp; manually.

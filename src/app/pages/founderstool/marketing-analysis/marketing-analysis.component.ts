@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/services/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { FounderstoolService } from '../founderstool.service';
 import { CommonModule } from '@angular/common';
@@ -73,7 +72,6 @@ export class MarketingAnalysisComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private foundersToolsService: FounderstoolService,
-    private locationService: LocationService,
     private toast: MessageService,
     private authService: AuthService,
     private router: Router,
@@ -217,10 +215,6 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   next() {
-    if (this.authService.isInvalidSubscription('founders_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.submitted = false;
     const formData = this.marketingForm.value;
     if (this.activePageIndex == 0) {
@@ -245,10 +239,6 @@ export class MarketingAnalysisComponent implements OnInit {
   }
 
   saveRecommadation() {
-    if (this.authService.isInvalidSubscription('founders_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     if (!this.isFromSavedData) {
       this.foundersToolsService.getAnalysisList('market_analysis').subscribe({
         next: response => {
