@@ -3,32 +3,9 @@
     <uni-percentage-loader />
   </div>
 </div>
-<!-- <div class="card readingcard h-100">
-  <div class="card-body flex-fill overflow-y-auto"> -->
     <div class="row h-100" *ngIf="!isSampleProfilePdf; else showSampleProfilePdf">
       <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-7 col-sm-7 col-12 mb-2 d-flex flex-fill h-100">
         <div class="card overflow-y-hidden w-100">
-          <!-- <div class="card-header bg-primary">
-            <div class="row align-items-center">
-              <div class="col-md-6 col-6">
-                <div class="d-flex gap-2 align-items-center">
-                  <h5 class="text-white mb-0 fw-medium" *ngIf="!isShowAiEvaluation; else showAiEvaluationHeader">
-                    {{ isUpdatedProfile ? "Edit your Profile" : "Create your Profile" }}
-                  </h5>
-                  <ng-template #showAiEvaluationHeader>
-                    <h5 class="text-white mb-0 fw-medium">Career Profile Evaluation</h5>
-                  </ng-template>
-                </div>
-              </div>
-              <div class="col-md-6 col-6" *ngIf="!isShowAiEvaluation">
-                <div class="d-flex gap-2 justify-content-end">
-                  <button class="btn btn-secondary btn-rounded" pButton (click)="openProfileDialog(true)"><span class="d-none d-md-block">Profile</span> Sample</button>
-                  <button class="button-profile-top rounded-pill" pButton (click)="openProfileDialog(false)"><span class="d-none d-md-block">Profile</span> Preview</button>
-                  <button class="d-md-none d-block btn btn-rounded btn-primary" pButton (click)="visible = true"><i class="fa-solid fa-circle-info"></i></button>
-                </div>
-              </div>
-            </div>
-          </div> -->
           <div class="card-body h-100 overflow-y-auto" *ngIf="!isShowAiEvaluation; else showAIValuationBodyContent">
             <p-stepper [value]="activePageIndex">
               <p-step-panels>
@@ -915,6 +892,7 @@
               </div>
             </div>
             <div>
+              <p class="text-center text-muted text-small mb-2">Your profile card as viewed by a company</p>
               <div class="card card-inside" style="border-radius: 10px; transition: transform 0.3s; border: 1px solid #e9ecef" [style.border]="true ? '1px solid var(--p-secondary-500)' : '1px solid #e9ecef'">
                 <div class="card-body">
                   <div class="row mb-3">
@@ -1039,7 +1017,6 @@
                   </div>
                 </div>
               </div>
-              <p class="text-center text-muted text-small mt-2">Your profile card as viewed by a company</p>
             </div>
           </div>
         </div>
@@ -1191,8 +1168,7 @@
     <ng-template #showSampleProfilePdf>
       <pdf-viewer [src]="sampleProfilePdf" [original-size]="true" [show-all]="true" [fit-to-page]="true" [zoom]="1.0" [autoresize]="true" [render-text]="false" [external-link-target]="'blank'" style="width: 100%; height: 100%"></pdf-viewer>
     </ng-template>
-  <!-- </div>
-</div> -->
+
 <p-dialog [style]="{ width: '25vw' }" [modal]="true" [breakpoints]="{ '960px': '75vw', '640px': '90vw' }" id="confirm-dialog" styleClass="p-3" [visible]="isShowCreatedSuccessfullyPopup" [closable]="false">
   <div class="d-flex flex-column align-items-center w-100 gap-4 mt-1">
     <i class="text-success fa-solid fa-check-circle" style="font-size: 50px"></i>
