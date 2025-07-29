@@ -11,7 +11,7 @@ import { LocationService } from 'src/app/services/location.service';
 import { MultiSelectChangeEvent } from 'primeng/multiselect';
 import { JobListing } from 'src/app/@Models/employee-connect-job.model';
 import { environment } from '@env/environment';
-import {LocalStorageService} from "ngx-localstorage";
+import { LocalStorageService } from "ngx-localstorage";
 
 @Component({
   selector: 'uni-easy-apply',
@@ -252,8 +252,16 @@ export class EasyApplyComponent {
   shareQuestion(event: any, type: string, job: JobListing) {
     event.stopPropagation();
     const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-    const url = environment.jobDomain + '/view/' + job.uuid;
-    const encodedUrl = encodeURIComponent(url);
+    let url: any
+    let domainName = this.storage.get('domainname');
+    if (domainName) {
+      url = encodeURI(environment.jobDomain + `/view/${job.uuid}/${domainName}`);
+    } else {
+      url = encodeURI(environment.jobDomain + `/view/` + job.uuid);
+    }
+
+    //const url = environment.jobDomain + '/view/' + job.uuid;
+    //const encodedUrl = encodeURIComponent(url);
     const title = encodeURIComponent('UNIPREP | ' + job?.position + ' | ' + job.company_name);
 
     this.meta.updateTag({ property: 'og:url', content: url });
@@ -261,25 +269,25 @@ export class EasyApplyComponent {
     let shareUrl = '';
     switch (type) {
       case 'Whatsapp':
-        shareUrl = `${socialMedias[type]}${title}%0A${encodedUrl}`;
+        shareUrl = `${socialMedias[type]}${title}%0A${url}`;
         break;
       case 'Mail':
-        shareUrl = `${socialMedias[type]}${title}%0A${encodedUrl}`;
+        shareUrl = `${socialMedias[type]}${title}%0A${url}`;
         break;
       case 'LinkedIn':
-        shareUrl = `${socialMedias[type]}${encodedUrl}&title=${title}`;
+        shareUrl = `${socialMedias[type]}${url}&title=${title}`;
         break;
       case 'Twitter':
-        shareUrl = `${socialMedias[type]}${encodedUrl}&text=${title}`;
+        shareUrl = `${socialMedias[type]}${url}&text=${title}`;
         break;
       case 'Facebook':
-        shareUrl = `${socialMedias[type]}${encodedUrl}`;
+        shareUrl = `${socialMedias[type]}${url}`;
         break;
       case 'Instagram':
-        shareUrl = `${socialMedias[type]}${encodedUrl}`;
+        shareUrl = `${socialMedias[type]}${url}`;
         break;
       default:
-        shareUrl = `${socialMedias[type]}${encodedUrl}`;
+        shareUrl = `${socialMedias[type]}${url}`;
     }
     window.open(shareUrl, '_blank');
   }
@@ -289,8 +297,8 @@ export class EasyApplyComponent {
     let textToCopy: any
     let domainName = this.storage.get('domainname');
     if (domainName) {
-      textToCopy = encodeURI(environment.jobDomain + `/view/${domainName}/` + job.uuid);
-    }else {
+      textToCopy = encodeURI(environment.jobDomain + `/view/` + job.uuid`/${domainName}`);
+    } else {
       textToCopy = encodeURI(environment.jobDomain + `/view/` + job.uuid);
     }
     this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
