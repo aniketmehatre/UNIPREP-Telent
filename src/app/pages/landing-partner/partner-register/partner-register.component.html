@@ -1,7 +1,7 @@
 <section class="startbg h-100">
 	<div class="container-fluid h-100">
 		<div class="row h-100 align-items-center justify-content-center">
-			<div class="col-md-6 col-lg-4" *ngIf="!afterRegisterAwaitingConfirmation">
+			<div class="col-md-7 col-lg-5" *ngIf="!afterRegisterAwaitingConfirmation">
 				<ng-container *ngIf="!isShowConfirmationResponse; else showConfirmationResponse">
 					<div class="card">
 						<div class="card-body p-5">
@@ -366,7 +366,14 @@
 													</span>
 												</p>
 											</div>
-
+											<div
+                                                    class="d-flex justify-content-center align-items-center mt-3 gap-2">
+                                                    <p class="fs-13 text-body-tertiary">Having trouble registering?
+                                                        Check out how to get started.</p>
+                                                    <button pButton (click)="openVideoPopup()"
+                                                        class="how-it-works-button">How it works?<i
+                                                            class="fa-solid fa-play d-md-block d-none"></i></button>
+											</div>
 											<div class="d-flex justify-content-between">
 												<div class="w-100">&nbsp;</div>
 												<div class="w-100">
@@ -450,3 +457,4 @@
 		</div>
 	</div>
 </section>
+<uni-how-it-works></uni-how-it-works>

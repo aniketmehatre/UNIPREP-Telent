@@ -21,10 +21,13 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { LocationService } from 'src/app/services/location.service';
 import { SubSink } from 'subsink';
 import { LandingPartnerServices } from '../landing-partner.service';
+import { HowItWorksComponent } from 'src/app/shared/how-it-works/how-it-works.component';
+import { HowItWorksService } from 'src/app/shared/how-it-works/how-it-works.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
 	selector: 'uni-partner-register',
-	imports: [CommonModule, GoogleSigninButtonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule],
+	imports: [CommonModule, GoogleSigninButtonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule, HowItWorksComponent, ButtonModule],
 	standalone: true,
 	templateUrl: './partner-register.component.html',
 	styleUrl: './partner-register.component.scss',
@@ -65,7 +68,7 @@ export class PartnerRegisterComponent {
 	isShowConfirmationResponse: boolean = false;
 	genderOptions: any[] = []
 	afterRegisterAwaitingConfirmation: boolean = false;
-	constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder, private locationService: LocationService, private toast: MessageService, private authService: SocialAuthService, private storage: LocalStorageService, private landingService: LandingPartnerServices) { }
+	constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder, private locationService: LocationService, private toast: MessageService, private authService: SocialAuthService, private storage: LocalStorageService, private landingService: LandingPartnerServices, private howItWorkService: HowItWorksService) { }
 
 	dateTime = new Date();
 	private subs = new SubSink();
@@ -389,5 +392,9 @@ export class PartnerRegisterComponent {
 		if (!pattern.test(inputChar)) {
 			event.preventDefault();
 		}
+	}
+	
+	openVideoPopup(){
+		this.howItWorkService.open('partner-register');
 	}
 }

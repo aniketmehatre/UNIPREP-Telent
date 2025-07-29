@@ -35,6 +35,10 @@ import { firstValueFrom } from 'rxjs';
 import { HttpClient } from "@angular/common/http"
 import {StorageService} from "../../services/storage.service";
 import { BrandColorService } from "src/app/services/brand-color.service";
+import { ButtonModule } from "primeng/button"
+import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.service"
+import { HowItWorksComponent } from "src/app/shared/how-it-works/how-it-works.component"
+
 declare var google: any;
 
 @Component({
@@ -45,7 +49,7 @@ declare var google: any;
     standalone: true,
     imports: [CommonModule, FluidModule, PasswordModule, RouterModule, InputTextModule, InputIconModule,
         InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule,
-        SocialLoginModule, GoogleSigninButtonModule, Image, SkeletonModule],
+        SocialLoginModule, GoogleSigninButtonModule, Image, SkeletonModule, ButtonModule, HowItWorksComponent],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
@@ -78,6 +82,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private subs = new SubSink()
     private  http = inject(HttpClient);
     private brandColorService = inject(BrandColorService);
+    private howItWorks = inject(HowItWorksService);
     loading = true;
     jobId: any
 
@@ -150,6 +155,10 @@ export class LoginComponent implements OnInit, OnDestroy {
             domain_type: ['main']
         })
         this.loginForm.patchValue({ domain_type: this.domainName })
+    }
+
+    openVideoPopup(){
+        this.howItWorks.open('login-page');
     }
 
     onImageError(event: Event) {

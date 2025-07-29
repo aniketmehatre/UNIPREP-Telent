@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from "@angular/core"
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, ViewChild, ElementRef } from "@angular/core"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
 import { ActivatedRoute, Router, RouterModule } from "@angular/router"
 import { matchValidator } from "src/app/@Supports/matchvalidator"
@@ -23,8 +23,8 @@ import { ButtonDirective } from "primeng/button";
 import { AuthTokenService } from "src/app/services/auth-token.service"
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { Image } from "primeng/image";
-import { StorageService } from "../../services/storage.service";
-
+import { HowItWorksComponent } from "src/app/shared/how-it-works/how-it-works.component";
+import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.service"
 @Component({
     selector: "app-registration",
     templateUrl: "./registration.component.html",
@@ -33,7 +33,7 @@ import { StorageService } from "../../services/storage.service";
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     imports: [CommonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule,
         InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, KeyFilterModule,
-        ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule, GoogleSigninButtonModule, ButtonDirective, Image],
+        ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule, GoogleSigninButtonModule, ButtonDirective, Image, HowItWorksComponent],
 })
 export class RegistrationComponent implements OnInit {
     public registrationForm: any = FormGroup
@@ -72,7 +72,6 @@ export class RegistrationComponent implements OnInit {
     otpError: boolean = false
     fallbackImage = '../../../uniprep-assets/images/uniprep-light.svg'
     loading = true;
-
     constructor(
         private service: AuthService,
         private router: Router,
@@ -82,10 +81,10 @@ export class RegistrationComponent implements OnInit {
         private authService: SocialAuthService,
         private storage: LocalStorageService,
         private route: ActivatedRoute,
-        private authTokenService: AuthTokenService
+        private authTokenService: AuthTokenService,
+        private howItWorkService: HowItWorksService
     ) {
     }
-
     dateTime = new Date()
     position: any
     ngOnInit() {
@@ -361,5 +360,9 @@ export class RegistrationComponent implements OnInit {
     showHideConfirmPassword() {
         this.showConfirm = !this.showConfirm
         this.confirmPassword = this.showConfirm ? "text" : "password"
+    }
+
+    openVideoPopup(){
+        this.howItWorkService.open('uniprep-student-register');
     }
 }
