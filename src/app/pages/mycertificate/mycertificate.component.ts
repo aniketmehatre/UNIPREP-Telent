@@ -26,11 +26,9 @@ export class MycertificateComponent implements OnInit {
 	laguageCertificate: any[] = []
 	othercirtificatecountrylist: any = ""
 	countryname: any
-	planExpired: boolean = false
-	studentplanRestrict: boolean = false
 
-	constructor(private service: MycertificateserviceService, private router: Router, private authService: AuthService,
-		private dataService: DataService, private meta: Meta, private toast: MessageService, private route: ActivatedRoute,
+	constructor(private service: MycertificateserviceService, private router: Router,
+		private dataService: DataService, private meta: Meta, private route: ActivatedRoute,
 		private pageFacade: PageFacadeService, private socialShareService: SocialShareService, private storage: StorageService) { }
 
 	ngOnInit(): void {
@@ -46,7 +44,6 @@ export class MycertificateComponent implements OnInit {
 		})
 		this.getCertificates()
 		this.getCertificateoOtherCountry()
-		this.checkplanExpire()
 	}
 	getCertificateoOtherCountry() {
 		this.othercirtificatecountrylist = ""
@@ -90,50 +87,11 @@ export class MycertificateComponent implements OnInit {
 		// })
 	}
 	downloadCertificate(link: any, module_id: any) {
-		if (module_id == 8 || module_id == 10) {
-			if (this.studentplanRestrict) {
-				this.authService.hasUserSubscription$.next(true);
-				return
-			}
-		} else {
-			if (this.planExpired) {
-				this.authService.hasUserSubscription$.next(true);
-				return
-			}
-		}
 		window.open(link, "_blank")
 	}
 
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-			this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
-			this.studentplanRestrict = true;
-		}
-		else {
-			this.studentplanRestrict = false;
-		}
-	}
 	selectedIndex: any = null
 	showSocialSharingList(index: any, module_id: any) {
-		if (module_id == 8 || module_id == 10) {
-			if (this.studentplanRestrict) {
-				this.authService.hasUserSubscription$.next(true);
-				return
-			}
-		} else {
-			if (this.planExpired) {
-				this.authService.hasUserSubscription$.next(true);
-				return
-			}
-		}
 		this.selectedIndex = this.selectedIndex === index ? null : index
 	}
 

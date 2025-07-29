@@ -1,0 +1,145 @@
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { TooltipModule } from 'primeng/tooltip';
+import { RatingModule } from 'primeng/rating';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { UserProfile } from 'src/app/@Models/user-profile.model';
+import { TalentConnectService } from '../../talent-connect.service';
+import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
+import { SocialShareService } from 'src/app/services/social-share.service';
+import { Meta } from '@angular/platform-browser';
+import { SkeletonModule } from 'primeng/skeleton';
+import { PageFacadeService } from 'src/app/pages/page-facade.service';
+import { environment } from '@env/environment';
+
+@Component({
+  selector: 'uni-complete-profile-view',
+  standalone: true,
+  imports: [CommonModule, RouterModule, ButtonModule, ProgressBarModule, RatingModule, CardModule, DividerModule, FormsModule,
+    ProgressBarModule, TooltipModule, SkeletonModule],
+  templateUrl: './complete-profile-view.component.html',
+  styleUrls: ['./complete-profile-view.component.scss']
+})
+export class CompleteProfileViewComponent implements OnInit {
+  profileData!: UserProfile;
+  isSkeletonVisible: boolean = true;
+  @Input() userId: number = 0;
+  @Output() completeProfile: EventEmitter<boolean> = new EventEmitter<boolean>(false);
+  // Service
+  socialShareService = inject(SocialShareService);
+  meta = inject(Meta);
+  pageFacade = inject(PageFacadeService);
+
+  constructor(private activatedRoute: ActivatedRoute, private talentConnectService: TalentConnectService,
+    private message: MessageService, private router: Router) { }
+
+  ngOnInit() {
+    if (this.userId) {
+      this.getStudentDetails();
+    }
+  }
+
+  getStudentDetails() {
+    this.talentConnectService.getStudentProfilesUsingId(this.userId).subscribe({
+      next: response => {
+        this.profileData = response.data[0];
+        this.isSkeletonVisible = false;
+      },
+      error: error => {
+        this.isSkeletonVisible = false;
+        this.message.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong' });
+      }
+    });
+  }
+
+  extractFileName(url: string): string {
+    if (!url) return '';
+    let fileName = url.split('/').pop() || '';
+    return fileName;
+  }
+
+  hasNoCertificationFiles(): boolean {
+    return !this.profileData?.certifications?.some(cert => cert.file_name);
+  }
+
+  getProficiencyRating(proficiency: string) {
+    const proficiencyList: { [key: string]: number } = {
+      "Beginner": 2,
+      "Fluent": 3,
+      "Proficient": 4,
+      "Native": 5
+    }
+    return proficiencyList[proficiency] || 0;
+  }
+
+  openView(url: string) {
+    window.open(url, '_blank');
+  }
+
+  routingToPage(pageUrl: string) {
+    const url = window.location.origin + pageUrl;
+    window.open(url, "_blank");
+  }
+
+  showSocialSharingList() {
+    let socialShare: any = document.getElementById("socialSharingList");
+    if (socialShare.style.display == "") {
+      socialShare.style.display = "block";
+    }
+    else {
+      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
+    }
+  }
+  showSocialSharingListMobile() {
+    let socialShare: any = document.getElementById("socialSharingListMobile");
+    if (socialShare.style.display == "") {
+      socialShare.style.display = "block";
+    }
+    else {
+      socialShare.style.display = socialShare.style.display == "none" ? "block" : "none";
+    }
+  }
+
+  shareQuestion(type: string) {
+    const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+    const url = encodeURI(environment.employerDomain + '/talent/' + this.profileData?.uuid);
+    this.meta.updateTag({ property: 'og:url', content: url });
+    const shareUrl = socialMedias[type] + encodeURIComponent(url);
+    window.open(shareUrl, '_blank');
+  }
+
+  copyLink() {
+    const textToCopy = encodeURI(environment.employerDomain + '/talent/' + this.profileData?.uuid);
+    this.socialShareService.copyQuestion(textToCopy, 'Profile Link copied successfully');
+  }
+
+  getSocialMediaIconName(icon: string) {
+    const iconList: { [key: string]: string } = {
+      "Facebook": "facebook",
+      "Instagram": "instagram",
+      "X": "twitter"
+    }
+    return iconList[icon] || '';
+  }
+
+  getArraytoStringData(data: string[]): string {
+    if (!data || data.length === 0) {
+      return 'Not specified';
+    }
+    return data.length > 1 ? `${data[0]} +${data.length - 1}` : data[0];
+  }
+
+  openVideoPopup() {
+    this.pageFacade.openHowitWorksVideoPopup("");
+  }
+
+  onEdit() {
+    this.completeProfile.emit(false);
+  }
+}

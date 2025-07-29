@@ -843,10 +843,6 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
   }
 
   next() {
-    if (this.authService.isInvalidSubscription('career_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.submitted = false;
     if (this.activePageIndex == 0 ) {
       this.ngAfterViewInit();

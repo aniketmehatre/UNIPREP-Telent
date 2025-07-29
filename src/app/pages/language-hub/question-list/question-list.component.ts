@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { LanguageHubService } from "../language-hub.service";
 import Speech from "speak-tts";
@@ -7,8 +6,6 @@ import { Location } from "@angular/common";
 import { LanguageHubDataService } from "../language-hub-data.service";
 import { MenuItem, MessageService } from "primeng/api";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { DeviceDetectorService } from "ngx-device-detector";
-import { AuthService } from "../../../Auth/auth.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { ModuleServiceService } from "../../module-store/module-service.service";
 import { Observable } from "rxjs";
@@ -575,7 +572,6 @@ export class QuestionListComponent implements OnInit {
   langType: any;
   page: number = 1;
   perpage: number = 25;
-  planExpired: boolean = false;
   readQue$!: Observable<ReadQuestion[]>;
   loopRange = Array.from({ length: 30 })
     .fill(0)
@@ -590,8 +586,7 @@ export class QuestionListComponent implements OnInit {
   currentText: string | null = null;
   currentId: string | null = null;
   constructor(private languageHubService: LanguageHubService, private lhs: LanguageHubDataService,
-    private location: Location, private route: ActivatedRoute, private toast: MessageService,
-    private deviceService: DeviceDetectorService, private authService: AuthService, private router: Router,
+    private location: Location, private route: ActivatedRoute, private toast: MessageService, private router: Router,
     private pageFacade: PageFacadeService, private languageArrayGlobalService: LanguageArrayGlobalService,
     private moduleListService: ModuleServiceService, private storage: StorageService) {
     this.lhs.data$.subscribe((data) => {
@@ -618,8 +613,6 @@ export class QuestionListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.checkPlanExpiry();
-
     this.heading = this.selectedLanguageName;
     this.speech = new Speech();
     if (this.speech.hasBrowserSupport()) {
@@ -710,10 +703,6 @@ export class QuestionListComponent implements OnInit {
   goToHomebreadcrump() { }
 
   viewOneQuestion(data: any) {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.storage.set("languageHubData", JSON.stringify(data));
     this.router.navigateByUrl(`/pages/language-hub/translate-view`);
     return;
@@ -849,16 +838,6 @@ export class QuestionListComponent implements OnInit {
     this.page = event.page + 1;
     this.perpage = event.rows;
     this.init();
-  }
-
-  checkPlanExpiry(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
   }
 
   openVideoPopup() {

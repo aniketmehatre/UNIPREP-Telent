@@ -81,17 +81,10 @@ export class TravelPackingPlannerComponent implements OnInit {
 	ngOnInit(): void {
 		this.selectedData = { 4: 1 }
 		this.getCityList();
-		
 	}
 
-	
-
 	buyCredits() {
-		if (this.authService.isInvalidSubscription('travel_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-		} else {
-			this.router.navigate(["/pages/export-credit"]);
-		}
+		this.router.navigate(["/pages/export-credit"]);
 	}
 
 	getCityList() {
@@ -110,10 +103,6 @@ export class TravelPackingPlannerComponent implements OnInit {
 	}
 
 	next(itemId: number) {
-		if (this.authService.isInvalidSubscription('travel_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.invalidClass = false
 		if (itemId in this.selectedData) {
 			if (this.activePageIndex < this.recommendations.length - 1) {
@@ -168,10 +157,6 @@ export class TravelPackingPlannerComponent implements OnInit {
 	}
 
 	saveRecommadation() {
-		if (this.authService.isInvalidSubscription('travel_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		if (!this.isFromSavedData) {
 			this.travelToolsService.getTripList("travel_packaging_planner").subscribe({
 				next: (response) => {

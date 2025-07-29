@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
@@ -19,7 +19,7 @@ import { PageFacadeService } from 'src/app/pages/page-facade.service';
 import { environment } from '@env/environment';
 
 @Component({
-  selector: 'app-complete-profile-view',
+  selector: 'uni-complete-profile-view',
   standalone: true,
   imports: [CommonModule, RouterModule, ButtonModule, ProgressBarModule, RatingModule, CardModule, DividerModule, FormsModule,
     ProgressBarModule, TooltipModule, SkeletonModule],
@@ -28,7 +28,7 @@ import { environment } from '@env/environment';
 })
 export class CompleteProfileViewComponent implements OnInit {
   profileData!: UserProfile;
-  userId: string = '';
+  userId: number = 0;
   isSkeletonVisible: boolean = true;
   // Service
   socialShareService = inject(SocialShareService);
@@ -39,14 +39,14 @@ export class CompleteProfileViewComponent implements OnInit {
     private message: MessageService, private router: Router) { }
 
   ngOnInit() {
-    this.userId = this.activatedRoute.snapshot.params?.['id'];
+    this.userId = Number(this.activatedRoute.snapshot.params?.['id']);
     if (this.userId) {
-      this.getStudentDetails(this.userId);
+      this.getStudentDetails();
     }
   }
 
-  getStudentDetails(id: string) {
-    this.talentConnectService.getStudentProfilesUsingId(id).subscribe({
+  getStudentDetails() {
+    this.talentConnectService.getStudentProfilesUsingId(this.userId).subscribe({
       next: response => {
         this.profileData = response.data[0];
         this.isSkeletonVisible = false;

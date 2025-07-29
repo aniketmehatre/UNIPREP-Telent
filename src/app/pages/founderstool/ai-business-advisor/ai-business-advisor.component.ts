@@ -88,10 +88,6 @@ export class AiBusinessAdvisorComponent implements OnInit {
 	}
 
 	next(productId: number): void {
-		if (this.authService.isInvalidSubscription('founders_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.inValidClass = false
 		if (productId in this.selectedData) {
 			if (productId == 6) {
@@ -163,10 +159,6 @@ export class AiBusinessAdvisorComponent implements OnInit {
 	}
 
 	saveRecommadation() {
-		if (this.authService.isInvalidSubscription('founders_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		if (!this.isFromSavedData) {
 			this.foundersToolService.getAnalysisList("business_advisor").subscribe({
 				next: (response) => {

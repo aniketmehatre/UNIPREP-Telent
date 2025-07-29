@@ -603,7 +603,7 @@ uni-global-employment-country-lists,
 uni-global-employment-data-list,
 uni-global-work-visa,
 uni-company-view,
-app-complete-profile-view,
+// uni-complete-profile-view,
 uni-company-tracker,
 uni-job-details {
   @extend %flex-column-fill-radius;
@@ -754,7 +754,7 @@ uni-subscription {
   /* Ensure flex children stack vertically */
   overflow: hidden;
 
-  uni-subscription-data {
+  uni-subscription-data,uni-clg-subscription-data {
     flex: 1;
     /* Enable vertical scrolling for overflowing content */
     display: flex;

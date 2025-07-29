@@ -82,10 +82,6 @@ export class SalaryConverterComponent implements OnInit {
 			return;
 		}
 
-		if (this.authService.isInvalidSubscription('career_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		if (this.fromCountry && this.toCountry && this.salary) {
 			const fromPpp = this.selectedCountryCode
 			const toPpp = this.selectedToCountryCode

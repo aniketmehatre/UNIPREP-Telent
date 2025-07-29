@@ -17,7 +17,6 @@ export class NationalExamTestsComponent implements OnInit {
 	tests: any
 	count: number = 1
 	category_id: any | null
-	planExpired: boolean = false;
 	nCategory: string = '';
 
 	constructor(private service: NationalExamService, private authService: AuthService, private route: ActivatedRoute,
@@ -32,7 +31,6 @@ export class NationalExamTestsComponent implements OnInit {
 		this.service.getTests(data).subscribe((response) => {
 			this.tests = response
 		})
-		this.checkplanExpire();
 	}
 
 	goToHome(event: any) {
@@ -40,20 +38,7 @@ export class NationalExamTestsComponent implements OnInit {
 	}
 
 	goToTest(testid: any) {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.router.navigate([`/pages/national-exams/${this.category_id}/questions/${testid}`]);
-	}
-	checkplanExpire(): void {
-		if (this.authService._userSubscrition.time_left.plan === "expired" ||
-			this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-			this.planExpired = true;
-		}
-		else {
-			this.planExpired = false;
-		}
 	}
 
 }

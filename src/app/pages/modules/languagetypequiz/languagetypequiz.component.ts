@@ -1,9 +1,8 @@
 import { LanguageArrayGlobalService } from './../../language-hub/language-array-global.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { Observable, Subscription, interval, takeWhile } from "rxjs";
-import { ModuleListSub } from "../../../@Models/module.model";
-import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
+import { MenuItem, MessageService } from "primeng/api";
 import { ModuleServiceService } from "../../module-store/module-service.service";
 import { DataService } from "../../../services/data.service";
 import { LocationService } from "../../../services/location.service";
@@ -65,7 +64,6 @@ export class LanguagetypequizComponent implements OnInit {
   restrict: boolean = false;
   selectedQuizArrayForTimer: any[] = [];
   totalquiztime: any = 0;
-  planExpired: boolean = false;
   menuView: any
   constructor(private moduleListService: ModuleServiceService, private authService: AuthService,
     private router: Router, private dataService: DataService, private location: Location,
@@ -79,7 +77,6 @@ export class LanguagetypequizComponent implements OnInit {
   ngOnInit(): void {
     this.menuView = this.storage.get('QuizModuleName');
     this.init();
-    this.checkplanExpire();
   }
 
   init() {
@@ -132,16 +129,6 @@ export class LanguagetypequizComponent implements OnInit {
     this.storage.set("currentmodulenameforrecently", this.currentModuleName);
     this.loadModuleAndSubModule();
     this.checkquizquestioncount()
-  }
-
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
   }
 
   loadModuleAndSubModule() {
@@ -390,10 +377,6 @@ export class LanguagetypequizComponent implements OnInit {
     })
   }
   openCertificate() {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     window.open(this.certificatesurl, '_blank');
   }
   takeAnotherquiz() {

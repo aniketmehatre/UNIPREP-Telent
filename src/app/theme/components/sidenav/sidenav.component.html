@@ -52,7 +52,7 @@
 			<li class="position-relative">
 				<p class="px-3 fw-semibold text-small mb-2"><span class="maintext">Main</span> Menu</p>
 			</li>
-			<li [ngClass]="{ 'menu-item': true, active: item.active, overlap: isOverlap }"
+			<li [ngClass]="{ 'menu-item': true, active: item.active && !item?.restricted, overlap: isOverlap }"
 				*ngFor="let item of filteredMenus" (click)="listClick($event, item)">
 				<ng-container *ngIf="item.header; else menu">
 					<div class="system-main__apps header">
@@ -63,11 +63,13 @@
 				</ng-container>
 				<ng-template #menu>
 					<div class="fw-semibold px-3 py-1 submenutitle mr-4"
-						*ngIf="item.title == 'International Education' || item.title == 'Career' || item.title == 'Travel & Life' || item.title == 'Explore' || item.title == 'Support' || item.title == 'Entrepreneur' || item.title == 'Others' || item.title == 'Academics'">
+						*ngIf="item.title == 'International Education' || item.title == 'Career' || item.title == 'Travel & Life' || item.title == 'Explore' || item.title == 'Support' || item.title == 'Entrepreneur' || item.title == 'Others' || item.title == 'Academics' || item.title == 'Job Board'">
 						{{ item.title }}
 					</div>
-					<div [ngClass]="{ sidebarClass: item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ' || item.title == 'Subscription' || item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', unsidebarClass: item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title != '24x7 Support' && item.title != 'Events' && item.title != 'Subscription' && item.title != 'Resources' && item.title != 'Career Planner' && conditionSubscribed == false }"
-						*ngIf="item.title != 'International Education' && item.title != 'Career' && item.title != 'Travel & Life' && item.title != 'Explore' && item.title != 'Support' && item.title != 'Entrepreneur' && item.title != 'Others' && item.title != 'Academics'"
+					<div [ngClass]="{ sidebarClass: item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ' || item.title == 'Subscription' || item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', 
+						unsidebarClass: item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title != '24x7 Support' && item.title != 'Events' && item.title != 'Subscription' && item.title != 'Resources' && item.title != 'Career Planner' && conditionSubscribed == false,
+						'restricted-menu': item?.restricted }"
+						*ngIf="item.title != 'International Education' && item.title != 'Career' && item.title != 'Travel & Life' && item.title != 'Explore' && item.title != 'Support' && item.title != 'Entrepreneur' && item.title != 'Others' && item.title != 'Academics' && item.title != 'Job Board'"
 						class="system-main__apps" (click)="onexpand(item)">
 						<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
 						<span class="system-main__name"> {{ item.title }} <span class="badge bg-success"
@@ -95,7 +97,7 @@
 	<li class="position-relative">
 		<p class="px-3 fw-semibold text-small mb-2"><span class="maintext">Main</span> Menu</p>
 	</li>
-	<li [ngClass]="{ 'menu-item': true, active: item.active, overlap: isOverlap }" *ngFor="let item of filteredMenus"
+	<li [ngClass]="{ 'menu-item': true, active: item.active && !item?.restricted, overlap: isOverlap }" *ngFor="let item of filteredMenus"
 		(click)="listClick($event, item)">
 		<ng-container *ngIf="item.header; else menu">
 			<div class="system-main__apps header">
@@ -106,17 +108,19 @@
 		</ng-container>
 		<ng-template #menu>
 			<div class="fw-semibold px-3 py-1 submenutitle mr-4"
-				*ngIf="item.title == 'International Education' || item.title == 'Career' || item.title == 'Travel & Life' || item.title == 'Explore' || item.title == 'Support' || item.title == 'Entrepreneur' || item.title == 'Subscriptions' || item.title == 'Others' || item.title == 'Academics'">
+				*ngIf="item.title == 'International Education' || item.title == 'Career' || item.title == 'Travel & Life' || item.title == 'Explore' || item.title == 'Support' || item.title == 'Entrepreneur' || item.title == 'Subscriptions' || item.title == 'Others' || item.title == 'Academics' || item.title == 'Job Board'">
 				{{ item.title }}
 			</div>
-			<div [ngClass]="{ sidebarClass: item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ' || item.title == 'Subscription' || item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', unsidebarClass: item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title != '24x7 Support' && item.title != 'Events' && item.title != 'Subscription' && item.title != 'Resources' && item.title != 'Career Planner' && conditionSubscribed == false }"
-				*ngIf="item.title != 'International Education' && item.title != 'Career' && item.title != 'Travel & Life' && item.title != 'Explore' && item.title != 'Support' && item.title != 'Entrepreneur' && item.title != 'Others' && item.title != 'Academics'"
+			<div [ngClass]="{ sidebarClass: item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ' || item.title == 'Subscription' || item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', 
+				unsidebarClass: item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title != '24x7 Support' && item.title != 'Events' && item.title != 'Subscription' && item.title != 'Resources' && item.title != 'Career Planner',
+				'restricted-menu': item?.restricted  }"
+				*ngIf="item.title != 'International Education' && item.title != 'Career' && item.title != 'Travel & Life' && item.title != 'Explore' && item.title != 'Support' && item.title != 'Entrepreneur' && item.title != 'Others' && item.title != 'Academics' && item.title != 'Job Board'"
 				class="system-main__apps" (click)="onexpand(item)">
 				<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
 				<span class="system-main__name d-flex flex-column">
 					<span>{{ item.title }}</span>
 					<span class="badge"
-						*ngIf="item.title == 'Language Hub' || item.title == 'Career Tools' || item.title == 'Pitch Deck' || item.title == 'UNILEARN' || item.title == 'UNIFINDER' || item.title == 'Quiz' || item.title == 'Employer Connect' || item.title == 'Cost of Living' || item.title == 'Travel Tools' || item.title == 'Explore Jobs'"
+						*ngIf="item.title == 'Language Hub' || item.title == 'Career Tools' || item.title == 'Pitch Deck' || item.title == 'UNILEARN' || item.title == 'UNIFINDER' || item.title == 'Quiz' || item.title == 'Employer Connect' || item.title == 'Cost of Living' || item.title == 'Travel Tools' || item.title == 'Explore Jobs' || item.title == 'Company Connect'"
 						style="width: fit-content" [ngStyle]="{
 					  'background-color': item.title === 'Explore Jobs' ? 'var(--p-secondary-500)' : 'var(--p-lime-500)'
 					}">
@@ -210,7 +214,8 @@
 								<div class="mt-1 text-center">
 									<span>
 										<strong class="firsttimelogin">
-											<h2 style="color: var(--p-secondary-500); margin-bottom: 0">Subscribe now to continue using
+											<h2 style="color: var(--p-secondary-500); margin-bottom: 0">Subscribe now to
+												continue using
 												the platform.</h2>
 										</strong>
 									</span>

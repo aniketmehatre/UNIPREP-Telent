@@ -4,9 +4,7 @@ import { CourseListService } from "./course-list.service"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MessageService } from "primeng/api"
 import { Router, RouterModule } from "@angular/router"
-import { AuthService } from "src/app/Auth/auth.service"
 import { UserManagementService } from "../user-management/user-management.service"
-import { LocationService } from "src/app/services/location.service"
 import { environment } from "src/environments/environment"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
@@ -128,7 +126,7 @@ export class CourseListComponent implements OnInit {
 		{ id: 3, value: "IELTS Mandatory" },
 	]
 
-	constructor(private pageFacade: PageFacadeService, private locationService: LocationService, private userManagementService: UserManagementService, private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router, private authService: AuthService) {
+	constructor(private pageFacade: PageFacadeService, private userManagementService: UserManagementService, private courseList: CourseListService, private fb: FormBuilder, private toastr: MessageService, private router: Router) {
 		this.filterForm = this.fb.group({
 			course_keyword: [""],
 			study_level: [""],
@@ -284,10 +282,6 @@ export class CourseListComponent implements OnInit {
 	}
 
 	pageChange(event: any) {
-		if (this.authService.isInvalidSubscription('uni_finder')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.selectAllCheckboxes = false
 		this.selectedCourses = 0
 		this.page = event.page + 1
@@ -300,18 +294,12 @@ export class CourseListComponent implements OnInit {
 	}
 
 	exportData() {
-		if (this.authService.isInvalidSubscription('uni_finder')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		if (this.buyCreditsCount == 0) {
 			if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
 				this.toastr.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits." })
 				setTimeout(() => {
 					this.router.navigate(["/pages/export-credit"])
 				}, 300)
-			} else {
-				this.authService.hasUserSubscription$.next(true);
 			}
 		} else {
 			this.exportDataIds = []
@@ -336,7 +324,6 @@ export class CourseListComponent implements OnInit {
 			} else {
 				if (this.buyCreditsCount < this.exportDataIds.length) {
 					this.toastr.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan." })
-					this.authService.hasUserSubscription$.next(true);
 					return
 				}
 			}
@@ -355,26 +342,14 @@ export class CourseListComponent implements OnInit {
 	}
 
 	filterBy() {
-		if (this.authService.isInvalidSubscription('uni_finder')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.isFilterVisible = "block"
 	}
 
 	handleClick(event: Event) {
 		event.preventDefault() // Prevent the default action of the anchor tag
-		if (this.authService.isInvalidSubscription('uni_finder')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 	}
 
 	buyCredits() {
-		if (this.authService.isInvalidSubscription('uni_finder')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.router.navigate(["/pages/export-credit"])
 	}
 
@@ -422,10 +397,6 @@ export class CourseListComponent implements OnInit {
 	}
 
 	viewFav() {
-		if (this.authService.isInvalidSubscription('uni_finder')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.viewFavourites = !this.viewFavourites
 		this.getCourseLists()
 	}
@@ -438,10 +409,7 @@ export class CourseListComponent implements OnInit {
 	}
 
 	next(productId: number): void {
-		if (this.authService.isInvalidSubscription('uni_finder')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
+		
 		this.invalidClass = false
 		if (productId in this.selectedData) {
 			if (this.activePageIndex < this.recommendations.length - 1) {
@@ -475,10 +443,6 @@ export class CourseListComponent implements OnInit {
 	}
 
 	getRecommendation() {
-		if (this.authService.isInvalidSubscription('uni_finder')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		let keyMapping: any = { "1": "country", "2": "subject", "3": "study_level", "4": "intake_months", "5": "pre_requisite", "6": "world_rank" }
 
 		let newData = Object.fromEntries(

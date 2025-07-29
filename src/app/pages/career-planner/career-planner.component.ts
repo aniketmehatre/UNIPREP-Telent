@@ -1,9 +1,7 @@
 import { Component, OnInit } from "@angular/core"
 import { CareerPlannerService } from "./career-planner.service"
 import { PageFacadeService } from "../page-facade.service"
-import { AuthService } from "src/app/Auth/auth.service"
 import { Router, RouterModule } from "@angular/router"
-import { LocationService } from "src/app/services/location.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
 import { SidebarModule } from "primeng/sidebar"
@@ -145,7 +143,7 @@ export class CareerPlannerComponent implements OnInit {
 		wrkExpSpecilisation: [],
 	}
 
-	constructor(private careerPlannerService: CareerPlannerService, private pageFacade: PageFacadeService, private authService: AuthService, private router: Router, private locationService: LocationService) { }
+	constructor(private careerPlannerService: CareerPlannerService, private pageFacade: PageFacadeService, private router: Router) { }
 
 	ngOnInit(): void {
 		this.selectboxValueLoading();
@@ -211,10 +209,6 @@ export class CareerPlannerComponent implements OnInit {
 	}
 
 	next(productId: number): void {
-		if (this.authService.isInvalidSubscription('career_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.invalidClass = false
 		if (productId in this.selectedData) {
 			if (this.activePageIndex < this.products.length - 1) {

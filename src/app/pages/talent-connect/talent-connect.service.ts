@@ -82,9 +82,8 @@ export class TalentConnectService {
         return this.http.post(`${environment.ApiUrl}/studentprofile/reference`, formData);
     }
 
-    getStudentProfilesUsingId(id: string) {
-        let params = new HttpParams().set('student_id', id);
-        return this.http.get<any>(environment.ApiUrl + "/getstudentprofilesusingid", { params });
+    getStudentProfilesUsingId(id: number) {
+        return this.http.get<any>(`${environment.ApiUrl}/getstudentprofilesusingid?student_id=${id}`);
     }
 
     getCountries() {

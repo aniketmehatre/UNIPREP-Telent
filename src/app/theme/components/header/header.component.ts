@@ -197,8 +197,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private formBuilder: FormBuilder,
 		public authService: AuthService,
 		private toast: MessageService,
-		private themeService: ThemeService,
-		route: ActivatedRoute,
+		private route: ActivatedRoute,
 		private socialService: SocialAuthService,
 		private dataService: DataService,
 		private dashboardService: DashboardService,
@@ -285,11 +284,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	}
 
 	buyCredits() {
-		if (this.authService.isInvalidSubscription('ai_credit_count')) {
-			this.authService.hasUserSubscription$.next(true);
-		} else {
-			this.router.navigate(["/pages/export-credit"]);
-		}
+		this.router.navigate(["/pages/export-credit"]);
 	}
 
 	loadCountryList() {
@@ -1290,6 +1285,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.authService._userContineTrial = false
 				setTimeout(() => {
 					this.checkNewUser()
+					let jobId = this.storage.get('jobId')
+					if (jobId) {
+						this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+					}
 					window.location.reload()
 				}, 2000)
 				return res
@@ -1372,7 +1371,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	async gettingLocationForNewUsers(){
+	async gettingLocationForNewUsers() {
 		let userLocation: { country: string; city: string } = await this.countryLocationService.getUserCountry();
 		let findcountry = this.homeCountryList.find((country: any) => userLocation.country === country.country);
 		if (findcountry) {

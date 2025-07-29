@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FounderstoolService } from '../founderstool.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/services/location.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
@@ -20,8 +17,8 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
   categoryCount: number = 0;
   moduleID: number = 18;
   currentModuleSlug: any;
-  constructor(private service: FounderstoolService, private sanitizer: DomSanitizer, private router: Router, private authService: AuthService,
-    private locationService: LocationService, private pageFacade: PageFacadeService, private storage: StorageService
+  constructor(private service: FounderstoolService, private router: Router,
+    private pageFacade: PageFacadeService, private storage: StorageService
   ) { }
   ngOnInit(): void {
 
@@ -41,10 +38,6 @@ export class EntreprenuersectorproficiencyComponent implements OnInit {
     });
   }
   openQuiz(id: any, name: string) {
-    if (this.authService.isInvalidSubscription('founders_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.storage.set('conditionrevieworquiz', '0');
     this.storage.set('entrpreneursubid', id);
     this.storage.set('submodulename', name);

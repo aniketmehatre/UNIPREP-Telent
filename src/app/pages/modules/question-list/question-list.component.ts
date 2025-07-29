@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, Pipe, PipeTransform, ViewChild } from "@angular/core"
 import { Observable } from "rxjs"
 import { ReadQuestion } from "../../../@Models/read-question.model"
-import { MenuItem, MessageService } from "primeng/api"
+import { MenuItem } from "primeng/api"
 import { ModuleServiceService } from "../../module-store/module-service.service"
 import { ModuleStoreService } from "../../module-store/module-store.service"
 import { DataService } from "../../../services/data.service"
@@ -9,10 +9,7 @@ import { ActivatedRoute, Router, RouterModule } from "@angular/router"
 import { CommonModule, Location } from "@angular/common"
 import { DomSanitizer, Meta, SafeResourceUrl, Title } from "@angular/platform-browser"
 import { Carousel, CarouselModule } from "primeng/carousel"
-import { AuthService } from "src/app/Auth/auth.service"
-import { NgxUiLoaderService } from "ngx-ui-loader"
 import { PageFacadeService } from "../../page-facade.service"
-import { LocationService } from "src/app/services/location.service"
 import { MarkdownService } from "ngx-markdown"
 import { DialogModule } from "primeng/dialog"
 import { CardModule } from "primeng/card"
@@ -77,7 +74,6 @@ export class QuestionListComponent implements OnInit {
 	perpage: number = 25
 	totalQuestionCount: any
 	oneQuestionContent: any
-	planExpired: boolean = false
 	isSkeletonVisible: boolean = true
 	showVideoPopup: boolean = false
 	selectedVideoLink: any | null = null
@@ -97,13 +93,13 @@ export class QuestionListComponent implements OnInit {
 	vediolink: any[] = [];
 	weblink: any[] = [];
 	isHidGlobalRepository: boolean = true;
-	private scrollInterval: any;
+	scrollInterval: any;
 	constructor(private moduleListService: ModuleServiceService, private mService: ModuleServiceService,
 		private moduleStoreService: ModuleStoreService, private dataService: DataService,
 		private route: ActivatedRoute, private _location: Location, private _sanitizer: DomSanitizer,
-		private router: Router, private ngxService: NgxUiLoaderService, private authService: AuthService,
-		private sanitizer: DomSanitizer, private meta: Meta, private toast: MessageService,
-		private pageFacade: PageFacadeService, private locationService: LocationService,
+		private router: Router, 
+		private sanitizer: DomSanitizer, private meta: Meta,
+		private pageFacade: PageFacadeService,
 		private title: Title, private storage: StorageService,
 		private socialShareService: SocialShareService) {
 		Carousel.prototype.changePageOnTouch = (e, diff) => { }
@@ -216,7 +212,6 @@ export class QuestionListComponent implements OnInit {
 			//this.loadInit();
 		})
 		this.tooltip = "Questions related to the application process are answered"
-		this.checkplanExpire()
 	}
 
 	loadInit() {
@@ -395,27 +390,7 @@ export class QuestionListComponent implements OnInit {
 			}
 		})
 	}
-	checkplanExpire(): void {
-		if (this.currentModuleId == 8 || this.currentModuleId == 10) {
-			if (this.authService._userSubscrition.time_left.plan === "expired" ||
-				this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-				this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
-				this.planExpired = true;
-			}
-			else {
-				this.planExpired = false;
-			}
-		}
-		else {
-			if (this.authService._userSubscrition.time_left.plan === "expired" ||
-				this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-				this.planExpired = true;
-			}
-			else {
-				this.planExpired = false;
-			}
-		}
-	}
+
 	goBack() {
 		if (this.route.snapshot.paramMap.get("id")) {
 			this.router.navigateByUrl(`/pages/modules/${this.currentSubModuleSlug}`)
@@ -592,10 +567,6 @@ export class QuestionListComponent implements OnInit {
 	}
 
 	paginatepost(event: any) {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.pageno = event.page + 1
 		this.perpage = event.rows
 		let data = {
@@ -615,11 +586,6 @@ export class QuestionListComponent implements OnInit {
 
 	selectedQuestionName: any
 	viewOneQuestion(question: any) {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
-
 		// this.oneQuestionContent.answer = question.answer;
 		let questionData = question
 		// let questionData = this.allDataSet[question.id];
@@ -759,10 +725,6 @@ export class QuestionListComponent implements OnInit {
 		socialShare.style.display = "none"
 	}
 	startQuiz() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.storage.set("learninghubsubmoduleid", this.subModuleId)
 		this.storage.set("skillmasteryquizsubmoduleid", this.subModuleId)
 		this.storage.set("universityidforquiz", this.subModuleId)

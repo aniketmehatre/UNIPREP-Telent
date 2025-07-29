@@ -24,6 +24,7 @@ import { SubscriptionBillingComponent } from "./subscription-billing/subscriptio
 import { SubscriptionSuccessComponent } from "./subscription-success/subscription-success.component"
 import { StorageService } from "../../services/storage.service";
 import { LocationService } from "src/app/services/location.service"
+import { CollegeSubscriptionDataComponent } from "./clg-subscription-data/clg-subscription-data.component"
 @Component({
 	selector: "uni-subscription",
 	templateUrl: "./subscription.component.html",
@@ -35,6 +36,7 @@ import { LocationService } from "src/app/services/location.service"
 		ReactiveFormsModule,
 		DialogModule,
 		SubscriptionHistoryComponent,
+		CollegeSubscriptionDataComponent,
 		SubscriptionDataComponent,
 		SubscriptionListComponent,
 		SubscriptionBillingComponent,
@@ -78,7 +80,11 @@ export class SubscriptionComponent implements OnInit {
 		private authService: AuthService, private toastr: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
 		private stripeService: StripeService, private ngxService: NgxUiLoaderService,
-		private storage: StorageService, private locationService: LocationService) { }
+		private storage: StorageService, private locationService: LocationService) {
+		if (this.authService?.user?.student_type_id == 2) {
+			this.isCollegeStudent = true;
+		}
+	}
 	async ngOnInit(): Promise<void> {
 		try {
 			let homeCountryName = this.storage.get("home_country_name");
@@ -178,6 +184,7 @@ export class SubscriptionComponent implements OnInit {
 		}
 		this.loadSubData();
 	}
+	isCollegeStudent = false;
 	start() {
 		this.showPayLoading = false
 		this.stage = 1

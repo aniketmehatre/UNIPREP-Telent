@@ -17,7 +17,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { InputGroupModule } from "primeng/inputgroup"
 import { SelectModule } from "primeng/select"
 import { environment } from "@env/environment"
-import { AuthService } from "src/app/Auth/auth.service"
 import { SocialShareService } from "src/app/services/social-share.service";
 import { ObjectModel } from "src/app/@Models/object.model"
 import { PageFacadeService } from "../../page-facade.service"
@@ -71,7 +70,7 @@ export class GlobalTravelVisaComponent implements OnInit {
 	route = inject(ActivatedRoute);
 
 	constructor(private travelToolService: TravelToolsService, private router: Router, private meta: Meta,
-		private dataService: DataService, private authService: AuthService,
+		private dataService: DataService,
 		private socialShareService: SocialShareService, private pageFacade: PageFacadeService) { }
 
 	ngOnInit(): void {
@@ -153,24 +152,6 @@ export class GlobalTravelVisaComponent implements OnInit {
 	}
 
 	next(itemId: number) {
-		if (this.title == "Global Study Visa") {
-			if (this.authService.isInvalidSubscription('education_tools')) {
-				this.authService.hasUserSubscription$.next(true);
-				return;
-			}
-		}
-		else if (this.title == "Global Entrepreneur Visa") {
-			if (this.authService.isInvalidSubscription('founders_tools')) {
-				this.authService.hasUserSubscription$.next(true);
-				return;
-			}
-		}
-		else if (this.title == "Global Travel Visa") {
-			if (this.authService.isInvalidSubscription('travel_tools')) {
-				this.authService.hasUserSubscription$.next(true);
-				return;
-			}
-		}
 		if (itemId == 1) {
 			this.invalidClass = !(itemId in { 1: 122 });
 		} else {

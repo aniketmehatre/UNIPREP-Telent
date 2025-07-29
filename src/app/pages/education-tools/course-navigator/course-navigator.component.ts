@@ -18,7 +18,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { AuthService } from 'src/app/Auth/auth.service';
 import { SocialShareService } from 'src/app/services/social-share.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { CourseSubmodules } from './course-navigator.data';
@@ -65,7 +64,6 @@ export class CourseNavigatorComponent implements OnInit {
     private meta: Meta,
     private toast: MessageService,
     private route: ActivatedRoute,
-    private authService: AuthService,
     private socialShareService: SocialShareService,
     private pageFacade: PageFacadeService
   ) { }
@@ -93,10 +91,6 @@ export class CourseNavigatorComponent implements OnInit {
   }
 
   performSearch(type: string) {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     if (type == 'specialization') {
       const searchValue = this.specializationFilter.toLowerCase();
       this.specializationList = this.specializations.filter((item) => {
@@ -112,10 +106,6 @@ export class CourseNavigatorComponent implements OnInit {
   }
 
   getCourseList(value: CurrentSpecialization) {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.selectedSpecialization = value.specialization_name;
     let data = {
       spec_id: value.id,

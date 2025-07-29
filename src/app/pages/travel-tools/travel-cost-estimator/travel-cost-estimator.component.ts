@@ -67,11 +67,7 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	buyCredits() {
-		if (this.authService.isInvalidSubscription('travel_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-		} else {
-			this.router.navigate(["/pages/export-credit"]);
-		}
+		this.router.navigate(["/pages/export-credit"]);
 	}
 
 	getCityList() {
@@ -95,10 +91,6 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	next(itemId: number) {
-		if (this.authService.isInvalidSubscription('travel_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.invalidClass = false;
 		if (itemId in this.selectedData) {
 			if (this.activePageIndex < this.recommendations.length - 1) {
@@ -153,10 +145,6 @@ export class TravelCostEstimatorComponent implements OnInit {
 	}
 
 	saveRecommadation() {
-		if (this.authService.isInvalidSubscription('travel_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		if (!this.isFromSavedData) {
 			this.travelToolsService.getTripList("travelcostestimator").subscribe({
 				next: (response) => {

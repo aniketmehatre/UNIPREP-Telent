@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PageFacadeService } from '../../page-facade.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { FounderstoolService } from '../founderstool.service';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
@@ -13,7 +12,6 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { debounceTime, Subject } from 'rxjs';
-import { AuthService } from 'src/app/Auth/auth.service';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -37,8 +35,7 @@ export class WealthleaderslistComponent implements OnInit {
   searchSubject = new Subject<string>();
 
   constructor(private router: Router, private pageFacade: PageFacadeService, private service: FounderstoolService,
-    private storage: StorageService, private sanitizer: DomSanitizer, private route: ActivatedRoute,
-    private fb: FormBuilder, private authService: AuthService
+    private storage: StorageService, private route: ActivatedRoute, private fb: FormBuilder
   ) {
     this.filterForm = this.fb.group({
       country: [null],
@@ -71,10 +68,6 @@ export class WealthleaderslistComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup("wealth-leaders");
   }
   performSearch() {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.searchSubject.next(this.valueNearYouFilter);
   }
   getWealthLeaders() {
@@ -91,10 +84,6 @@ export class WealthleaderslistComponent implements OnInit {
     })
   }
   filterPopUp() {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.newfile = "block";
   }
   resetFilter() {
@@ -108,19 +97,11 @@ export class WealthleaderslistComponent implements OnInit {
     this.newfile = "none";
   }
   paginate(event: any) {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.pageno = event.page + 1;
     this.perpage = event.rows;
     this.getWealthLeaders();
   }
   viewReadAns(id: any, name: any) {
-    if (this.authService.isInvalidSubscription('education_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.storage.set("wealthleadersname", name)
     this.router.navigate(['/pages/education-tools/wealthleaderreadanswer', id], { queryParams: { country: this.filterForm.value.country, search: this.valueNearYouFilter } });
   }

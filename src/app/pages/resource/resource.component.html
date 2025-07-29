@@ -55,34 +55,7 @@
 				<div *ngFor="let resource of resourceslist" class="col-md-3 col-12 mb-3">
 					<div class="card resourcecard justify-content-center text-black h-100" (click)="canSeeResources()">
 						<div class="card-body">
-							<div class="h-100" id="resourceLink" *ngIf="planExpired">
-								<a href="{{ resource.link }}" class="text-dark text-start text-decoration-none h-100"
-									target="_blank" style="pointer-events: none">
-									<div class="d-flex gap-3 align-items-center h-100">
-										<div class="resourceimg"><img src="{{ resource.coverimage }}" alt="" /></div>
-										<div class="d-flex flex-column gap-2 justify-content-between">
-											<div>
-												<h5 title="{{ resource.title }}">{{ resource.title }}</h5>
-												<p style="overflow-wrap: anywhere" class="small mb-0"
-													tooltipPosition="top" pTooltip="{{ resource.resourcedescription }}"
-													tooltipStyleClass="tooltip">
-													{{ resource.resourcedescription.length > 75 ?
-													resource.resourcedescription.slice(0, 75) + "..." :
-													resource.resourcedescription }}
-												</p>
-											</div>
-											<div>
-												<span *ngFor="let flag of resource.countryFlag.split(',')"
-													class="resourceimg mt-4 ms-2 me-2" style="cursor: pointer">
-													<img [src]="flag" loading="lazy" [style.width.px]="20"
-														tooltipPosition="top" pTooltip="{{ getCountryName(flag) }}" />
-												</span>
-											</div>
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="h-100" id="resourceLink" *ngIf="!planExpired">
+							<div class="h-100" id="resourceLink">
 								<a href="{{ resource.link }}" class="text-dark text-start text-decoration-none h-100"
 									target="_blank">
 									<div class="d-flex gap-3 align-items-center h-100">
@@ -114,28 +87,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div *ngIf="planExpired" class="resources-expired">
-      <div class="row">
-        <div class="col-md-2 text-start"></div>
-        <div class="col-md-8 text-center">
-          <h5 class="select-title mb-1" tooltipPosition="top" pTooltip="">
-            RESOURCES
-          </h5>
-    
-        </div>
-        <div class="col-md-2"></div>
-      </div>
-      <div class="text-center mt-5 mb-4">
-        <img src="../../../uniprep-assets/images/smartloack.png" class="image" width="80">
-        <h3>Upgrade now to access invaluable tools</h3>
-        <p><br> Upgrade your plan now to gain instant
-          access.</p>
-        <p class="offer">Resources offer:<br>100+ tools like CV builder, LinkedIn profile samples, global job search tools and many more to kickstart your global journey</p>
-        <button pButton  pButton type="button"
-          class=" text-white p-ripple p-button-rounded p-button-warning p-button p-component p-2"
-          (click)="upgradePlan()">Upgrade Plan<i class="fa fa-arrow-right exhausted-plan-icon"></i></button>
-      </div>
-    </div> -->
 	</div>
 </div>
 

@@ -18,7 +18,6 @@ import { InputGroupModule } from "primeng/inputgroup"
 import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { SkeletonModule } from "primeng/skeleton"
-import { AuthService } from "src/app/Auth/auth.service"
 @Component({
 	selector: "uni-careercountries",
 	templateUrl: "./careercountries.component.html",
@@ -28,7 +27,7 @@ import { AuthService } from "src/app/Auth/auth.service"
 })
 export class CHCountryListsComponent implements OnInit {
 	constructor(private router: Router, private arrayHeaderService: ArrayHeaderService, private service: CareerJobHacksService,
-		private pageFacade: PageFacadeService, private authService: AuthService) { }
+		private pageFacade: PageFacadeService) { }
 	isSkeletonVisible: boolean = true
 	moduleList: any
 	@Input() prepData: any
@@ -54,10 +53,6 @@ export class CHCountryListsComponent implements OnInit {
 		this.pageFacade.openHowitWorksVideoPopup("career-hacks")
 	}
 	onModuleClick(moduledata: any) {
-		if (this.authService.isInvalidSubscription('career_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.prepData = {
 			country_id: moduledata.id,
 			stage: 2,

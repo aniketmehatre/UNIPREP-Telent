@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from "@angular/core"
 import { PitchDeskService } from "./pitch-desk.service"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms"
-import { AuthService } from "src/app/Auth/auth.service"
 import { Router, RouterModule } from "@angular/router"
 import { MessageService } from "primeng/api"
 import { DataService } from "src/app/services/data.service"
@@ -42,7 +41,6 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	sectorSelectBox: any = []
 	valueNearYouFilter: string = ""
 	showDiv: boolean = true
-	planExpired: boolean = false
 	currentPlan: string = ""
 	selectAllCheckboxes: boolean = false
 	selectedCheckboxCount: number = 0
@@ -59,7 +57,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	isPdfDownloadOption: any
 	pdfLoadError: boolean = false
 
-	constructor(private pitchDesk: PitchDeskService, private userManagementService: UserManagementService, private fb: FormBuilder, private router: Router, private authService: AuthService, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService, private locationService: LocationService) {
+	constructor(private pitchDesk: PitchDeskService, private userManagementService: UserManagementService, private fb: FormBuilder, private router: Router, private toast: MessageService, private dataService: DataService, private pageFacade: PageFacadeService, private locationService: LocationService) {
 		this.filterForm = this.fb.group({
 			pitchdeck_name: [""],
 			country: [""],
@@ -98,10 +96,6 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	bookmarkQuestion(courseId: any, isFav: any) {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		isFav = isFav != "1" ? true : false
 		this.favCount = isFav == true ? this.favCount + 1 : this.favCount - 1
 		this.pitchDesk.bookmarkCourseData(courseId, this.PersonalInfo.user_id, isFav).subscribe((response) => {
@@ -116,10 +110,6 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	viewFav() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.viewFavourites = !this.viewFavourites
 		this.getPitchDeskList()
 	}
@@ -143,9 +133,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 			}
 		}
 		this.pitchDesk.getPitchDeskData(data).subscribe((responce) => {
-			if (this.planExpired) {
-				this.totalPitchDeckCount = 50
-			} else this.totalPitchDeckCount = responce.total_count
+			this.totalPitchDeckCount = responce.total_count
 
 			// Store the complete data for client-side filtering
 			this.allPitchDeskData = responce.data
@@ -175,10 +163,6 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	pageChange(event: any) {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.selectAllCheckboxes = false
 		this.selectedCheckboxCount = 0
 		this.page = event.page + 1
@@ -187,10 +171,6 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	filterBy() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.isFilterVisible = "block"
 	}
 
@@ -200,10 +180,6 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	performSearch() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		const searchValue = this.valueNearYouFilter.trim().toLowerCase()
 
 		if (!searchValue) {
@@ -228,28 +204,15 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	closeGuidelines() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.showDiv = !this.showDiv
 	}
 
 	showPdf(url: any, pdname: string) {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
-		// if (this.planExpired) {
-		// 	this.restrict = true;
-		// 	return;
-		// }
-		//
 		this.pdfLoadError = false
 		this.isPdfLoaded = true
 		this.pdname = pdname
 
-		if (!this.planExpired && this.exportCreditCount != 0) {
+		if (this.exportCreditCount != 0) {
 			this.isPdfDownloadOption = true
 		} else {
 			this.isPdfDownloadOption = false
@@ -303,7 +266,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 						() => {
 							// Both API calls completed successfully
 							this.getPitchDeskList()
-							if (!this.planExpired && this.exportCreditCount != 0) {
+							if (this.exportCreditCount != 0) {
 								this.isPdfDownloadOption = true
 							} else {
 								this.isPdfDownloadOption = false
@@ -327,25 +290,15 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	checkplanExpire(): void {
-		this.planExpired = this.authService.isInvalidSubscription('pitch_desk');
 		this.getPitchDeskList()
 
 	}
 
 	buyCredits(): void {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		this.router.navigate(["/pages/export-credit"])
 	}
 
 	onCheckboxChange(event: any, item: any) {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
-
 		const isChecked = event.target.checked
 		item.isChecked = isChecked ? 1 : 0
 
@@ -364,11 +317,6 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	selectAllCheckbox() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
-
 		// Update all items in the list immediately
 		this.pitchDeskList.forEach((item) => {
 			item.isChecked = this.selectAllCheckboxes ? 1 : 0
@@ -380,10 +328,7 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	exportData() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		} else if (this.exportCreditCount != 0) {
+		if (this.exportCreditCount != 0) {
 			this.exportDataIds = []
 			this.pitchDeskList.forEach((item) => {
 				if (item.isChecked == 1) {
@@ -403,7 +348,6 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 			} else {
 				if (this.exportCreditCount < this.exportDataIds.length) {
 					this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan." })
-					this.authService.hasUserSubscription$.next(true);
 					return
 				}
 			}
@@ -421,17 +365,11 @@ export class PitchDeskComponent implements OnInit, OnDestroy, AfterViewInit {
 			if (this.imageWhiteLabelDomainName === "uniprep" || this.imageWhiteLabelDomainName === "Partner") {
 				this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits." })
 				this.router.navigate(["/pages/export-credit"])
-			} else {
-				this.authService.hasUserSubscription$.next(true);
 			}
 		}
 	}
 
 	openReport() {
-		if (this.planExpired) {
-			this.authService.hasUserSubscription$.next(true);
-			return
-		}
 		let data = {
 			isVisible: true,
 			reporttype: 7,

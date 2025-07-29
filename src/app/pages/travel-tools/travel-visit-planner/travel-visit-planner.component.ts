@@ -66,11 +66,7 @@ export class TravelVisitPlannerComponent implements OnInit {
 	}
 
 	buyCredits() {
-		if (this.authService.isInvalidSubscription('travel_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-		} else {
-			this.router.navigate(["/pages/export-credit"]);
-		}
+		this.router.navigate(["/pages/export-credit"]);
 	}
 
 	previous() {
@@ -81,10 +77,6 @@ export class TravelVisitPlannerComponent implements OnInit {
 	}
 
 	next(productId: number) {
-		if (this.authService.isInvalidSubscription('travel_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.hideWarning(productId)
 		if (!this.invalidClass) {
 			if (this.activePageIndex < this.recommendations.length - 1) {
@@ -94,8 +86,8 @@ export class TravelVisitPlannerComponent implements OnInit {
 	}
 
 	getRecommendation(productId: number) {
-		if(this.authService._creditCount === 0){
-			this.toast.add({severity: "error",summary: "Error",detail: "Please Buy some Credits...!"});
+		if (this.authService._creditCount === 0) {
+			this.toast.add({ severity: "error", summary: "Error", detail: "Please Buy some Credits...!" });
 			this.router.navigateByUrl('/pages/export-credit')
 			return;
 		}
@@ -145,10 +137,6 @@ export class TravelVisitPlannerComponent implements OnInit {
 	}
 
 	savedRecommendations() {
-		if (this.authService.isInvalidSubscription('travel_tools')) {
-			this.authService.hasUserSubscription$.next(true);
-			return;
-		}
 		this.isRecommendation = false
 		this.isResponsePage = false
 		this.isSavedPage = true

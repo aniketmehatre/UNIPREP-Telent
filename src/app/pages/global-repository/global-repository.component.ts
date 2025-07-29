@@ -11,7 +11,6 @@ import { SelectModule } from "primeng/select";
 import { FormControl, FormGroup, FormsModule } from "@angular/forms";
 import { StorageService } from "../../services/storage.service";
 import { Carousel } from "primeng/carousel";
-import { AuthService } from "src/app/Auth/auth.service";
 @Component({
   selector: "uni-global-repository",
   templateUrl: "./global-repository.component.html",
@@ -48,7 +47,6 @@ export class GlobalRepositoryComponent implements OnInit {
     private locationService: LocationService,
     private cdRef: ChangeDetectorRef,
     private storage: StorageService,
-    private authService: AuthService
   ) {
     this.selectedCountryId = this.storage.get("countryId")
     this.dataService.countryNameSource.subscribe((countryName) => {
@@ -127,10 +125,6 @@ export class GlobalRepositoryComponent implements OnInit {
   }
 
   selectCountry(selectedId: any) {
-    if (this.authService.isInvalidSubscription('global_repository')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.countryLists.forEach((element: any) => {
       if (element.id === selectedId) {
         this.selectedCountryName = element.country;
@@ -155,10 +149,6 @@ export class GlobalRepositoryComponent implements OnInit {
   goBack() { }
 
   onSubModuleClick(data: any) {
-    if (this.authService.isInvalidSubscription('global_repository')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.router.navigateByUrl(data.url);
   }
 

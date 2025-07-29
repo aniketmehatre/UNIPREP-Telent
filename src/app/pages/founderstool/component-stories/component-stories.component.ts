@@ -8,7 +8,6 @@ import { DataService } from 'src/app/services/data.service';
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { CardModule } from "primeng/card";
-import { AuthService } from 'src/app/Auth/auth.service';
 import { SocialShareService } from 'src/app/services/social-share.service';
 import { ButtonModule } from "primeng/button"
 @Component({
@@ -22,7 +21,7 @@ export class ComponentStoriesComponent implements OnInit {
 
   constructor(private pageFacade: PageFacadeService, private dataService: DataService, private activatedRoute: ActivatedRoute,
     private meta: Meta, private router: Router, private service: FounderstoolService,
-    private locationService: LocationService, private authService: AuthService, private socialShareService: SocialShareService) { }
+    private locationService: LocationService, private socialShareService: SocialShareService) { }
   countrylist: any[] = [];
   currentRoute: string = '';
   headertooltipname: any;
@@ -99,10 +98,6 @@ export class ComponentStoriesComponent implements OnInit {
     }
   }
   showDatas(data: any) {
-    if (this.authService.isInvalidSubscription('founders_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     // get all country ,question, answer api
     localStorage.setItem("countrynameforcomponentstorie", data.country)
     this.countryname = data.country;

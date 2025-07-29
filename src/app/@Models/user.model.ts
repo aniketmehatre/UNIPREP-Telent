@@ -56,4 +56,11 @@ export interface User {
     subscription_exists: number;
     social_password: number;
     city_id: number;
+    current_plan_detail:UserSubscriptionPlan
+}
+
+export interface UserSubscriptionPlan {
+  account_status: string
+  current_plan: string
+  current_plan_status: string
 }

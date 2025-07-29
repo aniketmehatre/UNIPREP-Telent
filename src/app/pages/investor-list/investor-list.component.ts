@@ -345,7 +345,6 @@ export class InvestorListComponent implements OnInit {
       } else {
         if (this.exportCreditCount < this.exportDataIds.length) {
           this.toast.add({ severity: "error", summary: "error", detail: "To download additional data beyond your free credits, please upgrade your plan.", });
-          this.authService.hasUserSubscription$.next(true);
           return;
         }
       }
@@ -363,8 +362,6 @@ export class InvestorListComponent implements OnInit {
       if (this.imagewhitlabeldomainname === "*.uniprep.ai" || this.imagewhitlabeldomainname === "dev-student.uniprep.ai" || this.imagewhitlabeldomainname === "uniprep.ai" || this.imagewhitlabeldomainname === "localhost") {
         this.toast.add({ severity: "error", summary: "error", detail: "Please Buy Some Credits.", });
         this.router.navigate(["/pages/export-credit"]);
-      } else {
-        this.authService.hasUserSubscription$.next(true);
       }
     }
 
@@ -392,10 +389,6 @@ export class InvestorListComponent implements OnInit {
   }
 
   next(productId: number): void {
-    if (this.authService.isInvalidSubscription('founders_tools')) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.invalidClass = false;
     if (productId in this.selectedData) {
       if (this.activePageIndex < this.recommendations.length - 1) {

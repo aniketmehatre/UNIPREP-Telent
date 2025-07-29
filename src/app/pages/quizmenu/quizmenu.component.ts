@@ -48,8 +48,6 @@ export class QuizmenuComponent implements OnInit {
   learningHubQuiz: boolean = true;
   languageHubQuiz: boolean = true;
   readingmodulestartbutton: boolean = true;
-  planExpired: boolean = false;
-  StudentplanRestrict: boolean = false;
   certificatesList: any[] = []
   universityModulescertificate: any[] = [];
   Modulequizlistcertificate: any[] = [];
@@ -59,7 +57,7 @@ export class QuizmenuComponent implements OnInit {
   countrydropdownlist: any[] = [];
   skillsmasteryId: any = null;
   constructor(private moduleListService: ModuleServiceService, private router: Router, private dataService: DataService,
-    private locationService: LocationService, private authService: AuthService, private pageFacade: PageFacadeService,
+    private locationService: LocationService, private pageFacade: PageFacadeService,
     private storage: StorageService) { }
 
   ngOnInit(): void {
@@ -74,7 +72,6 @@ export class QuizmenuComponent implements OnInit {
       this.unversitycontrydropdownid = this.countryId;
       // this.checkquizquestionmodule();
       // this.getCertificates()
-      this.checkplanExpire();
       this.getFilterUniversityList(this.unversitycontrydropdownid)
       this.preAdmissionCountryListId(this.preaddimissioncontrydropdownid);
       this.postAdmissionCountryListId(this.postadmiisioncontrydropdownid);
@@ -129,11 +126,6 @@ export class QuizmenuComponent implements OnInit {
   // }
 
   startModululeSkillmastery() {
-    if (this.StudentplanRestrict) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
-    //this.storage.set('QuizModuleName', '')
     this.currentModuleSlug = "skill-mastery"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
@@ -157,31 +149,9 @@ export class QuizmenuComponent implements OnInit {
   //   })
   // }
   startQuizUniversity() {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.storage.set("modalcountryid", this.unversitycontrydropdownid)
     this.currentModuleSlug = "university"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
-  }
-  checkplanExpire(): void {
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired") {
-      this.planExpired = true;
-    }
-    else {
-      this.planExpired = false;
-    }
-    if (this.authService._userSubscrition.time_left.plan === "expired" ||
-      this.authService._userSubscrition.time_left.plan === "subscription_expired" ||
-      this.authService._userSubscrition.subscription_details.subscription_plan === "Student") {
-      this.StudentplanRestrict = true;
-    }
-    else {
-      this.StudentplanRestrict = false;
-    }
-
   }
 
   // readingmoduleid:number=0;
@@ -202,10 +172,6 @@ export class QuizmenuComponent implements OnInit {
     this.startQuiz(eve)
   }
   startQuiz(moduleid: any) {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     if (moduleid == 1) {
       this.currentModuleSlug = "pre-admission"
       this.storage.set("modalcountryid", this.preaddimissioncontrydropdownid)
@@ -222,10 +188,6 @@ export class QuizmenuComponent implements OnInit {
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/quiz`]);
   }
   downloadCertificate(link: any) {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     window.open(link, '_blank');
   }
   getSubjectlist() {
@@ -267,11 +229,6 @@ export class QuizmenuComponent implements OnInit {
     }
   }
   StartLearningHubQuiz() {
-    if (this.StudentplanRestrict) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
-    console.log(this.storage.get('QuizModuleName'))
     this.currentModuleSlug = "learning-hub"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/learninghubquiz`]);
   }
@@ -322,10 +279,6 @@ export class QuizmenuComponent implements OnInit {
     }
   }
   StartLanguageHubQuiz() {
-    if (this.planExpired) {
-      this.authService.hasUserSubscription$.next(true);
-      return;
-    }
     this.currentModuleSlug = "language-hub"
     this.router.navigate([`/pages/modules/${this.currentModuleSlug}/languagehubquiz`]);
   }
@@ -334,7 +287,6 @@ export class QuizmenuComponent implements OnInit {
   lifeatcountrypercentage: number = 0;
   careerhubpercentage: number = 0;
   preAdmissionCountryListId(event: any) {
-    this.checkplanExpire();
     var data = {
       moduleid: 1,
       countryid: this.preaddimissioncontrydropdownid,
@@ -344,7 +296,6 @@ export class QuizmenuComponent implements OnInit {
     })
   }
   postAdmissionCountryListId(event: any) {
-    this.checkplanExpire();
     var data = {
       moduleid: 3,
       countryid: this.postadmiisioncontrydropdownid,
@@ -354,7 +305,6 @@ export class QuizmenuComponent implements OnInit {
     })
   }
   lifeAtCountryListId(event: any) {
-    this.checkplanExpire();
     var data = {
       moduleid: 6,
       countryid: this.lifeatcontrydropdownid,
@@ -364,7 +314,6 @@ export class QuizmenuComponent implements OnInit {
     })
   }
   careerHubCountryListId(event: any) {
-    this.checkplanExpire();
     var data = {
       moduleid: 4,
       countryid: this.careerhubcontrydropdownid,
