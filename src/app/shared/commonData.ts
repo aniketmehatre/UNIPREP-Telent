@@ -232,5 +232,8 @@ export const howItWorksLinks: { [key: string]: { video_link: string } } = {
   }, 
   "partner-register" : {
     video_link: "https://www.youtube.com/embed/ecwpL5HQb9A?si=E6BjWLaiveX-nZpu"
-  }
+  },
+  "login-page" : {
+    video_link: "https://www.youtube.com/embed/ly1rSeb_H78?si=OlLMYpTmmiOoaVqX"
+  },
 };
