@@ -84,19 +84,19 @@ export class UserManagementComponent implements OnInit {
 	imageWhiteLabelDomainName: any;
 	userTypeId: boolean = true;
 	// Employer Profile Section
-	employerProfileData: EmployeeConnectProfile | null;
-	isUpdateEmployerProfile: boolean = false;
-	isEmployerProfileCompleteSection: boolean = false;
+	// employerProfileData: EmployeeConnectProfile | null;
+	// isUpdateEmployerProfile: boolean = false;
+	// isEmployerProfileCompleteSection: boolean = false;
 	profileSectionList: string[] = ['profileCard', 'securityCard', 'emailerCard', 'integrationsCard', 'inviteCard'];
-	logo: any;
-	isSubmittedPersonalInformationForm: boolean = false;
-	uploadedFiles: { [key: string]: File } = {};
-	isSampleProfileImgVisible: boolean = false;
-	sampleProfileImages: string[] = [
-		environment.imagePath + 'uploads/Mask-group.jpg',
-		environment.imagePath + 'uploads/Mask-group-1.jpg',
-		environment.imagePath + 'uploads/Mask-group-2.jpg'
-	];
+	// logo: any;
+	// isSubmittedPersonalInformationForm: boolean = false;
+	// uploadedFiles: { [key: string]: File } = {};
+	// isSampleProfileImgVisible: boolean = false;
+	// sampleProfileImages: string[] = [
+	// 	environment.imagePath + 'uploads/Mask-group.jpg',
+	// 	environment.imagePath + 'uploads/Mask-group-1.jpg',
+	// 	environment.imagePath + 'uploads/Mask-group-2.jpg'
+	// ];
 
 	constructor(private authService: AuthService, private formBuilder: FormBuilder, private locationService: LocationService,
 		private toast: MessageService, private dashboardService: DashboardService, private userManagementService: UserManagementService,
@@ -111,7 +111,7 @@ export class UserManagementComponent implements OnInit {
 			last_degree_passing_year: [""],
 			email: [""],
 			current_education: [""],
-			profile_image: [null, [Validators.required]],
+			// profile_image: [null, [Validators.required]],
 		})
 
 		this.updatedPasswords = this.formBuilder.group({
@@ -131,7 +131,7 @@ export class UserManagementComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.setSwitchSection('profileCard');
-		this.employerProfileData = this.talentConnectService._employerProfileData;
+		// this.employerProfileData = this.talentConnectService._employerProfileData;
 		this.userTypeId = this.authService._user?.student_type_id === 2
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.imageWhiteLabelDomainName = data.source
@@ -225,9 +225,9 @@ export class UserManagementComponent implements OnInit {
 		this.activeSectionCard = section;
 		this.activeSection = this.isSwitchSection(section) ? 'myprofile' : section;
 		this.closeMobileMenu();
-		if (this.activeSection == 'jobProfile') {
-			this.onClickJobPrifile();
-		}
+		// if (this.activeSection == 'jobProfile') {
+		// 	this.onClickJobPrifile();
+		// }
 	}
 
 	isSwitchSection(section: string): boolean {
@@ -278,9 +278,9 @@ export class UserManagementComponent implements OnInit {
 				phone: `${this.PersonalInfo?.country_code || ''} ${this.PersonalInfo?.phone || ''}`,
 				email: this.PersonalInfo?.email,
 				current_education: this.PersonalInfo?.programlevel,
-				profile_image: this.employerProfileData?.dp_image
+				// profile_image: this.employerProfileData?.dp_image
 			});
-			this.logo = this.employerProfileData?.dp_image;
+			// this.logo = this.employerProfileData?.dp_image;
 			this.selectedDate = new Date()
 			this.selectedDate.setFullYear(this.registrationForm.get("intake_year_looking")?.value)
 			this.selectedDate.setMonth(this.registrationForm.get("intake_month_looking")?.value)
@@ -547,18 +547,18 @@ export class UserManagementComponent implements OnInit {
 		if (this.submitBtnName == "Edit") {
 			this.registrationForm.get('last_degree_passing_year')?.enable();
 			this.registrationForm.get('home_country')?.enable();
-			this.registrationForm.get('profile_image')?.enable();
+			// this.registrationForm.get('profile_image')?.enable();
 			this.submitBtnName = "Update"
 			return;
 		}
-		this.isSubmittedPersonalInformationForm = true;
+		// this.isSubmittedPersonalInformationForm = true;
 		if (this.registrationForm.invalid) {
 			return;
 		}
 		const formDataValue = this.registrationForm.value;
 		const lastDegree = this.extractYear(formDataValue.last_degree_passing_year)?.toString();
 		const formData = new FormData();
-		formData.append("profile_image", this.uploadedFiles["profile_image"] ?? formDataValue?.profile_image);
+		// formData.append("profile_image", this.uploadedFiles["profile_image"] ?? formDataValue?.profile_image);
 		formData.append("home_country", formDataValue.home_country ?? '');
 		formData.append("last_degree_passing_year", lastDegree ?? '');
 		this.userManagementService.updateUserDetails(formData).subscribe({
@@ -568,7 +568,7 @@ export class UserManagementComponent implements OnInit {
 				this.registrationForm.get('home_country')?.disable();
 				this.submitBtnName = "Edit"
 				this.GetPersonalProfileData();
-				this.isSubmittedPersonalInformationForm = false;
+				// this.isSubmittedPersonalInformationForm = false;
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
@@ -600,47 +600,48 @@ export class UserManagementComponent implements OnInit {
 		passwordField.visible = !passwordField.visible;
 		passwordField.type = passwordField.visible ? 'text' : 'password';
 	}
+	// DON'T REMOVE THIS CODE
 
-	onClickJobPrifile() {
-		this.isEmployerProfileCompleteSection = this.employerProfileData?.profile_completion_flag ? true : false;
-	}
+	// onClickJobPrifile() {
+	// 	this.isEmployerProfileCompleteSection = this.employerProfileData?.profile_completion_flag ? true : false;
+	// }
 
-	onEditCompleteProfile(event: boolean) {
-		this.isEmployerProfileCompleteSection = event;
-	}
+	// onEditCompleteProfile(event: boolean) {
+	// 	this.isEmployerProfileCompleteSection = event;
+	// }
 
-	onUploadPhoto(event: any) {
-		const file = event.target.files[0];
-		if (!file) return;
-		const maxSizeInMB = 5;
-		const isImage = file.type.startsWith('image/');
-		const isUnderSizeLimit = file.size <= maxSizeInMB * 1024 * 1024;
-		if (!isImage) {
-			this.toast.add({ severity: "error", summary: "Error", detail: "Please upload your profile picture in the image format." });
-			return;
-		}
-		if (!isUnderSizeLimit) {
-			this.toast.add({ severity: "error", summary: "Error", detail: "Image must be less than 5MB." });
-			return;
-		}
-		// Display preview
-		const reader = new FileReader();
-		reader.onload = () => {
-			this.logo = reader.result;
-			this.registrationForm.get("profile_image")?.setValue(reader.result);
-		}
-		reader.readAsDataURL(file);
-		this.uploadedFiles["profile_image"] = file;
-	}
+	// onUploadPhoto(event: any) {
+	// 	const file = event.target.files[0];
+	// 	if (!file) return;
+	// 	const maxSizeInMB = 5;
+	// 	const isImage = file.type.startsWith('image/');
+	// 	const isUnderSizeLimit = file.size <= maxSizeInMB * 1024 * 1024;
+	// 	if (!isImage) {
+	// 		this.toast.add({ severity: "error", summary: "Error", detail: "Please upload your profile picture in the image format." });
+	// 		return;
+	// 	}
+	// 	if (!isUnderSizeLimit) {
+	// 		this.toast.add({ severity: "error", summary: "Error", detail: "Image must be less than 5MB." });
+	// 		return;
+	// 	}
+	// 	// Display preview
+	// 	const reader = new FileReader();
+	// 	reader.onload = () => {
+	// 		this.logo = reader.result;
+	// 		this.registrationForm.get("profile_image")?.setValue(reader.result);
+	// 	}
+	// 	reader.readAsDataURL(file);
+	// 	this.uploadedFiles["profile_image"] = file;
+	// }
 
-	onRemovePhoto() {
-		this.logo = null;
-		delete this.uploadedFiles["profile_image"];
-		this.registrationForm.get("profile_image")?.setValue("");
-	}
+	// onRemovePhoto() {
+	// 	this.logo = null;
+	// 	delete this.uploadedFiles["profile_image"];
+	// 	this.registrationForm.get("profile_image")?.setValue("");
+	// }
 
-	openGuideUrl() {
-		const url = environment.imagePath + 'uploads/Profile-Image-Guide.pdf';
-		window.open(url, '_blank');
-	}
+	// openGuideUrl() {
+	// 	const url = environment.imagePath + 'uploads/Profile-Image-Guide.pdf';
+	// 	window.open(url, '_blank');
+	// }
 }

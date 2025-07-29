@@ -553,7 +553,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           checkField(edu.get("education_field_id"), 2)
           checkField(edu.get("education_course_name"), 2)
           checkField(edu.get("education_graduation_year_id"), 2)
-          console.log(edu.get("education_still_pursuing"), 'stio')
           if (!edu.get("education_still_pursuing")?.value) {
             checkField(edu.get("education_cgpa_or_percentage"), 5)
           }
@@ -937,10 +936,15 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.currentMessage = this.defaultMessage // Default message
   }
 
-  extractLastName(url: string): string {
-    if (!url) return ""
-    const fileName = url.split("/").pop() || "" // "1742015348_cv_letter.pdf"
-    return fileName
+  extractLastName(fileName: string): string {
+    if(!fileName) return "";
+    const extension = fileName.split('.').pop(); // get "extension"
+    const baseName = fileName.split("/").pop() as string; // remove extension
+    let shortened = baseName;
+    if (baseName.length > 15) {
+      shortened = baseName.slice(0, 12) + '...';
+    }
+    return `${shortened}.${extension}`;
   }
 
   routingToPage(pageUrl: string) {
@@ -1891,7 +1895,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       next: res => {
         this.getProfileData();
         this.isShowCreatedSuccessfullyPopup = true;
-        this.toastService.add({ severity: "success", summary: "Success", detail: "Profile Created Successfully" });
       },
       error: err => {
         this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });

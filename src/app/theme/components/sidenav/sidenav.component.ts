@@ -20,6 +20,7 @@ export interface SideMenu {
   children?: SideMenu[];
   active?: boolean;
   restricted?: boolean;
+  isSameUrl?:boolean;
 }
 
 @Component({
@@ -82,6 +83,11 @@ export class SidenavComponent {
     //   url: "/pages/talent-connect/list",
     //   image: "fa-solid fa-briefcase",
     // },
+    {
+      title: "Create Job Profile",
+      url: "",
+      image: "fa-solid fa-user",
+    },
     {
       title: "Explore Jobs",
       url: "",
@@ -319,7 +325,6 @@ export class SidenavComponent {
   collegeStudentMenus = ["null"]; //'Subscription'
   conditionSubscribed!: boolean;
   currentTitle: any;
-  visibleExhasted!: boolean;
   imageWhiteLabelDomainName: any;
   whiteLabelIsShow: boolean = true;
   orgnamewhitlabel: any;
@@ -458,13 +463,19 @@ export class SidenavComponent {
     }
   }
   addEasyJob() {
-    const exploreJobsUrl = this.talentService._employerProfileData == null ? "/pages/usermanagement" : "/pages/talent-connect/easy-apply";
+    const createProfileUrl = this.talentService._employerProfileData == null ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/my-profile/"+this.talentService._employerProfileData?.id;
+    const createProfile = this.menus.find(menu => menu.title === "Create Job Profile") as SideMenu;
+    createProfile.url = createProfileUrl;
+
+    const exploreJobsUrl = this.talentService._employerProfileData == null ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/easy-apply";
     const exploreJob = this.menus.find(menu => menu.title === "Explore Jobs") as SideMenu;
     exploreJob.url = exploreJobsUrl;
+    exploreJob.isSameUrl = this.talentService._employerProfileData == null ? true : false;
 
-    const copmanyConnectUrl = this.talentService._employerProfileData == null ? "/pages/usermanagement" : "/pages/talent-connect/company-connect";
+    const copmanyConnectUrl = this.talentService._employerProfileData == null ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/company-connect";
     const companyConnect = this.menus.find(menu => menu.title === "Company Connect") as SideMenu;
     companyConnect.url = copmanyConnectUrl;
+    companyConnect.isSameUrl = this.talentService._employerProfileData == null ? true : false;
 
   }
 
@@ -508,27 +519,8 @@ export class SidenavComponent {
     });
   }
 
-  listClick(event: any, newValue: any) {
-    // return;
-    this.visibleExhasted = false;
-
-    // this.authService.getNewUserTimeLeft().subscribe((res) => {
-    //   let data = res.time_left;
-    //   if (data.plan === "expired" && newValue.title != "Dashboard" && newValue.title != "Tutorials" && newValue.title != "FAQ" && newValue.title != "24x7 Support") {
-    //     this.visibleExhasted = false;
-    //   } else {
-    //     this.visibleExhasted = false;
-    //   }
-    // });
-  }
-
-  onClickSubscribedUser(): void {
-    this.visibleExhasted = false;
-    if (this.enterpriseSubscriptionLink !== "") {
-      window.open(this.enterpriseSubscriptionLink, "_target");
-      return;
-    }
-    this.router.navigate(["/pages/subscriptions"]);
+  listClick(event: any, data: SideMenu) {
+    // event.stopPropagation();
   }
 
   onexpand(item: SideMenu) {
@@ -558,10 +550,6 @@ export class SidenavComponent {
       }
       this.router.navigateByUrl(item.url || "/");
     }
-  }
-
-  closeQuiz(): void {
-    this.visibleExhasted = false;
   }
 
   apiToCheckPartnerOrInstitute() {
