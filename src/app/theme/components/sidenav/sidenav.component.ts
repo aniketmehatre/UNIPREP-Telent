@@ -379,18 +379,18 @@ export class SidenavComponent {
     //this.sampleMenus = this.menus;
     let userTypeId = this.authService._user?.student_type_id == 2
     //  this condition for after refreshing also subscription menu need to hide for institute don't remove
-    if (this.authService._user?.student_type_id == 2) {
-      this.menus = userTypeId
-        ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
-        : this.menus;
-    }
+   // if (this.authService._user?.student_type_id == 2) {
+   //   this.menus = userTypeId
+    //    ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
+    //    : this.menus;
+   // }
     this.authService.userData.subscribe((data) => {
-      if (data?.student_type_id == 2) {
-        this.menus = userTypeId
-          ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
-          : this.menus;
+     // if (data?.student_type_id == 2) {
+      //  this.menus = userTypeId
+      //    ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
+       //   : this.menus;
         //this.menus = this.menus.filter((menu) => !this.collegeStudentRestrictedMenus?.includes(menu?.title));
-      }
+     // }
       const educationLevel = data?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation";
       if (educationLevel === "K10") {
         this.menus = this.menus.filter((menu) => !this.k10RestrictedMenus?.includes(menu?.title));
