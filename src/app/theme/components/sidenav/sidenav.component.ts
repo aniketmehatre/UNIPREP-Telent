@@ -20,7 +20,10 @@ export interface SideMenu {
   children?: SideMenu[];
   active?: boolean;
   restricted?: boolean;
-  isSameUrl?:boolean;
+  sameUrl?: boolean;
+  popular?: boolean;
+  mostPopular?: boolean;
+  subMenu?: boolean;
 }
 
 @Component({
@@ -62,6 +65,7 @@ export class SidenavComponent {
       title: "Academics",
       url: "",
       image: "",
+      subMenu: true
     },
     {
       title: "K12 Academy",
@@ -77,6 +81,7 @@ export class SidenavComponent {
       title: "Job Board",
       url: "",
       image: "",
+      subMenu: true
     },
     // {
     //   title: "Employer Connect",
@@ -85,23 +90,25 @@ export class SidenavComponent {
     // },
     {
       title: "Create Job Profile",
-      url: "",
+      url: "/pages/talent-connect/my-profile",
       image: "fa-solid fa-user",
     },
     {
       title: "Explore Jobs",
-      url: "",
+      url: "/pages/talent-connect/easy-apply",
       image: "fa-solid fa-user-tie-hair",
+      mostPopular: true
     },
     {
       title: "Company Connect",
-      url: "",
+      url: "/pages/talent-connect/company-connect",
       image: "fa-solid fa-briefcase",
     },
     {
       title: "Career",
       url: "",
       image: "",
+      subMenu: true
     },
     // {
     //   title: "Career Hub",
@@ -122,6 +129,7 @@ export class SidenavComponent {
       title: "Career Tools",
       url: "/pages/job-tool/career-tool",
       image: "fa-solid fa-file-user",
+      popular: true
     },
     // {
     //   title: "Career Planner",
@@ -137,11 +145,13 @@ export class SidenavComponent {
       title: "Travel & Life",
       url: "",
       image: "",
+      subMenu: true
     },
     {
       title: "Language Hub",
       url: "/pages/language-hub",
       image: "fa-solid fa-books",
+      popular: true
     },
     // {
     //   title: "Travel and Tourism",
@@ -157,11 +167,13 @@ export class SidenavComponent {
       title: "Travel Tools",
       url: "/pages/travel-tools",
       image: "fa-solid fa-compass",
+      popular: true
     },
     {
       title: "International Education",
       url: "",
       image: "",
+      subMenu: true
     },
     {
       title: "Global Repository",
@@ -192,6 +204,7 @@ export class SidenavComponent {
       title: "UNILEARN",
       url: "/pages/unilearn/modules",
       image: "fa-solid fa-ballot",
+      popular: true
     },
     {
       title: "UNISCHOLAR",
@@ -202,6 +215,7 @@ export class SidenavComponent {
       title: "UNIFINDER",
       url: "/pages/course-list",
       image: "fa-solid fa-landmark-magnifying-glass",
+      popular: true
     },
     {
       title: "Education Tools",
@@ -212,6 +226,7 @@ export class SidenavComponent {
       title: "Entrepreneur",
       url: "",
       image: "",
+      subMenu: true
     },
     {
       title: "Startup Kit",
@@ -232,11 +247,13 @@ export class SidenavComponent {
       title: "Pitch Deck",
       url: "/pages/pitch-deck",
       image: "fa-solid fa-presentation-screen",
+      popular: true
     },
     {
       title: "Others",
       url: "",
       image: "",
+      subMenu: true
     },
     // {
     //   title: "Assessment",
@@ -262,6 +279,7 @@ export class SidenavComponent {
     //   title: "Quiz",
     //   url: "/pages/modules/quizmodule",
     //   image: "fa-solid fa-clock-desk",
+    //   popular:true
     // },
     {
       title: "Certificates",
@@ -277,6 +295,7 @@ export class SidenavComponent {
       title: "Support",
       url: "",
       image: "",
+      subMenu: true
     },
     {
       title: "Tutorials",
@@ -315,21 +334,15 @@ export class SidenavComponent {
     //   image: 'pi pi-briefcase',
     // }
   ];
-  sampleMenus: SideMenu[] = [];
   k10RestrictedMenus: string[] = ["Career Tools", "Recommendations", "Career Hub", "Learning Hub", "Skill Mastery", "Startup Kit", "Founders Tool", "Pitch Deck", "Career", "Entrepreneur"];
   HigherEduRestritedMenus: string[] = ["K12 Academy", "K12 Academic Tools", "Academics"];
-  studentMenus = ["null"];
-  careerMenus = ["null"];
   whitlabelmenu = ["About UNIPREP", "24x7 Support", "Success Stories", "Recommendations"];
   whitlabelmenuFreeTrails = ["About UNIPREP", "24x7 Support", "Success Stories"];
-  collegeStudentMenus = ["null"]; //'Subscription'
   conditionSubscribed!: boolean;
-  currentTitle: any;
   imageWhiteLabelDomainName: any;
   whiteLabelIsShow: boolean = true;
   orgnamewhitlabel: any;
   collegeStudentRestrictedMenus = ["Assessment"];
-  currentUserSubscriptionPlan: string = "";
   premiumPlanMenus: string[] = ["Learning Hub", "Skill Mastery", "Career Tools", "Language Hub", "Travel Tools", "Global Repository",
     "UNILEARN", "UNISCHOLAR", "UNIFINDER", "Education Tools", "Startup Kit", "Founders Tool", "Pitch Deck",
     "AI Global Advisor", "Events", "Certificates"];
@@ -374,9 +387,8 @@ export class SidenavComponent {
 
   enterpriseSubscriptionLink: any;
   ngOnInit(): void {
-    this.addEasyJob()
-    this.apiToCheckPartnerOrInstitute()
-    //this.sampleMenus = this.menus;
+    this.updateMenuUrlBasedOnEmployerProfile();
+    this.apiToCheckPartnerOrInstitute();
     let userTypeId = this.authService._user?.student_type_id == 2
     //  this condition for after refreshing also subscription menu need to hide for institute don't remove
     if (this.authService._user?.student_type_id == 2) {
@@ -409,7 +421,6 @@ export class SidenavComponent {
     this.markCurrentMenu();
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res?.time_left;
-      this.currentUserSubscriptionPlan = res?.subscription_details?.subscription_plan;
       if (data.plan === "expired" || data.plan === "subscription_expired") {
         this.conditionSubscribed = false;
       } else {
@@ -426,24 +437,7 @@ export class SidenavComponent {
           this.whiteLabelIsShow = false;
         }
       }
-      if (res?.subscription_details?.subscription_plan == "free_trail" && res?.enterprise_subscription_link != "") {
-        this.enterpriseSubscriptionLink = res?.enterprise_subscription_link;
-        if (res?.enterprise_subscription_plan == "Student") {
-          this.menus = this.menus.filter((item) => !this.studentMenus.includes(item.title));
-        } else if (res?.enterprise_subscription_plan == "Career") {
-          this.menus = this.menus.filter((item) => !this.careerMenus.includes(item.title));
-        }
-      }
     });
-    if (this.authService._user?.student_type_id == 2) {
-      if (this.authService._user?.subscription_plan == "Student") {
-        this.menus = this.menus.filter((item) => !this.studentMenus.includes(item.title));
-      }
-      if (this.authService._user?.subscription_plan == "Career") {
-        this.menus = this.menus.filter((item) => !this.careerMenus.includes(item.title));
-      }
-      this.menus = this.menus.filter((item) => !this.collegeStudentMenus.includes(item.title));
-    }
     this.updateMenuUrlBasedOnSubscription();
   }
 
@@ -462,21 +456,23 @@ export class SidenavComponent {
       }
     }
   }
-  addEasyJob() {
-    const createProfileUrl = this.talentService._employerProfileData == null ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/my-profile/"+this.talentService._employerProfileData?.id;
-    const createProfile = this.menus.find(menu => menu.title === "Create Job Profile") as SideMenu;
-    createProfile.url = createProfileUrl;
 
-    const exploreJobsUrl = this.talentService._employerProfileData == null ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/easy-apply";
-    const exploreJob = this.menus.find(menu => menu.title === "Explore Jobs") as SideMenu;
-    exploreJob.url = exploreJobsUrl;
-    exploreJob.isSameUrl = this.talentService._employerProfileData == null ? true : false;
-
-    const copmanyConnectUrl = this.talentService._employerProfileData == null ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/company-connect";
-    const companyConnect = this.menus.find(menu => menu.title === "Company Connect") as SideMenu;
-    companyConnect.url = copmanyConnectUrl;
-    companyConnect.isSameUrl = this.talentService._employerProfileData == null ? true : false;
-
+  updateMenuUrlBasedOnEmployerProfile() {
+    const isProfileMissing = this.talentService._employerProfileData == null;
+    const profileId = this.talentService._employerProfileData?.id;
+    const menuMap: { [key: string]: string } = {
+      "Create Job Profile": isProfileMissing ? "/pages/talent-connect/my-profile" : `/pages/talent-connect/my-profile/${profileId}`,
+      "Explore Jobs": isProfileMissing ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/easy-apply",
+      "Company Connect": isProfileMissing ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/company-connect",
+    };
+    this.menus.forEach((menu) => {
+      if (menuMap[menu.title]) {
+        menu.url = menuMap[menu.title];
+        if (menu.title != 'Create Job Profile') {
+          menu.sameUrl = isProfileMissing;
+        }
+      }
+    });
   }
 
   changeSubscriptionUrl() {

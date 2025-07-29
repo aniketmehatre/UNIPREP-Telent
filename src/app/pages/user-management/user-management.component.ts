@@ -84,7 +84,7 @@ export class UserManagementComponent implements OnInit {
 	imageWhiteLabelDomainName: any;
 	userTypeId: boolean = true;
 	// Employer Profile Section
-	// employerProfileData: EmployeeConnectProfile | null;
+	employerProfileData: EmployeeConnectProfile | null;
 	// isUpdateEmployerProfile: boolean = false;
 	// isEmployerProfileCompleteSection: boolean = false;
 	profileSectionList: string[] = ['profileCard', 'securityCard', 'emailerCard', 'integrationsCard', 'inviteCard'];
@@ -131,7 +131,7 @@ export class UserManagementComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.setSwitchSection('profileCard');
-		// this.employerProfileData = this.talentConnectService._employerProfileData;
+		this.employerProfileData = this.talentConnectService._employerProfileData;
 		this.userTypeId = this.authService._user?.student_type_id === 2
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.imageWhiteLabelDomainName = data.source
