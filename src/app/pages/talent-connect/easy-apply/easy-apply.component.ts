@@ -257,7 +257,7 @@ export class EasyApplyComponent {
     if (domainName) {
       url = encodeURI(environment.jobDomain + `/view/${job.uuid}/${domainName}`);
     } else {
-      url = encodeURI(environment.jobDomain + `/view/` + job.uuid);
+      url = encodeURI(environment.jobDomain + `/view/${job.uuid}`);
     }
 
     //const url = environment.jobDomain + '/view/' + job.uuid;
@@ -297,9 +297,9 @@ export class EasyApplyComponent {
     let textToCopy: any
     let domainName = this.storage.get('domainname');
     if (domainName) {
-      textToCopy = encodeURI(environment.jobDomain + `/view/` + job.uuid`/${domainName}`);
+      textToCopy = encodeURI(environment.jobDomain + `/view/${job.uuid}/${domainName}`);
     } else {
-      textToCopy = encodeURI(environment.jobDomain + `/view/` + job.uuid);
+      textToCopy = encodeURI(environment.jobDomain + `/view/${job.uuid}`);
     }
     this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
   }

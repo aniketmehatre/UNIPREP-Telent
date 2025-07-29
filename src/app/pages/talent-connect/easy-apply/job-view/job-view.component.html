@@ -15,13 +15,16 @@
 	</div>
 	<div class="card-body text-start flex-fill overflow-y-auto">
 		<div class="row justify-content-between h-100">
-			<div class="h-100 overflow-hidden" [ngClass]="!isShowApplyChat ? 'col-sm-12' : 'col-sm-12 col-md-7 col-lg-8 col-xl-9'" *ngIf="showInfo">
+			<div class="h-100 overflow-hidden"
+				[ngClass]="!isShowApplyChat ? 'col-sm-12' : 'col-sm-12 col-md-7 col-lg-8 col-xl-9'" *ngIf="showInfo">
 				<div class="card h-100 overflow-y-auto">
 					<div class="card-header bg-transparent p-4">
 						<div class="row align-items-start">
 							<div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-4">
 								<div class="rounded-2 border overflow-hidden">
-									<img class="company-logo" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="jobDetails?.company_logo_url" alt="company_logo" />
+									<img class="company-logo"
+										(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
+										[src]="jobDetails?.company_logo_url" alt="company_logo" />
 								</div>
 							</div>
 							<div class="col-xxl-11 col-xl-11 col-lg-10 col-md-10 col-sm-9 col-8">
@@ -41,46 +44,70 @@
 											<div class="col-12 text-md-end text-center mb-2 d-md-block d-none">
 												<div class="d-flex gap-2">
 													<div class="position-relative w-100">
-														<button pButton label="Share Job" iconPos="right" icon="pi pi-share-alt"
-															class="btn btn-secondary w-100"
-															(click)="showSocialSharingList('socialSharingList')"> </button>
+														<button pButton label="Share Job" iconPos="right"
+															icon="pi pi-share-alt" class="btn btn-secondary w-100"
+															(click)="showSocialSharingList('socialSharingList')">
+														</button>
 														<p-card id="socialSharingList">
 															<ul style="list-style: none; cursor: pointer">
-																<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-																<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
-																<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
-																<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
-																<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
-																<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
-																<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+																<li (click)="shareQuestion('Whatsapp')"><i
+																		class="pi pi-whatsapp"></i>Whatsapp</li>
+																<li (click)="shareQuestion('Mail')"><i
+																		class="pi pi-envelope"></i>Email</li>
+																<li (click)="shareQuestion('Facebook')"><i
+																		class="pi pi-facebook"></i>Facebook</li>
+																<li (click)="shareQuestion('Twitter')"><i
+																		class="pi pi-twitter"></i>Twitter</li>
+																<li (click)="shareQuestion('Instagram')"><i
+																		class="pi pi-instagram"></i>Instagram</li>
+																<li (click)="shareQuestion('LinkedIn')"><i
+																		class="pi pi-linkedin"></i>LinkedIn</li>
+																<li (click)="copyLink($event, jobDetails)"><i
+																		class="pi pi-link"></i>Copy Link</li>
 															</ul>
 														</p-card>
 													</div>
-													<button pButton label="Close Info" class="btn btn-primary w-100" (click)="showInfo = false" *ngIf="isShowApplyChat && isApplied"></button>
-													<button pButton class="p-button-success chat-btn w-100" *ngIf="!isShowApplyChat && isApplied" (click)="isShowApplyChat = true"><i class="pi pi-comments"></i> Chat</button>
+													<button pButton label="Close Info" class="btn btn-primary w-100"
+														(click)="showInfo = false"
+														*ngIf="isShowApplyChat && isApplied"></button>
+													<button pButton class="p-button-success chat-btn w-100"
+														*ngIf="!isShowApplyChat && isApplied"
+														(click)="isShowApplyChat = true"><i class="pi pi-comments"></i>
+														Chat</button>
 												</div>
 											</div>
 											<div class="col-12 d-block d-md-none">
-												<button class="p-button-success chat-btn w-100 mb-2" pButton *ngIf="isApplied" (click)="visible = true"><i class="pi pi-comments"></i> Chat</button>
+												<button class="p-button-success chat-btn w-100 mb-2" pButton
+													*ngIf="isApplied" (click)="visible = true"><i
+														class="pi pi-comments"></i> Chat</button>
 												<div class="position-relative w-100">
-														<button pButton label="Share Job" iconPos="right" icon="pi pi-share-alt"
-															class="btn btn-secondary w-100"
-															(click)="showSocialSharingList('socialSharingListMobile')"> </button>
-														<p-card id="socialSharingListMobile">
-															<ul style="list-style: none; cursor: pointer">
-																<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-																<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
-																<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
-																<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
-																<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
-																<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
-																<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
-															</ul>
-														</p-card>
-													</div>
+													<button pButton label="Share Job" iconPos="right"
+														icon="pi pi-share-alt" class="btn btn-secondary w-100"
+														(click)="showSocialSharingList('socialSharingListMobile')">
+													</button>
+													<p-card id="socialSharingListMobile">
+														<ul style="list-style: none; cursor: pointer">
+															<li (click)="shareQuestion('Whatsapp')"><i
+																	class="pi pi-whatsapp"></i>Whatsapp</li>
+															<li (click)="shareQuestion('Mail')"><i
+																	class="pi pi-envelope"></i>Email</li>
+															<li (click)="shareQuestion('Facebook')"><i
+																	class="pi pi-facebook"></i>Facebook</li>
+															<li (click)="shareQuestion('Twitter')"><i
+																	class="pi pi-twitter"></i>Twitter</li>
+															<li (click)="shareQuestion('Instagram')"><i
+																	class="pi pi-instagram"></i>Instagram</li>
+															<li (click)="shareQuestion('LinkedIn')"><i
+																	class="pi pi-linkedin"></i>LinkedIn</li>
+															<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link
+															</li>
+														</ul>
+													</p-card>
+												</div>
 											</div>
 											<div class="col-12 text-lg-end text-start">
-												<p class="posted-date">Posted On : {{ jobDetails.created_at | date : "dd-MM-yyyy" }}</p>
+												<p class="posted-date">Posted On : {{ jobDetails.created_at | date :
+													"dd-MM-yyyy" }}</p>
 											</div>
 										</div>
 									</div>
@@ -91,7 +118,8 @@
 													<span><i class="fa-solid fa-user-magnifying-glass fa-lg"></i></span>
 													<div>
 														<p class="text-muted text-small mb-0">Total Vacancies</p>
-														<h4 class="mb-0 fw-bold">{{ jobDetails.available_vacancies }}</h4>
+														<h4 class="mb-0 fw-bold">{{ jobDetails.available_vacancies }}
+														</h4>
 													</div>
 												</div>
 											</div>
@@ -110,12 +138,14 @@
 													<span><i class="fa-solid fa-video fa-lg text-muted"></i></span>
 													<div>
 														<p class="text-muted text-small mb-0">Introduction Video</p>
-														<h6 class="mb-0 fw-bold">{{ jobDetails.intro_video == "No" ? "Not Mandatory" : "Mandatory" }}</h6>
+														<h6 class="mb-0 fw-bold">{{ jobDetails.intro_video == "No" ?
+															"Not Mandatory" : "Mandatory" }}</h6>
 													</div>
 												</div>
 											</div>
 											<div class="col-md-6 col-6">
-												<p class="text-muted text-small mb-0">{{ jobDetails.matching_skills }}</p>
+												<p class="text-muted text-small mb-0">{{ jobDetails.matching_skills }}
+												</p>
 											</div>
 										</div>
 									</div>
@@ -149,7 +179,8 @@
 					<div class="card-body h-100 p-4">
 						<div class="row mb-4">
 							<div class="col-md-12">
-								<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-3" [ngClass]="{ '!row-cols-lg-4': isShowApplyChat }">
+								<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-3"
+									[ngClass]="{ '!row-cols-lg-4': isShowApplyChat }">
 									<!-- Start Date -->
 									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
@@ -190,10 +221,13 @@
 									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
-												<i class="fa fa-building-user me-2" style="color: var(--p-secondary-500)"></i>
+												<i class="fa fa-building-user me-2"
+													style="color: var(--p-secondary-500)"></i>
 												<div>
 													<span class="text-muted">Work Mode</span>
-													<div class="fw-bold text-break">{{ Array.isArray(jobDetails.work_mode) ? jobDetails.work_mode.join(", ") : jobDetails.work_mode }}</div>
+													<div class="fw-bold text-break">{{
+														Array.isArray(jobDetails.work_mode) ?
+														jobDetails.work_mode.join(", ") : jobDetails.work_mode }}</div>
 												</div>
 											</div>
 										</div>
@@ -205,7 +239,10 @@
 												<i class="fas fa-person-digging me-2" style="color: red"></i>
 												<div>
 													<span class="text-muted">Work Type</span>
-													<div class="fw-bold text-break">{{ Array.isArray(jobDetails.employment_type) ? jobDetails.employment_type.join(", ") : jobDetails.employment_type }}</div>
+													<div class="fw-bold text-break">{{
+														Array.isArray(jobDetails.employment_type) ?
+														jobDetails.employment_type.join(", ") :
+														jobDetails.employment_type }}</div>
 												</div>
 											</div>
 										</div>
@@ -218,8 +255,8 @@
 												<div>
 													<span class="text-muted">Salary Offered per Month</span>
 													<div class="fw-bold">
-														<span class="me-1">{{ jobDetails.currency_code }}</span
-														>{{ jobDetails.salary_offer }}
+														<span class="me-1">{{ jobDetails.currency_code }}</span>{{
+														jobDetails.salary_offer }}
 													</div>
 												</div>
 											</div>
@@ -233,7 +270,10 @@
 												<div>
 													<span class="text-muted">Experience Level</span>
 													<div class="fw-bold">
-														{{ jobDetails.experience_level == "Fresher" ? jobDetails.experience_level : jobDetails.experience_level == "1" ? jobDetails.experience_level + "year" : jobDetails.experience_level + " years" }}
+														{{ jobDetails.experience_level == "Fresher" ?
+														jobDetails.experience_level : jobDetails.experience_level == "1"
+														? jobDetails.experience_level + "year" :
+														jobDetails.experience_level + " years" }}
 													</div>
 												</div>
 											</div>
@@ -246,7 +286,8 @@
 												<i class="fas fa-user-graduate me-2 text-primary"></i>
 												<div>
 													<span class="text-muted">Minimum Educational Requirement</span>
-													<div class="fw-bold text-break">{{ jobDetails.minimum_education }}</div>
+													<div class="fw-bold text-break">{{ jobDetails.minimum_education }}
+													</div>
 												</div>
 											</div>
 										</div>
@@ -270,7 +311,8 @@
 												<i class="fa-solid fa-transgender me-2" style="color: darkblue"></i>
 												<div>
 													<span class="text-muted">Gender Requirements</span>
-													<div class="fw-bold">{{ jobDetails.gender_requirement_name ?? "N/A" }}</div>
+													<div class="fw-bold">{{ jobDetails.gender_requirement_name ?? "N/A"
+														}}</div>
 												</div>
 											</div>
 										</div>
@@ -301,7 +343,8 @@
 								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
 									<div class="row">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Key<br class="d-none d-md-block" />Responsibilities</h2>
+											<h2 class="fs-3 fw-bold">Key<br class="d-none d-md-block" />Responsibilities
+											</h2>
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div [innerHTML]="jobDetails?.key_responsibilities"></div>
@@ -316,14 +359,17 @@
 								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
 									<div class="row">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Language<br class="d-none d-md-block" />Proficiency</h2>
+											<h2 class="fs-3 fw-bold">Language<br class="d-none d-md-block" />Proficiency
+											</h2>
 										</div>
 										<div class="col-12 col-md-9">
 											<ul class="list-unstyled font-bold">
 												<li *ngFor="let lang of jobDetails?.languages" class="mb-3">
 													<div class="d-flex align-items-center gap-2">
 														<span class="me-2">{{ lang.lang }}</span>
-														<p-rating *ngIf="lang.level" style="font-size: large" [ngModel]="getProficiencyRating(lang.level)" [readonly]="true"></p-rating>
+														<p-rating *ngIf="lang.level" style="font-size: large"
+															[ngModel]="getProficiencyRating(lang.level)"
+															[readonly]="true"></p-rating>
 													</div>
 												</li>
 											</ul>
@@ -339,11 +385,14 @@
 								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
 									<div class="row">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Compensation<br class="d-none d-md-block" />Structure</h2>
+											<h2 class="fs-3 fw-bold">Compensation<br
+													class="d-none d-md-block" />Structure</h2>
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
-												<span *ngFor="let comp of jobDetails.compensation_structure" class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ comp }}</span>
+												<span *ngFor="let comp of jobDetails.compensation_structure"
+													class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													comp }}</span>
 											</div>
 										</div>
 									</div>
@@ -357,11 +406,14 @@
 								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
 									<div class="row">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Additional Benefits<br class="d-none d-md-block" />& Perks</h2>
+											<h2 class="fs-3 fw-bold">Additional Benefits<br
+													class="d-none d-md-block" />& Perks</h2>
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
-												<span *ngFor="let benefit of jobDetails.benefits_perks" class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ benefit }}</span>
+												<span *ngFor="let benefit of jobDetails.benefits_perks"
+													class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													benefit }}</span>
 											</div>
 										</div>
 									</div>
@@ -379,7 +431,9 @@
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
-												<span *ngFor="let skill of jobDetails?.soft_skills" class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ skill }}</span>
+												<span *ngFor="let skill of jobDetails?.soft_skills"
+													class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													skill }}</span>
 											</div>
 										</div>
 									</div>
@@ -398,16 +452,22 @@
 										<div class="col-12 col-md-9 font-bold">
 											<h6 class="mb-2 text-primary">Hiring Process Stages</h6>
 											<div class="d-flex flex-wrap gap-2 mb-4">
-												<ng-container *ngIf="Array.isArray(jobDetails.hiring_stages) && jobDetails.hiring_stages.length > 0">
+												<ng-container
+													*ngIf="Array.isArray(jobDetails.hiring_stages) && jobDetails.hiring_stages.length > 0">
 													<ng-container *ngIf="jobDetails.hiring_stages[0].id !== undefined">
-														<span *ngFor="let stage of jobDetails.hiring_stages" class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage.name }}</span>
+														<span *ngFor="let stage of jobDetails.hiring_stages"
+															class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+															stage.name }}</span>
 													</ng-container>
 													<ng-container *ngIf="jobDetails.hiring_stages[0].id === undefined">
-														<span *ngFor="let stage of jobDetails.hiring_stages" class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage }}</span>
+														<span *ngFor="let stage of jobDetails.hiring_stages"
+															class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+															stage }}</span>
 													</ng-container>
 												</ng-container>
 												<ng-container *ngIf="!Array.isArray(jobDetails.hiring_stages)">
-													<span class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ jobDetails.hiring_stages }}</span>
+													<span class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+														jobDetails.hiring_stages }}</span>
 												</ng-container>
 											</div>
 
@@ -416,7 +476,8 @@
 
 											<h6 class="mb-2 text-primary">Interview Format</h6>
 											<div class="d-flex flex-wrap gap-2 mb-4">
-												<span *ngFor="let stage of jobDetails.interview_format" class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">
+												<span *ngFor="let stage of jobDetails.interview_format"
+													class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">
 													{{ stage }}
 												</span>
 											</div>
@@ -442,12 +503,16 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-12 d-md-block d-none h-100" *ngIf="isShowApplyChat" [ngClass]="{ 'col-md-5 col-lg-4 col-xl-3 overflow-y-auto': showInfo }">
-				<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails" [jobId]="appliedId" [isJobApplied]="false" (closeChat)="isShowApplyChat = false"></uni-job-chat-ui>
+			<div class="col-12 d-md-block d-none h-100" *ngIf="isShowApplyChat"
+				[ngClass]="{ 'col-md-5 col-lg-4 col-xl-3 overflow-y-auto': showInfo }">
+				<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails"
+					[jobId]="appliedId" [isJobApplied]="false" (closeChat)="isShowApplyChat = false"></uni-job-chat-ui>
 			</div>
 			<p-drawer #drawerRef [(visible)]="visible" position="right" [style]="{ width: '80vw' }">
 				<ng-template #headless>
-					<uni-job-chat-ui class="h-100" (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails" [jobId]="appliedId" [isJobApplied]="false" (closeChat)="isShowApplyChat = false"></uni-job-chat-ui>
+					<uni-job-chat-ui class="h-100" (openInfo)="showInfo = true" [showInfo]="showInfo"
+						[jobDetails]="jobDetails" [jobId]="appliedId" [isJobApplied]="false"
+						(closeChat)="isShowApplyChat = false"></uni-job-chat-ui>
 				</ng-template>
 			</p-drawer>
 		</div>

@@ -14,6 +14,7 @@ import { CardModule } from "primeng/card";
 import { SocialShareService } from "src/app/services/social-share.service";
 import { Meta } from "@angular/platform-browser";
 import { environment } from "@env/environment";
+import { LocalStorageService } from "ngx-localstorage";
 
 @Component({
 	selector: "uni-job-view",
@@ -36,7 +37,8 @@ export class JobViewComponent implements OnInit {
 	currentView: "initial" | "conversation" = "initial";
 
 	constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService,
-		private message: MessageService, private router: Router, private socialShareService: SocialShareService, private meta: Meta) { }
+		private message: MessageService, private router: Router, private storage: LocalStorageService,
+		private socialShareService: SocialShareService, private meta: Meta) { }
 
 	ngOnInit(): void {
 		this.checkIfProfileCreated();
@@ -172,7 +174,14 @@ export class JobViewComponent implements OnInit {
 
 	shareQuestion(type: string) {
 		const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-		const url = environment.jobDomain + '/view/' + this.jobDetails?.uuid;
+		let url: any
+		let domainName = this.storage.get('domainname');
+		if (domainName) {
+			url = encodeURI(environment.jobDomain + `/view/${this.jobDetails?.uuid}/${domainName}`);
+		} else {
+			url = encodeURI(environment.jobDomain + `/view/${this.jobDetails?.uuid}`);
+		}
+		// const url = environment.jobDomain + '/view/' + this.jobDetails?.uuid;
 		const encodedUrl = encodeURIComponent(url);
 		const title = encodeURIComponent('UNIPREP | ' + this.jobDetails?.position + ' | ' + this.jobDetails?.company_name);
 		this.meta.updateTag({ property: 'og:url', content: url });
@@ -203,8 +212,18 @@ export class JobViewComponent implements OnInit {
 		window.open(shareUrl, '_blank');
 	}
 
-	copyLink() {
-		const textToCopy = encodeURI(environment.jobDomain + '/view/' + this.jobDetails?.uuid);
+	copyLink(event: any, job: any) {
+		// const textToCopy = encodeURI(environment.jobDomain + '/view/' + this.jobDetails?.uuid);
+		// this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
+
+		event.stopPropagation();
+		let textToCopy: any
+		let domainName = this.storage.get('domainname');
+		if (domainName) {
+			textToCopy = encodeURI(environment.jobDomain + `/view/${job.uuid}/${domainName}`);
+		} else {
+			textToCopy = encodeURI(environment.jobDomain + `/view/${job.uuid}`);
+		}
 		this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
 	}
 }
