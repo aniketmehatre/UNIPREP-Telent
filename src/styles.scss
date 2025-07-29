@@ -754,7 +754,7 @@ uni-subscription {
   /* Ensure flex children stack vertically */
   overflow: hidden;
 
-  uni-subscription-data {
+  uni-subscription-data,uni-clg-subscription-data {
     flex: 1;
     /* Enable vertical scrolling for overflowing content */
     display: flex;

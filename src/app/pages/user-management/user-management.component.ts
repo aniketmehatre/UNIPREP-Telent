@@ -132,7 +132,7 @@ export class UserManagementComponent implements OnInit {
 	ngOnInit(): void {
 		this.setSwitchSection('profileCard');
 		this.employerProfileData = this.talentConnectService._employerProfileData;
-		this.userTypeId = this.authService._user?.student_type_id === 2
+		// this.userTypeId = this.authService._user?.student_type_id === 2
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.imageWhiteLabelDomainName = data.source
 			this.editLabelIsShow = this.imageWhiteLabelDomainName === "Uniprep" ||
