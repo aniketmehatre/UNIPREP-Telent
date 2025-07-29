@@ -20,7 +20,7 @@ export interface SideMenu {
   children?: SideMenu[];
   active?: boolean;
   restricted?: boolean;
-  isSameUrl?:boolean;
+  isSameUrl?: boolean;
 }
 
 @Component({
@@ -380,15 +380,15 @@ export class SidenavComponent {
     let userTypeId = this.authService._user?.student_type_id == 2
     //  this condition for after refreshing also subscription menu need to hide for institute don't remove
     if (this.authService._user?.student_type_id == 2) {
-      this.menus = userTypeId
-        ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
-        : this.menus;
+      // this.menus = userTypeId
+      //   ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
+      //   : this.menus;
     }
     this.authService.userData.subscribe((data) => {
       if (data?.student_type_id == 2) {
-        this.menus = userTypeId
-          ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
-          : this.menus;
+        // this.menus = userTypeId
+        //   ? this.menus.filter((menu: any) => menu.title !== 'Subscription')
+        //   : this.menus;
         //this.menus = this.menus.filter((menu) => !this.collegeStudentRestrictedMenus?.includes(menu?.title));
       }
       const educationLevel = data?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation";
@@ -463,7 +463,7 @@ export class SidenavComponent {
     }
   }
   addEasyJob() {
-    const createProfileUrl = this.talentService._employerProfileData == null ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/my-profile/"+this.talentService._employerProfileData?.id;
+    const createProfileUrl = this.talentService._employerProfileData == null ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/my-profile/" + this.talentService._employerProfileData?.id;
     const createProfile = this.menus.find(menu => menu.title === "Create Job Profile") as SideMenu;
     createProfile.url = createProfileUrl;
 
