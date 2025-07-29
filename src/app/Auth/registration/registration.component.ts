@@ -363,6 +363,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     openVideoPopup(){
-        this.howItWorkService.open('uniprep-student-register');
+        // this.howItWorkService.open('uniprep-student-register');
+        this.howItWorkService.open('');
     }
 }
