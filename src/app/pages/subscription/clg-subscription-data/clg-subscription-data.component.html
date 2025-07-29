@@ -212,41 +212,36 @@
                       <div class="card-body p-4">
                         <div class="permission-list">
                           <p class="what-you-get">What you get</p>
-                          <p class="mt-2"
-                            pTooltip="Pre Admission,Post Admission, Universities, Career Hub,Life at Destination,Travel & Tourism"
-                            tooltipPosition="bottom"><i class="fa-solid fa-check"></i>1 Million + Q&A - 28 Countries</p>
-                          <p><i class="fa-solid fa-check"></i>UNILEARN</p>
-                          <p *ngIf="education_level==='K10'||education_level==='K12'"><i
-                              class="fa-solid fa-check"></i>K12 Academy
-                          </p>
-                          <p *ngIf="education_level==='K10'||education_level==='K12'"><i
-                              class="fa-solid fa-check"></i>K12
-                            Academic Tools</p>
-                          <p><i class="fa-solid fa-check"></i>AI Global Advisor</p>
-                          <p><i class="fa-solid fa-check"></i>Quiz and Certification</p>
-                          <p><i class="fa-solid fa-check"></i>UNIFINDER</p>
-                          <p><i class="fa-solid fa-check"></i>UNISCHOLAR</p>
-                          <p><i class="fa-solid fa-check"></i>Language Hub</p>
-                          <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                              class="fa-solid fa-check"></i>Career Tools</p>
-                          <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                              class="fa-solid fa-check"></i>Job Portal</p>
-                          <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                              class="fa-solid fa-check"></i>Learning Hub</p>
-                          <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                              class="fa-solid fa-check"></i>Skill Mastery</p>
-                          <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                              class="fa-solid fa-check"></i>Startup Kit</p>
-                          <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                              class="fa-solid fa-check"></i>Founders Tool</p>
-                          <p *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i
-                              class="fa-solid fa-check"></i>1000+ Business Pitches</p>
+                          <p><i class="fa-solid fa-check me-2 green"></i>Create Talent Profile</p>
+                          <p><i class="fa-solid fa-check me-2 green"></i>Share Talent Profile</p>
+                          <p><i class="fa-solid fa-check me-2 green"></i>Apply to Unlimited Jobs</p>
+                          <p><i class="fa-solid fa-check me-2 green"></i>Connect With Company</p>
+                          <p><i class="fa-solid fa-check me-2 green"></i>AI Global Advisor</p>
+                          <p><i class="fa-solid fa-times me-2 red"></i>Dedicated Career Coach<span class="text-muted ms-2"
+                              style="font-size: 10px;">2 Calls/Month</span></p>
+                          <p><i class="fa-solid fa-times me-2 red"></i>Career Tools<span class="text-muted ms-2"
+                              style="font-size: 10px;">20 + Tools</span></p>
+                          <p><i class="fa-solid fa-times me-2 red"></i>Education Tools<span class="text-muted ms-2"
+                              style="font-size: 10px;">10 + Tools</span></p>
+                          <p><i class="fa-solid fa-times me-2 red"></i>Enterpreneur Tools<span class="text-muted ms-2"
+                              style="font-size: 10px;">10 + Tools</span></p>
+                          <p><i class="fa-solid fa-times me-2 red"></i>Travel Tools<span class="text-muted ms-2"
+                              style="font-size: 10px;">10 + Tools</span></p>
                         </div>
                       </div>
                       <div class="card-footer py-2 px-4 mb-5">
-                        <h5 class="fw-semibold">{{ timeLeftInfoCard }} Validity</h5>
-                        <div class="getstartedbtn pb-2">
-                          <button pButton class="pt-3 pb-3 btn btn-basic w-100 m-0 btn-basic">Current</button>
+                        <h6 class="fw-semibold text-small mb-0">60 Minutes Validity</h6>
+                        <div class="getstartedbtn pb-0" *ngIf="planstage==0">
+                          <button pButton class="px-5 py-1 btn btn-basic btn-sm m-0" [disabled]="'true'"
+                            style="color:var(--p-neutral-50);background:black">Not Applicable</button>
+                        </div>
+                        <div class="getstartedbtn pb-0" *ngIf="planstage==1">
+                          <button pButton class="px-5 py-1 btn btn-basic btn-sm m-0"
+                            style="color:var(--p-neutral-50);background:black">Current Plan</button>
+                        </div>
+                        <div class="getstartedbtn pb-0" *ngIf="planstage == 2 || planstage == 3">
+                          <button pButton class="px-5 py-1 btn btn-primary m-0" [disabled]="'true'"
+                            style="color:var(--p-neutral-50)">Select</button>
                         </div>
                       </div>
                     </div>
@@ -291,58 +286,66 @@
                           <div class="card-body p-4">
                             <div class="permission-list">
                               <p class="what-you-get">What you get</p>
-                              <p class="mt-2"><i class="fa-solid fa-check"></i>1 Million + Q&A - 28 Countries</p>
-                              <p><i class="fa-solid fa-check"></i>UNILEARN</p>
-                              <p *ngIf="education_level==='K10'||education_level==='K12'"><i
-                                  class="fa-solid fa-check"></i>K12
-                                Academy
-                              </p>
-                              <p *ngIf="education_level==='K10'||education_level==='K12'"><i
-                                  class="fa-solid fa-check"></i>K12
-                                Academic Tools</p>
-                              <p><i class="fa-solid fa-check"></i>AI Global Advisor</p>
-                              <p><i class="fa-solid fa-check"></i>Quiz and Certification</p>
-                              <p><i class="fa-solid fa-check"></i>UNIFINDER</p>
-                              <p><i class="fa-solid fa-check"></i>UNISCHOLAR</p>
-                              <p><i class="fa-solid fa-check"></i>Language Hub</p>
-                              <p
-                                *ngIf="(education_level==='HigherEducation'||education_level==='K12')&&(subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur')">
-                                <i class="fa-solid fa-check"></i>Career Tools
-                              </p>
-                              <p
-                                *ngIf="(education_level==='HigherEducation'||education_level==='K12')&&(subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur')">
-                                <i class="fa-solid fa-check"></i>Job Portal
-                              </p>
-                              <p
-                                *ngIf="(education_level==='HigherEducation'||education_level==='K12')&&(subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur')">
-                                <i class="fa-solid fa-check"></i>Learning Hub
-                              </p>
-                              <p
-                                *ngIf="(education_level==='HigherEducation'||education_level==='K12')&&(subscription.subscription_plan === 'Career' || subscription.subscription_plan === 'Entrepreneur')">
-                                <i class="fa-solid fa-check"></i>Skill Mastery
-                              </p>
-                              <p
-                                *ngIf="(education_level==='HigherEducation'||education_level==='K12')&& subscription.subscription_plan === 'Entrepreneur'">
-                                <i class="fa-solid fa-check"></i>Startup Kit
-                              </p>
-                              <p
-                                *ngIf="(education_level==='HigherEducation'||education_level==='K12')&& subscription.subscription_plan === 'Entrepreneur'">
-                                <i class="fa-solid fa-check"></i>Founders Tool
-                              </p>
-                              <p
-                                *ngIf="(education_level==='HigherEducation'||education_level==='K12')&& subscription.subscription_plan === 'Entrepreneur'">
-                                <i class="fa-solid fa-check"></i>1000+ Business Pitches
-                              </p>
+                              <p><i class="fa-solid fa-check me-2 green"></i>Create Talent Profile</p>
+                              <p><i class="fa-solid fa-check me-2 green"></i>Share Talent Profile</p>
+                              <p><i class="fa-solid fa-check me-2 green"></i>Apply to Unlimited Jobs</p>
+                              <p><i class="fa-solid fa-check me-2 green"></i>Connect With Company</p>
+                              <p><i class="fa-solid fa-check me-2 green"></i>AI Global Advisor</p>
+                              <p><i class="fa-solid fa-check me-2 green"></i>Dedicated Career Coach<span class="text-muted ms-2"
+                                  style="font-size: 10px;">2 Calls/Month</span></p>
+                              <p><i class="fa-solid fa-check me-2 green"></i>Career Tools<span class="text-muted ms-2"
+                                  style="font-size: 10px;">20 + Tools</span></p>
+                              <p><i class="fa-solid fa-check me-2 green"></i>Education Tools<span class="text-muted ms-2"
+                                  style="font-size: 10px;">10 + Tools</span></p>
+                              <p><i class="fa-solid fa-check me-2 green"></i>Enterpreneur Tools<span class="text-muted ms-2"
+                                  style="font-size: 10px;">10 + Tools</span></p>
+                              <p><i class="fa-solid fa-check me-2 green"></i>Travel Tools<span class="text-muted ms-2"
+                                  style="font-size: 10px;">10 + Tools</span></p>
                             </div>
                           </div>
                           <div class="card-footer py-2 px-4" [ngClass]="subscription.popular != 1 ? 'mb-5' : ''">
-                            <h5 class="fw-semibold">{{ subscription.validity }} Month Validity</h5>
-                            <div class="getstartedbtn pb-2"><button pButton
-                                class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected"
+                            <div class="getstartedbtn flex pb-0" *ngIf="planstage==0">
+                              <div class="col-6">
+                                <h6 class="fw-semibold text-small mb-0">60 Minutes Validity</h6>
+                                <button pButton class="px-4 py-1 btn btn-basic w-100 m-0"
+                                  style="color:var(--p-neutral-50);background:black">Current Plan (On
+                                  Trail)</button>
+                              </div>
+                              <div class="col-6">
+                                <h6 class="fw-semibold text-small mb-0">{{ subscription.validity }} Months Validity</h6>
+                                <button pButton class="px-5 py-1 btn btn-primary w-100 m-0 text-white"
+                                  *ngIf="subscription.selected"
+                                  (click)="selectedSubscriptionPlan(subscription)">Selected</button>
+                                <button pButton class="px-5 py-1 btn btn-basic w-100 m-0"
+                                  style="color:var(--p-neutral-50)" *ngIf="!subscription.selected"
+                                  (click)="selectedSubscriptionPlan(subscription)">Conitnue
+                                  Plan</button>
+                              </div>
+                            </div>
+                            <div class="getstartedbtn pb-0" *ngIf="planstage==1">
+                              <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity
+                              </h6>
+                              <button pButton class="px-5 py-1 btn btn-primary m-0 text-white"
+                                *ngIf="subscription.selected"
                                 (click)="selectedSubscriptionPlan(subscription)">Selected</button>
-                              <button pButton class="pt-3 pb-3 btn btn-grey w-100 m-0 text-white"
-                                *ngIf="!subscription.selected" (click)="selectedSubscriptionPlan(subscription)">Select
+                              <button pButton class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50)"
+                                *ngIf="!subscription.selected"
+                                (click)="selectedSubscriptionPlan(subscription)">Upgrade</button>
+                            </div>
+                            <div class="getstartedbtn pb-0" *ngIf="planstage==2">
+                              <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity
+                              </h6>
+                              <button pButton class="px-5 py-1 btn btn-dark m-0"
+                                style="color:var(--p-neutral-50)">Current
                                 Plan</button>
+                            </div>
+                            <div class="getstartedbtn pb-0" *ngIf="planstage==3">
+                              <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity
+                              </h6>
+                              <button pButton class="px-5 py-1 btn btn-basic m-0"
+                                (click)="selectedSubscriptionPlan(subscription)"
+                                style="color:var(--p-neutral-50)">Purchase
+                                Again</button>
                             </div>
                           </div>
                         </div>
