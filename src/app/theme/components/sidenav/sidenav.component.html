@@ -52,7 +52,7 @@
 			<li class="position-relative">
 				<p class="px-3 fw-semibold text-small mb-2"><span class="maintext">Main</span> Menu</p>
 			</li>
-			<li [ngClass]="{ 'menu-item': true, active: item.active && !item?.restricted, overlap: isOverlap }"
+			<li [ngClass]="{ 'menu-item': true, active: item.active && !item?.restricted && !item?.isSameUrl, overlap: isOverlap }"
 				*ngFor="let item of filteredMenus" (click)="listClick($event, item)">
 				<ng-container *ngIf="item.header; else menu">
 					<div class="system-main__apps header">
@@ -73,7 +73,7 @@
 						class="system-main__apps" (click)="onexpand(item)">
 						<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
 						<span class="system-main__name"> {{ item.title }} <span class="badge bg-success"
-								*ngIf="item.title == 'Language Hub' || item.title == 'Career Tools' || item.title == 'Pitch Deck' || item.title == 'UNILEARN' || item.title == 'Employer Connect' || item.title == 'UNIFINDER' || item.title == 'Quiz'"
+								*ngIf="item.title == 'Language Hub' || item.title == 'Career Tools' || item.title == 'Pitch Deck' || item.title == 'UNILEARN' || item.title == 'UNIFINDER' || item.title == 'Quiz'"
 								style="width: fit-content; background: var(--p-lime-500) !important">Popular</span>
 						</span>
 					</div>
@@ -97,7 +97,7 @@
 	<li class="position-relative">
 		<p class="px-3 fw-semibold text-small mb-2"><span class="maintext">Main</span> Menu</p>
 	</li>
-	<li [ngClass]="{ 'menu-item': true, active: item.active && !item?.restricted, overlap: isOverlap }" *ngFor="let item of filteredMenus"
+	<li [ngClass]="{ 'menu-item': true, active: item.active && !item?.restricted && !item?.isSameUrl, overlap: isOverlap }" *ngFor="let item of filteredMenus"
 		(click)="listClick($event, item)">
 		<ng-container *ngIf="item.header; else menu">
 			<div class="system-main__apps header">
@@ -120,7 +120,7 @@
 				<span class="system-main__name d-flex flex-column">
 					<span>{{ item.title }}</span>
 					<span class="badge"
-						*ngIf="item.title == 'Language Hub' || item.title == 'Career Tools' || item.title == 'Pitch Deck' || item.title == 'UNILEARN' || item.title == 'UNIFINDER' || item.title == 'Quiz' || item.title == 'Employer Connect' || item.title == 'Cost of Living' || item.title == 'Travel Tools' || item.title == 'Explore Jobs' || item.title == 'Company Connect'"
+						*ngIf="item.title == 'Language Hub' || item.title == 'Career Tools' || item.title == 'Pitch Deck' || item.title == 'UNILEARN' || item.title == 'UNIFINDER' || item.title == 'Quiz' || item.title == 'Travel Tools' || item.title == 'Explore Jobs' || item.title == 'Company Connect'"
 						style="width: fit-content" [ngStyle]="{
 					  'background-color': item.title === 'Explore Jobs' ? 'var(--p-secondary-500)' : 'var(--p-lime-500)'
 					}">
@@ -151,107 +151,3 @@
     </ul>
   </li> -->
 </ul>
-
-<!-- <p-dialog [(visible)]="visibleExhasted" [closable]="false" class="p-0 m-0" [modal]="true"
-	[draggable]="false" [resizable]="false">
-	<div class="d-flex justify-content-between p-4">
-		<div>
-			<h4>Your <span class="text-xl font-bold p-1 fw-bold" style="color: var(--p-primary-500)"> Subscription</span> Was
-				Exhausted</h4>
-			<p class="get-certificate">Explore 1000+ modules and 10+ countries on UNIPREP.</p>
-		</div>
-		<div>
-			<img src="../../../uniprep-assets/images/popup-clock.png" alt="clock" width="70" />
-		</div>
-	</div>
-	<div class="px-5 pb-5 pt-3">
-		<h4>Get more with our<span class="text-xl font-bold p-1 fw-bold" style="color: var(--p-primary-500)"> Subscription.</span>
-		</h4>
-		<p class="list-data"><i class="pi pi-check mr-2"></i>Access to Over half a million questions and answers</p>
-		<p class="list-data"><i class="pi pi-check mr-2"></i>Ask any Personalized Questions & get answer within 8
-			working hours</p>
-		<p class="list-data"><i class="pi pi-check mr-2"></i>Get Expert Answers to Your Queries</p>
-		<p class="list-data"><i class="pi pi-check mr-2"></i>Discover Unexplored Questions</p>
-		<p class="list-data"><i class="pi pi-check mr-2"></i>Find Answers to your question with Verified Source links
-		</p>
-		<p class="list-data"><i class="pi pi-check mr-2"></i>Information verified by experts</p>
-		<p class="list-data"><i class="pi pi-check mr-2"></i>Navigate using Smart Keyword Search
-		</p>
-		<p class="list-data"><i class="pi pi-check mr-2"></i>Updates on international career events
-		</p>
-		<p class="list-data"><i class="pi pi-check mr-2"></i>Access to global resources</p>
-		<div class="d-flex justify-content-center">
-			<button pButton  class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()"
-				alt="chat with notification"><span class="text-small fw-normal px-3">Subscribe Now</span></button>
-		</div>
-	</div>
-</p-dialog> -->
-
-<div [ngStyle]="{ display: visibleExhasted ? 'block' : 'none' }" class="modal modal-bg subscriptionExhausted"
-	role="dialog" tabindex="-1">
-	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-		<div class="modal-content card bg-light">
-			<div class="text-right-close">
-				<a (click)="closeQuiz()" class="close" role="button">
-					<span aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></span>
-				</a>
-			</div>
-			<div class="modal-body card-body">
-				<div class="container">
-					<div *ngIf="whiteLabelIsShow" class="row mb-2">
-						<div class="col-md-12 px-4">
-							<div class="d-flex flex-column">
-								<div class="icon-container mb-3 p-1 mt-3 d-flex justify-content-center">
-									<img src="../../../uniprep-assets/images/TrialExpire.png" alt="clock" width="100" />
-								</div>
-								<div class="mt-3 mb-1">
-									<span>
-										<strong class="firsttimelogin">
-											<h5 style="color: rgb(63 76 131)">Oops! Your Free Trail Expired</h5>
-										</strong>
-									</span>
-								</div>
-								<div class="mt-1 text-center">
-									<span>
-										<strong class="firsttimelogin">
-											<h2 style="color: var(--p-secondary-500); margin-bottom: 0">Subscribe now to
-												continue using
-												the platform.</h2>
-										</strong>
-									</span>
-								</div>
-								<div class="icon-container mt-1 d-flex justify-content-center mb-1">
-									<h6 style="color: rgb(63 76 131)">Enjoy complete access to <strong>UNIPREP</strong>
-										V 1.0</h6>
-								</div>
-								<div class="d-flex justify-content-center">
-									<button pButton class="btn btn-primary btn-rounded me-2 ms-0 my-0"
-										(click)="onClickSubscribedUser()" alt="chat with notification"><span
-											class="text-small fw-normal px-3">Subscribe Now</span></button>
-								</div>
-							</div>
-						</div>
-						<div *ngIf="!whiteLabelIsShow" class="col-md-12 px-4">
-							<div class="d-flex flex-column">
-								<div class="icon-container mb-3 mt-3">
-									<img src="../../../uniprep-assets/images/TrialExpire.png" alt="clock" width="100" />
-								</div>
-								<div class="mt-3 mb-1">
-									<span>
-										<strong class="firsttimelogin">
-											<h5 style="color: rgb(63 76 131)">Oops! Your Free Trail Expired</h5>
-										</strong>
-									</span>
-								</div>
-								<div class="icon-container mt-1 d-flex justify-content-center mb-1">
-									<h6 style="color: rgb(63 76 131)">Please contact {{ orgnamewhitlabel }} Company for
-										access</h6>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>

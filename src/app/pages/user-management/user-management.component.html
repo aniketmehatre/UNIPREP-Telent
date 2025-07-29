@@ -18,13 +18,9 @@
         <li [class.active]="isActive('inviteCard')" (click)="scrollToSection('inviteCard'); setSwitchSection('inviteCard');"><i class="fa-regular fa-user-plus"></i>&nbsp;&nbsp;Invite A Friend</li>
         <hr />
         <!-- Switch case below -->
-        <li [class.active]="isActive('jobProfile')" (click)="setSwitchSection('jobProfile')"><i class="fa-regular fa-user-tie"></i>&nbsp;&nbsp;Job Profile</li>
-        <!-- <li>
-          <a routerLink="/pages/talent-connect/my-profile" class="nav-link"><i class="fa-regular fa-user-tie"></i>&nbsp;&nbsp;Talent Profile</a>
-        </li> -->
-        <li>
-          <a routerLink="/pages/job-tool/cv-builder" class="nav-link"><i class="fa-light fa-file-zipper"></i>&nbsp;&nbsp;My Resumes</a>
-        </li>
+        <!-- <li [class.active]="isActive('jobProfile')" (click)="setSwitchSection('jobProfile')"><i class="fa-regular fa-user-tie"></i>&nbsp;&nbsp;Job Profile</li> -->
+        <li routerLink="/pages/talent-connect/my-profile"><i class="fa-regular fa-user-tie"></i>&nbsp;&nbsp;Job Profile</li>
+        <li routerLink="/pages/job-tool/cv-builder"><i class="fa-light fa-file-zipper"></i>&nbsp;&nbsp;My Resumes</li>
         <hr />
 
         <li *ngIf="userTypeId" [class.active]="isActive('subscription')" (click)="setSwitchSection('subscription');"><i class="fa-solid fa-web-awesome"></i>&nbsp;&nbsp;My Subscription</li>
@@ -108,6 +104,7 @@
                     <div class="col-md-9 col-lg-9 col-sm-12">
                       <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
                         <div class="container-fluid">
+                          <!-- <div>
                           <label>Profile Picture</label>
                           <div class="row py-3 rounded-4 mb-2 mx-1" style="border: 1px solid lightgray">
                             <div class="col-md-3">
@@ -141,6 +138,7 @@
                             </div>
                           </div>
                           <small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && registrationForm.get('profile_image')?.errors?.required"> Profile Picture is required </small>
+                          </div> -->
                           <div class="row">
                             <div class="col-12 p-2">
                               <label>Name</label>
@@ -455,7 +453,7 @@
   </div>
 </div>
 <p-confirmDialog></p-confirmDialog>
-<p-dialog [(visible)]="isSampleProfileImgVisible" [modal]="true">
+<!-- <p-dialog [(visible)]="isSampleProfileImgVisible" [modal]="true">
   <ng-template #header>
     <h3 class="w-100 text-center">Profile Photo Samples</h3>
   </ng-template>
@@ -466,4 +464,4 @@
       </div>
     </div>
   </div>
-</p-dialog>
+</p-dialog> -->
