@@ -33,7 +33,7 @@ import { Image } from "primeng/image";
 import { SkeletonModule } from "primeng/skeleton"
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from "@angular/common/http"
-import {StorageService} from "../../services/storage.service";
+import { StorageService } from "../../services/storage.service";
 import { BrandColorService } from "src/app/services/brand-color.service";
 import { ButtonModule } from "primeng/button"
 import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.service"
@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authTokenService = inject(AuthTokenService);
     private cdr = inject(ChangeDetectorRef);
     private subs = new SubSink()
-    private  http = inject(HttpClient);
+    private http = inject(HttpClient);
     private brandColorService = inject(BrandColorService);
     private howItWorks = inject(HowItWorksService);
     loading = true;
@@ -137,12 +137,12 @@ export class LoginComponent implements OnInit, OnDestroy {
             })
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
             this.coBrandedImageUrl.set(data.logo)
-            if(data.brand_primary_color && data.brand_secondary_color){
+            if (data.brand_primary_color && data.brand_secondary_color) {
                 this.brandColorService.fetchAndApplyColors(data.brand_primary_color, data.brand_secondary_color)
             } else {
                 this.brandColorService.clearColorLocalStorage();
             }
-            if (data.domainname){
+            if (data.domainname) {
                 const firstPart = data.domainname.split('.')[0];
                 this.storage.set('domainname', firstPart)
             }
@@ -157,7 +157,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.loginForm.patchValue({ domain_type: this.domainName })
     }
 
-    openVideoPopup(){
+    openVideoPopup() {
         this.howItWorks.open('login-page');
     }
 
@@ -184,6 +184,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             next: (response) => {
                 const disallowedDomains = [
                     'https://uniprep.ai',
+                    'https://staging.uniprep.ai',
                     'http://localhost:4200',
                     'https://dev-student.uniprep.ai'
                 ];
@@ -299,18 +300,18 @@ export class LoginComponent implements OnInit, OnDestroy {
                 };
                 this.locationService.sendSessionData(req, "login").subscribe();
                 this.toast.add({ severity: "success", summary: "Success", detail: "Login Successful" })
-                if(!userDetails.city_id){
+                if (!userDetails.city_id) {
                     setTimeout(() => {
                         this.updateLocation();
                     }, 1000); //because of the token is not set. so i added the timeout
                 }
-                
+
                 // if (this.jobId) {
                 //     this.route.navigate([this.jobId], { replaceUrl: true })
                 // }
-                if (this.jobId){
+                if (this.jobId) {
                     this.route.navigate([this.storage.get('jobId')], { replaceUrl: true })
-                }else {
+                } else {
                     this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
                 }
             },
@@ -324,9 +325,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         })
     }
 
-    updateLocation(){
+    updateLocation() {
         this.updateCurrentLocation().then((userLocation) => {
-            if(userLocation.country != "Unknown" && userLocation.city != "Unknown"){
+            if (userLocation.country != "Unknown" && userLocation.city != "Unknown") {
                 this.locationService.updateUserLocation(userLocation).subscribe()
             }
         })

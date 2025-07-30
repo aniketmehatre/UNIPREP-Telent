@@ -23,7 +23,7 @@
         <li routerLink="/pages/job-tool/cv-builder"><i class="fa-light fa-file-zipper"></i>&nbsp;&nbsp;My Resumes</li>
         <hr />
 
-        <li *ngIf="userTypeId" [class.active]="isActive('subscription')" (click)="setSwitchSection('subscription');"><i class="fa-solid fa-web-awesome"></i>&nbsp;&nbsp;My Subscription</li>
+        <li  [class.active]="isActive('subscription')" (click)="setSwitchSection('subscription');"><i class="fa-solid fa-web-awesome"></i>&nbsp;&nbsp;My Subscription</li>
       </ul>
       <div class="card mt-2 bg-white">
         <div class="card-body d-flex flex-column justify-content-between">
@@ -39,7 +39,7 @@
             <div class="col-12 mt-2">
               <div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="progress" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
                 <div class="progress-bar" [style.width.%]="progress"></div>
-              </div>
+              </div> 
               <span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700" style="font-size: 0.8rem">Basic Details</span>
             </div>
             <div class="col-12 mt-2">

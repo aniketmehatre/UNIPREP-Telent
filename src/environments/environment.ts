@@ -2,10 +2,11 @@ const dev_domain = 'api.uniprep.ai'
 const prod_domain = 'uniprep.ai'
 const local_domain = '127.0.0.1:8000'
 const staging_domain = 'staging.uniprep.ai'
-const staging_api_url = 'http://api-staging.uniprep.ai'
+const staging_api_domain = 'api-staging.uniprep.ai'
 const dev_url = `https://${dev_domain}/uniprepapi/public/api`;
 const local_url = `http://${local_domain}/api`;
 const prod_url = `https://${prod_domain}/uniprepapi/public/api`;
+const staging_api_url = `https://${staging_api_domain}/api`;
 const dev_uni_apply_b2c_url = 'http://uniapplyb2c.uniabroad.io/auth/login?redirect=/pages/applications'
 const prod_uni_apply_b2c_url = 'http://uniapply.ai/auth/login?redirect=/pages/applications'
 const dev_uni_apply_student = 'http://74.225.142.9/uniapplyStudents/public/api'
