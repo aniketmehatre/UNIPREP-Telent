@@ -75,15 +75,13 @@ export class SubscriptionComponent implements OnInit {
 	homeCountryName: any
 	phone: string = ''
 	email: string = ''
+	isCollegeStudent: boolean = true;
 
 	constructor(private subscriptionService: SubscriptionService, private winRef: WindowRefService,
 		private authService: AuthService, private toastr: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
 		private stripeService: StripeService, private ngxService: NgxUiLoaderService,
 		private storage: StorageService, private locationService: LocationService) {
-		if (this.authService?.user?.student_type_id == 2) {
-			this.isCollegeStudent = true;
-		}
 	}
 	async ngOnInit(): Promise<void> {
 		try {
@@ -182,9 +180,9 @@ export class SubscriptionComponent implements OnInit {
 			this.stage = 1;
 			return;
 		}
-		this.loadSubData();
+		// this.loadSubData();
 	}
-	isCollegeStudent = false;
+
 	start() {
 		this.showPayLoading = false
 		this.stage = 1

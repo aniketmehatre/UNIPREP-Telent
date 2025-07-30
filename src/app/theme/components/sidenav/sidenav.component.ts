@@ -94,7 +94,7 @@ export class SidenavComponent {
       image: "fa-solid fa-user",
     },
     {
-      title: "Explore Jobs",
+      title: "Apply Jobs",
       url: "/pages/talent-connect/easy-apply",
       image: "fa-solid fa-user-tie-hair",
       mostPopular: true
@@ -343,7 +343,8 @@ export class SidenavComponent {
   whiteLabelIsShow: boolean = true;
   orgnamewhitlabel: any;
   collegeStudentRestrictedMenus = ["Assessment"];
-  premiumPlanMenus: string[] = ["Learning Hub", "Skill Mastery", "Career Tools", "Language Hub", "Travel Tools", "Global Repository",
+
+  premiumPlanMenus: string[] = ["K12 Academy", "K12 Academic Tools", "Learning Hub", "Skill Mastery", "Career Tools", "Language Hub", "Travel Tools", "Global Repository",
     "UNILEARN", "UNISCHOLAR", "UNIFINDER", "Education Tools", "Startup Kit", "Founders Tool", "Pitch Deck",
     "AI Global Advisor", "Events", "Certificates"];
 
@@ -442,18 +443,16 @@ export class SidenavComponent {
   }
 
   updateMenuUrlBasedOnSubscription() {
-    if (this.authService._user?.student_type_id == 2) {
-      if (this.authService._user?.current_plan_detail?.current_plan == "Standard") {
-        this.menus.forEach((item) => {
-          if (this.premiumPlanMenus.includes(item.title)) {
-            item.url = '/pages/subscriptions';
-            item.restricted = true;
-          }
-          else {
-            item.restricted = false;
-          }
-        });
-      }
+    if (this.authService._user?.current_plan_detail?.current_plan == "Standard") {
+      this.menus.forEach((item) => {
+        if (this.premiumPlanMenus.includes(item.title)) {
+          item.url = '/pages/subscriptions';
+          item.restricted = true;
+        }
+        else {
+          item.restricted = false;
+        }
+      });
     }
   }
 
@@ -462,7 +461,7 @@ export class SidenavComponent {
     const profileId = this.talentService._employerProfileData?.id;
     const menuMap: { [key: string]: string } = {
       "Create Job Profile": isProfileMissing ? "/pages/talent-connect/my-profile" : `/pages/talent-connect/my-profile/${profileId}`,
-      "Explore Jobs": isProfileMissing ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/easy-apply",
+      "Apply Jobs": isProfileMissing ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/easy-apply",
       "Company Connect": isProfileMissing ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/company-connect",
     };
     this.menus.forEach((menu) => {
@@ -473,15 +472,6 @@ export class SidenavComponent {
         }
       }
     });
-  }
-
-  changeSubscriptionUrl() {
-    if (this.authService.user?.subscription) {
-      const subscriptionItem = this.menus.find((item) => item.title === "Subscription");
-      if (subscriptionItem) {
-        subscriptionItem.url = "subscriptions/subscription-history";
-      }
-    }
   }
 
   markCurrentMenu() {

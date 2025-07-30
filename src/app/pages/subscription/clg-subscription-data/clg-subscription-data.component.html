@@ -132,12 +132,12 @@
                       {{ subscription.givenprice | number : ".0" }}
                       {{ subscription.currency }}
                     </h2>
-                    <div *ngIf="studentType!=2" class="d-flex" style="justify-content: space-evenly">
+                    <!-- <div *ngIf="studentType!=2" class="d-flex" style="justify-content: space-evenly">
                       <p style="font-size: 12px; font-weight: 500" class="mb-0 mt-2">
                         <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
                       </p>
                       <div class="btn discountbutton-o btnCurser">Save {{ subscription.discountpercentage }}%</div>
-                    </div>
+                    </div> -->
                   </li>
                   <li class="mt-18"><i class="fa-solid fa-check green"></i></li>
                   <li><i class="fa-solid fa-check green"></i></li>
@@ -179,8 +179,18 @@
                     </div>
                     <div class="getstartedbtn pb-0" *ngIf="planstage==2">
                       <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity</h6>
-                      <button pButton class="px-5 py-1 btn btn-dark m-0" style="color:var(--p-neutral-50)">Current
-                        Plan</button>
+                      <button *ngIf="planstatus?.current_plan_validity == subscription.validity" pButton 
+                      class="px-5 py-1 btn btn-dark m-0" style="color:var(--p-neutral-50);background:black">Current
+                      Plan</button>
+                      <button *ngIf="planstatus?.current_plan_validity > subscription.validity" pButton 
+                        class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50);background:black" [disabled]="'true'">
+                        Not Applicable </button>
+                      <ng-container *ngIf="planstatus?.current_plan_validity < subscription.validity">
+                        <button pButton class="px-5 py-1 btn btn-primary m-0 text-white" *ngIf="subscription.selected"
+                          (click)="selectedSubscriptionPlan(subscription)">Selected</button>
+                        <button pButton class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50)"
+                          *ngIf="!subscription.selected" (click)="selectedSubscriptionPlan(subscription)">Upgrade</button>
+                      </ng-container>
                     </div>
                     <div class="getstartedbtn pb-0" *ngIf="planstage==3">
                       <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity</h6>
@@ -335,9 +345,18 @@
                             <div class="getstartedbtn pb-0" *ngIf="planstage==2">
                               <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity
                               </h6>
-                              <button pButton class="px-5 py-1 btn btn-dark m-0"
-                                style="color:var(--p-neutral-50)">Current
-                                Plan</button>
+                              <button *ngIf="planstatus?.current_plan_validity == subscription?.validity" pButton class="px-5 py-1 btn btn-dark m-0"
+                               style="color:var(--p-neutral-50);background:black">
+                                Current Plan</button>
+                                <button *ngIf="planstatus?.current_plan_validity > subscription?.validity" pButton 
+                                class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50);background:black" [disabled]="'true'">
+                                Not Applicable </button>
+                                <ng-container *ngIf="planstatus?.current_plan_validity < subscription.validity">
+                                  <button pButton class="px-5 py-1 btn btn-primary m-0 text-white" *ngIf="subscription.selected"
+                                    (click)="selectedSubscriptionPlan(subscription)">Selected</button>
+                                  <button pButton class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50)"
+                                    *ngIf="!subscription.selected" (click)="selectedSubscriptionPlan(subscription)">Upgrade</button>
+                                </ng-container>
                             </div>
                             <div class="getstartedbtn pb-0" *ngIf="planstage==3">
                               <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity

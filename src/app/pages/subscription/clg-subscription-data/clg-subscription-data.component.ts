@@ -120,18 +120,30 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 			this.studentType = this.user?.student_type_id || 0;
 
 			this.ngxService.startBackground();
-			this.locationService.getCountry().subscribe(
-				(data) => {
+			this.locationService.getCountry().subscribe({
+				next:(data) => {
 					this.ngxService.stopBackground();
 					this.countryList = data;
+					if (this.user?.student_type_id != 2 && this.user?.current_plan_detail?.current_plan_validity) {
+						const validityMap: { [key: number]: number } = {
+							1: 1,
+							6: 2,
+							12: 3
+						};
+						const validity = this.user?.current_plan_detail?.current_plan_validity;
+						this.activeButton = validityMap[validity];
+						this.setActiveButton(this.activeButton)
+					} else {
+					  this.setActiveButton(this.activeButton)
+					}
 					this.setActiveButton(this.activeButton)
 					this.getSubscriptionTopupList();
 				},
-				(error) => {
+				error:(error) => {
 					this.ngxService.stopBackground();
 					console.error("Error fetching country data:", error);
 				}
-			);
+			});
 		} catch (error) {
 			console.error("Error in subscription-data initialization:", error);
 			this.currentCountry = "";
@@ -224,7 +236,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 			filteredData.splice(1, 0, ...mostPopularOnes)
 			this.subscriptionList = filteredData
 			this.subscriptionList.forEach((item: any) => {
-				item.country = item.country.split(",").map(Number)
+				item.country = item.country?.split(",").map(Number)
 				let filteredCountryIds = item.country
 				item.selected = false
 				item.selectedCountry = {}

@@ -63,4 +63,5 @@ export interface UserSubscriptionPlan {
   account_status: string
   current_plan: string
   current_plan_status: string
+  current_plan_validity: number
 }
