@@ -1,4 +1,11 @@
 :host ::ng-deep .video-dialog {
+  .p-dialog {
+    width: 59vw !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    max-height: 90vh !important;
+  }
+  
   .p-dialog-content {
     overflow: hidden;
     padding: 0;

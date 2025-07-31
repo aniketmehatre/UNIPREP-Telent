@@ -24,7 +24,9 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { landingServices } from '../../landing/landing.service';
-import { LocationService } from "src/app/services/location.service"
+import { LocationService } from "src/app/services/location.service";
+import { PageFacadeService } from "../../page-facade.service";
+
 @Component({
 	selector: "uni-subscription-data",
 	templateUrl: "./subscription-data.component.html",
@@ -81,7 +83,8 @@ export class SubscriptionDataComponent implements OnInit {
 	currentLocationCountry: any
 	constructor(private authService: AuthService, private subscriptionService: SubscriptionService, 
 		private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService, 
-		private http: HttpClient,private landingPageService: landingServices, private locationService: LocationService) {}
+		private http: HttpClient,private landingPageService: landingServices, private locationService: LocationService,
+		private pageFacade: PageFacadeService) {}
 
 	async ngOnInit(): Promise<void> {
 		try {
@@ -569,5 +572,8 @@ export class SubscriptionDataComponent implements OnInit {
 		this.getSubscriptionList();
 	}
 
+	openHowItWorksVideoPopup(){
+		this.pageFacade.openHowitWorksVideoPopup('subscription');
+	}
  
 }

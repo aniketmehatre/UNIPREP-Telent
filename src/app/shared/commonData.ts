@@ -236,4 +236,7 @@ export const howItWorksLinks: { [key: string]: { video_link: string } } = {
   "login-page" : {
     video_link: "https://www.youtube.com/embed/ly1rSeb_H78?si=OlLMYpTmmiOoaVqX"
   },
+  "subscription" : {
+    video_link : "https://www.youtube.com/embed/I2M5KwuhuZM?si=M-CXM8tSW6gJg2Bh"
+  }
 };
