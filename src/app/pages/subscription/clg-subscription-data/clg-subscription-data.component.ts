@@ -25,6 +25,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { landingServices } from '../../landing/landing.service';
 import { LocationService } from "src/app/services/location.service"
+import { PageFacadeService } from "../../page-facade.service"
 @Component({
 	selector: "uni-clg-subscription-data",
 	templateUrl: "./clg-subscription-data.component.html",
@@ -81,7 +82,8 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 	currentLocationCountry: any
 	constructor(private authService: AuthService, private subscriptionService: SubscriptionService,
 		private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService,
-		private http: HttpClient, private landingPageService: landingServices, private locationService: LocationService) { }
+		private http: HttpClient, private landingPageService: landingServices, private locationService: LocationService,
+		private pageFacade: PageFacadeService) { }
 
 	async ngOnInit(): Promise<void> {
 		try {
@@ -196,6 +198,8 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 	planstatus: any;
 	async getSubscriptionList() {
 		await this.getCurrentLoction();
+		this.subscriptionAmt = "0.00";
+		this.subscriptionTotal = this.subscriptionAmt;
 		if (this.activeButton == 1) {
 			this.monthlyPlan = 1;
 		} else if (this.activeButton == 2) {
@@ -600,4 +604,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 	}
 
 
+	openHowItWorksVideoPopup(){
+		this.pageFacade.openHowitWorksVideoPopup('subscription');
+	}
 }
