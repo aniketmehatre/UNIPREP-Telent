@@ -1,8 +1,8 @@
 <div class="card readingcard bg-white">
   <div class="card-header border-0 bg-transparent">
     <div class="row justify-content-center">
-      <div class="col-md-12 d-flex gap-2 text-start">
-        <div class="select-title d-flex justify-content-between align-items-center" style="width: 100%">
+      <div class="col-md-12 d-md-flex gap-2 text-start d-block">
+        <div class="select-title d-flex justify-content-between align-items-center mb-2 mb-md-0" style="width: 100%">
           <div class="d-flex gap-2">
             <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i
                 class="fa-regular fa-home"></i></h5>
@@ -369,6 +369,7 @@
                                 style="color:var(--p-neutral-50)">Purchase
                                 Again</button>
                             </div>
+                            <p class="orange fw-bolder mt-1" *ngIf="subscription.validity != 1">That's only {{ subscription.currency }} {{ getWholePricePerMonth(subscription.givenprice, subscription.validity)  }} a month </p>
                           </div>
                         </div>
                       </div>
