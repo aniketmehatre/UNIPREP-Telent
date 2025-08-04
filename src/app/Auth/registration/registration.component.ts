@@ -56,7 +56,7 @@ export class RegistrationComponent implements OnInit {
     show = false
     showConfirm = false
     confirmPassword: any
-
+    source: string;
     resendTime = 1
     startTimer = 0
     interval: any
@@ -114,6 +114,7 @@ export class RegistrationComponent implements OnInit {
         }
         //localStorage.clear()
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
+            this.source = data.name;
             this.whiteLabelImage = data.logo
         })
         this.authService.authState.subscribe((user) => {
@@ -195,7 +196,7 @@ export class RegistrationComponent implements OnInit {
     get f() {
         return this.registrationForm.controls
     }
-
+    onProcess: boolean = false;
     onSubmit() {
         if (this.registrationForm.value.password.length < 8 || this.registrationForm.value.confirmPassword.length < 8) {
             this.toastr.add({
@@ -213,7 +214,7 @@ export class RegistrationComponent implements OnInit {
             })
             return
         }
-
+        this.onProcess = true;
         this.submitted = true
         let data = {
             name: this.registrationForm.value.fullName,
@@ -236,6 +237,7 @@ export class RegistrationComponent implements OnInit {
                 this.router.navigate(["/pages/dashboard"], { replaceUrl: true });
             },
             error: (error) => {
+                this.onProcess = false;
                 const message = error.error?.message != undefined ? error.error?.message : error?.message;
                 this.toastr.add({ severity: "error", summary: "Failed", detail: message });
             }
@@ -363,6 +365,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     openVideoPopup(){
-        this.howItWorkService.open('uniprep-student-register');
+        let whichRegister = this.source === 'Uniprep' ? 'uniprep-student-register' : 'institute-student-register';
+        this.howItWorkService.open(whichRegister);
     }
 }
