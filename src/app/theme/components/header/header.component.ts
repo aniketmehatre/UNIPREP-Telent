@@ -1,25 +1,13 @@
 import { SocialAuthService } from "@abacritt/angularx-social-login"
 import { CommonModule } from "@angular/common"
-import {
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnDestroy,
-	OnInit,
-	Output,
-	ViewChild,
-	ViewEncapsulation
-} from "@angular/core"
-import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from "@angular/core"
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/router"
 import { MenuItem, MessageService } from "primeng/api"
 import { AuthService } from "../../../Auth/auth.service"
 import { SubSink } from "subsink"
 import { LocationService } from "../../../services/location.service"
 import { DataService } from "src/app/services/data.service"
-import { ThemeService } from "../../../services/theme.service"
 import { DashboardService } from "src/app/pages/dashboard/dashboard.service"
 import { catchError, count, EMPTY, finalize, forkJoin, Observable, timeout } from "rxjs"
 import { CountryISO, NgxIntlTelInputModule, SearchCountryField } from "ngx-intl-tel-input"
@@ -31,7 +19,7 @@ import { ILearnChallengeData } from "src/app/@Models/ilearn-challenge.model"
 import { AssessmentService } from "src/app/pages/assessment/assessment.service"
 import { AvatarModule } from "primeng/avatar"
 import { InputTextModule } from "primeng/inputtext"
-import { take, throwIfEmpty } from "rxjs/operators"
+import { take } from "rxjs/operators"
 import { SelectModule } from "primeng/select"
 import { TabViewModule } from "primeng/tabview"
 import { InputGroupModule } from "primeng/inputgroup"
