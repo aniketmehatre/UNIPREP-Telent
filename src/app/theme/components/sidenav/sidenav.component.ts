@@ -470,6 +470,11 @@ export class SidenavComponent {
         if (menu.title != 'Create Job Profile') {
           menu.sameUrl = isProfileMissing;
         }
+        else {
+          if (!isProfileMissing) {
+            menu.title = "My Job Profile"
+          }
+        }
       }
     });
   }

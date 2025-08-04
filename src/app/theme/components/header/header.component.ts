@@ -1517,8 +1517,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	onSubscribe() {
 		this.isUpgradePlanVisible = false
-		const targetUrl = this.authService?.user?.subscription ? "/pages/subscriptions/upgrade-subscription" : "/pages/subscriptions"
-		this.router.navigateByUrl(targetUrl)
+		this.router.navigateByUrl("/pages/subscriptions")
 	}
 
 	onClickiLearnChallenge() {

@@ -18,14 +18,14 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupModule } from "primeng/inputgroup"
 import { ButtonModule } from "primeng/button"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import {StorageService} from "../../services/storage.service";
+import { StorageService } from "../../services/storage.service";
 @Component({
 	selector: "uni-header-search",
 	templateUrl: "./header-search.component.html",
 	styleUrls: ["./header-search.component.scss"],
 	standalone: true,
 	imports: [CommonModule, DialogModule, FormsModule, ReactiveFormsModule, InputTextModule,
-		 InputGroupModule, ButtonModule, InputGroupAddonModule],
+		InputGroupModule, ButtonModule, InputGroupAddonModule],
 })
 export class HeaderSearchComponent implements OnInit, OnDestroy {
 	@ViewChild("searchInput", { static: false, read: ElementRef }) elRef: any
@@ -67,18 +67,14 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 	rightScrollButtonVisible: boolean = true
 	leftScrollButtonVisibleRef: boolean = false
 	rightScrollButtonVisibleRef: boolean = true
-	timeLeft: any
-	visibleExhastedData!: boolean
 	showVideoPopup: boolean = false
 	selectedVideoLink: any | null = null
-	ehitlabelIsShow: boolean = true
-	orgnamewhitlabel: any
 	flobalsearchbuttonname = "Module"
 	currentRoute: string = ""
 	isButtonShowOnlyModulesMenus: boolean = false
 	@Output() windowChange = new EventEmitter()
 	constructor(private dashboardService: DashboardService, private dataService: DataService,
-				private storage: StorageService, private moduleStoreService: ModuleStoreService, private toastr: MessageService, private moduleListService: ModuleServiceService, private sanitizer: DomSanitizer, private locationService: LocationService, private route: Router, private elementRef: ElementRef, private service: AuthService, private renderer: Renderer2) {
+		private storage: StorageService, private moduleStoreService: ModuleStoreService, private toastr: MessageService, private moduleListService: ModuleServiceService, private sanitizer: DomSanitizer, private locationService: LocationService, private route: Router, private elementRef: ElementRef, private service: AuthService, private renderer: Renderer2) {
 		this.dataService.chatTriggerSource.subscribe((message) => {
 			this.message = message
 		})
@@ -110,18 +106,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 	loadMore(): void {
 		this.page++
 	}
-	imageWhiteLabelDomainName: any
 	ngOnInit(): void {
-		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
-			this.orgnamewhitlabel = data.name
-			this.imageWhiteLabelDomainName = data.source
-			if (this.imageWhiteLabelDomainName === "Partner" || this.imageWhiteLabelDomainName === "Uniprep") {
-				this.ehitlabelIsShow = true
-			} else {
-				this.ehitlabelIsShow = false
-			}
-		})
-
 		this.responsiveOptions = [
 			{
 				breakpoint: "1199px",
@@ -139,8 +124,8 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 				numScroll: 1,
 			},
 		]
-		this.enableReadingData()
 	}
+
 	showModuleSearchBare() {
 		this.windowChange.emit({ stage: "modulesearch" })
 	}
@@ -243,11 +228,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 		this.selectedQuestionData = selectedQuestionData
 		this.selectedQuestionId = selectedQuestionData.id
 		this.readQuestion(selectedQuestionData)
-		if (this.timeLeft.plan === "expired" || this.timeLeft.plan === "subscription_expired") {
-			this.visibleExhastedData = true
-		} else {
-			this.isQuestionAnswerVisible = true
-		}
+		this.isQuestionAnswerVisible = true
 		this.searchResult.filter((res: any) => {
 			if (res.id == selectedQuestionData.id) {
 				this.refLink = res.reflink
@@ -408,38 +389,14 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 		modName = modName == "life-at-" ? "life-at-country" : modName
 		this.searchInputText = ""
 		this.isSearchResultFound = false
-		if (this.timeLeft.plan === "expired" || this.timeLeft.plan === "subscription_expired") {
-			this.visibleExhastedData = true
-		} else {
-			// this.route.navigate([`/pages/modules/${modName}`]);
-		}
-	}
-	enterpriseSubscriptionLink: any
-	enableReadingData(): void {
-		this.service.getNewUserTimeLeft().subscribe((res) => {
-			this.timeLeft = res.time_left
-			this.enterpriseSubscriptionLink = res.enterprise_subscription_link
-		})
-	}
-
-	onClickSubscribedUser(): void {
-		this.visibleExhastedData = false
-		if (this.enterpriseSubscriptionLink != "") {
-			window.open(this.enterpriseSubscriptionLink, "_target")
-			return
-		}
-		this.route.navigate(["/pages/subscriptions"])
+		// this.route.navigate([`/pages/modules/${modName}`]);
 	}
 
 	redirectToSubmodule(data: any) {
 		let modName = this.convertToSlug(data.module_name)
 		this.searchInputText = ""
 		this.isSearchResultFound = false
-		if (this.timeLeft.plan === "expired" || this.timeLeft.plan === "subscription_expired") {
-			this.visibleExhastedData = true
-		} else {
-			this.route.navigate([`/pages/modules/${modName}/question-list/${data.submodule_id}`])
-		}
+		this.route.navigate([`/pages/modules/${modName}/question-list/${data.submodule_id}`])
 	}
 
 	convertToSlug(text: any) {
@@ -480,10 +437,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 		this.moduleStoreService.GetReviewedByOrgLogo(request).subscribe((response) => {
 			this.reviewedByOrgList = response
 		})
-	}
-
-	closeQuiz(): void {
-		this.visibleExhastedData = false
 	}
 
 	scrollRightVideo() {
