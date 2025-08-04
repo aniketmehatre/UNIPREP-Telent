@@ -189,7 +189,10 @@ export const howItWorksLinks: { [key: string]: { video_link: string } } = {
     video_link: "https://www.youtube.com/embed/Zh4pPEZ160c?si=i8vkRTgh70TuoqDn"
   },
   "career-planner-country-wise": {
-    video_link: "https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS"
+    video_link: "https://www.youtube.com/embed/46H780c_r6Q?si=YHTYH-05yhZJhl0V"
+  },
+  "career-planner-specialization-wise": {
+    video_link: "https://www.youtube.com/embed/0fsXq4dU66U?si=LHmP6LYzO4kfhAGU"
   },
   "recommendations": {
     video_link: "https://www.youtube.com/embed/0i_5mQ0zV74?si=myAIQqaAi3-5osvO"
@@ -229,6 +232,9 @@ export const howItWorksLinks: { [key: string]: { video_link: string } } = {
   },
   "institute-register" : {
     video_link: "https://www.youtube.com/embed/xXPETC_SIRE?si=TCqos26suSahxqGr"
+  }, 
+  "institute-student-register" : {
+    video_link: "https://www.youtube.com/embed/DroWAswm_Ng?si=DVdhWhtMYT_dQHsO"
   }, 
   "partner-register" : {
     video_link: "https://www.youtube.com/embed/ecwpL5HQb9A?si=E6BjWLaiveX-nZpu"

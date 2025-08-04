@@ -56,7 +56,7 @@ export class RegistrationComponent implements OnInit {
     show = false
     showConfirm = false
     confirmPassword: any
-
+    source: string;
     resendTime = 1
     startTimer = 0
     interval: any
@@ -114,6 +114,7 @@ export class RegistrationComponent implements OnInit {
         }
         //localStorage.clear()
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
+            this.source = data.name;
             this.whiteLabelImage = data.logo
         })
         this.authService.authState.subscribe((user) => {
@@ -363,6 +364,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     openVideoPopup(){
-        this.howItWorkService.open('uniprep-student-register');
+        let whichRegister = this.source === 'Uniprep' ? 'uniprep-student-register' : 'institute-student-register';
+        this.howItWorkService.open(whichRegister);
     }
 }
