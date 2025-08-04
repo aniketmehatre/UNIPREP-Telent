@@ -196,7 +196,7 @@ export class RegistrationComponent implements OnInit {
     get f() {
         return this.registrationForm.controls
     }
-
+    onProcess: boolean = false;
     onSubmit() {
         if (this.registrationForm.value.password.length < 8 || this.registrationForm.value.confirmPassword.length < 8) {
             this.toastr.add({
@@ -214,7 +214,7 @@ export class RegistrationComponent implements OnInit {
             })
             return
         }
-
+        this.onProcess = true;
         this.submitted = true
         let data = {
             name: this.registrationForm.value.fullName,
@@ -237,6 +237,7 @@ export class RegistrationComponent implements OnInit {
                 this.router.navigate(["/pages/dashboard"], { replaceUrl: true });
             },
             error: (error) => {
+                this.onProcess = false;
                 const message = error.error?.message != undefined ? error.error?.message : error?.message;
                 this.toastr.add({ severity: "error", summary: "Failed", detail: message });
             }
