@@ -110,7 +110,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.5.1",
-    "typescript": "^5.7.3",
+    "typescript": "~5.8.0",
     "webpack": "^5.94.0"
   }
 }
