@@ -24,6 +24,8 @@ export interface SideMenu {
   popular?: boolean;
   mostPopular?: boolean;
   subMenu?: boolean;
+  subMenuBy?: string;
+  notInterested?: boolean;
 }
 
 @Component({
@@ -71,11 +73,13 @@ export class SidenavComponent {
       title: "K12 Academy",
       url: "/pages/modules/k12",
       image: "fa-solid fa-people-group",
+      subMenuBy: "Academics",
     },
     {
       title: "K12 Academic Tools",
       url: "/pages/modules/academic-tools",
       image: "fa-solid fa-scribble",
+      subMenuBy: "Academics",
     },
     {
       title: "Job Board",
@@ -87,22 +91,27 @@ export class SidenavComponent {
     //   title: "Employer Connect",
     //   url: "/pages/talent-connect/list",
     //   image: "fa-solid fa-briefcase",
+    //   subMenuBy:"Job Board"
     // },
     {
       title: "Create Job Profile",
       url: "/pages/talent-connect/my-profile",
       image: "fa-solid fa-user",
+      subMenuBy: "Job Board",
     },
     {
       title: "Apply Jobs",
       url: "/pages/talent-connect/easy-apply",
       image: "fa-solid fa-user-tie-hair",
-      mostPopular: true
+      subMenuBy: "Job Board",
+      mostPopular: true,
+
     },
     {
       title: "Company Connect",
       url: "/pages/talent-connect/company-connect",
       image: "fa-solid fa-briefcase",
+      subMenuBy: "Job Board",
     },
     {
       title: "Career",
@@ -114,59 +123,68 @@ export class SidenavComponent {
     //   title: "Career Hub",
     //   url: "/pages/modules/career-hub",
     //   image: "fa-solid fa-briefcase",
+    //   subMenuBy:"Career",
     // },
     {
       title: "Learning Hub",
       url: "/pages/modules/learning-hub",
       image: "fa-solid fa-road-circle-check",
+      subMenuBy: "Career",
     },
     {
       title: "Skill Mastery",
       url: "/pages/modules/skill-mastery",
       image: "fa-solid fa-swatchbook",
+      subMenuBy: "Career",
     },
     {
       title: "Career Tools",
       url: "/pages/job-tool/career-tool",
       image: "fa-solid fa-file-user",
+      subMenuBy: "Career",
       popular: true
     },
     // {
     //   title: "Career Planner",
     //   url: "/pages/career-planner",
     //   image: "fa-solid fa-arrow-progress",
+    //   subMenuBy:"Career",
     // },
     // {
     //   title: "Company List",
     //   url: "/pages/company-list",
     //   image: "fa-solid fa-buildings",
+    //   subMenuBy:"Career",
     // },
     {
-      title: "Travel & Life",
+      title: "Entrepreneur",
       url: "",
       image: "",
       subMenu: true
     },
     {
-      title: "Language Hub",
-      url: "/pages/language-hub",
-      image: "fa-solid fa-books",
-      popular: true
+      title: "Startup Kit",
+      url: "/pages/startup",
+      image: "fa-solid fa-memo-circle-info",
+      subMenuBy: "Entrepreneur",
+    },
+    {
+      title: "Founders Tool",
+      url: "/pages/founderstool/founderstoollist",
+      image: "fa-solid fa-chart-network",
+      subMenuBy: "Entrepreneur",
     },
     // {
-    //   title: "Travel and Tourism",
-    //   url: "/pages/modules/travel-and-tourism",
-    //   image: "fa-solid fa-plane",
-    // },
-    // {
-    //   title: "Life in",
-    //   url: "/pages/modules/life-at-country",
-    //   image: "fa-solid fa-earth-americas",
+    //   title: "Investor List",
+    //   url: "/pages/investor-list",
+    //   image: "fa-solid fa-chart-waterfall",
+    //   subMenuBy:"Entrepreneur",
     // },
     {
-      title: "Travel Tools",
-      url: "/pages/travel-tools",
-      image: "fa-solid fa-compass",
+      title: "Pitch Deck",
+      url: "/pages/pitch-deck",
+      image: "fa-solid fa-presentation-screen",
+      subMenuBy: "Entrepreneur",
       popular: true
     },
     {
@@ -179,74 +197,88 @@ export class SidenavComponent {
       title: "Global Repository",
       url: "/pages/global-repo",
       image: "fa-solid fa fa-globe",
+      subMenuBy: "International Education",
     },
     // {
     //   title: "Pre Admission",
     //   url: "/pages/modules/pre-admission",
     //   image: "fa-solid fa-file-import",
+    //   subMenuBy:"International Education",
     // },
     // {
     //   title: "Post Application",
     //   url: "/pages/modules/post-application",
     //   image: "fa-solid fa-file-export",
+    //   subMenuBy:"International Education",
     // },
     // {
     //   title: "Post Admission",
     //   url: "/pages/modules/post-admission",
     //   image: "fa-solid fa-ticket",
+    //   subMenuBy:"International Education",
     // },
     // {
     //   title: "University",
     //   url: "/pages/modules/university",
     //   image: "fa-solid fa-building-columns",
+    //   subMenuBy:"International Education",
     // },
     {
       title: "UNILEARN",
       url: "/pages/unilearn/modules",
       image: "fa-solid fa-ballot",
+      subMenuBy: "International Education",
       popular: true
     },
     {
       title: "UNISCHOLAR",
       url: "/pages/scholarship-list",
       image: "fa-solid fa-diploma",
+      subMenuBy: "International Education",
     },
     {
       title: "UNIFINDER",
       url: "/pages/course-list",
       image: "fa-solid fa-landmark-magnifying-glass",
+      subMenuBy: "International Education",
       popular: true
     },
     {
       title: "Education Tools",
       url: "/pages/education-tools",
       image: "fa-solid fa-school",
+      subMenuBy: "International Education",
     },
     {
-      title: "Entrepreneur",
+      title: "Travel & Life",
       url: "",
       image: "",
       subMenu: true
     },
     {
-      title: "Startup Kit",
-      url: "/pages/startup",
-      image: "fa-solid fa-memo-circle-info",
-    },
-    {
-      title: "Founders Tool",
-      url: "/pages/founderstool/founderstoollist",
-      image: "fa-solid fa-chart-network",
+      title: "Language Hub",
+      url: "/pages/language-hub",
+      image: "fa-solid fa-books",
+      subMenuBy: "Travel & Life",
+      popular: true
     },
     // {
-    //   title: "Investor List",
-    //   url: "/pages/investor-list",
-    //   image: "fa-solid fa-chart-waterfall",
+    //   title: "Travel and Tourism",
+    //   url: "/pages/modules/travel-and-tourism",
+    //   image: "fa-solid fa-plane",
+    //   subMenuBy:"Travel & Life",
+    // },
+    // {
+    //   title: "Life in",
+    //   url: "/pages/modules/life-at-country",
+    //   image: "fa-solid fa-earth-americas",
+    //   subMenuBy:"Travel & Life",
     // },
     {
-      title: "Pitch Deck",
-      url: "/pages/pitch-deck",
-      image: "fa-solid fa-presentation-screen",
+      title: "Travel Tools",
+      url: "/pages/travel-tools",
+      image: "fa-solid fa-compass",
+      subMenuBy: "Travel & Life",
       popular: true
     },
     {
@@ -259,37 +291,44 @@ export class SidenavComponent {
     //   title: "Assessment",
     //   url: "/pages/assessment/ilearn-challenge",
     //   image: "fa-regular fa-badge-check",
+    //   subMenuBy:"Others",
     // },
     {
       title: "AI Global Advisor",
       url: "/pages/advisor",
       image: "fa-solid fa-file-user",
+      subMenuBy: "Others",
     },
     // {
     //   title: "Resources",
     //   url: "/pages/resource",
     //   image: "fa-solid fa-link",
+    //   subMenuBy:"Others",
     // },
     {
       title: "Events",
       url: "/pages/events",
       image: "fa-solid fa-calendar-days",
+      subMenuBy: "Others",
     },
     // {
     //   title: "Quiz",
     //   url: "/pages/modules/quizmodule",
     //   image: "fa-solid fa-clock-desk",
+    //   subMenuBy:"Others",
     //   popular:true
     // },
     {
       title: "Certificates",
       url: "/pages/mycertificate",
       image: "fa-solid fa-file-certificate",
+      subMenuBy: "Others",
     },
     // {
     //   title: "Success Stories",
     //   url: "/pages/success-stories",
     //   image: "fa-solid fa-thumbs-up",
+    //   subMenuBy:"Others",
     // },
     {
       title: "Support",
@@ -301,39 +340,47 @@ export class SidenavComponent {
       title: "Tutorials",
       url: "/pages/tutorials",
       image: "fa-solid fa-video",
+      subMenuBy: "Support",
     },
     // {
     //   title: "Contributors",
     //   url: "/pages/contributors",
     //   image: "fa-solid fa-hands-holding-dollar",
+    //   subMenuBy:"Support",
     // },
     {
       title: "FAQ",
       url: "/pages/faq",
       image: "fa-solid fa-comments-question",
+      subMenuBy: "Support",
     },
     {
       title: "24x7 Support",
       url: "/pages/support",
       image: "fa-solid fa-headset",
+      subMenuBy: "Support",
     },
     // {
     //   title: 'Help & Support',
     //   url: '/pages/help',
     //   image: 'fa-solid fa-phone-volume',
+    //   subMenuBy:"Support",
     // }
     // ,
     // {
     //   title: 'USER MANAGER',
     //   url: '/pages/usermanagement',
     //   image: 'pi pi-briefcase',
+    //   subMenuBy:"Support",
     // },
     // {
     //   title: 'SUBCRIPTION MANAGER',
     //   url: '/pages/subscriptionmanagement',
     //   image: 'pi pi-briefcase',
+    //   subMenuBy:"Support",
     // }
   ];
+
   k10RestrictedMenus: string[] = ["Career Tools", "Recommendations", "Career Hub", "Learning Hub", "Skill Mastery", "Startup Kit", "Founders Tool", "Pitch Deck", "Career", "Entrepreneur"];
   HigherEduRestritedMenus: string[] = ["K12 Academy", "K12 Academic Tools", "Academics"];
   whitlabelmenu = ["About UNIPREP", "24x7 Support", "Success Stories", "Recommendations"];
@@ -347,7 +394,12 @@ export class SidenavComponent {
   premiumPlanMenus: string[] = ["K12 Academy", "K12 Academic Tools", "Learning Hub", "Skill Mastery", "Career Tools", "Language Hub", "Travel Tools", "Global Repository",
     "UNILEARN", "UNISCHOLAR", "UNIFINDER", "Education Tools", "Startup Kit", "Founders Tool", "Pitch Deck",
     "AI Global Advisor", "Events", "Certificates"];
-
+  interestMenuList: { id: number, name: string }[] = [
+    { id: 1, name: 'Career' },
+    { id: 2, name: 'Entrepreneur' },
+    { id: 3, name: 'International Education' },
+    { id: 4, name: 'Travel & Life' },
+  ];
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private dataService: DataService,
     private authService: AuthService, private locationService: LocationService,
     private assessmentService: AssessmentService, private storage: StorageService,
@@ -440,6 +492,7 @@ export class SidenavComponent {
       }
     });
     this.updateMenuUrlBasedOnSubscription();
+    this.updateInterestMenus();
   }
 
   updateMenuUrlBasedOnSubscription() {
@@ -552,5 +605,39 @@ export class SidenavComponent {
           : this.menus;
       }
     })
+  }
+
+  updateInterestMenus() {
+    if (this.authService._user?.current_plan_detail?.current_plan == "Premium" &&
+      this.authService._user?.current_plan_detail?.current_plan_status == "Paid" &&
+      this.authService._user?.interest_type_ids?.length > 0) {
+      if (this.authService._user?.interest_type_ids?.length == 4) {
+        return; // if they selected all, then menu will be in the same order.There is no changes
+      }
+      const selectedTitles = this.interestMenuList
+        .filter(item => this.authService._user?.interest_type_ids?.includes(item.id))
+        .map(item => item.name);
+      const notInterestedTitles = this.interestMenuList
+        .filter(item => !this.authService._user?.interest_type_ids?.includes(item.id))
+        .map(item => item.name);
+
+      const selectedMenus = this.menus.filter(menu =>
+        (menu.subMenu && selectedTitles.includes(menu.title)) ||
+        (menu.subMenuBy && selectedTitles.includes(menu.subMenuBy))
+      );
+      const otherMenus: any = this.menus.filter(menu =>
+        !((menu.subMenu && selectedTitles.includes(menu.title)) ||
+          (menu.subMenuBy && selectedTitles.includes(menu.subMenuBy)))
+      );
+
+      const jobIndex = otherMenus.findLastIndex((item: any) => item?.subMenuBy == "Job Board");
+      otherMenus.splice(jobIndex + 1, 0, ...selectedMenus);
+      this.menus = otherMenus;
+      this.menus.forEach(item => {
+        if (notInterestedTitles.includes(item?.subMenuBy as string)) {
+          item.notInterested = true;
+        }
+      });
+    }
   }
 }

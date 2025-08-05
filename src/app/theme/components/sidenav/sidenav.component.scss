@@ -46,6 +46,12 @@
 				color: gray;
 				}
 			}
+			&.not-interested-menu {
+				color: var(--p-primary-400);
+				&:hover {
+				color: var(--p-primary-400);
+				}
+			}
 			.system-main__icon img {
 				font-size: 0.9rem;
 				//padding: 10px;

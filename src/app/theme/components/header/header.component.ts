@@ -32,6 +32,8 @@ import { DropdownModule } from "primeng/dropdown";
 import { PromptService } from "src/app/services/prompt.service";
 import { User } from "src/app/@Models/user.model"
 import { CountryLocationService } from "src/app/services/country-location.service"
+import { MultiSelectModule } from "primeng/multiselect"
+import { CommonService } from "src/app/services/common.service"
 @Component({
 	selector: "uni-header",
 	templateUrl: "./header.component.html",
@@ -57,6 +59,7 @@ import { CountryLocationService } from "src/app/services/country-location.servic
 		TextareaModule,
 		AvatarGroupModule,
 		DropdownModule,
+		MultiSelectModule
 	]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
@@ -179,6 +182,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	allSearchedResult: any[] = []
 	currentRoute: string = ""
 	userTypeId: boolean = true
+	interestMenuList: any[] = [];
+
 	constructor(
 		private router: Router,
 		private locationService: LocationService,
@@ -194,7 +199,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private storage: StorageService,
 		private promptService: PromptService,
 		private cdr: ChangeDetectorRef,
-		private countryLocationService: CountryLocationService
+		private countryLocationService: CountryLocationService,
+		private commonService: CommonService,
 	) {
 		this.dataService.openReportWindowSource.subscribe({
 			next: (data) => {
@@ -218,7 +224,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			phone: [undefined, [Validators.required]],
 			home_country: [122, Validators.required],
 			study_level: ["", Validators.required],
-			current_city: [""]
+			current_city: [""],
+			interest_type: [],
 		})
 
 		this.currentEducationForm = this.formBuilder.group({
@@ -626,6 +633,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			},
 			error: (error) => console.error('Error in dashboard country subscription:', error)
 		});
+		this.getInterestedMenus();
 
 	}
 	getAICreditCount() {
@@ -642,7 +650,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			phone: [undefined, [Validators.required]],
 			home_country: [122, Validators.required],
 			study_level: ["", Validators.required],
-			current_city: [""]
+			current_city: [""],
+			interest_type: [],
+
 		})
 
 		this.currentEducationForm = this.formBuilder.group({
@@ -1249,9 +1259,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	continueTrial(): void {
 		let data: any = {}
 		if (this.mobileForm.get('home_country')?.valid && this.mobileForm.get('study_level')?.valid) {
-			data.home_country = this.mobileForm.value.home_country
-			data.study_level = this.mobileForm.value.study_level
-			data.current_city = this.mobileForm.value.current_city
+			data = this.mobileForm.value;
 		}
 		if (this.demoTrial == true) {
 			data.demo_user = 1
@@ -1298,8 +1306,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			this.visibleExhastedUser = false
 			let data: any = {}
 			if (this.mobileForm.get('home_country')?.valid && this.mobileForm.get('study_level')?.valid) {
-				data.home_country = this.mobileForm.value.home_country
-				data.study_level = this.mobileForm.value.study_level
+				data = this.mobileForm.value;
 			}
 			if (this.demoTrial == true) {
 				data.demo_user = 1
@@ -1598,5 +1605,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				})
 			}
 		)
+	}
+
+	getInterestedMenus() {
+		this.commonService.getInterestedMenus().subscribe({
+			next: res => {
+				this.interestMenuList = res.data;
+			},
+			error: err => {}
+		});
 	}
 }

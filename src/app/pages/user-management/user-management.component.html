@@ -176,10 +176,18 @@
                               </div>
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-12 p-2">
-                              <label>Country</label>
+                              <label>Location</label>
                               <div class="form-group">
                                 <div class="mb-3">
                                   <p-select styleClass="w-100" formControlName="home_country" appendTo="body" [options]="countryList" [filter]="true" filterBy="work_location" optionLabel="work_location" optionValue="id" [virtualScroll]="true" [virtualScrollItemSize]="50"> </p-select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-12 p-2">
+                              <label>Interest</label>
+                              <div class="form-group">
+                                <div class="mb-3">
+                                  <p-multiSelect styleClass="w-100" formControlName="interest_type" appendTo="body" [options]="interestMenuList" [filter]="true" optionLabel="name" optionValue="id"> </p-multiSelect>
                                 </div>
                               </div>
                             </div>

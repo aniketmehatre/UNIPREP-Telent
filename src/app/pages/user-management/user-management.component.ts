@@ -37,6 +37,7 @@ import { TalentConnectService } from "../talent-connect/talent-connect.service"
 import { EmployeeProfileComponent } from "../talent-connect/employee-profile-copy/employee-profile.component"
 import { environment } from "@env/environment"
 import { TagModule } from "primeng/tag"
+import { CommonService } from "src/app/services/common.service"
 @Component({
 	selector: "uni-user-management",
 	templateUrl: "./user-management.component.html",
@@ -97,11 +98,12 @@ export class UserManagementComponent implements OnInit {
 	// 	environment.imagePath + 'uploads/Mask-group-1.jpg',
 	// 	environment.imagePath + 'uploads/Mask-group-2.jpg'
 	// ];
+	interestMenuList: any[] = [];
 
 	constructor(private authService: AuthService, private formBuilder: FormBuilder, private locationService: LocationService,
 		private toast: MessageService, private dashboardService: DashboardService, private userManagementService: UserManagementService,
 		private router: Router, private _location: Location, private subscription: SubscriptionService, private confirmationService: ConfirmationService,
-		private authTokenService: AuthTokenService, private talentConnectService: TalentConnectService) {
+		private authTokenService: AuthTokenService, private talentConnectService: TalentConnectService, private commonService: CommonService) {
 
 		this.registrationForm = this.formBuilder.group({
 			name: [""],
@@ -112,6 +114,7 @@ export class UserManagementComponent implements OnInit {
 			email: [""],
 			current_education: [""],
 			// profile_image: [null, [Validators.required]],
+			interest_type: []
 		})
 
 		this.updatedPasswords = this.formBuilder.group({
@@ -151,6 +154,7 @@ export class UserManagementComponent implements OnInit {
 			}
 		})
 		this.GetPersonalProfileData();
+		this.getInterestedMenus();
 		setTimeout(() => {
 			this.hideToolTip = false
 		}, 10000)
@@ -278,7 +282,8 @@ export class UserManagementComponent implements OnInit {
 				phone: `${this.PersonalInfo?.country_code || ''} ${this.PersonalInfo?.phone || ''}`,
 				email: this.PersonalInfo?.email,
 				current_education: this.PersonalInfo?.programlevel,
-				// profile_image: this.employerProfileData?.dp_image
+				// profile_image: this.employerProfileData?.dp_image,
+				interest_type: this.PersonalInfo?.interest_type_ids,
 			});
 			// this.logo = this.employerProfileData?.dp_image;
 			this.selectedDate = new Date()
@@ -548,6 +553,7 @@ export class UserManagementComponent implements OnInit {
 			this.registrationForm.get('last_degree_passing_year')?.enable();
 			this.registrationForm.get('home_country')?.enable();
 			// this.registrationForm.get('profile_image')?.enable();
+			this.registrationForm.get('interest_type')?.enable();
 			this.submitBtnName = "Update"
 			return;
 		}
@@ -561,11 +567,13 @@ export class UserManagementComponent implements OnInit {
 		// formData.append("profile_image", this.uploadedFiles["profile_image"] ?? formDataValue?.profile_image);
 		formData.append("home_country", formDataValue.home_country ?? '');
 		formData.append("last_degree_passing_year", lastDegree ?? '');
+		formData.append("interest_type", JSON.stringify(formDataValue.interest_type ?? []))
 		this.userManagementService.updateUserDetails(formData).subscribe({
 			next: (data: any) => {
 				this.toast.add({ severity: 'success', summary: 'Success', detail: data.message });
 				this.registrationForm.get('last_degree_passing_year')?.disable();
 				this.registrationForm.get('home_country')?.disable();
+				this.registrationForm.get('interest_type')?.disable();
 				this.submitBtnName = "Edit"
 				this.GetPersonalProfileData();
 				// this.isSubmittedPersonalInformationForm = false;
@@ -644,4 +652,13 @@ export class UserManagementComponent implements OnInit {
 	// 	const url = environment.imagePath + 'uploads/Profile-Image-Guide.pdf';
 	// 	window.open(url, '_blank');
 	// }
+
+	getInterestedMenus() {
+		this.commonService.getInterestedMenus().subscribe({
+			next: res => {
+				this.interestMenuList = res.data;
+			},
+			error: err => { }
+		});
+	}
 }
