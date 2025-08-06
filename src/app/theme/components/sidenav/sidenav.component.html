@@ -67,7 +67,7 @@
 					</div>
 					<div [ngClass]="{ sidebarClass: item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ' || item.title == 'Subscription' || item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', 
 						unsidebarClass: item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title != '24x7 Support' && item.title != 'Events' && item.title != 'Subscription' && item.title != 'Resources' && item.title != 'Career Planner' && conditionSubscribed == false,
-						'restricted-menu': item?.restricted }"
+						'restricted-menu': item?.restricted, 'not-interested-menu':item?.notInterested }"
 						*ngIf="!item?.subMenu"
 						class="system-main__apps" (click)="onexpand(item)">
 						<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
@@ -115,7 +115,7 @@
 			</div>
 			<div [ngClass]="{ sidebarClass: item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ' || item.title == 'Subscription' || item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', 
 				unsidebarClass: item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title != '24x7 Support' && item.title != 'Events' && item.title != 'Subscription' && item.title != 'Resources' && item.title != 'Career Planner',
-				'restricted-menu': item?.restricted  }"
+				'restricted-menu': item?.restricted, 'not-interested-menu':item?.notInterested }"
 				*ngIf="!item?.subMenu"
 				class="system-main__apps" (click)="onexpand(item)">
 				<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
