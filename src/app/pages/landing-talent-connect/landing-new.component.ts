@@ -71,7 +71,7 @@ export class LandingNewComponent {
 		if (url === 'home') {
 			window.location.href = targetUrl;
 		} else if (url === 'active-jobs' || url === 'employers') {
-			window.location.href = talentUrl + `/${url}`;
+			this.router.navigateByUrl(url);
 		}
 		else if (validUrls.includes(url)) {
 			window.location.href = targetUrl + `/${url}`;

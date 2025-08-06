@@ -7,20 +7,20 @@ export const appRoutes: Routes = [
 		loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule),
 	},
 	// Partner Landing Page
-	{
-		path: 'p',
-		loadChildren: () => import('./pages/landing-partner/landing-partner.module').then(m => m.LandingPartnerModule),
-	},
-	// Institute Landing Page
-	{
-		path: 'i',
-		loadChildren: () => import('./pages/landing-institute/landing-institute.module').then(m => m.LandingInstituteModule),
-	},
-	// Talent Landing Page
-	{
-		path: 't',
-		loadChildren: () => import('./pages/landing-talent-connect/landing-new.module').then(c => c.LandingNewModule)
-	},
+	// {
+	// 	path: 'p',
+	// 	loadChildren: () => import('./pages/landing-partner/landing-partner.module').then(m => m.LandingPartnerModule),
+	// },
+	// // Institute Landing Page
+	// {
+	// 	path: 'i',
+	// 	loadChildren: () => import('./pages/landing-institute/landing-institute.module').then(m => m.LandingInstituteModule),
+	// },
+	// // Talent Landing Page
+	// {
+	// 	path: 't',
+	// 	loadChildren: () => import('./pages/landing-talent-connect/landing-new.module').then(c => c.LandingNewModule)
+	// },
 	{ path: "**", redirectTo: "", pathMatch: "full" },
 
 ]
