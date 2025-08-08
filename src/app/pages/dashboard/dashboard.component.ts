@@ -19,7 +19,6 @@ import { RouterModule } from "@angular/router"
 import { SelectModule } from "primeng/select"
 import { StorageService } from "../../services/storage.service";
 import { JobSearchService } from "../job-search/job-search.service"
-import { CalendarModule } from "primeng/calendar"
 import { DatePickerModule } from "primeng/datepicker"
 import { InputTextModule } from "primeng/inputtext"
 import { AccordionModule } from "primeng/accordion"
@@ -41,8 +40,7 @@ import { LocalStorageService } from 'ngx-localstorage';
 	styleUrls: ["./dashboard.component.scss"],
 	standalone: true,
 	imports: [CommonModule, DialogModule, CarouselModule, InputGroupAddonModule, InputGroupModule, FormsModule, ButtonModule,
-		TooltipModule, RouterModule, SelectModule,
-		CalendarModule, DatePickerModule, InputTextModule,  TableModule, AccordionModule, ReactiveFormsModule,
+		TooltipModule, RouterModule, SelectModule, DatePickerModule, InputTextModule,  TableModule, AccordionModule, ReactiveFormsModule,
 		PopoverModule, TextareaModule
 	],
 	providers: [DashboardService, DataService, LocationService],

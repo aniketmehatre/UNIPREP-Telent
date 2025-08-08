@@ -4,7 +4,6 @@ import { PageFacadeService } from "../page-facade.service"
 import { Router, RouterModule } from "@angular/router"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
-import { SidebarModule } from "primeng/sidebar"
 
 import { CardModule } from "primeng/card"
 import { PaginatorModule } from "primeng/paginator"
@@ -18,6 +17,7 @@ import { InputTextModule } from "primeng/inputtext"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { RadioButtonModule } from "primeng/radiobutton"
 import { PdfViewerModule } from "ng2-pdf-viewer";
+import { DrawerModule } from "primeng/drawer"
 interface Specialisation {
 	id: number
 	subject_id: number
@@ -28,7 +28,7 @@ interface Specialisation {
 	templateUrl: "./career-planner.component.html",
 	styleUrls: ["./career-planner.component.scss"],
 	standalone: true,
-	imports: [CommonModule, DialogModule, RadioButtonModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
+	imports: [CommonModule, DialogModule, RadioButtonModule, DrawerModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
 })
 export class CareerPlannerComponent implements OnInit {
 	products: any = [

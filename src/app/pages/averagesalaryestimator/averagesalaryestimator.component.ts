@@ -4,7 +4,7 @@ import { PageFacadeService } from "../page-facade.service";
 import { AveragesalaryestimatorService } from "./averagesalaryestimator.service";
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
-import { SidebarModule } from "primeng/sidebar"
+import { DrawerModule } from "primeng/drawer"
 import { PromptService } from "src/app/services/prompt.service";
 import { CardModule } from "primeng/card"
 import { PaginatorModule } from "primeng/paginator"
@@ -27,7 +27,7 @@ import { PdfViewerModule } from "ng2-pdf-viewer";
   templateUrl: "./averagesalaryestimator.component.html",
   styleUrls: ["./averagesalaryestimator.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, RadioButtonModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, AverageSalaryPreparedListComponent],
+  imports: [CommonModule, DialogModule, RadioButtonModule, DrawerModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, AverageSalaryPreparedListComponent],
 })
 export class AverageSalaryComponent implements OnInit {
   @ViewChild("jobRoleInput") JobRoleInput: ElementRef;

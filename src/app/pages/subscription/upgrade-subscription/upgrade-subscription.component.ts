@@ -34,7 +34,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ConfirmDialogModule } from "primeng/confirmdialog"
 import { ToastModule } from "primeng/toast"
 import { TabsModule } from 'primeng/tabs'
-import { log } from "node:console"
+// import { log } from "node:console"
 import { landingServices } from '../../landing/landing.service';
 import { LocationService } from "src/app/services/location.service"
 @Component({
