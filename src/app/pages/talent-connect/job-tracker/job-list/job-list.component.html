@@ -66,7 +66,7 @@
 	</div>
 </div>
 
-<p-dialog header="Filter" [(visible)]="displayModal" [modal]="true" [style]="{ width: '80%' }" [baseZIndex]="10000"
+<p-dialog header="Filter" [(visible)]="displayModal"  [style]="{ width: '80%' }" [baseZIndex]="10000"
 	[draggable]="false" [resizable]="false" (onHide)="displayModal = false; closeFilter.emit(false)"
 	styleClass="container">
 	<form [formGroup]="filterForm" class="p-3">
@@ -89,13 +89,13 @@
 				<label class="form-label fw-bold">Industry </label>
 				<p-multiSelect [options]="industries" formControlName="industry" placeholder="Select industry"
 					optionLabel="industry_name" optionValue="id" appendTo="body" display="chip" class="w-100"
-					[showClear]="true"> </p-multiSelect>
+					> </p-multiSelect>
 			</div>
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Work Location </label>
 				<p-multiSelect [options]="locations" formControlName="worklocation" [virtualScroll]="true"
 					[virtualScrollItemSize]="50" placeholder="Select work location" optionLabel="work_location"
-					optionValue="id" display="chip" appendTo="body" class="w-100" [showClear]="true"
+					optionValue="id" display="chip" appendTo="body" class="w-100" 
 					(onChange)="onChangeLocation($event, 'location')" (onClear)="onChangeLocation($event, 'location')">
 				</p-multiSelect>
 			</div>
@@ -103,7 +103,7 @@
 				<label class="form-label fw-bold">Country </label>
 				<p-multiSelect [options]="countries" formControlName="country" [virtualScroll]="true"
 					[virtualScrollItemSize]="50" placeholder="Select Country" optionLabel="country" optionValue="id"
-					display="chip" appendTo="body" class="w-100" [showClear]="true"
+					display="chip" appendTo="body" class="w-100" 
 					(onChange)="onChangeLocation($event, 'country')" (onClear)="onChangeLocation($event, 'country')">
 				</p-multiSelect>
 			</div>
@@ -111,7 +111,7 @@
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Work Mode </label>
 				<p-multiSelect [options]="workModes" formControlName="work_mode" placeholder="Select work mode"
-					optionLabel="work_mode" optionValue="id" display="chip" class="w-100" [showClear]="true"
+					optionLabel="work_mode" optionValue="id" display="chip" class="w-100" 
 					appendTo="body">
 				</p-multiSelect>
 			</div>
@@ -120,14 +120,14 @@
 				<label class="form-label fw-bold">Work Type </label>
 				<p-multiSelect [options]="employmentTypes" formControlName="employment_type"
 					placeholder="Select work type" optionLabel="employment_type" optionValue="id" display="chip"
-					class="w-100" [showClear]="true" appendTo="body"> </p-multiSelect>
+					class="w-100"  appendTo="body"> </p-multiSelect>
 			</div>
 
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Currency display for salaries</label>
 				<p-select [options]="currencies" formControlName="currency" optionLabel="currency_code" optionId="id"
 					optionValue="currency_code" [filter]="true" appendTo="body" filterBy="currency_code" class="w-100"
-					placeholder="Select your currency" [showClear]="true">
+					placeholder="Select your currency" >
 				</p-select>
 			</div>
 
@@ -136,7 +136,7 @@
 				<div class="d-flex w-100 gap-2">
 					<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code"
 						optionValue="id" placeholder="Select currency" formControlName="currency"
-						[style]="{ width: '150px' }" [showClear]="true" appendTo="body"> </p-select>
+						[style]="{ width: '150px' }"  appendTo="body"> </p-select>
 					<div class="d-flex gap-2 align-items-center flex-grow-1">
 						<p-inputNumber placeholder="Min" styleClass="w-100" [showButtons]="false" class="w-100"
 							formControlName="min_salary"></p-inputNumber>
@@ -150,27 +150,27 @@
 				<label class="form-label fw-bold">Experience Level </label>
 				<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel"
 					placeholder="Enter your experience level" optionLabel="experienceLevel"
-					optionValue="experienceLevel" display="chip" class="w-100" appendTo="body" [showClear]="true">
+					optionValue="experienceLevel" display="chip" class="w-100" appendTo="body" >
 				</p-multiSelect>
 			</div>
 			<div class="col-md-4" *ngIf="activeIndex == 0">
 				<label class="form-label fw-bold">Status</label>
 				<p-multiSelect [options]="jobStatusList" appendTo="body" [filter]="true" formControlName="status"
 					display="chip" placeholder="Select your status" optionLabel="hiringstage" optionValue="id"
-					class="w-100" [showClear]="true">
+					class="w-100" >
 				</p-multiSelect>
 			</div>
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Hiring Status </label>
 				<p-select [options]="hiringStatuses" formControlName="hiringStatus" placeholder="Select hiring type"
-					optionLabel="name" optionValue="id" display="chip" class="w-100" appendTo="body" [showClear]="true">
+					optionLabel="name" optionValue="id" display="chip" class="w-100" appendTo="body" >
 				</p-select>
 			</div>
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Hiring Type </label>
 				<p-multiSelect [options]="hiringTypes" formControlName="hiring_type" optionLabel="name"
 					placeholder="Select the Hiring Type" optionValue="id" appendTo="body" display="chip" class="w-100"
-					[showClear]="true"> </p-multiSelect>
+					> </p-multiSelect>
 			</div>
 			<div class="col-md-4 h-full mt-auto">
 				<button pButton label="Apply Filter" (click)="applyFilter()" class="btn-primary w-100"></button>

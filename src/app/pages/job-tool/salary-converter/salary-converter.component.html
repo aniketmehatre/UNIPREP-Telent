@@ -32,7 +32,7 @@
         <div class="form-group">
           <div class="mb-3">
             <p-select id="fromCountry" styleClass="w-100 border-secondary" [(ngModel)]="fromCountry"
-              [options]="sourceCountries" [filter]="true" filterBy="countryName" [showClear]="true"
+              [options]="sourceCountries" [filter]="true" filterBy="countryName" 
               optionLabel="countryName" (onChange)="onCountryChange($event)"
               (onClear)="onClearCountry($event, 'source')" placeholder="Source Country" appendTo="body">
               <ng-template pTemplate="selectedItem">
@@ -66,10 +66,10 @@
         <div class="form-group">
           <div class="mb-3">
             <!-- <p-select id="toCountry" styleClass="w-100" [(ngModel)]="toCountry" [options]="countries"
-                                optionLabel="countryName" [filter]="true" filterBy="countryName" [showClear]="true"
+                                optionLabel="countryName" [filter]="true" filterBy="countryName" 
                                 (onChange)="onCountryToChange($event)" placeholder="Target Country"></p-select> -->
             <p-select id="toCountry" styleClass="w-100 border-primary" [(ngModel)]="toCountry"
-              [options]="targetCountries" [filter]="true" filterBy="countryName" [showClear]="true"
+              [options]="targetCountries" [filter]="true" filterBy="countryName" 
               optionLabel="countryName" (onChange)="onCountryToChange($event)"
               (onClear)="onClearCountry($event, 'target')" placeholder="Target Country" appendTo="body">
               <ng-template pTemplate="selectedItem">

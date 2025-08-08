@@ -6,7 +6,7 @@ import { PageFacadeService } from '../../page-facade.service';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
-import { SidebarModule } from 'primeng/sidebar';
+import { DrawerModule  } from 'primeng/drawer';
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
@@ -31,7 +31,7 @@ import { removeExtraResponse } from '../../../@Supports/prompt';
   templateUrl: './careerplannercountrywise.component.html',
   styleUrls: ['./careerplannercountrywise.component.scss'],
   standalone: true,
-  imports: [CommonModule, DialogModule, SidebarModule, PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule]
+  imports: [CommonModule, DialogModule, DrawerModule , PdfViewerModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule]
 })
 
 export class CareerplannercountrywiseComponent implements OnInit {

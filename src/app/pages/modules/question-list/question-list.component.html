@@ -120,7 +120,7 @@
     <p-paginator [rows]="25" [totalRecords]="totalQuestionCount" (onPageChange)="paginatepost($event)" [rowsPerPageOptions]="[25, 50, 100, 200]" dropdownAppendTo="body"></p-paginator>
   </div>
 </div>
-<!-- <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header" [maximizable]="true" (onShow)="onShowModal($event)" [style]="{ width: '85rem' }">
+<!-- <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false"  class="questionmodal" header="Header" [maximizable]="true" (onShow)="onShowModal($event)" [style]="{ width: '85rem' }">
 	<ng-template pTemplate="header">
 		<div class="d-flex w-100 flex-column px-4">
 			<div class="d-flex flex-row justify-content-md-between justify-content-center">
@@ -218,7 +218,7 @@
 </p-dialog> -->
 
 <!-- new ui -->
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" header="Header" [closable]="false" (onShow)="onShowModal($event)" [style]="{ width: '85rem' }" [breakpoints]="{ '1199px': '95vw', '575px': '90vw' }">
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false"  header="Header" [closable]="false" (onShow)="onShowModal($event)" [style]="{ width: '85rem' }" [breakpoints]="{ '1199px': '95vw', '575px': '90vw' }">
   <ng-template pTemplate="header">
     <div class="container-fluid">
       <div class="row align-items-center g-2">
@@ -321,7 +321,7 @@
     </div>
   </div>
 </p-dialog>
-<!-- <p-dialog [(visible)]="isRecommendedVideoVisible" class="questionvideopopup" [modal]="true" [style]="{ width: '80vw' }">
+<!-- <p-dialog [(visible)]="isRecommendedVideoVisible" class="questionvideopopup"  [style]="{ width: '80vw' }">
 	<div class="container-fluid">
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-1" *ngIf="videoLinks">
@@ -352,7 +352,7 @@
 	</div>
 </p-dialog> -->
 
-<!-- <p-dialog [(visible)]="isRecommendedLinksVisible" [draggable]="false" [modal]="true" [style]="{ width: '30vw' }" header="Header">
+<!-- <p-dialog [(visible)]="isRecommendedLinksVisible" [draggable]="false"  [style]="{ width: '30vw' }" header="Header">
 	<ng-template pTemplate="header">
 		<span class="text-xl font-bold"></span>
 	</ng-template>
@@ -383,7 +383,7 @@
 	</div>
 </p-dialog> -->
 
-<!-- <p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show" [modal]="true" [maximizable]="true" [style]="{ width: '30vw' }" header="Header">
+<!-- <p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show"  [maximizable]="true" [style]="{ width: '30vw' }" header="Header">
 	<ng-template pTemplate="header">
 		<span class="text-xl fw-bold ms-2 pl-4">Reviewed By</span>
 	</ng-template>

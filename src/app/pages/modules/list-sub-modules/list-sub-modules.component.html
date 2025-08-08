@@ -122,7 +122,7 @@
 		</div>
 	</div>
 </div>
-<p-dialog class="quizmodal" header="Header" footer="Footer" [draggable]="false" [modal]="true" [(visible)]="isStartQuiz"
+<p-dialog class="quizmodal" header="Header" footer="Footer" [draggable]="false"  [(visible)]="isStartQuiz"
 	[style]="{ width: '70vw' }" [closable]="false">
 	<ng-template pTemplate="header">
 		<div class="container-fluid py-3 mb-2 cb-bottom">
@@ -260,7 +260,7 @@
 		</div>
 	</ng-template>
 </p-dialog>
-<p-dialog class="retrypopup" [closable]="false" [modal]="true" header="Header" footer="Footer"
+<p-dialog class="retrypopup" [closable]="false"  header="Header" footer="Footer"
 	[(visible)]="isQuizSubmit" [style]="{ width: '60vw' }" [breakpoints]="{ '960px': '75vw' }" [draggable]="false"
 	[resizable]="false">
 	<ng-template pTemplate="header">
@@ -328,7 +328,7 @@
 	</ng-template>
 </p-dialog>
 
-<p-dialog class="retrypopup" [modal]="true" [closable]="false" header="Header" footer="Footer"
+<p-dialog class="retrypopup"  [closable]="false" header="Header" footer="Footer"
 	[(visible)]="isInstructionVisible" [style]="{ width: '60vw' }" [breakpoints]="{ '960px': '75vw' }"
 	[draggable]="false" [resizable]="false">
 	<ng-template pTemplate="header">
@@ -387,7 +387,7 @@
 	</ng-template>
 </p-dialog>
 
-<p-dialog class="questionmodal" header="Header" [draggable]="false" [modal]="true" [(visible)]="isReviewVisible"
+<p-dialog class="questionmodal" header="Header" [draggable]="false"  [(visible)]="isReviewVisible"
 	[style]="{ width: '70vw' }">
 	<ng-template class="p-2" pTemplate="header">
 		<h5 class="select-title text-center mb-3">Review Quiz</h5>

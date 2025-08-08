@@ -7,7 +7,7 @@ import Swiper from "swiper";
 import { AuthService } from "../../../Auth/auth.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
-import { SidebarModule } from "primeng/sidebar";
+import { DrawerModule  } from "primeng/drawer";
 import { RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,7 +27,6 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { EducationToolsService } from "../../education-tools/education-tools.service";
 import { SkeletonModule } from "primeng/skeleton";
 import { SharedModule } from "src/app/shared/shared.module";
-import { DropdownModule } from 'primeng/dropdown';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { experienceLevel, monthList, cgpaPercentage, workTypeValue, languageProficiency, skillProficiency, languageLists, resumeSlider, CommonInterface, ResumeHistory, JobTitle } from "./cv-builder.data";
 
@@ -36,7 +35,7 @@ import { experienceLevel, monthList, cgpaPercentage, workTypeValue, languageProf
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, SidebarModule, EditorModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule, SharedModule, SkeletonModule, DropdownModule, ProgressBarModule],
+  imports: [CommonModule, DialogModule, TextareaModule, DrawerModule , EditorModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule, SharedModule, SkeletonModule, ProgressBarModule],
   providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {

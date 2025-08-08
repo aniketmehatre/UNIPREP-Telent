@@ -24,7 +24,7 @@ import { DatePickerModule } from "primeng/datepicker"
 import { InputTextModule } from "primeng/inputtext"
 import { AccordionModule } from "primeng/accordion"
 import { TableModule } from "primeng/table"
-import { TabViewModule } from "primeng/tabview"
+import { TabsModule } from 'primeng/tabs'
 import { MessageService } from "primeng/api"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 
@@ -42,7 +42,7 @@ import { LocalStorageService } from 'ngx-localstorage';
 	standalone: true,
 	imports: [CommonModule, DialogModule, CarouselModule, InputGroupAddonModule, InputGroupModule, FormsModule, ButtonModule,
 		TooltipModule, RouterModule, SelectModule,
-		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule,
+		CalendarModule, DatePickerModule, InputTextModule,  TableModule, AccordionModule, ReactiveFormsModule,
 		PopoverModule, TextareaModule
 	],
 	providers: [DashboardService, DataService, LocationService],

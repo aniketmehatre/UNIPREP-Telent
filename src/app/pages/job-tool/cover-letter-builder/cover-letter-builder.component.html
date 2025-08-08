@@ -321,7 +321,7 @@
 </div>
 <!---------- templates ------------->
 
-<p-sidebar [(visible)]="fullScreenVisible" [fullScreen]="true" [showCloseIcon]="false">
+<p-drawer [(visible)]="fullScreenVisible" [fullScreen]="true" [closable]="false">
 	<div class="col-md-12 h-100">
 		<div class="card h-100 border-0" style="background-color: var(--p-primary-500);">
 			<ng-container *ngTemplateOutlet="headerPreview"></ng-container>
@@ -338,7 +338,7 @@
 			</div>
 		</div>
 	</div>
-</p-sidebar>
+</p-drawer>
 
 <ng-template #headerPreview>
 	<div class="card-header cvPreview rounded-0 border-0 bg-transparent text-dark">

@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { PaginatorModule } from 'primeng/paginator';
 import { TabsModule } from 'primeng/tabs';
-import { TabViewModule } from 'primeng/tabview';
 import { TalentConnectService } from "../../talent-connect.service";
 import { CompanyFilterComponent } from '../../company-connect/company-filter/company-filter.component';
 import { Company } from 'src/app/@Models/company-connect.model';
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'uni-company-list',
   standalone: true,
-  imports: [TabsModule, TabViewModule, PaginatorModule, CommonModule, CompanyFilterComponent
+  imports: [TabsModule,  PaginatorModule, CommonModule, CompanyFilterComponent
   ],
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss']

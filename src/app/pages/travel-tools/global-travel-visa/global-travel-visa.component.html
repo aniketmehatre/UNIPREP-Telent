@@ -54,7 +54,7 @@
                                     <ng-container *ngIf="recommendation.id == 1">
                                         <p-select [disabled]="true" [options]="allCountries" [filter]="true"
                                             [(ngModel)]="selectedData[recommendation.id]" optionLabel="country"
-                                            styleClass="w-100" optionValue="id" [showClear]="true" placeholder="India"
+                                            styleClass="w-100" optionValue="id"  placeholder="India"
                                             [appendTo]="'body'"></p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
@@ -63,7 +63,7 @@
                                         <p-select [options]="visaCountries" [filter]="true"
                                             [(ngModel)]="selectedData[recommendation.id]"
                                             (onChange)="onChangeCountry($event)" optionLabel="country"
-                                            styleClass="w-100" [showClear]="true" placeholder="Select country"
+                                            styleClass="w-100"  placeholder="Select country"
                                             [appendTo]="'body'"></p-select>
                                         <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                             style="color: red">Please Choose Any one option</p>
@@ -185,7 +185,7 @@
     </ng-container>
 </div>
 
-<!-- <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true"
+<!-- <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" 
     class="questionmodal" header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
     <ng-template pTemplate="header">
         <div class="d-flex w-100 flex-column px-4">
@@ -226,7 +226,7 @@
         </div>
     </div>
 </p-dialog> -->
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" header="Header"
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false"  header="Header"
     class="questionmodal custom-quiz-modal" [closable]="false" (onShow)="onShowModal($event)">
     <ng-template pTemplate="header">
         <div class="card-header border-0 bg-transparent px-4 pt-4 pb-0 w-100">

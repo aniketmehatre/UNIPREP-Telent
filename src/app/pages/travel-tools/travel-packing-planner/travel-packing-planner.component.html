@@ -46,7 +46,7 @@
 							<div class="col-md-6">
 								<div class="recommendationinput d-flex flex-column justify-content-center gap-3">
 									<ng-container *ngIf="recommendation.id == 1">
-										<p-select [options]="destinationLocationList" [(ngModel)]="selectedData[recommendation.id]" [virtualScroll]="true" [virtualScrollItemSize]="50" [appendTo]="'body'" placeholder="Select your travel destination" [filter]="true" filterBy="city_name,country_name" [showClear]="true" styleClass="w-100">
+										<p-select [options]="destinationLocationList" [(ngModel)]="selectedData[recommendation.id]" [virtualScroll]="true" [virtualScrollItemSize]="50" [appendTo]="'body'" placeholder="Select your travel destination" [filter]="true" filterBy="city_name,country_name"  styleClass="w-100">
 											<ng-template let-country pTemplate="item">
 												<div class="d-flex align-items-center gap-2">
 													<div class="dropdownimg">

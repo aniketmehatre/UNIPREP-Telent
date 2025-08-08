@@ -248,7 +248,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                               <label class="form-label">Job Title</label>
-                              <p-select [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="work_experience_job_title" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" (focusout)="resetMessageBox()" [appendTo]="'body'" [showClear]="true" (onShow)="updateMessageBox('work_experience_job_title')">
+                              <p-select [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="work_experience_job_title" [options]="jobTitles" placeholder="Select Job Title" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" (focusout)="resetMessageBox()" [appendTo]="'body'"  (onShow)="updateMessageBox('work_experience_job_title')">
                                 <ng-template #header>
                                   <div class="p-2">
                                     <p-inputgroup>
@@ -282,13 +282,13 @@
                             </div>
                             <div class="col-md-6 mb-3">
                               <label class="form-label">Employment Type</label>
-                              <p-select formControlName="work_experience_employment_type" [options]="preferredEmploymentType" [appendTo]="'body'" placeholder="Select employement type" styleClass="w-100" (focusout)="resetMessageBox()" [showClear]="true" (onShow)="updateMessageBox('work_experience_employment_type')"></p-select>
+                              <p-select formControlName="work_experience_employment_type" [options]="preferredEmploymentType" [appendTo]="'body'" placeholder="Select employement type" styleClass="w-100" (focusout)="resetMessageBox()"  (onShow)="updateMessageBox('work_experience_employment_type')"></p-select>
                               <small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_employment_type')?.errors?.required"> Employment Type is required </small>
                             </div>
                             <div class="col-md-6 mb-3">
                               <label for="salary" class="form-label">Salary per month</label>
                               <div class="d-flex w-100 gap-2">
-                                <p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select Currency" [filter]="true" filterBy="currency_code" appendTo="body" formControlName="work_experience_currency_id" [style]="{ width: '150px' }" [showClear]="true"> </p-select>
+                                <p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select Currency" [filter]="true" filterBy="currency_code" appendTo="body" formControlName="work_experience_currency_id" [style]="{ width: '150px' }" > </p-select>
                                 <div class="flex-grow-1 me-2">
                                   <p-inputNumber id="salary" placeholder="Enter your salary per month" styleClass="w-100" [showButtons]="false" class="w-100" formControlName="work_experience_salary_per_month" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('work_experience_salary_per_month')"> </p-inputNumber>
                                 </div>
@@ -1210,7 +1210,7 @@
     </ng-template>
   </div>
 </div>
-<p-dialog [style]="{ width: '25vw' }" [modal]="true" [breakpoints]="{ '960px': '75vw', '640px': '90vw' }" id="confirm-dialog" styleClass="p-3" [visible]="isShowCreatedSuccessfullyPopup" [closable]="false">
+<p-dialog [style]="{ width: '25vw' }"  [breakpoints]="{ '960px': '75vw', '640px': '90vw' }" id="confirm-dialog" styleClass="p-3" [visible]="isShowCreatedSuccessfullyPopup" [closable]="false">
   <div class="d-flex flex-column align-items-center w-100 gap-4 mt-1">
     <i class="text-success fa-solid fa-check-circle" style="font-size: 50px"></i>
     <h4 class="text-center">Your Talent profile has been successfully {{isUpdatedProfile? 'updated' :'created'}}.</h4>
@@ -1221,7 +1221,7 @@
     </div>
   </ng-template>
 </p-dialog>
-<p-dialog [(visible)]="isSampleProfileImgVisible" [modal]="true">
+<p-dialog [(visible)]="isSampleProfileImgVisible" >
   <ng-template #header>
     <h3 class="w-100 text-center">Profile Photo Samples</h3>
   </ng-template>

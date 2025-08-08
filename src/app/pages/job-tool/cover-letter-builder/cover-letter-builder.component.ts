@@ -8,7 +8,7 @@ import Swiper from "swiper"
 import { CvBuilderService } from "../cv-builder/cv-builder.service"
 import { CommonModule } from "@angular/common"
 import { DialogModule } from "primeng/dialog"
-import { SidebarModule } from "primeng/sidebar"
+import { DrawerModule  } from "primeng/drawer"
 import { TooltipModule } from 'primeng/tooltip';
 import { RouterModule } from "@angular/router"
 import { CardModule } from "primeng/card"
@@ -23,7 +23,6 @@ import { TextareaModule } from "primeng/textarea"
 import { EditorModule } from "primeng/editor"
 import { SkeletonModule } from "primeng/skeleton"
 import { ConfirmPopup } from "primeng/confirmpopup";
-import { DropdownModule } from "primeng/dropdown"
 import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
 import { coverLetterSliders, ResumeHistory, JobTitle } from "../cv-builder/cv-builder.data";
 
@@ -32,7 +31,7 @@ import { coverLetterSliders, ResumeHistory, JobTitle } from "../cv-builder/cv-bu
 	templateUrl: "./cover-letter-builder.component.html",
 	styleUrls: ["./cover-letter-builder.component.scss"],
 	standalone: true,
-	imports: [CommonModule, ConfirmPopup, EditorModule, DialogModule, SidebarModule, SkeletonModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule, DropdownModule],
+	imports: [CommonModule, ConfirmPopup, EditorModule, DialogModule, DrawerModule , SkeletonModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
 	providers: [ConfirmationService, TooltipModule],
 })
 export class CoverLetterBuilderComponent implements OnInit {

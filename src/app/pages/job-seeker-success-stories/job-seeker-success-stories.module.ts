@@ -14,7 +14,7 @@ import { DialogModule } from "primeng/dialog";
 import { EditorModule } from "primeng/editor";
 import { InputTextModule } from "primeng/inputtext";
 import { PaginatorModule } from "primeng/paginator";
-import { SidebarModule } from "primeng/sidebar";
+import { DrawerModule  } from "primeng/drawer";
 import { SkeletonModule } from "primeng/skeleton";
 import { SplitButtonModule } from "primeng/splitbutton";
 import { StepsModule } from "primeng/steps";
@@ -40,7 +40,7 @@ import { JobSeekerRoutingModule } from "./job-seeker-success-stories-routing.mod
         EditorModule,
         InputTextModule,
         PaginatorModule,
-        SidebarModule,
+        DrawerModule ,
         SkeletonModule,
         SplitButtonModule,
         StepsModule,

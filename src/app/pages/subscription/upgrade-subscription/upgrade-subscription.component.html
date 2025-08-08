@@ -292,8 +292,8 @@
             </div>
           </div>
           <div class="d-md-none d-block">
-            <p-tabView>
-              <p-tabPanel header="Free">
+            <p-tabs>
+              <p-tabpanel header="Free">
                 <div class="container-fluid">
                   <div class="row gap-5 d-flex">
                     <div class="card card-bg subscriptioncard col px-0">
@@ -347,7 +347,7 @@
                     </div>
                   </div>
                 </div>
-              </p-tabPanel>
+              </p-tabpanel>
               <p-tabPanel header="{{ subscription.subscription_plan }}" *ngFor="let subscription of subscriptionList">
                 <div class="card-body">
                   <div class="container-fluid">
@@ -453,7 +453,7 @@
                   </div>
                 </div>
               </p-tabPanel>
-            </p-tabView>
+            </p-tabs>
           </div>
           <br />
         </ng-container>
@@ -549,7 +549,7 @@
 <!--  -->
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>
-<p-dialog [modal]="true" [(visible)]="cardvisibility" [style]="{ width: '40rem', height: 'auto' }">
+<p-dialog  [(visible)]="cardvisibility" [style]="{ width: '40rem', height: 'auto' }">
   <div style="padding: 2rem !important">
     @if (elementsOptions.clientSecret) {
     <ngx-stripe-payment [elementsOptions]="elementsOptions"></ngx-stripe-payment>

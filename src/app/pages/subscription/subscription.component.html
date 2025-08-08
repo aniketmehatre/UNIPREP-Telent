@@ -40,7 +40,7 @@
 		</uni-subscription-history>
 	</ng-container>
 
-	<p-dialog [modal]="true" [(visible)]="cardvisibility" [style]="{ width: '40rem', height: 'auto' }">
+	<p-dialog  [(visible)]="cardvisibility" [style]="{ width: '40rem', height: 'auto' }">
 		<div style="padding: 2rem !important">
 			@if (elementsOptions.clientSecret) {
 			<ngx-stripe-payment [elementsOptions]="elementsOptions"></ngx-stripe-payment>

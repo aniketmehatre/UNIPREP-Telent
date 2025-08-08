@@ -52,7 +52,7 @@
 					</div>
 				</div>
 			</footer>
-			<p-dialog class="thankyoupopup" [modal]="true" header="Header" [(visible)]="showReportSuccess"
+			<p-dialog class="thankyoupopup"  header="Header" [(visible)]="showReportSuccess"
 				[breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
 				<ng-template pTemplate="header">
 					<span class="text-xl font-bold"></span>
@@ -145,7 +145,7 @@
 </div>
 
 <!-- module how it works vedio pop up -->
-<p-dialog [(visible)]="howItWorksVideoModal" [modal]="true" [draggable]="false" [resizable]="false"  header="Video" class="video-dialog">
+<p-dialog [(visible)]="howItWorksVideoModal"  [draggable]="false" [resizable]="false"  header="Video" class="video-dialog">
 	<div class="video-wrapper">
 		<div class="video-container">
 			<iframe #videoFrame *ngIf="howItWorksVideoLink" [src]="howItWorksVideoLink"

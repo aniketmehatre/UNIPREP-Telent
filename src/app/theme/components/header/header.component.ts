@@ -21,14 +21,12 @@ import { AvatarModule } from "primeng/avatar"
 import { InputTextModule } from "primeng/inputtext"
 import { take } from "rxjs/operators"
 import { SelectModule } from "primeng/select"
-import { TabViewModule } from "primeng/tabview"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { TextareaModule } from 'primeng/textarea'
 import { AuthTokenService } from 'src/app/services/auth-token.service'
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { StorageService } from "../../../services/storage.service";
-import { DropdownModule } from "primeng/dropdown";
 import { PromptService } from "src/app/services/prompt.service";
 import { User } from "src/app/@Models/user.model"
 import { CountryLocationService } from "src/app/services/country-location.service"
@@ -43,7 +41,6 @@ import { CommonService } from "src/app/services/common.service"
 	imports: [
 		CommonModule,
 		DialogModule,
-		TabViewModule,
 		RouterModule,
 		TabsModule,
 		PopoverModule,
@@ -58,7 +55,6 @@ import { CommonService } from "src/app/services/common.service"
 		InputGroupAddonModule,
 		TextareaModule,
 		AvatarGroupModule,
-		DropdownModule,
 		MultiSelectModule
 	]
 })

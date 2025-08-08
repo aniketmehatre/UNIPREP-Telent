@@ -1,9 +1,8 @@
 import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
-import { TabViewModule } from "primeng/tabview";
+import { TabsModule } from 'primeng/tabs';
 import { CommonModule } from "@angular/common";
 import { TalentConnectService } from '../../talent-connect.service';
 import { PaginatorModule } from 'primeng/paginator';
-import { TabsModule } from 'primeng/tabs';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { MultiSelectChangeEvent, MultiSelectModule } from 'primeng/multiselect';
@@ -18,7 +17,7 @@ import { Router } from '@angular/router';
   templateUrl: './job-list.component.html',
   styleUrls: ['./job-list.component.scss'],
   standalone: true,
-  imports: [TabsModule, TabViewModule, PaginatorModule, CommonModule, SelectModule, MultiSelectModule, InputNumberModule,
+  imports: [TabsModule,  PaginatorModule, CommonModule, SelectModule, MultiSelectModule, InputNumberModule,
     DialogModule, ReactiveFormsModule, ButtonModule
   ]
 })

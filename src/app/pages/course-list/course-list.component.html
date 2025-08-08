@@ -410,7 +410,7 @@
     </div>
   </ng-container>
 </div>
-<p-dialog header="Filter Courses" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }"
+<p-dialog header="Filter Courses" [(visible)]="isFilterVisible"  [style]="{ width: '60rem' }"
   [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }" class="filterDialog">
   <div class="m-5">
     <form role="form" [formGroup]="filterForm" (ngSubmit)="submitFilter()">

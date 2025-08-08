@@ -8,7 +8,7 @@
 				<div class="col-md-5 mb-3 mb-md-0">
 					<p-select [options]="sourceCities" formControlName="sourceCity"
 						placeholder="Source Location or Country" [filter]="true" filterBy="city_name,country_name"
-						[virtualScroll]="true" [virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'"
+						[virtualScroll]="true" [virtualScrollItemSize]="50"  [appendTo]="'body'"
 						styleClass="w-100 border-secondary">
 						<ng-template pTemplate="selectedItem" let-selectedOption>
 							<div class="d-flex align-items-center gap-2">
@@ -33,7 +33,7 @@
 				<div class="col-md-5 mb-3 mb-md-0">
 					<p-select [options]="targetCities" formControlName="targetCity"
 						placeholder="Target Location or Country" [filter]="true" filterBy="city_name,country_name"
-						[virtualScroll]="true" [virtualScrollItemSize]="50" [showClear]="true" [appendTo]="'body'"
+						[virtualScroll]="true" [virtualScrollItemSize]="50"  [appendTo]="'body'"
 						styleClass="w-100 border-primary">
 						<ng-template pTemplate="selectedItem" let-selectedOption>
 							<div class="d-flex align-items-center gap-2">

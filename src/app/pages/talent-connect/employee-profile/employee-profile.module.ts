@@ -4,7 +4,6 @@ import { EmployeeProfileComponent } from './employee-profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { Routes, RouterModule } from '@angular/router';
@@ -53,7 +52,6 @@ const routes: Routes = [
     FluidModule,
     ReactiveFormsModule,
     InputTextModule,
-    DropdownModule,
     DrawerModule,
     ButtonModule,
     CardModule,

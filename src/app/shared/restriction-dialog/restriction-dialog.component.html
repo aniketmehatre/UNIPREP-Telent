@@ -1,4 +1,4 @@
-<p-dialog [(visible)]="isShowRestrict" [style]="{ width: '30vw' }" [modal]="true" [draggable]="false"
+<p-dialog [(visible)]="isShowRestrict" [style]="{ width: '30vw' }"  [draggable]="false"
     [resizable]="false" class="restrictionDialog" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }"
     (onHide)="closeRestrictModal.emit(false)">
     <div *ngIf="!isWhiteLabelVisible; else showOrg" class="text-center mt-5 mb-4">
@@ -19,7 +19,7 @@
 </p-dialog>
 
 <p-dialog [(visible)]="isShowMenuRestrict" [style]="{ width: '35vw' }" [breakpoints]="{ '1199px': '45vw', '575px': '90vw' }" 
-    [modal]="true" [draggable]="false" [resizable]="false" (onHide)="closeMenuRestrictModal.emit(false)">
+     [draggable]="false" [resizable]="false" (onHide)="closeMenuRestrictModal.emit(false)">
     <div class="container">
         <div class="row mb-2">
             <div *ngIf="!isWhiteLabelVisible" class="col-md-12 px-4">

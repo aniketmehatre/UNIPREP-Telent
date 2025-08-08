@@ -11,11 +11,11 @@ import { CardModule } from "primeng/card";
 import { CarouselModule } from "primeng/carousel";
 import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { DialogModule } from "primeng/dialog";
-import { DropdownModule } from "primeng/dropdown";
+import { SelectModule } from 'primeng/select';
 import { EditorModule } from "primeng/editor";
 import { InputTextModule } from "primeng/inputtext";
 import { PaginatorModule } from "primeng/paginator";
-import { SidebarModule } from "primeng/sidebar";
+import { DrawerModule  } from "primeng/drawer";
 import { SkeletonModule } from "primeng/skeleton";
 import { SplitButtonModule } from "primeng/splitbutton";
 import { StepsModule } from "primeng/steps";
@@ -38,9 +38,8 @@ import { GlobalEmploymentRoutingModule } from "./global-employment-insights-rout
     ReactiveFormsModule,
     GlobalEmploymentRoutingModule,
     FormsModule,
-    DropdownModule,
     EditorModule,
-    SidebarModule,
+    DrawerModule ,
     CardModule,
     SplitButtonModule,
     ReactiveFormsModule,

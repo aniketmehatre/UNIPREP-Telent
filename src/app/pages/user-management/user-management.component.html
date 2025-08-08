@@ -216,7 +216,7 @@
                               <label>Last Degree Passing Year</label>
                               <div class="form-group">
                                 <div class="mb-3">
-                                  <p-calendar [maxDate]="today" [showIcon]="true" appendTo="body" dateFormat="yy" view="year" [yearNavigator]="true" type="number" [yearRange]="'1950:' + currentYear" inputId="pickYear" formControlName="last_degree_passing_year" placeholder="Enter or pick year" (input)="onYearInput($event)" (keypress)="onKeyPress($event)"></p-calendar>
+                                  <p-datepicker [maxDate]="today" [showIcon]="true" appendTo="body" dateFormat="yy" view="year" [yearNavigator]="true" type="number" [yearRange]="'1950:' + currentYear" inputId="pickYear" formControlName="last_degree_passing_year" placeholder="Enter or pick year" (input)="onYearInput($event)" (keypress)="onKeyPress($event)"></p-datepicker>
                                 </div>
                               </div>
                             </div>
@@ -304,7 +304,7 @@
                             <strong>{{ setting.title }}</strong>
                             <div class="text-muted small">{{ setting.description }}</div>
                           </div>
-                          <p-inputSwitch (onChange)="confirmEmailToggle($event, setting)" [ngModel]="setting.enabled === 1" (ngModelChange)="setting.enabled = $event ? 1 : 0"></p-inputSwitch>
+                          <p-toggle-switch (onChange)="confirmEmailToggle($event, setting)" [ngModel]="setting.enabled === 1" (ngModelChange)="setting.enabled = $event ? 1 : 0"></p-toggle-switch>
                         </div>
                       </div>
                     </div>
@@ -461,7 +461,7 @@
   </div>
 </div>
 <p-confirmDialog></p-confirmDialog>
-<!-- <p-dialog [(visible)]="isSampleProfileImgVisible" [modal]="true">
+<!-- <p-dialog [(visible)]="isSampleProfileImgVisible" >
   <ng-template #header>
     <h3 class="w-100 text-center">Profile Photo Samples</h3>
   </ng-template>

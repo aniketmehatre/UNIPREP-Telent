@@ -205,7 +205,7 @@
 		</div>
 		<!-- <p-paginator *ngIf="totalPitchDeckCount != 0" [rows]="pageSize" [totalRecords]="totalPitchDeckCount" (onPageChange)="pageChange($event)" [rowsPerPageOptions]="[50, 100, 300, 500, 1000]"></p-paginator> -->
 
-		<p-dialog header="Filter Pitch Deck" [(visible)]="isFilterVisible" [modal]="true" [style]="{ width: '60rem' }"
+		<p-dialog header="Filter Pitch Deck" [(visible)]="isFilterVisible"  [style]="{ width: '60rem' }"
 			[breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [ngStyle]="{ display: isFilterVisible }">
 			<div class="m-5">
 				<form role="form" [formGroup]="filterForm" (ngSubmit)="getPitchDeskList()">
