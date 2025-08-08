@@ -33,6 +33,7 @@ export interface Job {
   jobsoftskills: JobSoftSkills[];
   languages: LangProficiency[];
   uuid: string;
+  premium_users: number;
 }
 
 export interface LangProficiency {

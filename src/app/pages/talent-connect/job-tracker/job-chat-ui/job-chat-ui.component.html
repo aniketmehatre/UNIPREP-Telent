@@ -1,19 +1,24 @@
 <div class="card h-100 bg-white overflow-y-auto">
 	<div class="card-header bg-transparent d-flex justify-content-between align-items-center">
 		<div class="d-flex align-items-center gap-2">
-			<button *ngIf="!showInfo" pButton icon="pi pi-info-circle" label="Open Info" class="btn-primary text-dark me-1" (click)="openInfo.emit(true)"></button>
-			<p-avatar styleClass="avatar-img" [image]="jobDetails?.company_logo_url ?? 'uniprep-assets/images/avatar.webp'" size="large" shape="circle" />
+			<button *ngIf="!showInfo" pButton icon="pi pi-info-circle" label="Open Info"
+				class="btn-primary text-dark me-1" (click)="openInfo.emit(true)"></button>
+			<p-avatar styleClass="avatar-img"
+				[image]="jobDetails?.company_logo_url ?? 'uniprep-assets/images/avatar.webp'" size="large"
+				shape="circle" />
 			<div>
 				<h5 class="mb-0 fw-bold text-start">{{ jobDetails?.company_name }}</h5>
 				<p class="small text-muted mb-0 text-start">{{ userActiveStatus }}</p>
 			</div>
 		</div>
-		<button type="button" *ngIf="showInfo" class="btn-close d-md-block d-none" aria-label="Close" (click)="closeChat.emit(true)"></button>
+		<button type="button" *ngIf="showInfo" class="btn-close d-md-block d-none" aria-label="Close"
+			(click)="closeChat.emit(true)"></button>
 	</div>
 	<div class="card-body">
 		<div class="h-100 d-flex flex-column">
 			<!-- Body - Scrollable content -->
-			<div class="card-body p-0 flex-grow-1 overflow-hidden d-flex flex-column" style="height: calc(100vh - 455px)">
+			<div class="card-body p-0 flex-grow-1 overflow-hidden d-flex flex-column"
+				style="height: calc(100vh - 455px)">
 				<!-- Initial View (Empty State) -->
 				<div class="chat-body h-100 overflow-y-auto" *ngIf="messages?.length < 1">
 					<div class="description-box m-3 py-4 rounded-3" style="background-color: #edeff4">
@@ -25,7 +30,8 @@
 					</div>
 					<div class="cover-letter-box m-3 py-4 rounded-3" style="background-color: #f9e9d8">
 						<p class="text-center">Need a cover letter?</p>
-						<button pButton class="p-button-text p-button-plain w-100" label="Click here to write one!" routerLink="/pages/job-tool/coverletter-builder"></button>
+						<button pButton class="p-button-text p-button-plain w-100" label="Click here to write one!"
+							routerLink="/pages/job-tool/coverletter-builder"></button>
 					</div>
 				</div>
 
@@ -33,20 +39,27 @@
 				<div class="chat-body h-100 overflow-y-auto p-3" *ngIf="messages?.length > 0">
 					<ng-container *ngFor="let message of messages">
 						<!-- Fix alignment based on boolean sender -->
-						<div class="d-flex mb-2" [ngClass]="{ 'justify-content-start': !message.sender, 'justify-content-end': message.sender }">
+						<div class="d-flex mb-2"
+							[ngClass]="{ 'justify-content-start': !message.sender, 'justify-content-end': message.sender }">
 							<div class="avatar me-1" *ngIf="!message.sender">
-								<p-avatar [image]="jobDetails?.company_logo_url ?? 'uniprep-assets/images/avatar.webp'" shape="circle" />
+								<p-avatar [image]="jobDetails?.company_logo_url ?? 'uniprep-assets/images/avatar.webp'"
+									shape="circle" />
 							</div>
 							<!-- Text Message -->
 							<div *ngIf="message.type === 'text'" [ngStyle]="{ 'max-width': '75%' }">
-								<div class="sender-id mb-1" [ngClass]="message.sender ? 'text-end' : 'text-start'">{{ "@" }} {{ message.sender ? profileData?.full_name : jobDetails?.company_name }}</div>
-								<div class="message-content text-start" [ngClass]="{ 'bg-secondary text-white': message.sender, 'bg-secondary-subtle': !message.sender }">
+								<div class="sender-id mb-1" [ngClass]="message.sender ? 'text-end' : 'text-start'">{{
+									"@" }} {{ message.sender ? profileData?.full_name : jobDetails?.company_name }}
+								</div>
+								<div class="message-content text-start"
+									[ngClass]="{ 'bg-secondary text-white': message.sender, 'bg-secondary-subtle': !message.sender }">
 									<p>{{ message.content }}</p>
 									<div class="d-flex justify-content-between align-items-center flex-row-reverse">
 										<div class="ms-1">
-											<i class="fa-solid fa-check-double" [style.color]="message.markAsRead ? 'skyblue' : 'lightgray'"></i>
+											<i class="fa-solid fa-check-double"
+												[style.color]="message.markAsRead ? 'skyblue' : 'lightgray'"></i>
 										</div>
-										<small class="message-time text-end" [ngClass]="{ 'text-white': message.sender, 'text-black': !message.sender }">
+										<small class="message-time text-end"
+											[ngClass]="{ 'text-white': message.sender, 'text-black': !message.sender }">
 											{{ message.time }}
 										</small>
 									</div>
@@ -55,16 +68,23 @@
 							<!-- File Attachment -->
 
 							<div *ngIf="message.type === 'file'" style="min-width: 50%">
-								<div class="sender-id mb-1" [ngClass]="message.sender ? 'text-end' : 'text-start'">{{ "@" }} {{ message.sender ? profileData?.full_name : jobDetails?.company_name }}</div>
-								<div class="message-content file-message text-start" [ngClass]="message.sender ? 'bg-secondary text-white' : 'bg-secondary-subtle'">
+								<div class="sender-id mb-1" [ngClass]="message.sender ? 'text-end' : 'text-start'">{{
+									"@" }} {{ message.sender ? profileData?.full_name : jobDetails?.company_name }}
+								</div>
+								<div class="message-content file-message text-start"
+									[ngClass]="message.sender ? 'bg-secondary text-white' : 'bg-secondary-subtle'">
 									<div class="file-wrapper">
-										<a [href]="message.attachment_url" target="_blank" class="text-decoration-none d-flex align-items-center" [ngClass]="message.sender ? 'text-white' : 'text-black'" download>
+										<a [href]="message.attachment_url" target="_blank"
+											class="text-decoration-none d-flex align-items-center"
+											[ngClass]="message.sender ? 'text-white' : 'text-black'" download>
 											<i class="fas fa-file-pdf fa-large me-2"></i>
 											<div class="overflow-auto">{{ message.attachment || "File" }}</div>
 										</a>
 									</div>
 									<div class="">{{ message.content }}</div>
-									<small class="message-time text-start" [ngClass]="message.sender ? 'text-white' : 'text-muted'">{{ message.time }}</small>
+									<small class="message-time text-start"
+										[ngClass]="message.sender ? 'text-white' : 'text-muted'">{{ message.time
+										}}</small>
 								</div>
 							</div>
 							<!-- Button Message -->
@@ -72,7 +92,8 @@
 								<div class="sender-id mb-1 text-end">
 									{{ message.sender ? message.company_logo : message.profile_image }}
 								</div>
-								<button pButton class="p-button-warning w-100 d-flex justify-content-between align-items-center">
+								<button pButton
+									class="p-button-warning w-100 d-flex justify-content-between align-items-center">
 									<span>{{ message.content }}</span>
 									<div class="d-flex align-items-center">
 										<small class="me-2">{{ message.time }}</small>
@@ -80,10 +101,12 @@
 								</button>
 							</div>
 							<div class="avatar ms-2" *ngIf="message.sender">
-								<p-avatar [image]="profileData?.dp_image ?? 'uniprep-assets/images/avatar.webp'" shape="circle" />
+								<p-avatar [image]="profileData?.dp_image ?? 'uniprep-assets/images/avatar.webp'"
+									shape="circle" />
 							</div>
 						</div>
-						<div *ngIf="message.job_status" class="uniprep-secondary text-start" style="max-width: 75%; margin-left: 25px">Status: {{ message.job_status }}</div>
+						<div *ngIf="message.job_status" class="uniprep-secondary text-start"
+							style="max-width: 75%; margin-left: 25px">Status: {{ message.job_status }}</div>
 					</ng-container>
 				</div>
 			</div>
@@ -91,29 +114,113 @@
 	</div>
 	<div class="card-footer bg-white p-2 border-0 w-100">
 		<div class="w-100 mb-1 d-flex justify-content-end bg-transparent">
-			<button *ngIf="messages?.length !== 0 || messageInput?.value?.length !== 0; else isLoadingAiSummary" class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="aiGenerateSummary('student', { content: messageInput.value }, messageInput, 'RePhrase')">RePhrase</button>
+			<button *ngIf="messages?.length !== 0 || messageInput?.value?.length !== 0; else isLoadingAiSummary"
+				class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
+				style="width: fit-content"
+				(click)="aiGenerateSummary('student', { content: messageInput.value }, messageInput, 'RePhrase')">RePhrase</button>
 			<ng-template #isLoadingAiSummary>
-				<button class="text-small text-end btn btn-success btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="aiGenerateSummary('student', { company_name: jobDetails?.company_name, job_lookingfor: jobDetails?.position, created_at: jobDetails?.created_at }, messageInput, 'AI generate')">Ai Generate</button>
+				<button class="text-small text-end btn btn-success btn-rounded d-flex align-items-center gap-2"
+					style="width: fit-content"
+					(click)="aiGenerateSummary('student', { company_name: jobDetails?.company_name, job_lookingfor: jobDetails?.position, created_at: jobDetails?.created_at }, messageInput, 'AI generate')">Ai
+					Generate</button>
 			</ng-template>
 		</div>
-		<input type="file" class="d-none" accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" #fileAttachment (change)="uploadFilesChat($event)" />
+		<input type="file" class="d-none"
+			accept=".doc,.docx,.pdf, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+			#fileAttachment (change)="uploadFilesChat($event)" />
 		<div *ngIf="attachmentFile" class="border d-flex justify-content-between align-items-center p-2">
 			<div>{{ attachmentFile.name }}</div>
 			<i class="fas fa-xmark cursor-pointer" (click)="attachmentFile = null; attachmentFileName = null"></i>
 		</div>
 		<div class="d-flex gap-2 align-items-center">
 			<div class="input-group border rounded-4 p-1 h-auto">
-				<textarea class="form-control border-0 overflow-auto no-scrollbar" [placeholder]="'Text with ... ' + jobDetails?.company_name" #messageInput rows="1" [(ngModel)]="message" style="resize: none; min-height: 38px; max-height: 200px" (input)="autoGrow($event.target)" (keyup.enter)="onEnterMsg(messageInput); message = ''"> </textarea>
+				<textarea class="form-control border-0 overflow-auto no-scrollbar"
+					[placeholder]="'Text with ... ' + jobDetails?.company_name" #messageInput rows="1"
+					[(ngModel)]="message" style="resize: none; min-height: 38px; max-height: 200px"
+					(input)="autoGrow($event.target)"
+					(keyup.enter)="onEnterMsg(messageInput); message = ''"> </textarea>
 				<button class="input-group-text border-0 bg-white" (click)="fileAttachment.click()">
 					<i class="fa-solid fa-paperclip"></i>
 				</button>
-				<button class="input-group-text border-0 bg-white" *ngIf="isJobApplied" (click)="sendMessage(messageInput.value); messageInput.value = ''; autoGrow(messageInput)">
+				<button class="input-group-text border-0 bg-white" *ngIf="isJobApplied"
+					(click)="sendMessage(messageInput.value); messageInput.value = ''; autoGrow(messageInput)">
 					<i class="fas fa-paper-plane" style="color: var(--p-secondary-500)"></i>
 				</button>
 			</div>
 			<div *ngIf="!isJobApplied">
-				<button class="btn btn-secondary" (click)="applyJob(messageInput.value); messageInput.value = ''; autoGrow(messageInput)">Apply</button>
+				<button class="btn btn-secondary"
+					(click)="applyJob(messageInput.value); messageInput.value = ''; autoGrow(messageInput)">Apply</button>
 			</div>
 		</div>
 	</div>
 </div>
+
+<p-dialog [(visible)]="showPremimumPopup" [modal]="true" [draggable]="false" [resizable]="false"
+	header="Upgrade to Apply!" class="upgrade-to-apply">
+	<div class="gift-image center-align">
+		<img [src]="giftImage" alt="gift-image">
+	</div>
+	<div class="text-center fw-medium">
+		<p>This job is available exclusively for Premium users.Unlock</p>
+		<p>premium to apply now.</p>
+	</div>
+	<div class="center-align gap-5 mt-4">
+		<button pButton [rounded]="true" type="button" (click)="closeAndOpenPopup()">Why Premium ?</button>
+		<button pButton class="btn-secondary" [routerLink]="['/pages/subscriptions']" [rounded]="true" type="button">Get Premium Plan !</button>
+	</div>
+</p-dialog>
+
+<p-dialog [(visible)]="whyPremium" [modal]="true" [draggable]="false" [resizable]="false" [closable]="false"
+	header="Upgrade to UNIPREP Premium?" class="why-premium">
+	<div class="premium-benefits">
+		<div class="benefit">
+			<div class="left-column">
+				<p>📌 1:1 Career Mentorship</p>
+			</div>
+			<div class="right-column">
+				<p>
+					Talents receive personalised support from a UNIPREP Career Advisor to build an exceptional,
+					job-ready profile.
+				</p>
+				<p class="subtext">
+					Verified Talent = Preferred Hire — 9 out of 10 employers choose verified talents over
+					others. Verification gives a clear edge.
+				</p>
+			</div>
+		</div>
+		<div class="benefit">
+			<div class="left-column">
+				<p>📌 Real-Time Job Alerts</p>
+			</div>
+			<div class="right-column">
+				<p>Talents get instant notifications for job openings they are looking for.</p>
+			</div>
+		</div>
+		<div class="benefit">
+			<div class="left-column">
+				<p>📌 Access to 70+ Premium Tools</p>
+			</div>
+			<div class="right-column">
+				<p>Including job-winning CV templates, Skill certifications, aptitude prep, and more — all included with
+					Premium.</p>
+			</div>
+		</div>
+		<div class="benefit">
+			<div class="left-column">
+				<p>📌 Unlimited Access to Premium Jobs</p>
+			</div>
+			<div class="right-column">
+				<p>Premium talents can apply to high-value job opportunities not available to standard users.</p>
+			</div>
+		</div>
+		<div class="note">
+			<strong>Note:</strong> UNIPREP Premium is valid for 12 months with full access to the platform — all for
+			less than 150 per month.
+			If there's no career success after 12 months as a Premium user, talents can claim a refund.
+		</div>
+	</div>
+	<div class="center-align">
+		<button pButton class="btn-secondary" [rounded]="true" type="button" [routerLink]="['/pages/subscriptions']">Get Premium Plan !</button>
+	</div>
+
+</p-dialog>
