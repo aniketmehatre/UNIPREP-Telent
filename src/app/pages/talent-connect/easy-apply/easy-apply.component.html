@@ -60,8 +60,9 @@
 				[routerLink]="['/pages/talent-connect/easy-apply', job.id]">
 				<div class="card card-inside h-100 text-start position-relative" role="button">
 					<button class="btn btn-link text-warning p-0 position-absolute"
-						style="right: 0.5rem; top: 0.5rem; z-index: 999" (click)="showSocialSharingList($event, i)">
-						<i class="fa-regular fa-share-alt"></i>
+						style="right: 0.5rem; top: 0.5rem; z-index: 999">
+						<i class="fa-solid fa-circle-star" *ngIf="job.premium_users === 1" pTooltip="User Requires Premium Plan to Apply." tooltipPosition="bottom"></i>
+						<i class="fa-regular fa-share-alt" (click)="showSocialSharingList($event, i)"></i>
 					</button>
 					<p-card class="socialSharingList" id="socialSharingList-{{ i }}">
 						<ul style="list-style: none; cursor: pointer">

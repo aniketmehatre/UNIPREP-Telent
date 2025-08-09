@@ -45,5 +45,5 @@ export const environment = {
     },
     uniApplyUrl: prod_uni_apply_b2c_url,
     uniapplyAPI: prod_uni_apply_student,
-    imagePath: `https://${prod_domain}/uniprepapi/storage/app/public/`
+    imagePath: `https://${prod_domain}/uniprepapi/public/storage/`
 };
