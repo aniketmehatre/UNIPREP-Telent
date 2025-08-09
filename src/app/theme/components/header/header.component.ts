@@ -1284,8 +1284,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					let jobId = this.storage.get('jobId')
 					if (jobId) {
 						this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+					}else {
+						this.router.navigate(["/pages/talent-connect/my-profile"])
 					}
-					window.location.reload()
+					//window.location.reload()
 				}, 2000)
 				return res
 			},

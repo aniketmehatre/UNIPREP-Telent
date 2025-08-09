@@ -199,30 +199,6 @@ export class SidenavComponent {
       image: "fa-solid fa fa-globe",
       subMenuBy: "International Education",
     },
-    // {
-    //   title: "Pre Admission",
-    //   url: "/pages/modules/pre-admission",
-    //   image: "fa-solid fa-file-import",
-    //   subMenuBy:"International Education",
-    // },
-    // {
-    //   title: "Post Application",
-    //   url: "/pages/modules/post-application",
-    //   image: "fa-solid fa-file-export",
-    //   subMenuBy:"International Education",
-    // },
-    // {
-    //   title: "Post Admission",
-    //   url: "/pages/modules/post-admission",
-    //   image: "fa-solid fa-ticket",
-    //   subMenuBy:"International Education",
-    // },
-    // {
-    //   title: "University",
-    //   url: "/pages/modules/university",
-    //   image: "fa-solid fa-building-columns",
-    //   subMenuBy:"International Education",
-    // },
     {
       title: "UNILEARN",
       url: "/pages/unilearn/modules",
