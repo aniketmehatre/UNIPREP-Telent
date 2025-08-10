@@ -135,17 +135,18 @@ export class JobChatUiComponent implements OnInit, OnChanges {
     });
   }
   applyJob(message: string) {
-    if (!message.trim()) {
-      this.toast.add({ severity: "error", summary: "Error", detail: 'Please enter a short message to continue' });
-      return;
-    }
-
-    //upgrade to premium and why premium popup trigger
+     //upgrade to premium and why premium popup trigger
     if(this.jobDetails.premium_users === 1){ // if the job is only premium users or all users.
       if(this.authService._user.current_plan_detail.account_status !== "Subscription Active"){ // if the subscription is not exist
         this.showPremimumPopup = true;
       }
     }
+    if (!message.trim()) {
+      this.toast.add({ severity: "error", summary: "Error", detail: 'Please enter a short message to continue' });
+      return;
+    }
+
+   
     this.talentConnectService.applyJob(this.jobDetails?.id).subscribe({
       next: (response) => {
         this.jobId = response.id;

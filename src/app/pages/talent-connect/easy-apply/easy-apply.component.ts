@@ -30,6 +30,7 @@ export class EasyApplyComponent {
   currencies: any[] = [];
   hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'Future_Hiring', name: 'Future Hiring' }];
   introductionVideoTypes: { id: string, name: string }[] = [{ id: 'Yes', name: 'Mandatory' }, { id: 'No', name: 'Not Mandatory' }];
+  jobTypes: { id: string, name: string }[] = [{ id: 'Standard', name: 'Standard' }, { id: 'Premium', name: 'Premium' }];
   page: number = 1;
   pageSize: number = 8;
   displayModal: boolean = false;
@@ -81,6 +82,7 @@ export class EasyApplyComponent {
       salary_currency: [null],
       hiringStatus: [null],
       intro: [null],
+      job_type: [null],
       hiring_type: [null]
     });
   }

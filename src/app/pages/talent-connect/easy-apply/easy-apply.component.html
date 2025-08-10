@@ -375,13 +375,19 @@
 					placeholder="Select the Introduction video" optionValue="id" appendTo="body" display="chip"
 					class="w-100" [showClear]="true"> </p-select>
 			</div>
-			<div class="col-md-4 h-full mt-auto">
-				<button pButton label="Apply Filter" (click)="applyFilter()" class="btn-primary w-100 p-2"></button>
+			<div class="col-md-4">
+				<label class="form-label fw-bold">Job Type</label>
+				<p-select [options]="jobTypes" formControlName="job_type" optionLabel="name"
+					placeholder="Standard/Premium" optionValue="id" appendTo="body" display="chip"
+					class="w-100" [showClear]="true"> </p-select>
 			</div>
+			
 		</div>
 	</form>
 
 	<div class="dialog-footer p-3 d-flex justify-content-center">
 		<button pButton label="Reset Filter" (click)="resetFilter()" class="p-button-text text-primary"></button>
+		&nbsp;&nbsp;<button pButton label="Apply Filter" (click)="applyFilter()" class="btn-primary  "></button>
 	</div>
+	 
 </p-dialog>
