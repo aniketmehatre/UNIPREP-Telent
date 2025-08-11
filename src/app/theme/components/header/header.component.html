@@ -399,7 +399,7 @@
 				<div class="d-flex flex-column">
 					<form [formGroup]="phoneVerification" role="form" aria-label="Phone verification form">
 						<div class="w-100 phonenumberblock mt-2">
-							<p class="m-2">Enter your Number for Job Alerts on {{ haveWhatsapp }}</p>
+							<p class="m-2">Enter Your Number to Receive Job Status Updates from Employer on {{ haveWhatsapp }}</p>
 							<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom-less-padding'" [preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" appendTo="body" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true" [selectedCountryISO]="preferredCountry" customPlaceholder="Enter {{ haveWhatsapp }} Number" formControlName="verification_phone" [attr.disabled]="isSendingOTP" aria-label="Enter WhatsApp number"></ngx-intl-tel-input>
 							<div class="d-flex align-items-center justify-content-between mt-2">
 								<div class="d-flex align-items-center">
@@ -434,11 +434,11 @@
 </p-dialog>
 
 <p-dialog [(visible)]="freeTrial" [modal]="true" [closable]="false" styleClass="FirstLoginPopup">
-	<ng-template #header>
+	<!-- <ng-template #header>
         <h3 class="w-100 text-center">
           Personalize your UNIPREP
         </h3>
-    </ng-template>
+    </ng-template> -->
 	<div class="container">
 		<div class="row mb-2 p-2">
 			<div class="col-md-12 px-4">
@@ -494,10 +494,10 @@
 						<div *ngIf="freeTrialErrorMsg" class="text-danger text-center">
 							{{ freeTrialErrorMsg }}
 						</div>
-						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
+						<!-- <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
 							<p class="m-1">Select Your Interest</p>
 							<p-multiSelect class="w-100" formControlName="interest_type" appendTo="body" [options]="interestMenuList" placeholder="Your Interest" optionLabel="name" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-multiSelect>
-						</div>
+						</div> -->
 						<div class="w-100 phonenumberblock mt-2 uniprep-secondary text-small" *ngIf="formvisbility">
 							Note: The initial selection can be altered in My Profile
 						</div>
