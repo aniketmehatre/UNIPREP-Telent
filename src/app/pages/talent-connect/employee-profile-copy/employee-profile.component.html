@@ -119,11 +119,6 @@
                           </div>
                           <div class="row mb-3">
                             <div class="col-md-6">
-                              <label class="form-label">Field of study <span class="text-danger">*</span></label>
-                              <p-select formControlName="education_field_id" [options]="fieldsOfStudy" placeholder="Select Field of study" styleClass="w-100" optionLabel="field_name" optionValue="id" [filter]="true" filterBy="field_name" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('education_field_id')" [appendTo]="'body'"></p-select>
-                              <small class="text-danger" *ngIf="isSubmittedEducationDetailsForm && education.get('education_field_id')?.errors?.required"> Field of study is required </small>
-                            </div>
-                            <div class="col-md-6">
                               <label class="form-label">Course Name <span class="text-danger">*</span></label>
                               <div class="p-inputgroup">
                                 <input pInputText fluid formControlName="education_course_name" placeholder="Enter your course name" class="form-control" (focus)="updateMessageBox('education_course_name')" (focusout)="resetMessageBox()" />

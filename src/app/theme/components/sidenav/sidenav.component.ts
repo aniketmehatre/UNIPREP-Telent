@@ -48,21 +48,6 @@ export class SidenavComponent {
       url: "/pages/dashboard",
       image: "fa-solid fa-objects-column",
     },
-    // {
-    //   title: "User Guide",
-    //   url: "/pages/userguide",
-    //   image: "fa-solid fa-book",
-    // },
-    {
-      title: "Subscription",
-      url: "/pages/subscriptions",
-      image: "fa-solid fa-crown",
-    },
-    // {
-    //   title: "Recommendations",
-    //   url: "/pages/recommendations",
-    //   image: "fa fa-star"
-    // },
     {
       title: "Academics",
       url: "",
@@ -87,12 +72,6 @@ export class SidenavComponent {
       image: "",
       subMenu: true
     },
-    // {
-    //   title: "Employer Connect",
-    //   url: "/pages/talent-connect/list",
-    //   image: "fa-solid fa-briefcase",
-    //   subMenuBy:"Job Board"
-    // },
     {
       title: "Create Job Profile",
       url: "/pages/talent-connect/my-profile",
@@ -144,18 +123,6 @@ export class SidenavComponent {
       subMenuBy: "Career",
       popular: true
     },
-    // {
-    //   title: "Career Planner",
-    //   url: "/pages/career-planner",
-    //   image: "fa-solid fa-arrow-progress",
-    //   subMenuBy:"Career",
-    // },
-    // {
-    //   title: "Company List",
-    //   url: "/pages/company-list",
-    //   image: "fa-solid fa-buildings",
-    //   subMenuBy:"Career",
-    // },
     {
       title: "Entrepreneur",
       url: "",
@@ -174,12 +141,6 @@ export class SidenavComponent {
       image: "fa-solid fa-chart-network",
       subMenuBy: "Entrepreneur",
     },
-    // {
-    //   title: "Investor List",
-    //   url: "/pages/investor-list",
-    //   image: "fa-solid fa-chart-waterfall",
-    //   subMenuBy:"Entrepreneur",
-    // },
     {
       title: "Pitch Deck",
       url: "/pages/pitch-deck",
@@ -238,18 +199,6 @@ export class SidenavComponent {
       subMenuBy: "Travel & Life",
       popular: true
     },
-    // {
-    //   title: "Travel and Tourism",
-    //   url: "/pages/modules/travel-and-tourism",
-    //   image: "fa-solid fa-plane",
-    //   subMenuBy:"Travel & Life",
-    // },
-    // {
-    //   title: "Life in",
-    //   url: "/pages/modules/life-at-country",
-    //   image: "fa-solid fa-earth-americas",
-    //   subMenuBy:"Travel & Life",
-    // },
     {
       title: "Travel Tools",
       url: "/pages/travel-tools",
@@ -263,49 +212,24 @@ export class SidenavComponent {
       image: "",
       subMenu: true
     },
-    // {
-    //   title: "Assessment",
-    //   url: "/pages/assessment/ilearn-challenge",
-    //   image: "fa-regular fa-badge-check",
-    //   subMenuBy:"Others",
-    // },
     {
       title: "AI Global Advisor",
       url: "/pages/advisor",
       image: "fa-solid fa-file-user",
       subMenuBy: "Others",
     },
-    // {
-    //   title: "Resources",
-    //   url: "/pages/resource",
-    //   image: "fa-solid fa-link",
-    //   subMenuBy:"Others",
-    // },
     {
       title: "Events",
       url: "/pages/events",
       image: "fa-solid fa-calendar-days",
       subMenuBy: "Others",
     },
-    // {
-    //   title: "Quiz",
-    //   url: "/pages/modules/quizmodule",
-    //   image: "fa-solid fa-clock-desk",
-    //   subMenuBy:"Others",
-    //   popular:true
-    // },
     {
       title: "Certificates",
       url: "/pages/mycertificate",
       image: "fa-solid fa-file-certificate",
       subMenuBy: "Others",
     },
-    // {
-    //   title: "Success Stories",
-    //   url: "/pages/success-stories",
-    //   image: "fa-solid fa-thumbs-up",
-    //   subMenuBy:"Others",
-    // },
     {
       title: "Support",
       url: "",
@@ -313,17 +237,16 @@ export class SidenavComponent {
       subMenu: true
     },
     {
+      title: "Subscription",
+      url: "/pages/subscriptions",
+      image: "fa-solid fa-crown",
+    },
+    {
       title: "Tutorials",
       url: "/pages/tutorials",
       image: "fa-solid fa-video",
       subMenuBy: "Support",
     },
-    // {
-    //   title: "Contributors",
-    //   url: "/pages/contributors",
-    //   image: "fa-solid fa-hands-holding-dollar",
-    //   subMenuBy:"Support",
-    // },
     {
       title: "FAQ",
       url: "/pages/faq",
@@ -336,25 +259,6 @@ export class SidenavComponent {
       image: "fa-solid fa-headset",
       subMenuBy: "Support",
     },
-    // {
-    //   title: 'Help & Support',
-    //   url: '/pages/help',
-    //   image: 'fa-solid fa-phone-volume',
-    //   subMenuBy:"Support",
-    // }
-    // ,
-    // {
-    //   title: 'USER MANAGER',
-    //   url: '/pages/usermanagement',
-    //   image: 'pi pi-briefcase',
-    //   subMenuBy:"Support",
-    // },
-    // {
-    //   title: 'SUBCRIPTION MANAGER',
-    //   url: '/pages/subscriptionmanagement',
-    //   image: 'pi pi-briefcase',
-    //   subMenuBy:"Support",
-    // }
   ];
 
   k10RestrictedMenus: string[] = ["Career Tools", "Recommendations", "Career Hub", "Learning Hub", "Skill Mastery", "Startup Kit", "Founders Tool", "Pitch Deck", "Career", "Entrepreneur"];
@@ -368,7 +272,7 @@ export class SidenavComponent {
   collegeStudentRestrictedMenus = ["Assessment"];
 
   premiumPlanMenus: string[] = ["K12 Academy", "K12 Academic Tools", "Learning Hub", "Skill Mastery", "Career Tools", "Language Hub", "Travel Tools", "Global Repository",
-    "UNILEARN", "UNISCHOLAR", "UNIFINDER", "Education Tools", "Startup Kit", "Founders Tool", "Pitch Deck",
+    "UNILEARN", "UNISCHOLAR", "UNIFINDER", "Education Tools", "Startup Kit", "Founders Tool", "Pitch Deck", "24x7 Support",
     "AI Global Advisor", "Events", "Certificates"];
   interestMenuList: { id: number, name: string }[] = [
     { id: 1, name: 'Career' },
