@@ -158,11 +158,11 @@
                             </div>
                           </div>
                           <div class="row mb-3">
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                               <label class="form-label">Field of study <span class="text-danger">*</span></label>
                               <p-select formControlName="education_field_id" [options]="fieldsOfStudy" placeholder="Select Field of study" styleClass="w-100" optionLabel="field_name" optionValue="id" [filter]="true" filterBy="field_name" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('education_field_id')" [appendTo]="'body'"></p-select>
                               <small class="text-danger" *ngIf="isSubmittedEducationDetailsForm && education.get('education_field_id')?.errors?.required"> Field of study is required </small>
-                            </div>
+                            </div> -->
                             <div class="col-md-6">
                               <label class="form-label">Course Name <span class="text-danger">*</span></label>
                               <div class="p-inputgroup">
@@ -170,15 +170,15 @@
                               </div>
                               <small class="text-danger" *ngIf="isSubmittedEducationDetailsForm && education.get('education_course_name')?.errors?.required"> Course Name is required </small>
                             </div>
-                          </div>
-                          <div class="row mb-3">
-                            <div class="col-md-6">
+                             <div class="col-md-6">
                               <label class="form-label">Graduation Year <span class="text-danger">*</span></label>
                               <div class="p-inputgroup">
                                 <p-select formControlName="education_graduation_year_id" [options]="getFilteredGraduationYears(i)" [filter]="true" [appendTo]="'body'" placeholder="Select Graduation Year" styleClass="w-100" optionLabel="graduation_year_name" optionValue="id" (onChange)="onChangeGraduationYear($event, i)" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('education_graduation_year_id')"></p-select>
                               </div>
                               <small class="text-danger" *ngIf="isSubmittedEducationDetailsForm && education.get('education_graduation_year_id')?.errors?.required"> Graduation Year is required </small>
                             </div>
+                          </div>
+                          <div class="row mb-3">
                             <div class="col-md-6">
                               <div class="d-flex justify-content-between align-items-center">
                                 <label class="form-label">GPA / Percentage<span class="text-danger">*</span></label>
@@ -219,7 +219,7 @@
                       </ng-container>
                       <div class="row">
                         <div class="col-12">
-                          <button [disabled]="isDisableAddMoreEducation" class="w-100 btn btn-outline-primary-bg py-2-5" pButton (click)="addEducation()">Add Education Details &nbsp;<i class="fa fa-plus"></i></button>
+                          <button [disabled]="isDisableAddMoreEducation" class="w-100 btn btn-outline-primary-bg py-2-5" pButton (click)="addEducation()"><i class="fa fa-plus"></i>&nbsp; Add more </button>
                         </div>
                       </div>
                     </form>
@@ -229,7 +229,8 @@
                 <p-step-panel [value]="2">
                   <ng-template #content>
                     <form [formGroup]="workExperienceForm">
-                      <h2 class="card-title mb-2">Work Experience & Internships</h2>
+                      <h2 class="card-title mb-2">Work Experience </h2>
+                      <!-- <span class="text-danger">(Optional)</span> -->
                       <ng-container class="work-experience" formArrayName="work_experience">
                         <ng-container *ngFor="let experience of workExperience.controls; let i = index" [formGroupName]="i">
                           <div class="d-flex justify-content-between">
@@ -242,7 +243,7 @@
                             <div class="col-md-6 mb-3">
                               <label for="university" class="form-label">Company Name</label>
                               <div class="p-inputgroup">
-                                <input pInputText fluid formControlName="work_experience_company_name" placeholder="Enter your company" class="form-control" (focusout)="resetMessageBox()" (focus)="updateMessageBox('work_experience_company_name')" (change)="onChangeWorkExpCompanyName($event, i)" />
+                                <input pInputText fluid formControlName="work_experience_company_name" placeholder="Enter your company name" class="form-control" (focusout)="resetMessageBox()" (focus)="updateMessageBox('work_experience_company_name')" (change)="onChangeWorkExpCompanyName($event, i)" />
                               </div>
                               <small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_company_name')?.errors?.required"> Company Name is required </small>
                             </div>
@@ -317,8 +318,9 @@
                             </div>
 
                             <div class="col-md-6 mb-3">
-                              <label class="form-label fw-bold">Experience Letter</label>
-                              <div class="upload-box d-flex align-items-center justify-content-center position-relative" (click)="fileExperieceUpload.click()" (onFocus)="updateMessageBox('work_experience_experience_letter')" (focusout)="resetMessageBox()">
+                              <label class="form-label fw-bold">Experience Letter (Optional)</label>
+                              <div class="upload-box d-flex align-items-center justify-content-center position-relative"
+                               (click)="fileExperieceUpload.click()" (onFocus)="updateMessageBox('work_experience_experience_letter')" (focusout)="resetMessageBox()">
                                 <div class="d-flex flex-column align-items-center gap-1">
                                   <i class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color fw-bold"></i>
                                   <div class="fw-bold">
@@ -338,7 +340,7 @@
                       </ng-container>
                       <div class="row">
                         <div class="col-12">
-                          <button pButton class="w-100 btn btn-outline-primary-bg py-2-5" (click)="addWorkExperience()">Add Work Experience Details &nbsp;<i class="fa fa-plus"></i></button>
+                          <button pButton class="w-100 btn btn-outline-primary-bg py-2-5" (click)="addWorkExperience()"><i class="fa fa-plus"></i>&nbsp;Add more</button>
                         </div>
                       </div>
                       <div class="row mb-3">
@@ -434,7 +436,7 @@
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <div class="col-md-6">
+                          <!-- <div class="col-md-6">
                             <label class="form-label"> Willingness to Relocate?<span class="text-danger">*</span></label>
                             <p-select
                               formControlName="career_preference_willingness_to_relocate"
@@ -450,7 +452,7 @@
                               appendTo="body"
                               (onShow)="updateMessageBox('career_preference_willingness_to_relocate')"></p-select>
                             <small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_willingness_to_relocate')?.errors?.required"> Willingness to Relocate is required </small>
-                          </div>
+                          </div> -->
                           <div class="col-md-6">
                             <label for="university" class="form-label"> Expected Salary per month<span class="text-danger">*</span></label>
                             <div class="d-flex w-100 gap-2">
@@ -462,13 +464,13 @@
                             <small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_currency_id')?.errors?.required && careerPreferenceForm.get('career_preference_expected_salary')?.errors?.required"> Salary per month with currency is required </small>
                           </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                           <div class="col-md-6">
                             <label class="form-label"> Department<span class="text-danger">*</span></label>
                             <p-multiSelect appendTo="body" formControlName="career_preference_department_id" [options]="departmentList" placeholder="Select Department" styleClass="w-100" optionLabel="department" optionValue="id" [filter]="true" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('career_preference_department_id')"></p-multiSelect>
                             <small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_department_id')?.errors?.required"> Department is required </small>
                           </div>
-                        </div>
+                        </div> -->
                       </ng-container>
                     </form>
                   </ng-template>
@@ -601,7 +603,7 @@
                         <span class="text-danger fw-bold">Showcase your skills and strengths</span>
                         <a (click)="routingToPage('/pages/modules/skill-mastery')" class="px-1" role="button">Click here</a> to plan it!
                       </div>
-                      <ng-container class="work-experience">
+                      <!-- <ng-container class="work-experience">
                         <div class="row mb-3">
                           <div class="col-md-6">
                             <label class="form-label"> Soft skills<span class="text-danger">*</span></label>
@@ -609,7 +611,7 @@
                             <small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && professionalTraitsForm.get('career_preference_soft_skill_id')?.errors?.required"> Soft skills is required </small>
                           </div>
                         </div>
-                      </ng-container>
+                      </ng-container> -->
                     </form>
                   </ng-template>
                 </p-step-panel>
