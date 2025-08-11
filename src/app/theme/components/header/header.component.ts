@@ -222,10 +222,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 		this.mobileForm = this.formBuilder.group({
 			phone: [undefined, [Validators.required]],
-			home_country: [122, Validators.required],
+			home_country: ["", Validators.required],
 			study_level: ["", Validators.required],
 			current_city: [""],
-			interest_type: [],
+			// interest_type: [],
 		})
 
 		this.currentEducationForm = this.formBuilder.group({
@@ -648,10 +648,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	private initializeForms() {
 		this.mobileForm = this.formBuilder.group({
 			phone: [undefined, [Validators.required]],
-			home_country: [122, Validators.required],
+			home_country: ["", Validators.required],
 			study_level: ["", Validators.required],
 			current_city: [""],
-			interest_type: [],
+			// interest_type: [],
 
 		})
 
@@ -1373,7 +1373,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		let findcountry = this.homeCountryList.find((country: any) => userLocation.country === country.country);
 		if (findcountry) {
 			this.mobileForm.patchValue({
-				home_country: findcountry.id,
+				// home_country: findcountry.id,
 				current_city: userLocation.city
 			});
 		}
