@@ -485,7 +485,8 @@
 						</div> -->
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
 							<p class="m-1">Select Your Nationality</p>
-							<p-select class="w-100" formControlName="home_country" appendTo="body" [options]="homeCountryList" [filter]="true" placeholder="Country" [autofocus]="true" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
+							<p-select class="w-100" formControlName="nationality_id" appendTo="body" [options]="nationalityList" [filter]="true" placeholder="Country" [autofocus]="true" optionLabel="nationality_name" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
+							<!-- <p-select class="w-100" formControlName="home_country" appendTo="body" [options]="homeCountryList" [filter]="true" placeholder="Country" [autofocus]="true" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select> -->
 						</div>
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
 							<p class="m-1">Select Your Current Education</p>
@@ -508,7 +509,7 @@
 							<!-- <button *ngIf="!userTypeId" [disabled]="!mobileForm.get('home_country')?.value || !mobileForm.get('study_level')?.value" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
 								<span class="text-small fw-normal px-3">Subscribe Now</span>
 							</button> -->
-							<button [disabled]="!mobileForm.get('home_country')?.value || !mobileForm.get('study_level')?.value" class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
+							<button [disabled]="!mobileForm.get('nationality_id')?.value || !mobileForm.get('study_level')?.value" class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
 								<span class="text-small fw-normal px-2" (click)="continueTrial()">Complete your job profile</span>
 							</button>
 						</div>

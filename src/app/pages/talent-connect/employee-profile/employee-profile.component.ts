@@ -170,7 +170,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       profile_image: [null, Validators.required],
       full_name: [this.authService?._user?.name, [Validators.required]],
       date_of_birth: [null, Validators.required],
-      nationality_id: [null, Validators.required],
+      nationality_id: [this.authService?._user?.nationality_id, Validators.required],
       gender: [null, Validators.required],
       location_id: [null, Validators.required]
     });
@@ -1563,7 +1563,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       this.calculateProfileCompletion();
       this.onSubmitAdditionalNotesForm();
     }
-    if (this.activePageIndex < 9 && !isUpdate) {
+    if (this.activePageIndex < 8 && !isUpdate) {
       this.activePageIndex++;
     }
   }

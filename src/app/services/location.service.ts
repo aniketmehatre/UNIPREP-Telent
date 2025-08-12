@@ -259,17 +259,24 @@ export class LocationService {
     //     return this.sourceDomain$
     // }
 
-    getWorkLocation(){
+    getWorkLocation() {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + "/easyappyworklocations", {
             headers: headers,
-        }); 
+        });
     }
 
-    updateUserLocation(data: {country: string; city: string}): Observable<any> {
+    updateUserLocation(data: { country: string; city: string }): Observable<any> {
         const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.post<any>(environment.ApiUrl + "/updateCurrentLocation", data , {
+        return this.http.post<any>(environment.ApiUrl + "/updateCurrentLocation", data, {
             headers: headers,
-        }); 
+        });
+    }
+
+    getNationality() {
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.get<{ id: number, nationality_name: string }[]>(environment.ApiUrl + "/getnationality", {
+            headers: headers,
+        });
     }
 }
