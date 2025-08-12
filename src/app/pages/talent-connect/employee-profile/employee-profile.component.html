@@ -316,8 +316,8 @@
                 <p-step-panel [value]="2">
                   <ng-template #content>
                     <form [formGroup]="workExperienceForm">
-                      <h2 class="card-title mb-2">Work Experience </h2>
-                      <!-- <span class="text-danger">(Optional)</span> -->
+                      <h2 class="card-title mb-2">Work Experience <span class="text-danger">(Optional)</span></h2>
+                      
                       <ng-container class="work-experience" formArrayName="work_experience">
                         <ng-container *ngFor="let experience of workExperience.controls; let i = index"
                           [formGroupName]="i">
@@ -964,8 +964,7 @@
                       <div class="row justify-content-center mt-3">
                         <div class="upload-section text-center mb-4 py-2" style="border: 1px dashed lightgray">
                           <h4>{{ attachmentsForm.get("career_preference_cv_filename")?.value ?
-                            extractLastName(attachmentsForm.get("career_preference_cv_filename")?.value) : "Upload CV /
-                            Resume" }}</h4>
+                            extractLastName(attachmentsForm.get("career_preference_cv_filename")?.value) : "Upload CV / Resume" }}</h4>
                           <button pButton label="UPLOAD" class="p-button-primary rounded-pill px-5 py-2"
                             (click)="fileUpload.click()" (focusout)="resetMessageBox()"
                             (onFocus)="updateMessageBox('career_preference_cv_filename')"></button>
@@ -1198,7 +1197,7 @@
                   (click)="previous()" *ngIf="activePageIndex !== 0">
                   <i class="fa fa-arrow-left"></i>{{getPreviousIndexValue()}}
                 </button>
-                <button *ngIf="activePageIndex != 9" pButton type="button" (click)="next()"
+                <button *ngIf="activePageIndex != 8" pButton type="button" (click)="next()"
                   class="btn btn-primary py-2 px-3 d-flex d-lg-none">
                   {{getNextIndexValue()}}<i class="fa fa-arrow-right"></i>
                 </button>
@@ -1209,7 +1208,7 @@
                   [showValue]="false" [value]="profileCompletion"></p-progressBar>
               </div>
               <div class="text-nowrap mb-2 mb-lg-0">
-                <div *ngIf="activePageIndex != 9" class="d-flex justify-content-center">
+                <div *ngIf="activePageIndex != 8" class="d-flex justify-content-center">
                   <button *ngIf="isUpdatedProfile" pButton type="button" (click)="next(true)"
                     class="btn btn-success py-2 px-3 me-2">
                     Update <i class="pi pi-check text-white"></i>
@@ -1218,7 +1217,7 @@
                     {{getNextIndexValue()}}<i class="fa fa-arrow-right"></i>
                   </button>
                 </div>
-                <div *ngIf="activePageIndex == 9">
+                <div *ngIf="activePageIndex == 8">
                   <button pButton type="button" (click)="onCallAIEvaluation()" class="btn btn-primary py-2 px-3 me-2">
                     AI Review <i class="pi pi-microchip-ai text-white"></i>
                   </button>

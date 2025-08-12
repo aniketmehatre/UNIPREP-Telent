@@ -59,6 +59,8 @@ export interface User {
   current_plan_detail: UserSubscriptionPlan;
   interest_type_ids: number[];
   why_premium_message_sent: number;
+  nationality_id: number;
+  currency: string;
 }
 
 export interface UserSubscriptionPlan {
