@@ -673,6 +673,12 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.languageProficiency = response.language_proficiency
         this.nationalityList = response.nationalites
         this.departmentList = response.department
+        let currentCurrency = this.currencies.find(item => item.currency_code == this.authService._user?.currency);
+        if (currentCurrency) {
+          this.careerPreferenceForm.patchValue({
+            career_preference_currency_id: currentCurrency.id
+          });
+        }
       },
       error: (error) => {
         console.log(error)
