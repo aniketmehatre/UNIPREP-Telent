@@ -64,6 +64,8 @@ export class EasyApplyComponent {
     this.initializeForm();
     this.getOptionsList();
     this.getCountries();
+    this.storage.set('jobId', '')
+    this.storage.set('position', '')
   }
 
   initializeForm() {
