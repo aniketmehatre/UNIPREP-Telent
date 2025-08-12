@@ -269,4 +269,9 @@ export class TalentConnectService {
     generateUUIDLink(companyId: number): Observable<{ uuid: string }> {
         return this.http.post<{ uuid: string }>( '/api/generate-link', { companyId });
     }
+
+    sendWatsappMess(data: {template_name: string}){
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/sendWhatsappMessage", data, { headers: headers });
+    }
 }
