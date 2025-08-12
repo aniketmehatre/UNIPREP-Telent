@@ -15,6 +15,7 @@ import { environment } from "@env/environment";
 import { InputNumberInputEvent } from "primeng/inputnumber";
 import { PageFacadeService } from "../../page-facade.service";
 import { Router } from "@angular/router";
+import { LocalStorageService } from "ngx-localstorage";
 
 export enum FileType {
   CERTIFICATIONS = "Certificates",
@@ -130,7 +131,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private sanitizer: DomSanitizer,
     private pageFacade: PageFacadeService,
-    private router: Router
+    private router: Router, private storage: LocalStorageService
   ) { }
 
   ngOnInit() {
@@ -138,6 +139,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.initializeForm();
     this.getProfileData();
     this.onFormValueChanges();
+  }
+
+  goToProfile() {
+    if (this.storage.get('jobId')) {
+         this.router.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`])
+    } else {
+        this.router.navigate(['/pages/talent-connect/my-profile', this.profileId]);
+    }
   }
 
   get educationDetails() {
@@ -485,7 +494,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   openVideoPopup() {
-    this.pageFacade.openHowitWorksVideoPopup("easy-apply");
+    this.pageFacade.openHowitWorksVideoPopup("create-job");
   }
 
   openProfileDialog(isSample: boolean) {
