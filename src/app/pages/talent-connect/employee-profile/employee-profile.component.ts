@@ -612,8 +612,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
 
     // Attachments & Media (10%)
-    checkField(this.attachmentsForm.get("career_preference_cv_filename"), 5)
-    checkField(this.attachmentsForm.get("career_preference_video_link"), 5)
+    checkField(this.attachmentsForm.get("career_preference_cv_filename"), 4)
+    checkField(this.attachmentsForm.get("career_preference_video_link"), 3)
 
     // References & Endorsements (10%)
     // if (this.academicReferences?.controls?.length) {
