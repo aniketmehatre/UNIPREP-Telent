@@ -1284,7 +1284,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					let jobId = this.storage.get('jobId')
 					if (jobId) {
 						this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
-					}else {
+					} else {
 						this.router.navigate(["/pages/talent-connect/my-profile"])
 					}
 					//window.location.reload()
@@ -1613,8 +1613,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.commonService.getInterestedMenus().subscribe({
 			next: res => {
 				this.interestMenuList = res.data;
+				if (res.data.length > 0) {
+					this.interestMenuList.forEach((item: any) => {
+						if (item.id != 1) {
+							item.disabled = true;
+						}
+					});
+				}
 			},
-			error: err => {}
+			error: err => { }
 		});
 	}
 }

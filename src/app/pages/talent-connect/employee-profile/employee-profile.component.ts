@@ -540,7 +540,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     checkField(this.personalInformationForm.get("full_name"), 3)
     checkField(this.personalInformationForm.get("profile_image"), 5)
     checkField(this.personalInformationForm.get("date_of_birth"), 3)
-    checkField(this.personalInformationForm.get("gender"),3)
+    checkField(this.personalInformationForm.get("gender"), 3)
     checkField(this.personalInformationForm.get("nationality_id"), 3)
     checkField(this.personalInformationForm.get("location_id"), 3)
 
@@ -680,7 +680,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     })
   }
 
-  getProfileData() {
+  getProfileData(isCompleted?: boolean) {
     this.talentConnectService.getMyProfileData().subscribe({
       next: (response) => {
         if (response.status) {
@@ -690,6 +690,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           this.patchFormData(responses);
           this.profileCreationId = responses?.id;
           this.isUpdatedProfile = responses?.profile_completion_flag ? true : false;
+          if (isCompleted) {
+            this.talentConnectService.employerProfileCompleted$.next(true);
+            this.isShowCreatedSuccessfullyPopup = true;
+          }
         }
       },
       error: (error) => {
@@ -936,7 +940,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   extractLastName(fileName: string): string {
-    if(!fileName) return "";
+    if (!fileName) return "";
     const extension = fileName.split('.').pop(); // get "extension"
     const baseName = fileName.split("/").pop() as string; // remove extension
     let shortened = baseName;
@@ -1892,8 +1896,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
     this.talentConnectService.profileCreationCareerInfo(data).subscribe({
       next: res => {
-        this.getProfileData();
-        this.isShowCreatedSuccessfullyPopup = true;
+        this.getProfileData(true);
       },
       error: err => {
         this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });

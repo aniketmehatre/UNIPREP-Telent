@@ -280,6 +280,8 @@ export class SidenavComponent {
     { id: 3, name: 'International Education' },
     { id: 4, name: 'Travel & Life' },
   ];
+  originalMenus: SideMenu[] = [];
+
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private dataService: DataService,
     private authService: AuthService, private locationService: LocationService,
     private assessmentService: AssessmentService, private storage: StorageService,
@@ -306,6 +308,11 @@ export class SidenavComponent {
           this.markCurrentMenu();
         },
       });
+    this.talentService.employerProfileCompleted$.subscribe(data => {
+      if (data) {
+        this.updateMenuUrlBasedOnEmployerProfile(data);
+      }
+    })
   }
 
   get filteredMenus(): SideMenu[] {
@@ -320,8 +327,9 @@ export class SidenavComponent {
 
   enterpriseSubscriptionLink: any;
   ngOnInit(): void {
-    this.updateMenuUrlBasedOnEmployerProfile();
     this.apiToCheckPartnerOrInstitute();
+    this.updateMenuUrlBasedOnAcademics();
+    this.updateMenuUrlBasedOnEmployerProfile();
     let userTypeId = this.authService._user?.student_type_id == 2
     //  this condition for after refreshing also subscription menu need to hide for institute don't remove
     // if (this.authService._user?.student_type_id == 2) {
@@ -336,15 +344,6 @@ export class SidenavComponent {
       //   : this.menus;
       //this.menus = this.menus.filter((menu) => !this.collegeStudentRestrictedMenus?.includes(menu?.title));
       // }
-      const educationLevel = data?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation";
-      if (educationLevel === "K10") {
-        this.menus = this.menus.filter((menu) => !this.k10RestrictedMenus?.includes(menu?.title));
-      } else if (educationLevel === "HigherEducation") {
-        this.menus = this.menus.filter((menu) => !this.HigherEduRestritedMenus?.includes(menu?.title));
-      } else {
-        this.menus = this.menus;
-      }
-
     });
     let hostname = window.location.hostname;
     this.locationService.getSourceByDomain(hostname).subscribe((data: any) => {
@@ -368,45 +367,6 @@ export class SidenavComponent {
         } else {
           this.menus = this.menus.filter((item) => !this.whitlabelmenu?.includes(item?.title));
           this.whiteLabelIsShow = false;
-        }
-      }
-    });
-    this.updateMenuUrlBasedOnSubscription();
-    this.updateInterestMenus();
-  }
-
-  updateMenuUrlBasedOnSubscription() {
-    if (this.authService._user?.current_plan_detail?.current_plan == "Standard") {
-      this.menus.forEach((item) => {
-        if (this.premiumPlanMenus.includes(item.title)) {
-          item.url = '/pages/subscriptions';
-          item.restricted = true;
-        }
-        else {
-          item.restricted = false;
-        }
-      });
-    }
-  }
-
-  updateMenuUrlBasedOnEmployerProfile() {
-    const isProfileMissing = this.talentService._employerProfileData == null;
-    const profileId = this.talentService._employerProfileData?.id;
-    const menuMap: { [key: string]: string } = {
-      "Create Job Profile": isProfileMissing ? "/pages/talent-connect/my-profile" : `/pages/talent-connect/my-profile/${profileId}`,
-      "Apply Jobs": isProfileMissing ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/easy-apply",
-      "Company Connect": isProfileMissing ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/company-connect",
-    };
-    this.menus.forEach((menu) => {
-      if (menuMap[menu.title]) {
-        menu.url = menuMap[menu.title];
-        if (menu.title != 'Create Job Profile') {
-          menu.sameUrl = isProfileMissing;
-        }
-        else {
-          if (!isProfileMissing) {
-            menu.title = "My Job Profile"
-          }
         }
       }
     });
@@ -476,6 +436,7 @@ export class SidenavComponent {
     }
   }
 
+  // Step 1: To Check Domain
   apiToCheckPartnerOrInstitute() {
     this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
       if (response.source == 'Partner') {
@@ -487,6 +448,83 @@ export class SidenavComponent {
     })
   }
 
+  // Step 2: To Check Current Education
+  updateMenuUrlBasedOnAcademics() {
+    const educationLevel = this.authService._user?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation";
+    if (educationLevel === "K10") {
+      this.menus = this.menus.filter((menu) => !this.k10RestrictedMenus?.includes(menu?.title));
+    } else if (educationLevel === "HigherEducation") {
+      this.menus = this.menus.filter((menu) => !this.HigherEduRestritedMenus?.includes(menu?.title));
+    } else {
+      this.menus = this.menus;
+    }
+  }
+
+  // Step 3: To Check Employer Profile
+  updateMenuUrlBasedOnEmployerProfile(data?: boolean) {
+    const isProfileMissing = this.talentService._employerProfileData == null;
+    const profileId = this.talentService._employerProfileData?.id;
+    if (this.originalMenus.length == 0) {
+      this.originalMenus = JSON.parse(JSON.stringify(this.menus));
+    }
+    if (isProfileMissing) {
+      this.menus.forEach((item) => {
+        if (item.title != 'Create Job Profile') {
+          item.url = '/pages/talent-connect/my-profile';
+          item.restricted = true;
+        }
+      });
+    }
+    else {
+      if (data) {
+        this.menus = this.originalMenus;
+      }
+      this.menus.forEach((item) => {
+        if (item.title == 'Create Job Profile') {
+          item.title = "My Job Profile";
+          item.url = `/pages/talent-connect/my-profile/${profileId}`;
+        }
+      });
+      this.updateMenuUrlBasedOnSubscription();
+    }
+    // const menuMap: { [key: string]: string } = {
+    //   "Create Job Profile": isProfileMissing ? "/pages/talent-connect/my-profile" : `/pages/talent-connect/my-profile/${profileId}`,
+    //   "Apply Jobs": isProfileMissing ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/easy-apply",
+    //   "Company Connect": isProfileMissing ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/company-connect",
+    // };
+    // this.menus.forEach((menu) => {
+    //   if (menuMap[menu.title]) {
+    //     menu.url = menuMap[menu.title];
+    //     if (menu.title != 'Create Job Profile') {
+    //       menu.sameUrl = isProfileMissing;
+    //     }
+    //     else {
+    //       if (!isProfileMissing) {
+    //         menu.title = "My Job Profile"
+    //       }
+    //     }
+    //   }
+    // });
+  }
+
+  // Step 4: To Check Subscription
+  updateMenuUrlBasedOnSubscription() {
+    if (this.authService._user?.current_plan_detail?.current_plan == "Standard") {
+      this.menus.forEach((item) => {
+        if (this.premiumPlanMenus.includes(item.title)) {
+          item.url = '/pages/subscriptions';
+          item.restricted = true;
+        }
+        else {
+          item.restricted = false;
+        }
+      });
+    }
+    else {
+      this.updateInterestMenus();
+    }
+  }
+  // Step 5: To Check Interest Menu
   updateInterestMenus() {
     if (this.authService._user?.current_plan_detail?.current_plan == "Premium" &&
       this.authService._user?.current_plan_detail?.current_plan_status == "Paid" &&

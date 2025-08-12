@@ -964,8 +964,7 @@
                       <div class="row justify-content-center mt-3">
                         <div class="upload-section text-center mb-4 py-2" style="border: 1px dashed lightgray">
                           <h4>{{ attachmentsForm.get("career_preference_cv_filename")?.value ?
-                            extractLastName(attachmentsForm.get("career_preference_cv_filename")?.value) : "Upload CV /
-                            Resume" }}</h4>
+                            extractLastName(attachmentsForm.get("career_preference_cv_filename")?.value) : "Upload CV / Resume" }}</h4>
                           <button pButton label="UPLOAD" class="p-button-primary rounded-pill px-5 py-2"
                             (click)="fileUpload.click()" (focusout)="resetMessageBox()"
                             (onFocus)="updateMessageBox('career_preference_cv_filename')"></button>
