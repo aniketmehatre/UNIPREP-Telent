@@ -12,18 +12,18 @@
         </div> -->
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="container-fluid">
-						<div class="row">
+						<div class="row align-items-center">
 							<div class="col-md-8 col-12">
-								<h5 class="mb-0">
+								<h5 class="mb-md-0  text-md-start text-center">
 									{{ isSampleProfilePdf ? "Sample Profile Photo Guide" : "Create your Job Profile in less than 3 minutes" }}
 								</h5>
 							</div>
 							<div class="col-md-4 col-12" *ngIf="!isShowAiEvaluation">
 								<div class="d-flex gap-2 justify-content-md-end justify-content-between">
-									<button class="btn btn-secondary btn-rounded" pButton (click)="openProfileDialog(true)"><span class="d-none d-md-block">Profile</span> Sample</button>
-									<button class="button-profile-top rounded-pill" pButton (click)="openProfileDialog(false)"><span class="d-none d-md-block">Profile</span> Preview</button>
-									<button class="d-md-none d-block btn btn-rounded btn-primary" pButton (click)="visible = true"><i class="fa-solid fa-circle-info"></i></button>
-                  <button class="how-it-works-button" pButton (click)="openVideoPopup()">How to use?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+									<button class="btn btn-secondary btn-rounded w-100" pButton (click)="openProfileDialog(true)"><span class="d-none d-md-block">Profile</span> Sample</button>
+									<button class="button-profile-top rounded-pill w-100" pButton (click)="openProfileDialog(false)"><span class="d-none d-md-block">Profile</span> Preview</button>
+									<button class="d-md-none d-flex justify-content-center align-items-center btn btn-rounded btn-primary px-4" pButton (click)="visible = true"><i class="fa-solid fa-circle-info"></i></button>
+                  <button class="how-it-works-button w-100" pButton (click)="openVideoPopup()">How to use?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 								</div>
 							</div>
 						</div>

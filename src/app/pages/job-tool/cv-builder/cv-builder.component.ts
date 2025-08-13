@@ -19,7 +19,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { CvBuilderService } from "./cv-builder.service";
 import { TextareaModule } from 'primeng/textarea';
-import { ConfirmPopup } from "primeng/confirmpopup";
 import { ToastModule } from 'primeng/toast';
 import { EditorModule } from "primeng/editor";
 import { maxWordsValidator, maxCharactersValidator } from "src/app/@Supports/max-word-validator";
@@ -35,7 +34,7 @@ import { experienceLevel, monthList, cgpaPercentage, workTypeValue, languageProf
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, DrawerModule , EditorModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmPopup, TooltipModule, ToastModule, SharedModule, SkeletonModule, ProgressBarModule],
+  imports: [CommonModule, DialogModule, TextareaModule, DrawerModule , EditorModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TooltipModule, ToastModule, SharedModule, SkeletonModule, ProgressBarModule],
   providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {

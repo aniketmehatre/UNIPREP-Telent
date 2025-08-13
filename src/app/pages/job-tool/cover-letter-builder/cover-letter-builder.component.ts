@@ -22,7 +22,6 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { TextareaModule } from "primeng/textarea"
 import { EditorModule } from "primeng/editor"
 import { SkeletonModule } from "primeng/skeleton"
-import { ConfirmPopup } from "primeng/confirmpopup";
 import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
 import { coverLetterSliders, ResumeHistory, JobTitle } from "../cv-builder/cv-builder.data";
 
@@ -31,7 +30,7 @@ import { coverLetterSliders, ResumeHistory, JobTitle } from "../cv-builder/cv-bu
 	templateUrl: "./cover-letter-builder.component.html",
 	styleUrls: ["./cover-letter-builder.component.scss"],
 	standalone: true,
-	imports: [CommonModule, ConfirmPopup, EditorModule, DialogModule, DrawerModule , SkeletonModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
+	imports: [CommonModule, EditorModule, DialogModule, DrawerModule , SkeletonModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
 	providers: [ConfirmationService, TooltipModule],
 })
 export class CoverLetterBuilderComponent implements OnInit {
