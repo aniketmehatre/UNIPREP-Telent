@@ -592,7 +592,7 @@
 								<!-- Professional Networking -->
 								<p-step-panel [value]="6">
 									<ng-template #content>
-										<h4 class="card-title mb-3">Professional Networking & Online Presence</h4>
+										<h4 class="card-title fw-bold">Professional Networking & Online Presence</h4>
 										<div class="row">
 											<div class="col-md-12">
 												<form [formGroup]="professionalNetworkingForm">
@@ -655,67 +655,75 @@
 								<!-- Attachments & Media -->
 								<p-step-panel [value]="7">
 									<ng-template #content>
-										<h4 class="card-title mb-3">Attachments & Media</h4>
-										<div class="mb-2">
-											<span class="text-danger fw-bold">Don't have a resume </span>
-											<a class="text-primary px-1" (click)="routingToPage('/pages/job-tool/cv-builder')" role="button">Click here</a>
-											to create one!
+										<h4 class="card-title fw-bold">Attachments & Media</h4>
+										<div class="d-flex gap-2 flex-md-row flex-column">
+											<span class="text-danger fw-bold">Don't have a resume?</span>
+											<div class="d-flex"><a (click)="routingToPage('/pages/job-tool/cv-builder')" class="px-1" role="button">Click here</a> <span>to create one!</span></div>
 										</div>
-										<form [formGroup]="attachmentsForm">
-											<div class="row justify-content-center mt-3">
-												<div class="upload-section text-center mb-4 py-2" style="border: 1px dashed lightgray">
-													<h4>{{ attachmentsForm.get("career_preference_cv_filename")?.value ? extractLastName(attachmentsForm.get("career_preference_cv_filename")?.value) : "Upload CV / Resume" }}</h4>
-													<button pButton label="UPLOAD" class="p-button-primary rounded-pill px-5 py-2" (click)="fileUpload.click()" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_cv_filename')"></button>
-													<div class="text-muted mt-2">Supported Formats: doc, docx, pdf upto 2 MB</div>
-													<input type="file" #fileUpload style="visibility: hidden" (change)="uploadFile(fileType.CV, $event, 0)" accept="application/pdf" />
-													<small class="text-danger" *ngIf="isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_cv_filename')?.errors?.required"> CV / Resume is required </small>
-												</div>
-											</div>
-											<div class="row w-100 justify-content-center">
-												<div class="col-md-6">
-													<div class="border rounded p-3">
-														<div class="row">
-															<div class="col-7 text-center text-primary">
-																<h4 class="mb-0">Introduction Video</h4>
-																<small>(90-120 seconds)</small>
-															</div>
-															<div class="col-5 ps-0">
-																<div class="d-flex">
-																	<button pButton type="button" (click)="openGuideUrl('sample')" class="btn btn-primary btn-rounded p-1 px-3 me-2">Sample</button>
-																	<button pButton type="button" (click)="openGuideUrl('video')" class="btn btn-secondary btn-rounded p-1 px-3">Guide</button>
+										<div class="row">
+											<div class="col-md-12">
+												<form [formGroup]="attachmentsForm">
+													<div class="row g-3">
+														<div class="col-md-12">
+															<div class="card" style="border: 1px dashed lightgray">
+																<div class="position-relative card-body d-flex flex-column justify-content-center text-center align-items-center">
+																	<h4>{{ attachmentsForm.get("career_preference_cv_filename")?.value ? extractLastName(attachmentsForm.get("career_preference_cv_filename")?.value) : "Upload CV / Resume" }}</h4>
+																	<button pButton label="UPLOAD" class="p-button-primary rounded-pill px-5 py-2" (click)="fileUpload.click()" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_cv_filename')"></button>
+																	<div class="text-muted mt-2">Supported Formats: doc, docx, pdf upto 2 MB</div>
+																	<input class="position-absolute top-0 left-0" style="visibility: hidden" type="file" #fileUpload (change)="uploadFile(fileType.CV, $event, 0)" accept="application/pdf" />
+																	<small class="text-danger" *ngIf="isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_cv_filename')?.errors?.required"> CV / Resume is required </small>
 																</div>
 															</div>
 														</div>
-														<input pInputText fluid placeholder="Provide the video link" class="form-control mt-2" formControlName="career_preference_video_link" (focusout)="resetMessageBox()" (focus)="updateMessageBox('career_preference_video_link')" />
-													</div>
-													<small class="text-danger" *ngIf="isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_video_link')?.invalid"> Enter valid Introduction Video url </small>
-												</div>
-
-												<div class="col-md-6">
-													<div class="border rounded p-3">
-														<div class="row">
-															<div class="col-9 text-center text-primary">
-																<h4 class="mb-0">Portfolio</h4>
-																<small>(For Designers, Writers, Developers)</small>
-															</div>
-															<div class="col-3 ps-0 text-end">
-																<button pButton type="button" (click)="openGuideUrl('portfolio')" class="btn btn-secondary btn-rounded p-1 px-3">Guide</button>
+														<div class="col-md-6">
+															<div class="card">
+																<div class="card-body">
+																	<div class="row g-2">
+																		<div class="col-md-7 col-12 text-start text-primary">
+																			<h4 class="mb-0">Introduction Video</h4>
+																			<small>(90-120 seconds)</small>
+																		</div>
+																		<div class="col-md-5 col-12">
+																			<div class="d-flex gap-2 justify-content-md-end justify-content-start">
+																				<button pButton type="button" (click)="openGuideUrl('sample')" class="btn btn-primary btn-rounded p-1 px-3">Sample</button>
+																				<button pButton type="button" (click)="openGuideUrl('video')" class="btn btn-secondary btn-rounded p-1 px-3">Guide</button>
+																			</div>
+																		</div>
+																	</div>
+																	<input pInputText fluid placeholder="Provide the video link" class="form-control mt-2" formControlName="career_preference_video_link" (focusout)="resetMessageBox()" (focus)="updateMessageBox('career_preference_video_link')" />
+																	<small class="text-danger" *ngIf="isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_video_link')?.invalid"> Enter valid Introduction Video url </small>
+																</div>
 															</div>
 														</div>
-														<div class="input-group mt-2">
-															<input pInputText fluid placeholder="Provide the portfolio link" class="form-control" formControlName="career_preference_portfolio_upload_link" (focusout)="resetMessageBox()" (focus)="updateMessageBox('career_preference_portfolio_upload_link')" />
+														<div class="col-md-6">
+															<div class="card">
+																<div class="card-body">
+																	<div class="row g-2">
+																		<div class="col-md-7 col-12 text-start text-primary">
+																			<h4 class="mb-0">Portfolio</h4>
+																			<small>(For Designers, Writers, Developers)</small>
+																		</div>
+																		<div class="col-md-5 col-12">
+																			<div class="d-flex gap-2 justify-content-md-end justify-content-start">
+																				<button pButton type="button" (click)="openGuideUrl('portfolio')" class="btn btn-secondary btn-rounded p-1 px-3">Guide</button>
+																			</div>
+																		</div>
+																	</div>
+																	<input pInputText fluid placeholder="Provide the portfolio link" class="form-control mt-2" formControlName="career_preference_portfolio_upload_link" (focusout)="resetMessageBox()" (focus)="updateMessageBox('career_preference_portfolio_upload_link')" />
+																	<small class="text-danger" *ngIf="isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_portfolio_upload_link')?.invalid"> Enter valid Portfolio url.</small>
+																</div>
+															</div>
 														</div>
 													</div>
-													<small class="text-danger" *ngIf="isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_portfolio_upload_link')?.invalid"> Enter valid Portfolio url.</small>
-												</div>
+												</form>
 											</div>
-										</form>
+										</div>
 									</ng-template>
 								</p-step-panel>
 								<!-- References -->
 								<p-step-panel [value]="8" class="d-none">
 									<ng-template #content>
-										<h4 class="card-title mb-3">References & Endorsements</h4>
+										<h4 class="card-title fw-bold">References & Endorsements</h4>
 										<form [formGroup]="referencesForm">
 											<ng-container class="work-experience" formArrayName="academicReferences">
 												<ng-container *ngFor="let academic of academicReferences.controls; let i = index" [formGroupName]="i">
@@ -805,7 +813,7 @@
 											<div class="row">
 												<div class="col-md-12">
 													<div class="d-flex justify-content-between align-items-start mb-2">
-														<h5 class="card-title">Additional Notes</h5>
+														<h4 class="card-title fw-bold">Additional Notes</h4>
 														<div>
 															<button *ngIf="isNotEmptyHtml(this.additionalNotesForm.get('additional_notes')?.value)" class="text-small btn btn-secondary btn-rounded d-flex align-items-center gap-2 h-fit-content" style="width: fit-content" (click)="aiRePhraseSummary('add_note', { rephrase_content: additionalNotesForm?.get('additional_notes')?.value }, additionalNotesForm?.get('additional_notes'))">RePhrase</button>
 														</div>
