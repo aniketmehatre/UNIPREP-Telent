@@ -205,6 +205,7 @@
                         Again</button>
                     </div>
                   </li>
+                  <p class="orange fw-bolder" *ngIf="subscription.validity == 1">That's only {{ subscription.currency }} {{ getWholePricePerDay(subscription.givenprice, subscription.validity)  }} a day </p>
                   <p class="orange fw-bolder" *ngIf="subscription.validity != 1">That's only {{ subscription.currency }} {{ getWholePricePerMonth(subscription.givenprice, subscription.validity)  }} a month </p>
                 </ul>
               </div>
@@ -372,7 +373,7 @@
                                 style="color:var(--p-neutral-50)">Purchase
                                 Again</button>
                             </div>
-                            <p class="orange fw-bolder mt-1" *ngIf="subscription.validity != 1">That's only {{ subscription.currency }} {{ getWholePricePerMonth(subscription.givenprice, subscription.validity)  }} a month </p>
+                            <p class="orange fw-bolder mt-1" >That's only {{ subscription.currency }} {{ getWholePricePerMonth(subscription.givenprice, subscription.validity)  }} a month </p>
                           </div>
                         </div>
                       </div>
