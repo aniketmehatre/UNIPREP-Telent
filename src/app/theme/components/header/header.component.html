@@ -12,7 +12,7 @@
 					</div>
 					<div class="d-md-none gap-2 d-flex align-items-center">
 						<div class="d-flex align-items-center">
-							<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()" class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+							<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()" class="p-1 ps-2 btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
 								AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
 							</button>
 
@@ -24,6 +24,9 @@
 						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName" [attr.aria-label]="'Selected country: ' + homeCountryName">
 							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 						</div>
+						<button class="btn btn-secondary py-2" (click)="openReportModal(op, $event)" aria-label="Open reports">
+							<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+						</button>
 						<p-avatar *ngIf="false" (click)="openchat()" class="mr-2" size="large" role="button" aria-label="Open chat"><i class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
 						<p-avatar class="" label="" *ngIf="false" (click)="np.toggle($event)" icon="pi pi-bell" size="large" role="button" aria-label="Notifications"> </p-avatar>
 						<p-avatar routerLink="/pages/usermanagement" aria-expanded="false" role="button" size="large" aria-label="User profile">
@@ -33,7 +36,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-6 col-12" *ngIf="userLoginTimeLeftCount">
+			<div class="col-lg-6 col-md-6 col-12 d-md-block d-none" *ngIf="userLoginTimeLeftCount">
 				<div class="d-flex justify-content-end align-items-center mt-3 mt-md-0 gap-3">
 					<div class="d-md-flex d-none align-items-center">
 						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()" class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
@@ -200,12 +203,12 @@
 						<!--								</span>-->
 						<!--							</ng-template>-->
 						<!--						</button>-->
-						<div *ngIf="!userTypeId">
+						<!-- <div *ngIf="!userTypeId"> -->
 							<!-- <button *ngIf="ehitlabelIsShow" class="btn btn-primary btn-rounded d-flex flex-column align-items-center" aria-label="Chat with notification" (click)="onClickSubscribe()">
 								<i class="fa-solid fa-crown mb-2" style="font-size: 14px"></i>
 								<span class="text-sm fw-normal px-3" style="font-size: 12px">Subscribe Now</span>
 							</button> -->
-						</div>
+						<!-- </div> -->
 						<button class="btn btn-secondary d-flex justify-content-center align-items-center" (click)="openReportModal(op, $event)" aria-label="Open reports" style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug" style="font-size: 16px"> </i> Report</button>
 					</div>
 					<div label="" role="button" class="headercountry me-2 ms-2 d-none d-md-block" title="Selected Country">

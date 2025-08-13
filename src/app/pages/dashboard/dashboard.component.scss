@@ -515,6 +515,16 @@ Due to the split circle of progress-left and progress right, we must use the ani
     height: 15px;
     font-size: 10px;
   }
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    /* 2 columns */
+    grid-template-rows: repeat(1, auto);
+    /* 2 rows */
+    gap: 10px;
+    /* Space between items */
+    // padding: 10px;
+  }
 }
 
 @media (max-width: 480px) {

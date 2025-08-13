@@ -371,6 +371,17 @@ form {
   .country-list li {
     width: 50%; /* Two columns on smaller screens */
   }
+  .headerHomeCountry {
+    height: 35px;
+    width: 35px;
+    img {
+      height: 100%;
+      width: 100%;
+      border-radius: 100%;
+      border: 2px solid var(--p-primary-50);
+      object-fit: cover;
+    }
+  }
 }
 
 @media (max-width: 576px) {
