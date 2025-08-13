@@ -122,12 +122,12 @@
 															<!-- <input type="date" pInputText fluid id="dateOfBirth" formControlName="date_of_birth2"
                                   placeholder="Enter your name" class="form-control" [max]="today"
                                   (focus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" /> -->
-															<p-datepicker id="dateOfBirth" formControlName="date_of_birth" dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today" (onFocus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" />
+															<p-datepicker id="dateOfBirth" [appendTo]="'body'" formControlName="date_of_birth" dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today" (onFocus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" />
 															<small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('date_of_birth')?.errors?.required"> Date of Birth is required </small>
 														</div>
 														<div class="col-md-6">
 															<label for="gender" class="mb-1">Gender <span class="text-danger">*</span></label>
-															<p-select id="gender" formControlName="gender" [options]="genderOptions" placeholder="Select your gender" styleClass="w-100" (onShow)="updateMessageBox('gender')" (focusout)="resetMessageBox()"></p-select>
+															<p-select id="gender" [appendTo]="'body'" formControlName="gender" [options]="genderOptions" placeholder="Select your gender" styleClass="w-100" (onShow)="updateMessageBox('gender')" (focusout)="resetMessageBox()"></p-select>
 															<small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('gender')?.errors?.required"> Gender is required </small>
 														</div>
 														<div class="col-md-6">
@@ -273,10 +273,10 @@
 																</div>
 															</div>
 															<div class="d-flex w-100 gap-2">
-																<p-datepicker (onSelect)="updateExperience(i)" (onInput)="updateExperience(i)" [maxDate]="today" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_from" inputId="fromDate" placeholder="From Date" size="small" styleClass="w-100" view="month" />
-																<p-datepicker (onSelect)="updateExperience(i)" [maxDate]="today" [minDate]="experience.get('work_experience_duration_from')?.value" (onInput)="updateExperience(i)" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_to" inputId="toDate" placeholder="To Date" size="small" styleClass="w-100" view="month" />
+																<p-datepicker [appendTo]="'body'" (onSelect)="updateExperience(i)" (onInput)="updateExperience(i)" [maxDate]="today" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_from" inputId="fromDate" placeholder="From Date" size="small" styleClass="w-100" view="month" />
+																<p-datepicker [appendTo]="'body'" (onSelect)="updateExperience(i)" [maxDate]="today" [minDate]="experience.get('work_experience_duration_from')?.value" (onInput)="updateExperience(i)" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_to" inputId="toDate" placeholder="To Date" size="small" styleClass="w-100" view="month" />
 															</div>
-															<samll *ngIf="((experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) || (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)) && !experience.get('currently_working')?.value" class="text-danger"> Please select both from and to values. </samll>
+															<small *ngIf="((experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) || (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)) && !experience.get('currently_working')?.value" class="text-danger"> Please select both from and to values. </small>
 															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_duration_from')?.errors?.required && experience.get('work_experience_duration_to')?.errors?.required"> Duration is required </small>
 														</div>
 														<div class="col-md-6">
@@ -297,7 +297,7 @@
 																	<p-inputNumber id="salary" placeholder="Enter your salary per month" styleClass="w-100" [showButtons]="false" class="w-100" formControlName="work_experience_salary_per_month" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('work_experience_salary_per_month')"> </p-inputNumber>
 																</div>
 															</div>
-															<samll *ngIf="(experience.get('work_experience_currency_id')?.value && !experience.get('work_experience_salary_per_month')?.value) || (!experience.get('work_experience_currency_id')?.value && experience.get('work_experience_salary_per_month')?.value)" class="text-danger"> Please fill both values. </samll>
+															<small *ngIf="(experience.get('work_experience_currency_id')?.value && !experience.get('work_experience_salary_per_month')?.value) || (!experience.get('work_experience_currency_id')?.value && experience.get('work_experience_salary_per_month')?.value)" class="text-danger"> Please fill both values. </small>
 															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_currency_id')?.errors?.required && experience.get('work_experience_salary_per_month')?.errors?.required"> Salary per month is required </small>
 														</div>
 														<div class="col-md-12">
