@@ -418,6 +418,11 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.toastService.add({ severity: "error", summary: "Error", detail: "CV must be less than 2MB." });
         return;
       }
+      const isImage = file.type.startsWith('image/');
+      if (isImage) {
+      this.toastService.add({ severity: "error", summary: "Error", detail: "Please upload your CV in the doc, docx or pdf format." });
+      return;
+    }
     }
     else {
       const maxSizeInMB = 5;
