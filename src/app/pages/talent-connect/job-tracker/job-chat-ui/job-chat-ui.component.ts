@@ -10,6 +10,8 @@ import { AuthService } from 'src/app/Auth/auth.service';
 import { EmployeeConnectProfile } from 'src/app/@Models/employee-connect-profile';
 import { MessageService } from 'primeng/api';
 import { Job } from 'src/app/@Models/employee-connect-job.model';
+import { DialogModule } from 'primeng/dialog';
+import { environment } from '@env/environment';
 
 interface ChatMessage {
   sender: boolean; // Changed from isSender to sender for clarity
@@ -27,8 +29,7 @@ interface ChatMessage {
   templateUrl: './job-chat-ui.component.html',
   styleUrls: ['./job-chat-ui.component.scss'],
   standalone: true,
-  imports: [FormsModule, AvatarModule, CommonModule, ChipModule, ButtonModule, RouterModule
-  ]
+  imports: [FormsModule, AvatarModule, CommonModule, ChipModule, ButtonModule, RouterModule, DialogModule]
 })
 export class JobChatUiComponent implements OnInit, OnChanges {
   @Input() jobDetails!: Job;
@@ -44,6 +45,9 @@ export class JobChatUiComponent implements OnInit, OnChanges {
   message: string = '';
   userActiveStatus: string = '';
   profileData: EmployeeConnectProfile | null = null;
+  giftImage: string = `${environment.imagePath}tutorial-coverimage/premium-plan.webp`;
+  showPremimumPopup: boolean = false;
+  whyPremium: boolean = false;
 
   //Inject Service
   private toast = inject(MessageService);
@@ -130,12 +134,20 @@ export class JobChatUiComponent implements OnInit, OnChanges {
       }
     });
   }
-
   applyJob(message: string) {
+    //upgrade to premium and why premium popup trigger
+    if (this.jobDetails.premium_users === 1) { // if the job is only premium users or all users.
+      if (this.authService._user.current_plan_detail.account_status !== "Subscription Active") { // if the subscription is not exist
+        this.showPremimumPopup = true;
+        return;
+      }
+    }
     if (!message.trim()) {
       this.toast.add({ severity: "error", summary: "Error", detail: 'Please enter a short message to continue' });
       return;
     }
+
+
     this.talentConnectService.applyJob(this.jobDetails?.id).subscribe({
       next: (response) => {
         this.jobId = response.id;
@@ -176,5 +188,21 @@ export class JobChatUiComponent implements OnInit, OnChanges {
     tempDiv.innerHTML = html;
     tempDiv.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
     return tempDiv.textContent || '';
+  }
+
+  closeAndOpenPopup() {
+    this.showPremimumPopup = false;
+    this.whyPremium = true;
+    if (this.authService._user.why_premium_message_sent === 0) {
+      let data: { template_name: string } = {
+        template_name: "why_premium"
+      }
+
+      this.talentConnectService.sendWatsappMess(data).subscribe({
+        next: response => {
+          console.log(response);
+        }
+      })
+    }
   }
 }

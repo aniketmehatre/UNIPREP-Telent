@@ -48,21 +48,6 @@ export class SidenavComponent {
       url: "/pages/dashboard",
       image: "fa-solid fa-objects-column",
     },
-    // {
-    //   title: "User Guide",
-    //   url: "/pages/userguide",
-    //   image: "fa-solid fa-book",
-    // },
-    {
-      title: "Subscription",
-      url: "/pages/subscriptions",
-      image: "fa-solid fa-crown",
-    },
-    // {
-    //   title: "Recommendations",
-    //   url: "/pages/recommendations",
-    //   image: "fa fa-star"
-    // },
     {
       title: "Academics",
       url: "",
@@ -87,12 +72,6 @@ export class SidenavComponent {
       image: "",
       subMenu: true
     },
-    // {
-    //   title: "Employer Connect",
-    //   url: "/pages/talent-connect/list",
-    //   image: "fa-solid fa-briefcase",
-    //   subMenuBy:"Job Board"
-    // },
     {
       title: "Create Job Profile",
       url: "/pages/talent-connect/my-profile",
@@ -144,18 +123,6 @@ export class SidenavComponent {
       subMenuBy: "Career",
       popular: true
     },
-    // {
-    //   title: "Career Planner",
-    //   url: "/pages/career-planner",
-    //   image: "fa-solid fa-arrow-progress",
-    //   subMenuBy:"Career",
-    // },
-    // {
-    //   title: "Company List",
-    //   url: "/pages/company-list",
-    //   image: "fa-solid fa-buildings",
-    //   subMenuBy:"Career",
-    // },
     {
       title: "Entrepreneur",
       url: "",
@@ -174,12 +141,6 @@ export class SidenavComponent {
       image: "fa-solid fa-chart-network",
       subMenuBy: "Entrepreneur",
     },
-    // {
-    //   title: "Investor List",
-    //   url: "/pages/investor-list",
-    //   image: "fa-solid fa-chart-waterfall",
-    //   subMenuBy:"Entrepreneur",
-    // },
     {
       title: "Pitch Deck",
       url: "/pages/pitch-deck",
@@ -199,30 +160,6 @@ export class SidenavComponent {
       image: "fa-solid fa fa-globe",
       subMenuBy: "International Education",
     },
-    // {
-    //   title: "Pre Admission",
-    //   url: "/pages/modules/pre-admission",
-    //   image: "fa-solid fa-file-import",
-    //   subMenuBy:"International Education",
-    // },
-    // {
-    //   title: "Post Application",
-    //   url: "/pages/modules/post-application",
-    //   image: "fa-solid fa-file-export",
-    //   subMenuBy:"International Education",
-    // },
-    // {
-    //   title: "Post Admission",
-    //   url: "/pages/modules/post-admission",
-    //   image: "fa-solid fa-ticket",
-    //   subMenuBy:"International Education",
-    // },
-    // {
-    //   title: "University",
-    //   url: "/pages/modules/university",
-    //   image: "fa-solid fa-building-columns",
-    //   subMenuBy:"International Education",
-    // },
     {
       title: "UNILEARN",
       url: "/pages/unilearn/modules",
@@ -262,18 +199,6 @@ export class SidenavComponent {
       subMenuBy: "Travel & Life",
       popular: true
     },
-    // {
-    //   title: "Travel and Tourism",
-    //   url: "/pages/modules/travel-and-tourism",
-    //   image: "fa-solid fa-plane",
-    //   subMenuBy:"Travel & Life",
-    // },
-    // {
-    //   title: "Life in",
-    //   url: "/pages/modules/life-at-country",
-    //   image: "fa-solid fa-earth-americas",
-    //   subMenuBy:"Travel & Life",
-    // },
     {
       title: "Travel Tools",
       url: "/pages/travel-tools",
@@ -287,49 +212,24 @@ export class SidenavComponent {
       image: "",
       subMenu: true
     },
-    // {
-    //   title: "Assessment",
-    //   url: "/pages/assessment/ilearn-challenge",
-    //   image: "fa-regular fa-badge-check",
-    //   subMenuBy:"Others",
-    // },
     {
       title: "AI Global Advisor",
       url: "/pages/advisor",
       image: "fa-solid fa-file-user",
       subMenuBy: "Others",
     },
-    // {
-    //   title: "Resources",
-    //   url: "/pages/resource",
-    //   image: "fa-solid fa-link",
-    //   subMenuBy:"Others",
-    // },
     {
       title: "Events",
       url: "/pages/events",
       image: "fa-solid fa-calendar-days",
       subMenuBy: "Others",
     },
-    // {
-    //   title: "Quiz",
-    //   url: "/pages/modules/quizmodule",
-    //   image: "fa-solid fa-clock-desk",
-    //   subMenuBy:"Others",
-    //   popular:true
-    // },
     {
       title: "Certificates",
       url: "/pages/mycertificate",
       image: "fa-solid fa-file-certificate",
       subMenuBy: "Others",
     },
-    // {
-    //   title: "Success Stories",
-    //   url: "/pages/success-stories",
-    //   image: "fa-solid fa-thumbs-up",
-    //   subMenuBy:"Others",
-    // },
     {
       title: "Support",
       url: "",
@@ -337,17 +237,16 @@ export class SidenavComponent {
       subMenu: true
     },
     {
+      title: "Subscription",
+      url: "/pages/subscriptions",
+      image: "fa-solid fa-crown",
+    },
+    {
       title: "Tutorials",
       url: "/pages/tutorials",
       image: "fa-solid fa-video",
       subMenuBy: "Support",
     },
-    // {
-    //   title: "Contributors",
-    //   url: "/pages/contributors",
-    //   image: "fa-solid fa-hands-holding-dollar",
-    //   subMenuBy:"Support",
-    // },
     {
       title: "FAQ",
       url: "/pages/faq",
@@ -360,25 +259,6 @@ export class SidenavComponent {
       image: "fa-solid fa-headset",
       subMenuBy: "Support",
     },
-    // {
-    //   title: 'Help & Support',
-    //   url: '/pages/help',
-    //   image: 'fa-solid fa-phone-volume',
-    //   subMenuBy:"Support",
-    // }
-    // ,
-    // {
-    //   title: 'USER MANAGER',
-    //   url: '/pages/usermanagement',
-    //   image: 'pi pi-briefcase',
-    //   subMenuBy:"Support",
-    // },
-    // {
-    //   title: 'SUBCRIPTION MANAGER',
-    //   url: '/pages/subscriptionmanagement',
-    //   image: 'pi pi-briefcase',
-    //   subMenuBy:"Support",
-    // }
   ];
 
   k10RestrictedMenus: string[] = ["Career Tools", "Recommendations", "Career Hub", "Learning Hub", "Skill Mastery", "Startup Kit", "Founders Tool", "Pitch Deck", "Career", "Entrepreneur"];
@@ -392,7 +272,7 @@ export class SidenavComponent {
   collegeStudentRestrictedMenus = ["Assessment"];
 
   premiumPlanMenus: string[] = ["K12 Academy", "K12 Academic Tools", "Learning Hub", "Skill Mastery", "Career Tools", "Language Hub", "Travel Tools", "Global Repository",
-    "UNILEARN", "UNISCHOLAR", "UNIFINDER", "Education Tools", "Startup Kit", "Founders Tool", "Pitch Deck",
+    "UNILEARN", "UNISCHOLAR", "UNIFINDER", "Education Tools", "Startup Kit", "Founders Tool", "Pitch Deck", "24x7 Support",
     "AI Global Advisor", "Events", "Certificates"];
   interestMenuList: { id: number, name: string }[] = [
     { id: 1, name: 'Career' },
@@ -400,6 +280,8 @@ export class SidenavComponent {
     { id: 3, name: 'International Education' },
     { id: 4, name: 'Travel & Life' },
   ];
+  originalMenus: SideMenu[] = [];
+
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private dataService: DataService,
     private authService: AuthService, private locationService: LocationService,
     private assessmentService: AssessmentService, private storage: StorageService,
@@ -426,6 +308,11 @@ export class SidenavComponent {
           this.markCurrentMenu();
         },
       });
+    this.talentService.employerProfileCompleted$.subscribe(data => {
+      if (data) {
+        this.updateMenuUrlBasedOnEmployerProfile(data);
+      }
+    })
   }
 
   get filteredMenus(): SideMenu[] {
@@ -440,8 +327,9 @@ export class SidenavComponent {
 
   enterpriseSubscriptionLink: any;
   ngOnInit(): void {
-    this.updateMenuUrlBasedOnEmployerProfile();
     this.apiToCheckPartnerOrInstitute();
+    this.updateMenuUrlBasedOnAcademics();
+    this.updateMenuUrlBasedOnEmployerProfile();
     let userTypeId = this.authService._user?.student_type_id == 2
     //  this condition for after refreshing also subscription menu need to hide for institute don't remove
     // if (this.authService._user?.student_type_id == 2) {
@@ -456,15 +344,6 @@ export class SidenavComponent {
       //   : this.menus;
       //this.menus = this.menus.filter((menu) => !this.collegeStudentRestrictedMenus?.includes(menu?.title));
       // }
-      const educationLevel = data?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation";
-      if (educationLevel === "K10") {
-        this.menus = this.menus.filter((menu) => !this.k10RestrictedMenus?.includes(menu?.title));
-      } else if (educationLevel === "HigherEducation") {
-        this.menus = this.menus.filter((menu) => !this.HigherEduRestritedMenus?.includes(menu?.title));
-      } else {
-        this.menus = this.menus;
-      }
-
     });
     let hostname = window.location.hostname;
     this.locationService.getSourceByDomain(hostname).subscribe((data: any) => {
@@ -488,45 +367,6 @@ export class SidenavComponent {
         } else {
           this.menus = this.menus.filter((item) => !this.whitlabelmenu?.includes(item?.title));
           this.whiteLabelIsShow = false;
-        }
-      }
-    });
-    this.updateMenuUrlBasedOnSubscription();
-    this.updateInterestMenus();
-  }
-
-  updateMenuUrlBasedOnSubscription() {
-    if (this.authService._user?.current_plan_detail?.current_plan == "Standard") {
-      this.menus.forEach((item) => {
-        if (this.premiumPlanMenus.includes(item.title)) {
-          item.url = '/pages/subscriptions';
-          item.restricted = true;
-        }
-        else {
-          item.restricted = false;
-        }
-      });
-    }
-  }
-
-  updateMenuUrlBasedOnEmployerProfile() {
-    const isProfileMissing = this.talentService._employerProfileData == null;
-    const profileId = this.talentService._employerProfileData?.id;
-    const menuMap: { [key: string]: string } = {
-      "Create Job Profile": isProfileMissing ? "/pages/talent-connect/my-profile" : `/pages/talent-connect/my-profile/${profileId}`,
-      "Apply Jobs": isProfileMissing ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/easy-apply",
-      "Company Connect": isProfileMissing ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/company-connect",
-    };
-    this.menus.forEach((menu) => {
-      if (menuMap[menu.title]) {
-        menu.url = menuMap[menu.title];
-        if (menu.title != 'Create Job Profile') {
-          menu.sameUrl = isProfileMissing;
-        }
-        else {
-          if (!isProfileMissing) {
-            menu.title = "My Job Profile"
-          }
         }
       }
     });
@@ -596,6 +436,7 @@ export class SidenavComponent {
     }
   }
 
+  // Step 1: To Check Domain
   apiToCheckPartnerOrInstitute() {
     this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
       if (response.source == 'Partner') {
@@ -607,6 +448,83 @@ export class SidenavComponent {
     })
   }
 
+  // Step 2: To Check Current Education
+  updateMenuUrlBasedOnAcademics() {
+    const educationLevel = this.authService._user?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation";
+    if (educationLevel === "K10") {
+      this.menus = this.menus.filter((menu) => !this.k10RestrictedMenus?.includes(menu?.title));
+    } else if (educationLevel === "HigherEducation") {
+      this.menus = this.menus.filter((menu) => !this.HigherEduRestritedMenus?.includes(menu?.title));
+    } else {
+      this.menus = this.menus;
+    }
+  }
+
+  // Step 3: To Check Employer Profile
+  updateMenuUrlBasedOnEmployerProfile(data?: boolean) {
+    const isProfileMissing = this.talentService._employerProfileData == null;
+    const profileId = this.talentService._employerProfileData?.id;
+    if (this.originalMenus.length == 0) {
+      this.originalMenus = JSON.parse(JSON.stringify(this.menus));
+    }
+    if (isProfileMissing) {
+      this.menus.forEach((item) => {
+        if (item.title != 'Create Job Profile') {
+          item.url = '/pages/talent-connect/my-profile';
+          item.restricted = true;
+        }
+      });
+    }
+    else {
+      if (data) {
+        this.menus = this.originalMenus;
+      }
+      this.menus.forEach((item) => {
+        if (item.title == 'Create Job Profile') {
+          item.title = "My Job Profile";
+          item.url = `/pages/talent-connect/my-profile/${profileId}`;
+        }
+      });
+      this.updateMenuUrlBasedOnSubscription();
+    }
+    // const menuMap: { [key: string]: string } = {
+    //   "Create Job Profile": isProfileMissing ? "/pages/talent-connect/my-profile" : `/pages/talent-connect/my-profile/${profileId}`,
+    //   "Apply Jobs": isProfileMissing ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/easy-apply",
+    //   "Company Connect": isProfileMissing ? "/pages/talent-connect/my-profile" : "/pages/talent-connect/company-connect",
+    // };
+    // this.menus.forEach((menu) => {
+    //   if (menuMap[menu.title]) {
+    //     menu.url = menuMap[menu.title];
+    //     if (menu.title != 'Create Job Profile') {
+    //       menu.sameUrl = isProfileMissing;
+    //     }
+    //     else {
+    //       if (!isProfileMissing) {
+    //         menu.title = "My Job Profile"
+    //       }
+    //     }
+    //   }
+    // });
+  }
+
+  // Step 4: To Check Subscription
+  updateMenuUrlBasedOnSubscription() {
+    if (this.authService._user?.current_plan_detail?.current_plan == "Standard") {
+      this.menus.forEach((item) => {
+        if (this.premiumPlanMenus.includes(item.title)) {
+          item.url = '/pages/subscriptions';
+          item.restricted = true;
+        }
+        else {
+          item.restricted = false;
+        }
+      });
+    }
+    else {
+      this.updateInterestMenus();
+    }
+  }
+  // Step 5: To Check Interest Menu
   updateInterestMenus() {
     if (this.authService._user?.current_plan_detail?.current_plan == "Premium" &&
       this.authService._user?.current_plan_detail?.current_plan_status == "Paid" &&

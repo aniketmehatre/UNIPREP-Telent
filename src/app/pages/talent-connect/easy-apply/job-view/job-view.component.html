@@ -30,7 +30,15 @@
 							<div class="col-xxl-11 col-xl-11 col-lg-10 col-md-10 col-sm-9 col-8">
 								<div class="row">
 									<div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 mb-3">
-										<h3 class="fw-bold mb-0">{{ jobDetails?.position }}</h3>
+										<div class="d-flex align-items-center">
+											<h3 class="fw-bold mb-0 me-2">{{ jobDetails?.position }}</h3>
+											<span *ngIf="jobDetails?.premium_users" class="premium-button d-none d-sm-inline">
+												Premium
+											</span>
+											<span *ngIf="jobDetails?.premium_users" class="premium-icon d-inline d-sm-none">
+												<i class="fa-solid fa-circle-star"></i> 
+											</span>
+										</div>
 										<div class="d-flex align-items-center">
 											<span class="me-2 text-muted">{{ jobDetails.company_name }}</span>
 											<span class="ms-1 text-primary" *ngIf="jobDetails">

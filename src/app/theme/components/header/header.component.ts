@@ -179,6 +179,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	currentRoute: string = ""
 	userTypeId: boolean = true
 	interestMenuList: any[] = [];
+	nationalityList: { id: number, nationality_name: string }[] = [];
 
 	constructor(
 		private router: Router,
@@ -218,10 +219,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 		this.mobileForm = this.formBuilder.group({
 			phone: [undefined, [Validators.required]],
-			home_country: [122, Validators.required],
+			// home_country: ["", Validators.required],
+			nationality_id: [null, Validators.required],
 			study_level: ["", Validators.required],
 			current_city: [""],
-			interest_type: [],
+			// interest_type: [],
 		})
 
 		this.currentEducationForm = this.formBuilder.group({
@@ -630,7 +632,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			error: (error) => console.error('Error in dashboard country subscription:', error)
 		});
 		this.getInterestedMenus();
-
+		this.getNationalityList();
 	}
 	getAICreditCount() {
 		this.promptService.getAicredits().subscribe({
@@ -644,10 +646,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	private initializeForms() {
 		this.mobileForm = this.formBuilder.group({
 			phone: [undefined, [Validators.required]],
-			home_country: [122, Validators.required],
+			// home_country: ["", Validators.required],
+			nationality_id: [null, Validators.required],
 			study_level: ["", Validators.required],
 			current_city: [""],
-			interest_type: [],
+			// interest_type: [],
 
 		})
 
@@ -1254,7 +1257,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	continueTrial(): void {
 		let data: any = {}
-		if (this.mobileForm.get('home_country')?.valid && this.mobileForm.get('study_level')?.valid) {
+		if (this.mobileForm.get('nationality_id')?.valid && this.mobileForm.get('study_level')?.valid) {
 			data = this.mobileForm.value;
 		}
 		if (this.demoTrial == true) {
@@ -1275,13 +1278,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.freeTrial = false
 				this.demoTrial = false
 				this.authService._userContineTrial = false
+				this.authService._user.nationality_id = this.mobileForm.value.nationality_id;
 				setTimeout(() => {
 					this.checkNewUser()
 					let jobId = this.storage.get('jobId')
 					if (jobId) {
 						this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+					} else {
+						this.router.navigate(["/pages/talent-connect/my-profile"])
 					}
-					window.location.reload()
+					//window.location.reload()
 				}, 2000)
 				return res
 			},
@@ -1301,7 +1307,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		if (this.imagewhitlabeldomainname.toLowerCase() === "uniprep" || this.imagewhitlabeldomainname === "Partner") {
 			this.visibleExhastedUser = false
 			let data: any = {}
-			if (this.mobileForm.get('home_country')?.valid && this.mobileForm.get('study_level')?.valid) {
+			if (this.mobileForm.get('nationality_id')?.valid && this.mobileForm.get('study_level')?.valid) {
 				data = this.mobileForm.value;
 			}
 			if (this.demoTrial == true) {
@@ -1367,7 +1373,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		let findcountry = this.homeCountryList.find((country: any) => userLocation.country === country.country);
 		if (findcountry) {
 			this.mobileForm.patchValue({
-				home_country: findcountry.id,
+				// home_country: findcountry.id,
 				current_city: userLocation.city
 			});
 		}
@@ -1607,8 +1613,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.commonService.getInterestedMenus().subscribe({
 			next: res => {
 				this.interestMenuList = res.data;
+				if (res.data.length > 0) {
+					this.interestMenuList.forEach((item: any) => {
+						if (item.id != 1) {
+							item.disabled = true;
+						}
+					});
+				}
 			},
-			error: err => {}
+			error: err => { }
+		});
+	}
+	getNationalityList() {
+		this.locationService.getNationality().subscribe({
+			next: (res) => {
+				this.nationalityList = res;
+			},
+			error: (error: any) => {}
 		});
 	}
 }

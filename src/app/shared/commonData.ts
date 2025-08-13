@@ -244,5 +244,8 @@ export const howItWorksLinks: { [key: string]: { video_link: string } } = {
   },
   "subscription" : {
     video_link : "https://www.youtube.com/embed/I2M5KwuhuZM?si=M-CXM8tSW6gJg2Bh"
+  },
+  "create-job" : {
+    video_link : "https://www.youtube.com/embed/UMRenyPjO6E?si=vjJxNgjtXHi0JW1E"
   }
 };

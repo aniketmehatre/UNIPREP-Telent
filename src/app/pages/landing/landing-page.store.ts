@@ -10,7 +10,7 @@ export class HeaderLogoStore extends ComponentStore<HeaderLogoState> {
   readonly logoUrl$ = this.select((state) => state.logoUrl);
 
   constructor() {
-    super({ logoUrl: '/uniprep-assets/images/uniprep-dark.png' });
+    super({ logoUrl: '/uniprep-assets/images/logo.svg' });
   }
 
   setLogo(url: string) {
@@ -18,6 +18,6 @@ export class HeaderLogoStore extends ComponentStore<HeaderLogoState> {
   }
 
   resetLogo() {
-    this.setState({ logoUrl: '/uniprep-assets/images/uniprep-dark.png' });
+    this.setState({ logoUrl: '/uniprep-assets/images/logo.svg' });
   }
 }

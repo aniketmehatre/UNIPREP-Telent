@@ -300,7 +300,6 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       id: [""],
       education_qualification_id: [null, Validators.required],
       education_university_name: [null, Validators.required],
-      education_field_id: [null, Validators.required],
       education_course_name: [null, Validators.required],
       education_graduation_year_id: [null, Validators.required],
       education_still_pursuing: [0],
@@ -606,7 +605,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         if (index == 0) {
           checkField(edu.get("education_qualification_id"), 2)
           checkField(edu.get("education_university_name"), 2)
-          checkField(edu.get("education_field_id"), 2)
+          //checkField(edu.get("education_field_id"), 2)
           checkField(edu.get("education_course_name"), 2)
           checkField(edu.get("education_graduation_year_id"), 2)
           console.log(edu.get("education_still_pursuing"), 'stio')
@@ -807,7 +806,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           id: [edu.id], // Store the original ID
           education_qualification_id: [edu.qualification_id || "", Validators.required],
           education_university_name: [edu.university_name || "", Validators.required],
-          education_field_id: [edu.field_id || "", Validators.required],
+          education_field_id: [edu.field_id || ""],
           education_course_name: [edu.course_name || "", Validators.required],
           education_graduation_year_id: [edu.graduation_year_id || "", Validators.required],
           education_still_pursuing: [edu.education_still_pursuing || 0],

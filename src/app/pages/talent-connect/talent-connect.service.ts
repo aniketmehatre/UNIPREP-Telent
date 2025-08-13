@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { map } from 'rxjs';
 import { removeExtraResponse } from '../../@Supports/prompt';
 import { EmployeeConnectProfile, EmployeeConnectProfileRes } from 'src/app/@Models/employee-connect-profile';
@@ -18,6 +18,8 @@ export class TalentConnectService {
         'x-rapidapi-key': 'd08adbb963msh135bd172e57612cp19ee92jsna8b68088b175'
     });
     _employerProfileData!: EmployeeConnectProfile | null;
+    employerProfileCompleted$ = new BehaviorSubject<boolean>(false);
+
     constructor(private http: HttpClient) { }
 
     //Profile Creation 
@@ -268,5 +270,10 @@ export class TalentConnectService {
     
     generateUUIDLink(companyId: number): Observable<{ uuid: string }> {
         return this.http.post<{ uuid: string }>( '/api/generate-link', { companyId });
+    }
+
+    sendWatsappMess(data: {template_name: string}){
+        const headers = new HttpHeaders().set("Accept", "application/json");
+        return this.http.post<any>(environment.ApiUrl + "/sendWhatsappMessage", data, { headers: headers });
     }
 }
