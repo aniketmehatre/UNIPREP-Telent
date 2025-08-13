@@ -17,11 +17,6 @@ p-editor ::ng-deep .ql-editor {
     padding: 2.5px;
   }
 }
-
-h5 {
-  font-weight: bold;
-}
-
 .message-box {
   background-color: #fdeedb;
   border-radius: 10px;
@@ -87,14 +82,13 @@ h5 {
 }
 
 label {
-  font-weight: bolder;
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 1rem;
   color: var(--p-primary-500);
 }
 
 .upload-box {
   width: 100%;
-  height: 220px;
   border: 1px dashed var(--p-primary-500);
   background-color: var(--p-neutral-100);
   border-radius: 6px;
