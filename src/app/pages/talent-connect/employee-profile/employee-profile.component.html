@@ -544,7 +544,7 @@
 													<ng-container class="work-experience">
 														<ng-container formArrayName="languages">
 															<div class="row g-3" *ngFor="let language of languages.controls; let i = index" [formGroupName]="i">
-																<div *ngIf="i > 0" class="col-md-12"><hr  /></div>
+																<div *ngIf="i > 0" class="col-md-12"><hr /></div>
 																<div class="col-md-6 col-12">
 																	<label class="mb-1"> Language known<span class="text-danger">*</span></label>
 																	<p-select formControlName="languages_language_id" [options]="languageList" placeholder="Enter know language" styleClass="w-100" optionLabel="language" optionValue="id" [filter]="true" filterBy="language" appendTo="body" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('languages_language_id')"></p-select>
@@ -556,7 +556,7 @@
 																	<small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && language.get('languages_proficiency')?.errors?.required"> Language Proficiency is required </small>
 																</div>
 																<div *ngIf="i !== 0" class="col-md-1 col-3">
-																	<label class="mb-1"></label>
+																	<label class="mb-1"> </label>
 																	<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeLanguage(i)">
 																		<span><i class="fa-regular fa-trash fa-lg"></i></span>
 																	</button>
@@ -593,52 +593,54 @@
 								<p-step-panel [value]="6">
 									<ng-template #content>
 										<h4 class="card-title mb-3">Professional Networking & Online Presence</h4>
-										<form [formGroup]="professionalNetworkingForm">
-											<ng-container class="work-experience">
-												<div class="row mb-3">
-													<div class="col-md-12">
-														<label class="mb-1"> LinkedIn Profile<span class="text-danger">*</span></label>
-														<input pInputText fluid formControlName="networking_linkedin_profile" placeholder="Linkedin Profile Link" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('networking_linkedin_profile')" />
-														<small class="text-danger" *ngIf="isSubmittedProfessionalNetworkingForm && professionalNetworkingForm.get('networking_linkedin_profile')?.invalid"> LinkedIn Profile is required with valid url </small>
-													</div>
-												</div>
-												<div class="row mb-3">
-													<div class="col-md-6">
-														<label class="mb-1">Social Media</label>
-													</div>
-													<div class="col-md-6">
-														<label class="mb-1">Provide the link</label>
-													</div>
-												</div>
-												<ng-container formArrayName="networking_social_media">
-													<div class="row mb-3" *ngFor="let socialMediaItem of socialMedia.controls; let i = index" [formGroupName]="i">
-														<div class="col-md-6">
-															<p-select formControlName="networking_social_media" [options]="socialMedias" appendTo="body" placeholder="Select any social media platform" styleClass="w-100" (focusout)="resetMessageBox()" (ngModelChange)="changeSocialMedia($event)" (onShow)="updateMessageBox('networking_social_media')" [optionDisabled]="isDisabledSocialMedia">
-																<ng-template let-socialMedia #item>
-																	<span>{{ socialMedia }}&nbsp;<span *ngIf="selectedSocialMedias?.includes(socialMedia)">(Selected)</span></span>
-																</ng-template>
-															</p-select>
-														</div>
-														<div class="col-md-6">
-															<div class="row">
-																<div class="col-md-10">
-																	<input pInputText fluid formControlName="networking_social_media_link" placeholder="Social media link" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('networking_social_media_link')" />
-																</div>
-																<div class="col-md-2">
-																	<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeSocialMedia(i); removeSelectedSocialMedia(socialMediaItem.get('networking_social_media')?.value)" style="width: fit-content" *ngIf="i !== 0">
-																		<span><i class="fa-regular fa-trash fa-lg"></i></span>
-																	</button>
-																</div>
+										<div class="row">
+											<div class="col-md-12">
+												<form [formGroup]="professionalNetworkingForm">
+													<ng-container class="work-experience">
+														<div class="row g-3">
+															<div class="col-md-12">
+																<label class="mb-1"> LinkedIn Profile<span class="text-danger">*</span></label>
+																<input pInputText fluid formControlName="networking_linkedin_profile" placeholder="Linkedin Profile Link" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('networking_linkedin_profile')" />
+																<small class="text-danger" *ngIf="isSubmittedProfessionalNetworkingForm && professionalNetworkingForm.get('networking_linkedin_profile')?.invalid"> LinkedIn Profile is required with valid url </small>
+															</div>
+															<div class="col-md-12">
+																<hr />
+															</div>
+															<div class="col-md-12">
+																<ng-container formArrayName="networking_social_media">
+																	<div class="row g-3 mb-3" *ngFor="let socialMediaItem of socialMedia.controls; let i = index" [formGroupName]="i">
+																		<div class="col-md-6 col-4">
+																			<label class="mb-1">Social Media</label>
+																			<p-select formControlName="networking_social_media" [options]="socialMedias" appendTo="body" placeholder="Select any social media platform" styleClass="w-100" (focusout)="resetMessageBox()" (ngModelChange)="changeSocialMedia($event)" (onShow)="updateMessageBox('networking_social_media')" [optionDisabled]="isDisabledSocialMedia">
+																				<ng-template let-socialMedia #item>
+																					<span>{{ socialMedia }}&nbsp;<span *ngIf="selectedSocialMedias?.includes(socialMedia)">(Selected)</span></span>
+																				</ng-template>
+																			</p-select>
+																		</div>
+																		<div class="col">
+																			<label class="mb-1">Provide the link</label>
+																			<input pInputText fluid formControlName="networking_social_media_link" placeholder="Social media link" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('networking_social_media_link')" />
+																		</div>
+																		<div class="col-md-1 col-2" *ngIf="i !== 0">
+																			<label class="mb-1"> </label>
+																			<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-2 py-2" (click)="removeSocialMedia(i); removeSelectedSocialMedia(socialMediaItem.get('networking_social_media')?.value)" style="width: fit-content">
+																				<span><i class="fa-regular fa-trash fa-lg"></i></span>
+																			</button>
+																		</div>
+																	</div>
+																</ng-container>
+															</div>
+															<div class="col-md-12">
+																<button *ngIf="socialMedia.controls.length < 3" pButton class="w-100 btn btn-outline-primary" (click)="addSocialMedia()">Add more Social media&nbsp;<i class="fa fa-plus"></i></button>
 															</div>
 														</div>
-													</div>
-												</ng-container>
-												<div class="row mb-3">
-													<div class="col-12">
-														<button *ngIf="socialMedia.controls.length < 3" pButton class="w-100 btn btn-outline-primary" (click)="addSocialMedia()">Add more Social media&nbsp;<i class="fa fa-plus"></i></button>
-													</div>
-												</div>
-												<!-- <div class="row mb-3">
+													</ng-container>
+												</form>
+											</div>
+										</div>
+									</ng-template>
+
+									<!-- <div class="row mb-3">
                           <div class="col-md-12">
                             <label class="mb-1"> Personal Website</label>
                             <input pInputText fluid formControlName="networking_personal_website"
@@ -649,9 +651,6 @@
                               Personal Website is required with valid url </small>
                           </div>
                         </div> -->
-											</ng-container>
-										</form>
-									</ng-template>
 								</p-step-panel>
 								<!-- Attachments & Media -->
 								<p-step-panel [value]="7">
@@ -803,15 +802,17 @@
 								<p-step-panel [value]="8">
 									<ng-template #content>
 										<form [formGroup]="additionalNotesForm">
-											<div class="d-flex justify-content-between align-items-start mb-2">
-												<h5 class="card-title">Additional Notes</h5>
-												<div>
-													<button *ngIf="isNotEmptyHtml(this.additionalNotesForm.get('additional_notes')?.value)" class="text-small btn btn-secondary btn-rounded d-flex align-items-center gap-2 h-fit-content" style="width: fit-content" (click)="aiRePhraseSummary('add_note', { rephrase_content: additionalNotesForm?.get('additional_notes')?.value }, additionalNotesForm?.get('additional_notes'))">RePhrase</button>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="d-flex justify-content-between align-items-start mb-2">
+														<h5 class="card-title">Additional Notes</h5>
+														<div>
+															<button *ngIf="isNotEmptyHtml(this.additionalNotesForm.get('additional_notes')?.value)" class="text-small btn btn-secondary btn-rounded d-flex align-items-center gap-2 h-fit-content" style="width: fit-content" (click)="aiRePhraseSummary('add_note', { rephrase_content: additionalNotesForm?.get('additional_notes')?.value }, additionalNotesForm?.get('additional_notes'))">RePhrase</button>
+														</div>
+													</div>
 												</div>
-											</div>
-											<div class="row mb-3">
-												<div class="position-relative">
-													<p-editor #editor [style]="{ height: '170px', maxHeight: 'auto' }" formControlName="additional_notes" placeholder="Additional Information if any" />
+												<div class="col-md-12">
+													<p-editor #editor [style]="{ height: '400px', maxHeight: 'auto' }" formControlName="additional_notes" placeholder="Additional Information if any" />
 													<small class="text-muted d-block text-end">{{ additionalNotesForm.get("additional_notes")?.value?.length }}/5000 </small>
 												</div>
 											</div>
