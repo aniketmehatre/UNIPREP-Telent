@@ -7,9 +7,9 @@
   <div class="card-header border-0 bg-transparent">
     <div class="row">
       <div class="col-md-12 d-flex gap-2 text-center">
-        <!-- <div class="backIcon d-flex" role="button" (click)="goBack()">
+        <div *ngIf="isSampleProfilePdf" class="backIcon d-flex" role="button" (click)="goBack()">
           <span class="fa-solid fa-chevron-left"></span>
-        </div> -->
+        </div>
         <div class="select-title d-flex justify-content-between align-items-center">
           <div>
             <h5 class="mb-0">
