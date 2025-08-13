@@ -148,6 +148,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	orgnamewhitlabel: any
 	isNotSuccess: boolean = true
 	aiCreditCount: number = 0;
+	showIcon: boolean = false
 
 	haveWhatsapp: string = 'WhatsApp'
 	// Add phone number configuration
@@ -526,6 +527,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 		// Add user details subscription
 		const userDetails = this.authService._user as User;
+		console.log(userDetails);
+		
+		this.showIcon = this.authService._user?.login_status === 4 ? false : true;
+		
 		this.userName = userDetails.name || '';
 		this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
 		// Set home country icon if available
