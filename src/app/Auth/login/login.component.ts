@@ -38,6 +38,7 @@ import { BrandColorService } from "src/app/services/brand-color.service";
 import { ButtonModule } from "primeng/button"
 import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.service"
 import { HowItWorksComponent } from "src/app/shared/how-it-works/how-it-works.component"
+import { CountryLocationService } from "src/app/services/country-location.service"
 
 declare var google: any;
 
@@ -83,6 +84,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private http = inject(HttpClient);
     private brandColorService = inject(BrandColorService);
     private howItWorks = inject(HowItWorksService);
+    private countryLocationService = inject(CountryLocationService);
     loading = true;
     jobId: any
 
@@ -300,6 +302,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 };
                 this.locationService.sendSessionData(req, "login").subscribe();
                 this.toast.add({ severity: "success", summary: "Success", detail: "Login Successful" })
+                console.log(userDetails.city_id, "city id");
                 if (!userDetails.city_id) {
                     setTimeout(() => {
                         this.updateLocation();
@@ -327,29 +330,32 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     updateLocation() {
         this.updateCurrentLocation().then((userLocation) => {
+            console.log(userLocation, "userLocation");
             if (userLocation.country != "Unknown" && userLocation.city != "Unknown") {
                 this.locationService.updateUserLocation(userLocation).subscribe()
             }
         })
     }
 
-    private getCountryFromIP() {
-        const url = 'https://ipapi.co/json/';
-        return this.http.get<any>(url);
-    }
+    // private getCountryFromIP() {
+    //     const url = 'https://ipapi.co/json/';
+    //     return this.http.get<any>(url);
+    // }
 
-    async updateCurrentLocation(): Promise<{ country: string; city: string }> {
-        try {
-            const ipData = await firstValueFrom(this.getCountryFromIP());
-            return {
-                country: ipData.country_name || 'Unknown',
-                city: ipData.city || 'Unknown'
-            };
-        } catch {
-            return {
-                country: 'Unknown',
-                city: 'Unknown'
-            };
-        }
+    async updateCurrentLocation() {
+        let userLocation: { country: string; city: string } = await this.countryLocationService.getUserCountry();
+        return userLocation;
+        // try {
+        //     const ipData = await firstValueFrom(this.getCountryFromIP());
+        //     return {
+        //         country: ipData.country_name || 'Unknown',
+        //         city: ipData.city || 'Unknown'
+        //     };
+        // } catch {
+        //     return {
+        //         country: 'Unknown',
+        //         city: 'Unknown'
+        //     };
+        // }
     }
 }
