@@ -13,18 +13,20 @@
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="container-fluid">
 						<div class="row align-items-center">
-							<div class="col-md-8 col-12">
-								<h5 class="mb-md-0 text-md-start text-center">
+							<div class="col-md-7 col-8 order-1 order-md-1">
+								<h5 class="mb-md-0">
 									{{ isSampleProfilePdf ? "Sample Profile Photo Guide" : "Create your Job Profile in less than 3 minutes" }}
 								</h5>
 							</div>
-							<div class="col-md-4 col-12" *ngIf="!isShowAiEvaluation">
+							<div class="col-md-3 col-12 order-3 order-md-2" *ngIf="!isShowAiEvaluation">
 								<div class="d-flex gap-2 justify-content-md-end justify-content-between">
 									<button class="btn btn-secondary btn-rounded w-100" pButton (click)="openProfileDialog(true)"><span class="d-none d-md-block">Profile</span> Sample</button>
 									<button class="button-profile-top rounded-pill w-100" pButton (click)="openProfileDialog(false)"><span class="d-none d-md-block">Profile</span> Preview</button>
-									<button class="d-md-none d-flex justify-content-center align-items-center btn btn-rounded btn-primary px-4" pButton (click)="visible = true"><i class="fa-solid fa-circle-info"></i></button>
-									<button class="how-it-works-button w-100" pButton (click)="openVideoPopup()">How to use?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+									<button class="d-md-none d-flex justify-content-center align-items-center btn btn-rounded btn-primary w-100" pButton (click)="visible = true"><i class="fa-solid fa-circle-info"></i> Guide</button>
 								</div>
+							</div>
+							<div class="col-md-2 col-4 order-2 order-md-3">
+								<button class="how-it-works-button w-100" pButton (click)="openVideoPopup()">How to use?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 							</div>
 						</div>
 					</div>
@@ -64,39 +66,43 @@
 								<p-step-panel [value]="0">
 									<ng-template #content>
 										<form [formGroup]="personalInformationForm">
-											<div class="row py-3 rounded-4 mb-2 mx-1" style="border: 1px solid lightgray">
-												<div class="col-md-3"></div>
-												<div class="col-md-6">
-													<div class="text-center position-relative">
-														<span class="text-danger fs-4 position-absolute profile-sec-req">*</span>
-														<div class="bg-light p-3 rounded-4" style="border: 1px dashed lightgray">
-															<div class="position-relative mx-auto mb-3">
-																<ng-container *ngIf="logo; else showSample">
-																	<img [src]="logo" styleClass="object-fit" style="max-width: 120px; width: 100%; aspect-ratio: 1/1" class="rounded-2 border img-fluid" />
-																</ng-container>
-																<ng-template #showSample>
-																	<div class="mx-auto border rounded-2 d-flex align-items-center justify-content-center" style="background-color: var(--p-primary-50); max-width: 120px; width: 100%; aspect-ratio: 1/1">
-																		<i style="color: var(--p-primary-200)" class="fa-solid fa-user fa-2x"></i>
+											<div class="card">
+												<div class="card-body">
+													<div class="row">
+														<div class="col-md-3"></div>
+														<div class="col-md-6">
+															<div class="text-center position-relative">
+																<span class="text-danger fs-4 position-absolute profile-sec-req">*</span>
+																<div class="bg-light p-3 rounded-4" style="border: 1px dashed lightgray">
+																	<div class="position-relative mx-auto mb-3">
+																		<ng-container *ngIf="logo; else showSample">
+																			<img [src]="logo" styleClass="object-fit" style="max-width: 120px; width: 100%; aspect-ratio: 1/1" class="rounded-2 border img-fluid" />
+																		</ng-container>
+																		<ng-template #showSample>
+																			<div class="mx-auto border rounded-2 d-flex align-items-center justify-content-center" style="background-color: var(--p-primary-50); max-width: 120px; width: 100%; aspect-ratio: 1/1">
+																				<i style="color: var(--p-primary-200)" class="fa-solid fa-user fa-2x"></i>
+																			</div>
+																		</ng-template>
 																	</div>
-																</ng-template>
-															</div>
-															<div class="d-flex justify-content-center gap-2 mb-2">
-																<input name="image" type="file" (change)="onUploadPhoto($event)" accept="image/*" #fileUploadImage style="display: none" />
-																<p-button label="{{ logo ? 'Change Photo' : 'Upload Photo' }}" icon="pi pi-upload" styleClass="p-button-sm" (click)="fileUploadImage.click()" (onFocus)="updateMessageBox('profile_image')" (focusout)="resetMessageBox()"></p-button>
-																<p-button *ngIf="logo" label="Remove Photo" icon="pi pi-times" (onClick)="onRemovePhoto()" styleClass="p-button-sm p-button-outlined"></p-button>
+																	<div class="d-flex justify-content-center gap-2 mb-2">
+																		<input name="image" type="file" (change)="onUploadPhoto($event)" accept="image/*" #fileUploadImage style="display: none" />
+																		<p-button label="{{ logo ? 'Change Photo' : 'Upload Photo' }}" icon="pi pi-upload" styleClass="p-button-sm" (click)="fileUploadImage.click()" (onFocus)="updateMessageBox('profile_image')" (focusout)="resetMessageBox()"></p-button>
+																		<p-button *ngIf="logo" label="Remove Photo" icon="pi pi-times" (onClick)="onRemovePhoto()" styleClass="p-button-sm p-button-outlined"></p-button>
+																	</div>
+																</div>
+																<small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('profile_image')?.errors?.required"> Profile Image is required </small>
+																<div class="d-flex align-items-center gap-2 mt-2">
+																	<span><i class="fa-solid fa-face-viewfinder fa-xl"></i></span>
+																	<p class="fw-medium text-small text-start d-block">You have to upload a close, straight faced photo with plain background.</p>
+																</div>
 															</div>
 														</div>
-														<small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('profile_image')?.errors?.required"> Profile Image is required </small>
-														<div class="d-flex align-items-center gap-2 mt-2">
-															<span><i class="fa-solid fa-face-viewfinder fa-xl"></i></span>
-															<p class="fw-medium text-small text-start d-block">You have to upload a close, straight faced photo with plain background.</p>
+														<div class="col-md-3">
+															<div class="d-flex justify-content-md-end justify-content-center">
+																<button pButton type="button" (click)="isSampleProfileImgVisible = true" class="btn btn-primary btn-rounded p-1 px-3 me-2">Sample</button>
+																<button pButton type="button" (click)="isSampleProfilePdf = true" class="btn btn-secondary btn-rounded p-1 px-3">Guide</button>
+															</div>
 														</div>
-													</div>
-												</div>
-												<div class="col-md-3">
-													<div class="d-flex justify-content-end">
-														<button pButton type="button" (click)="isSampleProfileImgVisible = true" class="btn btn-primary btn-rounded p-1 px-3 me-2">Sample</button>
-														<button pButton type="button" (click)="isSampleProfilePdf = true" class="btn btn-secondary btn-rounded p-1 px-3">Guide</button>
 													</div>
 												</div>
 											</div>
