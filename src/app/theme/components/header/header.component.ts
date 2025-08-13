@@ -1282,6 +1282,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.freeTrial = false
 				this.demoTrial = false
 				this.authService._userContineTrial = false
+				this.authService._user.nationality_id = this.mobileForm.value.nationality_id;
 				setTimeout(() => {
 					this.checkNewUser()
 					let jobId = this.storage.get('jobId')
