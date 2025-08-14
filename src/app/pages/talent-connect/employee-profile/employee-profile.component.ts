@@ -707,7 +707,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           this.isUpdatedProfile = responses?.profile_completion_flag ? true : false;
           if (isCompleted) {
             this.talentConnectService.employerProfileCompleted$.next(true);
-            this.isShowCreatedSuccessfullyPopup = true;
+            
+            let jobId = this.storage.get('jobId')
+            if (jobId) {
+              this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+            } else {
+              this.isShowCreatedSuccessfullyPopup = true;
+              // this.router.navigate(["/pages/talent-connect/my-profile"])
+            }
           }
         }
       },
@@ -1899,7 +1906,13 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   onSubmitAdditionalNotesForm() {
     this.additionalNotesForm.value.additional_notes = this.additionalNotesForm.value.additional_notes == '<p></p>' ? '' : this.additionalNotesForm.value.additional_notes;
     if (this.additionalNotesForm.value.additional_notes == this.originalProfileData?.additional_notes && this.isUpdatedProfile) {
-      this.isShowCreatedSuccessfullyPopup = true;
+        let jobId = this.storage.get('jobId')
+        if (jobId) {
+          this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+        } else {
+          this.isShowCreatedSuccessfullyPopup = true;
+          // this.router.navigate(["/pages/talent-connect/my-profile"])
+        }
       this.toastService.add({ severity: "success", summary: "Success", detail: "Profile Created Successfully" });
       return;
     }
