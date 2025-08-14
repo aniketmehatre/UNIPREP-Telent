@@ -201,14 +201,16 @@ export class CompanyListsComponent implements OnInit {
   applyFilter(params: any = {}) {
     this.companyObj = params;
   
-    if (this.activeIndex === 0) {
-      this.getCompanyTrackerList(params);
-    } else if (this.activeIndex === 1) {
-      this.shortListedList(params);
-    } else if (this.activeIndex === 2) {
-      this.sendMessageList(params);
-    } else if (this.activeIndex === 3) {
-      this.receivedMessageList(params);
+    const actions = [
+      this.getCompanyTrackerList.bind(this),
+      this.shortListedList.bind(this),
+      this.sendMessageList.bind(this),
+      this.receivedMessageList.bind(this),
+    ];
+  
+    const action = actions[this.activeTabValue];
+    if (action) {
+      action(params);
     }
   }
 
@@ -228,11 +230,9 @@ export class CompanyListsComponent implements OnInit {
     this.applyFilter(this.companyObj);
   }
 
-  onTabChange(event: any) {
+  onTabChange(value: number) {
     this.page = 1;
-    this.activeIndex = event.index;
-  
-    // Always pass an empty object if no filter is applied yet
+    this.activeTabValue = value; // p-tabs sends the value, not index
     this.applyFilter(this.companyObj || {});
   }
 

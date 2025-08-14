@@ -1,6 +1,6 @@
 <div class="card h-100 bg-white border-0">
 	<div class="card-body overflow-y-auto p-0 border-0">
-		<p-tabs [(value)]="activeTabValue" [scrollable]="true" styleClass="p-0" class="custom-tab" (onChange)="onTabChange($event)">
+		<p-tabs [(value)]="activeTabValue" [scrollable]="true" styleClass="p-0" class="custom-tab" (valueChange)="onTabChange($event)">
 			<p-tablist>
 				@for (tab of tabs; track tab.value) {
 				<p-tab [value]="tab.value">
