@@ -26,11 +26,12 @@ export class CompanyListsComponent implements OnInit {
   @Output() onCompanyTotalCount: EventEmitter<any> = new EventEmitter<any>();
 
   tabs = [
-    { label: 'All Companies', active: true },
-    { label: 'Following', active: false },
-    { label: 'Sent', active: false },
-    { label: 'Recieved', active: false }
+    { value:0, label: 'All Companies', active: true },
+    { value:1, label: 'Following', active: false },
+    { value:2, label: 'Sent', active: false },
+    { value:3, label: 'Recieved', active: false }
   ];
+  activeTabValue = 0;
   activeIndex: number = 0;
   companyList: Company[] = [];
   page: number = 1;
@@ -197,16 +198,17 @@ export class CompanyListsComponent implements OnInit {
     });
   }
 
-  applyFilter(event: any) {
-    this.companyObj = event;
-    if (this.activeIndex == 0) {
-      this.getCompanyTrackerList(this.companyObj);
-    } else if (this.activeIndex == 1) {
-      this.shortListedList(this.companyObj);
-    } else if (this.activeIndex == 2) {
-      this.sendMessageList(this.companyObj);
-    } else if (this.activeIndex == 3) {
-      this.receivedMessageList(this.companyObj);
+  applyFilter(params: any = {}) {
+    this.companyObj = params;
+  
+    if (this.activeIndex === 0) {
+      this.getCompanyTrackerList(params);
+    } else if (this.activeIndex === 1) {
+      this.shortListedList(params);
+    } else if (this.activeIndex === 2) {
+      this.sendMessageList(params);
+    } else if (this.activeIndex === 3) {
+      this.receivedMessageList(params);
     }
   }
 
@@ -229,7 +231,9 @@ export class CompanyListsComponent implements OnInit {
   onTabChange(event: any) {
     this.page = 1;
     this.activeIndex = event.index;
-    this.applyFilter(this.companyObj);
+  
+    // Always pass an empty object if no filter is applied yet
+    this.applyFilter(this.companyObj || {});
   }
 
   getStatusClass(status: string): string {
