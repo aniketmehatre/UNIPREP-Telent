@@ -1,55 +1,68 @@
 <div class="card h-100 bg-white border-0">
 	<div class="card-body overflow-y-auto p-0 border-0">
-		<p-tabView [(activeIndex)]="activeIndex" [scrollable]="true" styleClass="p-0"
-			(activeIndexChange)="selectTab($event)" class="custom-tab" *ngIf="!isSkeletonVisible">
-			<p-tabPanel *ngFor="let tab of tabs" [header]="tab.label" class="p-0 h-100">
-				<div class="row" *ngIf="filteredAppliedJob.length > 0">
-					<div class="col-md-3 mb-2" *ngFor="let job of filteredAppliedJob">
-						<div class="card bg-white" role="button" (click)="onClickJobCard(job.id)">
-							<div class="card-body d-flex align-items-start gap-2 position-relative">
-								<div class="w-100 border rounded-2 overflow-hidden" style="max-width: 65px">
-									<img src="{{ job.company_logo }}"
-										(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
-										class="w-100 h-100" style="object-fit: contain" alt="Logo" />
+		<p-tabs [(value)]="activeTabValue" [scrollable]="true" styleClass="p-0" (valueChange)="selectTab($event)" class="custom-tab" *ngIf="!isSkeletonVisible">
+			<p-tablist>
+				@for (tab of tabs; track tab.label) {
+				<p-tab [selectOnFocus]="tab.value === 0" [value]="tab.value">{{ tab.label }}</p-tab>
+				}
+			</p-tablist>
+
+			<p-tabpanels>
+				@for (tab of tabs; track tab.label) {
+				<p-tabpanel [selectOnFocus]="tab.value === 0" [value]="tab.value" class="p-0 h-100">
+					<div class="row" *ngIf="filteredAppliedJob.length > 0">
+						<div class="col-md-3 mb-2" *ngFor="let job of filteredAppliedJob">
+							<div class="card bg-white" role="button" (click)="onClickJobCard(job.id)">
+								<div class="card-body d-flex align-items-start gap-2 position-relative">
+									<div class="w-100 border rounded-2 overflow-hidden" style="max-width: 65px">
+										<img [src]="job.company_logo" (error)="$event.target.src = '/uniprep-assets/images/job.webp'" class="w-100 h-100" style="object-fit: contain" alt="Logo" />
+									</div>
+
+									<div class="text-start">
+										<h5 class="mb-0">{{ job.position }}</h5>
+										<p class="text-muted text-small fw-medium">
+											{{ job.company_name }}
+										</p>
+										<p class="d-flex gap-2 align-items-center text-small">
+											<span><i class="fa-solid fa-location-dot" style="color: #9bc329"></i></span>
+											<span>{{ job.worklocation }}</span>
+										</p>
+										<span class="status-badge" [style.color]="'white'" [style.backgroundColor]="job.color_code">{{ job.stage }}</span>
+										<p class="uniprep-secondary text-extrasmall mb-0">
+											{{ job.matching_skills }}
+										</p>
+									</div>
+
+									<span
+										class="notification-badge"
+										[ngClass]="{
+											'bg-secondary-subtle text-white': !(job.unreadmessageCount > 0)
+										}">
+										{{ job.unreadmessageCount }}
+									</span>
 								</div>
-								<div class="text-start">
-									<h5 class="mb-0">{{ job.position }}</h5>
-									<p class="text-muted text-small fw-medium">{{ job.company_name }}</p>
-									<p class="d-flex gap-2 align-items-center text-small">
-										<span><i class="fa-solid fa-location-dot"
-												style="color: #9bc329"></i></span><span>{{
-											job.worklocation }}</span>
-									</p>
-									<span class="status-badge" [style.color]="'white'"
-										[style.backgroundColor]="job.color_code">{{ job.stage }}</span>
-									<p class="uniprep-secondary text-extrasmall mb-0">{{ job.matching_skills }}</p>
-								</div>
-								<span class="notification-badge"
-									[ngClass]="{ 'bg-secondary-subtle text-white': !(job.unreadmessageCount > 0) }">
-									{{ job.unreadmessageCount }}
-								</span>
 							</div>
 						</div>
 					</div>
-				</div>
-			</p-tabPanel>
-		</p-tabView>
+				</p-tabpanel>
+				}
+			</p-tabpanels>
+		</p-tabs>
+
 		<ng-container *ngIf="!isSkeletonVisible && filteredAppliedJob.length == 0">
 			<div class="card-body d-flex flex-column align-items-center justify-content-center">
 				<div class="mb-4">
 					<i class="fa-solid fa-file uniprep-secondaryhighlight" style="font-size: 10rem"></i>
 				</div>
-				<ng-container *ngIf="!isAppliedFilter && totalAppliedJobs == 0;">
+				<ng-container *ngIf="!isAppliedFilter && totalAppliedJobs == 0">
 					<h4 class="mb-3">No applications yet.</h4>
 					<p class="text-muted mb-3">Apply now and check here for any updates.</p>
 				</ng-container>
-				<ng-container *ngIf="totalAppliedJobs != 0;">
+				<ng-container *ngIf="totalAppliedJobs != 0">
 					<h4 class="mb-3">No Application Selected.</h4>
-					<p class="text-muted mb-3">
-						Please click on the job of your choice to view more information
-					</p>
+					<p class="text-muted mb-3">Please click on the job of your choice to view more information</p>
 				</ng-container>
-				<ng-container *ngIf="isAppliedFilter && totalAppliedJobs == 0;">
+				<ng-container *ngIf="isAppliedFilter && totalAppliedJobs == 0">
 					<h4 class="mb-3">No jobs match your search right now — try adjusting your criteria!</h4>
 				</ng-container>
 			</div>
@@ -57,120 +70,82 @@
 	</div>
 	<div class="card-footer bg-transparent border-0">
 		<div class="pagination-container d-flex justify-content-between align-items-center">
-			<button class="btn btn-light" (click)="onBackClick()"><i class="pi pi-chevron-left me-1 fs-6"></i>
-				Back</button>
+			<button class="btn btn-light" (click)="onBackClick()"><i class="pi pi-chevron-left me-1 fs-6"></i> Back</button>
 			<span>Page {{ page }} / {{ totalPage }}</span>
-			<button class="btn btn-light" (click)="onNextClick()">Next <i
-					class="pi pi-chevron-right ms-1 fs-6"></i></button>
+			<button class="btn btn-light" (click)="onNextClick()">Next <i class="pi pi-chevron-right ms-1 fs-6"></i></button>
 		</div>
 	</div>
 </div>
 
-<p-dialog header="Filter" [(visible)]="displayModal"  [style]="{ width: '80%' }" [baseZIndex]="10000"
-	[draggable]="false" [resizable]="false" (onHide)="displayModal = false; closeFilter.emit(false)"
-	styleClass="container">
+<p-dialog header="Filter" [(visible)]="displayModal" [style]="{ width: '80%' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="displayModal = false; closeFilter.emit(false)" styleClass="container">
 	<form [formGroup]="filterForm" class="p-3">
 		<div class="row g-3">
 			<div class="col-md-6">
 				<label class="form-label fw-bold">Company Name</label>
 				<div class="p-inputgroup">
-					<input type="text" pInputText formControlName="keyword" placeholder="Search by Company name"
-						class="form-control" />
+					<input type="text" pInputText formControlName="keyword" placeholder="Search by Company name" class="form-control" />
 				</div>
 			</div>
 			<div class="col-md-6">
 				<label class="form-label fw-bold">Position Title</label>
 				<div class="p-inputgroup">
-					<input type="text" pInputText formControlName="position" placeholder="Enter position title"
-						class="form-control w-100" />
+					<input type="text" pInputText formControlName="position" placeholder="Enter position title" class="form-control w-100" />
 				</div>
 			</div>
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Industry </label>
-				<p-multiSelect [options]="industries" formControlName="industry" placeholder="Select industry"
-					optionLabel="industry_name" optionValue="id" appendTo="body" display="chip" class="w-100"
-					> </p-multiSelect>
+				<p-multiSelect [options]="industries" formControlName="industry" placeholder="Select industry" optionLabel="industry_name" optionValue="id" appendTo="body" display="chip" class="w-100"> </p-multiSelect>
 			</div>
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Work Location </label>
-				<p-multiSelect [options]="locations" formControlName="worklocation" [virtualScroll]="true"
-					[virtualScrollItemSize]="50" placeholder="Select work location" optionLabel="work_location"
-					optionValue="id" display="chip" appendTo="body" class="w-100" 
-					(onChange)="onChangeLocation($event, 'location')" (onClear)="onChangeLocation($event, 'location')">
-				</p-multiSelect>
+				<p-multiSelect [options]="locations" formControlName="worklocation" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select work location" optionLabel="work_location" optionValue="id" display="chip" appendTo="body" class="w-100" (onChange)="onChangeLocation($event, 'location')" (onClear)="onChangeLocation($event, 'location')"> </p-multiSelect>
 			</div>
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Country </label>
-				<p-multiSelect [options]="countries" formControlName="country" [virtualScroll]="true"
-					[virtualScrollItemSize]="50" placeholder="Select Country" optionLabel="country" optionValue="id"
-					display="chip" appendTo="body" class="w-100" 
-					(onChange)="onChangeLocation($event, 'country')" (onClear)="onChangeLocation($event, 'country')">
-				</p-multiSelect>
+				<p-multiSelect [options]="countries" formControlName="country" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select Country" optionLabel="country" optionValue="id" display="chip" appendTo="body" class="w-100" (onChange)="onChangeLocation($event, 'country')" (onClear)="onChangeLocation($event, 'country')"> </p-multiSelect>
 			</div>
 
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Work Mode </label>
-				<p-multiSelect [options]="workModes" formControlName="work_mode" placeholder="Select work mode"
-					optionLabel="work_mode" optionValue="id" display="chip" class="w-100" 
-					appendTo="body">
-				</p-multiSelect>
+				<p-multiSelect [options]="workModes" formControlName="work_mode" placeholder="Select work mode" optionLabel="work_mode" optionValue="id" display="chip" class="w-100" appendTo="body"> </p-multiSelect>
 			</div>
 
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Work Type </label>
-				<p-multiSelect [options]="employmentTypes" formControlName="employment_type"
-					placeholder="Select work type" optionLabel="employment_type" optionValue="id" display="chip"
-					class="w-100"  appendTo="body"> </p-multiSelect>
+				<p-multiSelect [options]="employmentTypes" formControlName="employment_type" placeholder="Select work type" optionLabel="employment_type" optionValue="id" display="chip" class="w-100" appendTo="body"> </p-multiSelect>
 			</div>
 
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Currency display for salaries</label>
-				<p-select [options]="currencies" formControlName="currency" optionLabel="currency_code" optionId="id"
-					optionValue="currency_code" [filter]="true" appendTo="body" filterBy="currency_code" class="w-100"
-					placeholder="Select your currency" >
-				</p-select>
+				<p-select [options]="currencies" formControlName="currency" optionLabel="currency_code" optionId="id" optionValue="currency_code" [filter]="true" appendTo="body" filterBy="currency_code" class="w-100" placeholder="Select your currency"> </p-select>
 			</div>
 
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Salary range offered per month</label>
 				<div class="d-flex w-100 gap-2">
-					<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code"
-						optionValue="id" placeholder="Select currency" formControlName="currency"
-						[style]="{ width: '150px' }"  appendTo="body"> </p-select>
+					<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select currency" formControlName="currency" [style]="{ width: '150px' }" appendTo="body"> </p-select>
 					<div class="d-flex gap-2 align-items-center flex-grow-1">
-						<p-inputNumber placeholder="Min" styleClass="w-100" [showButtons]="false" class="w-100"
-							formControlName="min_salary"></p-inputNumber>
+						<p-inputNumber placeholder="Min" styleClass="w-100" [showButtons]="false" class="w-100" formControlName="min_salary"></p-inputNumber>
 						<div>To</div>
-						<p-inputNumber placeholder="Max" styleClass="w-100" [showButtons]="false" class="w-100"
-							formControlName="max_salary"></p-inputNumber>
+						<p-inputNumber placeholder="Max" styleClass="w-100" [showButtons]="false" class="w-100" formControlName="max_salary"></p-inputNumber>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Experience Level </label>
-				<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel"
-					placeholder="Enter your experience level" optionLabel="experienceLevel"
-					optionValue="experienceLevel" display="chip" class="w-100" appendTo="body" >
-				</p-multiSelect>
+				<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel" placeholder="Enter your experience level" optionLabel="experienceLevel" optionValue="experienceLevel" display="chip" class="w-100" appendTo="body"> </p-multiSelect>
 			</div>
 			<div class="col-md-4" *ngIf="activeIndex == 0">
 				<label class="form-label fw-bold">Status</label>
-				<p-multiSelect [options]="jobStatusList" appendTo="body" [filter]="true" formControlName="status"
-					display="chip" placeholder="Select your status" optionLabel="hiringstage" optionValue="id"
-					class="w-100" >
-				</p-multiSelect>
+				<p-multiSelect [options]="jobStatusList" appendTo="body" [filter]="true" formControlName="status" display="chip" placeholder="Select your status" optionLabel="hiringstage" optionValue="id" class="w-100"> </p-multiSelect>
 			</div>
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Hiring Status </label>
-				<p-select [options]="hiringStatuses" formControlName="hiringStatus" placeholder="Select hiring type"
-					optionLabel="name" optionValue="id" display="chip" class="w-100" appendTo="body" >
-				</p-select>
+				<p-select [options]="hiringStatuses" formControlName="hiringStatus" placeholder="Select hiring type" optionLabel="name" optionValue="id" display="chip" class="w-100" appendTo="body"> </p-select>
 			</div>
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Hiring Type </label>
-				<p-multiSelect [options]="hiringTypes" formControlName="hiring_type" optionLabel="name"
-					placeholder="Select the Hiring Type" optionValue="id" appendTo="body" display="chip" class="w-100"
-					> </p-multiSelect>
+				<p-multiSelect [options]="hiringTypes" formControlName="hiring_type" optionLabel="name" placeholder="Select the Hiring Type" optionValue="id" appendTo="body" display="chip" class="w-100"> </p-multiSelect>
 			</div>
 			<div class="col-md-4 h-full mt-auto">
 				<button pButton label="Apply Filter" (click)="applyFilter()" class="btn-primary w-100"></button>

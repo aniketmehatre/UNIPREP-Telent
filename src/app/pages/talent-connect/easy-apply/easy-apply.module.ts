@@ -15,6 +15,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { TooltipModule } from 'primeng/tooltip';
 import { PipesModule } from '@pipes/pipes.module';
 import { CardModule } from 'primeng/card';
+import { PopoverModule } from 'primeng/popover';
 import { MessageModule } from 'primeng/message';
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ChipModule,
+    PopoverModule,
     DialogModule,
     PaginatorModule,
     DialogModule,

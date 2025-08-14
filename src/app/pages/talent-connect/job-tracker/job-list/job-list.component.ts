@@ -26,7 +26,8 @@ export class JobListComponent implements OnInit {
   @Output() emitId: EventEmitter<number> = new EventEmitter();
   @Output() closeFilter: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() onJobTotalCount: EventEmitter<any> = new EventEmitter<any>();
-
+  
+  activeTabValue = 0;
   activeIndex: number = 0;
   first: number = 0;
   page: number = 1;
@@ -66,17 +67,16 @@ export class JobListComponent implements OnInit {
     this.router.navigate(['/pages/talent-connect/job-tracker', id]);
   }
 
-  selectTab(tab: any) {
-    this.tabs.forEach(t => (t.active = false));
-    this.tabs[tab].active = true;
-    if (this.tabs[tab].label !== 'All Jobs') {
-      this.filteredAppliedJob = this.appliedJobList.filter((item: any) => item.stage == this.tabs[tab].label);
+  selectTab(index: number) {
+    if (this.tabs[index].label !== 'All Jobs') {
+      this.filteredAppliedJob = this.appliedJobList.filter(
+        (item: any) => item.stage === this.tabs[index].label
+      );
     } else {
       this.filteredAppliedJob = this.appliedJobList;
     }
     this.page = 1;
   }
-
   getAppliedJobList(params?: any) {
     let isAppliedFilter = false;
     let data = {
@@ -92,20 +92,28 @@ export class JobListComponent implements OnInit {
         this.appliedJobList = response.jobs;
         this.filteredAppliedJob = response.jobs;
         this.totalAppliedJobs = response.totaljobs;
+    
+        // Build tabs — no "active" property anymore
         this.tabs = [
-          { label: 'All Jobs', active: true },
-          ...response.hiringStages.map((item: any) => ({
+          { value: 0, label: 'All Jobs' },
+          ...response.hiringStages.map((item: any, index: number) => ({
+            value: index + 1,
             id: item.id,
-            label: item.hiringstage,
-            active: false
+            label: item.hiringstage
           }))
         ];
+    
+        // Always start on the first tab (All Jobs)
+        this.activeIndex = 0;
+    
         this.jobStatusList = response.hiringStages;
         this.totalPage = Math.ceil(response.totaljobs / this.pageSize);
+    
         this.onJobTotalCount.emit({
           appliedFilter: isAppliedFilter,
           jobCount: response.totaljobs
         });
+    
         this.isAppliedFilter = isAppliedFilter;
         this.isSkeletonVisible = false;
       },
@@ -114,6 +122,7 @@ export class JobListComponent implements OnInit {
         console.log(error);
       }
     });
+    
   }
 
   onNextClick() {
