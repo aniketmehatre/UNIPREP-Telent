@@ -136,6 +136,6 @@ export class CompleteProfileViewComponent implements OnInit {
   }
 
   openVideoPopup() {
-    this.pageFacade.openHowitWorksVideoPopup("");
+    this.pageFacade.openHowitWorksVideoPopup("create-job");
   }
 }

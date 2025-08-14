@@ -21,7 +21,8 @@
 								<button pButton class="btn btn-secondary text-small btn-rounded flex-fill" [disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()" type="button">Buy Credits</button>
 							</ng-template>
 						</div>
-						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName" [attr.aria-label]="'Selected country: ' + homeCountryName">
+						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName" [attr.aria-label]="'Selected country: ' + homeCountryName" 
+						*ngIf="showIcon">
 							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 						</div>
 						<p-avatar *ngIf="false" (click)="openchat()" class="mr-2" size="large" role="button" aria-label="Open chat"><i class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
@@ -91,7 +92,7 @@
 										class="participants">Participants</span></span>
 							</ng-template>
 						</button> -->
-						<div label="" role="button" class="headerHomeCountry" [title]="homeCountryName" aria-label="Selected country: {{ homeCountryName }}">
+						<div label="" role="button" class="headerHomeCountry" [title]="homeCountryName" aria-label="Selected country: {{ homeCountryName }}" *ngIf="showIcon">
 							<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 						</div>
 						<button class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center" (click)="openReportModal(op, $event)" aria-label="Open reports" style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug" style="font-size: 16px" aria-hidden="true"></i> Report</button>
@@ -206,9 +207,9 @@
 								<span class="text-sm fw-normal px-3" style="font-size: 12px">Subscribe Now</span>
 							</button> -->
 						</div>
-						<button class="btn btn-secondary d-flex justify-content-center align-items-center" (click)="openReportModal(op, $event)" aria-label="Open reports" style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug" style="font-size: 16px"> </i> Report</button>
+						<button class="btn btn-secondary d-flex justify-content-center align-items-center me-2" (click)="openReportModal(op, $event)" aria-label="Open reports" style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug" style="font-size: 16px"> </i> Report</button>
 					</div>
-					<div label="" role="button" class="headercountry me-2 ms-2 d-none d-md-block" title="Selected Country">
+					<div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country" *ngIf="showIcon">
 						<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 					</div>
 

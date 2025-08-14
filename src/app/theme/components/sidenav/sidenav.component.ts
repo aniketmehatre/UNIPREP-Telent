@@ -79,17 +79,29 @@ export class SidenavComponent {
       subMenuBy: "Job Board",
     },
     {
-      title: "Apply Jobs",
+      title: "Job Search",
       url: "/pages/talent-connect/easy-apply",
       image: "fa-solid fa-user-tie-hair",
       subMenuBy: "Job Board",
       mostPopular: true,
 
     },
+     {
+      title: "Job Tracker",
+      url: "/pages/talent-connect/job-tracker",
+      image: "fa-solid fas fa-briefcase",
+      subMenuBy: "Job Board",
+    },
     {
-      title: "Company Connect",
+      title: "Company Search",
       url: "/pages/talent-connect/company-connect",
-      image: "fa-solid fa-briefcase",
+      image: "pi pi-building",
+      subMenuBy: "Job Board",
+    },
+     {
+      title: "Company Tracker",
+      url: "/pages/talent-connect/company-tracker",
+      image: "fas fa-folder",
       subMenuBy: "Job Board",
     },
     {

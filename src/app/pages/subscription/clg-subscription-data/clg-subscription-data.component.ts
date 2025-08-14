@@ -296,6 +296,10 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 		return Math.floor(price / months);
 	}
 
+	getWholePricePerDay(price: number, months: number): number {
+		return Math.floor(price / 30);
+	}
+
 	selectedTopupCountryPlan(sub: any) {
 		if (sub?.selectedCoutriesList?.length > 0) {
 			this.showCheckout = false
