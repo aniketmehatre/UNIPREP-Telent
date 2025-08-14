@@ -21,7 +21,8 @@
 								<button pButton class="btn btn-secondary text-small btn-rounded flex-fill" [disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()" type="button">Buy Credits</button>
 							</ng-template>
 						</div>
-						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName" [attr.aria-label]="'Selected country: ' + homeCountryName">
+						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName" [attr.aria-label]="'Selected country: ' + homeCountryName" 
+						*ngIf="showIcon">
 							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 						</div>
 						<p-avatar *ngIf="false" (click)="openchat()" class="mr-2" size="large" role="button" aria-label="Open chat"><i class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
@@ -91,16 +92,16 @@
 										class="participants">Participants</span></span>
 							</ng-template>
 						</button> -->
-						<div label="" role="button" class="headerHomeCountry" [title]="homeCountryName" aria-label="Selected country: {{ homeCountryName }}">
+						<div label="" role="button" class="headerHomeCountry" [title]="homeCountryName" aria-label="Selected country: {{ homeCountryName }}" *ngIf="showIcon">
 							<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 						</div>
 						<button class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center" (click)="openReportModal(op, $event)" aria-label="Open reports" style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug" style="font-size: 16px" aria-hidden="true"></i> Report</button>
 					</div>
 
 					<div class="d-flex gap-2 d-md-none align-items-center">
-						<button class="btn btn-primary p-3 m-0" aria-label="Chat with notification" (click)="onClickSubscribe()">
+						<!-- <button class="btn btn-primary p-3 m-0" aria-label="Chat with notification" (click)="onClickSubscribe()">
 							<i class="fa-solid fa-crown" aria-hidden="true"></i>
-						</button>
+						</button> -->
 						<button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" aria-label="Open reports">
 							<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
 						</button>
@@ -181,9 +182,9 @@
 						</div>
 					</div> -->
 					<div class="d-flex gap-2 d-md-none">
-						<button class="btn btn-primary p-3 m-0" aria-label="Chat with notification" (click)="onClickSubscribe()">
+						<!-- <button class="btn btn-primary p-3 m-0" aria-label="Chat with notification" (click)="onClickSubscribe()">
 							<i class="fa-solid fa-crown" aria-hidden="true"></i>
-						</button>
+						</button> -->
 						<button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)" aria-label="Open reports">
 							<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
 						</button>
@@ -201,14 +202,14 @@
 						<!--							</ng-template>-->
 						<!--						</button>-->
 						<div *ngIf="!userTypeId">
-							<button *ngIf="ehitlabelIsShow" class="btn btn-primary btn-rounded d-flex flex-column align-items-center" aria-label="Chat with notification" (click)="onClickSubscribe()">
+							<!-- <button *ngIf="ehitlabelIsShow" class="btn btn-primary btn-rounded d-flex flex-column align-items-center" aria-label="Chat with notification" (click)="onClickSubscribe()">
 								<i class="fa-solid fa-crown mb-2" style="font-size: 14px"></i>
 								<span class="text-sm fw-normal px-3" style="font-size: 12px">Subscribe Now</span>
-							</button>
+							</button> -->
 						</div>
-						<button class="btn btn-secondary d-flex justify-content-center align-items-center" (click)="openReportModal(op, $event)" aria-label="Open reports" style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug" style="font-size: 16px"> </i> Report</button>
+						<button class="btn btn-secondary d-flex justify-content-center align-items-center me-2" (click)="openReportModal(op, $event)" aria-label="Open reports" style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug" style="font-size: 16px"> </i> Report</button>
 					</div>
-					<div label="" role="button" class="headercountry me-2 ms-2 d-none d-md-block" title="Selected Country">
+					<div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country" *ngIf="showIcon">
 						<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 					</div>
 
@@ -399,7 +400,7 @@
 				<div class="d-flex flex-column">
 					<form [formGroup]="phoneVerification" role="form" aria-label="Phone verification form">
 						<div class="w-100 phonenumberblock mt-2">
-							<p class="m-2">Enter Your Number to Receive Job Status Updates from Employer on {{ haveWhatsapp }}</p>
+							<p class="m-2">Enter Your {{ haveWhatsapp }} Number to receive Job Application Status</p>
 							<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom-less-padding'" [preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" appendTo="body" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true" [selectedCountryISO]="preferredCountry" customPlaceholder="Enter {{ haveWhatsapp }} Number" formControlName="verification_phone" [attr.disabled]="isSendingOTP" aria-label="Enter WhatsApp number"></ngx-intl-tel-input>
 							<div class="d-flex align-items-center justify-content-between mt-2">
 								<div class="d-flex align-items-center">
@@ -485,12 +486,12 @@
 						</div> -->
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
 							<p class="m-1">Select Your Nationality</p>
-							<p-select class="w-100" formControlName="nationality_id" appendTo="body" [options]="nationalityList" [filter]="true" placeholder="Country" [autofocus]="true" optionLabel="nationality_name" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
+							<p-select class="w-100" formControlName="nationality_id" appendTo="body" [options]="nationalityList" [filter]="true" placeholder="Nationality" [autofocus]="true" optionLabel="nationality_name" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
 							<!-- <p-select class="w-100" formControlName="home_country" appendTo="body" [options]="homeCountryList" [filter]="true" placeholder="Country" [autofocus]="true" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select> -->
 						</div>
 						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
-							<p class="m-1">Select Your Current Education</p>
-							<p-select class="w-100" formControlName="study_level" appendTo="body" [options]="programLevelList" placeholder="Current Education" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
+							<p class="m-1">Choose the stage that best describes you</p>
+							<p-select class="w-100" formControlName="study_level" appendTo="body" [options]="programLevelList" placeholder="Select Your Current Status" optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select>
 						</div>
 						<div *ngIf="freeTrialErrorMsg" class="text-danger text-center">
 							{{ freeTrialErrorMsg }}

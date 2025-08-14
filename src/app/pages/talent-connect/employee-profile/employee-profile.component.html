@@ -133,6 +133,9 @@
                             <div class="col-md-6">
                               <label for="dateOfBirth" class="form-label">Date of Birth<span
                                   class="text-danger">*</span></label>
+                                  <!-- <input type="date" pInputText fluid id="dateOfBirth" formControlName="date_of_birth2"
+                                  placeholder="Enter your name" class="form-control" [max]="today"
+                                  (focus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" /> -->
                               <p-datepicker id="dateOfBirth" formControlName="date_of_birth" dateFormat="dd/mm/yy"
                                 placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today"
                                 (onFocus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" />
@@ -680,7 +683,7 @@
                     <form [formGroup]="certificationsForm">
                       <div class="row h-100">
                         <div class="col-12">
-                          <h2 class="card-title mb-1">Certifications & Achievements</h2>
+                          <h2 class="card-title mb-1">Certifications & Achievements <span class="text-danger">(Optional)</span></h2>
                           <div class="mb-2">
                             <div class="mb-2">
                               <span class="text-danger fw-bold">Dont have any certificates yet?</span>
