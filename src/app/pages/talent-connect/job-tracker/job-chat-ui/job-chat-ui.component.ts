@@ -12,6 +12,7 @@ import { MessageService } from 'primeng/api';
 import { Job } from 'src/app/@Models/employee-connect-job.model';
 import { DialogModule } from 'primeng/dialog';
 import { environment } from '@env/environment';
+import { PageFacadeService } from 'src/app/pages/page-facade.service';
 
 interface ChatMessage {
   sender: boolean; // Changed from isSender to sender for clarity
@@ -24,6 +25,11 @@ interface ChatMessage {
   attachment?: string | null;
 }
 
+interface PremiumFeatures {
+  icon: string;
+  title: string;
+  description: string;
+}
 @Component({
   selector: 'uni-job-chat-ui',
   templateUrl: './job-chat-ui.component.html',
@@ -48,9 +54,42 @@ export class JobChatUiComponent implements OnInit, OnChanges {
   giftImage: string = `${environment.imagePath}tutorial-coverimage/premium-plan.webp`;
   showPremimumPopup: boolean = false;
   whyPremium: boolean = false;
+  premiumFeatures:PremiumFeatures[] = [
+    {
+      icon: "💬",
+      title: "1-on-1 Career Advisor",
+      description: "Personalized support to land your dream job."
+    },
+    {
+      icon: "✅",
+      title: "Verified Talent Badge",
+      description: "9 out of 10 employers prefer verified candidates."
+    },
+    {
+      icon: "🚀",
+      title: "70+ Exclusive Features",
+      description: "Tools to boost your applications."
+    },
+    {
+      icon: "♾️",
+      title: "Unlimited Access",
+      description: "Apply to all Premium Jobs."
+    },
+    {
+      icon: "⏱",
+      title: "Real-Time Job Alerts",
+      description: "Get updates the moment jobs go live."
+    },
+    {
+      icon: "💰",
+      title: "No Success, No Fees",
+      description: "No job in 30 days? Full refund."
+    }
+  ];
 
   //Inject Service
   private toast = inject(MessageService);
+  private pageFacade = inject(PageFacadeService);
   constructor(private talentConnectService: TalentConnectService, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -139,6 +178,7 @@ export class JobChatUiComponent implements OnInit, OnChanges {
     if (this.jobDetails.premium_users === 1) { // if the job is only premium users or all users.
       if (this.authService._user.current_plan_detail.account_status !== "Subscription Active") { // if the subscription is not exist
         this.showPremimumPopup = true;
+        this.pageFacade.sendWhatsappMessage();
         return;
       }
     }
@@ -193,16 +233,5 @@ export class JobChatUiComponent implements OnInit, OnChanges {
   closeAndOpenPopup() {
     this.showPremimumPopup = false;
     this.whyPremium = true;
-    if (this.authService._user.why_premium_message_sent === 0) {
-      let data: { template_name: string } = {
-        template_name: "why_premium"
-      }
-
-      this.talentConnectService.sendWatsappMess(data).subscribe({
-        next: response => {
-          console.log(response);
-        }
-      })
-    }
   }
 }
