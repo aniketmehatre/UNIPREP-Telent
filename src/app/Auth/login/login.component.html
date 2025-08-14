@@ -10,90 +10,56 @@
 									<div class="container">
 										<div class="row">
 											<div class="col-md-12 col-lg-12 text-center">
-												<p-image [preview]="true" [routerLink]="['/']" role="button"
-													alt="UNIPREP" (load)="loading = false"
-													(error)="onImageError($event)" width="200" loading="eager"
-													class="small-image text-left mb-2"
-													src="{{ coBrandedImageUrl() }}" />
-												<h4 class="mt-3 mb-2 fw-semibold text-center">Welcome, Please Login to
-													your accounts.</h4>
+												<p-image [preview]="true" [routerLink]="['/']" role="button" alt="UNIPREP" (load)="loading = false" (error)="onImageError($event)" width="200" loading="eager" class="small-image text-left mb-2" src="{{ coBrandedImageUrl() }}" />
+												<h4 class="mt-3 mb-2 fw-semibold text-center">Welcome, Please Login to your accounts.</h4>
 												<hr class="w-50 m-auto" />
 												<p class="uniprep-lightgray mt-2 text-center">
-													Don't have an account?<span><a
-															class="uniprep-primary text-decoration-none" role="button"
-															routerLink="/register"> Register Now</a></span>
+													Don't have an account?<span><a class="uniprep-primary text-decoration-none" role="button" routerLink="/register"> Register Now</a></span>
 												</p>
-												<form [formGroup]="loginForm" (ngSubmit)="onSubmit()"
-													class="loginForm authsystem">
+												<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="loginForm authsystem">
 													<div class="row">
 														<div class="col-md-12 mt-2">
-															<label class="text-muted text-small"
-																for="floatingInput">Email Address</label>
+															<label class="text-muted text-small" for="floatingInput">Email Address</label>
 															<p-inputGroup>
 																<p-inputGroupAddon>
 																	<i class="fa-regular fa-envelope"></i>
 																</p-inputGroupAddon>
-																<input type="email" pInputText id="floatingInput"
-																	placeholder="name@example.com"
-																	formControlName="email"
-																	[ngClass]="{ 'is-invalid': submitted() && f['email'].errors }" />
+																<input type="email" pInputText id="floatingInput" placeholder="name@example.com" formControlName="email" [ngClass]="{ 'is-invalid': submitted() && f['email'].errors }" />
 															</p-inputGroup>
 
-															<div *ngIf="submitted() && f['email'].errors"
-																class="text-danger">
-																<div *ngIf="f['email'].errors?.['required']">Email is
-																	required</div>
-																<div *ngIf="f['email'].errors?.['email']">Email must be
-																	a valid email address</div>
+															<div *ngIf="submitted() && f['email'].errors" class="text-danger">
+																<div *ngIf="f['email'].errors?.['required']">Email is required</div>
+																<div *ngIf="f['email'].errors?.['email']">Email must be a valid email address</div>
 															</div>
 														</div>
 														<div class="col-md-12 mt-3">
-															<label class="text-muted text-small"
-																for="floatingPassword">Password</label>
+															<label class="text-muted text-small" for="floatingPassword">Password</label>
 															<p-inputGroup fluid>
 																<p-inputGroupAddon>
 																	<i class="fa-regular fa-lock"></i>
 																</p-inputGroupAddon>
-																<p-password styleClass="w-100" fluid [toggleMask]="true"
-																	class="borderclass w-100" id="floatingPassword"
-																	placeholder="Password" formControlName="password"
-																	autocomplete="off"
-																	[ngClass]="{ 'is-invalid': submitted() && f['password'].errors }"
-																	[mask]="show() ? false : true" [feedback]="false">
-																</p-password>
+																<p-password styleClass="w-100" fluid [toggleMask]="true" class="borderclass w-100" id="floatingPassword" placeholder="Password" formControlName="password" autocomplete="off" [ngClass]="{ 'is-invalid': submitted() && f['password'].errors }" [mask]="show() ? false : true" [feedback]="false"> </p-password>
 															</p-inputGroup>
 
-															<div *ngIf="submitted() && f['password'].errors"
-																class="text-danger">
-																<div *ngIf="f['password'].errors?.['required']">Password
-																	is required</div>
+															<div *ngIf="submitted() && f['password'].errors" class="text-danger">
+																<div *ngIf="f['password'].errors?.['required']">Password is required</div>
 															</div>
 															<div class="text-end mt-2">
-																<a class="small text-decoration-none uniprep-lightgray forgot-password"
-																	role="button" routerLink="/forgot-password">Forgot
-																	my password?</a>
+																<a class="small text-decoration-none uniprep-lightgray forgot-password" role="button" routerLink="/forgot-password">Forgot my password?</a>
 															</div>
 														</div>
 														<div class="col-md-12 mt-4">
 															<div class="d-grid">
-																<button pButton
-																	class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold m-0 text-dark"
-																	type="submit" [disabled]="!canSubmit">Sign
-																	in</button>
+																<button pButton class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold m-0 text-dark" type="submit" [disabled]="!canSubmit">Sign in</button>
 															</div>
 														</div>
 													</div>
 												</form>
-												<div
-                                                    class="d-flex justify-content-center align-items-center mt-3 gap-2">
-                                                    <p class="fs-13 text-body-tertiary">Having trouble registering?
-                                                        Check out how to get started.</p>
-                                                    <button pButton (click)="openVideoPopup()"
-                                                        class="how-it-works-button">How it works?<i
-                                                            class="fa-solid fa-play d-md-block d-none"></i></button>
-                                                </div>
-												<div
-													class="d-flex justify-content-between gap-2 align-items-center my-3">
+												<div class="d-flex justify-content-center align-items-center mt-3 gap-2">
+													<p class="fs-13 text-body-tertiary">Having trouble registering? Check out how to get started.</p>
+													<button pButton (click)="openVideoPopup()" class="how-it-works-button px-5 px-md-3">How it works?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+												</div>
+												<div class="d-flex justify-content-between gap-2 align-items-center my-3">
 													<hr class="w-100" />
 													<span>OR</span>
 													<hr class="w-100" />
@@ -101,8 +67,7 @@
 												<div class="d-flex justify-content-between">
 													<div class="w-100">&nbsp;</div>
 													<div class="w-100">
-														<asl-google-signin-button width="300" logo_alignment="center"
-															type="standard" size="large"></asl-google-signin-button>
+														<asl-google-signin-button width="300" logo_alignment="center" type="standard" size="large"></asl-google-signin-button>
 													</div>
 													<div class="w-100">&nbsp;</div>
 												</div>
