@@ -122,6 +122,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   isSampleProfilePdf: boolean = false;
   isSampleProfileImgVisible: boolean = false;
   isMobileView: boolean = false;
+  currentCurrenyId: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -143,9 +144,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   goToProfile() {
     if (this.storage.get('jobId')) {
-         this.router.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`])
+      this.router.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`])
     } else {
-        this.router.navigate(['/pages/talent-connect/my-profile', this.profileId]);
+      this.router.navigate(['/pages/talent-connect/my-profile', this.profileId]);
     }
   }
 
@@ -273,7 +274,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       currently_working: [false],
       work_experience_duration_to: [""],
       work_experience_salary_per_month: [""],
-      work_experience_currency_id: [""],
+      work_experience_currency_id: [this.currentCurrenyId],
       work_experience_job_responsibilities: ["", maxWordsValidator(150)],
       work_experience_experience_letter: [""],
     })
@@ -420,9 +421,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       }
       const isImage = file.type.startsWith('image/');
       if (isImage) {
-      this.toastService.add({ severity: "error", summary: "Error", detail: "Please upload your CV in the doc, docx or pdf format." });
-      return;
-    }
+        this.toastService.add({ severity: "error", summary: "Error", detail: "Please upload your CV in the doc, docx or pdf format." });
+        return;
+      }
     }
     else {
       const maxSizeInMB = 5;
@@ -688,9 +689,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.nationalityList = response.nationalites
         this.departmentList = response.department
         let currentCurrency = this.currencies.find(item => item.currency_code == this.authService._user?.currency);
-        if (currentCurrency) {
-          this.careerPreferenceForm.patchValue({
-            career_preference_currency_id: currentCurrency.id
+        this.currentCurrenyId = currentCurrency?.id;
+        if (this.currentCurrenyId) {
+          if (!this.careerPreferenceForm.get("career_preference_currency_id")?.value) {
+            this.careerPreferenceForm.get("career_preference_currency_id")?.setValue(this.currentCurrenyId);
+          }
+          this.workExperience.controls.forEach((control) => {
+            const workExp = control as FormGroup;
+            if (!workExp.get("work_experience_currency_id")?.value) {
+              workExp.get("work_experience_currency_id")?.setValue(this.currentCurrenyId);
+            }
           });
         }
       },

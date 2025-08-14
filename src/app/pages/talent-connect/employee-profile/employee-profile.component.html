@@ -133,12 +133,10 @@
                             <div class="col-md-6">
                               <label for="dateOfBirth" class="form-label">Date of Birth<span
                                   class="text-danger">*</span></label>
-                                  <!-- <input type="date" pInputText fluid id="dateOfBirth" formControlName="date_of_birth2"
-                                  placeholder="Enter your name" class="form-control" [max]="today"
-                                  (focus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" /> -->
                               <p-datepicker id="dateOfBirth" formControlName="date_of_birth" dateFormat="dd/mm/yy"
                                 placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today"
-                                (onFocus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" />
+                                (onFocus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" 
+                                [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false"/>
                               <small class="text-danger"
                                 *ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('date_of_birth')?.errors?.required">
                                 Date of Birth is required </small>
@@ -385,12 +383,14 @@
                                 <p-datepicker (onSelect)="updateExperience(i)" (onInput)="updateExperience(i)"
                                   [maxDate]="today" class="flex-grow-1" dateFormat="mm/yy"
                                   formControlName="work_experience_duration_from" inputId="fromDate"
-                                  placeholder="From Date" size="small" styleClass="w-100" view="month" />
-                                <p-datepicker (onSelect)="updateExperience(i)" [maxDate]="today"
+                                  placeholder="From Date (MM/YYYY)" size="small" styleClass="w-100" view="month" 
+                                  [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false"/>
+                                <p-datepicker (onSelect)="updateExperience(i)" [maxDate]="today" 
                                   [minDate]="experience.get('work_experience_duration_from')?.value"
                                   (onInput)="updateExperience(i)" class="flex-grow-1" dateFormat="mm/yy"
-                                  formControlName="work_experience_duration_to" inputId="toDate" placeholder="To Date"
-                                  size="small" styleClass="w-100" view="month" />
+                                  formControlName="work_experience_duration_to" inputId="toDate" placeholder="To Date (MM/YYYY)"
+                                  size="small" styleClass="w-100" view="month" 
+                                  [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false"/>
                               </div>
                               <samll
                                 *ngIf="((experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) || (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)) && !experience.get('currently_working')?.value"
@@ -434,11 +434,11 @@
                                     (onFocus)="updateMessageBox('work_experience_salary_per_month')"> </p-inputNumber>
                                 </div>
                               </div>
-                              <samll
+                              <!-- <samll
                                 *ngIf="(experience.get('work_experience_currency_id')?.value && !experience.get('work_experience_salary_per_month')?.value) || (!experience.get('work_experience_currency_id')?.value && experience.get('work_experience_salary_per_month')?.value)"
-                                class="text-danger"> Please fill both values. </samll>
+                                class="text-danger"> Please fill both values. </samll> -->
                               <small class="text-danger"
-                                *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_currency_id')?.errors?.required && experience.get('work_experience_salary_per_month')?.errors?.required">
+                                *ngIf="isSubmittedWorkExperienceForm && (experience.get('work_experience_currency_id')?.errors?.required || experience.get('work_experience_salary_per_month')?.errors?.required)">
                                 Salary per month is required </small>
                             </div>
                             <div class="col-md-6 mb-3">
