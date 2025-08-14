@@ -50,7 +50,7 @@ export class JobViewComponent implements OnInit {
 
 	checkIfProfileCreated() {
 		if (!this.talentConnectService._employerProfileData?.profile_completion_flag) {
-			this.router.navigate(["/pages/talent-connect/list"]);
+			this.router.navigate(["/pages/talent-connect/my-profile"]);
 		}
 	}
 
