@@ -509,7 +509,7 @@ export class UserManagementComponent implements OnInit {
 		});
 	}
 	onClickUpgradePlan() {
-		this.router.navigate(["/pages/subscriptions/upgrade-subscription"])
+		this.router.navigate(["/pages/subscriptions"])
 	}
 	getSubscriptions() {
 		this.subscription.getSubscriptionHistory().subscribe({
