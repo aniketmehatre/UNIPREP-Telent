@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (this.service.isTokenValid()) {
             this.route.navigate(["/pages/dashboard"])
         }
-        this.jobId = this.storage.get('jobId');
+        this.jobId = Number(this.storage.get('jobId'));
         if (!this.jobId) {
             localStorage.clear()
         }
@@ -188,7 +188,11 @@ export class LoginComponent implements OnInit, OnDestroy {
                 if (disallowedDomains.includes(response.domain)) {
                     console.log('Allowed domain:', response.domain);
                     // this.handleSuccessfulLogin1(response.token, response.domain)
+                if (this.jobId) {
+                    window.location.href = `${response.domain}/pages/talent-connect/easy-apply/${this.jobId}/?token=${response.token}`;
+                } else {
                     window.location.href = `${response.domain}/pages/dashboard?token=${response.token}`;
+                }
                 } else {
                     console.warn('Blocked domain:', response.domain);
                     // show error, redirect, or handle accordingly
@@ -308,7 +312,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 //     this.route.navigate([this.jobId], { replaceUrl: true })
                 // }
                 if (this.jobId) {
-                    this.route.navigate([this.storage.get('jobId')], { replaceUrl: true })
+                    this.route.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`], { replaceUrl: true })
                 } else {
                     this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
                 }

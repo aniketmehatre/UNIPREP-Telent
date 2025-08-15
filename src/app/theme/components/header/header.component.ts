@@ -469,9 +469,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			}
 		}
 	}
-
+	jobId: any;
 
 	async ngOnInit() {
+		this.route.queryParamMap.subscribe(params => {
+			const token = params.get('token');
+			if (token) {
+				// Store token somewhere (service, localStorage, etc.)
+				console.log('Token from URL:', token);
+
+				// ✅ Remove token from URL without reloading
+				this.router.navigate([], {
+					relativeTo: this.route,
+					queryParams: { token: null },
+					queryParamsHandling: 'merge', // Keeps all other query params
+					replaceUrl: true
+				});
+			}
+			// this.jobId = params.get('jobId');
+			// if (!this.jobId) {
+			// 	this.router.navigate([`/pages/talent-connect/easy-apply/${this.jobId}`])
+			// }
+		});
+		// if(this.storage.get('jobId')) {
+        //     this.router.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`])
+		// }
 		let hostname = window.location.hostname
 		this.locationService.getSourceByDomain(hostname).subscribe((data: any) => {
 			this.imagewhitlabeldomainname = data.source
@@ -1286,12 +1308,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.authService._user.nationality_id = this.mobileForm.value.nationality_id;
 				setTimeout(() => {
 					this.checkNewUser()
-					let jobId = this.storage.get('jobId')
-					if (jobId) {
-						this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
-					} else {
-						this.router.navigate(["/pages/talent-connect/my-profile"])
-					}
+					this.router.navigate(["/pages/talent-connect/my-profile"])
+					// let jobId = this.storage.get('jobId')
+					// if (jobId) {
+					// 	this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+					// } else {
+						
+					// }
 					//window.location.reload()
 				}, 2000)
 				return res

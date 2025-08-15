@@ -141,24 +141,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
 	jobId: any
 	ngOnInit() {
-		this.route.queryParamMap.subscribe(params => {
-			const token = params.get('token');
-			if (token) {
-				// Store token somewhere (service, localStorage, etc.)
-				console.log('Token from URL:', token);
-
-				// ✅ Remove token from URL without reloading
-				this.router.navigate([], {
-					relativeTo: this.route,
-					queryParams: {},
-					replaceUrl: true
-				});
-			}
-			this.jobId = this.storage.get('jobId');
-			if (!this.jobId) {
-				this.router.navigate([this.storage.get('jobId')], { replaceUrl: true })
-			}
-		});
 		// Initialize essential data first
 		this.checkIfProfileCreated();
 		this.apiToCheckPartnerOrInstitute()

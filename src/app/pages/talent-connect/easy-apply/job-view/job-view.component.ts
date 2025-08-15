@@ -41,7 +41,7 @@ export class JobViewComponent implements OnInit {
 		private socialShareService: SocialShareService, private meta: Meta) { }
 
 	ngOnInit(): void {
-		this.checkIfProfileCreated();
+		// this.checkIfProfileCreated();
 		this.jobId = Number(this.route.snapshot.paramMap.get("id"));
 		if (this.jobId) {
 			this.getJobDetails(this.jobId);
