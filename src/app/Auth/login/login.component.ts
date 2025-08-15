@@ -1,3 +1,4 @@
+import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login'
 import { CommonModule } from "@angular/common"
 import {
     ChangeDetectionStrategy,
@@ -12,33 +13,29 @@ import {
     ViewChild
 } from "@angular/core"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
-import { ActivatedRoute, Router, RouterModule } from "@angular/router"
+import { Router, RouterModule } from "@angular/router"
 import { environment } from "@env/environment"
 import { LocalStorageService } from "ngx-localstorage"
 import { MessageService } from "primeng/api"
+import { ButtonModule } from "primeng/button"
 import { FluidModule } from "primeng/fluid"
+import { Image } from "primeng/image"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { InputIconModule } from "primeng/inputicon"
 import { InputTextModule } from "primeng/inputtext"
 import { PasswordModule } from "primeng/password"
+import { SkeletonModule } from "primeng/skeleton"
+import { finalize } from 'rxjs/operators'
 import { AuthTokenService } from "src/app/services/auth-token.service"
+import { BrandColorService } from "src/app/services/brand-color.service"
+import { CountryLocationService } from "src/app/services/country-location.service"
 import { DataService } from "src/app/services/data.service"
+import { HowItWorksComponent } from "src/app/shared/how-it-works/how-it-works.component"
+import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.service"
 import { SubSink } from "subsink"
 import { LocationService } from "../../services/location.service"
 import { AuthService } from "../auth.service"
-import { finalize } from 'rxjs/operators'
-import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login'
-import { Image } from "primeng/image";
-import { SkeletonModule } from "primeng/skeleton"
-import { firstValueFrom } from 'rxjs';
-import { HttpClient } from "@angular/common/http"
-import { StorageService } from "../../services/storage.service";
-import { BrandColorService } from "src/app/services/brand-color.service";
-import { ButtonModule } from "primeng/button"
-import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.service"
-import { HowItWorksComponent } from "src/app/shared/how-it-works/how-it-works.component"
-import { CountryLocationService } from "src/app/services/country-location.service"
 
 declare var google: any;
 
@@ -77,11 +74,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     private locationService = inject(LocationService);
     private authService = inject(SocialAuthService);
     private storage = inject(LocalStorageService);
-    private storageService = inject(StorageService);
     private authTokenService = inject(AuthTokenService);
     private cdr = inject(ChangeDetectorRef);
     private subs = new SubSink()
-    private http = inject(HttpClient);
     private brandColorService = inject(BrandColorService);
     private howItWorks = inject(HowItWorksService);
     private countryLocationService = inject(CountryLocationService);
