@@ -301,7 +301,6 @@ export class LoginComponent implements OnInit, OnDestroy {
                 };
                 this.locationService.sendSessionData(req, "login").subscribe();
                 this.toast.add({ severity: "success", summary: "Success", detail: "Login Successful" })
-                console.log(userDetails.city_id, "city id");
                 if (!userDetails.city_id) {
                     setTimeout(() => {
                         this.updateLocation();
@@ -329,7 +328,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     updateLocation() {
         this.updateCurrentLocation().then((userLocation) => {
-            console.log(userLocation, "userLocation");
             if (userLocation.country != "Unknown" && userLocation.city != "Unknown") {
                 this.locationService.updateUserLocation(userLocation).subscribe()
             }

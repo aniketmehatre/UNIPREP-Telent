@@ -4,14 +4,12 @@ import { SubscriptionService } from "./subscription.service"
 import { WindowRefService } from "./window-ref.service"
 import { MessageService } from "primeng/api"
 import { Billinginfo, OrderHistory, Subscription, SubscriptionPlan, SubscriptionSuccess } from "../../@Models/subscription"
-import { Observable, switchMap } from "rxjs"
-import { selectBillingInfo } from "./store/selectors"
-import { select } from "@ngrx/store"
+import { Observable } from "rxjs"
 import { DataService } from "src/app/services/data.service"
 import { environment } from "@env/environment"
 import { DashboardService } from "../dashboard/dashboard.service"
-import { NgxStripeModule, StripeCardComponent, StripePaymentElementComponent, StripeService } from "ngx-stripe"
-import { PaymentIntent, Stripe, StripeCardElementOptions, StripeElementsOptions, StripePaymentElementOptions } from "@stripe/stripe-js"
+import { NgxStripeModule, StripePaymentElementComponent, StripeService } from "ngx-stripe"
+import { StripeCardElementOptions, StripeElementsOptions } from "@stripe/stripe-js"
 // import CryptoJS from "crypto-js"
 import { NgxUiLoaderService } from "ngx-ui-loader"
 import { CommonModule } from "@angular/common"
@@ -25,6 +23,7 @@ import { SubscriptionSuccessComponent } from "./subscription-success/subscriptio
 import { StorageService } from "../../services/storage.service";
 import { LocationService } from "src/app/services/location.service"
 import { CollegeSubscriptionDataComponent } from "./clg-subscription-data/clg-subscription-data.component"
+import { PageFacadeService } from "../page-facade.service"
 @Component({
 	selector: "uni-subscription",
 	templateUrl: "./subscription.component.html",
@@ -81,9 +80,13 @@ export class SubscriptionComponent implements OnInit {
 		private authService: AuthService, private toastr: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
 		private stripeService: StripeService, private ngxService: NgxUiLoaderService,
-		private storage: StorageService, private locationService: LocationService) {
+		private storage: StorageService, private locationService: LocationService,
+		private pageFacade: PageFacadeService
+	) {
 	}
 	async ngOnInit(): Promise<void> {
+		//why premium whatsapp message trigger
+		this.pageFacade.sendWhatsappMessage(); 
 		try {
 			let homeCountryName = this.storage.get("home_country_name");
 
@@ -181,6 +184,7 @@ export class SubscriptionComponent implements OnInit {
 			return;
 		}
 		// this.loadSubData();
+
 	}
 
 	start() {

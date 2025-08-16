@@ -161,66 +161,37 @@
 		<img [src]="giftImage" alt="gift-image">
 	</div>
 	<div class="text-center fw-medium">
+		<p class="uniprep-secondary fw-bold m-3">9/10 Users Choose Premium</p>
 		<p>This job is available exclusively for Premium users.Unlock</p>
 		<p>premium to apply now.</p>
 	</div>
 	<div class="center-align gap-5 mt-4">
-		<button pButton [rounded]="true" type="button" (click)="closeAndOpenPopup()">Why Premium ?</button>
-		<button pButton class="btn-secondary" [routerLink]="['/pages/subscriptions']" [rounded]="true" type="button">Get Premium Plan !</button>
+		<button pButton [rounded]="true" type="button" (click)="closeAndOpenPopup()">Why Go Premium ?</button>
+		<button pButton class="btn-secondary" [routerLink]="['/pages/subscriptions']" [rounded]="true"
+			type="button">Explore Premium !</button>
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="whyPremium" [modal]="true" [draggable]="false" [resizable]="false" [closable]="false"
+<p-dialog [(visible)]="whyPremium" [modal]="true" [draggable]="false" [resizable]="false"
 	header="Upgrade to UNIPREP Premium?" class="why-premium">
-	<div class="premium-benefits">
-		<div class="benefit">
-			<div class="left-column">
-				<p>📌 1:1 Career Mentorship</p>
+	<div class="row mt-3">
+		<div class="col-12">
+			<div class="d-flex flex-column gap-3">
+				<div *ngFor="let feature of premiumFeatures" class="d-flex align-items-center">
+					<div class="d-flex align-items-center fw-semibold" style="width: 40%;">
+						<span class="me-2">{{ feature.icon }}</span>
+						{{ feature.title }}
+					</div>
+					<div class="small" style="width: 60%;">
+						{{ feature.description }}
+					</div>
+				</div>
 			</div>
-			<div class="right-column">
-				<p>
-					Talents receive personalised support from a UNIPREP Career Advisor to build an exceptional,
-					job-ready profile.
-				</p>
-				<p class="subtext">
-					Verified Talent = Preferred Hire — 9 out of 10 employers choose verified talents over
-					others. Verification gives a clear edge.
-				</p>
-			</div>
-		</div>
-		<div class="benefit">
-			<div class="left-column">
-				<p>📌 Real-Time Job Alerts</p>
-			</div>
-			<div class="right-column">
-				<p>Talents get instant notifications for job openings they are looking for.</p>
-			</div>
-		</div>
-		<div class="benefit">
-			<div class="left-column">
-				<p>📌 Access to 70+ Premium Tools</p>
-			</div>
-			<div class="right-column">
-				<p>Including job-winning CV templates, Skill certifications, aptitude prep, and more — all included with
-					Premium.</p>
-			</div>
-		</div>
-		<div class="benefit">
-			<div class="left-column">
-				<p>📌 Unlimited Access to Premium Jobs</p>
-			</div>
-			<div class="right-column">
-				<p>Premium talents can apply to high-value job opportunities not available to standard users.</p>
-			</div>
-		</div>
-		<div class="note">
-			<strong>Note:</strong> UNIPREP Premium is valid for 12 months with full access to the platform — all for
-			less than 150 per month.
-			If there's no career success after 12 months as a Premium user, talents can claim a refund.
 		</div>
 	</div>
-	<div class="center-align">
-		<button pButton class="btn-secondary" [rounded]="true" type="button" [routerLink]="['/pages/subscriptions']">Get Premium Plan !</button>
+	<div class="center-align mt-3">
+		<button pButton class="btn-secondary" [rounded]="true" type="button" [routerLink]="['/pages/subscriptions']">Get
+			Explore Premium !</button>
 	</div>
 
 </p-dialog>
