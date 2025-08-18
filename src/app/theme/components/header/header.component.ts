@@ -267,14 +267,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			}
 		})
 
-		this.authService.aiCreditCount$.subscribe(value => {
-			if (value) {
-				this.getAICreditCount();
-			}
-		})
-		this.assessmentService.updateRequested$.subscribe(() => {
-			this.getAICreditCount();
-		});
+		// this.authService.aiCreditCount$.subscribe(value => {
+		// 	if (value) {
+		// 		this.getAICreditCount();
+		// 	}
+		// })
+		// this.assessmentService.updateRequested$.subscribe(() => {
+		// 	this.getAICreditCount();
+		// });
 	}
 
 	buyCredits() {
@@ -661,14 +661,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.getInterestedMenus();
 		this.getNationalityList();
 	}
-	getAICreditCount() {
-		this.promptService.getAicredits().subscribe({
-			next: resp => {
-				this.aiCreditCount = resp;
-				this.authService._creditCount = resp;
-			}
-		})
-	}
+	// getAICreditCount() {
+	// 	this.promptService.getAicredits().subscribe({
+	// 		next: resp => {
+	// 			this.aiCreditCount = resp;
+	// 			this.authService._creditCount = resp;
+	// 		}
+	// 	})
+	// }
 
 	private initializeForms() {
 		this.mobileForm = this.formBuilder.group({

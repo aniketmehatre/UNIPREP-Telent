@@ -92,43 +92,43 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
       text: "Countries Covered",
     },
   ];
-
+  
   cardItems = [
     {
-      icon: "fa-thin fa-handshake",
-      text: "You want to connect with potential employers.",
+      icon: "fa-solid fa-user-tie",
+      text: "You want to build a <strong>professional portfolio</strong> that get noticed by employers worldwide.",
     },
     {
       icon: "fa-thin fa-user-graduate",
-      text: "You are exploring opportunities to study abroad.",
+      text: "You're looking <strong>upskill</strong> to get noticed by top employers.",
     },
     {
-      icon: "fa-thin fa-lightbulb-on",
-      text: "You are unsure about career preparation and want to upskill.",
+      icon: "fa-solid fa-handshake",
+      text: "You want to <strong>connect directly</strong> with verified employers globally.",
     },
     {
       icon: "fa-thin fa-briefcase",
-      text: "You are planning to start your own business.",
+      text: "You're ready to apply to <strong>unlimited job opportunities</strong> in one place.",
     },
     {
-      icon: "fa-thin fa-language",
-      text: "You are interested in learning new languages.",
+      icon: "fa-solid fa-laptop",
+      text: "You need exceptional <strong>career guidance</strong> and mentorship.",
     },
     {
-      icon: "fa-thin fa-earth",
-      text: "You are eager to travel the world.",
+      icon: "fa-regular fa-forward",
+      text: "You're aiming to <strong>fast-track your job search </strong> with real-time job alerts.",
     },
     {
       icon: "fa-thin fa-search",
-      text: "You want to hire skilled, job-ready candidates.",
+      text: "You want to <strong>hire skilled</strong>, job-ready candidates.",
     },
     {
       icon: "fa-thin fa-users",
-      text: "You are looking to build a strong talent pipeline.",
+      text: "You are looking to <strong> build a strong talent </strong>pipeline.",
     },
     {
       icon: "fa-thin fa-sack-dollar",
-      text: "You are looking to reduce recruitment costs.",
+      text: "You are looking to <strong> reduce recruitment costs</strong>.",
     },
   ];
 
@@ -188,25 +188,25 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
     {
       icon: '💼',
       title: 'For Job Seekers',
-      description: 'Access 30+ premium career features to land your dream job.',
+      description: 'Help you find the right job globally.',
       url: '/job-seekers'
     },
     {
       icon: '👨🏻‍🎓',
       title: 'For International Students',
-      description: 'Use 15+ education tools to unlock your study abroad goals.',
+      description: 'Global employers at your fingertips.',
       url: '/international-students'
     },
     {
-      icon: '📦',
+      icon: '🧳',
       title: 'For Global Travellers',
-      description: 'Make smart moves with 10+ travel resources for that perfect vacation.',
+      description: 'Guide you to build an impeccable profile.',
       url: '/global-travellers'
     },
     {
       icon: '🚀',
       title: 'For Entrepreneurs',
-      description: 'Kickstart your startup journey with 20+ business-building resources.',
+      description: 'Upskill yur portfolio to match top employers.',
       url: '/entrepreneurs'
     }
   ];
