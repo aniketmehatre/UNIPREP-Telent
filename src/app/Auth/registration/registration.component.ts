@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, ViewChild, ElementRef } from "@angular/core"
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from "@angular/core"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
 import { ActivatedRoute, Router, RouterModule } from "@angular/router"
 import { matchValidator } from "src/app/@Supports/matchvalidator"
@@ -37,33 +37,17 @@ import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.serv
 })
 export class RegistrationComponent implements OnInit {
     public registrationForm: any = FormGroup
-    displayTerms = "none"
-    locationList: any
-    countryList: any
-    programLevelList: any
-    intrestedCountryList: any
-    currentLocationCountry: string = ""
-    currentLocationCity: string = ""
-    currentLocationState: string = ""
-    public otpForm: any = FormGroup
     public emailOTPForm: any = FormGroup
     blockChars: RegExp = /^[^<>*!:?0-9]+$/;
     isEmailOTPSend: boolean = false
     isEmailOTPValidated: boolean = false
     isRemainingFieldVisible: boolean = false
     password: any
-    preferredCountry: any
     show = false
     showConfirm = false
     confirmPassword: any
     source: string;
-    resendTime = 1
-    startTimer = 0
-    interval: any
-    showContactErrorIcon: boolean = false
     showEmailErrorIcon: boolean = false
-    validNumberRequired: boolean = false
-    registerFormInvalid: boolean = true
     submitted = false
 
     whiteLabelImage: string = '../../../uniprep-assets/images/uniprep-light.svg'
@@ -85,7 +69,6 @@ export class RegistrationComponent implements OnInit {
         private howItWorkService: HowItWorksService
     ) {
     }
-    dateTime = new Date()
     position: any
     jobId: number
     ngOnInit() {
@@ -119,9 +102,9 @@ export class RegistrationComponent implements OnInit {
             this.whiteLabelImage = data.logo
         })
         this.authService.authState.subscribe((user) => {
-
-            this.service.googlesignUp(user).subscribe(
-                (data) => {
+            let mergedResponse = {...user, position: this.position}
+            this.service.googlesignUp(mergedResponse).subscribe({
+                next: (data) => {
                     this.storage.set(environment.tokenKey, data?.authorisation?.token);
                     this.service.saveToken(data?.authorisation?.token);
                     this.authTokenService.setToken(data?.authorisation?.token);
@@ -139,21 +122,20 @@ export class RegistrationComponent implements OnInit {
                     //     window.location.href = `${window.location.origin}/pages/dashboard?token=${data?.authorisation?.token}`;
                     // }
                 },
-                (error: any) => {
+                error: (error: any) => {
                     this.toastr.add({
                         severity: "error",
                         summary: "Error",
                         detail: error?.error?.message || error?.message || "An unexpected error occurred, please contact the team",
                     })
                 }
-            )
+            })
         })
         // Enable only for testing
         // this.isEmailOTPSend = true;
         // this.isEmailOTPValidated = true;
         // this.isRemainingFieldVisible = true;
 
-        this.dateTime.setDate(this.dateTime.getDate())
 
         this.password = "password"
         this.registrationForm = this.formBuilder.group({
@@ -166,7 +148,6 @@ export class RegistrationComponent implements OnInit {
             otp: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]]
         })
 
-        this.getUserLocation() //while registering the user needs to get the location based city, state, region, country.
     }
 
     onImageError(event: Event) {
@@ -256,40 +237,6 @@ export class RegistrationComponent implements OnInit {
         });
     }
 
-    getUserLocation() {
-        fetch("https://ipapi.co/json/")
-            .then((response) => response.json())
-            .then((data) => {
-                this.preferredCountry = data.country_code.toLocaleLowerCase()
-            })
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const longitude = position.coords.longitude
-                    const latitude = position.coords.latitude
-                    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
-                        .then((response) => response.json())
-                        .then((data) => {
-                            this.currentLocationCountry = data.address.country
-                            this.currentLocationCity = data.address.city
-                            this.currentLocationState = data.address.state
-                        })
-                },
-                (error) => {
-                    //if you're not giving the location access get the current country name using IP address
-                    fetch("https://ipapi.co/json/")
-                        .then((response) => response.json())
-                        .then((data) => {
-                            this.currentLocationCountry = data.country_name
-                            this.currentLocationCity = data.city
-                            this.currentLocationState = data.region
-                        })
-                }
-            )
-        } else {
-            console.log("No support for geolocation")
-        }
-    }
 
     sendEmailOTP() {
         const name = this.registrationForm.value.fullName;
