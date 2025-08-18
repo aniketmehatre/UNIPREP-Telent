@@ -191,7 +191,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 if (this.jobId) {
                     window.location.href = `${response.domain}/pages/talent-connect/easy-apply/${this.jobId}/?token=${response.token}`;
                 } else {
-                    window.location.href = `${response.domain}/pages/dashboard?token=${response.token}`;
+                    window.location.href = `${response.domain}/pages/talent-connect/easy-apply?token=${response.token}`;
                 }
                 } else {
                     console.warn('Blocked domain:', response.domain);

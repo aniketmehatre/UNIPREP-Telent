@@ -24,6 +24,7 @@ import { StorageService } from "../../services/storage.service";
 import { LocationService } from "src/app/services/location.service"
 import { CollegeSubscriptionDataComponent } from "./clg-subscription-data/clg-subscription-data.component"
 import { PageFacadeService } from "../page-facade.service"
+import {Router} from "@angular/router";
 @Component({
 	selector: "uni-subscription",
 	templateUrl: "./subscription.component.html",
@@ -81,7 +82,7 @@ export class SubscriptionComponent implements OnInit {
 		private dataService: DataService, private dashboardService: DashboardService,
 		private stripeService: StripeService, private ngxService: NgxUiLoaderService,
 		private storage: StorageService, private locationService: LocationService,
-		private pageFacade: PageFacadeService
+		private pageFacade: PageFacadeService, private router: Router
 	) {
 	}
 	async ngOnInit(): Promise<void> {
@@ -347,8 +348,12 @@ export class SubscriptionComponent implements OnInit {
 						(res: any) => {
 							this.success = res
 							this.subscriptionService.doneLoading()
-							this.loadSubData()
-							window.location.reload()
+							// this.loadSubData()
+							// window.location.reload()
+                            let jobId = this.storage.get('jobId');
+                            if (jobId) {
+                                this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+                            }
 						},
 						(error: any) => {
 							// this.toastr.warning(error.error.message);
@@ -366,8 +371,12 @@ export class SubscriptionComponent implements OnInit {
 						(res: any) => {
 							this.success = res
 							this.subscriptionService.doneLoading()
-							this.loadSubData()
-							window.location.reload()
+                            let jobId = this.storage.get('jobId');
+                            if (jobId) {
+                                this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+                            }
+							// this.loadSubData()
+							// window.location.reload()
 						},
 						(error: any) => {
 							// this.toastr.warning(error.error.message);
@@ -494,7 +503,11 @@ export class SubscriptionComponent implements OnInit {
 							summary: "Success",
 							detail: "Purchase Completed",
 						})
-						window.location.reload()
+                        let jobId = this.storage.get('jobId');
+                        if (jobId) {
+                            this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+                        }
+                        // window.location.reload()
 					}
 				}
 			})
