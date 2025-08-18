@@ -26,6 +26,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { landingServices } from '../../landing/landing.service';
 import { LocationService } from "src/app/services/location.service"
 import { PageFacadeService } from "../../page-facade.service"
+ 
 @Component({
 	selector: "uni-clg-subscription-data",
 	templateUrl: "./clg-subscription-data.component.html",
@@ -83,7 +84,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 	constructor(private authService: AuthService, private subscriptionService: SubscriptionService,
 		private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService,
 		private http: HttpClient, private landingPageService: landingServices, private locationService: LocationService,
-		private pageFacade: PageFacadeService) { }
+		private pageFacade: PageFacadeService) { } 
 
 	async ngOnInit(): Promise<void> {
 		try {
@@ -493,10 +494,20 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 		this.showHistory.emit(true)
 	}
 
-	copyCoupon() {
-		let offerDiv: any = document.getElementById("offerId")
-		navigator.clipboard.writeText(offerDiv?.textContent)
-	}
+	 copyCoupon() {
+		let offerDiv: any = document.getElementById("couponCode");
+		let code = offerDiv?.textContent?.trim();
+
+		  if (code) {
+			navigator.clipboard.writeText(code).then(() => {
+				this.toast.add({
+				severity: 'success',
+				summary: 'Copied!',
+				detail: `${code} copied to clipboard`
+				});
+			});
+		}
+  	}
 	getLocation(): void {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition((position) => {
@@ -610,5 +621,13 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 
 	openHowItWorksVideoPopup(){
 		this.pageFacade.openHowitWorksVideoPopup('subscription');
+	}
+
+	copied = false;
+	copyCoupon1(code: string) {
+		navigator.clipboard.writeText(code).then(() => {
+		this.copied = true;
+		setTimeout(() => this.copied = false, 2000); // hide "Copied!" after 2s
+		});
 	}
 }
