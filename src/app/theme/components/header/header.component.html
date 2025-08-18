@@ -11,20 +11,20 @@
 						</div>
 					</div>
 					<div class="d-md-none gap-2 d-flex align-items-center">
-						<div class="d-flex align-items-center">
+						<!-- <div class="d-flex align-items-center">
 							<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()" class="p-1 ps-2 btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
 								AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-							</button>
+							</button> -->
 
 							<!-- Buy Credits template -->
-							<ng-template #buyCreditTpl>
+							<!-- <ng-template #buyCreditTpl>
 								<button pButton class="btn btn-secondary text-small btn-rounded flex-fill" [disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()" type="button">Buy Credits</button>
 							</ng-template>
-						</div>
-						<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName" [attr.aria-label]="'Selected country: ' + homeCountryName" 
+						</div> -->
+						<!-- <div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName" [attr.aria-label]="'Selected country: ' + homeCountryName" 
 						*ngIf="showIcon">
 							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
-						</div>
+						</div> -->
 						<button class="btn btn-secondary py-2" (click)="openReportModal(op, $event)" aria-label="Open reports">
 							<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
 						</button>
@@ -39,16 +39,16 @@
 			</div>
 			<div class="col-lg-6 col-md-6 col-12 d-md-block d-none" *ngIf="userLoginTimeLeftCount">
 				<div class="d-flex justify-content-end align-items-center mt-3 mt-md-0 gap-3">
-					<div class="d-md-flex d-none align-items-center">
+					<!-- <div class="d-md-flex d-none align-items-center">
 						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()" class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						</button>
+						</button> -->
 
 						<!-- Buy Credits template -->
-						<ng-template #buyCreditTpl>
+						<!-- <ng-template #buyCreditTpl>
 							<button pButton class="btn btn-secondary text-small btn-rounded flex-fill" [disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()" type="button">Buy Credits</button>
 						</ng-template>
-					</div>
+					</div> -->
 
 					<!-- <div class="d-flex">
 						<div class="d-flex justify-content-center align-items-center">
@@ -95,9 +95,9 @@
 										class="participants">Participants</span></span>
 							</ng-template>
 						</button> -->
-						<div label="" role="button" class="headerHomeCountry" [title]="homeCountryName" aria-label="Selected country: {{ homeCountryName }}" *ngIf="showIcon">
+						<!-- <div label="" role="button" class="headerHomeCountry" [title]="homeCountryName" aria-label="Selected country: {{ homeCountryName }}" *ngIf="showIcon">
 							<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
-						</div>
+						</div> -->
 						<button class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center" (click)="openReportModal(op, $event)" aria-label="Open reports" style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug" style="font-size: 16px" aria-hidden="true"></i> Report</button>
 					</div>
 
@@ -144,16 +144,16 @@
 			</div>
 			<div class="col-md-6 col-12" *ngIf="!userLoginTimeLeftCount">
 				<div class="d-flex align-items-center justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0">
-					<div class="d-flex align-items-center">
+					<!-- <div class="d-flex align-items-center">
 						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()" class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						</button>
+						</button> -->
 
 						<!-- Buy Credits template -->
-						<ng-template #buyCreditTpl>
+						<!-- <ng-template #buyCreditTpl>
 							<button pButton class="btn btn-secondary text-small btn-rounded flex-fill" [disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()" type="button">Buy Credits</button>
 						</ng-template>
-					</div>
+					</div> -->
 					<!-- <div class="d-flex">
 						<div class="d-flex justify-content-center align-items-center">
 							<h6 class="mb-0 d-none d-md-block">TIME LEFT</h6>
@@ -212,9 +212,9 @@
 						<!-- </div> -->
 						<button class="btn btn-secondary d-flex justify-content-center align-items-center" (click)="openReportModal(op, $event)" aria-label="Open reports" style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug" style="font-size: 16px"> </i> Report</button>
 					</div>
-					<div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country" *ngIf="showIcon">
+					<!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country" *ngIf="showIcon">
 						<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
-					</div>
+					</div> -->
 
 					<div class="d-none d-md-flex align-items-center gap-3">
 						<a (click)="openchat()" title="Chat" aria-label="Open chat">
@@ -406,7 +406,7 @@
 				<div class="d-flex flex-column">
 					<form [formGroup]="phoneVerification" role="form" aria-label="Phone verification form">
 						<div class="w-100 phonenumberblock mt-2">
-							<p class="m-2">Enter Your {{ haveWhatsapp }} Number to receive Job Application Status</p>
+							<p class="m-2">Enter Your {{ haveWhatsapp }} Number to get a call about your application</p>
 							<ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom-less-padding'" [preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" appendTo="body" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [phoneValidation]="true" [selectedCountryISO]="preferredCountry" customPlaceholder="Enter {{ haveWhatsapp }} Number" formControlName="verification_phone" [attr.disabled]="isSendingOTP" aria-label="Enter WhatsApp number"></ngx-intl-tel-input>
 							<div class="d-flex align-items-center justify-content-between mt-2">
 								<div class="d-flex align-items-center">
@@ -520,7 +520,7 @@
 								<span class="text-small fw-normal px-3">Subscribe Now</span>
 							</button> -->
 							<button [disabled]="!mobileForm.get('nationality_id')?.value || !mobileForm.get('study_level')?.value" class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
-								<span class="text-small fw-normal px-2" (click)="continueTrial()">Complete your job profile</span>
+								<span class="text-small fw-normal px-2" (click)="continueTrial()">Submit your Application</span>
 							</button>
 						</div>
 					</form>
