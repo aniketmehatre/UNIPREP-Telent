@@ -1292,7 +1292,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 		this.dashboardService.getContineTrial(data).subscribe(
 			(res) => {
-				debugger
 				this.authService._user.currency = res?.currency;
 				if (this.demoTrial == true) {
 					this.toast.add({

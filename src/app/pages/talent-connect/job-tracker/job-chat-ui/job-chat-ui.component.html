@@ -135,7 +135,7 @@
 		<div class="d-flex gap-2 align-items-center">
 			<div class="input-group border rounded-4 p-1 h-auto">
 				<textarea class="form-control border-0 overflow-auto no-scrollbar"
-					[placeholder]="'Text with ... ' + jobDetails?.company_name" #messageInput rows="1"
+					[placeholder]="(this.messages.length > 0) ? 'Write your message' : 'Write your application message'" #messageInput rows="1"
 					[(ngModel)]="message" style="resize: none; min-height: 38px; max-height: 200px"
 					(input)="autoGrow($event.target)"
 					(keyup.enter)="onEnterMsg(messageInput); message = ''"> </textarea>

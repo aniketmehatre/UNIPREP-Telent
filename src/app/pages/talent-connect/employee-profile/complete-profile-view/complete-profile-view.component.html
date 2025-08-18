@@ -251,7 +251,7 @@
 						</div>
 
 						<div *ngIf="!profileData?.work_experience || profileData?.work_experience.length === 0"
-							class="text-muted">No work experience details available</div>
+							class="text-muted">Fresher</div>
 					</div>
 				</div>
 			</div>
@@ -270,19 +270,19 @@
 					</div>
 					<div class="col-md-9">
 						<div class="row">
-							<div class="col-md-4 col-xl-3 mb-3">
+							<!-- <div class="col-md-4 col-xl-3 mb-3">
 								<div class="text-primary fw-bold">Career Status</div>
 								<div>{{ profileData?.careerPreference?.career_status }}</div>
-							</div>
+							</div> -->
 							<div class="col-md-4 col-xl-3 mb-3">
 								<div class="text-primary fw-bold">Desired Job Title</div>
 								<div>{{ profileData?.careerPreference?.job_title || "Not specified" }}</div>
 							</div>
-							<div class="col-md-4 col-xl-3 mb-3">
+							<!-- <div class="col-md-4 col-xl-3 mb-3">
 								<div class="text-primary fw-bold">Interested Industry</div>
 								<div>{{ getArraytoStringData(profileData?.careerPreference?.career_interest_name) }}
 								</div>
-							</div>
+							</div> -->
 							<div class="col-md-4 col-xl-3 mb-3">
 								<div class="text-primary fw-bold">Department</div>
 								<div>{{ getArraytoStringData(profileData?.careerPreference?.department_name) }}</div>
