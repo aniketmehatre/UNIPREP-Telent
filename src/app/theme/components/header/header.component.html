@@ -14,147 +14,167 @@
 					</div>
 					<div class="d-md-none gap-2 d-flex align-items-center">
 						<!-- <div class="d-flex align-items-center">
-							<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()" class="p-1 ps-2 btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+							<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
+								class="p-1 ps-2 btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+								type="button">
 								AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-							</button> -->
+							</button>
+
+							<ng-template #buyCreditTpl>
+								<button pButton class="btn btn-secondary text-small btn-rounded flex-fill"
+									[disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()"
+									type="button">Buy Credits</button>
+							</ng-template>
+						</div> -->
+						<!-- <div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName"
+							[attr.aria-label]="'Selected country: ' + homeCountryName" *ngIf="showIcon">
+							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'"
+								[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'"
+								alt="{{ homeCountryName }} flag" height="auto" width="auto" />
+						</div> -->
+						<button class="btn btn-secondary py-2" (click)="openReportModal(op, $event)"
+							aria-label="Open reports">
+							<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+						</button>
+						<p-avatar *ngIf="false" (click)="openchat()" class="mr-2" size="large" role="button"
+							aria-label="Open chat"><i class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
+						<p-avatar class="" label="" *ngIf="false" (click)="np.toggle($event)" icon="pi pi-bell"
+							size="large" role="button" aria-label="Notifications"> </p-avatar>
+						<p-avatar routerLink="/pages/usermanagement" aria-expanded="false" role="button" size="large"
+							aria-label="User profile">
+							<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
+						</p-avatar>
+						<p-avatar (click)="logout()" label="" size="large" role="button" aria-label="Logout"> <i
+								class="fa-solid fa-power-off" aria-hidden="true"></i></p-avatar>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-12 d-md-block d-none" *ngIf="userLoginTimeLeftCount">
+				<div class="d-flex justify-content-end align-items-center mt-3 mt-md-0 gap-3">
+					<!-- <div class="d-md-flex d-none align-items-center">
+						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							type="button">
+							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
+						</button>
 
 						<ng-template #buyCreditTpl>
 							<button pButton class="btn btn-secondary text-small btn-rounded flex-fill"
 								[disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()"
-								type="button">Buy Credits</button>
+								type="button">Buy
+								Credits</button>
 						</ng-template>
 					</div> -->
-					<!-- <div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName" [attr.aria-label]="'Selected country: ' + homeCountryName" 
+					<div class="d-none d-md-flex gap-2">
+						<!-- <div label="" role="button" class="headerHomeCountry" [title]="homeCountryName"
+							aria-label="Selected country: {{ homeCountryName }}" *ngIf="showIcon">
+							<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'"
+								[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'"
+								alt="{{ homeCountryName }} flag" height="auto" width="auto" />
+						</div> -->
+						<button class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center"
+							(click)="openReportModal(op, $event)" aria-label="Open reports"
+							style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug"
+								style="font-size: 16px" aria-hidden="true"></i> Report</button>
+					</div>
+
+					<div class="d-flex gap-2 d-md-none align-items-center">
+						<button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)"
+							aria-label="Open reports">
+							<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+						</button>
+					</div>
+					<div class="d-none d-md-flex align-items-center">
+						<a *ngIf="false" (click)="openchat()" class="me-3" aria-label="Open chat">
+							<p-avatar class="" label="" role="button" style="padding: 19px"> <i
+									class="fa-solid fa-comments text-dark" aria-hidden="true"></i> </p-avatar>
+						</a>
+						<a *ngIf="false" (click)="np.toggle($event)" class="me-3" aria-label="Notifications">
+							<p-avatar class="" label="" role="button">
+								<i class="fa-solid fa-bell" aria-hidden="true"></i>
+							</p-avatar>
+						</a>
+						<div class="dropdown profile-dropdown">
+							<button class="button" data-bs-toggle="dropdown" aria-expanded="false"
+								aria-label="User profile menu">
+								<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-label="User profile menu">
+								<li role="none">
+									<a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement"
+										role="menuitem">
+										<div class="d-flex justify-content-top">
+											<i class="fa-solid fa-user me-2 mt-1" aria-hidden="true"></i>
+											<div>
+												<p class="fw-semibold mb-1">{{ userName }}</p>
+												<p class="mb-0">{{ userName }}</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li role="none">
+									<a class="dropdown-item pt-2 pb-2" (click)="logout()" role="menuitem"> <i
+											class="fa-solid fa-power-off me-2" aria-hidden="true"></i>Logout </a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-12" *ngIf="!userLoginTimeLeftCount">
+				<div
+					class="d-flex align-items-center justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0">
+					<!-- <div class="d-flex align-items-center">
+						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
+							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
+							type="button">
+							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
+						</button>
+						<ng-template #buyCreditTpl>
+							<button pButton class="btn btn-secondary text-small btn-rounded flex-fill"
+								[disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()"
+								type="button">Buy
+								Credits</button>
+						</ng-template>
+					</div> -->
+					<!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country"
 						*ngIf="showIcon">
-							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
-						</div> -->
-					<button class="btn btn-secondary py-2" (click)="openReportModal(op, $event)"
-						aria-label="Open reports">
-						<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
-					</button>
-					<p-avatar *ngIf="false" (click)="openchat()" class="mr-2" size="large" role="button"
-						aria-label="Open chat"><i class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
-					<p-avatar class="" label="" *ngIf="false" (click)="np.toggle($event)" icon="pi pi-bell" size="large"
-						role="button" aria-label="Notifications"> </p-avatar>
-					<p-avatar routerLink="/pages/usermanagement" aria-expanded="false" role="button" size="large"
-						aria-label="User profile">
-						<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
-					</p-avatar>
-					<p-avatar (click)="logout()" label="" size="large" role="button" aria-label="Logout"> <i
-							class="fa-solid fa-power-off" aria-hidden="true"></i></p-avatar>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-6 col-md-6 col-12 d-md-block d-none" *ngIf="userLoginTimeLeftCount">
-			<div class="d-flex justify-content-end align-items-center mt-3 mt-md-0 gap-3">
-				<!-- <div class="d-md-flex d-none align-items-center">
-						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()" class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
-							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						</button> -->
-
-				<ng-template #buyCreditTpl>
-					<button pButton class="btn btn-secondary text-small btn-rounded flex-fill"
-						[disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()" type="button">Buy
-						Credits</button>
-				</ng-template>
-			</div> -->
-			<div class="d-none d-md-flex gap-2">
-				<!-- <div label="" role="button" class="headerHomeCountry" [title]="homeCountryName" aria-label="Selected country: {{ homeCountryName }}" *ngIf="showIcon">
-							<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
-						</div> -->
-				<button class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center"
-					(click)="openReportModal(op, $event)" aria-label="Open reports"
-					style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug" style="font-size: 16px"
-						aria-hidden="true"></i> Report</button>
-			</div>
-
-			<div class="d-flex gap-2 d-md-none align-items-center">
-				<button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)"
-					aria-label="Open reports">
-					<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
-				</button>
-			</div>
-			<div class="d-none d-md-flex align-items-center">
-				<a *ngIf="false" (click)="openchat()" class="me-3" aria-label="Open chat">
-					<p-avatar class="" label="" role="button" style="padding: 19px"> <i
-							class="fa-solid fa-comments text-dark" aria-hidden="true"></i> </p-avatar>
-				</a>
-				<a *ngIf="false" (click)="np.toggle($event)" class="me-3" aria-label="Notifications">
-					<p-avatar class="" label="" role="button">
-						<i class="fa-solid fa-bell" aria-hidden="true"></i>
-					</p-avatar>
-				</a>
-				<div class="dropdown profile-dropdown">
-					<button class="button" data-bs-toggle="dropdown" aria-expanded="false"
-						aria-label="User profile menu">
-						<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
-					</button>
-					<ul class="dropdown-menu" role="menu" aria-label="User profile menu">
-						<li role="none">
-							<a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement" role="menuitem">
-								<div class="d-flex justify-content-top">
-									<i class="fa-solid fa-user me-2 mt-1" aria-hidden="true"></i>
-									<div>
-										<p class="fw-semibold mb-1">{{ userName }}</p>
-										<p class="mb-0">{{ userName }}</p>
-									</div>
-								</div>
-							</a>
-						</li>
-						<li role="none">
-							<a class="dropdown-item pt-2 pb-2" (click)="logout()" role="menuitem"> <i
-									class="fa-solid fa-power-off me-2" aria-hidden="true"></i>Logout </a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-6 col-12" *ngIf="!userLoginTimeLeftCount">
-		<div
-			class="d-flex align-items-center justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0">
-			<div class="d-flex align-items-center">
-				<!-- <button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()" class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
-							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
-						</button> -->
-				<ng-template #buyCreditTpl>
-					<button pButton class="btn btn-secondary text-small btn-rounded flex-fill"
-						[disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()" type="button">Buy
-						Credits</button>
-				</ng-template>
-			</div>
-			<!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country" *ngIf="showIcon">
-						<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
+						<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'"
+							[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'"
+							alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 					</div> -->
 
-			<div class="d-none d-md-flex align-items-center gap-3">
-				<a (click)="openchat()" title="Chat" aria-label="Open chat">
-					<p-avatar class="" label="" role="button" style="padding: 19px">
-						<i class="fa-solid fa-comments"></i>
-					</p-avatar>
-				</a>
-				<div class="dropdown profile-dropdown">
-					<button class="button d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false"
-						title="My Profile" aria-label="User profile menu">
-						<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
-					</button>
-					<ul class="dropdown-menu" role="menu" aria-label="User profile menu">
-						<li role="none">
-							<a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement" role="menuitem">
-								<div class="d-flex align-items-start">
-									<i class="fa-solid fa-user me-2 mt-1" aria-hidden="true"></i>
-									<div>
-										<p class="fw-semibold mb-1">{{ userName }}</p>
-										<p class="mb-0">{{ userName }}</p>
-									</div>
-								</div>
-							</a>
-						</li>
-						<li role="none">
-							<a class="dropdown-item pt-2 pb-2" (click)="logout()" role="menuitem"> <i
-									class="fa-solid fa-power-off me-2" aria-hidden="true"></i> Logout </a>
-						</li>
-					</ul>
+					<div class="d-none d-md-flex align-items-center gap-3">
+						<a (click)="openchat()" title="Chat" aria-label="Open chat">
+							<p-avatar class="" label="" role="button" style="padding: 19px">
+								<i class="fa-solid fa-comments"></i>
+							</p-avatar>
+						</a>
+						<div class="dropdown profile-dropdown">
+							<button class="button d-flex align-items-center" data-bs-toggle="dropdown"
+								aria-expanded="false" title="My Profile" aria-label="User profile menu">
+								<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-label="User profile menu">
+								<li role="none">
+									<a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement"
+										role="menuitem">
+										<div class="d-flex align-items-start">
+											<i class="fa-solid fa-user me-2 mt-1" aria-hidden="true"></i>
+											<div>
+												<p class="fw-semibold mb-1">{{ userName }}</p>
+												<p class="mb-0">{{ userName }}</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li role="none">
+									<a class="dropdown-item pt-2 pb-2" (click)="logout()" role="menuitem"> <i
+											class="fa-solid fa-power-off me-2" aria-hidden="true"></i> Logout </a>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
