@@ -40,7 +40,7 @@ import { LocalStorageService } from 'ngx-localstorage';
 	styleUrls: ["./dashboard.component.scss"],
 	standalone: true,
 	imports: [CommonModule, DialogModule, CarouselModule, InputGroupAddonModule, InputGroupModule, FormsModule, ButtonModule,
-		TooltipModule, RouterModule, SelectModule, DatePickerModule, InputTextModule,  TableModule, AccordionModule, ReactiveFormsModule,
+		TooltipModule, RouterModule, SelectModule, DatePickerModule, InputTextModule, TableModule, AccordionModule, ReactiveFormsModule,
 		PopoverModule, TextareaModule
 	],
 	providers: [DashboardService, DataService, LocationService],
@@ -115,28 +115,28 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 				numScroll: 1
 			}
 		],
-		this.responsiveOptions1 = [
-			{
-				breakpoint: '1280px',
-				numVisible: 4,
-				numScroll: 4
-			},
-			{
-				breakpoint: '1024px',
-				numVisible: 3,
-				numScroll: 3
-			},
-			{
-				breakpoint: '768px',
-				numVisible: 1,
-				numScroll: 1
-			},
-			{
-				breakpoint: '560px',
-				numVisible: 1,
-				numScroll: 1
-			}
-		]
+			this.responsiveOptions1 = [
+				{
+					breakpoint: '1280px',
+					numVisible: 4,
+					numScroll: 4
+				},
+				{
+					breakpoint: '1024px',
+					numVisible: 3,
+					numScroll: 3
+				},
+				{
+					breakpoint: '768px',
+					numVisible: 2,
+					numScroll: 2
+				},
+				{
+					breakpoint: '560px',
+					numVisible: 2,
+					numScroll: 2
+				}
+			]
 	}
 
 	jobId: any
@@ -254,15 +254,25 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
 	// navigate Favourites
 	selectFav(req: any) {
-		this.router.navigateByUrl(req.url);
+		if (this.talentConnectService._employerProfileData &&
+			this.authService._user?.current_plan_detail?.current_plan == "Premium"
+		) {
+			this.router.navigateByUrl(req.url);
+		}
 	}
 
 	redirectToCvBuilder() {
-		this.router.navigate(['/pages/job-tool/cv-builder']);
+		if (this.talentConnectService._employerProfileData &&
+			this.authService._user?.current_plan_detail?.current_plan == "Premium"
+		) {
+			this.router.navigate(['/pages/job-tool/cv-builder']);
+		}
 	}
 
 	redirectToTalentConnect() {
-		this.router.navigate(['/pages/talent-connect/my-profile']);
+		this.talentConnectService._employerProfileData ?
+			this.router.navigate(['/pages/talent-connect/my-profile', this.talentConnectService._employerProfileData.id]) :
+			this.router.navigate(['/pages/talent-connect/my-profile']);
 	}
 
 	sendInviteMail() {
@@ -349,7 +359,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 		})
 	}
 	checkIfProfileCreated() {
-		if(this.talentConnectService._employerProfileData?.profile_completion_flag) {
+		if (this.talentConnectService._employerProfileData?.profile_completion_flag) {
 			this.isProfileCreated = true;
 		}
 	}

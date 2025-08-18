@@ -509,7 +509,7 @@ export class UserManagementComponent implements OnInit {
 		});
 	}
 	onClickUpgradePlan() {
-		this.router.navigate(["/pages/subscriptions/upgrade-subscription"])
+		this.router.navigate(["/pages/subscriptions"])
 	}
 	getSubscriptions() {
 		this.subscription.getSubscriptionHistory().subscribe({
@@ -660,5 +660,19 @@ export class UserManagementComponent implements OnInit {
 			},
 			error: err => { }
 		});
+	}
+
+	navigateToCVBuilder() {
+		if (this.talentConnectService._employerProfileData &&
+			this.authService._user?.current_plan_detail?.current_plan == "Premium"
+		) {
+			this.router.navigate(['/pages/job-tool/cv-builder']);
+		}
+	}
+
+	navigateToJobProfile() {
+		this.talentConnectService._employerProfileData ? 
+		this.router.navigate(['/pages/talent-connect/my-profile', this.talentConnectService._employerProfileData.id]) :
+		this.router.navigate(['/pages/talent-connect/my-profile']);
 	}
 }

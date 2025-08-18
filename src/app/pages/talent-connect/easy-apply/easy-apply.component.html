@@ -266,12 +266,16 @@
 				<p-multiSelect [options]="industries" formControlName="industry" placeholder="Select industry" optionLabel="industry_name" optionValue="id" appendTo="body" display="chip" class="w-100"> </p-multiSelect>
 			</div>
 			<div class="col-md-4">
-				<label class="form-label fw-bold">Work Location </label>
-				<p-multiSelect [options]="locations" formControlName="worklocation" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select work location" optionLabel="work_location" optionValue="id" display="chip" appendTo="body" class="w-100" (onChange)="onChangeLocation($event, 'location')" (onClear)="onChangeLocation($event, 'location')"> </p-multiSelect>
-			</div>
-			<div class="col-md-4">
 				<label class="form-label fw-bold">Country </label>
 				<p-multiSelect [options]="countries" formControlName="country" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select Country" optionLabel="country" optionValue="id" display="chip" appendTo="body" class="w-100" (onChange)="onChangeLocation($event, 'country')" (onClear)="onChangeLocation($event, 'country')"> </p-multiSelect>
+			</div>
+			<div class="col-md-4">
+				<label class="form-label fw-bold">Work Location </label>
+				<p-multiSelect [options]="locations" formControlName="worklocation" [virtualScroll]="true"
+					[virtualScrollItemSize]="50" placeholder="Select work location" optionLabel="work_location"
+					optionValue="id" display="chip" appendTo="body" class="w-100" [showClear]="true"
+					(onChange)="onChangeLocation($event, 'location')" (onClear)="onChangeLocation($event, 'location')">
+				</p-multiSelect>
 			</div>
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Work Mode </label>

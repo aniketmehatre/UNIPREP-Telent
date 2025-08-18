@@ -122,6 +122,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   isSampleProfilePdf: boolean = false;
   isSampleProfileImgVisible: boolean = false;
   isMobileView: boolean = false;
+  currentCurrenyId: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -143,9 +144,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   goToProfile() {
     if (this.storage.get('jobId')) {
-         this.router.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`])
+      this.router.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`])
     } else {
-        this.router.navigate(['/pages/talent-connect/my-profile', this.profileId]);
+      this.router.navigate(['/pages/talent-connect/my-profile', this.profileId]);
     }
   }
 
@@ -191,9 +192,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       total_years_of_experience: ["0"]
     });
     this.careerPreferenceForm = this.fb.group({
-      career_preference_career_status: [null, Validators.required],
+      // career_preference_career_status: [null, Validators.required],
       career_preference_job_title_id: [null, Validators.required],
-      career_preference_career_interest_id: [[], Validators.required],
+      // career_preference_career_interest_id: [[], Validators.required],
       career_preference_preferred_work_location_id: [[], Validators.required],
       career_preference_preferred_employment_type: [[], Validators.required],
       career_preference_preferred_workplace_type: [[], Validators.required],
@@ -214,7 +215,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       networking_linkedin_profile: [
         "",
         [
-          Validators.required,
+          // Validators.required,
           Validators.pattern(/^(https?:\/\/)[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i)
         ],
       ],
@@ -273,7 +274,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       currently_working: [false],
       work_experience_duration_to: [""],
       work_experience_salary_per_month: [""],
-      work_experience_currency_id: [""],
+      work_experience_currency_id: [this.currentCurrenyId],
       work_experience_job_responsibilities: ["", maxWordsValidator(150)],
       work_experience_experience_letter: [""],
     })
@@ -416,6 +417,11 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       const isUnderSizeLimit = file.size <= maxSizeInMB * 1024 * 1024;
       if (!isUnderSizeLimit) {
         this.toastService.add({ severity: "error", summary: "Error", detail: "CV must be less than 2MB." });
+        return;
+      }
+      const isImage = file.type.startsWith('image/');
+      if (isImage) {
+        this.toastService.add({ severity: "error", summary: "Error", detail: "Please upload your CV in the doc, docx or pdf format." });
         return;
       }
     }
@@ -571,9 +577,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
 
     // Career Preferences & Aspirations (27%)
-    checkField(this.careerPreferenceForm.get("career_preference_career_status"), 4)
+    // checkField(this.careerPreferenceForm.get("career_preference_career_status"), 4)
     checkField(this.careerPreferenceForm.get("career_preference_job_title_id"), 4)
-    checkField(this.careerPreferenceForm.get("career_preference_career_interest_id"), 3)
+    // checkField(this.careerPreferenceForm.get("career_preference_career_interest_id"), 3)
     checkField(this.careerPreferenceForm.get("career_preference_preferred_work_location_id"), 4)
     checkField(this.careerPreferenceForm.get("career_preference_preferred_employment_type"), 4)
     checkField(this.careerPreferenceForm.get("career_preference_preferred_workplace_type"), 4)
@@ -683,9 +689,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.nationalityList = response.nationalites
         this.departmentList = response.department
         let currentCurrency = this.currencies.find(item => item.currency_code == this.authService._user?.currency);
-        if (currentCurrency) {
-          this.careerPreferenceForm.patchValue({
-            career_preference_currency_id: currentCurrency.id
+        this.currentCurrenyId = currentCurrency?.id;
+        if (this.currentCurrenyId) {
+          if (!this.careerPreferenceForm.get("career_preference_currency_id")?.value) {
+            this.careerPreferenceForm.get("career_preference_currency_id")?.setValue(this.currentCurrenyId);
+          }
+          this.workExperience.controls.forEach((control) => {
+            const workExp = control as FormGroup;
+            if (!workExp.get("work_experience_currency_id")?.value) {
+              workExp.get("work_experience_currency_id")?.setValue(this.currentCurrenyId);
+            }
           });
         }
       },
@@ -736,9 +749,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     });
 
     this.careerPreferenceForm.patchValue({
-      career_preference_career_status: response.careerPreference?.career_status || null,
+      // career_preference_career_status: response.careerPreference?.career_status || null,
       career_preference_job_title_id: response.careerPreference?.job_title || null,
-      career_preference_career_interest_id: response.careerPreference?.career_interest_id || [],
+      // career_preference_career_interest_id: response.careerPreference?.career_interest_id || [],
       // career_preference_department_id: response.careerPreference?.department_id || [],
       career_preference_preferred_work_location_id: response.careerPreference?.preferred_work_location_id || [],
       career_preference_preferred_employment_type: response.careerPreference?.preferred_employment_type || [],
@@ -1074,7 +1087,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     student_profile.employment_type = this.preferredEmploymentType.includes(employmentTypeValue) ? employmentTypeValue : '';
     student_profile.duration = (this.workExperienceForm.get('work_experience.0.work_experience_duration_from')?.value || '') + ' - ' + (this.workExperienceForm.get('work_experience.0.work_experience_duration_to')?.value || '');
     student_profile.salary_month = this.workExperienceForm.get('work_experience.0.work_experience_salary_per_month')?.value || '';
-    student_profile.career_status = this.workExperienceForm.get('career_preference_career_status')?.value || '';
+    // student_profile.career_status = this.workExperienceForm.get('career_preference_career_status')?.value || '';
     student_profile.prefer_job_title = this.workExperienceForm.get('career_preference_job_title_id')?.value || '';
     // Career Preference
     const selectedLocationIds = this.careerPreferenceForm.get('career_preference_preferred_work_location_id')?.value || [];
@@ -1276,7 +1289,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       end: addMonths(new Date(2000, 0, 1), totalMonths)
     });
     const formatted = formatDuration(totalDuration, { format: ['years', 'months'] });
-    this.workExperienceForm.get('total_years_of_experience')?.setValue(formatted || '0 months');
+    this.workExperienceForm.get('total_years_of_experience')?.setValue(formatted || '0');
   }
 
   onChangeStillPursuing(event: any, index: number) {
@@ -1983,9 +1996,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   isCareerPreferenceModified(): boolean {
     const originalCareerPreference: any = {
-      career_preference_career_status: this.originalProfileData?.career_preference_career_status,
+      // career_preference_career_status: this.originalProfileData?.career_preference_career_status,
       career_preference_job_title_id: this.originalProfileData?.career_preference_job_title_id,
-      career_preference_career_interest_id: this.originalProfileData?.career_preference_career_interest_id || [],
+      // career_preference_career_interest_id: this.originalProfileData?.career_preference_career_interest_id || [],
       // career_preference_department_id: this.originalProfileData?.career_preference_department_id || [],
       career_preference_preferred_work_location_id: this.originalProfileData?.career_preference_preferred_work_location_id || [],
       career_preference_preferred_employment_type: this.originalProfileData?.career_preference_preferred_employment_type || [],

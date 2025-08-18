@@ -86,7 +86,7 @@ export class SidenavComponent {
       mostPopular: true,
 
     },
-     {
+    {
       title: "Job Tracker",
       url: "/pages/talent-connect/job-tracker",
       image: "fa-solid fas fa-briefcase",
@@ -98,7 +98,7 @@ export class SidenavComponent {
       image: "pi pi-building",
       subMenuBy: "Job Board",
     },
-     {
+    {
       title: "Company Tracker",
       url: "/pages/talent-connect/company-tracker",
       image: "fas fa-folder",
@@ -318,6 +318,9 @@ export class SidenavComponent {
       .subscribe({
         next: () => {
           this.markCurrentMenu();
+          if (this.talentService._employerProfileData && this.authService._user?.current_plan_detail?.current_plan == "Standard") {
+            this.redirectToRestrictUrl('/pages/subscriptions');
+          }
         },
       });
     this.talentService.employerProfileCompleted$.subscribe(data => {
@@ -486,6 +489,7 @@ export class SidenavComponent {
           item.restricted = true;
         }
       });
+      // this.redirectToRestrictUrl('/pages/talent-connect/my-profile');
     }
     else {
       if (data) {
@@ -531,6 +535,9 @@ export class SidenavComponent {
           item.restricted = false;
         }
       });
+      if (this.talentService._employerProfileData) {
+        this.redirectToRestrictUrl('/pages/subscriptions');
+      }
     }
     else {
       this.updateInterestMenus();
@@ -568,6 +575,24 @@ export class SidenavComponent {
           item.notInterested = true;
         }
       });
+    }
+  }
+
+  redirectToRestrictUrl(redirectUrl: string) {
+    const restrictedMenuTitles = this.menus
+      .filter(item => item.restricted)
+      .map(item => item.title);
+    const restrictedMenusUrl = this.originalMenus
+      .filter(item => restrictedMenuTitles.includes(item.title))
+      .map(item => item.url);
+    const restrictedMenus = restrictedMenusUrl.flatMap(path => {
+      const parts = path.split('/').filter(Boolean); // remove empty ""
+      const cleanParts = parts.slice(1); // remove "pages"
+      return cleanParts;
+    });
+    const isRestricted = restrictedMenus.some(segment => this.router.url.includes(segment));
+    if (isRestricted) {
+      this.router.navigateByUrl(redirectUrl);
     }
   }
 }
