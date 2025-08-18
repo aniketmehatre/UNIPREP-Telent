@@ -156,6 +156,7 @@
 </div>
 
 <p-dialog [(visible)]="showPremimumPopup" [modal]="true" [draggable]="false" [resizable]="false"
+ [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
 	header="Upgrade to Apply!" class="upgrade-to-apply">
 	<div class="gift-image center-align">
 		<img [src]="giftImage" alt="gift-image">
@@ -173,7 +174,8 @@
 </p-dialog>
 
 <p-dialog [(visible)]="whyPremium" [modal]="true" [draggable]="false" [resizable]="false"
-	header="Upgrade to UNIPREP Premium?" class="why-premium">
+	header="Upgrade to UNIPREP Premium?" class="why-premium"
+	 [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
 	<div class="row mt-3">
 		<div class="col-12">
 			<div class="d-flex flex-column gap-3">
