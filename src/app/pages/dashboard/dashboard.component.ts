@@ -19,12 +19,11 @@ import { RouterModule } from "@angular/router"
 import { SelectModule } from "primeng/select"
 import { StorageService } from "../../services/storage.service";
 import { JobSearchService } from "../job-search/job-search.service"
-import { CalendarModule } from "primeng/calendar"
 import { DatePickerModule } from "primeng/datepicker"
 import { InputTextModule } from "primeng/inputtext"
 import { AccordionModule } from "primeng/accordion"
 import { TableModule } from "primeng/table"
-import { TabViewModule } from "primeng/tabview"
+import { TabsModule } from 'primeng/tabs'
 import { MessageService } from "primeng/api"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 
@@ -41,8 +40,7 @@ import { LocalStorageService } from 'ngx-localstorage';
 	styleUrls: ["./dashboard.component.scss"],
 	standalone: true,
 	imports: [CommonModule, DialogModule, CarouselModule, InputGroupAddonModule, InputGroupModule, FormsModule, ButtonModule,
-		TooltipModule, RouterModule, SelectModule,
-		CalendarModule, DatePickerModule, InputTextModule, TabViewModule, TableModule, AccordionModule, ReactiveFormsModule,
+		TooltipModule, RouterModule, SelectModule, DatePickerModule, InputTextModule, TableModule, AccordionModule, ReactiveFormsModule,
 		PopoverModule, TextareaModule
 	],
 	providers: [DashboardService, DataService, LocationService],
@@ -143,24 +141,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
 	jobId: any
 	ngOnInit() {
-		this.route.queryParamMap.subscribe(params => {
-			const token = params.get('token');
-			if (token) {
-				// Store token somewhere (service, localStorage, etc.)
-				console.log('Token from URL:', token);
-
-				// ✅ Remove token from URL without reloading
-				this.router.navigate([], {
-					relativeTo: this.route,
-					queryParams: {},
-					replaceUrl: true
-				});
-			}
-			this.jobId = this.storage.get('jobId');
-			if (!this.jobId) {
-				this.router.navigate([this.storage.get('jobId')], { replaceUrl: true })
-			}
-		});
 		// Initialize essential data first
 		this.checkIfProfileCreated();
 		this.apiToCheckPartnerOrInstitute()
@@ -290,9 +270,9 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	redirectToTalentConnect() {
-		this.talentConnectService._employerProfileData ? 
-		this.router.navigate(['/pages/talent-connect/my-profile', this.talentConnectService._employerProfileData.id]) :
-		this.router.navigate(['/pages/talent-connect/my-profile']);
+		this.talentConnectService._employerProfileData ?
+			this.router.navigate(['/pages/talent-connect/my-profile', this.talentConnectService._employerProfileData.id]) :
+			this.router.navigate(['/pages/talent-connect/my-profile']);
 	}
 
 	sendInviteMail() {

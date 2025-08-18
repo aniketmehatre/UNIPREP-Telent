@@ -12,7 +12,7 @@
 					</div>
 					<div class="d-md-none gap-2 d-flex align-items-center">
 						<div class="d-flex align-items-center">
-							<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()" class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
+							<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()" class="p-1 ps-2 btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
 								AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
 							</button>
 
@@ -25,6 +25,9 @@
 						*ngIf="showIcon">
 							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 						</div>
+						<button class="btn btn-secondary py-2" (click)="openReportModal(op, $event)" aria-label="Open reports">
+							<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+						</button>
 						<p-avatar *ngIf="false" (click)="openchat()" class="mr-2" size="large" role="button" aria-label="Open chat"><i class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
 						<p-avatar class="" label="" *ngIf="false" (click)="np.toggle($event)" icon="pi pi-bell" size="large" role="button" aria-label="Notifications"> </p-avatar>
 						<p-avatar routerLink="/pages/usermanagement" aria-expanded="false" role="button" size="large" aria-label="User profile">
@@ -34,7 +37,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-6 col-12" *ngIf="userLoginTimeLeftCount">
+			<div class="col-lg-6 col-md-6 col-12 d-md-block d-none" *ngIf="userLoginTimeLeftCount">
 				<div class="d-flex justify-content-end align-items-center mt-3 mt-md-0 gap-3">
 					<div class="d-md-flex d-none align-items-center">
 						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()" class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill" type="button">
@@ -201,13 +204,13 @@
 						<!--								</span>-->
 						<!--							</ng-template>-->
 						<!--						</button>-->
-						<div *ngIf="!userTypeId">
+						<!-- <div *ngIf="!userTypeId"> -->
 							<!-- <button *ngIf="ehitlabelIsShow" class="btn btn-primary btn-rounded d-flex flex-column align-items-center" aria-label="Chat with notification" (click)="onClickSubscribe()">
 								<i class="fa-solid fa-crown mb-2" style="font-size: 14px"></i>
 								<span class="text-sm fw-normal px-3" style="font-size: 12px">Subscribe Now</span>
 							</button> -->
-						</div>
-						<button class="btn btn-secondary d-flex justify-content-center align-items-center me-2" (click)="openReportModal(op, $event)" aria-label="Open reports" style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug" style="font-size: 16px"> </i> Report</button>
+						<!-- </div> -->
+						<button class="btn btn-secondary d-flex justify-content-center align-items-center" (click)="openReportModal(op, $event)" aria-label="Open reports" style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug" style="font-size: 16px"> </i> Report</button>
 					</div>
 					<div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country" *ngIf="showIcon">
 						<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'" [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'" alt="{{ homeCountryName }} flag" height="auto" width="auto" />
@@ -314,7 +317,7 @@
 		<div *ngIf="isLondon" class="mega-menu">
 			<div class="row justify-content-center">
 				<h5 class="text-center mb-2">Home Country</h5>
-				<p-select id="selectedHomeCountry" [styleClass]="'w-100'" style="width: 100% !important" [(ngModel)]="selectedHomeCountry" [options]="countryList" [filter]="true" filterBy="country" [showClear]="true" optionLabel="country" (onChange)="onHomeCountryChange($event)" placeholder="Source Country">
+				<p-select id="selectedHomeCountry" [styleClass]="'w-100'" style="width: 100% !important" [(ngModel)]="selectedHomeCountry" [options]="countryList" [filter]="true" filterBy="country"  optionLabel="country" (onChange)="onHomeCountryChange($event)" placeholder="Source Country">
 					<ng-template pTemplate="selectedItem">
 						<div class="flex align-items-center gap-2" *ngIf="selectedHomeCountry">
 							<img (error)="$event.target.src = '/uniprep-assets/images/location.webp'" [src]="selectedHomeCountry.flag ? selectedHomeCountry.flag : '../../uniprep-assets/images/location.webp'" [class]="'flag flag-' + selectedHomeCountry.code" style="width: 18px" />
@@ -333,7 +336,7 @@
 	</ng-template>
 </p-popover>
 
-<p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
+<p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup"  [draggable]="false" [resizable]="false">
 	<div class="px-5 pb-5 pt-3">
 		<div class="justify-content-center text-center pb-5 px-2">
 			<h5 class="text-center mb-2">Your 1 Hour Free Trial has<br />Exhausted</h5>
@@ -345,7 +348,7 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isShowFreeTrialStart" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup" [modal]="true" [draggable]="false" [resizable]="false">
+<p-dialog [(visible)]="isShowFreeTrialStart" [closable]="false" [style]="{ width: 'auto' }" class="p-0 m-0 bg-white" class="timerpopup"  [draggable]="false" [resizable]="false">
 	<div class="px-5 pb-5 pt-3">
 		<div class="justify-content-center text-center pb-5 px-5">
 			<h5 class="text-center mb-2">Your 1 hour free trial<br />Starts Now!</h5>
@@ -358,7 +361,7 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="visible" [closable]="false" class="p-0 m-0" [modal]="true" [draggable]="false" [resizable]="false">
+<p-dialog [(visible)]="visible" [closable]="false" class="p-0 m-0"  [draggable]="false" [resizable]="false">
 	<div class="d-flex justify-content-between p-4">
 		<div>
 			<h4>Your {{ timeLeftInfo }}<span class="text-xl font-bold p-1 fw-bold" style="color: var(--p-primary-500)"> Free Trial Has </span>Ended</h4>
@@ -393,7 +396,10 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="whatsappVerification" [modal]="true" [closable]="false" styleClass="whatsappVerification" aria-label="WhatsApp verification" [breakpoints]="{ '1200px': '30vw', '992px': '40vw', '768px': '60vw', '576px': '80vw', '400px': '95vw' }" [style]="{ width: '30vw' }">
+<p-dialog [(visible)]="whatsappVerification" [modal]="true"
+          [closable]="false"
+          [closeOnEscape]="false"
+          [dismissableMask]="false" styleClass="whatsappVerification" aria-label="WhatsApp verification" [breakpoints]="{ '1200px': '30vw', '992px': '40vw', '768px': '60vw', '576px': '80vw', '400px': '95vw' }" [style]="{ width: '30vw' }">
 	<div class="container">
 		<div class="row mb-2">
 			<div class="col-md-12 px-4">
@@ -434,7 +440,10 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="freeTrial" [modal]="true" [closable]="false" styleClass="FirstLoginPopup">
+<p-dialog [(visible)]="freeTrial" [modal]="true" [modal]="true"
+          [closable]="false"
+          [closeOnEscape]="false"
+          [dismissableMask]="false" styleClass="FirstLoginPopup">
 	<!-- <ng-template #header>
         <h3 class="w-100 text-center">
           Personalize your UNIPREP
@@ -605,9 +614,9 @@
 		</div>
 		<!-- PrimeNG TabView for Tab Control -->
 		<div class="card-body">
-			<p-tabView>
+			<p-tabs>
 				<!-- Overall Tab -->
-				<p-tabPanel header="Overall">
+				<p-tabpanel header="Overall">
 					<div class="list-group">
 						<div class="list-group-item d-flex justify-content-between align-items-center">
 							<i class="pi pi-lock"></i>
@@ -641,22 +650,22 @@
 							</div>
 						</div>
 					</div>
-				</p-tabPanel>
+				</p-tabpanel>
 
 				<!-- Archive Tab -->
-				<p-tabPanel header="Archive">
+				<p-tabpanel header="Archive">
 					<div class="text-center py-4">
 						<p>No archived notifications available.</p>
 					</div>
-				</p-tabPanel>
+				</p-tabpanel>
 
 				<!-- Orders Tab -->
-				<p-tabPanel header="Orders">
+				<p-tabpanel header="Orders">
 					<div class="text-center py-4">
 						<p>No order-related notifications available.</p>
 					</div>
-				</p-tabPanel>
-			</p-tabView>
+				</p-tabpanel>
+			</p-tabs>
 		</div>
 		<div class="card-footer">
 			<div class="view-all">
@@ -667,7 +676,7 @@
 </p-popover>
 
 <!-- Assessment Popups -->
-<p-dialog [(visible)]="isUpgradePlanVisible" [closable]="false" [modal]="true" [draggable]="false" [resizable]="false" styleClass="assessment-popup upgrade-plan position-relative">
+<p-dialog [(visible)]="isUpgradePlanVisible" [closable]="false"  [draggable]="false" [resizable]="false" styleClass="assessment-popup upgrade-plan position-relative">
 	<div class="popup-close" (click)="isUpgradePlanVisible = !isUpgradePlanVisible">
 		<i style="color: var(--p-neutral-50)" class="fa fa-close"></i>
 	</div>
@@ -685,7 +694,7 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isILeanrParticipantsVisible" [closable]="false" [modal]="true" [draggable]="false" [resizable]="false" styleClass="assessment-popup position-relative">
+<p-dialog [(visible)]="isILeanrParticipantsVisible" [closable]="false"  [draggable]="false" [resizable]="false" styleClass="assessment-popup position-relative">
 	<div class="popup-close" (click)="isILeanrParticipantsVisible = !isILeanrParticipantsVisible">
 		<i style="color: var(--p-neutral-50)" class="fa fa-close"></i>
 	</div>
@@ -704,7 +713,7 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isILearnLiveVisible" [closable]="false" [modal]="true" [draggable]="false" [resizable]="false" styleClass="assessment-popup position-relative">
+<p-dialog [(visible)]="isILearnLiveVisible" [closable]="false"  [draggable]="false" [resizable]="false" styleClass="assessment-popup position-relative">
 	<div class="popup-close" (click)="isILearnLiveVisible = !isILearnLiveVisible">
 		<i style="color: var(--p-neutral-50)" class="fa fa-close"></i>
 	</div>
@@ -720,7 +729,7 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isILearnCompletedVisible" [closable]="false" [modal]="true" [draggable]="false" [resizable]="false" styleClass="assessment-popup position-relative">
+<p-dialog [(visible)]="isILearnCompletedVisible" [closable]="false"  [draggable]="false" [resizable]="false" styleClass="assessment-popup position-relative">
 	<div class="popup-close" (click)="isILearnCompletedVisible = !isILearnCompletedVisible">
 		<i style="color: var(--p-neutral-50)" class="fa fa-close"></i>
 	</div>

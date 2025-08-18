@@ -8,13 +8,13 @@ export class CountryLocationService {
 
   // Get country via coordinates (reverse geocoding)
   getCountryFromCoords(lat: number, lon: number) {
-    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
+    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}&accept-language=en`;
     return this.http.get<any>(url);
   }
 
   // Get country via IP
   getCountryFromIP() {
-    const url = 'https://ipapi.co/json/'; // or use ipinfo.io, ipwhois.io
+    const url = 'https://ipapi.co/json/?lang=en'; // or use ipinfo.io, ipwhois.io
     return this.http.get<any>(url);
   }
 

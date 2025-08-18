@@ -46,7 +46,7 @@
 	</div>
 </div>
 
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal"
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false"  class="questionmodal"
 	header="Header" [maximizable]="true">
 	<ng-template pTemplate="header">
 		<div class="d-flex w-100 flex-column px-4">
@@ -193,7 +193,7 @@
 		</div>
 	</ng-template>
 </p-dialog>
-<p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show" [modal]="true" [maximizable]="true"
+<p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show"  [maximizable]="true"
 	[style]="{ width: '30vw' }" header="Header">
 	<ng-template pTemplate="header">
 		<span class="text-xl font-bold ms-2">Reviewed</span>

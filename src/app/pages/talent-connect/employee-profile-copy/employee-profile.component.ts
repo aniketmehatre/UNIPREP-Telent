@@ -19,7 +19,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -59,7 +58,6 @@ export enum FileType {
     FluidModule,
     ReactiveFormsModule,
     InputTextModule,
-    DropdownModule,
     DrawerModule,
     ButtonModule,
     CardModule,

@@ -11,11 +11,9 @@ import {DividerModule} from 'primeng/divider';
 import {InputTextModule} from 'primeng/inputtext';
 import {StepsModule} from 'primeng/steps';
 import {TableModule} from 'primeng/table';
-import {TabViewModule} from 'primeng/tabview';
 import {TooltipModule} from 'primeng/tooltip';
 import {FormsModule} from '@angular/forms';
 import {SharedModule} from "../../shared/shared.module";
-import {DropdownModule} from 'primeng/dropdown';
 import {PaginatorModule} from 'primeng/paginator';
 import { MainListComponent } from './main-list/main-list.component';
 import { DrawerModule } from 'primeng/drawer';
@@ -35,7 +33,6 @@ import { MessageModule } from 'primeng/message';
     ButtonModule,
     DrawerModule,
     CardModule,
-    TabViewModule,
     InputTextModule,
     AvatarModule,
     ChipModule,
@@ -46,7 +43,6 @@ import { MessageModule } from 'primeng/message';
     FormsModule,
     SharedModule,
     DialogModule,
-    DropdownModule,
     PaginatorModule,
     MessageModule,  
   ],

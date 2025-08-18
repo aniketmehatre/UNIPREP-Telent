@@ -14,9 +14,8 @@ import {ButtonModule} from "primeng/button"
 import {InputTextModule} from "primeng/inputtext"
 import {RippleModule} from "primeng/ripple"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
-import {CalendarModule} from "primeng/calendar"
-import {TabViewModule} from "primeng/tabview"
-import {InputSwitchModule} from "primeng/inputswitch"
+import {DatePickerModule} from "primeng/datepicker"
+import {ToggleSwitchModule} from "primeng/toggleswitch"
 import {MultiSelectModule} from "primeng/multiselect"
 import {CarouselModule} from "primeng/carousel"
 import {DialogModule} from "primeng/dialog"
@@ -35,7 +34,7 @@ import {ConfirmPopupModule} from "primeng/confirmpopup"
 import {AccordionModule} from "primeng/accordion"
 import {GuidelineComponent} from "./chat/guidelines/guidelines.component"
 import {PopoverModule} from "primeng/popover"
-import {InputTextarea} from "primeng/inputtextarea"
+import {TextareaModule} from "primeng/textarea"
 import {TooltipModule} from "primeng/tooltip"
 import {PrivacypolicyComponent} from "./footersection/privacypolicy/privacypolicy.component"
 import {PaginatorModule} from "primeng/paginator"
@@ -137,15 +136,14 @@ import {UniLearnModule} from "./unilearn/unilearn.module"
         InputTextModule,
         RippleModule,
         ReactiveFormsModule,
-        CalendarModule,
-        TabViewModule,
+        DatePickerModule,
         MultiSelectModule,
         CarouselModule,
         DialogModule,
         PaginatorModule,
         BreadcrumbModule,
         FormsModule,
-        InputSwitchModule,
+        ToggleSwitchModule,
         ProgressBarModule,
         ConfirmDialogModule,
         CardModule,
@@ -154,7 +152,7 @@ import {UniLearnModule} from "./unilearn/unilearn.module"
         ConfirmDialogModule,
         AccordionModule,
         PopoverModule,
-        InputTextarea,
+        TextareaModule ,
         TooltipModule,
         DividerModule,
         CheckboxModule,

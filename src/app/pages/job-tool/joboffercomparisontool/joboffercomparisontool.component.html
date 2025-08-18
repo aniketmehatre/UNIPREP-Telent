@@ -69,7 +69,7 @@
 																</div>
 																<ng-container *ngFor="let info of basicInformation.controls; let i = index" [formGroupName]="i">
 																	<div [ngClass]="basicInformation.length === 2 ? 'col-md-5' : 'col-md-3'">
-																		<p-select [style]="{ width: '100%' }" [options]="positions" formControlName="position_title" placeholder="Select a position" display="chip" optionLabel="jobrole" optionValue="id" [appendTo]="'body'" [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="30" [filter]="true" filterBy="jobrole"> </p-select>
+																		<p-select [style]="{ width: '100%' }" [options]="positions" formControlName="position_title" placeholder="Select a position" display="chip" optionLabel="jobrole" optionValue="id" [appendTo]="'body'"  [virtualScroll]="true" [virtualScrollItemSize]="30" [filter]="true" filterBy="jobrole"> </p-select>
 																		<div *ngIf="info.get('position_title')?.touched && info.get('position_title')?.invalid" class="text-danger mt-1">Position is required.</div>
 																	</div>
 																</ng-container>
@@ -84,7 +84,7 @@
 																</div>
 																<ng-container *ngFor="let info of basicInformation.controls; let i = index" [formGroupName]="i">
 																	<div [ngClass]="basicInformation.length === 2 ? 'col-md-5' : 'col-md-3'" class="position-relative">
-																		<p-select [style]="{ width: '100%' }" styleClass="w-100" placeholder="Select Location" display="chip" optionLabel="city_name" optionValue="city_id" [appendTo]="'body'" [virtualScroll]="true" [virtualScrollItemSize]="30" [filter]="true" filterBy="city_name" [options]="locations" formControlName="location" [showClear]="true"> </p-select>
+																		<p-select [style]="{ width: '100%' }" styleClass="w-100" placeholder="Select Location" display="chip" optionLabel="city_name" optionValue="city_id" [appendTo]="'body'" [virtualScroll]="true" [virtualScrollItemSize]="30" [filter]="true" filterBy="city_name" [options]="locations" formControlName="location" > </p-select>
 																		<div *ngIf="info.get('location')?.touched && info.get('location')?.invalid" class="text-danger mt-1">Job Location is required.</div>
 																		<div class="mt-3 text-end" *ngIf="basicInformation.length > 2">
 																			<button pButton type="button" class="formarraybtn btn btn-danger p-button-sm" (click)="removeEntry(i)">
@@ -142,7 +142,7 @@
 														<!-- Salary --><!-- Currency -->
 														<!-- <div class="col-md-12 d-flex mb-2">
 																					<div class="col-md-5">
-																						<p-select [style]="{ width: '100%' }" [options]="currencies" formControlName="currency" optionLabel="currency_code" optionValue="currency_code" [appendTo]="'body'" placeholder="Currency" [filter]="true" filterBy="country,currency_code" [showClear]="true" styleClass="w-100">
+																						<p-select [style]="{ width: '100%' }" [options]="currencies" formControlName="currency" optionLabel="currency_code" optionValue="currency_code" [appendTo]="'body'" placeholder="Currency" [filter]="true" filterBy="country,currency_code"  styleClass="w-100">
 																							<ng-template let-data pTemplate="item">
 																								<div>
 																									{{ data.country }} -
@@ -160,7 +160,7 @@
 
 														<!-- Benefits -->
 														<!-- <div class="mb-2">
-																					<p-multiSelect [showClear]="true" display="chip" styleClass="w-100" placeholder="Benefits" formControlName="benefits" [options]="employeebenefits" display="chip" optionLabel="benefit" optionValue="id" [appendTo]="'body'"></p-multiSelect>
+																					<p-multiSelect  display="chip" styleClass="w-100" placeholder="Benefits" formControlName="benefits" [options]="employeebenefits" display="chip" optionLabel="benefit" optionValue="id" [appendTo]="'body'"></p-multiSelect>
 																					<div *ngIf="benefitsinfo.get('benefits')[i]?.touched && benefitsinfo.get('benefits')[i]?.invalid" class="text-danger mt-1">Benefits is required.</div>
 																				</div>
 																			</div>
@@ -188,7 +188,7 @@
 																<div [ngClass]="benefitsInformation.length === 2 ? 'col-md-5' : 'col-md-3'">
 																	<div class="d-flex gap-2">
 																		<div class="col-5">
-																			<p-select [style]="{ width: '100%' }" [options]="currencies" formControlName="currency" optionLabel="currency_code" optionValue="currency_code" [appendTo]="'body'" placeholder="Currency" [filter]="true" filterBy="country" [showClear]="true" styleClass="w-100">
+																			<p-select [style]="{ width: '100%' }" [options]="currencies" formControlName="currency" optionLabel="currency_code" optionValue="currency_code" [appendTo]="'body'" placeholder="Currency" [filter]="true" filterBy="country"  styleClass="w-100">
 																				<ng-template let-data pTemplate="item">
 																					<div>{{ data.country }} - {{ data.currency_code }}</div>
 																				</ng-template>
@@ -213,7 +213,7 @@
 															</div>
 															<ng-container *ngFor="let benefitsinfo of benefitsInformation.controls; let i = index" [formGroupName]="i">
 																<div [ngClass]="benefitsInformation.length === 2 ? 'col-md-5' : 'col-md-3'" class="position-relative">
-																	<p-multiSelect [showClear]="true" display="chip" styleClass="w-100" placeholder="Benefits" formControlName="benefits" [options]="employeebenefits" optionLabel="benefit" optionValue="id" [appendTo]="'body'"> </p-multiSelect>
+																	<p-multiSelect  display="chip" styleClass="w-100" placeholder="Benefits" formControlName="benefits" [options]="employeebenefits" optionLabel="benefit" optionValue="id" [appendTo]="'body'"> </p-multiSelect>
 																	<div *ngIf="benefitsinfo.get('benefits')[i]?.touched && benefitsinfo.get('benefits')[i]?.invalid" class="text-danger mt-1">Benefits is required.</div>
 																</div>
 															</ng-container>
@@ -248,12 +248,12 @@
 																<div [ngClass]="worktimingsInformation.length === 2 ? 'col-md-5' : 'col-md-3'">
 																	<!-- Working Hours -->
 																	<div class="mb-2">
-																		<p-select [style]="{ width: '100%' }" [appendTo]="'body'" [showClear]="true" display="chip" optionLabel="time" optionValue="id" [options]="workhours" formControlName="work_hours" placeholder="Working Hours"> </p-select>
+																		<p-select [style]="{ width: '100%' }" [appendTo]="'body'"  display="chip" optionLabel="time" optionValue="id" [options]="workhours" formControlName="work_hours" placeholder="Working Hours"> </p-select>
 																		<div *ngIf="info.get('work_hours')?.touched && info.get('work_hours')?.invalid" class="text-danger mt-1">Working Hours is required.</div>
 																	</div>
 																	<!-- Working Days -->
 																	<div class="mb-2">
-																		<p-select [style]="{ width: '100%' }" [appendTo]="'body'" [showClear]="true" display="chip" optionLabel="day" optionValue="id" [options]="workingdays" formControlName="working_days" placeholder="Working Days"> </p-select>
+																		<p-select [style]="{ width: '100%' }" [appendTo]="'body'"  display="chip" optionLabel="day" optionValue="id" [options]="workingdays" formControlName="working_days" placeholder="Working Days"> </p-select>
 																		<div *ngIf="info.get('working_days')?.touched && info.get('working_days')?.invalid" class="text-danger mt-1">Working Days is required.</div>
 																	</div>
 																</div>
@@ -269,7 +269,7 @@
 															</div>
 															<ng-container *ngFor="let info of worktimingsInformation.controls; let i = index" [formGroupName]="i">
 																<div [ngClass]="worktimingsInformation.length === 2 ? 'col-md-5' : 'col-md-3'" class="position-relative">
-																	<p-select [style]="{ width: '100%' }" [appendTo]="'body'" [showClear]="true" display="chip" optionLabel="jobpreferences" optionValue="id" [options]="jobPreferences" formControlName="employment_type" placeholder="Employment Type"> </p-select>
+																	<p-select [style]="{ width: '100%' }" [appendTo]="'body'"  display="chip" optionLabel="jobpreferences" optionValue="id" [options]="jobPreferences" formControlName="employment_type" placeholder="Employment Type"> </p-select>
 																	<div *ngIf="info.get('employment_type')?.touched && info.get('employment_type')?.invalid" class="text-danger mt-1">Employment Type is required.</div>
 																</div>
 															</ng-container>
@@ -319,7 +319,7 @@
 																				</div> -->
 														<!-- Workplace Type -->
 														<!-- <div class="mb-2">
-																					<p-select [style]="{ width: '100%' }" formControlName="workplacetypes" placeholder="Work Location Flexibility" display="chip" optionLabel="employment_type" optionValue="id" [options]="workplaceTypes" [appendTo]="'body'" [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="30" [filter]="true" filterBy="employment_type"> </p-select>
+																					<p-select [style]="{ width: '100%' }" formControlName="workplacetypes" placeholder="Work Location Flexibility" display="chip" optionLabel="employment_type" optionValue="id" [options]="workplaceTypes" [appendTo]="'body'"  [virtualScroll]="true" [virtualScrollItemSize]="30" [filter]="true" filterBy="employment_type"> </p-select>
 																					<div *ngIf="info.get('employment_type')?.touched && info.get('employment_type')?.invalid" class="text-danger mt-1">Work Location Flexibility is required.</div>
 																				</div> -->
 														<!-- Other Benefits -->
@@ -359,7 +359,7 @@
 																<div [ngClass]="additionalPerksInformation.length === 2 ? 'col-md-5' : 'col-md-3'">
 																	<!-- Workplace Type -->
 																	<div class="mb-2">
-																		<p-select [style]="{ width: '100%' }" formControlName="workplacetypes" placeholder="Select Employment Type" display="chip" optionLabel="employment_type" optionValue="id" [options]="workplaceTypes" [appendTo]="'body'" [showClear]="true" [virtualScroll]="true" [virtualScrollItemSize]="30" [filter]="true" filterBy="employment_type"> </p-select>
+																		<p-select [style]="{ width: '100%' }" formControlName="workplacetypes" placeholder="Select Employment Type" display="chip" optionLabel="employment_type" optionValue="id" [options]="workplaceTypes" [appendTo]="'body'"  [virtualScroll]="true" [virtualScrollItemSize]="30" [filter]="true" filterBy="employment_type"> </p-select>
 																		<div *ngIf="info.get('employment_type')?.touched && info.get('employment_type')?.invalid" class="text-danger mt-1">Employment Type is required.</div>
 																	</div>
 																	<!-- Other Benefits -->

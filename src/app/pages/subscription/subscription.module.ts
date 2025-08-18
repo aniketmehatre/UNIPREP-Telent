@@ -27,7 +27,6 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ChipModule } from 'primeng/chip';
 import { SubscriptionHistoryComponent } from './subscription-history/subscription-history.component';
 import { CardModule } from 'primeng/card';
-import { TabViewModule } from 'primeng/tabview';
 import { UpgradeSubscriptionComponent } from './upgrade-subscription/upgrade-subscription.component';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { TooltipModule } from 'primeng/tooltip';
@@ -66,7 +65,7 @@ import { CollegeSubscriptionDataComponent } from './clg-subscription-data/clg-su
         BreadcrumbModule,
         ChipModule,
         CardModule,
-        TabViewModule,
+        
         SplitButtonModule,
         TooltipModule ,
         ConfirmDialogModule,    

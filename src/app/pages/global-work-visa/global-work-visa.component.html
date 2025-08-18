@@ -44,11 +44,11 @@
 								</div>
 								<div class="col-md-6">
 									<ng-container *ngIf="recommendation.id == 1">
-										<p-select [options]="allCountries" [filter]="true" [(ngModel)]="selectedData[recommendation.id]" optionLabel="country" styleClass="w-100" optionValue="id" [showClear]="true" placeholder="Country" [appendTo]="'body'"></p-select>
+										<p-select [options]="allCountries" [filter]="true" [(ngModel)]="selectedData[recommendation.id]" optionLabel="country" styleClass="w-100" optionValue="id"  placeholder="Country" [appendTo]="'body'"></p-select>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 									<ng-container *ngIf="recommendation.id == 2">
-										<p-select [options]="visaCountries" [filter]="true" [(ngModel)]="selectedData[recommendation.id]" optionLabel="country" styleClass="w-100" optionValue="id" [showClear]="true" placeholder="Country" [appendTo]="'body'"></p-select>
+										<p-select [options]="visaCountries" [filter]="true" [(ngModel)]="selectedData[recommendation.id]" optionLabel="country" styleClass="w-100" optionValue="id"  placeholder="Country" [appendTo]="'body'"></p-select>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
 									</ng-container>
 								</div>
@@ -159,7 +159,7 @@
 	</ng-container>
 </div>
 
-<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true"
+<p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" 
 	class="questionmodal custom-quiz-modal" header="Header" [closable]="false" (onShow)="onShowModal($event)">
 	<ng-template pTemplate="header">
 		<div class="card-header border-0 bg-transparent px-4 pt-4 pb-0 w-100">

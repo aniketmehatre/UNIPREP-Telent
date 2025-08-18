@@ -168,15 +168,17 @@
       max-height: 90vh !important;
     }
 
+    .gift-image img {
+      height: 22vh;
+      width: auto;
+    }
+  }
+
+  :host ::ng-deep .upgrade-to-apply, :host ::ng-deep .why-premium {
     .p-button-secondary {
       background-color: var(--p-primary-500);
       border-color: var(--p-primary-500);
       color: white;
-    }
-
-    .gift-image img {
-      height: 22vh;
-      width: auto;
     }
   }
 
@@ -239,12 +241,18 @@
 
   }
 
-  :host ::ng-deep .why-premium .p-dialog-header {
+  :host ::ng-deep .why-premium .p-dialog-header,
+  :host ::ng-deep .upgrade-to-apply .p-dialog-header {
     justify-content: center !important;
     text-align: center;
   }
 
-  :host ::ng-deep .why-premium .p-dialog-title {
+  :host ::ng-deep .why-premium .p-dialog-title,
+  :host ::ng-deep .upgrade-to-apply .p-dialog-title {
     width: 100%;
     text-align: center;
   }
+
+  // .d-flex.align-items-start {
+  //   line-height: 1.3;
+  // }

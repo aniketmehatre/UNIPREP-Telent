@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { ContributorsService } from './contributors.service';
 import { Contributiontier, Contributor, QuestionAnswer } from 'src/app/@Models/contributor.model';
 import { LocationService } from 'src/app/services/location.service';
@@ -21,7 +21,7 @@ import { SocialShareService } from 'src/app/services/social-share.service';
   templateUrl: './contributors.component.html',
   styleUrls: ['./contributors.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule, DropdownModule, ReactiveFormsModule, Select],
+  imports: [CommonModule, RouterModule, DialogModule, CardModule, PaginatorModule,SelectModule, ReactiveFormsModule, Select],
   providers: [MessageService]
 })
 export class ContributorsComponent implements OnInit {

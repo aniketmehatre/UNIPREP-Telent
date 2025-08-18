@@ -66,14 +66,14 @@
 									<ng-container *ngIf="product.id == 2 || product.id == 5 || product.id == 8">
 										<p-select [options]="arrayMap[product.arrayName]" [filter]="true"
 											[(ngModel)]="selectedData[product.id]" optionLabel="subject_name"
-											styleClass="w-100" optionValue="id" [showClear]="true"
+											styleClass="w-100" optionValue="id" 
 											[placeholder]="product.placeholder"></p-select>
 									</ng-container>
 
 									<ng-container *ngIf="product.id == 3 || product.id == 6 || product.id == 9">
 										<p-multiSelect [options]="arrayMap[product.arrayName]" [filter]="true"
 											styleClass="w-100" [(ngModel)]="selectedData[product.id]" optionValue="id"
-											[showClear]="true" optionLabel="specialisation_name"
+											 optionLabel="specialisation_name"
 											[placeholder]="product.placeholder"
 											selectedItemsLabel="{} items selected"></p-multiSelect>
 									</ng-container>

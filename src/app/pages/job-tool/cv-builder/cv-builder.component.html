@@ -1432,7 +1432,7 @@
 		</div>
 	</div>
 
-	<p-sidebar [(visible)]="fullScreenVisible" [fullScreen]="true" [showCloseIcon]="false">
+	<p-drawer [(visible)]="fullScreenVisible" [fullScreen]="true" [closable]="false">
 		<div class="col-md-12 h-100">
 			<div class="card h-100 border-0" style="background-color: var(--p-primary-500) !important;">
 				<ng-container *ngTemplateOutlet="previewHeader"></ng-container>
@@ -1449,7 +1449,7 @@
 				</div>
 			</div>
 		</div>
-	</p-sidebar>
+	</p-drawer>
 
 	<ng-template #previewHeader>
 		<div class="card-header d-flex justify-content-between align-items-center border-0 bg-transparent">

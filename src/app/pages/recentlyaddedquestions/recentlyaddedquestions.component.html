@@ -67,7 +67,7 @@
 		[rowsPerPageOptions]="[50,100,200]"></p-paginator>
 </div>
 
-<p-dialog [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true" class="questionmodal" header="Header"
+<p-dialog [(visible)]="isQuestionAnswerVisible" [draggable]="false"  class="questionmodal" header="Header"
 	[maximizable]="true" [style]="{ height: '80vh' }">
 	<ng-template pTemplate="header">
 		<div class="d-flex flex-column w-100 pl-4 pr-4 mb-4">
@@ -177,7 +177,7 @@
 	</ng-template>
 </p-dialog>
 
-<p-dialog [(visible)]="isRecommendedVideoVisible" class="questionvideopopup" [modal]="true" [style]="{ width: '80vw' }">
+<p-dialog [(visible)]="isRecommendedVideoVisible" class="questionvideopopup"  [style]="{ width: '80vw' }">
 	<div class="container-fluid">
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-1" *ngIf="videoLinks">
@@ -208,7 +208,7 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isRecommendedLinksVisible" [draggable]="false" [modal]="true" [style]="{ width: '30vw' }"
+<p-dialog [(visible)]="isRecommendedLinksVisible" [draggable]="false"  [style]="{ width: '30vw' }"
 	header="Header">
 	<ng-template pTemplate="header">
 		<span class="text-xl font-bold"></span>
@@ -249,7 +249,7 @@
 	</div>
 </p-dialog>
 
-<p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show" [modal]="true" [maximizable]="true"
+<p-dialog [(visible)]="isReviewedByVisible" [draggable]="false" label="Show"  [maximizable]="true"
 	[style]="{ width: '30vw' }" header="Header">
 	<ng-template pTemplate="header">
 		<span class="text-xl font-bold ms-2">Reviewed</span>

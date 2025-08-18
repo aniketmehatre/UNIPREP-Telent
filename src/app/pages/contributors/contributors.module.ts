@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { RouterModule, Routes } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SkeletonModule } from 'primeng/skeleton';
 import { CardModule } from 'primeng/card';
@@ -23,7 +23,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     DialogModule,
     InputTextModule,
-    DropdownModule,
+    SelectModule,
     ReactiveFormsModule,
     ContributorsComponent,
     SkeletonModule,

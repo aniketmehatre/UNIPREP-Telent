@@ -4,7 +4,6 @@ import { EasyApplyComponent } from './easy-apply.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ChipModule } from 'primeng/chip';
 import { DialogModule } from 'primeng/dialog';
-import { DropdownModule } from 'primeng/dropdown';
 import { PaginatorModule } from 'primeng/paginator';
 import { JobViewComponent } from './job-view/job-view.component';
 import { ButtonModule } from 'primeng/button';
@@ -16,6 +15,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { TooltipModule } from 'primeng/tooltip';
 import { PipesModule } from '@pipes/pipes.module';
 import { CardModule } from 'primeng/card';
+import { PopoverModule } from 'primeng/popover';
 import { MessageModule } from 'primeng/message';
 const routes: Routes = [
   {
@@ -36,12 +36,11 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ChipModule,
+    PopoverModule,
     DialogModule,
-    DropdownModule,
     PaginatorModule,
     DialogModule,
     InputTextModule,
-    DropdownModule,
     MultiSelectModule,
     ButtonModule,
     MessageModule,

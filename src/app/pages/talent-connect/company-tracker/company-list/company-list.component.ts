@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { PaginatorModule } from 'primeng/paginator';
 import { TabsModule } from 'primeng/tabs';
-import { TabViewModule } from 'primeng/tabview';
 import { TalentConnectService } from "../../talent-connect.service";
 import { CompanyFilterComponent } from '../../company-connect/company-filter/company-filter.component';
 import { Company } from 'src/app/@Models/company-connect.model';
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'uni-company-list',
   standalone: true,
-  imports: [TabsModule, TabViewModule, PaginatorModule, CommonModule, CompanyFilterComponent
+  imports: [TabsModule,  PaginatorModule, CommonModule, CompanyFilterComponent
   ],
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss']
@@ -27,11 +26,12 @@ export class CompanyListsComponent implements OnInit {
   @Output() onCompanyTotalCount: EventEmitter<any> = new EventEmitter<any>();
 
   tabs = [
-    { label: 'All Companies', active: true },
-    { label: 'Following', active: false },
-    { label: 'Sent', active: false },
-    { label: 'Recieved', active: false }
+    { value:0, label: 'All Companies', active: true },
+    { value:1, label: 'Following', active: false },
+    { value:2, label: 'Sent', active: false },
+    { value:3, label: 'Recieved', active: false }
   ];
+  activeTabValue = 0;
   activeIndex: number = 0;
   companyList: Company[] = [];
   page: number = 1;
@@ -198,16 +198,19 @@ export class CompanyListsComponent implements OnInit {
     });
   }
 
-  applyFilter(event: any) {
-    this.companyObj = event;
-    if (this.activeIndex == 0) {
-      this.getCompanyTrackerList(this.companyObj);
-    } else if (this.activeIndex == 1) {
-      this.shortListedList(this.companyObj);
-    } else if (this.activeIndex == 2) {
-      this.sendMessageList(this.companyObj);
-    } else if (this.activeIndex == 3) {
-      this.receivedMessageList(this.companyObj);
+  applyFilter(params: any = {}) {
+    this.companyObj = params;
+  
+    const actions = [
+      this.getCompanyTrackerList.bind(this),
+      this.shortListedList.bind(this),
+      this.sendMessageList.bind(this),
+      this.receivedMessageList.bind(this),
+    ];
+  
+    const action = actions[this.activeTabValue];
+    if (action) {
+      action(params);
     }
   }
 
@@ -227,10 +230,10 @@ export class CompanyListsComponent implements OnInit {
     this.applyFilter(this.companyObj);
   }
 
-  onTabChange(event: any) {
+  onTabChange(value: number) {
     this.page = 1;
-    this.activeIndex = event.index;
-    this.applyFilter(this.companyObj);
+    this.activeTabValue = value; // p-tabs sends the value, not index
+    this.applyFilter(this.companyObj || {});
   }
 
   getStatusClass(status: string): string {

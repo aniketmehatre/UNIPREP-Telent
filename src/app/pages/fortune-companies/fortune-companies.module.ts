@@ -11,11 +11,11 @@ import { CarouselModule } from "primeng/carousel";
 import { ChipModule } from "primeng/chip";
 import { ConfirmPopupModule } from "primeng/confirmpopup";
 import { DialogModule } from "primeng/dialog";
-import { DropdownModule } from "primeng/dropdown";
+import { SelectModule } from 'primeng/select';
 import { EditorModule } from "primeng/editor";
 import { InputTextModule } from "primeng/inputtext";
 import { PaginatorModule } from "primeng/paginator";
-import { SidebarModule } from "primeng/sidebar";
+import { DrawerModule} from "primeng/drawer";
 import { SkeletonModule } from "primeng/skeleton";
 import { SplitButtonModule } from "primeng/splitbutton";
 import { StepsModule } from "primeng/steps";
@@ -27,9 +27,8 @@ import { FortuneCompaniesRoutingModule } from "./fortune-companies-routing.modul
 import { RouterModule } from "@angular/router";
 import { InputIconModule } from "primeng/inputicon";
 import { IconFieldModule } from 'primeng/iconfield';
-import { SelectModule } from "primeng/select";
 import { MultiSelectModule } from "primeng/multiselect";
-import { CalendarModule } from "primeng/calendar";
+import { DatePickerModule } from "primeng/datepicker";
 @NgModule({
   declarations: [
     FortuneCompaniesComponent,
@@ -46,9 +45,8 @@ import { CalendarModule } from "primeng/calendar";
     FortuneCompaniesRoutingModule,
     ChipModule,
     FormsModule,
-    DropdownModule,
     EditorModule,
-    SidebarModule,
+    DrawerModule ,
     CardModule,
     SplitButtonModule,
     ReactiveFormsModule,
@@ -67,7 +65,7 @@ import { CalendarModule } from "primeng/calendar";
     InputIconModule,
     SelectModule,
     MultiSelectModule ,
-    CalendarModule 
+    DatePickerModule 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ConfirmationService],

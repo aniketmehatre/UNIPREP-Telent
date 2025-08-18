@@ -1,3 +1,4 @@
+import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login'
 import { CommonModule } from "@angular/common"
 import {
     ChangeDetectionStrategy,
@@ -12,32 +13,29 @@ import {
     ViewChild
 } from "@angular/core"
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
-import { ActivatedRoute, Router, RouterModule } from "@angular/router"
+import { Router, RouterModule } from "@angular/router"
 import { environment } from "@env/environment"
 import { LocalStorageService } from "ngx-localstorage"
 import { MessageService } from "primeng/api"
+import { ButtonModule } from "primeng/button"
 import { FluidModule } from "primeng/fluid"
+import { Image } from "primeng/image"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { InputIconModule } from "primeng/inputicon"
 import { InputTextModule } from "primeng/inputtext"
 import { PasswordModule } from "primeng/password"
+import { SkeletonModule } from "primeng/skeleton"
+import { finalize } from 'rxjs/operators'
 import { AuthTokenService } from "src/app/services/auth-token.service"
+import { BrandColorService } from "src/app/services/brand-color.service"
+import { CountryLocationService } from "src/app/services/country-location.service"
 import { DataService } from "src/app/services/data.service"
+import { HowItWorksComponent } from "src/app/shared/how-it-works/how-it-works.component"
+import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.service"
 import { SubSink } from "subsink"
 import { LocationService } from "../../services/location.service"
 import { AuthService } from "../auth.service"
-import { finalize } from 'rxjs/operators'
-import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login'
-import { Image } from "primeng/image";
-import { SkeletonModule } from "primeng/skeleton"
-import { firstValueFrom } from 'rxjs';
-import { HttpClient } from "@angular/common/http"
-import { StorageService } from "../../services/storage.service";
-import { BrandColorService } from "src/app/services/brand-color.service";
-import { ButtonModule } from "primeng/button"
-import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.service"
-import { HowItWorksComponent } from "src/app/shared/how-it-works/how-it-works.component"
 
 declare var google: any;
 
@@ -76,13 +74,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private locationService = inject(LocationService);
     private authService = inject(SocialAuthService);
     private storage = inject(LocalStorageService);
-    private storageService = inject(StorageService);
     private authTokenService = inject(AuthTokenService);
     private cdr = inject(ChangeDetectorRef);
     private subs = new SubSink()
-    private http = inject(HttpClient);
     private brandColorService = inject(BrandColorService);
     private howItWorks = inject(HowItWorksService);
+    private countryLocationService = inject(CountryLocationService);
     loading = true;
     jobId: any
 
@@ -102,7 +99,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (this.service.isTokenValid()) {
             this.route.navigate(["/pages/dashboard"])
         }
-        this.jobId = this.storage.get('jobId');
+        this.jobId = Number(this.storage.get('jobId'));
         if (!this.jobId) {
             localStorage.clear()
         }
@@ -188,10 +185,14 @@ export class LoginComponent implements OnInit, OnDestroy {
                     'http://localhost:4200',
                     'https://dev-student.uniprep.ai'
                 ];
-                if (!disallowedDomains.includes(response.domain)) {
+                if (disallowedDomains.includes(response.domain)) {
                     console.log('Allowed domain:', response.domain);
                     // this.handleSuccessfulLogin1(response.token, response.domain)
+                if (this.jobId) {
+                    window.location.href = `${response.domain}/pages/talent-connect/easy-apply/${this.jobId}/?token=${response.token}`;
+                } else {
                     window.location.href = `${response.domain}/pages/dashboard?token=${response.token}`;
+                }
                 } else {
                     console.warn('Blocked domain:', response.domain);
                     // show error, redirect, or handle accordingly
@@ -310,7 +311,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 //     this.route.navigate([this.jobId], { replaceUrl: true })
                 // }
                 if (this.jobId) {
-                    this.route.navigate([this.storage.get('jobId')], { replaceUrl: true })
+                    this.route.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`], { replaceUrl: true })
                 } else {
                     this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
                 }
@@ -333,23 +334,25 @@ export class LoginComponent implements OnInit, OnDestroy {
         })
     }
 
-    private getCountryFromIP() {
-        const url = 'https://ipapi.co/json/';
-        return this.http.get<any>(url);
-    }
+    // private getCountryFromIP() {
+    //     const url = 'https://ipapi.co/json/';
+    //     return this.http.get<any>(url);
+    // }
 
-    async updateCurrentLocation(): Promise<{ country: string; city: string }> {
-        try {
-            const ipData = await firstValueFrom(this.getCountryFromIP());
-            return {
-                country: ipData.country_name || 'Unknown',
-                city: ipData.city || 'Unknown'
-            };
-        } catch {
-            return {
-                country: 'Unknown',
-                city: 'Unknown'
-            };
-        }
+    async updateCurrentLocation() {
+        let userLocation: { country: string; city: string } = await this.countryLocationService.getUserCountry();
+        return userLocation;
+        // try {
+        //     const ipData = await firstValueFrom(this.getCountryFromIP());
+        //     return {
+        //         country: ipData.country_name || 'Unknown',
+        //         city: ipData.city || 'Unknown'
+        //     };
+        // } catch {
+        //     return {
+        //         country: 'Unknown',
+        //         city: 'Unknown'
+        //     };
+        // }
     }
 }

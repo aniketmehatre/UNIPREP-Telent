@@ -4,10 +4,9 @@ import { Router, RouterModule } from "@angular/router";
 import { DialogModule } from "primeng/dialog";
 import { DataService } from "src/app/services/data.service";
 import { LocationService } from "src/app/services/location.service";
-import { DropdownModule } from "primeng/dropdown";
+import { SelectModule } from 'primeng/select';
 import { SkeletonModule } from "primeng/skeleton";
 import { TooltipModule } from "primeng/tooltip";
-import { SelectModule } from "primeng/select";
 import { FormControl, FormGroup, FormsModule } from "@angular/forms";
 import { StorageService } from "../../services/storage.service";
 import { Carousel } from "primeng/carousel";
@@ -20,7 +19,6 @@ import { Carousel } from "primeng/carousel";
     CommonModule,
     RouterModule,
     DialogModule,
-    DropdownModule,
     SkeletonModule,
     TooltipModule,
     SelectModule,

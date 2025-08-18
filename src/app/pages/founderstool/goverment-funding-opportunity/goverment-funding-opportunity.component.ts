@@ -6,7 +6,7 @@ import { DataService } from "src/app/services/data.service";
 import { PageFacadeService } from "../../page-facade.service";
 import { UserManagementService } from "../../user-management/user-management.service";
 import { FounderstoolService } from "../founderstool.service";
-import { Country } from "ngx-intl-tel-input/lib/model/country.model";
+import { CountryISO  } from "ngx-intl-tel-input";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { SelectModule } from "primeng/select";
@@ -25,7 +25,7 @@ import { Paginator } from "primeng/paginator";
 })
 export class GovermentFundingOppurtunityComponent implements OnInit {
 	fundData: any[] = []
-	countryList: Country[] = []
+	countryList: CountryISO[] = []
 	stateList: any = []
 	page = 1
 	pageSize = 25

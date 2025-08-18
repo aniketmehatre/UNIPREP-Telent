@@ -1,8 +1,9 @@
 //mypreset.ts
 import { definePreset } from '@primeng/themes';
+import { updatePreset } from '@primeuix/themes';
 import Aura from '@primeng/themes/aura';
 
-const MyPreset = definePreset(Aura, {
+const MyPreset = updatePreset(Aura, {
     semantic: {
         primary: {
             50: "#f5f6f9",

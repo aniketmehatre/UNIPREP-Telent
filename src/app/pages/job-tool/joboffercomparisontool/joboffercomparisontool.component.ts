@@ -6,7 +6,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { JobOfferComparisionService } from "./joboffercomparison.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog"
-import { SidebarModule } from "primeng/sidebar"
+import { DrawerModule  } from "primeng/drawer"
 import { CardModule } from "primeng/card"
 import { PaginatorModule } from "primeng/paginator"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
@@ -25,7 +25,7 @@ import { JobOfferPreparedListComponent } from "./preparedlist/preparedlist.compo
   templateUrl: "./joboffercomparisontool.component.html",
   styleUrls: ["./joboffercomparisontool.component.scss"],
   standalone: true,
-  imports: [CommonModule, RouterModule, DialogModule, SidebarModule, PdfViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule, JobOfferPreparedListComponent]
+  imports: [CommonModule, RouterModule, DialogModule, DrawerModule , PdfViewerModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, RadioButtonModule, JobOfferPreparedListComponent]
 })
 
 export class JoboffercomparisontoolComponent implements OnInit {

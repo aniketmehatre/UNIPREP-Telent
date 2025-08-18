@@ -47,7 +47,7 @@
                                     <p-select [options]="destinationLocationList" [virtualScroll]="true" 
                                         [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
                                         [appendTo]="'body'" [filter]="true" filterBy="city_name,country_name"
-                                        [showClear]="true" placeholder="Select Destination" styleClass="w-100"
+                                         placeholder="Select Destination" styleClass="w-100"
                                         (onChange)="hideWarning(recommendation.id)">
                                         <ng-template let-country pTemplate="item">
                                             <div class="d-flex align-items-center gap-2">

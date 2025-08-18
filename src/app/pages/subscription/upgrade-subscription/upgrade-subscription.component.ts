@@ -33,8 +33,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ConfirmDialogModule } from "primeng/confirmdialog"
 import { ToastModule } from "primeng/toast"
-import { TabViewModule } from "primeng/tabview"
-import { log } from "node:console"
+import { TabsModule } from 'primeng/tabs'
+// import { log } from "node:console"
 import { landingServices } from '../../landing/landing.service';
 import { LocationService } from "src/app/services/location.service"
 @Component({
@@ -42,7 +42,7 @@ import { LocationService } from "src/app/services/location.service"
 	templateUrl: "./upgrade-subscription.component.html",
 	styleUrls: ["./upgrade-subscription.component.scss"],
 	standalone: true,
-    imports: [CommonModule,TabViewModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmDialogModule, ToastModule,NgxStripeModule],
+    imports: [CommonModule, DialogModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, ConfirmDialogModule, ToastModule, NgxStripeModule, TabsModule],
 })
 export class UpgradeSubscriptionComponent implements OnInit {
 	selectedButton: any

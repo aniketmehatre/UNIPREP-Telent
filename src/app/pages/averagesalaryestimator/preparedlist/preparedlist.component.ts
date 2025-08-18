@@ -6,7 +6,7 @@ import { PageFacadeService } from "../../page-facade.service";
 import { AveragesalaryestimatorService } from "../averagesalaryestimator.service";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
-import { TabViewModule } from "primeng/tabview";
+import { TabsModule } from 'primeng/tabs';
 import { CardModule } from "primeng/card"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { CarouselModule } from "primeng/carousel"
@@ -27,7 +27,7 @@ import { SharedModule } from "src/app/shared/shared.module";
   templateUrl: "./preparedlist.component.html",
   styleUrls: ["./preparedlist.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, PdfViewerModule, TabViewModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
+  imports: [CommonModule, DialogModule, PdfViewerModule,  RouterModule, CardModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, SkeletonModule, SharedModule],
   providers: [MessageService, AveragesalaryestimatorService]
 })
 export class AverageSalaryPreparedListComponent implements OnInit {

@@ -87,31 +87,32 @@ export class RegistrationComponent implements OnInit {
     }
     dateTime = new Date()
     position: any
+    jobId: number
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
-            const position = params['position'];
-            const jobId = params['job_id'];
-
-            if (position && jobId) {
-                this.position = position;
-                this.storage.set('position', position)
-                this.storage.set('jobId', jobId)
+            this.position = params['position'];
+            this.jobId = params['job_id'];
+            this.jobId = Number(this.jobId);
+            if ( this.position && this.jobId) {
                 this.router.navigate([], {
                     relativeTo: this.route,
                     queryParams: {},
                     replaceUrl: true
                 });
                 if (this.service.isTokenValid()) {
-                    this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+                    this.router.navigate([`/pages/talent-connect/easy-apply/${this.jobId}`])
                 }
+            this.storage.set('position',  this.position)
+            this.storage.set('jobId', this.jobId)
             } else {
                 // console.log('One or both query params are missing.');
             }
         });
-        this.position = this.storage.get('position')
-        if (!this.position) {
-            localStorage.clear()
-        }
+    
+        // this.position = this.storage.get('position')
+        // if (!this.position) {
+        //     localStorage.clear()
+        // }
         //localStorage.clear()
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
             this.source = data.name;
@@ -129,7 +130,14 @@ export class RegistrationComponent implements OnInit {
                     // } else {
                     //     this.storage.set(environment.tokenKey, data?.authorisation?.token)
                     // }
-                    this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
+                    //this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
+                    console.log(this.storage.get('jobId'))
+                    this.jobId = Number(this.storage.get('jobId'));
+                    // if (this.jobId) {
+                    //     window.location.href = `${window.location.origin}/pages/talent-connect/easy-apply/${this.jobId}/?token=${data?.authorisation?.token}`;
+                    // } else {
+                    //     window.location.href = `${window.location.origin}/pages/dashboard?token=${data?.authorisation?.token}`;
+                    // }
                 },
                 (error: any) => {
                     this.toastr.add({
@@ -234,7 +242,11 @@ export class RegistrationComponent implements OnInit {
                     this.service.saveToken(res?.authorisation?.token);
                     this.authTokenService.setToken(res?.authorisation?.token);
                 }
-                this.router.navigate(["/pages/dashboard"], { replaceUrl: true });
+                if (this.storage.get('jobId')) {
+                    window.location.href = `${window.location.origin}/pages/talent-connect/easy-apply/${this.storage.get('jobId')}/?token=${res?.authorisation?.token}`;
+                } else {
+                    window.location.href = `${window.location.origin}/pages/dashboard?token=${res?.authorisation?.token}`;
+                }
             },
             error: (error) => {
                 this.onProcess = false;
@@ -364,7 +376,7 @@ export class RegistrationComponent implements OnInit {
         this.confirmPassword = this.showConfirm ? "text" : "password"
     }
 
-    openVideoPopup(){
+    openVideoPopup() {
         let whichRegister = this.source === 'Uniprep' ? 'uniprep-student-register' : 'institute-student-register';
         this.howItWorkService.open(whichRegister);
     }

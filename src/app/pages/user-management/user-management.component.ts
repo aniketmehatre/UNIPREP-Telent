@@ -24,12 +24,12 @@ import { DialogModule } from "primeng/dialog"
 import { CardModule } from "primeng/card"
 import { InputNumberModule } from "primeng/inputnumber"
 import { catchError, EMPTY, finalize, forkJoin, timeout } from "rxjs"
-import { InputSwitchModule } from "primeng/inputswitch"
+import { ToggleSwitchModule } from "primeng/toggleswitch"
 import { TableModule } from "primeng/table"
 import { SubscriptionService } from "../subscription/subscription.service"
 import { ConfirmDialogModule } from "primeng/confirmdialog"
 import { AuthTokenService } from "src/app/services/auth-token.service"
-import { CalendarModule } from "primeng/calendar"
+import { DatePickerModule } from "primeng/datepicker"
 import { PasswordModule } from "primeng/password"
 import { CompleteProfileViewComponent } from "../talent-connect/employee-profile-copy/complete-profile-view/complete-profile-view.component"
 import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile"
@@ -43,7 +43,7 @@ import { CommonService } from "src/app/services/common.service"
 	templateUrl: "./user-management.component.html",
 	styleUrls: ["./user-management.component.scss"],
 	standalone: true,
-	imports: [CommonModule, RouterModule, PasswordModule, ConfirmDialogModule, CalendarModule, TableModule, InputSwitchModule,
+	imports: [CommonModule, RouterModule, PasswordModule, ConfirmDialogModule, DatePickerModule, TableModule, ToggleSwitchModule,
 		FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule,
 		CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule,
 		DialogModule, CardModule, InputNumberModule, CompleteProfileViewComponent, EmployeeProfileComponent, TagModule],

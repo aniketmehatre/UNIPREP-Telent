@@ -116,7 +116,7 @@
     </ng-template>
 </div>
 
-<p-dialog header="Filter Contributors" [(visible)]="isQuestionAnswerVisible" [draggable]="false" [modal]="true"
+<p-dialog header="Filter Contributors" [(visible)]="isQuestionAnswerVisible" [draggable]="false" 
     [style]="{ width: '50vw' }" [resizable]="false" styleClass="custom-dialog">
     <div class="container p-4">
         <form [formGroup]="filterForm" (ngSubmit)="submitFilterForm()" class="d-flex flex-column gap-3">
@@ -125,7 +125,7 @@
                     <div class="form-group mb-2">
                         <label>Contribution Tier</label>
                         <p-select [options]="contibutionTierList" [filter]="true" formControlName="contributiontier"
-                            optionLabel="contributiontier" styleClass="w-100" optionValue="id" [showClear]="true"
+                            optionLabel="contributiontier" styleClass="w-100" optionValue="id" 
                             placeholder="Select" [appendTo]="'body'"></p-select>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                     <div class="form-group mb-2">
                         <label>Location</label>
                         <p-select formControlName="location" optionValue="id" optionLabel="state" styleClass="w-100"
-                            [showClear]="true" [options]="locationList" placeholder="Select" [filter]="true"
+                             [options]="locationList" placeholder="Select" [filter]="true"
                             filterBy="state,district" [appendTo]="'body'">
                             <ng-template let-data pTemplate="item">
                                 <div>{{data.state}} - {{data.district}}</div>
@@ -160,7 +160,7 @@
     </div>
 </p-dialog>
 
-<p-dialog #dialogContent [(visible)]="isQandAModal" [draggable]="false" [modal]="true" class="questionmodal"
+<p-dialog #dialogContent [(visible)]="isQandAModal" [draggable]="false"  class="questionmodal"
     header="Header" [maximizable]="true" (onShow)="onShowModal($event)">
     <ng-template pTemplate="header">
         <div class="d-flex w-100 flex-column px-4">
