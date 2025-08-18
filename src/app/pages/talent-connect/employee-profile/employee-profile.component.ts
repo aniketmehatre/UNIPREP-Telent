@@ -192,9 +192,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       total_years_of_experience: ["0"]
     });
     this.careerPreferenceForm = this.fb.group({
-      career_preference_career_status: [null, Validators.required],
+      // career_preference_career_status: [null, Validators.required],
       career_preference_job_title_id: [null, Validators.required],
-      career_preference_career_interest_id: [[], Validators.required],
+      // career_preference_career_interest_id: [[], Validators.required],
       career_preference_preferred_work_location_id: [[], Validators.required],
       career_preference_preferred_employment_type: [[], Validators.required],
       career_preference_preferred_workplace_type: [[], Validators.required],
@@ -215,7 +215,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       networking_linkedin_profile: [
         "",
         [
-          Validators.required,
+          // Validators.required,
           Validators.pattern(/^(https?:\/\/)[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i)
         ],
       ],
@@ -577,9 +577,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
 
     // Career Preferences & Aspirations (27%)
-    checkField(this.careerPreferenceForm.get("career_preference_career_status"), 4)
+    // checkField(this.careerPreferenceForm.get("career_preference_career_status"), 4)
     checkField(this.careerPreferenceForm.get("career_preference_job_title_id"), 4)
-    checkField(this.careerPreferenceForm.get("career_preference_career_interest_id"), 3)
+    // checkField(this.careerPreferenceForm.get("career_preference_career_interest_id"), 3)
     checkField(this.careerPreferenceForm.get("career_preference_preferred_work_location_id"), 4)
     checkField(this.careerPreferenceForm.get("career_preference_preferred_employment_type"), 4)
     checkField(this.careerPreferenceForm.get("career_preference_preferred_workplace_type"), 4)
@@ -749,9 +749,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     });
 
     this.careerPreferenceForm.patchValue({
-      career_preference_career_status: response.careerPreference?.career_status || null,
+      // career_preference_career_status: response.careerPreference?.career_status || null,
       career_preference_job_title_id: response.careerPreference?.job_title || null,
-      career_preference_career_interest_id: response.careerPreference?.career_interest_id || [],
+      // career_preference_career_interest_id: response.careerPreference?.career_interest_id || [],
       // career_preference_department_id: response.careerPreference?.department_id || [],
       career_preference_preferred_work_location_id: response.careerPreference?.preferred_work_location_id || [],
       career_preference_preferred_employment_type: response.careerPreference?.preferred_employment_type || [],
@@ -1087,7 +1087,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     student_profile.employment_type = this.preferredEmploymentType.includes(employmentTypeValue) ? employmentTypeValue : '';
     student_profile.duration = (this.workExperienceForm.get('work_experience.0.work_experience_duration_from')?.value || '') + ' - ' + (this.workExperienceForm.get('work_experience.0.work_experience_duration_to')?.value || '');
     student_profile.salary_month = this.workExperienceForm.get('work_experience.0.work_experience_salary_per_month')?.value || '';
-    student_profile.career_status = this.workExperienceForm.get('career_preference_career_status')?.value || '';
+    // student_profile.career_status = this.workExperienceForm.get('career_preference_career_status')?.value || '';
     student_profile.prefer_job_title = this.workExperienceForm.get('career_preference_job_title_id')?.value || '';
     // Career Preference
     const selectedLocationIds = this.careerPreferenceForm.get('career_preference_preferred_work_location_id')?.value || [];
@@ -1996,9 +1996,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
   isCareerPreferenceModified(): boolean {
     const originalCareerPreference: any = {
-      career_preference_career_status: this.originalProfileData?.career_preference_career_status,
+      // career_preference_career_status: this.originalProfileData?.career_preference_career_status,
       career_preference_job_title_id: this.originalProfileData?.career_preference_job_title_id,
-      career_preference_career_interest_id: this.originalProfileData?.career_preference_career_interest_id || [],
+      // career_preference_career_interest_id: this.originalProfileData?.career_preference_career_interest_id || [],
       // career_preference_department_id: this.originalProfileData?.career_preference_department_id || [],
       career_preference_preferred_work_location_id: this.originalProfileData?.career_preference_preferred_work_location_id || [],
       career_preference_preferred_employment_type: this.originalProfileData?.career_preference_preferred_employment_type || [],
