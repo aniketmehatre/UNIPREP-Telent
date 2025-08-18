@@ -357,11 +357,11 @@
 										<form [formGroup]="careerPreferenceForm">
 											<ng-container class="career-experience">
 												<div class="row g-3">
-													<div class="col-md-6">
+													<!-- <div class="col-md-6">
 														<label class="mb-1"> Career Status<span class="text-danger">*</span></label>
 														<p-select formControlName="career_preference_career_status" [options]="careerStatus" placeholder="Select Career Status" styleClass="w-100" (focusout)="resetMessageBox()" appendTo="body" (onShow)="updateMessageBox('career_preference_career_status')"></p-select>
 														<small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_career_status')?.errors?.required"> Career Status is required </small>
-													</div>
+													</div> -->
 													<div class="col-md-6">
 														<label class="mb-1">Desired Job title<span class="text-danger">*</span></label>
 														<p-select [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="career_preference_job_title_id" [options]="jobTitles" appendTo="body" placeholder="Select the Job role you are looking for" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('career_preference_job_title_id')">
@@ -376,11 +376,11 @@
 														</p-select>
 														<small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_job_title_id')?.errors?.required"> Desired Job title is required </small>
 													</div>
-													<div class="col-md-6">
+													<!-- <div class="col-md-6">
 														<label for="careerInterest" class="mb-1"> Interested Industry<span class="text-danger">*</span></label>
 														<p-multiSelect id="careerInterest" appendTo="body" formControlName="career_preference_career_interest_id" [options]="careerInterests" placeholder="Select Industry" styleClass="w-100" optionLabel="interest" optionValue="id" [filter]="true" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('career_preference_career_interest_id')"></p-multiSelect>
 														<small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_career_interest_id')?.errors?.required"> Interested Industry is required </small>
-													</div>
+													</div> -->
 													<div class="col-md-6">
 														<label for="preferredWorkLocation" class="mb-1"> Preferred Work Location<span class="text-danger">*</span></label>
 														<div class="p-inputgroup">
@@ -572,37 +572,36 @@
 															</div>
 														</div>
 													</ng-container>
+													<!-- <div class="mb-2">
+														<span class="text-danger fw-bold">Showcase your skills and strengths</span>
+														<a (click)="routingToPage('/pages/modules/skill-mastery')" class="px-1" role="button">Click
+														here</a> to plan it!
+													</div>
+													<ng-container class="work-experience">
+														<div class="row mb-3">
+														<div class="col-md-6">
+															<label class="mb-1"> Soft skills<span class="text-danger">*</span></label>
+															<p-multiSelect formControlName="career_preference_soft_skill_id" [options]="softSkills" optionValue="id" optionLabel="soft_skill" placeholder="Select your acquired soft skills" class="form-control p-1 w-100" (focusout)="resetMessageBox()" appendTo="body" (onShow)="updateMessageBox('career_preference_soft_skill_id')"></p-multiSelect>
+															<small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && professionalTraitsForm.get('career_preference_soft_skill_id')?.errors?.required"> Soft skills is required </small>
+														</div>
+														</div>
+													</ng-container> -->
 												</form>
 											</div>
 										</div>
 									</ng-template>
 								</p-step-panel>
-								<!-- <div class="mb-2">
-                        <span class="text-danger fw-bold">Showcase your skills and strengths</span>
-                        <a (click)="routingToPage('/pages/modules/skill-mastery')" class="px-1" role="button">Click
-                          here</a> to plan it!
-                      </div> -->
-								<!-- <ng-container class="work-experience">
-                        <div class="row mb-3">
-                          <div class="col-md-6">
-                            <label class="mb-1"> Soft skills<span class="text-danger">*</span></label>
-                            <p-multiSelect formControlName="career_preference_soft_skill_id" [options]="softSkills" optionValue="id" optionLabel="soft_skill" placeholder="Select your acquired soft skills" class="form-control p-1 w-100" (focusout)="resetMessageBox()" appendTo="body" (onShow)="updateMessageBox('career_preference_soft_skill_id')"></p-multiSelect>
-                            <small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && professionalTraitsForm.get('career_preference_soft_skill_id')?.errors?.required"> Soft skills is required </small>
-                          </div>
-                        </div>
-                      </ng-container> -->
-
 								<!-- Professional Networking -->
 								<p-step-panel [value]="6">
 									<ng-template #content>
-										<h4 class="card-title fw-bold">Professional Networking & Online Presence</h4>
+										<h4 class="card-title fw-bold">Professional Networking & Online Presence <span class="text-danger">(Optional)</span></h4>
 										<div class="row">
 											<div class="col-md-12">
 												<form [formGroup]="professionalNetworkingForm">
 													<ng-container class="work-experience">
 														<div class="row g-3">
 															<div class="col-md-12">
-																<label class="mb-1"> LinkedIn Profile<span class="text-danger">*</span></label>
+																<label class="mb-1"> LinkedIn Profile</label>
 																<input pInputText fluid formControlName="networking_linkedin_profile" placeholder="Linkedin Profile Link" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('networking_linkedin_profile')" />
 																<small class="text-danger" *ngIf="isSubmittedProfessionalNetworkingForm && professionalNetworkingForm.get('networking_linkedin_profile')?.invalid"> LinkedIn Profile is required with valid url </small>
 															</div>
@@ -670,6 +669,7 @@
 														<div class="col-md-12">
 															<div class="card" style="border: 1px dashed lightgray">
 																<div class="position-relative card-body d-flex flex-column justify-content-center text-center align-items-center">
+																	<span class="text-danger fs-4 position-absolute profile-sec-req" style="right: -2px;">*</span>
 																	<h4>{{ attachmentsForm.get("career_preference_cv_filename")?.value ? extractLastName(attachmentsForm.get("career_preference_cv_filename")?.value) : "Upload CV / Resume" }}</h4>
 																	<button pButton label="UPLOAD" class="p-button-primary rounded-pill px-5 py-2" (click)="fileUpload.click()" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_cv_filename')"></button>
 																	<div class="text-muted mt-2">Supported Formats: doc, docx, pdf upto 2 MB</div>
@@ -816,7 +816,7 @@
 											<div class="row">
 												<div class="col-md-12">
 													<div class="d-flex justify-content-between align-items-start mb-2">
-														<h4 class="card-title fw-bold">Additional Notes</h4>
+														<h4 class="card-title fw-bold">Additional Notes <span class="text-danger">(Optional)</span></h4>
 														<div>
 															<button *ngIf="isNotEmptyHtml(this.additionalNotesForm.get('additional_notes')?.value)" class="text-small btn btn-secondary btn-rounded d-flex align-items-center gap-2 h-fit-content" style="width: fit-content" (click)="aiRePhraseSummary('add_note', { rephrase_content: additionalNotesForm?.get('additional_notes')?.value }, additionalNotesForm?.get('additional_notes'))">RePhrase</button>
 														</div>
