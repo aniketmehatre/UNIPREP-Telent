@@ -1289,7 +1289,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       end: addMonths(new Date(2000, 0, 1), totalMonths)
     });
     const formatted = formatDuration(totalDuration, { format: ['years', 'months'] });
-    this.workExperienceForm.get('total_years_of_experience')?.setValue(formatted || '0 months');
+    this.workExperienceForm.get('total_years_of_experience')?.setValue(formatted || '0');
   }
 
   onChangeStillPursuing(event: any, index: number) {
