@@ -220,7 +220,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 		this.mobileForm = this.formBuilder.group({
 			phone: [undefined, [Validators.required]],
-			home_country: ["", Validators.required],
+			home_country: [122, Validators.required],
 			nationality_id: [null, Validators.required],
 			study_level: ["", Validators.required],
 			current_city: [""],
@@ -673,7 +673,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	private initializeForms() {
 		this.mobileForm = this.formBuilder.group({
 			phone: [undefined, [Validators.required]],
-			home_country: ["", Validators.required],
+			home_country: [122, Validators.required],
 			nationality_id: [null, Validators.required],
 			study_level: ["", Validators.required],
 			current_city: [""],
@@ -1292,6 +1292,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 		this.dashboardService.getContineTrial(data).subscribe(
 			(res) => {
+				debugger
+				this.authService._user.currency = res?.currency;
 				if (this.demoTrial == true) {
 					this.toast.add({
 						severity: "success",

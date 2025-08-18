@@ -7,15 +7,15 @@
 	<div class="card-header border-0 bg-transparent">
 		<div class="row">
 			<div class="col-md-12 d-flex gap-2 text-center">
-				<!-- <div class="backIcon d-flex" role="button" (click)="goBack()">
-          <span class="fa-solid fa-chevron-left"></span>
-        </div> -->
+				<div *ngIf="isSampleProfilePdf" class="backIcon d-flex" role="button" (click)="goBack()">
+          			<span class="fa-solid fa-chevron-left"></span>
+        		</div>
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="container-fluid">
 						<div class="row align-items-center">
 							<div class="col-md-7 col-8 order-1 order-md-1">
 								<h5 class="mb-md-0">
-									{{ isSampleProfilePdf ? "Sample Profile Photo Guide" : "Create your Job Profile in less than 3 minutes" }}
+									{{ isSampleProfilePdf ? "Sample Profile Photo Guide" : "Complete your Job profile within 2 mins to apply" }}
 								</h5>
 							</div>
 							<div class="col-md-3 col-12 order-3 order-md-2" *ngIf="!isShowAiEvaluation">
@@ -119,10 +119,7 @@
 														</div>
 														<div class="col-md-6">
 															<label for="dateOfBirth" class="mb-1">Date of Birth<span class="text-danger">*</span></label>
-															<!-- <input type="date" pInputText fluid id="dateOfBirth" formControlName="date_of_birth2"
-                                  placeholder="Enter your name" class="form-control" [max]="today"
-                                  (focus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" /> -->
-															<p-datepicker id="dateOfBirth" [appendTo]="'body'" formControlName="date_of_birth" dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today" (onFocus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" />
+															<p-datepicker id="dateOfBirth" [appendTo]="'body'" formControlName="date_of_birth" dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today" (onFocus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false" />
 															<small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('date_of_birth')?.errors?.required"> Date of Birth is required </small>
 														</div>
 														<div class="col-md-6">
@@ -273,23 +270,23 @@
 																</div>
 															</div>
 															<div class="d-flex w-100 gap-2">
-																<p-datepicker [appendTo]="'body'" (onSelect)="updateExperience(i)" (onInput)="updateExperience(i)" [maxDate]="today" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_from" inputId="fromDate" placeholder="From Date" size="small" styleClass="w-100" view="month" />
-																<p-datepicker [appendTo]="'body'" (onSelect)="updateExperience(i)" [maxDate]="today" [minDate]="experience.get('work_experience_duration_from')?.value" (onInput)="updateExperience(i)" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_to" inputId="toDate" placeholder="To Date" size="small" styleClass="w-100" view="month" />
+																<p-datepicker [appendTo]="'body'" (onSelect)="updateExperience(i)" (onInput)="updateExperience(i)" [maxDate]="today" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_from" inputId="fromDate" placeholder="MM/YYYY (From Date)" size="small" styleClass="w-100" view="month" [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false" />
+																<p-datepicker [appendTo]="'body'" (onSelect)="updateExperience(i)" [maxDate]="today" [minDate]="experience.get('work_experience_duration_from')?.value" (onInput)="updateExperience(i)" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_to" inputId="toDate" placeholder="MM/YYYY (To Date)" size="small" styleClass="w-100" view="month" [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false" />
 															</div>
 															<small *ngIf="((experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) || (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)) && !experience.get('currently_working')?.value" class="text-danger"> Please select both from and to values. </small>
 															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_duration_from')?.errors?.required && experience.get('work_experience_duration_to')?.errors?.required"> Duration is required </small>
 														</div>
-														<div class="col-md-6">
+														<!-- <div class="col-md-6">
 															<label class="mb-1">Years of Experience</label>
 															<input pInputText readonly formControlName="years_of_experience" placeholder="Years of experience" class="form-control" (focusout)="resetMessageBox()" (focus)="updateMessageBox('years_of_experience')" />
 															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('years_of_experience')?.errors?.required"> Years of Experience is required </small>
-														</div>
+														</div> -->
 														<div class="col-md-6">
 															<label class="mb-1">Employment Type</label>
 															<p-select formControlName="work_experience_employment_type" [options]="preferredEmploymentType" [appendTo]="'body'" placeholder="Select employement type" styleClass="w-100" (focusout)="resetMessageBox()" [showClear]="true" (onShow)="updateMessageBox('work_experience_employment_type')"></p-select>
 															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_employment_type')?.errors?.required"> Employment Type is required </small>
 														</div>
-														<div class="col-md-6">
+														<div class="col-md-12">
 															<label for="salary" class="mb-1">Salary per month</label>
 															<div class="d-flex w-100 gap-2">
 																<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select Currency" [filter]="true" filterBy="currency_code" appendTo="body" formControlName="work_experience_currency_id" [style]="{ width: '150px' }" [showClear]="true"> </p-select>
@@ -297,7 +294,7 @@
 																	<p-inputNumber id="salary" placeholder="Enter your salary per month" styleClass="w-100" [showButtons]="false" class="w-100" formControlName="work_experience_salary_per_month" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('work_experience_salary_per_month')"> </p-inputNumber>
 																</div>
 															</div>
-															<small *ngIf="(experience.get('work_experience_currency_id')?.value && !experience.get('work_experience_salary_per_month')?.value) || (!experience.get('work_experience_currency_id')?.value && experience.get('work_experience_salary_per_month')?.value)" class="text-danger"> Please fill both values. </small>
+															<!-- <small *ngIf="(experience.get('work_experience_currency_id')?.value && !experience.get('work_experience_salary_per_month')?.value) || (!experience.get('work_experience_currency_id')?.value && experience.get('work_experience_salary_per_month')?.value)" class="text-danger"> Please fill both values. </small> -->
 															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_currency_id')?.errors?.required && experience.get('work_experience_salary_per_month')?.errors?.required"> Salary per month is required </small>
 														</div>
 														<div class="col-md-12">
@@ -352,11 +349,11 @@
 								<p-step-panel [value]="3">
 									<ng-template #content>
 										<h4 class="card-title fw-bold">Career Prefrenences & Aspirations</h4>
-										<div class="mb-2">
+										<!-- <div class="mb-2">
 											<span class="text-danger fw-bold">Confused about your career?</span>
 											<a (click)="routingToPage('/pages/job-tool/career-tool')" class="px-1" role="button">Click here</a>
 											to plan it!
-										</div>
+										</div> -->
 										<form [formGroup]="careerPreferenceForm">
 											<ng-container class="career-experience">
 												<div class="row g-3">
@@ -452,10 +449,10 @@
 											<div class="row h-100">
 												<div class="col-12">
 													<h4 class="card-title fw-bold">Certifications & Achievements <span class="text-danger">(Optional)</span></h4>
-													<div class="d-flex gap-2 flex-md-row flex-column">
-														<span class="text-danger fw-bold">Dont have any certificates yet?</span>
-														<div class="d-flex"><a (click)="routingToPage('/pages/modules/learning-hub')" class="px-1" role="button">Click here</a> <span>to plan it!</span></div>
-													</div>
+														<!-- <div class="d-flex gap-2 flex-md-row flex-column">
+															<span class="text-danger fw-bold">Dont have any certificates yet?</span>
+															<div class="d-flex"><a (click)="routingToPage('/pages/modules/learning-hub')" class="px-1" role="button">Click here</a> <span>to plan it!</span></div>
+														</div> -->
 													<div class="row g-3">
 														<div class="col-md-12">
 															<hr />
@@ -537,10 +534,10 @@
 								<p-step-panel [value]="5">
 									<ng-template #content>
 										<h4 class="card-title fw-bold">Key Strengths & Professional Traits</h4>
-										<div class="d-flex gap-2 flex-md-row flex-column">
+										<!-- <div class="d-flex gap-2 flex-md-row flex-column">
 											<span class="text-danger fw-bold">Want to learn a new language?</span>
 											<div class="d-flex"><a (click)="routingToPage('/pages/language-hub/languages')" class="px-1" role="button">Click here</a> <span>to start!</span></div>
-										</div>
+										</div> -->
 										<div class="row">
 											<div class="col-md-12">
 												<hr />
@@ -662,10 +659,10 @@
 								<p-step-panel [value]="7">
 									<ng-template #content>
 										<h4 class="card-title fw-bold">Attachments & Media</h4>
-										<div class="d-flex gap-2 flex-md-row flex-column">
+										<!-- <div class="d-flex gap-2 flex-md-row flex-column">
 											<span class="text-danger fw-bold">Don't have a resume?</span>
 											<div class="d-flex"><a (click)="routingToPage('/pages/job-tool/cv-builder')" class="px-1" role="button">Click here</a> <span>to create one!</span></div>
-										</div>
+										</div> -->
 										<div class="row">
 											<div class="col-md-12">
 												<form [formGroup]="attachmentsForm">
@@ -1017,7 +1014,7 @@
 												<div class="overflow-hidden">
 													<p class="text-muted text-small">Total Experience</p>
 													<p class="text-small text-truncate">
-														{{ workExperienceForm?.get("total_years_of_experience")?.value ? workExperienceForm?.get("total_years_of_experience")?.value : "-" }}
+														{{ workExperienceForm?.get("total_years_of_experience")?.value != '0'? workExperienceForm?.get("total_years_of_experience")?.value : "Fresher" }}
 													</p>
 												</div>
 											</div>
