@@ -148,7 +148,7 @@
 				</button>
 			</div>
 			<div *ngIf="!isJobApplied">
-				<button class="btn btn-secondary"
+				<button class="btn btn-secondary" [disabled]="applyBtnDisable"
 					(click)="applyJob(messageInput.value); messageInput.value = ''; autoGrow(messageInput)">Apply</button>
 			</div>
 		</div>

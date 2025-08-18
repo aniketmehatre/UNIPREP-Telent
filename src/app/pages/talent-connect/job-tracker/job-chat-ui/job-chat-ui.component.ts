@@ -54,6 +54,7 @@ export class JobChatUiComponent implements OnInit, OnChanges {
   giftImage: string = `${environment.imagePath}tutorial-coverimage/premium-plan.webp`;
   showPremimumPopup: boolean = false;
   whyPremium: boolean = false;
+  applyBtnDisable: boolean = true;
   premiumFeatures:PremiumFeatures[] = [
     {
       icon: "💬",
@@ -196,8 +197,12 @@ export class JobChatUiComponent implements OnInit, OnChanges {
       }
     });
   }
-
   autoGrow(element: HTMLTextAreaElement): void {
+    if(this.message.length === 0){
+      this.applyBtnDisable = true;
+    }else{
+      this.applyBtnDisable = false;
+    }
     element.style.height = 'auto';
     element.style.height = (element.scrollHeight) + 'px';
   }
