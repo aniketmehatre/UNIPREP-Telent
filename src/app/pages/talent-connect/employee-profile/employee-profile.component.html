@@ -445,6 +445,61 @@
 								<!-- Certifications -->
 								<p-step-panel [value]="4">
 									<ng-template #content>
+										<h4 class="card-title fw-bold">Key Strengths & Professional Traits</h4>
+										<!-- <div class="d-flex gap-2 flex-md-row flex-column">
+											<span class="text-danger fw-bold">Want to learn a new language?</span>
+											<div class="d-flex"><a (click)="routingToPage('/pages/language-hub/languages')" class="px-1" role="button">Click here</a> <span>to start!</span></div>
+										</div> -->
+										<div class="row mb-3">
+											<div class="col-md-12">
+												<hr />
+											</div>
+											<div class="col-md-12">
+												<form [formGroup]="professionalTraitsForm">
+													<ng-container class="work-experience">
+														<ng-container formArrayName="languages">
+															<div class="row g-3" *ngFor="let language of languages.controls; let i = index" [formGroupName]="i">
+																<div class="col-md-6 col-12 mb-2">
+																	<label class="mb-1"> Language known<span class="text-danger">*</span></label>
+																	<p-select formControlName="languages_language_id" [options]="languageList" placeholder="Enter know language" styleClass="w-100" optionLabel="language" optionValue="id" [filter]="true" filterBy="language" appendTo="body" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('languages_language_id')"></p-select>
+																	<small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && language.get('languages_language_id')?.errors?.required"> Language known is required </small>
+																</div>
+																<div class="col mb-2">
+																	<label class="mb-1"> Language Proficiency<span class="text-danger">*</span></label>
+																	<p-select formControlName="languages_proficiency" [options]="languageProficiency" appendTo="body" placeholder="Enter language proficiency" styleClass="w-100" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('languages_proficiency')"></p-select>
+																	<small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && language.get('languages_proficiency')?.errors?.required"> Language Proficiency is required </small>
+																</div>
+																<div *ngIf="i !== 0" class="col-md-1 col-3">
+																	<label class="mb-1"> </label>
+																	<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeLanguage(i)">
+																		<span><i class="fa-regular fa-trash fa-lg"></i></span>
+																	</button>
+																</div>
+															</div>
+														</ng-container>
+														<div class="row mt-3">
+															<div class="col-12">
+																<button pButton class="w-100 btn btn-outline-primary" (click)="addLanguage()">Add More Language&nbsp;<i class="fa fa-plus"></i></button>
+															</div>
+														</div>
+													</ng-container>
+													<!-- <div class="mb-2">
+														<span class="text-danger fw-bold">Showcase your skills and strengths</span>
+														<a (click)="routingToPage('/pages/modules/skill-mastery')" class="px-1" role="button">Click
+														here</a> to plan it!
+													</div>
+													<ng-container class="work-experience">
+														<div class="row mb-3">
+														<div class="col-md-6">
+															<label class="mb-1"> Soft skills<span class="text-danger">*</span></label>
+															<p-multiSelect formControlName="career_preference_soft_skill_id" [options]="softSkills" optionValue="id" optionLabel="soft_skill" placeholder="Select your acquired soft skills" class="form-control p-1 w-100" (focusout)="resetMessageBox()" appendTo="body" (onShow)="updateMessageBox('career_preference_soft_skill_id')"></p-multiSelect>
+															<small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && professionalTraitsForm.get('career_preference_soft_skill_id')?.errors?.required"> Soft skills is required </small>
+														</div>
+														</div>
+													</ng-container> -->
+												</form>
+											</div>
+										</div>
 										<form [formGroup]="certificationsForm">
 											<div class="row h-100">
 												<div class="col-12">
@@ -531,13 +586,13 @@
 									</ng-template>
 								</p-step-panel>
 								<!-- Key Strengths -->
-								<p-step-panel [value]="5">
+								<!-- <p-step-panel [value]="5">
 									<ng-template #content>
 										<h4 class="card-title fw-bold">Key Strengths & Professional Traits</h4>
-										<!-- <div class="d-flex gap-2 flex-md-row flex-column">
+										<div class="d-flex gap-2 flex-md-row flex-column">
 											<span class="text-danger fw-bold">Want to learn a new language?</span>
 											<div class="d-flex"><a (click)="routingToPage('/pages/language-hub/languages')" class="px-1" role="button">Click here</a> <span>to start!</span></div>
-										</div> -->
+										</div>
 										<div class="row">
 											<div class="col-md-12">
 												<hr />
@@ -572,7 +627,7 @@
 															</div>
 														</div>
 													</ng-container>
-													<!-- <div class="mb-2">
+													<div class="mb-2">
 														<span class="text-danger fw-bold">Showcase your skills and strengths</span>
 														<a (click)="routingToPage('/pages/modules/skill-mastery')" class="px-1" role="button">Click
 														here</a> to plan it!
@@ -585,14 +640,14 @@
 															<small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && professionalTraitsForm.get('career_preference_soft_skill_id')?.errors?.required"> Soft skills is required </small>
 														</div>
 														</div>
-													</ng-container> -->
+													</ng-container>
 												</form>
 											</div>
 										</div>
 									</ng-template>
-								</p-step-panel>
+								</p-step-panel> -->
 								<!-- Professional Networking -->
-								<p-step-panel [value]="6">
+								<p-step-panel [value]="5">
 									<ng-template #content>
 										<h4 class="card-title fw-bold">Professional Networking & Online Presence <span class="text-danger">(Optional)</span></h4>
 										<div class="row">
@@ -655,14 +710,14 @@
                         </div> -->
 								</p-step-panel>
 								<!-- Attachments & Media -->
-								<p-step-panel [value]="7">
+								<p-step-panel [value]="6">
 									<ng-template #content>
 										<h4 class="card-title fw-bold">Attachments & Media</h4>
 										<!-- <div class="d-flex gap-2 flex-md-row flex-column">
 											<span class="text-danger fw-bold">Don't have a resume?</span>
 											<div class="d-flex"><a (click)="routingToPage('/pages/job-tool/cv-builder')" class="px-1" role="button">Click here</a> <span>to create one!</span></div>
 										</div> -->
-										<div class="row">
+										<div class="row mb-3">
 											<div class="col-md-12">
 												<form [formGroup]="attachmentsForm">
 													<div class="row g-3">
@@ -721,10 +776,26 @@
 												</form>
 											</div>
 										</div>
+										<form [formGroup]="additionalNotesForm">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="d-flex justify-content-between align-items-start mb-2">
+														<h4 class="card-title fw-bold">Additional Notes <span class="text-danger">(Optional)</span></h4>
+														<div>
+															<button *ngIf="isNotEmptyHtml(this.additionalNotesForm.get('additional_notes')?.value)" class="text-small btn btn-secondary btn-rounded d-flex align-items-center gap-2 h-fit-content" style="width: fit-content" (click)="aiRePhraseSummary('add_note', { rephrase_content: additionalNotesForm?.get('additional_notes')?.value }, additionalNotesForm?.get('additional_notes'))">RePhrase</button>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-12">
+													<p-editor #editor [style]="{ height: '250px', maxHeight: 'auto' }" formControlName="additional_notes" placeholder="Additional Information if any" />
+													<small class="text-muted d-block text-end">{{ additionalNotesForm.get("additional_notes")?.value?.length }}/5000 </small>
+												</div>
+											</div>
+										</form>
 									</ng-template>
 								</p-step-panel>
 								<!-- References -->
-								<p-step-panel [value]="8" class="d-none">
+								<!-- <p-step-panel [value]="8" class="d-none">
 									<ng-template #content>
 										<h4 class="card-title fw-bold">References & Endorsements</h4>
 										<form [formGroup]="referencesForm">
@@ -808,9 +879,9 @@
 											</ng-container>
 										</form>
 									</ng-template>
-								</p-step-panel>
+								</p-step-panel> -->
 								<!-- Additional Notes -->
-								<p-step-panel [value]="8">
+								<!-- <p-step-panel [value]="7">
 									<ng-template #content>
 										<form [formGroup]="additionalNotesForm">
 											<div class="row">
@@ -829,7 +900,7 @@
 											</div>
 										</form>
 									</ng-template>
-								</p-step-panel>
+								</p-step-panel> -->
 							</p-step-panels>
 						</p-stepper>
 					</div>
@@ -841,16 +912,16 @@
 							</div>
 							<div class="text-nowrap mb-2 mb-lg-0 d-flex d-lg-block" [ngClass]="activePageIndex ? 'justify-content-between' : 'justify-content-end'">
 								<button pButton type="button" class="btn btn-outline-primary-bg w-100 me-2 me-lg-0" (click)="previous()" *ngIf="activePageIndex !== 0"><i class="fa fa-arrow-left"></i>{{ getPreviousIndexValue() }}</button>
-								<button *ngIf="activePageIndex != 8" pButton type="button" (click)="next()" class="btn btn-primary w-100 d-flex d-lg-none" [disabled]="getDisabledStatus()">{{ getNextIndexValue() }}<i class="fa fa-arrow-right"></i></button>
+								<button *ngIf="activePageIndex != 6" pButton type="button" (click)="next()" class="btn btn-primary w-100 d-flex d-lg-none" [disabled]="getDisabledStatus()">{{ getNextIndexValue() }}<i class="fa fa-arrow-right"></i></button>
 							</div>
 							<div class="w-100 mb-2 mb-lg-0">
-								<div *ngIf="activePageIndex != 8" class="d-flex justify-content-center">
+								<div *ngIf="activePageIndex != 6" class="d-flex justify-content-center">
 									<button *ngIf="isUpdatedProfile" pButton type="button" (click)="next(true)" class="btn btn-success w-100 me-2">Update <i class="pi pi-check text-white"></i></button>
 									<button pButton type="button" (click)="next()" class="btn btn-primary w-100 d-lg-flex d-none" [disabled]="getDisabledStatus()">{{ getNextIndexValue() }}<i class="fa fa-arrow-right"></i></button>
 								</div>
-								<div class="d-flex gap-2" *ngIf="activePageIndex == 8">
+								<div class="d-flex gap-2" *ngIf="activePageIndex == 6">
 									<button pButton type="button" (click)="onCallAIEvaluation()" class="btn btn-primary w-100 me-2">AI Review <i class="pi pi-microchip-ai text-white"></i></button>
-									<button pButton type="button" (click)="next()" class="btn btn-success w-100">Complete Profile <i class="pi pi-check text-white"></i></button>
+									<button pButton type="button" (click)="next()" class="btn btn-success w-100">Proceed to Apply <i class="pi pi-check text-white"></i></button>
 								</div>
 							</div>
 						</div>
@@ -869,7 +940,7 @@
 										<span class="me-2">Edit Profile</span><span class="btn-icon px-2 py-2"><i class="pi pi-arrow-left text-white"></i></span>
 									</button>
 									<button pButton type="button" (click)="next()" class="btn btn-success btn-rounded p-1 ps-4">
-										<span class="me-2">Complete Your Profile</span><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
+										<span class="me-2">Proceed to Apply</span><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
 									</button>
 								</div>
 							</div>

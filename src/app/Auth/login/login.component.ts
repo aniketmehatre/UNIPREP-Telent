@@ -185,16 +185,15 @@ export class LoginComponent implements OnInit, OnDestroy {
                     'http://localhost:4200',
                     'https://dev-student.uniprep.ai'
                 ];
-                if (disallowedDomains.includes(response.domain)) {
+                if (!disallowedDomains.includes(response.domain)) {
                     console.log('Allowed domain:', response.domain);
                     // this.handleSuccessfulLogin1(response.token, response.domain)
-                if (this.jobId) {
-                    window.location.href = `${response.domain}/pages/talent-connect/easy-apply/${this.jobId}/?token=${response.token}`;
+                    if (this.jobId) {
+                        window.location.href = `${response.domain}/pages/talent-connect/easy-apply/${this.jobId}/?token=${response.token}`;
+                    } else {
+                        window.location.href = `${response.domain}/pages/talent-connect/easy-apply?token=${response.token}`;
+                    }
                 } else {
-                    window.location.href = `${response.domain}/pages/talent-connect/easy-apply?token=${response.token}`;
-                }
-                } else {
-                    console.warn('Blocked domain:', response.domain);
                     // show error, redirect, or handle accordingly
                     if (response?.token) {
                         this.handleSuccessfulLogin(response.token)

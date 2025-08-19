@@ -56,6 +56,7 @@ export class RegistrationComponent implements OnInit {
     otpError: boolean = false
     fallbackImage = '../../../uniprep-assets/images/uniprep-light.svg'
     loading = true;
+    googleResponse: any
     constructor(
         private service: AuthService,
         private router: Router,
@@ -102,8 +103,10 @@ export class RegistrationComponent implements OnInit {
             this.whiteLabelImage = data.logo
         })
         this.authService.authState.subscribe((user) => {
-            let mergedResponse = {...user, position: this.position}
-            this.service.googlesignUp(mergedResponse).subscribe({
+            this.googleResponse = user
+            this.googleResponse = {...this.googleResponse, position: this.storage.get('position')}
+
+            this.service.googlesignUp(this.googleResponse).subscribe({
                 next: (data) => {
                     this.storage.set(environment.tokenKey, data?.authorisation?.token);
                     this.service.saveToken(data?.authorisation?.token);
@@ -114,13 +117,12 @@ export class RegistrationComponent implements OnInit {
                     //     this.storage.set(environment.tokenKey, data?.authorisation?.token)
                     // }
                     //this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
-                    console.log(this.storage.get('jobId'))
                     this.jobId = Number(this.storage.get('jobId'));
-                    // if (this.jobId) {
-                    //     window.location.href = `${window.location.origin}/pages/talent-connect/easy-apply/${this.jobId}/?token=${data?.authorisation?.token}`;
-                    // } else {
-                    //     window.location.href = `${window.location.origin}/pages/dashboard?token=${data?.authorisation?.token}`;
-                    // }
+                    if (this.jobId) {
+                        window.location.href = `${window.location.origin}/pages/talent-connect/easy-apply/${this.jobId}/?token=${data?.authorisation?.token}`;
+                    } else {
+                        window.location.href = `${window.location.origin}/pages/talent-connect/easy-apply/?token=${data?.authorisation?.token}`;
+                    }
                 },
                 error: (error: any) => {
                     this.toastr.add({
