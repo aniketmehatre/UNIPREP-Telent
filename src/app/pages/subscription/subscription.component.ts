@@ -353,6 +353,9 @@ export class SubscriptionComponent implements OnInit {
                             let jobId = this.storage.get('jobId');
                             if (jobId) {
                                 this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+                            }else {
+                                this.loadSubData()
+                                window.location.reload()
                             }
 						},
 						(error: any) => {
@@ -374,6 +377,9 @@ export class SubscriptionComponent implements OnInit {
                             let jobId = this.storage.get('jobId');
                             if (jobId) {
                                 this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+                            }else {
+                                this.loadSubData()
+                                window.location.reload()
                             }
 							// this.loadSubData()
 							// window.location.reload()
@@ -506,6 +512,8 @@ export class SubscriptionComponent implements OnInit {
                         let jobId = this.storage.get('jobId');
                         if (jobId) {
                             this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+                        }else {
+                            window.location.reload()
                         }
                         // window.location.reload()
 					}

@@ -241,15 +241,17 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 			filteredData.splice(1, 0, ...mostPopularOnes)
 			this.subscriptionList = filteredData
 			this.subscriptionList.forEach((item: any) => {
+                console.log(item)
 				item.country = item.country?.split(",").map(Number)
 				let filteredCountryIds = item.country
-				item.selected = false
+				item.selected = true
 				item.selectedCountry = {}
 				// item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
 				item.filteredCountryList = this.countryList
 				item.selectedCountry = this.countryList.find((country: any) => country.id === Number(this.user?.interested_country_id))
 				item.isActive = item.popular == 1 ? true : false
 				this.currency = item.currency
+               this.selectedSubscriptionPlan(item);
 			})
 		})
 	}
