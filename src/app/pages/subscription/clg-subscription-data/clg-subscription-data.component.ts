@@ -394,6 +394,15 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 	}
 
 	checkout(type: any) {
+		//This type is coming when users clicks buy premium in the job-chat-ui component => applyJob().
+		//Then subscription component => applyNow.
+		if(type === "why-premium-type"){
+			if(this.currentCountry == "India"){
+				type = 'razorpay';
+			}else if(this.currentCountry && this.currentCountry !== 'India'){
+				type = 'stripe';
+			}
+		}
 		this.confirmModal = false
 		this.subscriptionService.getExtendedToken().subscribe(
 			(response) => {

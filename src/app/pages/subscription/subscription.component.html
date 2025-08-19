@@ -1,13 +1,13 @@
 <ng-container [ngSwitch]="stage">
 	<ng-container *ngSwitchCase="1">
 		<ng-container *ngIf="!isCollegeStudent">
-			<uni-subscription-data (upgrade)="start()" [history]="(orderHistory$ | async) || []" [billing]="user"
+			<uni-subscription-data #applyTarget (upgrade)="start()" [history]="(orderHistory$ | async) || []" [billing]="user"
 				[subscriptions]="subscriptionDetail$ | async" (subscriptionPlan)="pay($event)"
 				[showHistoryBtn]="showHistoryBtn" (showHistory)="showHistory($event)">
 			</uni-subscription-data>
 		</ng-container>
 		<ng-container *ngIf="isCollegeStudent">
-			<uni-clg-subscription-data (upgrade)="start()" [history]="(orderHistory$ | async) || []" [billing]="user"
+			<uni-clg-subscription-data #applyTarget (upgrade)="start()" [history]="(orderHistory$ | async) || []" [billing]="user"
 				[subscriptions]="subscriptionDetail$ | async" (subscriptionPlan)="pay($event)"
 				[showHistoryBtn]="showHistoryBtn" (showHistory)="showHistory($event)">
 			</uni-clg-subscription-data>
@@ -57,7 +57,7 @@
 	[breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
 	<div class="row">
 		<div class="col-12">
-			<h5 class="mb-3">With UNIPREP Unlimited Premium Jobs worldwide.</h5>
+			<h6 class="mb-3 fw-semibold">With UNIPREP Premium, you don't just apply - we help you get hired.</h6>
 			<div class="d-flex flex-column gap-3">
 				@for (feature of premiumFeatures; track $index) {
 					<div class="d-flex align-items-center">
@@ -68,6 +68,6 @@
 		</div>
 	</div>
 	<div class="center-align mt-3">
-		<button pButton class="btn-secondary px-5" [rounded]="true" type="button" (click)="closeModal()">Apply Now</button>
+		<button pButton class="btn-secondary px-5" [rounded]="true" type="button" (click)="applyNow()">Apply Now</button>
 	</div>
 </p-dialog>

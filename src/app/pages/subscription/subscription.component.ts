@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core"
+import { Component, OnInit, viewChild, ViewChild } from "@angular/core"
 import { AuthService } from "src/app/Auth/auth.service"
 import { SubscriptionService } from "./subscription.service"
 import { WindowRefService } from "./window-ref.service"
@@ -26,8 +26,9 @@ import { CollegeSubscriptionDataComponent } from "./clg-subscription-data/clg-su
 import { PageFacadeService } from "../page-facade.service"
 import {Router} from "@angular/router";
 import { ButtonModule } from "primeng/button";
-import { RouterLink } from "@angular/router"
 import { TalentConnectService } from "../talent-connect/talent-connect.service"
+type ApplyTarget = { checkout: (type: string) => void };
+
 @Component({
 	selector: "uni-subscription",
 	templateUrl: "./subscription.component.html",
@@ -45,11 +46,12 @@ import { TalentConnectService } from "../talent-connect/talent-connect.service"
 		SubscriptionBillingComponent,
 		SubscriptionSuccessComponent,
 		NgxStripeModule,
-		ButtonModule,
-		RouterLink
+		ButtonModule
 	],
 })
+
 export class SubscriptionComponent implements OnInit {
+	@ViewChild('applyTarget') applyTarget?: ApplyTarget;
 	stage = 1
 	subscriptions$!: Observable<SubscriptionPlan[]>
 	orderLoading$!: Observable<boolean>
@@ -81,6 +83,7 @@ export class SubscriptionComponent implements OnInit {
 	phone: string = ''
 	email: string = ''
 	isCollegeStudent: boolean = true;
+
 	showPremimumPopup: boolean = false;
 	premiumFeatures: string[] = [
 	"💼 <strong>Access to Unlimited Premium Jobs worldwide.</strong>",
@@ -207,6 +210,10 @@ export class SubscriptionComponent implements OnInit {
 
 	closeModal(){
 		this.talentService.closeModal();
+	}
+	applyNow(){
+		this.closeModal();
+		this.applyTarget?.checkout("why-premium-type");
 	}
 	start() {
 		this.showPayLoading = false
