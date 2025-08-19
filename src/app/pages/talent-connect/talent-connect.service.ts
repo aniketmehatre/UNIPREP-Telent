@@ -19,9 +19,16 @@ export class TalentConnectService {
     });
     _employerProfileData!: EmployeeConnectProfile | null;
     employerProfileCompleted$ = new BehaviorSubject<boolean>(false);
+    whyPremiumModal$ = new BehaviorSubject<boolean>(false);
 
     constructor(private http: HttpClient) { }
+    openModal(){
+        this.whyPremiumModal$.next(true);
+    }
 
+    closeModal() {
+        this.whyPremiumModal$.next(false);
+    }
     //Profile Creation 
     getMyProfileData(token?: string) {
         //  The token is not taken by the public route (login). that's why this header added for manually for after getMe Api call

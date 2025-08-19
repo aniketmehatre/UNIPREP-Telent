@@ -155,11 +155,6 @@
     background-color: transparent !important;
   }
 
-  .center-align {
-    display: flex;
-    justify-content: center;
-  }
-
   // :host ::ng-deep .upgrade-to-apply {
   //   .p-dialog {
   //     width: 33vw !important;
@@ -173,73 +168,6 @@
   //     width: auto;
   //   }
   // }
-
-  :host ::ng-deep .why-premium {
-    .p-button-secondary {
-      background-color: var(--p-primary-500);
-      border-color: var(--p-primary-500);
-      color: white;
-    }
-  }
-
-  :host ::ng-deep .why-premium .p-dialog {
-    width: 35vw !important;
-    max-width: 100vw !important;
-    height: auto !important;
-    max-height: 90vh !important;
-
-    .premium-benefits {
-      font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: auto;
-      padding: 1rem;
-    }
-
-    .benefit {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-      margin-bottom: 1.5rem;
-    }
-
-    .left-column {
-      width: 40%;
-      font-weight: bold;
-      font-size: 1rem;
-    }
-
-    .right-column {
-      width: 60%;
-      font-size: 0.95rem;
-    }
-
-    .subtext {
-      font-size: 0.85rem;
-      margin-top: 5px;
-    }
-
-
-    .content h4 {
-      margin: 0;
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    .content p {
-      margin: 0.3rem 0;
-      font-size: 0.95rem;
-    }
-
-    .note {
-      font-size: 0.85rem;
-      color: var(--p-primary-500);
-      border-top: 1px solid #ddd;
-      padding-top: 1rem;
-      margin-top: 2rem;
-      font-weight: 500;
-    }
-
-  }
 
   // :host ::ng-deep .why-premium .p-dialog-header {
   //   justify-content: center !important;

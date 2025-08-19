@@ -25,6 +25,9 @@ import { LocationService } from "src/app/services/location.service"
 import { CollegeSubscriptionDataComponent } from "./clg-subscription-data/clg-subscription-data.component"
 import { PageFacadeService } from "../page-facade.service"
 import {Router} from "@angular/router";
+import { ButtonModule } from "primeng/button";
+import { RouterLink } from "@angular/router"
+import { TalentConnectService } from "../talent-connect/talent-connect.service"
 @Component({
 	selector: "uni-subscription",
 	templateUrl: "./subscription.component.html",
@@ -41,7 +44,9 @@ import {Router} from "@angular/router";
 		SubscriptionListComponent,
 		SubscriptionBillingComponent,
 		SubscriptionSuccessComponent,
-		NgxStripeModule
+		NgxStripeModule,
+		ButtonModule,
+		RouterLink
 	],
 })
 export class SubscriptionComponent implements OnInit {
@@ -76,18 +81,30 @@ export class SubscriptionComponent implements OnInit {
 	phone: string = ''
 	email: string = ''
 	isCollegeStudent: boolean = true;
-
+	showPremimumPopup: boolean = false;
+	premiumFeatures: string[] = [
+	"💼 <strong>Access to Unlimited Premium Jobs worldwide.</strong>",
+	"✅ <strong>Verified Talent Profile –</strong> Prioritised by recruiters.",
+	"⭐ <strong>Priority Profile Highlight –</strong> Recruiters see you first.",
+	"🎯 <strong>Access to 70+ Career –</strong> Boosting Features to accelerate your journey.",
+	"🎓 <strong>1:1 Mentorship with Career Experts.</strong>",
+	"⚡ <strong>No Interview Calls in 30 days? Get Full Refund.</strong>"
+	];
 	constructor(private subscriptionService: SubscriptionService, private winRef: WindowRefService,
 		private authService: AuthService, private toastr: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
 		private stripeService: StripeService, private ngxService: NgxUiLoaderService,
 		private storage: StorageService, private locationService: LocationService,
-		private pageFacade: PageFacadeService, private router: Router
+		private pageFacade: PageFacadeService, private router: Router,
+		private talentService: TalentConnectService
 	) {
+		this.talentService.whyPremiumModal$.subscribe(visible =>{
+			this.showPremimumPopup = visible;
+		})
 	}
 	async ngOnInit(): Promise<void> {
 		//why premium whatsapp message trigger
-		this.pageFacade.sendWhatsappMessage(); 
+		this.pageFacade.sendWhatsappMessage();
 		try {
 			let homeCountryName = this.storage.get("home_country_name");
 
@@ -188,6 +205,9 @@ export class SubscriptionComponent implements OnInit {
 
 	}
 
+	closeModal(){
+		this.talentService.closeModal();
+	}
 	start() {
 		this.showPayLoading = false
 		this.stage = 1

@@ -6,6 +6,7 @@ import { ChipModule } from 'primeng/chip';
 import { ButtonModule } from 'primeng/button';
 import { TalentConnectService } from '../../talent-connect.service';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { EmployeeConnectProfile } from 'src/app/@Models/employee-connect-profile';
 import { MessageService } from 'primeng/api';
@@ -25,10 +26,6 @@ interface ChatMessage {
   attachment?: string | null;
 }
 
-// interface PremiumFeatures {
-//   icon: string;
-//   title: string;
-// }
 @Component({
   selector: 'uni-job-chat-ui',
   templateUrl: './job-chat-ui.component.html',
@@ -51,23 +48,13 @@ export class JobChatUiComponent implements OnInit, OnChanges {
   userActiveStatus: string = '';
   profileData: EmployeeConnectProfile | null = null;
   giftImage: string = `${environment.imagePath}tutorial-coverimage/premium-plan.webp`;
-  showPremimumPopup: boolean = false;
   whyPremium: boolean = false;
   applyBtnDisable: boolean = true;
-  premiumFeatures: string[] = [
-    "💼 <strong>Access to Unlimited Premium Jobs worldwide.</strong>",
-    "✅ <strong>Verified Talent Profile –</strong> Prioritised by recruiters.",
-    "⭐ <strong>Priority Profile Highlight –</strong> Recruiters see you first.",
-    "🎯 <strong>Access to 70+ Career –</strong> Boosting Features to accelerate your journey.",
-    "🎓 <strong>1:1 Mentorship with Career Experts.</strong>",
-    "⚡ <strong>No Interview Calls in 30 days? Get Full Refund.</strong>"
-  ];
-
 
   //Inject Service
   private toast = inject(MessageService);
   private pageFacade = inject(PageFacadeService);
-  constructor(private talentConnectService: TalentConnectService, private authService: AuthService) { }
+  constructor(private talentConnectService: TalentConnectService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.profileData = this.talentConnectService._employerProfileData;
@@ -154,7 +141,9 @@ export class JobChatUiComponent implements OnInit, OnChanges {
     //upgrade to premium and why premium popup trigger
     if (this.jobDetails.premium_users === 1) { // if the job is only premium users or all users.
       if (this.authService._user.current_plan_detail.account_status !== "Subscription Active") { // if the subscription is not exist
-        this.showPremimumPopup = true;
+        // this.showPremimumPopup = true;
+        this.router.navigate(['/pages/subscriptions']);
+        this.talentConnectService.openModal();
         this.pageFacade.sendWhatsappMessage();
         return;
       }
@@ -210,9 +199,4 @@ export class JobChatUiComponent implements OnInit, OnChanges {
     tempDiv.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
     return tempDiv.textContent || '';
   }
-
-  // closeAndOpenPopup() {
-  //   // this.showPremimumPopup = false;
-  //   this.whyPremium = true;
-  // }
 }
