@@ -1882,9 +1882,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     if (!this.isAttachmentsFormModified()) {
       let jobId = this.storage.get('jobId')
       if (jobId) {
-        this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+        this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`]);
       } else {
-        this.isShowCreatedSuccessfullyPopup = true;
+        this.router.navigate(["/pages/talent-connect/easy-apply"]);
+        // this.isShowCreatedSuccessfullyPopup = true;
       }
       return;
     }
