@@ -186,7 +186,6 @@ export class LoginComponent implements OnInit, OnDestroy {
                     'https://dev-student.uniprep.ai'
                 ];
                 if (disallowedDomains.includes(response.domain)) {
-                    console.log('Allowed domain:', response.domain);
                     // this.handleSuccessfulLogin1(response.token, response.domain)
                     if (this.jobId) {
                         window.location.href = `${response.domain}/pages/talent-connect/easy-apply/${this.jobId}/?token=${response.token}`;
@@ -194,7 +193,6 @@ export class LoginComponent implements OnInit, OnDestroy {
                         window.location.href = `${response.domain}/pages/talent-connect/easy-apply?token=${response.token}`;
                     }
                 } else {
-                    console.warn('Blocked domain:', response.domain);
                     // show error, redirect, or handle accordingly
                     if (response?.token) {
                         this.handleSuccessfulLogin(response.token)
@@ -287,7 +285,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     private handleSuccessfulLogin(token: string) {
-        console.log("test function");
         this.service.saveToken(token)
         this.authTokenService.setToken(token)
         this.storage.set(environment.tokenKey, token)
@@ -302,10 +299,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 };
                 this.locationService.sendSessionData(req, "login").subscribe();
                 this.toast.add({ severity: "success", summary: "Success", detail: "Login Successful" })
-                console.log("1234567");
                 if (!userDetails.city_id) {
-                    console.log("hi");
-
                     setTimeout(() => {
                         this.updateLocation();
                     }, 1000); //because of the token is not set. so i added the timeout
@@ -332,9 +326,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     updateLocation() {
         this.updateCurrentLocation().then((userLocation) => {
-                    console.log("out put",userLocation);
             if (userLocation.country != "Unknown" && userLocation.city != "Unknown") {
-                 console.log("out put2",userLocation);
                 this.locationService.updateUserLocation(userLocation).subscribe()
             }
         })
@@ -347,8 +339,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     async updateCurrentLocation() {
         let userLocation: { country: string; city: string } = await this.countryLocationService.getUserCountry();
-        console.log("test country",userLocation);
-        
         return userLocation;
         // try {
         //     const ipData = await firstValueFrom(this.getCountryFromIP());
