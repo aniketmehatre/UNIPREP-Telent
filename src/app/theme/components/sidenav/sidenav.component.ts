@@ -477,7 +477,7 @@ export class SidenavComponent {
 
   // Step 3: To Check Employer Profile
   updateMenuUrlBasedOnEmployerProfile(data?: boolean) {
-    const isProfileMissing = this.talentService._employerProfileData == null;
+    const isProfileMissing = this.talentService._employerProfileData?.profile_completion_flag ? false : true;
     const profileId = this.talentService._employerProfileData?.id;
     if (this.originalMenus.length == 0) {
       this.originalMenus = JSON.parse(JSON.stringify(this.menus));
