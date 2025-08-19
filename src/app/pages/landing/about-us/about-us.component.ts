@@ -21,7 +21,6 @@ interface WhyUniprepCard {
 
 interface MissionCard {
   badge: string;
-  title: string;
   description: string;
 }
 
@@ -141,11 +140,11 @@ export class AboutUsComponent implements OnInit {
     {
       icon: 'fa-light fa-arrow-down',
       year: '2021',
-      title: 'The Spark of Self-Reliance',
-      subtitle: 'We began with a simple, yet powerful idea: What if everyone could take full control of their education, career, and entrepreneurial journey, without relying on anyone else?',
+      title: 'Spark of Career Empowerment',
+      subtitle: 'We began with a simple, yet powerful idea: What if every professional could take full control of their career growth, job search, without depending on anyone else?',
       points: [
-        'Our mission: Build a platform that provides the tools and resources needed for self-preparation, allowing users to independently navigate their paths.',
-        'Action: We created UNIPREP, offering self-guided resources for education, careers, and entrepreneurship.',
+        'Our mission: Build a platform that provides the tools, connections, and visibility needed for career advancement — enabling users to showcase their skills, strengthen their portfolios, and secure the right opportunities.',
+        'Action: We created UNIPREP, offering self–driven resources, portfolio enhancement tools, and a global network to help talents independently navigate their career paths and land the right job based on their skills.',
       ],
       position: 'right',
     },
@@ -154,10 +153,10 @@ export class AboutUsComponent implements OnInit {
       title: 'Learning from Our Own Experience',
       subtitle: '',
       points: [
-        'The Process: Drawing from our own struggles and insights, we started building a platform based on real-world experiences. Our goal was to offer something that we, as individuals, wished we had when we were navigating these journeys ourselves.',
-        'Research & Development: We dug deep into the challenges people face globally in accessing education and career opportunities and designed UNIPREP with these real-world insights in mind.',
-        'Outcome: A platform that empowers you to take control of your journey, offering resources tailored to self-preparation—no dependency on external agents or intermediaries.',
-      ],
+        'The Process: Drawing from our own struggles and insights in job hunting and career growth, we began shaping a platform rooted in real-world hiring experiences.',
+        'Our Goal: To create the kind of career resource we wished we had when navigating the competitive job market ourselves.',
+        'Research & Development: We explored the challenges professionals face worldwide in showcasing their skills, building credible portfolios, and connecting with the right employers — and designed UNIPREP to address them.',
+        'Outcome: A platform that puts you in control of your career, equipping you with tools and visibility to stand out — without relying on middlemen or traditional recruitment barriers.'],
       position: 'right',
     },
     {
@@ -224,8 +223,7 @@ export class AboutUsComponent implements OnInit {
 
   missionData: MissionCard = {
     badge: 'Our Mission',
-    title: 'At UNIPREP, we believe that everyone should have the power to shape their future.',
-    description: 'Our mission is to empower individuals by providing the right tools for self-guided success. From education to career planning to entrepreneurship, we aim to make the journey independent, accessible, and achievable for everyone.',
+    description: 'At UNIPREP, we empower individuals to build impactful professional portfolios, connect with verified employers, and apply to countless job opportunities across industries and geographies. By combining skill-readiness and a global employer network, we help every talent find not just any job - but the right job.',
   };
 
   callToActionData: CallToActionCard = {

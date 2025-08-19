@@ -25,11 +25,10 @@ interface ChatMessage {
   attachment?: string | null;
 }
 
-interface PremiumFeatures {
-  icon: string;
-  title: string;
-  description: string;
-}
+// interface PremiumFeatures {
+//   icon: string;
+//   title: string;
+// }
 @Component({
   selector: 'uni-job-chat-ui',
   templateUrl: './job-chat-ui.component.html',
@@ -55,38 +54,15 @@ export class JobChatUiComponent implements OnInit, OnChanges {
   showPremimumPopup: boolean = false;
   whyPremium: boolean = false;
   applyBtnDisable: boolean = true;
-  premiumFeatures:PremiumFeatures[] = [
-    {
-      icon: "💬",
-      title: "1-on-1 Career Advisor",
-      description: "Personalized support to land your dream job."
-    },
-    {
-      icon: "✅",
-      title: "Verified Talent Badge",
-      description: "9 out of 10 employers prefer verified candidates."
-    },
-    {
-      icon: "🚀",
-      title: "70+ Exclusive Features",
-      description: "Tools to boost your applications."
-    },
-    {
-      icon: "♾️",
-      title: "Unlimited Access",
-      description: "Apply to all Premium Jobs."
-    },
-    {
-      icon: "⏱",
-      title: "Real-Time Job Alerts",
-      description: "Get updates the moment jobs go live."
-    },
-    {
-      icon: "💰",
-      title: "No Success, No Fees",
-      description: "No job in 30 days? Full refund."
-    }
+  premiumFeatures: string[] = [
+    "💼 <strong>Access to Unlimited Premium Jobs worldwide.</strong>",
+    "✅ <strong>Verified Talent Profile –</strong> Prioritised by recruiters.",
+    "⭐ <strong>Priority Profile Highlight –</strong> Recruiters see you first.",
+    "🎯 <strong>Access to 70+ Career –</strong> Boosting Features to accelerate your journey.",
+    "🎓 <strong>1:1 Mentorship with Career Experts.</strong>",
+    "⚡ <strong>No Interview Calls in 30 days? Get Full Refund.</strong>"
   ];
+
 
   //Inject Service
   private toast = inject(MessageService);
@@ -235,8 +211,8 @@ export class JobChatUiComponent implements OnInit, OnChanges {
     return tempDiv.textContent || '';
   }
 
-  closeAndOpenPopup() {
-    this.showPremimumPopup = false;
-    this.whyPremium = true;
-  }
+  // closeAndOpenPopup() {
+  //   // this.showPremimumPopup = false;
+  //   this.whyPremium = true;
+  // }
 }

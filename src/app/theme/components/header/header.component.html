@@ -34,7 +34,7 @@
 						</div> -->
 						<button class="btn btn-secondary py-2" (click)="openReportModal(op, $event)"
 							aria-label="Open reports">
-							<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+							<i class="fa-regular fa-bullhorn" style="font-size: 16px" aria-hidden="true"></i>
 						</button>
 						<p-avatar *ngIf="false" (click)="openchat()" class="mr-2" size="large" role="button"
 							aria-label="Open chat"><i class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
@@ -74,14 +74,13 @@
 						</div> -->
 						<button class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center"
 							(click)="openReportModal(op, $event)" aria-label="Open reports"
-							style="width: 90px; height: 40px; padding: 0"><i class="fa-solid fa-bug"
-								style="font-size: 16px" aria-hidden="true"></i> Report</button>
+							style="width: 90px; height: 40px; padding: 0"><i class="fa-regular fa-bullhorn" style="font-size: 16px" aria-hidden="true"></i> Report</button>
 					</div>
 
 					<div class="d-flex gap-2 d-md-none align-items-center">
 						<button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)"
 							aria-label="Open reports">
-							<i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+							<i class="fa-regular fa-bullhorn" aria-hidden="true"></i>
 						</button>
 					</div>
 					<div class="d-none d-md-flex align-items-center">
@@ -143,8 +142,11 @@
 							[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'"
 							alt="{{ homeCountryName }} flag" height="auto" width="auto" />
 					</div> -->
-
 					<div class="d-none d-md-flex align-items-center gap-3">
+						<button class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center"
+							(click)="openReportModal(op, $event)" aria-label="Open reports"
+							style="width: 90px; height: 40px; padding: 0"><i class="fa-regular fa-bullhorn" style="font-size: 16px" aria-hidden="true"></i> Report</button>
+
 						<a (click)="openchat()" title="Chat" aria-label="Open chat">
 							<p-avatar class="" label="" role="button" style="padding: 19px">
 								<i class="fa-solid fa-comments"></i>
