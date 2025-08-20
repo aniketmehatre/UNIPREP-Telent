@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core"
+import { Component, OnInit, signal, ViewChild } from "@angular/core"
 import { AuthService } from "src/app/Auth/auth.service"
 import { SubscriptionService } from "./subscription.service"
 import { WindowRefService } from "./window-ref.service"
@@ -46,7 +46,6 @@ import { TalentConnectService } from "../talent-connect/talent-connect.service"
 		SubscriptionSuccessComponent,
 		NgxStripeModule,
 		ButtonModule,
-		RouterLink
 	],
 })
 export class SubscriptionComponent implements OnInit {
@@ -82,6 +81,7 @@ export class SubscriptionComponent implements OnInit {
 	email: string = ''
 	isCollegeStudent: boolean = true;
 	showPremimumPopup: boolean = false;
+	daysLeftInPremium = signal(0);
 	premiumFeatures: string[] = [
 	"💼 <strong>Access to Unlimited Premium Jobs worldwide.</strong>",
 	"✅ <strong>Verified Talent Profile –</strong> Prioritised by recruiters.",
@@ -104,6 +104,7 @@ export class SubscriptionComponent implements OnInit {
 	}
 	async ngOnInit(): Promise<void> {
 		//why premium whatsapp message trigger
+		this.daysLeftInPremium.set(this.storage.get('daysRemaining') || 0);
 		this.pageFacade.sendWhatsappMessage();
 		try {
 			let homeCountryName = this.storage.get("home_country_name");

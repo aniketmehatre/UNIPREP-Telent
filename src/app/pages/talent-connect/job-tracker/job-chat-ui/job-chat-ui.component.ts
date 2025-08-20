@@ -14,6 +14,7 @@ import { Job } from 'src/app/@Models/employee-connect-job.model';
 import { DialogModule } from 'primeng/dialog';
 import { environment } from '@env/environment';
 import { PageFacadeService } from 'src/app/pages/page-facade.service';
+import { LocalStorageService } from 'ngx-localstorage';
 
 interface ChatMessage {
   sender: boolean; // Changed from isSender to sender for clarity
@@ -54,7 +55,8 @@ export class JobChatUiComponent implements OnInit, OnChanges {
   //Inject Service
   private toast = inject(MessageService);
   private pageFacade = inject(PageFacadeService);
-  constructor(private talentConnectService: TalentConnectService, private authService: AuthService, private router: Router) { }
+  constructor(private talentConnectService: TalentConnectService, private authService: AuthService,
+    private router: Router, private storage: LocalStorageService) { }
 
   ngOnInit(): void {
     this.profileData = this.talentConnectService._employerProfileData;
@@ -138,6 +140,8 @@ export class JobChatUiComponent implements OnInit, OnChanges {
     });
   }
   applyJob(message: string) {
+    console.log('jobDetails', this.getRemainingDays(this.jobDetails.due_date));
+    this.storage.set('daysRemaining', this.getRemainingDays(this.jobDetails.due_date));
     //upgrade to premium and why premium popup trigger
     if (this.jobDetails.premium_users === 1) { // if the job is only premium users or all users.
       if (this.authService._user.current_plan_detail.account_status !== "Subscription Active") { // if the subscription is not exist
@@ -162,10 +166,34 @@ export class JobChatUiComponent implements OnInit, OnChanges {
       }
     });
   }
+  getRemainingDays(dueDateStr?: string): number | null {
+    if (!dueDateStr) {
+      console.error("Due date string is missing!");
+      return null; // or return 0 depending on your use case
+    }
+
+    // Split dd-MM-yyyy format
+    const [day, month, year] = dueDateStr.split('-').map(Number);
+
+    // If parsing failed
+    if (!day || !month || !year) {
+      console.error("Invalid date format. Expected dd-MM-yyyy, got:", dueDateStr);
+      return null;
+    }
+
+    const dueDate = new Date(year, month - 1, day);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const diffTime = dueDate.getTime() - today.getTime();
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  }
+
   autoGrow(element: HTMLTextAreaElement): void {
-    if(this.message.length === 0){
+    if (this.message.length === 0) {
       this.applyBtnDisable = true;
-    }else{
+    } else {
       this.applyBtnDisable = false;
     }
     element.style.height = 'auto';
