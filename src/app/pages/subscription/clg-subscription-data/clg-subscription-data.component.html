@@ -411,7 +411,7 @@
                                 Again</button>
                             </div>
                             <p class="orange fw-bolder mt-1">That's only {{ subscription.currency }} {{
-                              getWholePricePerMonth(subscription.givenprice, subscription.validity) | number : ".2" }} a month </p>
+                              getWholePricePerMonth(subscription.givenprice, subscription.validity) | number:'1.1-2' }} a month </p>
                           </div>
                         </div>
                       </div>
@@ -697,12 +697,11 @@
               <button pButton  *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder" (click)="checkout('razorpay')">
                 <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="40px" />
               </button> -->
-                    <p>{{currentCountry}}</p>
-                  <button pButton [disabled]="showCheckout" *ngIf="currentCountry !== 'India'"
+                  <button pButton [disabled]="showCheckout" *ngIf="currencyValue != 'INR'"
                     class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary" (click)="checkout('stripe')">
                     Checkout
                   </button>
-                  <button pButton [disabled]="showCheckout" *ngIf="currentCountry == 'India'"
+                  <button pButton [disabled]="showCheckout" *ngIf="currencyValue == 'INR'"
                     class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary" (click)="checkout('razorpay')">
                     Checkout
                   </button>
