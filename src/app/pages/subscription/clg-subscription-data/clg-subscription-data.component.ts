@@ -641,4 +641,8 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 		setTimeout(() => this.copied = false, 2000); // hide "Copied!" after 2s
 		});
 	}
+	showInfo: boolean = false;
+	toggleInfo(){
+		this.showInfo = !this.showInfo;
+	}
 }

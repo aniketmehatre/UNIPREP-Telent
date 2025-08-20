@@ -303,7 +303,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 if (!userDetails.city_id) {
                     setTimeout(() => {
                         this.updateLocation();
-                    }, 1000); //because of the token is not set. so i added the timeout
+                    }, 3000); //because of the token is not set. so i added the timeout
                 }
 
                 // if (this.jobId) {
@@ -340,6 +340,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     async updateCurrentLocation() {
         let userLocation: { country: string; city: string } = await this.countryLocationService.getUserCountry();
+        console.log(userLocation, "userLocation");
         return userLocation;
         // try {
         //     const ipData = await firstValueFrom(this.getCountryFromIP());
