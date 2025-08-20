@@ -251,7 +251,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 				item.selectedCountry = this.countryList.find((country: any) => country.id === Number(this.user?.interested_country_id))
 				item.isActive = item.popular == 1 ? true : false
 				this.currency = item.currency
-               this.selectedSubscriptionPlan(item);
+              // this.selectedSubscriptionPlan(item);
 			})
 		})
 	}
