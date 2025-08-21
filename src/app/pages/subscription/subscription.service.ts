@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "@env/environment";
 import { Store } from "@ngrx/store";
 import { SubscriptionState } from "./store/reducer";
-import {BehaviorSubject} from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import {
   loadSubscriptionPlans,
   placeorder,
@@ -25,7 +25,7 @@ import {
 } from "../../@Models/subscription";
 import { Observable } from "rxjs";
 import { PaymentIntent } from "@stripe/stripe-js";
-import {StorageService} from "../../services/storage.service";
+import { StorageService } from "../../services/storage.service";
 
 @Injectable({
   providedIn: "root",
@@ -45,7 +45,7 @@ export class SubscriptionService {
   //     return this.http.post<any>(environment.ApiUrl + '/getsubscriptions', {}, {'headers': headers});
   //
   // }
- 
+
   usedCoupon = new BehaviorSubject('');
   getQuestionCredit() {
     this.storage.get("loginToken");
@@ -255,15 +255,19 @@ export class SubscriptionService {
 
   getExtendedToken() {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    const data={
-      token:''
+    const data = {
+      token: ''
     };
-    return this.http.post<any>(environment.ApiUrl + "/tokenexpireremainingtime",data,{ headers: headers });
+    return this.http.post<any>(environment.ApiUrl + "/tokenexpireremainingtime", data, { headers: headers });
   }
   createPaymentIntent(data: any): Observable<PaymentIntent> {
     return this.http.post<PaymentIntent>(
       `${environment.ApiUrl}/placeorderstripe`,
-       data 
+      data
     );
+  }
+
+  updateUserBehaviour() {
+    return this.http.post<any>(environment.ApiUrl + `/updateuserbehaviour`, {});
   }
 }

@@ -53,8 +53,13 @@
 	</p-dialog>
 </ng-container>
 <p-dialog [(visible)]="showPremimumPopup" [modal]="true" [draggable]="false" [resizable]="false"
-	header="🚀 This is a Premium Job - Application Closes in {{daysLeftInPremium()}} Days!" class="why-premium"
-	[breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+	class="why-premium" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [closable]="false">
+	 <ng-template pTemplate="header">
+		<div class="d-flex justify-content-between w-100">
+			<h2>🚀 This is a Premium Job - Application Closes in {{daysLeftInPremium()}} Days!</h2>
+			<button class="btn btn-primary btn-rounded" (click)="onClosePremiumPopup()"><span class="pi pi-times"></span></button>
+		</div>
+  	</ng-template>
 	<div class="row">
 		<div class="col-12">
 			<h6 class="mb-3 fw-semibold">With UNIPREP Premium, you don't just apply - we help you get hired.</h6>

@@ -12,11 +12,14 @@ import { Blog } from '../pages/landing/bloglist/bloglist.component';
     providedIn: "root",
 })
 export class LocationService {
+    headers = new HttpHeaders().set("Accept", "application/json");
+
+    // API Cache Variables
+    public homeCountryDataCache$: Observable<any> | null = null;
 
     constructor(private http: HttpClient,
         private deviceService: DeviceDetectorService, private storage: LocalStorageService) {
     }
-
 
     getValidateToken(req: any) {
         const headers = new HttpHeaders().set("Accept", "application/json");
@@ -167,10 +170,12 @@ export class LocationService {
     }
 
     getHomeCountry(homeCountryId: number) {
-        const headers = new HttpHeaders().set("Accept", "application/json");
-        return this.http.get<any>(environment.ApiUrl + `/country?getHomeCountry=${homeCountryId}`, {
-            headers: headers,
-        });
+        if(!this.homeCountryDataCache$) {
+          this.homeCountryDataCache$ = this.http.get<any>(environment.ApiUrl + `/country?getHomeCountry=${homeCountryId}`, { headers: this.headers }).pipe(
+                shareReplay(1)
+            );
+        }
+        return this.homeCountryDataCache$;
     }
 
     getHomeCountryNew() {

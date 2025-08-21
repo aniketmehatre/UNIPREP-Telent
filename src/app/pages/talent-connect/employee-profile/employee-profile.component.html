@@ -921,7 +921,7 @@
 								</div>
 								<div class="d-flex gap-2" *ngIf="activePageIndex == 6">
 									<button pButton type="button" (click)="onCallAIEvaluation()" class="btn btn-primary w-100 me-2">AI Review <i class="pi pi-microchip-ai text-white"></i></button>
-									<button pButton type="button" (click)="next()" class="btn btn-success w-100">Proceed to Apply <i class="pi pi-check text-white"></i></button>
+									<button pButton type="button" (click)="next()" class="btn btn-success w-100" [disabled]="getDisabledStatus()">Proceed to Apply <i class="pi pi-check text-white"></i></button>
 								</div>
 							</div>
 						</div>
@@ -940,7 +940,7 @@
 										<span class="me-2">Edit Profile</span><span class="btn-icon px-2 py-2"><i class="pi pi-arrow-left text-white"></i></span>
 									</button>
 									<button pButton type="button" (click)="next()" class="btn btn-success btn-rounded p-1 ps-4">
-										<span class="me-2">Proceed to Apply</span><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
+										<span class="me-2" [disabled]="getDisabledStatus()">Proceed to Apply</span><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
 									</button>
 								</div>
 							</div>
