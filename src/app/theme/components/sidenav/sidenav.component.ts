@@ -166,12 +166,12 @@ export class SidenavComponent {
       image: "",
       subMenu: true
     },
-    {
-      title: "Global Repository",
-      url: "/pages/global-repo",
-      image: "fa-solid fa fa-globe",
-      subMenuBy: "International Education",
-    },
+    // {
+    //   title: "Global Repository",
+    //   url: "/pages/global-repo",
+    //   image: "fa-solid fa fa-globe",
+    //   subMenuBy: "International Education",
+    // },
     {
       title: "UNILEARN",
       url: "/pages/unilearn/modules",
