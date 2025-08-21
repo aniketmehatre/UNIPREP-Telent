@@ -221,7 +221,8 @@
                   <p class="orange fw-bolder" *ngIf="subscription.validity == 1">That's only {{ subscription.currency }}
                     {{ getWholePricePerDay(subscription.givenprice, subscription.validity) | number : ".2" }} a day </p>
                   <p class="orange fw-bolder" *ngIf="subscription.validity != 1">That's only {{ subscription.currency }}
-                    {{ getWholePricePerMonth(subscription.givenprice, subscription.validity) | number : ".2" }} a month </p>
+                    {{ getWholePricePerMonth(subscription.givenprice, subscription.validity) | number : "1.1-2" }} a
+                    month </p>
                 </ul>
               </div>
 
@@ -285,19 +286,17 @@
                             <i class="fa-solid fa-times me-2 red"></i>1:1 Mentorship with Career Advisor
                           </p>
                           <p>
-                              <i class="fa-solid fa-times me-2 red"></i>Talent Profile Verification
+                            <i class="fa-solid fa-times me-2 red"></i>Talent Profile Verification
                           </p>
                           <p>
-                            <a [routerLink]="'/pages/job-tool/career-tool'"
-                              class="text-decoration-none text-black">
+                            <a [routerLink]="'/pages/job-tool/career-tool'" class="text-decoration-none text-black">
                               <i class="fa-solid fa-times me-2 red"></i>Career Tools<span
                                 class="text-muted ms-2 fs-10-px">20+ Tools</span>
                               <i class="fa-solid fa-arrow-up-right"></i>
                             </a>
                           </p>
                           <p>
-                            <a [routerLink]="'/pages/education-tools'"
-                              class="text-decoration-none text-black">
+                            <a [routerLink]="'/pages/education-tools'" class="text-decoration-none text-black">
                               <i class="fa-solid fa-times me-2 red"></i>Education & Travel Tools<span
                                 class="text-muted ms-2 fs-10-px">20+ Tools</span>
                               <i class="fa-solid fa-arrow-up-right"></i>
@@ -748,26 +747,32 @@
                 </div>
               </div>
               <div class="flex-grow-2">
-                <!-- <div style="text-align: center" class="mb-2">
-              <p class="text-small fw-semibold mb-0">Checkout</p>
-            </div> -->
+                      <!-- <div style="text-align: center" class="mb-2">
+                    <p class="text-small fw-semibold mb-0">Checkout</p>
+                  </div> -->
                 <div class="d-flex gap-2">
                   <!-- <button pButton  *ngIf="currentCountry!='India'" [disabled]="showCheckout" class="btn btn-basic stripeborder px-4" (click)="checkout('stripe')">
-                <img class="img-fluid" src="../../../../uniprep-assets/stripe.png" width="40px" />
-              </button>
-              <button pButton  *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder" (click)="checkout('razorpay')">
-                <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="40px" />
-              </button> -->
-                  <button pButton [disabled]="showCheckout" *ngIf="currencyValue != 'INR'"
-                    class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary" (click)="checkout('stripe')">
-                    Checkout
+                    <img class="img-fluid" src="../../../../uniprep-assets/stripe.png" width="40px" />
                   </button>
-                  <button pButton [disabled]="showCheckout" *ngIf="currencyValue == 'INR'"
-                    class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary" (click)="checkout('razorpay')">
-                    Checkout
-                  </button>
+                  <button pButton  *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder" (click)="checkout('razorpay')">
+                    <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="40px" />
+                  </button> -->
+                  @if(currencyValue != 'INR'){
+                    <button pButton [disabled]="showCheckout" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                      (click)="checkout('stripe')">
+                      Checkout
+                    </button>
+                  }@else if(currencyValue == 'INR'){
+                    <button pButton [disabled]="showCheckout" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                      (click)="checkout('razorpay')">
+                      Checkout
+                    </button>
+                  }
+
                 </div>
-                <p *ngIf="discountAmountEnable">Discount Amount: {{ currency }} {{ discountAmount }}</p>
+                @if(discountAmountEnable){
+                  <p>Discount Amount: {{ currency }} {{ discountAmount }}</p>
+                }
               </div>
             </div>
           </div>
