@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, shareReplay, tap, throwError } from 'rxjs';
 import { map } from 'rxjs';
 import { removeExtraResponse } from '../../@Supports/prompt';
 import { EmployeeConnectProfile, EmployeeConnectProfileRes } from 'src/app/@Models/employee-connect-profile';
@@ -21,14 +21,21 @@ export class TalentConnectService {
     employerProfileCompleted$ = new BehaviorSubject<boolean>(false);
     whyPremiumModal$ = new BehaviorSubject<boolean>(false);
 
+    // API Cache Variables
+    myProfileDropDownValuesDataCache$: Observable<any> | null = null;
+    workLocationDataCache$: Observable<any> | null = null;
+    easyAppyDropdownDataCache$: Observable<any> | null = null;
+
     constructor(private http: HttpClient) { }
-    openModal(){
+
+    openModal() {
         this.whyPremiumModal$.next(true);
     }
 
     closeModal() {
         this.whyPremiumModal$.next(false);
     }
+    
     //Profile Creation 
     getMyProfileData(token?: string) {
         //  The token is not taken by the public route (login). that's why this header added for manually for after getMe Api call
@@ -56,7 +63,12 @@ export class TalentConnectService {
     }
 
     getMyProfileDropDownValues() {
-        return this.http.get<any>(environment.ApiUrl + "/getyourprofiledropdownvalues", { headers: this.headers });
+        if (!this.myProfileDropDownValuesDataCache$) {
+            this.myProfileDropDownValuesDataCache$ = this.http.get<any>(environment.ApiUrl + "/getyourprofiledropdownvalues", { headers: this.headers }).pipe(
+                shareReplay(1)
+            );
+        }
+        return this.myProfileDropDownValuesDataCache$;
     }
 
     profileCreationBasicInfo(formData: any) {
@@ -104,16 +116,22 @@ export class TalentConnectService {
     }
 
     getEasyApplyWorkLocationList() {
-        return this.http.get<any>(environment.ApiUrl + "/employer/easyappyworklocations", { headers: this.headers });
+        if (!this.workLocationDataCache$) {
+            this.workLocationDataCache$ = this.http.get<any>(environment.ApiUrl + "/employer/easyappyworklocations", { headers: this.headers }).pipe(
+                shareReplay(1)
+            );
+        }
+        return this.workLocationDataCache$;
     }
 
     //Easy-Apply
     getJobListDropdown() {
-        return this.http.get<any>(environment.ApiUrl + "/employer/easyappydropdownlist", { headers: this.headers });
-    }
-
-    getJobLocationList() {
-        return this.http.get<any>(environment.ApiUrl + "/easyappyworklocations", { headers: this.headers });
+        if (!this.easyAppyDropdownDataCache$) {
+            this.easyAppyDropdownDataCache$ = this.http.get<any>(environment.ApiUrl + "/employer/easyappydropdownlist", { headers: this.headers }).pipe(
+                shareReplay(1)
+            );
+        }
+        return this.easyAppyDropdownDataCache$;
     }
 
     getJobList(data: any) {
@@ -274,12 +292,12 @@ export class TalentConnectService {
     getDepartments() {
         return this.http.get<Departments[]>(environment.ApiUrl + `/getdepartments`);
     }
-    
+
     generateUUIDLink(companyId: number): Observable<{ uuid: string }> {
-        return this.http.post<{ uuid: string }>( '/api/generate-link', { companyId });
+        return this.http.post<{ uuid: string }>('/api/generate-link', { companyId });
     }
 
-    sendWatsappMess(data: {template_name: string}){
+    sendWatsappMess(data: { template_name: string }) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/sendWhatsappMessage", data, { headers: headers });
     }
