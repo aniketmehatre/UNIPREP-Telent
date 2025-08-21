@@ -559,4 +559,9 @@ export class SubscriptionComponent implements OnInit {
 		// This method should be implemented based on your requirements
 		// For now, we'll leave it empty to fix the linter error
 	}
+
+	onClosePremiumPopup() {
+		this.showPremimumPopup = false;
+		this.subscriptionService.updateUserBehaviour().subscribe();
+	}
 }

@@ -132,6 +132,7 @@ export class AuthService {
     // Reset cache and tokens
     this.resetGetMeCache();
     this.authTokenService.clearToken();
+    this.clearCache();
 
     const loginRequest$ = this.http.post<UserData>(environment.ApiUrl + "/login", data, {
       headers: new HttpHeaders().set('Accept', 'application/json')
