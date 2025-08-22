@@ -14,7 +14,7 @@ import { SelectChangeEvent } from "primeng/select";
 import { environment } from "@env/environment";
 import { InputNumberInputEvent } from "primeng/inputnumber";
 import { PageFacadeService } from "../../page-facade.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { LocalStorageService } from "ngx-localstorage";
 
 export enum FileType {
@@ -123,7 +123,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   isSampleProfileImgVisible: boolean = false;
   isMobileView: boolean = false;
   currentCurrenyId: number | null = null;
-
+  editTab: any
   constructor(
     private fb: FormBuilder,
     private dialogService: DialogService,
@@ -132,8 +132,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private sanitizer: DomSanitizer,
     private pageFacade: PageFacadeService,
-    private router: Router, private storage: LocalStorageService
-  ) { }
+    private router: Router,
+    private storage: LocalStorageService,
+    private route: ActivatedRoute
+  ) {
+    this.route.queryParams.subscribe(params => {
+      this.editTab = params['editTab'];
+    });
+  }
 
   ngOnInit() {
     this.getDropDownOptionList();
@@ -967,6 +973,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     // this.filterLocation(response?.location_id)
     this.logo = response?.dp_image;
     this.originalProfileData = this.getAllFormValues();
+    if(this.editTab){
+      this.activePageIndex = Number(this.editTab);
+    }
     this.calculateProfileCompletion();
 
   }
