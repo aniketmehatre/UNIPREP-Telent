@@ -123,7 +123,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   isSampleProfileImgVisible: boolean = false;
   isMobileView: boolean = false;
   currentCurrenyId: number | null = null;
-  editTab: any
+  editTab: string = '';
+
   constructor(
     private fb: FormBuilder,
     private dialogService: DialogService,
