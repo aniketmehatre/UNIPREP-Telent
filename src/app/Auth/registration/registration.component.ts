@@ -104,7 +104,7 @@ export class RegistrationComponent implements OnInit {
         })
         this.authService.authState.subscribe((user) => {
             this.googleResponse = user
-            this.googleResponse = {...this.googleResponse, position: this.storage.get('position')}
+            this.googleResponse = {...this.googleResponse, position: this.storage.get('position'),job_id: this.storage.get('position')}
 
             this.service.googlesignUp(this.googleResponse).subscribe({
                 next: (data) => {
