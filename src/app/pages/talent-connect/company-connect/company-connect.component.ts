@@ -17,7 +17,7 @@ import { ButtonModule } from 'primeng/button';
     selector: 'uni-company-connect',
     styleUrls: ['./company-connect.component.scss'],
     templateUrl: './company-connect.component.html',
-    imports: [CommonModule, FormsModule, RouterLink, PaginatorModule, TagModule, CompanyFilterComponent,
+    imports: [CommonModule, FormsModule, PaginatorModule, TagModule, CompanyFilterComponent,
         ToastModule, ButtonModule
     ],
     standalone: true

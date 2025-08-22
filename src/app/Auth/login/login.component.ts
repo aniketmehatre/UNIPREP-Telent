@@ -151,7 +151,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             password: ["", [Validators.required]],
             domain_type: ['main']
         })
-        this.loginForm.patchValue({ domain_type: this.domainName })
+        this.loginForm.patchValue({ domain_type: this.domainName() })
     }
 
     openVideoPopup() {
@@ -185,7 +185,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                     'http://localhost:4200',
                     'https://dev-student.uniprep.ai'
                 ];
-                if (disallowedDomains.includes(response.domain)) {
+                if (!disallowedDomains.includes(response.domain)) {
+                    console.log('Allowed domain:', response.domain);
                     // this.handleSuccessfulLogin1(response.token, response.domain)
                     if (this.jobId) {
                         window.location.href = `${response.domain}/pages/talent-connect/easy-apply/${this.jobId}/?token=${response.token}`;
@@ -302,7 +303,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 if (!userDetails.city_id) {
                     setTimeout(() => {
                         this.updateLocation();
-                    }, 1000); //because of the token is not set. so i added the timeout
+                    }, 3000); //because of the token is not set. so i added the timeout
                 }
 
                 // if (this.jobId) {
@@ -339,6 +340,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     async updateCurrentLocation() {
         let userLocation: { country: string; city: string } = await this.countryLocationService.getUserCountry();
+        console.log(userLocation, "userLocation");
         return userLocation;
         // try {
         //     const ipData = await firstValueFrom(this.getCountryFromIP());

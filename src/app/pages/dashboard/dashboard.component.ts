@@ -254,7 +254,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 
 	// navigate Favourites
 	selectFav(req: any) {
-		if (this.talentConnectService._employerProfileData &&
+		if (this.talentConnectService._employerProfileData?.profile_completion_flag &&
 			this.authService._user?.current_plan_detail?.current_plan == "Premium"
 		) {
 			this.router.navigateByUrl(req.url);
@@ -262,7 +262,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	redirectToCvBuilder() {
-		if (this.talentConnectService._employerProfileData &&
+		if (this.talentConnectService._employerProfileData?.profile_completion_flag &&
 			this.authService._user?.current_plan_detail?.current_plan == "Premium"
 		) {
 			this.router.navigate(['/pages/job-tool/cv-builder']);
@@ -270,7 +270,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	redirectToTalentConnect() {
-		this.talentConnectService._employerProfileData ?
+		this.talentConnectService._employerProfileData?.profile_completion_flag ?
 			this.router.navigate(['/pages/talent-connect/my-profile', this.talentConnectService._employerProfileData.id]) :
 			this.router.navigate(['/pages/talent-connect/my-profile']);
 	}

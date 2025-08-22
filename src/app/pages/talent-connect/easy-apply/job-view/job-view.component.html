@@ -87,7 +87,7 @@
 											<div class="col-12 d-block d-md-none">
 												<button class="p-button-success chat-btn w-100 mb-2" pButton
 													*ngIf="isApplied" (click)="visible = true"><i
-														class="pi pi-comments"></i> Chat</button>
+														class="pi pi-comments"></i> Apply</button>
 												<div class="position-relative w-100">
 													<button pButton label="Share Job" iconPos="right"
 														icon="pi pi-share-alt" class="btn btn-secondary w-100"
@@ -516,7 +516,7 @@
 				<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails"
 					[jobId]="appliedId" [isJobApplied]="false" (closeChat)="isShowApplyChat = false"></uni-job-chat-ui>
 			</div>
-			<p-drawer #drawerRef [(visible)]="visible" position="right" [style]="{ width: '80vw' }">
+			<p-drawer #drawerRef [(visible)]="visible" position="right" [style]="{ width: '90vw' }">
 				<ng-template #headless>
 					<uni-job-chat-ui class="h-100" (openInfo)="showInfo = true" [showInfo]="showInfo"
 						[jobDetails]="jobDetails" [jobId]="appliedId" [isJobApplied]="false"

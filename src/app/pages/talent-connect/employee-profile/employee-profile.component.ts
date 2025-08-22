@@ -245,7 +245,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.additionalNotesForm = this.fb.group({
       additional_notes: [null]
     });
-
+    this.calculateProfileCompletion();
   }
 
   // Form group creation methods
@@ -554,19 +554,19 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       filledWeight += weight
     }
 
-    // Personal Information (11%)
-    checkField(this.personalInformationForm.get("full_name"), 11)
-    // checkField(this.personalInformationForm.get("profile_image"), 2)
+    // Personal Information (14%)
+    checkField(this.personalInformationForm.get("full_name"), 3)
+    checkField(this.personalInformationForm.get("profile_image"), 11)
     // checkField(this.personalInformationForm.get("date_of_birth"), 2)
     // checkField(this.personalInformationForm.get("gender"), 2)
     // checkField(this.personalInformationForm.get("nationality_id"), 2)
     // checkField(this.personalInformationForm.get("location_id"), 3)
 
-    // Education Details (11%)
+    // Education Details (14%)
     if (this.educationDetails?.controls?.length) {
       this.educationDetails.controls.forEach((edu, index) => {
         if (index == 0) {
-          checkField(edu.get("education_qualification_id"), 11)
+          checkField(edu.get("education_qualification_id"), 14)
           // checkField(edu.get("education_university_name"), 2)
           // checkField(edu.get("education_field_id"), 2)
           // checkField(edu.get("education_course_name"), 2)
@@ -578,14 +578,14 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         }
       })
     }
-    // Work Experience (11%)
-    if (filledWeight >= 22 && (isOptionalTab || this.profileCreationId || this.activePageIndex > 2)) {
-      checkOptionalTab(11)
+    // Work Experience (14%)
+    if (filledWeight >= 28 && (isOptionalTab || this.profileCreationId || this.activePageIndex > 2)) {
+      checkOptionalTab(14)
     }
 
-    // Career Preferences & Aspirations (11%)
+    // Career Preferences & Aspirations (14%)
     // checkField(this.careerPreferenceForm.get("career_preference_career_status"), 4)
-    checkField(this.careerPreferenceForm.get("career_preference_job_title_id"), 11)
+    checkField(this.careerPreferenceForm.get("career_preference_job_title_id"), 14)
     // checkField(this.careerPreferenceForm.get("career_preference_career_interest_id"), 3)
     // checkField(this.careerPreferenceForm.get("career_preference_preferred_work_location_id"), 2)
     // checkField(this.careerPreferenceForm.get("career_preference_preferred_employment_type"), 2)
@@ -595,9 +595,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     // checkField(this.careerPreferenceForm.get("career_preference_expected_salary"), 3)
 
     // Certifications & Achievements (11%)
-    if (filledWeight >= 44 && (isOptionalTab || this.profileCreationId || this.activePageIndex > 4)) {
-      checkOptionalTab(11)
-    }
+    // if (filledWeight >= 44 && (isOptionalTab || this.profileCreationId || this.activePageIndex > 4)) {
+    //   checkOptionalTab(11)
+    // }
     // if (this.certifications?.controls?.length) {
     //   this.certifications.controls.forEach((cert, index) => {
     //     if (index == 0) {
@@ -615,20 +615,20 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     //   })
     // }
 
-    // Skills & Strengths (11%)
+    // Skills & Strengths (14%)
     // checkField(this.professionalTraitsForm.get("career_preference_soft_skill_id"), 1)
     if (this.languages?.controls?.length) {
       this.languages.controls.forEach((lang, index) => {
         if (index == 0) {
-          checkField(lang.get("languages_language_id"), 11)
+          checkField(lang.get("languages_language_id"), 14)
           // checkField(lang.get("languages_proficiency"), 5)
         }
       })
     }
 
-    // NetWorking (11%)
-    if (filledWeight >= 66 && (isOptionalTab || this.profileCreationId || this.activePageIndex > 6)) {
-      checkOptionalTab(11)
+    // NetWorking (14%)
+    if (filledWeight >= 70 && (isOptionalTab || this.profileCreationId || this.activePageIndex > 5)) {
+      checkOptionalTab(14)
     }
     // checkField(this.professionalNetworkingForm.get("networking_linkedin_profile"), 3)
     // checkField(this.professionalNetworkingForm.get("networking_personal_website"), 3)
@@ -639,8 +639,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     //   })
     // }
 
-    // Attachments & Media (11%)
-    checkField(this.attachmentsForm.get("career_preference_cv_filename"), 11)
+    // Attachments & Media (16%)
+    checkField(this.attachmentsForm.get("career_preference_cv_filename"), 16)
     // checkField(this.attachmentsForm.get("career_preference_video_link"), 3)
 
     // References & Endorsements (10%)
@@ -666,9 +666,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     // }
 
     // Additional Notes (11%)
-    if (filledWeight >= 88 && (isOptionalTab || this.profileCreationId || this.activePageIndex > 8)) {
-      checkOptionalTab(12)
-    }
+    // if (filledWeight >= 88 && (isOptionalTab || this.profileCreationId || this.activePageIndex > 7)) {
+    //   checkOptionalTab(12)
+    // }
 
     this.profileCompletion = Math.round((filledWeight / totalWeight) * 100)
   }
@@ -742,8 +742,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
             if (jobId) {
               this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
             } else {
-              this.isShowCreatedSuccessfullyPopup = true;
-              // this.router.navigate(["/pages/talent-connect/my-profile"])
+              // this.isShowCreatedSuccessfullyPopup = true;
+              this.router.navigate(["/pages/talent-connect/easy-apply"])
             }
           }
           this.patchFormData(responses);
@@ -1275,13 +1275,30 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.updateExperience(index);
   }
 
-  updateExperience(index: number) {
+  getmindate(index: number) {
     const group = this.workExperience.at(index);
-    const from = group.get('work_experience_duration_from')?.value;
-    const to = group.get('work_experience_duration_to')?.value;
+    return group.get('work_experience_duration_from')?.value;
+  }
+  updateExperience(index: number, type?: string, event?: any) {
+    const group = this.workExperience.at(index);
+    const fromCtrl = group.get('work_experience_duration_from');
+    const toCtrl = group.get('work_experience_duration_to');
     const yearsCtrl = group.get('years_of_experience');
-    if (from && to) {
-      const duration = intervalToDuration({ start: from, end: to });
+    // If User Typing date
+    if (type) {
+      const currentFormCtrl = type == "from" ? fromCtrl : toCtrl;
+      if (event.target.value.length == 6 && Number(event.target.value)) {
+        const inputValue = event.target.value;
+        const month = Number(inputValue.substring(0, 2));
+        const year = Number(inputValue.substring(2, 6));
+        if (month >= 1 && month <= 12) {
+          const formatted = new Date(year, month - 1);
+          currentFormCtrl?.setValue(formatted);
+        }
+      }
+    }
+    if (fromCtrl?.value && toCtrl?.value) {
+      const duration = intervalToDuration({ start: fromCtrl?.value, end: toCtrl?.value });
       const result = formatDuration(duration, { format: ['years', 'months'] });
       yearsCtrl?.setValue(result);
     } else {
@@ -1510,10 +1527,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       2: "Education Details",
       3: "Work Experience",
       4: "Career Preference",
-      5: "Certifications",
-      6: "Professional Traits",
-      7: "Networking",
-      8: "Attachments",
+      // 5: "Certifications",
+      5: "Professional Traits",
+      6: "Networking",
+      // 7: "Attachments",
       // 9: "References"
     }
     return previousIndexValueList[this.activePageIndex] || '';
@@ -1524,12 +1541,12 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       0: "Eduation Details",
       1: "Work Experience",
       2: "Career Preference",
-      3: "Certifications",
-      4: "Professional Traits",
-      5: "Networking",
-      6: "Attachments",
+      // 3: "Certifications",
+      3: "Professional Traits",
+      4: "Networking",
+      5: "Attachments",
       // 7: "References",
-      7: "Additional Notes",
+      // 6: "Additional Notes",
       // 9: "",
     }
     return nextIndexValueList[this.activePageIndex] || '';
@@ -1573,22 +1590,27 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       this.onSubmitCareerPreferenceForm(isUpdate);
     }
     else if (this.activePageIndex == 4) {
-      if (this.certificationsForm.invalid) {
-        this.isSubmittedCertificationsForm = true;
-        return;
-      }
-      this.calculateProfileCompletion(true);
-      this.onSubmitCertificationsForm(isUpdate);
-    }
-    else if (this.activePageIndex == 5) {
       if (this.professionalTraitsForm.invalid) {
         this.isSubmittedProfessionalTraitsForm = true;
         return;
       }
+      if (this.certificationsForm.invalid) {
+        this.isSubmittedCertificationsForm = true;
+        return;
+      }
       this.calculateProfileCompletion();
       this.onSubmitProfessionalTraitsForm(isUpdate);
+      this.onSubmitCertificationsForm(isUpdate);
     }
-    else if (this.activePageIndex == 6) {
+    // else if (this.activePageIndex == 5) {
+    //   if (this.professionalTraitsForm.invalid) {
+    //     this.isSubmittedProfessionalTraitsForm = true;
+    //     return;
+    //   }
+    //   this.calculateProfileCompletion();
+    //   this.onSubmitProfessionalTraitsForm(isUpdate);
+    // }
+    else if (this.activePageIndex == 5) {
       if (this.professionalNetworkingForm.invalid) {
         this.isSubmittedProfessionalNetworkingForm = true;
         return;
@@ -1596,13 +1618,13 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       this.calculateProfileCompletion(true);
       this.onSubmitProfessionalNetworkingForm(isUpdate);
     }
-    else if (this.activePageIndex == 7) {
+    else if (this.activePageIndex == 6) {
       if (this.attachmentsForm.invalid) {
         this.isSubmittedAttachmentsForm = true;
         return;
       }
       this.calculateProfileCompletion();
-      this.onSubmitAttachmentsForm(isUpdate);
+      this.onSubmitAttachmentsForm();
     }
     // else if (this.activePageIndex == 8) {
     //   if (this.referencesForm.invalid) {
@@ -1612,11 +1634,11 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     //   this.calculateProfileCompletion();
     //   this.onSubmitReferencesForm(isUpdate);
     // }
-    if (this.activePageIndex == 8) {
-      this.calculateProfileCompletion(true);
-      this.onSubmitAdditionalNotesForm();
-    }
-    if (this.activePageIndex < 8 && !isUpdate) {
+    // if (this.activePageIndex == 6) {
+    //   this.calculateProfileCompletion(true);
+    //   this.onSubmitAdditionalNotesForm();
+    // }
+    if (this.activePageIndex < 6 && !isUpdate) {
       this.activePageIndex++;
     }
   }
@@ -1873,13 +1895,18 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmitAttachmentsForm(isUpdate: boolean) {
+  onSubmitAttachmentsForm() {
     if (!this.isAttachmentsFormModified()) {
-      if (isUpdate) {
-        this.toastService.add({ severity: "success", summary: "Success", detail: "Attachments Updated Successfully" });
+      let jobId = this.storage.get('jobId')
+      if (jobId) {
+        this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`]);
+      } else {
+        this.router.navigate(["/pages/talent-connect/easy-apply"]);
+        // this.isShowCreatedSuccessfullyPopup = true;
       }
       return;
     }
+    this.profileCompletion = 100;
     const formData = new FormData();
     formData.append("student_id", this.profileCreationId.toString());
     formData.append("profile_completion", this.profileCompletion.toString());
@@ -1890,70 +1917,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
     formData.append("career_preference_video_link", this.attachmentsForm.get("career_preference_video_link")?.value || "");
     formData.append("career_preference_portfolio_upload_link", this.attachmentsForm.get("career_preference_portfolio_upload_link")?.value || "");
-    this.talentConnectService.profileCreationCareerInfo(formData).subscribe({
-      next: res => {
-        this.getProfileData();
-        if (isUpdate) {
-          this.toastService.add({ severity: "success", summary: "Success", detail: "Attachments Updated Successfully" });
-        }
-      },
-      error: err => {
-        this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
-        if (!isUpdate) {
-          this.previous();
-        }
-      }
-    });
-  }
-
-  onSubmitReferencesForm(isUpdate: boolean) {
-    if (!this.isReferencesFormModified()) {
-      if (isUpdate) {
-        this.toastService.add({ severity: "success", summary: "Success", detail: "References Updated Successfully" });
-      }
-      return;
-    }
-    let data = {
-      student_id: this.profileCreationId,
-      profile_completion: this.profileCompletion,
-      ...this.referencesForm.value
-    }
-    this.talentConnectService.profileCreationReferenceInfo(data).subscribe({
-      next: res => {
-        this.getProfileData();
-        if (isUpdate) {
-          this.toastService.add({ severity: "success", summary: "Success", detail: "References Updated Successfully" });
-        }
-      },
-      error: err => {
-        this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
-        if (!isUpdate) {
-          this.previous();
-        }
-      }
-    });
-  }
-
-  onSubmitAdditionalNotesForm() {
     this.additionalNotesForm.value.additional_notes = this.additionalNotesForm.value.additional_notes == '<p></p>' ? '' : this.additionalNotesForm.value.additional_notes;
-    if (this.additionalNotesForm.value.additional_notes == this.originalProfileData?.additional_notes && this.isUpdatedProfile) {
-      let jobId = this.storage.get('jobId')
-      if (jobId) {
-        this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
-      } else {
-        this.isShowCreatedSuccessfullyPopup = true;
-        // this.router.navigate(["/pages/talent-connect/my-profile"])
-      }
-      this.toastService.add({ severity: "success", summary: "Success", detail: "Profile Created Successfully" });
-      return;
-    }
-    let data = {
-      student_id: this.profileCreationId,
-      profile_completion: this.profileCompletion,
-      profile_completion_flag: 1,
-      ...this.additionalNotesForm.value
-    }
-    this.talentConnectService.profileCreationCareerInfo(data).subscribe({
+    formData.append("additional_notes", this.additionalNotesForm.value.additional_notes);
+    formData.append("profile_completion_flag", "1");
+    this.talentConnectService.profileCreationCareerInfo(formData).subscribe({
       next: res => {
         this.getProfileData(true);
       },
@@ -1962,6 +1929,63 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  // onSubmitReferencesForm(isUpdate: boolean) {
+  //   if (!this.isReferencesFormModified()) {
+  //     if (isUpdate) {
+  //       this.toastService.add({ severity: "success", summary: "Success", detail: "References Updated Successfully" });
+  //     }
+  //     return;
+  //   }
+  //   let data = {
+  //     student_id: this.profileCreationId,
+  //     profile_completion: this.profileCompletion,
+  //     ...this.referencesForm.value
+  //   }
+  //   this.talentConnectService.profileCreationReferenceInfo(data).subscribe({
+  //     next: res => {
+  //       this.getProfileData();
+  //       if (isUpdate) {
+  //         this.toastService.add({ severity: "success", summary: "Success", detail: "References Updated Successfully" });
+  //       }
+  //     },
+  //     error: err => {
+  //       this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
+  //       if (!isUpdate) {
+  //         this.previous();
+  //       }
+  //     }
+  //   });
+  // }
+
+  // onSubmitAdditionalNotesForm() {
+  //   this.additionalNotesForm.value.additional_notes = this.additionalNotesForm.value.additional_notes == '<p></p>' ? '' : this.additionalNotesForm.value.additional_notes;
+  //   if (this.additionalNotesForm.value.additional_notes == this.originalProfileData?.additional_notes && this.isUpdatedProfile) {
+  //     let jobId = this.storage.get('jobId')
+  //     if (jobId) {
+  //       this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+  //     } else {
+  //       this.isShowCreatedSuccessfullyPopup = true;
+  //       // this.router.navigate(["/pages/talent-connect/my-profile"])
+  //     }
+  //     this.toastService.add({ severity: "success", summary: "Success", detail: "Profile Created Successfully" });
+  //     return;
+  //   }
+  //   let data = {
+  //     student_id: this.profileCreationId,
+  //     profile_completion: this.profileCompletion,
+  //     profile_completion_flag: 1,
+  //     ...this.additionalNotesForm.value
+  //   }
+  //   this.talentConnectService.profileCreationCareerInfo(data).subscribe({
+  //     next: res => {
+  //       this.getProfileData(true);
+  //     },
+  //     error: err => {
+  //       this.toastService.add({ severity: 'error', summary: 'Error', detail: err?.error?.message });
+  //     }
+  //   });
+  // }
 
   getAllFormValues() {
     let allFormValues = {
@@ -2083,17 +2107,21 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   isAttachmentsFormModified(): boolean {
+    this.additionalNotesForm.value.additional_notes = this.additionalNotesForm.value.additional_notes == '<p></p>' ? '' : this.additionalNotesForm.value.additional_notes;
     const originalAttachmentsForm = {
       career_preference_video_link: this.originalProfileData?.career_preference_video_link,
       career_preference_portfolio_upload_link: this.originalProfileData?.career_preference_portfolio_upload_link,
-      career_preference_cv_filename: this.originalProfileData?.career_preference_cv_filename
+      career_preference_cv_filename: this.originalProfileData?.career_preference_cv_filename,
+      additional_notes: this.originalProfileData?.additional_notes
     };
     if (!originalAttachmentsForm) return true;
     const current = {
       career_preference_video_link: this.attachmentsForm.get("career_preference_video_link")?.value,
       career_preference_portfolio_upload_link: this.attachmentsForm.get("career_preference_portfolio_upload_link")?.value,
-      career_preference_cv_filename: this.attachmentsForm.get("career_preference_cv_filename")?.value
+      career_preference_cv_filename: this.attachmentsForm.get("career_preference_cv_filename")?.value,
+      additional_notes: this.additionalNotesForm.value.additional_notes
     };
+    if (!this.isUpdatedProfile) return true;
     return JSON.stringify(current) !== JSON.stringify(originalAttachmentsForm);
   }
 
@@ -2115,17 +2143,18 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   getDisabledStatus() {
+    // return false;
     const btnStatus: { [key: number]: boolean } = {
       0: this.personalInformationForm.invalid,
       1: this.educationDetailsForm.invalid,
       2: this.workExperienceForm.invalid,
       3: this.careerPreferenceForm.invalid,
-      4: this.certificationsForm.invalid,
-      5: this.professionalTraitsForm.invalid,
-      6: this.professionalNetworkingForm.invalid,
-      7: this.attachmentsForm.invalid,
+      4: this.certificationsForm.invalid || this.professionalTraitsForm.invalid,
+      // 5: this.professionalTraitsForm.invalid,
+      5: this.professionalNetworkingForm.invalid,
+      6: this.attachmentsForm.invalid || this.additionalNotesForm.invalid,
       // 8: this.referencesForm.invalid,
-      8: this.additionalNotesForm.invalid,
+      // 7: this.additionalNotesForm.invalid,
     }
     return btnStatus[this.activePageIndex] || false;
   }
@@ -2141,6 +2170,19 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         sessionStorage.removeItem(key);
       }
     });
+  }
+
+  onTypeDate(event: any, formCntr: FormControl) {
+    if (event.target.value.length == 8 && Number(event.target.value)) {
+      const inputValue = event.target.value;
+      const day = Number(inputValue.substring(0, 2));
+      const month = Number(inputValue.substring(2, 4));
+      const year = Number(inputValue.substring(4, 8));
+      if (day >= 1 && day <= 31 && month >= 1 && month <= 12) {
+        const formatted = `${day}/${month}/${year}`;
+        formCntr?.setValue(formatted);
+      }
+    }
   }
 
   ngOnDestroy(): void {

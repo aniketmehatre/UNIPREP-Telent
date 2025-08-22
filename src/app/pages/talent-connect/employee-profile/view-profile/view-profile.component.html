@@ -172,8 +172,8 @@
         <div class="row g-2">
           <div class="col-md-3">
             <h3 class="fw-bold text-navy">Career Preferences & Aspirations</h3>
-            <div class="mt-3 text-warning rounded-pill">Confused about your career?</div>
-            <button pButton label="Click here to plan now!" class="p-button-outlined p-button-warning mt-2 rounded-pill" (click)="routingToPage('/pages/job-tool/career-tool')"></button>
+            <!-- <div class="mt-3 text-warning rounded-pill">Confused about your career?</div>
+            <button pButton label="Click here to plan now!" class="p-button-outlined p-button-warning mt-2 rounded-pill" (click)="routingToPage('/pages/job-tool/career-tool')"></button> -->
           </div>
           <div class="col-md-9">
             <div class="row g-2">
@@ -225,8 +225,8 @@
         <div class="row g-2">
           <div class="col-md-3">
             <h3 class="fw-bold text-navy">Certifications & Achievements</h3>
-            <div class="mt-3 text-warning rounded-pill">Want to add more skills?</div>
-            <button pButton label="Click here to add more to your list!" (click)="routingToPage('/pages/modules/learning-hub')" class="p-button-outlined p-button-warning mt-2 rounded-pill"></button>
+            <!-- <div class="mt-3 text-warning rounded-pill">Want to add more skills?</div>
+            <button pButton label="Click here to add more to your list!" (click)="routingToPage('/pages/modules/learning-hub')" class="p-button-outlined p-button-warning mt-2 rounded-pill"></button> -->
           </div>
           <div class="col-md-9">
             <div class="row g-2">
@@ -278,8 +278,8 @@
         <div class="row g-2">
           <div class="col-md-3">
             <h3 class="fw-bold text-navy">Key Strengths & Professional Traits</h3>
-            <div class="mt-3 text-warning">Looking to add more languages?</div>
-            <button pButton label="Click here to start learning!" class="p-button-outlined p-button-warning mt-2 rounded-pill" (click)="routingToPage('/pages/language-hub/languages')"></button>
+            <!-- <div class="mt-3 text-warning">Looking to add more languages?</div>
+            <button pButton label="Click here to start learning!" class="p-button-outlined p-button-warning mt-2 rounded-pill" (click)="routingToPage('/pages/language-hub/languages')"></button> -->
           </div>
           <div class="col-md-9">
             <div class="row g-2 mb-4">
@@ -294,14 +294,14 @@
                   </div>
                 </ng-container>
               </div>
-              <div class="col-md-8">
+              <!-- <div class="col-md-8">
                 <div class="text-primary fw-bold mb-2">Soft Skills</div>
                 <ng-container *ngFor="let item of profileData.additionalDetails.softSkills">
                   <div class="mb-2">
                     {{ item }}
                   </div>
                 </ng-container>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -349,8 +349,8 @@
         <div class="row g-2">
           <div class="col-md-3">
             <h3 class="fw-bold text-navy">Attachments & Media</h3>
-            <div class="mt-3 text-warning">Want to update your CV?</div>
-            <button pButton label="Click here to create or edit your resume!" class="p-button-outlined p-button-warning mt-2 rounded-pill" (click)="routingToPage('/pages/job-tool/cv-builder')"></button>
+            <!-- <div class="mt-3 text-warning">Want to update your CV?</div>
+            <button pButton label="Click here to create or edit your resume!" class="p-button-outlined p-button-warning mt-2 rounded-pill" (click)="routingToPage('/pages/job-tool/cv-builder')"></button> -->
           </div>
           <div class="col-md-9">
             <div class="row g-2">
@@ -375,7 +375,7 @@
     </div>
 
     <!-- References Section -->
-    <div class="card mb-4" *ngIf="(profileData.academicReference && profileData.academicReference.length > 0) || (profileData.professionalReference && profileData.professionalReference.length > 0)">
+    <!-- <div class="card mb-4" *ngIf="(profileData.academicReference && profileData.academicReference.length > 0) || (profileData.professionalReference && profileData.professionalReference.length > 0)">
       <div class="card-body">
         <div class="row g-2">
           <div class="col-md-3">
@@ -428,7 +428,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Additional Info Section if needed -->
     <div class="card mb-4" *ngIf="profileData.additionalInfo">

@@ -166,12 +166,12 @@ export class SidenavComponent {
       image: "",
       subMenu: true
     },
-    {
-      title: "Global Repository",
-      url: "/pages/global-repo",
-      image: "fa-solid fa fa-globe",
-      subMenuBy: "International Education",
-    },
+    // {
+    //   title: "Global Repository",
+    //   url: "/pages/global-repo",
+    //   image: "fa-solid fa fa-globe",
+    //   subMenuBy: "International Education",
+    // },
     {
       title: "UNILEARN",
       url: "/pages/unilearn/modules",
@@ -318,7 +318,7 @@ export class SidenavComponent {
       .subscribe({
         next: () => {
           this.markCurrentMenu();
-          if (this.talentService._employerProfileData && this.authService._user?.current_plan_detail?.current_plan == "Standard") {
+          if (this.talentService._employerProfileData?.profile_completion_flag == 1 && this.authService._user?.current_plan_detail?.current_plan == "Standard") {
             this.redirectToRestrictUrl('/pages/subscriptions');
           }
         },
@@ -477,7 +477,7 @@ export class SidenavComponent {
 
   // Step 3: To Check Employer Profile
   updateMenuUrlBasedOnEmployerProfile(data?: boolean) {
-    const isProfileMissing = this.talentService._employerProfileData == null;
+    const isProfileMissing = this.talentService._employerProfileData?.profile_completion_flag ? false : true;
     const profileId = this.talentService._employerProfileData?.id;
     if (this.originalMenus.length == 0) {
       this.originalMenus = JSON.parse(JSON.stringify(this.menus));

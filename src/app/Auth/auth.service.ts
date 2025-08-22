@@ -18,6 +18,7 @@ import { SubscriptionResponse } from "../@Models/subscription";
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as { prefix: string, delimiter: string };
 import { howItWorksLinks } from "../shared/commonData";
 import { TalentConnectService } from "../pages/talent-connect/talent-connect.service";
+import { LocationService } from "../services/location.service";
 
 @Injectable({
   providedIn: "root",
@@ -48,7 +49,8 @@ export class AuthService {
     private dataService: DataService,
     private authTokenService: AuthTokenService,
     private storage: StorageService,
-    private talentConnectService: TalentConnectService
+    private talentConnectService: TalentConnectService,
+    private locationService: LocationService
   ) { }
 
   getToken(): string | null {
@@ -130,6 +132,7 @@ export class AuthService {
     // Reset cache and tokens
     this.resetGetMeCache();
     this.authTokenService.clearToken();
+    this.clearCache();
 
     const loginRequest$ = this.http.post<UserData>(environment.ApiUrl + "/login", data, {
       headers: new HttpHeaders().set('Accept', 'application/json')
@@ -361,10 +364,6 @@ export class AuthService {
     );
   }
 
-  clearCache(): void {
-    this.dataCache$ = null; // Clear the cached observable
-  }
-
   sendWhatsappOtp(val: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/sendWhatsappOtp", val, { headers: headers });
@@ -471,5 +470,13 @@ export class AuthService {
   validateSignIn(req: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/login", req, { headers: headers });
+  }
+
+  clearCache(): void { // Clear the cached observable
+    this.dataCache$ = null;
+    this.talentConnectService.myProfileDropDownValuesDataCache$ = null;
+    this.talentConnectService.workLocationDataCache$ = null;
+    this.talentConnectService.easyAppyDropdownDataCache$ = null;
+    this.locationService.homeCountryDataCache$ = null
   }
 }

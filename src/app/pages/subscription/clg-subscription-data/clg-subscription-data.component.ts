@@ -48,7 +48,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 	topupcountries = false
 	topupvalidity = false
 	subscriptionList: any = []
-
+    currencyValue: string = 'INR'
 	subscriptionTopupList: any = []
 	couponInput: any = ""
 	subscriptionTotal: any = "0.00"
@@ -239,9 +239,9 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 			const mostPopularOnes = response.subscriptions.filter((item: any) => item.popular === 1)
 			const filteredData = response.subscriptions.filter((item: any) => item.popular !== 1)
 			filteredData.splice(1, 0, ...mostPopularOnes)
+            this.currencyValue = response.subscriptions[0].currency
 			this.subscriptionList = filteredData
 			this.subscriptionList.forEach((item: any) => {
-                console.log(item)
 				item.country = item.country?.split(",").map(Number)
 				let filteredCountryIds = item.country
 				item.selected = true
@@ -251,8 +251,11 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 				item.selectedCountry = this.countryList.find((country: any) => country.id === Number(this.user?.interested_country_id))
 				item.isActive = item.popular == 1 ? true : false
 				this.currency = item.currency
-               this.selectedSubscriptionPlan(item);
-			})
+				// this.showCheckout = this.planstatus?.current_plan_validity == item?.validity
+				// this.showCheckout = this.planstatus?.current_plan_validity > item?.validity
+                this.selectedSubscriptionPlan(item);
+			});
+
 		})
 	}
 
@@ -394,6 +397,16 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 	}
 
 	checkout(type: any) {
+		//This type is coming when users clicks buy premium in the job-chat-ui component => applyJob().
+		//Then subscription component => applyNow.
+        this.showCheckout = false
+		if(type === "why-premium-type"){
+			if(this.currencyValue == "INR"){
+				type = 'razorpay';
+			}else if(this.currencyValue != 'INR'){
+				type = 'stripe';
+			}
+		}
 		this.confirmModal = false
 		this.subscriptionService.getExtendedToken().subscribe(
 			(response) => {
@@ -437,6 +450,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 						})
 					}
 				}
+                this.showCheckout = true
 			},
 			(error) => {
 				if (this.basesubscription && this.selectedSubscriptionDetails) {
@@ -471,6 +485,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 						})
 					}
 				}
+                this.showCheckout = true
 			}
 		)
 	}
@@ -631,5 +646,9 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 		this.copied = true;
 		setTimeout(() => this.copied = false, 2000); // hide "Copied!" after 2s
 		});
+	}
+	showInfo: boolean = false;
+	toggleInfo(){
+		this.showInfo = !this.showInfo;
 	}
 }

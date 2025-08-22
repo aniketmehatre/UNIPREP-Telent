@@ -6,6 +6,7 @@ import { ChipModule } from 'primeng/chip';
 import { ButtonModule } from 'primeng/button';
 import { TalentConnectService } from '../../talent-connect.service';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Auth/auth.service';
 import { EmployeeConnectProfile } from 'src/app/@Models/employee-connect-profile';
 import { MessageService } from 'primeng/api';
@@ -13,6 +14,7 @@ import { Job } from 'src/app/@Models/employee-connect-job.model';
 import { DialogModule } from 'primeng/dialog';
 import { environment } from '@env/environment';
 import { PageFacadeService } from 'src/app/pages/page-facade.service';
+import { LocalStorageService } from 'ngx-localstorage';
 
 interface ChatMessage {
   sender: boolean; // Changed from isSender to sender for clarity
@@ -25,11 +27,6 @@ interface ChatMessage {
   attachment?: string | null;
 }
 
-interface PremiumFeatures {
-  icon: string;
-  title: string;
-  description: string;
-}
 @Component({
   selector: 'uni-job-chat-ui',
   templateUrl: './job-chat-ui.component.html',
@@ -52,46 +49,14 @@ export class JobChatUiComponent implements OnInit, OnChanges {
   userActiveStatus: string = '';
   profileData: EmployeeConnectProfile | null = null;
   giftImage: string = `${environment.imagePath}tutorial-coverimage/premium-plan.webp`;
-  showPremimumPopup: boolean = false;
   whyPremium: boolean = false;
   applyBtnDisable: boolean = true;
-  premiumFeatures:PremiumFeatures[] = [
-    {
-      icon: "💬",
-      title: "1-on-1 Career Advisor",
-      description: "Personalized support to land your dream job."
-    },
-    {
-      icon: "✅",
-      title: "Verified Talent Badge",
-      description: "9 out of 10 employers prefer verified candidates."
-    },
-    {
-      icon: "🚀",
-      title: "70+ Exclusive Features",
-      description: "Tools to boost your applications."
-    },
-    {
-      icon: "♾️",
-      title: "Unlimited Access",
-      description: "Apply to all Premium Jobs."
-    },
-    {
-      icon: "⏱",
-      title: "Real-Time Job Alerts",
-      description: "Get updates the moment jobs go live."
-    },
-    {
-      icon: "💰",
-      title: "No Success, No Fees",
-      description: "No job in 30 days? Full refund."
-    }
-  ];
 
   //Inject Service
   private toast = inject(MessageService);
   private pageFacade = inject(PageFacadeService);
-  constructor(private talentConnectService: TalentConnectService, private authService: AuthService) { }
+  constructor(private talentConnectService: TalentConnectService, private authService: AuthService,
+    private router: Router, private storage: LocalStorageService) { }
 
   ngOnInit(): void {
     this.profileData = this.talentConnectService._employerProfileData;
@@ -175,10 +140,14 @@ export class JobChatUiComponent implements OnInit, OnChanges {
     });
   }
   applyJob(message: string) {
+    console.log('jobDetails', this.getRemainingDays(this.jobDetails.due_date));
+    this.storage.set('daysRemaining', this.getRemainingDays(this.jobDetails.due_date));
     //upgrade to premium and why premium popup trigger
     if (this.jobDetails.premium_users === 1) { // if the job is only premium users or all users.
       if (this.authService._user.current_plan_detail.account_status !== "Subscription Active") { // if the subscription is not exist
-        this.showPremimumPopup = true;
+        // this.showPremimumPopup = true;
+        this.router.navigate(['/pages/subscriptions']);
+        this.talentConnectService.openModal();
         this.pageFacade.sendWhatsappMessage();
         return;
       }
@@ -197,10 +166,34 @@ export class JobChatUiComponent implements OnInit, OnChanges {
       }
     });
   }
+  getRemainingDays(dueDateStr?: string): number | null {
+    if (!dueDateStr) {
+      console.error("Due date string is missing!");
+      return null; // or return 0 depending on your use case
+    }
+
+    // Split dd-MM-yyyy format
+    const [day, month, year] = dueDateStr.split('-').map(Number);
+
+    // If parsing failed
+    if (!day || !month || !year) {
+      console.error("Invalid date format. Expected dd-MM-yyyy, got:", dueDateStr);
+      return null;
+    }
+
+    const dueDate = new Date(year, month - 1, day);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const diffTime = dueDate.getTime() - today.getTime();
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  }
+
   autoGrow(element: HTMLTextAreaElement): void {
-    if(this.message.length === 0){
+    if (this.message.length === 0) {
       this.applyBtnDisable = true;
-    }else{
+    } else {
       this.applyBtnDisable = false;
     }
     element.style.height = 'auto';
@@ -233,10 +226,5 @@ export class JobChatUiComponent implements OnInit, OnChanges {
     tempDiv.innerHTML = html;
     tempDiv.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
     return tempDiv.textContent || '';
-  }
-
-  closeAndOpenPopup() {
-    this.showPremimumPopup = false;
-    this.whyPremium = true;
   }
 }

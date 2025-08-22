@@ -1,70 +1,80 @@
 import { environment } from "@env/environment";
 import { ProfileData } from "src/app/@Models/employee-connect-view-profile.model";
 
-export const JobResponsibility = `Led recruitment and payroll activities for 80-85 employees.
-Managed intern coordination, asset tracking, timesheets, and accommodation logistics.
-Initiated and executed employee engagement programs.
-Oversaw project tasks, including data validation, verification, and retrieval for seamless execution.
-Managed schedule coordination for senior team members, ensuring timely meetings and travel arrangements.
-Prepared and maintained internal reports on recruitment and project progress for leadership review.
-Acted as a point of contact between departments and external stakeholders, streamlining communication.
-Provided administrative support to senior management, maintaining confidential records and handling correspondence.
-Coordinated calendars, meetings, and travel logistics for the team, ensuring efficient operations.
+export const JobResponsibility = `
+Design & Development <br>
+- Write clean, efficient, and scalable code (commonly in Java, C++, Python, Go, or JavaScript).<br>
+- Design and implement features for Google products (e.g., Search, Maps, Ads, Cloud, YouTube, Android).<br>
+- Optimize code for performance, reliability, and scalability.<br><br>
+
+System Architecture & Problem-Solving<br>
+- Contribute to the design of distributed systems that handle millions of users.<br>
+- Identify performance bottlenecks and improve system efficiency.<br>
+- Participate in code reviews and ensure adherence to Google’s coding standards.<br><br>
+
+Collaboration & Cross-Functional Work<br>
+- Work closely with Product Managers, UX Designers, and Data Scientists to align features with business goals.<br>
+- Collaborate with senior engineers to define technical roadmaps.<br>
+- Pair programming and mentoring junior engineers/interns occasionally.<br><br>
+
+Testing & Quality Assurance<br>
+- Write unit, integration, and end-to-end tests.<br>
+- Ensure robust deployment with minimal downtime.<br>
+- Debug and fix critical production issues.
 `;
 
 export const SampleProfileData: ProfileData = {
     personalInfo: {
-        fullName: 'Darshini',
-        dateOfBirth: '30/01/2003',
-        gender: 'Female',
-        nationality: 'Indian',
-        location: 'Mysore',
-        logo: 'uniprep-assets/images/employer-connect/darshini.jpg',
-        total_years_of_experience: '2 Years 5 Months',
+        fullName: 'Alex',
+        dateOfBirth: '13/07/2000',
+        gender: 'Male',
+        nationality: 'American',
+        location: 'California',
+        logo: 'uniprep-assets/images/employer-connect/alex.jpg',
+        total_years_of_experience: '3 Years 8 Months',
     },
     educationDetails: [{
-        highestQualification: 'BBA',
-        university: 'MICA College',
+        highestQualification: "Master's Degree",
+        university: 'Yale University',
         fieldOfStudy: 'UG',
-        courseName: 'BBA IN Human Resource Management ',
+        courseName: 'MS in Computer Science',
         graduationYear: 2022,
         gpa: '8.6 GPA'
     }],
     workExperience: [{
-        totalExperience: '1 Year 5 Months',
-        companyName: 'UNIABROAD Technology Pvt Ltd',
-        jobTitle: 'Recruitment Specialist',
+        totalExperience: '3 Year 8 Months',
+        companyName: 'Google',
+        jobTitle: 'Software developer',
         employmentType: 'Full Time',
-        duration: '10-01-2023 - Currently Employed',
-        salary: '45000',
+        duration: '10-01-2023 - Present',
+        salary: '15,600',
         responsibilities: JobResponsibility,
-        exp_currency: 'INR',
-        experienceLetter: { name: 'ExperienceLetter.pdf', file: environment.imagePath + 'sample/Darshini_Experience_Certificate.pdf ' },
+        exp_currency: 'USD',
+        experienceLetter: { name: 'ExperienceLetter.pdf', file: 'https://drive.google.com/file/d/1Smi845bV66-Gw-edWOP-ClDmn9X4ELni/view' },
     }],
     careerPreferences: {
         careerStatus: 'Working',
         careerInterest: 'Education Industry, Real Estate',
         department: 'Human Resource (HR)',
-        jobTitle: 'Human Resource',
-        preferredWorkLocation: 'Bangalore - Mysore',
+        jobTitle: 'Lead Developer',
+        preferredWorkLocation: 'New York',
         preferredEmploymentType: 'Full Time',
-        preferredWorkplaceType: 'Onsite',
-        willingToRelocate: 'Yes',
-        salaryRange: '55000',
-        currency: 'INR'
+        preferredWorkplaceType: 'Remote',
+        willingToRelocate: 'No',
+        salaryRange: '18000',
+        currency: 'USD'
     },
     certifications: [
-        { name: 'Talent Acquisition and Recruitment in Human Resource Management', file: 'https://drive.google.com/file/d/1YDdn-B_THfbJ0NKLRP6i1nVLXNzbWpSW/view' }
+        { name: 'Google Professional Cloud Architect', file: 'https://drive.google.com/file/d/1KETV_D8yGngmVUaJO0djpL-eleMXbQTs/view' }
     ],
     userAchievements: [
-        { name: "Awarded HR Team's Best Performer of the Month", file: 'https://drive.google.com/file/d/1sZLWDD0QFAyUnZK6yM-lBUkmvufnWe6M/view?usp=drive_link' }
+        { name: "Employee of the Year", file: 'https://drive.google.com/file/d/15wRM9o3IDSDX4iWv3HSXqaaX1fuYd_vG/view?usp=drive_link' }
     ],
     additionalDetails: {
         languagesKnown: [
-            { lang: 'English', prof: 'Fluent' },
-            { lang: 'Kannada', prof: 'Proficient' },
-            { lang: 'Hindi', prof: 'Fluent' },
-            { lang: 'Marathi ', prof: 'Proficient' },
+            { lang: 'English', prof: 'Native' },
+            { lang: 'Spanish', prof: 'Proficient' },
+            { lang: 'German', prof: 'Proficient' },
         ],
         hobbiesAndInterests: 'Reading, Traveling, Fitness and yoga, Exploring new cuisines, Volunteering for social causes',
         softSkills: ['Strong communication skills', 'Active listening', 'Conflict resolution', 'Empathy and compassion', 'Adaptability to change', 'Problem-solving ability', 'Ethical decision-making', 'Team collaboration', 'Effective time management', 'High emotional intelligence'],
@@ -77,16 +87,17 @@ export const SampleProfileData: ProfileData = {
         mostAdmiredQuality: 'Ability to stay calm and composed under pressure'
     },
     networking: {
-        linkedinProfile: 'https://www.linkedin.com/in/darshini-p-ruknor-a09b49223/',
-        socialMedia: [{ media: 'Instagram', link: 'https://www.instagram.com/darshu_ruknor?igsh=cGl1NWVrd204ajF5&utm_source=qr' },
-        { media: 'Facebook', link: 'https://www.facebook.com/Darshini' },
-        { media: 'X', link: 'https://twitter.com/Darshini' }
+        linkedinProfile: 'https://www.linkedin.com/alex',
+        socialMedia: [
+            // { media: 'Instagram', link: 'https://www.instagram.com/darshu_ruknor?igsh=cGl1NWVrd204ajF5&utm_source=qr' },
+            // { media: 'Facebook', link: 'https://www.facebook.com/Darshini' },
+            // { media: 'X', link: 'https://twitter.com/Darshini' }
         ],
-        personalWebsite: 'https://www.darshini-portfolio.com'
+        personalWebsite: ''
     },
     attachments: [
-        { name: 'https://drive.google.com/file/d/1ISjq6bYNWCFTKjRhStrgdpN6J5ZnSxIi/view?usp=drive_link', type: 'document' },
-        { name: 'https://drive.google.com/file/d/1hIV_NnPxa7xnXsXbwKB0y6k9PCng6EP7/view', type: 'video' }
+        { name: 'https://drive.google.com/file/d/15J5Pt-bwSIN4zSJWcyn9OT2KO7-nx4-y/view?usp=drive_link', type: 'document' },
+        { name: 'https://youtu.be/tRzt2P1Fm5I', type: 'video' }
     ],
     academicReference: [{
         collegeName: 'MICA College',
@@ -100,5 +111,5 @@ export const SampleProfileData: ProfileData = {
         designation: 'HR Manager',
         email: 'Kalyani.hr@uniabraod.co.in'
     }],
-    additionalInfo: 'Some Content'
+    additionalInfo: 'Hi, I’m Alex. For the past 3.8 years, I’ve been a Software Developer at Google, where I designed and scaled systems impacting millions of users worldwide. My work earned me the Employee of the Year (2024) award, a recognition of both technical excellence and teamwork. With an MS in Computer Science from Yale and certifications in cloud and system design, I’m eager to bring the same drive, innovation, and impact to your organization.'
 }

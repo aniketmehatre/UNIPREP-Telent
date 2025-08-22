@@ -12,7 +12,8 @@
               Subscription</h5>
           </div>
           <div>
-            <button pButton class="how-it-works-button" (click)="openHowItWorksVideoPopup()">Why Upgrade?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+            <button pButton class="how-it-works-button" (click)="openHowItWorksVideoPopup()">Why Upgrade?<i
+                class="fa-solid fa-play d-md-block d-none"></i></button>
           </div>
         </div>
         <div class="d-flex flex-wrap justify-content-start gap-2">
@@ -65,20 +66,34 @@
                 <ul class="price text-left list-unstyled">
                   <li class="header">Pricing Table</li>
                   <li class="mt-25 fw-bold text-dark fs-6">Features list</li>
-                  <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/my-profile'" class="text-decoration-none" style="color: black;">Create Talent Profile <i class="fa-solid fa-arrow-up-right"></i> </a></li>
-                  <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/my-profile'" class="text-decoration-none" style="color: black;">Share Talent Profile <i class="fa-solid fa-arrow-up-right"></i> </a></li>
-                  <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/company-connect'" class="text-decoration-none" style="color: black;">Company Connect <i class="fa-solid fa-arrow-up-right"></i> </a></li>
-                  <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/job-tracker'" class="text-decoration-none" style="color: black;">Apply to Standard Jobs <i class="fa-solid fa-arrow-up-right"></i> </a></li>
-                  <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/job-tracker'" class="text-decoration-none" style="color: black;">Apply to Premium Jobs <i class="fa-solid fa-arrow-up-right"></i> </a></li>
-                  <li class="fw-semibold">Dedicated Career Advisor </li>
-                  <li class="fw-semibold">Talent Profile Verification<br><span class="text-muted" style="font-size: 10px;">9 out of 10 employer choose verified talents</span></li>
-                  <li class="fw-semibold"><a [routerLink]="'/pages/job-tool/career-tool'" class="text-decoration-none" style="color: black;"> Career Tools <span class="text-muted ms-2" style="font-size: 10px;">20+ Tools</span> <i class="fa-solid fa-arrow-up-right"></i> </a></li>
-                  <li class="fw-semibold"><a [routerLink]="'/pages/education-tools'" class="text-decoration-none" style="color: black;"> Education & Travel Tools<span class="text-muted ms-2" style="font-size: 10px;">20+
-                      Tools</span> <i class="fa-solid fa-arrow-up-right"></i> </a></li>
-                  <li class="fw-semibold"><a [routerLink]="'/pages/pitch-deck'" class="text-decoration-none" style="color: black;"> Enterpreneur Tools <span class="text-muted ms-2" style="font-size: 10px;">10+
-                      Tools</span> <i class="fa-solid fa-arrow-up-right"></i> </a></li>
-                  <!-- <li class="fw-semibold">Travel Tools <span class="text-muted ms-2" style="font-size: 10px;">10 +
-                      Tools</span></li> -->
+                  <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/my-profile'"
+                      class="text-decoration-none text-black">Create Talent Profile <i
+                        class="fa-solid fa-arrow-up-right"></i> </a></li>
+                  <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/my-profile'"
+                      class="text-decoration-none text-black">Share Talent Profile <i
+                        class="fa-solid fa-arrow-up-right"></i> </a></li>
+                  <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/company-connect'"
+                      class="text-decoration-none text-black">Company Connect <i class="fa-solid fa-arrow-up-right"></i>
+                    </a></li>
+                  <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/job-tracker'"
+                      class="text-decoration-none text-black">Apply to Non-Verified Jobs <i
+                        class="fa-solid fa-arrow-up-right"></i> </a></li>
+                  <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/job-tracker'"
+                      class="text-decoration-none text-black">Apply to Verified Jobs <i
+                        class="fa-solid fa-arrow-up-right"></i> </a></li>
+                  <li class="fw-semibold">1:1 Mentorship with Career Advisor</li>
+                  <li class="fw-semibold">Talent Profile Verification<br></li>
+                  <li class="fw-semibold"><a [routerLink]="'/pages/job-tool/career-tool'"
+                      class="text-decoration-none text-black"> Career Tools <span class="text-muted ms-2 fs-10-px">20+
+                        Tools</span> <i class="fa-solid fa-arrow-up-right"></i> </a></li>
+                  <li class="fw-semibold"><a [routerLink]="'/pages/education-tools'"
+                      class="text-decoration-none text-black"> Education & Travel Tools<span
+                        class="text-muted ms-2 fs-10-px">20+
+                        Tools</span> <i class="fa-solid fa-arrow-up-right"></i> </a></li>
+                  <li class="fw-semibold"><a [routerLink]="'pages/founderstool/founderstoollist'"
+                      class="text-decoration-none text-black">
+                      Enterpreneur Tools <span class="text-muted ms-2 fs-10-px">10+
+                        Tools</span> <i class="fa-solid fa-arrow-up-right"></i> </a></li>
                 </ul>
               </div>
 
@@ -181,17 +196,19 @@
                     </div>
                     <div class="getstartedbtn pb-0" *ngIf="planstage==2">
                       <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity</h6>
-                      <button *ngIf="planstatus?.current_plan_validity == subscription.validity" pButton 
-                      class="px-5 py-1 btn btn-dark m-0" style="color:var(--p-neutral-50);background:black">Current
-                      Plan</button>
-                      <button *ngIf="planstatus?.current_plan_validity > subscription.validity" pButton 
-                        class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50);background:black" [disabled]="'true'">
+                      <button *ngIf="planstatus?.current_plan_validity == subscription.validity" pButton
+                        class="px-5 py-1 btn btn-dark m-0" style="color:var(--p-neutral-50);background:black">Current
+                        Plan</button>
+                      <button *ngIf="planstatus?.current_plan_validity > subscription.validity" pButton
+                        class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50);background:black"
+                        [disabled]="'true'">
                         Not Applicable </button>
                       <ng-container *ngIf="planstatus?.current_plan_validity < subscription.validity">
                         <button pButton class="px-5 py-1 btn btn-primary m-0 text-white" *ngIf="subscription.selected"
                           (click)="selectedSubscriptionPlan(subscription)">Selected</button>
                         <button pButton class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50)"
-                          *ngIf="!subscription.selected" (click)="selectedSubscriptionPlan(subscription)">Upgrade</button>
+                          *ngIf="!subscription.selected"
+                          (click)="selectedSubscriptionPlan(subscription)">Upgrade</button>
                       </ng-container>
                     </div>
                     <div class="getstartedbtn pb-0" *ngIf="planstage==3">
@@ -201,8 +218,11 @@
                         Again</button>
                     </div>
                   </li>
-                  <p class="orange fw-bolder" *ngIf="subscription.validity == 1">That's only {{ subscription.currency }} {{ getWholePricePerDay(subscription.givenprice, subscription.validity)  }} a day </p>
-                  <p class="orange fw-bolder" *ngIf="subscription.validity != 1">That's only {{ subscription.currency }} {{ getWholePricePerMonth(subscription.givenprice, subscription.validity)  }} a month </p>
+                  <p class="orange fw-bolder" *ngIf="subscription.validity == 1">That's only {{ subscription.currency }}
+                    {{ getWholePricePerDay(subscription.givenprice, subscription.validity) | number : ".2" }} a day </p>
+                  <p class="orange fw-bolder" *ngIf="subscription.validity != 1">That's only {{ subscription.currency }}
+                    {{ getWholePricePerMonth(subscription.givenprice, subscription.validity) | number : "1.1-2" }} a
+                    month </p>
                 </ul>
               </div>
 
@@ -217,31 +237,83 @@
                       <div class="card-header py-2 px-4">
                         <div class="d-flex justify-content-between">
                           <div class="mt-4">
-                            <h6 class="plan_type">Free</h6>
-                            <h3 class="amount">0 {{ currency }}</h3>
+                            <h6 class="plan_type">Standard Plan</h6>
+                            <h6 class="plan_type uniprep-orange">Free</h6>
+                            <!-- <h3 class="amount">0 {{ currency }}</h3> -->
                           </div>
                         </div>
                       </div>
+                      @if (showInfo) {
                       <div class="card-body p-4">
                         <div class="permission-list">
                           <p class="what-you-get">What you get</p>
-                          <p><i class="fa-solid fa-check me-2 green"></i>Create Talent Profile</p>
-                          <p><i class="fa-solid fa-check me-2 green"></i>Share Talent Profile</p>
-                          <p><i class="fa-solid fa-check me-2 green"></i>Company Connect</p>
-                          <p><i class="fa-solid fa-check me-2 green"></i>Apply to Standard Jobs</p>
-                          <p><i class="fa-solid fa-check me-2 green"></i>Apply to Premium Jobs</p>
-                          <p><i class="fa-solid fa-times me-2 red"></i>Dedicated Career Advisor<span class="text-muted ms-2"
-                              style="font-size: 10px;">2 Personalised Meetings</span></p>
-                          <p><i class="fa-solid fa-times me-2 red"></i>Talent Profile Verification<span class="text-muted ms-2"
-                              style="font-size: 10px;">9 out of employers choose verified talents</span></p>
-                          <p><i class="fa-solid fa-times me-2 red"></i>Career Tools<span class="text-muted ms-2"
-                              style="font-size: 10px;">20+ Tools</span></p>
-                          <p><i class="fa-solid fa-times me-2 red"></i>Education & Travel Tools<span class="text-muted ms-2"
-                              style="font-size: 10px;">20+ Tools</span></p>
-                                <p><i class="fa-solid fa-times me-2 red"></i>Enterpreneur Tools<span class="text-muted ms-2"
-                              style="font-size: 10px;">10+ Tools</span></p>
+                          <p>
+                            <a [routerLink]="'/pages/talent-connect/my-profile'"
+                              class="text-decoration-none text-black">
+                              <i class="fa-solid fa-check me-2 green"></i>Create Talent Profile
+                              <i class="fa-solid fa-arrow-up-right"></i>
+                            </a>
+                          </p>
+                          <p>
+                            <a [routerLink]="'/pages/talent-connect/my-profile'"
+                              class="text-decoration-none text-black">
+                              <i class="fa-solid fa-check me-2 green"></i>Share Talent Profile
+                              <i class="fa-solid fa-arrow-up-right"></i>
+                            </a>
+                          </p>
+                          <p>
+                            <a [routerLink]="'/pages/talent-connect/company-connect'"
+                              class="text-decoration-none text-black">
+                              <i class="fa-solid fa-check me-2 green"></i>Company Connect
+                              <i class="fa-solid fa-arrow-up-right"></i>
+                            </a>
+                          </p>
+                          <p>
+                            <a [routerLink]="'/pages/talent-connect/job-tracker'"
+                              class="text-decoration-none text-black">
+                              <i class="fa-solid fa-check me-2 green"></i>Apply to Non-Verified Jobs
+                              <i class="fa-solid fa-arrow-up-right"></i>
+                            </a>
+                          </p>
+                          <p>
+                            <a [routerLink]="'/pages/talent-connect/job-tracker'"
+                              class="text-decoration-none text-black">
+                              <i class="fa-solid fa-times me-2 red"></i>Apply to Verified Jobs
+                              <i class="fa-solid fa-arrow-up-right"></i>
+                            </a>
+                          </p>
+                          <p>
+                            <i class="fa-solid fa-times me-2 red"></i>1:1 Mentorship with Career Advisor
+                          </p>
+                          <p>
+                            <i class="fa-solid fa-times me-2 red"></i>Talent Profile Verification
+                          </p>
+                          <p>
+                            <a [routerLink]="'/pages/job-tool/career-tool'" class="text-decoration-none text-black">
+                              <i class="fa-solid fa-times me-2 red"></i>Career Tools<span
+                                class="text-muted ms-2 fs-10-px">20+ Tools</span>
+                              <i class="fa-solid fa-arrow-up-right"></i>
+                            </a>
+                          </p>
+                          <p>
+                            <a [routerLink]="'/pages/education-tools'" class="text-decoration-none text-black">
+                              <i class="fa-solid fa-times me-2 red"></i>Education & Travel Tools<span
+                                class="text-muted ms-2 fs-10-px">20+ Tools</span>
+                              <i class="fa-solid fa-arrow-up-right"></i>
+                            </a>
+                          </p>
+                          <p>
+                            <a [routerLink]="'/pages/founderstool/founderstoollist'"
+                              class="text-decoration-none text-black">
+                              <i class="fa-solid fa-times me-2 red"></i>Enterpreneur Tools<span
+                                class="text-muted ms-2 fs-10-px">10+ Tools</span>
+                              <i class="fa-solid fa-arrow-up-right"></i>
+                            </a>
+                          </p>
                         </div>
                       </div>
+                      }
+
                       <div class="card-footer py-2 px-4 mb-5">
                         <h6 class="fw-semibold text-small mb-0">60 Minutes Validity</h6>
                         <div class="getstartedbtn pb-0" *ngIf="planstage==0">
@@ -256,6 +328,10 @@
                           <button pButton class="px-5 py-1 btn btn-primary m-0" [disabled]="'true'"
                             style="color:var(--p-neutral-50)">Select</button>
                         </div>
+                        <div class="more-info" (click)="toggleInfo()">
+                          <span>{{ showInfo ? "Less Info" : "More Info"}}</span>
+                          <i class="fa-solid" [ngClass]="showInfo ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -263,118 +339,144 @@
               </p-tabPanel>
               <ng-container *ngFor="let subscription of subscriptionList">
                 <p-tabPanel header="{{ subscription.subscription_plan }}">
-                  <div class=" card-body">
-                    <div class="container-fluid">
-                      <div class="row gap-5 d-flex">
-                        <div class="card card-bg subscriptioncard col px-0"
-                          [ngClass]="{ active: subscription.isActive }">
-                          <div class="mostpopular subscription_list" *ngIf="subscription.popular == 1">Most Popular Plan
-                          </div>
-                          <div class="card-header py-2 px-4">
-                            <div class="d-flex justify-content-between">
-                              <div class="mt-4">
-                                <h6 class="plan_type">
-                                  {{ subscription.subscription_plan }}
-                                </h6>
-                                <h3 class="amount" *ngIf="subscription.popular != 1">
-                                  {{ subscription.givenprice | number : ".2" }}
-                                  {{ subscription.currency }}
-                                </h3>
-                                <h3 class="amount orange" *ngIf="subscription.popular == 1">
-                                  {{ subscription.givenprice | number : ".2" }}
-                                  {{ subscription.currency }}
-                                </h3>
-                              </div>
-                              <div class="mt-4">
-                                <p>
-                                  <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
-                                </p>
-                                <div class="btn discountbutton-o btnCurser" *ngIf="subscription.popular == 1">Save {{
-                                  subscription.discountpercentage }}%</div>
-                                <div class="btn discountbutton btnCurser" *ngIf="subscription.popular != 1">Save {{
-                                  subscription.discountpercentage }}%</div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="card-body p-4">
-                            <div class="permission-list">
-                              <p class="what-you-get">What you get</p>
-                              <p><i class="fa-solid fa-check me-2 green"></i>Create Talent Profile</p>
-                              <p><i class="fa-solid fa-check me-2 green"></i>Share Talent Profile</p>
-                              <p><i class="fa-solid fa-check me-2 green"></i>Apply to Unlimited Jobs</p>
-                              <p><i class="fa-solid fa-check me-2 green"></i>Connect With Company</p>
-                              <p><i class="fa-solid fa-check me-2 green"></i>AI Global Advisor</p>
-                              <p><i class="fa-solid fa-check me-2 green"></i>Dedicated Career Coach<span class="text-muted ms-2"
-                                  style="font-size: 10px;">2 Calls/Month</span></p>
-                              <p><i class="fa-solid fa-check me-2 green"></i>Career Tools<span class="text-muted ms-2"
-                                  style="font-size: 10px;">20 + Tools</span></p>
-                              <p><i class="fa-solid fa-check me-2 green"></i>Education Tools<span class="text-muted ms-2"
-                                  style="font-size: 10px;">10 + Tools</span></p>
-                              <p><i class="fa-solid fa-check me-2 green"></i>Enterpreneur Tools<span class="text-muted ms-2"
-                                  style="font-size: 10px;">10 + Tools</span></p>
-                              <p><i class="fa-solid fa-check me-2 green"></i>Travel Tools<span class="text-muted ms-2"
-                                  style="font-size: 10px;">10 + Tools</span></p>
-                            </div>
-                          </div>
-                          <div class="card-footer py-2 px-4" [ngClass]="subscription.popular != 1 ? 'mb-5' : ''">
-                            <div class="getstartedbtn flex pb-0" *ngIf="planstage==0">
-                              <div class="col-6">
-                                <h6 class="fw-semibold text-small mb-0">60 Minutes Validity</h6>
-                                <button pButton class="px-4 py-1 btn btn-basic w-100 m-0"
-                                  style="color:var(--p-neutral-50);background:black">Current Plan (On
-                                  Trail)</button>
-                              </div>
-                              <div class="col-6">
-                                <h6 class="fw-semibold text-small mb-0">{{ subscription.validity }} Months Validity</h6>
-                                <button pButton class="px-5 py-1 btn btn-primary w-100 m-0 text-white"
-                                  *ngIf="subscription.selected"
-                                  (click)="selectedSubscriptionPlan(subscription)">Selected</button>
-                                <button pButton class="px-5 py-1 btn btn-basic w-100 m-0"
-                                  style="color:var(--p-neutral-50)" *ngIf="!subscription.selected"
-                                  (click)="selectedSubscriptionPlan(subscription)">Conitnue
-                                  Plan</button>
-                              </div>
-                            </div>
-                            <div class="getstartedbtn pb-0" *ngIf="planstage==1">
-                              <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity
+                  <!-- <div class=" card-body"> -->
+                  <div class="container-fluid mt-3">
+                    <div class="row gap-5 d-flex">
+                      <div class="card card-bg subscriptioncard col px-0" [ngClass]="{ active: subscription.isActive }">
+                        <div class="mostpopular subscription_list" *ngIf="subscription.popular == 1">Most Popular Plan
+                        </div>
+                        <div class="card-header py-2 px-4">
+                          <div class="d-flex justify-content-between">
+                            <div class="mt-4">
+                              <h6 class="plan_type">
+                                {{ subscription.subscription_plan }}
                               </h6>
+                              <h3 class="amount" *ngIf="subscription.popular != 1">
+                                {{ subscription.givenprice | number : ".2" }}
+                                {{ subscription.currency }}
+                              </h3>
+                              <h3 class="amount orange" *ngIf="subscription.popular == 1">
+                                {{ subscription.givenprice | number : ".2" }}
+                                {{ subscription.currency }}
+                              </h3>
+                            </div>
+                            <div class="mt-4">
+                              <p>
+                                <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
+                              </p>
+                              <div class="btn discountbutton-o btnCurser" *ngIf="subscription.popular == 1">Save {{
+                                subscription.discountpercentage }}%</div>
+                              <div class="btn discountbutton btnCurser" *ngIf="subscription.popular != 1">Save {{
+                                subscription.discountpercentage }}%</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body p-4">
+                          <div class="permission-list">
+                            <p class="what-you-get">What you get</p>
+                            <p><i class="fa-solid fa-check me-2 green"></i><a
+                                [routerLink]="'/pages/talent-connect/my-profile'"
+                                class="text-decoration-none text-black">Create Talent Profile<i
+                                  class="fa-solid fa-arrow-up-right"></i></a></p>
+                            <p><i class="fa-solid fa-check me-2 green"></i><a
+                                [routerLink]="'/pages/talent-connect/my-profile'"
+                                class="text-decoration-none text-black">Share Talent Profile<i
+                                  class="fa-solid fa-arrow-up-right"></i></a></p>
+                            <p><i class="fa-solid fa-check me-2 green"></i><a
+                                [routerLink]="'/pages/talent-connect/company-connect'"
+                                class="text-decoration-none text-black">Company Connect<i
+                                  class="fa-solid fa-arrow-up-right"></i></a></p>
+                            <p><i class="fa-solid fa-check me-2 green"></i><a
+                                [routerLink]="'/pages/talent-connect/job-tracker'"
+                                class="text-decoration-none text-black">Apply to Non-verified Jobs<i
+                                  class="fa-solid fa-arrow-up-right"></i></a></p>
+                            <p><i class="fa-solid fa-check me-2 green"></i><a
+                                [routerLink]="'/pages/talent-connect/job-tracker'"
+                                class="text-decoration-none text-black">Apply to Verified Jobs<i
+                                  class="fa-solid fa-arrow-up-right"></i></a></p>
+                            <p><i class="fa-solid fa-check me-2 green"></i><a
+                                class="text-decoration-none text-black">1:1 Mentorship with Career Advisor</a></p>
+                            <p><i class="fa-solid fa-check me-2 green"></i><a
+                                class="text-decoration-none text-black">Talent Profile Verification</a></p>
+                            <p><i class="fa-solid fa-check me-2 green"></i><a
+                                [routerLink]="'/pages/job-tool/career-tool'"
+                                class="text-decoration-none text-black">Career Tools<span
+                                  class="text-muted ms-2 fs-10-px">20+ Tools</span><i
+                                  class="fa-solid fa-arrow-up-right"></i></a></p>
+                            <p><i class="fa-solid fa-check me-2 green"></i><a [routerLink]="'/pages/education-tools'"
+                                class="text-decoration-none text-black">Education & Travel Tools<span
+                                  class="text-muted ms-2 fs-10-px">20+ Tools</span><i
+                                  class="fa-solid fa-arrow-up-right"></i></a></p>
+                            <p><i class="fa-solid fa-check me-2 green"></i><a
+                                [routerLink]="'pages/founderstool/founderstoollist'"
+                                class="text-decoration-none text-black">Enterpreneur Tools<span
+                                  class="text-muted ms-2 fs-10-px">10+ Tools</span><i
+                                  class="fa-solid fa-arrow-up-right"></i></a></p>
+                          </div>
+                        </div>
+                        <div class="card-footer py-2 px-4" [ngClass]="subscription.popular != 1 ? 'mb-5' : ''">
+                          <div class="getstartedbtn flex pb-0" *ngIf="planstage==0">
+                            <div class="col-6">
+                              <h6 class="fw-semibold text-small mb-0">60 Minutes Validity</h6>
+                              <button pButton class="px-4 py-1 btn btn-basic w-100 m-0"
+                                style="color:var(--p-neutral-50);background:black">Current Plan (On
+                                Trail)</button>
+                            </div>
+                            <div class="col-6">
+                              <h6 class="fw-semibold text-small mb-0">{{ subscription.validity }} Months Validity</h6>
+                              <button pButton class="px-5 py-1 btn btn-primary w-100 m-0 text-white"
+                                *ngIf="subscription.selected"
+                                (click)="selectedSubscriptionPlan(subscription)">Selected</button>
+                              <button pButton class="px-5 py-1 btn btn-basic w-100 m-0"
+                                style="color:var(--p-neutral-50)" *ngIf="!subscription.selected"
+                                (click)="selectedSubscriptionPlan(subscription)">Conitnue
+                                Plan</button>
+                            </div>
+                          </div>
+                          <div class="getstartedbtn pb-0" *ngIf="planstage==1">
+                            <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity
+                            </h6>
+                            <button pButton class="px-5 py-1 btn btn-primary m-0 text-white"
+                              *ngIf="subscription.selected"
+                              (click)="selectedSubscriptionPlan(subscription)">Selected</button>
+                            <button pButton class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50)"
+                              *ngIf="!subscription.selected"
+                              (click)="selectedSubscriptionPlan(subscription)">Upgrade</button>
+                          </div>
+                          <div class="getstartedbtn pb-0" *ngIf="planstage==2">
+                            <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity
+                            </h6>
+                            <button *ngIf="planstatus?.current_plan_validity == subscription?.validity" pButton
+                              class="px-5 py-1 btn btn-dark m-0" style="color:var(--p-neutral-50);background:black">
+                              Current Plan</button>
+                            <button *ngIf="planstatus?.current_plan_validity > subscription?.validity" pButton
+                              class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50);background:black"
+                              [disabled]="'true'">
+                              Not Applicable </button>
+                            <ng-container *ngIf="planstatus?.current_plan_validity < subscription.validity">
                               <button pButton class="px-5 py-1 btn btn-primary m-0 text-white"
                                 *ngIf="subscription.selected"
                                 (click)="selectedSubscriptionPlan(subscription)">Selected</button>
                               <button pButton class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50)"
                                 *ngIf="!subscription.selected"
                                 (click)="selectedSubscriptionPlan(subscription)">Upgrade</button>
-                            </div>
-                            <div class="getstartedbtn pb-0" *ngIf="planstage==2">
-                              <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity
-                              </h6>
-                              <button *ngIf="planstatus?.current_plan_validity == subscription?.validity" pButton class="px-5 py-1 btn btn-dark m-0"
-                               style="color:var(--p-neutral-50);background:black">
-                                Current Plan</button>
-                                <button *ngIf="planstatus?.current_plan_validity > subscription?.validity" pButton 
-                                class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50);background:black" [disabled]="'true'">
-                                Not Applicable </button>
-                                <ng-container *ngIf="planstatus?.current_plan_validity < subscription.validity">
-                                  <button pButton class="px-5 py-1 btn btn-primary m-0 text-white" *ngIf="subscription.selected"
-                                    (click)="selectedSubscriptionPlan(subscription)">Selected</button>
-                                  <button pButton class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50)"
-                                    *ngIf="!subscription.selected" (click)="selectedSubscriptionPlan(subscription)">Upgrade</button>
-                                </ng-container>
-                            </div>
-                            <div class="getstartedbtn pb-0" *ngIf="planstage==3">
-                              <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity
-                              </h6>
-                              <button pButton class="px-5 py-1 btn btn-basic m-0"
-                                (click)="selectedSubscriptionPlan(subscription)"
-                                style="color:var(--p-neutral-50)">Purchase
-                                Again</button>
-                            </div>
-                            <p class="orange fw-bolder mt-1" >That's only {{ subscription.currency }} {{ getWholePricePerMonth(subscription.givenprice, subscription.validity)  }} a month </p>
+                            </ng-container>
                           </div>
+                          <div class="getstartedbtn pb-0" *ngIf="planstage==3">
+                            <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity
+                            </h6>
+                            <button pButton class="px-5 py-1 btn btn-basic m-0"
+                              (click)="selectedSubscriptionPlan(subscription)"
+                              style="color:var(--p-neutral-50)">Purchase
+                              Again</button>
+                          </div>
+                          <p class="orange fw-bolder mt-1">That's only {{ subscription.currency }} {{
+                            getWholePricePerMonth(subscription.givenprice, subscription.validity) }} a month </p>
                         </div>
                       </div>
                     </div>
                   </div>
+                  <!-- </div> -->
                 </p-tabPanel>
               </ng-container>
             </p-tabView>
@@ -626,7 +728,7 @@
                   <h4 class="mb-0 uniprep-primary" *ngIf="subscriptionTotal != '0.00' && checkoutTotal != ''">{{
                     currency }}
                     {{ checkoutTotal | number : ".2-2" }}</h4>
-                  <p *ngIf="discountAmountEnable">Discount Percentage:  {{ discountPercentage }}%</p>
+                  <p *ngIf="discountAmountEnable">Discount Percentage: {{ discountPercentage }}%</p>
                 </div>
                 <div *ngIf="topupcountries">
                   <h5 class="fw-semibold mb-0">
@@ -645,26 +747,32 @@
                 </div>
               </div>
               <div class="flex-grow-2">
-                <!-- <div style="text-align: center" class="mb-2">
-              <p class="text-small fw-semibold mb-0">Checkout</p>
-            </div> -->
+                      <!-- <div style="text-align: center" class="mb-2">
+                    <p class="text-small fw-semibold mb-0">Checkout</p>
+                  </div> -->
                 <div class="d-flex gap-2">
                   <!-- <button pButton  *ngIf="currentCountry!='India'" [disabled]="showCheckout" class="btn btn-basic stripeborder px-4" (click)="checkout('stripe')">
-                <img class="img-fluid" src="../../../../uniprep-assets/stripe.png" width="40px" />
-              </button>
-              <button pButton  *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder" (click)="checkout('razorpay')">
-                <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="40px" />
-              </button> -->
-                  <button pButton [disabled]="showCheckout" *ngIf="currentCountry && currentCountry !== 'India'"
-                    class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary" (click)="checkout('stripe')">
-                    Checkout
+                    <img class="img-fluid" src="../../../../uniprep-assets/stripe.png" width="40px" />
                   </button>
-                  <button pButton [disabled]="showCheckout" *ngIf="currentCountry=='India'"
-                    class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary" (click)="checkout('razorpay')">
-                    Checkout
-                  </button>
+                  <button pButton  *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder" (click)="checkout('razorpay')">
+                    <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="40px" />
+                  </button> -->
+                  @if(currencyValue != 'INR'){
+                    <button pButton [disabled]="showCheckout" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                      (click)="checkout('stripe')">
+                      Checkout
+                    </button>
+                  }@else if(currencyValue == 'INR'){
+                    <button pButton [disabled]="showCheckout" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                      (click)="checkout('razorpay')">
+                      Checkout
+                    </button>
+                  }
+
                 </div>
-                <p *ngIf="discountAmountEnable">Discount Amount: {{ currency }} {{ discountAmount }}</p>
+                @if(discountAmountEnable){
+                  <p>Discount Amount: {{ currency }} {{ discountAmount }}</p>
+                }
               </div>
             </div>
           </div>
@@ -674,9 +782,8 @@
 
       <!-- modeal -->
 
-      <p-dialog class="retrypopup"  [closable]="false" header="Header" footer="Footer"
-        [(visible)]="isInstructionVisible" [style]="{ width: '27vw' }" [breakpoints]="{ '960px': '75vw' }"
-        [draggable]="false" [resizable]="false">
+      <p-dialog class="retrypopup" [closable]="false" header="Header" footer="Footer" [(visible)]="isInstructionVisible"
+        [style]="{ width: '27vw' }" [breakpoints]="{ '960px': '75vw' }" [draggable]="false" [resizable]="false">
         <ng-template pTemplate="header" style="overflow: hidden"></ng-template>
         <span style="float: right"><i (click)="closeAllHome()"
             class="fa-solid fa-circle-xmark fa-2x custom-icon"></i></span>
@@ -774,21 +881,20 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">Available Offers</h1>
             <button pButton type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
           </div>
-         <div class="modal-body d-flex flex-column justify-content-center">
-        <div class="d-flex align-items-center">
-          <p id="couponCode" class="btn btn-rounded mb-0"
-            style="background: #9bc32935; border: 1px dashed #9bc329; width: auto; min-width: 100px;">
-            WELCOME30
-          </p>
-          <i class="fa-solid fa-copy ms-2"
-            style="cursor: pointer; color: #9bc329; font-size: 18px;"
-            (click)="copyCoupon()"></i>
-        </div>
+          <div class="modal-body d-flex flex-column justify-content-center">
+            <div class="d-flex align-items-center">
+              <p id="couponCode" class="btn btn-rounded mb-0"
+                style="background: #9bc32935; border: 1px dashed #9bc329; width: auto; min-width: 100px;">
+                WELCOME30
+              </p>
+              <i class="fa-solid fa-copy ms-2" style="cursor: pointer; color: #9bc329; font-size: 18px;"
+                (click)="copyCoupon()"></i>
+            </div>
 
-        <p class="text-left mt-3">
-          Get 30% Off on any available plan from the overall plan pricing and is applicable after tax
-        </p>
-        </div>
+            <p class="text-left mt-3">
+              Get 30% Off on any available plan from the overall plan pricing and is applicable after tax
+            </p>
+          </div>
 
         </div>
       </div>

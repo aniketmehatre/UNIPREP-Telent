@@ -121,7 +121,7 @@
 			<ng-template #isLoadingAiSummary>
 				<button class="text-small text-end btn btn-success btn-rounded d-flex align-items-center gap-2"
 					style="width: fit-content"
-					(click)="aiGenerateSummary('student', { company_name: jobDetails?.company_name, job_lookingfor: jobDetails?.position, created_at: jobDetails?.created_at }, messageInput, 'AI generate')">Ai
+					(click)="aiGenerateSummary('student', { company_name: jobDetails?.company_name, job_lookingfor: jobDetails?.position, created_at: jobDetails?.created_at }, messageInput, 'AI generate')">AI
 					Generate</button>
 			</ng-template>
 		</div>
@@ -135,9 +135,9 @@
 		<div class="d-flex gap-2 align-items-center">
 			<div class="input-group border rounded-4 p-1 h-auto">
 				<textarea class="form-control border-0 overflow-auto no-scrollbar"
-					[placeholder]="(this.messages.length > 0) ? 'Write your message' : 'Write your application message'" #messageInput rows="1"
-					[(ngModel)]="message" style="resize: none; min-height: 38px; max-height: 200px"
-					(input)="autoGrow($event.target)"
+					[placeholder]="(this.messages.length > 0) ? 'Write your message' : 'Write your application message'"
+					#messageInput rows="1" [(ngModel)]="message"
+					style="resize: none; min-height: 38px; max-height: 200px" (input)="autoGrow($event.target)"
 					(keyup.enter)="onEnterMsg(messageInput); message = ''"> </textarea>
 				<button class="input-group-text border-0 bg-white" (click)="fileAttachment.click()">
 					<i class="fa-solid fa-paperclip"></i>
@@ -155,7 +155,7 @@
 	</div>
 </div>
 
-<p-dialog [(visible)]="showPremimumPopup" [modal]="true" [draggable]="false" [resizable]="false"
+<!-- <p-dialog [(visible)]="showPremimumPopup" [modal]="true" [draggable]="false" [resizable]="false"
  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
 	header="Upgrade to Apply!" class="upgrade-to-apply">
 	<div class="gift-image center-align">
@@ -171,29 +171,4 @@
 		<button pButton class="btn-secondary" [routerLink]="['/pages/subscriptions']" [rounded]="true"
 			type="button">Explore Premium !</button>
 	</div>
-</p-dialog>
-
-<p-dialog [(visible)]="whyPremium" [modal]="true" [draggable]="false" [resizable]="false"
-	header="Upgrade to UNIPREP Premium?" class="why-premium"
-	 [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
-	<div class="row mt-3">
-		<div class="col-12">
-			<div class="d-flex flex-column gap-3">
-				<div *ngFor="let feature of premiumFeatures" class="d-flex align-items-center">
-					<div class="d-flex align-items-center fw-semibold" style="width: 40%;">
-						<span class="me-2">{{ feature.icon }}</span>
-						{{ feature.title }}
-					</div>
-					<div class="small" style="width: 60%;">
-						{{ feature.description }}
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="center-align mt-3">
-		<button pButton class="btn-secondary" [rounded]="true" type="button" [routerLink]="['/pages/subscriptions']">Get
-			Explore Premium !</button>
-	</div>
-
-</p-dialog>
+</p-dialog> -->
