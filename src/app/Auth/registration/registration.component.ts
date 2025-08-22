@@ -77,7 +77,7 @@ export class RegistrationComponent implements OnInit {
             this.position = params['position'];
             this.jobId = params['job_id'];
             this.jobId = Number(this.jobId);
-            if ( this.position && this.jobId) {
+            if (this.position && this.jobId) {
                 this.router.navigate([], {
                     relativeTo: this.route,
                     queryParams: {},
@@ -86,13 +86,13 @@ export class RegistrationComponent implements OnInit {
                 if (this.service.isTokenValid()) {
                     this.router.navigate([`/pages/talent-connect/easy-apply/${this.jobId}`])
                 }
-            this.storage.set('position',  this.position)
-            this.storage.set('jobId', this.jobId)
+                this.storage.set('position', this.position)
+                this.storage.set('jobId', this.jobId)
             } else {
                 // console.log('One or both query params are missing.');
             }
         });
-    
+
         // this.position = this.storage.get('position')
         // if (!this.position) {
         //     localStorage.clear()
@@ -104,7 +104,7 @@ export class RegistrationComponent implements OnInit {
         })
         this.authService.authState.subscribe((user) => {
             this.googleResponse = user
-            this.googleResponse = {...this.googleResponse, position: this.storage.get('position'),job_id: this.storage.get('position')}
+            this.googleResponse = { ...this.googleResponse, position: this.storage.get('position'), job_id: this.storage.get('jobId') }
 
             this.service.googlesignUp(this.googleResponse).subscribe({
                 next: (data) => {
@@ -214,8 +214,8 @@ export class RegistrationComponent implements OnInit {
             password_confirmation: this.registrationForm.value.confirmPassword,
             platform_id: 1,
             usertype_id: 1,
-            position: this.position ? this.position : '',
-            job_id: this.jobId ? this.jobId : ''
+            position: this.storage.get('position') ? this.storage.get('position') : '',
+            job_id: this.storage.get('jobId') ? this.storage.get('jobId'): '',
         }
 
         this.service.Registraion(data).subscribe({
