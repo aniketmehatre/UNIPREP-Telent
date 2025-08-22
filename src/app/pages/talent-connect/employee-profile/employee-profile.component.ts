@@ -245,7 +245,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.additionalNotesForm = this.fb.group({
       additional_notes: [null]
     });
-
+    this.calculateProfileCompletion();
   }
 
   // Form group creation methods
@@ -555,8 +555,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
 
     // Personal Information (14%)
-    checkField(this.personalInformationForm.get("full_name"), 14)
-    // checkField(this.personalInformationForm.get("profile_image"), 2)
+    checkField(this.personalInformationForm.get("full_name"), 3)
+    checkField(this.personalInformationForm.get("profile_image"), 11)
     // checkField(this.personalInformationForm.get("date_of_birth"), 2)
     // checkField(this.personalInformationForm.get("gender"), 2)
     // checkField(this.personalInformationForm.get("nationality_id"), 2)
@@ -1275,13 +1275,30 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.updateExperience(index);
   }
 
-  updateExperience(index: number) {
+  getmindate(index: number) {
     const group = this.workExperience.at(index);
-    const from = group.get('work_experience_duration_from')?.value;
-    const to = group.get('work_experience_duration_to')?.value;
+    return group.get('work_experience_duration_from')?.value;
+  }
+  updateExperience(index: number, type?: string, event?: any) {
+    const group = this.workExperience.at(index);
+    const fromCtrl = group.get('work_experience_duration_from');
+    const toCtrl = group.get('work_experience_duration_to');
     const yearsCtrl = group.get('years_of_experience');
-    if (from && to) {
-      const duration = intervalToDuration({ start: from, end: to });
+    // If User Typing date
+    if (type) {
+      const currentFormCtrl = type == "from" ? fromCtrl : toCtrl;
+      if (event.target.value.length == 6 && Number(event.target.value)) {
+        const inputValue = event.target.value;
+        const month = Number(inputValue.substring(0, 2));
+        const year = Number(inputValue.substring(2, 6));
+        if (month >= 1 && month <= 12) {
+          const formatted = new Date(year, month - 1);
+          currentFormCtrl?.setValue(formatted);
+        }
+      }
+    }
+    if (fromCtrl?.value && toCtrl?.value) {
+      const duration = intervalToDuration({ start: fromCtrl?.value, end: toCtrl?.value });
       const result = formatDuration(duration, { format: ['years', 'months'] });
       yearsCtrl?.setValue(result);
     } else {
@@ -2151,6 +2168,19 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         sessionStorage.removeItem(key);
       }
     });
+  }
+
+  onTypeDate(event: any, formCntr: FormControl) {
+    if (event.target.value.length == 8 && Number(event.target.value)) {
+      const inputValue = event.target.value;
+      const day = Number(inputValue.substring(0, 2));
+      const month = Number(inputValue.substring(2, 4));
+      const year = Number(inputValue.substring(4, 8));
+      if (day >= 1 && day <= 31 && month >= 1 && month <= 12) {
+        const formatted = `${day}/${month}/${year}`;
+        formCntr?.setValue(formatted);
+      }
+    }
   }
 
   ngOnDestroy(): void {
