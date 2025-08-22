@@ -186,7 +186,7 @@
 							<hr />
 						</div>
 						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 1 }">
 								Edit Education Details <i class="fa fa-pencil-square-o"></i></div>
 						</div>
 					</div>
@@ -263,7 +263,7 @@
 					<div *ngIf="!profileData?.work_experience || profileData?.work_experience.length === 0"
 						class="text-muted">Fresher</div>
 					<div class="col-12 mb-3">
-						<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile">
+						<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 2 }">
 							Edit Work Details <i class="fa fa-pencil-square-o"></i></div>
 					</div>
 				</div>
@@ -329,7 +329,7 @@
 							<hr />
 						</div>
 						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 3 }">
 								Edit Career Preferences <i class="fa fa-pencil-square-o"></i></div>
 						</div>
 					</div>
@@ -373,7 +373,7 @@
 								available</div>
 						</div>
 						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 4 }">
 								Edit Certifications <i class="fa fa-pencil-square-o"></i></div>
 						</div>
 					</div>
@@ -413,7 +413,7 @@
 								</ng-container>
 							</div> -->
 						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 4 }">
 								Edit Strengths & Professional Traits <i class="fa fa-pencil-square-o"></i>
 							</div>
 						</div>
@@ -452,7 +452,7 @@
 							<div class="text-primary fw-bold">Personal Website</div>
 						</div>
 						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 5 }">
 								Edit Social Presence <i class="fa fa-pencil-square-o"></i>
 							</div>
 						</div>
@@ -496,7 +496,7 @@
 								uploaded</div>
 						</div>
 						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 6 }">
 								Edit Attachments <i class="fa fa-pencil-square-o"></i>
 							</div>
 						</div>
@@ -574,7 +574,7 @@
 							<div [innerHTML]="profileData?.careerPreference?.notes"></div>
 						</div>
 						<div class="col-12">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 6 }">
 								Edit Notes <i class="fa fa-pencil-square-o"></i>
 							</div>
 						</div>
