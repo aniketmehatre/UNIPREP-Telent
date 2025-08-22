@@ -650,11 +650,16 @@ export class UpgradeSubscriptionComponent implements OnInit {
 			// }
 		}
 		options.modal.ondismiss = () => {
-			this.toast.add({
-				severity: "error",
-				summary: "Error",
-				detail: "Transaction cancelled",
-			})
+            this.subscriptionService.updateCheckOutBehaviour().subscribe({
+                next: (response) => {
+                    this.toast.add({
+                        severity: "error",
+                        summary: "Error",
+                        detail: "Transaction cancelled",
+                    })
+                },
+                error: () => {}
+            })
 		}
 		const rzp = new this.winRef.nativeWindow.Razorpay(options)
 		rzp.open()
@@ -795,12 +800,16 @@ export class UpgradeSubscriptionComponent implements OnInit {
 			.subscribe((result: any) => {
 				console.log("Payment Status:", result)
 				if (result.error) {
-					console.log(result.error.message)
-					this.toast.add({
-						severity: "error",
-						summary: "Error",
-						detail: "Transaction cancelled",
-					})
+                    this.subscriptionService.updateCheckOutBehaviour().subscribe({
+                        next: (response) => {
+                            this.toast.add({
+                                severity: "error",
+                                summary: "Error",
+                                detail: "Transaction cancelled",
+                            })
+                        },
+                        error: () => {}
+                    })
 				} else {
 					if (result.paymentIntent.status === "succeeded") {
 						this.cardvisibility = false

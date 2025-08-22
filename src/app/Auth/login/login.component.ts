@@ -151,7 +151,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             password: ["", [Validators.required]],
             domain_type: ['main']
         })
-        this.loginForm.patchValue({ domain_type: this.domainName })
+        this.loginForm.patchValue({ domain_type: this.domainName() })
     }
 
     openVideoPopup() {

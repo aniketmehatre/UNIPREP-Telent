@@ -27,7 +27,7 @@ import { PageFacadeService } from "../page-facade.service"
 import {Router} from "@angular/router";
 import { ButtonModule } from "primeng/button";
 import { TalentConnectService } from "../talent-connect/talent-connect.service"
-type ApplyTarget = { checkout: (type: string) => void };
+type ApplyTarget = { checkout: (type: string) => void; showCheckout: boolean };
 
 @Component({
 	selector: "uni-subscription",
@@ -377,8 +377,25 @@ export class SubscriptionComponent implements OnInit {
 						(res: any) => {
 							this.success = res
 							this.subscriptionService.doneLoading()
-							// this.loadSubData()
-							// window.location.reload()
+                            this.subscriptionService.completePayment().subscribe({
+                                next: (response) => {
+                                    this.toastr.add({
+                                        severity: "error",
+                                        summary: "Error",
+                                        detail: "Payment Failed",
+                                    })
+                                    // Re-enable checkout on cancel
+                                    if (this.applyTarget) {
+                                        this.applyTarget.showCheckout = false;
+                                    }
+                                },
+                                error: () => {
+                                    // Even if API errors, ensure checkout is re-enabled for the user
+                                    if (this.applyTarget) {
+                                        this.applyTarget.showCheckout = false;
+                                    }
+                                }
+                            })
                             let jobId = this.storage.get('jobId');
                             if (jobId) {
                                 this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
@@ -403,6 +420,7 @@ export class SubscriptionComponent implements OnInit {
 						(res: any) => {
 							this.success = res
 							this.subscriptionService.doneLoading()
+
                             let jobId = this.storage.get('jobId');
                             if (jobId) {
                                 this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
@@ -412,6 +430,7 @@ export class SubscriptionComponent implements OnInit {
                             }
 							// this.loadSubData()
 							// window.location.reload()
+
 						},
 						(error: any) => {
 							// this.toastr.warning(error.error.message);
@@ -424,11 +443,25 @@ export class SubscriptionComponent implements OnInit {
 			}, 0)
 		}
 		options.modal.ondismiss = () => {
-			this.toastr.add({
-				severity: "error",
-				summary: "Error",
-				detail: "Transaction cancelled",
-			})
+            this.subscriptionService.updateCheckOutBehaviour().subscribe({
+                next: (response) => {
+                    this.toastr.add({
+                        severity: "error",
+                        summary: "Error",
+                        detail: "Transaction cancelled",
+                    })
+                    // Re-enable checkout on cancel
+                    if (this.applyTarget) {
+                        this.applyTarget.showCheckout = false;
+                    }
+                },
+                error: () => {
+                    // Even if API errors, ensure checkout is re-enabled for the user
+                    if (this.applyTarget) {
+                        this.applyTarget.showCheckout = false;
+                    }
+                }
+            })
 		}
 		const rzp = new this.winRef.nativeWindow.Razorpay(options)
 		rzp.open()
@@ -521,14 +554,26 @@ export class SubscriptionComponent implements OnInit {
 				redirect: "if_required",
 			})
 			.subscribe((result: any) => {
-				console.log("Payment Status:", result)
 				if (result.error) {
-					console.log(result.error.message)
-					this.toastr.add({
-						severity: "error",
-						summary: "Error",
-						detail: "Transaction cancelled",
-					})
+                    this.subscriptionService.updateCheckOutBehaviour().subscribe({
+                        next: (response) => {
+                            this.toastr.add({
+                                severity: "error",
+                                summary: "Error",
+                                detail: "Transaction cancelled",
+                            })
+                            // Re-enable checkout on cancel
+                            if (this.applyTarget) {
+                                this.applyTarget.showCheckout = false;
+                            }
+                        },
+                        error: () => {
+                            // Even if API errors, ensure checkout is re-enabled for the user
+                            if (this.applyTarget) {
+                                this.applyTarget.showCheckout = false;
+                            }
+                        }
+                    })
 				} else {
 					if (result.paymentIntent.status === "succeeded") {
 						this.subscriptionService.doneLoading()
