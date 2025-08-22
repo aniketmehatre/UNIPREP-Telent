@@ -1906,6 +1906,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       }
       return;
     }
+    this.profileCompletion = 100;
     const formData = new FormData();
     formData.append("student_id", this.profileCreationId.toString());
     formData.append("profile_completion", this.profileCompletion.toString());
@@ -2120,6 +2121,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_cv_filename: this.attachmentsForm.get("career_preference_cv_filename")?.value,
       additional_notes: this.additionalNotesForm.value.additional_notes
     };
+    if (!this.isUpdatedProfile) return true;
     return JSON.stringify(current) !== JSON.stringify(originalAttachmentsForm);
   }
 

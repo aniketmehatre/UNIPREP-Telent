@@ -16,6 +16,7 @@ p-editor ::ng-deep .ql-editor {
 		padding: 2.5px;
 	}
 }
+
 .message-box {
 	background-color: #fdeedb;
 	border-radius: 10px;
@@ -193,5 +194,18 @@ body.p-overflow-hidden {
 @media (max-width: 767.98px) {
 	.custom-overflow {
 		overflow-y: visible;
+	}
+}
+
+@media only screen and (max-width: 575px) {
+	.header-title {
+		display: flex;
+		justify-content: end;
+		margin-bottom: 5px;
+		margin-top: -20px;
+	}
+
+	.w-sm-auto {
+		width: auto !important;
 	}
 }

@@ -318,7 +318,7 @@ export class SidenavComponent {
       .subscribe({
         next: () => {
           this.markCurrentMenu();
-          if (this.talentService._employerProfileData && this.authService._user?.current_plan_detail?.current_plan == "Standard") {
+          if (this.talentService._employerProfileData?.profile_completion_flag == 1 && this.authService._user?.current_plan_detail?.current_plan == "Standard") {
             this.redirectToRestrictUrl('/pages/subscriptions');
           }
         },
