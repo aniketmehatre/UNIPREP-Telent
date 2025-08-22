@@ -13,7 +13,7 @@
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="container-fluid">
 						<div class="row align-items-center">
-							<div class="col-md-7 col-8 order-1 order-md-1">
+							<div class="col-md-7 col-sm-8 col-12 order-1 order-md-1">
 								<h5 class="mb-md-0">
 									{{ isSampleProfilePdf ? "Sample Profile Photo Guide" : "Complete your Job profile within 2 mins to apply" }}
 								</h5>
@@ -25,8 +25,8 @@
 									<button class="d-md-none d-flex justify-content-center align-items-center btn btn-rounded btn-primary w-100" pButton (click)="visible = true"><i class="fa-solid fa-circle-info"></i> Guide</button>
 								</div>
 							</div>
-							<div class="col-md-2 col-4 order-2 order-md-3">
-								<button class="how-it-works-button w-100" pButton (click)="openVideoPopup()">How to use?<i class="fa-solid fa-play d-md-block d-none"></i></button>
+							<div class="col-md-2 col-sm-4 col-12 order-2 order-md-3 header-title">
+								<button class="how-it-works-button w-sm-auto w-100" pButton (click)="openVideoPopup()">How to use?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 							</div>
 						</div>
 					</div>
@@ -119,7 +119,7 @@
 														</div>
 														<div class="col-md-6">
 															<label for="dateOfBirth" class="mb-1">Date of Birth<span class="text-danger">*</span></label>
-															<p-datepicker id="dateOfBirth" [appendTo]="'body'" formControlName="date_of_birth" dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today" (onFocus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false" />
+															<p-datepicker id="dateOfBirth" [appendTo]="'body'" formControlName="date_of_birth" dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today" (onFocus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false" (onInput)="onTypeDate($event, personalInformationForm.get('date_of_birth'))"/>
 															<small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('date_of_birth')?.errors?.required"> Date of Birth is required </small>
 														</div>
 														<div class="col-md-6">
@@ -270,10 +270,10 @@
 																</div>
 															</div>
 															<div class="d-flex w-100 gap-2">
-																<p-datepicker [appendTo]="'body'" (onSelect)="updateExperience(i)" (onInput)="updateExperience(i)" [maxDate]="today" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_from" inputId="fromDate" placeholder="MM/YYYY (From Date)" size="small" styleClass="w-100" view="month" [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false" />
-																<p-datepicker [appendTo]="'body'" (onSelect)="updateExperience(i)" [maxDate]="today" [minDate]="experience.get('work_experience_duration_from')?.value" (onInput)="updateExperience(i)" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_to" inputId="toDate" placeholder="MM/YYYY (To Date)" size="small" styleClass="w-100" view="month" [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false" />
+																<p-datepicker [appendTo]="'body'" (onSelect)="updateExperience(i)" (onInput)="updateExperience(i, 'from', $event)" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_from" inputId="fromDate" placeholder="MM/YYYY (From Date)" size="small" styleClass="w-100" view="month" [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false" [maxDate]="today" />
+																<p-datepicker [appendTo]="'body'" (onSelect)="updateExperience(i)" (onInput)="updateExperience(i, 'to', $event)" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_to" inputId="toDate" placeholder="MM/YYYY (To Date)" size="small" styleClass="w-100" view="month" [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false" [maxDate]="today" [minDate]="experience.get('work_experience_duration_from')?.value" />
 															</div>
-															<small *ngIf="((experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) || (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)) && !experience.get('currently_working')?.value" class="text-danger"> Please select both from and to values. </small>
+															<small *ngIf="((experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) || (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)) && !experience.get('currently_working')?.value" class="text-danger"> Please fill both from and to values. </small>
 															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_duration_from')?.errors?.required && experience.get('work_experience_duration_to')?.errors?.required"> Duration is required </small>
 														</div>
 														<!-- <div class="col-md-6">
