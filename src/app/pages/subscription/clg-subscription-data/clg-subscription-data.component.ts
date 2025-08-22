@@ -401,9 +401,9 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 		//Then subscription component => applyNow.
         this.showCheckout = false
 		if(type === "why-premium-type"){
-			if(this.currentCountry == "India"){
+			if(this.currencyValue == "INR"){
 				type = 'razorpay';
-			}else if(this.currentCountry && this.currentCountry !== 'India'){
+			}else if(this.currencyValue !== 'INR'){
 				type = 'stripe';
 			}
 		}
