@@ -403,7 +403,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 		if(type === "why-premium-type"){
 			if(this.currencyValue == "INR"){
 				type = 'razorpay';
-			}else if(this.currencyValue !== 'INR'){
+			}else if(this.currencyValue != 'INR'){
 				type = 'stripe';
 			}
 		}
