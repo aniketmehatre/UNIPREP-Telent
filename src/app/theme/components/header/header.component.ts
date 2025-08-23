@@ -407,7 +407,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.isSendingOTP = false;
 	}
 
+	isSubmitting: boolean = false;
 	submitPhoneVerification() {
+		if (this.isSubmitting) return; // safeguard double click
+    	this.isSubmitting = true; // block further clicks
 		let formData = this.phoneVerification.value
 		let sendOTP = {
 			country_code: formData.verification_phone.dialCode,
@@ -426,6 +429,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 						summary: "Error",
 						detail: response.message,
 					})
+					 this.isSubmitting = false;
 				} else {
 					this.whatsappVerification = false
 					this.freeTrial = true
@@ -437,6 +441,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 						summary: "Success",
 						detail: 'OTP validated successfully',
 					})
+					// this.isSubmitting = false;
 				}
 			},
 			error: (error) => {
@@ -448,7 +453,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					severity: "error",
 					summary: "Error",
 					detail: error?.error.message,
-				})
+				});
+				 this.isSubmitting = false;
 			},
 		})
 	}

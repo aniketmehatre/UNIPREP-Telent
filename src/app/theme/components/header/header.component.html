@@ -408,10 +408,11 @@
 									aria-label="Resend OTP">
 									<span class="fw-medium px-3">Resend OTP</span>
 								</button>
-								<button pButton [disabled]="phoneVerification.invalid" style="padding: 8px 20px"
+								<button pButton [disabled]="phoneVerification.invalid || isSubmitting" style="padding: 8px 20px"
 									class="btn btn-primary" (click)="submitPhoneVerification()"
 									aria-label="Submit verification">
-									<span class="fw-medium px-3">Submit</span>
+									<span class="fw-medium px-3" *ngIf="!isSubmitting">Submit</span>
+    								<span class="fw-medium px-3" *ngIf="isSubmitting">Submitting, please wait...</span>
 								</button>
 							</div>
 						</div>
