@@ -31,92 +31,105 @@ import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.serv
     styleUrls: ["./registration.component.scss"],
     standalone: true,
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    imports: [CommonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule,
+    imports: [
+        // PrimeNG, Angular, and custom modules used in this component
+        CommonModule, InputOtpModule, FluidModule, PasswordModule, RouterModule, InputTextModule,
         InputIconModule, InputGroupModule, InputGroupAddonModule, SocialLoginModule, FormsModule, KeyFilterModule,
-        ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule, GoogleSigninButtonModule, ButtonDirective, Image, HowItWorksComponent],
+        ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule, GoogleSigninButtonModule, ButtonDirective, Image, HowItWorksComponent
+    ],
 })
 export class RegistrationComponent implements OnInit {
-    public registrationForm: any = FormGroup
-    public emailOTPForm: any = FormGroup
+    // Form groups for registration and email OTP verification
+    registrationForm!: FormGroup
+    emailOTPForm!: FormGroup
+
+    // Regex to block special characters and numbers in name input
     blockChars: RegExp = /^[^<>*!:?0-9]+$/;
+
+    // UI state for email OTP flow
     isEmailOTPSend: boolean = false
     isEmailOTPValidated: boolean = false
     isRemainingFieldVisible: boolean = false
-    password: any
+
+    // Password field visibility toggles
+    password: 'password' | 'text' = 'password'
     show = false
     showConfirm = false
-    confirmPassword: any
-    source: string;
+    confirmPassword: 'password' | 'text' = 'password'
+
+    // Whitelabel/source values
+    source: string = '';
     showEmailErrorIcon: boolean = false
     submitted = false
 
+    // Default images for whitelabel and fallback
     whiteLabelImage: string = '../../../uniprep-assets/images/uniprep-light.svg'
+    fallbackImage = '../../../uniprep-assets/images/uniprep-light.svg'
 
+    // Miscellaneous UI state
     showPassword: boolean = false
     otpError: boolean = false
-    fallbackImage = '../../../uniprep-assets/images/uniprep-light.svg'
     loading = true;
     googleResponse: any
+
+    // Dependency injection for services and router
     constructor(
         private service: AuthService,
         private router: Router,
         private formBuilder: FormBuilder,
         private locationService: LocationService,
-        private toastr: MessageService,
+        private toast: MessageService,
         private authService: SocialAuthService,
         private storage: LocalStorageService,
         private route: ActivatedRoute,
         private authTokenService: AuthTokenService,
         private howItWorkService: HowItWorksService
-    ) {
-    }
+    ) { }
+
+    // Job-related query params
     position: any
     jobId: number
+
     ngOnInit() {
+        this.isRemainingFieldVisible = true
+        // Handle referral/easy-apply query params and persist for later flows
         this.route.queryParams.subscribe(params => {
             this.position = params['position'];
             this.jobId = params['job_id'];
             this.jobId = Number(this.jobId);
             if (this.position && this.jobId) {
+                // Clean URL after extracting the params
                 this.router.navigate([], {
                     relativeTo: this.route,
                     queryParams: {},
                     replaceUrl: true
                 });
+                // If already logged in, directly route to easy-apply with jobId
                 if (this.service.isTokenValid()) {
                     this.router.navigate([`/pages/talent-connect/easy-apply/${this.jobId}`])
                 }
                 this.storage.set('position', this.position)
                 this.storage.set('jobId', this.jobId)
-            } else {
-                // console.log('One or both query params are missing.');
             }
         });
 
-        // this.position = this.storage.get('position')
-        // if (!this.position) {
-        //     localStorage.clear()
-        // }
-        //localStorage.clear()
+        // Load white-label configuration (source name and logo) based on domain
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
             this.source = data.name;
             this.whiteLabelImage = data.logo
         })
+
+        // Google Sign-in: when auth state changes, attempt backend signup and redirect accordingly
         this.authService.authState.subscribe((user) => {
             this.googleResponse = user
             this.googleResponse = { ...this.googleResponse, position: this.storage.get('position'), job_id: this.storage.get('jobId') }
 
             this.service.googlesignUp(this.googleResponse).subscribe({
                 next: (data) => {
+                    // Save token and redirect to easy-apply or dashboard
                     this.storage.set(environment.tokenKey, data?.authorisation?.token);
                     this.service.saveToken(data?.authorisation?.token);
                     this.authTokenService.setToken(data?.authorisation?.token);
-                    // if (data.token) {
-                    //     this.storage.set(environment.tokenKey, data.token)
-                    // } else {
-                    //     this.storage.set(environment.tokenKey, data?.authorisation?.token)
-                    // }
-                    //this.router.navigate(["/pages/dashboard"], { replaceUrl: true })
                     this.jobId = Number(this.storage.get('jobId'));
                     if (this.jobId) {
                         window.location.href = `${window.location.origin}/pages/talent-connect/easy-apply/${this.jobId}/?token=${data?.authorisation?.token}`;
@@ -125,7 +138,8 @@ export class RegistrationComponent implements OnInit {
                     }
                 },
                 error: (error: any) => {
-                    this.toastr.add({
+                    // Show error toast if Google signup fails
+                    this.toast.add({
                         severity: "error",
                         summary: "Error",
                         detail: error?.error?.message || error?.message || "An unexpected error occurred, please contact the team",
@@ -133,13 +147,8 @@ export class RegistrationComponent implements OnInit {
                 }
             })
         })
-        // Enable only for testing
-        // this.isEmailOTPSend = true;
-        // this.isEmailOTPValidated = true;
-        // this.isRemainingFieldVisible = true;
 
-
-        this.password = "password"
+        // Build registration and OTP forms with validation
         this.registrationForm = this.formBuilder.group({
             fullName: ["", [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],
             emailAddress: ["", [Validators.required, Validators.email]],
@@ -152,12 +161,14 @@ export class RegistrationComponent implements OnInit {
 
     }
 
+    // Handle image load error by setting fallback image
     onImageError(event: Event) {
         const target = event.target as HTMLImageElement;
         target.src = this.fallbackImage;
         this.loading = false;
     }
 
+    // Format name input to capitalize each word
     formatName() {
         const control = this.registrationForm.get('fullName');
         const value = control?.value || '';
@@ -167,30 +178,18 @@ export class RegistrationComponent implements OnInit {
         control?.setValue(formatted, { emitEvent: false });
     }
 
-    //
-    // gethomeCountryList() {
-    //     this.locationService.getHomeCountryNew().subscribe(
-    //         (res: any) => {
-    //             this.countryList = res
-    //         },
-    //         (error: any) => {
-    //             this.toastr.add({
-    //                 severity: "warning",
-    //                 summary: "Warning",
-    //                 detail: error.error.message,
-    //             })
-    //         }
-    //     )
-    // }
-
-
+    // Shortcut accessor for template bindings
     get f() {
         return this.registrationForm.controls
     }
+
     onProcess: boolean = false;
+
+    // Handle registration form submission
     onSubmit() {
+        // Validate password length and match
         if (this.registrationForm.value.password.length < 8 || this.registrationForm.value.confirmPassword.length < 8) {
-            this.toastr.add({
+            this.toast.add({
                 severity: "error",
                 summary: "Error",
                 detail: "Password must be 8 characters",
@@ -198,7 +197,7 @@ export class RegistrationComponent implements OnInit {
             return
         }
         if (this.registrationForm.value.password != this.registrationForm.value.confirmPassword) {
-            this.toastr.add({
+            this.toast.add({
                 severity: "error",
                 summary: "Error",
                 detail: "Password and Confirm Password should be same",
@@ -215,12 +214,14 @@ export class RegistrationComponent implements OnInit {
             platform_id: 1,
             usertype_id: 1,
             position: this.storage.get('position') ? this.storage.get('position') : '',
-            job_id: this.storage.get('jobId') ? this.storage.get('jobId'): '',
+            job_id: this.storage.get('jobId') ? this.storage.get('jobId') : '',
         }
 
+        // Call registration API
         this.service.Registraion(data).subscribe({
             next: (res: any) => {
-                this.toastr.add({ severity: "success", summary: "Success", detail: "User Registered" });
+                this.toast.add({ severity: "success", summary: "Success", detail: "User Registered" });
+                // Save token and redirect to appropriate page
                 if (res?.authorisation?.token) {
                     this.storage.set(environment.tokenKey, res?.authorisation?.token);
                     this.service.saveToken(res?.authorisation?.token);
@@ -235,19 +236,19 @@ export class RegistrationComponent implements OnInit {
             error: (error) => {
                 this.onProcess = false;
                 const message = error.error?.message != undefined ? error.error?.message : error?.message;
-                this.toastr.add({ severity: "error", summary: "Failed", detail: message });
+                this.toast.add({ severity: "error", summary: "Failed", detail: message });
             }
         });
     }
 
-
+    // Send OTP to user's email for verification
     sendEmailOTP() {
         const name = this.registrationForm.value.fullName;
         const email = this.registrationForm.value.emailAddress;
         if (name && email) {
             const nameRegex = /^[a-zA-Z\s]+$/;
             if (!nameRegex.test(name)) {
-                this.toastr.add({
+                this.toast.add({
                     severity: "error",
                     summary: "Invalid Name",
                     detail: "Name should not contain special characters or numbers."
@@ -261,27 +262,25 @@ export class RegistrationComponent implements OnInit {
             this.service.sendOtp(data).subscribe(
                 (res) => {
                     this.isEmailOTPSend = true
-                    this.registrationForm.controls["emailAddress"].readonly = true
-                    this.toastr.add({ severity: "success", summary: "Success", detail: "OTP sent to your email." })
+                    this.toast.add({ severity: "success", summary: "Success", detail: "OTP sent to your email." })
                 },
                 (error) => {
                     const errorMessage = error?.error?.message || "Failed to send OTP.";
-                    this.toastr.add({ severity: "error", summary: "Error", detail: errorMessage });
-                    //this.toastr.add({ severity: "error", summary: "Error", detail: error.message || "Failed to send OTP." || "This email has already been taken."})
+                    this.toast.add({ severity: "error", summary: "Error", detail: errorMessage });
                 }
             )
         } else {
-            this.toastr.add({ severity: "error", summary: "Error", detail: 'Fill required fields' });
+            this.toast.add({ severity: "error", summary: "Error", detail: 'Fill required fields' });
         }
-
     }
 
+    // Validate the OTP entered by the user
     onValidateEmailOTP() {
         const otpControl = this.emailOTPForm.get('otp');
         const otpValue = otpControl?.value;
 
         if (!otpValue || otpValue.length <= 3) {
-            this.toastr.add({ severity: "error", summary: "Error", detail: "Please enter a valid 4-digit OTP." });
+            this.toast.add({ severity: "error", summary: "Error", detail: "Please enter a valid 4-digit OTP." });
             return;
         }
 
@@ -295,20 +294,22 @@ export class RegistrationComponent implements OnInit {
                 this.isEmailOTPSend = false;
                 this.isEmailOTPValidated = true;
                 this.isRemainingFieldVisible = true;
-                this.toastr.add({ severity: "success", summary: "Success", detail: "OTP verified successfully." });
+                this.toast.add({ severity: "success", summary: "Success", detail: "OTP verified successfully." });
             },
             (error) => {
                 this.otpError = true;
                 const message = error.error?.message != undefined ? error.error?.message : error?.message
-                this.toastr.add({ severity: "error", summary: "Error", detail: message || "Invalid OTP." });
+                this.toast.add({ severity: "error", summary: "Error", detail: message || "Invalid OTP." });
             }
         )
     }
 
+    // Allow user to edit email if OTP failed
     editEmailAgain() {
         this.isEmailOTPSend = false
     }
 
+    // Show/hide error icon based on email validity
     onChangeEmail(event: any) {
         this.showEmailErrorIcon = false
         if (this.registrationForm.controls["emailAddress"].valid) {
@@ -316,16 +317,19 @@ export class RegistrationComponent implements OnInit {
         }
     }
 
+    // Toggle password field visibility
     showHidePassword() {
         this.showPassword = !this.showPassword
         this.password = this.showPassword ? "text" : "password"
     }
 
+    // Toggle confirm password field visibility
     showHideConfirmPassword() {
         this.showConfirm = !this.showConfirm
         this.confirmPassword = this.showConfirm ? "text" : "password"
     }
 
+    // Open "How It Works" video popup based on source
     openVideoPopup() {
         let whichRegister = this.source === 'Uniprep' ? 'uniprep-student-register' : 'institute-student-register';
         this.howItWorkService.open(whichRegister);
