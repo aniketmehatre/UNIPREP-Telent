@@ -3,10 +3,9 @@ import { RouterModule } from "@angular/router"
 import { DeviceDetectorService } from "ngx-device-detector"
 import { CommonModule } from "@angular/common"
 import { ToastModule } from "primeng/toast"
-import { SocialLoginModule, SocialAuthServiceConfig } from "@abacritt/angularx-social-login"
+import { SocialLoginModule } from "@abacritt/angularx-social-login"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
 import { InputGroupModule } from "primeng/inputgroup"
-import {LocationService} from "../services/location.service";
 @Component({
 	selector: "uni-auth",
 	templateUrl: "./auth.component.html",
@@ -26,7 +25,6 @@ export class AuthComponent {
 		this.deviceInfo = this.deviceService.getDeviceInfo()
 		const isMobile = this.deviceService.isMobile()
 		const isTablet = this.deviceService.isTablet()
-		const isDesktopDevice = this.deviceService.isDesktop()
 		if (isMobile || isTablet) {
 			this.isDeviceStatus = "block"
 			this.isDeviceStatusPopupView = false

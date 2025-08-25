@@ -7,6 +7,7 @@ import { MessageService } from "primeng/api";
 import { SocialShareService } from "./services/social-share.service";
 import { ScrollTopModule } from "primeng/scrolltop";
 import { BrandColorService } from "./services/brand-color.service";
+import {LastRouteService} from "./services/last-route.service";
 
 @Component({
 	selector: "app-root",
@@ -22,7 +23,8 @@ export class AppComponent implements OnInit {
 	constructor(
 		private whiteLabelService: LocationService,
 		private router: Router,
-		private brandColorService: BrandColorService // Inject the service
+		private brandColorService: BrandColorService, // Inject the service,
+        private lastRouteService: LastRouteService
 	) {}
 
 	isPageHidden = false;

@@ -1,5 +1,5 @@
-import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login'
-import { CommonModule } from "@angular/common"
+import {GoogleSigninButtonModule, SocialAuthService, SocialLoginModule,} from '@abacritt/angularx-social-login'
+import {CommonModule} from "@angular/common"
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -12,30 +12,30 @@ import {
     signal,
     ViewChild
 } from "@angular/core"
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
-import { Router, RouterModule } from "@angular/router"
-import { environment } from "@env/environment"
-import { LocalStorageService } from "ngx-localstorage"
-import { MessageService } from "primeng/api"
-import { ButtonModule } from "primeng/button"
-import { FluidModule } from "primeng/fluid"
-import { Image } from "primeng/image"
-import { InputGroupModule } from "primeng/inputgroup"
-import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { InputIconModule } from "primeng/inputicon"
-import { InputTextModule } from "primeng/inputtext"
-import { PasswordModule } from "primeng/password"
-import { SkeletonModule } from "primeng/skeleton"
-import { finalize } from 'rxjs/operators'
-import { AuthTokenService } from "src/app/services/auth-token.service"
-import { BrandColorService } from "src/app/services/brand-color.service"
-import { CountryLocationService } from "src/app/services/country-location.service"
-import { DataService } from "src/app/services/data.service"
-import { HowItWorksComponent } from "src/app/shared/how-it-works/how-it-works.component"
-import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.service"
-import { SubSink } from "subsink"
-import { LocationService } from "../../services/location.service"
-import { AuthService } from "../auth.service"
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
+import {Router, RouterModule} from "@angular/router"
+import {environment} from "@env/environment"
+import {LocalStorageService} from "ngx-localstorage"
+import {MessageService} from "primeng/api"
+import {ButtonModule} from "primeng/button"
+import {FluidModule} from "primeng/fluid"
+import {Image} from "primeng/image"
+import {InputGroupModule} from "primeng/inputgroup"
+import {InputGroupAddonModule} from "primeng/inputgroupaddon"
+import {InputIconModule} from "primeng/inputicon"
+import {InputTextModule} from "primeng/inputtext"
+import {PasswordModule} from "primeng/password"
+import {SkeletonModule} from "primeng/skeleton"
+import {finalize} from 'rxjs/operators'
+import {AuthTokenService} from "src/app/services/auth-token.service"
+import {BrandColorService} from "src/app/services/brand-color.service"
+import {CountryLocationService} from "src/app/services/country-location.service"
+import {DataService} from "src/app/services/data.service"
+import {HowItWorksComponent} from "src/app/shared/how-it-works/how-it-works.component"
+import {HowItWorksService} from "src/app/shared/how-it-works/how-it-works.service"
+import {SubSink} from "subsink"
+import {LocationService} from "../../services/location.service"
+import {AuthService} from "../auth.service"
 
 declare var google: any;
 
@@ -151,7 +151,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             password: ["", [Validators.required]],
             domain_type: ['main']
         })
-        this.loginForm.patchValue({ domain_type: this.domainName() })
+        this.loginForm.patchValue({domain_type: this.domainName()})
     }
 
     openVideoPopup() {
@@ -185,14 +185,31 @@ export class LoginComponent implements OnInit, OnDestroy {
                     'http://localhost:4200',
                     'https://dev-student.uniprep.ai'
                 ];
-                if (!disallowedDomains.includes(response.domain)) {
+                if (disallowedDomains.includes(response.domain)) {
                     console.log('Allowed domain:', response.domain);
+                    this.service.saveToken(response.token)
+                    this.authTokenService.setToken(response.token)
+                    this.storage.set(environment.tokenKey, response.token)
+                    this.service.getMe().subscribe({
+                        next: (userData) => {
+                            if (userData.userdetails[0].last_url) {
+                                window.location.href = `${response.domain}${userData.userdetails[0].last_url}?token=${response.token}`;
+                            } else {
+                                if (this.jobId) {
+                                    window.location.href = `${response.domain}/pages/talent-connect/easy-apply/${this.jobId}/?token=${response.token}`;
+                                } else {
+                                    window.location.href = `${response.domain}/pages/talent-connect/easy-apply?token=${response.token}`;
+                                }
+                            }
+                        }, error: (error) => {
+                            this.toast.add({
+                                severity: "error",
+                                summary: "Error",
+                                detail: error.message || 'Failed to load user data'
+                            })
+                        }
+                    });
                     // this.handleSuccessfulLogin1(response.token, response.domain)
-                    if (this.jobId) {
-                        window.location.href = `${response.domain}/pages/talent-connect/easy-apply/${this.jobId}/?token=${response.token}`;
-                    } else {
-                        window.location.href = `${response.domain}/pages/talent-connect/easy-apply?token=${response.token}`;
-                    }
                 } else {
                     // show error, redirect, or handle accordingly
                     if (response?.token) {
@@ -234,7 +251,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.isLoading.set(true)
             this.cdr.markForCheck()
 
-            this.service.isExist({ email: user.email }).pipe(
+            this.service.isExist({email: user.email}).pipe(
                 finalize(() => {
                     this.isLoading.set(false)
                     this.cdr.markForCheck()
@@ -244,7 +261,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     if (exists === "Exist") {
                         this.handleSocialLogin(user)
                     } else {
-                        this.toast.add({ severity: "info", summary: "Info", detail: "Email not exist, Try Register" })
+                        this.toast.add({severity: "info", summary: "Info", detail: "Email not exist, Try Register"})
                     }
                 },
                 error: (error) => {
@@ -270,7 +287,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         ).subscribe({
             next: (response) => {
                 if (response.status === "false") {
-                    this.toast.add({ severity: "error", summary: "Error", detail: response.message || 'Login failed' })
+                    this.toast.add({severity: "error", summary: "Error", detail: response.message || 'Login failed'})
                     return
                 }
                 this.handleSuccessfulLogin(response.token)
@@ -299,7 +316,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     country: this.locationData.country_name,
                 };
                 this.locationService.sendSessionData(req, "login").subscribe();
-                this.toast.add({ severity: "success", summary: "Success", detail: "Login Successful" })
+                this.toast.add({severity: "success", summary: "Success", detail: "Login Successful"})
                 if (!userDetails.city_id) {
                     setTimeout(() => {
                         this.updateLocation();
@@ -309,10 +326,13 @@ export class LoginComponent implements OnInit, OnDestroy {
                 // if (this.jobId) {
                 //     this.route.navigate([this.jobId], { replaceUrl: true })
                 // }
+                if (userData.userdetails[0].last_url) {
+                    this.route.navigate([userData.userdetails[0].last_url], {replaceUrl: true})
+                }
                 if (this.jobId) {
-                    this.route.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`], { replaceUrl: true })
+                    this.route.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`], {replaceUrl: true})
                 } else {
-                    this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
+                    this.route.navigate(["/pages/dashboard"], {replaceUrl: true})
                 }
             },
             error: (error) => {

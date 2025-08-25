@@ -1,10 +1,7 @@
-import {Injectable, signal} from '@angular/core';
-import {ActivatedRouteSnapshot, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree} from '@angular/router';
-import {Observable} from 'rxjs';
-import {LocalStorageService} from 'ngx-localstorage';
-import {DataService} from '../services/data.service';
-import {AuthTokenService} from '../services/auth-token.service';
-import {LocationService} from "../services/location.service";
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthTokenService } from '../services/auth-token.service';
 
 @Injectable({
     providedIn: 'root'
@@ -27,13 +24,9 @@ export class AuthGuard {
         '/setpassword',
         '/verification'
     ];
-    private isInstitute = signal(false)
 
     constructor(
-        private storage: LocalStorageService,
         private router: Router,
-        private dataService: DataService,
-        private locationService: LocationService,
         private authTokenService: AuthTokenService
     ) {
     }

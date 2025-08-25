@@ -6,29 +6,21 @@ import { EffectsModule } from "@ngrx/effects"
 import { StoreModule } from "@ngrx/store"
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input"
 import { MessageService } from "primeng/api"
-import { CalendarModule } from "primeng/calendar"
+import { DatePickerModule } from "primeng/datepicker"
 import { InputGroupModule } from "primeng/inputgroup"
 import { InputGroupAddonModule } from "primeng/inputgroupaddon"
-import { InputIconModule } from "primeng/inputicon"
 import { InputTextModule } from "primeng/inputtext"
 import { PasswordModule } from "primeng/password"
 import { ToastModule } from "primeng/toast"
-import { AuthComponent } from "./auth.component"
-import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component"
-import { LoginComponent } from "./login/login.component"
-import { RegistrationComponent } from "./registration/registration.component"
-import { SetpasswordComponent } from "./setpassword/setpassword.component"
 import { AuthEffects } from "./store/effects"
 import { authFeature } from "./store/reducer"
-import { VerificationComponent } from "./verification/verification.component"
 
-import { MaintenanceComponent } from "./maintenance/maintenance.component"
 import { ScrollTopModule } from "primeng/scrolltop"
+import { MaintenanceComponent } from "./maintenance/maintenance.component"
 
-import { SocialLoginModule, SocialAuthServiceConfig } from "@abacritt/angularx-social-login"
-import { GoogleLoginProvider, FacebookLoginProvider } from "@abacritt/angularx-social-login"
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from "@abacritt/angularx-social-login"
 @NgModule({
-	declarations: [ MaintenanceComponent],
+	declarations: [MaintenanceComponent],
 	// imports: [
 	//   FormsModule,
 	//   LoginComponent,
@@ -54,7 +46,10 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "@abacritt/angularx-s
 	//   MessageService
 	// ],
 	// schemas: [CUSTOM_ELEMENTS_SCHEMA],
-	imports: [FormsModule, ReactiveFormsModule, CommonModule, RouterModule, InputTextModule, ScrollTopModule, PasswordModule, ToastModule, StoreModule.forFeature(authFeature), EffectsModule.forFeature([AuthEffects]), CalendarModule, NgxIntlTelInputModule, SocialLoginModule, InputGroupModule, InputGroupAddonModule],
+	imports: [FormsModule, ReactiveFormsModule, CommonModule, RouterModule, InputTextModule, 
+		ScrollTopModule, PasswordModule, ToastModule, StoreModule.forFeature(authFeature), 
+		EffectsModule.forFeature([AuthEffects]), DatePickerModule, NgxIntlTelInputModule, 
+		SocialLoginModule, InputGroupModule, InputGroupAddonModule],
 	providers: [
 		MessageService,
 		{
@@ -79,4 +74,4 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "@abacritt/angularx-s
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AuthModule {}
+export class AuthModule { }
