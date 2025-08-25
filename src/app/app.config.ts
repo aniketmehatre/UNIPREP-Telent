@@ -74,7 +74,6 @@ function initAppFactory(
               dataService.changeCountryId(selectedCountry.id)
             }
           })
-          console.log(userData.userdetails[0])
           let req = {
             userId: userData.userdetails[0].user_id,
             location: userData.userdetails[0].current_city,

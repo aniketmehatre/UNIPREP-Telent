@@ -185,7 +185,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     'http://localhost:4200',
                     'https://dev-student.uniprep.ai'
                 ];
-                if (disallowedDomains.includes(response.domain)) {
+                if (!disallowedDomains.includes(response.domain)) {
                     console.log('Allowed domain:', response.domain);
                     this.service.saveToken(response.token)
                     this.authTokenService.setToken(response.token)
@@ -360,7 +360,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     async updateCurrentLocation() {
         let userLocation: { country: string; city: string } = await this.countryLocationService.getUserCountry();
-        console.log(userLocation, "userLocation");
         return userLocation;
         // try {
         //     const ipData = await firstValueFrom(this.getCountryFromIP());
