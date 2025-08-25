@@ -139,7 +139,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 					} else {
 					  this.setActiveButton(this.activeButton)
 					}
-					this.setActiveButton(this.activeButton)
+					//this.setActiveButton(this.activeButton)
 					this.getSubscriptionTopupList();
 				},
 				error:(error) => {
@@ -198,6 +198,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 	planstage = 0;
 	planstatus: any;
 	async getSubscriptionList() {
+		this.showCheckout
 		await this.getCurrentLoction();
 		this.subscriptionAmt = "0.00";
 		this.subscriptionTotal = this.subscriptionAmt;
@@ -251,8 +252,8 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 				item.selectedCountry = this.countryList.find((country: any) => country.id === Number(this.user?.interested_country_id))
 				item.isActive = item.popular == 1 ? true : false
 				this.currency = item.currency
-				// this.showCheckout = this.planstatus?.current_plan_validity == item?.validity
-				// this.showCheckout = this.planstatus?.current_plan_validity > item?.validity
+
+				this.showCheckout =this.planstage == 2 && this.planstatus?.current_plan_validity >= item.validity ? true : false;
                 this.selectedSubscriptionPlan(item);
 			});
 
@@ -283,7 +284,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 	}
 
 	selectedSubscriptionPlan(sub: any) {
-		this.showCheckout = false
+		//this.showCheckout = false
 		this.checkoutTotal = ""
 		this.subscriptionList.forEach((item: any) => {
 			item.selected = false
@@ -396,8 +397,9 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 		}
 	}
 
+ 
 	checkout(type: any) {
-		//This type is coming when users clicks buy premium in the job-chat-ui component => applyJob().
+				//This type is coming when users clicks buy premium in the job-chat-ui component => applyJob().
 		//Then subscription component => applyNow.
         this.showCheckout = false
 		if(type === "why-premium-type"){
@@ -486,6 +488,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 					}
 				}
                 this.showCheckout = true
+				 
 			}
 		)
 	}
