@@ -24,7 +24,7 @@ import { StorageService } from "../../services/storage.service";
 import { LocationService } from "src/app/services/location.service"
 import { CollegeSubscriptionDataComponent } from "./clg-subscription-data/clg-subscription-data.component"
 import { PageFacadeService } from "../page-facade.service"
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 import { ButtonModule } from "primeng/button";
 import { TalentConnectService } from "../talent-connect/talent-connect.service"
 type ApplyTarget = { checkout: (type: string) => void; showCheckout: boolean };
@@ -87,12 +87,11 @@ export class SubscriptionComponent implements OnInit {
 	showPremimumPopup: boolean = false;
 	daysLeftInPremium = signal(0);
 	premiumFeatures: string[] = [
-	"💼 <strong>Access to Unlimited Premium Jobs worldwide.</strong>",
-	"✅ <strong>Verified Talent Profile –</strong> Prioritised by recruiters.",
-	"⭐ <strong>Priority Profile Highlight –</strong> Recruiters see you first.",
-	"🎯 <strong>Access to 70+ Career –</strong> Boosting Features to accelerate your journey.",
-	"🎓 <strong>1:1 Mentorship with Career Experts.</strong>",
-	"⚡ <strong>No Interview Calls in 30 days? Get Full Refund.</strong>"
+		"💼 A 1:1 Call with a Career Advisor to refer & verify your Job Profile.",
+		"✅ Access to the Email & Contact Number of the Job Advertiser.",
+		"<i class='fa fa-id-card-o'></i>  Get your Digital Talent Profile link to share with recruiters.",
+		"🎯Personalized Job Alerts via Whatsapp & Email.",
+		"👑Access to 70+ Premium features for career growth."
 	];
 	constructor(private subscriptionService: SubscriptionService, private winRef: WindowRefService,
 		private authService: AuthService, private toastr: MessageService,
@@ -210,10 +209,10 @@ export class SubscriptionComponent implements OnInit {
 
 	}
 
-	closeModal(){
+	closeModal() {
 		this.talentService.closeModal();
 	}
-	applyNow(){
+	applyNow() {
 		this.closeModal();
 		this.applyTarget?.checkout("why-premium-type");
 	}
@@ -377,32 +376,32 @@ export class SubscriptionComponent implements OnInit {
 						(res: any) => {
 							this.success = res
 							this.subscriptionService.doneLoading()
-                            this.subscriptionService.completePayment().subscribe({
-                                next: (response) => {
-                                    this.toastr.add({
-                                        severity: "error",
-                                        summary: "Error",
-                                        detail: "Payment Failed",
-                                    })
-                                    // Re-enable checkout on cancel
-                                    if (this.applyTarget) {
-                                        this.applyTarget.showCheckout = false;
-                                    }
-                                },
-                                error: () => {
-                                    // Even if API errors, ensure checkout is re-enabled for the user
-                                    if (this.applyTarget) {
-                                        this.applyTarget.showCheckout = false;
-                                    }
-                                }
-                            })
-                            let jobId = this.storage.get('jobId');
-                            if (jobId) {
-                                this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
-                            }else {
-                                this.loadSubData()
-                                window.location.reload()
-                            }
+							this.subscriptionService.completePayment().subscribe({
+								next: (response) => {
+									this.toastr.add({
+										severity: "error",
+										summary: "Error",
+										detail: "Payment Failed",
+									})
+									// Re-enable checkout on cancel
+									if (this.applyTarget) {
+										this.applyTarget.showCheckout = false;
+									}
+								},
+								error: () => {
+									// Even if API errors, ensure checkout is re-enabled for the user
+									if (this.applyTarget) {
+										this.applyTarget.showCheckout = false;
+									}
+								}
+							})
+							let jobId = this.storage.get('jobId');
+							if (jobId) {
+								this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+							} else {
+								this.loadSubData()
+								window.location.reload()
+							}
 						},
 						(error: any) => {
 							// this.toastr.warning(error.error.message);
@@ -421,13 +420,13 @@ export class SubscriptionComponent implements OnInit {
 							this.success = res
 							this.subscriptionService.doneLoading()
 
-                            let jobId = this.storage.get('jobId');
-                            if (jobId) {
-                                this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
-                            }else {
-                                this.loadSubData()
-                                window.location.reload()
-                            }
+							let jobId = this.storage.get('jobId');
+							if (jobId) {
+								this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+							} else {
+								this.loadSubData()
+								window.location.reload()
+							}
 							// this.loadSubData()
 							// window.location.reload()
 
@@ -443,25 +442,25 @@ export class SubscriptionComponent implements OnInit {
 			}, 0)
 		}
 		options.modal.ondismiss = () => {
-            this.subscriptionService.updateCheckOutBehaviour().subscribe({
-                next: (response) => {
-                    this.toastr.add({
-                        severity: "error",
-                        summary: "Error",
-                        detail: "Transaction cancelled",
-                    })
-                    // Re-enable checkout on cancel
-                    if (this.applyTarget) {
-                        this.applyTarget.showCheckout = false;
-                    }
-                },
-                error: () => {
-                    // Even if API errors, ensure checkout is re-enabled for the user
-                    if (this.applyTarget) {
-                        this.applyTarget.showCheckout = false;
-                    }
-                }
-            })
+			this.subscriptionService.updateCheckOutBehaviour().subscribe({
+				next: (response) => {
+					this.toastr.add({
+						severity: "error",
+						summary: "Error",
+						detail: "Transaction cancelled",
+					})
+					// Re-enable checkout on cancel
+					if (this.applyTarget) {
+						this.applyTarget.showCheckout = false;
+					}
+				},
+				error: () => {
+					// Even if API errors, ensure checkout is re-enabled for the user
+					if (this.applyTarget) {
+						this.applyTarget.showCheckout = false;
+					}
+				}
+			})
 		}
 		const rzp = new this.winRef.nativeWindow.Razorpay(options)
 		rzp.open()
@@ -555,25 +554,25 @@ export class SubscriptionComponent implements OnInit {
 			})
 			.subscribe((result: any) => {
 				if (result.error) {
-                    this.subscriptionService.updateCheckOutBehaviour().subscribe({
-                        next: (response) => {
-                            this.toastr.add({
-                                severity: "error",
-                                summary: "Error",
-                                detail: "Transaction cancelled",
-                            })
-                            // Re-enable checkout on cancel
-                            if (this.applyTarget) {
-                                this.applyTarget.showCheckout = false;
-                            }
-                        },
-                        error: () => {
-                            // Even if API errors, ensure checkout is re-enabled for the user
-                            if (this.applyTarget) {
-                                this.applyTarget.showCheckout = false;
-                            }
-                        }
-                    })
+					this.subscriptionService.updateCheckOutBehaviour().subscribe({
+						next: (response) => {
+							this.toastr.add({
+								severity: "error",
+								summary: "Error",
+								detail: "Transaction cancelled",
+							})
+							// Re-enable checkout on cancel
+							if (this.applyTarget) {
+								this.applyTarget.showCheckout = false;
+							}
+						},
+						error: () => {
+							// Even if API errors, ensure checkout is re-enabled for the user
+							if (this.applyTarget) {
+								this.applyTarget.showCheckout = false;
+							}
+						}
+					})
 				} else {
 					if (result.paymentIntent.status === "succeeded") {
 						this.subscriptionService.doneLoading()
@@ -583,13 +582,13 @@ export class SubscriptionComponent implements OnInit {
 							summary: "Success",
 							detail: "Purchase Completed",
 						})
-                        let jobId = this.storage.get('jobId');
-                        if (jobId) {
-                            this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
-                        }else {
-                            window.location.reload()
-                        }
-                        // window.location.reload()
+						let jobId = this.storage.get('jobId');
+						if (jobId) {
+							this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
+						} else {
+							window.location.reload()
+						}
+						// window.location.reload()
 					}
 				}
 			})

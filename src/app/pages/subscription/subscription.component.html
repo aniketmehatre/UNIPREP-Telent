@@ -53,16 +53,16 @@
 	</p-dialog>
 </ng-container>
 <p-dialog [(visible)]="showPremimumPopup" [modal]="true" [draggable]="false" [resizable]="false"
-	class="why-premium" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [closable]="false">
+	class="why-premium" [breakpoints]="{ '1199px': '55vw', '575px': '90vw' }" [closable]="false">
 	 <ng-template pTemplate="header">
-		<div class="d-flex justify-content-between w-100">
-			<h2>🚀 This is a Premium Job - Application Closes in {{daysLeftInPremium()}} Days!</h2>
-			<button class="btn btn-primary btn-rounded" (click)="onClosePremiumPopup()"><span class="pi pi-times"></span></button>
+		<div class="d-flex justify-content-between gap-2 w-100">
+			<h2>🚀 This Job Can Only Be Applied by Verified Candidates!</h2>
+			<button class="btn btn-primary btn-rounded" (click)="onClosePremiumPopup()"><i class="fa fa-times"></i></button>
 		</div>
   	</ng-template>
 	<div class="row">
 		<div class="col-12">
-			<h6 class="mb-3 fw-semibold">With UNIPREP Premium, you don't just apply - we help you get hired.</h6>
+			<h6 class="mb-3 fw-semibold">By getting Verified, you instantly unlock:</h6>
 			<div class="d-flex flex-column gap-3">
 				@for (feature of premiumFeatures; track $index) {
 					<div class="d-flex align-items-center">
@@ -70,9 +70,10 @@
 					</div>
 				}
 			</div>
+			<h5 class="mt-3 mb-0 fw-semibold">Once Verified, you can apply to 30,000+ jobs worldwide without restrictions!</h5>
 		</div>
 	</div>
 	<div class="center-align mt-3">
-		<button pButton class="btn-secondary px-5" [rounded]="true" type="button" (click)="applyNow()">Apply Now</button>
+		<button pButton class="btn-secondary px-5" [rounded]="true" type="button" (click)="applyNow()">Get Verified & Apply Now</button>
 	</div>
 </p-dialog>
