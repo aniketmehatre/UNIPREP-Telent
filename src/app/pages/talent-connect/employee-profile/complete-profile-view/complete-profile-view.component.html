@@ -102,7 +102,7 @@
 										<i class="fa fa-calendar text-primary me-2"></i>
 										<div>
 											<div class="text-muted small">Date of Birth</div>
-											<div>{{ profileData?.date_of_birth | date : "dd/MM/yyyy" }}</div>
+											<div>{{ profileData?.date_of_birth }}</div>
 										</div>
 									</div>
 								</div>
@@ -177,7 +177,7 @@
 						<div class="col-12 d-none d-md-block">
 							<hr />
 						</div>
-						<div class="col-md-4 col-xl-3 mb-3">
+						<div class="col-md-4 col-xl-3 mb-3" *ngIf="edu?.gpa_percentage">
 							<div class="text-primary fw-bold">GPA / Percentage</div>
 							<div>{{ edu?.gpa_percentage }} {{ edu?.gpa_percentage_type == "Percentage" ? " %" : "
 								GPA" }}</div>
@@ -295,10 +295,10 @@
 								<div>{{ getArraytoStringData(profileData?.careerPreference?.career_interest_name) }}
 								</div>
 							</div> -->
-						<div class="col-md-4 col-xl-3 mb-3">
+						<!-- <div class="col-md-4 col-xl-3 mb-3">
 							<div class="text-primary fw-bold">Department</div>
 							<div>{{ getArraytoStringData(profileData?.careerPreference?.department_name) }}</div>
-						</div>
+						</div> -->
 						<div class="col-md-4 col-xl-3 mb-3">
 							<div class="text-primary fw-bold">Preferred Work Location</div>
 							<div>{{ getArraytoStringData(profileData?.careerPreference?.preferred_work_location) }}
@@ -462,7 +462,7 @@
 		</div>
 
 		<!-- Attachments Section -->
-		<div class="card-body mb-4 bg-secondary-card rounded-3" *ngIf="profileData?.careerPreference">
+		<div class="card-body mb-4 bg-secondary-card rounded-3" *ngIf="profileData?.careerPreference?.portfolio_upload_link || profileData?.careerPreference?.cv_filename">
 			<div class="row">
 				<div class="col-md-3">
 					<h3 class="fw-bold text-navy">Attachments & Media</h3>
@@ -473,27 +473,22 @@
 				</div>
 				<div class="col-md-9">
 					<div class="row">
-						<div class="col-md-4 mb-3">
+						<div class="col-md-4 mb-3" *ngIf="profileData?.careerPreference?.portfolio_upload_link">
 							<div class="text-primary fw-bold">Portfolio</div>
-							<div *ngIf="profileData?.careerPreference?.portfolio_upload_link; else noUploadLink">
+							<div *ngIf="profileData?.careerPreference?.portfolio_upload_link">
 								<a [href]="profileData?.careerPreference?.portfolio_upload_link" target="_blank"
 									class="text-break text-primary">
 									<i class="fa-solid fa-folder-user fs-3"></i>
 								</a>
 							</div>
-							<ng-template #noUploadLink>
-								<div class="text-muted">Not specified</div>
-							</ng-template>
 						</div>
-						<div class="col-md-4 mb-3">
+						<div class="col-md-4 mb-3" *ngIf="profileData?.careerPreference?.cv_filename">
 							<div class="text-primary fw-bold">Upload CV / Resume</div>
 							<button *ngIf="profileData?.careerPreference?.cv_filename" pButton
 								[label]="extractFileName(profileData?.careerPreference?.cv_filename)"
 								icon="pi pi-download"
 								class="p-button-outlined p-button-secondary mb-2 justify-content-between"
 								(click)="openView(profileData?.careerPreference?.cv_filename)" iconPos="right"></button>
-							<div *ngIf="!profileData?.careerPreference?.cv_filename" class="text-muted">No CV
-								uploaded</div>
 						</div>
 						<div class="col-12 mb-3">
 							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 6 }">

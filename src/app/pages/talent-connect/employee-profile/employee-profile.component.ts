@@ -1928,7 +1928,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     formData.append("career_preference_video_link", this.attachmentsForm.get("career_preference_video_link")?.value || "");
     formData.append("career_preference_portfolio_upload_link", this.attachmentsForm.get("career_preference_portfolio_upload_link")?.value || "");
     this.additionalNotesForm.value.additional_notes = this.additionalNotesForm.value.additional_notes == '<p></p>' ? '' : this.additionalNotesForm.value.additional_notes;
-    formData.append("additional_notes", this.additionalNotesForm.value.additional_notes);
+    formData.append("additional_notes", this.additionalNotesForm.value.additional_notes ?? '');
     formData.append("profile_completion_flag", "1");
     this.talentConnectService.profileCreationCareerInfo(formData).subscribe({
       next: res => {
