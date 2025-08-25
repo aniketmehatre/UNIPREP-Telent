@@ -758,14 +758,14 @@
                     <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="40px" />
                   </button> -->
                   @if(currencyValue != 'INR'){
-                    <button pButton [disabled]="showCheckout" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
-                      (click)="checkout('stripe')">
-                      Checkout
+                    <button pButton [disabled]="showCheckout"  class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                      (click)="checkout('stripe')"  aria-label="Checkout">
+                        Checkout
                     </button>
                   }@else if(currencyValue == 'INR'){
-                    <button pButton [disabled]="showCheckout" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
-                      (click)="checkout('razorpay')">
-                      Checkout
+                    <button pButton [disabled]= "showCheckout" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                      (click)="checkout('razorpay')"  aria-label="Checkout">
+                        Checkout
                     </button>
                   }
 
