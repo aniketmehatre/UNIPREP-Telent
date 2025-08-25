@@ -70,7 +70,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	reportSubmitForm!: FormGroup;
 	featureList: FeatureFavourite[] = FavouriteList;
 	userBasedVideo: any;
-	isProfileCreated: boolean = false;
 	reportOptionList: any[] = [
 		{
 			"id": 21,
@@ -142,7 +141,6 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	jobId: any
 	ngOnInit() {
 		// Initialize essential data first
-		this.checkIfProfileCreated();
 		this.apiToCheckPartnerOrInstitute()
 		this.groupedListFav = this.chunkArray(this.featureList, 4);
 		this.recentJobs();
@@ -203,11 +201,19 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	openQuiz(): void {
-		this.router.navigate([`pages/modules/quizmodule`]);
+		if (this.talentConnectService._employerProfileData?.profile_completion_flag &&
+			this.authService._user?.current_plan_detail?.current_plan == "Premium"
+		) {
+			this.router.navigate([`pages/modules/quizmodule`]);
+		}
 	}
 
 	openCertificate() {
-		this.router.navigate([`pages/mycertificate`])
+		if (this.talentConnectService._employerProfileData?.profile_completion_flag &&
+			this.authService._user?.current_plan_detail?.current_plan == "Premium"
+		) {
+			this.router.navigate([`pages/mycertificate`]);
+		}
 	}
 
 	onClickReadProgression(data: any): void {
@@ -233,7 +239,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	openViewMoreOrg(): void {
-		if (this.isProfileCreated) {
+		if (this.talentConnectService._employerProfileData?.profile_completion_flag) {
 			this.router.navigate(["/pages/talent-connect/company-connect"]);
 		} else {
 			this.viewAllJobAndCompanies = true;
@@ -241,7 +247,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	viewMoreOpenJobApplication() {
-		if (this.isProfileCreated) {
+		if (this.talentConnectService._employerProfileData?.profile_completion_flag) {
 			this.router.navigate(["/pages/talent-connect/easy-apply"]);
 		} else {
 			this.viewAllJobAndCompanies = true;
@@ -358,11 +364,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.userBasedVideo);
 		})
 	}
-	checkIfProfileCreated() {
-		if (this.talentConnectService._employerProfileData?.profile_completion_flag) {
-			this.isProfileCreated = true;
-		}
-	}
+
 	redirectEmployerProfile() {
 		this.router.navigate(["/pages/talent-connect/my-profile"]);
 	}
