@@ -49,6 +49,7 @@ export class CompleteProfileViewComponent implements OnInit {
     this.talentConnectService.getStudentProfilesUsingId(this.userId).subscribe({
       next: response => {
         this.profileData = response.data[0];
+        this.profileData.careerPreference.notes = this.profileData?.careerPreference?.notes == "null" ? '' : this.profileData?.careerPreference?.notes;
         this.isSkeletonVisible = false;
       },
       error: error => {
@@ -108,14 +109,14 @@ export class CompleteProfileViewComponent implements OnInit {
 
   shareQuestion(type: string) {
     const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
-    const url = encodeURI(environment.employerDomain +'/talent/' + this.profileData?.uuid);
+    const url = encodeURI(environment.employerDomain + '/talent/' + this.profileData?.uuid);
     this.meta.updateTag({ property: 'og:url', content: url });
     const shareUrl = socialMedias[type] + encodeURIComponent(url);
     window.open(shareUrl, '_blank');
   }
 
   copyLink() {
-    const textToCopy = encodeURI(environment.employerDomain +'/talent/' + this.profileData?.uuid);
+    const textToCopy = encodeURI(environment.employerDomain + '/talent/' + this.profileData?.uuid);
     this.socialShareService.copyQuestion(textToCopy, 'Profile Link copied successfully');
   }
 
