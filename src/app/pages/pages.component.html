@@ -124,7 +124,7 @@
 </div>
 
 <!-- module how it works vedio pop up -->
-<p-dialog [(visible)]="howItWorksVideoModal" [draggable]="false" [resizable]="false" header="Video" class="video-dialog">
+<p-dialog [(visible)]="howItWorksVideoModal" [breakpoints]="{ '960px': '75vw', '959px': '80vw', '425px': '90vw' }" [draggable]="false" [resizable]="false" header="Video" class="video-dialog" [modal]="true">
 	<div class="video-wrapper">
 		<div class="video-container">
 			<iframe #videoFrame *ngIf="howItWorksVideoLink" [src]="howItWorksVideoLink" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen> </iframe>
