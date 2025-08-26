@@ -60,7 +60,7 @@
 			<div class="col-lg-2 col-md-4 col-6 mb-4 mb-md-0">
 				<h5 class="footer-heading text-md-start text-center">Others</h5>
 				<ul class="footer-links text-md-start text-center">
-					<li *ngFor="let link of otherLinks" (click)="onClickPolicies(link.type)">
+					<li *ngFor="let link of otherLinks" (click)="onClickPolicies(link.url)">
 						<a>{{ link.text }}</a>
 					</li>
 				</ul>

@@ -3,6 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '@env/environment';
 import { DialogModule } from 'primeng/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uni-landing-footer',
@@ -48,12 +49,20 @@ export class LandingFooterComponent {
     { text: "Certificates", url: "/certificates" },
   ]
 
+  // otherLinks = [
+  //   { text: "Privacy Policy", url: "/privacy-policy", type: 'privacy' },
+  //   { text: "Terms & Conditions", url: "/terms-conditions", type: 'terms' },
+  //   { text: "Cancellation Policy", url: "/cancellation-policy", type: 'cancellation' },
+  //   { text: "Refund Policy", url: "/refund-policy", type: 'refund' },
+  //   { text: "Cookie Policy", url: "", type: 'cookie' },
+  // ]
+
   otherLinks = [
-    { text: "Privacy Policy", url: "/privacy-policy", type: 'privacy' },
-    { text: "Terms & Conditions", url: "/terms-conditions", type: 'terms' },
-    { text: "Cancellation Policy", url: "/cancellation-policy", type: 'cancellation' },
-    { text: "Refund Policy", url: "/refund-policy", type: 'refund' },
-    { text: "Cookie Policy", url: "", type: 'cookie' },
+    { text: "Privacy Policy", url: "privacy-policy", type: 'privacy' },
+    { text: "Terms & Conditions", url: "terms-conditions", type: 'terms' },
+    { text: "Cancellation Policy", url: "cancellation-policy", type: 'cancellation' },
+    { text: "Refund Policy", url: "refund-policy", type: 'refund' },
+    { text: "Cookie Policy", url: "cookie-policy", type: 'cookie' },
   ]
 
   contactInfo = {
@@ -64,27 +73,35 @@ export class LandingFooterComponent {
     email: "info@uniprep.ai",
   }
 
-  onClickPolicies(type: string) {
-    switch (type) {
-      case 'privacy':
-        this.displayprivacypolicy = true;
-        break;
-      case 'terms':
-        this.displaytandc = true;
-        break;
-      case 'cancellation':
-        this.displaycancellationpolicy = true;
-        break;
-      case 'refund':
-        // window.open('/refund-policy', '_blank');
-        this.displayRefundPolicy = true;
-        break;
-      case 'cookie':
-        // window.open('/refund-policy', '_blank');
-        this.displayCookiePolicy = true;
-        break;
-      default:
-        break;
-    }
+  // onClickPolicies(type: string) {
+  //   switch (type) {
+  //     case 'privacy':
+  //       this.displayprivacypolicy = true;
+  //       break;
+  //     case 'terms':
+  //       this.displaytandc = true;
+  //       break;
+  //     case 'cancellation':
+  //       this.displaycancellationpolicy = true;
+  //       break;
+  //     case 'refund':
+  //       // window.open('/refund-policy', '_blank');
+  //       this.displayRefundPolicy = true;
+  //       break;
+  //     case 'cookie':
+  //       // window.open('/refund-policy', '_blank');
+  //       this.displayCookiePolicy = true;
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
+
+  constructor(
+    private route: Router
+  ){}
+  onClickPolicies(url: string){
+    this.route.navigate(['policy/'+url]);
   }
+
 }
