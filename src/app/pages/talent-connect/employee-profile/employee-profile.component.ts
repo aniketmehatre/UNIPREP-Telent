@@ -782,7 +782,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_preferred_employment_type: response.careerPreference?.preferred_employment_type || [],
       career_preference_preferred_workplace_type: response.careerPreference?.preferred_workplace_type || [],
       career_preference_expected_salary: response.careerPreference?.expected_salary || null,
-      career_preference_currency_id: response.careerPreference?.currency_id || null,
+      career_preference_currency_id: response.careerPreference?.currency_id || this.currentCurrenyId,
     });
 
     this.additionalNotesForm.patchValue({
