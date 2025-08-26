@@ -171,7 +171,7 @@
     </div>
   </div>
 </p-dialog>
-<p-dialog [visible]="creditspopupVisibility" [closable]="false"  [style]="{ width: '20vw' }">
+<p-dialog [visible]="creditspopupVisibility" [closable]="false"  [style]="{ width: '20vw' }" [breakpoints]="{ '960px': '30vw', '959px': '60vw', '425px': '90vw' }">
   <div
     style="background: var(--p-primary-500) !important; border-radius: 50% !important; height: 25px !important; width: 25px !important; position: absolute; right: -10px; top: -10px; text-align: center; cursor: pointer"
     (click)="creditspopupVisibility = !creditspopupVisibility">
@@ -188,7 +188,7 @@
   </div>
 </p-dialog>
 <p-dialog class="thankyoupopup"  header="Header" [(visible)]="showReportSuccess"
-  [breakpoints]="{ '960px': '75vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
+[breakpoints]="{ '960px': '75vw', '959px': '80vw', '425px': '90vw' }" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
   <ng-template pTemplate="header">
     <span class="text-xl font-bold"></span>
   </ng-template>
