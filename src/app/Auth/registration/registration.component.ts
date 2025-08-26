@@ -91,7 +91,7 @@ export class RegistrationComponent implements OnInit {
     jobId: number
 
     ngOnInit() {
-        this.isRemainingFieldVisible = true
+        // this.isRemainingFieldVisible = true
         // Handle referral/easy-apply query params and persist for later flows
         this.route.queryParams.subscribe(params => {
             this.position = params['position'];

@@ -86,7 +86,7 @@ export const SampleProfileData: ProfileData = {
     },
     attachments: [
         { name: 'https://drive.google.com/file/d/1ISjq6bYNWCFTKjRhStrgdpN6J5ZnSxIi/view?usp=drive_link', type: 'document' },
-        { name: 'https://drive.google.com/file/d/1hIV_NnPxa7xnXsXbwKB0y6k9PCng6EP7/view', type: 'video' }
+        { name: 'https://www.youtube.com/embed/tRzt2P1Fm5I?si=mem2bDbbVtnhjNS1', type: 'video' }
     ],
     academicReference: [{
         collegeName: 'MICA College',

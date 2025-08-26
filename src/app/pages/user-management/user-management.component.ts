@@ -84,6 +84,7 @@ export class UserManagementComponent implements OnInit {
 	editLabelIsShow: boolean = true;
 	imageWhiteLabelDomainName: any;
 	userTypeId: boolean = true;
+    isProfileMissing: any;
 	// Employer Profile Section
 	employerProfileData: EmployeeConnectProfile | null;
 	// isUpdateEmployerProfile: boolean = false;
@@ -103,7 +104,8 @@ export class UserManagementComponent implements OnInit {
 	constructor(private authService: AuthService, private formBuilder: FormBuilder, private locationService: LocationService,
 		private toast: MessageService, private dashboardService: DashboardService, private userManagementService: UserManagementService,
 		private router: Router, private _location: Location, private subscription: SubscriptionService, private confirmationService: ConfirmationService,
-		private authTokenService: AuthTokenService, private talentConnectService: TalentConnectService, private commonService: CommonService) {
+		private authTokenService: AuthTokenService, private talentConnectService: TalentConnectService, private commonService: CommonService,
+                private talentService: TalentConnectService) {
 
 		this.registrationForm = this.formBuilder.group({
 			name: [""],
@@ -133,7 +135,8 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.setSwitchSection('profileCard');
+        this.isProfileMissing = this.talentService._employerProfileData?.profile_completion_flag;
+        this.setSwitchSection('profileCard');
 		this.employerProfileData = this.talentConnectService._employerProfileData;
 		this.userTypeId = this.authService._user?.student_type_id === 2
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
@@ -333,7 +336,6 @@ export class UserManagementComponent implements OnInit {
 				this.sendInvite = "";
 			},
 			error: (error) => {
-				console.error('Error fetching job listings:', error);
 				this.toast.add({ severity: 'success', summary: 'Success', detail: "The email field is required" });
 
 			}
