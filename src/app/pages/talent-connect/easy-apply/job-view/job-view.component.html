@@ -45,6 +45,10 @@
 												<i class="fas fa-check-circle"></i>
 											</span>
 										</div>
+										<div class="d-block d-md-flex gap-2" [ngStyle]="authService._user?.current_plan_detail?.current_plan == 'Standard' && {'opacity': '0.5'}">
+											<div class="uniprep-secondary"><i class="fa-light fa-envelope"></i> {{ jobDetails.contact_email }} <i class="fa-solid fa-copy" [ngClass]="{'cursor-pointer': authService._user?.current_plan_detail?.current_plan != 'Standard'}" (click)="copytext(jobDetails.company_email, 'email')"></i></div>
+											<div class="uniprep-primary"><i class="fa-regular fa-phone"></i> +919035723087 <i class="fa-solid fa-copy" [ngClass]="{'cursor-pointer': authService._user?.current_plan_detail?.current_plan != 'Standard'}" (click)="copytext('+919035723087', 'phone')"></i></div>
+										</div>
 										<div>Job Id: {{ jobDetails.id }}</div>
 									</div>
 									<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-3">

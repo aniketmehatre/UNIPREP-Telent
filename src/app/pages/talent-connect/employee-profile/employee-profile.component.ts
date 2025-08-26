@@ -1567,6 +1567,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   next(isUpdate = false) {
+    // this.activePageIndex++;
+    // return;
     if (this.activePageIndex == 0) {
       if (this.personalInformationForm.invalid) {
         this.isSubmittedPersonalInformationForm = true;

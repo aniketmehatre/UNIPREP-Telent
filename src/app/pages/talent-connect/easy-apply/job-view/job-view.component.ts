@@ -15,6 +15,7 @@ import { SocialShareService } from "src/app/services/social-share.service";
 import { Meta } from "@angular/platform-browser";
 import { environment } from "@env/environment";
 import { LocalStorageService } from "ngx-localstorage";
+import { AuthService } from "src/app/Auth/auth.service";
 
 @Component({
 	selector: "uni-job-view",
@@ -38,7 +39,7 @@ export class JobViewComponent implements OnInit {
 
 	constructor(private route: ActivatedRoute, private talentConnectService: TalentConnectService,
 		private message: MessageService, private router: Router, private storage: LocalStorageService,
-		private socialShareService: SocialShareService, private meta: Meta) { }
+		private socialShareService: SocialShareService, private meta: Meta, public authService: AuthService) { }
 
 	ngOnInit(): void {
 		// this.checkIfProfileCreated();
@@ -225,5 +226,12 @@ export class JobViewComponent implements OnInit {
 			textToCopy = encodeURI(environment.jobDomain + `/view/${job.uuid}`);
 		}
 		this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
+	}
+
+	copytext(textToCopy: string, type: string) {
+		if (this.authService._user?.current_plan_detail?.current_plan == 'Standard') {
+			return;
+		}
+		this.socialShareService.copyQuestion(textToCopy, type == 'email' ? 'Email Id copied successfully' : 'Phone Number copied successfully');
 	}
 }
