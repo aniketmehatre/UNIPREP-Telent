@@ -15,10 +15,8 @@ export class PolicyComponent implements OnInit{
   policyName!: string;
   policyTitle!: string;
   ngOnInit(){
-    console.log("tests");
     this.route.paramMap.subscribe(params =>{
       this.policyName = params.get('name') || "";
-      console.log(this.policyName, "params");
       if(this.policyName ==="privacy-policy"){
         this.policyTitle = "Privacy Policy";
       }else if(this.policyName ==="terms-conditions"){
