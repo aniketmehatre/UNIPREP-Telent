@@ -90,6 +90,10 @@ export const landingRoutes: Routes = [
                 loadComponent: () => import('./blogdetail/blogdetail.component').then(m => m.BlogdetailComponent)
             },
             {
+                path:'policy/:name',
+                loadComponent: () => import('./policy/policy.component').then(m => m.PolicyComponent)
+            },
+            {
                 path: ':category',
                 loadComponent: () => import('./job-seekers-landing/job-seekers-landing.component').then(m => m.JobSeekersLandingComponent),
             },
