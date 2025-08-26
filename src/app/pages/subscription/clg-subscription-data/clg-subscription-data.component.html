@@ -68,10 +68,10 @@
                   <li class="mt-25 fw-bold text-dark fs-6">Features list</li>
                   <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/my-profile'"
                       class="text-decoration-none text-black">Create Talent Profile <i
-                        class="fa-solid fa-arrow-up-right"></i> </a></li> 
-                 <!-- <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/my-profile'"
+                        class="fa-solid fa-arrow-up-right"></i> </a></li>
+                  <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/my-profile'"
                       class="text-decoration-none text-black">Share Talent Profile <i
-                        class="fa-solid fa-arrow-up-right"></i> </a></li> --> 
+                        class="fa-solid fa-arrow-up-right"></i> </a></li>
                   <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/company-connect'"
                       class="text-decoration-none text-black">Company Connect <i class="fa-solid fa-arrow-up-right"></i>
                     </a></li>
@@ -81,14 +81,8 @@
                   <li class="fw-semibold"><a [routerLink]="'/pages/talent-connect/job-tracker'"
                       class="text-decoration-none text-black">Apply to Verified Jobs <i
                         class="fa-solid fa-arrow-up-right"></i> </a></li>
-                                    <li class="fw-semibold"><a [routerLink]="['/pages/talent-connect/my-profile', talent_profile_id]"
-                      class="text-decoration-none text-black">Share Digital Talent Profile <i
-                        class="fa-solid fa-arrow-up-right"></i> </a></li>  
-                  <li class="fw-semibold">1:1 Call with Career Advisor</li>
+                  <li class="fw-semibold">1:1 Mentorship with Career Advisor</li>
                   <li class="fw-semibold">Talent Profile Verification<br></li>
-                   <li class="fw-semibold"><a [routerLink]="'/pages/founderstool/founderstoollist'"
-                      class="text-decoration-none text-black">
-                      Access to Job Advertisers Contact Details  <i class="fa-solid fa-arrow-up-right"></i> </a></li>
                   <li class="fw-semibold"><a [routerLink]="'/pages/job-tool/career-tool'"
                       class="text-decoration-none text-black"> Career Tools <span class="text-muted ms-2 fs-10-px">20+
                         Tools</span> <i class="fa-solid fa-arrow-up-right"></i> </a></li>
@@ -96,10 +90,10 @@
                       class="text-decoration-none text-black"> Education & Travel Tools<span
                         class="text-muted ms-2 fs-10-px">20+
                         Tools</span> <i class="fa-solid fa-arrow-up-right"></i> </a></li>
-                 <!-- <li class="fw-semibold"><a [routerLink]="'pages/founderstool/founderstoollist'"
+                  <li class="fw-semibold"><a [routerLink]="'pages/founderstool/founderstoollist'"
                       class="text-decoration-none text-black">
                       Enterpreneur Tools <span class="text-muted ms-2 fs-10-px">10+
-                        Tools</span> <i class="fa-solid fa-arrow-up-right"></i> </a></li>  -->
+                        Tools</span> <i class="fa-solid fa-arrow-up-right"></i> </a></li>
                 </ul>
               </div>
 
@@ -111,10 +105,9 @@
                   </li>
                   <li class="mt-18"><i class="fa-solid fa-check green"></i></li>
                   <li><i class="fa-solid fa-check green"></i></li>
-                  <!-- <li><i class="fa-solid fa-check green"></i></li> -->
+                  <li><i class="fa-solid fa-check green"></i></li>
                   <li><i class="fa-solid fa-check green "></i></li>
                   <li><i class="fa-solid fa-times red "></i></li>
-                  <li><i class="fa-solid fa-times red"></i></li>
                   <li><i class="fa-solid fa-times red"></i></li>
                   <li><i class="fa-solid fa-times red"></i><br>&nbsp; </li>
                   <li><i class="fa-solid fa-times red"></i></li>
@@ -164,8 +157,7 @@
                     </div> -->
                   </li>
                   <li class="mt-18"><i class="fa-solid fa-check green"></i></li>
-                 <!-- <li><i class="fa-solid fa-check green"></i></li> --->
-                  <li><i class="fa-solid fa-check green"></i></li> 
+                  <li><i class="fa-solid fa-check green"></i></li>
                   <li><i class="fa-solid fa-check green"></i></li>
                   <li><i class="fa-solid fa-check green"></i></li>
                   <li><i class="fa-solid fa-check green"></i></li>
@@ -262,7 +254,13 @@
                               <i class="fa-solid fa-arrow-up-right"></i>
                             </a>
                           </p>
-                          
+                          <p>
+                            <a [routerLink]="'/pages/talent-connect/my-profile'"
+                              class="text-decoration-none text-black">
+                              <i class="fa-solid fa-check me-2 green"></i>Share Talent Profile
+                              <i class="fa-solid fa-arrow-up-right"></i>
+                            </a>
+                          </p>
                           <p>
                             <a [routerLink]="'/pages/talent-connect/company-connect'"
                               class="text-decoration-none text-black">
@@ -285,25 +283,11 @@
                             </a>
                           </p>
                           <p>
-                            <a [routerLink]="['/pages/talent-connect/my-profile', talent_profile_id]"
-                              class="text-decoration-none text-black">
-                              <i class="fa-solid fa-times me-2 red"></i>Share Digital Talent Profile
-                              <i class="fa-solid fa-arrow-up-right"></i>
-                            </a>
-                          </p>
-                          <p>
-                            <i class="fa-solid fa-times me-2 red"></i>1:1 Call with Career Advisor
+                            <i class="fa-solid fa-times me-2 red"></i>1:1 Mentorship with Career Advisor
                           </p>
                           <p>
                             <i class="fa-solid fa-times me-2 red"></i>Talent Profile Verification
                           </p>
-                           <p>
-                            <a [routerLink]="'/pages/founderstool/founderstoollist'"
-                              class="text-decoration-none text-black">
-                              <i class="fa-solid fa-times me-2 red"></i>Access to Job Advertisers Contact Details
-                              <i class="fa-solid fa-arrow-up-right"></i>
-                            </a>
-                          </p> 
                           <p>
                             <a [routerLink]="'/pages/job-tool/career-tool'" class="text-decoration-none text-black">
                               <i class="fa-solid fa-times me-2 red"></i>Career Tools<span
@@ -318,7 +302,14 @@
                               <i class="fa-solid fa-arrow-up-right"></i>
                             </a>
                           </p>
-                          
+                          <p>
+                            <a [routerLink]="'/pages/founderstool/founderstoollist'"
+                              class="text-decoration-none text-black">
+                              <i class="fa-solid fa-times me-2 red"></i>Enterpreneur Tools<span
+                                class="text-muted ms-2 fs-10-px">10+ Tools</span>
+                              <i class="fa-solid fa-arrow-up-right"></i>
+                            </a>
+                          </p>
                         </div>
                       </div>
                       }
@@ -388,6 +379,10 @@
                                 class="text-decoration-none text-black">Create Talent Profile<i
                                   class="fa-solid fa-arrow-up-right"></i></a></p>
                             <p><i class="fa-solid fa-check me-2 green"></i><a
+                                [routerLink]="'/pages/talent-connect/my-profile'"
+                                class="text-decoration-none text-black">Share Talent Profile<i
+                                  class="fa-solid fa-arrow-up-right"></i></a></p>
+                            <p><i class="fa-solid fa-check me-2 green"></i><a
                                 [routerLink]="'/pages/talent-connect/company-connect'"
                                 class="text-decoration-none text-black">Company Connect<i
                                   class="fa-solid fa-arrow-up-right"></i></a></p>
@@ -399,18 +394,10 @@
                                 [routerLink]="'/pages/talent-connect/job-tracker'"
                                 class="text-decoration-none text-black">Apply to Verified Jobs<i
                                   class="fa-solid fa-arrow-up-right"></i></a></p>
-                              <p><i class="fa-solid fa-check me-2 green"></i><a
-                                [routerLink]="['/pages/talent-connect/my-profile', talent_profile_id]"
-                                class="text-decoration-none text-black">Share  Digital Talent Profile<i
-                                  class="fa-solid fa-arrow-up-right"></i></a></p>      
                             <p><i class="fa-solid fa-check me-2 green"></i><a
-                                class="text-decoration-none text-black">1:1 Call with Career Advisor</a></p>
+                                class="text-decoration-none text-black">1:1 Mentorship with Career Advisor</a></p>
                             <p><i class="fa-solid fa-check me-2 green"></i><a
                                 class="text-decoration-none text-black">Talent Profile Verification</a></p>
-                               <p><i class="fa-solid fa-check me-2 green"></i><a
-                                [routerLink]="'pages/founderstool/founderstoollist'"
-                                class="text-decoration-none text-black">Access to Job Advertisers Contact Details <i
-                                  class="fa-solid fa-arrow-up-right"></i></a></p>   
                             <p><i class="fa-solid fa-check me-2 green"></i><a
                                 [routerLink]="'/pages/job-tool/career-tool'"
                                 class="text-decoration-none text-black">Career Tools<span
@@ -419,6 +406,11 @@
                             <p><i class="fa-solid fa-check me-2 green"></i><a [routerLink]="'/pages/education-tools'"
                                 class="text-decoration-none text-black">Education & Travel Tools<span
                                   class="text-muted ms-2 fs-10-px">20+ Tools</span><i
+                                  class="fa-solid fa-arrow-up-right"></i></a></p>
+                            <p><i class="fa-solid fa-check me-2 green"></i><a
+                                [routerLink]="'pages/founderstool/founderstoollist'"
+                                class="text-decoration-none text-black">Enterpreneur Tools<span
+                                  class="text-muted ms-2 fs-10-px">10+ Tools</span><i
                                   class="fa-solid fa-arrow-up-right"></i></a></p>
                           </div>
                         </div>
