@@ -461,10 +461,10 @@ export class UserManagementComponent implements OnInit {
 	emailSettings(email: any) {
 		const title = email.title
 		if (title == "Weekly Newsletter") {
-			var data = {
-				newsletter_consent: email.enabled
-			}
-			this.userManagementService.newsLetterConsent(data).subscribe({
+            const data = {
+                newsletter_consent: email.enabled
+            };
+            this.userManagementService.newsLetterConsent(data).subscribe({
 				next: (data: any) => {
 					this.toast.add({ severity: 'success', summary: 'Success', detail: data.message });
 				},

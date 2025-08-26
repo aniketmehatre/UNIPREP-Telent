@@ -1,4 +1,4 @@
-<p-dialog [(visible)]="openModal"  [style]="{ width: '80%' }" [closeOnEscape]="true" (onHide)="closeFilter.emit()" styleClass="filter-modal">
+<p-dialog [(visible)]="openModal"  [style]="{ width: '60vw' }" [breakpoints]="{ '960px': '75vw', '959px': '80vw', '425px': '90vw' }" [closeOnEscape]="true" (onHide)="closeFilter.emit()" styleClass="filter-modal">
   <ng-template #header>
     <div class="inline-flex items-center justify-center gap-2">
       <span class="font-bold whitespace-nowrap">Filter</span>

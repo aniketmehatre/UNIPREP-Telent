@@ -246,7 +246,7 @@
 		</div>
 	</div>
 </div>
-<p-dialog header="Filter" [(visible)]="displayModal" [style]="{ width: '80%' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false" styleClass="container">
+<p-dialog header="Filter" [(visible)]="displayModal" [style]="{ width: '60vw' }" [breakpoints]="{ '960px': '75vw', '959px': '80vw', '425px': '90vw' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false" styleClass="container">
 	<form [formGroup]="filterForm" class="p-3">
 		<div class="row g-4">
 			<div class="col-md-6">

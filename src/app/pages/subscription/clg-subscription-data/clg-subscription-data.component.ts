@@ -196,6 +196,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 
 
 	planstage = 0;
+	talent_profile_id = "";
 	planstatus: any;
 	async getSubscriptionList() {
 		this.showCheckout
@@ -220,6 +221,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 		}
 		this.subscriptionService.getSubscriptions(data).subscribe((response) => {
 			this.planstatus = response.plan_status;
+			this.talent_profile_id = response.talent_profile_id;
 			switch (this.planstatus?.account_status) {
 				case "Free Trial Started":
 					this.planstage = 0;
