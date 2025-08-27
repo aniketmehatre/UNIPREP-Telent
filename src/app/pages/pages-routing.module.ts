@@ -1,41 +1,41 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PagesComponent } from './pages.component';
-import { UserManagementComponent } from './user-management/user-management.component';
 import { AuthGuard } from "../Auth/auth.guard";
+import { AdvisorComponent } from "./advisor/advisor.component";
+import { AverageSalaryComponent } from './averagesalaryestimator/averagesalaryestimator.component';
+import { CareerGrowthCheckerComponent } from './career-growth-checker/career-growth-checker.component';
+import { CareerPlannerComponent } from './career-planner/career-planner.component';
 import { ChatComponent } from './chat/chat.component';
 import { GuidelineComponent } from './chat/guidelines/guidelines.component';
+import { CompanyListGuidlinesComponent } from './company-list-guidlines/company-list-guidlines.component';
+import { CompanyListComponent } from "./company-list/company-list.component";
+import { CourseListComponent } from './course-list/course-list.component';
+import { ExportCreditComponent } from './export-credit/export-credit.component';
+import { CancellationpolicyComponent } from './footersection/cancellationpolicy/cancellationpolicy.component';
 import { PrivacypolicyComponent } from './footersection/privacypolicy/privacypolicy.component';
 import { RefundpolicyComponent } from './footersection/refundpolicy/refundpolicy.component';
-import { CancellationpolicyComponent } from './footersection/cancellationpolicy/cancellationpolicy.component';
-import { SupportComponent } from './support/support.component';
-import { InvestorListComponent } from "./investor-list/investor-list.component";
+import { FundListGuidlinesComponent } from './fund-list-guidelines/fund-list-guidlines.component';
+import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
+import { GlobalWorkVisaComponent } from './global-work-visa/global-work-visa.component';
 import { InfoKitComponent } from './infokit/infokit.component';
-import { CompanyListComponent } from "./company-list/company-list.component";
-import { ScholarshipListComponent } from './scholarship-list/scholarship-list.component';
-import { CompanyListGuidlinesComponent } from './company-list-guidlines/company-list-guidlines.component';
 import { InvestorListGuidlinesComponent } from './investor-list-guidlines/investor-list-guidlines.component';
-import { ScholarshipListGuidlinesComponent } from './scholarship-list-guidlines/scholarship-list-guidlines.component';
-import { RecommendationsComponent } from './recommendations/recommendations.component';
-import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
-import { ExportCreditComponent } from './export-credit/export-credit.component';
+import { InvestorListComponent } from "./investor-list/investor-list.component";
+import { JoboffercomparisontoolComponent } from './job-tool/joboffercomparisontool/joboffercomparisontool.component';
+import { JobPreparationComponent } from './jobinterviewpreparation/interviewpreparation.component';
 import { MycertificateComponent } from './mycertificate/mycertificate.component';
-import { CareerPlannerComponent } from './career-planner/career-planner.component';
-import { CareerGrowthCheckerComponent } from './career-growth-checker/career-growth-checker.component';
-import { CourseListComponent } from './course-list/course-list.component';
-import { AdvisorComponent } from "./advisor/advisor.component";
 import { NationalExamCategoriesComponent } from './national-exam-categories/national-exam-categories.component';
-import { NationalExamTestsComponent } from './national-exam-tests/national-exam-tests.component';
-import { NationalExamStartComponent } from './national-exam-start/national-exam-start.component';
 import { NationalExamQuestionsComponent } from './national-exam-questions/national-exam-questions.component';
 import { NationalExamResultComponent } from './national-exam-result/national-exam-result.component';
 import { NationalExamReviewComponent } from './national-exam-review/national-exam-review.component';
-import { JobPreparationComponent } from './jobinterviewpreparation/interviewpreparation.component';
-import { AverageSalaryComponent } from './averagesalaryestimator/averagesalaryestimator.component';
-import { FundListGuidlinesComponent } from './fund-list-guidelines/fund-list-guidlines.component';
-import { JoboffercomparisontoolComponent } from './job-tool/joboffercomparisontool/joboffercomparisontool.component';
-import { GlobalRepositoryComponent } from './global-repository/global-repository.component';
-import { GlobalWorkVisaComponent } from './global-work-visa/global-work-visa.component';
+import { NationalExamStartComponent } from './national-exam-start/national-exam-start.component';
+import { NationalExamTestsComponent } from './national-exam-tests/national-exam-tests.component';
+import { PagesComponent } from './pages.component';
+import { PitchDeskComponent } from './pitch-desk/pitch-desk.component';
+import { RecommendationsComponent } from './recommendations/recommendations.component';
+import { ScholarshipListGuidlinesComponent } from './scholarship-list-guidlines/scholarship-list-guidlines.component';
+import { ScholarshipListComponent } from './scholarship-list/scholarship-list.component';
+import { SupportComponent } from './support/support.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 const routes: Routes = [
     {
@@ -73,7 +73,7 @@ const routes: Routes = [
             },
             {
                 path: 'subscriptions',
-                loadChildren: () => import('./subscription/subscription.module').then(m => m.SubscriptionModule)
+                loadChildren: () => import('./subscription/subscription.module').then(m => m.SubscriptionModule),
             },
             {
                 path: 'faq',
