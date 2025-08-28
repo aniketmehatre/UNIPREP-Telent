@@ -30,12 +30,17 @@ export class PageFacadeService {
         this.videoPopupTrigger.next(data);
     }
 
-    sendWhatsappMessage() {
-        console.log("how coming inside")
-        // if (this.authService._user.why_premium_message_sent === 0) {
-            let data: { template_name: string } = {
-                template_name: "why_premium"
-            }
+    sendWhatsappMessage(job_name: string, company_name: string) {
+        if (this.authService._user.why_premium_message_sent === 0) {
+            let data: {
+                template_name: string;
+                job_name: string;
+                company_name: string;
+            } = {
+                template_name: "why_premium",
+                job_name: job_name,
+                company_name: company_name,
+            };
             this.talentService.sendWatsappMess(data).subscribe({
                 next: response => {
                     if (response.result) {
@@ -43,6 +48,7 @@ export class PageFacadeService {
                     }
                 }
             });
-        // }
+            // }
+        }
     }
 }
