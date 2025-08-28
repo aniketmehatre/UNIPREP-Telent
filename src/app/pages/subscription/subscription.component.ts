@@ -23,7 +23,6 @@ import { SubscriptionSuccessComponent } from "./subscription-success/subscriptio
 import { StorageService } from "../../services/storage.service";
 import { LocationService } from "src/app/services/location.service"
 import { CollegeSubscriptionDataComponent } from "./clg-subscription-data/clg-subscription-data.component"
-import { PageFacadeService } from "../page-facade.service"
 import { Router } from "@angular/router";
 import { ButtonModule } from "primeng/button";
 import { TalentConnectService } from "../talent-connect/talent-connect.service"
@@ -97,7 +96,7 @@ export class SubscriptionComponent implements OnInit {
 		private dataService: DataService, private dashboardService: DashboardService,
 		private stripeService: StripeService, private ngxService: NgxUiLoaderService,
 		private storage: StorageService, private locationService: LocationService,
-		private pageFacade: PageFacadeService, private router: Router,
+		private router: Router,
 		private talentService: TalentConnectService
 	) {
 		this.talentService.whyPremiumModal$.subscribe(visible =>{
