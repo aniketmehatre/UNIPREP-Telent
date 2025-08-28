@@ -84,7 +84,7 @@
 									</div>
 									<div class="col-md-9 col-12">
 										<h5 class="uniprep-primary">About Company</h5>
-										<div style="white-space: pre-line">{{ dataDetails?.aboutCompany || "No company information available at the moment." }}</div>
+										<div style="white-space: pre-line" [innerHTML]="dataDetails?.aboutCompany || 'No company information available at the moment.'"></div>
 									</div>
 								</div>
 							</div>

@@ -29,7 +29,7 @@ export class CompanyInviteCardComponent  implements OnInit {
     if (this.uuid) {
       this.landingService.getCompanyInviteDetails(this.uuid).subscribe({
         next: (response: any) => {
-          const data = response.dataDetails?.[0];
+          const data = response[0];
   
           if (data) {
             this.dataDetails = {
