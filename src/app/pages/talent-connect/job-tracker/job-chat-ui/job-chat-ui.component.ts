@@ -148,7 +148,7 @@ export class JobChatUiComponent implements OnInit, OnChanges {
         // this.showPremimumPopup = true;
         this.router.navigate(['/pages/subscriptions']);
         this.talentConnectService.openModal();
-        this.pageFacade.sendWhatsappMessage();
+        this.pageFacade.sendWhatsappMessage(this.jobDetails?.position, this.jobDetails?.company_name);
         return;
       }
     }
