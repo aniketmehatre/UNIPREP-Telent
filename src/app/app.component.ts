@@ -2,14 +2,12 @@ import { Component, inject, OnInit, signal } from "@angular/core";
 import { LocationService } from "./services/location.service";
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { ToastModule } from "primeng/toast";
-import { NavigationEnd, Router, RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { MessageService } from "primeng/api";
 import { SocialShareService } from "./services/social-share.service";
 import { ScrollTopModule } from "primeng/scrolltop";
 import { BrandColorService } from "./services/brand-color.service";
 import { LastRouteService } from "./services/last-route.service";
-import { filter } from "rxjs";
-import { TalentConnectService } from "./pages/talent-connect/talent-connect.service";
 
 @Component({
 	selector: "app-root",
@@ -26,8 +24,7 @@ export class AppComponent implements OnInit {
 		private whiteLabelService: LocationService,
 		private router: Router,
 		private brandColorService: BrandColorService, // Inject the service,
-		private lastRouteService: LastRouteService,
-		private talentConnectService: TalentConnectService,
+		private lastRouteService: LastRouteService
 	) { }
 
 	isPageHidden = false;
@@ -38,19 +35,6 @@ export class AppComponent implements OnInit {
 	private isInstitute = signal(false);
 
 	ngOnInit() {
-		this.router.events
-			.pipe(filter(event => event instanceof NavigationEnd))
-			.subscribe((event: any) => {
-				const profileData = this.talentConnectService._employerProfileData;
-				console.log("Profile Data in App Component:", this.talentConnectService._employerProfileData);
-				if (!profileData || profileData?.profile_completion_flag === 0) {
-
-					// 👇 Block only `/pages/subscriptions`
-					if (event.url.startsWith('/pages/subscriptions')) {
-						this.router.navigate(['/pages/talent-connect/my-profile'], { replaceUrl: true });
-					}
-				}
-			});
 		// Apply palettes from localStorage on app startup
 		this.brandColorService.applyPalettesFromLocalStorage();
 		this.apiToCheckPartnerOrInstitute();

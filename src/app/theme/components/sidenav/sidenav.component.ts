@@ -318,6 +318,10 @@ export class SidenavComponent {
       .subscribe({
         next: () => {
           this.markCurrentMenu();
+          if (!this.talentService._employerProfileData?.profile_completion_flag) {
+            console.log('its calling ?')
+            this.redirectToRestrictUrl('/pages/talent-connect/my-profile');
+          }
           if (this.talentService._employerProfileData?.profile_completion_flag == 1 && this.authService._user?.current_plan_detail?.current_plan == "Standard") {
             this.redirectToRestrictUrl('/pages/subscriptions');
           }
@@ -489,7 +493,7 @@ export class SidenavComponent {
           item.restricted = true;
         }
       });
-      // this.redirectToRestrictUrl('/pages/talent-connect/my-profile');
+      this.redirectToRestrictUrl('/pages/talent-connect/my-profile');
     }
     else {
       if (data) {
@@ -535,7 +539,7 @@ export class SidenavComponent {
           item.restricted = false;
         }
       });
-      if (this.talentService._employerProfileData) {
+      if (this.talentService._employerProfileData?.profile_completion_flag) {
         this.redirectToRestrictUrl('/pages/subscriptions');
       }
     }
@@ -590,7 +594,12 @@ export class SidenavComponent {
       const cleanParts = parts.slice(1); // remove "pages"
       return cleanParts;
     });
-    const isRestricted = restrictedMenus.some(segment => this.router.url.includes(segment));
+    let uniqueRestrictedMenus = [...new Set(restrictedMenus)];
+    if (redirectUrl == '/pages/talent-connect/my-profile') {
+      const nonRestrictedMenus = ['dashboard', 'talent-connect', 'easy-apply'];
+      uniqueRestrictedMenus = uniqueRestrictedMenus.filter(item => !nonRestrictedMenus.includes(item))
+    }
+    const isRestricted = uniqueRestrictedMenus.some(segment => this.router.url.includes(segment));
     if (isRestricted) {
       this.router.navigateByUrl(redirectUrl);
     }
