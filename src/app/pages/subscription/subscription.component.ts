@@ -87,11 +87,10 @@ export class SubscriptionComponent implements OnInit {
 	showPremimumPopup: boolean = false;
 	daysLeftInPremium = signal(0);
 	premiumFeatures: string[] = [
-		"💼 A 1:1 Call with a Career Advisor to refer & verify your Job Profile.",
-		"✅ Access to the Email & Contact Number of the Job Advertiser.",
-		"<i class='fa fa-id-card-o'></i>  Get your Digital Talent Profile link to share with recruiters.",
-		"🎯Personalized Job Alerts via Whatsapp & Email.",
-		"👑Access to 70+ Premium features for career growth."
+		"✅ Email & Contact Number of the Recruiter",
+		"📄 Digital Talent Profile link to share with recruiters.",
+		"📩 Personalized Job Alerts via Whatsapp & Email",
+		"🌟 70+ Premium features for career growth"
 	];
 	constructor(private subscriptionService: SubscriptionService, private winRef: WindowRefService,
 		private authService: AuthService, private toastr: MessageService,
@@ -108,7 +107,6 @@ export class SubscriptionComponent implements OnInit {
 	async ngOnInit(): Promise<void> {
 		//why premium whatsapp message trigger
 		this.daysLeftInPremium.set(this.storage.get('daysRemaining') || 0);
-		this.pageFacade.sendWhatsappMessage();
 		try {
 			let homeCountryName = this.storage.get("home_country_name");
 

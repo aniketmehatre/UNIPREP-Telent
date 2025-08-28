@@ -31,17 +31,18 @@ export class PageFacadeService {
     }
 
     sendWhatsappMessage() {
-        if (this.authService._user.why_premium_message_sent === 0) {
+        console.log("how coming inside")
+        // if (this.authService._user.why_premium_message_sent === 0) {
             let data: { template_name: string } = {
                 template_name: "why_premium"
             }
             this.talentService.sendWatsappMess(data).subscribe({
                 next: response => {
                     if (response.result) {
-                        this.authService._user.why_premium_message_sent = 1;
+                        // this.authService._user.why_premium_message_sent = 1;
                     }
                 }
             });
-        }
+        // }
     }
 }
