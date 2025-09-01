@@ -187,25 +187,25 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
   userCategories = [
     {
       icon: '💼',
-      title: 'For Job Seekers',
+      // title: 'For Job Seekers',
       description: 'Help you find the right job globally.',
       url: '/job-seekers'
     },
     {
       icon: '👨🏻‍🎓',
-      title: 'For International Students',
+      // title: 'For International Students',
       description: 'Global employers at your fingertips.',
       url: '/international-students'
     },
     {
       icon: '🧳',
-      title: 'For Global Travellers',
+      // title: 'For Global Travellers',
       description: 'Guide you to build an impeccable profile.',
       url: '/global-travellers'
     },
     {
       icon: '🚀',
-      title: 'For Entrepreneurs',
+      // title: 'For Entrepreneurs',
       description: 'Upskill yur portfolio to match top employers.',
       url: '/entrepreneurs'
     }

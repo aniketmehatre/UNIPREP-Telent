@@ -17,7 +17,7 @@
 						<h2 class="text-center fw-extralight text-white mb-4 d-block d-md-none"><span
 								class="fw-bold">Launch</span> Your Career and Land Your Dream Job with <span
 								class="fw-bold">UNIPREP</span></h2>
-						<h4 class="fw-medium text-grey">Start your Free Trail</h4>
+						<h4 class="fw-medium text-grey">Explore Today - it's <strong>Free</strong></h4>
 						<div class="text-center mb-4 mt-4">
 							<a href="/register" class="text-decoration-none"><button type="button"
 									class="btn btn-secondary px-4 py-3 m-0">
@@ -75,7 +75,8 @@
 									<i class="fa-solid fa-quote-left"></i>
 								</span>
 								<h5 class="p-5 text-white text-center fw-300 italic">
-									<span class="fw-bold uniprep-secondary">UNIPREP</span> is a global hiring platform that connects employers with top talent<br />
+									<span class="fw-bold uniprep-secondary">UNIPREP</span> is a global hiring platform
+									that connects employers with top talent<br />
 									worldwide.
 								</h5>
 								<!-- Bottom-right flipped quote -->
@@ -125,18 +126,20 @@
 					</div>
 					<div class="col-md-10">
 						<div class="row justify-content-center">
-							<div class="col-md-4 col-12 text-center isforyou" *ngFor="let card of cardItems">
-								<div class="card darkcard h-100">
-									<div class="card-body d-flex justify-content-center py-4 px-4">
-										<div
-											class="d-flex flex-column gap-2 align-items-center justify-content-center card-title">
-											<span class="mb-2"><i
-													class="{{ card.icon }} fw-light cardicon h1"></i></span>
-											<h6 class="text-center mb-0 fw-normal" [innerHTML]="card.text"></h6>
+							@for (card of cardItems; track $index) {
+								<div class="col-md-4 col-12 text-center isforyou">
+									<div class="card darkcard h-100">
+										<div class="card-body d-flex justify-content-center py-4 px-4">
+											<div
+												class="d-flex flex-column gap-2 align-items-center justify-content-center card-title">
+												<span class="mb-2"><i
+														class="{{ card.icon }} fw-light cardicon h1"></i></span>
+												<h6 class="text-center mb-0 fw-normal" [innerHTML]="card.text"></h6>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							}
 						</div>
 					</div>
 				</div>
@@ -170,30 +173,28 @@
 					<div class="col-md-10">
 						<h3 class="text-center mb-5 fw-light">Discover What <span
 								class="text-warning fw-semibold">UNIPREP</span>
-							Can Do</h3>
+							Can Do for You</h3>
 
 						<div class="row g-3 align-items-stretch">
-							<div class="col-md-3 d-flex cursor-pointer" *ngFor="let category of userCategories"
-								[routerLink]="category.url">
-								<div class="card w-100">
-									<div class="card-body d-flex flex-column p-4">
-										<div class="d-flex justify-content-center justify-content-md-start">
-											<div class="card mb-3 d-flex align-items-center justify-content-center"
-												style="width: 60px; height: 60px">
-												<span class="fs-2">{{ category.icon }}</span>
+							@for (category of userCategories; track $index) {
+								<div class="col-md-3 d-flex cursor-pointer"
+									[routerLink]="category.url">
+									<div class="card w-100">
+										<div class="card-body d-flex flex-column p-4">
+											<div class="d-flex justify-content-center justify-content-md-start">
+												<div class="card mb-3 d-flex align-items-center justify-content-center"
+													style="width: 60px; height: 60px">
+													<span class="fs-2">{{ category.icon }}</span>
+												</div>
 											</div>
+											<p
+												class="card-description text-light-emphasis mt-auto text-center text-md-start">
+												{{ category.description }}
+											</p>
 										</div>
-
-										<h6 class="card-title text-center text-md-start">
-											{{ category.title }}
-										</h6>
-										<p
-											class="card-description text-light-emphasis mt-auto text-center text-md-start">
-											{{ category.description }}
-										</p>
 									</div>
 								</div>
-							</div>
+							}
 						</div>
 					</div>
 				</div>
@@ -294,11 +295,13 @@
 							<div class="card-body p-5">
 								<div class="row">
 									<div class="d-flex justify-content-between gap-5">
-										<div class="text-center pt-4 pb-4" *ngFor="let stat of stats">
-											<i class="fa-thin {{ stat.icon }} fa-2xl pb-4"></i>
-											<h3 class="mb-2 uniprep-secondary">{{ stat.number }}</h3>
-											<h6 class="mb-0">{{ stat.text }}</h6>
-										</div>
+										@for (stat of stats; track $index) {
+											<div class="text-center pt-4 pb-4">
+												<i class="fa-thin {{ stat.icon }} fa-2xl pb-4"></i>
+												<h3 class="mb-2 uniprep-secondary">{{ stat.number }}</h3>
+												<h6 class="mb-0">{{ stat.text }}</h6>
+											</div>
+										}
 									</div>
 								</div>
 							</div>
@@ -590,18 +593,20 @@
 					</div>
 					<div class="col-md-10">
 						<div class="accordion pb-3 mb-5" id="accordionFAQ">
-							<div class="accordion-item faqcard p-2" *ngFor="let faq of faqItems; let i = index">
-								<h2 class="accordion-header">
-									<button class="accordion-button text-white collapsed fs-5" type="button"
-										data-bs-toggle="collapse" [attr.data-bs-target]="'#' + faq.id"
-										aria-expanded="false" [attr.aria-controls]="faq.id">
-										{{ faq.question }}
-									</button>
-								</h2>
-								<div [id]="faq.id" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-									<div class="accordion-body" [innerHTML]="faq.answer"></div>
+							@for (faq of faqItems; track $index) {
+								<div class="accordion-item faqcard p-2">
+									<h2 class="accordion-header">
+										<button class="accordion-button text-white collapsed fs-5" type="button"
+											data-bs-toggle="collapse" [attr.data-bs-target]="'#' + faq.id"
+											aria-expanded="false" [attr.aria-controls]="faq.id">
+											{{ faq.question }}
+										</button>
+									</h2>
+									<div [id]="faq.id" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+										<div class="accordion-body" [innerHTML]="faq.answer"></div>
+									</div>
 								</div>
-							</div>
+							}
 						</div>
 					</div>
 					<!-- <div class="col-md-10 text-center">
