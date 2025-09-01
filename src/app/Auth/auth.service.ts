@@ -241,6 +241,7 @@ export class AuthService {
                 }
                 this.user = response.userdetails[0];
                 this.storeUserData(this.user);
+                this.getNewUserTimeLeft().subscribe();
                 // Wait for this API to finish before returning the response
                 return this.talentConnectService.getMyProfileData(token).pipe(
                     catchError(error => {

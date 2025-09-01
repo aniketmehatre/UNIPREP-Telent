@@ -10,6 +10,7 @@ import { LocationService } from "src/app/services/location.service";
 import { AssessmentService } from "src/app/pages/assessment/assessment.service";
 import { StorageService } from "src/app/services/storage.service";
 import { TalentConnectService } from "src/app/pages/talent-connect/talent-connect.service";
+import { UserSubscriptionService } from "src/app/services/user-subscription.service";
 
 export interface SideMenu {
   title: string;
@@ -297,7 +298,7 @@ export class SidenavComponent {
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private dataService: DataService,
     private authService: AuthService, private locationService: LocationService,
     private assessmentService: AssessmentService, private storage: StorageService,
-    private talentService: TalentConnectService) {
+    private talentService: TalentConnectService, private userSubscriptionService: UserSubscriptionService) {
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.menus.filter((data) => {
         if (data.title.includes("Life in")) data.title = "Life in " + countryName;
@@ -319,7 +320,6 @@ export class SidenavComponent {
         next: () => {
           this.markCurrentMenu();
           if (!this.talentService._employerProfileData?.profile_completion_flag) {
-            console.log('its calling ?')
             this.redirectToRestrictUrl('/pages/talent-connect/my-profile');
           }
           if (this.talentService._employerProfileData?.profile_completion_flag == 1 && this.authService._user?.current_plan_detail?.current_plan == "Standard") {
@@ -331,7 +331,12 @@ export class SidenavComponent {
       if (data) {
         this.updateMenuUrlBasedOnEmployerProfile(data);
       }
-    })
+    });
+    this.userSubscriptionService.freeTrailExpiredStatus$.subscribe(data => {
+      if (data) {
+        this.updateMenuUrlBasedOnEmployerProfile(data);
+      }
+    });
   }
 
   get filteredMenus(): SideMenu[] {

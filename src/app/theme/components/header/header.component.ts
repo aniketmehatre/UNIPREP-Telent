@@ -32,6 +32,7 @@ import { User } from "src/app/@Models/user.model"
 import { CountryLocationService } from "src/app/services/country-location.service"
 import { MultiSelectModule } from "primeng/multiselect"
 import { CommonService } from "src/app/services/common.service"
+import { UserSubscriptionService } from "src/app/services/user-subscription.service"
 @Component({
 	selector: "uni-header",
 	templateUrl: "./header.component.html",
@@ -199,6 +200,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private cdr: ChangeDetectorRef,
 		private countryLocationService: CountryLocationService,
 		private commonService: CommonService,
+		private userSubscriptionService: UserSubscriptionService
 	) {
 		this.dataService.openReportWindowSource.subscribe({
 			next: (data) => {
@@ -410,7 +412,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	isSubmitting: boolean = false;
 	submitPhoneVerification() {
 		if (this.isSubmitting) return; // safeguard double click
-    	this.isSubmitting = true; // block further clicks
+		this.isSubmitting = true; // block further clicks
 		let formData = this.phoneVerification.value
 		let sendOTP = {
 			country_code: formData.verification_phone.dialCode,
@@ -429,7 +431,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 						summary: "Error",
 						detail: response.message,
 					})
-					 this.isSubmitting = false;
+					this.isSubmitting = false;
 				} else {
 					this.whatsappVerification = false
 					this.freeTrial = true
@@ -454,7 +456,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					summary: "Error",
 					detail: error?.error.message,
 				});
-				 this.isSubmitting = false;
+				this.isSubmitting = false;
 			},
 		})
 	}
@@ -498,7 +500,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			// }
 		});
 		// if(this.storage.get('jobId')) {
-        //     this.router.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`])
+		//     this.router.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`])
 		// }
 		let hostname = window.location.hostname
 		this.locationService.getSourceByDomain(hostname).subscribe((data: any) => {
@@ -555,10 +557,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 		// Add user details subscription
 		const userDetails = this.authService._user as User;
-		console.log(userDetails);
-		
+
 		this.showIcon = this.authService._user?.login_status === 4 ? false : true;
-		
+
 		this.userName = userDetails.name || '';
 		this.firstChar = this.userName ? this.userName.charAt(0).toUpperCase() : '';
 		// Set home country icon if available
@@ -1229,11 +1230,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				this.timeHours <= 0 &&
 				secondsLeft <= 0
 			) {
-				this.visible = true;
+				// this.visible = true;
 				this.locationService.trialEnds().subscribe((res) => {
 					console.log(res)
 				})
 				clearInterval(this.timerInterval);
+				// free trail expired
+				this.authService.getMe().subscribe({
+					next: res => {
+						this.userSubscriptionService.freeTrailExpiredStatus$.next(true);
+					},
+					error: err => {
+						this.userSubscriptionService.freeTrailExpiredStatus$.next(true);
+					}
+				});
 			}
 			this.min$ = minutesLeft
 			this.sec$ = secondsLeft
@@ -1320,7 +1330,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 					// if (jobId) {
 					// 	this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
 					// } else {
-						
+
 					// }
 					//window.location.reload()
 				}, 2000)
@@ -1664,7 +1674,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			next: (res) => {
 				this.nationalityList = res;
 			},
-			error: (error: any) => {}
+			error: (error: any) => { }
 		});
 	}
 }
