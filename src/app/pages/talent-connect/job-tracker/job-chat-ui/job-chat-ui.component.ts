@@ -55,7 +55,7 @@ export class JobChatUiComponent implements OnInit, OnChanges {
   //Inject Service
   private toast = inject(MessageService);
   private pageFacade = inject(PageFacadeService);
-  constructor(private talentConnectService: TalentConnectService, private authService: AuthService,
+  constructor(public talentConnectService: TalentConnectService, private authService: AuthService,
     private router: Router, private storage: LocalStorageService) { }
 
   ngOnInit(): void {
@@ -191,7 +191,7 @@ export class JobChatUiComponent implements OnInit, OnChanges {
   }
 
   autoGrow(element: HTMLTextAreaElement): void {
-    if (this.message.length === 0) {
+    if (this.message.length === 0 || !this.talentConnectService._employerProfileData?.profile_completion_flag) {
       this.applyBtnDisable = true;
     } else {
       this.applyBtnDisable = false;

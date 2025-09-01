@@ -116,11 +116,11 @@
 		<div class="w-100 mb-1 d-flex justify-content-end bg-transparent">
 			<button *ngIf="messages?.length !== 0 || messageInput?.value?.length !== 0; else isLoadingAiSummary"
 				class="text-small text-end btn btn-danger btn-rounded d-flex align-items-center gap-2"
-				style="width: fit-content"
+				style="width: fit-content" [disabled]="!talentConnectService._employerProfileData?.profile_completion_flag"
 				(click)="aiGenerateSummary('student', { content: messageInput.value }, messageInput, 'RePhrase')">RePhrase</button>
 			<ng-template #isLoadingAiSummary>
 				<button class="text-small text-end btn btn-success btn-rounded d-flex align-items-center gap-2"
-					style="width: fit-content"
+					style="width: fit-content" [disabled]="!talentConnectService._employerProfileData?.profile_completion_flag"
 					(click)="aiGenerateSummary('student', { company_name: jobDetails?.company_name, job_lookingfor: jobDetails?.position, created_at: jobDetails?.created_at }, messageInput, 'AI generate')">AI
 					Generate</button>
 			</ng-template>
