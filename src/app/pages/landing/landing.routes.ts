@@ -90,8 +90,12 @@ export const landingRoutes: Routes = [
                 loadComponent: () => import('./blogdetail/blogdetail.component').then(m => m.BlogdetailComponent)
             },
             {
-                path:'policy/:name',
+                path: 'policy/:name',
                 loadComponent: () => import('./policy/policy.component').then(m => m.PolicyComponent)
+            },
+            {
+                path: 'success-story',
+                loadComponent: () => import('./success-story/success-story.component').then(c => c.SuccessStoryComponent)
             },
             {
                 path: ':category',
