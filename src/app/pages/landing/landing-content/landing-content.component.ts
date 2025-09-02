@@ -188,25 +188,25 @@ export class LandingContentComponent implements OnInit, AfterViewInit {
     {
       icon: '💼',
       // title: 'For Job Seekers',
-      description: 'Help you find the right job globally.',
+      description: 'Help you secure the right job globally.',
       url: '/job-seekers'
     },
     {
       icon: '👨🏻‍🎓',
       // title: 'For International Students',
-      description: 'Global employers at your fingertips.',
+      description: 'Global employers available at your fingertips.',
       url: '/international-students'
     },
     {
       icon: '🧳',
       // title: 'For Global Travellers',
-      description: 'Guide you to build an impeccable profile.',
+      description: 'Guide you to create an impeccable profile.',
       url: '/global-travellers'
     },
     {
       icon: '🚀',
       // title: 'For Entrepreneurs',
-      description: 'Upskill yur portfolio to match top employers.',
+      description: 'Upskill your portfolio to match leading employers.',
       url: '/entrepreneurs'
     }
   ];

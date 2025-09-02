@@ -773,13 +773,13 @@ h5 {
 	color: #fffafa;
 }
 
-.card-body {
-	&:hover {
-		.card-description {
-			color: white !important;
-		}
-	}
+// .card-body {
+// 	&:hover {
+.card-description {
+	color: white !important;
 }
+// 	}
+// }
 
 .italic {
 	font-style: italic;

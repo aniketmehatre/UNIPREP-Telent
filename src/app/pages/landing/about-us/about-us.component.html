@@ -121,28 +121,32 @@
           </div>
 
           <!-- Content -->
-          <div class="timeline-item" *ngFor="let item of timelineData; let i = index" #timelineItem>
-            <div class="timeline-item-row">
-              <!-- Left (Year) -->
-              <div class="timeline-side year-side">
-                <h1 class="year-text-color-grad" [innerHTML]="item.year"></h1>
-                <h4 class="text-orange">{{ item.title }}</h4>
-              </div>
+          @for(item of timelineData; track $index){
+            <div class="timeline-item" #timelineItem>
+              <div class="timeline-item-row">
+                <!-- Left (Year) -->
+                <div class="timeline-side year-side">
+                  <h1 class="year-text-color-grad" [innerHTML]="item.year"></h1>
+                  <h4 class="text-orange">{{ item.title }}</h4>
+                </div>
 
-              <!-- Center Line Space (handled by .timeline-line-wrapper) -->
+                <!-- Center Line Space (handled by .timeline-line-wrapper) -->
 
-              <!-- Right (Content) -->
-              <div class="timeline-side">
-                <div class="timeline-content pb-5">
-                  <p class="mb-4">{{ item.subtitle }}</p>
-                  <p *ngFor="let point of item.points" class="mb-3">
-                    <span class="text-orange fw-bold">{{ point.split(":")[0] }}:</span>
-                    {{ point.split(":")[1] }}
-                  </p>
+                <!-- Right (Content) -->
+                <div class="timeline-side">
+                  <div class="timeline-content pb-5">
+                    <p class="mb-4">{{ item.subtitle }}</p>
+                    @for(point of item.points;track $index){
+                      <p  class="mb-3">
+                        <span class="text-orange fw-bold">{{ point.split(":")[0] }}:</span>
+                        {{ point.split(":")[1] }}
+                      </p>
+                    }
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          }
         </div>
       </div>
     </div>

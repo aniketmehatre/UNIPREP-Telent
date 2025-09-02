@@ -141,7 +141,7 @@ export class AboutUsComponent implements OnInit {
       icon: 'fa-light fa-arrow-down',
       year: '2021',
       title: 'Spark of Career Empowerment',
-      subtitle: 'We began with a simple, yet powerful idea: What if every professional could take full control of their career growth, job search, without depending on anyone else?',
+      subtitle: 'We began with a simple, yet powerful idea: What if every professional could take full control of their career growth, and job search, without depending on anyone else?',
       points: [
         'Our mission: Build a platform that provides the tools, connections, and visibility needed for career advancement — enabling users to showcase their skills, strengthen their portfolios, and secure the right opportunities.',
         'Action: We created UNIPREP, offering self–driven resources, portfolio enhancement tools, and a global network to help talents independently navigate their career paths and land the right job based on their skills.',
@@ -150,7 +150,7 @@ export class AboutUsComponent implements OnInit {
     },
     {
       year: '2022',
-      title: 'Learning from Our Own Experience',
+      title: 'Learning from Our Own Career Journeys',
       subtitle: '',
       points: [
         'The Process: Drawing from our own struggles and insights in job hunting and career growth, we began shaping a platform rooted in real-world hiring experiences.',
@@ -173,7 +173,7 @@ export class AboutUsComponent implements OnInit {
     {
       year: '2024',
       title: 'Advanced Career Tools & AI Integration',
-      subtitle: 'In 2024, we enhanced UNIPREP by integrating AI-driven career guidance, helping users explore personalized career paths based on their skills, interests, and market trends.',
+      subtitle: '',
       points: [
         'Innovation: In 2024, we took UNIPREP to the next level by integrating AI-driven career guidance, enabling users to discover personalized career paths based on their skills, interests, and market demand.',
         '50+ New Features: We introduced AI-powered tools for career growth — including tailored job recommendations, skill gap analysis, portfolio optimization, and interview preparation — helping professionals stand out in a competitive market.',
@@ -183,8 +183,8 @@ export class AboutUsComponent implements OnInit {
     },
     {
       year: '2025',
-      title: 'Direct Connections Between Employers & Talent',
-      subtitle: 'In 2025, the focus shifted even more toward creating direct connections between employers and talent.',
+      title: 'Direct Connections, Global Opportunities',
+      subtitle: '',
       points: [
         'Focus: In 2025, we doubled down on building direct, meaningful connections between employers and top talent.',
         '70+ Features: We launched over 70 tools designed to bridge the gap between job seekers and employers — including Talent Connect, making it easier for professionals to find the perfect role and for employers to discover standout candidates.',
@@ -199,7 +199,6 @@ export class AboutUsComponent implements OnInit {
       title: 'Future Features & Easy Connections',
       subtitle: 'As we continue our journey in 2025, we are excited to announce that we are working on advanced features to make it even easier for employers and talents to connect and grow.',
       points: [
-        'As we continue our journey in 2025, we are excited to announce that we are working on advanced features to make it even easier for employers and talents to connect and grow.',
         'Advanced Features Coming Soon: Our team is developing tools to enhance user experience with simpler, quicker connections, and even more intelligent AI features.',
         'The Vision: In the coming months, we\'ll make it even easier to connect employers and talents globally, ensuring the right opportunities are accessible to the right people, whenever and wherever they need them.'
       ],
