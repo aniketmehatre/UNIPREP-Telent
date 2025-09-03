@@ -28,7 +28,9 @@
 						<div *ngFor="let item of talentConnectMainList" class="col-md-4 col-sm-4 col-xs-12 col-12 mb-3 d-flex justify-content-center">
 							<div class="card py-3 employercard w-100 position-relative card-border" [class.disabled]="item.launch_soon" role="button" (click)="checkAndNotAllowAccessModules($event, item.id, item.navigate_url, item.launch_soon)">
 								<!-- Launch Soon Tag -->
-								<uni-launch-soon-tag *ngIf="item.launch_soon" message="Launching soon"></uni-launch-soon-tag>
+								@if(item.launch_soon) {
+									<uni-launch-soon-tag message="Launching soon"></uni-launch-soon-tag>
+								}
 								<!-- Card Body -->
 								<div class="card-body d-flex flex-column justify-content-md-between align-items-center" >
 									<div>

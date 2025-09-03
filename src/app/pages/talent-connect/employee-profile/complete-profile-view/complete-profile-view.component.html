@@ -56,14 +56,17 @@
 							<h2 class="fw-bold">{{ profileData?.full_name }}</h2>
 							<p class="text-muted">Profile Updated On: {{ profileData?.updated_at_formatted }}</p>
 							<div class="mt-2">
-								<button class="py-2 px-4 btn-success" *ngIf="profileData?.careerPreference?.video_link">
+								@if(profileData?.careerPreference?.video_link) {
+								<button class="py-2 px-4 btn-success">
 									<a [href]="profileData?.careerPreference?.video_link" target="_blank" role="button"
 										class="text-decoration-none text-white">Introduction Video Uploaded&nbsp; <i
 											class="fa fa-video"></i></a>
 								</button>
-								<button class="py-2 px-4 btn btn-danger"
-									*ngIf="!profileData?.careerPreference?.video_link">Introduction Video Not
+								}
+								@if(!profileData?.careerPreference?.video_link) {
+								<button class="py-2 px-4 btn btn-danger">Introduction Video Not
 									Uploaded&nbsp; <i class="fa fa-video"></i></button>
+								}
 							</div>
 						</div>
 						<div class="col-md-4 d-md-block d-none">
@@ -146,8 +149,8 @@
 			</div>
 		</div>
 		<!-- Education Details Section -->
-		<div class="card-body mb-4 bg-secondary-card rounded-3"
-			*ngIf="profileData?.education && profileData?.education.length > 0">
+		@if(profileData?.education && profileData?.education.length > 0) {
+		<div class="card-body mb-4 bg-secondary-card rounded-3">
 			<div class="row">
 				<div class="col-md-3">
 					<h3 class="fw-bold text-navy">Education Details</h3>
@@ -177,22 +180,26 @@
 						<div class="col-12 d-none d-md-block">
 							<hr />
 						</div>
-						<div class="col-md-4 col-xl-3 mb-3" *ngIf="edu?.gpa_percentage">
+						@if(edu?.gpa_percentage) {
+						<div class="col-md-4 col-xl-3 mb-3">
 							<div class="text-primary fw-bold">GPA / Percentage</div>
 							<div>{{ edu?.gpa_percentage }} {{ edu?.gpa_percentage_type == "Percentage" ? " %" : "
 								GPA" }}</div>
 						</div>
+						}
 						<div class="col-12 d-none d-md-block">
 							<hr />
 						</div>
 						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 1 }">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+								[queryParams]="{ editTab: 1 }">
 								Edit Education Details <i class="fa fa-pencil-square-o"></i></div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		}
 
 		<!-- Work Experience Section -->
 		<div class="card-body mb-4 bg-secondary-card rounded-3">
@@ -206,14 +213,14 @@
 						<div>{{ profileData?.total_years_of_experience }}
 						</div>
 					</div>
-					<div class="col-12 d-none d-md-block" *ngIf="profileData?.total_years_of_experience">
+					@if(profileData?.total_years_of_experience) {
+					<div class="col-12 d-none d-md-block">
 						<hr />
 					</div>
-					<div class="fw-bold fs-5 mb-3"
-						*ngIf="profileData?.work_experience && profileData?.work_experience.length > 0">Work
-						Experience Details</div>
-
-					<div class="row" *ngIf="profileData?.work_experience && profileData?.work_experience.length > 0">
+					}
+					@if(profileData?.work_experience && profileData?.work_experience.length > 0) {
+					<div class="fw-bold fs-5 mb-3">Work Experience Details </div>
+					<div class="row">
 						<ng-container *ngFor="let exp of profileData?.work_experience; let last = last">
 							<div class="col-md-4 col-xl-3 mb-3">
 								<div class="text-primary fw-bold">Company Name</div>
@@ -249,21 +256,26 @@
 								<div class="text-primary fw-bold">Job Responsibilities</div>
 								<div [innerHTML]="exp?.job_responsibilities || 'Not specified'"></div>
 							</div>
-							<div class="col-md-4 mb-3" *ngIf="exp?.experience_letter">
+							@if(exp?.experience_letter) {
+							<div class="col-md-4 mb-3">
 								<div class="text-primary fw-bold">Experience Letter</div>
 								<button pButton [label]="extractFileName(exp?.experience_letter)" icon="pi pi-download"
 									class="p-button-outlined p-button-secondary mb-2 justify-content-between"
 									(click)="openView(exp?.experience_letter)" iconPos="right"></button>
 							</div>
+							}
 							<div class="col-12 d-none d-md-block">
 								<hr />
 							</div>
 						</ng-container>
 					</div>
-					<div *ngIf="!profileData?.work_experience || profileData?.work_experience.length === 0"
-						class="text-muted">Fresher</div>
+					}
+					@if(!profileData?.work_experience || profileData?.work_experience.length === 0) {
+					<div class="text-muted">Fresher</div>
+					}
 					<div class="col-12 mb-3">
-						<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 2 }">
+						<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+							[queryParams]="{ editTab: 2 }">
 							Edit Work Details <i class="fa fa-pencil-square-o"></i></div>
 					</div>
 				</div>
@@ -271,7 +283,8 @@
 		</div>
 
 		<!-- Career Preferences Section -->
-		<div class="card-body mb-4 bg-secondary-card rounded-3" *ngIf="profileData?.careerPreference">
+		@if(profileData?.careerPreference) {
+		<div class="card-body mb-4 bg-secondary-card rounded-3">
 			<div class="row">
 				<div class="col-md-3">
 					<h3 class="fw-bold text-navy">Career Preferences & Aspirations</h3>
@@ -329,17 +342,19 @@
 							<hr />
 						</div>
 						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 3 }">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+								[queryParams]="{ editTab: 3 }">
 								Edit Career Preferences <i class="fa fa-pencil-square-o"></i></div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		}
 
 		<!-- Certifications Section -->
-		<div class="card-body mb-4 bg-secondary-card rounded-3"
-			*ngIf="profileData?.certifications && profileData?.certifications.length > 0">
+		@if(profileData?.certifications && profileData?.certifications.length > 0) {
+		<div class="card-body mb-4 bg-secondary-card rounded-3">
 			<div class="row">
 				<div class="col-md-3">
 					<h3 class="fw-bold text-navy">Certifications & Achievements</h3>
@@ -352,38 +367,46 @@
 					<div class="row">
 						<div class="col-md-8">
 							<ng-container *ngFor="let cert of profileData?.certifications">
-								<div class="mb-3" *ngIf="cert.type === 'Certificate'">
+								@if(cert.type === 'Certificate') {
+								<div class="mb-3">
 									<div class="text-primary fw-bold">Professional / online Certifications</div>
 									<div>{{ cert.name || "Not specified" }}</div>
 								</div>
-								<div class="mb-3" *ngIf="cert.type === 'Achievement'">
+								}
+								@if(cert.type === 'Achievement') {
+								<div class="mb-3">
 									<div class="text-primary fw-bold">Achievement Name</div>
 									<div>{{ cert.name || "Not specified" }}</div>
 								</div>
+								}
 							</ng-container>
 						</div>
 						<div class="col-md-4">
 							<ng-container *ngFor="let cert of profileData?.certifications">
-								<button *ngIf="cert.file_name" pButton [label]="extractFileName(cert.file_name)"
-									icon="pi pi-download"
+								@if(cert.file_name) {
+								<button pButton [label]="extractFileName(cert.file_name)" icon="pi pi-download"
 									class="p-button-outlined p-button-secondary mb-2 w-100 justify-content-between"
 									(click)="openView(cert.file_name)" iconPos="right"></button>
+								}
 							</ng-container>
-							<div class="text-muted" *ngIf="hasNoCertificationFiles()">No certification files
-								available</div>
+							@if(hasNoCertificationFiles()) {
+							<div class="text-muted">No certification files available</div>
+							}
 						</div>
 						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 4 }">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+								[queryParams]="{ editTab: 4 }">
 								Edit Certifications <i class="fa fa-pencil-square-o"></i></div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		}
 
 		<!-- Additional Details Section -->
-		<div class="card-body mb-4 bg-secondary-card rounded-3"
-			*ngIf="profileData?.languages && profileData?.languages.length > 0">
+		@if(profileData?.languages && profileData?.languages.length > 0) {
+		<div class="card-body mb-4 bg-secondary-card rounded-3">
 			<div class="row">
 				<div class="col-md-3">
 					<h3 class="fw-bold text-navy">Key Strengths & Professional Traits</h3>
@@ -413,7 +436,8 @@
 								</ng-container>
 							</div> -->
 						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 4 }">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+								[queryParams]="{ editTab: 4 }">
 								Edit Strengths & Professional Traits <i class="fa fa-pencil-square-o"></i>
 							</div>
 						</div>
@@ -421,38 +445,44 @@
 				</div>
 			</div>
 		</div>
+		}
 
 		<!-- Professional Networking Section -->
-		<div class="card-body mb-4 bg-secondary-card rounded-3"
-			*ngIf="profileData?.linkedin_profile || (profileData?.networking && profileData?.networking.length > 0)">
+		@if(profileData?.linkedin_profile || (profileData?.networking && profileData?.networking.length > 0)) {
+		<div class="card-body mb-4 bg-secondary-card rounded-3">
 			<div class="row">
 				<div class="col-md-3">
 					<h3 class="fw-bold text-navy">Professional Networking & Online Presence</h3>
 				</div>
 				<div class="col-md-9">
 					<div class="row">
-						<div class="col-md-4 mb-3" *ngIf="profileData?.linkedin_profile">
+						@if(profileData?.linkedin_profile) {
+						<div class="col-md-4 mb-3">
 							<a [href]="profileData?.linkedin_profile" target="_blank" class="text-break text-primary">
 								<i class="pi pi-linkedin fs-3"></i>
 							</a>
 							<div class="text-primary fw-bold">LinkedIn Profile</div>
 						</div>
-						<ng-container *ngIf="profileData?.networking && profileData?.networking.length > 0">
-							<div class="col-md-4 mb-3" *ngFor="let social of profileData?.networking">
-								<a [href]="social.social_media_link" target="_blank" class="text-break text-primary">
-									<i class="pi pi-{{ getSocialMediaIconName(social.social_media) }} fs-3"></i>
-								</a>
-								<div class="text-primary fw-bold">{{ social.social_media + " Profile" }}</div>
-							</div>
-						</ng-container>
-						<div class="col-md-4 mb-3" *ngIf="profileData?.personal_website">
+						}
+						@if(profileData?.networking && profileData?.networking.length > 0) {
+						<div class="col-md-4 mb-3" *ngFor="let social of profileData?.networking">
+							<a [href]="social.social_media_link" target="_blank" class="text-break text-primary">
+								<i class="pi pi-{{ getSocialMediaIconName(social.social_media) }} fs-3"></i>
+							</a>
+							<div class="text-primary fw-bold">{{ social.social_media + " Profile" }}</div>
+						</div>
+						}
+						@if(profileData?.personal_website) {
+						<div class="col-md-4 mb-3">
 							<a [href]="profileData?.personal_website" target="_blank" class="text-break text-primary">
 								<i class="pi pi-globe fs-3"></i>
 							</a>
 							<div class="text-primary fw-bold">Personal Website</div>
 						</div>
+						}
 						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 5 }">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+								[queryParams]="{ editTab: 5 }">
 								Edit Social Presence <i class="fa fa-pencil-square-o"></i>
 							</div>
 						</div>
@@ -460,9 +490,11 @@
 				</div>
 			</div>
 		</div>
+		}
 
 		<!-- Attachments Section -->
-		<div class="card-body mb-4 bg-secondary-card rounded-3" *ngIf="profileData?.careerPreference?.portfolio_upload_link || profileData?.careerPreference?.cv_filename">
+		@if(profileData?.careerPreference?.portfolio_upload_link || profileData?.careerPreference?.cv_filename) {
+		<div class="card-body mb-4 bg-secondary-card rounded-3">
 			<div class="row">
 				<div class="col-md-3">
 					<h3 class="fw-bold text-navy">Attachments & Media</h3>
@@ -473,25 +505,29 @@
 				</div>
 				<div class="col-md-9">
 					<div class="row">
-						<div class="col-md-4 mb-3" *ngIf="profileData?.careerPreference?.portfolio_upload_link">
+						@if(profileData?.careerPreference?.portfolio_upload_link) {
+						<div class="col-md-4 mb-3">
 							<div class="text-primary fw-bold">Portfolio</div>
-							<div *ngIf="profileData?.careerPreference?.portfolio_upload_link">
+							<div>
 								<a [href]="profileData?.careerPreference?.portfolio_upload_link" target="_blank"
 									class="text-break text-primary">
 									<i class="fa-solid fa-folder-user fs-3"></i>
 								</a>
 							</div>
 						</div>
-						<div class="col-md-4 mb-3" *ngIf="profileData?.careerPreference?.cv_filename">
+						}
+						@if(profileData?.careerPreference?.cv_filename) {
+						<div class="col-md-4 mb-3">
 							<div class="text-primary fw-bold">Upload CV / Resume</div>
-							<button *ngIf="profileData?.careerPreference?.cv_filename" pButton
-								[label]="extractFileName(profileData?.careerPreference?.cv_filename)"
+							<button pButton [label]="extractFileName(profileData?.careerPreference?.cv_filename)"
 								icon="pi pi-download"
 								class="p-button-outlined p-button-secondary mb-2 justify-content-between"
 								(click)="openView(profileData?.careerPreference?.cv_filename)" iconPos="right"></button>
 						</div>
+						}
 						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 6 }">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+								[queryParams]="{ editTab: 6 }">
 								Edit Attachments <i class="fa fa-pencil-square-o"></i>
 							</div>
 						</div>
@@ -499,16 +535,19 @@
 				</div>
 			</div>
 		</div>
+		}
 
 		<!-- References Section -->
-		<!-- <div class="card mb-4" *ngIf="profileData?.references && profileData?.references.length > 0">
+		<!-- @if(profileData?.references && profileData?.references.length > 0) {
+		<div class="card mb-4">
 			<div class="card-body">
 				<div class="row">
 					<div class="col-md-3">
 						<h3 class="fw-bold text-navy">References & Endorsements</h3>
 					</div>
 					<div class="col-md-9">
-						<div class="mb-4" *ngIf="profileData?.references && profileData?.references.length > 0">
+						@if(profileData?.references && profileData?.references.length > 0) {
+						<div class="mb-4">
 							<div class="fw-bold fs-5 mb-3">Academic Reference</div>
 							<div class="row" *ngFor="let ref of profileData?.references">
 								<div class="col-md-4 col-xl-3 mb-3">
@@ -529,9 +568,9 @@
 								</div>
 							</div>
 						</div>
-
-						<div
-							*ngIf="profileData?.professional_references && profileData?.professional_references.length > 0">
+						}
+						@if(profileData?.professional_references && profileData?.professional_references.length > 0) {
+						<div>
 							<div class="fw-bold fs-5 mb-3">Professional Reference</div>
 							<div class="row" *ngFor="let ref of profileData?.professional_references">
 								<div class="col-md-4 col-xl-3 mb-3">
@@ -552,13 +591,17 @@
 								</div>
 							</div>
 						</div>
+					}
 					</div>
 				</div>
 			</div>
-		</div> -->
+		</div> 
+		}
+		-->
 
 		<!-- Additional Notes -->
-		<div class="card-body mb-4 bg-secondary-card rounded-3" *ngIf="profileData?.careerPreference?.notes">
+		@if(profileData?.careerPreference?.notes) {
+		<div class="card-body mb-4 bg-secondary-card rounded-3">
 			<div class="row">
 				<div class="col-md-3">
 					<h3 class="fw-bold text-navy">Additional Notes</h3>
@@ -569,7 +612,8 @@
 							<div [innerHTML]="profileData?.careerPreference?.notes"></div>
 						</div>
 						<div class="col-12">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile" [queryParams]="{ editTab: 6 }">
+							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+								[queryParams]="{ editTab: 6 }">
 								Edit Notes <i class="fa fa-pencil-square-o"></i>
 							</div>
 						</div>
@@ -577,5 +621,6 @@
 				</div>
 			</div>
 		</div>
+		}
 	</div>
 </div>

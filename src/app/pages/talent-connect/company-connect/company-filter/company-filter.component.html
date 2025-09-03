@@ -1,4 +1,6 @@
-<p-dialog [(visible)]="openModal"  [style]="{ width: '60vw' }" [breakpoints]="{ '960px': '75vw', '959px': '80vw', '425px': '90vw' }" [closeOnEscape]="true" (onHide)="closeFilter.emit()" styleClass="filter-modal">
+<p-dialog [(visible)]="openModal" [style]="{ width: '60vw' }"
+  [breakpoints]="{ '960px': '75vw', '959px': '80vw', '425px': '90vw' }" [closeOnEscape]="true"
+  (onHide)="closeFilter.emit()" styleClass="filter-modal">
   <ng-template #header>
     <div class="inline-flex items-center justify-center gap-2">
       <span class="font-bold whitespace-nowrap">Filter</span>
@@ -8,28 +10,35 @@
     <div class="row g-4">
       <div class="col-md-8">
         <label class="form-label fw-bold">Company Name</label>
-        <input class="form-control d-none" formControlName="companyname" pInputText placeholder="Search by company name" />
+        <input class="form-control d-none" formControlName="companyname" pInputText
+          placeholder="Search by company name" />
         <input class="form-control" formControlName="companyname" pInputText placeholder="Search by company name" />
       </div>
 
       <div class="col-md-4">
         <label class="form-label fw-bold">Industry Type</label>
-        <p-select appendTo="body" [options]="industryTypes" formControlName="industrytype" optionValue="id" optionLabel="industry_name" placeholder="Select your preferred industry" styleClass="w-100"  [filter]="true"></p-select>
+        <p-select appendTo="body" [options]="industryTypes" formControlName="industrytype" optionValue="id"
+          optionLabel="industry_name" placeholder="Select your preferred industry" styleClass="w-100"
+          [filter]="true"></p-select>
       </div>
-
-      <div class="col-md-4" *ngIf="!isListView && currentTabIndex == 0">
+      @if(!isListView && currentTabIndex == 0) {
+      <div class="col-md-4">
         <label class="form-label fw-bold">Status</label>
-        <p-select appendTo="body" [options]="statusList" formControlName="status" placeholder="Select Status" optionValue="value" optionLabel="label" styleClass="w-100" ></p-select>
+        <p-select appendTo="body" [options]="statusList" formControlName="status" placeholder="Select Status"
+          optionValue="value" optionLabel="label" styleClass="w-100"></p-select>
       </div>
-
+      }
       <div class="col-md-4">
         <label class="form-label fw-bold">Company Size</label>
-        <p-select appendTo="body" [options]="companySizes" formControlName="companysize" placeholder="Select Company Size" styleClass="w-100"  optionValue="id" optionLabel="size"></p-select>
+        <p-select appendTo="body" [options]="companySizes" formControlName="companysize"
+          placeholder="Select Company Size" styleClass="w-100" optionValue="id" optionLabel="size"></p-select>
       </div>
 
       <div class="col-md-4">
         <label class="form-label fw-bold">Headquarters Location</label>
-        <p-select appendTo="body" [options]="locations" formControlName="hq" placeholder="Select Headquarters Location" [filter]="true" filterBy="city_name,country_name" optionValue="city_id" styleClass="w-100"  [virtualScroll]="true" [virtualScrollItemSize]="50">
+        <p-select appendTo="body" [options]="locations" formControlName="hq" placeholder="Select Headquarters Location"
+          [filter]="true" filterBy="city_name,country_name" optionValue="city_id" styleClass="w-100"
+          [virtualScroll]="true" [virtualScrollItemSize]="50">
           <ng-template let-item pTemplate="selectedItem"> {{ item?.city_name }}, {{ item?.country_name }} </ng-template>
           <ng-template let-option pTemplate="item"> {{ option.city_name }}, {{ option.country_name }} </ng-template>
         </p-select>
@@ -37,20 +46,26 @@
 
       <div class="col-md-4">
         <label class="form-label fw-bold">Global Presence</label>
-        <p-multiSelect appendTo="body" [options]="globalPresence" formControlName="globalpresence" placeholder="Select global presence" optionValue="id" optionLabel="country" styleClass="w-100"  [filter]="true"></p-multiSelect>
+        <p-multiSelect appendTo="body" [options]="globalPresence" formControlName="globalpresence"
+          placeholder="Select global presence" optionValue="id" optionLabel="country" styleClass="w-100"
+          [filter]="true"></p-multiSelect>
       </div>
 
       <div class="col-md-4">
         <label class="form-label fw-bold">Year Founded</label>
-        <p-select appendTo="body" [options]="foundedYears" formControlName="foundedyear" placeholder="Select founded year" styleClass="w-100"  [filter]="true"></p-select>
+        <p-select appendTo="body" [options]="foundedYears" formControlName="foundedyear"
+          placeholder="Select founded year" styleClass="w-100" [filter]="true"></p-select>
       </div>
     </div>
   </form>
 
   <ng-template #footer>
     <div class="d-grid gap-2 col-12 mx-auto">
-      <button type="button" class="btn btn-dark w-100 block" style="background-color: var(--p-primary-500); border: none" (click)="triggerFilter()">Apply Filter</button>
-      <button class="btn btn-outline-dark w-100" (click)="onResetFilter()" style="background-color: white; border-radius: 8px; color: var(--p-primary-500); border: none" type="button">Reset Filter</button>
+      <button type="button" class="btn btn-dark w-100 block"
+        style="background-color: var(--p-primary-500); border: none" (click)="triggerFilter()">Apply Filter</button>
+      <button class="btn btn-outline-dark w-100" (click)="onResetFilter()"
+        style="background-color: white; border-radius: 8px; color: var(--p-primary-500); border: none"
+        type="button">Reset Filter</button>
     </div>
   </ng-template>
 </p-dialog>
