@@ -86,7 +86,7 @@ export class LocationService {
     }
 
     UpdateSelectedCountry(data: any) {
-        const headers = new HttpHeaders().set("Accept", "application/json");
+        const headers = new HttpHeaders().set("Accept", "application/json").set('Authorization', `Bearer ${this.storage.get<string>('token')}`);
         return this.http.post<any>(environment.ApiUrl + "/UpdateSelectedCountry", data, {
             headers: headers,
         });
@@ -203,7 +203,7 @@ export class LocationService {
             os: os,
             token: this.storage.get<string>('token')
         };
-        const headers = new HttpHeaders().set("Accept", "application/json");
+        const headers = new HttpHeaders().set("Accept", "application/json").set('Authorization', `Bearer ${this.storage.get<string>('token')}`);
         return this.http.post<any>(environment.ApiUrl + "/addtracking", sessionData, {
             headers: headers,
         });
