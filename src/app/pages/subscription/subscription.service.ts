@@ -1,10 +1,10 @@
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Injectable} from "@angular/core";
-import {environment} from "@env/environment";
-import {Store} from "@ngrx/store";
-import {SubscriptionState} from "./store/reducer";
-import {BehaviorSubject, Observable} from "rxjs";
-import {doneLoading, loadSubDetails, loadSubscriptionPlans, placeorder,} from "./store/actions";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { environment } from "@env/environment";
+import { Store } from "@ngrx/store";
+import { SubscriptionState } from "./store/reducer";
+import { BehaviorSubject, Observable } from "rxjs";
+import { doneLoading, loadSubDetails, loadSubscriptionPlans, placeorder, } from "./store/actions";
 import {
     selectBillingInfo,
     selectLoading,
@@ -13,9 +13,9 @@ import {
     selectPlans,
     selectSubscriptionDetail
 } from "./store/selectors";
-import {SubscriptionSuccess, SubscriptionTopup,} from "../../@Models/subscription";
-import {PaymentIntent} from "@stripe/stripe-js";
-import {StorageService} from "../../services/storage.service";
+import { SubscriptionSuccess, SubscriptionTopup, } from "../../@Models/subscription";
+import { PaymentIntent } from "@stripe/stripe-js";
+import { StorageService } from "../../services/storage.service";
 
 @Injectable({
     providedIn: "root",
@@ -50,7 +50,7 @@ export class SubscriptionService {
         return this.http.post<any>(
             environment.ApiUrl + "/getquestioncredits",
             {},
-            {headers: headers}
+            { headers: headers }
         );
     }
 
@@ -95,7 +95,7 @@ export class SubscriptionService {
         return this.http.post<any>(
             environment.ApiUrl + "/updatecheckoutbehaviour",
             {
-                type : "popup_closed"
+                type: "popup_closed"
             }
         );
     }
@@ -104,7 +104,7 @@ export class SubscriptionService {
         return this.http.post<any>(
             environment.ApiUrl + "/completepayment",
             {
-                type : "payment_failed"
+                type: "payment_failed"
             }
         );
     }
@@ -125,7 +125,7 @@ export class SubscriptionService {
     }
 
     placeOrder(subscription: any) {
-        this.store.dispatch(placeorder({subscription}));
+        this.store.dispatch(placeorder({ subscription }));
     }
 
     getOrderID() {
@@ -166,7 +166,7 @@ export class SubscriptionService {
         return this.http.post<any>(
             environment.ApiUrl + "/placeorder",
             bindingdata,
-            {headers: headers}
+            { headers: headers }
         );
     }
 
@@ -180,7 +180,7 @@ export class SubscriptionService {
         return this.http.post<SubscriptionSuccess>(
             environment.ApiUrl + "/completepayment",
             bindingdata,
-            {headers: headers}
+            { headers: headers }
         );
     }
 
@@ -190,7 +190,7 @@ export class SubscriptionService {
         return this.http.post<SubscriptionSuccess>(
             environment.ApiUrl + "/topupcompletepayment",
             data,
-            {headers: headers}
+            { headers: headers }
         );
     }
 
@@ -200,7 +200,7 @@ export class SubscriptionService {
         return this.http.post<any>(
             environment.ApiUrl + "/getsubscriptionlist",
             data,
-            {headers: headers}
+            { headers: headers }
         );
     }
 
@@ -213,7 +213,7 @@ export class SubscriptionService {
         return this.http.post<any>(
             environment.ApiUrl + "/GetSubscriptionDetails",
             body,
-            {headers: headers}
+            { headers: headers }
         );
     }
 
@@ -223,7 +223,7 @@ export class SubscriptionService {
         return this.http.post<SubscriptionTopup>(
             environment.ApiUrl + "/gettopuplist",
             {},
-            {headers: headers}
+            { headers: headers }
         );
     }
 
@@ -233,7 +233,7 @@ export class SubscriptionService {
         return this.http.post<any>(
             environment.ApiUrl + "/applycoupondiscount",
             data,
-            {headers: headers}
+            { headers: headers }
         );
     }
 
@@ -242,7 +242,7 @@ export class SubscriptionService {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(
             environment.ApiUrl + "/getsubscriptionhistory",
-            {headers: headers}
+            { headers: headers }
         );
     }
 
@@ -251,7 +251,7 @@ export class SubscriptionService {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<SubscriptionTopup>(
             environment.ApiUrl + "/getexistingsubscription",
-            {headers: headers}
+            { headers: headers }
         );
     }
 
@@ -261,7 +261,7 @@ export class SubscriptionService {
         return this.http.post<any>(
             environment.ApiUrl + "/downloadinvoiceforstudent",
             data,
-            {headers: headers},
+            { headers: headers },
         );
     }
 
@@ -270,7 +270,7 @@ export class SubscriptionService {
         const data = {
             token: ''
         };
-        return this.http.post<any>(environment.ApiUrl + "/tokenexpireremainingtime", data, {headers: headers});
+        return this.http.post<any>(environment.ApiUrl + "/tokenexpireremainingtime", data, { headers: headers });
     }
 
     createPaymentIntent(data: any): Observable<PaymentIntent> {
@@ -282,5 +282,9 @@ export class SubscriptionService {
 
     updateUserBehaviour() {
         return this.http.post<any>(environment.ApiUrl + `/updateuserbehaviour`, {});
+    }
+
+    saveLogforSubscription(data: any) {
+        return this.http.post<any>(environment.ApiUrl + "/savelogforsub", data);
     }
 }

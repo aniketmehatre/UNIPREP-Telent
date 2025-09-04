@@ -279,6 +279,7 @@ export class SubscriptionComponent implements OnInit {
 	}
 	currencyType: any
 	pay(value: any) {
+		this.subscriptionService.saveLogforSubscription({ log:value }).subscribe();
 		this.subscriptionDetails = value
 		this.showPayLoading = true
 		if (value.subscriptionId) {

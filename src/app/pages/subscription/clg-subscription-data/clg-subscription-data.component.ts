@@ -427,6 +427,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 						coupon_id: this.usedCouponId,
 						subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
 						type: "",
+						currency : this.currencyValue
 					}
 					data.type = type
 					if (this.checkoutTotal == "") {
@@ -443,8 +444,9 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 							coupon: this.couponInput,
 							subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
 							type: "",
+							currency : this.currencyValue
 						}
-						data.type = type
+						data.type = type;
 						this.subscriptionPlan.emit(data)
 					} else {
 						this.toast.add({
@@ -465,6 +467,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 						couponApplied: this.couponInput ? 1 : 0,
 						coupon: this.couponInput,
 						subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
+						currency : this.currencyValue
 					}
 					if (this.checkoutTotal == "") {
 						data.finalPrice = this.subscriptionTotal
@@ -479,6 +482,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 							couponApplied: this.couponInput ? 1 : 0,
 							coupon: this.couponInput,
 							subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
+							currency : this.currencyValue
 						}
 						this.subscriptionPlan.emit(data)
 					} else {
