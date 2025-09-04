@@ -103,6 +103,10 @@ export class landingServices {
     return this.http.post(`${environment.ApiUrl}/gettalentsharedetails`, { uuid });
   }
 
+  getSuccessStories(): Observable<any> {
+    return this.http.get(`${environment.ApiUrl}/landingPlacementSuccessStory`);
+  }
+
   getSubscriptionDetails(data: any){
     return this.http.get<Subscription>(`${environment.ApiUrl}/getlandingpagesubscriptionlist`,{
       params: data

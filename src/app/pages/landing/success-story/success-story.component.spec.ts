@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewProfileComponent } from './view-profile.component';
+import { SuccessStoryComponent } from './success-story.component';
 
-describe('ViewProfileComponent', () => {
-  let component: ViewProfileComponent;
-  let fixture: ComponentFixture<ViewProfileComponent>;
+describe('SuccessStoryComponent', () => {
+  let component: SuccessStoryComponent;
+  let fixture: ComponentFixture<SuccessStoryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewProfileComponent]
+      declarations: [ SuccessStoryComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewProfileComponent);
+    fixture = TestBed.createComponent(SuccessStoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

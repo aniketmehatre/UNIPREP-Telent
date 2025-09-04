@@ -31,10 +31,8 @@ import { ConfirmDialogModule } from "primeng/confirmdialog"
 import { AuthTokenService } from "src/app/services/auth-token.service"
 import { DatePickerModule } from "primeng/datepicker"
 import { PasswordModule } from "primeng/password"
-import { CompleteProfileViewComponent } from "../talent-connect/employee-profile-copy/complete-profile-view/complete-profile-view.component"
 import { EmployeeConnectProfile } from "src/app/@Models/employee-connect-profile"
 import { TalentConnectService } from "../talent-connect/talent-connect.service"
-import { EmployeeProfileComponent } from "../talent-connect/employee-profile-copy/employee-profile.component"
 import { environment } from "@env/environment"
 import { TagModule } from "primeng/tag"
 import { CommonService } from "src/app/services/common.service"
@@ -46,7 +44,7 @@ import { CommonService } from "src/app/services/common.service"
 	imports: [CommonModule, RouterModule, PasswordModule, ConfirmDialogModule, DatePickerModule, TableModule, ToggleSwitchModule,
 		FormsModule, ReactiveFormsModule, SkeletonModule, FluidModule, InputTextModule, TooltipModule, ButtonModule, MultiSelectModule,
 		CarouselModule, InputGroupModule, InputGroupAddonModule, FormsModule, ReactiveFormsModule, InputTextModule, SelectModule,
-		DialogModule, CardModule, InputNumberModule, CompleteProfileViewComponent, EmployeeProfileComponent, TagModule],
+		DialogModule, CardModule, InputNumberModule, TagModule],
 	providers: [ConfirmationService]
 })
 export class UserManagementComponent implements OnInit {
@@ -85,20 +83,7 @@ export class UserManagementComponent implements OnInit {
 	imageWhiteLabelDomainName: any;
 	userTypeId: boolean = true;
     isProfileMissing: any;
-	// Employer Profile Section
-	employerProfileData: EmployeeConnectProfile | null;
-	// isUpdateEmployerProfile: boolean = false;
-	// isEmployerProfileCompleteSection: boolean = false;
 	profileSectionList: string[] = ['profileCard', 'securityCard', 'emailerCard', 'integrationsCard', 'inviteCard'];
-	// logo: any;
-	// isSubmittedPersonalInformationForm: boolean = false;
-	// uploadedFiles: { [key: string]: File } = {};
-	// isSampleProfileImgVisible: boolean = false;
-	// sampleProfileImages: string[] = [
-	// 	environment.imagePath + 'uploads/Mask-group.jpg',
-	// 	environment.imagePath + 'uploads/Mask-group-1.jpg',
-	// 	environment.imagePath + 'uploads/Mask-group-2.jpg'
-	// ];
 	interestMenuList: any[] = [];
 
 	constructor(private authService: AuthService, private formBuilder: FormBuilder, private locationService: LocationService,
@@ -115,7 +100,6 @@ export class UserManagementComponent implements OnInit {
 			last_degree_passing_year: [""],
 			email: [""],
 			current_education: [""],
-			// profile_image: [null, [Validators.required]],
 			interest_type: []
 		})
 
@@ -137,7 +121,6 @@ export class UserManagementComponent implements OnInit {
 	ngOnInit(): void {
         this.isProfileMissing = this.talentService._employerProfileData?.profile_completion_flag;
         this.setSwitchSection('profileCard');
-		this.employerProfileData = this.talentConnectService._employerProfileData;
 		this.userTypeId = this.authService._user?.student_type_id === 2
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.imageWhiteLabelDomainName = data.source
@@ -232,9 +215,6 @@ export class UserManagementComponent implements OnInit {
 		this.activeSectionCard = section;
 		this.activeSection = this.isSwitchSection(section) ? 'myprofile' : section;
 		this.closeMobileMenu();
-		// if (this.activeSection == 'jobProfile') {
-		// 	this.onClickJobPrifile();
-		// }
 	}
 
 	isSwitchSection(section: string): boolean {
@@ -285,10 +265,8 @@ export class UserManagementComponent implements OnInit {
 				phone: `${this.PersonalInfo?.country_code || ''} ${this.PersonalInfo?.phone || ''}`,
 				email: this.PersonalInfo?.email,
 				current_education: this.PersonalInfo?.programlevel,
-				// profile_image: this.employerProfileData?.dp_image,
 				interest_type: this.PersonalInfo?.interest_type_ids,
 			});
-			// this.logo = this.employerProfileData?.dp_image;
 			this.selectedDate = new Date()
 			this.selectedDate.setFullYear(this.registrationForm.get("intake_year_looking")?.value)
 			this.selectedDate.setMonth(this.registrationForm.get("intake_month_looking")?.value)
@@ -554,19 +532,16 @@ export class UserManagementComponent implements OnInit {
 		if (this.submitBtnName == "Edit") {
 			this.registrationForm.get('last_degree_passing_year')?.enable();
 			this.registrationForm.get('home_country')?.enable();
-			// this.registrationForm.get('profile_image')?.enable();
 			this.registrationForm.get('interest_type')?.enable();
 			this.submitBtnName = "Update"
 			return;
 		}
-		// this.isSubmittedPersonalInformationForm = true;
 		if (this.registrationForm.invalid) {
 			return;
 		}
 		const formDataValue = this.registrationForm.value;
 		const lastDegree = this.extractYear(formDataValue.last_degree_passing_year)?.toString();
 		const formData = new FormData();
-		// formData.append("profile_image", this.uploadedFiles["profile_image"] ?? formDataValue?.profile_image);
 		formData.append("home_country", formDataValue.home_country ?? '');
 		formData.append("last_degree_passing_year", lastDegree ?? '');
 		formData.append("interest_type", JSON.stringify(formDataValue.interest_type ?? []))
@@ -578,7 +553,6 @@ export class UserManagementComponent implements OnInit {
 				this.registrationForm.get('interest_type')?.disable();
 				this.submitBtnName = "Edit"
 				this.GetPersonalProfileData();
-				// this.isSubmittedPersonalInformationForm = false;
 			},
 			error: (error) => {
 				console.error('Error fetching job listings:', error);
@@ -610,50 +584,6 @@ export class UserManagementComponent implements OnInit {
 		passwordField.visible = !passwordField.visible;
 		passwordField.type = passwordField.visible ? 'text' : 'password';
 	}
-	// DON'T REMOVE THIS CODE
-
-	// onClickJobPrifile() {
-	// 	this.isEmployerProfileCompleteSection = this.employerProfileData?.profile_completion_flag ? true : false;
-	// }
-
-	// onEditCompleteProfile(event: boolean) {
-	// 	this.isEmployerProfileCompleteSection = event;
-	// }
-
-	// onUploadPhoto(event: any) {
-	// 	const file = event.target.files[0];
-	// 	if (!file) return;
-	// 	const maxSizeInMB = 5;
-	// 	const isImage = file.type.startsWith('image/');
-	// 	const isUnderSizeLimit = file.size <= maxSizeInMB * 1024 * 1024;
-	// 	if (!isImage) {
-	// 		this.toast.add({ severity: "error", summary: "Error", detail: "Please upload your profile picture in the image format." });
-	// 		return;
-	// 	}
-	// 	if (!isUnderSizeLimit) {
-	// 		this.toast.add({ severity: "error", summary: "Error", detail: "Image must be less than 5MB." });
-	// 		return;
-	// 	}
-	// 	// Display preview
-	// 	const reader = new FileReader();
-	// 	reader.onload = () => {
-	// 		this.logo = reader.result;
-	// 		this.registrationForm.get("profile_image")?.setValue(reader.result);
-	// 	}
-	// 	reader.readAsDataURL(file);
-	// 	this.uploadedFiles["profile_image"] = file;
-	// }
-
-	// onRemovePhoto() {
-	// 	this.logo = null;
-	// 	delete this.uploadedFiles["profile_image"];
-	// 	this.registrationForm.get("profile_image")?.setValue("");
-	// }
-
-	// openGuideUrl() {
-	// 	const url = environment.imagePath + 'uploads/Profile-Image-Guide.pdf';
-	// 	window.open(url, '_blank');
-	// }
 
 	getInterestedMenus() {
 		this.commonService.getInterestedMenus().subscribe({
