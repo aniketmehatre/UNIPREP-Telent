@@ -1,15 +1,19 @@
-<div class="loader-overlay" *ngIf="isLoadingAiSummary">
-	<div class="loader">
-		<uni-percentage-loader />
+@if(isLoadingAiSummary) {
+	<div class="loader-overlay">
+		<div class="loader">
+			<uni-percentage-loader />
+		</div>
 	</div>
-</div>
+}
 <div class="card readingcard h-100">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row">
 			<div class="col-md-12 d-flex gap-2 text-center">
-				<div *ngIf="isSampleProfilePdf" class="backIcon d-flex" role="button" (click)="goBack()">
-          			<span class="fa-solid fa-chevron-left"></span>
-        		</div>
+				@if(isSampleProfilePdf) {
+					<div class="backIcon d-flex" role="button" (click)="goBack()">
+						<span class="fa-solid fa-chevron-left"></span>
+					</div>
+				}
 				<div class="select-title d-flex justify-content-between align-items-center">
 					<div class="container-fluid">
 						<div class="row align-items-center">
@@ -18,13 +22,15 @@
 									{{ isSampleProfilePdf ? "Sample Profile Photo Guide" : "Complete your Job profile within 2 mins to apply" }}
 								</h5>
 							</div>
-							<div class="col-md-3 col-12 order-3 order-md-2" *ngIf="!isShowAiEvaluation">
+							@if(!isShowAiEvaluation) {
+							<div class="col-md-3 col-12 order-3 order-md-2">
 								<div class="d-flex gap-2 justify-content-md-end justify-content-between">
 									<button class="btn btn-secondary btn-rounded w-100" pButton (click)="openProfileDialog(true)"><span class="d-none d-md-block">Profile</span> Sample</button>
 									<button class="button-profile-top rounded-pill w-100" pButton (click)="openProfileDialog(false)"><span class="d-none d-md-block">Profile</span> Preview</button>
 									<button class="d-md-none d-flex justify-content-center align-items-center btn btn-rounded btn-primary w-100" pButton (click)="visible = true"><i class="fa-solid fa-circle-info"></i> Guide</button>
 								</div>
 							</div>
+							}
 							<div class="col-md-2 col-sm-4 col-12 order-2 order-md-3 header-title">
 								<button class="how-it-works-button w-sm-auto w-100" pButton (click)="openVideoPopup()">How to use?<i class="fa-solid fa-play d-md-block d-none"></i></button>
 							</div>
@@ -35,31 +41,37 @@
 		</div>
 	</div>
 	<div class="card-body flex-fill custom-overflow">
-		<div class="row h-100" *ngIf="!isSampleProfilePdf; else showSampleProfilePdf">
+		@if(!isSampleProfilePdf) {
+		<div class="row h-100">
 			<div class="col-xxl-9 col-xl-8 col-lg-8 col-md-7 col-sm-7 col-12 mb-2 d-flex flex-fill h-100">
 				<div class="card bg-white overflow-y-hidden w-100">
 					<!-- <div class="card-header bg-primary">
             <div class="row align-items-center">
               <div class="col-md-8 col-6">
                 <div class="d-flex gap-2 align-items-center">
-                  <h5 class="text-white mb-0 fw-medium" *ngIf="!isShowAiEvaluation; else showAiEvaluationHeader">
+				  @if(!isShowAiEvaluation) {
+                  <h5 class="text-white mb-0 fw-medium">
                     {{ isUpdatedProfile ? "Edit your Profile" : "Create your Profile" }}
                   </h5>
-                  <ng-template #showAiEvaluationHeader>
-                    <h5 class="text-white mb-0 fw-medium">Career Profile Evaluation</h5>
-                  </ng-template>
+					}
+				  @else {
+					<h5 class="text-white mb-0 fw-medium">Career Profile Evaluation</h5>
+				  }
                 </div>
               </div>
-              <div class="col-md-4 col-6" *ngIf="!isShowAiEvaluation">
+			  @if(!isShowAiEvaluation) {
+              <div class="col-md-4 col-6">
                 <div class="d-flex gap-2 justify-content-end">
                   <button class="btn btn-secondary btn-rounded" pButton (click)="openProfileDialog(true)"><span class="d-none d-md-block">Profile</span> Sample</button>
                   <button class="button-profile-top rounded-pill" pButton (click)="openProfileDialog(false)"><span class="d-none d-md-block">Profile</span> Preview</button>
                   <button class="d-md-none d-block btn btn-rounded btn-primary" pButton (click)="visible = true"><i class="fa-solid fa-circle-info"></i></button>
                 </div>
               </div>
+			}
             </div>
           </div> -->
-					<div class="card-body h-100 overflow-y-auto" *ngIf="!isShowAiEvaluation; else showAIValuationBodyContent">
+		  			@if(!isShowAiEvaluation) {
+					<div class="card-body h-100 overflow-y-auto">
 						<p-stepper [value]="activePageIndex">
 							<p-step-panels>
 								<!-- Personal Information -->
@@ -75,22 +87,26 @@
 																<span class="text-danger fs-4 position-absolute profile-sec-req">*</span>
 																<div class="bg-light p-3 rounded-4" style="border: 1px dashed lightgray">
 																	<div class="position-relative mx-auto mb-3">
-																		<ng-container *ngIf="logo; else showSample">
+																		@if(logo) {
 																			<img [src]="logo" styleClass="object-fit" style="max-width: 120px; width: 100%; aspect-ratio: 1/1" class="rounded-2 border img-fluid" />
-																		</ng-container>
-																		<ng-template #showSample>
+																		}
+																		@else {
 																			<div class="mx-auto border rounded-2 d-flex align-items-center justify-content-center" style="background-color: var(--p-primary-50); max-width: 120px; width: 100%; aspect-ratio: 1/1">
 																				<i style="color: var(--p-primary-200)" class="fa-solid fa-user fa-2x"></i>
 																			</div>
-																		</ng-template>
+																		}
 																	</div>
 																	<div class="d-flex justify-content-center gap-2 mb-2">
 																		<input name="image" type="file" (change)="onUploadPhoto($event)" accept="image/*" #fileUploadImage style="display: none" />
 																		<p-button label="{{ logo ? 'Change Photo' : 'Upload Photo' }}" icon="pi pi-upload" styleClass="p-button-sm" (click)="fileUploadImage.click()" (onFocus)="updateMessageBox('profile_image')" (focusout)="resetMessageBox()"></p-button>
-																		<p-button *ngIf="logo" label="Remove Photo" icon="pi pi-times" (onClick)="onRemovePhoto()" styleClass="p-button-sm p-button-outlined"></p-button>
+																		@if(logo) {
+																		<p-button label="Remove Photo" icon="pi pi-times" (onClick)="onRemovePhoto()" styleClass="p-button-sm p-button-outlined"></p-button>
+																		}
 																	</div>
 																</div>
-																<small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('profile_image')?.errors?.required"> Profile Image is required </small>
+																@if(isSubmittedPersonalInformationForm && personalInformationForm.get('profile_image')?.errors?.required) {
+																<small class="text-danger"> Profile Image is required </small>
+																}
 																<div class="d-flex align-items-center gap-2 mt-2">
 																	<span><i class="fa-solid fa-face-viewfinder fa-xl"></i></span>
 																	<p class="fw-medium text-small text-start d-block">You have to upload a close, straight faced photo with plain background.</p>
@@ -115,27 +131,37 @@
 															<div class="p-inputgroup">
 																<input pInputText fluid id="fullName" formControlName="full_name" placeholder="Enter your name" class="form-control" (focus)="updateMessageBox('full_name')" (focusout)="resetMessageBox()" />
 															</div>
-															<small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('full_name')?.errors?.required"> Full Name is required </small>
+															@if(isSubmittedPersonalInformationForm && personalInformationForm.get('full_name')?.errors?.required) {
+																<small class="text-danger"> Full Name is required </small>
+															}
 														</div>
 														<div class="col-md-6">
 															<label for="dateOfBirth" class="mb-1">Date of Birth<span class="text-danger">*</span></label>
 															<p-datepicker id="dateOfBirth" [appendTo]="'body'" formControlName="date_of_birth" dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY" styleClass="w-100" [maxDate]="today" (onFocus)="updateMessageBox('date_of_birth')" (focusout)="resetMessageBox()" [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false" (onInput)="onTypeDate($event, personalInformationForm.get('date_of_birth'))"/>
-															<small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('date_of_birth')?.errors?.required"> Date of Birth is required </small>
+															@if(isSubmittedPersonalInformationForm && personalInformationForm.get('date_of_birth')?.errors?.required) {
+															<small class="text-danger"> Date of Birth is required </small>
+															}
 														</div>
 														<div class="col-md-6">
 															<label for="gender" class="mb-1">Gender <span class="text-danger">*</span></label>
 															<p-select id="gender" [appendTo]="'body'" formControlName="gender" [options]="genderOptions" placeholder="Select your gender" styleClass="w-100" (onShow)="updateMessageBox('gender')" (focusout)="resetMessageBox()"></p-select>
-															<small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('gender')?.errors?.required"> Gender is required </small>
+															@if(isSubmittedPersonalInformationForm && personalInformationForm.get('gender')?.errors?.required) {
+															<small class="text-danger"> Gender is required </small>
+															}
 														</div>
 														<div class="col-md-6">
 															<label for="nationality" class="mb-1">Nationality<span class="text-danger">*</span></label>
 															<p-select id="nationality" formControlName="nationality_id" [options]="nationalityList" placeholder="Select your nationality" styleClass="w-100" optionLabel="nationality_name" optionValue="id" [filter]="true" filterBy="nationality_name" [appendTo]="'body'" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('nationality_id')"></p-select>
-															<small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('nationality_id')?.errors?.required"> Nationality is required </small>
+															@if(isSubmittedPersonalInformationForm && personalInformationForm.get('nationality_id')?.errors?.required) {
+															<small class="text-danger"> Nationality is required </small>
+															}
 														</div>
 														<div class="col-12">
 															<label for="location" class="mb-1">Current Location<span class="text-danger">*</span></label>
 															<p-select id="location" formControlName="location_id" [options]="locations" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select your current location" styleClass="w-100" optionLabel="work_location" optionValue="id" [filter]="true" filterBy="work_location" [appendTo]="'body'" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('location_id')"></p-select>
-															<small class="text-danger" *ngIf="isSubmittedPersonalInformationForm && personalInformationForm.get('location_id')?.errors?.required"> Current Location is required </small>
+															@if(isSubmittedPersonalInformationForm && personalInformationForm.get('location_id')?.errors?.required) {
+															<small class="text-danger"> Current Location is required </small>
+															}
 														</div>
 													</div>
 												</div>
@@ -150,39 +176,49 @@
 											<h4 class="card-title fw-bold">Education Details</h4>
 											<ng-container class="education" formArrayName="educationDetails">
 												<ng-container *ngFor="let education of educationDetails.controls; let i = index" [formGroupName]="i">
-													<hr *ngIf="i > 0" />
-													<div *ngIf="i > 0" class="d-flex justify-content-between">
+													@if(i > 0) { 
+													<hr /> 
+													<div class="d-flex justify-content-between">
 														<h4 class="card-title fw-bold">Education Details</h4>
 														<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeEducation(i)" style="width: fit-content">
 															<span><i class="fa-regular fa-trash fa-lg"></i></span>
 														</button>
 													</div>
+													}
 													<div class="row g-3">
 														<div class="col-md-6">
 															<label class="mb-1"> {{ i == 0 ? "Highest Qualification" : "Level of qualification" }}<span class="text-danger">*</span></label>
 															<p-select formControlName="education_qualification_id" [options]="getFilteredQualifications(i)" placeholder="Select your highest qualification" styleClass="w-100" optionLabel="qualification_name" optionValue="id" [filter]="true" filterBy="qualification_name" (focusout)="resetMessageBox()" [appendTo]="'body'" (onShow)="updateMessageBox('education_qualification_id')"></p-select>
-															<small class="text-danger" *ngIf="isSubmittedEducationDetailsForm && education.get('education_qualification_id')?.errors?.required"> Highest Qualification is required </small>
+															@if(isSubmittedEducationDetailsForm && education.get('education_qualification_id')?.errors?.required) { 
+															<small class="text-danger"> Highest Qualification is required </small>
+															}
 														</div>
 														<div class="col-md-6">
 															<label for="university" class="mb-1">Institution Name <span class="text-danger">*</span></label>
 															<div class="p-inputgroup">
 																<input pInputText fluid formControlName="education_university_name" placeholder="Enter your institution Name" class="form-control" (focusout)="resetMessageBox()" (focus)="updateMessageBox('education_university_name')" />
 															</div>
-															<small class="text-danger" *ngIf="isSubmittedEducationDetailsForm && education.get('education_university_name')?.errors?.required"> Institution Name is required </small>
+															@if(isSubmittedEducationDetailsForm && education.get('education_university_name')?.errors?.required) { 
+															<small class="text-danger"> Institution Name is required </small>
+															}
 														</div>
 														<div class="col-md-6">
 															<label class="mb-1">Course Name <span class="text-danger">*</span></label>
 															<div class="p-inputgroup">
 																<input pInputText fluid formControlName="education_course_name" placeholder="Enter your course name" class="form-control" (focus)="updateMessageBox('education_course_name')" (focusout)="resetMessageBox()" />
 															</div>
-															<small class="text-danger" *ngIf="isSubmittedEducationDetailsForm && education.get('education_course_name')?.errors?.required"> Course Name is required </small>
+															@if(isSubmittedEducationDetailsForm && education.get('education_course_name')?.errors?.required) {
+															<small class="text-danger"> Course Name is required </small>
+															}
 														</div>
 														<div class="col-md-6">
 															<label class="mb-1">Graduation Year <span class="text-danger">*</span></label>
 															<div class="p-inputgroup">
 																<p-select formControlName="education_graduation_year_id" [options]="getFilteredGraduationYears(i)" [filter]="true" [appendTo]="'body'" placeholder="Select Graduation Year" styleClass="w-100" optionLabel="graduation_year_name" optionValue="id" (onChange)="onChangeGraduationYear($event, i)" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('education_graduation_year_id')"></p-select>
 															</div>
-															<small class="text-danger" *ngIf="isSubmittedEducationDetailsForm && education.get('education_graduation_year_id')?.errors?.required"> Graduation Year is required </small>
+															@if(isSubmittedEducationDetailsForm && education.get('education_graduation_year_id')?.errors?.required) {
+															<small class="text-danger"> Graduation Year is required </small>
+															}
 														</div>
 														<div class="col-md-12">
 															<div class="d-flex justify-content-between align-items-center">
@@ -197,22 +233,30 @@
 																<div class="flex-grow-1">
 																	<p-inputgroup>
 																		<p-input-number formControlName="education_cgpa_or_percentage" mode="decimal" placeholder="Enter your GPA / Percentage" class="w-100" [maxFractionDigits]="2" [min]="0" [maxlength]="education.get('education_cgpa_or_percentage_type')?.value == 'Percentage' ? 3 : 4" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('education_cgpa_or_percentage')" (onInput)="onChangeGpaPercentage($event, education.get('education_cgpa_or_percentage_type')?.value)" [readonly]="education.get('education_cgpa_or_percentage_type')?.value ? false : true" />
-																		<p-inputgroup-addon *ngIf="education.get('education_cgpa_or_percentage_type')?.value == 'Percentage'">
+																		@if(education.get('education_cgpa_or_percentage_type')?.value == 'Percentage') {
+																		<p-inputgroup-addon>
 																			<i class="pi pi-percentage"></i>
 																		</p-inputgroup-addon>
+																		}
 																	</p-inputgroup>
 																</div>
 															</div>
-															<samll *ngIf="(education.get('education_cgpa_or_percentage_type')?.value && !education.get('education_cgpa_or_percentage')?.value) || (!education.get('education_cgpa_or_percentage_type')?.value && education.get('education_cgpa_or_percentage')?.value)" class="text-danger"> Please fill both values. </samll>
-															<small class="text-danger" *ngIf="isMaxGpaPercentageValue">
+															@if((education.get('education_cgpa_or_percentage_type')?.value && !education.get('education_cgpa_or_percentage')?.value) || (!education.get('education_cgpa_or_percentage_type')?.value && education.get('education_cgpa_or_percentage')?.value)) {
+															<samll class="text-danger"> Please fill both values. </samll>
+															}
+															@if(isMaxGpaPercentageValue) {
+															<small class="text-danger">
 																{{ education.get("education_cgpa_or_percentage_type")?.value == "Percentage" ? "Percentage must be between 0 and 100" : "GPA must be between 0 and 10" }}
 															</small>
+															}
 														</div>
 													</div>
 													<!-- <div class="col-md-6">
                               <label class="mb-1">Field of study <span class="text-danger">*</span></label>
                               <p-select formControlName="education_field_id" [options]="fieldsOfStudy" placeholder="Select Field of study" styleClass="w-100" optionLabel="field_name" optionValue="id" [filter]="true" filterBy="field_name" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('education_field_id')" [appendTo]="'body'"></p-select>
-                              <small class="text-danger" *ngIf="isSubmittedEducationDetailsForm && education.get('education_field_id')?.errors?.required"> Field of study is required </small>
+							  @if(isSubmittedEducationDetailsForm && education.get('education_field_id')?.errors?.required) {
+                              <small class="text-danger"> Field of study is required </small>
+							  }
                             </div> -->
 												</ng-container>
 											</ng-container>
@@ -232,12 +276,14 @@
 
 											<ng-container class="work-experience" formArrayName="work_experience">
 												<ng-container *ngFor="let experience of workExperience.controls; let i = index" [formGroupName]="i">
-													<hr *ngIf="i > 0" />
+													@if(i > 0) { <hr /> }
 													<div class="d-flex justify-content-between">
-														<h4 *ngIf="i > 0" class="card-title fw-bold">Work Experience</h4>
-														<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeWorkExperience(i)" *ngIf="i !== 0">
+														@if(i > 0) { <h4 class="card-title fw-bold">Work Experience</h4> }
+														@if(i !== 0) {
+														<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeWorkExperience(i)">
 															<span><i class="fa-regular fa-trash fa-lg"></i></span>
 														</button>
+														}
 													</div>
 													<div class="row g-3">
 														<div class="col-md-6">
@@ -245,7 +291,9 @@
 															<div class="p-inputgroup">
 																<input pInputText fluid formControlName="work_experience_company_name" placeholder="Enter your company name" class="form-control" (focusout)="resetMessageBox()" (focus)="updateMessageBox('work_experience_company_name')" (change)="onChangeWorkExpCompanyName($event, i)" />
 															</div>
-															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_company_name')?.errors?.required"> Company Name is required </small>
+															@if(isSubmittedWorkExperienceForm && experience.get('work_experience_company_name')?.errors?.required) {
+															<small class="text-danger"> Company Name is required </small>
+															}
 														</div>
 														<div class="col-md-6">
 															<label class="mb-1">Job Title</label>
@@ -259,7 +307,9 @@
 																	</div>
 																</ng-template>
 															</p-select>
-															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_job_title')?.errors?.required"> Job Title is required </small>
+															@if(isSubmittedWorkExperienceForm && experience.get('work_experience_job_title')?.errors?.required) {
+															<small class="text-danger"> Job Title is required </small>
+															}
 														</div>
 														<div class="col-md-6">
 															<div class="d-flex justify-content-between align-items-center">
@@ -273,18 +323,26 @@
 																<p-datepicker [appendTo]="'body'" (onSelect)="updateExperience(i)" (onInput)="updateExperience(i, 'from', $event)" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_from" inputId="fromDate" placeholder="MM/YYYY (From Date)" size="small" styleClass="w-100" view="month" [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false" [maxDate]="today" />
 																<p-datepicker [appendTo]="'body'" (onSelect)="updateExperience(i)" (onInput)="updateExperience(i, 'to', $event)" class="flex-grow-1" dateFormat="mm/yy" formControlName="work_experience_duration_to" inputId="toDate" placeholder="MM/YYYY (To Date)" size="small" styleClass="w-100" view="month" [iconDisplay]="'input'" [showIcon]="true" [showOnFocus]="false" [maxDate]="today" [minDate]="experience.get('work_experience_duration_from')?.value" />
 															</div>
-															<small *ngIf="((experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) || (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)) && !experience.get('currently_working')?.value" class="text-danger"> Please fill both from and to values. </small>
-															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_duration_from')?.errors?.required && experience.get('work_experience_duration_to')?.errors?.required"> Duration is required </small>
+															@if(((experience.get('work_experience_duration_from')?.value && !experience.get('work_experience_duration_to')?.value) || (!experience.get('work_experience_duration_from')?.value && experience.get('work_experience_duration_to')?.value)) && !experience.get('currently_working')?.value) {
+															<small class="text-danger"> Please fill both from and to values. </small>
+															}
+															@if(isSubmittedWorkExperienceForm && experience.get('work_experience_duration_from')?.errors?.required && experience.get('work_experience_duration_to')?.errors?.required) {
+															<small class="text-danger"> Duration is required </small>
+															}
 														</div>
 														<!-- <div class="col-md-6">
 															<label class="mb-1">Years of Experience</label>
 															<input pInputText readonly formControlName="years_of_experience" placeholder="Years of experience" class="form-control" (focusout)="resetMessageBox()" (focus)="updateMessageBox('years_of_experience')" />
-															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('years_of_experience')?.errors?.required"> Years of Experience is required </small>
+															@if(isSubmittedWorkExperienceForm && experience.get('years_of_experience')?.errors?.required) {
+															<small class="text-danger"> Years of Experience is required </small>
+															}
 														</div> -->
 														<div class="col-md-6">
 															<label class="mb-1">Employment Type</label>
 															<p-select formControlName="work_experience_employment_type" [options]="preferredEmploymentType" [appendTo]="'body'" placeholder="Select employement type" styleClass="w-100" (focusout)="resetMessageBox()" [showClear]="true" (onShow)="updateMessageBox('work_experience_employment_type')"></p-select>
-															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_employment_type')?.errors?.required"> Employment Type is required </small>
+															@if(isSubmittedWorkExperienceForm && experience.get('work_experience_employment_type')?.errors?.required) {
+															<small class="text-danger"> Employment Type is required </small>
+															}
 														</div>
 														<div class="col-md-12">
 															<label for="salary" class="mb-1">Salary per month</label>
@@ -294,21 +352,33 @@
 																	<p-inputNumber id="salary" placeholder="Enter your salary per month" styleClass="w-100" [showButtons]="false" class="w-100" formControlName="work_experience_salary_per_month" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('work_experience_salary_per_month')"> </p-inputNumber>
 																</div>
 															</div>
-															<!-- <small *ngIf="(experience.get('work_experience_currency_id')?.value && !experience.get('work_experience_salary_per_month')?.value) || (!experience.get('work_experience_currency_id')?.value && experience.get('work_experience_salary_per_month')?.value)" class="text-danger"> Please fill both values. </small> -->
-															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_currency_id')?.errors?.required && experience.get('work_experience_salary_per_month')?.errors?.required"> Salary per month is required </small>
+															<!-- @if((experience.get('work_experience_currency_id')?.value && !experience.get('work_experience_salary_per_month')?.value) || (!experience.get('work_experience_currency_id')?.value && experience.get('work_experience_salary_per_month')?.value)) {
+															<small class="text-danger"> Please fill both values. </small>
+															} -->
+															@if(isSubmittedWorkExperienceForm && experience.get('work_experience_currency_id')?.errors?.required && experience.get('work_experience_salary_per_month')?.errors?.required) {
+															<small class="text-danger"> Salary per month is required </small>
+															}
 														</div>
 														<div class="col-md-12">
 															<div class="d-flex justify-content-between mb-1">
 																<label for="responsibilities" class="mb-1">Job Responsibilities</label>
 																<div class="d-flex gap-2">
-																	<button *ngIf="!isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)" class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('joboverview', { title: experience?.get('work_experience_job_title')?.value, company_name: experience?.get('work_experience_company_name')?.value, job_duration: experience?.get('years_of_experience')?.value }, experience?.get('work_experience_job_responsibilities'))"><i class="fa-solid fa-stars"></i>AI Generates</button>
-																	<button *ngIf="isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)" class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="aiRePhraseSummary('joboverview', { rephrase_content: experience?.get('work_experience_job_responsibilities')?.value }, experience?.get('work_experience_job_responsibilities'))">RePhrase</button>
+																	@if(!isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)) {
+																	<button class="text-small btn btn-success btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="generateAiSummary('joboverview', { title: experience?.get('work_experience_job_title')?.value, company_name: experience?.get('work_experience_company_name')?.value, job_duration: experience?.get('years_of_experience')?.value }, experience?.get('work_experience_job_responsibilities'))"><i class="fa-solid fa-stars"></i>AI Generates</button>
+																	}
+																	@if(isNotEmptyHtml(experience?.get('work_experience_job_responsibilities')?.value)) {
+																	<button class="text-small btn btn-danger btn-rounded d-flex align-items-center gap-2" style="width: fit-content" (click)="aiRePhraseSummary('joboverview', { rephrase_content: experience?.get('work_experience_job_responsibilities')?.value }, experience?.get('work_experience_job_responsibilities'))">RePhrase</button>
+																	}
 																</div>
 															</div>
 															<p-editor #editor [style]="{ height: '150px', maxHeight: 'auto' }" formControlName="work_experience_job_responsibilities" placeholder="Enter your Job Responsibilities & Key Achievements" (onFocus)="updateMessageBox('work_experience_job_responsibilities')" (focusout)="resetMessageBox()" class="custom-editor" />
-															<small class="text-danger text-start" *ngIf="getWordCountUsingControl(experience.get('work_experience_job_responsibilities')) > 150">This field exceed the maximum length</small>
+															@if(getWordCountUsingControl(experience.get('work_experience_job_responsibilities')) > 150) {
+															<small class="text-danger text-start">This field exceed the maximum length</small>
+															}
 															<small class="text-muted d-block text-end">{{ getWordCountUsingControl(experience.get("work_experience_job_responsibilities")) }}/150</small>
-															<small class="text-danger" *ngIf="isSubmittedWorkExperienceForm && experience.get('work_experience_job_responsibilities')?.errors?.required"> Job Responsibilities is required </small>
+															@if(isSubmittedWorkExperienceForm && experience.get('work_experience_job_responsibilities')?.errors?.required) {
+															<small class="text-danger"> Job Responsibilities is required </small>
+															}
 														</div>
 
 														<div class="col-md-12">
@@ -321,11 +391,13 @@
 																	</div>
 																</div>
 																<input type="file" [auto]="true" style="visibility: hidden" accept="application/pdf" [maxFileSize]="1000000" (change)="uploadFile(fileType.EXPERIENCE_LETTER, $event, i)" #fileExperieceUpload />
-																<div *ngIf="experience.get('work_experience_experience_letter')?.value" class="exp-remove">
+																@if(experience.get('work_experience_experience_letter')?.value) {
+																<div class="exp-remove">
 																	<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-2 py-1" (click)="onRemoveExpLetter(experience.get('work_experience_experience_letter'), $event)">
 																		<span><i class="fa-regular fa-trash fa-lg"></i></span>
 																	</button>
 																</div>
+																}
 															</div>
 														</div>
 													</div>
@@ -360,7 +432,9 @@
 													<!-- <div class="col-md-6">
 														<label class="mb-1"> Career Status<span class="text-danger">*</span></label>
 														<p-select formControlName="career_preference_career_status" [options]="careerStatus" placeholder="Select Career Status" styleClass="w-100" (focusout)="resetMessageBox()" appendTo="body" (onShow)="updateMessageBox('career_preference_career_status')"></p-select>
-														<small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_career_status')?.errors?.required"> Career Status is required </small>
+														@if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_career_status')?.errors?.required) {
+														<small class="text-danger"> Career Status is required </small>
+														}
 													</div> -->
 													<div class="col-md-6">
 														<label class="mb-1">Desired Job title<span class="text-danger">*</span></label>
@@ -374,31 +448,41 @@
 																</div>
 															</ng-template>
 														</p-select>
-														<small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_job_title_id')?.errors?.required"> Desired Job title is required </small>
+														@if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_job_title_id')?.errors?.required) {
+														<small class="text-danger"> Desired Job title is required </small>
+														}
 													</div>
 													<!-- <div class="col-md-6">
 														<label for="careerInterest" class="mb-1"> Interested Industry<span class="text-danger">*</span></label>
 														<p-multiSelect id="careerInterest" appendTo="body" formControlName="career_preference_career_interest_id" [options]="careerInterests" placeholder="Select Industry" styleClass="w-100" optionLabel="interest" optionValue="id" [filter]="true" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('career_preference_career_interest_id')"></p-multiSelect>
-														<small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_career_interest_id')?.errors?.required"> Interested Industry is required </small>
+														@if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_career_interest_id')?.errors?.required) {
+														<small class="text-danger"> Interested Industry is required </small>
+														}
 													</div> -->
 													<div class="col-md-6">
 														<label for="preferredWorkLocation" class="mb-1"> Preferred Work Location<span class="text-danger">*</span></label>
 														<div class="p-inputgroup">
 															<p-multiSelect id="preferredWorkLocation" formControlName="career_preference_preferred_work_location_id" [options]="preferredLocationsList" [virtualScroll]="true" [virtualScrollItemSize]="50" placeholder="Select Your Location" styleClass="w-100" optionLabel="work_location" optionValue="id" [filter]="true" filterBy="work_location" [appendTo]="'body'" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('career_preference_preferred_work_location_id')"></p-multiSelect>
 														</div>
-														<small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_preferred_work_location_id')?.errors?.required"> Preferred Work Location is required </small>
+														@if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_preferred_work_location_id')?.errors?.required) {
+														<small class="text-danger"> Preferred Work Location is required </small>
+														}
 													</div>
 													<div class="col-md-6">
 														<label for="preferredEmployementType" class="mb-1"> Preferred Work Type<span class="text-danger">*</span></label>
 														<p-multiSelect id="preferredEmployementType" formControlName="career_preference_preferred_employment_type" [options]="preferredEmploymentType" placeholder="Select Work Type" appendTo="body" styleClass="w-100"></p-multiSelect>
-														<small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_preferred_employment_type')?.errors?.required"> Preferred Work Type is required </small>
+														@if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_preferred_employment_type')?.errors?.required) {
+														<small class="text-danger"> Preferred Work Type is required </small>
+														}
 													</div>
 													<div class="col-md-6">
 														<label for="preferredWorkplaceType" class="mb-1"> Preferred Work Mode<span class="text-danger">*</span></label>
 														<div class="p-inputgroup">
 															<p-multiSelect id="preferredWorkplaceType" formControlName="career_preference_preferred_workplace_type" [options]="preferredWorkplaceType" placeholder="Select Work Mode" styleClass="w-100" (focusout)="resetMessageBox()" [appendTo]="'body'" (onShow)="updateMessageBox('career_preference_preferred_workplace_type')" (ngModelChange)="handleValidationsForFields(careerPreferenceForm?.get('career_preference_willingness_to_relocate'), $event == 'Remote Work')"></p-multiSelect>
 														</div>
-														<small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_preferred_workplace_type')?.errors?.required"> Preferred Work Mode is required </small>
+														@if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_preferred_workplace_type')?.errors?.required) {
+														<small class="text-danger"> Preferred Work Mode is required </small>
+														}
 													</div>
 													<div class="col-md-12">
 														<label for="university" class="mb-1"> Expected Salary per month<span class="text-danger">*</span></label>
@@ -408,7 +492,9 @@
 																<p-inputNumber id="salary" placeholder="Enter your salary per month" styleClass="w-100" [showButtons]="false" class="w-100" formControlName="career_preference_expected_salary"></p-inputNumber>
 															</div>
 														</div>
-														<small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_currency_id')?.errors?.required && careerPreferenceForm.get('career_preference_expected_salary')?.errors?.required"> Salary per month with currency is required </small>
+														@if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_currency_id')?.errors?.required && careerPreferenceForm.get('career_preference_expected_salary')?.errors?.required) {
+														<small class="text-danger"> Salary per month with currency is required </small>
+														}
 													</div>
 												</div>
 												<!-- <div class="row mb-3"> -->
@@ -427,7 +513,9 @@
                               (focusout)="resetMessageBox()"
                               appendTo="body"
                               (onShow)="updateMessageBox('career_preference_willingness_to_relocate')"></p-select>
-                            <small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_willingness_to_relocate')?.errors?.required"> Willingness to Relocate is required </small>
+							  @if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_willingness_to_relocate')?.errors?.required) {
+                            <small class="text-danger"> Willingness to Relocate is required </small>
+							}
                           </div> -->
 
 												<!-- </div> -->
@@ -435,7 +523,9 @@
                           <div class="col-md-6">
                             <label class="mb-1"> Department<span class="text-danger">*</span></label>
                             <p-multiSelect appendTo="body" formControlName="career_preference_department_id" [options]="departmentList" placeholder="Select Department" styleClass="w-100" optionLabel="department" optionValue="id" [filter]="true" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('career_preference_department_id')"></p-multiSelect>
-                            <small class="text-danger" *ngIf="isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_department_id')?.errors?.required"> Department is required </small>
+							@if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_department_id')?.errors?.required) {
+                            <small class="text-danger"> Department is required </small>
+						  }
                           </div>
                         </div> -->
 											</ng-container>
@@ -462,19 +552,25 @@
 																<div class="col-md-6 col-12 mb-2">
 																	<label class="mb-1"> Language known<span class="text-danger">*</span></label>
 																	<p-select formControlName="languages_language_id" [options]="languageList" placeholder="Enter know language" styleClass="w-100" optionLabel="language" optionValue="id" [filter]="true" filterBy="language" appendTo="body" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('languages_language_id')"></p-select>
-																	<small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && language.get('languages_language_id')?.errors?.required"> Language known is required </small>
+																	@if(isSubmittedProfessionalTraitsForm && language.get('languages_language_id')?.errors?.required) {
+																	<small class="text-danger"> Language known is required </small>
+																	}
 																</div>
 																<div class="col mb-2">
 																	<label class="mb-1"> Language Proficiency<span class="text-danger">*</span></label>
 																	<p-select formControlName="languages_proficiency" [options]="languageProficiency" appendTo="body" placeholder="Enter language proficiency" styleClass="w-100" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('languages_proficiency')"></p-select>
-																	<small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && language.get('languages_proficiency')?.errors?.required"> Language Proficiency is required </small>
+																	@if(isSubmittedProfessionalTraitsForm && language.get('languages_proficiency')?.errors?.required) {
+																	<small class="text-danger"> Language Proficiency is required </small>
+																	}
 																</div>
-																<div *ngIf="i !== 0" class="col-md-1 col-3">
+																@if(i !== 0) {
+																<div class="col-md-1 col-3">
 																	<label class="mb-1"> </label>
 																	<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeLanguage(i)">
 																		<span><i class="fa-regular fa-trash fa-lg"></i></span>
 																	</button>
 																</div>
+																}
 															</div>
 														</ng-container>
 														<div class="row mt-3">
@@ -493,7 +589,9 @@
 														<div class="col-md-6">
 															<label class="mb-1"> Soft skills<span class="text-danger">*</span></label>
 															<p-multiSelect formControlName="career_preference_soft_skill_id" [options]="softSkills" optionValue="id" optionLabel="soft_skill" placeholder="Select your acquired soft skills" class="form-control p-1 w-100" (focusout)="resetMessageBox()" appendTo="body" (onShow)="updateMessageBox('career_preference_soft_skill_id')"></p-multiSelect>
-															<small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && professionalTraitsForm.get('career_preference_soft_skill_id')?.errors?.required"> Soft skills is required </small>
+															@if(isSubmittedProfessionalTraitsForm && professionalTraitsForm.get('career_preference_soft_skill_id')?.errors?.required) {
+															<small class="text-danger"> Soft skills is required </small>
+															}
 														</div>
 														</div>
 													</ng-container> -->
@@ -525,20 +623,24 @@
 																				<button class="btn btn-light d-flex align-items-center justify-content-center w-100 border border-dash p-2 position-relative" (click)="certificateFile.click()" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('certifications_certificate_file')">
 																					<i class="pi pi-upload me-2"></i>
 																					{{ certificate.get("certifications_certificate_file")?.value ? extractLastName(certificate.get("certifications_certificate_file")?.value) : "Upload certificate" }}
-																					<div *ngIf="certificate.get('certifications_certificate_file')?.value && i == 0" class="position-absolute certificate-remove text-danger">
+																					@if(certificate.get('certifications_certificate_file')?.value && i == 0) {
+																					<div class="position-absolute certificate-remove text-danger">
 																						<span (click)="onRemoveExpLetter(certificate.get('certifications_certificate_file'), $event)"><i class="fa fa-times-circle fa-lg"></i></span>
 																					</div>
+																					}
 																				</button>
 																				<input type="file" accept="application/pdf" (change)="uploadFile(fileType.CERTIFICATIONS, $event, i)" style="visibility: hidden; position: absolute" #certificateFile />
 																			</div>
-																			<button *ngIf="i != 0; else showCertPlusIcon" class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeCertification(i)">
+																			@if(i != 0) {
+																			<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeCertification(i)">
 																				<span><i class="fa-regular fa-trash fa-lg"></i></span>
 																			</button>
-																			<ng-template #showCertPlusIcon>
+																			}
+																			@else {
 																				<button class="btn btn-outline-primary d-flex align-items-center justify-content-center px-3 py-2-5" (click)="addCertifications()">
 																					<i class="pi pi-plus"></i>
 																				</button>
-																			</ng-template>
+																			}
 																		</div>
 																	</ng-container>
 																</div>
@@ -560,20 +662,24 @@
 																				<button class="btn btn-light d-flex align-items-center justify-content-center w-100 border p-2 position-relative" (click)="acheivementFile.click()" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('certifications_achievement_file')">
 																					<i class="pi pi-upload me-2"></i>
 																					{{ certificate.get("certifications_achievement_file")?.value ? extractLastName(certificate.get("certifications_achievement_file")?.value) : "Upload achievement" }}
-																					<div *ngIf="certificate.get('certifications_achievement_file')?.value && i == 0" class="position-absolute certificate-remove text-danger">
+																					@if(certificate.get('certifications_achievement_file')?.value && i == 0) {
+																					<div class="position-absolute certificate-remove text-danger">
 																						<span (click)="onRemoveExpLetter(certificate.get('certifications_achievement_file'), $event)"><i class="fa fa-times-circle fa-lg"></i></span>
 																					</div>
+																					}
 																				</button>
 																				<input type="file" accept="application/pdf" (change)="uploadFile(fileType.ACHIEVEMENTS, $event, i)" style="visibility: hidden; position: absolute" #acheivementFile />
 																			</div>
-																			<button *ngIf="i != 0; else showAchievPlusIcon" class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeAchievement(i)">
+																			@if(i != 0) {
+																			<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeAchievement(i)">
 																				<span><i class="fa-regular fa-trash fa-lg"></i></span>
 																			</button>
-																			<ng-template #showAchievPlusIcon>
+																			}
+																			@else {
 																				<button class="btn btn-outline-primary d-flex align-items-center justify-content-center px-3 py-2-5" (click)="addAcheivements()">
 																					<i class="pi pi-plus"></i>
 																				</button>
-																			</ng-template>
+																			}
 																		</div>
 																	</ng-container>
 																</div>
@@ -602,23 +708,31 @@
 													<ng-container class="work-experience">
 														<ng-container formArrayName="languages">
 															<div class="row g-3" *ngFor="let language of languages.controls; let i = index" [formGroupName]="i">
-																<div *ngIf="i > 0" class="col-md-12"><hr /></div>
+																@if(i > 0) {
+																<div class="col-md-12"><hr /></div>
+																}
 																<div class="col-md-6 col-12">
 																	<label class="mb-1"> Language known<span class="text-danger">*</span></label>
 																	<p-select formControlName="languages_language_id" [options]="languageList" placeholder="Enter know language" styleClass="w-100" optionLabel="language" optionValue="id" [filter]="true" filterBy="language" appendTo="body" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('languages_language_id')"></p-select>
-																	<small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && language.get('languages_language_id')?.errors?.required"> Language known is required </small>
+																	@if(isSubmittedProfessionalTraitsForm && language.get('languages_language_id')?.errors?.required) {
+																	<small class="text-danger"> Language known is required </small>
+																	}
 																</div>
 																<div class="col">
 																	<label class="mb-1"> Language Proficiency<span class="text-danger">*</span></label>
 																	<p-select formControlName="languages_proficiency" [options]="languageProficiency" appendTo="body" placeholder="Enter language proficiency" styleClass="w-100" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('languages_proficiency')"></p-select>
-																	<small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && language.get('languages_proficiency')?.errors?.required"> Language Proficiency is required </small>
+																	@if(isSubmittedProfessionalTraitsForm && language.get('languages_proficiency')?.errors?.required) {
+																	<small class="text-danger"> Language Proficiency is required </small>
+																	}
 																</div>
-																<div *ngIf="i !== 0" class="col-md-1 col-3">
+																@if(i !== 0) {
+																<div class="col-md-1 col-3">
 																	<label class="mb-1"> </label>
 																	<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeLanguage(i)">
 																		<span><i class="fa-regular fa-trash fa-lg"></i></span>
 																	</button>
 																</div>
+																}
 															</div>
 														</ng-container>
 														<div class="row mt-3">
@@ -637,7 +751,9 @@
 														<div class="col-md-6">
 															<label class="mb-1"> Soft skills<span class="text-danger">*</span></label>
 															<p-multiSelect formControlName="career_preference_soft_skill_id" [options]="softSkills" optionValue="id" optionLabel="soft_skill" placeholder="Select your acquired soft skills" class="form-control p-1 w-100" (focusout)="resetMessageBox()" appendTo="body" (onShow)="updateMessageBox('career_preference_soft_skill_id')"></p-multiSelect>
-															<small class="text-danger" *ngIf="isSubmittedProfessionalTraitsForm && professionalTraitsForm.get('career_preference_soft_skill_id')?.errors?.required"> Soft skills is required </small>
+															@if(isSubmittedProfessionalTraitsForm && professionalTraitsForm.get('career_preference_soft_skill_id')?.errors?.required) {
+															<small class="text-danger"> Soft skills is required </small>
+															}
 														</div>
 														</div>
 													</ng-container>
@@ -658,7 +774,9 @@
 															<div class="col-md-12">
 																<label class="mb-1"> LinkedIn Profile</label>
 																<input pInputText fluid formControlName="networking_linkedin_profile" placeholder="Linkedin Profile Link" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('networking_linkedin_profile')" />
-																<small class="text-danger" *ngIf="isSubmittedProfessionalNetworkingForm && professionalNetworkingForm.get('networking_linkedin_profile')?.invalid"> LinkedIn Profile is required with valid url </small>
+																@if(isSubmittedProfessionalNetworkingForm && professionalNetworkingForm.get('networking_linkedin_profile')?.invalid) {
+																<small class="text-danger"> LinkedIn Profile is required with valid url </small>
+																}
 															</div>
 															<div class="col-md-12">
 																<hr />
@@ -670,7 +788,7 @@
 																			<label class="mb-1">Social Media</label>
 																			<p-select formControlName="networking_social_media" [options]="socialMedias" appendTo="body" placeholder="Select any social media platform" styleClass="w-100" (focusout)="resetMessageBox()" (ngModelChange)="changeSocialMedia($event)" (onShow)="updateMessageBox('networking_social_media')" [optionDisabled]="isDisabledSocialMedia">
 																				<ng-template let-socialMedia #item>
-																					<span>{{ socialMedia }}&nbsp;<span *ngIf="selectedSocialMedias?.includes(socialMedia)">(Selected)</span></span>
+																					<span>{{ socialMedia }}&nbsp;@if(selectedSocialMedias?.includes(socialMedia)){<span>(Selected)</span>}</span>
 																				</ng-template>
 																			</p-select>
 																		</div>
@@ -678,17 +796,21 @@
 																			<label class="mb-1">Provide the link</label>
 																			<input pInputText fluid formControlName="networking_social_media_link" placeholder="Social media link" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('networking_social_media_link')" />
 																		</div>
-																		<div class="col-md-1 col-2" *ngIf="i !== 0">
+																		@if(i !== 0) {
+																		<div class="col-md-1 col-2">
 																			<label class="mb-1"> </label>
 																			<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-2 py-2" (click)="removeSocialMedia(i); removeSelectedSocialMedia(socialMediaItem.get('networking_social_media')?.value)" style="width: fit-content">
 																				<span><i class="fa-regular fa-trash fa-lg"></i></span>
 																			</button>
 																		</div>
+																		}
 																	</div>
 																</ng-container>
 															</div>
 															<div class="col-md-12">
-																<button *ngIf="socialMedia.controls.length < 3" pButton class="w-100 btn btn-outline-primary" (click)="addSocialMedia()">Add more Social media&nbsp;<i class="fa fa-plus"></i></button>
+																@if(socialMedia.controls.length < 3) {
+																<button pButton class="w-100 btn btn-outline-primary" (click)="addSocialMedia()">Add more Social media&nbsp;<i class="fa fa-plus"></i></button>
+																}
 															</div>
 														</div>
 													</ng-container>
@@ -703,9 +825,9 @@
                             <input pInputText fluid formControlName="networking_personal_website"
                               placeholder="Website link" class="form-control w-100" (focusout)="resetMessageBox()"
                               (focus)="updateMessageBox('networking_personal_website')" />
-                            <small class="text-danger"
-                              *ngIf="isSubmittedProfessionalNetworkingForm && professionalNetworkingForm.get('networking_personal_website')?.invalid">
-                              Personal Website is required with valid url </small>
+							  @if(isSubmittedProfessionalNetworkingForm && professionalNetworkingForm.get('networking_personal_website')?.invalid) {
+                            	<small class="text-danger"> Personal Website is required with valid url </small>
+						  	 }
                           </div>
                         </div> -->
 								</p-step-panel>
@@ -729,7 +851,9 @@
 																	<button pButton label="UPLOAD" class="p-button-primary rounded-pill px-5 py-2" (click)="fileUpload.click()" (focusout)="resetMessageBox()" (onFocus)="updateMessageBox('career_preference_cv_filename')"></button>
 																	<div class="text-muted mt-2">Supported Formats: doc, docx, pdf upto 2 MB</div>
 																	<input class="position-absolute top-0 left-0" style="visibility: hidden" type="file" #fileUpload (change)="uploadFile(fileType.CV, $event, 0)" accept="application/pdf" />
-																	<small class="text-danger" *ngIf="isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_cv_filename')?.errors?.required"> CV / Resume is required </small>
+																	@if(isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_cv_filename')?.errors?.required) {
+																	<small class="text-danger"> CV / Resume is required </small>
+																	}
 																</div>
 															</div>
 														</div>
@@ -749,7 +873,9 @@
 																		</div>
 																	</div>
 																	<input pInputText fluid placeholder="Provide the video link" class="form-control mt-2" formControlName="career_preference_video_link" (focusout)="resetMessageBox()" (focus)="updateMessageBox('career_preference_video_link')" />
-																	<small class="text-danger" *ngIf="isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_video_link')?.invalid"> Enter valid Introduction Video url </small>
+																	@if(isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_video_link')?.invalid) {
+																	<small class="text-danger"> Enter valid Introduction Video url </small>
+																	}
 																</div>
 															</div>
 														</div>
@@ -768,7 +894,9 @@
 																		</div>
 																	</div>
 																	<input pInputText fluid placeholder="Provide the portfolio link" class="form-control mt-2" formControlName="career_preference_portfolio_upload_link" (focusout)="resetMessageBox()" (focus)="updateMessageBox('career_preference_portfolio_upload_link')" />
-																	<small class="text-danger" *ngIf="isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_portfolio_upload_link')?.invalid"> Enter valid Portfolio url.</small>
+																	@if(isSubmittedAttachmentsForm && attachmentsForm.get('career_preference_portfolio_upload_link')?.invalid) {
+																	<small class="text-danger"> Enter valid Portfolio url.</small>
+																	}
 																</div>
 															</div>
 														</div>
@@ -782,7 +910,9 @@
 													<div class="d-flex justify-content-between align-items-start mb-2">
 														<h4 class="card-title fw-bold">Additional Notes <span class="text-danger">(Optional)</span></h4>
 														<div>
-															<button *ngIf="isNotEmptyHtml(this.additionalNotesForm.get('additional_notes')?.value)" class="text-small btn btn-secondary btn-rounded d-flex align-items-center gap-2 h-fit-content" style="width: fit-content" (click)="aiRePhraseSummary('add_note', { rephrase_content: additionalNotesForm?.get('additional_notes')?.value }, additionalNotesForm?.get('additional_notes'))">RePhrase</button>
+															@if(isNotEmptyHtml(this.additionalNotesForm.get('additional_notes')?.value)) {
+															<button class="text-small btn btn-secondary btn-rounded d-flex align-items-center gap-2 h-fit-content" style="width: fit-content" (click)="aiRePhraseSummary('add_note', { rephrase_content: additionalNotesForm?.get('additional_notes')?.value }, additionalNotesForm?.get('additional_notes'))">RePhrase</button>
+															}
 														</div>
 													</div>
 												</div>
@@ -803,32 +933,42 @@
 												<ng-container *ngFor="let academic of academicReferences.controls; let i = index" [formGroupName]="i">
 													<div class="d-flex justify-content-between">
 														<h5 class="card-title mb-1">Academic Reference</h5>
-														<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeAcademicReference(i)" *ngIf="i !== 0">
+														@if(i !== 0) {
+														<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeAcademicReference(i)">
 															<span><i class="fa-regular fa-trash fa-lg"></i></span>
 														</button>
+														}
 													</div>
 													<div class="row mb-3">
 														<div class="col-md-4">
 															<label class="mb-1"> College Name </label>
 															<input pInputText fluid formControlName="references_college_name" placeholder="Enter the reference college name" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('references_college_name')" (change)="onChangeAcademicCollegeName($event, i)" />
-															<small class="text-danger" *ngIf="isSubmittedReferencesForm && academic.get('references_college_name')?.errors?.required"> College Name is required </small>
+															@if(isSubmittedReferencesForm && academic.get('references_college_name')?.errors?.required) {
+															<small class="text-danger"> College Name is required </small>
+															}
 														</div>
 														<div class="col-md-4">
 															<label class="mb-1"> Referee Name </label>
 															<input pInputText fluid formControlName="references_reference_name" placeholder="Enter the reference name" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('references_reference_name')" />
-															<small class="text-danger" *ngIf="isSubmittedReferencesForm && academic.get('references_reference_name')?.errors?.required"> Referee Name is required </small>
+															@if(isSubmittedReferencesForm && academic.get('references_reference_name')?.errors?.required) {
+															<small class="text-danger"> Referee Name is required </small>
+															}
 														</div>
 														<div class="col-md-4">
 															<label class="mb-1">Desigination </label>
 															<input pInputText fluid formControlName="references_designation" placeholder="Enter the reference desigination" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('references_designation')" />
-															<small class="text-danger" *ngIf="isSubmittedReferencesForm && academic.get('references_designation')?.errors?.required"> Desigination is required </small>
+															@if(isSubmittedReferencesForm && academic.get('references_designation')?.errors?.required) {
+															<small class="text-danger"> Desigination is required </small>
+															}
 														</div>
 													</div>
 													<div class="row mb-3">
 														<div class="col-md-12">
 															<label class="mb-1">Email </label>
 															<input pInputText fluid formControlName="references_email" type="email" placeholder="Enter the reference email" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('references_email')" />
-															<small class="text-danger" *ngIf="isSubmittedReferencesForm && academic.get('references_email')?.errors?.required"> Enter a valid email </small>
+															@if(isSubmittedReferencesForm && academic.get('references_email')?.errors?.required) {
+															<small class="text-danger"> Enter a valid email </small>
+															}
 														</div>
 													</div>
 												</ng-container>
@@ -842,32 +982,42 @@
 												<ng-container class="work-experience" *ngFor="let reference of professionalReferences.controls; let i = index" [formGroupName]="i">
 													<div class="d-flex justify-content-between">
 														<h5 class="card-title my-3">Professional Reference</h5>
-														<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeProfessionalReference(i)" *ngIf="i !== 0">
+														@if(i !== 0) {
+														<button class="btn btn-outline-danger d-flex align-items-center justify-content-center px-3 py-2" (click)="removeProfessionalReference(i)">
 															<span><i class="fa-regular fa-trash fa-lg"></i></span>
 														</button>
+														}
 													</div>
 													<div class="row mb-3">
 														<div class="col-md-4">
 															<label class="mb-1">Company Name</label>
 															<input pInputText fluid formControlName="references_company_name" placeholder="Enter the reference company name" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('references_company_name')" (change)="onChangeProfessionalCompanyName($event, i)" />
-															<small class="text-danger" *ngIf="isSubmittedReferencesForm && reference.get('references_company_name')?.errors?.required"> Company Name is required </small>
+															@if(isSubmittedReferencesForm && reference.get('references_company_name')?.errors?.required) {
+															<small class="text-danger"> Company Name is required </small>
+															}
 														</div>
 														<div class="col-md-4">
 															<label class="mb-1">Referee Name</label>
 															<input pInputText fluid formControlName="references_reference_name" placeholder="Enter the reference name" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('pro_references_reference_name')" />
-															<small class="text-danger" *ngIf="isSubmittedReferencesForm && reference.get('references_reference_name')?.errors?.required"> Referee Name is required </small>
+															@if(isSubmittedReferencesForm && reference.get('references_reference_name')?.errors?.required) {
+															<small class="text-danger"> Referee Name is required </small>
+															}
 														</div>
 														<div class="col-md-4">
 															<label class="mb-1">Desigination</label>
 															<input pInputText fluid formControlName="references_designation" placeholder="Enter the reference desigination" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('pro_references_designation')" />
-															<small class="text-danger" *ngIf="isSubmittedReferencesForm && reference.get('references_designation')?.errors?.required"> Desigination is required </small>
+															@if(isSubmittedReferencesForm && reference.get('references_designation')?.errors?.required) {
+															<small class="text-danger"> Desigination is required </small>
+															}
 														</div>
 													</div>
 													<div class="row mb-3">
 														<div class="col-md-12">
 															<label class="mb-1">Email</label>
 															<input pInputText fluid type="email" formControlName="references_email" placeholder="Enter the reference email" class="form-control w-100" (focusout)="resetMessageBox()" (focus)="updateMessageBox('pro_references_email')" />
-															<small class="text-danger" *ngIf="isSubmittedReferencesForm && reference.get('references_email')?.errors?.required"> Enter a valid email </small>
+															@if(isSubmittedReferencesForm && reference.get('references_email')?.errors?.required) {
+															<small class="text-danger"> Enter a valid email </small>
+															}
 														</div>
 													</div>
 												</ng-container>
@@ -889,7 +1039,9 @@
 													<div class="d-flex justify-content-between align-items-start mb-2">
 														<h4 class="card-title fw-bold">Additional Notes <span class="text-danger">(Optional)</span></h4>
 														<div>
-															<button *ngIf="isNotEmptyHtml(this.additionalNotesForm.get('additional_notes')?.value)" class="text-small btn btn-secondary btn-rounded d-flex align-items-center gap-2 h-fit-content" style="width: fit-content" (click)="aiRePhraseSummary('add_note', { rephrase_content: additionalNotesForm?.get('additional_notes')?.value }, additionalNotesForm?.get('additional_notes'))">RePhrase</button>
+															@if(isNotEmptyHtml(this.additionalNotesForm.get('additional_notes')?.value)) {
+															<button class="text-small btn btn-secondary btn-rounded d-flex align-items-center gap-2 h-fit-content" style="width: fit-content" (click)="aiRePhraseSummary('add_note', { rephrase_content: additionalNotesForm?.get('additional_notes')?.value }, additionalNotesForm?.get('additional_notes'))">RePhrase</button>
+															}
 														</div>
 													</div>
 												</div>
@@ -904,55 +1056,68 @@
 							</p-step-panels>
 						</p-stepper>
 					</div>
+					}
+					@else {
+					<div class="card-body h-100 overflow-y-auto">
+						<div class="body_content">
+							<div class="your_profile_ai_preview" [innerHTML]="aiEvaluationContent"></div>
+						</div>
+					</div>
+					}
 					<div class="card-footer bg-white">
-						<div *ngIf="!isShowAiEvaluation; else showAIValuationFooter" class="d-lg-flex justify-content-between gap-3 w-100">
+						@if(!isShowAiEvaluation) {
+						<div class="d-lg-flex justify-content-between gap-3 w-100">
 							<div class="w-100 mb-2 mb-lg-0">
 								<div class="uniprep-secondary fw-bold mb-1">Profile Completion: {{ profileCompletion }}%</div>
 								<p-progressBar [style]="{ height: '12px' }" color="#f0780e" styleClass="rounded-pill" [showValue]="false" [value]="profileCompletion"></p-progressBar>
 							</div>
 							<div class="text-nowrap mb-2 mb-lg-0 d-flex d-lg-block" [ngClass]="activePageIndex ? 'justify-content-between' : 'justify-content-end'">
-								<button pButton type="button" class="btn btn-outline-primary-bg w-100 me-2 me-lg-0" (click)="previous()" *ngIf="activePageIndex !== 0"><i class="fa fa-arrow-left"></i>{{ getPreviousIndexValue() }}</button>
-								<button *ngIf="activePageIndex != 6" pButton type="button" (click)="next()" class="btn btn-primary w-100 d-flex d-lg-none" [disabled]="getDisabledStatus()">{{ getNextIndexValue() }}<i class="fa fa-arrow-right"></i></button>
+								@if(activePageIndex !== 0) {
+								<button pButton type="button" class="btn btn-outline-primary-bg w-100 me-2 me-lg-0" (click)="previous()"><i class="fa fa-arrow-left"></i>{{ getPreviousIndexValue() }}</button>
+								}
+								@if(activePageIndex != 6) {
+								<button pButton type="button" (click)="next()" class="btn btn-primary w-100 d-flex d-lg-none" [disabled]="getDisabledStatus()">{{ getNextIndexValue() }}<i class="fa fa-arrow-right"></i></button>
+								}
 							</div>
 							<div class="w-100 mb-2 mb-lg-0">
-								<div *ngIf="activePageIndex != 6" class="d-flex justify-content-center">
-									<button *ngIf="isUpdatedProfile" pButton type="button" (click)="next(true)" class="btn btn-success w-100 me-2">Update <i class="pi pi-check text-white"></i></button>
+								@if(activePageIndex != 6) {
+								<div class="d-flex justify-content-center">
+									@if(isUpdatedProfile) {
+									<button pButton type="button" (click)="next(true)" class="btn btn-success w-100 me-2">Update <i class="pi pi-check text-white"></i></button>
+									}
 									<button pButton type="button" (click)="next()" class="btn btn-primary w-100 d-lg-flex d-none" [disabled]="getDisabledStatus()">{{ getNextIndexValue() }}<i class="fa fa-arrow-right"></i></button>
 								</div>
-								<div class="d-flex gap-2" *ngIf="activePageIndex == 6">
+								}
+								@if(activePageIndex == 6) {
+								<div class="d-flex gap-2">
 									<!-- <button pButton type="button" (click)="onCallAIEvaluation()" class="btn btn-primary w-100 me-2">AI Review <i class="pi pi-microchip-ai text-white"></i></button> -->
 									<button pButton type="button" (click)="next()" class="btn btn-success w-100" [disabled]="getDisabledStatus()">Proceed to Apply <i class="pi pi-check text-white"></i></button>
 								</div>
+								}
 							</div>
 						</div>
-						<ng-template #showAIValuationFooter>
-							<div class="d-lg-flex justify-content-between gap-3 w-100 align-items-center d-block">
-								<div class="w-100 mb-2 mb-lg-0">
-									<div class="d-flex align-items-center gap-2">
-										<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile Score: {{ profileScore }}%</span>
-										<div class="w-100">
-											<p-progressBar [style]="{ height: '12px' }" color="#f0780e" styleClass="rounded-pill" [showValue]="false" [value]="profileScore"></p-progressBar>
-										</div>
+						}
+						@else {
+						<div class="d-lg-flex justify-content-between gap-3 w-100 align-items-center d-block">
+							<div class="w-100 mb-2 mb-lg-0">
+								<div class="d-flex align-items-center gap-2">
+									<span class="h6 mb-0 flex-shrink-0 uniprep-secondary fw-bold">Profile Score: {{ profileScore }}%</span>
+									<div class="w-100">
+										<p-progressBar [style]="{ height: '12px' }" color="#f0780e" styleClass="rounded-pill" [showValue]="false" [value]="profileScore"></p-progressBar>
 									</div>
 								</div>
-								<div class="text-nowrap d-flex d-lg-block">
-									<button pButton type="button" (click)="isShowAiEvaluation = false; aiEvaluationContent = ''" class="btn btn-primary btn-rounded p-1 ps-4 me-2">
-										<span class="me-2">Edit Profile</span><span class="btn-icon px-2 py-2"><i class="pi pi-arrow-left text-white"></i></span>
-									</button>
-									<button pButton type="button" (click)="next()" class="btn btn-success btn-rounded p-1 ps-4">
-										<span class="me-2" [disabled]="getDisabledStatus()">Proceed to Apply</span><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
-									</button>
-								</div>
 							</div>
-						</ng-template>
-					</div>
-					<ng-template #showAIValuationBodyContent>
-						<div class="card-body h-100 overflow-y-auto" *ngIf="isShowAiEvaluation">
-							<div class="body_content">
-								<div class="your_profile_ai_preview" [innerHTML]="aiEvaluationContent"></div>
+							<div class="text-nowrap d-flex d-lg-block">
+								<button pButton type="button" (click)="isShowAiEvaluation = false; aiEvaluationContent = ''" class="btn btn-primary btn-rounded p-1 ps-4 me-2">
+									<span class="me-2">Edit Profile</span><span class="btn-icon px-2 py-2"><i class="pi pi-arrow-left text-white"></i></span>
+								</button>
+								<button pButton type="button" (click)="next()" class="btn btn-success btn-rounded p-1 ps-4">
+									<span class="me-2" [disabled]="getDisabledStatus()">Proceed to Apply</span><span class="btn-icon px-2 py-2"><i class="pi pi-check text-white"></i></span>
+								</button>
 							</div>
 						</div>
-					</ng-template>
+						}
+					</div>
 				</div>
 			</div>
 			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-5 col-sm-5 col-12 d-md-flex d-none flex-fill h-100">
@@ -981,7 +1146,9 @@
 											<div class="d-flex justify-content-between text-start">
 												<div (onFocus)="updateMessageBox('full_name')" (focusout)="resetMessageBox()">
 													<span class="fw-bold">{{ personalInformationForm.get("full_name")?.value || "-" }}</span>
-													<i *ngIf="true" class="fas fa-check-circle ms-1" style="color: #4285f4"></i>
+													@if(true) {
+														<i class="fas fa-check-circle ms-1" style="color: #4285f4"></i>
+													}
 												</div>
 												<a style="color: var(--p-secondary-500)">
 													<i class="fa-regular fa-share-alt"></i>
@@ -1124,7 +1291,9 @@
 												<div class="d-flex justify-content-between text-start">
 													<div (onFocus)="updateMessageBox('full_name')" (focusout)="resetMessageBox()">
 														<span class="fw-bold">{{ personalInformationForm.get("full_name")?.value || "-" }}</span>
-														<i *ngIf="true" class="fas fa-check-circle ms-1" style="color: #4285f4"></i>
+														@if(true) {
+														<i class="fas fa-check-circle ms-1" style="color: #4285f4"></i>
+														}
 													</div>
 													<a style="color: var(--p-secondary-500)">
 														<i class="fa-regular fa-share-alt"></i>
@@ -1242,9 +1411,10 @@
 				</ng-template>
 			</p-drawer>
 		</div>
-		<ng-template #showSampleProfilePdf>
+		}
+		@else {
 			<pdf-viewer [src]="sampleProfilePdf" [original-size]="true" [show-all]="true" [fit-to-page]="true" [zoom]="1.0" [autoresize]="true" [render-text]="false" [external-link-target]="'blank'" style="width: 100%; height: 100%"></pdf-viewer>
-		</ng-template>
+		}
 	</div>
 </div>
 <p-dialog [style]="{ width: '25vw' }" [modal]="true" [breakpoints]="{ '960px': '75vw', '640px': '90vw' }" id="confirm-dialog" styleClass="p-3" [visible]="isShowCreatedSuccessfullyPopup" [closable]="false">
