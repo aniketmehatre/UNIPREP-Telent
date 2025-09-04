@@ -269,7 +269,7 @@ export class SubscriptionComponent implements OnInit {
 	}
 	payusingstripe(value: any) {
 		this.stripdata = value
-		this.selectedcost = this.stripdata.finalPrice
+		this.selectedcost = this.stripdata.finalPrice 
 		this.subscriptionService.createPaymentIntent(this.stripdata).subscribe((pi) => {
 			this.currencyType = pi.currency
 			this.elementsOptions.clientSecret = pi.client_secret as string
@@ -604,5 +604,13 @@ export class SubscriptionComponent implements OnInit {
 	onClosePremiumPopup() {
 		this.showPremimumPopup = false;
 		this.subscriptionService.updateUserBehaviour().subscribe();
+	}
+
+	onCloseStripe() {
+		this.toastr.add({severity: "error",summary: "Error",detail: "Transaction cancelled"});
+		// Re-enable checkout on cancel
+		if (this.applyTarget) {
+			this.applyTarget.showCheckout = false;
+		}
 	}
 }
