@@ -368,4 +368,14 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 	redirectEmployerProfile() {
 		this.router.navigate(["/pages/talent-connect/my-profile"]);
 	}
+
+	linkRerouting(): void {
+		const profileData = this.talentConnectService._employerProfileData;
+		if (profileData?.profile_completion_flag) {
+			this.router.navigate(["/pages/talent-connect/easy-apply"]);
+		} else {
+			this.redirectEmployerProfile();
+		}
+	}
+
 }

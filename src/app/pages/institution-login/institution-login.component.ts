@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Country } from 'ngx-intl-tel-input/lib/model/country.model';
+// import { Country } from 'ngx-intl-tel-input/lib/model/country.model';
 import { SelectModule } from 'primeng/select';
 import { LocationService } from 'src/app/services/location.service';
 import { LandingInstituteService } from '../landing-institute/landing-institute.service';
@@ -23,7 +23,7 @@ interface Institute {
 })
 export class InstitutionLoginComponent implements OnInit {
   imageUrlWhiteLabel = signal<string | null>(null);
-  countryList: Country[] = [];
+  countryList: any = [];
   instituteList: Institute[] = [];
   logo: any
   constructor(private locationService: LocationService, private partnerService: LandingInstituteService) { }
