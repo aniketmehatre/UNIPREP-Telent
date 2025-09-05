@@ -156,7 +156,8 @@
 					<h3 class="fw-bold text-navy">Education Details</h3>
 				</div>
 				<div class="col-md-9">
-					<div class="row" *ngFor="let edu of profileData?.education">
+					@for (edu of profileData?.education; track edu.qualification_name) {
+					<div class="row">
 						<div class="col-md-4 col-xl-3 mb-3">
 							<div class="text-primary fw-bold">Highest Qualification</div>
 							<div>{{ edu?.qualification_name }}</div>
@@ -196,6 +197,7 @@
 								Edit Education Details <i class="fa fa-pencil-square-o"></i></div>
 						</div>
 					</div>
+					}
 				</div>
 			</div>
 		</div>
@@ -221,7 +223,7 @@
 					@if(profileData?.work_experience && profileData?.work_experience.length > 0) {
 					<div class="fw-bold fs-5 mb-3">Work Experience Details </div>
 					<div class="row">
-						<ng-container *ngFor="let exp of profileData?.work_experience; let last = last">
+						@for (exp of profileData?.work_experience; track exp.company_name) {
 							<div class="col-md-4 col-xl-3 mb-3">
 								<div class="text-primary fw-bold">Company Name</div>
 								<div>{{ exp?.company_name || "Not specified" }}</div>
@@ -267,7 +269,7 @@
 							<div class="col-12 d-none d-md-block">
 								<hr />
 							</div>
-						</ng-container>
+						}
 					</div>
 					}
 					@if(!profileData?.work_experience || profileData?.work_experience.length === 0) {
@@ -366,7 +368,7 @@
 				<div class="col-md-9">
 					<div class="row">
 						<div class="col-md-8">
-							<ng-container *ngFor="let cert of profileData?.certifications">
+							@for (cert of profileData?.certifications; track cert.name) {
 								@if(cert.type === 'Certificate') {
 								<div class="mb-3">
 									<div class="text-primary fw-bold">Professional / online Certifications</div>
@@ -379,16 +381,16 @@
 									<div>{{ cert.name || "Not specified" }}</div>
 								</div>
 								}
-							</ng-container>
+							}
 						</div>
 						<div class="col-md-4">
-							<ng-container *ngFor="let cert of profileData?.certifications">
+							@for (cert of profileData?.certifications; track cert.file_name) {
 								@if(cert.file_name) {
 								<button pButton [label]="extractFileName(cert.file_name)" icon="pi pi-download"
 									class="p-button-outlined p-button-secondary mb-2 w-100 justify-content-between"
 									(click)="openView(cert.file_name)" iconPos="right"></button>
 								}
-							</ng-container>
+							}
 							@if(hasNoCertificationFiles()) {
 							<div class="text-muted">No certification files available</div>
 							}
@@ -419,7 +421,7 @@
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<div class="text-primary fw-bold mb-2">Languages Known</div>
-							<ng-container *ngFor="let lang of profileData?.languages">
+							@for (lang of profileData?.languages; track lang.language_name) {
 								<div class="mb-2">
 									<div class="d-flex align-items-center">
 										<span class="me-2" style="width: 100px">{{ lang.language_name }}</span>
@@ -427,13 +429,13 @@
 											[readonly]="true" />
 									</div>
 								</div>
-							</ng-container>
+							}
 						</div>
 						<!-- <div class="col-md-4 mb-3">
 								<div class="text-primary fw-bold mb-2">Soft Skills</div>
-								<ng-container *ngFor="let skill of profileData?.careerPreference?.soft_skill_name">
+								@for (skill of profileData?.careerPreference?.soft_skill_name; track skill) {
 									<div>{{ skill }}</div>
-								</ng-container>
+								}
 							</div> -->
 						<div class="col-12 mb-3">
 							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
@@ -465,12 +467,14 @@
 						</div>
 						}
 						@if(profileData?.networking && profileData?.networking.length > 0) {
-						<div class="col-md-4 mb-3" *ngFor="let social of profileData?.networking">
-							<a [href]="social.social_media_link" target="_blank" class="text-break text-primary">
-								<i class="pi pi-{{ getSocialMediaIconName(social.social_media) }} fs-3"></i>
-							</a>
-							<div class="text-primary fw-bold">{{ social.social_media + " Profile" }}</div>
-						</div>
+							@for (social of profileData?.networking; track social.social_media) {
+							<div class="col-md-4 mb-3">
+								<a [href]="social.social_media_link" target="_blank" class="text-break text-primary">
+									<i class="pi pi-{{ getSocialMediaIconName(social.social_media) }} fs-3"></i>
+								</a>
+								<div class="text-primary fw-bold">{{ social.social_media + " Profile" }}</div>
+							</div>
+							}
 						}
 						@if(profileData?.personal_website) {
 						<div class="col-md-4 mb-3">
@@ -549,7 +553,8 @@
 						@if(profileData?.references && profileData?.references.length > 0) {
 						<div class="mb-4">
 							<div class="fw-bold fs-5 mb-3">Academic Reference</div>
-							<div class="row" *ngFor="let ref of profileData?.references">
+							@for (ref of profileData?.references; track ref.college_name) {
+							<div class="row">
 								<div class="col-md-4 col-xl-3 mb-3">
 									<div class="text-primary fw-bold">College Name</div>
 									<div>{{ ref.college_name || "Not specified" }}</div>
@@ -567,12 +572,14 @@
 									<div>{{ ref.email || "Not specified" }}</div>
 								</div>
 							</div>
+							}
 						</div>
 						}
 						@if(profileData?.professional_references && profileData?.professional_references.length > 0) {
 						<div>
 							<div class="fw-bold fs-5 mb-3">Professional Reference</div>
-							<div class="row" *ngFor="let ref of profileData?.professional_references">
+							@for (ref of profileData?.professional_references; track ref.company_name) {
+							<div class="row">
 								<div class="col-md-4 col-xl-3 mb-3">
 									<div class="text-primary fw-bold">Organization Name</div>
 									<div>{{ ref.company_name || "Not specified" }}</div>
@@ -590,6 +597,7 @@
 									<div>{{ ref.email || "Not specified" }}</div>
 								</div>
 							</div>
+							}
 						</div>
 					}
 					</div>

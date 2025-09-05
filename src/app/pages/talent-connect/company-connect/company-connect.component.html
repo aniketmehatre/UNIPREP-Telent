@@ -40,7 +40,8 @@
 	</div>
 	<div class="card-body flex-fill overflow-y-auto">
 		<div class="row">
-			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2" *ngFor="let company of companyDataList">
+			@for (company of companyDataList; track company.id) {
+			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
 				<div class="card h-100 card-inside" role="button" (click)="onClickCompany(company.id)" style="transition: transform 0.3s; border: 1px solid var(--p-secondary-500)" [style.border]="company.verified ? '1px solid var(--p-secondary-400)' : '1px solid var(--p-secondary-500)'">
 					<div class="card-body">
 						<div class="row mb-3">
@@ -147,6 +148,7 @@
 					</div>
 				</div>
 			</div>
+			}
 		</div>
 		@if(!isSkeletonVisible && companyDataList.length == 0) {
 		<div class="card h-100">
