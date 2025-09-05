@@ -47,7 +47,7 @@ export class LandingInstituteContentComponent {
   selectedCountry: string = 'Select Country';
   welcomevideoLink: string = `https://${environment.domain}/uniprepapi/storage/app/public/Landing/welcome.mp4`
 
-  whyPartnerParagraph1: string = 'UNIPREP isn\'t just a platform—it\'s your bridge to growth. Offer real value to your audience, grow your revenue, and connect learners with opportunity.';
+  whyPartnerParagraph1: string = 'UNIPREP is more than just a platform—it\'s an investment in your students\' future, bridging the gap between education and employment opportunities.';
   // whyPartnerParagraph2: string = 'Launch fast. Empower users. Earn more.';
 
   wantToKnowMoreTitle: string = 'WANT TO KNOW MORE?';
