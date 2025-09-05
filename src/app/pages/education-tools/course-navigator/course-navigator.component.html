@@ -1,5 +1,6 @@
 <!-- ----------------- Recommandation Question View ----------------- -->
-<div class="card readingcard" *ngIf="isRecommendationQuestion">
+@if(isRecommendationQuestion) {
+<div class="card readingcard">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row">
 			<div class="col-md-12 d-flex align-items-center gap-4">
@@ -61,9 +62,10 @@
 		</div>
 	</div>
 </div>
-
+ }
 <!-- ----------------- Recommandation Response View ----------------- -->
-<div class="card readingcard" *ngIf="isRecommendationData">
+@if(isRecommendationData) {
+<div class="card readingcard">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row">
 			<div class="col-md-12 d-flex align-items-center gap-4">
@@ -123,9 +125,10 @@
 		</div>
 	</div>
 </div>
-
+}
 <!-- ----------------- Recommandation Response View ----------------- -->
-<div class="card readingcard" *ngIf="isCourseSubmodule">
+@if(isCourseSubmodule) {
+<div class="card readingcard">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row">
 			<div class="col-md-12 d-flex gap-4">
@@ -186,9 +189,11 @@
 		</div>
 	</div>
 </div>
+}
 
 <!-- ----------------- Recommandation Saved Response View ----------------- -->
-<div class="card readingcard" *ngIf="isRecommendationSavedData">
+@if(isRecommendationSavedData) {
+<div class="card readingcard">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row">
 			<div class="col-md-12 d-flex gap-4">
@@ -241,6 +246,7 @@
 		</div>
 	</div>
 </div>
+}
 
 <p-dialog #dialogContent [(visible)]="isQuestionAnswerVisible" [draggable]="false" 
 	class="questionmodal custom-quiz-modal" header="Header" [closable]="false" (onShow)="onShowModal($event)">
