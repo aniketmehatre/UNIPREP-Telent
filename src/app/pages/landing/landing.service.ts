@@ -3,7 +3,11 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
 import { IPAddress } from './pricing/pricing.component';
-
+interface Subscription {
+  count: number;
+  subscriptions: any;
+  success: boolean
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -101,5 +105,11 @@ export class landingServices {
 
   getSuccessStories(): Observable<any> {
     return this.http.get(`${environment.ApiUrl}/landingPlacementSuccessStory`);
+  }
+
+  getSubscriptionDetails(data: any) {
+    return this.http.get<Subscription>(`${environment.ApiUrl}/getlandingpagesubscriptionlist`, {
+      params: data
+    })
   }
 }
