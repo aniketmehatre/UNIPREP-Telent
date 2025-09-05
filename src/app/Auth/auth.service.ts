@@ -337,9 +337,10 @@ export class AuthService {
     private dataCache$: Observable<any> | null = null;
 
     getNewUserTimeLeft(): Observable<any> {
-        const headers = new HttpHeaders().set("Accept", "application/json");
+        const token = this.getToken();
+        const headers = new HttpHeaders().set("Accept", "application/json").set('Authorization', `Bearer ${token}`);
         if (!this.dataCache$) {
-            this.dataCache$ = this.http.post<SubscriptionResponse>(environment.ApiUrl + "/getsubscriptiontimeleft", {headers: headers}).pipe(
+            this.dataCache$ = this.http.post<SubscriptionResponse>(environment.ApiUrl + "/getsubscriptiontimeleft",{}, {headers: headers}).pipe(
                 tap((data) => {
                     this._userSubscrition = data;
                 }),

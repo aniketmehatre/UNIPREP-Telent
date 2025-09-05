@@ -19,7 +19,8 @@
 	</div>
 	<div class="card-body text-start flex-fill overflow-y-auto">
 		<div class="row justify-content-between h-100">
-			<div class="h-100 overflow-hidden" [ngClass]="!showChat ? 'col-sm-12' : 'col-sm-12 col-md-7 col-lg-8 col-xl-9'" *ngIf="showInfo">
+			@if(showInfo) {
+			<div class="h-100 overflow-hidden" [ngClass]="!showChat ? 'col-sm-12' : 'col-sm-12 col-md-7 col-lg-8 col-xl-9'">
 				<div class="card h-100 overflow-y-auto">
 					<div class="card-header bg-transparent">
 						<div class="row align-items-center">
@@ -38,19 +39,25 @@
 												<h2 class="mb-0">{{ jobDetails.position }}</h2>
 												<div class="d-flex align-items-center mb-3">
 													<span>{{ jobDetails.company_name }}</span>
-													<span class="ms-1 text-primary" *ngIf="jobDetails">
+													@if(jobDetails) {
+													<span class="ms-1 text-primary">
 														<i class="fas fa-check-circle"></i>
 													</span>
+													}
 												</div>
 											</div>
 											<div class="col-xxl-2 col-xl-4 col-lg-5 col-md-5 col-sm-12 col-12">
 												<div class="row">
 													<div class="col-12 text-md-end text-center mb-2 d-lg-block d-none">
+														@if(showChat) {
 														<button pButton label="Close Info" class="btn btn-primary w-100"
-															(click)="showInfo = false" *ngIf="showChat"></button>
-														<button pButton class="p-button-success chat-btn w-100" *ngIf="!showChat"
+															(click)="showInfo = false"></button>
+														}
+														@else {
+														<button pButton class="p-button-success chat-btn w-100"
 															(click)="showChat = true"><i class="pi pi-comments"></i>
 															Chat</button>
+														}
 													</div>
 													<div class="d-block d-md-none">
 														<button pButton class="p-button-success chat-btn w-100"
@@ -110,11 +117,12 @@
 											<div>
 												<p class="text-muted mb-1">Work Mode</p>
 												<p class="fw-bold mb-0">
-													<span *ngIf="!array.isArray(jobDetails.work_mode)">{{ jobDetails.work_mode
-														}}</span>
-													<span *ngIf="array.isArray(jobDetails.work_mode)">{{
-														jobDetails.work_mode.join(", ")
-														}}</span>
+													@if(!array.isArray(jobDetails.work_mode)) {
+													<span>{{ jobDetails.work_mode}}</span>
+													}
+													@else {
+													<span>{{jobDetails.work_mode.join(", ")}}</span>
+													}
 												</p>
 											</div>
 										</div>
@@ -125,10 +133,12 @@
 											<div>
 												<p class="text-muted mb-1">Work Type</p>
 												<p class="fw-bold mb-0">
-													<span *ngIf="!array.isArray(jobDetails.employment_type)">{{
-														jobDetails.employment_type }}</span>
-													<span *ngIf="array.isArray(jobDetails.employment_type)">{{
-														jobDetails.employment_type.join(", ") }}</span>
+													@if(!array.isArray(jobDetails.employment_type)) {
+													<span>{{jobDetails.employment_type }}</span>
+													}
+													@else {
+													<span>{{jobDetails.employment_type.join(", ") }}</span>
+													}
 												</p>
 											</div>
 										</div>
@@ -139,7 +149,9 @@
 											<div>
 												<p class="text-muted mb-1">Salary offered per month</p>
 												<p class="fw-bold mb-0">
-													<span *ngIf="jobDetails.currency_code"> {{ jobDetails.currency_code }}</span>
+													@if(jobDetails.currency_code) {
+													<span> {{ jobDetails.currency_code }}</span>
+													}
 													{{ jobDetails.salary_range || jobDetails.salary_offer }}
 												</p>
 											</div>
@@ -170,7 +182,8 @@
 							</div>
 							<div class="col-md-12">
 								<div class="row">
-									<div class="col-md-12" *ngIf="jobDetails?.job_overview">
+									@if(jobDetails?.job_overview) {
+									<div class="col-md-12">
 										<div class="card mb-4 bg-secondary-subtle">
 											<div class="card-body">
 												<div class="row">
@@ -184,7 +197,9 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-12" *ngIf="jobDetails?.key_responsibilities">
+									}
+									@if(jobDetails?.key_responsibilities) {
+									<div class="col-md-12">
 										<div class="card mb-4 bg-secondary-subtle">
 											<div class="card-body">
 												<div class="row">
@@ -198,7 +213,9 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-12" *ngIf="jobDetails?.languages?.length > 0">
+									}
+									@if(jobDetails?.languages?.length > 0) {
+									<div class="col-md-12">
 										<div class="card mb-4 bg-secondary-subtle">
 											<div class="card-body">
 												<div class="row">
@@ -210,9 +227,11 @@
 															<li *ngFor="let lang of jobDetails?.languages" class="mb-3">
 																<div class="d-flex align-items-center gap-2">
 																	<span class="me-2">{{ lang.lang }}</span>
-																	<p-rating *ngIf="lang.level" style="font-size: large"
+																	@if(lang.level) {
+																	<p-rating style="font-size: large"
 																		[ngModel]="getProficiencyRating(lang.level)"
 																		[readonly]="true"></p-rating>
+																	}
 																</div>
 															</li>
 														</ul>
@@ -221,7 +240,9 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-12" *ngIf="jobDetails?.compensation_structure?.length > 0">
+									}
+									@if(jobDetails?.compensation_structure?.length > 0) {
+									<div class="col-md-12">
 										<div class="card mb-4 bg-secondary-subtle">
 											<div class="card-body">
 												<div class="row">
@@ -231,23 +252,25 @@
 													<div class="col-md-7 font-bold">
 														<div class="d-flex flex-wrap gap-2">
 															<!-- Handle both string and array formats -->
-															<ng-container *ngIf="!array.isArray(jobDetails.compensation_structure)">
+															 @if(!array.isArray(jobDetails.compensation_structure)) {
 																<span
 																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
 																	jobDetails.compensation_structure }}</span>
-															</ng-container>
-															<ng-container *ngIf="array.isArray(jobDetails.compensation_structure)">
+															}
+															@else {
 																<span *ngFor="let comp of jobDetails.compensation_structure"
 																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
 																	comp }}</span>
-															</ng-container>
+															}
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-12" *ngIf="jobDetails?.benefits_perks?.length > 0">
+									}
+									@if(jobDetails?.benefits_perks?.length > 0) {
+									<div class="col-md-12">
 										<div class="card mb-4 bg-secondary-subtle">
 											<div class="card-body">
 												<div class="row">
@@ -257,23 +280,25 @@
 													<div class="col-md-7 font-bold">
 														<div class="d-flex flex-wrap gap-2">
 															<!-- Handle both string and array formats -->
-															<ng-container *ngIf="!array.isArray(jobDetails.benefits_perks)">
+															@if(!array.isArray(jobDetails.benefits_perks)) {
 																<span
 																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
 																	jobDetails.benefits_perks }}</span>
-															</ng-container>
-															<ng-container *ngIf="array.isArray(jobDetails.benefits_perks)">
+															}
+															@else {
 																<span *ngFor="let benefit of jobDetails.benefits_perks"
 																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
 																	benefit }}</span>
-															</ng-container>
+															}
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-12" *ngIf="jobDetails?.soft_skills?.length > 0">
+									}
+									@if(jobDetails?.soft_skills?.length > 0) {
+									<div class="col-md-12">
 										<div class="card mb-4 bg-secondary-subtle">
 											<div class="card-body">
 												<div class="row">
@@ -283,23 +308,25 @@
 													<div class="col-md-7 font-bold">
 														<div class="d-flex flex-wrap gap-2">
 															<!-- Handle both string and array formats -->
-															<ng-container *ngIf="!array.isArray(jobDetails.soft_skills)">
+															@if(!array.isArray(jobDetails.soft_skills)) {
 																<span
 																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
 																	jobDetails.soft_skills }}</span>
-															</ng-container>
-															<ng-container *ngIf="array.isArray(jobDetails.soft_skills)">
+															}
+															@else {
 																<span *ngFor="let skill of jobDetails.soft_skills"
 																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
 																	skill }}</span>
-															</ng-container>
+															}
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-12" *ngIf="jobDetails?.hiring_stages?.length > 0">
+									}
+									@if(jobDetails?.hiring_stages?.length > 0) {
+									<div class="col-md-12">
 										<div class="card mb-4 bg-secondary-subtle">
 											<div class="card-body">
 												<div class="row">
@@ -310,17 +337,17 @@
 														<h6 class="mb-2 text-primary">Hiring Process Stages</h6>
 														<div class="d-flex flex-wrap gap-2 mb-4">
 															<!-- Handle different hiring_stages formats -->
-															<ng-container *ngIf="!array.isArray(jobDetails.hiring_stages)">
+															 @if(!array.isArray(jobDetails.hiring_stages)) {
 																<span
 																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6 ">{{
 																	jobDetails.hiring_stages }}</span>
-															</ng-container>
-															<ng-container *ngIf="array.isArray(jobDetails.hiring_stages)">
+															}
+															@else {
 																<span *ngFor="let stage of jobDetails.hiring_stages"
 																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">
 																	{{ stage.name || stage }}
 																</span>
-															</ng-container>
+															}
 														</div>
 			
 														<h6 class="mb-2 text-primary">Estimated Hiring Decision Timeframe</h6>
@@ -338,7 +365,9 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-12" *ngIf="jobDetails?.additional_notes">
+									}
+									@if(jobDetails?.additional_notes) {
+									<div class="col-md-12">
 										<div class="card mb-4 bg-secondary-subtle">
 											<div class="card-body">
 												<div class="row">
@@ -352,15 +381,19 @@
 											</div>
 										</div>
 									</div>
+									}
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-12 d-md-block d-none h-100" *ngIf="showChat" [ngClass]="{ 'col-md-5 col-lg-4 col-xl-3 overflow-y-auto': showInfo }">
+			}
+			@if(showChat) {
+			<div class="col-12 d-md-block d-none h-100" [ngClass]="{ 'col-md-5 col-lg-4 col-xl-3 overflow-y-auto': showInfo }">
 				<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails" [jobId]="jobDetails?.id" (closeChat)="showChat = false"></uni-job-chat-ui>
 			</div>
+			}
 			<p-drawer #drawerRef [(visible)]="visible" position="right" [style]="{ width: '80vw' }">
 				<ng-template #headless>
 						<uni-job-chat-ui class="h-100" (openInfo)="showInfo = true" [showInfo]="showInfo"
