@@ -91,7 +91,8 @@
             <h3 class="fw-bold text-navy">Education Details</h3>
           </div>
           <div class="col-md-9">
-            <div class="row g-2" *ngFor="let edu of profileData.educationDetails; let i = index">
+            @for (edu of profileData.educationDetails; track edu.highestQualification; let i = $index) {
+            <div class="row g-2">
               <div class="col-md-4 mb-3">
                 <div class="text-primary fw-bold">{{ i == 0 ? "Highest Qualification" : "Level of qualification" }}
                 </div>
@@ -118,6 +119,7 @@
                 <div>{{ edu.gpa }}</div>
               </div>
             </div>
+            }
           </div>
         </div>
       </div>
@@ -141,7 +143,7 @@
             <div class="fw-bold fs-5 mb-3">Work Experience Details</div>
 
             <div class="row g-2">
-              <ng-container *ngFor="let exp of profileData.workExperience">
+              @for (exp of profileData.workExperience; track exp.companyName) {
                 <div class="col-md-4 mb-3">
                   <div class="text-primary fw-bold">Company Name</div>
                   <div>{{ exp.companyName || "Not specified" }}</div>
@@ -178,7 +180,7 @@
                     (click)="openView(exp?.experienceLetter?.file)" iconPos="right"></button>
                 </div>
                 }
-              </ng-container>
+              }
             </div>
             }
             @if(!profileData.workExperience || profileData.workExperience.length === 0) {
@@ -259,23 +261,23 @@
           <div class="col-md-9">
             <div class="row g-2">
               <div class="col-md-5 mb-2">
-                <ng-container *ngFor="let cert of profileData.certifications">
+                @for (cert of profileData.certifications; track cert.name) {
                   <div class="mb-3">
                     <div class="text-primary fw-bold">Professional / Online Certifications</div>
                     <div>{{ cert.name || "Not specified" }}</div>
                   </div>
-                </ng-container>
+                }
                 @if(profileData.userAchievements && profileData.userAchievements.length > 0) {
-                <ng-container *ngFor="let ach of profileData.userAchievements">
+                  @for (ach of profileData.userAchievements; track ach.name) {
                   <div class="mb-3">
                     <div class="text-primary fw-bold">Achievement Name</div>
                     <div>{{ ach.name || "Not specified" }}</div>
                   </div>
-                </ng-container>
+                  }
                 }
               </div>
               <div class="col-md-7">
-                <ng-container *ngFor="let cert of profileData.certifications">
+                @for (cert of profileData.certifications; track cert.file) {
                   @if(cert.file) {
                   <div class="border p-3 rounded bg-light d-flex justify-content-between align-items-center mb-2">
                     <span class="fw-bold fs-6">{{ extractLastName(cert.file) }}</span>
@@ -285,23 +287,20 @@
                   @else {
                   <div class="text-muted">No certification files available</div>
                   }
-                </ng-container>
-                @if(profileData.userAchievements && profileData.userAchievements.length > 0) {
-                <ng-container *ngFor="let ach of profileData.userAchievements">
-                  @if(ach.file) {
-                  <div class="border p-3 rounded bg-light d-flex justify-content-between align-items-center mb-2">
-                    <span class="fw-bold fs-6">{{ extractLastName(ach.file) }}</span>
-                    <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="openView(ach.file)"></i>
-                  </div>
-                  }
-                  @else {
-                  <div class="text-muted">No certification files available</div>
-                  }
-                </ng-container>
                 }
-                <ng-template #noAvaliable>
-                  <div class="text-muted">No certification files available</div>
-                </ng-template>
+                @if(profileData.userAchievements && profileData.userAchievements.length > 0) {
+                  @for (ach of profileData.userAchievements; track ach.file) {
+                    @if(ach.file) {
+                    <div class="border p-3 rounded bg-light d-flex justify-content-between align-items-center mb-2">
+                      <span class="fw-bold fs-6">{{ extractLastName(ach.file) }}</span>
+                      <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="openView(ach.file)"></i>
+                    </div>
+                    }
+                    @else {
+                    <div class="text-muted">No certification files available</div>
+                    }
+                  }
+                }
               </div>
             </div>
           </div>
@@ -325,7 +324,7 @@
             <div class="row g-2 mb-4">
               <div class="col-md-4">
                 <div class="text-primary fw-bold mb-2">Languages Known</div>
-                <ng-container *ngFor="let lang of profileData.additionalDetails.languagesKnown">
+                @for (lang of profileData.additionalDetails.languagesKnown; track lang.lang) {
                   <div class="mb-2">
                     <div class="d-flex align-items-center">
                       <span class="me-2" style="width: 100px">{{ lang.lang }}</span>
@@ -335,15 +334,15 @@
                       }
                     </div>
                   </div>
-                </ng-container>
+                }
               </div>
               <!-- <div class="col-md-8">
                 <div class="text-primary fw-bold mb-2">Soft Skills</div>
-                <ng-container *ngFor="let item of profileData.additionalDetails.softSkills">
+                @for (item of profileData.additionalDetails.softSkills; track item) {
                   <div class="mb-2">
                     {{ item }}
                   </div>
-                </ng-container>
+                }
               </div> -->
             </div>
           </div>
@@ -371,14 +370,16 @@
               </div>
               }
               @if(profileData.networking.socialMedia && profileData.networking.socialMedia.length > 0) {
-              <div class="col-md-4 mb-3" *ngFor="let social of profileData.networking.socialMedia">
-                @if(social.link) {
-                <a [href]="social.link" target="_blank" class="text-break text-dark me-2">
-                  <i class="pi pi-{{ getSocialMediaIconName(social.media) }} fs-3"></i>
-                </a>
+                @for (social of profileData.networking.socialMedia; track social.link) {
+                  <div class="col-md-4 mb-3">
+                    @if(social.link) {
+                    <a [href]="social.link" target="_blank" class="text-break text-dark me-2">
+                      <i class="pi pi-{{ getSocialMediaIconName(social.media) }} fs-3"></i>
+                    </a>
+                    }
+                    <div class="text-primary fw-bold">{{ social.media == "X" ? "Twitter " : social.media }} Profile</div>
+                  </div>
                 }
-                <div class="text-primary fw-bold">{{ social.media == "X" ? "Twitter " : social.media }} Profile</div>
-              </div>
               }
               @if(profileData.networking.personalWebsite) {
               <div class="col-md-4 mb-3">
@@ -407,7 +408,7 @@
           </div>
           <div class="col-md-9">
             <div class="row g-2">
-              <ng-container *ngFor="let attachment of profileData.attachments">
+              @for (attachment of profileData.attachments; track attachment.name) {
                 @if(attachment.type === 'link') {
                 <div class="col-md-4 mb-3">
                   <a [href]="attachment.name" target="_blank" class="text-break text-dark"><i
@@ -430,7 +431,7 @@
                   }
                 </div>
                 }
-              </ng-container>
+              }
             </div>
           </div>
         </div>
@@ -450,7 +451,8 @@
               @if(profileData.academicReference && profileData.academicReference.length > 0) {
               <div class="mb-4">
                 <div class="fw-bold fs-5 mb-3">Academic Reference</div>
-                <div class="row g-2" *ngFor="let ref of profileData.academicReference">
+                @for (ref of profileData.academicReference; track ref.collegeName) {
+                <div class="row g-2">
                   <div class="col-md-4 mb-3">
                     <div class="text-primary fw-bold">College Name</div>
                     <div>{{ ref.collegeName || "Not specified" }}</div>
@@ -468,12 +470,14 @@
                     <div>{{ ref.email || "Not specified" }}</div>
                   </div>
                 </div>
+                }
               </div>
               }
             @if(profileData.professionalReference && profileData.professionalReference.length > 0) {
               <div>
                 <div class="fw-bold fs-5 mb-3">Professional Reference</div>
-                <div class="row g-2" *ngFor="let ref of profileData.professionalReference">
+                @for (ref of profileData.professionalReference; track ref.companyName) {
+                <div class="row g-2">
                   <div class="col-md-4 mb-3">
                     <div class="text-primary fw-bold">Organization Name</div>
                     <div>{{ ref.companyName || "Not specified" }}</div>
@@ -491,6 +495,7 @@
                     <div>{{ ref.email || "Not specified" }}</div>
                   </div>
                 </div>
+                }
               </div>
             }
             </div>

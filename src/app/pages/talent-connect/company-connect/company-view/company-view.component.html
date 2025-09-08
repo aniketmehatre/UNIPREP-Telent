@@ -143,18 +143,19 @@
 													<div class="col-md-6">
 														<h5 class="text-primary">Work Life Balance Policies</h5>
 														<div class="mt-2">
-															<p-chip
-																*ngFor="let policy of companyDetails?.work_life_balance_policy"
-																label="{{ policy }}"
+															@for (policy of companyDetails?.work_life_balance_policy; track policy) {
+															<p-chip label="{{ policy }}"
 																styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
+															}
 														</div>
 													</div>
 													<div class="col-md-6">
 														<h5 class="text-primary">Employee Benefits & Perks</h5>
 														<div class="mt-2">
-															<p-chip *ngFor="let benefit of companyDetails?.benefits"
-																label="{{ benefit }}"
+															@for (benefit of companyDetails?.benefits; track benefit) {
+															<p-chip label="{{ benefit }}"
 																styleClass="m-1 bg-info bg-opacity-25 text-dark"></p-chip>
+															}
 														</div>
 													</div>
 												</div> -->
@@ -172,9 +173,10 @@
 											<div class="col">
 												<h5 class="text-primary">Hiring Process Stages</h5>
 												<div class="mt-2">
-													<p-chip *ngFor="let hire of companyDetails?.hiring_process_stages"
-														label="{{ hire }}"
+													@for (hire of companyDetails?.hiring_process_stages; track hire) {
+													<p-chip label="{{ hire }}"
 														styleClass="m-1 bg-warning bg-opacity-25 text-dark"></p-chip>
+													}
 												</div>
 
 												<div class="mt-4">

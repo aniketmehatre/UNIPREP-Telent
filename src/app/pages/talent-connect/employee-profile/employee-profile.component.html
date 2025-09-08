@@ -174,8 +174,9 @@
 									<ng-template #content>
 										<form [formGroup]="educationDetailsForm">
 											<h4 class="card-title fw-bold">Education Details</h4>
-											<ng-container class="education" formArrayName="educationDetails">
-												<ng-container *ngFor="let education of educationDetails.controls; let i = index" [formGroupName]="i">
+											<ng-container formArrayName="educationDetails">
+												@for (education of educationDetails.controls; track education; let i = $index) {
+												<ng-container [formGroupName]="i">
 													@if(i > 0) { 
 													<hr /> 
 													<div class="d-flex justify-content-between">
@@ -259,6 +260,7 @@
 							  }
                             </div> -->
 												</ng-container>
+												}
 											</ng-container>
 											<div class="row mt-3">
 												<div class="col-12">
@@ -275,7 +277,8 @@
 											<h4 class="card-title fw-bold">Work Experience <span class="text-danger">(Optional)</span></h4>
 
 											<ng-container class="work-experience" formArrayName="work_experience">
-												<ng-container *ngFor="let experience of workExperience.controls; let i = index" [formGroupName]="i">
+												@for (experience of workExperience.controls; track experience; let i = $index) {
+												<ng-container [formGroupName]="i">
 													@if(i > 0) { <hr /> }
 													<div class="d-flex justify-content-between">
 														@if(i > 0) { <h4 class="card-title fw-bold">Work Experience</h4> }
@@ -402,6 +405,7 @@
 														</div>
 													</div>
 												</ng-container>
+												}
 											</ng-container>
 											<div class="row mt-3">
 												<div class="col-12">
@@ -548,7 +552,8 @@
 												<form [formGroup]="professionalTraitsForm">
 													<ng-container class="work-experience">
 														<ng-container formArrayName="languages">
-															<div class="row g-3" *ngFor="let language of languages.controls; let i = index" [formGroupName]="i">
+															@for (language of languages.controls; track language; let i = $index) {
+															<div class="row g-3" [formGroupName]="i">
 																<div class="col-md-6 col-12 mb-2">
 																	<label class="mb-1"> Language known<span class="text-danger">*</span></label>
 																	<p-select formControlName="languages_language_id" [options]="languageList" placeholder="Enter know language" styleClass="w-100" optionLabel="language" optionValue="id" [filter]="true" filterBy="language" appendTo="body" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('languages_language_id')"></p-select>
@@ -572,6 +577,7 @@
 																</div>
 																}
 															</div>
+															}
 														</ng-container>
 														<div class="row mt-3">
 															<div class="col-12">
@@ -614,7 +620,8 @@
 															<label class="mb-1">Professional / Online Certifications</label>
 															<ng-container class="education mb-3" formArrayName="certifications">
 																<div class="row g-2 align-items-center">
-																	<ng-container *ngFor="let certificate of certifications.controls; let i = index" [formGroupName]="i">
+																	@for (certificate of certifications.controls; track certificate; let i = $index) {
+																	<ng-container [formGroupName]="i">
 																		<div class="col-md-6">
 																			<input pInputText fluid class="form-control" placeholder="Enter certification name" class="w-100" formControlName="certifications_certificate_name" (focusout)="resetMessageBox()" (focus)="updateMessageBox('certifications_certificate_name')" />
 																		</div>
@@ -643,6 +650,7 @@
 																			}
 																		</div>
 																	</ng-container>
+																	}
 																</div>
 															</ng-container>
 														</div>
@@ -650,10 +658,11 @@
 															<hr />
 														</div>
 														<div class="col-md-12">
-															<ng-container class="education" formArrayName="acheivements">
+															<ng-container formArrayName="acheivements">
 																<label class="mb-1">Achievement</label>
 																<div class="row g-2 align-items-center">
-																	<ng-container *ngFor="let certificate of achievements.controls; let i = index" [formGroupName]="i">
+																	@for (certificate of achievements.controls; track certificate; let i = $index) {
+																	<ng-container [formGroupName]="i">
 																		<div class="col-md-6">
 																			<input pInputText fluid class="form-control w-100" placeholder="Enter Achievement" formControlName="certifications_achievement_name" (focusout)="resetMessageBox()" (focus)="updateMessageBox('certifications_achievement_name')" />
 																		</div>
@@ -682,6 +691,7 @@
 																			}
 																		</div>
 																	</ng-container>
+																	}
 																</div>
 															</ng-container>
 														</div>
@@ -707,7 +717,8 @@
 												<form [formGroup]="professionalTraitsForm">
 													<ng-container class="work-experience">
 														<ng-container formArrayName="languages">
-															<div class="row g-3" *ngFor="let language of languages.controls; let i = index" [formGroupName]="i">
+															@for (language of languages.controls; track language; let i = $index) {
+															<div class="row g-3" [formGroupName]="i">
 																@if(i > 0) {
 																<div class="col-md-12"><hr /></div>
 																}
@@ -734,6 +745,7 @@
 																</div>
 																}
 															</div>
+															}
 														</ng-container>
 														<div class="row mt-3">
 															<div class="col-12">
@@ -783,7 +795,8 @@
 															</div>
 															<div class="col-md-12">
 																<ng-container formArrayName="networking_social_media">
-																	<div class="row g-3 mb-3" *ngFor="let socialMediaItem of socialMedia.controls; let i = index" [formGroupName]="i">
+																	@for (socialMediaItem of socialMedia.controls; track socialMediaItem; let i = $index) {
+																	<div class="row g-3 mb-3" [formGroupName]="i">
 																		<div class="col-md-6 col-4">
 																			<label class="mb-1">Social Media</label>
 																			<p-select formControlName="networking_social_media" [options]="socialMedias" appendTo="body" placeholder="Select any social media platform" styleClass="w-100" (focusout)="resetMessageBox()" (ngModelChange)="changeSocialMedia($event)" (onShow)="updateMessageBox('networking_social_media')" [optionDisabled]="isDisabledSocialMedia">
@@ -805,6 +818,7 @@
 																		</div>
 																		}
 																	</div>
+																	}
 																</ng-container>
 															</div>
 															<div class="col-md-12">
@@ -930,7 +944,8 @@
 										<h4 class="card-title fw-bold">References & Endorsements</h4>
 										<form [formGroup]="referencesForm">
 											<ng-container class="work-experience" formArrayName="academicReferences">
-												<ng-container *ngFor="let academic of academicReferences.controls; let i = index" [formGroupName]="i">
+												@for (academic of academicReferences.controls; track academic; let i = $index) {
+												<ng-container [formGroupName]="i">
 													<div class="d-flex justify-content-between">
 														<h5 class="card-title mb-1">Academic Reference</h5>
 														@if(i !== 0) {
@@ -972,6 +987,7 @@
 														</div>
 													</div>
 												</ng-container>
+												}
 												<div class="row">
 													<div class="col-12">
 														<button pButton class="w-100 btn btn-outline-primary" (click)="addAcademicReference()">Add Academic Reference&nbsp;<i class="fa fa-plus"></i></button>
@@ -979,7 +995,8 @@
 												</div>
 											</ng-container>
 											<ng-container formArrayName="professional_references">
-												<ng-container class="work-experience" *ngFor="let reference of professionalReferences.controls; let i = index" [formGroupName]="i">
+												@for (reference of professionalReferences.controls; track reference; let i = $index) {
+												<ng-container [formGroupName]="i">
 													<div class="d-flex justify-content-between">
 														<h5 class="card-title my-3">Professional Reference</h5>
 														@if(i !== 0) {
@@ -1021,6 +1038,7 @@
 														</div>
 													</div>
 												</ng-container>
+												}
 												<div class="row">
 													<div class="col-12">
 														<button pButton class="w-100 btn btn-outline-primary" (click)="addProfessionalReference()">Add Professional Reference&nbsp;<i class="fa fa-plus"></i></button>
@@ -1434,9 +1452,11 @@
 	</ng-template>
 	<div class="card-body px-4 pb-4">
 		<div class="d-flex gap-3 justify-content-center">
-			<div *ngFor="let item of sampleProfileImages">
+			@for (item of sampleProfileImages; track item) {
+			<div>
 				<img [src]="item" style="max-width: 200px; width: 100%; aspect-ratio: 1/1" class="rounded-2 border img-fluid" alt="Sample Img" />
 			</div>
+			}
 		</div>
 	</div>
 </p-dialog>

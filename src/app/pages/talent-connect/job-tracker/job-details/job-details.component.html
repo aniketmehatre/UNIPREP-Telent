@@ -224,7 +224,8 @@
 													</div>
 													<div class="col-md-7">
 														<ul class="list-unstyled font-bold">
-															<li *ngFor="let lang of jobDetails?.languages" class="mb-3">
+															@for (lang of jobDetails?.languages; track lang.lang) {
+															<li class="mb-3">
 																<div class="d-flex align-items-center gap-2">
 																	<span class="me-2">{{ lang.lang }}</span>
 																	@if(lang.level) {
@@ -234,6 +235,7 @@
 																	}
 																</div>
 															</li>
+															}
 														</ul>
 													</div>
 												</div>
@@ -258,9 +260,9 @@
 																	jobDetails.compensation_structure }}</span>
 															}
 															@else {
-																<span *ngFor="let comp of jobDetails.compensation_structure"
-																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
-																	comp }}</span>
+																@for (comp of jobDetails.compensation_structure; track comp) {
+																<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ comp }}</span>
+																}
 															}
 														</div>
 													</div>
@@ -281,14 +283,12 @@
 														<div class="d-flex flex-wrap gap-2">
 															<!-- Handle both string and array formats -->
 															@if(!array.isArray(jobDetails.benefits_perks)) {
-																<span
-																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
-																	jobDetails.benefits_perks }}</span>
+																<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ jobDetails.benefits_perks }}</span>
 															}
 															@else {
-																<span *ngFor="let benefit of jobDetails.benefits_perks"
-																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
-																	benefit }}</span>
+																@for (benefit of jobDetails.benefits_perks; track benefit) {
+																<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ benefit }}</span>
+																}
 															}
 														</div>
 													</div>
@@ -309,14 +309,12 @@
 														<div class="d-flex flex-wrap gap-2">
 															<!-- Handle both string and array formats -->
 															@if(!array.isArray(jobDetails.soft_skills)) {
-																<span
-																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
-																	jobDetails.soft_skills }}</span>
+																<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ jobDetails.soft_skills }}</span>
 															}
 															@else {
-																<span *ngFor="let skill of jobDetails.soft_skills"
-																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
-																	skill }}</span>
+																@for (skill of jobDetails.soft_skills; track skill) {
+																<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ skill }}</span>
+																}
 															}
 														</div>
 													</div>
@@ -343,10 +341,11 @@
 																	jobDetails.hiring_stages }}</span>
 															}
 															@else {
-																<span *ngFor="let stage of jobDetails.hiring_stages"
-																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">
+																@for (stage of jobDetails.hiring_stages; track stage) {
+																<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">
 																	{{ stage.name || stage }}
 																</span>
+																}
 															}
 														</div>
 			
@@ -355,10 +354,11 @@
 			
 														<h6 class="mb-2 text-primary">Interview Format</h6>
 														<div class="d-flex flex-wrap gap-2 mb-4">
-															<span *ngFor="let stage of jobDetails.interview_format"
-																class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">
+															@for (stage of jobDetails.interview_format; track stage) {
+															<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">
 																{{ stage }}
 															</span>
+															}
 														</div>
 													</div>
 												</div>

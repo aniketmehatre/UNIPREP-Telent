@@ -48,14 +48,16 @@
 						<!-- Progress bar section -->
 						<div class="progress-container my-2 d-block d-lg-none">
 							<div class="progress-steps d-flex">
-								<div class="progress-step flex-fill" *ngFor="let stage of stages; let i = index">
+								@for (stage of stages; track stage.name; let i = $index) {
+								<div class="progress-step flex-fill">
 									<p-progressBar [value]="stage.completed ? 100 : 0" [showValue]="false"
 										[style]="{ height: '6px' }"></p-progressBar>
 									<div class="text-left">{{ i + 1 + " " + stage.name }}</div>
 								</div>
+								}
 							</div>
 						</div>
-						<ng-container *ngFor="let message of messages; let i = index">
+						@for (message of messages; track message.id; let i = $index) {
 							<div class="d-flex mb-2" [id]="'item-' + message.id" #msgRef>
 								<!-- Left Avatar (Company/Admin) -->
 								@if(message.added_by != 'Student') {
@@ -129,7 +131,7 @@
 								</div>
 								}
 							</div>
-						</ng-container>
+						}
 					</div>
 				</div>
 				}
