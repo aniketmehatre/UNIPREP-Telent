@@ -25,9 +25,7 @@
               "base": "dist/UNIPREP"
             },
             "index": "src/index.html",
-            "polyfills": [
-              "src/polyfills.ts"
-            ],
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -52,9 +50,7 @@
               }
             ],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "node_modules"
-              ]
+              "includePaths": ["node_modules"]
             },
             "styles": [
               "quill/dist/quill.core.css",
@@ -205,9 +201,7 @@
           "builder": "@angular/build:karma",
           "options": {
             "main": "src/test.ts",
-             "polyfills": [
-                    "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
@@ -216,12 +210,8 @@
               "src/uniprep-assets",
               "src/manifest.webmanifest"
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": [
-              "node_modules/file-saver/dist/FileSaver.js"
-            ]
+            "styles": ["src/styles.scss"],
+            "scripts": ["node_modules/file-saver/dist/FileSaver.js"]
           }
         }
       }

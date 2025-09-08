@@ -231,12 +231,12 @@ export class SidenavComponent {
       image: "fa-solid fa-file-user",
       subMenuBy: "Others",
     },
-    {
-      title: "Events",
-      url: "/pages/events",
-      image: "fa-solid fa-calendar-days",
-      subMenuBy: "Others",
-    },
+    // {
+    //   title: "Events",
+    //   url: "/pages/events",
+    //   image: "fa-solid fa-calendar-days",
+    //   subMenuBy: "Others",
+    // },
     {
       title: "Certificates",
       url: "/pages/mycertificate",
@@ -254,12 +254,12 @@ export class SidenavComponent {
       url: "/pages/subscriptions",
       image: "fa-solid fa-crown",
     },
-    {
-      title: "Tutorials",
-      url: "/pages/tutorials",
-      image: "fa-solid fa-video",
-      subMenuBy: "Support",
-    },
+    // {
+    //   title: "Tutorials",
+    //   url: "/pages/tutorials",
+    //   image: "fa-solid fa-video",
+    //   subMenuBy: "Support",
+    // },
     {
       title: "FAQ",
       url: "/pages/faq",

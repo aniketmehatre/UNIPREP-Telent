@@ -128,18 +128,18 @@ const routes: Routes = [
                 path: 'company-list',
                 component: CompanyListComponent
             },
-            {
-                path: 'events',
-                loadChildren: () => import('./events/event.module').then(m => m.EventsModule)
-            },
+            // {
+            //     path: 'events',
+            //     loadChildren: () => import('./events/event.module').then(m => m.EventsModule)
+            // },
             {
                 path: 'success-stories',
                 loadChildren: () => import('./success-stories/success-stories.module').then(m => m.SuccessStoriesModule)
             },
-            {
-                path: 'tutorials',
-                loadChildren: () => import('./tutorials/tutorials.module').then(m => m.TutorialsModule)
-            },
+            // {
+            //     path: 'tutorials',
+            //     loadChildren: () => import('./tutorials/tutorials.module').then(m => m.TutorialsModule)
+            // },
             {
                 path: 'pitch-deck',
                 component: PitchDeskComponent

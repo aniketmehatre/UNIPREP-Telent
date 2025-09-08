@@ -10,4 +10,4 @@ import {TooltipModule} from "primeng/tooltip";
     imports: [CommonModule, AccordionModule, NgForOf, NgSwitchCase, TooltipModule],
     exports: [AvatarComponent, ResultAccordionComponent]
 })
-export class SharedComponents {}
+export class SharedComponents {}``
