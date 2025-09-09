@@ -13,7 +13,7 @@
                 <!-- Scroll to section -->
                 <li [class.active]="isActive('profileCard')"
                     (click)="scrollToSection('profileCard'); setSwitchSection('profileCard');"><i
-                        class="fa-regular fa-user"></i>&nbsp;&nbsp;My Profile
+                        class="fa-regular fa-user"></i>&nbsp;&nbsp;Basic Details
                 </li>
                 <li [class.active]="isActive('securityCard')"
                     (click)="scrollToSection('securityCard'); setSwitchSection('securityCard');"><i
@@ -31,12 +31,16 @@
                     (click)="scrollToSection('inviteCard'); setSwitchSection('inviteCard');"><i
                         class="fa-regular fa-user-plus"></i>&nbsp;&nbsp;Invite A Friend
                 </li>
-                <hr/>
+                <li [class.active]="isActive('deactivateCard')"
+                    (click)="scrollToSection('deactivateCard'); setSwitchSection('deactivateCard');"><i
+                        class="fa-regular fa-user"></i>&nbsp;&nbsp;Deactivate
+                </li>
+                <hr />
                 <!-- Switch case below -->
                 <!-- <li [class.active]="isActive('jobProfile')" (click)="setSwitchSection('jobProfile')"><i class="fa-regular fa-user-tie"></i>&nbsp;&nbsp;Job Profile</li> -->
                 <li (click)="navigateToJobProfile()"><i class="fa-regular fa-user-tie"></i>&nbsp;&nbsp;Job Profile</li>
                 <li (click)="navigateToCVBuilder()"><i class="fa-light fa-file-zipper"></i>&nbsp;&nbsp;My Resumes</li>
-                <hr/>
+                <hr />
 
                 <li [class.active]="isActive('subscription')" (click)="setSwitchSection('subscription');"
                     *ngIf="isProfileMissing == 1">
@@ -51,36 +55,36 @@
                         </div>
                         <div class="col-12 mb-4">
                             <div style="display: flex; justify-content: space-between">
-                                <div style="font-size: 2.5rem"
-                                     aria-label="Profile completion percentage">{{ totalPercentage }}%
+                                <div style="font-size: 2.5rem" aria-label="Profile completion percentage">{{
+                                    totalPercentage }}%
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 mt-2">
                             <div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="progress"
-                                 [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
+                                [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
                                 <div class="progress-bar" [style.width.%]="progress"></div>
                             </div>
                             <span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700"
-                                  style="font-size: 0.8rem">Basic Details</span>
+                                style="font-size: 0.8rem">Basic Details</span>
                         </div>
                         <div class="col-12 mt-2">
                             <div class="progress-bar-container" role="progressbar"
-                                 [attr.aria-valuenow]="talentConnectPercentage" [attr.aria-valuemin]="0"
-                                 [attr.aria-valuemax]="100">
+                                [attr.aria-valuenow]="talentConnectPercentage" [attr.aria-valuemin]="0"
+                                [attr.aria-valuemax]="100">
                                 <div class="progress-bar2" [style.width.%]="talentConnectPercentage"></div>
                             </div>
                             <span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top" class="text-gray-700"
-                                  style="font-size: 0.8rem">Job Profile</span>
+                                style="font-size: 0.8rem">Job Profile</span>
                         </div>
                         <div class="col-12 mt-2">
                             <div class="progress-bar-container" role="progressbar"
-                                 [attr.aria-valuenow]="cvBuilderPercentage" [attr.aria-valuemin]="0"
-                                 [attr.aria-valuemax]="100">
+                                [attr.aria-valuenow]="cvBuilderPercentage" [attr.aria-valuemin]="0"
+                                [attr.aria-valuemax]="100">
                                 <div class="progress-bar3" [style.width.%]="cvBuilderPercentage"></div>
                             </div>
                             <span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700"
-                                  style="font-size: 0.8rem">CV Details</span>
+                                style="font-size: 0.8rem">CV Details</span>
                         </div>
                     </div>
                 </div>
@@ -92,27 +96,28 @@
             <!-- Header -->
             <div class="header d-flex justify-content-between align-items-center">
                 <div>
-          <span class="user-initials">
-            {{ getInitials(PersonalInfo?.name) }}
-          </span>
+                    <span class="user-initials">
+                        {{ getInitials(PersonalInfo?.name) }}
+                    </span>
                     <h5>
                         {{ PersonalInfo?.name }}
                         <span *ngIf="PersonalInfo?.plan_name" class="me-2">
-              <p-tag [style]="{ border: '1px solid var(--p-secondary-600)', background:'var(--p-secondary-500)', color: 'var(--p-neutral-50)'}"
-                     icon="fa-solid fa-web-awesome me-1"
-                     [value]="PersonalInfo?.plan_name" [rounded]="true"/>
-            </span>
+                            <p-tag
+                                [style]="{ border: '1px solid var(--p-secondary-600)', background:'var(--p-secondary-500)', color: 'var(--p-neutral-50)'}"
+                                icon="fa-solid fa-web-awesome me-1" [value]="PersonalInfo?.plan_name"
+                                [rounded]="true" />
+                        </span>
                         <span *ngIf="PersonalInfo?.plan_expire_date">
-              <p-tag [style]="{ border: '1px solid #b91c1c', color: 'var(--p-primary-950)'}"
-                     severity="danger" [value]="'Expires On : ' + PersonalInfo?.plan_expire_date" [rounded]="true"/>
-            </span>
+                            <p-tag [style]="{ border: '1px solid #b91c1c', color: 'var(--p-primary-950)'}"
+                                severity="danger" [value]="'Expires On : ' + PersonalInfo?.plan_expire_date"
+                                [rounded]="true" />
+                        </span>
                     </h5>
                     <!-- <span class="badge bg-warning">Student Plan</span> -->
-                    <span class="fontsizecontent"><i
-                            class="fab fa-google text-danger"></i>&nbsp;{{ PersonalInfo?.email }}</span> | <span
-                        class="fontsizecontent"> <i
-                        class="fab fa-whatsapp text-success"></i>&nbsp;{{ PersonalInfo?.country_code }} {{ PersonalInfo?.phone }}</span>
-                    <br/>
+                    <span class="fontsizecontent"><i class="fab fa-google text-danger"></i>&nbsp;{{ PersonalInfo?.email
+                        }}</span> | <span class="fontsizecontent"> <i class="fab fa-whatsapp text-success"></i>&nbsp;{{
+                        PersonalInfo?.country_code }} {{ PersonalInfo?.phone }}</span>
+                    <br />
                     <span class="fontsizecontent">{{ PersonalInfo?.city_name }}</span>
                 </div>
 
@@ -136,6 +141,24 @@
                                             <p>Name, Email, Country, Location, education & Last degree passing year</p>
                                         </div>
                                         <div class="col-md-9 col-lg-9 col-sm-12">
+                                            <div class="row text-start">
+                                                <h6><strong>Profile Picture</strong></h6>
+                                                <div class=" col-12 mb-3">
+                                                    @if(PersonalInfo?.dp_image) {
+                                                    <img [src]="PersonalInfo?.dp_image" styleClass="object-fit"
+                                                        style="max-width: 120px; width: 100%; aspect-ratio: 1/1; float: left;"
+                                                        class="rounded-2 border img-fluid" />
+                                                    }
+                                                    @else {
+                                                    <div class="mx-auto border rounded-2 d-flex align-items-center justify-content-center"
+                                                        style="background-color: var(--p-primary-50); max-width: 120px; width: 100%; aspect-ratio: 1/1;
+                                                        float: left;">
+                                                        <i style="color: var(--p-primary-200)"
+                                                            class="fa-solid fa-user fa-2x"></i>
+                                                    </div>
+                                                    }
+                                                </div>
+                                            </div>
                                             <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
                                                 <div class="container-fluid">
                                                     <div class="row">
@@ -144,42 +167,40 @@
                                                             <div class="form-group">
                                                                 <div class="mb-3">
                                                                     <input class="w-100" formControlName="name"
-                                                                           pInputText type="text"/>
+                                                                        pInputText type="text" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-lg-6 col-sm-12 p-2">
-                                                            <div style="display: flex; justify-content: space-between; font-weight: 500">
+                                                            <div
+                                                                style="display: flex; justify-content: space-between; font-weight: 500">
                                                                 <label>Email</label>
                                                                 <label *ngIf="PersonalInfo?.is_phn_or_whs_verified == 1"
-                                                                       style="color: #0a7fc7"
-                                                                ><span><i
-                                                                        class="fa-regular fa-envelope"></i>&nbsp;</span>Email
-                                                                    Verified</label
-                                                                >
+                                                                    style="color: #0a7fc7"><span><i
+                                                                            class="fa-regular fa-envelope"></i>&nbsp;</span>Email
+                                                                    Verified</label>
                                                             </div>
                                                             <div class="form-group">
                                                                 <div class="mb-3">
                                                                     <input class="w-100" formControlName="email"
-                                                                           pInputText type="text"/>
+                                                                        pInputText type="text" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-lg-6 col-sm-12 p-2">
-                                                            <div style="display: flex; justify-content: space-between; font-weight: 500">
+                                                            <div
+                                                                style="display: flex; justify-content: space-between; font-weight: 500">
                                                                 <label>Phone Number</label>
                                                                 <label *ngIf="PersonalInfo?.is_phn_or_whs_verified == 1"
-                                                                       style="color: #25d366"
-                                                                ><span><i
-                                                                        class="fa-brands fa-whatsapp"></i>&nbsp;</span>Whatsapp
-                                                                    Verified</label
-                                                                >
+                                                                    style="color: #25d366"><span><i
+                                                                            class="fa-brands fa-whatsapp"></i>&nbsp;</span>Whatsapp
+                                                                    Verified</label>
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <div class="mb-3">
                                                                     <input class="w-100" formControlName="phone"
-                                                                           pInputText type="text"/>
+                                                                        pInputText type="text" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -188,12 +209,12 @@
                                                             <div class="form-group">
                                                                 <div class="mb-3">
                                                                     <p-select styleClass="w-100"
-                                                                              formControlName="home_country"
-                                                                              appendTo="body" [options]="countryList"
-                                                                              [filter]="true" filterBy="work_location"
-                                                                              optionLabel="work_location"
-                                                                              optionValue="id" [virtualScroll]="true"
-                                                                              [virtualScrollItemSize]="50"></p-select>
+                                                                        formControlName="home_country" appendTo="body"
+                                                                        [options]="countryList" [filter]="true"
+                                                                        filterBy="work_location"
+                                                                        optionLabel="work_location" optionValue="id"
+                                                                        [virtualScroll]="true"
+                                                                        [virtualScrollItemSize]="50"></p-select>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -202,11 +223,10 @@
                                                             <div class="form-group">
                                                                 <div class="mb-3">
                                                                     <p-multiSelect styleClass="w-100"
-                                                                                   formControlName="interest_type"
-                                                                                   appendTo="body"
-                                                                                   [options]="interestMenuList"
-                                                                                   [filter]="true" optionLabel="name"
-                                                                                   optionValue="id"></p-multiSelect>
+                                                                        formControlName="interest_type" appendTo="body"
+                                                                        [options]="interestMenuList" [filter]="true"
+                                                                        optionLabel="name"
+                                                                        optionValue="id"></p-multiSelect>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -228,8 +248,8 @@
                                                             <div class="form-group">
                                                                 <div class="mb-3">
                                                                     <input class="w-100"
-                                                                           formControlName="current_education"
-                                                                           pInputText type="text"/>
+                                                                        formControlName="current_education" pInputText
+                                                                        type="text" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -238,22 +258,21 @@
                                                             <div class="form-group">
                                                                 <div class="mb-3">
                                                                     <p-datepicker [maxDate]="today" [showIcon]="true"
-                                                                                  appendTo="body" dateFormat="yy"
-                                                                                  view="year" [yearNavigator]="true"
-                                                                                  type="number"
-                                                                                  [yearRange]="'1950:' + currentYear"
-                                                                                  inputId="pickYear"
-                                                                                  formControlName="last_degree_passing_year"
-                                                                                  placeholder="Enter or pick year"
-                                                                                  (input)="onYearInput($event)"
-                                                                                  (keypress)="onKeyPress($event)"></p-datepicker>
+                                                                        appendTo="body" dateFormat="yy" view="year"
+                                                                        [yearNavigator]="true" type="number"
+                                                                        [yearRange]="'1950:' + currentYear"
+                                                                        inputId="pickYear"
+                                                                        formControlName="last_degree_passing_year"
+                                                                        placeholder="Enter or pick year"
+                                                                        (input)="onYearInput($event)"
+                                                                        (keypress)="onKeyPress($event)"></p-datepicker>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <button type="submit" class="btn btn-dark w-100"
-                                                                style="background-color: var(--p-primary-500) !important">
+                                                            style="background-color: var(--p-primary-500) !important">
                                                             {{ submitBtnName }}
                                                         </button>
                                                     </div>
@@ -272,25 +291,25 @@
                                         </div>
                                         <div class="col-md-9 col-lg-9 col-sm-12">
                                             <form [formGroup]="updatedPasswords"
-                                                  (ngSubmit)="UserUpdatePassword(updatedpasswords)">
+                                                (ngSubmit)="UserUpdatePassword(updatedpasswords)">
                                                 <div class="container-fluid">
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <label class="mb-1">Current Password</label>
                                                             <div class="position-relative">
                                                                 <input [type]="passwordFields.current.type"
-                                                                       class="form-control w-100"
-                                                                       formControlName="current_password"/>
+                                                                    class="form-control w-100"
+                                                                    formControlName="current_password" />
                                                                 <span class="passwordvisibility" role="button"
-                                                                      (click)="togglePassword('current')">
-                                  <i class="fa-solid"
-                                     [ngClass]="passwordFields.current.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
-                                </span>
+                                                                    (click)="togglePassword('current')">
+                                                                    <i class="fa-solid"
+                                                                        [ngClass]="passwordFields.current.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                                                                </span>
                                                             </div>
                                                             <div *ngIf="PasswordSubmitted && updatePassword['current_password']['errors']"
-                                                                 class="UserInfoValidation">
+                                                                class="UserInfoValidation">
                                                                 <div class="text-danger"
-                                                                     *ngIf="updatePassword['current_password']['errors']['required']">
+                                                                    *ngIf="updatePassword['current_password']['errors']['required']">
                                                                     Current Password is required
                                                                 </div>
                                                             </div>
@@ -300,18 +319,18 @@
                                                             <label class="mb-1">Set New Password</label>
                                                             <div class="position-relative">
                                                                 <input [type]="passwordFields.new.type"
-                                                                       class="form-control w-100"
-                                                                       formControlName="new_password"/>
+                                                                    class="form-control w-100"
+                                                                    formControlName="new_password" />
                                                                 <span class="passwordvisibility" role="button"
-                                                                      (click)="togglePassword('new')">
-                                  <i class="fa-solid"
-                                     [ngClass]="passwordFields.new.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
-                                </span>
+                                                                    (click)="togglePassword('new')">
+                                                                    <i class="fa-solid"
+                                                                        [ngClass]="passwordFields.new.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                                                                </span>
                                                             </div>
                                                             <div *ngIf="PasswordSubmitted && updatePassword['new_password']['errors']"
-                                                                 class="UserInfoValidation">
+                                                                class="UserInfoValidation">
                                                                 <div class="text-danger"
-                                                                     *ngIf="updatePassword['new_password']['errors']['required']">
+                                                                    *ngIf="updatePassword['new_password']['errors']['required']">
                                                                     New Password is required
                                                                 </div>
                                                             </div>
@@ -320,25 +339,25 @@
                                                             <label class="mb-1">Enter New Password Again</label>
                                                             <div class="position-relative">
                                                                 <input [type]="passwordFields.confirm.type"
-                                                                       class="form-control w-100"
-                                                                       formControlName="confirm_password"/>
+                                                                    class="form-control w-100"
+                                                                    formControlName="confirm_password" />
                                                                 <span class="passwordvisibility" role="button"
-                                                                      (click)="togglePassword('confirm')">
-                                  <i class="fa-solid"
-                                     [ngClass]="passwordFields.confirm.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
-                                </span>
+                                                                    (click)="togglePassword('confirm')">
+                                                                    <i class="fa-solid"
+                                                                        [ngClass]="passwordFields.confirm.visible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                                                                </span>
                                                             </div>
                                                             <div *ngIf="PasswordSubmitted && updatePassword['confirm_password']['errors']"
-                                                                 class="UserInfoValidation">
+                                                                class="UserInfoValidation">
                                                                 <div class="text-danger"
-                                                                     *ngIf="updatePassword['confirm_password']['errors']['required']">
+                                                                    *ngIf="updatePassword['confirm_password']['errors']['required']">
                                                                     Confirm Password is required
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12 col-12 text-md-end text-center mt-3">
                                                             <button pButton type="submit"
-                                                                    class="btn btn-primary p-button">Update Password
+                                                                class="btn btn-primary p-button">Update Password
                                                             </button>
                                                         </div>
                                                     </div>
@@ -363,8 +382,8 @@
                                                         <div class="text-muted small">{{ setting.description }}</div>
                                                     </div>
                                                     <p-toggle-switch (onChange)="confirmEmailToggle($event, setting)"
-                                                                     [ngModel]="setting.enabled === 1"
-                                                                     (ngModelChange)="setting.enabled = $event ? 1 : 0"></p-toggle-switch>
+                                                        [ngModel]="setting.enabled === 1"
+                                                        (ngModelChange)="setting.enabled = $event ? 1 : 0"></p-toggle-switch>
                                                 </div>
                                             </div>
                                         </div>
@@ -387,11 +406,12 @@
                                                         <strong>Google</strong>
                                                         <div class="text-muted small">
                                                             <span *ngIf="associatedMail"><i
-                                                                    class="fab fa-google text-danger"></i></span>&nbsp;{{ associatedMail }}
+                                                                    class="fab fa-google text-danger"></i></span>&nbsp;{{
+                                                            associatedMail }}
                                                         </div>
                                                     </div>
                                                     <div [ngClass]="associatedMail ? 'text-success' : 'text-danger'"
-                                                         class="small">
+                                                        class="small">
                                                         {{ associatedMail ? "Linked" : "Not Linked" }}
                                                     </div>
                                                 </div>
@@ -419,14 +439,40 @@
                                                     <i class="fa-regular fa-envelope" aria-hidden="true"></i>
                                                 </p-inputgroup-addon>
                                                 <input pInputText [(ngModel)]="sendInvite" type="email"
-                                                       placeholder="Enter Email Address"
-                                                       aria-label="Email address to send invite"/>
+                                                    placeholder="Enter Email Address"
+                                                    aria-label="Email address to send invite" />
                                             </p-inputgroup>
                                         </div>
                                         <div class="col-md-2 col-lg-2 col-sm-12 text-end mt-1">
                                             <button (click)="sendInviteMail()" pButton type="submit"
-                                                    class="btn btn-primary p-button">Send Invite
+                                                class="btn btn-primary p-button">Send Invite
                                             </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3" id="deactivateCard">
+                                <div class="card p-3 bg-white">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-3 col-lg-3 col-sm-12">
+                                            <div class="text-start">
+                                                <h6 class="mb-1 mt-2">
+                                                    <span class="emoji" aria-label="envelope">💌</span>
+                                                    <strong>Deactivate</strong>
+                                                </h6>
+                                                <p class="mb-0 fontsizecontent">Do you want to deactivate your account
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9 col-lg-9 col-sm-12">
+                                            <button (click)="isShowDeactivateAccountConfirmationPopUp = true"
+                                                type="button" class="btn btn-danger w-100"><i
+                                                    class="fa-thin fa-user"></i>&nbsp;&nbsp;Deactivate my
+                                                account</button>
+                                            <p class="mb-0 fontsizecontent text-center"><b>Note:</b> If you wish to
+                                                deactivate your
+                                                account in future plase contact support@uniprep.ai
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -446,7 +492,7 @@
                                                 <p class="mb-0 fontsizecontent">All the details about your previous
                                                     subscription parchases</p>
                                                 <button pButton class="btn btn-primary p-button"
-                                                        (click)="onClickUpgradePlan()" style="font-size: 0.8rem">Upgrade
+                                                    (click)="onClickUpgradePlan()" style="font-size: 0.8rem">Upgrade
                                                     Your Current Plan &nbsp; <i class="fa-solid fa-stars"></i></button>
                                             </div>
                                         </div>
@@ -465,10 +511,12 @@
                                                     <tr class="subscription-history-header"
                                                         style="background-color: #f9f9f9">
                                                         <td class="border-cell">{{ data.product }}</td>
-                                                        <td class="border-cell">{{ data.validity }} {{ data.validity == 1 ? "Month" : "Months" }}</td>
+                                                        <td class="border-cell">{{ data.validity }} {{ data.validity ==
+                                                            1 ? "Month" : "Months" }}</td>
                                                         <td class="border-cell">{{ data.startdate }}</td>
                                                         <td class="border-cell">{{ data.enddate }}</td>
-                                                        <td class="border-cell">{{ data.amount }} {{ data.currency }}</td>
+                                                        <td class="border-cell">{{ data.amount }} {{ data.currency }}
+                                                        </td>
                                                     </tr>
                                                 </ng-template>
                                             </p-table>
@@ -508,14 +556,14 @@
                                                         <td class="border-cell">{{ data.date }}</td>
                                                         <td class="border-cell">
                                                             <span *ngIf="data.reference"><i class="fa-solid fa-check"
-                                                                                            style="color: aquamarine"></i></span>
+                                                                    style="color: aquamarine"></i></span>
                                                         </td>
                                                         <td class="border-cell">{{ data.amount }}</td>
                                                         <td class="border-cell">
                                                             <button pButton class="btn btn-primary"
-                                                                    style="background-color: #90c436 !important; border-color: #90c436"
-                                                                    (click)="downloadInvoice(data.id)"
-                                                                    *ngIf="data.invoice != 'no'; else noData">Download
+                                                                style="background-color: #90c436 !important; border-color: #90c436"
+                                                                (click)="downloadInvoice(data.id)"
+                                                                *ngIf="data.invoice != 'no'; else noData">Download
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -533,6 +581,27 @@
     </div>
 </div>
 <p-confirmDialog></p-confirmDialog>
+<p-dialog [(visible)]="isShowDeactivateAccountConfirmationPopUp" [modal]="true" [closable]="false"
+    [style]="{width: '400px'}">
+    <ng-template pTemplate="header">
+        <h3 class="w-100 text-center text-danger">Deactivate Your Account</h3>
+    </ng-template>
+
+    <div class="card-body px-4 pb-4 text-center">
+        <p>
+            Are you sure you want to <strong>deactivate</strong> your account?
+        </p>
+    </div>
+
+    <ng-template pTemplate="footer text-center">
+        <div class="flex justify-content-center gap-3">
+            <button pButton label="Cancel" class="p-button-secondary"
+                (click)="isShowDeactivateAccountConfirmationPopUp=false"></button>
+            <button pButton label="Deactivate" class="p-button-danger" (click)="onDeactivateAccount()"></button>
+        </div>
+    </ng-template>
+</p-dialog>
+
 <!-- <p-dialog [(visible)]="isSampleProfileImgVisible" >
   <ng-template #header>
     <h3 class="w-100 text-center">Profile Photo Samples</h3>

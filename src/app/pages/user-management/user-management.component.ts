@@ -82,15 +82,15 @@ export class UserManagementComponent implements OnInit {
 	editLabelIsShow: boolean = true;
 	imageWhiteLabelDomainName: any;
 	userTypeId: boolean = true;
-    isProfileMissing: any;
-	profileSectionList: string[] = ['profileCard', 'securityCard', 'emailerCard', 'integrationsCard', 'inviteCard'];
+	isProfileMissing: any;
+	profileSectionList: string[] = ['profileCard', 'securityCard', 'emailerCard', 'integrationsCard', 'inviteCard', 'deactivateCard'];
 	interestMenuList: any[] = [];
-
+	isShowDeactivateAccountConfirmationPopUp: boolean = false;
 	constructor(private authService: AuthService, private formBuilder: FormBuilder, private locationService: LocationService,
 		private toast: MessageService, private dashboardService: DashboardService, private userManagementService: UserManagementService,
 		private router: Router, private _location: Location, private subscription: SubscriptionService, private confirmationService: ConfirmationService,
 		private authTokenService: AuthTokenService, private talentConnectService: TalentConnectService, private commonService: CommonService,
-                private talentService: TalentConnectService) {
+		private talentService: TalentConnectService) {
 
 		this.registrationForm = this.formBuilder.group({
 			name: [""],
@@ -119,8 +119,8 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-        this.isProfileMissing = this.talentService._employerProfileData?.profile_completion_flag;
-        this.setSwitchSection('profileCard');
+		this.isProfileMissing = this.talentService._employerProfileData?.profile_completion_flag;
+		this.setSwitchSection('profileCard');
 		this.userTypeId = this.authService._user?.student_type_id === 2
 		this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
 			this.imageWhiteLabelDomainName = data.source
@@ -439,10 +439,10 @@ export class UserManagementComponent implements OnInit {
 	emailSettings(email: any) {
 		const title = email.title
 		if (title == "Weekly Newsletter") {
-            const data = {
-                newsletter_consent: email.enabled
-            };
-            this.userManagementService.newsLetterConsent(data).subscribe({
+			const data = {
+				newsletter_consent: email.enabled
+			};
+			this.userManagementService.newsLetterConsent(data).subscribe({
 				next: (data: any) => {
 					this.toast.add({ severity: 'success', summary: 'Success', detail: data.message });
 				},
@@ -603,8 +603,20 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	navigateToJobProfile() {
-		this.talentConnectService._employerProfileData?.profile_completion_flag ? 
-		this.router.navigate(['/pages/talent-connect/my-profile', this.talentConnectService._employerProfileData.id]) :
-		this.router.navigate(['/pages/talent-connect/my-profile']);
+		this.talentConnectService._employerProfileData?.profile_completion_flag ?
+			this.router.navigate(['/pages/talent-connect/my-profile', this.talentConnectService._employerProfileData.id]) :
+			this.router.navigate(['/pages/talent-connect/my-profile']);
+	}
+
+	onDeactivateAccount() {
+		this.userManagementService.deactivateAccount().subscribe({
+			next: (data: any) => {
+				this.toast.add({ severity: 'success', summary: 'Success', detail: data.message });
+				this.logout();
+			},
+			error: (error) => {
+				console.error('Error fetching job listings:', error);
+			}
+		});
 	}
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import {environment} from "@env/environment";
+import { environment } from "@env/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -17,28 +17,28 @@ export class UserManagementService {
     });
   }
 
-  CompareUserPassword(data:any){
+  CompareUserPassword(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.httpClient.post<any>(environment.ApiUrl + "/CompareUserPassword", data, {
       headers: headers,
     });
   }
 
-  UpdateNewsLetter(data:number){
+  UpdateNewsLetter(data: number) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.httpClient.post<any>(environment.ApiUrl + "/UpdateNewsLetterNotification", data, {
       headers: headers,
     });
   }
 
-  GetPaidSubscriptionDetails(){
+  GetPaidSubscriptionDetails() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.httpClient.post<any>(environment.ApiUrl + "/SubscriptionValidity", {
       headers: headers,
     });
   }
 
-  GetUserPersonalInfo(){
+  GetUserPersonalInfo() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.httpClient.post<any>(environment.ApiUrl + "/GetUserPersonalDetails", {
       headers: headers,
@@ -51,27 +51,33 @@ export class UserManagementService {
       headers: headers,
     });
   }
-  newsLetterConsent(data:any){
+  newsLetterConsent(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.httpClient.post<any>(environment.ApiUrl + "/UpdateNewsLetterNotification",data, {
+    return this.httpClient.post<any>(environment.ApiUrl + "/UpdateNewsLetterNotification", data, {
       headers: headers,
     });
   }
-  promotionalEmailConsent(data:any){
+  promotionalEmailConsent(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.httpClient.post<any>(environment.ApiUrl + "/UpdatePromotionalEmailNotification",data, {
+    return this.httpClient.post<any>(environment.ApiUrl + "/UpdatePromotionalEmailNotification", data, {
       headers: headers,
     });
   }
-  productUpdateEmailConsent(data:any){
+  productUpdateEmailConsent(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
-    return this.httpClient.post<any>(environment.ApiUrl + "/UpdateProductUpdateNotification",data, {
+    return this.httpClient.post<any>(environment.ApiUrl + "/UpdateProductUpdateNotification", data, {
       headers: headers,
     });
   }
-  integrationPartActiveOrInactive(){
+  integrationPartActiveOrInactive() {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.httpClient.post<any>(environment.ApiUrl + "/getIntegratedEmail", {
+      headers: headers,
+    });
+  }
+  deactivateAccount() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.httpClient.get<any>(environment.ApiUrl + "/deactivateAccount", {
       headers: headers,
     });
   }
