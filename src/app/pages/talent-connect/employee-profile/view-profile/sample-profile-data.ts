@@ -30,7 +30,7 @@ export const SampleProfileData: ProfileData = {
         gender: 'Male',
         nationality: 'American',
         location: 'California',
-        logo: 'uniprep-assets/images/employer-connect/alex.jpg',
+        logo: '../../../uniprep-assets/images/employer-connect/alex.jpg',
         total_years_of_experience: '3 Years 8 Months',
     },
     educationDetails: [{

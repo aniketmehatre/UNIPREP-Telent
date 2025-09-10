@@ -63,7 +63,7 @@
 				</ng-container>
 				<ng-template #menu>
 					<div *ngIf="item?.subMenu" class="fw-semibold px-3 py-1 submenutitle mr-4">
-						{{ item.title }}
+						{{ item.title }} <i *ngIf="item?.premium" class="fa-solid fa-crown uniprep-secondary"></i>
 					</div>
 					<div [ngClass]="{ sidebarClass: item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ' || item.title == 'Subscription' || item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', 
 						unsidebarClass: item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title != '24x7 Support' && item.title != 'Events' && item.title != 'Subscription' && item.title != 'Resources' && item.title != 'Career Planner' && conditionSubscribed == false,
@@ -111,7 +111,7 @@
 		</ng-container>
 		<ng-template #menu>
 			<div *ngIf="item?.subMenu" class="fw-semibold px-3 py-1 submenutitle mr-4">
-				{{ item.title }}
+				{{ item.title }} <i *ngIf="item?.premium" class="fa-solid fa-crown uniprep-secondary"></i>
 			</div>
 			<div [ngClass]="{ sidebarClass: item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ' || item.title == 'Subscription' || item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', 
 				unsidebarClass: item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title != '24x7 Support' && item.title != 'Events' && item.title != 'Subscription' && item.title != 'Resources' && item.title != 'Career Planner',

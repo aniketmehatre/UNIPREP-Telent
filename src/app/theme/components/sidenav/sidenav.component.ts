@@ -27,6 +27,7 @@ export interface SideMenu {
   subMenu?: boolean;
   subMenuBy?: string;
   notInterested?: boolean;
+  premium?: boolean;
 }
 
 @Component({
@@ -109,7 +110,8 @@ export class SidenavComponent {
       title: "Career",
       url: "",
       image: "",
-      subMenu: true
+      subMenu: true,
+      premium: true
     },
     // {
     //   title: "Career Hub",
@@ -140,7 +142,8 @@ export class SidenavComponent {
       title: "Entrepreneur",
       url: "",
       image: "",
-      subMenu: true
+      subMenu: true,
+      premium: true
     },
     {
       title: "Startup Kit",
@@ -165,7 +168,8 @@ export class SidenavComponent {
       title: "International Education",
       url: "",
       image: "",
-      subMenu: true
+      subMenu: true,
+      premium: true
     },
     // {
     //   title: "Global Repository",
@@ -203,7 +207,8 @@ export class SidenavComponent {
       title: "Travel & Life",
       url: "",
       image: "",
-      subMenu: true
+      subMenu: true,
+      premium: true
     },
     {
       title: "Language Hub",
