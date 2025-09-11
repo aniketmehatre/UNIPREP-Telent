@@ -17,19 +17,19 @@
                                                              class="small-image text-left mb-2"
                                                              src="{{imageUrlWhitelabel}}"/> -->
                                                     <p-image [preview]="false" [routerLink]="['/']" role="button"
-                                                             alt="UNIPREP" (load)="loading = false"
-                                                             (error)="onImageError($event)" width="200" loading="eager"
-                                                             class="small-image text-left mb-2"
-                                                             src="{{ whiteLabelImage }}"/>
+                                                        alt="UNIPREP" (load)="loading = false"
+                                                        (error)="onImageError($event)" width="200" loading="eager"
+                                                        class="small-image text-left mb-2"
+                                                        src="{{ whiteLabelImage }}" />
                                                 </div>
 
                                                 <h4 class="mt-3 mb-2 fw-semibold text-center">Welcome, Please create
                                                     your account</h4>
-                                                <hr class="w-50 m-auto"/>
+                                                <hr class="w-50 m-auto" />
                                                 <p class="uniprep-lightgray mt-2 text-center">
                                                     Already have an account ? <span><a
-                                                        class="uniprep-primary text-decoration-none" role="button"
-                                                        routerLink="/login"> Login</a></span>
+                                                            class="uniprep-primary text-decoration-none" role="button"
+                                                            routerLink="/login"> Login</a></span>
                                                 </p>
                                                 <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
                                                     <div class="row registerForm">
@@ -41,32 +41,34 @@
                                                                     <i class="fa-regular fa-user"></i>
                                                                 </p-inputGroupAddon>
                                                                 <input type="text" pInputText id="fullName"
-                                                                       placeholder="Enter Full Name"
-                                                                       formControlName="fullName"
-                                                                       [pKeyFilter]="blockChars" (input)="formatName()"
-                                                                       [ngClass]="{ 'is-invalid': submitted && f['fullName']?.errors }"/>
+                                                                    placeholder="Enter Full Name"
+                                                                    formControlName="fullName" [pKeyFilter]="blockChars"
+                                                                    (input)="formatName()"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f['fullName']?.errors }" />
                                                             </p-inputGroup>
                                                             @if (submitted && f['fullName']?.errors) {
-                                                                <div class="invalid-feedback">
-                                                                    @if (f['fullName']?.errors?.required) {
-                                                                        <div>Full Name is required</div>
-                                                                    }
-                                                                </div>
+                                                            <div class="invalid-feedback">
+                                                                @if (f['fullName']?.errors?.required) {
+                                                                <div>Full Name is required</div>
+                                                                }
+                                                            </div>
                                                             }
                                                         </div>
 
                                                         <div class="col-md-12 mt-2">
-                                                            <label class="text-muted text-small" for="emailAddress"
-                                                            >Email Address
+                                                            <label class="text-muted text-small"
+                                                                for="emailAddress">Email Address
                                                                 @if (!isEmailOTPValidated && showEmailErrorIcon) {
-                                                                    <span>
-        <i class="fa-solid fa-circle-exclamation text-danger"></i>
-    </span>
+                                                                <span>
+                                                                    <i
+                                                                        class="fa-solid fa-circle-exclamation text-danger"></i>
+                                                                </span>
                                                                 }
                                                                 @if (isEmailOTPValidated) {
-                                                                    <span>
-        <i class="fa-solid fa-circle-check uniprep-primary"></i>
-    </span>
+                                                                <span>
+                                                                    <i
+                                                                        class="fa-solid fa-circle-check uniprep-primary"></i>
+                                                                </span>
                                                                 }
                                                                 <span class="required">*</span>
                                                             </label>
@@ -75,197 +77,195 @@
                                                                     <i class="fa-regular fa-envelope"></i>
                                                                 </p-inputGroupAddon>
                                                                 <input (keyup)="onChangeEmail($event)"
-                                                                       [disabled]="isEmailOTPSend"
-                                                                       [ngClass]="{ 'is-invalid': submitted && f['emailAddress']?.errors }"
-                                                                       [readonly]="isEmailOTPSend"
-                                                                       formControlName="emailAddress" id="emailAddress"
-                                                                       pInputText autocomplete="off"
-                                                                       placeholder="Enter Email Address" type="email"/>
+                                                                    [disabled]="isEmailOTPSend"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f['emailAddress']?.errors }"
+                                                                    [readonly]="isEmailOTPSend"
+                                                                    formControlName="emailAddress" id="emailAddress"
+                                                                    pInputText autocomplete="off"
+                                                                    placeholder="Enter Email Address" type="email" />
                                                             </p-inputGroup>
                                                             @if (isEmailOTPSend && !isRemainingFieldVisible) {
-                                                                <div class="edit-button text-end" role="button"
-                                                                     (click)="editEmailAgain()">Edit
-                                                                </div>
+                                                            <div class="edit-button text-end" role="button"
+                                                                (click)="editEmailAgain()">Edit
+                                                            </div>
                                                             }
                                                             @if (submitted && f['emailAddress']?.errors) {
-                                                                <div class="invalid-feedback">
-                                                                    @if (f['emailAddress']?.errors?.required) {
-                                                                        <div>Email Address is required</div>
-                                                                    }
-                                                                </div>
+                                                            <div class="invalid-feedback">
+                                                                @if (f['emailAddress']?.errors?.required) {
+                                                                <div>Email Address is required</div>
+                                                                }
+                                                            </div>
                                                             }
                                                         </div>
                                                         @if (!isEmailOTPSend && !isRemainingFieldVisible) {
-                                                            <div class="col-md-12 mt-2">
-                                                                <div class="row g-3">
-                                                                    <div class="col-md-12 col-12">
-                                                                        <div class="text-center mt-3">
-                                                                            <button pButton
-                                                                                    class="btn m-0 mt-3 btn-primary send-btn"
-                                                                                    type="button"
-                                                                                    (click)="sendEmailOTP()">
-                                                                                SEND OTP
-                                                                            </button>
-                                                                        </div>
+                                                        <div class="col-md-12 mt-2">
+                                                            <div class="row g-3">
+                                                                <div class="col-md-12 col-12">
+                                                                    <div class="text-center mt-3">
+                                                                        <button pButton
+                                                                            class="btn m-0 mt-3 btn-primary send-btn"
+                                                                            type="button" (click)="sendEmailOTP()">
+                                                                            SEND OTP
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
                                                         }
                                                         @if (isEmailOTPSend) {
-                                                            <div class="col-md-12 mt-2">
-                                                                <form [formGroup]="emailOTPForm" class="formOTP"
-                                                                      (ngSubmit)="onValidateEmailOTP()">
-                                                                    <h5 class="mt-3 text-center">Enter your OTP</h5>
-                                                                    <p class="text-center text-muted mb-3">
-                                                                        We've sent a 4-digit code to your email.<br/>
-                                                                        Please enter it below to verify your account.
-                                                                        <br/>
-                                                                    </p>
-                                                                    <p class="text-center uniprep-secondary">Note: If
-                                                                        you haven’t received the email, please check
-                                                                        your spam or promotions folder.</p>
-                                                                    <br/>
-                                                                    <div class="d-flex justify-content-center">
-                                                                        <p-inputotp formControlName="otp" [length]="4"
-                                                                                    placeholder="Enter OTP"></p-inputotp>
-                                                                    </div>
-                                                                    @if (otpError) {
-                                                                        <div class="invalid-feedback">
-                                                                            <div>Invalid OTP</div>
-                                                                        </div>
-                                                                    }
-                                                                    <div class="text-center mt-3">
-                                                                        <button pButton
-                                                                                class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
-                                                                                type="submit">VERIFY OTP
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="text-center text-muted mt-2">
-                                                                        Didn't receive the OTP? Click to
-                                                                        <span role="button" class="uniprep-primary"
-                                                                              (click)="sendEmailOTP()">resend</span>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
+                                                        <div class="col-md-12 mt-2">
+                                                            <form [formGroup]="emailOTPForm" class="formOTP"
+                                                                (ngSubmit)="onValidateEmailOTP()">
+                                                                <h5 class="mt-3 text-center">Enter your OTP</h5>
+                                                                <p class="text-center text-muted mb-3">
+                                                                    We've sent a 4-digit code to your email.<br />
+                                                                    Please enter it below to verify your account.
+                                                                    <br />
+                                                                </p>
+                                                                <p class="text-center uniprep-secondary">Note: If
+                                                                    you haven’t received the email, please check
+                                                                    your spam or promotions folder.</p>
+                                                                <br />
+                                                                <div class="d-flex justify-content-center">
+                                                                    <p-inputotp formControlName="otp" [length]="4"
+                                                                        placeholder="Enter OTP"></p-inputotp>
+                                                                </div>
+                                                                @if (otpError) {
+                                                                <div class="invalid-feedback">
+                                                                    <div>Invalid OTP</div>
+                                                                </div>
+                                                                }
+                                                                <div class="text-center mt-3">
+                                                                    <button pButton
+                                                                        class="pt-2 pb-2 btn btn-primary btn-login text-uppercase fw-bold m-0 w-50"
+                                                                        type="submit">VERIFY OTP
+                                                                    </button>
+                                                                </div>
+                                                                <div class="text-center text-muted mt-2">
+                                                                    Didn't receive the OTP? Click to
+                                                                    <span role="button" class="uniprep-primary"
+                                                                        (click)="sendEmailOTP()">resend</span>
+                                                                </div>
+                                                            </form>
+                                                        </div>
                                                         }
                                                     </div>
 
                                                     @if (isRemainingFieldVisible) {
-                                                        <div>
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-12">
-                                                                    <label class="text-muted text-small" for="password">Password<span
-                                                                            class="required">*</span></label>
-                                                                    <p-inputGroup>
-                                                                        <p-inputGroupAddon>
-                                                                            <i class="fa-regular fa-lock"></i>
-                                                                        </p-inputGroupAddon>
-                                                                        <input
-                                                                                [type]="password"
-                                                                                pInputText
-                                                                                id="password"
-                                                                                formControlName="password"
-                                                                                placeholder="Enter Password"
-                                                                                autocomplete="off"
-                                                                                [ngClass]="{
+                                                    <div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-12">
+                                                                <label class="text-muted text-small"
+                                                                    for="password">Password<span
+                                                                        class="required">*</span></label>
+                                                                <p-inputGroup>
+                                                                    <p-inputGroupAddon>
+                                                                        <i class="fa-regular fa-lock"></i>
+                                                                    </p-inputGroupAddon>
+                                                                    <input [type]="password" pInputText id="password"
+                                                                        formControlName="password"
+                                                                        placeholder="Enter Password" autocomplete="off"
+                                                                        [ngClass]="{
    																'is-invalid': submitted && f['password']?.errors
-   															}"/>
-                                                                        <p-inputGroupAddon>
+   															}" />
+                                                                    <p-inputGroupAddon>
                                                                         <span (click)="showHidePassword()">
                                                                             @if (!show) {
-                                                                                <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                                                                            <i class="fa-regular fa-eye"
+                                                                                aria-hidden="true"></i>
                                                                             }
                                                                             @if (show) {
-                                                                                <i class="fa-regular fa-eye-slash" aria-hidden="true"></i>
+                                                                            <i class="fa-regular fa-eye-slash"
+                                                                                aria-hidden="true"></i>
                                                                             }
                                                                         </span>
-                                                                        </p-inputGroupAddon>
-                                                                    </p-inputGroup>
-                                                                    @if (submitted && f['password']?.errors) {
-                                                                        <div class="invalid-feedback">
-                                                                            @if (f['password']?.errors?.required) {
-                                                                                <div>Password is required</div>
-                                                                            }
-                                                                            @if (f['password']?.errors?.minlength) {
-                                                                                <div>Password must be at least 8
-                                                                                    characters
-                                                                                </div>
-                                                                            }
-                                                                        </div>
+                                                                    </p-inputGroupAddon>
+                                                                </p-inputGroup>
+                                                                @if (submitted && f['password']?.errors) {
+                                                                <div class="invalid-feedback">
+                                                                    @if (f['password']?.errors?.required) {
+                                                                    <div>Password is required</div>
+                                                                    }
+                                                                    @if (f['password']?.errors?.minlength) {
+                                                                    <div>Password must be at least 8
+                                                                        characters
+                                                                    </div>
                                                                     }
                                                                 </div>
-                                                                <div class="col-md-6 col-12">
-                                                                    <label class="text-muted text-small"
-                                                                           for="confirmPassword">Confirm Password<span
-                                                                            class="required">*</span></label>
-                                                                    <p-inputGroup>
-                                                                        <p-inputGroupAddon>
-                                                                            <i class="fa-regular fa-lock-hashtag"></i>
-                                                                        </p-inputGroupAddon>
-                                                                        <input
-                                                                                [type]="confirmPassword"
-                                                                                pInputText
-                                                                                placeholder=" Enter Confirm Password"
-                                                                                id="confirmPassword"
-                                                                                autocomplete="off"
-                                                                                formControlName="confirmPassword"
-                                                                                [ngClass]="{
-   																'is-invalid': submitted && f['confirmPassword']?.errors
-   															}"/>
-                                                                        <p-inputGroupAddon>
-    <span (click)="showHideConfirmPassword()">
-        @if (!showConfirm) {
-            <i class="fa-regular fa-eye" aria-hidden="true"></i>
-        }
-        @if (showConfirm) {
-            <i class="fa-regular fa-eye-slash" aria-hidden="true"></i>
-        }
-    </span>
-                                                                        </p-inputGroupAddon>
-                                                                    </p-inputGroup>
-                                                                    @if (submitted && f['confirmPassword']?.errors) {
-                                                                        <div class="invalid-feedback">
-                                                                            @if (f['confirmPassword'].hasError('matching')) {
-                                                                                <div style="width: 120%">Password and
-                                                                                    confirm password not match
-                                                                                </div>
-                                                                            }
-                                                                            @if (f['confirmPassword']?.errors?.required) {
-                                                                                <div>Confirm Password is required</div>
-                                                                            }
-                                                                        </div>
-                                                                    }
-                                                                </div>
+                                                                }
                                                             </div>
-                                                            <div class="col-md-12 mt-4">
-                                                                <div class="d-grid">
-                                                                    <button pButton [disabled]="onProcess"
-                                                                            class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold h5 m-0 text-dark"
-                                                                            type="submit">Sign Up
-                                                                    </button>
+                                                            <div class="col-md-6 col-12">
+                                                                <label class="text-muted text-small"
+                                                                    for="confirmPassword">Confirm Password<span
+                                                                        class="required">*</span></label>
+                                                                <p-inputGroup>
+                                                                    <p-inputGroupAddon>
+                                                                        <i class="fa-regular fa-lock-hashtag"></i>
+                                                                    </p-inputGroupAddon>
+                                                                    <input [type]="confirmPassword" pInputText
+                                                                        placeholder=" Enter Confirm Password"
+                                                                        id="confirmPassword" autocomplete="off"
+                                                                        formControlName="confirmPassword" [ngClass]="{
+   																'is-invalid': submitted && f['confirmPassword']?.errors
+   															}" />
+                                                                    <p-inputGroupAddon>
+                                                                        <span (click)="showHideConfirmPassword()">
+                                                                            @if (!showConfirm) {
+                                                                            <i class="fa-regular fa-eye"
+                                                                                aria-hidden="true"></i>
+                                                                            }
+                                                                            @if (showConfirm) {
+                                                                            <i class="fa-regular fa-eye-slash"
+                                                                                aria-hidden="true"></i>
+                                                                            }
+                                                                        </span>
+                                                                    </p-inputGroupAddon>
+                                                                </p-inputGroup>
+                                                                @if (submitted && f['confirmPassword']?.errors) {
+                                                                <div class="invalid-feedback">
+                                                                    @if (f['confirmPassword'].hasError('matching')) {
+                                                                    <div style="width: 120%">Password and
+                                                                        confirm password not match
+                                                                    </div>
+                                                                    }
+                                                                    @if (f['confirmPassword']?.errors?.required) {
+                                                                    <div>Confirm Password is required</div>
+                                                                    }
                                                                 </div>
+                                                                }
                                                             </div>
                                                         </div>
+                                                        <div class="col-md-12 mt-4">
+                                                            <div class="d-grid">
+                                                                <button pButton [disabled]="onProcess"
+                                                                    class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold h5 m-0 text-dark"
+                                                                    type="submit">Sign Up
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     }
                                                 </form>
-                                                <div class="d-flex justify-content-center align-items-center mt-3 gap-2 text-start">
+                                                <div
+                                                    class="d-flex justify-content-center align-items-center mt-3 gap-2 text-start">
                                                     <p class="fs-13 text-body-tertiary">Having trouble registering?
                                                         Check out how to get started.</p>
                                                     <button pButton (click)="openVideoPopup()"
-                                                            class="how-it-works-button px-5 px-md-3">How it works?<i
+                                                        class="how-it-works-button px-5 px-md-3">How it works?<i
                                                             class="fa-solid fa-play d-md-block d-none"></i></button>
                                                 </div>
-                                                <div class="d-flex justify-content-between gap-2 align-items-center my-3">
-                                                    <hr class="w-100"/>
+                                                <div class="d-flex justify-content-between gap-2 align-items-center my-3"
+                                                    *ngIf="isSourceInstitute">
+                                                    <hr class="w-100" />
                                                     <span>OR</span>
-                                                    <hr class="w-100"/>
+                                                    <hr class="w-100" />
                                                 </div>
-                                                <div class="d-flex justify-content-between">
+                                                <div class="d-flex justify-content-between" *ngIf="isSourceInstitute">
                                                     <div class="w-100">&nbsp;</div>
                                                     <div class="w-100">
                                                         <asl-google-signin-button width="300" logo_alignment="center"
-                                                                                  text="signup_with" type="standard"
-                                                                                  size="large"></asl-google-signin-button>
+                                                            text="signup_with" type="standard"
+                                                            size="large"></asl-google-signin-button>
                                                     </div>
                                                     <div class="w-100">&nbsp;</div>
                                                 </div>

@@ -50,6 +50,7 @@ export class RegistrationComponent implements OnInit {
     isEmailOTPSend: boolean = false
     isEmailOTPValidated: boolean = false
     isRemainingFieldVisible: boolean = false
+    isSourceInstitute: boolean = true
 
     // Password field visibility toggles
     password: 'password' | 'text' = 'password'
@@ -115,6 +116,9 @@ export class RegistrationComponent implements OnInit {
 
         // Load white-label configuration (source name and logo) based on domain
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
+            if (data.source == 'Institute') {
+                this.isSourceInstitute = false
+            }
             this.source = data.name;
             this.whiteLabelImage = data.logo
         })

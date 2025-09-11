@@ -1,5 +1,5 @@
-import {GoogleSigninButtonModule, SocialAuthService, SocialLoginModule,} from '@abacritt/angularx-social-login'
-import {CommonModule} from "@angular/common"
+import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule, } from '@abacritt/angularx-social-login'
+import { CommonModule } from "@angular/common"
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -12,30 +12,30 @@ import {
     signal,
     ViewChild
 } from "@angular/core"
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
-import {Router, RouterModule} from "@angular/router"
-import {environment} from "@env/environment"
-import {LocalStorageService} from "ngx-localstorage"
-import {MessageService} from "primeng/api"
-import {ButtonModule} from "primeng/button"
-import {FluidModule} from "primeng/fluid"
-import {Image} from "primeng/image"
-import {InputGroupModule} from "primeng/inputgroup"
-import {InputGroupAddonModule} from "primeng/inputgroupaddon"
-import {InputIconModule} from "primeng/inputicon"
-import {InputTextModule} from "primeng/inputtext"
-import {PasswordModule} from "primeng/password"
-import {SkeletonModule} from "primeng/skeleton"
-import {finalize} from 'rxjs/operators'
-import {AuthTokenService} from "src/app/services/auth-token.service"
-import {BrandColorService} from "src/app/services/brand-color.service"
-import {CountryLocationService} from "src/app/services/country-location.service"
-import {DataService} from "src/app/services/data.service"
-import {HowItWorksComponent} from "src/app/shared/how-it-works/how-it-works.component"
-import {HowItWorksService} from "src/app/shared/how-it-works/how-it-works.service"
-import {SubSink} from "subsink"
-import {LocationService} from "../../services/location.service"
-import {AuthService} from "../auth.service"
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms"
+import { Router, RouterModule } from "@angular/router"
+import { environment } from "@env/environment"
+import { LocalStorageService } from "ngx-localstorage"
+import { MessageService } from "primeng/api"
+import { ButtonModule } from "primeng/button"
+import { FluidModule } from "primeng/fluid"
+import { Image } from "primeng/image"
+import { InputGroupModule } from "primeng/inputgroup"
+import { InputGroupAddonModule } from "primeng/inputgroupaddon"
+import { InputIconModule } from "primeng/inputicon"
+import { InputTextModule } from "primeng/inputtext"
+import { PasswordModule } from "primeng/password"
+import { SkeletonModule } from "primeng/skeleton"
+import { finalize } from 'rxjs/operators'
+import { AuthTokenService } from "src/app/services/auth-token.service"
+import { BrandColorService } from "src/app/services/brand-color.service"
+import { CountryLocationService } from "src/app/services/country-location.service"
+import { DataService } from "src/app/services/data.service"
+import { HowItWorksComponent } from "src/app/shared/how-it-works/how-it-works.component"
+import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.service"
+import { SubSink } from "subsink"
+import { LocationService } from "../../services/location.service"
+import { AuthService } from "../auth.service"
 
 declare var google: any;
 
@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private countryLocationService = inject(CountryLocationService);
     loading = true;
     jobId: any
-
+    isSourceInstitute: boolean = true
     get canSubmit() {
         return this.loginForm.valid && !this.isLoading();
     }
@@ -134,6 +134,10 @@ export class LoginComponent implements OnInit, OnDestroy {
             })
         this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
             this.coBrandedImageUrl.set(data.logo)
+            if (data.source == 'Institute') {
+                this.isSourceInstitute = false
+            }
+
             if (data.brand_primary_color && data.brand_secondary_color) {
                 this.brandColorService.fetchAndApplyColors(data.brand_primary_color, data.brand_secondary_color)
             } else {
@@ -151,7 +155,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             password: ["", [Validators.required]],
             domain_type: ['main']
         })
-        this.loginForm.patchValue({domain_type: this.domainName()})
+        this.loginForm.patchValue({ domain_type: this.domainName() })
     }
 
     openVideoPopup() {
@@ -251,7 +255,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.isLoading.set(true)
             this.cdr.markForCheck()
 
-            this.service.isExist({email: user.email}).pipe(
+            this.service.isExist({ email: user.email }).pipe(
                 finalize(() => {
                     this.isLoading.set(false)
                     this.cdr.markForCheck()
@@ -261,7 +265,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     if (exists === "Exist") {
                         this.handleSocialLogin(user)
                     } else {
-                        this.toast.add({severity: "info", summary: "Info", detail: "Email not exist, Try Register"})
+                        this.toast.add({ severity: "info", summary: "Info", detail: "Email not exist, Try Register" })
                     }
                 },
                 error: (error) => {
@@ -287,7 +291,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         ).subscribe({
             next: (response) => {
                 if (response.status === "false") {
-                    this.toast.add({severity: "error", summary: "Error", detail: response.message || 'Login failed'})
+                    this.toast.add({ severity: "error", summary: "Error", detail: response.message || 'Login failed' })
                     return
                 }
                 this.handleSuccessfulLogin(response.token)
@@ -316,7 +320,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     country: this.locationData.country_name,
                 };
                 this.locationService.sendSessionData(req, "login").subscribe();
-                this.toast.add({severity: "success", summary: "Success", detail: "Login Successful"})
+                this.toast.add({ severity: "success", summary: "Success", detail: "Login Successful" })
                 if (!userDetails.city_id) {
                     setTimeout(() => {
                         this.updateLocation();
@@ -327,12 +331,12 @@ export class LoginComponent implements OnInit, OnDestroy {
                 //     this.route.navigate([this.jobId], { replaceUrl: true })
                 // }
                 if (userData.userdetails[0].last_url) {
-                    this.route.navigate([userData.userdetails[0].last_url], {replaceUrl: true})
+                    this.route.navigate([userData.userdetails[0].last_url], { replaceUrl: true })
                 }
                 if (this.jobId) {
-                    this.route.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`], {replaceUrl: true})
+                    this.route.navigate([`/pages/talent-connect/easy-apply/${this.storage.get('jobId')}`], { replaceUrl: true })
                 } else {
-                    this.route.navigate(["/pages/dashboard"], {replaceUrl: true})
+                    this.route.navigate(["/pages/dashboard"], { replaceUrl: true })
                 }
             },
             error: (error) => {
