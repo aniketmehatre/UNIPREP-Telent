@@ -1,4 +1,5 @@
-<div *ngIf="isDeviceStatusPopupView">
+@if (isDeviceStatusPopupView) {
+<div>
 	<section class="pe-md-3 pe-0">
 		<div id="sidenav">
 			<uni-sidenav>
@@ -13,16 +14,16 @@
 		<div (scroll)="onWindowScroll($event)" id="page">
 			<uni-header (togleSidebar)="togleSidebar()" [expandicon]="expandicon" [ngClass]="{ sticky: stickHeader }"> </uni-header>
 			<div id="page-container">
-				<uni-header-search *ngIf="showSearch"></uni-header-search>
+				@if(showSearch){<uni-header-search></uni-header-search>}
 				<router-outlet></router-outlet>
-				<!-- <uni-footer-status-box *ngIf="isFooterBoxVisible"></uni-footer-status-box> -->
+				<!-- @if(isFooterBoxVisible){<uni-footer-status-box></uni-footer-status-box>} -->
 			</div>
 
 			<footer [ngClass]="{ alignleft: !!sidebarClass }" class="footer-section d-md-block d-none">
 				<div class="container-fluid py-2">
 					<div class="row align-items-center">
 						<div class="col-md-6 text-md-start text-center">
-							<p *ngIf="footerIsShow" class="mb-0 fw-semibold small">2024 &#169; All rights reserved by UPREP TECHNOLOGY PVT LTD</p>
+							@if(footerIsShow){<p class="mb-0 fw-semibold small">2024 &#169; All rights reserved by UPREP TECHNOLOGY PVT LTD</p>}
 						</div>
 						<ul class="nav justify-content-md-end justify-content-center col-md-6 small">
 							<li class="nav-item">
@@ -61,8 +62,9 @@
 		</div>
 	</section>
 </div>
-
-<div *ngIf="!isDeviceStatusPopupView" [ngStyle]="{ display: isDeviceStatus }" class="modal modal-bg multiDeviceLogoutPopup" role="dialog" tabindex="-1">
+}
+@if (!isDeviceStatusPopupView) {
+<div [ngStyle]="{ display: isDeviceStatus }" class="modal modal-bg multiDeviceLogoutPopup" role="dialog" tabindex="-1">
 	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 		<div class="modal-content card bg-light">
 			<div class="modal-body card-body">
@@ -103,7 +105,7 @@
 		</div>
 	</div>
 </div>
-
+}
 <div [ngStyle]="{ display: isLoggedInAnotherDevice }" class="modal modal-bg multiDeviceLogoutPopup" role="dialog" tabindex="-1">
 	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 		<div class="modal-content card bg-light">
@@ -127,38 +129,23 @@
 <p-dialog [(visible)]="howItWorksVideoModal" [breakpoints]="{ '960px': '75vw', '959px': '80vw', '425px': '90vw' }" [draggable]="false" [resizable]="false" header="Video" class="video-dialog" [modal]="true">
 	<div class="video-wrapper">
 		<div class="video-container">
-			<iframe #videoFrame *ngIf="howItWorksVideoLink" [src]="howItWorksVideoLink" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen> </iframe>
+			@if(howItWorksVideoLink) {<iframe #videoFrame [src]="howItWorksVideoLink" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen> </iframe>}
 		</div>
 	</div>
 	<ng-template pTemplate="footer">
 		<div class="flex justify-content-end gap-2">
 			<button pButton pButton (click)="closeVideoPopup()" label="Close" class="p-button-text"></button>
-			<button pButton pButton *ngIf="isYoutubeVideoLink(howItWorksVideoLink?.toString() || '')" (click)="openVideoInYoutube()" label="Open in YouTube" class="p-button-text"></button>
+			@if(isYoutubeVideoLink(howItWorksVideoLink?.toString() || '')) {<button pButton pButton (click)="openVideoInYoutube()" label="Open in YouTube" class="p-button-text"></button>}
 		</div>
 	</ng-template>
 </p-dialog>
-<!-- <div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': howItWorksVideoModal }">
-	<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-body position-relative pt-4">
-				<div class="modalbuttons">
-					<div class="d-flex gap-2">
-						<button pButton  title="New Window" type="button" class="btn btn-primary btn-rounded" (click)="openVideoInYoutube()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-						<button pButton  type="button" title="Close Popupssss" class="btn btn-primary btn-rounded" (click)="closeVideoPopup()"><i class="fa-solid fa-xmark"></i></button>
-					</div>
-				</div>
-				<div class="embed-responsive" *ngIf="howItWorksVideoLink"><iframe #videoFrame [src]="howItWorksVideoLink" width="100%"
-                                                      frameborder="0" allowfullscreen></iframe></div>
-			</div>
-		</div>
-	</div>
-</div> -->
+
 <!-- <div class="floating-buttons">
 	<div class="floating-btn ai" (mouseenter)="hovered = 'ai'" (mouseleave)="hovered = null"
 		routerLink="/pages/advisor">
 		<div class="btn-content" [class.expanded]="hovered === 'ai'">
 			<i class="fa-regular fa-microchip-ai icon"> </i> &nbsp;
-			<span *ngIf="hovered === 'ai'" class="label"> AI Advisor </span>
+			@if(hovered === 'ai') {<span class="label"> AI Advisor </span>}
 		</div>
 	</div>
 </div> -->
@@ -166,7 +153,7 @@
 	<div class="floating-btn1 whatsapp" (mouseenter)="hovered1 = 'wa'" (mouseleave)="hovered1 = null">
 		<div class="btn-content1" [class.expanded1]="hovered1 === 'wa'">
 			<i class="fa-brands fa-whatsapp icon1"> </i> &nbsp;
-			<span *ngIf="hovered1 === 'wa'" class="label1"> 24/7 Support </span>
+			@if(hovered1 === 'wa') {<span class="label1"> 24/7 Support </span>}
 		</div>
 	</div>
 </div> -->
