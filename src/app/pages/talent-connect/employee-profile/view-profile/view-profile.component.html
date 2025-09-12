@@ -166,7 +166,12 @@
                 </div>
                 <div class="col-md-4 mb-3">
                   <div class="text-primary fw-bold">Salary per month</div>
-                  <div>{{ exp.salary ? exp.exp_currency + " " + exp.salary : "Not specified" }}</div>
+                  @if(exp.noExpectation) {
+                  <div>Open to work for Experience (Unpaid)</div>
+                  }
+                  @else {
+                    <div>{{ exp.salary ? exp.exp_currency + " " + exp.salary : "Open to work for Experience (Unpaid)" }}</div>
+                  }
                 </div>
                 <div class="col-12 mb-3">
                   <div class="text-primary fw-bold">Job Responsibilities</div>

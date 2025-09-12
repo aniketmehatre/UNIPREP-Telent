@@ -224,51 +224,56 @@
 					<div class="fw-bold fs-5 mb-3">Work Experience Details </div>
 					<div class="row">
 						@for (exp of profileData?.work_experience; track exp.company_name) {
-							<div class="col-md-4 col-xl-3 mb-3">
-								<div class="text-primary fw-bold">Company Name</div>
-								<div>{{ exp?.company_name || "Not specified" }}</div>
-							</div>
-							<div class="col-md-4 col-xl-3 mb-3">
-								<div class="text-primary fw-bold">Job Title</div>
-								<div>{{ exp?.job_title || "Not specified" }}</div>
-							</div>
-							<div class="col-md-4 col-xl-3 mb-3">
-								<div class="text-primary fw-bold">Duration</div>
-								<div>{{ exp?.duration_from + " - " + exp?.duration_to || "Not specified" }}</div>
-							</div>
-							<div class="col-md-4 col-xl-3 mb-3">
-								<div class="text-primary fw-bold">Years of Experience</div>
-								<div>{{ exp?.years_of_experience || "Not specified" }}</div>
-							</div>
-							<div class="col-12 d-none d-md-block">
-								<hr />
-							</div>
-							<div class="col-md-4 col-xl-3 mb-3">
-								<div class="text-primary fw-bold">Employment Type</div>
-								<div>{{ exp?.employment_type || "Not specified" }}</div>
-							</div>
-							<div class="col-md-4 col-xl-3 mb-3">
-								<div class="text-primary fw-bold">Salary per month</div>
-								<div>{{ exp?.salary_per_month || "Not specified" }}</div>
-							</div>
-							<div class="col-12 d-none d-md-block">
-								<hr />
-							</div>
-							<div class="col-md-8 mb-3">
-								<div class="text-primary fw-bold">Job Responsibilities</div>
-								<div [innerHTML]="exp?.job_responsibilities || 'Not specified'"></div>
-							</div>
-							@if(exp?.experience_letter) {
-							<div class="col-md-4 mb-3">
-								<div class="text-primary fw-bold">Experience Letter</div>
-								<button pButton [label]="extractFileName(exp?.experience_letter)" icon="pi pi-download"
-									class="p-button-outlined p-button-secondary mb-2 justify-content-between"
-									(click)="openView(exp?.experience_letter)" iconPos="right"></button>
-							</div>
+						<div class="col-md-4 col-xl-3 mb-3">
+							<div class="text-primary fw-bold">Company Name</div>
+							<div>{{ exp?.company_name || "Not specified" }}</div>
+						</div>
+						<div class="col-md-4 col-xl-3 mb-3">
+							<div class="text-primary fw-bold">Job Title</div>
+							<div>{{ exp?.job_title || "Not specified" }}</div>
+						</div>
+						<div class="col-md-4 col-xl-3 mb-3">
+							<div class="text-primary fw-bold">Duration</div>
+							<div>{{ exp?.duration_from + " - " + exp?.duration_to || "Not specified" }}</div>
+						</div>
+						<div class="col-md-4 col-xl-3 mb-3">
+							<div class="text-primary fw-bold">Years of Experience</div>
+							<div>{{ exp?.years_of_experience || "Not specified" }}</div>
+						</div>
+						<div class="col-12 d-none d-md-block">
+							<hr />
+						</div>
+						<div class="col-md-4 col-xl-3 mb-3">
+							<div class="text-primary fw-bold">Employment Type</div>
+							<div>{{ exp?.employment_type || "Not specified" }}</div>
+						</div>
+						<div class="col-md-4 col-xl-3 mb-3">
+							<div class="text-primary fw-bold">Salary per month</div>
+							@if(exp?.no_expect) {
+							<div>Open to work for Experience (Unpaid)</div>
 							}
-							<div class="col-12 d-none d-md-block">
-								<hr />
-							</div>
+							@else {
+							<div>{{ exp?.salary_per_month || "Not specified" }}</div>
+							}
+						</div>
+						<div class="col-12 d-none d-md-block">
+							<hr />
+						</div>
+						<div class="col-md-8 mb-3">
+							<div class="text-primary fw-bold">Job Responsibilities</div>
+							<div [innerHTML]="exp?.job_responsibilities || 'Not specified'"></div>
+						</div>
+						@if(exp?.experience_letter) {
+						<div class="col-md-4 mb-3">
+							<div class="text-primary fw-bold">Experience Letter</div>
+							<button pButton [label]="extractFileName(exp?.experience_letter)" icon="pi pi-download"
+								class="p-button-outlined p-button-secondary mb-2 justify-content-between"
+								(click)="openView(exp?.experience_letter)" iconPos="right"></button>
+						</div>
+						}
+						<div class="col-12 d-none d-md-block">
+							<hr />
+						</div>
 						}
 					</div>
 					}
@@ -369,13 +374,13 @@
 					<div class="row">
 						<div class="col-md-8">
 							@for (cert of profileData?.certifications; track cert.name) {
-								@if(cert.type === 'Certificate') {
-								<div class="mb-3">
-									<div class="text-primary fw-bold">Professional / online Certifications</div>
-									<div>{{ cert.name || "Not specified" }}</div>
-								</div>
-								}
-								<!-- @if(cert.type === 'Achievement') {
+							@if(cert.type === 'Certificate') {
+							<div class="mb-3">
+								<div class="text-primary fw-bold">Professional / online Certifications</div>
+								<div>{{ cert.name || "Not specified" }}</div>
+							</div>
+							}
+							<!-- @if(cert.type === 'Achievement') {
 								<div class="mb-3">
 									<div class="text-primary fw-bold">Achievement Name</div>
 									<div>{{ cert.name || "Not specified" }}</div>
@@ -385,11 +390,11 @@
 						</div>
 						<div class="col-md-4">
 							@for (cert of profileData?.certifications; track cert.file_name) {
-								@if(cert.file_name && cert.type !== 'Achievement') {
-								<button pButton [label]="extractFileName(cert.file_name)" icon="pi pi-download"
-									class="p-button-outlined p-button-secondary mb-2 w-100 justify-content-between"
-									(click)="openView(cert.file_name)" iconPos="right"></button>
-								}
+							@if(cert.file_name && cert.type !== 'Achievement') {
+							<button pButton [label]="extractFileName(cert.file_name)" icon="pi pi-download"
+								class="p-button-outlined p-button-secondary mb-2 w-100 justify-content-between"
+								(click)="openView(cert.file_name)" iconPos="right"></button>
+							}
 							}
 							@if(hasNoCertificationFiles()) {
 							<div class="text-muted">No certification files available</div>
@@ -422,13 +427,12 @@
 						<div class="col-md-4 mb-3">
 							<div class="text-primary fw-bold mb-2">Languages Known</div>
 							@for (lang of profileData?.languages; track lang.language_name) {
-								<div class="mb-2">
-									<div class="d-flex align-items-center">
-										<span class="me-2" style="width: 100px">{{ lang.language_name }}</span>
-										<p-rating [ngModel]="getProficiencyRating(lang.proficiency)"
-											[readonly]="true" />
-									</div>
+							<div class="mb-2">
+								<div class="d-flex align-items-center">
+									<span class="me-2" style="width: 100px">{{ lang.language_name }}</span>
+									<p-rating [ngModel]="getProficiencyRating(lang.proficiency)" [readonly]="true" />
 								</div>
+							</div>
 							}
 						</div>
 						<!-- <div class="col-md-4 mb-3">
@@ -467,14 +471,14 @@
 						</div>
 						}
 						@if(profileData?.networking && profileData?.networking.length > 0) {
-							@for (social of profileData?.networking; track social.social_media) {
-							<div class="col-md-4 mb-3">
-								<a [href]="social.social_media_link" target="_blank" class="text-break text-primary">
-									<i class="pi pi-{{ getSocialMediaIconName(social.social_media) }} fs-3"></i>
-								</a>
-								<div class="text-primary fw-bold">{{ social.social_media + " Profile" }}</div>
-							</div>
-							}
+						@for (social of profileData?.networking; track social.social_media) {
+						<div class="col-md-4 mb-3">
+							<a [href]="social.social_media_link" target="_blank" class="text-break text-primary">
+								<i class="pi pi-{{ getSocialMediaIconName(social.social_media) }} fs-3"></i>
+							</a>
+							<div class="text-primary fw-bold">{{ social.social_media + " Profile" }}</div>
+						</div>
+						}
 						}
 						@if(profileData?.personal_website) {
 						<div class="col-md-4 mb-3">

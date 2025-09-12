@@ -348,7 +348,14 @@
 															}
 														</div>
 														<div class="col-md-12">
-															<label for="salary" class="mb-1">Salary per month</label>
+															<div class="d-flex justify-content-between align-items-center">
+																<label for="salary" class="mb-1">Salary per month</label>
+																<div class="form-check">
+																	<input class="form-check-input" formControlName="no_expect" id="noExpectations" type="checkbox" (change)="onChangeWorkSalaryExpectation($event, i)" />
+																	<label class="form-check-label text-small text-black" for="noExpectations">Open to work for Experience (Unpaid)</label>
+																</div>
+															</div>
+															<!-- <label for="salary" class="mb-1">Salary per month</label> -->
 															<div class="d-flex w-100 gap-2">
 																<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code" optionValue="id" placeholder="Select Currency" [filter]="true" filterBy="currency_code" appendTo="body" formControlName="work_experience_currency_id" [style]="{ width: '150px' }" [showClear]="true"> </p-select>
 																<div class="flex-grow-1 me-2">
