@@ -359,7 +359,7 @@
 		<div class="card-body mb-4 bg-secondary-card rounded-3">
 			<div class="row">
 				<div class="col-md-3">
-					<h3 class="fw-bold text-navy">Certifications & Achievements</h3>
+					<h3 class="fw-bold text-navy">Certifications</h3>
 					<!-- <div class="mt-3 text-warning">Want to add more skills?</div>
 						<button pButton label="Click here to add more to your list!"
 							(click)="routingToPage('/pages/modules/learning-hub')"
@@ -375,17 +375,17 @@
 									<div>{{ cert.name || "Not specified" }}</div>
 								</div>
 								}
-								@if(cert.type === 'Achievement') {
+								<!-- @if(cert.type === 'Achievement') {
 								<div class="mb-3">
 									<div class="text-primary fw-bold">Achievement Name</div>
 									<div>{{ cert.name || "Not specified" }}</div>
 								</div>
-								}
+								} -->
 							}
 						</div>
 						<div class="col-md-4">
 							@for (cert of profileData?.certifications; track cert.file_name) {
-								@if(cert.file_name) {
+								@if(cert.file_name && cert.type !== 'Achievement') {
 								<button pButton [label]="extractFileName(cert.file_name)" icon="pi pi-download"
 									class="p-button-outlined p-button-secondary mb-2 w-100 justify-content-between"
 									(click)="openView(cert.file_name)" iconPos="right"></button>
