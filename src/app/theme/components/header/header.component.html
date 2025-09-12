@@ -14,32 +14,39 @@
 					</div>
 					<div class="d-md-none gap-2 d-flex align-items-center">
 						<!-- <div class="d-flex align-items-center">
-							<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
+							@if(aiCreditCount !== 0) {
+							<button pButton (click)="buyCredits()"
 								class="p-1 ps-2 btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
 								type="button">
 								AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
 							</button>
-
-							<ng-template #buyCreditTpl>
+							}
+							@else {
 								<button pButton class="btn btn-secondary text-small btn-rounded flex-fill"
 									[disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()"
 									type="button">Buy Credits</button>
-							</ng-template>
+							}
 						</div> -->
-						<!-- <div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName"
-							[attr.aria-label]="'Selected country: ' + homeCountryName" *ngIf="showIcon">
-							<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'"
-								[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'"
-								alt="{{ homeCountryName }} flag" height="auto" width="auto" />
-						</div> -->
+						<!-- @if(showIcon) {
+							<div label="" role="button" class="headerHomeCountry p-0" [title]="homeCountryName"
+								[attr.aria-label]="'Selected country: ' + homeCountryName">
+								<img #openCountryPopup (error)="$event.target.src = '/uniprep-assets/images/location.webp'"
+									[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/images/location.webp'"
+									alt="{{ homeCountryName }} flag" height="auto" width="auto" />
+							</div>
+						} -->
 						<button class="btn btn-secondary py-2" (click)="openReportModal(op, $event)"
 							aria-label="Open reports">
 							<i class="fa-regular fa-bullhorn" style="font-size: 16px" aria-hidden="true"></i>
 						</button>
-						<p-avatar *ngIf="false" (click)="openchat()" class="mr-2" size="large" role="button"
-							aria-label="Open chat"><i class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
-						<p-avatar class="" label="" *ngIf="false" (click)="np.toggle($event)" icon="pi pi-bell"
-							size="large" role="button" aria-label="Notifications"> </p-avatar>
+						@if(false) {
+						<p-avatar (click)="openchat()" class="mr-2" size="large" role="button" aria-label="Open chat"><i
+								class="fa-solid fa-comments" aria-hidden="true"></i> </p-avatar>
+						}
+						@if(false) {
+						<p-avatar class="" label="" (click)="np.toggle($event)" icon="pi pi-bell" size="large"
+							role="button" aria-label="Notifications"> </p-avatar>
+						}
 						<p-avatar routerLink="/pages/usermanagement" aria-expanded="false" role="button" size="large"
 							aria-label="User profile">
 							<span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
@@ -49,32 +56,37 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-6 col-12 d-md-block d-none" *ngIf="userLoginTimeLeftCount">
+			@if(userLoginTimeLeftCount) {
+			<div class="col-lg-6 col-md-6 col-12 d-md-block d-none">
 				<div class="d-flex justify-content-end align-items-center mt-3 mt-md-0 gap-3">
 					<!-- <div class="d-md-flex d-none align-items-center">
-						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
+						@if(aiCreditCount !== 0) {
+						<button pButton (click)="buyCredits()"
 							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
 							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
 						</button>
-
-						<ng-template #buyCreditTpl>
+					}
+						@else {
 							<button pButton class="btn btn-secondary text-small btn-rounded flex-fill"
 								[disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()"
 								type="button">Buy
 								Credits</button>
-						</ng-template>
+						}
 					</div> -->
 					<div class="d-none d-md-flex gap-2">
-						<!-- <div label="" role="button" class="headerHomeCountry" [title]="homeCountryName"
-							aria-label="Selected country: {{ homeCountryName }}" *ngIf="showIcon">
+						<!-- @if(showIcon) {
+						<div label="" role="button" class="headerHomeCountry" [title]="homeCountryName"
+							aria-label="Selected country: {{ homeCountryName }}">
 							<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'"
 								[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'"
 								alt="{{ homeCountryName }} flag" height="auto" width="auto" />
-						</div> -->
+						</div>
+						} -->
 						<button class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center"
 							(click)="openReportModal(op, $event)" aria-label="Open reports"
-							style="width: 90px; height: 40px; padding: 0"><i class="fa-regular fa-bullhorn" style="font-size: 16px" aria-hidden="true"></i> Report</button>
+							style="width: 90px; height: 40px; padding: 0"><i class="fa-regular fa-bullhorn"
+								style="font-size: 16px" aria-hidden="true"></i> Report</button>
 					</div>
 
 					<div class="d-flex gap-2 d-md-none align-items-center">
@@ -84,15 +96,19 @@
 						</button>
 					</div>
 					<div class="d-none d-md-flex align-items-center">
-						<a *ngIf="false" (click)="openchat()" class="me-3" aria-label="Open chat">
-							<p-avatar class="" label="" role="button" style="padding: 19px"> <i
-									class="fa-solid fa-comments text-dark" aria-hidden="true"></i> </p-avatar>
+						@if (false) {
+						<a (click)="openchat()" class="me-3" aria-label="Open chat">
+							<p-avatar class="" label="" role="button" style="padding: 19px">
+								<i class="fa-solid fa-comments text-dark" aria-hidden="true"></i> </p-avatar>
 						</a>
-						<a *ngIf="false" (click)="np.toggle($event)" class="me-3" aria-label="Notifications">
+						}
+						@if (false) {
+						<a (click)="np.toggle($event)" class="me-3" aria-label="Notifications">
 							<p-avatar class="" label="" role="button">
 								<i class="fa-solid fa-bell" aria-hidden="true"></i>
 							</p-avatar>
 						</a>
+						}
 						<div class="dropdown profile-dropdown">
 							<button class="button" data-bs-toggle="dropdown" aria-expanded="false"
 								aria-label="User profile menu">
@@ -120,32 +136,38 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 col-12" *ngIf="!userLoginTimeLeftCount">
+			}
+			@if(!userLoginTimeLeftCount) {
+			<div class="col-md-6 col-12">
 				<div
 					class="d-flex align-items-center justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0">
 					<!-- <div class="d-flex align-items-center">
-						<button *ngIf="aiCreditCount !== 0; else buyCreditTpl" pButton (click)="buyCredits()"
+						@if(aiCreditCount !== 0) {
+						<button pButton (click)="buyCredits()"
 							class="btn btn-outline-primary text-small btn-rounded d-flex gap-2 align-items-center flex-fill"
 							type="button">
 							AI Credit <span class="btn-icon text-white">{{ aiCreditCount }}</span>
 						</button>
-						<ng-template #buyCreditTpl>
-							<button pButton class="btn btn-secondary text-small btn-rounded flex-fill"
-								[disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()"
-								type="button">Buy
-								Credits</button>
-						</ng-template>
+						}
+						@else {
+						<button pButton class="btn btn-secondary text-small btn-rounded flex-fill"
+							[disabled]="authService._user?.student_type_id == 2" (click)="buyCredits()"
+							type="button">Buy
+							Credits</button>
+						}
 					</div> -->
-					<!-- <div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country"
-						*ngIf="showIcon">
+					<!-- @if(showIcon) {
+					<div label="" role="button" class="headercountry me-2 d-none d-md-block" title="Selected Country">
 						<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'"
 							[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'"
 							alt="{{ homeCountryName }} flag" height="auto" width="auto" />
-					</div> -->
+					</div>
+					} -->
 					<div class="d-none d-md-flex align-items-center gap-3">
 						<button class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center"
 							(click)="openReportModal(op, $event)" aria-label="Open reports"
-							style="width: 90px; height: 40px; padding: 0"><i class="fa-regular fa-bullhorn" style="font-size: 16px" aria-hidden="true"></i> Report</button>
+							style="width: 90px; height: 40px; padding: 0"><i class="fa-regular fa-bullhorn"
+								style="font-size: 16px" aria-hidden="true"></i> Report</button>
 
 						<a (click)="openchat()" title="Chat" aria-label="Open chat">
 							<p-avatar class="" label="" role="button" style="padding: 19px">
@@ -179,6 +201,7 @@
 					</div>
 				</div>
 			</div>
+			}
 		</div>
 	</div>
 </nav>
@@ -189,33 +212,39 @@
 			<form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)" role="form"
 				aria-label="Report submission form">
 				<div class="row report">
-					<p *ngIf="false" class="report-label text-left mb-0">General / Modules</p>
-					<span *ngIf="false" class="report-modal">
+					@if(false) {<p class="report-label text-left mb-0">General / Modules</p>}
+					@if(false) {
+					<span class="report-modal">
 						<p-select [options]="genMod" (onChange)="onChangeChooseMain($event.value)"
 							[(ngModel)]="selectedGenMod" optionValue="id" formControlName="general" class="w-100"
 							id="genMod" optionLabel="name" aria-label="Select general module"></p-select>
 					</span>
-					<div *ngIf="isVisibleModulesMenu">
-						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Modules</p>
-						<span *ngIf="isQuestionVisible" class="report-modal">
+					}
+					@if(isVisibleModulesMenu) {
+					<div>
+						@if(isQuestionVisible) {
+						<p class="report-label text-left mb-0">Modules</p>
+						<span class="report-modal">
 							<p-select [options]="moduleList" (onChange)="onChangeModuleList($event.value)"
 								formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id" class="w-100"
 								id="moduleId" optionLabel="module_name" aria-label="Select module"></p-select>
 						</span>
-						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Categories</p>
-						<span *ngIf="isQuestionVisible" class="report-modal">
+						<p class="report-label text-left mb-0">Categories</p>
+						<span class="report-modal">
 							<p-select [options]="subModuleList" [(ngModel)]="subModuleNgModel"
 								formControlName="submoduleId" optionValue="id"
 								(onChange)="onChangeSubModuleList($event.value)" class="w-100" id="submoduleId"
 								optionLabel="submodule_name" aria-label="Select category"></p-select>
 						</span>
-						<p *ngIf="isQuestionVisible" class="report-label text-left mb-0">Question Number</p>
-						<span *ngIf="isQuestionVisible" class="report-modal">
+						<p class="report-label text-left mb-0">Question Number</p>
+						<span class="report-modal">
 							<p-select [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id"
 								formControlName="questionId" class="w-100" id="questionId" optionLabel="index"
 								aria-label="Select question number"></p-select>
 						</span>
+						}
 					</div>
+					}
 					<p class="report-label text-left mb-0">Issue Type</p>
 					<span class="report-modal">
 						<p-select [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id"
@@ -239,46 +268,54 @@
 
 <p-popover #totalCountryList [style]="{ width: '100%', 'max-width': 'fit-content' }" aria-label="Country selection">
 	<ng-template pTemplate="content">
-		<div *ngIf="isLondon" class="mega-menu">
+		@if(isLondon) {
+		<div class="mega-menu">
 			<div class="row">
-				<div class="col" *ngFor="let column of [0, 1, 2]">
+				@for (column of [0, 1, 2]; track $index) {
+				<div class="col">
 					<ul class="px-0" role="list">
-						<ng-container
-							*ngFor="let v of countryLists.slice(column * 10, (column + 1) * 10); let i = index">
-							<li class="list-group-item my-2 d-flex align-items-center gap-2" role="button"
-								(click)="selectCountryInHeader(v, totalCountryList)" tabindex="0"
-								aria-label="Select {{ v.country }}">
-								<img (error)="$event.target.src = '/uniprep-assets/images/location.webp'"
-									alt="{{ v.country }} flag" class="countryicon mr-2"
-									[src]="v.flag || '../../uniprep-assets/images/location.webp'" width="25" />
-								<span class="text-nowrap">{{ v.country }}</span>
+						@for (v of countryLists.slice(column * 10, (column + 1) * 10); track $index; let i = $index) {
+						<li class="list-group-item my-2 d-flex align-items-center gap-2" role="button"
+							(click)="selectCountryInHeader(v, totalCountryList)" tabindex="0"
+							aria-label="Select {{ v.country }}">
+							<img (error)="$event.target.src = '/uniprep-assets/images/location.webp'"
+								alt="{{ v.country }} flag" class="countryicon mr-2"
+								[src]="v.flag || '../../uniprep-assets/images/location.webp'" width="25" />
+							<span class="text-nowrap">{{ v.country }}</span>
+						</li>
+						}
+						@if(column === 2 && countryLists.length < 30) { @for (_ of [].constructor(30 -
+							countryLists.length); track $index) { <li class="list-group-item">
 							</li>
-						</ng-container>
-						<ng-container *ngIf="column === 2 && countryLists.length < 30">
-							<li *ngFor="let _ of [].constructor(30 - countryLists.length)" class="list-group-item"></li>
-						</ng-container>
+							}
+							}
 					</ul>
 				</div>
+				}
 			</div>
 		</div>
+		}
 	</ng-template>
 </p-popover>
 
 <p-popover #totalHomeCountryList [style]="{ width: '300px' }">
 	<ng-template pTemplate="content">
-		<div *ngIf="isLondon" class="mega-menu">
+		@if (isLondon) {
+		<div class="mega-menu">
 			<div class="row justify-content-center">
 				<h5 class="text-center mb-2">Home Country</h5>
 				<p-select id="selectedHomeCountry" [styleClass]="'w-100'" style="width: 100% !important"
 					[(ngModel)]="selectedHomeCountry" [options]="countryList" [filter]="true" filterBy="country"
 					optionLabel="country" (onChange)="onHomeCountryChange($event)" placeholder="Source Country">
 					<ng-template pTemplate="selectedItem">
-						<div class="flex align-items-center gap-2" *ngIf="selectedHomeCountry">
+						@if (selectedHomeCountry) {
+						<div class="flex align-items-center gap-2">
 							<img (error)="$event.target.src = '/uniprep-assets/images/location.webp'"
 								[src]="selectedHomeCountry.flag ? selectedHomeCountry.flag : '../../uniprep-assets/images/location.webp'"
 								[class]="'flag flag-' + selectedHomeCountry.code" style="width: 18px" />
 							<div>{{ selectedHomeCountry.country }}</div>
 						</div>
+						}
 					</ng-template>
 					<ng-template let-country pTemplate="item">
 						<div class="flex align-items-center gap-2">
@@ -291,6 +328,7 @@
 				</p-select>
 			</div>
 		</div>
+		}
 	</ng-template>
 </p-popover>
 
@@ -384,8 +422,10 @@
 										(change)="onCheckHaveWhatsappOrPhone($event)" id="noWhatsapp" />
 									<label for="noWhatsapp">I don't have a {{ haveWhatsapp }} Number</label>
 								</div>
-								<div *ngIf="isSendingOTP" class="text-primary" role="button" (click)="onEditNumber()">
+								@if (isSendingOTP) {
+								<div class="text-primary" role="button" (click)="onEditNumber()">
 									Edit Number</div>
+								}
 							</div>
 						</div>
 						<div class="d-flex justify-content-end mt-2">
@@ -393,29 +433,33 @@
 								[class.disabled]="phoneVerification.invalid" role="button" style="cursor: pointer"
 								(click)="sendOTP()"> Send OTP </a>
 						</div>
-						<div *ngIf="isSendingOTP">
+						@if (isSendingOTP) {
+						<div>
 							<p class="centertitle mt-2">Enter the OTP sent your {{ haveWhatsapp }} number to continue
 							</p>
 							<div class="otp-container m-4" role="group" aria-label="OTP input">
-								<input *ngFor="let digit of otpArray; let i = index" type="text" maxlength="1"
-									class="otp-box" [id]="'otp-' + i" [(ngModel)]="otp[i]" formControlName="otp"
-									(input)="onInputOTP($event, i)" (keydown)="onKeydownOPT($event, i)"
-									aria-label="OTP digit {{ i + 1 }}" />
+								@for (digit of otpArray; track $index; let i = $index) {
+								<input type="text" maxlength="1" class="otp-box" [id]="'otp-' + i" [(ngModel)]="otp[i]"
+									formControlName="otp" (input)="onInputOTP($event, i)"
+									(keydown)="onKeydownOPT($event, i)" aria-label="OTP digit {{ i + 1 }}" />
+								}
 							</div>
 							<div class="d-flex justify-content-center m-3 gap-3">
-								<button pButton *ngIf="isResendOTP" [disabled]="phoneVerification.invalid"
-									style="padding: 8px 20px" class="btn btn-primary" (click)="sendOTP()"
-									aria-label="Resend OTP">
+								@if (isResendOTP) {
+								<button pButton [disabled]="phoneVerification.invalid" style="padding: 8px 20px"
+									class="btn btn-primary" (click)="sendOTP()" aria-label="Resend OTP">
 									<span class="fw-medium px-3">Resend OTP</span>
 								</button>
-								<button pButton [disabled]="phoneVerification.invalid || isSubmitting" style="padding: 8px 20px"
-									class="btn btn-primary" (click)="submitPhoneVerification()"
-									aria-label="Submit verification">
-									<span class="fw-medium px-3" *ngIf="!isSubmitting">Submit</span>
-    								<span class="fw-medium px-3" *ngIf="isSubmitting">Submitting, please wait...</span>
+								}
+								<button pButton [disabled]="phoneVerification.invalid || isSubmitting"
+									style="padding: 8px 20px" class="btn btn-primary"
+									(click)="submitPhoneVerification()" aria-label="Submit verification">
+									@if (!isSubmitting) {<span class="fw-medium px-3">Submit</span> }
+									@if (isSubmitting) {<span class="fw-medium px-3">Submitting, please wait...</span>}
 								</button>
 							</div>
 						</div>
+						}
 					</form>
 				</div>
 			</div>
@@ -444,17 +488,21 @@
 							</strong>
 						</span>
 					</div> -->
-					<!-- <div class="mt-1 text-center" *ngIf="!userTypeId">
+					<!-- @if (!userTypeId) {
+					<div class="mt-1 text-center">
 						<span>
 							<strong class="firsttimelogin">
 								<h2 style="color: var(--p-secondary-500); margin-bottom: 0">You have unlocked</h2>
 							</strong>
 							<strong class="firsttimelogin">
-								<h2 style="color: var(--p-secondary-500); margin-top: 0">{{ timeLeftInfo }} free trial.</h2>
+								<h2 style="color: var(--p-secondary-500); margin-top: 0">{{ timeLeftInfo }} free trial.
+								</h2>
 							</strong>
 						</span>
-					</div> -->
-					<div class="mt-1 text-center" *ngIf="userTypeId">
+					</div>
+					} -->
+					@if (!userTypeId) {
+					<div class="mt-1 text-center">
 						<span>
 							<strong class="firsttimelogin">
 								<h2 style="color: var(--p-secondary-500); margin-bottom: 0">Enjoy exclusive UNIPREP
@@ -462,8 +510,10 @@
 							</strong>
 						</span>
 					</div>
+					}
 					<form [formGroup]="mobileForm">
-						<!-- <div class="w-100 phonenumberblock d-none" *ngIf="formvisbility">
+						<!-- @if (formvisbility) {
+						<div class="w-100 phonenumberblock d-none">
 							<p class="m-1">Enter your number to continue the experience</p>
 							<ngx-intl-tel-input class="intel-input w-100" appendTo="body"
 								[cssClass]="isPhoneDisabled ? 'custom-less-padding disabled' : 'custom-less-padding'"
@@ -474,8 +524,10 @@
 								[(ngModel)]="phoneNumber" [disabled]="isPhoneDisabled" [attr.disabled]="isPhoneDisabled"
 								customPlaceholder="Enter {{haveWhatsapp}} Number"
 								formControlName="phone"></ngx-intl-tel-input>
-						</div> -->
-						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
+						</div>
+						} -->
+						@if (formvisbility) {
+						<div class="w-100 phonenumberblock mt-2">
 							<p class="m-1">Select Your Nationality</p>
 							<p-select class="w-100" formControlName="nationality_id" appendTo="body"
 								[options]="nationalityList" [filter]="true" placeholder="Nationality" [autofocus]="true"
@@ -483,30 +535,39 @@
 								styleClass="custom-dropdown"></p-select>
 							<!-- <p-select class="w-100" formControlName="home_country" appendTo="body" [options]="homeCountryList" [filter]="true" placeholder="Country" [autofocus]="true" (onChange)="changeLocation($event)" filterBy="country" optionLabel="country" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-select> -->
 						</div>
-						<div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
+						<div class="w-100 phonenumberblock mt-2">
 							<p class="m-1">Choose the stage that best describes you</p>
 							<p-select class="w-100" formControlName="study_level" appendTo="body"
 								[options]="programLevelList" placeholder="Select Your Current Status"
 								optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false"
 								styleClass="custom-dropdown"></p-select>
 						</div>
-						<div *ngIf="freeTrialErrorMsg" class="text-danger text-center">
+						}
+						@if (freeTrialErrorMsg) {
+						<div class="text-danger text-center">
 							{{ freeTrialErrorMsg }}
 						</div>
-						<!-- <div class="w-100 phonenumberblock mt-2" *ngIf="formvisbility">
+						}
+						<!-- @if (formvisbility) {
+						<div class="w-100 phonenumberblock mt-2">
 							<p class="m-1">Select Your Interest</p>
-							<p-multiSelect class="w-100" formControlName="interest_type" appendTo="body" [options]="interestMenuList" placeholder="Your Interest" optionLabel="name" optionValue="id" [autoDisplayFirst]="false" styleClass="custom-dropdown"></p-multiSelect>
-						</div> -->
-						<!-- <div class="w-100 phonenumberblock mt-2 uniprep-secondary text-small" *ngIf="formvisbility">
+							<p-multiSelect class="w-100" formControlName="interest_type" appendTo="body"
+								[options]="interestMenuList" placeholder="Your Interest" optionLabel="name"
+								optionValue="id" [autoDisplayFirst]="false"
+								styleClass="custom-dropdown"></p-multiSelect>
+						</div>
+						} -->
+						<!-- @if (formvisbility) {
+						<div class="w-100 phonenumberblock mt-2 uniprep-secondary text-small">
 							Note: The initial selection can be altered in My Profile
-						</div> -->
+						</div> }-->
 						<!-- <div class="icon-container mt-2 d-flex justify-content-center mb-2">
 							<h6 style="color: rgb(63 76 131)">Enjoy access to <strong>UNIPREP</strong> V 2.0</h6>
 						</div> -->
 						<div class="d-flex justify-content-center mt-4">
-							<!-- <button *ngIf="!userTypeId" [disabled]="!mobileForm.get('home_country')?.value || !mobileForm.get('study_level')?.value" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
+							<!-- @if (!userTypeId) { <button [disabled]="!mobileForm.get('home_country')?.value || !mobileForm.get('study_level')?.value" class="btn btn-primary btn-rounded me-2 ms-0 my-0" (click)="onClickSubscribedUser()" alt="chat with notification">
 								<span class="text-small fw-normal px-3">Subscribe Now</span>
-							</button> -->
+							</button> } -->
 							<button
 								[disabled]="!mobileForm.get('nationality_id')?.value || !mobileForm.get('study_level')?.value"
 								class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">

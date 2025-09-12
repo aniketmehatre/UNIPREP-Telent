@@ -1,11 +1,15 @@
 <ul class="menu-items">
-    <li class="menu-item" [ngClass]="{'menu-item': true, 'active': item.active}" *ngFor="let item of menus">
+    @for (item of menus; track $index) {
+    <li class="menu-item" [ngClass]="{'menu-item': true, 'active': item.active}">
         <div class="system-main__apps" (click)="onexpand(item)">
             <span class="system-main__icon"><i [class]="item.image"></i></span>
-            <span class="system-main__name" > {{ item.title }} </span>
+            <span class="system-main__name"> {{ item.title }} </span>
         </div>
-        <ul @accordion *ngIf="item.children && item.expanded">
-        <uni-side-menu [menus]="item.children"></uni-side-menu>
+        @if (item.children && item.expanded) {
+        <ul @accordion>
+            <uni-side-menu [menus]="item.children"></uni-side-menu>
         </ul>
+        }
     </li>
+    }
 </ul>
