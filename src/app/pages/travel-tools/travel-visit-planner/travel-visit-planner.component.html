@@ -1,4 +1,5 @@
-<div class="card readingcard" *ngIf="isRecommendation">
+@if (isRecommendation) {
+<div class="card readingcard">
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-12 d-flex gap-4">
@@ -7,20 +8,22 @@
                 </div>
                 <div class="select-title d-flex justify-content-between align-items-center">
                     <div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
-						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/travel-tools" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Travel Tools</h5>
-						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 class="mb-0" tooltipPosition="top" pTooltip="">Travel Visit Planner</h5>
-					</div>
+                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+                            <i class="fa-regular fa-home"></i></h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 routerLink="/pages/travel-tools" role="button" class="mb-0" tooltipPosition="top"
+                            pTooltip="">Travel Tools</h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 class="mb-0" tooltipPosition="top" pTooltip="">Travel Visit Planner</h5>
+                    </div>
                     <div>
-                        <button pButton class="how-it-works-button" severity="warn"
-                            (click)="openVideoPopup()">How it works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
+                        <button pButton class="how-it-works-button" severity="warn" (click)="openVideoPopup()">How it
+                            works? <i class="fa-solid fa-play d-md-block d-none"></i></button>
                     </div>
                 </div>
                 <div class="d-flex align-items-center gap-1">
                     <!-- <button pButton class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button> -->
-                    
+
                     <button pButton type="button" (click)="savedRecommendations()"
                         class="btn btn-primary btn-rounded py-2 px-4">
                         <span>History</span>
@@ -43,11 +46,11 @@
                                 <h2 class="fw-bold mb-0 text-center">{{ recommendation.question }}</h2>
                             </div>
                             <div class="col-md-6">
-                                <ng-container *ngIf="recommendation.id == 1">
-                                    <p-select [options]="destinationLocationList" [virtualScroll]="true" 
+                                @if (recommendation.id == 1) {
+                                    <p-select [options]="destinationLocationList" [virtualScroll]="true"
                                         [virtualScrollItemSize]="50" [(ngModel)]="selectedData[recommendation.id]"
                                         [appendTo]="'body'" [filter]="true" filterBy="city_name,country_name"
-                                         placeholder="Select Destination" styleClass="w-100"
+                                        placeholder="Select Destination" styleClass="w-100"
                                         (onChange)="hideWarning(recommendation.id)">
                                         <ng-template let-country pTemplate="item">
                                             <div class="d-flex align-items-center gap-2">
@@ -55,9 +58,10 @@
                                                     <img [src]="country.flag" class="img-fluid" />
                                                 </div>
                                                 <div>
-                                                    <span *ngIf="country.city_name !== null">
+                                                    @if (country.city_name !== null) {
+                                                    <span>
                                                         {{ country.city_name }},
-                                                    </span>{{ country.country_name }}
+                                                    </span>} {{ country.country_name }}
                                                 </div>
                                             </div>
                                         </ng-template>
@@ -67,17 +71,19 @@
                                                     <img [src]="selectedOption.flag" class="img-fluid" />
                                                 </div>
                                                 <div>
-                                                    <span *ngIf="selectedOption.city_name !== null">
+                                                    @if (selectedOption.city_name !== null) {
+                                                    <span>
                                                         {{ selectedOption.city_name }},
-                                                    </span>{{ selectedOption.country_name }}
+                                                    </span> }
+                                                    {{ selectedOption.country_name }}
                                                 </div>
                                             </div>
                                         </ng-template>
                                     </p-select>
                                     <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                         style="color: red">Please Choose Any one option</p>
-                                </ng-container>
-                                <ng-container *ngIf="recommendation.id == 2">
+                                }
+                                @if (recommendation.id == 2) {
                                     <p-inputNumber [showButtons]="true" buttonLayout="horizontal"
                                         [(ngModel)]="selectedData[recommendation.id]" incrementButtonIcon="pi pi-plus"
                                         incrementButtonClass="plus-icon" decrementButtonClass="minus-icon"
@@ -88,15 +94,15 @@
                                     </p-inputNumber>
                                     <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                         style="color: red">Please Choose Any one option</p>
-                                </ng-container>
-                                <ng-container *ngIf="recommendation.id == 3">
+                                }
+                                @if (recommendation.id == 3) {
                                     <p-select [options]="seasons" (onChange)="hideWarning(recommendation.id)"
                                         [(ngModel)]="selectedData[recommendation.id]" optionLabel="value"
                                         styleClass="w-100" optionValue="value" placeholder="Select Seasons"
                                         [appendTo]="'body'"></p-select>
                                     <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }"
                                         style="color: red">Please Choose Any one option</p>
-                                </ng-container>
+                                }
                             </div>
                         </div>
                         <div class="d-flex justify-content-between mt-2">
@@ -105,19 +111,22 @@
                                 <span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span>
                                 <span class="ms-2">Previous</span>
                             </button>
+                            @if (recommendation.id != 3) {
                             <button pButton pButton type="button" (click)="next(recommendation.id)"
-                                *ngIf="recommendation.id != 3" class="btn btn-primary btn-rounded p-1 ps-4">
+                                class="btn btn-primary btn-rounded p-1 ps-4">
                                 <span class="me-2">Next</span><span class="btn-icon px-2 py-2">
                                     <i class="fa fa-arrow-right"></i>
                                 </span>
                             </button>
+                            }
+                            @if (recommendation.id == 3) {
                             <button pButton pButton type="button" (click)="getRecommendation(recommendation.id)"
-                                severity="success" *ngIf="recommendation.id == 3"
-                                class="btn btn-success btn-rounded p-1 ps-4">
+                                severity="success" class="btn btn-success btn-rounded p-1 ps-4">
                                 <span class="me-2">Get Recommendations</span><span class="btn-icon px-2 py-2">
                                     <i class="fa fa-check-circle"></i>
                                 </span>
                             </button>
+                            }
                         </div>
                     </div>
                 </ng-template>
@@ -125,7 +134,9 @@
         </div>
     </div>
 </div>
-<div class="card readingcard" *ngIf="isResponsePage">
+}
+@if (isResponsePage) {
+<div class="card readingcard">
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-12 d-flex gap-4">
@@ -134,12 +145,14 @@
                 </div>
                 <div class="select-title d-flex justify-content-between align-items-center">
                     <div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
-						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/travel-tools" role="button" class="mb-0" tooltipPosition="top" pTooltip="">Travel Tools</h5>
-						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 class="mb-0" tooltipPosition="top" pTooltip="">Travel Visit Planner</h5>
-					</div>
+                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip="">
+                            <i class="fa-regular fa-home"></i></h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 routerLink="/pages/travel-tools" role="button" class="mb-0" tooltipPosition="top"
+                            pTooltip="">Travel Tools</h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 class="mb-0" tooltipPosition="top" pTooltip="">Travel Visit Planner</h5>
+                    </div>
                     <div>
                         <button pButton class="how-it-works-button" severity="warn"
                             (click)="openVideoPopup('https://www.youtube.com/embed/jG3wFxF8zZI?si=2I3dijKIH-aEisoS')">How
@@ -148,7 +161,7 @@
                 </div>
                 <div class="d-flex align-items-center gap-1">
                     <!-- <button pButton class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button> -->
-                    
+
                     <button pButton type="button" (click)="savedRecommendations()"
                         class="btn btn-primary btn-rounded py-2 px-4">
                         <span>History</span>
@@ -161,32 +174,37 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <div class="d-flex justify-content-end gap-3 mb-3" *ngIf="recommendationData">
+                @if (recommendationData) {
+                <div class="d-flex justify-content-end gap-3 mb-3">
                     <button pButton pButton type="button" (click)="downloadRecommadation()"
                         class="btn btn-secondary btn-rounded p-1 ps-4">
                         <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
                             <i class="fa-regular fa-download"></i></span>
                     </button>
                 </div>
-                <div *ngIf="isResponseSkeleton; else showResponseData" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
-					<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='90%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='95%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='50%' height='1rem'></p-skeleton>
-					<div class="divider"></div>
+                }
+                @if (isResponseSkeleton) {
+                <div class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
                     <p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
-					<div class="d-flex justify-content-end">
-						<uni-percentage-loader />
-					</div>
-				</div>
-				<ng-template #showResponseData>
-					<div class="card p-3  chatgpt-response bg-white h-100 overflow-y-auto" [innerHtml]="recommendationData"></div>
-				</ng-template>
+                    <p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='90%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='95%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='50%' height='1rem'></p-skeleton>
+                    <div class="divider"></div>
+                    <p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
+                    <div class="d-flex justify-content-end">
+                        <uni-percentage-loader />
+                    </div>
+                </div>
+                }
+                @else {
+                <div class="card p-3  chatgpt-response bg-white h-100 overflow-y-auto" [innerHtml]="recommendationData">
+                </div>
+                }
             </div>
             <div class="col-md-2"></div>
         </div>
@@ -200,7 +218,9 @@
         </div>
     </div>
 </div>
-<div class="card readingcard" *ngIf="isSavedPage">
+}
+@if (isSavedPage) {
+<div class="card readingcard">
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-12 d-flex gap-4">
@@ -222,7 +242,7 @@
                 </div>
                 <div class="d-flex align-items-center gap-1">
                     <!-- <button pButton class="btn btn-secondary text-small btn-rounded flex-fill" (click)="buyCredits()" type="button">Buy Credits</button> -->
-                    
+
                     <button pButton type="button" (click)="savedRecommendations()"
                         class="btn btn-primary btn-rounded py-2 px-4">
                         <span>History</span>
@@ -233,10 +253,11 @@
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
         <div class="row mb-0">
-            <div *ngFor="let item of savedResponse; let i= index"
-                class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+            @for (item of savedResponse; track $index; let i= $index) {
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                 <div class="row w-100 m-0 justify-content-center h-100">
-                    <div class="card subjectcard" role="button" (click)="clickRecommendation(item.response, item.user_inputs)">
+                    <div class="card subjectcard" role="button"
+                        (click)="clickRecommendation(item.response, item.user_inputs)">
                         <div class="card-body text-start">
                             <h5 class="fw-bold mb-0">Trip {{i+1}}</h5>
                             <p class="text-small"><b>Destination : </b>{{item.destination}}</p>
@@ -246,6 +267,7 @@
                     </div>
                 </div>
             </div>
+            }
         </div>
     </div>
     <div class="card-footer bg-transparent border-0">
@@ -257,3 +279,4 @@
         </div>
     </div>
 </div>
+}

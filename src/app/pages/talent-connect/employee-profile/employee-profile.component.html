@@ -570,7 +570,12 @@
 																</div>
 																<div class="col mb-2">
 																	<label class="mb-1"> Language Proficiency<span class="text-danger">*</span></label>
-																	<p-select formControlName="languages_proficiency" [options]="languageProficiency" appendTo="body" placeholder="Enter language proficiency" styleClass="w-100" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('languages_proficiency')"></p-select>
+																	<p-select formControlName="languages_proficiency" [options]="languageProficiency" appendTo="body" placeholder="Enter language proficiency" styleClass="w-100" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('languages_proficiency')">
+																		<!-- optionLabel="languages_proficiency"
+																		<ng-template let-lang #item>
+																			<div>{{lang}} ( {{ getProficiencyRating(lang) }} )</div>
+																		</ng-template> -->
+																	</p-select>
 																	@if(isSubmittedProfessionalTraitsForm && language.get('languages_proficiency')?.errors?.required) {
 																	<small class="text-danger"> Language Proficiency is required </small>
 																	}

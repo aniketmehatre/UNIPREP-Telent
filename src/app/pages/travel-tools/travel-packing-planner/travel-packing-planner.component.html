@@ -1,5 +1,6 @@
 <!-- ----------------- Recommandation Question View ----------------- -->
-<div class="card readingcard" *ngIf="isRecommendationQuestion">
+@if (isRecommendationQuestion) {
+<div class="card readingcard">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-12 d-flex gap-4">
@@ -45,7 +46,7 @@
 							</div>
 							<div class="col-md-6">
 								<div class="recommendationinput d-flex flex-column justify-content-center gap-3">
-									<ng-container *ngIf="recommendation.id == 1">
+									@if (recommendation.id == 1) {
 										<p-select [options]="destinationLocationList" [(ngModel)]="selectedData[recommendation.id]" [virtualScroll]="true" [virtualScrollItemSize]="50" [appendTo]="'body'" placeholder="Select your travel destination" [filter]="true" filterBy="city_name,country_name"  styleClass="w-100">
 											<ng-template let-country pTemplate="item">
 												<div class="d-flex align-items-center gap-2">
@@ -53,7 +54,7 @@
 														<img [src]="country.flag" class="img-fluid" />
 													</div>
 													<div>
-														<span *ngIf="country.city_name !== null"> {{ country.city_name }}, </span>{{ country.country_name }}
+														@if (country.city_name !== null) {<span> {{ country.city_name }}, </span>} {{ country.country_name }}
 													</div>
 												</div>
 											</ng-template>
@@ -63,29 +64,29 @@
 														<img [src]="selectedOption.flag" class="img-fluid" />
 													</div>
 													<div>
-														<span *ngIf="selectedOption.city_name !== null"> {{ selectedOption.city_name }}, </span>{{ selectedOption.country_name }}
+														@if (selectedOption.city_name !== null) {<span> {{ selectedOption.city_name }}, </span>} {{ selectedOption.country_name }}
 													</div>
 												</div>
 											</ng-template>
 										</p-select>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 2">
+									}
+									@if (recommendation.id == 2) {
 										<p-select [options]="travelTypeList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Select the type of trip you are planning"> </p-select>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 3">
+									}
+									@if (recommendation.id == 3) {
 										<p-multiSelect [options]="transportationModeList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Select your mode of transportation"> </p-multiSelect>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 4">
+									}
+									@if (recommendation.id == 4) {
 										<p-inputNumber [showButtons]="true" buttonLayout="horizontal" [(ngModel)]="selectedData[recommendation.id]" spinnerMode="horizontal" incrementButtonIcon="pi pi-plus" incrementButtonClass="plus-icon" decrementButtonClass="minus-icon" decrementButtonIcon="pi pi-minus" inputStyleClass="number-input" [min]="1" [max]="7" [step]="1" [suffix]="selectedData[recommendation.id] == 1 ? ' day' : ' days'" [inputStyle]="{ 'pointer-events': 'none', 'caret-color': 'transparent' }" styleClass="w-100 custom-number-input" class="custom-number-input"> </p-inputNumber>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
-									<ng-container *ngIf="recommendation.id == 5">
+									}
+									@if (recommendation.id == 5) {
 										<p-select [options]="monthList" styleClass="w-100" [(ngModel)]="selectedData[recommendation.id]" optionLabel="name" optionValue="name" [appendTo]="'body'" placeholder="Select the month you plan to travel"> </p-select>
 										<p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please Choose Any one option</p>
-									</ng-container>
+									}
 								</div>
 							</div>
 						</div>
@@ -93,18 +94,22 @@
 							<button pButton pButton type="button" class="btn btn-primary btn-rounded p-1 pe-4" [style.visibility]="recommendation.id == 1 ? 'hidden' : 'visible'" (click)="previous()">
 								<span class="btn-icon px-2 py-2"><i class="fa fa-arrow-left"></i></span> <span class="ms-2">Previous</span>
 							</button>
-							<button pButton pButton type="button" (click)="next(recommendation.id)" *ngIf="recommendation.id != 5" class="btn btn-primary btn-rounded p-1 ps-4">
+							@if (recommendation.id != 5) {
+							<button pButton pButton type="button" (click)="next(recommendation.id)" class="btn btn-primary btn-rounded p-1 ps-4">
 								<span class="me-2">Next</span
 								><span class="btn-icon px-2 py-2">
 									<i class="fa fa-arrow-right"></i>
 								</span>
 							</button>
-							<button pButton pButton type="button" (click)="getRecommendation()" severity="success" *ngIf="recommendation.id == 5" class="btn btn-success btn-rounded p-1 ps-4">
+							}
+							@if (recommendation.id == 5) {
+							<button pButton pButton type="button" (click)="getRecommendation()" severity="success" class="btn btn-success btn-rounded p-1 ps-4">
 								<span class="me-2">Get Recommendations</span
 								><span class="btn-icon px-2 py-2">
 									<i class="fa fa-check-circle"></i>
 								</span>
 							</button>
+							}
 						</div>
 					</div>
 				</ng-template>
@@ -112,9 +117,10 @@
 		</div>
 	</div>
 </div>
-
+}
 <!-- ----------------- Recommandation Response View ----------------- -->
-<div class="card readingcard" *ngIf="isRecommendationData">
+@if (isRecommendationData) {
+<div class="card readingcard">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-12 d-flex gap-4">
@@ -150,7 +156,8 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
-				<div class="d-flex justify-content-end gap-3 mb-3" *ngIf="recommendationData">
+				@if (recommendationData) {
+				<div class="d-flex justify-content-end gap-3 mb-3">
 					<button pButton type="button" (click)="downloadRecommadation()" class="btn btn-secondary btn-rounded p-1 ps-4">
 						<span class="me-2">Download</span
 						><span class="btn-icon px-2 py-2">
@@ -163,7 +170,9 @@
                             <i class="fa-regular fa-floppy-disk"></i></span>
                     </button> -->
 				</div>
-				<div *ngIf="isResponseSkeleton; else showResponseData" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+				}
+				@if (isResponseSkeleton) {
+				<div class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
 					<p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
 					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
 					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
@@ -179,9 +188,10 @@
 						<uni-percentage-loader />
 					</div>
 				</div>
-				<ng-template #showResponseData>
+				}
+				@else {
 					<div class="card p-3  chatgpt-response bg-white h-100 overflow-y-auto" [innerHtml]="recommendationData"></div>
-				</ng-template>
+				}
 			</div>
 			<div class="col-md-2"></div>
 		</div>
@@ -194,9 +204,11 @@
 		</div>
 	</div>
 </div>
+}
 
 <!-- ----------------- Recommandation Saved Response View ----------------- -->
-<div class="card readingcard" *ngIf="isRecommendationSavedData">
+@if (isRecommendationSavedData) {
+<div class="card readingcard">
 	<div class="card-header border-0 bg-transparent">
 		<div class="row justify-content-center align-items-center">
 			<div class="col-md-12 d-flex gap-4">
@@ -230,7 +242,8 @@
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
 		<div class="row mb-0">
-			<div *ngFor="let item of recommadationSavedQuestionList; let i = index" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+			@for (item of recommadationSavedQuestionList; track $index; let i = $index) {
+			<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
 				<div class="row w-100 m-0 justify-content-center h-100">
 					<div class="card subjectcard" role="button" (click)="showRecommandationData(item.response, item.user_inputs)">
 						<div class="card-body text-start">
@@ -244,6 +257,7 @@
 					</div>
 				</div>
 			</div>
+			}
 		</div>
 	</div>
 	<div class="card-footer bg-transparent border-0">
@@ -254,3 +268,4 @@
 		</div>
 	</div>
 </div>
+}
