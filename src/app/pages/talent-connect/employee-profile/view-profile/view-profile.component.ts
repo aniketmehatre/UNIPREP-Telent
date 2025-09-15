@@ -196,6 +196,7 @@ export class ViewProfileComponent implements OnInit {
         formatDate(new Date(exp.work_experience_duration_from), 'dd-MM-yyyy', 'en-US') + ' - ' +
         (exp.currently_working ? 'Currently Employed' : formatDate(new Date(exp.work_experience_duration_to), 'dd-MM-yyyy', 'en-US')) : '',
       salary: exp.work_experience_salary_per_month || '',
+      noExpectation: exp.no_expect || '',
       responsibilities: exp.work_experience_job_responsibilities || '',
       experienceLetter: {
         name: exp.work_experience_experience_letter || '',

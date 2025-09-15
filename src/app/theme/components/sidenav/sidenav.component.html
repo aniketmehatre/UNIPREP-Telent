@@ -1,44 +1,3 @@
-<!-- 
-<ul class="menu-items">
-  <ng-container *ngFor="let menu of menus;let index = index">
-    <ng-container *ngIf="menu.header == true; else list">
-      <ng-container *ngTemplateOutlet="header; context: {$implicit: menu}"></ng-container>
-    </ng-container>
-    <ng-template #list>
-      <li [ngClass]="activeMenuIndex == index ? 'menu-item active': 'menu-item'" (click)="toggleMenu(index, menu)">
-        <a>
-            <i *ngIf="menu.icon" [ngClass]="menu.icon | icon:'menu-icon'"></i>
-            <span class="menu-title">{{menu.title}}</span>
-        </a>
-        <ng-container *ngIf="activeMenuIndex == index" @accordion>
-          <ul class="menu-items" *ngFor="let submenu of menu.children || []">
-            <ng-container *ngIf="submenu.header == true; else list">
-              <ng-container *ngTemplateOutlet="header; context: {$implicit: menu}"></ng-container>
-            </ng-container>
-            <ng-template #list>
-              <li class="meni-item">
-                <a>
-                    <i *ngIf="submenu.icon" [ngClass]="submenu.icon | icon:'menu-icon'"></i>
-                    <span class="menu-title">{{submenu.title}}</span>
-                </a>
-            </li>
-            </ng-template>
-          </ul>
-        </ng-container>
-    </li>
-    </ng-template>
-  </ng-container>
-</ul>
-
-<ng-template #header let-menu>
-  <li class="'menu-item">
-    <a class="header">
-        {{menu.title}}
-    </a>
-  </li>
-</ng-template>
-
- -->
 <div class="offcanvas offcanvas-start w-75" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
 	aria-labelledby="offcanvasWithBothOptionsLabel">
 	<div class="offcanvas-header pb-0">
@@ -52,36 +11,46 @@
 			<li class="position-relative">
 				<p class="px-3 fw-semibold text-small mb-2"><span class="maintext">Main</span> Menu</p>
 			</li>
+			@for (item of filteredMenus; track $index) {
 			<li [ngClass]="{ 'menu-item': true, active: item.active && !item?.restricted && !item?.sameUrl, overlap: isOverlap }"
-				*ngFor="let item of filteredMenus" (click)="listClick($event, item)">
-				<ng-container *ngIf="item.header; else menu">
-					<div class="system-main__apps header">
-						<span class="system-main__icon"><img
-								src="./../../../../uniprep-assets/images/icons/tip_with_notification.svg" /></span>
-						<span class="system-main__name"> {{ item.title }} </span>
-					</div>
-				</ng-container>
-				<ng-template #menu>
-					<div *ngIf="item?.subMenu" class="fw-semibold px-3 py-1 submenutitle mr-4">
-						{{ item.title }} <i *ngIf="item?.premium" class="fa-solid fa-crown uniprep-secondary"></i>
-					</div>
-					<div [ngClass]="{ sidebarClass: item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ' || item.title == 'Subscription' || item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', 
-						unsidebarClass: item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title != '24x7 Support' && item.title != 'Events' && item.title != 'Subscription' && item.title != 'Resources' && item.title != 'Career Planner' && conditionSubscribed == false,
-						'restricted-menu': item?.restricted, 'not-interested-menu':item?.notInterested }"
-						*ngIf="!item?.subMenu"
-						class="system-main__apps" (click)="onexpand(item)">
-						<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
-						<span class="system-main__name"> {{ item.title }} 
-							<span *ngIf="item?.popular" class="badge" style="width: fit-content; background-color: var(--p-lime-500)">
-								Popular
-							</span>
-							<span *ngIf="item?.mostPopular" class="badge" style="width: fit-content; background-color: var(--p-secondary-500)">
-								Most Popular
-							</span>
+				(click)="listClick($event, item)">
+				@if (item.header) {
+				<div class="system-main__apps header">
+					<span class="system-main__icon"><img
+							src="./../../../../uniprep-assets/images/icons/tip_with_notification.svg" /></span>
+					<span class="system-main__name"> {{ item.title }} </span>
+				</div>
+				}
+				@else {
+				@if (item?.subMenu) {
+				<div class="fw-semibold px-3 py-1 submenutitle mr-4">
+					{{ item.title }} @if(item?.premium) {<i class="fa-solid fa-crown uniprep-secondary"></i>}
+				</div>
+				}
+				@if (!item?.subMenu) {
+				<div [ngClass]="{ sidebarClass: item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ' || item.title == 'Subscription' || item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', 
+							unsidebarClass: item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title != '24x7 Support' && item.title != 'Events' && item.title != 'Subscription' && item.title != 'Resources' && item.title != 'Career Planner' && conditionSubscribed == false,
+							'restricted-menu': item?.restricted, 'not-interested-menu':item?.notInterested }" class="system-main__apps"
+					(click)="onexpand(item)">
+					<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
+					<span class="system-main__name"> {{ item.title }}
+						@if(item?.popular) {
+						<span class="badge" style="width: fit-content; background-color: var(--p-lime-500)">
+							Popular
 						</span>
-					</div>
-				</ng-template>
+						}
+						@if(item?.mostPopular) {
+						<span class="badge" style="width: fit-content; background-color: var(--p-secondary-500)">
+							Most Popular
+						</span>
+						}
+					</span>
+				</div>
+				}
+
+				}
 			</li>
+			}
 		</ul>
 	</div>
 </div>
@@ -94,62 +63,49 @@
 	<img src="../../../../uniprep-assets/images/uniprep-light.svg" />
 </ng-template>
 <div class="footer"></div>
-<!--<uni-side-menu [menus]="menus"></uni-side-menu>-->
 
 <ul id="menu-items">
 	<li class="position-relative">
 		<p class="px-3 fw-semibold text-small mb-2"><span class="maintext">Main</span> Menu</p>
 	</li>
+	@for (item of filteredMenus; track $index) {
 	<li [ngClass]="{ 'menu-item': true, active: item.active && !item?.restricted && !item?.sameUrl, overlap: isOverlap }"
-		*ngFor="let item of filteredMenus" (click)="listClick($event, item)">
-		<ng-container *ngIf="item.header; else menu">
+		(click)="listClick($event, item)">
+		@if (item.header) {
 			<div class="system-main__apps header">
 				<span class="system-main__icon"><img
 						src="./../../../../uniprep-assets/images/icons/tip_with_notification.svg" /></span>
 				<span class="system-main__name"> {{ item.title }} </span>
 			</div>
-		</ng-container>
-		<ng-template #menu>
-			<div *ngIf="item?.subMenu" class="fw-semibold px-3 py-1 submenutitle mr-4">
-				{{ item.title }} <i *ngIf="item?.premium" class="fa-solid fa-crown uniprep-secondary"></i>
-			</div>
-			<div [ngClass]="{ sidebarClass: item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ' || item.title == 'Subscription' || item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', 
-				unsidebarClass: item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title != '24x7 Support' && item.title != 'Events' && item.title != 'Subscription' && item.title != 'Resources' && item.title != 'Career Planner',
-				'restricted-menu': item?.restricted, 'not-interested-menu':item?.notInterested }"
-				*ngIf="!item?.subMenu"
-				class="system-main__apps" (click)="onexpand(item)">
-				<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
-				<span class="system-main__name d-flex flex-column">
-					<span>{{ item.title }}</span>
-					<span *ngIf="item.popular" class="badge" style="width: fit-content; background-color: var(--p-lime-500)">
-						Popular
+		}
+		@else {
+			@if(item?.subMenu){
+				<div class="fw-semibold px-3 py-1 submenutitle mr-4">
+					{{ item.title }} @if(item?.premium) {<i class="fa-solid fa-crown uniprep-secondary"></i>}
+				</div>
+			}
+			@if(!item?.subMenu) {
+				<div [ngClass]="{ sidebarClass: item.title == 'Dashboard' || item.title == 'About UNIPREP' || item.title == 'user' || item.title == 'Tutorials' || item.title == 'FAQ' || item.title == 'Subscription' || item.title == '24x7 Support' || item.title == 'Events' || item.title == 'Resources' || item.title == 'Career Planner', 
+					unsidebarClass: item.title != 'Dashboard' && item.title != 'Tutorials' && item.title != 'FAQ' && item.title != '24x7 Support' && item.title != 'Events' && item.title != 'Subscription' && item.title != 'Resources' && item.title != 'Career Planner',
+					'restricted-menu': item?.restricted, 'not-interested-menu':item?.notInterested }"
+					class="system-main__apps" (click)="onexpand(item)">
+					<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
+					<span class="system-main__name d-flex flex-column">
+						<span>{{ item.title }}</span>
+						@if(item?.popular) {
+						<span class="badge" style="width: fit-content; background-color: var(--p-lime-500)">
+							Popular
+						</span>
+						}
+						@if(item?.mostPopular) {
+						<span class="badge" style="width: fit-content; background-color: var(--p-secondary-500)">
+							Most Popular
+						</span>
+						}
 					</span>
-					<span *ngIf="item.mostPopular" class="badge" style="width: fit-content; background-color: var(--p-secondary-500)">
-						Most Popular
-					</span>
-				</span>
-			</div>
-		</ng-template>
-		<!-- <ul @accordion *ngIf="item.children && item.expanded">  
-
-      <uni-sidenav></uni-sidenav>
-    </ul> -->
+				</div>
+			}
+		}
 	</li>
-	<!-- <li [ngClass]="{'menu-item': true, 'active': item.active, 'overlap': isOverlap}" *ngFor="let item of menus">
-    <ng-container *ngIf="item.header; else menu">
-      <div class="system-main__apps header">
-        <span class="system-main__icon"><i [class]="item.icon"></i></span>
-        <span class="system-main__name" > {{ item.title }} </span>
-      </div>
-    </ng-container>
-    <ng-template #menu>
-      <div class="system-main__apps" (click)="onexpand(item)">
-        <span class="system-main__icon"><i [class]="item.icon"></i></span>
-        <span class="system-main__name" > {{ item.title }} </span>
-      </div>
-    </ng-template>
-    <ul @accordion *ngIf="item.children && item.expanded">
-      <uni-sidenav></uni-sidenav>
-    </ul>
-  </li> -->
+	}
 </ul>

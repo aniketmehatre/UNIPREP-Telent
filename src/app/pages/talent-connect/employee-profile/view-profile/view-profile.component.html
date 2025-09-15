@@ -166,7 +166,12 @@
                 </div>
                 <div class="col-md-4 mb-3">
                   <div class="text-primary fw-bold">Salary per month</div>
-                  <div>{{ exp.salary ? exp.exp_currency + " " + exp.salary : "Not specified" }}</div>
+                  @if(exp.noExpectation) {
+                  <div>Open to work for Experience (Unpaid)</div>
+                  }
+                  @else {
+                    <div>{{ exp.salary ? exp.exp_currency + " " + exp.salary : "Open to work for Experience (Unpaid)" }}</div>
+                  }
                 </div>
                 <div class="col-12 mb-3">
                   <div class="text-primary fw-bold">Job Responsibilities</div>
@@ -254,7 +259,7 @@
       <div class="card-body">
         <div class="row g-2">
           <div class="col-md-3">
-            <h3 class="fw-bold text-navy">Certifications & Achievements</h3>
+            <h3 class="fw-bold text-navy">Certifications</h3>
             <!-- <div class="mt-3 text-warning rounded-pill">Want to add more skills?</div>
             <button pButton label="Click here to add more to your list!" (click)="routingToPage('/pages/modules/learning-hub')" class="p-button-outlined p-button-warning mt-2 rounded-pill"></button> -->
           </div>
@@ -267,14 +272,14 @@
                     <div>{{ cert.name || "Not specified" }}</div>
                   </div>
                 }
-                @if(profileData.userAchievements && profileData.userAchievements.length > 0) {
+                <!-- @if(profileData.userAchievements && profileData.userAchievements.length > 0) {
                   @for (ach of profileData.userAchievements; track ach.name) {
                   <div class="mb-3">
                     <div class="text-primary fw-bold">Achievement Name</div>
                     <div>{{ ach.name || "Not specified" }}</div>
                   </div>
                   }
-                }
+                } -->
               </div>
               <div class="col-md-7">
                 @for (cert of profileData.certifications; track cert.file) {
@@ -288,7 +293,7 @@
                   <div class="text-muted">No certification files available</div>
                   }
                 }
-                @if(profileData.userAchievements && profileData.userAchievements.length > 0) {
+                <!-- @if(profileData.userAchievements && profileData.userAchievements.length > 0) {
                   @for (ach of profileData.userAchievements; track ach.file) {
                     @if(ach.file) {
                     <div class="border p-3 rounded bg-light d-flex justify-content-between align-items-center mb-2">
@@ -300,7 +305,7 @@
                     <div class="text-muted">No certification files available</div>
                     }
                   }
-                }
+                } -->
               </div>
             </div>
           </div>

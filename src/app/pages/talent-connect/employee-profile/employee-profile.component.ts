@@ -279,6 +279,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       work_experience_employment_type: [""],
       work_experience_duration_from: [""],
       currently_working: [false],
+      no_expect: [false],
       work_experience_duration_to: [""],
       work_experience_salary_per_month: [""],
       work_experience_currency_id: [this.currentCurrenyId],
@@ -861,7 +862,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           work_experience_currency_id: [exp.currency_id],
           work_experience_job_responsibilities: [exp.job_responsibilities, maxWordsValidator(150)],
           work_experience_experience_letter: [exp.experience_letter],
-          currently_working: [exp.currently_working ?? null]
+          currently_working: [exp.currently_working ?? null],
+          no_expect: [exp?.no_expect ?? null]
         })
         if (exp.currently_working) {
           const toCtrl = group.get("work_experience_duration_to");
@@ -869,6 +871,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           today.setHours(0, 0, 0, 0);
           toCtrl?.setValue(today);
           toCtrl?.disable();
+        }
+        if (exp?.no_expect) {
+          const currencyCtrl = group.get('work_experience_currency_id');
+          const salaryCtrl = group.get('work_experience_salary_per_month');
+          currencyCtrl?.disable();
+          currencyCtrl?.reset();
+          currencyCtrl?.clearValidators();
+          salaryCtrl?.disable();
+          salaryCtrl?.reset();
+          salaryCtrl?.clearValidators();
         }
         workExpArray.push(group);
         this.onChangeWorkExpCompanyName({ target: { value: exp.company_name } }, index);
@@ -974,7 +986,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     // this.filterLocation(response?.location_id)
     this.logo = response?.dp_image;
     this.originalProfileData = this.getAllFormValues();
-    if(this.editTab){
+    if (this.editTab) {
       this.activePageIndex = Number(this.editTab);
     }
     this.calculateProfileCompletion();
@@ -1335,6 +1347,30 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     });
     const formatted = formatDuration(totalDuration, { format: ['years', 'months'] });
     this.workExperienceForm.get('total_years_of_experience')?.setValue(formatted || '0');
+  }
+
+  onChangeWorkSalaryExpectation(event: any, index: number) {
+    const group = this.workExperience.at(index);
+    const currencyCtrl = group.get('work_experience_currency_id');
+    const salaryCtrl = group.get('work_experience_salary_per_month');
+    if (event.target.checked) {
+      currencyCtrl?.disable();
+      currencyCtrl?.reset();
+      currencyCtrl?.clearValidators();
+      salaryCtrl?.disable();
+      salaryCtrl?.reset();
+      salaryCtrl?.clearValidators();
+    }
+    else {
+      currencyCtrl?.enable();
+      currencyCtrl?.reset();
+      currencyCtrl?.setValidators(Validators.required);
+      currencyCtrl?.updateValueAndValidity();
+      salaryCtrl?.enable();
+      salaryCtrl?.reset();
+      salaryCtrl?.setValidators(Validators.required);
+      salaryCtrl?.updateValueAndValidity();
+    }
   }
 
   onChangeStillPursuing(event: any, index: number) {
@@ -1739,6 +1775,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         formData.append(`work_experience[${index}][currently_working]`, currentlyWorking.toString() || "0");
         formData.append(`work_experience[${index}][work_experience_duration_from]`, this.onCovertDateFormat(work.get("work_experience_duration_from")?.value) || "");
         formData.append(`work_experience[${index}][work_experience_duration_to]`, this.onCovertDateFormat(work.get("work_experience_duration_to")?.value) || "");
+        const noExpectation = work.get("no_expect")?.value ? 1 : 0;
+        formData.append(`work_experience[${index}][no_expect]`, noExpectation.toString() || "0");
         formData.append(`work_experience[${index}][work_experience_salary_per_month]`, work.get("work_experience_salary_per_month")?.value || "");
         formData.append(`work_experience[${index}][work_experience_currency_id]`, work.get("work_experience_currency_id")?.value || "");
         formData.append(`work_experience[${index}][work_experience_job_responsibilities]`, work.get("work_experience_job_responsibilities")?.value || "");
