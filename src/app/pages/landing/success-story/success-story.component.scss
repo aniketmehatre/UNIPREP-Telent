@@ -93,3 +93,28 @@ h5 {
   -ms-user-select: auto !important;
   user-select: auto !important;
 }
+
+.fit-img {
+  width: 300px;
+  /* make it responsive */
+  height: 300px;
+  /* set desired height */
+  object-fit: cover;
+  /* options: contain | cover | fill | scale-down | none */
+  border-radius: 8px;
+  /* optional: rounded corners */
+}
+
+.card-text-blur {
+  position: relative;
+  background: rgba(255, 255, 255, 0.2);
+  /* transparent overlay */
+  backdrop-filter: blur(8px);
+  /* blur effect */
+  -webkit-backdrop-filter: blur(8px);
+  /* Safari support */
+  border-radius: 8px;
+  /* optional */
+  padding: 10px;
+  /* some spacing */
+}
