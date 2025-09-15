@@ -16,9 +16,10 @@
 		</div>
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
-		<div *ngIf="isSkeletonVisible">
+		@if (isSkeletonVisible) {
 			<div class="row">
-				<div *ngFor="let index of loopRange" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+				@for (item of loopRange; track $index) {
+				<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
 					<div class="card my-2">
 						<div class="card-body">
 							<div class="row justify-content-center align-items-center">
@@ -33,11 +34,14 @@
 						</div>
 					</div>
 				</div>
+				}
 			</div>
-		</div>
-		<div class="d-flex" [ngClass]="{ 'justify-content-center align-items-center h-100': moduleList.length <= 4 }" *ngIf="!isSkeletonVisible">
+		}
+		@else {
+		<div class="d-flex" [ngClass]="{ 'justify-content-center align-items-center h-100': moduleList.length <= 4 }">
 			<div class="row w-100" [ngClass]="{ 'justify-content-center align-items-center h-100': moduleList.length <= 4 }">
-				<div *ngFor="let module of moduleList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+				@for (module of moduleList; track $index) {
+				<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
 					<div class="row w-100 m-0 justify-content-center h-100">
 						<div (click)="onModuleClick(module)" class="card subjectcard" role="button">
 							<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
@@ -58,7 +62,9 @@
 						</div>
 					</div>
 				</div>
+				}
 			</div>
 		</div>
+		}
 	</div>
 </div>

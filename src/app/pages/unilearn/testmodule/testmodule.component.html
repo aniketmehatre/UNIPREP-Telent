@@ -21,9 +21,10 @@
 		</div>
 	</div>
 	<div class="card-body d-flex flex-column flex-fill overflow-y-auto">
-		<div *ngIf="isSkeletonVisible">
+		@if (isSkeletonVisible) {
 			<div class="row">
-				<div *ngFor="let index of loopRange" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+				@for (item of loopRange; track $index) {
+				<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
 					<div class="card my-2">
 						<div class="card-body">
 							<div class="row justify-content-center align-items-center">
@@ -38,12 +39,15 @@
 						</div>
 					</div>
 				</div>
+				}
 			</div>
-		</div>
-		<div class="d-flex justify-content-center align-items-center flex-fill flex-column ng-star-inserted" *ngIf="!contentalignment">
+		}
+		@if (!contentalignment) {
+		<div class="d-flex justify-content-center align-items-center flex-fill flex-column ng-star-inserted">
 			<div class="container-fluid">
 				<div class="row align-items-center justify-content-center">
-					<div *ngFor="let module of submoduleList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+					@for (module of submoduleList; track $index) {
+					<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
 						<div class="d-flex justify-content-center align-items-center h-100">
 							<div (click)="onModuleClick(module)" class="card subjectcard" role="button">
 								<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
@@ -77,13 +81,17 @@
 							</div>
 						</div>
 					</div>
+					}
 				</div>
 			</div>
 		</div>
-		<div class="d-flex flex-fill flex-column ng-star-inserted" *ngIf="contentalignment">
+		}
+		@if (contentalignment) {
+		<div class="d-flex flex-fill flex-column ng-star-inserted">
 			<div class="container-fluid">
 				<div class="row align-items-center">
-					<div *ngFor="let module of submoduleList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+					@for (module of submoduleList; track $index) {
+					<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
 						<div class="d-flex justify-content-center align-items-center h-100">
 							<div (click)="onModuleClick(module)" class="card subjectcard" role="button">
 								<div class="card-body d-flex flex-md-column flex-row justify-content-md-between align-items-center px-0 py-2">
@@ -125,19 +133,25 @@
 									<div class="text-start text-md-center">
 										<h6 class="d-md-none d-block pt-2">Score: {{ module?.userAnsweredQuestions }}/{{ module?.totalQuestions }}</h6>
 									</div>
-									<div class="col text-center" *ngIf="module?.answered == 1">
+									@if (module?.answered == 1) {
+									<div class="col text-center">
 										<button pButton  class="btn btn-primary text-smaller btn-rounded btn-sm p-2 pe-4 ps-4 w-100" type="button">Retry <i class="ps-2 fa-regular fa-arrow-rotate-right" (click)="onModuleClick(module)"></i></button>
 									</div>
-									<div class="col text-center" *ngIf="module?.answered == 0">
+									}
+									@if (module?.answered == 0) {
+									<div class="col text-center">
 										<button pButton  class="btn btn-secondary text-smaller btn-rounded p-2 pe-4 ps-4 btn-sm w-100" type="button">Start Test <i class="ps-2 fa-sharp fa-solid fa-stopwatch" (click)="onModuleClick(module)"></i></button>
 									</div>
+									}
 								</div>
 							</div>
 						</div>
 					</div>
+					}
 				</div>
 			</div>
 		</div>
+		}
 		<div class="row text-center">
 			<h2 class="uniprep-primary">Average Score: {{ avgtotalAnswers }}/ {{ avgtotalQuestions }}</h2>
 		</div>

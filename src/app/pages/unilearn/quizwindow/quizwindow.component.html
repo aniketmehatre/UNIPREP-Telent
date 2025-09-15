@@ -17,24 +17,25 @@
       </div>
     </div>
     <div class="row">
-      <ng-container *ngIf="istypeAudio">
+      @if (istypeAudio) {
         <ngx-audio-player #audioplayer [autoPlay]="autoplay" [playlist]="quizprimaryAudio" [disablePositionSlider]="disablePositionSlider" [displayRepeatControls]="displayRepeatControls" [displayVolumeControls]="displayVolumeControls" [displayVolumeSlider]="displayVolumeSlider" [displayTitle]="displayTitle" allow="autoplay"> </ngx-audio-player>
-        <!-- (trackEnded)="onEnded($event)" --></ng-container>
+        <!-- (trackEnded)="onEnded($event)" -->
+      }
     </div>
   </div>
   <div class="card-body flex-fill overflow-y-auto">
     <div class="row h-100 justify-content-center">
       <div class="col-md-6 h-100 overflow-y-auto" [ngClass]="{'d-block': istypeParagraph || istypeImage, 'd-none': !(istypeParagraph || istypeImage)}">
-        <ng-container *ngIf="istypeParagraph">
+        @if (istypeParagraph) {
           <div class="text-start">
             <h4 class="mb-2 fe-bold uniprep-primarydark">{{ paragraphTittle }}</h4>
             <div class="text-start h5 mb-0" style="white-space: pre-wrap;">
               {{ paragraphQuestion }}
             </div>
           </div>
-        </ng-container>
-        <ng-container>
-          <div class="col-12" *ngIf="istypeImage">
+        }
+        @if (istypeImage) {
+          <div class="col-12">
             <div class="text-center">
               <h4>{{ imageTittle }}</h4>
             </div>
@@ -42,7 +43,7 @@
               <div><img [src]="imageQuestion" class="img-fluid" style="max-height:400px" /></div>
             </div>
           </div>
-        </ng-container>
+        }
       </div>
       <div class="col-12 h-100 overflow-y-auto mt-3 justify-content-start d-md-flex" [ngClass]="{'col-md-6': istypeParagraph || istypeImage, 'col-md-12': !(istypeParagraph || istypeImage)}">
         <form [formGroup]="quizForm">
@@ -52,7 +53,8 @@
           <div class="container-fluid">
             <div formArrayName="questions" class="row justify-content-center">
               <!--  -->
-              <div class="mb-3" [ngClass]="{'col-md-12': istypeParagraph || istypeImage, 'col-md-8': !(istypeParagraph || istypeImage)}" *ngFor="let questionControl of questionsFormArray.controls; let i = index" [formGroupName]="i">
+              @for (questionControl of questionsFormArray.controls; track $index; let i = $index) {
+              <div class="mb-3" [ngClass]="{'col-md-12': istypeParagraph || istypeImage, 'col-md-8': !(istypeParagraph || istypeImage)}" [formGroupName]="i">
                 <div class="form-group">
                   <p class="uniprep-primary fw-medium">Question {{ i + 1 }}:</p>
                   <h5 class="uniprep-primarydark fw-bold">{{ questionControl.get("question")?.value }}</h5>
@@ -79,12 +81,14 @@
                       <textarea formControlName="answer" placeholder="Summarize answer here" rows="15" class="form-control w-100"></textarea>
                     </div> 
                     <div *ngSwitchCase="'MCQ'">
-                      <div *ngFor="let option of questionControl.get('options')?.value; let j = index">
+                      @for (option of questionControl.get('options')?.value; track $index; let j = $index) {
+                      <div>
                         <p class="mb-2 fw-medium" >
                           <input type="checkbox" formControlName="selectedOptions" class="form-check-input" (change)="onCheckboxChange($event, i, j)" />
                           {{ option }}
                         </p>
                       </div>
+                      }
                     </div>
                     <div *ngSwitchCase="'True or False'">
                       <p class="mb-2 fw-medium" >
@@ -99,6 +103,7 @@
                   </ng-container>
                 </div>
               </div>
+              }
             </div>
           </div>
         </form>
@@ -107,23 +112,19 @@
   </div>
   <div class="card-footer bg-transparent">
     <div class="row justify-content-between">
-      <!-- <div>
+      <div>
         Questions
-        <ng-container
-          *ngFor="
-            let questionnumber of QuestionSequence(totalquestion);
-            let i = index
-          "
-          ><button pButton 
+        @for (questionnumber of QuestionSequence(totalquestion); track $index; let i = $index) {
+        <button pButton 
             class="btn btn-outline-primary outline-primary me-1"
             [ngClass]="{ customactive: activeQuestion === i }"
             (click)="activeQuestion = i"
             readonly
           >
             {{ i + 1 }}
-          </button></ng-container
-        >
-      </div> -->
+          </button>
+        }
+      </div>
       <div class="col-md-8 text-end"></div>
 
       <div class="col-md-4 text-end">
