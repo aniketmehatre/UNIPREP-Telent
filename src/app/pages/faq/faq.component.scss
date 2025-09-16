@@ -9,42 +9,32 @@
   }
 }
 
-:host ::ng-deep .p-accordion {
-  .p-accordion-content
-  {
+:host ::ng-deep mat-accordion {
+  mat-expansion-panel {
     background: none;
     border: none;
-    padding-top: 0;
-    padding-bottom:0.5rem;
-  }
-  .p-accordion-tab {
-    .p-accordion-header {
-      .p-accordion-header-link {
-        border: none;
-        font-weight: 500;
-        font-size: 1.2em;
-        flex-direction: row-reverse;
-        justify-content: space-between;
-        box-shadow:none;
-      }
-      .p-accordion-header-link:after
-      {
-        display: none !important;
-      }
+    box-shadow: none; /* remove default Material shadow */
+
+    /* Panel body (content) */
+    .mat-expansion-panel-body {
+      padding-top: 0;
+      padding-bottom: 0.5rem;
     }
-  }
-  .p-accordion-tab-active {
-    .p-accordion-header {
-      .p-accordion-header-link {
-        border: none;
+
+
+      /* Hide default Material expand icon if using custom */
+      // .mat-expansion-indicator {
+      //   display: none !important;
+      // }
+    }
+
+    /* Active / Expanded panel */
+    &.mat-expanded {
+      .mat-expansion-panel-header {
         font-weight: bold !important;
         font-size: 1.2em;
-        box-shadow:none;
-      }
-      .p-accordion-header-link:after
-      {
-        display: none !important;
+        box-shadow: none;
       }
     }
   }
-}
+

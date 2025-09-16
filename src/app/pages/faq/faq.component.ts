@@ -3,18 +3,20 @@ import { FaqService } from "./faq.service"
 import { CommonModule } from "@angular/common"
 import { AccordionModule } from "primeng/accordion"
 import { RouterModule } from "@angular/router"
+import { MatExpansionModule } from "@angular/material/expansion"
 @Component({
 	selector: "uni-faq",
 	templateUrl: "./faq.component.html",
 	styleUrls: ["./faq.component.scss"],
 	standalone: true,
-	imports: [CommonModule, AccordionModule, RouterModule],
+	imports: [CommonModule, RouterModule,MatExpansionModule],
 })
 export class FaqComponent implements OnInit {
 	faqcatlist: any[] = []
 	faqanswelist: any[] = []
 	activeCategory: any = null
-	constructor(private service: FaqService) {}
+	activeIndex: number | null = null;
+	constructor(private service: FaqService) { }
 
 	ngOnInit(): void {
 		this.getfaqlist()
