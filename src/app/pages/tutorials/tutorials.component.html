@@ -13,14 +13,17 @@
 		</div>
 		<div class="row">
 			<div class="d-flex flex-row gap-4 flex-nowrap overflow-y-auto py-3">
-				<p role="button" class="text-nowrap" *ngFor="let cat of categorylist" [ngClass]="{ 'selected-category': isSelected(cat.id) }" (click)="filterCat(cat.id)">{{ cat.name }}</p>
+				@for (cat of categorylist; track $index) {
+				<p role="button" class="text-nowrap" [ngClass]="{ 'selected-category': isSelected(cat.id) }" (click)="filterCat(cat.id)">{{ cat.name }}</p>
+				}
 			</div>
 		</div>
 	</div>
 	<div class="card-body flex-fill overflow-y-auto">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-md-3 col-12" *ngFor="let tutorial of tutoriallist">
+				@for (tutorial of tutoriallist; track $index) {
+				<div class="col-md-3 col-12">
 					<div class="text-decoration-none text-white" role="button" (click)="openVideoPopup(tutorial.link)">
 						<div class="card my-2 position-relative tutcard">
 							<div class="tutgradient"></div>
@@ -32,6 +35,7 @@
 						</div>
 					</div>
 				</div>
+				}
 			</div>
 		</div>
 	</div>

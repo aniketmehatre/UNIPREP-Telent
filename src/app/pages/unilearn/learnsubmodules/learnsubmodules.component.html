@@ -27,21 +27,23 @@
 						</div>
 					</div>
 				</div>
-
-				<div *ngIf="pdfvisibility">
+				@if (pdfvisibility) {
+				<div>
 					<button pButton class="text-white p-ripple p-button-warning p-button p-component p-2"
 						(click)="download()">
 						Download
 						<i class="fa-solid fa-download ms-2 p-2" style="background-color: var(--p-primary-800)"></i>
 					</button>
 				</div>
+				}
 			</div>
 		</div>
 	</div>
 	<div class="card-body text-center flex-fill overflow-y-auto">
-		<div *ngIf="isSkeletonVisible">
+		@if (isSkeletonVisible) {
 			<div class="row">
-				<div *ngFor="let index of loopRange" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+				@for (item of loopRange; track $index) {
+				<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
 					<div class="card my-2">
 						<div class="card-body">
 							<div class="row justify-content-center align-items-center">
@@ -56,21 +58,25 @@
 						</div>
 					</div>
 				</div>
+				}
 			</div>
-		</div>
-		<div class="d-flex" [ngClass]="{ 'justify-content-center align-items-center h-100': submoduleList.length <= 4 }"
-			*ngIf="!isSkeletonVisible && !pdfvisibility">
+		}
+		@if (!isSkeletonVisible && !pdfvisibility) {
+		<div class="d-flex" [ngClass]="{ 'justify-content-center align-items-center h-100': submoduleList.length <= 4 }">
 			<div class="row w-100"
 				[ngClass]="{ 'justify-content-center align-items-center h-100': submoduleList.length <= 4 }">
-				<div *ngFor="let module of submoduleList" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
+				@for (module of submoduleList; track $index) {
+				<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 col-12">
 					<div class="d-flex w-100 m-0 justify-content-center h-100">
 						<div (click)="onModuleClick(module)" class="card subjectcard" role="button">
 							<div
 								class="card-body d-flex flex-md-column flex-row justify-md-content-between align-items-center px-2 py-2 w-100">
 								<div>
 									<div class="submoduleicon">
-										<img *ngIf="module?.icon" alt="{{ module.submodule_name }}" class="selectimage"
+										@if (module?.icon) {
+										<img alt="{{ module.submodule_name }}" class="selectimage"
 											src="{{ module?.icon }}" />
+										}
 									</div>
 									<h6 class="text-center subjecttitle d-md-block d-none pt-2">
 										{{ module.submodule_name }}
@@ -85,34 +91,27 @@
 						</div>
 					</div>
 				</div>
+				}
 			</div>
 		</div>
-		<div class="row justify-content-center h-100" *ngIf="pdfvisibility">
+		}
+		@if (pdfvisibility) {
+		<div class="row justify-content-center h-100">
 			<div class="col-md-8 col-12">
-				<div class="h-100" *ngIf="!pdfLoadError">
+				@if (!pdfLoadError) {
+				<div class="h-100">
 					<pdf-viewer [src]="pdfURL" [original-size]="true" [show-all]="true" [fit-to-page]="true"
 						[zoom]="1.0" [autoresize]="true" [render-text]="false" [external-link-target]="'blank'"
 						style="width: 100%; height: 100%"> ></pdf-viewer>
-					<!--					<ng2-pdfjs-viewer #pdfViewer-->
-					<!--						[pdfSrc]="pdfURL"-->
-					<!--						[viewerId]="'pdf-viewer'"-->
-					<!--						[downloadFileName]="'document.pdf'"-->
-					<!--						[externalWindow]="false"-->
-					<!--						[openFile]="false"-->
-					<!--						[viewBookmark]="false"-->
-					<!--						[download]="false"-->
-					<!--						[fullScreen]="true"-->
-					<!--						[find]="true"-->
-					<!--						[zoom]="'page-width'"-->
-					<!--						[print]="true"-->
-					<!--						[startPage]="1"-->
-					<!--						style="width: 100%; height: 80vh;"-->
-					<!--					></ng2-pdfjs-viewer>-->
 				</div>
-				<div *ngIf="pdfLoadError" class="alert alert-danger text-center mt-3">
-					<p>Error loading PDF. Please try downloading the file instead.</p>
-				</div>
+				}
+				@else {
+					<div class="alert alert-danger text-center mt-3">
+						<p>Error loading PDF. Please try downloading the file instead.</p>
+					</div>
+				}
 			</div>
 		</div>
+		}
 	</div>
 </div>

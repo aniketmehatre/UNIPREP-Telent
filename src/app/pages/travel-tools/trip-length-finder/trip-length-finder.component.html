@@ -1,4 +1,5 @@
-<div class="card readingcard" *ngIf="isRecommendation">
+@if (isRecommendation) {
+<div class="card readingcard">
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-12 d-flex gap-4">
@@ -57,9 +58,10 @@
                                                 <img [src]="country.flag" class="img-fluid" />
                                             </div>
                                             <div>
-                                                <span *ngIf="country.city_name !== null">
+                                                @if (country.city_name !== null) {
+                                                <span>
                                                     {{ country.city_name }},
-                                                </span>{{ country.country_name }}
+                                                </span> } {{ country.country_name }}
                                             </div>
                                         </div>
                                     </ng-template>
@@ -69,9 +71,9 @@
                                                 <img [src]="selectedOption.flag" class="img-fluid" />
                                             </div>
                                             <div>
-                                                <span *ngIf="selectedOption.city_name !== null">
+                                                @if (selectedOption.city_name !== null) {<span>
                                                     {{ selectedOption.city_name }},
-                                                </span>{{ selectedOption.country_name }}
+                                                </span>} {{ selectedOption.country_name }}
                                             </div>
                                         </div>
                                     </ng-template>
@@ -94,7 +96,9 @@
         </div>
     </div>
 </div>
-<div class="card readingcard" *ngIf="isResponsePage">
+}
+@if (isResponsePage) {
+<div class="card readingcard">
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-12 d-flex gap-4">
@@ -131,7 +135,8 @@
         <div class="row h-100">
             <div class="col-md-2"></div>
             <div class="col-md-8 d-flex flex-column gap-2 h-100">
-                <div class="d-flex justify-content-end gap-3" *ngIf="recommendationData">
+                @if (recommendationData) {
+                <div class="d-flex justify-content-end gap-3">
                     <button pButton type="button" (click)="downloadRecommadation()"
                         class="btn btn-secondary btn-rounded p-1 ps-4">
                         <span class="me-2">Download</span><span class="btn-icon px-2 py-2">
@@ -139,7 +144,9 @@
                         </span>
                     </button>
                 </div>
-                <div *ngIf="isResponseSkeleton; else showResponseData" class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
+                }
+                @if (isResponseSkeleton) {
+                <div class="card p-3 chatgpt-response bg-white h-100 overflow-y-auto">
                     <p-skeleton width='30rem' height='2rem' styleClass="mb-2"></p-skeleton>
 					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
 					<p-skeleton width='100%' height='1rem' styleClass="mb-2"></p-skeleton>
@@ -155,12 +162,13 @@
 						<uni-percentage-loader />
 					</div>
                 </div>
-                <ng-template #showResponseData>
+                }
+                @else {
                     <markdown class="d-flex flex-fill h-100 overflow-hidden" emoji>
                         <div class="card p-3  chatgpt-response bg-white h-100 overflow-y-auto"
                             [innerHtml]="recommendationData"></div>
                     </markdown>
-                </ng-template>
+                }
             </div>
             <div class="col-md-2"></div>
         </div>
@@ -174,7 +182,9 @@
         </div>
     </div>
 </div>
-<div class="card readingcard" *ngIf="isSavedPage">
+}
+@if (isSavedPage) {
+<div class="card readingcard">
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-12 d-flex gap-4">
@@ -209,8 +219,8 @@
     </div>
     <div class="card-body text-center flex-fill overflow-y-auto">
         <div class="row mb-0">
-            <div *ngFor="let item of savedResponse; let i= index"
-                class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
+            @for (item of savedResponse; track $index; let i= $index) {
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-12 mb-3">
                 <div class="row w-100 m-0 justify-content-center h-100">
                     <div class="card subjectcard" role="button" (click)="clickRecommendation(item.response, item.user_inputs)">
                         <div class="card-body text-start">
@@ -220,6 +230,7 @@
                     </div>
                 </div>
             </div>
+            }
         </div>
     </div>
     <div class="card-footer bg-transparent border-0">
@@ -231,3 +242,4 @@
         </div>
     </div>
 </div>
+}

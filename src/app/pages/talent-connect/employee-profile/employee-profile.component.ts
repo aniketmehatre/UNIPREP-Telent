@@ -2235,6 +2235,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
   }
 
+  getProficiencyRating(proficiency: string) {
+    const proficiencyList: { [key: string]: number } = {
+      "Beginner": 2,
+      "Fluent": 3,
+      "Proficient": 4,
+      "Native": 5
+    }
+    return proficiencyList[proficiency] || 0;
+  }
+
   ngOnDestroy(): void {
     this.clearStoredFiles();
   }

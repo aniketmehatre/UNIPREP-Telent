@@ -21,9 +21,11 @@
 		</div>
 		<div class="row mt-2 align-items-center">
 			<div class="col-12 col-xxl-8 d-flex">
-				<p *ngFor="let cat of category_dropdown" [ngClass]="{ 'selected-category': isSelected(cat.id) }" (click)="filterCat(cat.id)" style="margin-left: 20px">
+				@for (cat of category_dropdown; track $index) {
+				<p [ngClass]="{ 'selected-category': isSelected(cat.id) }" (click)="filterCat(cat.id)" style="margin-left: 20px">
 					<span style="cursor: pointer">{{ cat.name }}</span>
 				</p>
+				}
 			</div>
 			<div class="col-12 col-xxl-4 text-end">
 				<p-inputgroup>
@@ -38,35 +40,34 @@
 	<div class="card-body text-start flex-fill overflow-y-auto">
 		<div class="container-fluid">
 			<div class="row">
-				<!-- <div class="col-12 mt-1" *ngFor="let alphabet of groupedTerms | keyvalue">
-					<h2 *ngIf="alphabet.key" class="uniprep-secondary">{{ alphabet.key }}</h2>
+				@for (alphabet of groupedTerms | keyvalue; track alphabet.key) {
+				<div class="col-12 mt-1">
+					@if(alphabet.key) {
+					<h2 class="uniprep-secondary">{{ alphabet.key }}</h2>
+					}
 					<hr />
-					<div *ngFor="let term of alphabet.value">
-						<h5 style="color: var(--p-primary-500)">{{ term.glossaryterm }}</h5>
-						<h6 style="font-size: 0.9rem">{{ term.summary }}</h6>
-						<hr />
-					</div>
-				</div> -->
-				<div class="col-12 mt-1" *ngFor="let alphabet of groupedTerms | keyvalue">
-					<h2 *ngIf="alphabet.key" class="uniprep-secondary">{{ alphabet.key }}</h2>
-					<hr />
-					<div *ngFor="let term of alphabet.value">
+					@for (term of alphabet.value; track $index) {
+					<div>
 					  <h5 style="color: var(--p-primary-500)">
-						<ng-container *ngFor="let part of term.glossarytermParts">
+						@for (part of term.glossarytermParts; track part.highlight) {
 						  <span [ngClass]="{ 'highlight': part.highlight }">{{ part.word }}</span>
-						</ng-container>
+						}
 					  </h5>
 					  <h6 style="font-size: 0.9rem">
-						<ng-container *ngFor="let part of term.summaryParts">
+						@for (part of term.summaryParts; track part.word) {
 						  <span [ngClass]="{ 'highlight': part.highlight }">{{ part.word }}</span>
-						</ng-container>
+						}
 					  </h6>
 					  <hr />
 					</div>
+					}
 				  </div>
-				<div *ngIf="travelglossarylists && travelglossarylists.length > 0 && isObjectEmpty(groupedTerms)" class="d-flex justify-content-center centerDiv">
+				}
+				@if(travelglossarylists && travelglossarylists.length > 0 && isObjectEmpty(groupedTerms)) {
+				<div class="d-flex justify-content-center centerDiv">
 					<h3>No results found</h3>
 				</div>
+				}
 			</div>
 		</div>
 	</div>
