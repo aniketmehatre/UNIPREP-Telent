@@ -3,12 +3,15 @@
     <div class="row justify-content-center">
       <div class="col-md-12 d-flex gap-2 text-start">
         <div class="select-title d-flex justify-content-between align-items-center" style="width: 100%">
-					<div class="d-flex gap-2">
-						<h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
-						<span><i class="fa-solid fa-chevron-right"></i></span>
-						<h5 routerLink="/pages/mycertificate" role="button" class="mb-0" tooltipPosition="top" pTooltip="Find answers to frequently asked questions covering a range of topics to help clarify common inquiries.">Frequently Asked Questions</h5>
-					</div>
-				</div>
+          <div class="d-flex gap-2">
+            <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i
+                class="fa-regular fa-home"></i></h5>
+            <span><i class="fa-solid fa-chevron-right"></i></span>
+            <h5 routerLink="/pages/mycertificate" role="button" class="mb-0" tooltipPosition="top"
+              pTooltip="Find answers to frequently asked questions covering a range of topics to help clarify common inquiries.">
+              Frequently Asked Questions</h5>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -17,19 +20,23 @@
       <div class="col-md-3 col-12 overflow-y-auto">
         <h5 class="mb-3">Table of content</h5>
         <ul class="list-unstyled faqlist d-flex flex-md-column flex-row ">
-          <li class="py-2 uniprep-primary px-2 rounded-2 flex-shrink-0" role="button" *ngFor="let faqcat of faqcatlist" (click)="onFaqcatClick(faqcat.id)" [class.active]="faqcat.id === activeCategory">{{ faqcat.name }}</li>
+          <li class="py-2 uniprep-primary px-2 rounded-2 flex-shrink-0" role="button" *ngFor="let faqcat of faqcatlist"
+            (click)="onFaqcatClick(faqcat.id)" [class.active]="faqcat.id === activeCategory">{{ faqcat.name }}</li>
         </ul>
       </div>
       <div class="col-md-9 col-12 overflow-y-auto">
-        <p-accordion [multiple]="false" class="plain" expandIcon="fa-solid fa-plus" collapseIcon="fa-solid fa-minus">
-          <div *ngFor="let faqlist of faqanswelist; index as i">
-            <p-accordionTab [value]="i">
-              <ng-template pTemplate="header">{{ faqlist.question }}</ng-template>
-              <p>{{ faqlist.answer }}</p>
-            </p-accordionTab>
-          </div>
-        </p-accordion>
+        <mat-accordion multi="false">
+          <mat-expansion-panel *ngFor="let faqlist of faqanswelist">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ faqlist.question }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>{{ faqlist.answer }}</p>
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
+
     </div>
   </div>
 </div>
