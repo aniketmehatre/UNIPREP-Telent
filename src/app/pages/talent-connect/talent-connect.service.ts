@@ -35,7 +35,7 @@ export class TalentConnectService {
     closeModal() {
         this.whyPremiumModal$.next(false);
     }
-    
+
     //Profile Creation 
     getMyProfileData(token?: string) {
         //  The token is not taken by the public route (login). that's why this header added for manually for after getMe Api call
@@ -300,5 +300,9 @@ export class TalentConnectService {
     sendWatsappMess(data: { template_name: string }) {
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(environment.ApiUrl + "/sendWhatsappMessage", data, { headers: headers });
+    }
+
+    getDocsFilter(tab:string) {
+        return this.http.get<any>(environment.ApiUrl + `/getallfiles?tab=${tab}`);
     }
 }

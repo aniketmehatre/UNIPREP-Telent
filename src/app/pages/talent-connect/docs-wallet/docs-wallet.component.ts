@@ -11,6 +11,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { PopoverModule } from 'primeng/popover';
 import { PageFacadeService } from '../../page-facade.service';
+import { TalentConnectService } from '../talent-connect.service';
 
 @Component({
   selector: 'uni-docs-wallet',
@@ -27,11 +28,22 @@ export class DocsWalletComponent implements OnInit {
   fileUploadModalVisible: boolean = false;
   activeSectionCard: string = 'All Files';
 
-  constructor(private pageFacade: PageFacadeService) { }
+  constructor(private pageFacade: PageFacadeService, private talentConnectService: TalentConnectService) { }
 
   ngOnInit(): void {
+    this.getDocsFilter();
   }
 
+  getDocsFilter() {
+    this.talentConnectService.getDocsFilter('ALL').subscribe({
+      next: res => {
+
+      },
+      error: err => {
+
+      }
+    });
+  }
   getActiveClassStatus(section: string) {
     return this.activeSectionCard == section;
   }
@@ -40,7 +52,7 @@ export class DocsWalletComponent implements OnInit {
     this.activeSectionCard = section;
   }
 
-  uploadFile(event:any) {
+  uploadFile(event: any) {
 
   }
 
