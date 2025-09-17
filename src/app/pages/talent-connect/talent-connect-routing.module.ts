@@ -35,6 +35,10 @@ const routes: Routes = [
     path: 'my-profile',
     loadChildren: () => import('./employee-profile/employee-profile.module').then(m => m.EmployeeProfileModule)
   },
+  {
+    path: 'docs-wallet',
+    loadComponent: () => import('./docs-wallet/docs-wallet.component').then(m => m.DocsWalletComponent)
+  },
 ];
 
 @NgModule({

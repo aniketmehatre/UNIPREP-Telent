@@ -77,13 +77,13 @@ export class SidenavComponent {
     {
       title: "Create Job Profile",
       url: "/pages/talent-connect/my-profile",
-      image: "fa-solid fa-user",
+      image: "fa-regular fa-user",
       subMenuBy: "Job Board",
     },
     {
       title: "Job Search",
       url: "/pages/talent-connect/easy-apply",
-      image: "fa-solid fa-user-tie-hair",
+      image: "fa-regular fa-user-hat-tie-magnifying-glass",
       subMenuBy: "Job Board",
       mostPopular: true,
 
@@ -91,21 +91,27 @@ export class SidenavComponent {
     {
       title: "Job Tracker",
       url: "/pages/talent-connect/job-tracker",
-      image: "fa-solid fas fa-briefcase",
+      image: "fa-regular fas fa-briefcase",
       subMenuBy: "Job Board",
     },
     {
       title: "Company Search",
       url: "/pages/talent-connect/company-connect",
-      image: "pi pi-building",
+      image: "fa-regular fa-building-magnifying-glass",
       subMenuBy: "Job Board",
     },
     {
       title: "Company Tracker",
       url: "/pages/talent-connect/company-tracker",
-      image: "fas fa-folder",
+      image: "fa-regular fa-industry",
       subMenuBy: "Job Board",
     },
+    // {
+    //   title: "Docs Wallet",
+    //   url: "/pages/talent-connect/docs-wallet",
+    //   image: "fa-regular fa-folders",
+    //   subMenuBy: "Job Board",
+    // },
     {
       title: "Career",
       url: "",

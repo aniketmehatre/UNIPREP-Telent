@@ -1,0 +1,37 @@
+.docs-section ul {
+    padding-left: 0;
+
+    li {
+        list-style: none;
+    }
+}
+
+.folder-sec {
+    border: 1px solid var(--p-primary-100);
+    border-radius: 10px;
+
+    &:hover {
+        background-color: var(--p-primary-50);
+        border: 1px solid var(--p-primary-500);
+
+        i {
+            color: var(--p-primary-500);
+        }
+    }
+
+    &.active {
+        background-color: var(--p-primary-50);
+    }
+}
+
+.folder-sec2 {
+    border: 1px solid var(--p-primary-100);
+    border-radius: 10px;
+}
+
+.upload-box {
+	width: 100%;
+	border: 1px dashed var(--p-primary-500);
+	background-color: var(--p-neutral-100);
+	border-radius: 6px;
+}

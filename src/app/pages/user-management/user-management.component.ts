@@ -608,6 +608,12 @@ export class UserManagementComponent implements OnInit {
 			this.router.navigate(['/pages/talent-connect/my-profile']);
 	}
 
+	navigateToDocsWallet() {
+		this.talentConnectService._employerProfileData?.profile_completion_flag ?
+			this.router.navigate(['/pages/talent-connect/docs-wallet']) :
+			this.router.navigate(['/pages/talent-connect/my-profile']);
+	}
+
 	onDeactivateAccount() {
 		this.userManagementService.deactivateAccount().subscribe({
 			next: (data: any) => {

@@ -200,3 +200,7 @@ ngx-intl-tel-input input[disabled] {
 .p-rating-option-active .p-rating-icon {
   color: var(--p-secondary-500) !important;
 }
+
+.custom-progress .p-progressbar-value {
+  background-color: var(--p-secondary-500);
+}
