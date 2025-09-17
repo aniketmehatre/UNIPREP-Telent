@@ -360,7 +360,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
 			// } else {
 			// 	this.userBasedVideo = 'https://www.youtube.com/embed/AAXUZ0z5bl0?si=xAFiTKSQGhHrQ9iE'
 			// }
-			this.userBasedVideo = 'https://www.youtube.com/embed/opXvLo1OS_o?si=m4-GWVTIIk1yXwuK'
+			this.userBasedVideo = 'https://www.youtube.com/embed/5MSn3pbD11A?si=4mxp9G9rdbkBZDPH'
 			this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.userBasedVideo);
 		})
 	}
