@@ -28,6 +28,7 @@ export interface SideMenu {
   subMenuBy?: string;
   notInterested?: boolean;
   premium?: boolean;
+  accordionStatus?: boolean;
 }
 
 @Component({
@@ -54,7 +55,8 @@ export class SidenavComponent {
       title: "Academics",
       url: "",
       image: "",
-      subMenu: true
+      subMenu: true,
+      accordionStatus: true
     },
     {
       title: "K12 Academy",
@@ -72,7 +74,8 @@ export class SidenavComponent {
       title: "Job Board",
       url: "",
       image: "",
-      subMenu: true
+      subMenu: true,
+      accordionStatus: true
     },
     {
       title: "Create Job Profile",
@@ -117,7 +120,8 @@ export class SidenavComponent {
       url: "",
       image: "",
       subMenu: true,
-      premium: true
+      premium: true,
+      accordionStatus: false
     },
     // {
     //   title: "Career Hub",
@@ -149,7 +153,8 @@ export class SidenavComponent {
       url: "",
       image: "",
       subMenu: true,
-      premium: true
+      premium: true,
+      accordionStatus: false
     },
     {
       title: "Startup Kit",
@@ -175,7 +180,8 @@ export class SidenavComponent {
       url: "",
       image: "",
       subMenu: true,
-      premium: true
+      premium: true,
+      accordionStatus: false
     },
     // {
     //   title: "Global Repository",
@@ -214,7 +220,8 @@ export class SidenavComponent {
       url: "",
       image: "",
       subMenu: true,
-      premium: true
+      premium: true,
+      accordionStatus: false
     },
     {
       title: "Language Hub",
@@ -234,7 +241,8 @@ export class SidenavComponent {
       title: "Others",
       url: "",
       image: "",
-      subMenu: true
+      subMenu: true,
+      accordionStatus: false
     },
     {
       title: "AI Global Advisor",
@@ -405,6 +413,7 @@ export class SidenavComponent {
         }
       }
     });
+    this.setInitialAccordionMenu();
   }
 
   markCurrentMenu() {
@@ -448,6 +457,9 @@ export class SidenavComponent {
     }
     if (item.expanded) {
       item.expanded = !item.expanded;
+      return;
+    }
+    if (item.subMenu) {
       return;
     }
     if (item.children) {
@@ -619,5 +631,48 @@ export class SidenavComponent {
     if (isRestricted) {
       this.router.navigateByUrl(redirectUrl);
     }
+  }
+
+  setInitialAccordionMenu() {
+    this.menus.forEach((item) => {
+      if (item.accordionStatus == true || item.accordionStatus == false) {
+        setTimeout(() => {
+          this.onOpenCloseSubMenu(item, item.accordionStatus ? 'open' : 'close')
+        }, 100);
+      }
+    });
+  }
+
+  onOpenCloseSubMenu(data: SideMenu, status: string) {
+    data.accordionStatus = !data.accordionStatus;
+    let currentMenu = (data.title.split(' '));
+    let allSubMenu = document.querySelectorAll('.' + currentMenu[0]);
+    if ((allSubMenu?.length > 0)) {
+      if (status == 'open') {
+        allSubMenu.forEach((item: any) => {
+          item.style.display = "flex";
+        });
+      }
+      else {
+        allSubMenu.forEach((item: any) => {
+          item.style.display = "none";
+        });
+      }
+    }
+  }
+
+  getMenuClasses(item: any) {
+    const sidebarTitles = ['Dashboard', 'About UNIPREP', 'user', 'Tutorials', 'FAQ', 'Subscription', '24x7 Support', 'Events',
+      'Resources', 'Career Planner'];
+    const unSidebarTitles = ['Dashboard', 'Tutorials', 'FAQ', '24x7 Support', 'Events', 'Subscription',
+      'Resources', 'Career Planner'
+    ];
+    return {
+      sidebarClass: sidebarTitles.includes(item.title),
+      unsidebarClass: !unSidebarTitles.includes(item.title),
+      'restricted-menu': item?.restricted,
+      'not-interested-menu': item?.notInterested,
+      [item.subMenuBy]: !!item.subMenuBy
+    };
   }
 }

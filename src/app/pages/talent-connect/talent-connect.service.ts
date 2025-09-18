@@ -302,7 +302,14 @@ export class TalentConnectService {
         return this.http.post<any>(environment.ApiUrl + "/sendWhatsappMessage", data, { headers: headers });
     }
 
+    // Docs Wallet API's Start
     getDocsFilter(tab:string) {
         return this.http.get<any>(environment.ApiUrl + `/getallfiles?tab=${tab}`);
     }
+
+    getDocsUploadedFiles() {
+        return this.http.get<any>(environment.ApiUrl + `/getuploadedfiles`);
+    }
+
+    // Docs Wallet API's End
 }

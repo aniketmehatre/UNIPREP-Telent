@@ -43,6 +43,14 @@ export class DocsWalletComponent implements OnInit {
 
       }
     });
+    this.talentConnectService.getDocsUploadedFiles().subscribe({
+      next: res => {
+
+      },
+      error: err => {
+
+      }
+    });
   }
   getActiveClassStatus(section: string) {
     return this.activeSectionCard == section;
