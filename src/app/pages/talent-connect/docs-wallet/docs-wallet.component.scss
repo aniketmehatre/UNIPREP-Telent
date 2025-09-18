@@ -30,8 +30,14 @@
 }
 
 .upload-box {
-	width: 100%;
-	border: 1px dashed var(--p-primary-500);
-	background-color: var(--p-neutral-100);
-	border-radius: 6px;
+    width: 100%;
+    border: 1px dashed var(--p-primary-500);
+    background-color: var(--p-neutral-100);
+    border-radius: 6px;
+}
+
+.file-remove {
+    position: absolute;
+    top: -10px;
+    right: -10px;
 }
