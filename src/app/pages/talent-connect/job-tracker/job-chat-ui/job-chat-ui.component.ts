@@ -140,6 +140,10 @@ export class JobChatUiComponent implements OnInit, OnChanges {
     });
   }
   applyJob(message: string) {
+     if (!this.talentConnectService._employerProfileData?.profile_completion_flag) {
+      this.toast.add({ severity: "error", summary: "Error", detail: 'Please Complete Your Job Profile' });
+      return;
+    }
     console.log('jobDetails', this.getRemainingDays(this.jobDetails.due_date));
     this.storage.set('daysRemaining', this.getRemainingDays(this.jobDetails.due_date));
     //upgrade to premium and why premium popup trigger
@@ -191,7 +195,8 @@ export class JobChatUiComponent implements OnInit, OnChanges {
   }
 
   autoGrow(element: HTMLTextAreaElement): void {
-    if (this.message.length === 0 || !this.talentConnectService._employerProfileData?.profile_completion_flag) {
+    // if (this.message.length === 0 || !this.talentConnectService._employerProfileData?.profile_completion_flag) {
+    if (this.message.length === 0) {
       this.applyBtnDisable = true;
     } else {
       this.applyBtnDisable = false;
