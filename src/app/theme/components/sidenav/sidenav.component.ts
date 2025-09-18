@@ -56,7 +56,7 @@ export class SidenavComponent {
       url: "",
       image: "",
       subMenu: true,
-      accordionStatus: true
+      accordionStatus: false
     },
     {
       title: "K12 Academy",
