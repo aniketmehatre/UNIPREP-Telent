@@ -98,6 +98,10 @@ export const landingRoutes: Routes = [
                 loadComponent: () => import('./success-story/success-story.component').then(c => c.SuccessStoryComponent)
             },
             {
+                path: 'success-story/:id',
+                loadComponent: () => import('./success-story/success-story.component').then(c => c.SuccessStoryComponent)
+            },
+            {
                 path: ':category',
                 loadComponent: () => import('./job-seekers-landing/job-seekers-landing.component').then(m => m.JobSeekersLandingComponent),
             },
