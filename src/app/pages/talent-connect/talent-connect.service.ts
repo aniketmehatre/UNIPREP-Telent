@@ -311,5 +311,9 @@ export class TalentConnectService {
         return this.http.get<any>(environment.ApiUrl + `/getuploadedfiles`);
     }
 
+    uploadDocsWallet(formData: any) {
+        return this.http.post(`${environment.ApiUrl}/uploaddoc`, formData);
+    }
+
     // Docs Wallet API's End
 }

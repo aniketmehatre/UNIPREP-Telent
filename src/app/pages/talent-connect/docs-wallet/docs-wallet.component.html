@@ -15,7 +15,8 @@
         </div>
         <div class="mt-2">
             <div class="d-md-flex justify-content-between align-items-center mb-2">
-                <div><span class="fs-5 fw-bold">Storage </span> <span class="uniprep-primary"> 10MB of 250MB used</span>
+                <div><span class="fs-5 fw-bold">Storage </span> <span class="uniprep-primary">
+                        {{ docsWallet?.storage_used }}</span>
                 </div>
                 <p-button (click)="fileUploadModalVisible = true" [rounded]="true">
                     <i class="fa-solid fa-plus"></i><span class="d-md-block d-none">&nbsp;Upload Files</span>
@@ -31,29 +32,17 @@
             <div class="col-md-3 col-lg-3 col-12">
                 <p-panel header="My Folder" [toggleable]="true">
                     <ul>
-                        <li class="d-flex justify-content-between align-items-center p-3 folder-sec" role="button"
-                            [ngClass]="{'active': getActiveClassStatus('All Files')}"
-                            (click)="setSwitchSection('All Files')">
-                            <div class="d-flex gap-3 align-items-center"><i class="fa-light fa-folder-open fs-2"></i>
-                                All Files
+                        @for(item of docsWallet?.folders; track $index) {
+                        <li class="d-flex justify-content-between align-items-center p-3 folder-sec mb-3" role="button"
+                            [ngClass]="{'active': getActiveClassStatus(item)}" (click)="setSwitchSection(item)">
+                            <div class="d-flex gap-3 align-items-center">
+                                @if(item == 'ALL'){<i class="fa-light fa-folder-open fs-2"></i>}
+                                @else{<i class="fa-light fa-folder-grid fs-2"></i>}
+                                {{item}} @if(item == 'ALL') { Files }
                             </div>
                             <i class="pi pi-ellipsis-h"></i>
                         </li>
-                        <li class="d-flex justify-content-between align-items-center p-3 folder-sec mt-3" role="button"
-                            [ngClass]="{'active': getActiveClassStatus('Certificates')}"
-                            (click)="setSwitchSection('Certificates')">
-                            <div class="d-flex gap-3 align-items-center"><i
-                                    class="fa-light fa-folder-grid fs-2"></i>Certificates
-                            </div>
-                            <i class="pi pi-ellipsis-h"></i>
-                        </li>
-                        <li class="d-flex justify-content-between align-items-center p-3 folder-sec mt-3" role="button"
-                            [ngClass]="{'active': getActiveClassStatus('Saved')}" (click)="setSwitchSection('Saved')">
-                            <div class="d-flex gap-3 align-items-center"><i
-                                    class="fa-light fa-folder-bookmark fs-2"></i>Saved
-                            </div>
-                            <i class="pi pi-ellipsis-h"></i>
-                        </li>
+                        }
                     </ul>
                 </p-panel>
                 <br />
@@ -73,7 +62,8 @@
             <div class="col-md-9 col-lg-9 col-12">
                 <div class="card h-100 bg-white">
                     <div class="card-header bg-transparent d-md-flex justify-content-between align-items-center">
-                        <div class="fs-5 fw-bold">{{ activeSectionCard }}</div>
+                        <div class="fs-5 fw-bold">{{ activeSectionCard== 'ALL' ? 'ALL Files' : activeSectionCard }}
+                        </div>
                         <div>
                             Sort By <p-select [options]="filterDropdown" optionLabel="name" placeholder="Select"
                                 appendTo="body" [style]="{width:'180px'}" />
@@ -88,35 +78,41 @@
                                 <input pInputText type="text" placeholder="Search keyword" class="w-100" />
                             </p-iconfield>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center p-3 folder-sec2 mb-2">
-                            <div class="d-flex gap-3 align-items-center">
-                                <p-checkbox [binary]="true" />
-                                <i class="fa-light fa-file-doc fs-2"></i>
-                                <div>
-                                    <div>Project.docx</div>
-                                    <div class="text-muted">Jan 15, 2025 - 4.30PM 625kb</div>
+                        @if (docsWallet?.folders?.length > 0) {
+                            @for(item of docsWallet?.files; track $index) {
+                            <div class="d-flex justify-content-between align-items-center p-3 folder-sec2 mb-2">
+                                <div class="d-flex gap-3 align-items-center">
+                                    <p-checkbox [binary]="true" />
+                                    <i class="fa-light fa-file-doc fs-2"></i>
+                                    <div>
+                                        <div>{{item.name}}</div>
+                                        <div class="text-muted">{{item.uploaded_at}}</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-3 align-items-center">
+                                    <i class="fa-bookmark cursor-pointer" [ngClass]="item.favourite ? 'fa-solid' : 'fa-light uniprep-primary' "></i>
+                                    <!-- @if(item.favourite) { <i class="pi pi-bookmark cursor-pointer"></i> }
+                                    @else { <i class="pi pi-bookmark cursor-pointer"></i> } -->
+                                    <i class="pi pi-ellipsis-h cursor-pointer" (click)="op.toggle($event)"></i>
+                                    <p-popover #op>
+                                        <div class="">
+                                            <div class="mb-2 cursor-pointer"><i class="fa-light fa-share me-2"></i> Share
+                                            </div>
+                                            <div class="mb-2 cursor-pointer"><i class="fa-light fa-link me-2"></i> Get
+                                                Sharable Link</div>
+                                            <hr>
+                                            <div class="mb-2 cursor-pointer"><i class="fa-light fa-download me-2"></i>
+                                                Download</div>
+                                            <div class="mb-2 cursor-pointer text-primary"><i
+                                                    class="fa-light fa-pen-to-square me-2"></i> Rename</div>
+                                            <div class="mb-2 cursor-pointer text-danger"><i
+                                                    class="fa-light fa-trash me-2"></i> Delete</div>
+                                        </div>
+                                    </p-popover>
                                 </div>
                             </div>
-                            <div class="d-flex gap-3 align-items-center">
-                                <i class="pi pi-bookmark cursor-pointer"></i>
-                                <i class="pi pi-ellipsis-h cursor-pointer" (click)="op.toggle($event)"></i>
-                                <p-popover #op>
-                                    <div class="">
-                                        <div class="mb-2 cursor-pointer"><i class="fa-light fa-share me-2"></i> Share
-                                        </div>
-                                        <div class="mb-2 cursor-pointer"><i class="fa-light fa-link me-2"></i> Get
-                                            Sharable Link</div>
-                                        <hr>
-                                        <div class="mb-2 cursor-pointer"><i class="fa-light fa-download me-2"></i>
-                                            Download</div>
-                                        <div class="mb-2 cursor-pointer text-primary"><i
-                                                class="fa-light fa-pen-to-square me-2"></i> Rename</div>
-                                        <div class="mb-2 cursor-pointer text-danger"><i
-                                                class="fa-light fa-trash me-2"></i> Delete</div>
-                                    </div>
-                                </p-popover>
-                            </div>
-                        </div>
+                            }
+                        }
                     </div>
                 </div>
             </div>
@@ -131,213 +127,219 @@
             <h5 class="mb-0 text-center">File Upload</h5>
         </div>
     </ng-template>
-    <h6 class="text-center">File Checklist</h6>
-    <div class="card mb-2">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="mb-2">Aadhar Card</div>
-                    <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
-                </div>
-                <div class="col-md-4">
-                    <div role="button" class="upload-box py-2 px-3 position-relative"
-                        (click)="aadharFrontFileUpload.click()">
-                        <div class="d-flex flex-column gap-2 align-items-center">
-                            <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                            <div>{{ form.get("aadhar_front")?.value ? extractLastName(form.get("aadhar_front")?.value) :
-                                "Upload Front Side" }} </div>
-                            <input type="file" style="display: none" accept="application/pdf"
-                                (change)="uploadFile(fileType.AADHARFRONT, $event)" #aadharFrontFileUpload />
-                        </div>
-                        @if(form.get('aadhar_front')?.value) {
-                        <div class="file-remove text-danger"
-                            (click)="onRemoveFile(fileType.AADHARFRONT, form.get('aadhar_front'), $event)">
-                            <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                        </div>
-                        }
+    <form>
+        <h6 class="text-center">File Checklist</h6>
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-2">Aadhar Card</div>
+                        <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div role="button" class="upload-box py-2 px-3 position-relative"
-                        (click)="aadharBackFileUpload.click()">
-                        <div class="d-flex flex-column gap-2 align-items-center">
-                            <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                            <div>{{ form.get("aadhar_back")?.value ? extractLastName(form.get("aadhar_back")?.value) :
-                                "Upload Back Side" }} </div>
-                            <input type="file" style="display: none" accept="application/pdf"
-                                (change)="uploadFile(fileType.AADHARBACK, $event)" #aadharBackFileUpload />
+                    <div class="col-md-4">
+                        <div role="button" class="upload-box py-2 px-3 position-relative"
+                            (click)="aadharFrontFileUpload.click()">
+                            <div class="d-flex flex-column gap-2 align-items-center">
+                                <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
+                                <div>{{ form.get("aadhar_front")?.value ?
+                                    extractLastName(form.get("aadhar_front")?.value) :
+                                    "Upload Front Side" }} </div>
+                                <input type="file" style="display: none" accept="image/*, application/pdf"
+                                    (change)="uploadFile(fileType.AADHARFRONT, $event)" #aadharFrontFileUpload />
+                            </div>
+                            @if(form.get('aadhar_front')?.value) {
+                            <div class="file-remove text-danger"
+                                (click)="onRemoveFile(fileType.AADHARFRONT, form.get('aadhar_front'), $event)">
+                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
+                            </div>
+                            }
                         </div>
-                        @if(form.get('aadhar_back')?.value) {
-                        <div class="file-remove text-danger"
-                            (click)="onRemoveFile(fileType.AADHARBACK, form.get('aadhar_back'), $event)">
-                            <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                        </div>
-                        }
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card mb-2">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="mb-2">Pan Card</div>
-                    <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
-                </div>
-                <div class="col-md-4">
-                    <div role="button" class="upload-box py-2 px-3 position-relative"
-                        (click)="panFrontFileUpload.click()">
-                        <div class="d-flex flex-column gap-2 align-items-center">
-                            <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                            <div>{{ form.get("pan_front")?.value ? extractLastName(form.get("pan_front")?.value) :
-                                "Upload Front Side" }}</div>
-                            <input type="file" style="display: none" accept="application/pdf"
-                                (change)="uploadFile(fileType.PANFRONT, $event)" #panFrontFileUpload />
+                    <div class="col-md-4">
+                        <div role="button" class="upload-box py-2 px-3 position-relative"
+                            (click)="aadharBackFileUpload.click()">
+                            <div class="d-flex flex-column gap-2 align-items-center">
+                                <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
+                                <div>{{ form.get("aadhar_back")?.value ? extractLastName(form.get("aadhar_back")?.value)
+                                    :
+                                    "Upload Back Side" }} </div>
+                                <input type="file" style="display: none" accept="image/*, application/pdf"
+                                    (change)="uploadFile(fileType.AADHARBACK, $event)" #aadharBackFileUpload />
+                            </div>
+                            @if(form.get('aadhar_back')?.value) {
+                            <div class="file-remove text-danger"
+                                (click)="onRemoveFile(fileType.AADHARBACK, form.get('aadhar_back'), $event)">
+                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
+                            </div>
+                            }
                         </div>
-                        @if(form.get('pan_front')?.value) {
-                        <div class="file-remove text-danger"
-                            (click)="onRemoveFile(fileType.PANFRONT, form.get('pan_front'), $event)">
-                            <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                        </div>
-                        }
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div role="button" class="upload-box py-2 px-3 position-relative"
-                        (click)="panBackFileUpload.click()">
-                        <div class="d-flex flex-column gap-2 align-items-center">
-                            <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                            <div>{{ form.get("pan_back")?.value ? extractLastName(form.get("pan_back")?.value) :
-                                "Upload Back Side" }}</div>
-                            <input type="file" style="display: none" accept="application/pdf"
-                                (change)="uploadFile(fileType.PANBACK, $event)" #panBackFileUpload />
-                        </div>
-                        @if(form.get('pan_back')?.value) {
-                        <div class="file-remove text-danger"
-                            (click)="onRemoveFile(fileType.PANBACK, form.get('pan_back'), $event)">
-                            <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                        </div>
-                        }
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card mb-2">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="mb-2">Educational Certificates</div>
-                    <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
-                </div>
-                <div class="col-md-8">
-                    <div role="button" class="upload-box py-2 px-3 position-relative"
-                        (click)="educationalFileUpload.click()">
-                        <div class="d-flex flex-column gap-2 align-items-center">
-                            <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                            <div>{{ form.get("education_cert")?.value ?
-                                extractLastName(form.get("education_cert")?.value) :
-                                "Click to upload a file" }}</div>
-                            <input type="file" style="display: none" accept="application/pdf"
-                                (change)="uploadFile(fileType.EDUCATIONCERT, $event)" #educationalFileUpload />
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-2">Pan Card</div>
+                        <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div role="button" class="upload-box py-2 px-3 position-relative"
+                            (click)="panFrontFileUpload.click()">
+                            <div class="d-flex flex-column gap-2 align-items-center">
+                                <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
+                                <div>{{ form.get("pan_front")?.value ? extractLastName(form.get("pan_front")?.value) :
+                                    "Upload Front Side" }}</div>
+                                <input type="file" style="display: none" accept="image/*, application/pdf"
+                                    (change)="uploadFile(fileType.PANFRONT, $event)" #panFrontFileUpload />
+                            </div>
+                            @if(form.get('pan_front')?.value) {
+                            <div class="file-remove text-danger"
+                                (click)="onRemoveFile(fileType.PANFRONT, form.get('pan_front'), $event)">
+                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
+                            </div>
+                            }
                         </div>
-                        @if(form.get('education_cert')?.value) {
-                        <div class="file-remove text-danger"
-                            (click)="onRemoveFile(fileType.EDUCATIONCERT, form.get('education_cert'), $event)">
-                            <i class="fa-solid fa-circle-xmark fa-xl"></i>
+                    </div>
+                    <div class="col-md-4">
+                        <div role="button" class="upload-box py-2 px-3 position-relative"
+                            (click)="panBackFileUpload.click()">
+                            <div class="d-flex flex-column gap-2 align-items-center">
+                                <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
+                                <div>{{ form.get("pan_back")?.value ? extractLastName(form.get("pan_back")?.value) :
+                                    "Upload Back Side" }}</div>
+                                <input type="file" style="display: none" accept="image/*, application/pdf"
+                                    (change)="uploadFile(fileType.PANBACK, $event)" #panBackFileUpload />
+                            </div>
+                            @if(form.get('pan_back')?.value) {
+                            <div class="file-remove text-danger"
+                                (click)="onRemoveFile(fileType.PANBACK, form.get('pan_back'), $event)">
+                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
+                            </div>
+                            }
                         </div>
-                        }
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card mb-2">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="mb-2">Payslips from previous organisation</div>
-                    <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
-                </div>
-                <div class="col-md-8">
-                    <div role="button" class="upload-box py-2 px-3 position-relative"
-                        (click)="payslipFileUpload.click()">
-                        <div class="d-flex flex-column gap-2 align-items-center">
-                            <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                            <div>{{ form.get("payslips")?.value ?
-                                extractLastName(form.get("payslips")?.value) :
-                                "Click to upload a file" }}</div>
-                            <input type="file" style="display: none" accept="application/pdf"
-                                (change)="uploadFile(fileType.PAYSLIP, $event)" #payslipFileUpload />
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-2">Educational Certificates</div>
+                        <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
+                    </div>
+                    <div class="col-md-8">
+                        <div role="button" class="upload-box py-2 px-3 position-relative"
+                            (click)="educationalFileUpload.click()">
+                            <div class="d-flex flex-column gap-2 align-items-center">
+                                <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
+                                <div>{{ form.get("education_cert")?.value ?
+                                    extractLastName(form.get("education_cert")?.value) :
+                                    "Click to upload a file" }}</div>
+                                <input type="file" style="display: none" accept="image/*, application/pdf" multiple
+                                    (change)="uploadFile(fileType.EDUCATIONCERT, $event)" #educationalFileUpload />
+                            </div>
+                            @if(form.get('education_cert')?.value) {
+                            <div class="file-remove text-danger"
+                                (click)="onRemoveFile(fileType.EDUCATIONCERT, form.get('education_cert'), $event)">
+                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
+                            </div>
+                            }
                         </div>
-                        @if(form.get('payslips')?.value) {
-                        <div class="file-remove text-danger"
-                            (click)="onRemoveFile(fileType.PAYSLIP, form.get('payslips'), $event)">
-                            <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                        </div>
-                        }
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card mb-2">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="mb-2">Experience letter from previous organisation</div>
-                    <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
-                </div>
-                <div class="col-md-8">
-                    <div role="button" class="upload-box py-2 px-3 position-relative"
-                        (click)="experienceFileUpload.click()">
-                        <div class="d-flex flex-column gap-2 align-items-center">
-                            <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                            <div>{{ form.get("experience_letters")?.value ?
-                                extractLastName(form.get("experience_letters")?.value) :
-                                "Click to upload a file" }}</div>
-                            <input type="file" style="display: none" accept="application/pdf"
-                                (change)="uploadFile(fileType.EXPERIENCELETTER, $event)" #experienceFileUpload />
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-2">Payslips from previous organisation</div>
+                        <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
+                    </div>
+                    <div class="col-md-8">
+                        <div role="button" class="upload-box py-2 px-3 position-relative"
+                            (click)="payslipFileUpload.click()">
+                            <div class="d-flex flex-column gap-2 align-items-center">
+                                <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
+                                <div>{{ form.get("payslips")?.value ?
+                                    extractLastName(form.get("payslips")?.value) :
+                                    "Click to upload a file" }}</div>
+                                <input type="file" style="display: none" accept="image/*, application/pdf" multiple
+                                    (change)="uploadFile(fileType.PAYSLIP, $event)" #payslipFileUpload />
+                            </div>
+                            @if(form.get('payslips')?.value) {
+                            <div class="file-remove text-danger"
+                                (click)="onRemoveFile(fileType.PAYSLIP, form.get('payslips'), $event)">
+                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
+                            </div>
+                            }
                         </div>
-                        @if(form.get('experience_letters')?.value) {
-                        <div class="file-remove text-danger"
-                            (click)="onRemoveFile(fileType.EXPERIENCELETTER, form.get('experience_letters'), $event)">
-                            <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                        </div>
-                        }
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <h6 class="text-center">Others</h6>
-    <div class="card mb-2">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-12">
-                    <div role="button" class="upload-box py-2 px-3 position-relative" (click)="otherFileUpload.click()">
-                        <div class="d-flex flex-column gap-2 align-items-center">
-                            <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                            <div>{{ form.get("others")?.value ?
-                                extractLastName(form.get("others")?.value) :
-                                "Click to upload a file" }}</div>
-                            <input type="file" style="display: none" accept="application/pdf"
-                                (change)="uploadFile(fileType.OTHERS, $event)" #otherFileUpload />
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-2">Experience letter from previous organisation</div>
+                        <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
+                    </div>
+                    <div class="col-md-8">
+                        <div role="button" class="upload-box py-2 px-3 position-relative"
+                            (click)="experienceFileUpload.click()">
+                            <div class="d-flex flex-column gap-2 align-items-center">
+                                <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
+                                <div>{{ form.get("experience_letters")?.value ?
+                                    extractLastName(form.get("experience_letters")?.value) :
+                                    "Click to upload a file" }}</div>
+                                <input type="file" style="display: none" accept="image/*, application/pdf" multiple
+                                    (change)="uploadFile(fileType.EXPERIENCELETTER, $event)" #experienceFileUpload />
+                            </div>
+                            @if(form.get('experience_letters')?.value) {
+                            <div class="file-remove text-danger"
+                                (click)="onRemoveFile(fileType.EXPERIENCELETTER, form.get('experience_letters'), $event)">
+                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
+                            </div>
+                            }
                         </div>
-                        @if(form.get('others')?.value) {
-                        <div class="file-remove text-danger"
-                            (click)="onRemoveFile(fileType.OTHERS, form.get('others'), $event)">
-                            <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                        </div>
-                        }
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="flex justify-content-end gap-2 mt-4">
-        <p-button label="Cancel" severity="secondary" (click)="fileUploadModalVisible = false" />
-        <p-button label="Save" (click)="fileUploadModalVisible = false" />
-    </div>
+        <h6 class="text-center">Others</h6>
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div role="button" class="upload-box py-2 px-3 position-relative"
+                            (click)="otherFileUpload.click()">
+                            <div class="d-flex flex-column gap-2 align-items-center">
+                                <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
+                                <div>{{ form.get("others")?.value ?
+                                    extractLastName(form.get("others")?.value) :
+                                    "Click to upload a file" }}</div>
+                                <input type="file" style="display: none" multiple
+                                    (change)="uploadFile(fileType.OTHERS, $event)" #otherFileUpload />
+                            </div>
+                            @if(form.get('others')?.value) {
+                            <div class="file-remove text-danger"
+                                (click)="onRemoveFile(fileType.OTHERS, form.get('others'), $event)">
+                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-content-end gap-2 mt-4">
+            <button class="p-button p-button-outlined" (click)="fileUploadModalVisible = false">
+                Cancel</button>
+            <p-button label="Save" (click)="onSubmit()" />
+        </div>
+    </form>
 </p-dialog>

@@ -204,3 +204,27 @@ ngx-intl-tel-input input[disabled] {
 .custom-progress .p-progressbar-value {
   background-color: var(--p-secondary-500);
 }
+
+.dark-accordion {
+  .p-accordionpanel {
+    border: none !important;
+    margin-bottom: 10px !important;
+  }
+
+  .p-accordionheader {
+    background-color: #18181D !important;
+    color: #ffffff !important;
+    font-size: 18px;
+    border-radius: 10px 10px 10px 10px !important;
+  }
+
+  .p-accordioncontent-content {
+    background-color: #18181D !important;
+    color: #8B939D !important;
+    border-radius: 0px 0px 10px 10px !important;
+  }
+
+  .p-accordionpanel-active .p-accordionheader {
+    border-radius: 10px 10px 0px 0px !important;
+  }
+}
