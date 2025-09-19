@@ -39,11 +39,12 @@ export enum FileType {
 export class DocsWalletComponent implements OnInit {
 
   filterDropdown: any[] = [{ id: 1, name: "Recently Added" }, { id: 2, name: "A to Z" }, { id: 3, name: "Z to A" }];
-  fileUploadModalVisible: boolean = true;
-  activeSectionCard: string = 'All Files';
+  fileUploadModalVisible: boolean = false;
+  activeSectionCard: string = 'ALL';
   docsWallet: DocsWallet | null = null;
   form: FormGroup = new FormGroup({});
-  uploadedFiles: { [key: string]: File } = {};
+  // uploadedFiles: { [key: string]: File } = {};
+  uploadedFiles: { [key: string]: File[] } = {};
   fileType = FileType;
 
   constructor(private talentConnectService: TalentConnectService, private pageFacade: PageFacadeService,
@@ -61,7 +62,7 @@ export class DocsWalletComponent implements OnInit {
       aadhar_back: [null],
       pan_front: [null],
       pan_back: [null],
-      education_cert: [null], //arr
+      education_cert: [null],
       payslips: [null],
       experience_letters: [null],
       others: [null]
@@ -69,7 +70,7 @@ export class DocsWalletComponent implements OnInit {
   }
 
   getDocsFilter() {
-    this.talentConnectService.getDocsFilter('ALL').subscribe({
+    this.talentConnectService.getDocsFilter(this.activeSectionCard).subscribe({
       next: res => {
         this.docsWallet = res;
       },
@@ -77,14 +78,14 @@ export class DocsWalletComponent implements OnInit {
 
       }
     });
-    this.talentConnectService.getDocsUploadedFiles().subscribe({
-      next: res => {
+    // this.talentConnectService.getDocsUploadedFiles().subscribe({
+    //   next: res => {
 
-      },
-      error: err => {
+    //   },
+    //   error: err => {
 
-      }
-    });
+    //   }
+    // });
   }
   getActiveClassStatus(section: string) {
     return this.activeSectionCard == section;
@@ -92,59 +93,65 @@ export class DocsWalletComponent implements OnInit {
 
   setSwitchSection(section: string) {
     this.activeSectionCard = section;
+    this.getDocsFilter();
   }
 
   uploadFile(type: FileType, event: any) {
-    const file: File = event.target.files[0];
-    if (!file) return;
-    // if (type == FileType.AADHARBACK) {
-    //   const maxSizeInMB = 2;
-    //   const isUnderSizeLimit = file.size <= maxSizeInMB * 1024 * 1024;
-    //   if (!isUnderSizeLimit) {
-    //     this.toast.add({ severity: "error", summary: "Error", detail: "CV must be less than 2MB." });
-    //     return;
-    //   }
-    //   const isImage = file.type.startsWith('image/');
-    //   if (isImage) {
-    //     this.toast.add({ severity: "error", summary: "Error", detail: "Please upload your CV in the doc, docx or pdf format." });
-    //     return;
-    //   }
-    // }
+    const files: FileList = event.target.files;
+    if (!files || files.length === 0) return;
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "application/pdf"];
     const maxSizeInMB = 5;
-    const isUnderSizeLimit = file.size <= maxSizeInMB * 1024 * 1024;
-    if (!isUnderSizeLimit) {
-      this.toast.add({ severity: "error", summary: "Error", detail: type + " must be less than 5MB." });
-      return;
+    const uploaded: string[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (type !== FileType.OTHERS && !allowedTypes.includes(file.type)) {
+        this.toast.add({
+          severity: "error",
+          summary: "Invalid File",
+          detail: "Only PDF, JPG, JPEG, PNG are allowed."
+        });
+        continue;
+      }
+      if (file.size > maxSizeInMB * 1024 * 1024) {
+        this.toast.add({
+          severity: "error",
+          summary: "File Too Large",
+          detail: `${file.name} must be less than 5MB.`
+        });
+        continue;
+      }
+      const fileId = `${type}`;
+      if (!this.uploadedFiles[fileId]) {
+        this.uploadedFiles[fileId] = [];
+      }
+      this.uploadedFiles[fileId].push(file);
+      uploaded.push(file.name);
     }
-    // Store the file in uploadedFiles with a unique key
-    const fileId = `${type}`
-    this.uploadedFiles[fileId] = file;
-    const reader = new FileReader()
-    reader.readAsDataURL(file);
+
     switch (type) {
       case FileType.AADHARFRONT:
-        this.form.get("aadhar_front")?.setValue(file.name);
+        this.form.get("aadhar_front")?.setValue(uploaded[0] || null);
         break;
       case FileType.AADHARBACK:
-        this.form.get("aadhar_back")?.setValue(file.name);
+        this.form.get("aadhar_back")?.setValue(uploaded[0] || null);
         break;
       case FileType.PANFRONT:
-        this.form.get("pan_front")?.setValue(file.name);
+        this.form.get("pan_front")?.setValue(uploaded[0] || null);
         break;
       case FileType.PANBACK:
-        this.form.get("pan_back")?.setValue(file.name);
+        this.form.get("pan_back")?.setValue(uploaded[0] || null);
         break;
       case FileType.EDUCATIONCERT:
-        this.form.get("education_cert")?.setValue(file.name);
+        this.form.get("education_cert")?.setValue(uploaded.join(", "));
         break;
       case FileType.PAYSLIP:
-        this.form.get("payslips")?.setValue(file.name);
+        this.form.get("payslips")?.setValue(uploaded.join(", "));
         break;
       case FileType.EXPERIENCELETTER:
-        this.form.get("experience_letters")?.setValue(file.name);
+        this.form.get("experience_letters")?.setValue(uploaded.join(", "));
         break;
       case FileType.OTHERS:
-        this.form.get("others")?.setValue(file.name);
+        this.form.get("others")?.setValue(uploaded.join(", "));
         break;
     }
   }
@@ -166,7 +173,77 @@ export class DocsWalletComponent implements OnInit {
     delete this.uploadedFiles[type];
     // this.fileInput.nativeElement.value = "";
   }
+
+  onSubmit() {
+    const formDataValue = this.form.value;
+    const formData = new FormData();
+    if (this.uploadedFiles[this.fileType.AADHARFRONT]?.[0] || formDataValue.aadhar_front) {
+      formData.append("aadhar_front", this.uploadedFiles[this.fileType.AADHARFRONT]?.[0] ?? formDataValue.aadhar_front);
+    }
+    if (this.uploadedFiles[this.fileType.AADHARBACK]?.[0] || formDataValue.aadhar_back) {
+      formData.append("aadhar_back", this.uploadedFiles[this.fileType.AADHARBACK]?.[0] ?? formDataValue.aadhar_back);
+    }
+    if (this.uploadedFiles[this.fileType.PANFRONT]?.[0] || formDataValue.pan_front) {
+      formData.append("pan_front", this.uploadedFiles[this.fileType.PANFRONT]?.[0] ?? formDataValue.pan_front);
+    }
+    if (this.uploadedFiles[this.fileType.PANFRONT]?.[0] || formDataValue.pan_back) {
+      formData.append("pan_back", this.uploadedFiles[this.fileType.PANBACK]?.[0] ?? formDataValue.pan_back);
+    }
+    if (this.uploadedFiles[this.fileType.EDUCATIONCERT]?.length || formDataValue.education_cert) {
+      if (this.uploadedFiles[this.fileType.EDUCATIONCERT]?.length) {
+        this.uploadedFiles[this.fileType.EDUCATIONCERT].forEach((file, index) =>
+          formData.append(`education_cert[${index}]`, file)
+        );
+      } else {
+        formData.append(`education_cert`, formDataValue.education_cert);
+      }
+    }
+    if (this.uploadedFiles[this.fileType.PAYSLIP]?.length || formDataValue.payslips) {
+      if (this.uploadedFiles[this.fileType.PAYSLIP]?.length) {
+        this.uploadedFiles[this.fileType.PAYSLIP].forEach((file, index) =>
+          formData.append(`payslips[${index}]`, file)
+        );
+      } else {
+        formData.append("payslips", formDataValue.payslips);
+      }
+    }
+    if (this.uploadedFiles[this.fileType.EXPERIENCELETTER]?.length || formDataValue.experience_letters) {
+      if (this.uploadedFiles[this.fileType.EXPERIENCELETTER]?.length) {
+        this.uploadedFiles[this.fileType.EXPERIENCELETTER].forEach((file, index) =>
+          formData.append(`experience_letters[${index}]`, file)
+        );
+      } else {
+        formData.append("experience_letters", formDataValue.experience_letters);
+      }
+    }
+    if (this.uploadedFiles[this.fileType.OTHERS]?.length || formDataValue.others) {
+      if (this.uploadedFiles[this.fileType.OTHERS]?.length) {
+        this.uploadedFiles[this.fileType.OTHERS].forEach((file, index) =>
+          formData.append(`others[${index}]`, file)
+        );
+      } else {
+        formData.append("others", formDataValue.others);
+      }
+    }
+    this.talentConnectService.uploadDocsWallet(formData).subscribe({
+      next: res => {
+        this.toast.add({ severity: "success", summary: "Success", detail: "Files uploaded successfully" });
+        this.getDocsFilter();
+        this.onClose();
+      },
+      error: err => {
+        this.toast.add({ severity: "error", summary: "Error", detail: "File upload failed" });
+      }
+    });
+  }
+
+  onClose() {
+    this.uploadedFiles = {};
+    this.form.reset();
+  }
+
   openVideoPopup() {
     // this.pageFacade.openHowitWorksVideoPopup("docs-wallet");
   }
+
 }
