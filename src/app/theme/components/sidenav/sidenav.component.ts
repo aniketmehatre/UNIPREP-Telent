@@ -109,12 +109,12 @@ export class SidenavComponent {
       image: "fa-regular fa-industry",
       subMenuBy: "Job Board",
     },
-    // {
-    //   title: "Docs Wallet",
-    //   url: "/pages/talent-connect/docs-wallet",
-    //   image: "fa-regular fa-folders",
-    //   subMenuBy: "Job Board",
-    // },
+    {
+      title: "Docs Wallet",
+      url: "/pages/talent-connect/docs-wallet",
+      image: "fa-regular fa-folders",
+      subMenuBy: "Job Board",
+    },
     {
       title: "Career",
       url: "",

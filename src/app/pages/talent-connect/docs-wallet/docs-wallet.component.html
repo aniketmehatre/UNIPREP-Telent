@@ -45,7 +45,7 @@
                         }
                     </ul>
                 </p-panel>
-                <br />
+                <!-- <br />
                 <p-panel header="Shared Folder" [toggleable]="true">
                     <ul>
                         <li class="d-flex justify-content-between align-items-center p-3 folder-sec mt-2" role="button"
@@ -57,7 +57,7 @@
                             <i class="pi pi-ellipsis-h"></i>
                         </li>
                     </ul>
-                </p-panel>
+                </p-panel> -->
             </div>
             <div class="col-md-9 col-lg-9 col-12">
                 <div class="card h-100 bg-white">
@@ -75,43 +75,49 @@
                                 <p-inputicon>
                                     <i class="pi pi-search"></i>
                                 </p-inputicon>
-                                <input pInputText type="text" placeholder="Search keyword" class="w-100" />
+                                <input pInputText type="text" placeholder="Search keyword" class="w-100"
+                                    [(ngModel)]="searchText" (ngModelChange)="onSearch()" />
                             </p-iconfield>
                         </div>
-                        @if (docsWallet?.folders?.length > 0) {
-                            @for(item of docsWallet?.files; track $index) {
-                            <div class="d-flex justify-content-between align-items-center p-3 folder-sec2 mb-2">
-                                <div class="d-flex gap-3 align-items-center">
-                                    <p-checkbox [binary]="true" />
-                                    <i class="fa-light fa-file-doc fs-2"></i>
-                                    <div>
-                                        <div>{{item.name}}</div>
-                                        <div class="text-muted">{{item.uploaded_at}}</div>
-                                    </div>
-                                </div>
-                                <div class="d-flex gap-3 align-items-center">
-                                    <i class="fa-bookmark cursor-pointer" [ngClass]="item.favourite ? 'fa-solid' : 'fa-light uniprep-primary' "></i>
-                                    <!-- @if(item.favourite) { <i class="pi pi-bookmark cursor-pointer"></i> }
-                                    @else { <i class="pi pi-bookmark cursor-pointer"></i> } -->
-                                    <i class="pi pi-ellipsis-h cursor-pointer" (click)="op.toggle($event)"></i>
-                                    <p-popover #op>
-                                        <div class="">
-                                            <div class="mb-2 cursor-pointer"><i class="fa-light fa-share me-2"></i> Share
-                                            </div>
-                                            <div class="mb-2 cursor-pointer"><i class="fa-light fa-link me-2"></i> Get
-                                                Sharable Link</div>
-                                            <hr>
-                                            <div class="mb-2 cursor-pointer"><i class="fa-light fa-download me-2"></i>
-                                                Download</div>
-                                            <div class="mb-2 cursor-pointer text-primary"><i
-                                                    class="fa-light fa-pen-to-square me-2"></i> Rename</div>
-                                            <div class="mb-2 cursor-pointer text-danger"><i
-                                                    class="fa-light fa-trash me-2"></i> Delete</div>
-                                        </div>
-                                    </p-popover>
+                        @if (docsWallet?.files?.length > 0) {
+                        @for(item of docsWallet?.files; track $index; let i = $index) {
+                        <div class="d-flex justify-content-between align-items-center p-3 folder-sec2 mb-2">
+                            <div class="d-flex gap-3 align-items-center">
+                                <p-checkbox [binary]="true" />
+                                <i class="fa-light fa-file-doc fs-2"></i>
+                                <div>
+                                    <div>{{item.name}}</div>
+                                    <div class="text-muted">{{item.uploaded_at}}</div>
                                 </div>
                             </div>
-                            }
+                            <div class="d-flex gap-3 align-items-center">
+                                <i class="fa-bookmark cursor-pointer"
+                                    [ngClass]="item.favourite ? 'fa-solid' : 'fa-light uniprep-primary'"
+                                    (click)="onFavouriteFile(item)"></i>
+                                <i class="pi pi-ellipsis-h cursor-pointer" (click)="op.toggle($event)"></i>
+                                <p-popover #op>
+                                    <div class="">
+                                        <div class="mb-2 cursor-pointer" (click)="onShare(item)"><i
+                                                class="fa-light fa-share me-2"></i> Share
+                                        </div>
+                                        <div class="mb-2 cursor-pointer"><i class="fa-light fa-link me-2"></i> Get
+                                            Sharable Link</div>
+                                        <hr>
+                                        <div class="mb-2 cursor-pointer" (click)="onDownloadFile(item)"><i
+                                                class="fa-light fa-download me-2"></i>
+                                            Download</div>
+                                        <div class="mb-2 cursor-pointer text-primary" (click)="onRenameFile(item)"><i
+                                                class="fa-light fa-pen-to-square me-2"></i> Rename</div>
+                                        <div class="mb-2 cursor-pointer text-danger" (click)="onDeleteFile(item)"><i
+                                                class="fa-light fa-trash me-2"></i> Delete</div>
+                                    </div>
+                                </p-popover>
+                            </div>
+                        </div>
+                        }
+                        }
+                        @else {
+                        <div class="text-muted text-center mt-4 fs-5">No Files!</div>
                         }
                     </div>
                 </div>
@@ -120,8 +126,8 @@
     </div>
 </div>
 
-<p-dialog [modal]="true" [(visible)]="fileUploadModalVisible"
-    [breakpoints]="{ '960px': '75vw', '959px': '80vw', '425px': '90vw' }" [style]="{ width: '50vw' }">
+<p-dialog [modal]="true" [(visible)]="fileUploadModalVisible" (onHide)="onClose()"
+    [breakpoints]="{ '960px': '75vw', '959px': '80vw', '425px': '90vw' }" [style]="{ width: '60vw' }">
     <ng-template #header>
         <div class="select-title">
             <h5 class="mb-0 text-center">File Upload</h5>
@@ -131,12 +137,28 @@
         <h6 class="text-center">File Checklist</h6>
         <div class="card mb-2">
             <div class="card-body">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-md-4">
                         <div class="mb-2">Aadhar Card</div>
                         <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
                     </div>
                     <div class="col-md-4">
+                        @if (existingFileList?.aadhar?.front) {
+                        <div class="d-flex gap-3 align-items-center">
+                            <div class="d-flex flex-column gap-2">
+                                <div><span
+                                        class="me-2">{{extractLastName(existingFileList?.aadhar?.front?.name)}}</span><span
+                                        class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(existingFileList?.aadhar?.front)">Rename</span>
+                                </div>
+                                <div class="text-muted">{{existingFileList?.aadhar?.front?.uploaded_at + ' ' +
+                                    existingFileList?.aadhar?.front?.size}} </div>
+                            </div>
+                            <div class="text-danger cursor-pointer"
+                                (click)="onDeleteFile(existingFileList?.aadhar?.front)"><i
+                                    class="fa-regular fa-trash"></i></div>
+                        </div>
+                        }
+                        @else {
                         <div role="button" class="upload-box py-2 px-3 position-relative"
                             (click)="aadharFrontFileUpload.click()">
                             <div class="d-flex flex-column gap-2 align-items-center">
@@ -154,8 +176,25 @@
                             </div>
                             }
                         </div>
+                        }
                     </div>
                     <div class="col-md-4">
+                        @if (existingFileList?.aadhar?.back) {
+                        <div class="d-flex gap-3 align-items-center">
+                            <div class="d-flex flex-column gap-2">
+                                <div><span
+                                        class="me-2">{{extractLastName(existingFileList?.aadhar?.back?.name)}}</span><span
+                                        class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(existingFileList?.aadhar?.back)">Rename</span>
+                                </div>
+                                <div class="text-muted">{{existingFileList?.aadhar?.back?.uploaded_at + ' ' +
+                                    existingFileList?.aadhar?.back?.size}} </div>
+                            </div>
+                            <div class="text-danger cursor-pointer"
+                                (click)="onDeleteFile(existingFileList?.aadhar?.back)"><i
+                                    class="fa-regular fa-trash"></i></div>
+                        </div>
+                        }
+                        @else {
                         <div role="button" class="upload-box py-2 px-3 position-relative"
                             (click)="aadharBackFileUpload.click()">
                             <div class="d-flex flex-column gap-2 align-items-center">
@@ -173,18 +212,35 @@
                             </div>
                             }
                         </div>
+                        }
                     </div>
                 </div>
             </div>
         </div>
         <div class="card mb-2">
             <div class="card-body">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-md-4">
                         <div class="mb-2">Pan Card</div>
                         <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
                     </div>
                     <div class="col-md-4">
+                        @if (existingFileList?.pan?.front) {
+                        <div class="d-flex gap-3 align-items-center">
+                            <div class="d-flex flex-column gap-2">
+                                <div><span
+                                        class="me-2">{{extractLastName(existingFileList?.pan?.front?.name)}}</span><span
+                                        class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(existingFileList?.pan?.front)">Rename</span>
+                                </div>
+                                <div class="text-muted">{{existingFileList?.pan?.front?.uploaded_at + ' ' +
+                                    existingFileList?.pan?.front?.size}} </div>
+                            </div>
+                            <div class="text-danger cursor-pointer"
+                                (click)="onDeleteFile(existingFileList?.pan?.front)"><i class="fa-regular fa-trash"></i>
+                            </div>
+                        </div>
+                        }
+                        @else {
                         <div role="button" class="upload-box py-2 px-3 position-relative"
                             (click)="panFrontFileUpload.click()">
                             <div class="d-flex flex-column gap-2 align-items-center">
@@ -201,8 +257,24 @@
                             </div>
                             }
                         </div>
+                        }
                     </div>
                     <div class="col-md-4">
+                        @if (existingFileList?.pan?.back) {
+                        <div class="d-flex gap-3 align-items-center">
+                            <div class="d-flex flex-column gap-2">
+                                <div><span
+                                        class="me-2">{{extractLastName(existingFileList?.pan?.back?.name)}}</span><span
+                                        class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(existingFileList?.pan?.back)">Rename</span>
+                                </div>
+                                <div class="text-muted">{{existingFileList?.pan?.back?.uploaded_at + ' ' +
+                                    existingFileList?.pan?.back?.size}} </div>
+                            </div>
+                            <div class="text-danger cursor-pointer" (click)="onDeleteFile(existingFileList?.pan?.back)">
+                                <i class="fa-regular fa-trash"></i></div>
+                        </div>
+                        }
+                        @else {
                         <div role="button" class="upload-box py-2 px-3 position-relative"
                             (click)="panBackFileUpload.click()">
                             <div class="d-flex flex-column gap-2 align-items-center">
@@ -219,34 +291,57 @@
                             </div>
                             }
                         </div>
+                        }
                     </div>
                 </div>
             </div>
         </div>
         <div class="card mb-2">
             <div class="card-body">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-md-4">
                         <div class="mb-2">Educational Certificates</div>
                         <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
                     </div>
                     <div class="col-md-8">
+                        @if (existingFileList?.education?.length > 0) {
+                        @for (item of existingFileList?.education; track $index) {
+                        <div class="d-flex gap-3 align-items-center mb-2">
+                            <div class="d-flex flex-column gap-2">
+                                <div>
+                                    <span class="me-2 d-none d-md-inline">{{item?.name}}</span>
+                                    <span class="me-2 d-inline d-md-none">{{extractLastName(item?.name)}}</span>
+                                    <span class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(item)">Rename</span>
+                                </div>
+                                <div class="text-muted">{{item?.uploaded_at + ' ' +
+                                    item?.size}} </div>
+                            </div>
+                            <div class="text-danger cursor-pointer" (click)="onDeleteFile(item)"><i
+                                    class="fa-regular fa-trash"></i></div>
+                        </div>
+                        }
+                        }
                         <div role="button" class="upload-box py-2 px-3 position-relative"
                             (click)="educationalFileUpload.click()">
                             <div class="d-flex flex-column gap-2 align-items-center">
                                 <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                                <div>{{ form.get("education_cert")?.value ?
-                                    extractLastName(form.get("education_cert")?.value) :
-                                    "Click to upload a file" }}</div>
+                                @if(uploadedFiles[fileType.EDUCATIONCERT]?.length) {
+                                @for (item of uploadedFiles[fileType.EDUCATIONCERT]; track $index) {
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="d-none d-md-inline">{{item?.name}}</span>
+                                    <span class="d-inline d-md-none">{{extractLastName(item?.name)}}</span>
+                                    <i class="fa-regular fa-trash text-danger"
+                                        (click)="onRemoveFile(fileType.EDUCATIONCERT, item.name, $event)">
+                                    </i>
+                                </div>
+                                }
+                                }
+                                @else {
+                                <div>Click to upload a file</div>
+                                }
                                 <input type="file" style="display: none" accept="image/*, application/pdf" multiple
                                     (change)="uploadFile(fileType.EDUCATIONCERT, $event)" #educationalFileUpload />
                             </div>
-                            @if(form.get('education_cert')?.value) {
-                            <div class="file-remove text-danger"
-                                (click)="onRemoveFile(fileType.EDUCATIONCERT, form.get('education_cert'), $event)">
-                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                            </div>
-                            }
                         </div>
                     </div>
                 </div>
@@ -254,28 +349,51 @@
         </div>
         <div class="card mb-2">
             <div class="card-body">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-md-4">
                         <div class="mb-2">Payslips from previous organisation</div>
                         <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
                     </div>
                     <div class="col-md-8">
+                        @if (existingFileList?.payslip?.length > 0) {
+                        @for (item of existingFileList?.payslip; track $index) {
+                        <div class="d-flex gap-3 align-items-center mb-2">
+                            <div class="d-flex flex-column gap-2">
+                                <div>
+                                    <span class="me-2 d-none d-md-inline">{{item?.name}}</span>
+                                    <span class="me-2 d-inline d-md-none">{{extractLastName(item?.name)}}</span>
+                                    <span class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(item)">Rename</span>
+                                </div>
+                                <div class="text-muted">{{item?.uploaded_at + ' ' +
+                                    item?.size}} </div>
+                            </div>
+                            <div class="text-danger cursor-pointer" (click)="onDeleteFile(item)"><i
+                                    class="fa-regular fa-trash"></i></div>
+                        </div>
+                        }
+                        }
                         <div role="button" class="upload-box py-2 px-3 position-relative"
                             (click)="payslipFileUpload.click()">
                             <div class="d-flex flex-column gap-2 align-items-center">
                                 <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                                <div>{{ form.get("payslips")?.value ?
-                                    extractLastName(form.get("payslips")?.value) :
-                                    "Click to upload a file" }}</div>
+                                @if(uploadedFiles[fileType.PAYSLIP]?.length) {
+                                @for (item of uploadedFiles[fileType.PAYSLIP]; track $index) {
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="d-none d-md-inline">{{item?.name}}</span>
+                                    <span class="d-inline d-md-none">{{extractLastName(item?.name)}}</span>
+                                    <i class="fa-regular fa-trash text-danger"
+                                        (click)="onRemoveFile(fileType.PAYSLIP, item.name, $event)">
+                                    </i>
+                                </div>
+                                }
+                                }
+                                @else {
+                                <div>Click to upload a file</div>
+                                }
                                 <input type="file" style="display: none" accept="image/*, application/pdf" multiple
                                     (change)="uploadFile(fileType.PAYSLIP, $event)" #payslipFileUpload />
                             </div>
-                            @if(form.get('payslips')?.value) {
-                            <div class="file-remove text-danger"
-                                (click)="onRemoveFile(fileType.PAYSLIP, form.get('payslips'), $event)">
-                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                            </div>
-                            }
+
                         </div>
                     </div>
                 </div>
@@ -283,28 +401,50 @@
         </div>
         <div class="card mb-2">
             <div class="card-body">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-md-4">
                         <div class="mb-2">Experience letter from previous organisation</div>
                         <div class="text-danger">Only Pdf,Jpeg,Png and Jpg are accepted.</div>
                     </div>
                     <div class="col-md-8">
+                        @if (existingFileList?.experience?.length > 0) {
+                        @for (item of existingFileList?.experience; track $index) {
+                        <div class="d-flex gap-3 align-items-center mb-2">
+                            <div class="d-flex flex-column gap-2">
+                                <div>
+                                    <span class="me-2 d-none d-md-inline">{{item?.name}}</span>
+                                    <span class="me-2 d-inline d-md-none">{{extractLastName(item?.name)}}</span>
+                                    <span class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(item)">Rename</span>
+                                </div>
+                                <div class="text-muted">{{item?.uploaded_at + ' ' +
+                                    item?.size}} </div>
+                            </div>
+                            <div class="text-danger cursor-pointer" (click)="onDeleteFile(item)"><i
+                                    class="fa-regular fa-trash"></i></div>
+                        </div>
+                        }
+                        }
                         <div role="button" class="upload-box py-2 px-3 position-relative"
                             (click)="experienceFileUpload.click()">
                             <div class="d-flex flex-column gap-2 align-items-center">
                                 <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                                <div>{{ form.get("experience_letters")?.value ?
-                                    extractLastName(form.get("experience_letters")?.value) :
-                                    "Click to upload a file" }}</div>
+                                @if(uploadedFiles[fileType.EXPERIENCELETTER]?.length) {
+                                @for (item of uploadedFiles[fileType.EXPERIENCELETTER]; track $index) {
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="d-none d-md-inline">{{item?.name}}</span>
+                                    <span class="d-inline d-md-none">{{extractLastName(item?.name)}}</span>
+                                    <i class="fa-regular fa-trash text-danger"
+                                        (click)="onRemoveFile(fileType.EXPERIENCELETTER, item.name, $event)">
+                                    </i>
+                                </div>
+                                }
+                                }
+                                @else {
+                                <div>Click to upload a file</div>
+                                }
                                 <input type="file" style="display: none" accept="image/*, application/pdf" multiple
                                     (change)="uploadFile(fileType.EXPERIENCELETTER, $event)" #experienceFileUpload />
                             </div>
-                            @if(form.get('experience_letters')?.value) {
-                            <div class="file-remove text-danger"
-                                (click)="onRemoveFile(fileType.EXPERIENCELETTER, form.get('experience_letters'), $event)">
-                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                            </div>
-                            }
                         </div>
                     </div>
                 </div>
@@ -315,31 +455,67 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
+                        @if (existingFileList?.other?.length > 0) {
+                        @for (item of existingFileList?.other; track $index) {
+                        <div class="d-flex gap-3 align-items-center mb-2">
+                            <div class="d-flex flex-column gap-2">
+                                <div>
+                                    <span class="me-2 d-none d-md-inline">{{item?.name}}</span>
+                                    <span class="me-2 d-inline d-md-none">{{extractLastName(item?.name)}}</span>
+                                    <span class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(item)">Rename</span>
+                                </div>
+                                <div class="text-muted">{{item?.uploaded_at + ' ' +
+                                    item?.size}} </div>
+                            </div>
+                            <div class="text-danger cursor-pointer" (click)="onDeleteFile(item)"><i
+                                    class="fa-regular fa-trash"></i></div>
+                        </div>
+                        }
+                        }
                         <div role="button" class="upload-box py-2 px-3 position-relative"
                             (click)="otherFileUpload.click()">
                             <div class="d-flex flex-column gap-2 align-items-center">
                                 <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                                <div>{{ form.get("others")?.value ?
-                                    extractLastName(form.get("others")?.value) :
-                                    "Click to upload a file" }}</div>
+                                @if(uploadedFiles[fileType.OTHERS]?.length) {
+                                @for (item of uploadedFiles[fileType.OTHERS]; track $index) {
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="d-none d-md-inline">{{item?.name}}</span>
+                                    <span class="d-inline d-md-none">{{extractLastName(item?.name)}}</span>
+                                    <i class="fa-regular fa-trash text-danger"
+                                        (click)="onRemoveFile(fileType.OTHERS, item.name, $event)">
+                                    </i>
+                                </div>
+                                }
+                                }
+                                @else {
+                                <div>Click to upload a file</div>
+                                }
                                 <input type="file" style="display: none" multiple
                                     (change)="uploadFile(fileType.OTHERS, $event)" #otherFileUpload />
                             </div>
-                            @if(form.get('others')?.value) {
-                            <div class="file-remove text-danger"
-                                (click)="onRemoveFile(fileType.OTHERS, form.get('others'), $event)">
-                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                            </div>
-                            }
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="flex justify-content-end gap-2 mt-4">
-            <button class="p-button p-button-outlined" (click)="fileUploadModalVisible = false">
+            <button class="p-button p-button-outlined" (click)="onClose()">
                 Cancel</button>
             <p-button label="Save" (click)="onSubmit()" />
         </div>
     </form>
+</p-dialog>
+
+<p-dialog header="Edit File Name" [modal]="true" [(visible)]="fileRenameModalVisible" [style]="{ width: '30vw' }"
+    [breakpoints]="{ '960px': '75vw', '959px': '80vw', '425px': '90vw' }" (onHide)="onCloseRenameModal()">
+    <div class="mb-4">
+        <label class="font-semibold w-24">Filename</label>
+        <input pInputText type="text" placeholder="Search keyword" class="w-100" [(ngModel)]="newFileName" />
+    </div>
+
+    <div class="flex justify-content-end gap-2 mt-4">
+        <button class="p-button p-button-outlined" (click)="onCloseRenameModal()">
+            Cancel</button>
+        <p-button label="Save" (click)="onSaveNewFileName()" />
+    </div>
 </p-dialog>

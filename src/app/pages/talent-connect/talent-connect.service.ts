@@ -303,7 +303,7 @@ export class TalentConnectService {
     }
 
     // Docs Wallet API's Start
-    getDocsFilter(tab:string) {
+    getDocsFilter(tab: string) {
         return this.http.get<any>(environment.ApiUrl + `/getallfiles?tab=${tab}`);
     }
 
@@ -315,5 +315,23 @@ export class TalentConnectService {
         return this.http.post(`${environment.ApiUrl}/uploaddoc`, formData);
     }
 
+    favouriteDocsWalletFile(data: any) {
+        return this.http.post<any>(`${environment.ApiUrl}/savefavourite`, data);
+    }
+
+    renameDocsWalletFile(data: any) {
+        return this.http.post<any>(`${environment.ApiUrl}/renamefile`, data);
+    }
+
+
+    downloadDocsWalletFile(file_id: string): Observable<Blob> {
+        return this.http.get(environment.ApiUrl + `/docdownload?file_id=${file_id}`, {
+            responseType: 'blob'
+        } as const);
+    }
+    
+    deleteDocsWalletFile(data: any) {
+        return this.http.post(`${environment.ApiUrl}/deletedocfile`, data);
+    }
     // Docs Wallet API's End
 }

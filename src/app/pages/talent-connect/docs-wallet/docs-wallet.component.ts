@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,7 +13,7 @@ import { PopoverModule } from 'primeng/popover';
 import { PageFacadeService } from '../../page-facade.service';
 import { TalentConnectService } from '../talent-connect.service';
 import { DocsWallet } from 'src/app/@Models/docs-wallet.model';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 
 export enum FileType {
@@ -31,21 +31,35 @@ export enum FileType {
   selector: 'uni-docs-wallet',
   standalone: true,
   imports: [CommonModule, PanelModule, InputTextModule, IconFieldModule, InputIconModule, CheckboxModule, SelectModule, ProgressBarModule,
-    DialogModule, ButtonModule, PopoverModule, ReactiveFormsModule
+    DialogModule, ButtonModule, PopoverModule, ReactiveFormsModule, FormsModule
   ],
   templateUrl: './docs-wallet.component.html',
   styleUrls: ['./docs-wallet.component.scss']
 })
 export class DocsWalletComponent implements OnInit {
 
+  @ViewChild("aadharFrontFileUpload") aadharFrontFileUpload: ElementRef;
+  @ViewChild("aadharBackFileUpload") aadharBackFileUpload: ElementRef;
+  @ViewChild("panFrontFileUpload") panFrontFileUpload: ElementRef;
+  @ViewChild("panBackFileUpload") panBackFileUpload: ElementRef;
+  @ViewChild("educationalFileUpload") educationalFileUpload: ElementRef;
+  @ViewChild("payslipFileUpload") payslipFileUpload: ElementRef;
+  @ViewChild("experienceFileUpload") experienceFileUpload: ElementRef;
+  @ViewChild("otherFileUpload") otherFileUpload: ElementRef;
+
   filterDropdown: any[] = [{ id: 1, name: "Recently Added" }, { id: 2, name: "A to Z" }, { id: 3, name: "Z to A" }];
   fileUploadModalVisible: boolean = false;
   activeSectionCard: string = 'ALL';
   docsWallet: DocsWallet | null = null;
+  docsWalletList: DocsWallet | null = null;
   form: FormGroup = new FormGroup({});
-  // uploadedFiles: { [key: string]: File } = {};
   uploadedFiles: { [key: string]: File[] } = {};
   fileType = FileType;
+  searchText: string = '';
+  existingFileList: any;
+  fileRenameModalVisible: boolean = false;
+  currentFile: any;
+  newFileName: string = '';
 
   constructor(private talentConnectService: TalentConnectService, private pageFacade: PageFacadeService,
     private toast: MessageService, private fb: FormBuilder,
@@ -72,52 +86,55 @@ export class DocsWalletComponent implements OnInit {
   getDocsFilter() {
     this.talentConnectService.getDocsFilter(this.activeSectionCard).subscribe({
       next: res => {
+        this.docsWalletList = JSON.parse(JSON.stringify(res));
         this.docsWallet = res;
       },
       error: err => {
 
       }
     });
-    // this.talentConnectService.getDocsUploadedFiles().subscribe({
-    //   next: res => {
-
-    //   },
-    //   error: err => {
-
-    //   }
-    // });
+    this.getDocsUploadedFiles();
   }
+
+  getDocsUploadedFiles() {
+    this.talentConnectService.getDocsUploadedFiles().subscribe({
+      next: res => {
+        this.existingFileList = res?.files;
+      },
+      error: err => {
+
+      }
+    });
+  }
+
   getActiveClassStatus(section: string) {
     return this.activeSectionCard == section;
   }
 
   setSwitchSection(section: string) {
     this.activeSectionCard = section;
+    this.searchText = '';
     this.getDocsFilter();
   }
 
   uploadFile(type: FileType, event: any) {
     const files: FileList = event.target.files;
     if (!files || files.length === 0) return;
+    if (files.length > 6) {
+      this.toast.add({ severity: "error", summary: "Invalid File", detail: "You can upload a maximum of 5 files at a time." });
+      return;
+    }
     const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "application/pdf"];
     const maxSizeInMB = 5;
     const uploaded: string[] = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       if (type !== FileType.OTHERS && !allowedTypes.includes(file.type)) {
-        this.toast.add({
-          severity: "error",
-          summary: "Invalid File",
-          detail: "Only PDF, JPG, JPEG, PNG are allowed."
-        });
+        this.toast.add({ severity: "error", summary: "Invalid File", detail: "Only PDF, JPG, JPEG, PNG are allowed." });
         continue;
       }
       if (file.size > maxSizeInMB * 1024 * 1024) {
-        this.toast.add({
-          severity: "error",
-          summary: "File Too Large",
-          detail: `${file.name} must be less than 5MB.`
-        });
+        this.toast.add({ severity: "error", summary: "File Too Large", detail: `${file.name} must be less than 5MB.` });
         continue;
       }
       const fileId = `${type}`;
@@ -167,12 +184,52 @@ export class DocsWalletComponent implements OnInit {
     return `${shortened}.${extension}`;
   }
 
-  onRemoveFile(type: FileType, formCtrl: any, event: any) {
+  onRemoveFile(type: FileType, fileName: string, event: any) {
     event.stopPropagation();
-    formCtrl.value = '';
-    delete this.uploadedFiles[type];
-    // this.fileInput.nativeElement.value = "";
+
+    const fileId = `${type}`;
+    if (!this.uploadedFiles[fileId]) return;
+
+    // Remove the file from uploadedFiles array
+    this.uploadedFiles[fileId] = this.uploadedFiles[fileId].filter(
+      (f: File) => f.name !== fileName
+    );
+
+    const remainingNames = this.uploadedFiles[fileId].map((f: File) => f.name);
+    this.form.get(this.mapFileTypeToControl(type))?.setValue(
+      remainingNames.length > 0 ? remainingNames.join(", ") : null
+    );
+
+    if (this.uploadedFiles[fileId].length === 0) {
+      delete this.uploadedFiles[fileId];
+      this.fileInputMap[type]().nativeElement.value = "";
+    }
   }
+
+  mapFileTypeToControl(type: FileType): string {
+    switch (type) {
+      case FileType.AADHARFRONT: return "aadhar_front";
+      case FileType.AADHARBACK: return "aadhar_back";
+      case FileType.PANFRONT: return "pan_front";
+      case FileType.PANBACK: return "pan_back";
+      case FileType.EDUCATIONCERT: return "education_cert";
+      case FileType.PAYSLIP: return "payslips";
+      case FileType.EXPERIENCELETTER: return "experience_letters";
+      case FileType.OTHERS: return "others";
+      default: return "";
+    }
+  }
+
+  fileInputMap: Record<FileType, () => ElementRef> = {
+    [FileType.AADHARFRONT]: () => this.aadharFrontFileUpload,
+    [FileType.AADHARBACK]: () => this.aadharBackFileUpload,
+    [FileType.PANFRONT]: () => this.panFrontFileUpload,
+    [FileType.PANBACK]: () => this.panBackFileUpload,
+    [FileType.EDUCATIONCERT]: () => this.educationalFileUpload,
+    [FileType.PAYSLIP]: () => this.payslipFileUpload,
+    [FileType.EXPERIENCELETTER]: () => this.experienceFileUpload,
+    [FileType.OTHERS]: () => this.otherFileUpload,
+  };
 
   onSubmit() {
     const formDataValue = this.form.value;
@@ -238,9 +295,99 @@ export class DocsWalletComponent implements OnInit {
   }
 
   onClose() {
+    this.fileUploadModalVisible = false;
     this.uploadedFiles = {};
     this.form.reset();
   }
+
+  onSearch() {
+    const searchValue = this.searchText.toLowerCase();
+    if (this.docsWallet?.files && this.docsWalletList?.files) {
+      this.docsWallet.files = this.docsWalletList.files.filter((item) => {
+        return item.name.toLowerCase().includes(searchValue);
+      });
+    }
+  }
+
+  onShare(data: any) {
+    console.log(data, 'data')
+  }
+
+  onFavouriteFile(data: any) {
+    this.talentConnectService.favouriteDocsWalletFile({ file_id: data.id }).subscribe({
+      next: res => {
+        this.toast.add({ severity: "success", summary: "Success", detail: "File added to your favorites successfully." });
+        const docWalletFile = this.docsWallet?.files?.find(item => item.id == data.id);
+        docWalletFile.favourite = res.favourite;
+      },
+      error: err => {
+        this.toast.add({ severity: "error", summary: "Error", detail: "Could not add file to favorites. Please try again." });
+      }
+    });
+  }
+
+  onDownloadFile(data: any) {
+    this.talentConnectService.downloadDocsWalletFile(data.id).subscribe({
+      next: res => {
+        this.toast.add({ severity: "success", summary: "Success", detail: "File downloaded successfully." });
+        const url = window.URL.createObjectURL(res);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = data.name;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: err => {
+        this.toast.add({ severity: "error", summary: "Error", detail: "Could not download the file. Please try again." });
+      }
+    });
+  }
+
+  onRenameFile(data: any) {
+    this.fileRenameModalVisible = true;
+    this.currentFile = data;
+    this.newFileName = data.name?.split('.')?.[0];
+  }
+
+  onSaveNewFileName() {
+    if (this.currentFile.name?.split('.')?.[0] == this.newFileName) {
+      this.toast.add({ severity: "error", summary: "Error", detail: "File name unchanged. Please choose a different name." });
+      return;
+    }
+    this.talentConnectService.renameDocsWalletFile({ file_id: this.currentFile.id, new_name: this.newFileName }).subscribe({
+      next: res => {
+        this.toast.add({ severity: "success", summary: "Success", detail: "File renamed successfully." });
+        const docWalletFile = this.docsWallet?.files?.find(item => item.id == this.currentFile.id);
+        docWalletFile.name = res?.file?.name;
+        this.onCloseRenameModal();
+        if(this.fileUploadModalVisible) {
+          this.getDocsUploadedFiles();
+        }
+      },
+      error: err => {
+        this.toast.add({ severity: "error", summary: "Error", detail: err.error.message ?? "Could not rename the file. Please try again." });
+      }
+    });
+  }
+
+  onCloseRenameModal() {
+    this.fileRenameModalVisible = false;
+    this.currentFile = null;
+    this.newFileName = '';
+  }
+
+  onDeleteFile(data: any) {
+    this.talentConnectService.deleteDocsWalletFile({ file_id: data.id }).subscribe({
+      next: res => {
+        this.toast.add({ severity: "success", summary: "Success", detail: "File deleted successfully." });
+        this.getDocsFilter();
+      },
+      error: err => {
+        this.toast.add({ severity: "error", summary: "Error", detail: err.error.message ?? "Could not delete the file. Please try again." });
+      }
+    });
+  }
+
 
   openVideoPopup() {
     // this.pageFacade.openHowitWorksVideoPopup("docs-wallet");
