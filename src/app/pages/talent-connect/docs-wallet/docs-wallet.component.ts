@@ -309,6 +309,23 @@ export class DocsWalletComponent implements OnInit {
     }
   }
 
+  onSortChange(event: any) {
+    const value = event.value?.name;
+    if (this.docsWallet?.files && this.docsWalletList?.files) {
+      if (value === "A to Z") {
+        this.docsWallet.files = [...this.docsWalletList.files].sort((a, b) =>
+          a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        );
+      } else if (value === "Z to A") {
+        this.docsWallet.files = [...this.docsWalletList.files].sort((a, b) =>
+          b.name.toLowerCase().localeCompare(a.name.toLowerCase())
+        );
+      } else if (value === "Recently Added") {
+        this.docsWallet.files = [...this.docsWalletList.files]; // original order
+      }
+    }
+  }
+
   onShare(data: any) {
     console.log(data, 'data')
   }
@@ -360,7 +377,7 @@ export class DocsWalletComponent implements OnInit {
         const docWalletFile = this.docsWallet?.files?.find(item => item.id == this.currentFile.id);
         docWalletFile.name = res?.file?.name;
         this.onCloseRenameModal();
-        if(this.fileUploadModalVisible) {
+        if (this.fileUploadModalVisible) {
           this.getDocsUploadedFiles();
         }
       },
@@ -387,7 +404,6 @@ export class DocsWalletComponent implements OnInit {
       }
     });
   }
-
 
   openVideoPopup() {
     // this.pageFacade.openHowitWorksVideoPopup("docs-wallet");

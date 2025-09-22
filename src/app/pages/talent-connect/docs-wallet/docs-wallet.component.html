@@ -66,7 +66,7 @@
                         </div>
                         <div>
                             Sort By <p-select [options]="filterDropdown" optionLabel="name" placeholder="Select"
-                                appendTo="body" [style]="{width:'180px'}" />
+                                appendTo="body" [style]="{width:'180px'}" (onChange)="onSortChange($event)" />
                         </div>
                     </div>
                     <div class="card-body overflow-y-auto">
@@ -148,7 +148,8 @@
                             <div class="d-flex flex-column gap-2">
                                 <div><span
                                         class="me-2">{{extractLastName(existingFileList?.aadhar?.front?.name)}}</span><span
-                                        class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(existingFileList?.aadhar?.front)">Rename</span>
+                                        class="uniprep-primary text-decoration-underline cursor-pointer"
+                                        (click)="onRenameFile(existingFileList?.aadhar?.front)">Rename</span>
                                 </div>
                                 <div class="text-muted">{{existingFileList?.aadhar?.front?.uploaded_at + ' ' +
                                     existingFileList?.aadhar?.front?.size}} </div>
@@ -163,18 +164,20 @@
                             (click)="aadharFrontFileUpload.click()">
                             <div class="d-flex flex-column gap-2 align-items-center">
                                 <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                                <div>{{ form.get("aadhar_front")?.value ?
-                                    extractLastName(form.get("aadhar_front")?.value) :
-                                    "Upload Front Side" }} </div>
+                                @if (form.get("aadhar_front")?.value) {
+                                <div class="d-flex align-items-center gap-2">
+                                    <span>{{extractLastName(form.get("aadhar_front")?.value)}}</span>
+                                    <i class="fa-regular fa-trash text-danger"
+                                        (click)="onRemoveFile(fileType.AADHARFRONT, form.get('aadhar_front')?.value, $event)">
+                                    </i>
+                                </div>
+                                }
+                                @else {
+                                <div>Upload Front Side</div>
+                                }
                                 <input type="file" style="display: none" accept="image/*, application/pdf"
                                     (change)="uploadFile(fileType.AADHARFRONT, $event)" #aadharFrontFileUpload />
                             </div>
-                            @if(form.get('aadhar_front')?.value) {
-                            <div class="file-remove text-danger"
-                                (click)="onRemoveFile(fileType.AADHARFRONT, form.get('aadhar_front'), $event)">
-                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                            </div>
-                            }
                         </div>
                         }
                     </div>
@@ -184,7 +187,8 @@
                             <div class="d-flex flex-column gap-2">
                                 <div><span
                                         class="me-2">{{extractLastName(existingFileList?.aadhar?.back?.name)}}</span><span
-                                        class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(existingFileList?.aadhar?.back)">Rename</span>
+                                        class="uniprep-primary text-decoration-underline cursor-pointer"
+                                        (click)="onRenameFile(existingFileList?.aadhar?.back)">Rename</span>
                                 </div>
                                 <div class="text-muted">{{existingFileList?.aadhar?.back?.uploaded_at + ' ' +
                                     existingFileList?.aadhar?.back?.size}} </div>
@@ -199,18 +203,20 @@
                             (click)="aadharBackFileUpload.click()">
                             <div class="d-flex flex-column gap-2 align-items-center">
                                 <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                                <div>{{ form.get("aadhar_back")?.value ? extractLastName(form.get("aadhar_back")?.value)
-                                    :
-                                    "Upload Back Side" }} </div>
+                                @if (form.get("aadhar_back")?.value) {
+                                <div class="d-flex align-items-center gap-2">
+                                    <span>{{extractLastName(form.get("aadhar_back")?.value)}}</span>
+                                    <i class="fa-regular fa-trash text-danger"
+                                        (click)="onRemoveFile(fileType.AADHARBACK, form.get('aadhar_back')?.value, $event)">
+                                    </i>
+                                </div>
+                                }
+                                @else {
+                                <div>Upload Back Side</div>
+                                }
                                 <input type="file" style="display: none" accept="image/*, application/pdf"
                                     (change)="uploadFile(fileType.AADHARBACK, $event)" #aadharBackFileUpload />
                             </div>
-                            @if(form.get('aadhar_back')?.value) {
-                            <div class="file-remove text-danger"
-                                (click)="onRemoveFile(fileType.AADHARBACK, form.get('aadhar_back'), $event)">
-                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                            </div>
-                            }
                         </div>
                         }
                     </div>
@@ -230,7 +236,8 @@
                             <div class="d-flex flex-column gap-2">
                                 <div><span
                                         class="me-2">{{extractLastName(existingFileList?.pan?.front?.name)}}</span><span
-                                        class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(existingFileList?.pan?.front)">Rename</span>
+                                        class="uniprep-primary text-decoration-underline cursor-pointer"
+                                        (click)="onRenameFile(existingFileList?.pan?.front)">Rename</span>
                                 </div>
                                 <div class="text-muted">{{existingFileList?.pan?.front?.uploaded_at + ' ' +
                                     existingFileList?.pan?.front?.size}} </div>
@@ -245,17 +252,20 @@
                             (click)="panFrontFileUpload.click()">
                             <div class="d-flex flex-column gap-2 align-items-center">
                                 <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                                <div>{{ form.get("pan_front")?.value ? extractLastName(form.get("pan_front")?.value) :
-                                    "Upload Front Side" }}</div>
+                                @if (form.get("pan_front")?.value) {
+                                <div class="d-flex align-items-center gap-2">
+                                    <span>{{extractLastName(form.get("pan_front")?.value)}}</span>
+                                    <i class="fa-regular fa-trash text-danger"
+                                        (click)="onRemoveFile(fileType.PANFRONT, form.get('pan_front')?.value, $event)">
+                                    </i>
+                                </div>
+                                }
+                                @else {
+                                <div>Upload Front Side</div>
+                                }
                                 <input type="file" style="display: none" accept="image/*, application/pdf"
                                     (change)="uploadFile(fileType.PANFRONT, $event)" #panFrontFileUpload />
                             </div>
-                            @if(form.get('pan_front')?.value) {
-                            <div class="file-remove text-danger"
-                                (click)="onRemoveFile(fileType.PANFRONT, form.get('pan_front'), $event)">
-                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                            </div>
-                            }
                         </div>
                         }
                     </div>
@@ -265,13 +275,15 @@
                             <div class="d-flex flex-column gap-2">
                                 <div><span
                                         class="me-2">{{extractLastName(existingFileList?.pan?.back?.name)}}</span><span
-                                        class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(existingFileList?.pan?.back)">Rename</span>
+                                        class="uniprep-primary text-decoration-underline cursor-pointer"
+                                        (click)="onRenameFile(existingFileList?.pan?.back)">Rename</span>
                                 </div>
                                 <div class="text-muted">{{existingFileList?.pan?.back?.uploaded_at + ' ' +
                                     existingFileList?.pan?.back?.size}} </div>
                             </div>
                             <div class="text-danger cursor-pointer" (click)="onDeleteFile(existingFileList?.pan?.back)">
-                                <i class="fa-regular fa-trash"></i></div>
+                                <i class="fa-regular fa-trash"></i>
+                            </div>
                         </div>
                         }
                         @else {
@@ -279,17 +291,20 @@
                             (click)="panBackFileUpload.click()">
                             <div class="d-flex flex-column gap-2 align-items-center">
                                 <span><i class="fa-regular fa-file uniprep-primary fa-xl"></i></span>
-                                <div>{{ form.get("pan_back")?.value ? extractLastName(form.get("pan_back")?.value) :
-                                    "Upload Back Side" }}</div>
+                                @if (form.get("pan_back")?.value) {
+                                <div class="d-flex align-items-center gap-2">
+                                    <span>{{extractLastName(form.get("pan_back")?.value)}}</span>
+                                    <i class="fa-regular fa-trash text-danger"
+                                        (click)="onRemoveFile(fileType.PANBACK, form.get('pan_back')?.value, $event)">
+                                    </i>
+                                </div>
+                                }
+                                @else {
+                                <div>Upload Back Side</div>
+                                }
                                 <input type="file" style="display: none" accept="image/*, application/pdf"
                                     (change)="uploadFile(fileType.PANBACK, $event)" #panBackFileUpload />
                             </div>
-                            @if(form.get('pan_back')?.value) {
-                            <div class="file-remove text-danger"
-                                (click)="onRemoveFile(fileType.PANBACK, form.get('pan_back'), $event)">
-                                <i class="fa-solid fa-circle-xmark fa-xl"></i>
-                            </div>
-                            }
                         </div>
                         }
                     </div>
@@ -311,7 +326,8 @@
                                 <div>
                                     <span class="me-2 d-none d-md-inline">{{item?.name}}</span>
                                     <span class="me-2 d-inline d-md-none">{{extractLastName(item?.name)}}</span>
-                                    <span class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(item)">Rename</span>
+                                    <span class="uniprep-primary text-decoration-underline cursor-pointer"
+                                        (click)="onRenameFile(item)">Rename</span>
                                 </div>
                                 <div class="text-muted">{{item?.uploaded_at + ' ' +
                                     item?.size}} </div>
@@ -362,7 +378,8 @@
                                 <div>
                                     <span class="me-2 d-none d-md-inline">{{item?.name}}</span>
                                     <span class="me-2 d-inline d-md-none">{{extractLastName(item?.name)}}</span>
-                                    <span class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(item)">Rename</span>
+                                    <span class="uniprep-primary text-decoration-underline cursor-pointer"
+                                        (click)="onRenameFile(item)">Rename</span>
                                 </div>
                                 <div class="text-muted">{{item?.uploaded_at + ' ' +
                                     item?.size}} </div>
@@ -414,7 +431,8 @@
                                 <div>
                                     <span class="me-2 d-none d-md-inline">{{item?.name}}</span>
                                     <span class="me-2 d-inline d-md-none">{{extractLastName(item?.name)}}</span>
-                                    <span class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(item)">Rename</span>
+                                    <span class="uniprep-primary text-decoration-underline cursor-pointer"
+                                        (click)="onRenameFile(item)">Rename</span>
                                 </div>
                                 <div class="text-muted">{{item?.uploaded_at + ' ' +
                                     item?.size}} </div>
@@ -462,7 +480,8 @@
                                 <div>
                                     <span class="me-2 d-none d-md-inline">{{item?.name}}</span>
                                     <span class="me-2 d-inline d-md-none">{{extractLastName(item?.name)}}</span>
-                                    <span class="uniprep-primary text-decoration-underline cursor-pointer" (click)="onRenameFile(item)">Rename</span>
+                                    <span class="uniprep-primary text-decoration-underline cursor-pointer"
+                                        (click)="onRenameFile(item)">Rename</span>
                                 </div>
                                 <div class="text-muted">{{item?.uploaded_at + ' ' +
                                     item?.size}} </div>
