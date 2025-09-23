@@ -144,47 +144,47 @@
 
             <div class="row g-2">
               @for (exp of profileData.workExperience; track exp.companyName) {
-                <div class="col-md-4 mb-3">
-                  <div class="text-primary fw-bold">Company Name</div>
-                  <div>{{ exp.companyName || "Not specified" }}</div>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <div class="text-primary fw-bold">Job Title</div>
-                  <div>{{ exp.jobTitle || "Not specified" }}</div>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <div class="text-primary fw-bold">Duration</div>
-                  <div>{{ exp.duration || "Not specified" }}</div>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <div class="text-primary fw-bold">Years of Experience</div>
-                  <div>{{ exp.totalExperience || "Not specified" }}</div>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <div class="text-primary fw-bold">Employment Type</div>
-                  <div>{{ exp.employmentType || "Not specified" }}</div>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <div class="text-primary fw-bold">Salary per month</div>
-                  @if(exp.noExpectation) {
-                  <div>Open to work for Experience (Unpaid)</div>
-                  }
-                  @else {
-                    <div>{{ exp.salary ? exp.exp_currency + " " + exp.salary : "Open to work for Experience (Unpaid)" }}</div>
-                  }
-                </div>
-                <div class="col-12 mb-3">
-                  <div class="text-primary fw-bold">Job Responsibilities</div>
-                  <div [innerHTML]="exp?.responsibilities || 'Not specified'"></div>
-                </div>
-                @if(exp?.experienceLetter?.file) {
-                <div class="col-12 mb-3">
-                  <div class="text-primary fw-bold">Experience Letter</div>
-                  <button pButton [label]="extractFileName(exp?.experienceLetter?.name)" icon="pi pi-download"
-                    class="p-button-outlined p-button-secondary mt-2 w-100"
-                    (click)="openView(exp?.experienceLetter?.file)" iconPos="right"></button>
-                </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Company Name</div>
+                <div>{{ exp.companyName || "Not specified" }}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Job Title</div>
+                <div>{{ exp.jobTitle || "Not specified" }}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Duration</div>
+                <div>{{ exp.duration || "Not specified" }}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Years of Experience</div>
+                <div>{{ exp.totalExperience || "Not specified" }}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Employment Type</div>
+                <div>{{ exp.employmentType || "Not specified" }}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-primary fw-bold">Salary per month</div>
+                @if(exp.noExpectation) {
+                <div>Open to work for Experience (Unpaid)</div>
                 }
+                @else {
+                <div>{{ exp.salary ? exp.exp_currency + " " + exp.salary : "Not specified" }}</div>
+                }
+              </div>
+              <div class="col-12 mb-3">
+                <div class="text-primary fw-bold">Job Responsibilities</div>
+                <div [innerHTML]="exp?.responsibilities || 'Not specified'"></div>
+              </div>
+              @if(exp?.experienceLetter?.file) {
+              <div class="col-12 mb-3">
+                <div class="text-primary fw-bold">Experience Letter</div>
+                <button pButton [label]="extractFileName(exp?.experienceLetter?.name)" icon="pi pi-download"
+                  class="p-button-outlined p-button-secondary mt-2 w-100"
+                  (click)="openView(exp?.experienceLetter?.file)" iconPos="right"></button>
+              </div>
+              }
               }
             </div>
             }
@@ -243,8 +243,13 @@
               </div>
               <div class="col-md-4 mb-3">
                 <div class="text-primary fw-bold">Expected Salary per month</div>
+                @if(profileData.careerPreferences.noSalaryExpectation) {
+                <div>Open to work for Experience (Unpaid)</div>
+                }
+                @else {
                 <div>{{ profileData.careerPreferences.currency }}
                   {{ profileData.careerPreferences.salaryRange || "Not specified" }}</div>
+                }
               </div>
             </div>
           </div>
@@ -267,10 +272,10 @@
             <div class="row g-2">
               <div class="col-md-5 mb-2">
                 @for (cert of profileData.certifications; track cert.name) {
-                  <div class="mb-3">
-                    <div class="text-primary fw-bold">Professional / Online Certifications</div>
-                    <div>{{ cert.name || "Not specified" }}</div>
-                  </div>
+                <div class="mb-3">
+                  <div class="text-primary fw-bold">Professional / Online Certifications</div>
+                  <div>{{ cert.name || "Not specified" }}</div>
+                </div>
                 }
                 <!-- @if(profileData.userAchievements && profileData.userAchievements.length > 0) {
                   @for (ach of profileData.userAchievements; track ach.name) {
@@ -283,15 +288,15 @@
               </div>
               <div class="col-md-7">
                 @for (cert of profileData.certifications; track cert.file) {
-                  @if(cert.file) {
-                  <div class="border p-3 rounded bg-light d-flex justify-content-between align-items-center mb-2">
-                    <span class="fw-bold fs-6">{{ extractLastName(cert.file) }}</span>
-                    <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="openView(cert.file)"></i>
-                  </div>
-                  }
-                  @else {
-                  <div class="text-muted">No certification files available</div>
-                  }
+                @if(cert.file) {
+                <div class="border p-3 rounded bg-light d-flex justify-content-between align-items-center mb-2">
+                  <span class="fw-bold fs-6">{{ extractLastName(cert.file) }}</span>
+                  <i class="fa-solid fa-download fa-xl cursor-pointer" (click)="openView(cert.file)"></i>
+                </div>
+                }
+                @else {
+                <div class="text-muted">No certification files available</div>
+                }
                 }
                 <!-- @if(profileData.userAchievements && profileData.userAchievements.length > 0) {
                   @for (ach of profileData.userAchievements; track ach.file) {
@@ -330,15 +335,15 @@
               <div class="col-md-4">
                 <div class="text-primary fw-bold mb-2">Languages Known</div>
                 @for (lang of profileData.additionalDetails.languagesKnown; track lang.lang) {
-                  <div class="mb-2">
-                    <div class="d-flex align-items-center">
-                      <span class="me-2" style="width: 100px">{{ lang.lang }}</span>
-                      @if(lang.prof) {
-                      <p-rating style="font-size: large" [ngModel]="getProficiencyRating(lang.prof)"
-                        [readonly]="true"></p-rating>
-                      }
-                    </div>
+                <div class="mb-2">
+                  <div class="d-flex align-items-center">
+                    <span class="me-2" style="width: 100px">{{ lang.lang }}</span>
+                    @if(lang.prof) {
+                    <p-rating style="font-size: large" [ngModel]="getProficiencyRating(lang.prof)"
+                      [readonly]="true"></p-rating>
+                    }
                   </div>
+                </div>
                 }
               </div>
               <!-- <div class="col-md-8">
@@ -375,16 +380,16 @@
               </div>
               }
               @if(profileData.networking.socialMedia && profileData.networking.socialMedia.length > 0) {
-                @for (social of profileData.networking.socialMedia; track social.link) {
-                  <div class="col-md-4 mb-3">
-                    @if(social.link) {
-                    <a [href]="social.link" target="_blank" class="text-break text-dark me-2">
-                      <i class="pi pi-{{ getSocialMediaIconName(social.media) }} fs-3"></i>
-                    </a>
-                    }
-                    <div class="text-primary fw-bold">{{ social.media == "X" ? "Twitter " : social.media }} Profile</div>
-                  </div>
+              @for (social of profileData.networking.socialMedia; track social.link) {
+              <div class="col-md-4 mb-3">
+                @if(social.link) {
+                <a [href]="social.link" target="_blank" class="text-break text-dark me-2">
+                  <i class="pi pi-{{ getSocialMediaIconName(social.media) }} fs-3"></i>
+                </a>
                 }
+                <div class="text-primary fw-bold">{{ social.media == "X" ? "Twitter " : social.media }} Profile</div>
+              </div>
+              }
               }
               @if(profileData.networking.personalWebsite) {
               <div class="col-md-4 mb-3">
@@ -414,28 +419,28 @@
           <div class="col-md-9">
             <div class="row g-2">
               @for (attachment of profileData.attachments; track attachment.name) {
-                @if(attachment.type === 'link') {
-                <div class="col-md-4 mb-3">
-                  <a [href]="attachment.name" target="_blank" class="text-break text-dark"><i
-                      class="fa-solid fa-folder-user fs-3"></i></a>
-                  <div class="text-primary fw-bold">Portfolio</div>
+              @if(attachment.type === 'link') {
+              <div class="col-md-4 mb-3">
+                <a [href]="attachment.name" target="_blank" class="text-break text-dark"><i
+                    class="fa-solid fa-folder-user fs-3"></i></a>
+                <div class="text-primary fw-bold">Portfolio</div>
+              </div>
+              }
+              @if(attachment.type === 'document') {
+              <div class="col-md-8 mb-3">
+                <div class="text-primary fw-bold">Upload CV / Resume</div>
+                @if(attachment.name) {
+                <div class="border p-3 rounded bg-light d-flex justify-content-between align-items-center">
+                  <span>{{ extractLastName(attachment.name) }}</span>
+                  <i class="fa-solid fa-download fa-xl cursor-pointer text-primary"
+                    (click)="openView(attachment.name)"></i>
                 </div>
                 }
-                @if(attachment.type === 'document') {
-                <div class="col-md-8 mb-3">
-                  <div class="text-primary fw-bold">Upload CV / Resume</div>
-                  @if(attachment.name) {
-                  <div class="border p-3 rounded bg-light d-flex justify-content-between align-items-center">
-                    <span>{{ extractLastName(attachment.name) }}</span>
-                    <i class="fa-solid fa-download fa-xl cursor-pointer text-primary"
-                      (click)="openView(attachment.name)"></i>
-                  </div>
-                  }
-                  @else {
-                  <div class="text-muted">No CV uploaded</div>
-                  }
-                </div>
+                @else {
+                <div class="text-muted">No CV uploaded</div>
                 }
+              </div>
+              }
               }
             </div>
           </div>

@@ -209,6 +209,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_expected_salary: [null, Validators.required],
       career_preference_currency_id: [null, Validators.required],
       // career_preference_department_id: [[1]],
+      no_expectation: [null]
     });
     this.certificationsForm = this.fb.group({
       certifications: this.fb.array([this.createCertificateGroup()]),
@@ -279,7 +280,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       work_experience_employment_type: [""],
       work_experience_duration_from: [""],
       currently_working: [false],
-      no_expect: [false],
+      // no_expect: [false],
       work_experience_duration_to: [""],
       work_experience_salary_per_month: [""],
       work_experience_currency_id: [this.currentCurrenyId],
@@ -784,7 +785,18 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_preferred_workplace_type: response.careerPreference?.preferred_workplace_type || [],
       career_preference_expected_salary: response.careerPreference?.expected_salary || null,
       career_preference_currency_id: response.careerPreference?.currency_id || this.currentCurrenyId,
+      no_expectation: response.careerPreference?.no_expectation ?? null
     });
+    if (response.careerPreference?.no_expectation) {
+      const currencyCtrl = this.careerPreferenceForm.get('career_preference_expected_salary');
+      const salaryCtrl = this.careerPreferenceForm.get('career_preference_currency_id');
+      currencyCtrl?.disable();
+      currencyCtrl?.reset();
+      currencyCtrl?.clearValidators();
+      salaryCtrl?.disable();
+      salaryCtrl?.reset();
+      salaryCtrl?.clearValidators();
+    }
 
     this.additionalNotesForm.patchValue({
       additional_notes: response.careerPreference?.notes,
@@ -863,7 +875,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           work_experience_job_responsibilities: [exp.job_responsibilities, maxWordsValidator(150)],
           work_experience_experience_letter: [exp.experience_letter],
           currently_working: [exp.currently_working ?? null],
-          no_expect: [exp?.no_expect ?? null]
+          // no_expect: [exp?.no_expect ?? null]
         })
         if (exp.currently_working) {
           const toCtrl = group.get("work_experience_duration_to");
@@ -872,16 +884,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
           toCtrl?.setValue(today);
           toCtrl?.disable();
         }
-        if (exp?.no_expect) {
-          const currencyCtrl = group.get('work_experience_currency_id');
-          const salaryCtrl = group.get('work_experience_salary_per_month');
-          currencyCtrl?.disable();
-          currencyCtrl?.reset();
-          currencyCtrl?.clearValidators();
-          salaryCtrl?.disable();
-          salaryCtrl?.reset();
-          salaryCtrl?.clearValidators();
-        }
+        // if (exp?.no_expect) {
+        //   const currencyCtrl = group.get('work_experience_currency_id');
+        //   const salaryCtrl = group.get('work_experience_salary_per_month');
+        //   currencyCtrl?.disable();
+        //   currencyCtrl?.reset();
+        //   currencyCtrl?.clearValidators();
+        //   salaryCtrl?.disable();
+        //   salaryCtrl?.reset();
+        //   salaryCtrl?.clearValidators();
+        // }
         workExpArray.push(group);
         this.onChangeWorkExpCompanyName({ target: { value: exp.company_name } }, index);
       })
@@ -1349,10 +1361,33 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     this.workExperienceForm.get('total_years_of_experience')?.setValue(formatted || '0');
   }
 
-  onChangeWorkSalaryExpectation(event: any, index: number) {
-    const group = this.workExperience.at(index);
-    const currencyCtrl = group.get('work_experience_currency_id');
-    const salaryCtrl = group.get('work_experience_salary_per_month');
+  // onChangeWorkSalaryExpectation(event: any, index: number) {
+  //   const group = this.workExperience.at(index);
+  //   const currencyCtrl = group.get('work_experience_currency_id');
+  //   const salaryCtrl = group.get('work_experience_salary_per_month');
+  //   if (event.target.checked) {
+  //     currencyCtrl?.disable();
+  //     currencyCtrl?.reset();
+  //     currencyCtrl?.clearValidators();
+  //     salaryCtrl?.disable();
+  //     salaryCtrl?.reset();
+  //     salaryCtrl?.clearValidators();
+  //   }
+  //   else {
+  //     currencyCtrl?.enable();
+  //     currencyCtrl?.reset();
+  //     currencyCtrl?.setValidators(Validators.required);
+  //     currencyCtrl?.updateValueAndValidity();
+  //     salaryCtrl?.enable();
+  //     salaryCtrl?.reset();
+  //     salaryCtrl?.setValidators(Validators.required);
+  //     salaryCtrl?.updateValueAndValidity();
+  //   }
+  // }
+
+  onChangeCareerWorkSalaryExpectation(event: any) {
+    const currencyCtrl = this.careerPreferenceForm.get('career_preference_expected_salary');
+    const salaryCtrl = this.careerPreferenceForm.get('career_preference_currency_id');
     if (event.target.checked) {
       currencyCtrl?.disable();
       currencyCtrl?.reset();
@@ -1775,8 +1810,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         formData.append(`work_experience[${index}][currently_working]`, currentlyWorking.toString() || "0");
         formData.append(`work_experience[${index}][work_experience_duration_from]`, this.onCovertDateFormat(work.get("work_experience_duration_from")?.value) || "");
         formData.append(`work_experience[${index}][work_experience_duration_to]`, this.onCovertDateFormat(work.get("work_experience_duration_to")?.value) || "");
-        const noExpectation = work.get("no_expect")?.value ? 1 : 0;
-        formData.append(`work_experience[${index}][no_expect]`, noExpectation.toString() || "0");
+        // const noExpectation = work.get("no_expect")?.value ? 1 : 0;
+        // formData.append(`work_experience[${index}][no_expect]`, noExpectation.toString() || "0");
         formData.append(`work_experience[${index}][work_experience_salary_per_month]`, work.get("work_experience_salary_per_month")?.value || "");
         formData.append(`work_experience[${index}][work_experience_currency_id]`, work.get("work_experience_currency_id")?.value || "");
         formData.append(`work_experience[${index}][work_experience_job_responsibilities]`, work.get("work_experience_job_responsibilities")?.value || "");
@@ -1811,10 +1846,13 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       }
       return;
     }
+    // diasble form value won't come in this.careerPreferenceForm.value
+    const formDataValue = this.careerPreferenceForm.getRawValue();
     let data = {
       student_id: this.profileCreationId,
       profile_completion: this.profileCompletion,
-      ...this.careerPreferenceForm.value
+      ...formDataValue,
+      no_expectation:formDataValue.no_expectation ? 1 : 0
     }
     this.talentConnectService.profileCreationCareerInfo(data).subscribe({
       next: res => {
@@ -2096,7 +2134,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_preferred_employment_type: this.originalProfileData?.career_preference_preferred_employment_type || [],
       career_preference_preferred_workplace_type: this.originalProfileData?.career_preference_preferred_workplace_type || [],
       career_preference_expected_salary: this.originalProfileData?.career_preference_expected_salary,
-      career_preference_currency_id: this.originalProfileData?.career_preference_currency_id
+      career_preference_currency_id: this.originalProfileData?.career_preference_currency_id,
+      no_expectation: this.originalProfileData?.no_expectation
     };
     if (!originalCareerPreference) return true;
     const current = this.careerPreferenceForm.value;
