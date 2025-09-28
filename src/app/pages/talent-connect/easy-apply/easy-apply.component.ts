@@ -177,6 +177,12 @@ export class EasyApplyComponent {
     this.isAppliedFilter = true;
   }
 
+  shareJobs() {
+    this.getList(this.filterForm.value);
+    this.displayModal = false;
+    this.isAppliedFilter = true;
+  }
+
   resetFilter(): void {
     this.getList({});
     this.displayModal = false;
@@ -317,6 +323,61 @@ export class EasyApplyComponent {
       const locationCtrl = this.filterForm.get('worklocation');
       event?.value?.length > 0 ? locationCtrl?.disable() : locationCtrl?.enable();
     }
+  }
+
+  shareQuestionFromFilter(event: any, type: string) {
+    event.stopPropagation();
+    const socialMedias: { [key: string]: string } = this.socialShareService.socialMediaList;
+    // const url = 'https://job.uniprep.ai' + '/jobs/' + job.uuid + '/' + this.domainName;
+    const jsonData = JSON.stringify(this.filterForm.value, null, 2);
+    let ency = btoa(jsonData.toString())
+    let url = 'https://job.uniprep.ai/jobs/' + ency
+    const encodedUrl = encodeURIComponent(url);
+    const title = '';
+
+    this.meta.updateTag({ property: 'og:url', content: url });
+    // this.meta.updateTag({ property: 'og:title', content: title });
+    let shareUrl = '';
+    switch (type) {
+      case 'Whatsapp':
+        shareUrl = `${socialMedias[type]}${title}%0A${encodedUrl}`;
+        break;
+      case 'Mail':
+        shareUrl = `${socialMedias[type]}${title}%0A${encodedUrl}`;
+        break;
+      case 'LinkedIn':
+        shareUrl = `${socialMedias[type]}${encodedUrl}&title=${title}`;
+        break;
+      case 'Twitter':
+        shareUrl = `${socialMedias[type]}${encodedUrl}&text=${title}`;
+        break;
+      case 'Facebook':
+        shareUrl = `${socialMedias[type]}${encodedUrl}`;
+        break;
+      case 'Instagram':
+        shareUrl = `${socialMedias[type]}${encodedUrl}`;
+        break;
+      default:
+        shareUrl = `${socialMedias[type]}${encodedUrl}`;
+    }
+    window.open(shareUrl, '_blank');
+  }
+
+  copyLinkFromFilter(event: any) {
+    event.stopPropagation();
+    // const textToCopy = encodeURI('https://job.uniprep.ai' + '/view/' + job.uuid + '/' + this.domainName);
+    // this.socialShareService.copyQuestion(textToCopy, 'Job Link copied successfully');
+    const jsonData = JSON.stringify(this.filterForm.value, null, 2);
+    let ency = btoa(jsonData.toString())
+    let url = 'https://job.uniprep.ai/jobs/' + ency
+    navigator.clipboard.writeText(url).then(() => {
+
+      this.messageService.add({ severity: 'success', summary: 'Copied', detail: url });
+    }).catch(err => {
+      console.error("Failed to copy!", err);
+    });
+
+
   }
 
 }

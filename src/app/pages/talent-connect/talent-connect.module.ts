@@ -18,6 +18,7 @@ import {PaginatorModule} from 'primeng/paginator';
 import { MainListComponent } from './main-list/main-list.component';
 import { DrawerModule } from 'primeng/drawer';
 import { MessageModule } from 'primeng/message';
+import { PopoverModule } from 'primeng/popover';
 @NgModule({
   declarations: [
     MainListComponent,
@@ -45,6 +46,7 @@ import { MessageModule } from 'primeng/message';
     DialogModule,
     PaginatorModule,
     MessageModule,  
+    PopoverModule
   ],
 })
 export class TalentConnectModule { }

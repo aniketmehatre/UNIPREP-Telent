@@ -110,7 +110,7 @@
 }
 
 label {
-  
+
   font-size: 14px;
 }
 
@@ -126,4 +126,56 @@ label {
     color: white;
     background-color: var(--p-primary-500);
   }
+}
+
+.share-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.share-menu li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  font-size: 14px;
+}
+
+.share-menu li i {
+  font-size: 16px;
+}
+
+/* Hover effect */
+.share-menu li:hover {
+  background: #f0f0f0;
+  transform: translateX(3px);
+}
+
+/* Optional custom colors */
+.share-menu li .whatsapp {
+  color: #25D366;
+}
+
+.share-menu li .mail {
+  color: #EA4335;
+}
+
+.share-menu li .facebook {
+  color: #1877F2;
+}
+
+.share-menu li .twitter {
+  color: #1DA1F2;
+}
+
+.share-menu li .instagram {
+  color: #E4405F;
+}
+
+.share-menu li .linkedin {
+  color: #0077B5;
 }
