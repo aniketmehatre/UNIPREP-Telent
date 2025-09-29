@@ -447,22 +447,6 @@
 														<small class="text-danger"> Career Status is required </small>
 														}
 													</div> -->
-													<div class="col-md-6">
-														<label class="mb-1">Desired Job title<span class="text-danger">*</span></label>
-														<p-select [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="career_preference_job_title_id" [options]="jobTitles" appendTo="body" placeholder="Select the Job role you are looking for" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('career_preference_job_title_id')">
-															<ng-template #header>
-																<div class="p-2">
-																	<p-inputgroup>
-																		<input pInputText class="rounded-end-2 me-1" placeholder="Custom Job Title" #jobTitleExp (click)="focusInput(jobTitleExp)" />
-																		<button class="w-full btn btn-primary" (click)="addCustomJobTitle(jobTitleExp.value, careerPreferenceForm.get('career_preference_job_title_id'))"><i class="fa fa-plus"></i>&nbsp;Add New</button>
-																	</p-inputgroup>
-																</div>
-															</ng-template>
-														</p-select>
-														@if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_job_title_id')?.errors?.required) {
-														<small class="text-danger"> Desired Job title is required </small>
-														}
-													</div>
 													<!-- <div class="col-md-6">
 														<label for="careerInterest" class="mb-1"> Interested Industry<span class="text-danger">*</span></label>
 														<p-multiSelect id="careerInterest" appendTo="body" formControlName="career_preference_career_interest_id" [options]="careerInterests" placeholder="Select Industry" styleClass="w-100" optionLabel="interest" optionValue="id" [filter]="true" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('career_preference_career_interest_id')"></p-multiSelect>
@@ -477,6 +461,28 @@
 														</div>
 														@if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_preferred_work_location_id')?.errors?.required) {
 														<small class="text-danger"> Preferred Work Location is required </small>
+														}
+													</div>
+													<div class="col-md-6">
+														<div class="d-flex justify-content-between align-items-center">
+															<label class="mb-1"> Desired Job title<span class="text-danger">*</span></label>
+															<div class="form-check">
+																<input class="form-check-input" formControlName="career_volunteering" id="careerVolunteering" type="checkbox" (change)="onChangeCareerVolunteering($event)" />
+																<label class="form-check-label text-small text-black" for="careerVolunteering">Open to Volunteering</label>
+															</div>
+														</div>
+														<p-select [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="career_preference_job_title_id" [options]="jobTitles" appendTo="body" placeholder="Select the Job role you are looking for" styleClass="w-100" optionLabel="job_title" optionValue="job_title" [filter]="true" filterBy="job_title" (focusout)="resetMessageBox()" (onShow)="updateMessageBox('career_preference_job_title_id')">
+															<ng-template #header>
+																<div class="p-2">
+																	<p-inputgroup>
+																		<input pInputText class="rounded-end-2 me-1" placeholder="Custom Job Title" #jobTitleExp (click)="focusInput(jobTitleExp)" />
+																		<button class="w-full btn btn-primary" (click)="addCustomJobTitle(jobTitleExp.value, careerPreferenceForm.get('career_preference_job_title_id'))"><i class="fa fa-plus"></i>&nbsp;Add New</button>
+																	</p-inputgroup>
+																</div>
+															</ng-template>
+														</p-select>
+														@if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('career_preference_job_title_id')?.errors?.required) {
+														<small class="text-danger"> Desired Job title is required </small>
 														}
 													</div>
 													<div class="col-md-6">
@@ -495,12 +501,26 @@
 														<small class="text-danger"> Preferred Work Mode is required </small>
 														}
 													</div>
+													<div class="col-md-6">
+														<label class="mb-1">Are you open to Internship Opportunities<span class="text-danger">*</span></label>
+														<p-select [options]="[{id:1,name:'Yes'},{id:0,name:'No'}]" styleClass="w-100" optionLabel="name" optionValue="id" placeholder="Select" appendTo="body" formControlName="internship_opportunities"> </p-select>
+														@if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('internship_opportunities')?.errors?.required) {
+														<small class="text-danger"> This field is required </small>
+														}
+													</div>
+													<div class="col-md-6">
+														<label class="mb-1">Are you open to Volunteering Work<span class="text-danger">*</span></label>
+														<p-select [options]="[{id:1,name:'Yes'},{id:0,name:'No'}]" styleClass="w-100" optionLabel="name" optionValue="id" placeholder="Select" appendTo="body" formControlName="volunteering_work"> </p-select>
+														@if(isSubmittedCareerPreferenceForm && careerPreferenceForm.get('volunteering_work')?.errors?.required) {
+														<small class="text-danger"> This field is required </small>
+														}
+													</div>
 													<div class="col-md-12">
 														<div class="d-flex justify-content-between align-items-center">
 															<label class="mb-1"> Expected Salary per month<span class="text-danger">*</span></label>
 															<div class="form-check">
 																<input class="form-check-input" formControlName="no_expectation" id="noSalaryExpectations" type="checkbox" (change)="onChangeCareerWorkSalaryExpectation($event, i)" />
-																<label class="form-check-label text-small text-black" for="noSalaryExpectations">Open to work for Experience (Unpaid)</label>
+																<label class="form-check-label text-small text-black" for="noSalaryExpectations">No Expectations</label>
 															</div>
 														</div>
 														<div class="d-flex w-100 gap-2">
