@@ -597,9 +597,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
     // Career Preferences & Aspirations (14%)
     // checkField(this.careerPreferenceForm.get("career_preference_career_status"), 4)
-    checkField(this.careerPreferenceForm.get("career_preference_job_title_id"), 14)
+    // checkField(this.careerPreferenceForm.get("career_preference_job_title_id"), 14)
     // checkField(this.careerPreferenceForm.get("career_preference_career_interest_id"), 3)
-    // checkField(this.careerPreferenceForm.get("career_preference_preferred_work_location_id"), 2)
+    checkField(this.careerPreferenceForm.get("career_preference_preferred_work_location_id"), 14)
     // checkField(this.careerPreferenceForm.get("career_preference_preferred_employment_type"), 2)
     // checkField(this.careerPreferenceForm.get("career_preference_preferred_workplace_type"), 2)
     // checkField(this.careerPreferenceForm.get("career_preference_willingness_to_relocate"), 3)
