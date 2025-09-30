@@ -209,7 +209,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_expected_salary: [null, Validators.required],
       career_preference_currency_id: [null, Validators.required],
       // career_preference_department_id: [[1]],
-      no_expectation: [null]
+      no_expectation: [null],
+      career_volunteering: [null],
+      internship_opportunities: [null, Validators.required],
+      volunteering_work: [null, Validators.required],
     });
     this.certificationsForm = this.fb.group({
       certifications: this.fb.array([this.createCertificateGroup()]),
@@ -594,9 +597,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
 
     // Career Preferences & Aspirations (14%)
     // checkField(this.careerPreferenceForm.get("career_preference_career_status"), 4)
-    checkField(this.careerPreferenceForm.get("career_preference_job_title_id"), 14)
+    // checkField(this.careerPreferenceForm.get("career_preference_job_title_id"), 14)
     // checkField(this.careerPreferenceForm.get("career_preference_career_interest_id"), 3)
-    // checkField(this.careerPreferenceForm.get("career_preference_preferred_work_location_id"), 2)
+    checkField(this.careerPreferenceForm.get("career_preference_preferred_work_location_id"), 14)
     // checkField(this.careerPreferenceForm.get("career_preference_preferred_employment_type"), 2)
     // checkField(this.careerPreferenceForm.get("career_preference_preferred_workplace_type"), 2)
     // checkField(this.careerPreferenceForm.get("career_preference_willingness_to_relocate"), 3)
@@ -785,7 +788,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_preferred_workplace_type: response.careerPreference?.preferred_workplace_type || [],
       career_preference_expected_salary: response.careerPreference?.expected_salary || null,
       career_preference_currency_id: response.careerPreference?.currency_id || this.currentCurrenyId,
-      no_expectation: response.careerPreference?.no_expectation ?? null
+      no_expectation: response.careerPreference?.no_expectation ?? null,
+      career_volunteering: response.careerPreference?.career_volunteering ?? null,
+      internship_opportunities: response.careerPreference?.internship_opportunities ?? null,
+      volunteering_work: response.careerPreference?.volunteering_work ?? null,
     });
     if (response.careerPreference?.no_expectation) {
       const currencyCtrl = this.careerPreferenceForm.get('career_preference_expected_salary');
@@ -797,7 +803,12 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       salaryCtrl?.reset();
       salaryCtrl?.clearValidators();
     }
-
+    if (response.careerPreference?.career_volunteering) {
+      const jobTitleCtrl = this.careerPreferenceForm.get('career_preference_job_title_id');
+      jobTitleCtrl?.disable();
+      jobTitleCtrl?.reset();
+      jobTitleCtrl?.clearValidators();
+    }
     this.additionalNotesForm.patchValue({
       additional_notes: response.careerPreference?.notes,
     });
@@ -1408,6 +1419,21 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     }
   }
 
+  onChangeCareerVolunteering(event: any) {
+    const jobTitleCtrl = this.careerPreferenceForm.get('career_preference_job_title_id');
+    if (event.target.checked) {
+      jobTitleCtrl?.disable();
+      jobTitleCtrl?.reset();
+      jobTitleCtrl?.clearValidators();
+    }
+    else {
+      jobTitleCtrl?.enable();
+      jobTitleCtrl?.reset();
+      jobTitleCtrl?.setValidators(Validators.required);
+      jobTitleCtrl?.updateValueAndValidity();
+    }
+  }
+
   onChangeStillPursuing(event: any, index: number) {
     const currentGroup = this.educationDetails.at(index);
     const cgpaTypeCtrl = currentGroup.get('education_cgpa_or_percentage_type');
@@ -1852,7 +1878,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       student_id: this.profileCreationId,
       profile_completion: this.profileCompletion,
       ...formDataValue,
-      no_expectation:formDataValue.no_expectation ? 1 : 0
+      no_expectation: formDataValue.no_expectation ? 1 : 0,
+      career_volunteering: formDataValue.career_volunteering ? 1 : 0,
     }
     this.talentConnectService.profileCreationCareerInfo(data).subscribe({
       next: res => {
@@ -2135,7 +2162,10 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_preferred_workplace_type: this.originalProfileData?.career_preference_preferred_workplace_type || [],
       career_preference_expected_salary: this.originalProfileData?.career_preference_expected_salary,
       career_preference_currency_id: this.originalProfileData?.career_preference_currency_id,
-      no_expectation: this.originalProfileData?.no_expectation
+      no_expectation: this.originalProfileData?.no_expectation,
+      career_volunteering: this.originalProfileData?.career_volunteering ?? null,
+      internship_opportunities: this.originalProfileData?.internship_opportunities ?? null,
+      volunteering_work: this.originalProfileData?.volunteering_work ?? null,
     };
     if (!originalCareerPreference) return true;
     const current = this.careerPreferenceForm.value;
