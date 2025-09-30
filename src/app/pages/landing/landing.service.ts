@@ -119,4 +119,12 @@ export class landingServices {
   //     params: data
   //   })
   // }
+
+  employerPaymentLink(req: any) {
+    return this.http.post(`${environment.ApiUrlEmployer}/employer_contribution_transaction`, req);
+  }
+
+  completeTransaction(req: any) {
+    return this.http.post(`${environment.ApiUrlEmployer}/employer_complete_transaction`, req);
+  }
 }

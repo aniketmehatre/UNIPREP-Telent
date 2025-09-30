@@ -26,7 +26,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { landingServices } from '../../landing/landing.service';
 import { LocationService } from "src/app/services/location.service"
 import { PageFacadeService } from "../../page-facade.service"
- 
+
 @Component({
 	selector: "uni-clg-subscription-data",
 	templateUrl: "./clg-subscription-data.component.html",
@@ -48,7 +48,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 	topupcountries = false
 	topupvalidity = false
 	subscriptionList: any = []
-    currencyValue: string = 'INR'
+	currencyValue: string = 'INR'
 	subscriptionTopupList: any = []
 	couponInput: any = ""
 	subscriptionTotal: any = "0.00"
@@ -77,14 +77,14 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 	currency: string = ""
 	monthlyPlan: number = 1
 	education_level: string = ""
-	activeButton: number = 1
+	activeButton: number = 2
 	timeLeftInfoCard: any
 	couponTab: boolean = false
 	currentLocationCountry: any
 	constructor(private authService: AuthService, private subscriptionService: SubscriptionService,
 		private storage: LocalStorageService, private toast: MessageService, private ngxService: NgxUiLoaderService,
 		private http: HttpClient, private landingPageService: landingServices, private locationService: LocationService,
-		private pageFacade: PageFacadeService) { } 
+		private pageFacade: PageFacadeService) { }
 
 	async ngOnInit(): Promise<void> {
 		try {
@@ -124,12 +124,12 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 
 			this.ngxService.startBackground();
 			this.locationService.getCountry().subscribe({
-				next:(data) => {
+				next: (data) => {
 					this.ngxService.stopBackground();
 					this.countryList = data;
 					if (this.user?.current_plan_detail?.current_plan_validity) {
 						const validityMap: { [key: number]: number } = {
-							1: 1,
+							// 1: 1,
 							6: 2,
 							12: 3
 						};
@@ -137,12 +137,12 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 						this.activeButton = validityMap[validity];
 						this.setActiveButton(this.activeButton)
 					} else {
-					  this.setActiveButton(this.activeButton)
+						this.setActiveButton(this.activeButton)
 					}
 					//this.setActiveButton(this.activeButton)
 					this.getSubscriptionTopupList();
 				},
-				error:(error) => {
+				error: (error) => {
 					this.ngxService.stopBackground();
 					console.error("Error fetching country data:", error);
 				}
@@ -203,9 +203,11 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 		await this.getCurrentLoction();
 		this.subscriptionAmt = "0.00";
 		this.subscriptionTotal = this.subscriptionAmt;
-		if (this.activeButton == 1) {
-			this.monthlyPlan = 1;
-		} else if (this.activeButton == 2) {
+		// if (this.activeButton == 1) {
+		// 	this.monthlyPlan = 1;
+		// } else
+
+		if (this.activeButton == 2) {
 			this.monthlyPlan = 6;
 		} else {
 			this.monthlyPlan = 12;
@@ -242,7 +244,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 			const mostPopularOnes = response.subscriptions.filter((item: any) => item.popular === 1)
 			const filteredData = response.subscriptions.filter((item: any) => item.popular !== 1)
 			filteredData.splice(1, 0, ...mostPopularOnes)
-            this.currencyValue = response.subscriptions[0].currency
+			this.currencyValue = response.subscriptions[0].currency
 			this.subscriptionList = filteredData
 			this.subscriptionList.forEach((item: any) => {
 				item.country = item.country?.split(",").map(Number)
@@ -255,8 +257,8 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 				item.isActive = item.popular == 1 ? true : false
 				this.currency = item.currency
 
-				this.showCheckout =this.planstage == 2 && this.planstatus?.current_plan_validity >= item.validity ? true : false;
-                this.selectedSubscriptionPlan(item);
+				this.showCheckout = this.planstage == 2 && this.planstatus?.current_plan_validity >= item.validity ? true : false;
+				this.selectedSubscriptionPlan(item);
 			});
 
 		})
@@ -399,15 +401,15 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 		}
 	}
 
- 
+
 	checkout(type: any) {
-				//This type is coming when users clicks buy premium in the job-chat-ui component => applyJob().
+		//This type is coming when users clicks buy premium in the job-chat-ui component => applyJob().
 		//Then subscription component => applyNow.
-        this.showCheckout = false
-		if(type === "why-premium-type"){
-			if(this.currencyValue == "INR"){
+		this.showCheckout = false
+		if (type === "why-premium-type") {
+			if (this.currencyValue == "INR") {
 				type = 'razorpay';
-			}else if(this.currencyValue != 'INR'){
+			} else if (this.currencyValue != 'INR') {
 				type = 'stripe';
 			}
 		}
@@ -427,7 +429,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 						coupon_id: this.usedCouponId,
 						subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
 						type: "",
-						currency : this.currencyValue
+						currency: this.currencyValue
 					}
 					data.type = type
 					if (this.checkoutTotal == "") {
@@ -444,7 +446,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 							coupon: this.couponInput,
 							subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
 							type: "",
-							currency : this.currencyValue
+							currency: this.currencyValue
 						}
 						data.type = type;
 						this.subscriptionPlan.emit(data)
@@ -456,7 +458,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 						})
 					}
 				}
-                this.showCheckout = true
+				this.showCheckout = true
 			},
 			(error) => {
 				if (this.basesubscription && this.selectedSubscriptionDetails) {
@@ -467,7 +469,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 						couponApplied: this.couponInput ? 1 : 0,
 						coupon: this.couponInput,
 						subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
-						currency : this.currencyValue
+						currency: this.currencyValue
 					}
 					if (this.checkoutTotal == "") {
 						data.finalPrice = this.subscriptionTotal
@@ -482,7 +484,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 							couponApplied: this.couponInput ? 1 : 0,
 							coupon: this.couponInput,
 							subscription_plan_id: this.selectedSubscriptionDetails?.subscription_plan_id,
-							currency : this.currencyValue
+							currency: this.currencyValue
 						}
 						this.subscriptionPlan.emit(data)
 					} else {
@@ -493,8 +495,8 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 						})
 					}
 				}
-                this.showCheckout = true
-				 
+				this.showCheckout = true
+
 			}
 		)
 	}
@@ -520,20 +522,20 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 		this.showHistory.emit(true)
 	}
 
-	 copyCoupon() {
+	copyCoupon() {
 		let offerDiv: any = document.getElementById("couponCode");
 		let code = offerDiv?.textContent?.trim();
 
-		  if (code) {
+		if (code) {
 			navigator.clipboard.writeText(code).then(() => {
 				this.toast.add({
-				severity: 'success',
-				summary: 'Copied!',
-				detail: `${code} copied to clipboard`
+					severity: 'success',
+					summary: 'Copied!',
+					detail: `${code} copied to clipboard`
 				});
 			});
 		}
-  	}
+	}
 	getLocation(): void {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition((position) => {
@@ -645,19 +647,19 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 	}
 
 
-	openHowItWorksVideoPopup(){
+	openHowItWorksVideoPopup() {
 		this.pageFacade.openHowitWorksVideoPopup('subscription');
 	}
 
 	copied = false;
 	copyCoupon1(code: string) {
 		navigator.clipboard.writeText(code).then(() => {
-		this.copied = true;
-		setTimeout(() => this.copied = false, 2000); // hide "Copied!" after 2s
+			this.copied = true;
+			setTimeout(() => this.copied = false, 2000); // hide "Copied!" after 2s
 		});
 	}
 	showInfo: boolean = false;
-	toggleInfo(){
+	toggleInfo() {
 		this.showInfo = !this.showInfo;
 	}
 }

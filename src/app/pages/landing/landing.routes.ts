@@ -74,6 +74,10 @@ export const landingRoutes: Routes = [
                 loadComponent: () => import('./contact-us/contact-us.component').then(c => c.ContactUsComponent)
             },
             {
+                path: 'employer-pay-link',
+                loadComponent: () => import('./employer-details/employer-details.component').then(c => c.EmployerDetailsComponent)
+            },
+            {
                 path: 'pricing',
                 loadComponent: () => import('./pricing/pricing.component').then(c => c.PricingComponent)
             },
@@ -97,7 +101,7 @@ export const landingRoutes: Routes = [
                 path: 'success-story',
                 loadComponent: () => import('./success-story/success-story.component').then(c => c.SuccessStoryComponent)
             },
-             {
+            {
                 path: 'training-program',
                 loadComponent: () => import('./training-program/training-program.component').then(c => c.TrainingProgramComponent)
             },

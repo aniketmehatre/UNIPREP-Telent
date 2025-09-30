@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="128" viewBox="0 0 1024 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Razorpay">
+  <rect width="1024" height="256" fill="none"/>
+  <!-- Simple placeholder Razorpay logotype (can be replaced by brand SVG) -->
+  <g>
+    <path d="M164 52 L84 104 L68 164 L108 164 L124 108 L204 56 L220 -4 L180 -4 Z" transform="translate(0,64)" fill="#4BA3FF"/>
+    <path d="M84 104 L28 140 L8 204 L64 204 Z" transform="translate(0,64)" fill="#072B54"/>
+  </g>
+  <text x="260" y="158" font-family="Inter, Arial, Helvetica, sans-serif" font-size="96" font-weight="700" fill="#072B54">Razorpay</text>
+</svg>
