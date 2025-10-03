@@ -23,14 +23,18 @@
                                 placeholder="Employer Name" formControlName="user_name" />
                         </div>
                         <div class="col-12 col-md-6">
+                            <label class="form-label text-white">Company Name<span class="text-danger">*</span></label>
+                            <input pInputText type="text" class="form-control bg-dark text-white border-white"
+                                placeholder="Employer Company Name" formControlName="company_name" />
+                        </div>
+                        <div class="col-12 col-md-6">
                             <label class="form-label text-white">Designation <span class="text-danger">*</span></label>
                             <input pInputText type="text" class="form-control bg-dark text-white border-white"
                                 placeholder="Employer Designation" formControlName="designation" />
                         </div>
-
-                        <div class="col-12">
+                        <div class="col-12 col-md-6">
                             <label class="form-label text-white">Location <span class="text-danger">*</span></label>
-                            <p-select styleClass="w-100 p-1" class="form-select bg-dark text-white w-100"
+                            <p-select styleClass="w-100" class="form-select bg-dark text-white w-100"
                                 [options]="locationsList" [filter]="true" filterBy="city_state"
                                 (onFilter)="getCitiesCountry($event.filter)" formControlName="location" optionValue="id"
                                 optionLabel="city_state" placeholder="Select the location">
@@ -56,11 +60,10 @@
                         </div>
 
                         <div class="col-12 col-md-6">
-                            <label class="form-label text-white">Employer size <span
-                                    class="text-danger">*</span></label>
+                            <label class="form-label text-white">Company size <span class="text-danger">*</span></label>
                             <p-select styleClass="w-100 p-1" class="form-select bg-dark text-white w-100"
                                 [options]="employerSizeOptions" optionLabel="label" optionValue="value"
-                                placeholder="Select employer size" formControlName="employer_size"></p-select>
+                                placeholder="Select Company size" formControlName="employer_size"></p-select>
                         </div>
 
                         <div class="col-12 col-md-6">

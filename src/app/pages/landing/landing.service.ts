@@ -127,4 +127,9 @@ export class landingServices {
   completeTransaction(req: any) {
     return this.http.post(`${environment.ApiUrlEmployer}/employer_complete_transaction`, req);
   }
+
+  // Digital Job Fair endpoint
+  getDigitalJobFair() {
+    return this.http.get<any>(`${environment.ApiUrl}/digitalJobFair`);
+  }
 }

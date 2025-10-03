@@ -129,7 +129,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 					this.countryList = data;
 					if (this.user?.current_plan_detail?.current_plan_validity) {
 						const validityMap: { [key: number]: number } = {
-							// 1: 1,
+							1: 1,
 							6: 2,
 							12: 3
 						};
@@ -203,11 +203,9 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 		await this.getCurrentLoction();
 		this.subscriptionAmt = "0.00";
 		this.subscriptionTotal = this.subscriptionAmt;
-		// if (this.activeButton == 1) {
-		// 	this.monthlyPlan = 1;
-		// } else
-
-		if (this.activeButton == 2) {
+		if (this.activeButton == 1) {
+			this.monthlyPlan = 1;
+		} else if (this.activeButton == 2) {
 			this.monthlyPlan = 6;
 		} else {
 			this.monthlyPlan = 12;

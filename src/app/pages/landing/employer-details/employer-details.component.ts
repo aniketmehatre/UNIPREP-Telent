@@ -27,17 +27,15 @@ export class EmployerDetailsComponent {
   preferredCountry: any = CountryISO.India;
 
   employerSizeOptions: EmployerSizeOption[] = [
-    { label: '1-50', value: '1-50' },
-    { label: '51-250', value: '51-250' },
+    { label: '1-250', value: '1-250' },
     { label: '250+', value: '250+' },
     { label: 'Custom Amount', value: 'custom' },
   ];
 
   // Default amounts per employer size
   private amountMap: Record<string, number> = {
-    '1-50': 10000,
-    '51-250': 25000,
-    '250+': 50000,
+    '1-250': 10000,
+    '250+': 25000,
   };
 
   constructor(private fb: FormBuilder, private messageService: MessageService, private landingPageServices: landingServices,
@@ -45,6 +43,7 @@ export class EmployerDetailsComponent {
   ) {
     this.form = this.fb.group({
       user_name: ['', Validators.required],
+      company_name: ['', Validators.required],
       designation: ['', Validators.required],
       location: ['', Validators.required],
       phone_number: ['', [Validators.required]],
@@ -113,7 +112,6 @@ export class EmployerDetailsComponent {
       ...this.form.getRawValue(),
       // Keep combined phone for backward compatibility
       phone_number: phoneObj.number,
-      // Capture individual parts too
       phoneNumber: phoneObj.number,
       phoneCountryCode: phoneObj.dialCode,
       phoneCountryIso2: phoneObj.countryCode,
@@ -123,7 +121,7 @@ export class EmployerDetailsComponent {
     this.landingPageServices.employerPaymentLink(payload).subscribe({
       next: (response: any) => {
         if (response.success) {
-          this.payWithRazorPay(response.order_id);
+          this.payWithRazorPay(response.orderid);
           // this.messageService.add({
           //   severity: 'success',
           //   summary: 'Submitted',

@@ -1,0 +1,8 @@
+.company-name {
+  color: gray !important;              /* normal state */
+  transition: color 0.3s;   /* smooth hover effect */
+}
+
+.company-name:hover {
+  color: darkorange !important;        /* hover state */
+}

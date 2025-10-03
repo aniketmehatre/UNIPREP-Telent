@@ -86,6 +86,10 @@ export const landingRoutes: Routes = [
                 loadComponent: () => import('./management-team/management-team.component').then(m => m.ManagementTeamComponent),
             },
             {
+                path: 'digital-job-fair',
+                loadComponent: () => import('./digital-job-fair/digital-job-fair.component').then(c => c.DigitalJobFairComponent)
+            },
+            {
                 path: 'blogs',
                 loadComponent: () => import('./bloglist/bloglist.component').then(m => m.BloglistComponent),
             },
