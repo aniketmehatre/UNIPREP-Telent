@@ -210,7 +210,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_preference_currency_id: [null, Validators.required],
       // career_preference_department_id: [[1]],
       no_expectation: [null],
-      career_volunteering: [null],
+      career_volunteering: [0, null],
       internship_opportunities: [null, Validators.required],
       volunteering_work: [null, Validators.required],
     });
@@ -1420,6 +1420,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onChangeCareerVolunteering(event: any) {
+      console.log(event);
+      return;
     const jobTitleCtrl = this.careerPreferenceForm.get('career_preference_job_title_id');
     if (event.target.checked) {
       jobTitleCtrl?.disable();
