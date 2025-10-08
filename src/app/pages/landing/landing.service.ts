@@ -1,135 +1,146 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '@env/environment';
-import { Observable } from 'rxjs';
-import { IPAddress } from './pricing/pricing.component';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '@env/environment';
+import {Observable} from 'rxjs';
+import {IPAddress} from './pricing/pricing.component';
+
 interface Subscription {
-  count: number;
-  subscriptions: any;
-  success: boolean
+    count: number;
+    subscriptions: any;
+    success: boolean
 }
+
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class landingServices {
-  headers = new HttpHeaders().set("Accept", "application/json");
+    headers = new HttpHeaders().set("Accept", "application/json");
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+    }
 
-  getLandingPageBasedOnCategory(category: number) {
-    return this.http.post<any>(environment.ApiUrl + "/landingpageview", { category: category }, {
-      headers: this.headers
-    });
-  }
+    getLandingPageBasedOnCategory(category: number) {
+        return this.http.post<any>(environment.ApiUrl + "/landingpageview", {category: category}, {
+            headers: this.headers
+        });
+    }
 
-  getLandingPageChooseUs(slug: string) {
-    return this.http.post<any>(environment.ApiUrl + "/landingpagechooseus", { slug: slug }, {
-      headers: this.headers
-    });
-  }
+    getLandingPageChooseUs(slug: string) {
+        return this.http.post<any>(environment.ApiUrl + "/landingpagechooseus", {slug: slug}, {
+            headers: this.headers
+        });
+    }
 
-  getLandingPageFAQ(slug: string) {
-    return this.http.post<any>(environment.ApiUrl + "/landingpagefaqs", { slug: slug }, {
-      headers: this.headers
-    });
-  }
+    getLandingPageFAQ(slug: string) {
+        return this.http.post<any>(environment.ApiUrl + "/landingpagefaqs", {slug: slug}, {
+            headers: this.headers
+        });
+    }
 
-  getLandingPageHowItsWorks(slug: string) {
-    return this.http.post<any>(environment.ApiUrl + "/landingpagehowitsworks", { slug: slug }, {
-      headers: this.headers
-    });
-  }
+    getLandingPageHowItsWorks(slug: string) {
+        return this.http.post<any>(environment.ApiUrl + "/landingpagehowitsworks", {slug: slug}, {
+            headers: this.headers
+        });
+    }
 
-  getLandingPageWhoItsFors(slug: string) {
-    return this.http.post<any>(environment.ApiUrl + "/landingpagewhoitsfors", { slug: slug }, {
-      headers: this.headers
-    });
-  }
+    getLandingPageWhoItsFors(slug: string) {
+        return this.http.post<any>(environment.ApiUrl + "/landingpagewhoitsfors", {slug: slug}, {
+            headers: this.headers
+        });
+    }
 
-  getLandingPageData(slug: string) {
-    return this.http.post<any>(`${environment.ApiUrl}/landingpageedit`, { slug: slug }, {
-      headers: this.headers
-    });
-  }
+    getLandingPageData(slug: string) {
+        return this.http.post<any>(`${environment.ApiUrl}/landingpageedit`, {slug: slug}, {
+            headers: this.headers
+        });
+    }
 
-  getLandingCategories(id: number) {
-    return this.http.post<any>(environment.ApiUrl + "/showCategory", { id: id }, {
-      headers: this.headers
-    });
-  }
+    getLandingCategories(id: number) {
+        return this.http.post<any>(environment.ApiUrl + "/showCategory", {id: id}, {
+            headers: this.headers
+        });
+    }
 
-  getLandingCategoryTags(id: number) {
-    return this.http.post<any>(environment.ApiUrl + "/Categorytags", { id: id }, {
-      headers: this.headers
-    });
-  }
+    getLandingCategoryTags(id: number) {
+        return this.http.post<any>(environment.ApiUrl + "/Categorytags", {id: id}, {
+            headers: this.headers
+        });
+    }
 
-  getLandingCategoryCards(id: number) {
-    return this.http.post<any>(environment.ApiUrl + "/Categorycards", { id: id }, {
-      headers: this.headers
-    });
-  }
+    getLandingCategoryCards(id: number) {
+        return this.http.post<any>(environment.ApiUrl + "/Categorycards", {id: id}, {
+            headers: this.headers
+        });
+    }
 
-  getManagementTeamMembersList(data: any) {
-    return this.http.post<any>(`${environment.ApiUrl}/landingpageactivemanagement`, data);
-  }
+    getManagementTeamMembersList(data: any) {
+        return this.http.post<any>(`${environment.ApiUrl}/landingpageactivemanagement`, data);
+    }
 
-  sendContactUsPage(data: any) {
-    return this.http.post<any>(`${environment.ApiUrl}/contactussave`, data);
-  }
+    sendContactUsPage(data: any) {
+        return this.http.post<any>(`${environment.ApiUrl}/contactussave`, data);
+    }
 
-  getCitiesCountry(data: any) {
-    return this.http.get<any>(`${environment.ApiUrl}/getworldcitiescountry`, { params: data });
-  }
+    getCitiesCountry(data: any) {
+        return this.http.get<any>(`${environment.ApiUrl}/getworldcitiescountry`, {params: data});
+    }
 
-  getLandingPageSubscriptionList(data: any) {
-    return this.http.post<IPAddress>(`${environment.ApiUrl}/getlandingpagesubscriptionlist`, data);
-  }
+    getLandingPageSubscriptionList(data: any) {
+        return this.http.post<IPAddress>(`${environment.ApiUrl}/getlandingpagesubscriptionlist`, data);
+    }
 
-  getCountryName() {
-    return this.http.get('https://ipapi.co/json/');
-  }
-
-
-  getJobInviteDetails(uuid: string): Observable<any> {
-    return this.http.post<any>(`${environment.ApiUrl}/getjobsharedetails`, { uuid });
-  }
-
-  getCompanyInviteDetails(uuid: string): Observable<any> {
-    return this.http.post(`${environment.ApiUrl}/getcompanysharedetails`, { uuid });
-  }
-
-  getTalentInviteDetails(uuid: string): Observable<any> {
-    return this.http.post(`${environment.ApiUrl}/gettalentsharedetails`, { uuid });
-  }
-
-  getSuccessStories(): Observable<any> {
-    return this.http.get(`${environment.ApiUrl}/landingPlacementSuccessStory`);
-  }
+    getCountryName() {
+        return this.http.get('https://ipapi.co/json/');
+    }
 
 
-  getSubscriptionDetails(data: any) {
-    return this.http.get<Subscription>(`${environment.ApiUrl}/getlandingpagesubscriptionlist`, {
-      params: data
-    })
-  }
+    getJobInviteDetails(uuid: string): Observable<any> {
+        return this.http.post<any>(`${environment.ApiUrl}/getjobsharedetails`, {uuid});
+    }
 
-  // getSubscriptionDetails(data: any) {
-  //   return this.http.get<Subscription>(`${environment.ApiUrl}/getlandingpagesubscriptionlist`, {
-  //     params: data
-  //   })
-  // }
+    getCompanyInviteDetails(uuid: string): Observable<any> {
+        return this.http.post(`${environment.ApiUrl}/getcompanysharedetails`, {uuid});
+    }
 
-  employerPaymentLink(req: any) {
-    return this.http.post(`${environment.ApiUrlEmployer}/employer_contribution_transaction`, req);
-  }
+    getTalentInviteDetails(uuid: string): Observable<any> {
+        return this.http.post(`${environment.ApiUrl}/gettalentsharedetails`, {uuid});
+    }
 
-  completeTransaction(req: any) {
-    return this.http.post(`${environment.ApiUrlEmployer}/employer_complete_transaction`, req);
-  }
+    getSuccessStories(): Observable<any> {
+        return this.http.get(`${environment.ApiUrl}/landingPlacementSuccessStory`);
+    }
 
-  // Digital Job Fair endpoint
-  getDigitalJobFair() {
-    return this.http.get<any>(`${environment.ApiUrl}/digitalJobFair`);
-  }
+
+    getSubscriptionDetails(data: any) {
+        return this.http.get<Subscription>(`${environment.ApiUrl}/getlandingpagesubscriptionlist`, {
+            params: data
+        })
+    }
+
+    // getSubscriptionDetails(data: any) {
+    //   return this.http.get<Subscription>(`${environment.ApiUrl}/getlandingpagesubscriptionlist`, {
+    //     params: data
+    //   })
+    // }
+
+    employerPaymentLink(req: any) {
+        return this.http.post(`${environment.ApiUrlEmployer}/employer_contribution_transaction`, req);
+    }
+
+    completeTransaction(req: any) {
+        return this.http.post(`${environment.ApiUrlEmployer}/employer_complete_transaction`, req);
+    }
+
+    institutePaymentLink(req: any) {
+        return this.http.post(`${environment.ApiUrlEmployer}/institute_contribution_transaction`, req);
+    }
+
+    instituteCompleteTransaction(req: any) {
+        return this.http.post(`${environment.ApiUrlEmployer}/institute_complete_transaction`, req);
+    }
+
+    // Digital Job Fair endpoint
+    getDigitalJobFair() {
+        return this.http.get<any>(`${environment.ApiUrl}/digitalJobFair`);
+    }
 }

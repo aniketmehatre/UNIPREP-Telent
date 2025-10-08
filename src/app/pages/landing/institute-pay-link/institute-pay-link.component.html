@@ -1,0 +1,88 @@
+<div class="contact-container p-3">
+    <header class="mb-4 d-flex align-items-center">
+        <button pButton icon="pi pi-arrow-left" class="p-button-rounded border text-white border-white bg-black me-2"
+            routerLink="/"></button>
+        <button pButton label="Institute Details"
+            class="p-button-rounded border text-white border-white bg-black"></button>
+    </header>
+
+    <div class="contact-header my-3">
+        <h3 class="text-white h4">Institute Payment Link</h3>
+        <p class="text-white-50">Please fill in the details below. Fields marked with <span class="text-danger">*</span>
+            are required.</p>
+    </div>
+
+    <div class="contact-form container">
+        <div class="row justify-content-center">
+            <div class="col-10 col-lg-10 col-xl-10">
+                <form [formGroup]="form" (ngSubmit)="submit()">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label text-white">Name <span class="text-danger">*</span></label>
+                            <input pInputText type="text" class="form-control bg-dark text-white border-white"
+                                placeholder="Your Name" formControlName="user_name" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label text-white">Institution Name<span class="text-danger">*</span></label>
+                            <input pInputText type="text" class="form-control bg-dark text-white border-white"
+                                placeholder="Institution Name" formControlName="company_name" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label text-white">Designation <span class="text-danger">*</span></label>
+                            <input pInputText type="text" class="form-control bg-dark text-white border-white"
+                                placeholder="Your Designation" formControlName="designation" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label text-white">Location <span class="text-danger">*</span></label>
+                            <p-select styleClass="w-100" class="form-select bg-dark text-white w-100"
+                                [options]="locationsList" [filter]="true" filterBy="city_state"
+                                (onFilter)="getCitiesCountry($event.filter)" formControlName="location" optionValue="id"
+                                optionLabel="city_state" placeholder="Select the location">
+                            </p-select>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label text-white">Phone <span class="text-danger">*</span></label>
+                            <ngx-intl-tel-input class="intel-input bg-dark w-100"
+                                [cssClass]="'form-control bg-dark text-white border-white rounded-start-0 border border-dark'"
+                                [preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true"
+                                [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
+                                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                [phoneValidation]="true" [selectedCountryISO]="preferredCountry"
+                                customPlaceholder="Enter Contact Number" formControlName="phone_number"
+                                aria-label="Enter Phone Number">
+                            </ngx-intl-tel-input>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label text-white">Email <span class="text-danger">*</span></label>
+                            <input pInputText type="email" class="form-control bg-dark text-white border-white"
+                                formControlName="email" placeholder="Enter email" />
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label text-white">Amount <span class="text-danger">*</span></label>
+                            <input pInputText type="number" class="form-control bg-dark text-white border-white"
+                                formControlName="amount" placeholder="Enter amount" />
+                        </div>
+                    </div>
+
+                    <div class="payment-section mt-4">
+                        <div class="d-flex align-items-center mb-2 gap-2">
+                            <span class="fw-semibold">Payment Options</span>
+                            <i class="fa-regular fa-circle-question text-muted" aria-hidden="true"></i>
+                        </div>
+                        <div class="payment-box w-100 text-center">
+                            <img src="uniprep-assets/razorpay.png" alt="Razorpay" height="36" />
+                        </div>
+                    </div>
+
+                    <button pButton type="submit"
+                        class="pt-3 pb-3 btn btn-primary btn-login text-uppercase fw-semibold m-0 text-dark w-100 mt-4">
+                        Pay Now
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -78,6 +78,10 @@ export const landingRoutes: Routes = [
                 loadComponent: () => import('./employer-details/employer-details.component').then(c => c.EmployerDetailsComponent)
             },
             {
+                path: 'institute-pay-link',
+                loadComponent: () => import('./institute-pay-link/institute-pay-link.component').then(c => c.InstitutePayLinkComponent)
+            },
+            {
                 path: 'pricing',
                 loadComponent: () => import('./pricing/pricing.component').then(c => c.PricingComponent)
             },
