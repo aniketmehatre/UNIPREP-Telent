@@ -98,6 +98,13 @@ export class SidenavComponent {
       subMenuBy: "Job Board",
     },
     {
+      title: "Digital Job Fair",
+      url: "/pages/digital-job-fair",
+      image: "fa-regular fa-users",
+      subMenuBy: "Job Board",
+      popular: true
+    },
+    {
       title: "Company Search",
       url: "/pages/talent-connect/company-connect",
       image: "fa-regular fa-building-magnifying-glass",

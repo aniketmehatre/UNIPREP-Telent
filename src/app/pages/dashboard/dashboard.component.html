@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<p class="mb-0 py-2 text-center text-white">
-				<span class="h5 fw-semibold">📢 UNIPREP</span> is bringing 500+ Global Employers to its
+				<span class="h5 fw-semibold">📢 UNIPREP</span> is brining 10,000+ vacancies and 500+ global employers to its
 				Biggest HR Conclave in Bengaluru on 19th Oct –
 				<a (click)="linkRerouting()" class="text-white text-decoration-underline" role="button">
 					Create your Profile Now
@@ -58,8 +58,7 @@
 						</div>
 					</div>
 					<div class="col-6">
-						<button *ngIf="isShowingCompletion"
-							class="justify-content-center gap-2 px-4 py-2 border rounded-full w-100"
+						<button *ngIf="isShowingCompletion" class="justify-content-center gap-2 px-4 py-2 border rounded-full w-100"
 							style="border-radius: 15px; font-size: 10px" aria-label="Profile completion status">
 							<span class="text-gray-700 uniprep-primary fw-semibold">You are almost there!</span>
 						</button>
@@ -69,26 +68,24 @@
 							[attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
 							<div class="progress-bar" [style.width.%]="progress"></div>
 						</div>
-						<span pTooltip="{{ progress }}% " tooltipPosition="top"
-							class="text-gray-700 text-extrasmall">Basic Details</span>
+						<span pTooltip="{{ progress }}% " tooltipPosition="top" class="text-gray-700 text-extrasmall">Basic
+							Details</span>
 					</div>
 					<div class="col-3">
-						<div class="progress-bar-container" role="progressbar"
-							[attr.aria-valuenow]="talentConnectPercentage" [attr.aria-valuemin]="0"
-							[attr.aria-valuemax]="100">
+						<div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="talentConnectPercentage"
+							[attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
 							<div class="progress-bar2" [style.width.%]="talentConnectPercentage"></div>
 						</div>
 						<span pTooltip="{{ talentConnectPercentage }}% " tooltipPosition="top"
 							class="text-gray-700 text-extrasmall">Job Profile</span>
 					</div>
 					<div class="col-3">
-						<div class="progress-bar-container" role="progressbar"
-							[attr.aria-valuenow]="cvBuilderPercentage" [attr.aria-valuemin]="0"
-							[attr.aria-valuemax]="100">
+						<div class="progress-bar-container" role="progressbar" [attr.aria-valuenow]="cvBuilderPercentage"
+							[attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
 							<div class="progress-bar3" [style.width.%]="cvBuilderPercentage"></div>
 						</div>
-						<span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top"
-							class="text-gray-700 text-extrasmall">CV Details</span>
+						<span pTooltip="{{ cvBuilderPercentage }}% " tooltipPosition="top" class="text-gray-700 text-extrasmall">CV
+							Details</span>
 					</div>
 					<div class="col-12 mt-4">
 						<p class="mb-0 text-start text-extrasmall">Complete your profile today:</p>
@@ -122,15 +119,15 @@
 				<h5 class="mb-0 text-start"><span class="emoji" aria-label="star">⭐</span> Feature Favourites</h5>
 
 				<!-- Carousel Component -->
-				<p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1"
-					[responsiveOptions]="responsiveOptions" [value]="groupedListFav" [showIndicators]="true"
+				<p-carousel #carousel [circular]="true" [numScroll]="1" [numVisible]="1" [responsiveOptions]="responsiveOptions"
+					[value]="groupedListFav" [showIndicators]="true"
 					[indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 					aria-label="Feature Favourites Carousel">
 					<ng-template let-group pTemplate="item">
 						<div class="grid-container px-1">
 							<div *ngFor="let v of group">
-								<div (click)="selectFav(v)" role="button" tabindex="0" class="card"
-									(keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
+								<div (click)="selectFav(v)" role="button" tabindex="0" class="card" (keyup.enter)="selectFav(v)"
+									(keyup.space)="selectFav(v)">
 									<div class="card-body">
 										<div class="row align-items-center">
 											<div class="col-md-3 col-4">
@@ -167,18 +164,16 @@
 							aria-label="View all job applications">View All</button>
 					</div>
 					<p-carousel #carousel [circular]="true" [autoplayInterval]="3000" [numScroll]="3" [numVisible]="3"
-						*ngIf="!isNoApplicationsData" [responsiveOptions]="responsiveOptions"
-						[value]="recentJobApplication" [showIndicators]="true"
-						[indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
+						*ngIf="!isNoApplicationsData" [responsiveOptions]="responsiveOptions" [value]="recentJobApplication"
+						[showIndicators]="true" [indicatorStyle]="{ width: '10px', height: '10px', borderRadius: '50%' }"
 						aria-label="Recent Job Applications Carousel">
 						<ng-template let-group pTemplate="item">
-							<div role="button" tabindex="0" class="card bg-white" style="border: none"
-								(keyup.enter)="selectFav(v)" (keyup.space)="selectFav(v)">
+							<div role="button" tabindex="0" class="card bg-white" style="border: none" (keyup.enter)="selectFav(v)"
+								(keyup.space)="selectFav(v)">
 								<div class="card-body">
 									<div class="d-flex justify-content-center align-items-center h-100 image-border">
 										<img alt="{{ group.company_name }} logo" class="jobImage w-100"
-											(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
-											src="{{ group.image }}" />
+											(error)="$event.target.src = '/uniprep-assets/images/job.webp'" src="{{ group.image }}" />
 									</div>
 								</div>
 							</div>
@@ -192,8 +187,7 @@
 			<div class="card flex-fill bg-white">
 				<div class="card-body text-center pb-3 bodyclass d-flex flex-column justify-content-between h-100">
 					<div class="flex justify-content-between">
-						<h5 class="mb-0 p-2 text-start"><span class="emoji"
-								aria-label="seedling">💼</span>&nbsp;Companies</h5>
+						<h5 class="mb-0 p-2 text-start"><span class="emoji" aria-label="seedling">💼</span>&nbsp;Companies</h5>
 						<button class="btn btn-rounded text-extrasmall px-4 py-2 m-0 mb-2 bg-white"
 							style="border: 1px solid rgb(161, 154, 154)" (click)="openViewMoreOrg()"
 							aria-label="View all educational partners">View All</button>
@@ -205,11 +199,9 @@
 						<ng-template let-uni pTemplate="item">
 							<div role="button" tabindex="0" class="card bg-white" style="border: none">
 								<div class="card-body">
-									<div
-										class="text-center image-border d-flex justify-content-center align-items-center h-100">
+									<div class="text-center image-border d-flex justify-content-center align-items-center h-100">
 										<img class="logo-wrapper w-100" alt="{{ uni.company_name }} logo"
-											(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
-											[src]="uni.company_logo" />
+											(error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="uni.company_logo" />
 									</div>
 								</div>
 							</div>
@@ -229,8 +221,7 @@
 						<h5 class="uppercase"><span class="emoji" aria-label="hourglass">⌛</span> Quiz</h5>
 						<p class="mb-0">Get certified for completing the quiz with an extraordinary score.</p>
 					</div>
-					<button pButton severity="warn" (click)="openQuiz()"
-						class="btn btn-rounded font-weight-bold mt-2 bg-white"
+					<button pButton severity="warn" (click)="openQuiz()" class="btn btn-rounded font-weight-bold mt-2 bg-white"
 						style="color: var(--p-secondary-500); border-color: var(--p-secondary-500); background-color: #fff1e7"
 						aria-label="Start Quiz">Start Quiz</button>
 				</div>
@@ -242,8 +233,8 @@
 						<p class="mb-0">Get all your certificates in one place to share them on social media.</p>
 					</div>
 					<button pButton (click)="openCertificate()" class="btn btn-rounded mt-2 bg-white"
-						style="color: var(--p-primary-500); border-color: var(--p-primary-500)"
-						aria-label="View My Certificates">My Certificates</button>
+						style="color: var(--p-primary-500); border-color: var(--p-primary-500)" aria-label="View My Certificates">My
+						Certificates</button>
 				</div>
 			</div>
 			<div class="card flex-fill bg-white">
@@ -262,8 +253,8 @@
 					</p-inputgroup>
 					<button pButton (click)="sendInviteMail()" severity="warn"
 						class="btn btn-rounded font-weight-bold mt-4 bg-white text-extrasmall"
-						style="color: #666666; border-color: #666666; font-size: 10px"
-						aria-label="Send invite email">Send Invite</button>
+						style="color: #666666; border-color: #666666; font-size: 10px" aria-label="Send invite email">Send
+						Invite</button>
 				</div>
 			</div>
 		</div>
@@ -273,15 +264,13 @@
 <p-popover #op styleClass="reportwidthfix" appendTo="body" aria-label="Report form">
 	<ng-template pTemplate="content">
 		<div class="container px-0">
-			<form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)" role="form"
-				aria-label="Report submission form">
+			<form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)" role="form" aria-label="Report submission form">
 				<div class="row report">
 					<p class="report-label text-left mb-0">Issue Type</p>
 					<span class="report-modal">
 						<p-select [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id"
-							formControlName="reportOption" class="w-100" id="reportOption"
-							placeholder="Select Issue Type" optionLabel="reportoption_name"
-							aria-label="Select issue type"></p-select>
+							formControlName="reportOption" class="w-100" id="reportOption" placeholder="Select Issue Type"
+							optionLabel="reportoption_name" aria-label="Select issue type"></p-select>
 					</span>
 					<p class="report-label text-left mb-0">Comment</p>
 					<span class="report-modal">
@@ -311,7 +300,7 @@
 		</h6>
 
 		<button pButton class="btn m-0 mt-3 btn-primary send-btn" type="button"
-			style="background-color: #ff6f2c !important; border: none !important"
-			(click)="redirectEmployerProfile()">Create Profile</button>
+			style="background-color: #ff6f2c !important; border: none !important" (click)="redirectEmployerProfile()">Create
+			Profile</button>
 	</div>
 </p-dialog>

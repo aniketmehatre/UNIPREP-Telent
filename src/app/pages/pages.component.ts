@@ -89,7 +89,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.deviceCheck();
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        if (val.url.includes("subscriptions") || val.url.includes("dashboard") || val.url.includes("userguide")
+        if (val.url.includes("subscriptions") || val.url.includes("dashboard") || val.url.includes("userguide") || val.url.includes("digital-job-fair")
           || val.url.includes("support-help") || val.url.includes("usermanagement") || val.url.includes("chat")
           || val.url.includes("guideline") || val.url.includes("termsandcondition") || val.url.includes("privacypolicy")
           || val.url.includes("refundpolicy") || val.url.includes("cancellationpolicy") || val.url.includes("export-credit")

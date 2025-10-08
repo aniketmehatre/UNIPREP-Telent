@@ -36,6 +36,7 @@ import { ScholarshipListGuidlinesComponent } from './scholarship-list-guidlines/
 import { ScholarshipListComponent } from './scholarship-list/scholarship-list.component';
 import { SupportComponent } from './support/support.component';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { DigitalJobFairPagesComponent } from './digital-job-fair/digital-job-fair.component';
 
 const routes: Routes = [
     {
@@ -198,6 +199,10 @@ const routes: Routes = [
             {
                 path: 'job-tool',
                 loadChildren: () => import('./job-tool/job-tool.module').then(m => m.JobToolModule)
+            },
+            {
+                path: 'digital-job-fair',
+                component: DigitalJobFairPagesComponent
             },
             {
                 path: 'founderstool',
