@@ -1,10 +1,10 @@
-export const FavouriteList:FeatureFavourite[] = [
+export const FavouriteList: FeatureFavourite[] = [
     {
         "id": 1,
         "moduleName": "CV Builder",
         "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
         "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-        "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CV.png",
+        "imageLink": "https://uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CV.png",
         "mode": "cv-builder",
         "url": "/pages/job-tool/cv-builder",
         "module": "Career Tools"
@@ -14,7 +14,7 @@ export const FavouriteList:FeatureFavourite[] = [
         "moduleName": "Learning Hub",
         "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
         "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-        "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LearningHub.svg",
+        "imageLink": "https://uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LearningHub.svg",
         "mode": "cv-builder",
         "url": "/pages/modules/learning-hub",
         "module": ""
@@ -24,7 +24,7 @@ export const FavouriteList:FeatureFavourite[] = [
     // 	"moduleName": "Job Portal",
     // 	"Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
     // 	"tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-    // 	"imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/JobPortal.svg",
+    // 	"imageLink": "https://uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/JobPortal.svg",
     // 	"mode": "cv-builder",
     // 	"url": "/pages/job-portal/job-search",
     // 	"module":""
@@ -34,7 +34,7 @@ export const FavouriteList:FeatureFavourite[] = [
         "moduleName": "Career Planner",
         "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
         "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-        "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CareerPlanner.svg",
+        "imageLink": "https://uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/CareerPlanner.svg",
         "mode": "cv-builder",
         "url": "/pages/job-tool/careerplannercountrywise",
         "module": "Career Tools"
@@ -44,7 +44,7 @@ export const FavouriteList:FeatureFavourite[] = [
         "moduleName": "Employer Test",
         "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
         "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-        "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/EmployerTest.svg",
+        "imageLink": "https://uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/EmployerTest.svg",
         "mode": "cv-builder",
         "url": "/pages/job-tool/list/employer-test/13",
         "module": ""
@@ -54,7 +54,7 @@ export const FavouriteList:FeatureFavourite[] = [
         "moduleName": "Pitch Deck",
         "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
         "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-        "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/Pitchdeck.svg",
+        "imageLink": "https://uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/Pitchdeck.svg",
         "mode": "cv-builder",
         "url": "/pages/pitch-deck",
         "module": ""
@@ -64,7 +64,7 @@ export const FavouriteList:FeatureFavourite[] = [
         "moduleName": "UNILEARN",
         "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
         "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-        "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNILEARN.svg",
+        "imageLink": "https://uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNILEARN.svg",
         "mode": "cv-builder",
         "url": "/pages/unilearn/modules",
         "module": ""
@@ -74,7 +74,7 @@ export const FavouriteList:FeatureFavourite[] = [
         "moduleName": "UNIFINDER",
         "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
         "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-        "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNIFINDER.svg",
+        "imageLink": "https://uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNIFINDER.svg",
         "mode": "cv-builder",
         "url": "/pages/course-list",
         "module": ""
@@ -84,7 +84,7 @@ export const FavouriteList:FeatureFavourite[] = [
         "moduleName": "UNISCHOLAR",
         "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
         "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-        "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNISCHOLAR.svg",
+        "imageLink": "https://uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/UNISCHOLAR.svg",
         "mode": "cv-builder",
         "url": "/pages/scholarship-list",
         "module": ""
@@ -94,7 +94,7 @@ export const FavouriteList:FeatureFavourite[] = [
         "moduleName": "Global Repository",
         "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
         "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-        "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/GlobalRepository.svg",
+        "imageLink": "https://uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/GlobalRepository.svg",
         "mode": "cv-builder",
         "url": "/pages/global-repo",
         "module": ""
@@ -104,7 +104,7 @@ export const FavouriteList:FeatureFavourite[] = [
         "moduleName": "AI Global Advisor",
         "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
         "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-        "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/AI Business Advisor.svg",
+        "imageLink": "https://uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/AI Business Advisor.svg",
         "mode": "cv-builder",
         "url": "/pages/advisor",
         "module": ""
@@ -114,7 +114,7 @@ export const FavouriteList:FeatureFavourite[] = [
         "moduleName": "Language Hub",
         "Description": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
         "tooltip": "Craft a standout CV that highlights your skills and experience, ready for any job application.",
-        "imageLink": "https://api.uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LanguageHub.svg",
+        "imageLink": "https://uniprep.ai/uniprepapi/storage/app/public/resources-coverimage/LanguageHub.svg",
         "mode": "cv-builder",
         "url": "/pages/language-hub/languages",
         "module": ""

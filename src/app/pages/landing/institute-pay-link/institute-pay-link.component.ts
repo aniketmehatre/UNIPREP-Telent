@@ -24,6 +24,24 @@ export class InstitutePayLinkComponent {
   CountryISO = CountryISO;
   preferredCountry: any = CountryISO.India;
 
+  // Sponsor type options similar to Employer
+  sponsorTypeOptions: { label: string; value: string }[] = [
+    { label: 'Title Sponsor', value: 'title' },
+    { label: 'Platinum Sponsor', value: 'platinum' },
+    { label: 'Gold Sponsor', value: 'gold' },
+    { label: 'Silver Sponsor', value: 'silver' },
+    { label: 'Bronze Sponsor', value: 'bronze' },
+    { label: 'Custom Amount', value: 'custom' },
+  ];
+
+  private amountMap: Record<string, number> = {
+    'title': 500000,
+    'platinum': 300000,
+    'gold': 100000,
+    'silver': 50000,
+    'bronze': 25000,
+  };
+
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
@@ -37,8 +55,25 @@ export class InstitutePayLinkComponent {
       location: ['', Validators.required],
       phone_number: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
+      sponsor_type: ['', Validators.required],
       amount: [0, [Validators.required, Validators.min(0)]],
     });
+
+    this.form.get('sponsor_type')!.valueChanges.subscribe((value) => {
+      if (value === 'custom') {
+        this.form.get('amount')!.setValue(0, { emitEvent: false });
+        this.form.get('amount')!.enable({ emitEvent: false });
+      } else {
+        const amt = this.amountMap[value] ?? 0;
+        this.form.get('amount')!.setValue(amt, { emitEvent: false });
+        this.form.get('amount')!.disable({ emitEvent: false });
+      }
+    });
+
+    const initVal = this.form.get('sponsor_type')!.value;
+    if (initVal !== 'custom') {
+      this.form.get('amount')!.disable({ emitEvent: false });
+    }
   }
 
   async ngOnInit(): Promise<void> {

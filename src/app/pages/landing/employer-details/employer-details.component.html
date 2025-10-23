@@ -58,19 +58,24 @@
                             <input pInputText type="email" class="form-control bg-dark text-white border-white"
                                 formControlName="email" placeholder="Enter email" />
                         </div>
-
                         <div class="col-12 col-md-6">
-                            <label class="form-label text-white">Company size <span class="text-danger">*</span></label>
+                            <label class="form-label text-white">Employer Size</label>
                             <p-select styleClass="w-100 p-1" class="form-select bg-dark text-white w-100"
-                                [options]="employerSizeOptions" optionLabel="label" optionValue="value"
-                                placeholder="Select Company size" formControlName="employer_size"></p-select>
+                                [options]="employerCompanySizeOptions" optionLabel="label" optionValue="value"
+                                placeholder="Select Employer Size" formControlName="employer_size"></p-select>
                         </div>
 
+                        <div class="col-12 col-md-6">
+                            <label class="form-label text-white">Type<span class="text-danger">*</span></label>
+                            <p-select styleClass="w-100 p-1" class="form-select bg-dark text-white w-100"
+                                [options]="sponsorType" optionLabel="label" optionValue="value"
+                                placeholder="Select Type" formControlName="sponsor_type"></p-select>
+                        </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label text-white">Amount <span class="text-danger">*</span></label>
                             <input pInputText type="number" class="form-control bg-dark text-white border-white"
                                 formControlName="amount" placeholder="Enter amount" />
-                            <small class="text-white-50">Amount changes based on employer size. Select "Custom Amount"
+                            <small class="text-white-50">Amount changes based on sponsor type. Select "Custom Amount"
                                 to enter your own.</small>
                         </div>
                     </div>

@@ -23,19 +23,30 @@ export class EmployerDetailsComponent {
   form: FormGroup;
   locationsList: { id: number; city_state: string }[] = [];
   SearchCountryField = SearchCountryField;
-  CountryISO = CountryISO;
   preferredCountry: any = CountryISO.India;
 
-  employerSizeOptions: EmployerSizeOption[] = [
-    { label: '1-250', value: '1-250' },
-    { label: '250+', value: '250+' },
+  sponsorType: EmployerSizeOption[] = [
+    { label: 'Title Sponsor', value: 'title' },
+    { label: 'Platinum Sponsor', value: 'platinum' },
+    { label: 'Gold Sponsor', value: 'gold' },
+    { label: 'Silver Sponsor', value: 'silver' },
+    { label: 'Bronze Sponsor', value: 'bronze' },
     { label: 'Custom Amount', value: 'custom' },
   ];
 
-  // Default amounts per employer size
+  // Additional dropdown: Employer Company Size (not linked to amount)
+  employerCompanySizeOptions: EmployerSizeOption[] = [
+    { label: '1-250', value: '1-250' },
+    { label: '250+', value: '250+' },
+  ];
+
+  // Default amounts per sponsor type (can be adjusted manually later)
   private amountMap: Record<string, number> = {
-    '1-250': 10000,
-    '250+': 25000,
+    'title': 500000,
+    'platinum': 300000,
+    'gold': 100000,
+    'silver': 50000,
+    'bronze': 25000,
   };
 
   constructor(private fb: FormBuilder, private messageService: MessageService, private landingPageServices: landingServices,
@@ -48,11 +59,12 @@ export class EmployerDetailsComponent {
       location: ['', Validators.required],
       phone_number: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      employer_size: ['', Validators.required],
+      employer_size: [''],
+      sponsor_type: ['', Validators.required],
       amount: [0, [Validators.required, Validators.min(0)]],
     });
 
-    this.form.get('employer_size')!.valueChanges.subscribe((value) => {
+    this.form.get('sponsor_type')!.valueChanges.subscribe((value) => {
       if (value === 'custom') {
         this.form.get('amount')!.setValue(0, { emitEvent: false });
         this.form.get('amount')!.enable({ emitEvent: false });
@@ -64,7 +76,7 @@ export class EmployerDetailsComponent {
     });
 
     // Initialize disable state according to default employer size
-    const initVal = this.form.get('employer_size')!.value;
+    const initVal = this.form.get('sponsor_type')!.value;
     if (initVal !== 'custom') {
       this.form.get('amount')!.disable({ emitEvent: false });
     }

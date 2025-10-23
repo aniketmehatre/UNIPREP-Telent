@@ -45,3 +45,32 @@
   aspect-ratio: 1 / 1;
   width: 100%;
 }
+/* Sticky left profile card and scrollable right column */
+.left-sticky {
+  position: sticky;
+  top: 1rem;
+}
+
+.right-scroll {
+  overflow-y: auto;
+  /* Adjust the height to account for header/breadcrumb bars on the page */
+  max-height: calc(100vh - 180px);
+  padding-right: 0.25rem; /* keep scrollbar from overlapping content */
+}
+
+/* Ensure columns align at the top when sticky is applied */
+:host ::ng-deep .readingcard .card-body > .row {
+  align-items: flex-start;
+}
+
+/* Mobile/tablet: disable sticky and custom scroll to use natural flow */
+@media (max-width: 767.98px) {
+  .left-sticky {
+    position: static;
+    top: auto;
+  }
+  .right-scroll {
+    max-height: none;
+    overflow: visible;
+  }
+}

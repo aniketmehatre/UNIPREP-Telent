@@ -17,137 +17,93 @@
 			</div>
 		</div>
 	</div>
-	<div class="card-body flex-fill overflow-y-auto">
+	<div class="card-body flex-fill">
+		<div class="row">
+			<div class="col-md-4"><div class="left-sticky">
 		<div class="card-body mb-4 bg-secondary-card rounded-3">
-			<div class="row">
-				<div class="col-md-3 col-lg-2 col-4">
+			<div class="text-center">
+				<div class="d-flex justify-content-center mb-3">
 					<img [src]="profileData?.dp_image || 'uniprep-assets/images/avatar.webp'" alt="Profile Photo"
-						class="img-fluid rounded profile-img" />
+						class="img-fluid rounded-circle" style="max-width: 200px; height: auto;" />
 				</div>
-				<div class="col-8 d-md-none d-block">
-					<div class="d-flex flex-column justify-content-end gap-2 align-items-end">
-						<button class="p-button p-button-outlined" routerLink="/pages/talent-connect/my-profile"><i
-								class="pi pi-pencil me-2"></i>Edit Profile</button>
-						<div class="position-relative">
-							<button pButton label="Share Profile" iconPos="right" icon="pi pi-share-alt"
-								class="p-button-outlined p-button-warning"
-								(click)="showSocialSharingListMobile()"></button>
-							<p-card id="socialSharingListMobile">
-								<ul style="list-style: none; cursor: pointer">
-									<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp
-									</li>
-									<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
-									<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook
-									</li>
-									<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
-									<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram
-									</li>
-									<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn
-									</li>
-									<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
-								</ul>
-							</p-card>
-						</div>
+				<h2 class="fw-bold mb-1">{{ profileData?.full_name }}</h2>
+				<div class="text-muted">Profile Updated On: {{ profileData?.updated_at_formatted }}</div>
+				<div class="mt-3">
+					@if(profileData?.careerPreference?.video_link) {
+						<a [href]="profileData?.careerPreference?.video_link" target="_blank" role="button"
+							class="btn btn-success w-100">Checkout my Introduction Video <i class="fa fa-video ms-2"></i></a>
+					}
+					@if(!profileData?.careerPreference?.video_link) {
+						<button class="btn btn-danger w-100" disabled>Introduction Video Not Uploaded <i class="fa fa-video ms-2"></i></button>
+					}
+				</div>
+				<div class="mt-3 d-flex justify-content-center gap-2 flex-wrap">
+					<button class="p-button p-button-outlined" routerLink="/pages/talent-connect/my-profile"><i class="pi pi-pencil me-2"></i>Edit Profile</button>
+					<div class="position-relative">
+						<button pButton label="Share Profile" iconPos="right" icon="pi pi-share-alt" class="p-button-outlined p-button-warning" (click)="showSocialSharingList()"></button>
+						<p-card id="socialSharingList">
+							<ul style="list-style: none; cursor: pointer">
+								<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+								<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+								<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+								<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+								<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+								<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
+								<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+							</ul>
+						</p-card>
 					</div>
 				</div>
-				<div class="col-md-9 col-lg-10">
-					<div class="row">
-						<div class="col-md-8">
-							<h2 class="fw-bold">{{ profileData?.full_name }}</h2>
-							<p class="text-muted">Profile Updated On: {{ profileData?.updated_at_formatted }}</p>
-							<div class="mt-2">
-								@if(profileData?.careerPreference?.video_link) {
-								<button class="py-2 px-4 btn-success">
-									<a [href]="profileData?.careerPreference?.video_link" target="_blank" role="button"
-										class="text-decoration-none text-white">Introduction Video Uploaded&nbsp; <i
-											class="fa fa-video"></i></a>
-								</button>
-								}
-								@if(!profileData?.careerPreference?.video_link) {
-								<button class="py-2 px-4 btn btn-danger">Introduction Video Not
-									Uploaded&nbsp; <i class="fa fa-video"></i></button>
-								}
-							</div>
-						</div>
-						<div class="col-md-4 d-md-block d-none">
-							<div class="d-flex justify-content-end gap-2 align-items-start">
-								<button class="p-button p-button-outlined"
-									routerLink="/pages/talent-connect/my-profile"><i class="pi pi-pencil me-2"></i>Edit
-									Profile</button>
-								<div class="position-relative">
-									<button pButton label="Share Profile" iconPos="right" icon="pi pi-share-alt"
-										class="p-button-outlined p-button-warning"
-										(click)="showSocialSharingList()"></button>
-									<p-card id="socialSharingList">
-										<ul style="list-style: none; cursor: pointer">
-											<li (click)="shareQuestion('Whatsapp')"><i
-													class="pi pi-whatsapp"></i>Whatsapp</li>
-											<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email
-											</li>
-											<li (click)="shareQuestion('Facebook')"><i
-													class="pi pi-facebook"></i>Facebook</li>
-											<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter
-											</li>
-											<li (click)="shareQuestion('Instagram')"><i
-													class="pi pi-instagram"></i>Instagram</li>
-											<li (click)="shareQuestion('LinkedIn')"><i
-													class="pi pi-linkedin"></i>LinkedIn</li>
-											<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
-										</ul>
-									</p-card>
+				<div class="mt-3 text-start">
+					<div class="text-muted small mb-2">Last Updated : {{ profileData?.updated_at_formatted }}</div>
+					<div class="row g-2">
+						<div class="col-md-12 col-sm-12 col-12">
+							<div class="d-flex align-items-center">
+								<i class="fa fa-calendar text-success me-2"></i>
+								<div>
+									<div class="text-muted small">Date of Birth</div>
+									<div>{{ profileData?.date_of_birth }}</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-12">
-							<div class="row g-2 mt-2">
-								<div class="col-md-3 col-lg-3 col-sm-3 col-6">
-									<div class="d-flex align-items-center">
-										<i class="fa fa-calendar text-primary me-2"></i>
-										<div>
-											<div class="text-muted small">Date of Birth</div>
-											<div>{{ profileData?.date_of_birth }}</div>
-										</div>
-									</div>
+						<div class="col-md-12 col-sm-12 col-12">
+							<div class="d-flex align-items-center">
+								<i class="fa fa-venus-mars text-danger me-2"></i>
+								<div>
+									<div class="text-muted small">Gender</div>
+									<div>{{ profileData?.gender }}</div>
 								</div>
-								<div class="col-md-3 col-lg-3 col-sm-3 col-6">
-									<div class="d-flex align-items-center">
-										<i class="fa fa-venus-mars text-danger me-2"></i>
-										<div>
-											<div class="text-muted small">Gender</div>
-											<div>{{ profileData?.gender }}</div>
-										</div>
-									</div>
+							</div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-12">
+							<div class="d-flex align-items-center">
+								<i class="fas fa-earth-asia text-primary me-2"></i>
+								<div>
+									<div class="text-muted small">Nationality</div>
+									<div>{{ profileData?.nationality_name }}</div>
 								</div>
-								<div class="col-md-3 col-lg-3 col-sm-3 col-6">
-									<div class="d-flex align-items-center">
-										<i class="fas fa-earth-asia text-primary me-2"></i>
-										<div>
-											<div class="text-muted small">Nationality</div>
-											<div>{{ profileData?.nationality_name }}</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-3 col-lg-3 col-sm-3 col-6">
-									<div class="d-flex align-items-center">
-										<i class="fa fa-location-crosshairs text-warning me-2"></i>
-										<div>
-											<div class="text-muted small">Current Location</div>
-											<div>{{ profileData?.current_location }}</div>
-										</div>
-									</div>
+							</div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-12">
+							<div class="d-flex align-items-center">
+								<i class="fa fa-location-crosshairs text-warning me-2"></i>
+								<div>
+									<div class="text-muted small">Current Location</div>
+									<div>{{ profileData?.current_location }}</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row mt-2">
-						<div class="text-muted small mb-1">Profile Completion: {{ profileData?.profile_completion
-							}}%</div>
-						<p-progressBar [value]="profileData?.profile_completion" [showValue]="false"
-							styleClass="custom-progress p-0" [style]="{ height: '10px', color: 'red' }"></p-progressBar>
+					<div class="mt-3">
+						<div class="text-muted small mb-1">Profile Completion: {{ profileData?.profile_completion }}%</div>
+						<p-progressBar [value]="profileData?.profile_completion" [showValue]="false" styleClass="custom-progress p-0" [style]="{ height: '10px', color: 'red' }"></p-progressBar>
 					</div>
 				</div>
 			</div>
 		</div>
+		</div>
+		</div>
+		<div class="col-md-8"><div class="right-scroll">
 		<!-- Education Details Section -->
 		@if(profileData?.education && profileData?.education.length > 0) {
 		<div class="card-body mb-4 bg-secondary-card rounded-3">
@@ -184,8 +140,7 @@
 						@if(edu?.gpa_percentage) {
 						<div class="col-md-4 col-xl-3 mb-3">
 							<div class="text-primary fw-bold">GPA / Percentage</div>
-							<div>{{ edu?.gpa_percentage }} {{ edu?.gpa_percentage_type == "Percentage" ? " %" : "
-								GPA" }}</div>
+							<div>{{ edu?.gpa_percentage }} {{ edu?.gpa_percentage_type == 'Percentage' ? ' %' : ' GPA' }}</div>
 						</div>
 						}
 						<div class="col-12 d-none d-md-block">
@@ -640,4 +595,7 @@
 		</div>
 		}
 	</div>
+</div>
+</div>
+</div>
 </div>

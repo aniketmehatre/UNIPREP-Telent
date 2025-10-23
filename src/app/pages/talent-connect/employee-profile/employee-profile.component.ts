@@ -213,6 +213,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_volunteering: [0, null],
       internship_opportunities: [null, Validators.required],
       volunteering_work: [null, Validators.required],
+      freelancer: [null, Validators.required],
     });
     this.certificationsForm = this.fb.group({
       certifications: this.fb.array([this.createCertificateGroup()]),
@@ -792,6 +793,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_volunteering: response.careerPreference?.career_volunteering ?? null,
       internship_opportunities: response.careerPreference?.internship_opportunities ?? null,
       volunteering_work: response.careerPreference?.volunteering_work ?? null,
+      freelancer: response.careerPreference?.freelancer ?? null,
     });
     if (response.careerPreference?.no_expectation) {
       const currencyCtrl = this.careerPreferenceForm.get('career_preference_expected_salary');
@@ -2168,6 +2170,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       career_volunteering: this.originalProfileData?.career_volunteering ?? null,
       internship_opportunities: this.originalProfileData?.internship_opportunities ?? null,
       volunteering_work: this.originalProfileData?.volunteering_work ?? null,
+      freelancer: this.originalProfileData?.freelancer ?? null,
     };
     if (!originalCareerPreference) return true;
     const current = this.careerPreferenceForm.value;
