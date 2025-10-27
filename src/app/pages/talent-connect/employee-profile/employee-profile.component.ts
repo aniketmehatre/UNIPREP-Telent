@@ -51,7 +51,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   fileType = FileType;
   profileCompletion: number = 0;
   profileScore: number = 0;
-  ref: DynamicDialogRef | undefined;
+  ref: DynamicDialogRef<any> | null | undefined;
   logo: any;
   uploadedFiles: { [key: string]: File } = {};
   profileId: number | null = null;
@@ -544,9 +544,9 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       styleClass: "employee-profile-dialog",
     })
 
-    this.ref.onClose.subscribe((product: any) => {
-      // Handle dialog close
-    })
+    // this.ref.onClose.subscribe((product: any) => {
+    //   // Handle dialog close
+    // })
   }
 
   calculateProfileCompletion(isOptionalTab?: boolean) {
@@ -1422,8 +1422,8 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onChangeCareerVolunteering(event: any) {
-      console.log(event);
-      return;
+    console.log(event);
+    return;
     const jobTitleCtrl = this.careerPreferenceForm.get('career_preference_job_title_id');
     if (event.target.checked) {
       jobTitleCtrl?.disable();
