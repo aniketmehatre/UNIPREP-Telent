@@ -10,13 +10,11 @@
 								<img [src]="resume?.image_name" alt="PDF Preview" class="pdf-thumbnail" />
 								<!-- <div *ngIf="!resume?.image_name" class="loading-placeholder">Loading preview...</div> -->
 								<div class="position-absolute resume-option">
-									<span role="button" class="HistoryDeleteIcon"
-										(click)="confirm($event, resume.pdf_name, resume.id)">
+									<span role="button" class="HistoryDeleteIcon" (click)="confirm($event, resume.pdf_name, resume.id)">
 										<i class="fa-solid fa-trash"></i>
 									</span>
 									<p-confirmPopup></p-confirmPopup>
-									<span role="button" class="HistoryDownloadIcon"
-										(click)="downloadOldResume(resume.pdf_name)">
+									<span role="button" class="HistoryDownloadIcon" (click)="downloadOldResume(resume.pdf_name)">
 										<i class="fa-solid fa-download"></i>
 									</span>
 								</div>
@@ -51,8 +49,7 @@
 					<div class="overflow-hidden py-5">
 						<div class="swiper">
 							<div class="swiper-wrapper">
-								<div class="swiper-slide text-center d-flex justify-content-center"
-									*ngFor="let slide of resumeSlider">
+								<div class="swiper-slide text-center d-flex justify-content-center" *ngFor="let slide of resumeSlider">
 									<div class="cvBuilderSampleImg position-relative"
 										[ngClass]="{ selectedResumeLevel: selectedResumeLevel == slide.templateName }">
 										<h5 class="text-center uniprep-primary">{{ slide.templateName }}</h5>
@@ -123,10 +120,9 @@
 									<label class="uniprep-primarydark fw-bold h6">Your Name</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input class="w-100" (input)="inputValuesEditOrNot()" type="text"
-												placeholder="Full Name" formControlName="user_name" pInputText />
-											<div *ngIf="submitted && f['user_name'].errors?.['required']"
-												class="text-danger text-xs">
+											<input class="w-100" (input)="inputValuesEditOrNot()" type="text" placeholder="Full Name"
+												formControlName="user_name" pInputText />
+											<div *ngIf="submitted && f['user_name'].errors?.['required']" class="text-danger text-xs">
 												Full Name Required
 											</div>
 										</div>
@@ -134,26 +130,22 @@
 								</div>
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Job Title</label>
-									<p-dropdown formControlName="user_job_title" [options]="jobRoles"
-										placeholder="Select Job Title" styleClass="w-100" optionLabel="jobrole"
-										optionValue="jobrole" [filter]="true" filterBy="jobrole"
+									<p-select formControlName="user_job_title" [options]="jobRoles" placeholder="Select Job Title"
+										styleClass="w-100" optionLabel="jobrole" optionValue="jobrole" [filter]="true" filterBy="jobrole"
 										[virtualScroll]="jobRoles.length > 100" [virtualScrollItemSize]="50">
 										<ng-template pTemplate="header">
 											<div class="p-2">
 												<p-inputGroup>
-													<input pInputText class="rounded-end-2 me-1"
-														placeholder="Custom Job Title" #jobTitleExp
+													<input pInputText class="rounded-end-2 me-1" placeholder="Custom Job Title" #jobTitleExp
 														(click)="focusInput(jobTitleExp)" />
-													<button class="w-full btn btn-primary"
-														(click)="addCustomJobTitle(jobTitleExp)">
+													<button class="w-full btn btn-primary" (click)="addCustomJobTitle(jobTitleExp)">
 														<i class="fa fa-plus"></i> Add New
 													</button>
 												</p-inputGroup>
 											</div>
 										</ng-template>
-									</p-dropdown>
-									<div *ngIf="submitted && f['user_job_title'].errors?.['required']"
-										class="text-danger text-xs">
+									</p-select>
+									<div *ngIf="submitted && f['user_job_title'].errors?.['required']" class="text-danger text-xs">
 										Job Title Required
 									</div>
 								</div>
@@ -161,10 +153,9 @@
 									<label class="uniprep-primarydark fw-bold h6">Your Email</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input (input)="inputValuesEditOrNot()" class="w-100" type="text"
-												placeholder="Email Address" formControlName="user_email" pInputText />
-											<div *ngIf="submitted && f['user_email'].errors"
-												class="text-danger text-xs">
+											<input (input)="inputValuesEditOrNot()" class="w-100" type="text" placeholder="Email Address"
+												formControlName="user_email" pInputText />
+											<div *ngIf="submitted && f['user_email'].errors" class="text-danger text-xs">
 												<div *ngIf="f['user_email'].errors?.['required']">Email Required</div>
 												<div *ngIf="f['user_email'].errors?.['email']">Enter Valid email Address
 												</div>
@@ -174,12 +165,10 @@
 								</div>
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Your Location</label>
-									<p-select [options]="cities" placeholder="Location, Country" [filter]="true"
-										filterBy="work_location" styleClass="w-100" formControlName="user_location"
-										optionLabel="work_location" [virtualScroll]="true" [virtualScrollItemSize]="50"
-										optionValue="work_location"></p-select>
-									<div *ngIf="submitted && f['user_location'].errors?.['required']"
-										class="text-danger text-xs">
+									<p-select [options]="cities" placeholder="Location, Country" [filter]="true" filterBy="work_location"
+										styleClass="w-100" formControlName="user_location" optionLabel="work_location"
+										[virtualScroll]="true" [virtualScrollItemSize]="50" optionValue="work_location"></p-select>
+									<div *ngIf="submitted && f['user_location'].errors?.['required']" class="text-danger text-xs">
 										Location Required
 									</div>
 								</div>
@@ -189,12 +178,10 @@
 									</div>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-select [options]="countryCodeList" styleClass="w-100" [filter]="true"
-												[filterBy]="'name'" (onChange)="inputValuesEditOrNot()"
-												placeholder="Select Country Code" formControlName="country_code"
-												optionLabel="name" optionValue="code"></p-select>
-											<div *ngIf="submitted && f['country_code'].errors?.['required']"
-												class="text-danger text-xs">
+											<p-select [options]="countryCodeList" styleClass="w-100" [filter]="true" [filterBy]="'name'"
+												(onChange)="inputValuesEditOrNot()" placeholder="Select Country Code"
+												formControlName="country_code" optionLabel="name" optionValue="code"></p-select>
+											<div *ngIf="submitted && f['country_code'].errors?.['required']" class="text-danger text-xs">
 												Country Code Required
 											</div>
 										</div>
@@ -204,15 +191,14 @@
 									<label class="uniprep-primarydark fw-bold h6">Phone Number</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input (input)="inputValuesEditOrNot()" class="w-100" type="text"
-												placeholder="Phone Number" formControlName="user_phone" pInputText />
-											<div *ngIf="submitted && f['user_phone'].errors"
-												class="text-danger text-xs">
-												<div style="margin-left: 10px"
-													*ngIf="f['user_phone'].errors?.['required']">Phone number Required
+											<input (input)="inputValuesEditOrNot()" class="w-100" type="text" placeholder="Phone Number"
+												formControlName="user_phone" pInputText />
+											<div *ngIf="submitted && f['user_phone'].errors" class="text-danger text-xs">
+												<div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['required']">Phone number
+													Required
 												</div>
-												<div style="margin-left: 10px"
-													*ngIf="f['user_phone'].errors?.['pattern']">Enter Valid Phone number
+												<div style="margin-left: 10px" *ngIf="f['user_phone'].errors?.['pattern']">Enter Valid Phone
+													number
 												</div>
 											</div>
 										</div>
@@ -227,10 +213,9 @@
 									<label class="uniprep-primarydark fw-bold h6">Organization Name</label>
 									<div class="form-group">
 										<div class="mb-3">
-											<input (input)="inputValuesEditOrNot()" class="w-100" type="text"
-												placeholder="Organization Name" formControlName="org_name" pInputText />
-											<div *ngIf="submitted && f['org_name'].errors?.['required']"
-												class="text-danger text-xs">
+											<input (input)="inputValuesEditOrNot()" class="w-100" type="text" placeholder="Organization Name"
+												formControlName="org_name" pInputText />
+											<div *ngIf="submitted && f['org_name'].errors?.['required']" class="text-danger text-xs">
 												Organization Name Required
 											</div>
 										</div>
@@ -239,12 +224,10 @@
 
 								<div class="col-md-6">
 									<label class="uniprep-primarydark fw-bold h6">Location</label>
-									<p-select [options]="cities" placeholder="Location, Country" [filter]="true"
-										filterBy="work_location" styleClass="w-100" formControlName="org_location"
-										optionLabel="work_location" [virtualScroll]="true" [virtualScrollItemSize]="50"
-										optionValue="work_location"></p-select>
-									<div *ngIf="submitted && f['org_location'].errors?.['required']"
-										class="text-danger text-xs">
+									<p-select [options]="cities" placeholder="Location, Country" [filter]="true" filterBy="work_location"
+										styleClass="w-100" formControlName="org_location" optionLabel="work_location" [virtualScroll]="true"
+										[virtualScrollItemSize]="50" optionValue="work_location"></p-select>
+									<div *ngIf="submitted && f['org_location'].errors?.['required']" class="text-danger text-xs">
 										Location Required
 									</div>
 								</div>
@@ -261,19 +244,17 @@
 										</div>
 										<div class="mb-2">
 											<button pButton *ngIf="generateConBtnDisable" type="button"
-												class="btn btn-success btn-rounded px-3 py-2"
-												[loading]="chatGptButtonLoaderSummary"
+												class="btn btn-success btn-rounded px-3 py-2" [loading]="chatGptButtonLoaderSummary"
 												(click)="chatGPTIntegration('generate_summary')">AI Generate</button>
 											<button pButton *ngIf="rephraseconBtnDisable" type="button"
-												class="btn btn-secondary btn-rounded px-3 py-2"
-												[loading]="chatGptButtonLoaderSummary"
+												class="btn btn-secondary btn-rounded px-3 py-2" [loading]="chatGptButtonLoaderSummary"
 												(click)="chatGPTIntegration('rephrase_summary')">Rephrase</button>
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="mb-3">
-											<p-editor [style]="{ height: '250px' }" class="mt-2" 
-												formControlName="user_summary" placeholder="Generate Your Content" ></p-editor>
+											<p-editor [style]="{ height: '250px' }" class="mt-2" formControlName="user_summary"
+												placeholder="Generate Your Content"></p-editor>
 											<div *ngIf="f['user_summary'].errors?.['maxWords'] else showSummaryCount"
 												class="text-danger text-xs">
 												Cover Letter Section cannot exceed {{
@@ -286,8 +267,7 @@
 													{{userSummaryWordCount}}/1100
 												</div>
 											</ng-template>
-											<div *ngIf="submitted && f['user_summary'].errors?.['required']"
-												class="text-danger text-xs">
+											<div *ngIf="submitted && f['user_summary'].errors?.['required']" class="text-danger text-xs">
 												Cover Letter Section Required
 											</div>
 										</div>
@@ -300,8 +280,7 @@
 			</div>
 			<div class="d-flex justify-content-end">
 				<button pButton type="button" (click)="resumeFormSubmit()" class="btn btn-success btn-rounded p-1 ps-4">
-					<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i
-							class="fa-solid fa-check"></i></span>
+					<span class="me-2">Create</span><span class="btn-icon px-2 py-2"><i class="fa-solid fa-check"></i></span>
 				</button>
 			</div>
 		</div>
@@ -371,8 +350,8 @@
 	<div class="dropdown">
 		<div class="colorDiv d-flex colorButton align-items-center gap-2">
 			<p>Color</p>
-			<div style="background-color: black" [ngStyle]="{ 'background-color': selectedThemeColor }"
-				class="selectedColor"></div>
+			<div style="background-color: black" [ngStyle]="{ 'background-color': selectedThemeColor }" class="selectedColor">
+			</div>
 		</div>
 		<div class="dropdown-content">
 			<div class="d-flex justify-content-center">

@@ -13,7 +13,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { BadgeModule } from 'primeng/badge';
 import { SelectModule } from 'primeng/select';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from "primeng/datepicker";
 import { ToastModule } from 'primeng/toast';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FluidModule } from 'primeng/fluid';
@@ -74,6 +74,6 @@ const routes: Routes = [
     PanelModule,
     StepperModule,
     PdfViewerModule,
-  ]
+  ],
 })
-export class EmployeeProfileModule { }
+export class EmployeeProfileModule {}

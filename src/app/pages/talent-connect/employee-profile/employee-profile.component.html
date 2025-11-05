@@ -197,7 +197,7 @@
                                                                 [maxDate]="today"
                                                                 (onFocus)="updateMessageBox('date_of_birth')"
                                                                 (focusout)="resetMessageBox()" [iconDisplay]="'input'"
-                                                                [showIcon]="true" [showOnFocus]="false"
+                                                                [showIcon]="true" [showOnFocus]="false" fluid
                                                                 (onInput)="onTypeDate($event, personalInformationForm.get('date_of_birth'))" />
                                                             @if (isSubmittedPersonalInformationForm &&
                                                             personalInformationForm.get('date_of_birth')?.errors?.required)
@@ -552,7 +552,7 @@
                                                                     inputId="fromDate" placeholder="MM/YYYY (From Date)"
                                                                     size="small" styleClass="w-100" view="month"
                                                                     [iconDisplay]="'input'" [showIcon]="true"
-                                                                    [showOnFocus]="false" [maxDate]="today" />
+                                                                    [showOnFocus]="false" [maxDate]="today" fluid />
                                                                 <p-datepicker [appendTo]="'body'"
                                                                     (onSelect)="updateExperience(i)"
                                                                     (onInput)="updateExperience(i, 'to', $event)"
@@ -561,7 +561,7 @@
                                                                     inputId="toDate" placeholder="MM/YYYY (To Date)"
                                                                     size="small" styleClass="w-100" view="month"
                                                                     [iconDisplay]="'input'" [showIcon]="true"
-                                                                    [showOnFocus]="false" [maxDate]="today"
+                                                                    [showOnFocus]="false" [maxDate]="today" fluid
                                                                     [minDate]="experience.get('work_experience_duration_from')?.value" />
                                                             </div>
                                                             @if
@@ -934,44 +934,44 @@
                                                         <label class="mb-1">Are you open to Internship
                                                             Opportunities<span class="text-danger">*</span></label>
                                                         <p-select [options]="[{id:1,name:'Yes'},{id:0,name:'No'}]"
-                                                                  styleClass="w-100" optionLabel="name" optionValue="id"
-                                                                  placeholder="Select" appendTo="body"
-                                                                  (change)="onChangeCareerVolunteering($event)"
-                                                                  formControlName="internship_opportunities"></p-select>
+                                                            styleClass="w-100" optionLabel="name" optionValue="id"
+                                                            placeholder="Select" appendTo="body"
+                                                            (change)="onChangeCareerVolunteering($event)"
+                                                            formControlName="internship_opportunities"></p-select>
                                                         @if (isSubmittedCareerPreferenceForm &&
                                                         careerPreferenceForm.get('internship_opportunities')?.errors?.required)
                                                         {
-                                                            <small class="text-danger"> This field is
-                                                                required </small>
+                                                        <small class="text-danger"> This field is
+                                                            required </small>
                                                         }
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label class="mb-1">Are you open to Volunteering
                                                             Work<span class="text-danger">*</span></label>
                                                         <p-select [options]="[{id:1,name:'Yes'},{id:0,name:'No'}]"
-                                                                  styleClass="w-100" optionLabel="name" optionValue="id"
-                                                                  placeholder="Select" appendTo="body"
-                                                                  (change)="onChangeCareerVolunteering($event)"
-                                                                  formControlName="volunteering_work"></p-select>
+                                                            styleClass="w-100" optionLabel="name" optionValue="id"
+                                                            placeholder="Select" appendTo="body"
+                                                            (change)="onChangeCareerVolunteering($event)"
+                                                            formControlName="volunteering_work"></p-select>
                                                         @if (isSubmittedCareerPreferenceForm &&
                                                         careerPreferenceForm.get('volunteering_work')?.errors?.required)
                                                         {
-                                                            <small class="text-danger"> This field is
-                                                                required </small>
+                                                        <small class="text-danger"> This field is
+                                                            required </small>
                                                         }
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label class="mb-1">Are you open to Freelancer
                                                             <span class="text-danger">*</span></label>
                                                         <p-select [options]="[{id:1,name:'Yes'},{id:0,name:'No'}]"
-                                                                  styleClass="w-100" optionLabel="name" optionValue="id"
-                                                                  placeholder="Select" appendTo="body"
-                                                                  (change)="onChangeCareerVolunteering($event)"
-                                                                  formControlName="freelancer"></p-select>
+                                                            styleClass="w-100" optionLabel="name" optionValue="id"
+                                                            placeholder="Select" appendTo="body"
+                                                            (change)="onChangeCareerVolunteering($event)"
+                                                            formControlName="freelancer"></p-select>
                                                         @if (isSubmittedCareerPreferenceForm &&
                                                         careerPreferenceForm.get('freelancer')?.errors?.required) {
-                                                            <small class="text-danger"> This field is
-                                                                required </small>
+                                                        <small class="text-danger"> This field is
+                                                            required </small>
                                                         }
                                                     </div>
                                                 </div>
