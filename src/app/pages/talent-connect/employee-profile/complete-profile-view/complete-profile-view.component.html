@@ -19,494 +19,499 @@
 	</div>
 	<div class="card-body flex-fill">
 		<div class="row">
-			<div class="col-md-4"><div class="left-sticky">
-		<div class="card-body mb-4 bg-secondary-card rounded-3">
-			<div class="text-center">
-				<div class="d-flex justify-content-center mb-3">
-					<img [src]="profileData?.dp_image || 'uniprep-assets/images/avatar.webp'" alt="Profile Photo"
-						class="img-fluid rounded-circle" style="max-width: 200px; height: auto;" />
-				</div>
-				<h2 class="fw-bold mb-1">{{ profileData?.full_name }}</h2>
-				<div class="text-muted">Profile Updated On: {{ profileData?.updated_at_formatted }}</div>
-				<div class="mt-3">
-					@if(profileData?.careerPreference?.video_link) {
-						<a [href]="profileData?.careerPreference?.video_link" target="_blank" role="button"
-							class="btn btn-success w-100">Checkout my Introduction Video <i class="fa fa-video ms-2"></i></a>
-					}
-					@if(!profileData?.careerPreference?.video_link) {
-						<button class="btn btn-danger w-100" disabled>Introduction Video Not Uploaded <i class="fa fa-video ms-2"></i></button>
-					}
-				</div>
-				<div class="mt-3 d-flex justify-content-center gap-2 flex-wrap">
-					<button class="p-button p-button-outlined" routerLink="/pages/talent-connect/my-profile"><i class="pi pi-pencil me-2"></i>Edit Profile</button>
-					<div class="position-relative">
-						<button pButton label="Share Profile" iconPos="right" icon="pi pi-share-alt" class="p-button-outlined p-button-warning" (click)="showSocialSharingList()"></button>
-						<p-card id="socialSharingList">
-							<ul style="list-style: none; cursor: pointer">
-								<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
-								<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
-								<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
-								<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
-								<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
-								<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
-								<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
-							</ul>
-						</p-card>
-					</div>
-				</div>
-				<div class="mt-3 text-start">
-					<div class="text-muted small mb-2">Last Updated : {{ profileData?.updated_at_formatted }}</div>
-					<div class="row g-2">
-						<div class="col-md-12 col-sm-12 col-12">
-							<div class="d-flex align-items-center">
-								<i class="fa fa-calendar text-success me-2"></i>
-								<div>
-									<div class="text-muted small">Date of Birth</div>
-									<div>{{ profileData?.date_of_birth }}</div>
+			<div class="col-md-4">
+				<div class="left-sticky">
+					<div class="card-body mb-4 bg-secondary-card rounded-3">
+						<div class="text-center">
+							<div class="d-flex justify-content-center mb-3">
+								<img [src]="profileData?.dp_image || 'uniprep-assets/images/avatar.webp'" alt="Profile Photo"
+									class="img-fluid rounded-circle" style="max-width: 200px; height: auto;" />
+							</div>
+							<h2 class="fw-bold mb-1">{{ profileData?.full_name }}</h2>
+							<div class="text-muted">Profile Updated On: {{ profileData?.updated_at_formatted }}</div>
+							<div class="mt-3">
+								@if(profileData?.careerPreference?.video_link) {
+								<a [href]="profileData?.careerPreference?.video_link" target="_blank" role="button"
+									class="btn btn-success w-100">Checkout my Introduction Video <i class="fa fa-video ms-2"></i></a>
+								}
+								@if(!profileData?.careerPreference?.video_link) {
+								<button class="btn btn-danger w-100" disabled>Introduction Video Not Uploaded <i
+										class="fa fa-video ms-2"></i></button>
+								}
+							</div>
+							<div class="mt-3 d-flex justify-content-center gap-2 flex-wrap">
+								<button class="p-button p-button-outlined" routerLink="/pages/talent-connect/my-profile"><i
+										class="pi pi-pencil me-2"></i>Edit Profile</button>
+								<div class="position-relative">
+									<button pButton label="Share Profile" iconPos="right" icon="pi pi-share-alt"
+										class="p-button-outlined p-button-warning" (click)="showSocialSharingList()"></button>
+									<p-card id="socialSharingList">
+										<ul style="list-style: none; cursor: pointer">
+											<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+											<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+											<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+											<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+											<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+											<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
+											<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link</li>
+										</ul>
+									</p-card>
+								</div>
+							</div>
+							<div class="mt-3 text-start">
+								<div class="text-muted small mb-2">Last Updated : {{ profileData?.updated_at_formatted }}</div>
+								<div class="row g-2">
+									<div class="col-md-12 col-sm-12 col-12">
+										<div class="d-flex align-items-center">
+											<i class="fa fa-calendar text-success me-2"></i>
+											<div>
+												<div class="text-muted small">Date of Birth</div>
+												<div>{{ profileData?.date_of_birth }}</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12">
+										<div class="d-flex align-items-center">
+											<i class="fa fa-venus-mars text-danger me-2"></i>
+											<div>
+												<div class="text-muted small">Gender</div>
+												<div>{{ profileData?.gender }}</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12">
+										<div class="d-flex align-items-center">
+											<i class="fas fa-earth-asia text-primary me-2"></i>
+											<div>
+												<div class="text-muted small">Nationality</div>
+												<div>{{ profileData?.nationality_name }}</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12">
+										<div class="d-flex align-items-center">
+											<i class="fa fa-location-crosshairs text-warning me-2"></i>
+											<div>
+												<div class="text-muted small">Current Location</div>
+												<div>{{ profileData?.current_location }}</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="mt-3">
+									<div class="text-muted small mb-1">Profile Completion: {{ profileData?.profile_completion }}%</div>
+									<p-progressBar [value]="profileData?.profile_completion" [showValue]="false"
+										styleClass="custom-progress p-0" [style]="{ height: '10px', color: 'red' }"></p-progressBar>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-12 col-sm-12 col-12">
-							<div class="d-flex align-items-center">
-								<i class="fa fa-venus-mars text-danger me-2"></i>
-								<div>
-									<div class="text-muted small">Gender</div>
-									<div>{{ profileData?.gender }}</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-12 col-sm-12 col-12">
-							<div class="d-flex align-items-center">
-								<i class="fas fa-earth-asia text-primary me-2"></i>
-								<div>
-									<div class="text-muted small">Nationality</div>
-									<div>{{ profileData?.nationality_name }}</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-12 col-sm-12 col-12">
-							<div class="d-flex align-items-center">
-								<i class="fa fa-location-crosshairs text-warning me-2"></i>
-								<div>
-									<div class="text-muted small">Current Location</div>
-									<div>{{ profileData?.current_location }}</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="mt-3">
-						<div class="text-muted small mb-1">Profile Completion: {{ profileData?.profile_completion }}%</div>
-						<p-progressBar [value]="profileData?.profile_completion" [showValue]="false" styleClass="custom-progress p-0" [style]="{ height: '10px', color: 'red' }"></p-progressBar>
 					</div>
 				</div>
 			</div>
-		</div>
-		</div>
-		</div>
-		<div class="col-md-8"><div class="right-scroll">
-		<!-- Education Details Section -->
-		@if(profileData?.education && profileData?.education.length > 0) {
-		<div class="card-body mb-4 bg-secondary-card rounded-3">
-			<div class="row">
-				<div class="col-md-3">
-					<h3 class="fw-bold text-navy">Education Details</h3>
-				</div>
-				<div class="col-md-9">
-					@for (edu of profileData?.education; track edu.qualification_name) {
-					<div class="row">
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Highest Qualification</div>
-							<div>{{ edu?.qualification_name }}</div>
-						</div>
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Institution Name</div>
-							<div>{{ edu?.university_name }}</div>
-						</div>
-						<!-- <div class="col-md-4 col-xl-3 mb-3">
+			<div class="col-md-8">
+				<div class="right-scroll">
+					<!-- Education Details Section -->
+					@if(profileData?.education && profileData?.education.length > 0) {
+					<div class="card-body mb-4 bg-secondary-card rounded-3">
+						<div class="row">
+							<div class="col-md-3">
+								<h3 class="fw-bold text-navy">Education Details</h3>
+							</div>
+							<div class="col-md-9">
+								@for (edu of profileData?.education; track edu.qualification_name) {
+								<div class="row">
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Highest Qualification</div>
+										<div>{{ edu?.qualification_name }}</div>
+									</div>
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Institution Name</div>
+										<div>{{ edu?.university_name }}</div>
+									</div>
+									<!-- <div class="col-md-4 col-xl-3 mb-3">
 								<div class="text-primary fw-bold">Field of Study</div>
 								<div>{{ edu?.field_of_study || "Not specified" }}</div>
 							</div> -->
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Course Name</div>
-							<div>{{ edu?.course_name }}</div>
-						</div>
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Graduation Year</div>
-							<div>{{ edu?.graduation_year_name }}</div>
-						</div>
-						<div class="col-12 d-none d-md-block">
-							<hr />
-						</div>
-						@if(edu?.gpa_percentage) {
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">GPA / Percentage</div>
-							<div>{{ edu?.gpa_percentage }} {{ edu?.gpa_percentage_type == 'Percentage' ? ' %' : ' GPA' }}</div>
-						</div>
-						}
-						<div class="col-12 d-none d-md-block">
-							<hr />
-						</div>
-						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
-								[queryParams]="{ editTab: 1 }">
-								Edit Education Details <i class="fa fa-pencil-square-o"></i></div>
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Course Name</div>
+										<div>{{ edu?.course_name }}</div>
+									</div>
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Graduation Year</div>
+										<div>{{ edu?.graduation_year_name }}</div>
+									</div>
+									<!-- <div class="col-12 d-none d-md-block">
+										<hr />
+									</div> -->
+									@if(edu?.gpa_percentage) {
+										<div class="col-md-4 col-xl-3 mb-3">
+											<div class="text-primary fw-bold">GPA / Percentage</div>
+											<div>{{ edu?.gpa_percentage }} {{ edu?.gpa_percentage_type == 'Percentage' ? ' %' : ' GPA' }}</div>
+										</div>
+									}
+									<div class="col-12 d-none d-md-block">
+										<hr />
+									</div>
+									<div class="col-12 mb-3">
+										<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+											[queryParams]="{ editTab: 1 }">
+											Edit Education Details <i class="fa fa-pencil-square-o"></i></div>
+									</div>
+								</div>
+								}
+							</div>
 						</div>
 					</div>
 					}
-				</div>
-			</div>
-		</div>
-		}
 
-		<!-- Work Experience Section -->
-		<div class="card-body mb-4 bg-secondary-card rounded-3">
-			<div class="row">
-				<div class="col-md-3">
-					<h3 class="fw-bold text-navy">Work Experience & Internships</h3>
-				</div>
-				<div class="col-md-9">
-					<div class="mb-4">
-						<div class="text-primary fw-bold">Total Years of Experience</div>
-						<div>{{ profileData?.total_years_of_experience }}
+					<!-- Work Experience Section -->
+					<div class="card-body mb-4 bg-secondary-card rounded-3">
+						<div class="row">
+							<div class="col-md-3">
+								<h3 class="fw-bold text-navy">Work Experience & Internships</h3>
+							</div>
+							<div class="col-md-9">
+								<div class="mb-4">
+									<div class="text-primary fw-bold">Total Years of Experience</div>
+									<div>{{ profileData?.total_years_of_experience }}
+									</div>
+								</div>
+								@if(profileData?.total_years_of_experience) {
+								<div class="col-12 d-none d-md-block">
+									<hr />
+								</div>
+								}
+								@if(profileData?.work_experience && profileData?.work_experience.length > 0) {
+								<div class="fw-bold fs-5 mb-3">Work Experience Details </div>
+								<div class="row">
+									@for (exp of profileData?.work_experience; track exp.company_name) {
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Company Name</div>
+										<div>{{ exp?.company_name || "Not specified" }}</div>
+									</div>
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Job Title</div>
+										<div>{{ exp?.job_title || "Not specified" }}</div>
+									</div>
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Duration</div>
+										<div>{{ exp?.duration_from + " - " + exp?.duration_to || "Not specified" }}</div>
+									</div>
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Years of Experience</div>
+										<div>{{ exp?.years_of_experience || "Not specified" }}</div>
+									</div>
+									<div class="col-12 d-none d-md-block">
+										<hr />
+									</div>
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Employment Type</div>
+										<div>{{ exp?.employment_type || "Not specified" }}</div>
+									</div>
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Salary per month</div>
+										@if(exp?.no_expect) {
+										<div>Open to work for Experience (Unpaid)</div>
+										}
+										@else {
+										<div>{{ exp?.salary_per_month || "Not specified" }}</div>
+										}
+									</div>
+									<div class="col-12 d-none d-md-block">
+										<hr />
+									</div>
+									<div class="col-md-8 mb-3">
+										<div class="text-primary fw-bold">Job Responsibilities</div>
+										<div [innerHTML]="exp?.job_responsibilities || 'Not specified'"></div>
+									</div>
+									@if(exp?.experience_letter) {
+									<div class="col-md-4 mb-3">
+										<div class="text-primary fw-bold">Experience Letter</div>
+										<button pButton [label]="extractFileName(exp?.experience_letter)" icon="pi pi-download"
+											class="p-button-outlined p-button-secondary mb-2 justify-content-between"
+											(click)="openView(exp?.experience_letter)" iconPos="right"></button>
+									</div>
+									}
+									<div class="col-12 d-none d-md-block">
+										<hr />
+									</div>
+									}
+								</div>
+								}
+								@if(!profileData?.work_experience || profileData?.work_experience.length === 0) {
+								<div class="text-muted">Fresher</div>
+								}
+								<div class="col-12 mb-3">
+									<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+										[queryParams]="{ editTab: 2 }">
+										Edit Work Details <i class="fa fa-pencil-square-o"></i></div>
+								</div>
+							</div>
 						</div>
 					</div>
-					@if(profileData?.total_years_of_experience) {
-					<div class="col-12 d-none d-md-block">
-						<hr />
-					</div>
-					}
-					@if(profileData?.work_experience && profileData?.work_experience.length > 0) {
-					<div class="fw-bold fs-5 mb-3">Work Experience Details </div>
-					<div class="row">
-						@for (exp of profileData?.work_experience; track exp.company_name) {
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Company Name</div>
-							<div>{{ exp?.company_name || "Not specified" }}</div>
-						</div>
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Job Title</div>
-							<div>{{ exp?.job_title || "Not specified" }}</div>
-						</div>
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Duration</div>
-							<div>{{ exp?.duration_from + " - " + exp?.duration_to || "Not specified" }}</div>
-						</div>
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Years of Experience</div>
-							<div>{{ exp?.years_of_experience || "Not specified" }}</div>
-						</div>
-						<div class="col-12 d-none d-md-block">
-							<hr />
-						</div>
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Employment Type</div>
-							<div>{{ exp?.employment_type || "Not specified" }}</div>
-						</div>
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Salary per month</div>
-							@if(exp?.no_expect) {
-							<div>Open to work for Experience (Unpaid)</div>
-							}
-							@else {
-							<div>{{ exp?.salary_per_month || "Not specified" }}</div>
-							}
-						</div>
-						<div class="col-12 d-none d-md-block">
-							<hr />
-						</div>
-						<div class="col-md-8 mb-3">
-							<div class="text-primary fw-bold">Job Responsibilities</div>
-							<div [innerHTML]="exp?.job_responsibilities || 'Not specified'"></div>
-						</div>
-						@if(exp?.experience_letter) {
-						<div class="col-md-4 mb-3">
-							<div class="text-primary fw-bold">Experience Letter</div>
-							<button pButton [label]="extractFileName(exp?.experience_letter)" icon="pi pi-download"
-								class="p-button-outlined p-button-secondary mb-2 justify-content-between"
-								(click)="openView(exp?.experience_letter)" iconPos="right"></button>
-						</div>
-						}
-						<div class="col-12 d-none d-md-block">
-							<hr />
-						</div>
-						}
-					</div>
-					}
-					@if(!profileData?.work_experience || profileData?.work_experience.length === 0) {
-					<div class="text-muted">Fresher</div>
-					}
-					<div class="col-12 mb-3">
-						<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
-							[queryParams]="{ editTab: 2 }">
-							Edit Work Details <i class="fa fa-pencil-square-o"></i></div>
-					</div>
-				</div>
-			</div>
-		</div>
 
-		<!-- Career Preferences Section -->
-		@if(profileData?.careerPreference) {
-		<div class="card-body mb-4 bg-secondary-card rounded-3">
-			<div class="row">
-				<div class="col-md-3">
-					<h3 class="fw-bold text-navy">Career Preferences & Aspirations</h3>
-					<!-- <div class="mt-3 text-warning">Confused about your career?</div>
+					<!-- Career Preferences Section -->
+					@if(profileData?.careerPreference) {
+					<div class="card-body mb-4 bg-secondary-card rounded-3">
+						<div class="row">
+							<div class="col-md-3">
+								<h3 class="fw-bold text-navy">Career Preferences & Aspirations</h3>
+								<!-- <div class="mt-3 text-warning">Confused about your career?</div>
 						<button pButton label="Click here to plan now!"
 							(click)="routingToPage('/pages/job-tool/career-tool')"
 							class="p-button-outlined p-button-warning mt-2"></button> -->
-				</div>
-				<div class="col-md-9">
-					<div class="row">
-						<!-- <div class="col-md-4 col-xl-3 mb-3">
+							</div>
+							<div class="col-md-9">
+								<div class="row">
+									<!-- <div class="col-md-4 col-xl-3 mb-3">
 								<div class="text-primary fw-bold">Career Status</div>
 								<div>{{ profileData?.careerPreference?.career_status }}</div>
 							</div> -->
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Desired Job Title</div>
-							<div>{{ profileData?.careerPreference?.job_title || "Not specified" }}</div>
-						</div>
-						<!-- <div class="col-md-4 col-xl-3 mb-3">
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Desired Job Title</div>
+										<div>{{ profileData?.careerPreference?.job_title || "Not specified" }}</div>
+									</div>
+									<!-- <div class="col-md-4 col-xl-3 mb-3">
 								<div class="text-primary fw-bold">Interested Industry</div>
 								<div>{{ getArraytoStringData(profileData?.careerPreference?.career_interest_name) }}
 								</div>
 							</div> -->
-						<!-- <div class="col-md-4 col-xl-3 mb-3">
+									<!-- <div class="col-md-4 col-xl-3 mb-3">
 							<div class="text-primary fw-bold">Department</div>
 							<div>{{ getArraytoStringData(profileData?.careerPreference?.department_name) }}</div>
 						</div> -->
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Preferred Work Location</div>
-							<div>{{ getArraytoStringData(profileData?.careerPreference?.preferred_work_location) }}
-							</div>
-						</div>
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Preferred Work Type</div>
-							<div>{{ getArraytoStringData(profileData?.careerPreference?.preferred_employment_type)
-								}}</div>
-						</div>
-						<div class="col-12 d-none d-md-block">
-							<hr />
-						</div>
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Preferred Work Mode</div>
-							<div>{{ getArraytoStringData(profileData?.careerPreference?.preferred_workplace_type) }}
-							</div>
-						</div>
-						<!-- <div class="col-md-4 col-xl-3 mb-3">
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Preferred Work Location</div>
+										<div>{{ getArraytoStringData(profileData?.careerPreference?.preferred_work_location) }}
+										</div>
+									</div>
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Preferred Work Type</div>
+										<div>{{ getArraytoStringData(profileData?.careerPreference?.preferred_employment_type)
+											}}</div>
+									</div>
+									<div class="col-12 d-none d-md-block">
+										<hr />
+									</div>
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Preferred Work Mode</div>
+										<div>{{ getArraytoStringData(profileData?.careerPreference?.preferred_workplace_type) }}
+										</div>
+									</div>
+									<!-- <div class="col-md-4 col-xl-3 mb-3">
 								<div class="text-primary fw-bold">Willingness to Relocate?</div>
 								<div>{{ profileData?.careerPreference?.willingness_to_relocate }}</div>
 							</div> -->
-						<div class="col-md-4 col-xl-3 mb-3">
-							<div class="text-primary fw-bold">Expected Salary per month</div>
-							@if(profileData?.careerPreference?.no_expectation) {
-							<div>Open to work for Experience (Unpaid)</div>
-							}
-							@else {
-							<div>{{ profileData?.careerPreference?.expected_salary }}</div>
-							}
-						</div>
-						<div class="col-12 d-none d-md-block">
-							<hr />
-						</div>
-						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
-								[queryParams]="{ editTab: 3 }">
-								Edit Career Preferences <i class="fa fa-pencil-square-o"></i></div>
+									<div class="col-md-4 col-xl-3 mb-3">
+										<div class="text-primary fw-bold">Expected Salary per month</div>
+										@if(profileData?.careerPreference?.no_expectation) {
+										<div>Open to work for Experience (Unpaid)</div>
+										}
+										@else {
+										<div>{{ profileData?.careerPreference?.expected_salary }}</div>
+										}
+									</div>
+									<div class="col-12 d-none d-md-block">
+										<hr />
+									</div>
+									<div class="col-12 mb-3">
+										<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+											[queryParams]="{ editTab: 3 }">
+											Edit Career Preferences <i class="fa fa-pencil-square-o"></i></div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-		}
+					}
 
-		<!-- Certifications Section -->
-		@if(profileData?.certifications && profileData?.certifications.length > 0) {
-		<div class="card-body mb-4 bg-secondary-card rounded-3">
-			<div class="row">
-				<div class="col-md-3">
-					<h3 class="fw-bold text-navy">Certifications</h3>
-					<!-- <div class="mt-3 text-warning">Want to add more skills?</div>
+					<!-- Certifications Section -->
+					@if(profileData?.certifications && profileData?.certifications.length > 0) {
+					<div class="card-body mb-4 bg-secondary-card rounded-3">
+						<div class="row">
+							<div class="col-md-3">
+								<h3 class="fw-bold text-navy">Certifications</h3>
+								<!-- <div class="mt-3 text-warning">Want to add more skills?</div>
 						<button pButton label="Click here to add more to your list!"
 							(click)="routingToPage('/pages/modules/learning-hub')"
 							class="p-button-outlined p-button-warning mt-2"></button> -->
-				</div>
-				<div class="col-md-9">
-					<div class="row">
-						<div class="col-md-8">
-							@for (cert of profileData?.certifications; track cert.name) {
-							@if(cert.type === 'Certificate') {
-							<div class="mb-3">
-								<div class="text-primary fw-bold">Professional / online Certifications</div>
-								<div>{{ cert.name || "Not specified" }}</div>
 							</div>
-							}
-							<!-- @if(cert.type === 'Achievement') {
+							<div class="col-md-9">
+								<div class="row">
+									<div class="col-md-8">
+										@for (cert of profileData?.certifications; track cert.name) {
+										@if(cert.type === 'Certificate') {
+										<div class="mb-3">
+											<div class="text-primary fw-bold">Professional / online Certifications</div>
+											<div>{{ cert.name || "Not specified" }}</div>
+										</div>
+										}
+										<!-- @if(cert.type === 'Achievement') {
 								<div class="mb-3">
 									<div class="text-primary fw-bold">Achievement Name</div>
 									<div>{{ cert.name || "Not specified" }}</div>
 								</div>
 								} -->
-							}
-						</div>
-						<div class="col-md-4">
-							@for (cert of profileData?.certifications; track cert.file_name) {
-							@if(cert.file_name && cert.type !== 'Achievement') {
-							<button pButton [label]="extractFileName(cert.file_name)" icon="pi pi-download"
-								class="p-button-outlined p-button-secondary mb-2 w-100 justify-content-between"
-								(click)="openView(cert.file_name)" iconPos="right"></button>
-							}
-							}
-							@if(hasNoCertificationFiles()) {
-							<div class="text-muted">No certification files available</div>
-							}
-						</div>
-						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
-								[queryParams]="{ editTab: 4 }">
-								Edit Certifications <i class="fa fa-pencil-square-o"></i></div>
+										}
+									</div>
+									<div class="col-md-4">
+										@for (cert of profileData?.certifications; track cert.file_name) {
+										@if(cert.file_name && cert.type !== 'Achievement') {
+										<button pButton [label]="extractFileName(cert.file_name)" icon="pi pi-download"
+											class="p-button-outlined p-button-secondary mb-2 w-100 justify-content-between"
+											(click)="openView(cert.file_name)" iconPos="right"></button>
+										}
+										}
+										@if(hasNoCertificationFiles()) {
+										<div class="text-muted">No certification files available</div>
+										}
+									</div>
+									<div class="col-12 mb-3">
+										<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+											[queryParams]="{ editTab: 4 }">
+											Edit Certifications <i class="fa fa-pencil-square-o"></i></div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-		}
+					}
 
-		<!-- Additional Details Section -->
-		@if(profileData?.languages && profileData?.languages.length > 0) {
-		<div class="card-body mb-4 bg-secondary-card rounded-3">
-			<div class="row">
-				<div class="col-md-3">
-					<h3 class="fw-bold text-navy">Key Strengths & Professional Traits</h3>
-					<!-- <div class="mt-3 text-warning">Looking to add more languages?</div>
+					<!-- Additional Details Section -->
+					@if(profileData?.languages && profileData?.languages.length > 0) {
+					<div class="card-body mb-4 bg-secondary-card rounded-3">
+						<div class="row">
+							<div class="col-md-3">
+								<h3 class="fw-bold text-navy">Key Strengths & Professional Traits</h3>
+								<!-- <div class="mt-3 text-warning">Looking to add more languages?</div>
 						<button pButton label="Click here to start learning!"
 							(click)="routingToPage('/pages/language-hub/languages')"
 							class="p-button-outlined p-button-warning mt-2"></button> -->
-				</div>
-				<div class="col-md-9">
-					<div class="row">
-						<div class="col-md-4 mb-3">
-							<div class="text-primary fw-bold mb-2">Languages Known</div>
-							@for (lang of profileData?.languages; track lang.language_name) {
-							<div class="mb-2">
-								<div class="d-flex align-items-center">
-									<span class="me-2" style="width: 100px">{{ lang.language_name }}</span>
-									<p-rating [ngModel]="getProficiencyRating(lang.proficiency)" [readonly]="true" />
-								</div>
 							</div>
-							}
-						</div>
-						<!-- <div class="col-md-4 mb-3">
+							<div class="col-md-9">
+								<div class="row">
+									<div class="col-md-4 mb-3">
+										<div class="text-primary fw-bold mb-2">Languages Known</div>
+										@for (lang of profileData?.languages; track lang.language_name) {
+										<div class="mb-2">
+											<div class="d-flex align-items-center">
+												<span class="me-2" style="width: 100px">{{ lang.language_name }}</span>
+												<p-rating [ngModel]="getProficiencyRating(lang.proficiency)" [readonly]="true" />
+											</div>
+										</div>
+										}
+									</div>
+									<!-- <div class="col-md-4 mb-3">
 								<div class="text-primary fw-bold mb-2">Soft Skills</div>
 								@for (skill of profileData?.careerPreference?.soft_skill_name; track skill) {
 									<div>{{ skill }}</div>
 								}
 							</div> -->
-						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
-								[queryParams]="{ editTab: 4 }">
-								Edit Strengths & Professional Traits <i class="fa fa-pencil-square-o"></i>
+									<div class="col-12 mb-3">
+										<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+											[queryParams]="{ editTab: 4 }">
+											Edit Strengths & Professional Traits <i class="fa fa-pencil-square-o"></i>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-		}
+					}
 
-		<!-- Professional Networking Section -->
-		@if(profileData?.linkedin_profile || (profileData?.networking && profileData?.networking.length > 0)) {
-		<div class="card-body mb-4 bg-secondary-card rounded-3">
-			<div class="row">
-				<div class="col-md-3">
-					<h3 class="fw-bold text-navy">Professional Networking & Online Presence</h3>
-				</div>
-				<div class="col-md-9">
-					<div class="row">
-						@if(profileData?.linkedin_profile) {
-						<div class="col-md-4 mb-3">
-							<a [href]="profileData?.linkedin_profile" target="_blank" class="text-break text-primary">
-								<i class="pi pi-linkedin fs-3"></i>
-							</a>
-							<div class="text-primary fw-bold">LinkedIn Profile</div>
-						</div>
-						}
-						@if(profileData?.networking && profileData?.networking.length > 0) {
-						@for (social of profileData?.networking; track social.social_media) {
-						<div class="col-md-4 mb-3">
-							<a [href]="social.social_media_link" target="_blank" class="text-break text-primary">
-								<i class="pi pi-{{ getSocialMediaIconName(social.social_media) }} fs-3"></i>
-							</a>
-							<div class="text-primary fw-bold">{{ social.social_media + " Profile" }}</div>
-						</div>
-						}
-						}
-						@if(profileData?.personal_website) {
-						<div class="col-md-4 mb-3">
-							<a [href]="profileData?.personal_website" target="_blank" class="text-break text-primary">
-								<i class="pi pi-globe fs-3"></i>
-							</a>
-							<div class="text-primary fw-bold">Personal Website</div>
-						</div>
-						}
-						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
-								[queryParams]="{ editTab: 5 }">
-								Edit Social Presence <i class="fa fa-pencil-square-o"></i>
+					<!-- Professional Networking Section -->
+					@if(profileData?.linkedin_profile || (profileData?.networking && profileData?.networking.length > 0)) {
+					<div class="card-body mb-4 bg-secondary-card rounded-3">
+						<div class="row">
+							<div class="col-md-3">
+								<h3 class="fw-bold text-navy">Professional Networking & Online Presence</h3>
+							</div>
+							<div class="col-md-9">
+								<div class="row">
+									@if(profileData?.linkedin_profile) {
+									<div class="col-md-4 mb-3">
+										<a [href]="profileData?.linkedin_profile" target="_blank" class="text-break text-primary">
+											<i class="pi pi-linkedin fs-3"></i>
+										</a>
+										<div class="text-primary fw-bold">LinkedIn Profile</div>
+									</div>
+									}
+									@if(profileData?.networking && profileData?.networking.length > 0) {
+									@for (social of profileData?.networking; track social.social_media) {
+									<div class="col-md-4 mb-3">
+										<a [href]="social.social_media_link" target="_blank" class="text-break text-primary">
+											<i class="pi pi-{{ getSocialMediaIconName(social.social_media) }} fs-3"></i>
+										</a>
+										<div class="text-primary fw-bold">{{ social.social_media + " Profile" }}</div>
+									</div>
+									}
+									}
+									@if(profileData?.personal_website) {
+									<div class="col-md-4 mb-3">
+										<a [href]="profileData?.personal_website" target="_blank" class="text-break text-primary">
+											<i class="pi pi-globe fs-3"></i>
+										</a>
+										<div class="text-primary fw-bold">Personal Website</div>
+									</div>
+									}
+									<div class="col-12 mb-3">
+										<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+											[queryParams]="{ editTab: 5 }">
+											Edit Social Presence <i class="fa fa-pencil-square-o"></i>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-		}
+					}
 
-		<!-- Attachments Section -->
-		@if(profileData?.careerPreference?.portfolio_upload_link || profileData?.careerPreference?.cv_filename) {
-		<div class="card-body mb-4 bg-secondary-card rounded-3">
-			<div class="row">
-				<div class="col-md-3">
-					<h3 class="fw-bold text-navy">Attachments & Media</h3>
-					<!-- <div class="mt-3 text-warning">Want to update your CV?</div>
+					<!-- Attachments Section -->
+					@if(profileData?.careerPreference?.portfolio_upload_link || profileData?.careerPreference?.cv_filename) {
+					<div class="card-body mb-4 bg-secondary-card rounded-3">
+						<div class="row">
+							<div class="col-md-3">
+								<h3 class="fw-bold text-navy">Attachments & Media</h3>
+								<!-- <div class="mt-3 text-warning">Want to update your CV?</div>
 						<button pButton label="Click here to create or edit your resume!"
 							class="p-button-outlined p-button-warning mt-2 text-start"
 							(click)="routingToPage('/pages/job-tool/cv-builder')"></button> -->
-				</div>
-				<div class="col-md-9">
-					<div class="row">
-						@if(profileData?.careerPreference?.portfolio_upload_link) {
-						<div class="col-md-4 mb-3">
-							<div class="text-primary fw-bold">Portfolio</div>
-							<div>
-								<a [href]="profileData?.careerPreference?.portfolio_upload_link" target="_blank"
-									class="text-break text-primary">
-									<i class="fa-solid fa-folder-user fs-3"></i>
-								</a>
 							</div>
-						</div>
-						}
-						@if(profileData?.careerPreference?.cv_filename) {
-						<div class="col-md-4 mb-3">
-							<div class="text-primary fw-bold">Upload CV / Resume</div>
-							<button pButton [label]="extractFileName(profileData?.careerPreference?.cv_filename)"
-								icon="pi pi-download"
-								class="p-button-outlined p-button-secondary mb-2 justify-content-between"
-								(click)="openView(profileData?.careerPreference?.cv_filename)" iconPos="right"></button>
-						</div>
-						}
-						<div class="col-12 mb-3">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
-								[queryParams]="{ editTab: 6 }">
-								Edit Attachments <i class="fa fa-pencil-square-o"></i>
+							<div class="col-md-9">
+								<div class="row">
+									@if(profileData?.careerPreference?.portfolio_upload_link) {
+									<div class="col-md-4 mb-3">
+										<div class="text-primary fw-bold">Portfolio</div>
+										<div>
+											<a [href]="profileData?.careerPreference?.portfolio_upload_link" target="_blank"
+												class="text-break text-primary">
+												<i class="fa-solid fa-folder-user fs-3"></i>
+											</a>
+										</div>
+									</div>
+									}
+									@if(profileData?.careerPreference?.cv_filename) {
+									<div class="col-md-4 mb-3">
+										<div class="text-primary fw-bold">Upload CV / Resume</div>
+										<button pButton [label]="extractFileName(profileData?.careerPreference?.cv_filename)"
+											icon="pi pi-download" class="p-button-outlined p-button-secondary mb-2 justify-content-between"
+											(click)="openView(profileData?.careerPreference?.cv_filename)" iconPos="right"></button>
+									</div>
+									}
+									<div class="col-12 mb-3">
+										<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+											[queryParams]="{ editTab: 6 }">
+											Edit Attachments <i class="fa fa-pencil-square-o"></i>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-		}
+					}
 
-		<!-- References Section -->
-		<!-- @if(profileData?.references && profileData?.references.length > 0) {
+					<!-- References Section -->
+					<!-- @if(profileData?.references && profileData?.references.length > 0) {
 		<div class="card mb-4">
 			<div class="card-body">
 				<div class="row">
@@ -571,31 +576,31 @@
 		}
 		-->
 
-		<!-- Additional Notes -->
-		@if(profileData?.careerPreference?.notes) {
-		<div class="card-body mb-4 bg-secondary-card rounded-3">
-			<div class="row">
-				<div class="col-md-3">
-					<h3 class="fw-bold text-navy">Additional Notes</h3>
-				</div>
-				<div class="col-md-9">
-					<div class="row">
-						<div class="col-12 mb-3">
-							<div [innerHTML]="profileData?.careerPreference?.notes"></div>
-						</div>
-						<div class="col-12">
-							<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
-								[queryParams]="{ editTab: 6 }">
-								Edit Notes <i class="fa fa-pencil-square-o"></i>
+					<!-- Additional Notes -->
+					@if(profileData?.careerPreference?.notes) {
+					<div class="card-body mb-4 bg-secondary-card rounded-3">
+						<div class="row">
+							<div class="col-md-3">
+								<h3 class="fw-bold text-navy">Additional Notes</h3>
+							</div>
+							<div class="col-md-9">
+								<div class="row">
+									<div class="col-12 mb-3">
+										<div [innerHTML]="profileData?.careerPreference?.notes"></div>
+									</div>
+									<div class="col-12">
+										<div class="text-end fw-bold" role="button" routerLink="/pages/talent-connect/my-profile"
+											[queryParams]="{ editTab: 6 }">
+											Edit Notes <i class="fa fa-pencil-square-o"></i>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
+					}
 				</div>
 			</div>
 		</div>
-		}
 	</div>
-</div>
-</div>
-</div>
 </div>
