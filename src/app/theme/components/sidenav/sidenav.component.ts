@@ -123,6 +123,13 @@ export class SidenavComponent {
       subMenuBy: "Job Board",
     },
     {
+      title: "Career Coach",
+      url: "/pages/talent-connect/career-coach",
+      image: "fa-solid fa-user-graduate",
+      subMenuBy: "Job Board",
+      mostPopular: true
+    },
+    {
       title: "Career",
       url: "",
       image: "",

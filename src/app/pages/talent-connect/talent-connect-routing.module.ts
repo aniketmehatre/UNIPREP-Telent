@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'docs-wallet',
     loadComponent: () => import('./docs-wallet/docs-wallet.component').then(m => m.DocsWalletComponent)
   },
+  {
+    path: 'career-coach',
+    loadComponent: () => import('./career-coach/career-coach.component').then(m => m.CareerCoachComponent)
+  },
 ];
 
 @NgModule({

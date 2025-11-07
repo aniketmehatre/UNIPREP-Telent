@@ -1,0 +1,43 @@
+<div class="card readingcard">
+    <div class="card-header border-0 bg-transparent">
+        <div class="row">
+            <div class="col-md-12 d-flex gap-2 text-center">
+                <div class="select-title text-nowrap d-flex justify-content-start align-items-center">
+                    <div class="d-flex gap-2">
+                        <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        <h5 routerLink="/pages/mycertificate" role="button" class="mb-0" tooltipPosition="top" pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">Career Coach</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="bookSession()" novalidate>
+      <div class="field mb-4">
+        <label class="fw-semibold mb-2">What support are you looking for?</label>
+        <p-select formControlName="support" [options]="supportOptions" optionLabel="label" optionValue="label" dropdownIcon="fa-solid fa-chevron-down" class="w-100"></p-select>
+        <div class="text-danger small mt-1" *ngIf="f.support.touched && f.support.invalid">
+          Please select a support type.
+        </div>
+      </div>
+
+      <div class="field mb-4">
+        <label class="fw-semibold mb-2">Tell us more about your career goals or challenges</label>
+        <textarea pInputTextarea formControlName="notes" rows="8" placeholder="Enter your answer" class="w-100"></textarea>
+        <div class="text-danger small mt-1" *ngIf="f.notes.touched && f.notes.invalid">
+          <span *ngIf="f.notes.errors?.['required']">This field is required.</span>
+          <span *ngIf="f.notes.errors?.['minlength']">Please enter at least 10 characters.</span>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center justify-content-between mt-4 p-3 rounded cost-block">
+        <div>
+          <div class="text-muted small">Total</div>
+          <div class="h5 mb-0">{{ priceLabel }}</div>
+        </div>
+        <button pButton type="submit" label="Book a Session" icon="fa-regular fa-arrow-right" iconPos="right" class="p-button-success"></button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -333,5 +333,14 @@ export class TalentConnectService {
     deleteDocsWalletFile(data: any) {
         return this.http.post(`${environment.ApiUrl}/deletedocfile`, data);
     }
-    // Docs Wallet API's End
+
+
+    placeCareerCoachOrder(req: any) {
+        return this.http.post(`${environment.ApiUrl}/place-career-coach-order`, req);
+    }
+
+    completeCareerCoachTransaction(req: any) {
+        return this.http.post(`${environment.ApiUrl}/complete-career-coach-transaction`, req);
+    }
+
 }
