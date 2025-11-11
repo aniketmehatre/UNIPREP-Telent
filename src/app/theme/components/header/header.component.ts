@@ -182,6 +182,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	userTypeId: boolean = true
 	interestMenuList: any[] = [];
 	nationalityList: { id: number, nationality_name: string }[] = [];
+	notifications: any[] = [];
 
 	constructor(
 		private router: Router,
@@ -202,6 +203,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private commonService: CommonService,
 		private userSubscriptionService: UserSubscriptionService
 	) {
+         this.dashboardService.getUserNotification().subscribe((data: any) => {
+              this.notifications = data;
+         });
 		this.dataService.openReportWindowSource.subscribe({
 			next: (data) => {
 				console.log('othermodule')
@@ -1677,4 +1681,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			error: (error: any) => { }
 		});
 	}
+
+markAsRead(notification: any) {
+  if (notification.is_read) return;
+  this.dashboardService.userNotificationread(notification.id).subscribe(() => {
+    notification.is_read = 1;
+  });
+}
+
+markAllRead(event: Event) {
+  event.preventDefault();
+  this.dashboardService.userNotificationread(undefined, 'read_all').subscribe(() => {
+    this.notifications.forEach(n => (n.is_read = 1));
+  });
+}
 }

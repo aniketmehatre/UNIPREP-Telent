@@ -330,18 +330,34 @@ export class DocsWalletComponent implements OnInit {
     console.log(data, 'data')
   }
 
-  onFavouriteFile(data: any) {
-    this.talentConnectService.favouriteDocsWalletFile({ file_id: data.id }).subscribe({
-      next: res => {
-        this.toast.add({ severity: "success", summary: "Success", detail: "File added to your favorites successfully." });
-        const docWalletFile = this.docsWallet?.files?.find(item => item.id == data.id);
+onFavouriteFile(data: any) {
+  this.talentConnectService.favouriteDocsWalletFile({ file_id: data.id }).subscribe({
+    next: res => {
+      const docWalletFile = this.docsWallet?.files?.find(item => item.id === data.id);
+      if (docWalletFile) {
         docWalletFile.favourite = res.favourite;
-      },
-      error: err => {
-        this.toast.add({ severity: "error", summary: "Error", detail: "Could not add file to favorites. Please try again." });
       }
-    });
-  }
+      const message = res.favourite
+        ? "File added to your favorites successfully."
+        : "File removed from your favorites.";
+
+      const severity = res.favourite ? "success" : "info";
+
+      this.toast.add({
+        severity,
+        summary: "Success",
+        detail: message,
+      });
+    },
+    error: () => {
+      this.toast.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Could not add file to favorites. Please try again.",
+      });
+    }
+  });
+}
 
   onDownloadFile(data: any) {
     this.talentConnectService.downloadDocsWalletFile(data.id).subscribe({
