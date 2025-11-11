@@ -15,7 +15,7 @@ export class DigitalJobFairPagesComponent {
   constructor(private location: Location) {
     // Default event date = 5 days from now
     const now = new Date();
-    const fiveDaysLater = new Date('2025-11-09')
+    const fiveDaysLater = new Date('2025-12-09')
     // You can replace this with any fixed date like: new Date('2025-10-12')
     this.eventDate = fiveDaysLater;
     this.calculateDaysToGo();
