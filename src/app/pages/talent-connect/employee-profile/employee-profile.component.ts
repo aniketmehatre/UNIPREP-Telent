@@ -1104,7 +1104,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
             this.fb.group({
               id: [item.id], // Store the original ID
               certifications_achievement_name: [item.name || ""],
-              certifications_achievement_file: [item.file_name || ""],
+              certifications_achievement_file: [item.file_name || null],
             })
           );
         } else {
@@ -1978,6 +1978,18 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     control.value = "";
   }
 
+  onRemoveCertificateFile(index: number, event: any) {
+  event.stopPropagation();
+  const certificateGroup = this.certifications.at(index) as FormGroup;
+  const fileControl = certificateGroup.get('certifications_certificate_file');
+  fileControl?.setValue(null);
+  const fileKey = `${FileType.CERTIFICATIONS}_${index}`;
+  if (this.uploadedFiles[fileKey]) {
+    delete this.uploadedFiles[fileKey];
+  }
+  this.onSubmitCertificationsForm(true);
+}
+
   getPreviousIndexValue() {
     const previousIndexValueList: { [key: number]: string } = {
       1: "Personal Information",
@@ -2408,7 +2420,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         } else {
           formData.append(
             `acheivements[${index}][certifications_achievement_file]`,
-            ach.get("certifications_achievement_file")?.value ?? ""
+            ach.get("certifications_achievement_file")?.value ?? null
           );
         }
       });

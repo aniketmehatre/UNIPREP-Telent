@@ -222,4 +222,24 @@ RecentCompanies(){
       headers: headers,
   });
 }
+
+getUserNotification(){
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  return this.http.get<any>(environment.ApiUrl + "/getusersNotifications", {
+      headers: headers,
+  });
+}
+userNotificationread(id?: number, mode: 'single' | 'read_all' = 'single') {
+  const headers = new HttpHeaders().set("Accept", "application/json");
+  
+  const body =
+    mode === 'read_all'
+      ? { mode: 'read_all' }
+      : { id: id, mode: 'single' };
+
+  return this.http.post<any>(environment.ApiUrl + "/userNotificationread", body, {
+    headers: headers,
+  });
+}
+
 }
