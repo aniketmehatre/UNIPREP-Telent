@@ -712,20 +712,47 @@
 						</div>
 					</div> -->
           <div class="list-group">
-            <div
-              class="list-group-item d-flex justify-content-between align-items-center"
-              *ngFor="let n of notifications"
-              [ngClass]="{ 'isread': n.is_read == 1 }"
-              (click)="markAsRead(n)"
-            >
-              <i class="pi pi-bell"></i>
-              <div>
-                <h5>{{ n.title }}</h5>
-                <p class="mb-1">{{ n.message }}</p>
-                <small>{{ n.company_name }} — {{ n.created_at | date: 'medium' }}</small>
-              </div>
-            </div>
-          </div>
+  <div
+    class="list-group-item d-flex justify-content-between align-items-center position-relative"
+    *ngFor="let n of notifications"
+    [ngClass]="{ 'isread': n.is_read == 1 }"
+    (click)="markAsRead(n)"
+  >
+    <div>
+      <h5>{{ n.title }}</h5>
+      <p class="mb-1">{{ n.message }}</p>
+      <small>{{ n.company_name }} — {{ n.created_at | date: 'medium' }}</small>
+
+      <div
+        *ngIf="n.title === 'Document Request' && !n.is_accepted && !n.is_rejected"
+        class="mt-2"
+      >
+        <button
+          pButton
+          label="Accept"
+          type="button"
+          class="p-button-sm p-button-success me-2 text-white"
+          (click)="updateDocsStatus(n.id, 'Accepted', $event)"
+        ></button>
+
+        <button
+          pButton
+          label="Reject"
+          type="button"
+          class="p-button-sm p-button-danger text-white"
+          (click)="updateDocsStatus(n.id, 'Rejected', $event)"
+        ></button>
+      </div>
+    </div>
+
+    <div
+      *ngIf="n.is_read == 0"
+      class="dot position-absolute"
+      style="right: 10px; top: 12px; width: 10px; height: 10px; border-radius: 50%; background-color: #3f4c83;"
+    ></div>
+  </div>
+</div>
+
 				</p-tabpanel>
 
 				<!-- Archive Tab -->
