@@ -33,6 +33,7 @@ import { CountryLocationService } from "src/app/services/country-location.servic
 import { MultiSelectModule } from "primeng/multiselect"
 import { CommonService } from "src/app/services/common.service"
 import { UserSubscriptionService } from "src/app/services/user-subscription.service"
+import { ButtonModule } from "primeng/button"
 @Component({
 	selector: "uni-header",
 	templateUrl: "./header.component.html",
@@ -56,7 +57,8 @@ import { UserSubscriptionService } from "src/app/services/user-subscription.serv
 		InputGroupAddonModule,
 		TextareaModule,
 		AvatarGroupModule,
-		MultiSelectModule
+		MultiSelectModule,
+		ButtonModule
 	]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
@@ -1692,7 +1694,39 @@ markAsRead(notification: any) {
 markAllRead(event: Event) {
   event.preventDefault();
   this.dashboardService.userNotificationread(undefined, 'read_all').subscribe(() => {
-    this.notifications.forEach(n => (n.is_read = 1));
+    this.notifications.forEach((n) => {
+      if (
+        n.title === 'Document Request' &&
+        n.is_accepted === 0 &&
+        n.is_rejected === 0
+      ) {
+        return;
+      }
+      n.is_read = 1;
+    });
+  });
+}
+
+
+updateDocsStatus(id: number, type: string, event: MouseEvent) {
+  event.stopPropagation(); 
+  this.dashboardService.docsWalletStatus(id, type).subscribe({
+    next: (res: any) => {
+      console.log(`${type} successful`, res);
+      const notification = this.notifications.find((n) => n.id === id);
+        if (notification) {
+        notification.is_accepted = type === 'Accepted' ? 1 : 0;
+        notification.is_rejected = type === 'Rejected' ? 1 : 0;
+        if (!notification.is_read) {
+          this.dashboardService.userNotificationread(notification.id).subscribe(() => {
+            notification.is_read = 1;
+          });
+        }
+      }
+    },
+    error: (err) => {
+      console.error('Error updating document status', err);
+    },
   });
 }
 }

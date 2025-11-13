@@ -242,4 +242,8 @@ userNotificationread(id?: number, mode: 'single' | 'read_all' = 'single') {
   });
 }
 
+      docsWalletStatus(id:number,type:string) {
+        return this.http.post(`${environment.ApiUrl}/docaccepted`, {id,type});
+    }
+
 }
