@@ -30,7 +30,6 @@ import { ObjectModel } from "src/app/@Models/object.model"
 	styleUrls: ["./careerlists.component.scss"],
 	standalone: true,
 	imports: [CommonModule, DialogModule, SkeletonModule, RouterModule, CardModule, PaginatorModule, FormsModule, ReactiveFormsModule, CarouselModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule],
-	providers: [DataService],
 })
 export class CareerListsComponent implements OnInit {
 	isSkeletonVisible: boolean = true
@@ -144,12 +143,12 @@ export class CareerListsComponent implements OnInit {
 		return plainText.length > 75 ? plainText.slice(0, 75) + " ..." : plainText
 	}
 	openReport() {
-		const data = {
+		let data: any = {
 			isVisible: true,
 			moduleId: this.module_id,
 			questionId: this.selectedQuestionData?.id,
 			countryId: this.selectedQuestionData.country_id,
-		}
+		};
 		this.dataService.openReportWindow(data);
 	}
 
