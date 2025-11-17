@@ -46,7 +46,7 @@ export class JobListComponent implements OnInit {
   countries: any[] = [];
   jobStatusList: any[] = [];
   tabs = [{ label: 'All Jobs', active: true }];
-  hiringStatuses: { id: string, name: string }[] = [{ id: 'Active', name: 'Actively Hiring' }, { id: 'Future_Hiring', name: 'Future Hiring' }];
+  hiringStatuses: { id: string, name: string }[] = [{ id: 'ActivelyHiring', name: 'Actively Hiring' }, { id: 'FutureHiring', name: 'Future Hiring' }];
   hiringTypes: { id: number, name: string }[] = [{ id: 1, name: 'Company Hire' }, { id: 2, name: 'Co-Hire' }, { id: 3, name: 'Campus Hire' }];
   filterForm: FormGroup = new FormGroup({});
   isSkeletonVisible: boolean = true;
