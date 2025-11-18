@@ -23,8 +23,7 @@
 						<div class="row align-items-start">
 							<div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-4">
 								<div class="rounded-2 border overflow-hidden">
-									<img class="company-logo"
-										(error)="$event.target.src = '/uniprep-assets/images/job.webp'"
+									<img class="company-logo" (error)="$event.target.src = '/uniprep-assets/images/job.webp'"
 										[src]="jobDetails?.company_logo_url" alt="company_logo" />
 								</div>
 							</div>
@@ -50,16 +49,21 @@
 											</span>
 											}
 										</div>
-										<div class="d-block d-md-flex align-items-center gap-2" [ngClass]="{'blur-text': !authService._user?.current_plan_detail?.current_plan 
-               								|| authService._user?.current_plan_detail?.current_plan === 'Standard' }">
-											<div class="uniprep-secondary"><i class="fa-light fa-envelope"></i> {{
-												jobDetails.company_email }} <i class="fa-solid fa-copy"
-													[ngClass]="{'cursor-pointer': authService._user?.current_plan_detail?.current_plan != 'Standard'}"
-													(click)="copytext(jobDetails.company_email, 'email')"></i></div>
-											<div class="uniprep-primary"><i class="fa-regular fa-phone"></i>
-												+919035723087 <i class="fa-solid fa-copy"
-													[ngClass]="{'cursor-pointer': authService._user?.current_plan_detail?.current_plan != 'Standard'}"
-													(click)="copytext('+919035723087', 'phone')"></i></div>
+										<div class="d-block d-md-flex align-items-center gap-2">
+											<div class="contact-wrapper" [ngClass]="{'blur-text': shouldBlur}">
+												<div class="uniprep-secondary">
+													<i class="fa-light fa-envelope"></i>
+													<span>{{ visibleEmail }}</span>
+													<i class="fa-solid fa-copy" [ngClass]="{'cursor-pointer': !shouldBlur}"
+														(click)="copytextHandler(jobDetails?.email, 'email')"></i>
+												</div>
+												<!-- <div class="uniprep-primary">
+													<i class="fa-regular fa-phone"></i>
+													<span>{{ visiblePhone }}</span>
+													<i class="fa-solid fa-copy" [ngClass]="{'cursor-pointer': !shouldBlur}"
+														(click)="copytextHandler(jobDetails?.phone ?? '+919035723087', 'phone')"></i>
+												</div> -->
+											</div>
 										</div>
 										<div>Job Id: {{ jobDetails.id }}</div>
 									</div>
@@ -68,26 +72,18 @@
 											<div class="col-12 text-md-end text-center mb-2 d-md-block d-none">
 												<div class="d-flex gap-2">
 													<div class="position-relative w-100">
-														<button pButton label="Share Job" iconPos="right"
-															icon="pi pi-share-alt" class="btn btn-secondary w-100"
-															(click)="showSocialSharingList('socialSharingList')">
+														<button pButton label="Share Job" iconPos="right" icon="pi pi-share-alt"
+															class="btn btn-secondary w-100" (click)="showSocialSharingList('socialSharingList')">
 														</button>
 														<p-card id="socialSharingList">
 															<ul style="list-style: none; cursor: pointer">
-																<li (click)="shareQuestion('Whatsapp')"><i
-																		class="pi pi-whatsapp"></i>Whatsapp</li>
-																<li (click)="shareQuestion('Mail')"><i
-																		class="pi pi-envelope"></i>Email</li>
-																<li (click)="shareQuestion('Facebook')"><i
-																		class="pi pi-facebook"></i>Facebook</li>
-																<li (click)="shareQuestion('Twitter')"><i
-																		class="pi pi-twitter"></i>Twitter</li>
-																<li (click)="shareQuestion('Instagram')"><i
-																		class="pi pi-instagram"></i>Instagram</li>
-																<li (click)="shareQuestion('LinkedIn')"><i
-																		class="pi pi-linkedin"></i>LinkedIn</li>
-																<li (click)="copyLink($event, jobDetails)"><i
-																		class="pi pi-link"></i>Copy Link</li>
+																<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+																<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+																<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+																<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+																<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+																<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
+																<li (click)="copyLink($event, jobDetails)"><i class="pi pi-link"></i>Copy Link</li>
 															</ul>
 														</p-card>
 													</div>
@@ -96,37 +92,30 @@
 														(click)="showInfo = false"></button>
 													}
 													@if(!isShowApplyChat && isApplied) {
-													<button pButton class="p-button-success chat-btn w-100"
-														(click)="isShowApplyChat = true"><i class="pi pi-comments"></i>
+													<button pButton class="p-button-success chat-btn w-100" (click)="isShowApplyChat = true"><i
+															class="pi pi-comments"></i>
 														Chat</button>
 													}
 												</div>
 											</div>
 											<div class="col-12 d-block d-md-none">
 												@if(isApplied) {
-												<button class="p-button-success chat-btn w-100 mb-2" pButton
-													(click)="visible = true"><i class="pi pi-comments"></i>
+												<button class="p-button-success chat-btn w-100 mb-2" pButton (click)="visible = true"><i
+														class="pi pi-comments"></i>
 													Apply</button>
 												}
 												<div class="position-relative w-100">
-													<button pButton label="Share Job" iconPos="right"
-														icon="pi pi-share-alt" class="btn btn-secondary w-100"
-														(click)="showSocialSharingList('socialSharingListMobile')">
+													<button pButton label="Share Job" iconPos="right" icon="pi pi-share-alt"
+														class="btn btn-secondary w-100" (click)="showSocialSharingList('socialSharingListMobile')">
 													</button>
 													<p-card id="socialSharingListMobile">
 														<ul style="list-style: none; cursor: pointer">
-															<li (click)="shareQuestion('Whatsapp')"><i
-																	class="pi pi-whatsapp"></i>Whatsapp</li>
-															<li (click)="shareQuestion('Mail')"><i
-																	class="pi pi-envelope"></i>Email</li>
-															<li (click)="shareQuestion('Facebook')"><i
-																	class="pi pi-facebook"></i>Facebook</li>
-															<li (click)="shareQuestion('Twitter')"><i
-																	class="pi pi-twitter"></i>Twitter</li>
-															<li (click)="shareQuestion('Instagram')"><i
-																	class="pi pi-instagram"></i>Instagram</li>
-															<li (click)="shareQuestion('LinkedIn')"><i
-																	class="pi pi-linkedin"></i>LinkedIn</li>
+															<li (click)="shareQuestion('Whatsapp')"><i class="pi pi-whatsapp"></i>Whatsapp</li>
+															<li (click)="shareQuestion('Mail')"><i class="pi pi-envelope"></i>Email</li>
+															<li (click)="shareQuestion('Facebook')"><i class="pi pi-facebook"></i>Facebook</li>
+															<li (click)="shareQuestion('Twitter')"><i class="pi pi-twitter"></i>Twitter</li>
+															<li (click)="shareQuestion('Instagram')"><i class="pi pi-instagram"></i>Instagram</li>
+															<li (click)="shareQuestion('LinkedIn')"><i class="pi pi-linkedin"></i>LinkedIn</li>
 															<li (click)="copyLink()"><i class="pi pi-link"></i>Copy Link
 															</li>
 														</ul>
@@ -249,8 +238,7 @@
 									<div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
 										<div class="d-flex flex-column">
 											<div class="d-flex align-items-center mb-2">
-												<i class="fa fa-building-user me-2"
-													style="color: var(--p-secondary-500)"></i>
+												<i class="fa fa-building-user me-2" style="color: var(--p-secondary-500)"></i>
 												<div>
 													<span class="text-muted">Work Mode</span>
 													<div class="fw-bold text-break">{{
@@ -402,8 +390,7 @@
 													<div class="d-flex align-items-center gap-2">
 														<span class="me-2">{{ lang.lang }}</span>
 														@if(lang.level){
-														<p-rating style="font-size: large"
-															[ngModel]="getProficiencyRating(lang.level)"
+														<p-rating style="font-size: large" [ngModel]="getProficiencyRating(lang.level)"
 															[readonly]="true"></p-rating>
 														}
 													</div>
@@ -424,13 +411,13 @@
 								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
 									<div class="row">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Compensation<br
-													class="d-none d-md-block" />Structure</h2>
+											<h2 class="fs-3 fw-bold">Compensation<br class="d-none d-md-block" />Structure</h2>
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
 												@for (comp of jobDetails.compensation_structure; track comp) {
-												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ comp }}</span>
+												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ comp
+													}}</span>
 												}
 											</div>
 										</div>
@@ -447,13 +434,13 @@
 								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
 									<div class="row">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Additional Benefits<br
-													class="d-none d-md-block" />& Perks</h2>
+											<h2 class="fs-3 fw-bold">Additional Benefits<br class="d-none d-md-block" />& Perks</h2>
 										</div>
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
 												@for (benefit of jobDetails.benefits_perks; track benefit) {
-												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ benefit }}</span>
+												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													benefit }}</span>
 												}
 											</div>
 										</div>
@@ -475,7 +462,8 @@
 										<div class="col-12 col-md-9 font-bold">
 											<div class="d-flex flex-wrap gap-2">
 												@for (skill of jobDetails?.soft_skills; track skill) {
-												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ skill }}</span>
+												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ skill
+													}}</span>
 												}
 											</div>
 										</div>
@@ -500,14 +488,16 @@
 												@if(Array.isArray(jobDetails.hiring_stages) &&
 												jobDetails.hiring_stages.length > 0) {
 												@if(jobDetails.hiring_stages[0].id !== undefined) {
-													@for (stage of jobDetails.hiring_stages; track stage.name) {
-													 <span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage.name }}</span>
-													}
+												@for (stage of jobDetails.hiring_stages; track stage.name) {
+												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+													stage.name }}</span>
+												}
 												}
 												@if(jobDetails.hiring_stages[0].id === undefined) {
-													@for (stage of jobDetails.hiring_stages; track stage) {
-													<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage }}</span>
-													}
+												@for (stage of jobDetails.hiring_stages; track stage) {
+												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage
+													}}</span>
+												}
 												}
 												}
 												@if(!Array.isArray(jobDetails.hiring_stages)) {
@@ -562,9 +552,8 @@
 			}
 			<p-drawer #drawerRef [(visible)]="visible" position="right" [style]="{ width: '90vw' }">
 				<ng-template #headless>
-					<uni-job-chat-ui class="h-100" (openInfo)="showInfo = true" [showInfo]="showInfo"
-						[jobDetails]="jobDetails" [jobId]="appliedId" [isJobApplied]="false"
-						(closeChat)="isShowApplyChat = false"></uni-job-chat-ui>
+					<uni-job-chat-ui class="h-100" (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails"
+						[jobId]="appliedId" [isJobApplied]="false" (closeChat)="isShowApplyChat = false"></uni-job-chat-ui>
 				</ng-template>
 			</p-drawer>
 		</div>

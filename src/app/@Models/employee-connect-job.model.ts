@@ -34,11 +34,12 @@ export interface Job {
   languages: LangProficiency[];
   uuid: string;
   premium_users: number;
+  email?: string;
 }
 
 export interface LangProficiency {
   lang: string;
-  level: string
+  level: string;
 }
 
 export interface JobSoftSkills {
