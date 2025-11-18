@@ -89,9 +89,7 @@ export class FoundersacademyComponent implements OnInit {
 		window.open(this.openNextPageLink)
 	}
 	filterCat(id: any) {
-		if (!id) {
-			return;
-		}
+		if (id === undefined) return;
 		var data = {
 			category: id,
 			perpage: 10000,
