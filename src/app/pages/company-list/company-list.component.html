@@ -329,11 +329,11 @@
               <div class="form-group">
                 <div class="mb-3">
                   <p-multiSelect [options]="industryInterested" styleClass="w-100" formControlName="industry_interested"
-                    defaultLabel="Select Industry" optionValue="id" optionLabel="industry_name" #IndustriesMultiSelect
+                    defaultLabel="Select Industry" optionValue="id" optionLabel="industry_name"  #multiSelect
                     [appendTo]="'body'">
-                    <ng-template pTemplate="selectedItems">
-                      {{ IndustriesMultiSelect.defaultLabel }}
-                    </ng-template>
+                    <div *ngIf="filterForm.hasError('industry_name')" class="text-danger">
+                    {{ filterForm.getError("industry_name") }}
+                  </div>
                   </p-multiSelect>
                 </div>
               </div>
@@ -357,10 +357,10 @@
                 <div class="mb-3">
                   <p-multiSelect [options]="headQuartersList" styleClass="w-100" formControlName="head_quarters"
                     defaultLabel="Select Head Quarters" optionValue="id" optionLabel="head_quarters_name"
-                    #HeadMultiSelect [appendTo]="'body'">
-                    <ng-template pTemplate="selectedItems">
-                      {{ HeadMultiSelect.defaultLabel }}
-                    </ng-template>
+                    #multiSelect [appendTo]="'body'">
+                    <div *ngIf="filterForm.hasError('head_quarters_name')" class="text-danger">
+                    {{ filterForm.getError("head_quarters_name") }}
+                  </div>
                   </p-multiSelect>
                 </div>
               </div>

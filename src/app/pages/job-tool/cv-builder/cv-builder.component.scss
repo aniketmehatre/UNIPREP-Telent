@@ -976,3 +976,20 @@ body {
   :host ::ng-deep.p-editor .p-editor-content.ql-snow{
 	border: 2px solid #ccc !important;
   } 
+
+::ng-deep {
+  .p-select.p-disabled,
+  .p-select:disabled {
+    opacity: 0.6;
+    background-color: #f3f4f6;
+    cursor: not-allowed;
+    
+    .p-select-label {
+      color: #9ca3af;
+    }
+    
+    .p-select-dropdown {
+      display: none;
+    }
+  }
+}

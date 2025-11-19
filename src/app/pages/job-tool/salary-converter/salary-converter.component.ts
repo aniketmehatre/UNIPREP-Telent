@@ -82,6 +82,20 @@ export class SalaryConverterComponent implements OnInit {
 			return;
 		}
 
+		if (
+			!this.fromCountry ||
+			!this.toCountry ||
+			this.salary <= 0 ||
+			this.salary == null
+		) {
+			this.messageService.add({
+				severity: "error",
+				summary: "Error",
+				detail: "Please enter a valid salary amount",
+			});
+			return;
+		}
+
 		if (this.fromCountry && this.toCountry && this.salary) {
 			const fromPpp = this.selectedCountryCode
 			const toPpp = this.selectedToCountryCode
