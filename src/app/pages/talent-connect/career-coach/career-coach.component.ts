@@ -21,20 +21,18 @@ export class CareerCoachComponent {
     priceLabel = 'INR 799.00';
     amount = 799;
 
-    supportOptions = [
-        {label: 'Struggling to find a job', value: 'find-job'},
-        {label: 'Looking for career change', value: 'change'},
-        {label: 'Looking for career guidance', value: 'guidance'},
-        {label: 'Others', value: 'others'},
-    ];
+    supportOptions = [];
 
     form = this.fb.group({
-        support: [this.supportOptions[0].value, Validators.required],
+        support: [ Validators.required],
         notes: ['', [Validators.required, Validators.minLength(10)]],
     });
 
     constructor(private fb: FormBuilder, private winRef: WindowRefService,
                 private toast: MessageService, private talentConnectService: TalentConnectService) {
+                    this.talentConnectService.supportDropdown().subscribe((response: any) => {
+                        this.supportOptions = response.data.supportOptions;
+                    })
     }
 
     get f() {

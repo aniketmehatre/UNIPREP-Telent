@@ -343,4 +343,10 @@ export class TalentConnectService {
         return this.http.post(`${environment.ApiUrl}/complete-career-coach-transaction`, req);
     }
 
+    supportDropdown(): Observable<any> {
+        return this.http.get(
+            environment.ApiUrl + `/place-career-coach-dropdowns`
+        );
+    }
+
 }
