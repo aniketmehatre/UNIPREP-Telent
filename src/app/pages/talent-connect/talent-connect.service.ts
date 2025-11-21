@@ -343,4 +343,11 @@ export class TalentConnectService {
         return this.http.post(`${environment.ApiUrl}/complete-career-coach-transaction`, req);
     }
 
+    getCareerCoach(data: any) {
+    return this.http.post<any>(
+      `${environment.ApiUrl}/career-coach-transaction-histories`,
+      data
+    );
+  }
+
 }

@@ -1,18 +1,30 @@
 <div class="card readingcard">
-    <div class="card-header border-0 bg-transparent">
-        <div class="row">
-            <div class="col-md-12 d-flex gap-2 text-center">
-                <div class="select-title text-nowrap d-flex justify-content-start align-items-center">
-                    <div class="d-flex gap-2">
+  <div class="card-header border-0 bg-transparent">
+    <div class="row">
+      <div class="col-md-12 d-flex gap-2 text-center">
+        <div class="select-title text-nowrap d-flex justify-content-start align-items-center">
+          <div class="d-flex gap-2">
                         <h5 routerLink="/pages/dashboard" role="button" class="mb-0" tooltipPosition="top" pTooltip=""><i class="fa-regular fa-home"></i></h5>
-                        <span><i class="fa-solid fa-chevron-right"></i></span>
+            <span><i class="fa-solid fa-chevron-right"></i></span>
                         <h5 routerLink="/pages/mycertificate" role="button" class="mb-0" tooltipPosition="top" pTooltip="This section provides a comprehensive walkthrough on the UNIPREP platform.">Career Coach</h5>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
+      <div class="col-md-12 d-flex justify-content-end gap-2 mt-3">
+        <button pButton type="button" (click)="loadCareerCoachData()" *ngIf="!coachView"
+          class="btn btn-primary btn-rounded py-2 px-4">
+          <i class="pi pi-history"></i>
+          <span>History</span>
+        </button>
+
+        <button pButton type="button" (click)="coachView = !coachView" *ngIf="coachView"
+          class="btn btn-primary btn-rounded py-2 px-4">
+          <i class="pi pi-plus"></i><span>New</span>
+        </button>
+      </div>
     </div>
-  <div class="card-body">
+  </div>
+  <div class="card-body" *ngIf="!coachView">
     <form [formGroup]="form" (ngSubmit)="bookSession()" novalidate>
       <div class="field mb-4">
         <label class="fw-semibold mb-2">What support are you looking for?</label>
@@ -39,5 +51,64 @@
         <button pButton type="submit" label="Book a Session" icon="fa-regular fa-arrow-right" iconPos="right" class="p-button-success"></button>
       </div>
     </form>
+  </div>
+</div>
+
+<div style="width: 100%; height: 80vh; overflow: auto; overflow-x: hidden" class="mt-2 table-employer bg-white"
+  *ngIf="coachView">
+  <p-table size="small" scrollHeight="600px" [value]="employeesList" [tableStyle]="{ 'min-width': '110rem' }"
+    dataKey="id" [rowHover]="true" [scrollable]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name">
+          Student Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="is_payment_completed">
+          Payment Status <p-sortIcon field="is_payment_completed"></p-sortIcon>
+        </th>
+        <th pSortableColumn="amount">
+          Amount <p-sortIcon field="amount"></p-sortIcon>
+        </th>
+        <th pSortableColumn="support">
+          Support <p-sortIcon field="support"></p-sortIcon>
+        </th>
+        <th pSortableColumn="notes">
+          Notes <p-sortIcon field="notes"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-employee>
+      <tr>
+        <td>
+          <div class="d-flex align-items-center">
+            <img [src]="employee?.profile_image" class="rounded-circle mr-2" width="40" height="40" />
+            <div>
+              {{ employee?.name }}
+              <i *ngIf="employee?.verified" class="pi pi-check-circle text-success"></i><br />
+              <small class="text-muted">Profile Updated On {{ employee?.updated_at }}</small>
+            </div>
+          </div>
+        </td>
+        <td>
+          {{ employee?.is_payment_completed == 1 ? 'Paid' : 'Unpaid' }}
+        </td>
+        <td>{{ employee?.amount }}</td>
+        <td>{{ employee?.support }}</td>
+        <td>{{ employee?.notes}}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4" class="text-center p-4">
+          No data available
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+
+  <div class="footer-section p-3 d-flex justify-content-center">
+    <p-paginator (onPageChange)="pageChange($event)" [rows]="perPage" [totalRecords]="totalEmployeeCount"
+      [rowsPerPageOptions]="[10, 50, 100]"></p-paginator>
   </div>
 </div>

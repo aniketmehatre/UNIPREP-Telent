@@ -7,3 +7,10 @@
 :host ::ng-deep .p-select {
   width: 100%;
 }
+
+::ng-deep.p-paginator {
+  display: flex;
+  flex-wrap: nowrap !important;
+  justify-content: center;
+  align-items: center;
+}
