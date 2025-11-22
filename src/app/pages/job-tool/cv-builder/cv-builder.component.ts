@@ -28,13 +28,14 @@ import { SkeletonModule } from "primeng/skeleton";
 import { SharedModule } from "src/app/shared/shared.module";
 import { ProgressBarModule } from 'primeng/progressbar';
 import { experienceLevel, monthList, cgpaPercentage, workTypeValue, languageProficiency, skillProficiency, languageLists, resumeSlider, CommonInterface, ResumeHistory, JobTitle } from "./cv-builder.data";
+import { ConfirmPopupModule } from "primeng/confirmpopup";
 
 @Component({
   selector: "uni-cv-builder",
   templateUrl: "./cv-builder.component.html",
   styleUrls: ["./cv-builder.component.scss"],
   standalone: true,
-  imports: [CommonModule, DialogModule, TextareaModule, DrawerModule , EditorModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TooltipModule, ToastModule, SharedModule, SkeletonModule, ProgressBarModule],
+  imports: [CommonModule, DialogModule, TextareaModule, DrawerModule , EditorModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TooltipModule, ToastModule, SharedModule, SkeletonModule, ProgressBarModule,ConfirmPopupModule],
   providers: [CvBuilderService, ConfirmationService, MessageService]
 })
 export class CvBuilderComponent implements OnInit, AfterViewInit {
@@ -329,7 +330,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
             this.getWorkExpArray.push(
               this.fb.group({
                 work_org_name: [activity.work_org_name, [Validators.required, maxCharactersValidator(40)]],
-                work_currently_working: [activity.work_currently_working],
+                work_currently_working: [activity.work_currently_working || false],
                 work_start_year: [activity.work_start_year, Validators.required],
                 work_start_month: [activity.work_start_month, Validators.required],
                 work_end_year: [activity.work_end_year, Validators.required],
@@ -368,7 +369,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
             this.getEduDetailsArray.push(
               this.fb.group({
                 edu_college_name: [element.edu_college_name, [Validators.required, maxCharactersValidator(85)]],
-                edu_still_pursuing: [element.edu_still_pursuing],
+                edu_still_pursuing: [element.edu_still_pursuing || false],
                 edu_start_year: [element.edu_start_year, Validators.required],
                 edu_end_year: [element.edu_end_year, Validators.required],
                 edu_degree: [element.edu_degree, [Validators.required, maxCharactersValidator(40)]],
@@ -910,7 +911,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     this.getEduDetailsArray.push(
       this.fb.group({
         edu_college_name: ["", [Validators.required, maxCharactersValidator(85)]],
-        edu_still_pursuing: [""],
+        edu_still_pursuing: [false],
         edu_start_year: ["", Validators.required],
         edu_end_year: ["", Validators.required],
         edu_degree: ["", [Validators.required, maxCharactersValidator(40)]],
@@ -968,7 +969,7 @@ export class CvBuilderComponent implements OnInit, AfterViewInit {
     this.getWorkExpArray.push(
       this.fb.group({
         work_org_name: ["", [Validators.required, maxCharactersValidator(40)]],
-        work_currently_working: [""],
+        work_currently_working: [false],
         work_start_year: ["", Validators.required],
         work_start_month: ["", Validators.required],
         work_end_year: ["", Validators.required],

@@ -24,14 +24,16 @@ import { EditorModule } from "primeng/editor"
 import { SkeletonModule } from "primeng/skeleton"
 import { maxWordsValidator } from "src/app/@Supports/max-word-validator";
 import { coverLetterSliders, ResumeHistory, JobTitle } from "../cv-builder/cv-builder.data";
+import { ConfirmPopupModule } from "primeng/confirmpopup"
+import { ToastModule } from "primeng/toast"
 
 @Component({
 	selector: "uni-cover-letter-builder",
 	templateUrl: "./cover-letter-builder.component.html",
 	styleUrls: ["./cover-letter-builder.component.scss"],
 	standalone: true,
-	imports: [CommonModule, EditorModule, DialogModule, DrawerModule , SkeletonModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule],
-	providers: [ConfirmationService, TooltipModule],
+	imports: [CommonModule, EditorModule, DialogModule, DrawerModule , SkeletonModule, RouterModule, CardModule, FormsModule, ReactiveFormsModule, ButtonModule, MultiSelectModule, SelectModule, InputGroupModule, InputTextModule, InputGroupAddonModule, TextareaModule,ConfirmPopupModule,TooltipModule,ToastModule],
+	providers: [ConfirmationService],
 })
 export class CoverLetterBuilderComponent implements OnInit {
 	selectedResumeLevel: string = ""
@@ -179,26 +181,26 @@ export class CoverLetterBuilderComponent implements OnInit {
 		}
 	}
 
-	confirm(event: Event, resumeLink: string, resumeId: number) {
-		this.confirmService.confirm({
-			target: event.target as EventTarget,
+confirm(event: Event, resumeLink: string, resumeId: number) {
+	this.confirmService.confirm({
+		target: event.target as EventTarget,
 			message: "Are you sure that you want to proceed?",
-			icon: "pi pi-exclamation-triangle",
-			accept: () => {
-				const data = {
-					resumeLink: resumeLink,
-					resumeId: resumeId,
-				}
+		icon: "pi pi-exclamation-triangle",
+		accept: () => {
+			const data = {
+				resumeLink: resumeLink,
+				resumeId: resumeId,
+			}
 				this.resumeService.deleteCoverLetter(data).subscribe((res) => {
 					this.previousResumes()
 					this.toaster.add({ severity: res.status, summary: res.status, detail: res.message })
 				})
-			},
-			reject: () => {
+		},
+		reject: () => {
 				this.toaster.add({ severity: "error", summary: "Error", detail: "you declined." })
-			},
+		},
 		})
-	}
+}
 
 	resumeFormSubmit() {
 		const visibleFormControls = this.getVisibleFormControls()

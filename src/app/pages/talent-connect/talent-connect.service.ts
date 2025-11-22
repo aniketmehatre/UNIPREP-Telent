@@ -349,5 +349,10 @@ export class TalentConnectService {
       data
     );
   }
+    supportDropdown(): Observable<any> {
+        return this.http.get(
+            environment.ApiUrl + `/place-career-coach-dropdowns`
+        );
+    }
 
 }

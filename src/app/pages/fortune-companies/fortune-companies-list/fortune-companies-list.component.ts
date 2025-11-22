@@ -56,8 +56,8 @@ export class FortuneCompaniesListsComponent implements OnInit {
       country: [''],
       industry_interested: [''],
       employer_size:[''],
-      startYear:[''],
-      endYear:[''],
+      startYear:[null],
+      endYear:[null],
       location:[''],
     });
   }
@@ -89,24 +89,39 @@ export class FortuneCompaniesListsComponent implements OnInit {
     this.valueNearYouFilter = this.prepData?.searchText;
     this.getFortuneCompanyList();
   }
-  getFortuneCompanyList() {
-    var data = {
-      page: this.page,
-      perPage: this.perpage,
-      country: this.filterForm.value.country,
-      search: this.filterForm.value.searchinput,
-      industry:Array.isArray(this.filterForm.value.industry_interested)?this.filterForm.value.industry_interested.join(','):'',
-      end_year: this.filterForm.value.endYear,
-      start_year: this.filterForm.value.startYear,
-      size:Array.isArray(this.filterForm.value.employer_size)?this.filterForm.value.employer_size.join(','):'',
-      hq:this.filterForm.value.location,
-    }
-    this.service.getfortunecompanieslists(data).subscribe((res) => {
-      this.isSkeletonVisible = false;
-      this.totalDataCount = res.total_count;
-      this.moduleList = res.data;
-    });
+ private extractYear(dateValue: any): number | null {
+  if (!dateValue) return null;
+  if (typeof dateValue === 'number') return dateValue;
+  if (dateValue instanceof Date) return dateValue.getFullYear();
+  if (typeof dateValue === 'string') {
+    const parsed = parseInt(dateValue);
+    return isNaN(parsed) ? null : parsed;
   }
+  return null;
+}
+
+getFortuneCompanyList() {
+  var data = {
+    page: this.page,
+    perPage: this.perpage,
+    country: this.filterForm.value.country,
+    search: this.filterForm.value.searchinput,
+    industry: Array.isArray(this.filterForm.value.industry_interested) 
+      ? this.filterForm.value.industry_interested.join(',') 
+      : '',
+    end_year: this.extractYear(this.filterForm.value.endYear),
+    start_year: this.extractYear(this.filterForm.value.startYear),
+    size: Array.isArray(this.filterForm.value.employer_size) 
+      ? this.filterForm.value.employer_size.join(',') 
+      : '',
+    hq: this.filterForm.value.location,
+  }
+  this.service.getfortunecompanieslists(data).subscribe((res) => {
+    this.isSkeletonVisible = false;
+    this.totalDataCount = res.total_count;
+    this.moduleList = res.data;
+  });
+}
   getCountryList() {
     this.service.getfortunecompaniescountrylists().subscribe((countryList: any) => {
       this.countryLists = countryList;
