@@ -12,7 +12,8 @@
 				<p class="px-3 fw-semibold text-small mb-2"><span class="maintext">Main</span> Menu</p>
 			</li>
 			@for (item of filteredMenus; track $index) {
-			<li [ngClass]="{ 'menu-item': true, active: item.active && !item?.restricted && !item?.sameUrl, overlap: isOverlap }"
+			<li
+				[ngClass]="{ 'menu-item': true, active: item.active && !item?.restricted && !item?.sameUrl, overlap: isOverlap }"
 				(click)="listClick($event, item)">
 				@if (item.header) {
 				<div class="system-main__apps header">
@@ -29,15 +30,19 @@
 					</div>
 					@if(item?.title != 'Support') {
 					<div>
-						@if(item?.accordionStatus) {<i class="fa-light fa-chevron-down"
-							(click)="onOpenCloseSubMenu(item, 'open')"></i>}
-						@else{<i class="fa-light fa-chevron-up" (click)="onOpenCloseSubMenu(item, 'close')"></i>}
+						@if(item?.accordionStatus) {
+						<i class="fa-light fa-chevron-down" (click)="onOpenCloseSubMenu(item, 'open')"></i>
+						}
+						@else{
+						<i class="fa-light fa-chevron-up" (click)="onOpenCloseSubMenu(item, 'close')"></i>
+						}
 					</div>
 					}
 				</div>
 				}
 				@if (!item?.subMenu) {
-				<div [ngClass]="getMenuClasses(item)" class="system-main__apps" (click)="onexpand(item)" data-bs-dismiss="offcanvas">
+				<div [ngClass]="getMenuClasses(item)" class="system-main__apps" (click)="onexpand(item)"
+					data-bs-dismiss="offcanvas">
 					<span class="system-main__icon" title="{{ item.title }}"><i class="{{ item.image }}"></i></span>
 					<span class="system-main__name"> {{ item.title }}
 						@if(item?.popular) {
@@ -93,8 +98,7 @@
 			</div>
 			@if(item?.title != 'Support') {
 			<div>
-				@if(item?.accordionStatus) {<i class="fa-light fa-chevron-down"
-					(click)="onOpenCloseSubMenu(item, 'open')"></i>}
+				@if(item?.accordionStatus) {<i class="fa-light fa-chevron-down" (click)="onOpenCloseSubMenu(item, 'open')"></i>}
 				@else{<i class="fa-light fa-chevron-up" (click)="onOpenCloseSubMenu(item, 'close')"></i>}
 			</div>
 			}

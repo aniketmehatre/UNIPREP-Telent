@@ -1,19 +1,37 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
 import { PageFacadeService } from "./page-facade.service";
 import { SubSink } from "subsink";
-import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/router";
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterModule,
+} from "@angular/router";
 import { DataService } from "../services/data.service";
 import { AuthService } from "../Auth/auth.service";
 import { DeviceDetectorService } from "ngx-device-detector";
 import { CommonModule } from "@angular/common";
 // @ts-ignore
-import { DomSanitizer, Meta, SafeResourceUrl, Title } from "@angular/platform-browser";
+import {
+  DomSanitizer,
+  Meta,
+  SafeResourceUrl,
+  Title,
+} from "@angular/platform-browser";
 import { LocationService } from "../services/location.service";
 import { HeaderComponent } from "@theme/components/header/header.component";
 import { SidenavComponent } from "@theme/components/sidenav/sidenav.component";
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
-import { HeaderSearchComponent } from "./header-search/header-search.component"
+import { DialogModule } from "primeng/dialog";
+import { ButtonModule } from "primeng/button";
+import { HeaderSearchComponent } from "./header-search/header-search.component";
 import { StorageService } from "../services/storage.service";
 import { ScrollTopModule } from "primeng/scrolltop";
 import { howItWorksLinks } from "../shared/commonData";
@@ -37,8 +55,8 @@ import { UserSubscriptionService } from "../services/user-subscription.service";
 })
 export class PagesComponent implements OnInit, OnDestroy {
   @ViewChild("videoFrame") videoFrame: ElementRef | undefined;
-  hovered: 'ai' | null = null;
-  hovered1: 'wa' | null = null;
+  hovered: "ai" | null = null;
+  hovered1: "wa" | null = null;
 
   sidebarClass = "";
   stickHeader = false;
@@ -56,22 +74,34 @@ export class PagesComponent implements OnInit, OnDestroy {
   imageUrlWhitelabel: string | null = null;
   footerIsShow: boolean = true;
   ogTitle = "";
-  ogDescription = "UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad. Sign-up Now - Free!";
+  ogDescription =
+    "UNIPREP is a one-stop platform for students, graduates & entrepreneurs, seeking information on Career, Life and Study abroad. Sign-up Now - Free!";
   ogImage = "../../uniprep-assets/images/uniprep-light.svg";
   ehitlabelIsShow: boolean = true;
   orgnamewhitlabel: any;
   isPageLoad!: boolean;
 
-  @Output() expandicon = !this.sidebarClass ? "pi-align-right" : "pi-align-justify";
+  @Output() expandicon = !this.sidebarClass
+    ? "pi-align-right"
+    : "pi-align-justify";
   private subs = new SubSink();
 
   howItWorkVideoLinks: any = howItWorksLinks;
 
-  constructor(private pageFacade: PageFacadeService, private router: Router, private dataService: DataService,
-    public meta: Meta, private locationService: LocationService,
-    private service: AuthService, private deviceService: DeviceDetectorService,
-    private sanitizer: DomSanitizer, private storage: StorageService, private route: ActivatedRoute,
-    private http: HttpClient, private userSubscriptionService: UserSubscriptionService) {
+  constructor(
+    private pageFacade: PageFacadeService,
+    private router: Router,
+    private dataService: DataService,
+    public meta: Meta,
+    private locationService: LocationService,
+    private service: AuthService,
+    private deviceService: DeviceDetectorService,
+    private sanitizer: DomSanitizer,
+    private storage: StorageService,
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private userSubscriptionService: UserSubscriptionService
+  ) {
     // dev
     //  Contlo.init('d7a84b3a1d83fa9f7e33f7396d57ac88', 'https://dev-student.uniprep.ai');
 
@@ -89,11 +119,25 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.deviceCheck();
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        if (val.url.includes("subscriptions") || val.url.includes("dashboard") || val.url.includes("userguide") || val.url.includes("digital-job-fair")
-          || val.url.includes("support-help") || val.url.includes("usermanagement") || val.url.includes("chat")
-          || val.url.includes("guideline") || val.url.includes("termsandcondition") || val.url.includes("privacypolicy")
-          || val.url.includes("refundpolicy") || val.url.includes("cancellationpolicy") || val.url.includes("export-credit")
-          || val.url.includes("cv-builder") || val.url.includes("coverletter-builder") || val.url.includes("talent-connect")) {
+        if (
+          val.url.includes("subscriptions") ||
+          val.url.includes("dashboard") ||
+          val.url.includes("userguide") ||
+          val.url.includes("digital-job-fair") ||
+          val.url.includes("support-help") ||
+          val.url.includes("usermanagement") ||
+          val.url.includes("chat") ||
+          val.url.includes("guideline") ||
+          val.url.includes("termsandcondition") ||
+          val.url.includes("privacypolicy") ||
+          val.url.includes("refundpolicy") ||
+          val.url.includes("cancellationpolicy") ||
+          val.url.includes("export-credit") ||
+          val.url.includes("cv-builder") ||
+          val.url.includes("coverletter-builder") ||
+          val.url.includes("talent-connect") ||
+          val.url.includes("talent-support")
+        ) {
           this.showSearch = false;
           //this.isFooterBoxVisible = false;
         } else {
@@ -137,18 +181,22 @@ export class PagesComponent implements OnInit, OnDestroy {
   imageWhiteLabelDomainName: any;
   ngOnInit(): void {
     // Update the user details
-    this.route.data.subscribe(data => {
-      this.service._user = data['user']['userdetails'][0];
+    this.route.data.subscribe((data) => {
+      this.service._user = data["user"]["userdetails"][0];
     });
-    this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
-      this.orgnamewhitlabel = data.name,
-        this.imageUrlWhitelabel = data.logo,
-        this.imageWhiteLabelDomainName = data.source
-      this.ehitlabelIsShow = this.imageWhiteLabelDomainName === "Uniprep" ||
-        this.imageWhiteLabelDomainName === "Partner"
-      this.footerIsShow = this.imageWhiteLabelDomainName === "Uniprep" ||
-        this.imageWhiteLabelDomainName === "Partner"
-    })
+    this.locationService
+      .getSourceByDomain(window.location.hostname)
+      .subscribe((data: any) => {
+        (this.orgnamewhitlabel = data.name),
+          (this.imageUrlWhitelabel = data.logo),
+          (this.imageWhiteLabelDomainName = data.source);
+        this.ehitlabelIsShow =
+          this.imageWhiteLabelDomainName === "Uniprep" ||
+          this.imageWhiteLabelDomainName === "Partner";
+        this.footerIsShow =
+          this.imageWhiteLabelDomainName === "Uniprep" ||
+          this.imageWhiteLabelDomainName === "Partner";
+      });
 
     this.service.getTimeInfoForCard().subscribe((data) => {
       this.storage.set("time_card_info", data.card_message);
@@ -214,20 +262,20 @@ export class PagesComponent implements OnInit, OnDestroy {
 
     // Get the raw URL string from SafeResourceUrl
     const safeUrl = this.howItWorksVideoLink.toString();
-    const embedUrl = safeUrl.replace('unsafe:', ''); // Remove 'unsafe:' prefix if present
+    const embedUrl = safeUrl.replace("unsafe:", ""); // Remove 'unsafe:' prefix if present
 
     // Extract video ID from embed URL
-    const videoId = embedUrl.split('/embed/')[1]?.split('?')[0];
+    const videoId = embedUrl.split("/embed/")[1]?.split("?")[0];
     if (videoId) {
       const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
-      window.open(youtubeUrl, '_blank');
+      window.open(youtubeUrl, "_blank");
     }
   }
 
   closeVideoPopup() {
     if (this.videoFrame && this.videoFrame.nativeElement) {
       const player = this.videoFrame.nativeElement as HTMLIFrameElement;
-      player.src = '';
+      player.src = "";
     }
     this.howItWorksVideoLink = null;
     this.howItWorksVideoModal = false;
@@ -244,25 +292,30 @@ export class PagesComponent implements OnInit, OnDestroy {
         if (videoId) {
           // Create a safe embed URL
           const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-          this.howItWorksVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+          this.howItWorksVideoLink =
+            this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
         } else {
-          console.error('Invalid YouTube video ID');
+          console.error("Invalid YouTube video ID");
           this.howItWorksVideoModal = false;
         }
       } else {
         // For non-YouTube videos, ensure the URL is valid before sanitizing
         const url = new URL(link); // This will throw if URL is invalid
-        this.howItWorksVideoLink = this.sanitizer.bypassSecurityTrustResourceUrl(url.toString());
+        this.howItWorksVideoLink =
+          this.sanitizer.bypassSecurityTrustResourceUrl(url.toString());
       }
     } catch (error) {
-      console.error('Error processing video URL:', error);
+      console.error("Error processing video URL:", error);
       this.howItWorksVideoModal = false;
     }
   }
 
   private isYoutubeVideoLink(link: string): boolean {
     if (!link) return false;
-    return link.toLowerCase().includes('youtube.com') || link.toLowerCase().includes('youtu.be');
+    return (
+      link.toLowerCase().includes("youtube.com") ||
+      link.toLowerCase().includes("youtu.be")
+    );
   }
 
   private extractYoutubeVideoId(url: string): string | null {
@@ -271,7 +324,7 @@ export class PagesComponent implements OnInit, OnDestroy {
     // Handle various YouTube URL formats
     const patterns = [
       /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^#\&\?]*).*/,
-      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/,
     ];
 
     for (const pattern of patterns) {
@@ -290,22 +343,21 @@ export class PagesComponent implements OnInit, OnDestroy {
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
         this.getCountryBYGEOLocation(longitude, latitude);
-      })
+      });
     } else {
-      console.log("No support for geolocation")
+      console.log("No support for geolocation");
     }
   }
 
   getCountryBYGEOLocation(longitude: number, latitude: number) {
-    const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
     this.http.get<any>(url).subscribe(
       (data: any) => {
         this.storage.set("currentCountryByGEOLocation", data?.address);
       },
       (error: any) => {
-        console.log("Error fetching location:", error)
+        console.log("Error fetching location:", error);
       }
-    )
+    );
   }
-
 }

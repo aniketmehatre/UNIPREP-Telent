@@ -1,0 +1,101 @@
+.hs-page {
+  height: 100%;
+}
+
+.hs-body {
+  position: relative;
+  min-height: calc(90vh - 160px); // header + margins safe estimate
+  gap: 0.75rem;
+}
+
+.hs-scroll {
+  overflow-y: auto;
+  padding-bottom: 88px; // space so last input not hidden under sticky footer
+}
+
+.hs-footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-top: 1px solid #e9ecef;
+  padding: 12px 16px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  z-index: 5;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.requirement {
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  padding: 0;
+}
+
+.requirement-header {
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.requirement-body {
+  padding: 16px;
+}
+
+.how-it-works-button,
+.filter-button {
+  border-radius: 20px;
+}
+
+
+// Info icon next to labels
+.hs-info {
+  color: #6c757d;
+  font-size: 1rem; // similar to text size
+  cursor: help;
+  margin-left: 4px;
+}
+
+.hs-info:hover,
+.hs-info:focus {
+  color: #fda172; // brand accent
+  outline: none;
+}
+
+// Style tooltip appended to body
+:host ::ng-deep .hs-tooltip .p-tooltip-text {
+  white-space: normal; // allow wrapping
+  max-width: 280px;
+  line-height: 1.35;
+}
+
+.info-icon {
+  margin-left: 8px;
+  color: #f7941e;
+  cursor: help;
+  vertical-align: middle;
+}
+
+/* tooltip style */
+.p-tooltip {
+  background: #000 !important;
+  color: #fff !important;
+  border-radius: 10px;
+  padding: 12px !important;
+}
+
+/* inner HTML content tweak (if needed) */
+.tooltip-note {
+  font-size: 1rem;
+  display: block;
+  width: 100% !important;
+  margin-bottom: 8px;
+}
+
+.no-radius {
+  border-radius: 0 !important;
+  -webkit-border-radius: 0 !important;
+}

@@ -1,5 +1,13 @@
 import { CommonModule } from "@angular/common";
-import { Component, ContentChild, EventEmitter, Input, Output, signal, TemplateRef } from "@angular/core";
+import {
+  Component,
+  ContentChild,
+  EventEmitter,
+  Input,
+  Output,
+  signal,
+  TemplateRef,
+} from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { TieredMenuModule } from "primeng/tieredmenu";
 import { filter } from "rxjs";
@@ -40,7 +48,7 @@ export interface SideMenu {
 })
 export class SidenavComponent {
   talentUrl: string;
-  isPartner = signal(false)
+  isPartner = signal(false);
   @ContentChild("appTitle") appTitle!: TemplateRef<any>;
   @Output() active = new EventEmitter<SideMenu>();
   @Input() isOverlap = false;
@@ -56,7 +64,7 @@ export class SidenavComponent {
       url: "",
       image: "",
       subMenu: true,
-      accordionStatus: false
+      accordionStatus: false,
     },
     {
       title: "K12 Academy",
@@ -75,7 +83,7 @@ export class SidenavComponent {
       url: "",
       image: "",
       subMenu: true,
-      accordionStatus: true
+      accordionStatus: true,
     },
     {
       title: "Create Job Profile",
@@ -83,13 +91,24 @@ export class SidenavComponent {
       image: "fa-regular fa-user",
       subMenuBy: "Job Board",
     },
+    // {
+    //   title: "Talent Support",
+    //   url: "/pages/talent-support",
+    //   image: "fa-regular fa-handshake",
+    //   subMenuBy: "Job Board",
+    // },
     {
       title: "Job Search",
       url: "/pages/talent-connect/easy-apply",
       image: "fa-regular fa-user-hat-tie-magnifying-glass",
       subMenuBy: "Job Board",
       mostPopular: true,
-
+    },
+    {
+      title: "Docs Wallet",
+      url: "/pages/talent-connect/docs-wallet",
+      image: "fa-regular fa-folders",
+      subMenuBy: "Job Board",
     },
     {
       title: "Job Tracker",
@@ -102,7 +121,7 @@ export class SidenavComponent {
       url: "/pages/digital-job-fair",
       image: "fa-regular fa-users",
       subMenuBy: "Job Board",
-      popular: true
+      popular: true,
     },
     {
       title: "Company Search",
@@ -117,17 +136,11 @@ export class SidenavComponent {
       subMenuBy: "Job Board",
     },
     {
-      title: "Docs Wallet",
-      url: "/pages/talent-connect/docs-wallet",
-      image: "fa-regular fa-folders",
-      subMenuBy: "Job Board",
-    },
-    {
       title: "Career Coach",
       url: "/pages/talent-connect/career-coach",
       image: "fa-solid fa-user-graduate",
       subMenuBy: "Job Board",
-      mostPopular: true
+      mostPopular: true,
     },
     {
       title: "Career",
@@ -135,7 +148,7 @@ export class SidenavComponent {
       image: "",
       subMenu: true,
       premium: true,
-      accordionStatus: false
+      accordionStatus: false,
     },
     // {
     //   title: "Career Hub",
@@ -160,7 +173,7 @@ export class SidenavComponent {
       url: "/pages/job-tool/career-tool",
       image: "fa-solid fa-file-user",
       subMenuBy: "Career",
-      popular: true
+      popular: true,
     },
     {
       title: "Entrepreneur",
@@ -168,7 +181,7 @@ export class SidenavComponent {
       image: "",
       subMenu: true,
       premium: true,
-      accordionStatus: false
+      accordionStatus: false,
     },
     {
       title: "Startup Kit",
@@ -187,7 +200,7 @@ export class SidenavComponent {
       url: "/pages/pitch-deck",
       image: "fa-solid fa-presentation-screen",
       subMenuBy: "Entrepreneur",
-      popular: true
+      popular: true,
     },
     {
       title: "International Education",
@@ -195,7 +208,7 @@ export class SidenavComponent {
       image: "",
       subMenu: true,
       premium: true,
-      accordionStatus: false
+      accordionStatus: false,
     },
     // {
     //   title: "Global Repository",
@@ -208,7 +221,7 @@ export class SidenavComponent {
       url: "/pages/unilearn/modules",
       image: "fa-solid fa-ballot",
       subMenuBy: "International Education",
-      popular: true
+      popular: true,
     },
     {
       title: "UNISCHOLAR",
@@ -221,7 +234,7 @@ export class SidenavComponent {
       url: "/pages/course-list",
       image: "fa-solid fa-landmark-magnifying-glass",
       subMenuBy: "International Education",
-      popular: true
+      popular: true,
     },
     {
       title: "Education Tools",
@@ -235,28 +248,28 @@ export class SidenavComponent {
       image: "",
       subMenu: true,
       premium: true,
-      accordionStatus: false
+      accordionStatus: false,
     },
     {
       title: "Language Hub",
       url: "/pages/language-hub",
       image: "fa-solid fa-books",
       subMenuBy: "Travel & Life",
-      popular: true
+      popular: true,
     },
     {
       title: "Travel Tools",
       url: "/pages/travel-tools",
       image: "fa-solid fa-compass",
       subMenuBy: "Travel & Life",
-      popular: true
+      popular: true,
     },
     {
       title: "Others",
       url: "",
       image: "",
       subMenu: true,
-      accordionStatus: false
+      accordionStatus: false,
     },
     {
       title: "AI Global Advisor",
@@ -280,7 +293,7 @@ export class SidenavComponent {
       title: "Support",
       url: "",
       image: "",
-      subMenu: true
+      subMenu: true,
     },
     {
       title: "Subscription",
@@ -307,34 +320,84 @@ export class SidenavComponent {
     },
   ];
 
-  k10RestrictedMenus: string[] = ["Career Tools", "Recommendations", "Career Hub", "Learning Hub", "Skill Mastery", "Startup Kit", "Founders Tool", "Pitch Deck", "Career", "Entrepreneur"];
-  HigherEduRestritedMenus: string[] = ["K12 Academy", "K12 Academic Tools", "Academics"];
-  whitlabelmenu = ["About UNIPREP", "24x7 Support", "Success Stories", "Recommendations"];
-  whitlabelmenuFreeTrails = ["About UNIPREP", "24x7 Support", "Success Stories"];
+  k10RestrictedMenus: string[] = [
+    "Career Tools",
+    "Recommendations",
+    "Career Hub",
+    "Learning Hub",
+    "Skill Mastery",
+    "Startup Kit",
+    "Founders Tool",
+    "Pitch Deck",
+    "Career",
+    "Entrepreneur",
+  ];
+  HigherEduRestritedMenus: string[] = [
+    "K12 Academy",
+    "K12 Academic Tools",
+    "Academics",
+  ];
+  whitlabelmenu = [
+    "About UNIPREP",
+    "24x7 Support",
+    "Success Stories",
+    "Recommendations",
+  ];
+  whitlabelmenuFreeTrails = [
+    "About UNIPREP",
+    "24x7 Support",
+    "Success Stories",
+  ];
   conditionSubscribed!: boolean;
   imageWhiteLabelDomainName: any;
   whiteLabelIsShow: boolean = true;
   orgnamewhitlabel: any;
   collegeStudentRestrictedMenus = ["Assessment"];
 
-  premiumPlanMenus: string[] = ["K12 Academy", "K12 Academic Tools", "Learning Hub", "Skill Mastery", "Career Tools", "Language Hub", "Travel Tools", "Global Repository",
-    "UNILEARN", "UNISCHOLAR", "UNIFINDER", "Education Tools", "Startup Kit", "Founders Tool", "Pitch Deck", "24x7 Support",
-    "AI Global Advisor", "Events", "Certificates"];
-  interestMenuList: { id: number, name: string }[] = [
-    { id: 1, name: 'Career' },
-    { id: 2, name: 'Entrepreneur' },
-    { id: 3, name: 'International Education' },
-    { id: 4, name: 'Travel & Life' },
+  premiumPlanMenus: string[] = [
+    "K12 Academy",
+    "K12 Academic Tools",
+    "Learning Hub",
+    "Skill Mastery",
+    "Career Tools",
+    "Language Hub",
+    "Travel Tools",
+    "Global Repository",
+    "UNILEARN",
+    "UNISCHOLAR",
+    "UNIFINDER",
+    "Education Tools",
+    "Startup Kit",
+    "Founders Tool",
+    "Pitch Deck",
+    "24x7 Support",
+    "AI Global Advisor",
+    "Events",
+    "Certificates",
+  ];
+  interestMenuList: { id: number; name: string }[] = [
+    { id: 1, name: "Career" },
+    { id: 2, name: "Entrepreneur" },
+    { id: 3, name: "International Education" },
+    { id: 4, name: "Travel & Life" },
   ];
   originalMenus: SideMenu[] = [];
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private dataService: DataService,
-    private authService: AuthService, private locationService: LocationService,
-    private assessmentService: AssessmentService, private storage: StorageService,
-    private talentService: TalentConnectService, private userSubscriptionService: UserSubscriptionService) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private dataService: DataService,
+    private authService: AuthService,
+    private locationService: LocationService,
+    private assessmentService: AssessmentService,
+    private storage: StorageService,
+    private talentService: TalentConnectService,
+    private userSubscriptionService: UserSubscriptionService
+  ) {
     this.dataService.countryNameSource.subscribe((countryName) => {
       this.menus.filter((data) => {
-        if (data.title.includes("Life in")) data.title = "Life in " + countryName;
+        if (data.title.includes("Life in"))
+          data.title = "Life in " + countryName;
       });
     });
 
@@ -352,20 +415,27 @@ export class SidenavComponent {
       .subscribe({
         next: () => {
           this.markCurrentMenu();
-          if (!this.talentService._employerProfileData?.profile_completion_flag) {
-            this.redirectToRestrictUrl('/pages/talent-connect/my-profile');
+          if (
+            !this.talentService._employerProfileData?.profile_completion_flag
+          ) {
+            this.redirectToRestrictUrl("/pages/talent-connect/my-profile");
           }
-          if (this.talentService._employerProfileData?.profile_completion_flag == 1 && this.authService._user?.current_plan_detail?.current_plan == "Standard") {
-            this.redirectToRestrictUrl('/pages/subscriptions');
+          if (
+            this.talentService._employerProfileData?.profile_completion_flag ==
+              1 &&
+            this.authService._user?.current_plan_detail?.current_plan ==
+              "Standard"
+          ) {
+            this.redirectToRestrictUrl("/pages/subscriptions");
           }
         },
       });
-    this.talentService.employerProfileCompleted$.subscribe(data => {
+    this.talentService.employerProfileCompleted$.subscribe((data) => {
       if (data) {
         this.updateMenuUrlBasedOnEmployerProfile(data);
       }
     });
-    this.userSubscriptionService.freeTrailExpiredStatus$.subscribe(data => {
+    this.userSubscriptionService.freeTrailExpiredStatus$.subscribe((data) => {
       if (data) {
         this.updateMenuUrlBasedOnEmployerProfile(data);
       }
@@ -373,11 +443,12 @@ export class SidenavComponent {
   }
 
   get filteredMenus(): SideMenu[] {
-    if (this.storage.get('home_country_name') === 'India') {
+    if (this.storage.get("home_country_name") === "India") {
       return this.menus;
     } else {
-      return this.menus.filter(menu =>
-        !['Global Repository', 'UNISCHOLAR', 'UNIFINDER'].includes(menu.title)
+      return this.menus.filter(
+        (menu) =>
+          !["Global Repository", "UNISCHOLAR", "UNIFINDER"].includes(menu.title)
       );
     }
   }
@@ -387,7 +458,7 @@ export class SidenavComponent {
     this.apiToCheckPartnerOrInstitute();
     this.updateMenuUrlBasedOnAcademics();
     this.updateMenuUrlBasedOnEmployerProfile();
-    let userTypeId = this.authService._user?.student_type_id == 2
+    let userTypeId = this.authService._user?.student_type_id == 2;
     //  this condition for after refreshing also subscription menu need to hide for institute don't remove
     // if (this.authService._user?.student_type_id == 2) {
     //   this.menus = userTypeId
@@ -406,7 +477,7 @@ export class SidenavComponent {
     this.locationService.getSourceByDomain(hostname).subscribe((data: any) => {
       this.orgnamewhitlabel = data.name;
       this.imageWhiteLabelDomainName = data.source;
-    })
+    });
     this.markCurrentMenu();
     this.authService.getNewUserTimeLeft().subscribe((res) => {
       let data = res?.time_left;
@@ -415,14 +486,25 @@ export class SidenavComponent {
       } else {
         this.conditionSubscribed = true;
       }
-      if (this.imageWhiteLabelDomainName === "Uniprep" || this.imageWhiteLabelDomainName === "Partner" || this.imageWhiteLabelDomainName === "uniprep.ai") {
+      if (
+        this.imageWhiteLabelDomainName === "Uniprep" ||
+        this.imageWhiteLabelDomainName === "Partner" ||
+        this.imageWhiteLabelDomainName === "uniprep.ai"
+      ) {
         this.whiteLabelIsShow = true;
       } else {
-        if (res?.subscription_details?.subscription_plan === "free_trail" && res?.time_left.plan === "on_progress") {
-          this.menus = this.menus.filter((item) => !this.whitlabelmenuFreeTrails?.includes(item?.title));
+        if (
+          res?.subscription_details?.subscription_plan === "free_trail" &&
+          res?.time_left.plan === "on_progress"
+        ) {
+          this.menus = this.menus.filter(
+            (item) => !this.whitlabelmenuFreeTrails?.includes(item?.title)
+          );
           this.whiteLabelIsShow = false;
         } else {
-          this.menus = this.menus.filter((item) => !this.whitlabelmenu?.includes(item?.title));
+          this.menus = this.menus.filter(
+            (item) => !this.whitlabelmenu?.includes(item?.title)
+          );
           this.whiteLabelIsShow = false;
         }
       }
@@ -432,8 +514,12 @@ export class SidenavComponent {
 
   markCurrentMenu() {
     const path = this.router.url.split("?")[0];
-    const paramtersLen = Object.keys(this.activatedRoute.snapshot.params).length;
-    const pathArr = path.split("/").slice(0, path.split("/").length - paramtersLen);
+    const paramtersLen = Object.keys(
+      this.activatedRoute.snapshot.params
+    ).length;
+    const pathArr = path
+      .split("/")
+      .slice(0, path.split("/").length - paramtersLen);
     const url = pathArr.join("/");
     this.menus.forEach((menu) => {
       if (url.includes(menu.url || "**") && menu.url != "/") {
@@ -499,23 +585,32 @@ export class SidenavComponent {
 
   // Step 1: To Check Domain
   apiToCheckPartnerOrInstitute() {
-    this.locationService.getSourceByDomain(window.location.hostname).subscribe((response) => {
-      if (response.source == 'Partner') {
-        this.isPartner.set(true);
-        this.menus = this.isPartner()
-          ? this.menus.filter((menu: any) => menu.title !== 'UNIFINDER')
-          : this.menus;
-      }
-    })
+    this.locationService
+      .getSourceByDomain(window.location.hostname)
+      .subscribe((response) => {
+        if (response.source == "Partner") {
+          this.isPartner.set(true);
+          this.menus = this.isPartner()
+            ? this.menus.filter((menu: any) => menu.title !== "UNIFINDER")
+            : this.menus;
+        }
+      });
   }
 
   // Step 2: To Check Current Education
   updateMenuUrlBasedOnAcademics() {
-    const educationLevel = this.authService._user?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation";
+    const educationLevel =
+      this.authService._user?.education_level
+        ?.replace(/[\s\u00A0]/g, "")
+        .trim() || "HigherEducation";
     if (educationLevel === "K10") {
-      this.menus = this.menus.filter((menu) => !this.k10RestrictedMenus?.includes(menu?.title));
+      this.menus = this.menus.filter(
+        (menu) => !this.k10RestrictedMenus?.includes(menu?.title)
+      );
     } else if (educationLevel === "HigherEducation") {
-      this.menus = this.menus.filter((menu) => !this.HigherEduRestritedMenus?.includes(menu?.title));
+      this.menus = this.menus.filter(
+        (menu) => !this.HigherEduRestritedMenus?.includes(menu?.title)
+      );
     } else {
       this.menus = this.menus;
     }
@@ -523,26 +618,28 @@ export class SidenavComponent {
 
   // Step 3: To Check Employer Profile
   updateMenuUrlBasedOnEmployerProfile(data?: boolean) {
-    const isProfileMissing = this.talentService._employerProfileData?.profile_completion_flag ? false : true;
+    const isProfileMissing = this.talentService._employerProfileData
+      ?.profile_completion_flag
+      ? false
+      : true;
     const profileId = this.talentService._employerProfileData?.id;
     if (this.originalMenus.length == 0) {
       this.originalMenus = JSON.parse(JSON.stringify(this.menus));
     }
     if (isProfileMissing) {
       this.menus.forEach((item) => {
-        if (item.title != 'Create Job Profile') {
-          item.url = '/pages/talent-connect/my-profile';
+        if (item.title != "Create Job Profile") {
+          item.url = "/pages/talent-connect/my-profile";
           item.restricted = true;
         }
       });
-      this.redirectToRestrictUrl('/pages/talent-connect/my-profile');
-    }
-    else {
+      this.redirectToRestrictUrl("/pages/talent-connect/my-profile");
+    } else {
       if (data) {
         this.menus = this.originalMenus;
       }
       this.menus.forEach((item) => {
-        if (item.title == 'Create Job Profile') {
+        if (item.title == "Create Job Profile") {
           item.title = "My Job Profile";
           item.url = `/pages/talent-connect/my-profile/${profileId}`;
         }
@@ -571,52 +668,66 @@ export class SidenavComponent {
 
   // Step 4: To Check Subscription
   updateMenuUrlBasedOnSubscription() {
-    if (this.authService._user?.current_plan_detail?.current_plan == "Standard") {
+    if (
+      this.authService._user?.current_plan_detail?.current_plan == "Standard"
+    ) {
       this.menus.forEach((item) => {
         if (this.premiumPlanMenus.includes(item.title)) {
-          item.url = '/pages/subscriptions';
+          item.url = "/pages/subscriptions";
           item.restricted = true;
-        }
-        else {
+        } else {
           item.restricted = false;
         }
       });
       if (this.talentService._employerProfileData?.profile_completion_flag) {
-        this.redirectToRestrictUrl('/pages/subscriptions');
+        this.redirectToRestrictUrl("/pages/subscriptions");
       }
-    }
-    else {
+    } else {
       this.updateInterestMenus();
     }
   }
   // Step 5: To Check Interest Menu
   updateInterestMenus() {
-    if (this.authService._user?.current_plan_detail?.current_plan == "Premium" &&
-      this.authService._user?.current_plan_detail?.current_plan_status == "Paid" &&
-      this.authService._user?.interest_type_ids?.length > 0) {
+    if (
+      this.authService._user?.current_plan_detail?.current_plan == "Premium" &&
+      this.authService._user?.current_plan_detail?.current_plan_status ==
+        "Paid" &&
+      this.authService._user?.interest_type_ids?.length > 0
+    ) {
       if (this.authService._user?.interest_type_ids?.length == 4) {
         return; // if they selected all, then menu will be in the same order.There is no changes
       }
       const selectedTitles = this.interestMenuList
-        .filter(item => this.authService._user?.interest_type_ids?.includes(item.id))
-        .map(item => item.name);
+        .filter((item) =>
+          this.authService._user?.interest_type_ids?.includes(item.id)
+        )
+        .map((item) => item.name);
       const notInterestedTitles = this.interestMenuList
-        .filter(item => !this.authService._user?.interest_type_ids?.includes(item.id))
-        .map(item => item.name);
+        .filter(
+          (item) =>
+            !this.authService._user?.interest_type_ids?.includes(item.id)
+        )
+        .map((item) => item.name);
 
-      const selectedMenus = this.menus.filter(menu =>
-        (menu.subMenu && selectedTitles.includes(menu.title)) ||
-        (menu.subMenuBy && selectedTitles.includes(menu.subMenuBy))
+      const selectedMenus = this.menus.filter(
+        (menu) =>
+          (menu.subMenu && selectedTitles.includes(menu.title)) ||
+          (menu.subMenuBy && selectedTitles.includes(menu.subMenuBy))
       );
-      const otherMenus: any = this.menus.filter(menu =>
-        !((menu.subMenu && selectedTitles.includes(menu.title)) ||
-          (menu.subMenuBy && selectedTitles.includes(menu.subMenuBy)))
+      const otherMenus: any = this.menus.filter(
+        (menu) =>
+          !(
+            (menu.subMenu && selectedTitles.includes(menu.title)) ||
+            (menu.subMenuBy && selectedTitles.includes(menu.subMenuBy))
+          )
       );
 
-      const jobIndex = otherMenus.findLastIndex((item: any) => item?.subMenuBy == "Job Board");
+      const jobIndex = otherMenus.findLastIndex(
+        (item: any) => item?.subMenuBy == "Job Board"
+      );
       otherMenus.splice(jobIndex + 1, 0, ...selectedMenus);
       this.menus = otherMenus;
-      this.menus.forEach(item => {
+      this.menus.forEach((item) => {
         if (notInterestedTitles.includes(item?.subMenuBy as string)) {
           item.notInterested = true;
         }
@@ -626,22 +737,26 @@ export class SidenavComponent {
 
   redirectToRestrictUrl(redirectUrl: string) {
     const restrictedMenuTitles = this.menus
-      .filter(item => item.restricted)
-      .map(item => item.title);
+      .filter((item) => item.restricted)
+      .map((item) => item.title);
     const restrictedMenusUrl = this.originalMenus
-      .filter(item => restrictedMenuTitles.includes(item.title))
-      .map(item => item.url);
-    const restrictedMenus = restrictedMenusUrl.flatMap(path => {
-      const parts = path.split('/').filter(Boolean); // remove empty ""
+      .filter((item) => restrictedMenuTitles.includes(item.title))
+      .map((item) => item.url);
+    const restrictedMenus = restrictedMenusUrl.flatMap((path) => {
+      const parts = path.split("/").filter(Boolean); // remove empty ""
       const cleanParts = parts.slice(1); // remove "pages"
       return cleanParts;
     });
     let uniqueRestrictedMenus = [...new Set(restrictedMenus)];
-    if (redirectUrl == '/pages/talent-connect/my-profile') {
-      const nonRestrictedMenus = ['dashboard', 'talent-connect', 'easy-apply'];
-      uniqueRestrictedMenus = uniqueRestrictedMenus.filter(item => !nonRestrictedMenus.includes(item))
+    if (redirectUrl == "/pages/talent-connect/my-profile") {
+      const nonRestrictedMenus = ["dashboard", "talent-connect", "easy-apply"];
+      uniqueRestrictedMenus = uniqueRestrictedMenus.filter(
+        (item) => !nonRestrictedMenus.includes(item)
+      );
     }
-    const isRestricted = uniqueRestrictedMenus.some(segment => this.router.url.includes(segment));
+    const isRestricted = uniqueRestrictedMenus.some((segment) =>
+      this.router.url.includes(segment)
+    );
     if (isRestricted) {
       this.router.navigateByUrl(redirectUrl);
     }
@@ -651,7 +766,10 @@ export class SidenavComponent {
     this.menus.forEach((item) => {
       if (item.accordionStatus == true || item.accordionStatus == false) {
         setTimeout(() => {
-          this.onOpenCloseSubMenu(item, item.accordionStatus ? 'open' : 'close')
+          this.onOpenCloseSubMenu(
+            item,
+            item.accordionStatus ? "open" : "close"
+          );
         }, 100);
       }
     });
@@ -659,15 +777,14 @@ export class SidenavComponent {
 
   onOpenCloseSubMenu(data: SideMenu, status: string) {
     data.accordionStatus = !data.accordionStatus;
-    let currentMenu = (data.title.split(' '));
-    let allSubMenu = document.querySelectorAll('.' + currentMenu[0]);
-    if ((allSubMenu?.length > 0)) {
-      if (status == 'open') {
+    let currentMenu = data.title.split(" ");
+    let allSubMenu = document.querySelectorAll("." + currentMenu[0]);
+    if (allSubMenu?.length > 0) {
+      if (status == "open") {
         allSubMenu.forEach((item: any) => {
           item.style.display = "flex";
         });
-      }
-      else {
+      } else {
         allSubMenu.forEach((item: any) => {
           item.style.display = "none";
         });
@@ -676,17 +793,34 @@ export class SidenavComponent {
   }
 
   getMenuClasses(item: any) {
-    const sidebarTitles = ['Dashboard', 'About UNIPREP', 'user', 'Tutorials', 'FAQ', 'Subscription', '24x7 Support', 'Events',
-      'Resources', 'Career Planner'];
-    const unSidebarTitles = ['Dashboard', 'Tutorials', 'FAQ', '24x7 Support', 'Events', 'Subscription',
-      'Resources', 'Career Planner'
+    const sidebarTitles = [
+      "Dashboard",
+      "About UNIPREP",
+      "user",
+      "Tutorials",
+      "FAQ",
+      "Subscription",
+      "24x7 Support",
+      "Events",
+      "Resources",
+      "Career Planner",
+    ];
+    const unSidebarTitles = [
+      "Dashboard",
+      "Tutorials",
+      "FAQ",
+      "24x7 Support",
+      "Events",
+      "Subscription",
+      "Resources",
+      "Career Planner",
     ];
     return {
       sidebarClass: sidebarTitles.includes(item.title),
       unsidebarClass: !unSidebarTitles.includes(item.title),
-      'restricted-menu': item?.restricted,
-      'not-interested-menu': item?.notInterested,
-      [item.subMenuBy]: !!item.subMenuBy
+      "restricted-menu": item?.restricted,
+      "not-interested-menu": item?.notInterested,
+      [item.subMenuBy]: !!item.subMenuBy,
     };
   }
 }

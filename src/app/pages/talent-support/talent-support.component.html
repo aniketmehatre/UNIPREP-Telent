@@ -1,0 +1,194 @@
+<div class="card readingcard hs-page">
+
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center">
+            <div class="col-md-12 d-flex gap-2 text-center">
+                <div class="select-title d-flex justify-content-between align-items-center" style="width: 100%">
+                    <div>
+                        <h5 class="mb-0">
+                            <span>Talent Support</span>
+                        </h5>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center">
+                        <button pButton class="btn btn-primary p-2 px-4 py-2" (click)="openGuideLines()"
+                            [ngStyle]="{ width:'200px' }">
+                            <i class="pi pi-book me-2"></i>Recruiter Guide
+                        </button>
+                        <button pButton class="btn btn-primary p-2 px-4 py-2" (click)="openHiringOutput()"
+                            [ngStyle]="{ width:'300px' }">
+                            <i class="pi pi-file-pdf me-2"></i>Hiring Output Sample
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body d-flex flex-column hs-body">
+        <form [formGroup]="form" class="d-flex flex-column gap-3 flex-fill">
+
+            <!-- Scrollable content area -->
+            <div class="hs-scroll d-flex flex-column gap-3">
+                <ng-container formArrayName="requirements">
+                    <div class="requirement" *ngFor="let req of requirements.controls; let i = index"
+                        [formGroupName]="i">
+                        <div class="d-flex justify-content-between align-items-center requirement-header" role="button"
+                            (click)="toggleExpand(i)">
+                            <div class="fw-semibold">Requirement {{ i + 1 }}</div>
+                            <div class="d-flex gap-2 align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                    *ngIf="requirements.length > 1"
+                                    (click)="removeRequirement(i); $event.stopPropagation()">Remove
+                                </button>
+                                <i class="pi"
+                                    [ngClass]="(req.get('expanded')?.value ? 'pi-chevron-up' : 'pi-chevron-down')"></i>
+                            </div>
+                        </div>
+
+                        <div class="requirement-body" *ngIf="req.get('expanded')?.value">
+                            <div class="mb-3">
+                                <label class="form-label">Talent Requirement Plan</label>
+                                <p-button icon="pi pi-info-circle" styleClass="p-button-text info-icon"
+                                    [pTooltip]="tooltipContent" tooltipPosition="right" [tooltipAppendTo]="'body'">
+                                </p-button>
+
+                                <p-select formControlName="requirementType" [options]="talentRequirementPlans"
+                                    aria-placeholder="Select Talent Requirement Plan" (onChange)="onValueChange($event)"
+                                    placeholder="Select Talent Requirement Plan" optionLabel="label" fluid
+                                    appendTo="body" class="w-100" optionValue="value">
+                                </p-select>
+                                <small class="text-danger" *ngIf="isFieldInvalid(i, 'requirementType')">
+                                    {{ getFieldError(i, 'requirementType') }}
+                                </small>
+                                <ng-template #tooltipContent>
+                                    <div class="tooltip-note">
+                                        <strong>Note:</strong><br />
+                                        Silver - ₹3,999<br />
+                                        Platinum - ₹6,999<br />
+                                        Diamond - ₹9,999
+                                    </div>
+                                </ng-template>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Job Title You Are Looking For</label>
+                                <p-select [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="jobTitle"
+                                    [options]="positions || []" placeholder="Select the job"
+                                    optionLabel="position_title" optionValue="position_title"
+                                    (onFilter)="onDropdownFilter($event)" styleClass="w-100" [filter]="true"
+                                    dataKey="id" filterBy="position_title" [showClear]="true"
+                                    (mouseover)="onFocusInput('title')" (mouseout)="resetMessageBox()" fluid
+                                    appendTo="body">
+                                    <ng-template #header>
+                                        <div class="p-2" (click)="$event.stopPropagation()">
+                                            <p-inputgroup>
+                                                <input pInputText class="rounded-end-2 me-1"
+                                                    placeholder="Custom Job Title" #jobTitleExp
+                                                    (click)="$event.stopPropagation(); focusInput(jobTitleExp)" />
+                                                <button type="button" class="w-full btn btn-primary"
+                                                    (click)="confirmationPanel($event)"><i
+                                                        class="fa fa-plus"></i>&nbsp;Add
+                                                    New
+                                                </button>
+                                            </p-inputgroup>
+                                            <p-confirmpopup>
+                                            </p-confirmpopup>
+                                        </div>
+                                    </ng-template>
+                                </p-select>
+                                <small class="text-danger" *ngIf="isFieldInvalid(i, 'jobTitle')">
+                                    {{ getFieldError(i, 'jobTitle') }}
+                                </small>
+                            </div>
+                            <div class="mb-3">
+                                <div class="col-12 col-md-3 w-100">
+                                    <label class="mb-2 d-block">Current Gross Salary /Month</label>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p-select formControlName="currency" [filter]="true"
+                                                filterBy="currency_code" [options]="currencies"
+                                                placeholder="Select Currency" styleClass="w-100"
+                                                optionLabel="currency_code" optionValue="currency_code">
+                                            </p-select>
+                                            <small class="text-danger" *ngIf="isFieldInvalid(i, 'currency')">
+                                                {{ getFieldError(i, 'currency') }}
+                                            </small>
+                                        </div>
+                                        <div class="col-8">
+                                            <p-input-number formControlName="min_salary" class="w-100"
+                                                placeholder="Current Gross Salary /Month">
+                                            </p-input-number>
+                                            <small class="text-danger" *ngIf="isFieldInvalid(i, 'min_salary')">
+                                                {{ getFieldError(i, 'min_salary') }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- Add error message -->
+                                    <div class="text-danger" *ngIf="req.hasError('salaryRange')">
+                                        Minimum salary cannot be greater than maximum salary
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Prefered Location</label>
+                                <p-select fluid appendTo="body" class="w-100" formControlName="work_location"
+                                    [options]="workLocation" placeholder="City, Country" optionLabel="work_location"
+                                    optionValue="id" [virtualScroll]="true" [virtualScrollItemSize]="20"
+                                    [virtualScrollOptions]="workLocation" [filter]="true" filterBy="work_location"
+                                    class="w-full md:w-56" [showClear]="false" dataKey="id"
+                                    (mouseover)="onFocusInput('workLocation')"
+                                    (mouseout)="resetMessageBox()"></p-select>
+                                <small class="text-danger" *ngIf="isFieldInvalid(i, 'work_location')">
+                                    {{ getFieldError(i, 'work_location') }}
+                                </small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Prefered Work Type</label>
+                                <p-multiselect class="w-100" appendTo="body" formControlName="employment_type"
+                                    [options]="dropdownData.employmenttype" placeholder="Select Employment Type"
+                                    optionValue="id" optionLabel="employment_type" dataKey="id" [filter]="true"
+                                    filterBy="employment_type" [showClear]="false"
+                                    (mouseover)="onFocusInput('employementType')"
+                                    (mouseout)="resetMessageBox()"></p-multiselect>
+                                <small class="text-danger" *ngIf="isFieldInvalid(i, 'employment_type')">
+                                    {{ getFieldError(i, 'employment_type') }}
+                                </small>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Prefered Work Mode</label>
+                                <p-select fluid appendTo="body" class="w-100" formControlName="work_mode"
+                                    [options]="workMode" placeholder="Remote/On-site/Hybrid" optionLabel="label"
+                                    optionValue="value" [virtualScroll]="true" [virtualScrollItemSize]="20"
+                                    [filter]="true" filterBy="label" class="w-full md:w-56" [showClear]="false"
+                                    dataKey="id" (mouseover)="onFocusInput('workMode')"
+                                    (mouseout)="resetMessageBox()"></p-select>
+                                <small class="text-danger" *ngIf="isFieldInvalid(i, 'work_mode')">
+                                    {{ getFieldError(i, 'work_mode') }}
+                                </small>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Other Comments</label>
+                                <textarea rows="4" cols="30" placeholder="Add any Comments" styleClass="w-100" pTextarea
+                                    formControlName="remarks" fluid></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary" (click)="addRequirement()">
+                        Add another Requirement
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<div class="hs-footer d-flex justify-content-between align-items-center">
+    <div>
+        <div class="text-muted">Total</div>
+        <div class="h5 mb-0">INR {{ totalAmount.toFixed(2) }}</div>
+    </div>
+    <button type="button" class="btn btn-success" (click)="postRequirement()">Post my Requirement</button>
+</div>
