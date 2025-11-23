@@ -25,9 +25,16 @@
 				@else {
 				@if(item?.subMenu){
 				<div class="d-flex justify-content-between align-items-center me-2">
-					<div class="fw-semibold px-3 py-1 submenutitle mr-4">
-						{{ item.title }} @if(item?.premium) {<i class="fa-solid fa-crown uniprep-secondary"></i>}
+
+					<div class="fw-semibold px-3 py-1 submenutitle mr-4"
+						(click)="onOpenCloseSubMenu(item, item?.accordionStatus ? 'open' : 'close')" style="cursor: pointer;">
+
+						{{ item.title }}
+						@if(item?.premium) {
+						<i class="fa-solid fa-crown uniprep-secondary"></i>
+						}
 					</div>
+
 					@if(item?.title != 'Support') {
 					<div>
 						@if(item?.accordionStatus) {
@@ -93,13 +100,20 @@
 		@else {
 		@if(item?.subMenu){
 		<div class="d-flex justify-content-between align-items-center me-2">
-			<div class="fw-semibold px-3 py-1 submenutitle mr-4">
-				{{ item.title }} @if(item?.premium) {<i class="fa-solid fa-crown uniprep-secondary"></i>}
+
+			<div class="fw-semibold px-3 py-1 submenutitle mr-4"
+				(click)="onOpenCloseSubMenu(item, item?.accordionStatus ? 'open' : 'close')" style="cursor: pointer;">
+				{{ item.title }}@if(item?.premium) {<i class="fa-solid fa-crown uniprep-secondary"></i>}
 			</div>
+
 			@if(item?.title != 'Support') {
 			<div>
-				@if(item?.accordionStatus) {<i class="fa-light fa-chevron-down" (click)="onOpenCloseSubMenu(item, 'open')"></i>}
-				@else{<i class="fa-light fa-chevron-up" (click)="onOpenCloseSubMenu(item, 'close')"></i>}
+				@if(item?.accordionStatus) {
+				<i class="fa-light fa-chevron-down" (click)="onOpenCloseSubMenu(item, 'open')"></i>
+				}
+				@else{
+				<i class="fa-light fa-chevron-up" (click)="onOpenCloseSubMenu(item, 'close')"></i>
+				}
 			</div>
 			}
 		</div>
