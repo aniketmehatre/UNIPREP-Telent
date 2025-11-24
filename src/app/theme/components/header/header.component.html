@@ -75,18 +75,19 @@
 						}
 					</div> -->
 					<div class="d-none d-md-flex gap-2">
-						<!-- @if(showIcon) {
-						<div label="" role="button" class="headerHomeCountry" [title]="homeCountryName"
-							aria-label="Selected country: {{ homeCountryName }}">
-							<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'"
-								[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'"
-								alt="{{ homeCountryName }} flag" height="auto" width="auto" />
-						</div>
-						} -->
+						<!-- @if(showIcon) { -->
+						
+						<!-- } -->
 						<button class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center"
 							(click)="openReportModal(op, $event)" aria-label="Open reports"
 							style="width: 90px; height: 40px; padding: 0"><i class="fa-regular fa-bullhorn"
 								style="font-size: 16px" aria-hidden="true"></i> Report</button>
+								<div label="" role="button" class="headerHomeCountry" [title]="homeCountryName"
+									aria-label="Selected country: {{ homeCountryName }}">
+									<img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'"
+										[src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'"
+										alt="{{ homeCountryName }} flag" height="auto" width="auto" />
+								</div>
 					</div>
 
 					<div class="d-flex gap-2 d-md-none align-items-center">
