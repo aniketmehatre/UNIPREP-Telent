@@ -62,6 +62,16 @@ export class CareerCoachComponent {
     this.talentConnectService.supportDropdown().subscribe((response: any) => {
       this.supportOptions = response.data.supportOptions;
     });
+
+    this.form.get("support")?.valueChanges.subscribe((value) => {
+      if (value) {
+        this.talentConnectService
+          .getCareerCoachCal(value)
+          .subscribe((response: any) => {
+            this.amount = response.total_amount;
+          });
+      }
+    });
   }
 
   get f() {
