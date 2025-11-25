@@ -38,12 +38,12 @@ import { TableModule } from "primeng/table";
 })
 export class CareerCoachComponent {
   priceLabel = "INR 799.00";
-  amount = 799;
+  amount = 0;
 
   supportOptions = [];
 
   form = this.fb.group({
-    support: [Validators.required],
+    support: ["",Validators.required],
     notes: ["", [Validators.required, Validators.minLength(10)]],
   });
 
