@@ -189,19 +189,17 @@
 				</div>
 				<div class="col-3">
 					<label for="">Founding Year</label>
-					<div class="form-group">
-						<div class="mb-3">
-							<div class="flex gap-2">
-								<p-calendar [view]="'year'" [yearNavigator]="true" [yearRange]="'2000:2030'"
-									formControlName="startYear" dateFormat="yy" [readonlyInput]="true"
-									[appendTo]="'body'">
-								</p-calendar>
-
-								<p-calendar [view]="'year'" [yearNavigator]="true" [yearRange]="'2000:2030'"
-									formControlName="endYear" dateFormat="yy" [readonlyInput]="true"
-									[appendTo]="'body'">
-								</p-calendar>
-							</div>
+					<div class="year-range-picker flex align-items-center">
+						<div class="year-input-wrapper">
+							<p-datepicker [view]="'year'" [yearNavigator]="true" [yearRange]="'1900:2030'" formControlName="startYear"
+								dateFormat="yy" placeholder="Start" [appendTo]="'body'" [readonlyInput]="true">
+							</p-datepicker>
+						</div>
+				
+						<div class="year-input-wrapper">
+							<p-datepicker [view]="'year'" [yearNavigator]="true" [yearRange]="'1900:2030'" formControlName="endYear"
+								dateFormat="yy" placeholder="End" [appendTo]="'body'" [readonlyInput]="true">
+							</p-datepicker>
 						</div>
 					</div>
 				</div>

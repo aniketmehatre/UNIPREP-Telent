@@ -12,7 +12,7 @@
 								<div class="position-absolute resume-option">
 									<span role="button" class="HistoryDeleteIcon"
 										(click)="confirm($event, resumes.pdf_name, resumes.id)"><i class="fa-solid fa-trash"></i></span>
-									<p-confirmPopup></p-confirmPopup>
+									<p-confirmpopup></p-confirmpopup>
 									<span role="button" class="HistoryDownloadIcon" (click)="downloadOldResume(resumes.pdf_name)">
 										<i class="fa-solid fa-download"></i>
 									</span>
@@ -461,7 +461,7 @@
 														</div>
 														<div class="form-group">
 															<div class="mb-3">
-																<p-dropdown formControlName="work_designation" [options]="occupationList"
+																<p-select formControlName="work_designation" [options]="occupationList"
 																	placeholder="Your Designation" styleClass="w-100" optionLabel="jobrole"
 																	optionValue="jobrole" [filter]="true" filterBy="jobrole"
 																	[virtualScroll]="occupationList.length > 100" [virtualScrollItemSize]="50">
@@ -477,7 +477,7 @@
 																			</p-inputGroup>
 																		</div>
 																	</ng-template>
-																</p-dropdown>
+																</p-select>
 																<div *ngIf="submitted && wrkExp.get('work_designation').errors?.['required']"
 																	class="text-danger text-xs">Designation Required
 																</div>
@@ -1046,7 +1046,7 @@
 															<div class="mb-3">
 																<p-select [options]="languageProficiency"
 																	(onChange)="SortBasedOnProficiency('language')" placeholder="Proficiency Level"
-																	[disabled]="true" styleClass="w-100" formControlName="lang_proficiency"
+																	styleClass="w-100" formControlName="lang_proficiency"
 																	optionLabel="value" optionValue="id"></p-select>
 																<div *ngIf="submitted && language.get('lang_proficiency')?.hasError('required')"
 																	class="text-danger text-xs">

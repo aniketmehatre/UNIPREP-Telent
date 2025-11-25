@@ -28,7 +28,7 @@
     <form [formGroup]="form" (ngSubmit)="bookSession()" novalidate>
       <div class="field mb-4">
         <label class="fw-semibold mb-2">What support are you looking for?</label>
-        <p-select formControlName="support" [options]="supportOptions" optionLabel="label" optionValue="label" dropdownIcon="fa-solid fa-chevron-down" class="w-100"></p-select>
+        <p-select formControlName="support" [options]="supportOptions" optionLabel="label" optionValue="value" dropdownIcon="fa-solid fa-chevron-down" class="w-100"></p-select>
         <div class="text-danger small mt-1" *ngIf="f.support.touched && f.support.invalid">
           Please select a support type.
         </div>

@@ -155,17 +155,28 @@ export class CareerplannercountrywiseComponent implements OnInit {
       this.isSavedResponse = false;
     }
   }
-  showRecommandationData(data: any, userInputs: any) {
-    // this.recommendationData = data
-    this.recommendationData = removeExtraResponse(data);
-    this.isFormVisible = false;
-    this.isFormChatgptresponse = true;
-    this.isSavedResponse = false;
-
-    const encodedJson = userInputs;
-    const decodedInput = JSON.parse(encodedJson);
-    this.userInputs = decodedInput;
+showRecommandationData(data: any, item: any) {
+  this.recommendationData = this.sanitizer.bypassSecurityTrustHtml(data);
+  this.isFormVisible = false;
+  this.isFormChatgptresponse = true;
+  this.isSavedResponse = false;
+  let parsedInputs = null;
+  if (item.user_inputs) {
+    try {
+      parsedInputs = typeof item.user_inputs === 'string' 
+        ? JSON.parse(item.user_inputs) 
+        : item.user_inputs;
+    } catch (error) {
+      console.error('Error parsing user_inputs:', error);
+    }
   }
+  this.userInputs = {
+    country: parsedInputs?.country || item.country || 'N/A',
+    specialization_name: parsedInputs?.specialization_name || item.specialization_name || 'N/A',
+    experience: parsedInputs?.experience || item.experience || 'N/A',
+    mode: parsedInputs?.mode || 'careerplanner'
+  };
+}
   goBackcareerPlanList() {
     this.router.navigate(['/pages/job-tool/career-tool']);
   }
@@ -187,8 +198,8 @@ export class CareerplannercountrywiseComponent implements OnInit {
       <br>
     `;
     let params: any = {
-      module_name: "Career Planner Coutrywise",
-      file_name: "career_planner_coutrywise",
+      module_name: "Career Planner Countrywise",
+      file_name: "career_planner_countrywise",
       response: this.recommendationData,
       inputString: addingInput
     };
