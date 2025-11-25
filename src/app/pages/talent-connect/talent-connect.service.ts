@@ -355,4 +355,11 @@ export class TalentConnectService {
         );
     }
 
+      getCareerCoachCal(data: any) {
+        return this.http.post<any>(
+            `${environment.ApiUrl}/career-coach-amount-cal`,
+           { data }
+        );
+    }
+
 }

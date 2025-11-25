@@ -1,17 +1,22 @@
-import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {SelectModule} from 'primeng/select';
-import {ButtonModule} from 'primeng/button';
-import {RouterLink} from "@angular/router";
-import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {TextareaModule} from 'primeng/textarea';
-import {environment} from "@env/environment";
-import {WindowRefService} from "../../subscription/window-ref.service";
-import {MessageService} from "primeng/api";
-import {TalentConnectService} from "../talent-connect.service";
-import { PaginatorModule } from 'primeng/paginator';
-import { ScrollTopModule } from 'primeng/scrolltop';
-import { TableModule } from 'primeng/table';
+import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { SelectModule } from "primeng/select";
+import { ButtonModule } from "primeng/button";
+import { RouterLink } from "@angular/router";
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
+import { TextareaModule } from "primeng/textarea";
+import { environment } from "@env/environment";
+import { WindowRefService } from "../../subscription/window-ref.service";
+import { MessageService } from "primeng/api";
+import { TalentConnectService } from "../talent-connect.service";
+import { PaginatorModule } from "primeng/paginator";
+import { ScrollTopModule } from "primeng/scrolltop";
+import { TableModule } from "primeng/table";
 
 @Component({
   selector: "uni-career-coach",
@@ -26,25 +31,20 @@ import { TableModule } from 'primeng/table';
     ScrollTopModule,
     TableModule,
     PaginatorModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: "./career-coach.component.html",
   styleUrls: ["./career-coach.component.scss"],
 })
 export class CareerCoachComponent {
-    priceLabel = 'INR 799.00';
+  priceLabel = "INR 799.00";
   amount = 799;
 
-  supportOptions = [
-        {label: 'Struggling to find a job', value: 'find-job'},
-        {label: 'Looking for career change', value: 'change'},
-        {label: 'Looking for career guidance', value: 'guidance'},
-        {label: 'Others', value: 'others'},
-  ];
+  supportOptions = [];
 
   form = this.fb.group({
-    support: [this.supportOptions[0].value, Validators.required],
-        notes: ['', [Validators.required, Validators.minLength(10)]],
+    support: [Validators.required],
+    notes: ["", [Validators.required, Validators.minLength(10)]],
   });
 
   coachView: boolean = false;
@@ -58,7 +58,21 @@ export class CareerCoachComponent {
     private winRef: WindowRefService,
     private toast: MessageService,
     private talentConnectService: TalentConnectService
-  ) {}
+  ) {
+    this.talentConnectService.supportDropdown().subscribe((response: any) => {
+      this.supportOptions = response.data.supportOptions;
+    });
+
+    this.form.get("support")?.valueChanges.subscribe((value) => {
+      if (value) {
+        this.talentConnectService
+          .getCareerCoachCal(value)
+          .subscribe((response: any) => {
+            this.amount = response.total_amount;
+          });
+      }
+    });
+  }
 
   get f() {
     return this.form.controls;
@@ -69,8 +83,10 @@ export class CareerCoachComponent {
       this.form.markAllAsTouched();
       return;
     }
-        const reqPayload = {...this.form.value, amount: this.amount};
-        this.talentConnectService.placeCareerCoachOrder(reqPayload).subscribe((response: any) => {
+    const reqPayload = { ...this.form.value, amount: this.amount };
+    this.talentConnectService
+      .placeCareerCoachOrder(reqPayload)
+      .subscribe((response: any) => {
         this.payWithRazor(response);
       });
   }
@@ -115,7 +131,9 @@ export class CareerCoachComponent {
         update_order_ids: orderDetails?.added_credit_ids,
       };
       setTimeout(() => {
-                this.talentConnectService.completeCareerCoachTransaction(paymentdata).subscribe(
+        this.talentConnectService
+          .completeCareerCoachTransaction(paymentdata)
+          .subscribe(
             (response: any) => {
               this.toast.add({
                 severity: response.status,
@@ -128,7 +146,8 @@ export class CareerCoachComponent {
               } else {
                 return;
               }
-                    }, (error: any) => {
+            },
+            (error: any) => {
               this.toast.add({
                 severity: response.status,
                 summary: response.status,
