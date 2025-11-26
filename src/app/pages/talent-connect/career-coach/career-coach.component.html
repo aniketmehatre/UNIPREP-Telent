@@ -28,7 +28,7 @@
     <form [formGroup]="form" (ngSubmit)="bookSession()" novalidate>
       <div class="field mb-4">
         <label class="fw-semibold mb-2">What support are you looking for?</label>
-        <p-select formControlName="support" [options]="supportOptions" optionLabel="label" optionValue="value" dropdownIcon="fa-solid fa-chevron-down" class="w-100"></p-select>
+        <p-select formControlName="support" [options]="supportOptions" optionLabel="label" optionValue="value" dropdownIcon="fa-solid fa-chevron-down" class="w-100"  placeholder="Select support type"></p-select>
         <div class="text-danger small mt-1" *ngIf="f.support.touched && f.support.invalid">
           Please select a support type.
         </div>
@@ -46,7 +46,7 @@
       <div class="d-flex align-items-center justify-content-between mt-4 p-3 rounded cost-block">
         <div>
           <div class="text-muted small">Total</div>
-          <div class="h5 mb-0">{{ priceLabel }}</div>
+          <div class="h5 mb-0">INR {{ this.amount.toFixed(2) }}</div>
         </div>
         <button pButton type="submit" label="Book a Session" icon="fa-regular fa-arrow-right" iconPos="right" class="p-button-success"></button>
       </div>
@@ -68,6 +68,9 @@
         </th>
         <th pSortableColumn="amount">
           Amount <p-sortIcon field="amount"></p-sortIcon>
+        </th>
+        <th pSortableColumn="payment_time">
+          Payment Date <p-sortIcon field="payment_time"></p-sortIcon>
         </th>
         <th pSortableColumn="support">
           Support <p-sortIcon field="support"></p-sortIcon>
@@ -93,8 +96,11 @@
           {{ employee?.is_payment_completed == 1 ? 'Paid' : 'Unpaid' }}
         </td>
         <td>{{ employee?.amount }}</td>
+        <td>{{ employee?.payment_time | date }}</td>
         <td>{{ employee?.support }}</td>
-        <td>{{ employee?.notes}}</td>
+        <td [title]="employee?.notes">
+          {{ employee?.notes?.length > 20 ? (employee?.notes | slice:0:20) + '...' : employee?.notes }}
+        </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
