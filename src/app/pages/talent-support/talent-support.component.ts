@@ -356,7 +356,7 @@ export class TalentSupportComponent implements OnInit {
       razorKey = "rzp_test_Crpr7YkjPaCLEr";
     }
 
-    let phone = this.employerDetails?.phone; // Added safe navigation
+    let phone = localStorage.getItem("phone"); // Added safe navigation
     const options: any = {
       key: razorKey,
       amount: this.totalAmount,
@@ -367,8 +367,8 @@ export class TalentSupportComponent implements OnInit {
       order_id: orderid,
 
       prefill: {
-        name: this.employerDetails?.name,
-        email: this.employerDetails?.email,
+        name: localStorage.getItem("Name"),
+        email: localStorage.getItem("email"),
         contact: phone === null || phone === "" ? "9876543210" : phone,
       },
       notes: {

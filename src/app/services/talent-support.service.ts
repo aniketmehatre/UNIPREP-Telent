@@ -50,14 +50,14 @@ export class TalentSupportService {
 
   talentSupportPayLink(req: any) {
     return this.http.post(
-      `${environment.ApiUrlEmployer}/talent-support-transaction-request`,
+      `${environment.ApiUrl}/talent-support-transaction-request`,
       req
     );
   }
 
   talentSupportCompleteTransaction(req: any) {
     return this.http.post(
-      `${environment.ApiUrlEmployer}/talent-support-complete-transaction`,
+      `${environment.ApiUrl}/talent-support-complete-transaction`,
       req
     );
   }
