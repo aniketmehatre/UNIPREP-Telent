@@ -114,18 +114,16 @@
                                             </small>
                                         </div>
                                         <div class="col-8">
-                                            <p-input-number formControlName="min_salary" class="w-100"
+                                            <p-input-number formControlName="current_salary" class="w-100"
                                                 placeholder="Current Gross Salary /Month">
                                             </p-input-number>
-                                            <small class="text-danger" *ngIf="isFieldInvalid(i, 'min_salary')">
-                                                {{ getFieldError(i, 'min_salary') }}
+                                            <small class="text-danger" *ngIf="isFieldInvalid(i, 'current_salary')">
+                                                {{ getFieldError(i, 'current_salary') }}
                                             </small>
                                         </div>
                                     </div>
                                     <!-- Add error message -->
-                                    <div class="text-danger" *ngIf="req.hasError('salaryRange')">
-                                        Minimum salary cannot be greater than maximum salary
-                                    </div>
+
                                 </div>
                             </div>
                             <div class="mb-3">

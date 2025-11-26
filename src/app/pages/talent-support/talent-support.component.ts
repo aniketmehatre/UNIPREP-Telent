@@ -111,6 +111,7 @@ export class TalentSupportComponent implements OnInit {
   });
   totalAmount: number = 0;
   minDate: Date;
+
   // PrimeNG dropdown options
   talentRequirementPlans = [
     { label: "Silver", value: "Silver" },
@@ -122,29 +123,6 @@ export class TalentSupportComponent implements OnInit {
     { label: "Remote", value: "Remote" },
     { label: "On-site", value: "On-site" },
     { label: "Hybrid", value: "Hybrid" },
-  ];
-
-  employmentTypeOptions = [
-    { label: "Full-time", value: "full-time" },
-    { label: "Part-time", value: "part-time" },
-    { label: "Contract", value: "contract" },
-    { label: "Internship", value: "internship" },
-    { label: "Freelance", value: "freelance" },
-  ];
-
-  experienceOptions = [
-    { label: "Fresher", value: "fresher" },
-    { label: "1 year", value: "1" },
-    { label: "2 years", value: "2" },
-    { label: "3 years", value: "3" },
-    { label: "4 years", value: "4" },
-    { label: "5 years", value: "5" },
-    { label: "6 years", value: "6" },
-    { label: "7 years", value: "7" },
-    { label: "8 years", value: "8" },
-    { label: "9 years", value: "9" },
-    { label: "10 years", value: "10" },
-    { label: "10+ years", value: "10+" },
   ];
 
   // Tooltip copy for Requirement Type info icon
@@ -181,33 +159,33 @@ export class TalentSupportComponent implements OnInit {
     this.minDate = new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000);
   }
 
+  // UPDATED: Matches HTML structure and Validator requirements
   private buildRequirement(): FormGroup {
-    return this.fb.group(
-      {
-        requirementType: new FormControl<string | null>(null, [
-          Validators.required,
-        ]),
-        profilesRequired: new FormControl<number>(0, {
-          nonNullable: true,
-          validators: [Validators.required],
-        }),
-        jobTitle: new FormControl<string | null>(null, [Validators.required]),
-        employment_type: new FormControl<string | null>(null, [
-          Validators.required,
-        ]),
-        work_location: new FormControl<any>(null, [Validators.required]),
-        work_mode: new FormControl<string | null>(null, [Validators.required]),
-        experience: new FormControl<string | null>(null, [Validators.required]),
-        // salary: new FormControl<string | null>(null),
-        min_salary: new FormControl<string | null>(null, [Validators.required]),
-        max_salary: new FormControl<string | null>(null, [Validators.required]),
-        currency: new FormControl<string | null>(null, [Validators.required]),
-        startDate: new FormControl<string | null>(null, [Validators.required]),
-        remarks: new FormControl<string | null>(null),
-        expanded: new FormControl<boolean>(true, { nonNullable: true }),
-      },
-      { validators: this.salaryRangeValidator }
-    );
+    return this.fb.group({
+      requirementType: new FormControl<string | null>(null, [
+        Validators.required,
+      ]),
+      jobTitle: new FormControl<string | null>(null, [Validators.required]),
+      currency: new FormControl<string | null>(null, [Validators.required]),
+      // Changed from current_salary to min_salary to match HTML
+      current_salary: new FormControl<number | null>(null, [
+        Validators.required,
+      ]),
+      // Optional max_salary for validation logic
+
+      work_location: new FormControl<any>(null, [Validators.required]),
+
+      // Changed from preferred_work_type to employment_type
+      employment_type: new FormControl<any>(null, [Validators.required]),
+
+      // Changed from preferred_work_mode to work_mode
+      work_mode: new FormControl<string | null>(null, [Validators.required]),
+
+      // Changed from comments to remarks
+      remarks: new FormControl<string | null>(null),
+
+      expanded: new FormControl<boolean>(true, { nonNullable: true }),
+    });
   }
 
   get requirements(): FormArray<FormGroup> {
@@ -235,22 +213,7 @@ export class TalentSupportComponent implements OnInit {
     grp.get("expanded")?.setValue(!current);
   }
 
-  incProfiles(index: number): void {
-    const ctrl = this.requirements
-      .at(index)
-      .get("profilesRequired") as FormControl<number>;
-    ctrl.setValue((ctrl.value ?? 0) + 1);
-    this.recalculateTotal();
-  }
-
-  decProfiles(index: number): void {
-    const ctrl = this.requirements
-      .at(index)
-      .get("profilesRequired") as FormControl<number>;
-    const next = Math.max(0, (ctrl.value ?? 0) - 1);
-    ctrl.setValue(next);
-    this.recalculateTotal();
-  }
+  // UPDATED: Uses 'requirementType'
   onValueChange(event: any) {
     const selectedType = event.value;
     const price =
@@ -258,8 +221,20 @@ export class TalentSupportComponent implements OnInit {
         ? this.priceMap[selectedType]
         : 0;
     this.totalAmount = price;
-    console.log(`Selected: ${selectedType}, Price: ₹${price}`);
     this.recalculateTotal();
+  }
+
+  // UPDATED: Calculates total based on requirementType
+  private recalculateTotal(): void {
+    let total = 0;
+    this.requirements.controls.forEach((grp) => {
+      // Changed from 'talent_requirement_plan' to 'requirementType'
+      const type = grp.get("requirementType")?.value as string | null;
+      const profiles = 1;
+      const price = type ? this.priceMap[type] ?? 0 : 0;
+      total += profiles * price;
+    });
+    this.totalAmount = total;
   }
 
   postRequirement(): void {
@@ -287,6 +262,7 @@ export class TalentSupportComponent implements OnInit {
       formValue.requirements = formValue.requirements.map(
         (requirement: any) => {
           const profiles = 1;
+          // Ensure we use the new key 'requirementType'
           const requirementType = requirement.requirementType;
           const price =
             requirementType && this.priceMap[requirementType]
@@ -294,6 +270,7 @@ export class TalentSupportComponent implements OnInit {
               : 0;
           const amount = profiles * price;
 
+          // Ensure we use the new key 'employment_type'
           const employmentTypes = requirement.employment_type
             ? (Array.isArray(requirement.employment_type)
                 ? requirement.employment_type
@@ -303,8 +280,8 @@ export class TalentSupportComponent implements OnInit {
 
           return {
             ...requirement,
+            // Ensure payload keys match what your backend expects or what your form provides
             employment_type: employmentTypes,
-            work_location: requirement.work_location,
             amount: amount,
             pricePerProfile: price,
           };
@@ -317,12 +294,17 @@ export class TalentSupportComponent implements OnInit {
       ...formValue,
       totalAmount: this.totalAmount,
     };
+
     this.talentSupportService.talentSupportPayLink(finalPayload).subscribe({
       next: (response: any) => {
         if (response.success) {
           this.payWithRazorPay(response.orderid);
 
           this.form.reset();
+          // Re-add one empty requirement after reset
+          this.requirements.clear();
+          this.addRequirement();
+
           this.toast.add({
             severity: "success",
             summary: "Submitted",
@@ -359,6 +341,7 @@ export class TalentSupportComponent implements OnInit {
         this.positions = response;
       });
   }
+
   loadWorkLocationData() {
     this.talentSupportService
       .getWorkLocationDropdownData()
@@ -367,24 +350,13 @@ export class TalentSupportComponent implements OnInit {
       });
   }
 
-  private recalculateTotal(): void {
-    let total = 0;
-    this.requirements.controls.forEach((grp) => {
-      const type = grp.get("requirementType")?.value as string | null;
-      const profiles = 1;
-      const price = type ? this.priceMap[type] ?? 0 : 0;
-      total += profiles * price;
-    });
-    this.totalAmount = total;
-  }
-
   payWithRazorPay(orderid: any) {
     let razorKey = "rzp_live_YErYQVqDIrZn1D";
     if (environment.domain == "api.uniprep.ai") {
       razorKey = "rzp_test_Crpr7YkjPaCLEr";
     }
 
-    let phone = this.employerDetails.phone;
+    let phone = this.employerDetails?.phone; // Added safe navigation
     const options: any = {
       key: razorKey,
       amount: this.totalAmount,
@@ -395,8 +367,8 @@ export class TalentSupportComponent implements OnInit {
       order_id: orderid,
 
       prefill: {
-        name: this.employerDetails.name,
-        email: this.employerDetails.email,
+        name: this.employerDetails?.name,
+        email: this.employerDetails?.email,
         contact: phone === null || phone === "" ? "9876543210" : phone,
       },
       notes: {
@@ -421,16 +393,6 @@ export class TalentSupportComponent implements OnInit {
         .talentSupportCompleteTransaction(paymentdata)
         .subscribe({
           next: (data: any) => {
-            // this.invoiceUrl = data.invoice_link;
-            // this.isPaymentSuccessModal = true;
-            // this.name = '';
-            // this.email = '';
-            // this.student = 0;
-            // this.whatsapp = null;
-            // this.amount = 0;
-            // this.state = null;
-            // this.selectedlocation = null;
-            // this.country = null;
             this.toast.add({
               severity: "success",
               summary: "Success",
@@ -461,7 +423,6 @@ export class TalentSupportComponent implements OnInit {
 
   getUserDetails() {
     // this.getUserDetailsService.getData().subscribe((response: any) => {
-    //   console.log(response);
     //   if (response == null) {
     //     return;
     //   }
@@ -517,9 +478,11 @@ export class TalentSupportComponent implements OnInit {
             });
             var position = { job: response.title };
             this.loadPositionTitleData(position);
+
+            // UPDATED: Use 'jobTitle' key
             const currentRequirement = this.requirements.at(0);
             currentRequirement.get("jobTitle")?.setValue(response.title);
-            //this.loadDropdowndata(response);
+
             this.filteredValue = "";
           },
           error: (error: any) => {
@@ -545,9 +508,7 @@ export class TalentSupportComponent implements OnInit {
     });
   }
 
-  // Add this import if not already present
-
-  // Add this custom validator function
+  // UPDATED: Validates using 'min_salary' and 'max_salary' keys
   private salaryRangeValidator(
     control: AbstractControl
   ): ValidationErrors | null {

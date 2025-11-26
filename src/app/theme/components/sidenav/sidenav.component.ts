@@ -91,12 +91,12 @@ export class SidenavComponent {
       image: "fa-regular fa-user",
       subMenuBy: "Job Board",
     },
-    // {
-    //   title: "Talent Support",
-    //   url: "/pages/talent-support",
-    //   image: "fa-regular fa-handshake",
-    //   subMenuBy: "Job Board",
-    // },
+    {
+      title: "Talent Support",
+      url: "/pages/talent-support",
+      image: "fa-regular fa-handshake",
+      subMenuBy: "Job Board",
+    },
     {
       title: "Job Search",
       url: "/pages/talent-connect/easy-apply",
