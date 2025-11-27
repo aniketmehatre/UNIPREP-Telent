@@ -1,4 +1,4 @@
-<div class="card readingcard hs-page">
+<div class="card readingcard">
 
     <div class="card-header border-0 bg-transparent">
         <div class="row justify-content-center">
@@ -18,10 +18,21 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12 d-flex justify-content-end gap-2 mt-3">
+                <button pButton type="button" (click)="loadTalentSupport()" *ngIf="!supportView" class="btn btn-primary btn-rounded py-2 px-4">
+                    <i class="pi pi-history"></i>
+                    <span>History</span>
+                </button>
+            
+                <button pButton type="button" (click)="supportView = !supportView" *ngIf="supportView"
+                    class="btn btn-primary btn-rounded py-2 px-4">
+                    <i class="pi pi-plus"></i><span>New</span>
+                </button>
+            </div>
         </div>
     </div>
 
-    <div class="card-body d-flex flex-column hs-body">
+    <div class="card-body d-flex flex-column hs-body" *ngIf="!supportView">
         <form [formGroup]="form" class="d-flex flex-column gap-3 flex-fill">
 
             <!-- Scrollable content area -->
@@ -180,10 +191,114 @@
         </form>
     </div>
 </div>
-<div class="hs-footer d-flex justify-content-between align-items-center">
+<div class="hs-footer d-flex justify-content-between align-items-center" *ngIf="!supportView">
     <div>
         <div class="text-muted">Total</div>
         <div class="h5 mb-0">INR {{ totalAmount.toFixed(2) }}</div>
     </div>
     <button type="button" class="btn btn-success" (click)="postRequirement()">Post my Requirement</button>
 </div>
+
+<div style="width: 100%; height: 80vh; overflow: auto; overflow-x: hidden" class="mt-2 table-employer bg-white" *ngIf="supportView">
+    <p-table size="small" scrollHeight="600px" [value]="employeesList" [tableStyle]="{ 'min-width': '110rem' }"
+        dataKey="id" [rowHover]="true" [scrollable]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="employername">
+                    Talent Name <p-sortIcon field="talentname"></p-sortIcon>
+                </th>
+                <th pSortableColumn="is_payment_completed ">
+                    Payment Status <p-sortIcon field="is_payment_completed "></p-sortIcon>
+                </th>
+                <th pSortableColumn="amount">
+                    Amount <p-sortIcon field="amount"></p-sortIcon>
+                </th>
+                <th pSortableColumn="actions">
+                    Actions <p-sortIcon field="actions"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-employee>
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img [src]="employee?.profile_image" class="rounded-circle mr-2" width="40" height="40" />
+                        <div>
+                            {{ employee?.talentname }} <br />
+                            <small class="text-muted">Profile Updated On {{ employee?.updated_at }}</small>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    {{ employee?.is_payment_completed == 1 ? 'Paid' : 'Unpaid' }}
+                </td>
+                <td>{{ employee?.amount }}</td>
+                <td>
+                    <div class="d-flex flex-column gap-2" style="font-size: 15px">
+                        <span style="cursor: pointer" (click)="openInfoDialog(employee)"><i
+                                class="pi pi-briefcase"></i>&nbsp;View
+                            Info</span>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+
+    <div class="footer-section p-3 d-flex justify-content-center">
+        <p-paginator (onPageChange)="pageChange($event)" [rows]="perPage" [totalRecords]="totalEmployeeCount"
+            [rowsPerPageOptions]="[10, 50, 100]"></p-paginator>
+    </div>
+</div>
+
+<p-dialog header="Requirement Details" [(visible)]="showInfoDialog" [modal]="true" [style]="{ width: '900px' }">
+    @if (selectedRequirement?.length > 0) {
+    <p-table [value]="selectedRequirement" styleClass="p-datatable-sm" [tableStyle]="{ 'min-width': '100%' }"
+        [rowHover]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Job Title</th>
+                <th>Talent Requirement Plan</th>
+                <th>Work Mode</th>
+                <th>Work Type</th>
+                <th>Location</th>
+                <th>Currency</th>
+                <th>Current Salary</th>
+                <th>Comments</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-req>
+            <tr>
+                <td>{{ req.position_title || 'N/A' }}</td>
+                <td>{{ req.talent_requirement_plan }}</td>
+                <td>{{ req.preferred_work_mode || 'Any' }}</td>
+                <td>{{ req.work_type || 'Any' }}</td>
+                <td>{{ req.location }}</td>
+                <td>{{ req.currency }}</td>
+                <td>{{ req.current_salary}}</td>
+                <td>
+                    <span *ngIf="!req?.comments">
+                        -
+                    </span>
+                    <ng-container *ngIf="req?.comments">
+                        <span *ngIf="!req.showFull">
+                            {{ req.comments | slice:0:20 }}
+                            <span *ngIf="req.comments.length > 20">...</span>
+                            <a *ngIf="req.comments.length > 20" class="text-primary cursor-pointer"
+                                (click)="req.showFull = true">more</a>
+                        </span>
+
+                        <span *ngIf="req.showFull">
+                            {{ req.comments }}
+                            <a class="text-primary cursor-pointer" (click)="req.showFull = false">less</a>
+                        </span>
+                    </ng-container>
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+    } @else {
+    <p class="text-center text-muted m-3">No requirements found for this talent.</p>
+    }
+</p-dialog>

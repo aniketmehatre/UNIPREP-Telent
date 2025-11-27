@@ -42,6 +42,8 @@ import { DropdownDataService } from "src/app/services/dropdown-data.service";
 import { TalentSupportService } from "src/app/services/talent-support.service";
 import { WindowRefService } from "../subscription/window-ref.service";
 import { environment } from "@env/environment";
+import { ScrollTopModule } from "primeng/scrolltop";
+import { TableModule } from "primeng/table";
 
 @Component({
   selector: "app-talent-support",
@@ -65,6 +67,8 @@ import { environment } from "@env/environment";
     DatePickerModule,
     InputGroupModule,
     ConfirmPopupModule,
+    ScrollTopModule,
+    TableModule
   ],
   providers: [ConfirmationService],
   styleUrls: ["./talent-support.component.scss"],
@@ -134,6 +138,13 @@ export class TalentSupportComponent implements OnInit {
       <br>• Part-time – limited weekly hours<br>
       • Volunteer – unpaid contribution
     `;
+  supportView: boolean = false;
+  page: number = 1;
+  perPage: number = 10;
+  employeesList: any[] = [];
+  totalEmployeeCount: number = 0;
+  selectedRequirement: any[] = [];
+  showInfoDialog: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -534,5 +545,29 @@ export class TalentSupportComponent implements OnInit {
       summary: "Opening Document",
       detail: "Hiring Output Sample is opening in a new tab",
     });
+  }
+
+  loadTalentSupport(params: any = {}) {
+    const data = { page: this.page, perpage: this.perPage, ...params };
+    this.talentSupportService
+      .getTalentSupportHistory(data)
+      .subscribe((response) => {
+        this.employeesList = response.data.map((item: any) => ({
+          ...item.transaction,
+          requirements: item.requirements,
+        }));
+        this.totalEmployeeCount = response.total;
+        this.supportView = true;
+      });
+  }
+
+  pageChange(event: any) {
+    this.page = (event.page ?? 0) + 1;
+    this.perPage = event.rows ?? 10;
+  }
+
+  openInfoDialog(employee: any) {
+    this.selectedRequirement = employee.requirements ?? [];
+    this.showInfoDialog = true;
   }
 }

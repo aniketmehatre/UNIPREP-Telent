@@ -80,4 +80,11 @@ export class TalentSupportService {
       environment.ApiUrlEmployer + "/getyourprofiledropdownvalues"
     );
   }
+
+   getTalentSupportHistory(data: any) {
+    return this.http.post<any>(
+      `${environment.ApiUrl}/talent-support-history`,
+      data
+    );
+  }
 }
