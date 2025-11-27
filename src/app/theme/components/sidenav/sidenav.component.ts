@@ -94,15 +94,16 @@ export class SidenavComponent {
     {
       title: "Talent Support",
       url: "/pages/talent-support",
-      image: "fa-regular fa-handshake",
+      image: "fa-regular fa-headset",
       subMenuBy: "Job Board",
+      mostPopular: true,
     },
     {
       title: "Job Search",
       url: "/pages/talent-connect/easy-apply",
       image: "fa-regular fa-user-hat-tie-magnifying-glass",
       subMenuBy: "Job Board",
-      mostPopular: true,
+      popular: true,
     },
     {
       title: "Docs Wallet",
