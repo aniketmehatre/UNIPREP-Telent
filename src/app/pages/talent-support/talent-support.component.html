@@ -81,7 +81,7 @@
                                 <label class="form-label">Job Title You Are Looking For</label>
                                 <p-select [virtualScroll]="true" [virtualScrollItemSize]="50" formControlName="jobTitle"
                                     [options]="positions || []" placeholder="Select the job"
-                                    optionLabel="position_title" optionValue="position_title"
+                                    optionLabel="position_title" optionValue="id"
                                     (onFilter)="onDropdownFilter($event)" styleClass="w-100" [filter]="true"
                                     dataKey="id" filterBy="position_title" [showClear]="true"
                                     (mouseover)="onFocusInput('title')" (mouseout)="resetMessageBox()" fluid
@@ -239,6 +239,13 @@
                                 class="pi pi-briefcase"></i>&nbsp;View
                             Info</span>
                     </div>
+                </td>
+            </tr>
+        </ng-template>
+         <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="3" class="text-center p-4">
+                    No data available
                 </td>
             </tr>
         </ng-template>
