@@ -2,32 +2,235 @@
 	<div class="talent-search-container row justify-content-center">
 		<div class="col-md-10 p-4">
 			<div class="text-center mb-5">
-				<!-- <div class="display-1 fw-bold text-white mb-3">Looking for a career <span class="fw-lighter">move that</span> matters?</div> -->
-				<!-- <p class="display-6 lead text-white">Discover Real Opportunities. Connect with Employers.</p> -->
-				<p  class="mt-2 font-size-4 text-white">Take the Next Step in Your Career with Employer Connect.</p>
+				<!-- <div class="display-1 fw-bold text-black mb-3">Looking for a career <span class="fw-lighter">move that</span> matters?</div> -->
+				<!-- <p class="display-6 lead text-black">Discover Real Opportunities. Connect with Employers.</p> -->
+				<p class="mt-2 font-size-4 text-white">Take the Next Step in Your Career with Employer Connect.</p>
 			</div>
 			<div class="card p-4 border shadow-lg">
-				<div class="row justify-content-center">
-					<div class="col-md-11">
-						<div class="d-flex justify-content-between align-items-center mb-4">
-							<div class="text-white fs-4">Total Jobs: {{ totalJobs }}</div>
-							<button class="px-5 py-2 rounded-3 border-white text-white bg-gray"
-								(click)="displayUnlockFilter = true;">Filter</button>
-						</div>
+                <div class="row align-items-center mt-2">
+                    <div class="col">
+                    </div>
 
-						<div class="row g-3 mb-3">
-							<div role="button" class="col-lg-4 col-md-6 col-12" *ngFor="let job of jobListings"
-								(click)="displayUnlockFilter = true;">
-								<div class="talent-card-wrapper">
-									<img [src]="job"
-										alt="Job Profile Card"
-										class="img-fluid rounded shadow-sm talent-card-img w-100"
-										(onerror)="event.target.src = 'uniprep-assets/images/default-job-card.webp'" />
+                    <div class="col-auto text-end">
+                        <button type="button" (click)="displayUnlockFilter = true;"
+                                class="btn btn-primary btn-lg rounded-3 shadow-sm px-4 d-flex align-items-center">
+                            <i class="fa-solid fa-filter"></i>
+                            <span class="d-md-block d-none">&nbsp;&nbsp;Filter</span>
+                        </button>
+                    </div>
+                </div>
+				<div class="card-body text-center flex-fill overflow-y-auto">
+					@if(jobListings.length > 0) {
+					<div class="row">
+						@for (job of jobListings; track job.id; let i = $index) {
+						<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2" (click)="onClickJob()">
+							<div class="card card-inside h-100 text-start position-relative bg-white" role="button">
+
+								<div class="card-body pb-0">
+									<div class="d-flex gap-2 align-items-start">
+										<div class="rounded-2 d-flex overflow-hidden bg-white"
+											style="border: 1px solid #e7e7e7; max-width: 70px">
+											<img class="w-100" style="object-fit: contain; aspect-ratio: 1"
+												(error)="$event.target.src = '/uniprep-assets/images/job.webp'" [src]="job.company_logo"
+												alt="Company Logo" />
+										</div>
+										<div>
+											<h6 class="mb-0 fw-semibold line-clamp-two text-black" title="{{ job?.position }}">{{
+												job?.position
+												}}</h6>
+											<p class="text-dark d-flex">
+												<a class="text-dark text-decoration-none" [href]="job.company_website" target="_blank"
+													(click)="$event.stopPropagation()">{{ job.company_name }}</a>
+												@if(job.isVerified) {
+												<span class="uniprep-secondary">
+													<i class="fas fa-check-circle"></i>
+												</span>
+												}
+											</p>
+<!--											<p class="mb-0 uniprep-secondary text-extrasmall">{{ job.matching_skills }}</p>-->
+											<button pButton [ngClass]="getStatus(job?.hiring_status) ? 'btn-primary' : 'btn-success'"
+												class="btn btn-rounded text-nowrap !fs-6 py-1"><i class="fa-solid"
+													[ngClass]="getStatus(job?.hiring_status) ? 'fa-clock' : 'fa-check'"></i>{{
+												job?.hiring_status }}</button>
+										</div>
+									</div>
+									<hr class="my-2" />
+									<div class="row justify-content-between align-items-center">
+										<div class="col-md-6 col-6">
+											<div class="d-flex gap-2 align-items-center">
+												<i class="fa-solid fa-user-tie" style="color: #cc660a"></i>
+												<div>
+													<p class="text-black mb-0 text-small">Total Vacancies</p>
+													<h3 class="mb-0 fw-semibold text-dark">{{ job?.available_vacancies }}</h3>
+												</div>
+											</div>
+										</div>
+										<!-- <div class="col-md-6 col-6">
+													<div class="d-flex gap-2 align-items-center">
+														<i class="fa-solid fa-user-tie" style="color: #cc660a"></i>
+														<div>
+															<p class="text-black mb-0 text-small">Total Applications</p>
+															<h3 class="mb-0 fw-medium text-dark ">{{ job.total_applied }}</h3>
+														</div>
+													</div>
+												</div> -->
+									</div>
+									<hr class="my-2" />
+									<div class="row">
+										<div class="col-md-6 col-6">
+											<div class="d-flex mb-3 align-items-center">
+												<div class="me-2 text-success">
+													<i class="fas fa-map-marker-alt"></i>
+												</div>
+												<div class="overflow-hidden">
+													<p class="text-black mb-0 text-small">Work Location</p>
+													<p class="mb-0 fw-medium text-dark  text-truncate">{{ job.worklocation }}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6 col-6">
+											<div class="d-flex mb-3 align-items-center">
+												<div class="me-2 text-danger">
+													<i class="fas fa-person-digging"></i>
+												</div>
+												<div class="overflow-hidden">
+													<p class="text-black mb-0 text-small">Work Type</p>
+													<p class="mb-0 fw-medium text-dark  text-truncate">{{ job.employment_type }}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6 col-6">
+											<div class="d-flex mb-3 align-items-center">
+												<div class="me-2 text-primary">
+													<i class="fas fa-calendar-alt"></i>
+												</div>
+												<div class="overflow-hidden">
+													<p class="text-black mb-0 text-small">Start Date</p>
+													<p class="mb-0 fw-medium text-dark  text-truncate">{{ job.start_date }}</p>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-md-6 col-6">
+											<div class="d-flex mb-3 align-items-center">
+												<div class="me-2 text-black">
+													<i class="fas fa-calendar-alt"></i>
+												</div>
+												<div class="overflow-hidden">
+													<p class="text-black mb-0 text-small">Application Deadline</p>
+													<p class="mb-0 fw-medium text-dark  text-truncate">{{ job.due_date }}</p>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-md-6 col-6">
+											<div class="d-flex mb-3 align-items-center">
+												<div class="me-2 text-warning">
+													<i class="fas fa-building"></i>
+												</div>
+												<div class="overflow-hidden">
+													<p class="text-black mb-0 text-small">Work Mode</p>
+													<p class="mb-0 fw-medium text-dark  text-truncate">{{ job.work_mode }}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6 col-6">
+											<div class="d-flex mb-3 align-items-center">
+												<div class="me-2 text-warning">
+													<i class="fa-solid fa-users"></i>
+												</div>
+												<div class="overflow-hidden">
+													<p class="text-black mb-0 text-small">Experience Level</p>
+													<p class="mb-0 fw-medium text-dark  text-truncate">{{ job.experience_level == "Fresher" ?
+														job.experience_level : job.experience_level == "1" ? job.experience_level +
+														" year" : job.experience_level + " years" }}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6 col-6">
+											<div class="d-flex align-items-center">
+												<div class="me-2 text-success">
+													<i class="fa-solid fa-money-bill"></i>
+												</div>
+												<div class="overflow-hidden">
+													<p class="text-black mb-0 text-small">Salary offered per month</p>
+													<p class="mb-0 fw-medium text-dark  text-truncate">{{job.currency_code }} {{ job.salary_offer }}</p>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-md-6 col-6">
+											<div class="d-flex align-items-center">
+												<div class="me-2 text-black">
+													<i class="fa-solid fa-video"></i>
+												</div>
+												<div class="overflow-hidden">
+													<p class="text-black mb-0 text-small">Introduction Video</p>
+													<p class="mb-0 fw-medium text-dark  text-truncate">{{ job.intro_video == "Yes" ?
+														"Mandatory" : "Not Mandatory" }}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-footer bg-transparent border-0">
+									<div class="row align-items-center">
+										<div class="col-md-6 col-6">
+											@if(job?.hiring_type != 'Company') {
+											<div class="text-black px-3 py-1 d-table-cell" style="border-radius: 30px"
+												[ngStyle]="job?.hiring_type == 'Co-Hire' ? { 'background-color': 'var(--p-secondary-500)' } : { 'background-color': '#6a35cd' }">
+												{{ job?.hiring_type }}
+											</div>
+											}
+										</div>
+										<!-- <div class="col-md-6 col-6">
+													<p class="text-black" style="font-size: 0.80rem;">Posted On: {{ job.created_at | date :
+														"dd-MM-yyyy" }}</p>
+												</div> -->
+									</div>
 								</div>
 							</div>
 						</div>
+						}
 					</div>
+					}
+					@if(jobListings.length == 0) {
+					<div class="card bg-white h-100">
+						<div class="d-flex flex-fill justify-content-center align-items-center flex-column text-center">
+							<div class="building-icon mb-4">
+								<img src="uniprep-assets/images/job.webp" alt="Building" class="img-fluid" />
+							</div>
+							@if(isAppliedFilter) {
+							<h4 class="mb-3">No jobs found matching your search.</h4>
+							<p class="text-black">Please try adjusting your filters or check back soon — new opportunities are
+								added regularly</p>
+							}
+							@else {
+							<h4 class="mb-3">No jobs found.</h4>
+							}
+						</div>
+					</div>
+					}
 				</div>
+				<!-- <div class="card-footer py-1 border-0 bg-transparent">
+					<div class="row align-items-center">
+						<div class="col-md-3"></div>
+						<div class="col-md-6">
+							@if(totalJobs != 0) {
+							<p-paginator [rows]="pageSize" [totalRecords]="totalJobs" [first]="(page - 1) * pageSize"
+								(onPageChange)="onPageChange($event)" [rowsPerPageOptions]="[8, 48]" [disabled]="totalJobs <= pageSize">
+							</p-paginator>
+							}
+						</div>
+						<div class="col-md-3">
+							<div class="text-small">
+								<span class="uniprep-secondary fw-bold">Disclaimer: </span>
+								<span> Jobs listed here are from publicly available sources. We are currently onboarding official
+									partners.</span>
+							</div>
+						</div>
+					</div>
+				</div> -->
 				<div class="card-footer  bg-transparent">
 					<p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="itemsPerPage"
 						[totalRecords]="totalJobs" />
@@ -36,18 +239,17 @@
 		</div>
 	</div>
 </section>
-<p-dialog [(visible)]="displayUnlockFilter"  [closable]="true" [dismissableMask]="true"
-	styleClass="unlock-filter-dialog p-1" [style]="{ width: '50vw' }" [breakpoints]="{ '960px': '75vw', '959px': '80vw', '425px': '90vw' }" header=""
+<p-dialog [(visible)]="displayUnlockFilter" [closable]="true" [dismissableMask]="true"
+	styleClass="unlock-filter-dialog p-1" [style]="{ width: '50vw' }"
+	[breakpoints]="{ '960px': '75vw', '959px': '80vw', '425px': '90vw' }" header=""
 	[contentStyle]="{ 'text-align': 'center' }">
 
 	<img src="uniprep-assets/icons/metal-lock.png" alt="lock" style="width: 100px; margin-bottom: 1rem;" />
 	<div class="p-4">
-		<h5 style="color: #ff6600; font-weight: bold;">Unlock Full Profile Access</h5>
+		<h5 style="color: #ff6600; font-weight: bold;">Unlock Full Job Access</h5>
 
 		<p style="font-size: 14px; color: #444;" class="text-center">
-			You're just one step away from discovering top talent. <br>Log in to explore complete profiles, download
-			CVs,
-			and connect directly with job-ready candidates verified by our team.
+			You're just one step away from discovering top Jobs. <br>Log in to explore complete Job profile.
 		</p>
 
 		<button class="btn btn-secondary mt-3" [routerLink]="['/register']">

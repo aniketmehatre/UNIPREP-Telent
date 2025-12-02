@@ -45,6 +45,189 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.font-size-4{
+.font-size-4 {
   font-size: 4rem;
+}
+
+.card-inside {
+  // border: 1px solid var(--p-secondary-500);
+  /* Light orange border */
+  background-color: white !important;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: white !important;
+    border: 2px solid var(--p-secondary-500);
+  }
+}
+
+.share-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.btn-primary {
+  background-color: #3f51b5;
+  border-color: #3f51b5;
+}
+
+.btn-outline-primary {
+  color: #3f51b5;
+  border-color: #3f51b5;
+
+  &:hover {
+    background-color: #3f51b5;
+    color: white;
+  }
+}
+
+.text-warning {
+  color: #ff9800 !important;
+}
+
+.text-primary {
+  color: #3f51b5 !important;
+}
+
+.text-success {
+  color: #4caf50 !important;
+}
+
+.text-danger {
+  color: #f44336 !important;
+}
+
+.text-secondary {
+  color: #9e9e9e !important;
+}
+
+.fw-medium {
+  font-weight: 500;
+}
+
+:host ::ng-deep {
+  .p-dialog-header {
+    padding: 1rem 1.5rem !important;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .p-dialog-content {
+    padding: 0 !important;
+  }
+
+  .p-dialog .p-dialog-header .p-dialog-title {
+    font-weight: 600;
+  }
+
+  .p-dialog-footer {
+    border-top: 1px solid #dee2e6;
+    padding: 1rem 1.5rem;
+  }
+
+  .p-multiselect,
+  .p-dropdown {
+    width: 100%;
+  }
+
+  .dialog-footer {
+    border-top: 1px solid #dee2e6;
+  }
+
+  .input-group-prepend .p-dropdown {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .input-group-text {
+    padding: 0px;
+  }
+
+
+
+  .input-group .form-control {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  // Styling for the multiselect fields
+  .p-multiselect-label-container {
+    height: 38px;
+  }
+}
+
+.form-label {
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+label {
+
+  font-size: 14px;
+}
+
+.module-button {
+  border-radius: 10px;
+  font-weight: bold;
+  background-color: white;
+  color: var(--p-primary-500);
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: white;
+    background-color: var(--p-primary-500);
+  }
+}
+
+.share-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.share-menu li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  font-size: 14px;
+}
+
+.share-menu li i {
+  font-size: 16px;
+}
+
+/* Hover effect */
+.share-menu li:hover {
+  background: #f0f0f0;
+  transform: translateX(3px);
+}
+
+/* Optional custom colors */
+.share-menu li .whatsapp {
+  color: #25D366;
+}
+
+.share-menu li .mail {
+  color: #EA4335;
+}
+
+.share-menu li .facebook {
+  color: #1877F2;
+}
+
+.share-menu li .twitter {
+  color: #1DA1F2;
+}
+
+.share-menu li .instagram {
+  color: #E4405F;
+}
+
+.share-menu li .linkedin {
+  color: #0077B5;
 }
