@@ -11,6 +11,15 @@ import { SocialShareService } from "src/app/services/social-share.service";
 import { LocalStorageService } from "ngx-localstorage";
 import { JobListing } from "src/app/@Models/employee-connect-job.model";
 import { PopoverModule } from "primeng/popover";
+import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { SelectModule } from "primeng/select";
+import { MultiSelectModule } from "primeng/multiselect";
+import { InputNumberModule } from "primeng/inputnumber";
+import { InputTextModule } from "primeng/inputtext";
+import { TalentConnectService } from "../../talent-connect/talent-connect.service";
+import { MessageService } from "primeng/api";
+import { AuthService } from "src/app/Auth/auth.service";
+import { LocationService } from "src/app/services/location.service";
 
 @Component({
   selector: "uni-active-jobs",
@@ -22,11 +31,28 @@ import { PopoverModule } from "primeng/popover";
     DialogModule,
     PaginatorModule,
     PopoverModule,
+    SelectModule,
+    MultiSelectModule,
+    InputTextModule,
+    InputNumberModule,
+    ReactiveFormsModule,
+    PopoverModule,
+    DialogModule,
+    PaginatorModule,
+    DialogModule,
+    InputTextModule,
+    MultiSelectModule,
+    ButtonModule,
+    ReactiveFormsModule,
+    SelectModule,
+    InputNumberModule,
+    TooltipModule,
   ],
   templateUrl: "./active-jobs.component.html",
   styleUrl: "./active-jobs.component.scss",
 })
 export class ActiveJobsComponent implements OnInit {
+  filterForm: FormGroup = new FormGroup({});
   jobListings: any;
   displayUnlockFilter: boolean = false;
   currentPage: number = 1;
@@ -38,13 +64,84 @@ export class ActiveJobsComponent implements OnInit {
   page: number = 1;
   pageSize: number = 12;
   totalVacancies: number = 0;
+
+  locations: any[] = [];
+  workModes: any[] = [];
+  employmentTypes: any[] = [];
+  experienceLevels: any[] = [];
+  currencies: any[] = [];
+  hiringStatuses: { id: string; name: string }[] = [
+    { id: "Active", name: "Actively Hiring" },
+    { id: "Future_Hiring", name: "Future Hiring" },
+  ];
+  introductionVideoTypes: { id: string; name: string }[] = [
+    { id: "Yes", name: "Mandatory" },
+    { id: "No", name: "Not Mandatory" },
+  ];
+  jobTypes: { id: string; name: string }[] = [
+    { id: "Standard", name: "Standard" },
+    { id: "Premium", name: "Premium" },
+  ];
+
+  displayModal: boolean = false;
+  currencyList: any[] = [];
+  isSkeletonVisible: boolean = true;
+  hiringTypes: { id: number; name: string }[] = [
+    { id: 1, name: "Company Hire" },
+    { id: 2, name: "Co-Hire" },
+    { id: 3, name: "Campus Hire" },
+  ];
+  selectedCurrency: string = "";
+  countries: any[] = [];
+  industries: any[] = [];
+  isAppliedFilter: boolean = false;
+
   constructor(
     private landingTalentService: LandingTalentService,
-    private storage: LocalStorageService
-  ) {}
+    private storage: LocalStorageService,
+    private fb: FormBuilder,
+    private talentConnectService: TalentConnectService,
+    private messageService: MessageService,
+    private authService: AuthService,
+    private locationService: LocationService
+  ) {
+    this.filterForm = this.fb.group({
+      keyword: [""],
+      position: [""],
+      industry: [null],
+      country: [null],
+      worklocation: [null],
+      work_mode: [null],
+      employment_type: [null],
+      currency: [],
+      min_salary: [""],
+      max_salary: [""],
+      experienceLevel: [null],
+      salary_currency: [null],
+      hiringStatus: [null],
+      intro: [null],
+      job_type: [null],
+      hiring_type: [null],
+    });
+  }
 
   ngOnInit(): void {
     this.getStaticCardByType();
+    this.getOptionsList();
+    this.getCountries();
+  }
+
+  getCountries() {
+    this.locationService.getHomeCountry(2).subscribe({
+      next: (res) => {
+        this.countries = res;
+      },
+    });
+    this.talentConnectService.getEasyApplyWorkLocationList().subscribe({
+      next: (res) => {
+        this.locations = res.worklocations;
+      },
+    });
   }
 
   getStaticCardByType() {
@@ -61,12 +158,12 @@ export class ActiveJobsComponent implements OnInit {
         this.totalJobs = response.totaljobs;
         this.totalVacancies = response.totalvacancies;
         this.jobListings = response.jobs;
-          this.jobListings = this.jobListings.map((data: any) => ({
-              ...data,
-              salary_per_month: data.salary_per_month
-                  ?.replace(/\/Month/i, "")
-                  .trim(),
-          }));
+        this.jobListings = this.jobListings.map((data: any) => ({
+          ...data,
+          salary_per_month: data.salary_per_month
+            ?.replace(/\/Month/i, "")
+            .trim(),
+        }));
         if (this.jobListings && this.jobListings.length < 0) {
           this.isShowEmpty = true;
         }
@@ -158,5 +255,88 @@ export class ActiveJobsComponent implements OnInit {
 
   onClickJob() {
     this.displayUnlockFilter = true;
+  }
+
+  applyFilter(): void {
+    this.getList(this.filterForm.value);
+    this.displayModal = false;
+    this.isAppliedFilter = true;
+  }
+
+  resetFilter(): void {
+    this.getList({});
+    this.displayModal = false;
+    this.filterForm.reset();
+    this.isAppliedFilter = false;
+  }
+
+  getOptionsList() {
+    this.talentConnectService.getJobListDropdown().subscribe((data) => {
+      this.experienceLevels = data.experiecelevel;
+      this.workModes = data?.workmode;
+      this.employmentTypes = data?.employmenttype;
+      this.currencies = data?.currencycode;
+      this.industries = data?.industrytypes;
+    });
+  }
+
+  getList(params?: any) {
+    let data: any = {
+      page: this.page,
+      perPage: this.pageSize,
+      city_id: this.authService._user?.city_id,
+    };
+    if (params) {
+      data = { ...data, ...params };
+    }
+    this.landingTalentService.getJobShareList(data).subscribe({
+      next: (response) => {
+        if (!response.success) {
+          this.messageService.add({
+            severity: "error",
+            summary: "Restricted",
+            detail: response?.message,
+          });
+        }
+        this.totalJobs = response.totaljobs;
+        this.totalVacancies = response.totalvacancies;
+        this.jobListings = response.jobs;
+        this.jobListings = this.jobListings.map((data: JobListing) => ({
+          ...data,
+          salary_per_month: data.salary_per_month
+            ?.replace(/\/Month/i, "")
+            .trim(),
+        }));
+
+        this.currencyList = response.jobs
+          .filter((job: any) => job.salary_per_month) // optional: skip if salary is null/undefined
+          .map((job: any) => ({
+            id: job.id,
+            salary_per_month: job.salary_per_month,
+          }));
+        this.isSkeletonVisible = false;
+        if (this.selectedCurrency) {
+          // this.onCurrencyExchange({
+          //   value: { currency_code: this.selectedCurrency },
+          // });
+        }
+      },
+      error: (error) => {
+        this.isSkeletonVisible = false;
+        console.log(error);
+      },
+    });
+  }
+
+  onChangeLocation(event: any, type: string) {
+    if (type == "location") {
+      const contryCtrl = this.filterForm.get("country");
+      event?.value?.length > 0 ? contryCtrl?.disable() : contryCtrl?.enable();
+    } else {
+      const locationCtrl = this.filterForm.get("worklocation");
+      event?.value?.length > 0
+        ? locationCtrl?.disable()
+        : locationCtrl?.enable();
+    }
   }
 }

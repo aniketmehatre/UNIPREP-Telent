@@ -3,8 +3,9 @@ export const appRoutes: Routes = [
   // Public routes that don't require authentication
   // Student Landing Page
   {
-  	path: '',
-  	loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule),
+    path: "",
+    loadChildren: () =>
+      import("./pages/landing/landing.module").then((m) => m.LandingModule),
   },
   // Partner Landing Page
   // {
@@ -18,7 +19,7 @@ export const appRoutes: Routes = [
   // },
   // // Talent Landing Page
   // {
-  //   path: "t",
+  //   path: "",
   //   loadChildren: () =>
   //     import("./pages/landing-talent-connect/landing-new.module").then(
   //       (c) => c.LandingNewModule

@@ -225,7 +225,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             "http://localhost:4200",
             "https://dev-student.uniprep.ai",
           ];
-          if (!disallowedDomains.includes(response.domain)) {
+          if (disallowedDomains.includes(response.domain)) {
             console.log("Allowed domain:", response.domain);
             this.service.saveToken(response.token);
             this.authTokenService.setToken(response.token);
