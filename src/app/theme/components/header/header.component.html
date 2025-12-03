@@ -720,7 +720,8 @@
   >
     <div>
       <h5>{{ n.title }}</h5>
-      <p class="mb-1">{{ n.message }}</p>
+      <p class="mb-1" *ngIf="n.message==='The company has requested to view your documents.'">{{ n.company_name }} has requested to view your documents.</p>
+	  <p class="mb-1" *ngIf="n.message==='Your profile was viewed by a company.'">Your profile was viewed by a {{n.company_name}}.</p>
       <small>{{ n.company_name }} — {{ n.created_at | date: 'medium' }}</small>
 
       <div
@@ -770,11 +771,11 @@
 				</p-tabpanel>
 			</p-tabs>
 		</div>
-		<div class="card-footer">
+		<!-- <div class="card-footer">
 			<div class="view-all">
 				<a href="#">View All Notifications</a>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </p-popover>
 
