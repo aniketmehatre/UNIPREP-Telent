@@ -1,19 +1,19 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { environment } from '@env/environment';
-import { DialogModule } from 'primeng/dialog';
-import { Router } from '@angular/router';
+import { CommonModule } from "@angular/common";
+import { Component, EventEmitter, Output } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { environment } from "@env/environment";
+import { DialogModule } from "primeng/dialog";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'uni-landing-footer',
+  selector: "uni-landing-footer",
   imports: [CommonModule, RouterModule, DialogModule],
-  exportAs: 'uni-landing-footer',
-  templateUrl: './landing-footer.component.html',
-  styleUrl: './landing-footer.component.scss'
+  exportAs: "uni-landing-footer",
+  templateUrl: "./landing-footer.component.html",
+  styleUrl: "./landing-footer.component.scss",
 })
 export class LandingFooterComponent {
-  currentYear = new Date().getFullYear()
+  currentYear = new Date().getFullYear();
   displaycancellationpolicy: boolean = false;
   displaytandc: boolean = false;
   displayprivacypolicy: boolean = false;
@@ -23,31 +23,34 @@ export class LandingFooterComponent {
   socialLinks = [
     { icon: "facebook", url: "https://www.facebook.com/uniprepindia" },
     { icon: "instagram", url: "https://www.instagram.com/uniprepglobal" },
-    { icon: "linkedin", url: "https://www.linkedin.com/company/uniprep-global/" },
+    {
+      icon: "linkedin",
+      url: "https://www.linkedin.com/company/uniprep-global/",
+    },
     { icon: "youtube", url: "https://www.youtube.com/@UNIPREPGlobal" },
     { icon: "twitter", url: "https://x.com/uniprepglobal?s=21" },
-  ]
+  ];
 
-  aboutLinks = [{ text: "About UNIPREP", url: "/about" }]
+  aboutLinks = [{ text: "About UNIPREP", url: "/about" }];
 
   featureLinks = [
-    { text: "For Job Seekers", url: '/job-seekers' },
+    { text: "For Job Seekers", url: "/job-seekers" },
     { text: "For International Students", url: "/international-students" },
     { text: "For Global Travellers", url: "/global-travellers" },
     { text: "For Entrepreneurs", url: "/entrepreneurs" },
-  ]
+  ];
 
   exploreLinks = [
     { text: "For Employers", url: environment.employerDomain },
     { text: "For Talents", url: environment.talentDomain },
     { text: "For Institutions", url: environment.instituteDomain },
-    { text: "For Partners", url: environment.partnerDomain },
-  ]
+    { text: "Franchise Partners", url: environment.partnerDomain },
+  ];
 
   resourceLinks = [
     { text: "Blogs", url: "/blogs" },
     { text: "Certificates", url: "/certificates" },
-  ]
+  ];
 
   // otherLinks = [
   //   { text: "Privacy Policy", url: "/privacy-policy", type: 'privacy' },
@@ -58,12 +61,16 @@ export class LandingFooterComponent {
   // ]
 
   otherLinks = [
-    { text: "Privacy Policy", url: "privacy-policy", type: 'privacy' },
-    { text: "Terms & Conditions", url: "terms-conditions", type: 'terms' },
-    { text: "Cancellation Policy", url: "cancellation-policy", type: 'cancellation' },
-    { text: "Refund Policy", url: "refund-policy", type: 'refund' },
-    { text: "Cookie Policy", url: "cookie-policy", type: 'cookie' },
-  ]
+    { text: "Privacy Policy", url: "privacy-policy", type: "privacy" },
+    { text: "Terms & Conditions", url: "terms-conditions", type: "terms" },
+    {
+      text: "Cancellation Policy",
+      url: "cancellation-policy",
+      type: "cancellation",
+    },
+    { text: "Refund Policy", url: "refund-policy", type: "refund" },
+    { text: "Cookie Policy", url: "cookie-policy", type: "cookie" },
+  ];
 
   contactInfo = {
     phone: [
@@ -71,7 +78,7 @@ export class LandingFooterComponent {
       { country: "gb", number: "+44 78647 16295" },
     ],
     email: "info@uniprep.ai",
-  }
+  };
 
   // onClickPolicies(type: string) {
   //   switch (type) {
@@ -97,11 +104,8 @@ export class LandingFooterComponent {
   //   }
   // }
 
-  constructor(
-    private route: Router
-  ){}
-  onClickPolicies(url: string){
-    this.route.navigate(['policy/'+url]);
+  constructor(private route: Router) {}
+  onClickPolicies(url: string) {
+    this.route.navigate(["policy/" + url]);
   }
-
 }
