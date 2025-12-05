@@ -169,7 +169,11 @@
 							(click)="openReportModal(op, $event)" aria-label="Open reports"
 							style="width: 90px; height: 40px; padding: 0"><i class="fa-regular fa-bullhorn"
 								style="font-size: 16px" aria-hidden="true"></i> Report</button>
-
+						<!-- <a (click)="np.toggle($event)" class="me-3" aria-label="Notifications">
+							<p-avatar class="" label="" role="button">
+								<i class="fa-solid fa-bell" aria-hidden="true"></i>
+							</p-avatar>
+						</a> -->
 						<a (click)="openchat()" title="Chat" aria-label="Open chat">
 							<p-avatar class="" label="" role="button" style="padding: 19px">
 								<i class="fa-solid fa-comments"></i>
@@ -663,17 +667,17 @@
 		</div>
 	</div>
 </div>
-<p-popover #np [style]="{ width: '350px' }">
+<p-popover #np [style]="{ width: '500px' }">
 	<div class="container notification-container mt-2">
 		<div class="notifications-header">
 			<h2 class="text-bold">Notifications ({{ notifications?.length || 0 }})</h2>
-      <div>
-        <a href="#" (click)="markAllRead($event)">Mark all as read</a>
-      </div>
+			<div>
+				<a href="#" (click)="markAllRead($event)">Mark all as read</a>
+			</div>
 		</div>
-		<div class="text-end">
+		<!-- <div class="text-end">
 			<i class="pi pi-cog"></i>
-		</div>
+		</div> -->
 		<!-- PrimeNG TabView for Tab Control -->
 		<div class="card-body">
 			<p-tabs>
@@ -712,70 +716,62 @@
 							</div>
 						</div>
 					</div> -->
-          <div class="list-group">
-  <div
-    class="list-group-item d-flex justify-content-between align-items-center position-relative"
-    *ngFor="let n of notifications"
-    [ngClass]="{ 'isread': n.is_read == 1 }"
-    (click)="markAsRead(n)"
-  >
-    <div>
-      <h5>{{ n.title }}</h5>
-      <p class="mb-1">{{ n.message }}</p>
-      <small>{{ n.company_name }} — {{ n.created_at | date: 'medium' }}</small>
+					<div style="max-height: 350px; overflow-y: auto;">
+						<div class="list-group">
+							<div class="list-group-item d-flex justify-content-between align-items-center position-relative"
+								*ngFor="let n of notifications" [ngClass]="{ 'isread': n.is_read == 1 }"
+								(click)="markAsRead(n)">
+								<div>
+									<h5>{{ n.title }}</h5>
+									<p class="mb-1"
+										*ngIf="n.message==='The company has requested to view your documents.'">
+										{{ n.company_name }} has requested to view your documents.</p>
+									<p class="mb-1" *ngIf="n.message==='Your profile was viewed by a company.'">Your
+										profile
+										was viewed by a {{n.company_name}}.</p>
+									<small>{{ n.company_name }} — {{ n.created_at | date: 'medium' }}</small>
 
-      <div
-        *ngIf="n.title === 'Document Request' && !n.is_accepted && !n.is_rejected"
-        class="mt-2"
-      >
-        <button
-          pButton
-          label="Accept"
-          type="button"
-          class="p-button-sm p-button-success me-2 text-white"
-          (click)="updateDocsStatus(n.id, 'Accepted', $event)"
-        ></button>
+									<div *ngIf="n.title === 'Document Request' && !n.is_accepted && !n.is_rejected"
+										class="mt-2">
+										<button pButton label="Accept" type="button"
+											class="p-button-sm p-button-success me-2 text-white"
+											(click)="updateDocsStatus(n.id, 'Accepted', $event)"></button>
 
-        <button
-          pButton
-          label="Reject"
-          type="button"
-          class="p-button-sm p-button-danger text-white"
-          (click)="updateDocsStatus(n.id, 'Rejected', $event)"
-        ></button>
-      </div>
-    </div>
+										<button pButton label="Reject" type="button"
+											class="p-button-sm p-button-danger text-white"
+											(click)="updateDocsStatus(n.id, 'Rejected', $event)"></button>
+									</div>
+								</div>
 
-    <div
-      *ngIf="n.is_read == 0"
-      class="dot position-absolute"
-      style="right: 10px; top: 12px; width: 10px; height: 10px; border-radius: 50%; background-color: #3f4c83;"
-    ></div>
-  </div>
-</div>
-
+								<div *ngIf="n.is_read == 0" class="dot position-absolute"
+									style="right: 10px; top: 12px; width: 10px; height: 10px; border-radius: 50%; background-color: #3f4c83;">
+								</div>
+							</div>
+						</div>
+						<div *ngIf="notifications.length===0" class="text-center">No Notifications found</div>
+					</div>
 				</p-tabpanel>
 
 				<!-- Archive Tab -->
-				<p-tabpanel header="Archive">
+				<!-- <p-tabpanel header="Archive">
 					<div class="text-center py-4">
 						<p>No archived notifications available.</p>
 					</div>
-				</p-tabpanel>
+				</p-tabpanel> -->
 
 				<!-- Orders Tab -->
-				<p-tabpanel header="Orders">
+				<!-- <p-tabpanel header="Orders">
 					<div class="text-center py-4">
 						<p>No order-related notifications available.</p>
 					</div>
-				</p-tabpanel>
+				</p-tabpanel> -->
 			</p-tabs>
 		</div>
-		<div class="card-footer">
+		<!-- <div class="card-footer">
 			<div class="view-all">
 				<a href="#">View All Notifications</a>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </p-popover>
 
