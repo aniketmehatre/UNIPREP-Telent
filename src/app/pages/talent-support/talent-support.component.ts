@@ -44,6 +44,7 @@ import { WindowRefService } from "../subscription/window-ref.service";
 import { environment } from "@env/environment";
 import { ScrollTopModule } from "primeng/scrolltop";
 import { TableModule } from "primeng/table";
+import { AuthService } from "src/app/Auth/auth.service";
 
 @Component({
   selector: "app-talent-support",
@@ -68,7 +69,7 @@ import { TableModule } from "primeng/table";
     InputGroupModule,
     ConfirmPopupModule,
     ScrollTopModule,
-    TableModule
+    TableModule,
   ],
   providers: [ConfirmationService],
   styleUrls: ["./talent-support.component.scss"],
@@ -117,17 +118,9 @@ export class TalentSupportComponent implements OnInit {
   minDate: Date;
 
   // PrimeNG dropdown options
-  talentRequirementPlans = [
-    { label: "Silver", value: "Silver" },
-    { label: "Platinum", value: "Platinum" },
-    { label: "Diamond", value: "Diamond" },
-  ];
+  talentRequirementPlans = [];
 
-  workMode = [
-    { label: "Remote", value: "Remote" },
-    { label: "On-site", value: "On-site" },
-    { label: "Hybrid", value: "Hybrid" },
-  ];
+  workMode = [];
 
   // Tooltip copy for Requirement Type info icon
   requirementTypeTooltip: string = `
@@ -145,6 +138,7 @@ export class TalentSupportComponent implements OnInit {
   totalEmployeeCount: number = 0;
   selectedRequirement: any[] = [];
   showInfoDialog: boolean = false;
+  currency: string = "";
 
   constructor(
     private fb: FormBuilder,
@@ -152,7 +146,8 @@ export class TalentSupportComponent implements OnInit {
     private dropdownDataService: DropdownDataService,
     private toast: MessageService,
     private winRef: WindowRefService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private authService: AuthService
   ) {
     this.addRequirement();
   }
@@ -168,6 +163,40 @@ export class TalentSupportComponent implements OnInit {
     });
     const today = new Date();
     this.minDate = new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000);
+    this.talentSupportService.talentSupportDropdownData().subscribe((res) => {
+      this.talentRequirementPlans = res.data.talentRequirementPlans;
+      this.workMode = res.data.workMode;
+    });
+
+    let previousRequirements: string = "";
+    this.form.valueChanges.subscribe((val) => {
+      const requirements = val?.requirements ?? [];
+      const currentRequirements = JSON.stringify(
+        requirements.map((req) => ({
+          requirementType: req?.requirementType,
+        }))
+      );
+
+      if (currentRequirements === previousRequirements) {
+        return;
+      }
+
+      previousRequirements = currentRequirements;
+
+      const hasValidRequirement = requirements.some((req) => {
+        const reqType = req?.requirementType;
+
+        return reqType != null && reqType !== "";
+      });
+
+      if (hasValidRequirement) {
+        this.talentSupportAmount();
+      }
+    });
+
+    this.authService.getMe().subscribe((res) => {
+      this.employerDetails = res.userdetails[0].country_code;
+    });
   }
 
   // UPDATED: Matches HTML structure and Validator requirements
@@ -304,6 +333,7 @@ export class TalentSupportComponent implements OnInit {
     const finalPayload = {
       ...formValue,
       totalAmount: this.totalAmount,
+      currency: this.currency,
     };
 
     this.talentSupportService.talentSupportPayLink(finalPayload).subscribe({
@@ -371,7 +401,7 @@ export class TalentSupportComponent implements OnInit {
     const options: any = {
       key: razorKey,
       amount: this.totalAmount,
-      currency: "INR",
+      currency: this.currency,
       name: "UNIPREP",
       description: "UNIPREP Subscription",
       image: "https://uniprep.ai/uniprep-assets/images/icon-light.svg",
@@ -569,5 +599,28 @@ export class TalentSupportComponent implements OnInit {
   openInfoDialog(employee: any) {
     this.selectedRequirement = employee.requirements ?? [];
     this.showInfoDialog = true;
+  }
+
+  prepareTalentSupportPayload() {
+    const requirements = this.form.get("requirements")?.value ?? [];
+    const country = (this.employerDetails || "").replace("+", "");
+    const req = requirements.find((r) => r?.["requirementType"]);
+
+    return req
+      ? {
+          plantype: req["requirementType"],
+          country_code: country,
+        }
+      : {};
+  }
+
+  talentSupportAmount() {
+    const payload = this.prepareTalentSupportPayload();
+    this.talentSupportService
+      .talentSupportCalculateAmount(payload)
+      .subscribe((res: any) => {
+        this.totalAmount = res.total_amount;
+        this.currency = res.currency;
+      });
   }
 }

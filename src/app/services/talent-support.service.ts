@@ -87,4 +87,17 @@ export class TalentSupportService {
       data
     );
   }
+
+   talentSupportDropdownData() {
+    return this.http.get<any>(
+      environment.ApiUrl + "/talent-support-dropdowns"
+    );
+  }
+
+   talentSupportCalculateAmount(data: any) {
+    return this.http.post<any>(
+      `${environment.ApiUrl}/talent-support-calculateAmount`,
+      data
+    );
+  }
 }
