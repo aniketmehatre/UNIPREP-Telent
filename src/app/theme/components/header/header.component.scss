@@ -606,3 +606,23 @@ a[role="button"]:not(.disabled):hover {
 iti__flag-container {
   width: 0 !important;
 }
+
+.notification-wrapper {
+  position: relative;
+  display: inline-block;
+
+  .notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -1px;
+    background: #e30613;
+    color: white;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 50%;
+    min-width: 18px;
+    text-align: center;
+    line-height: 16px;
+  }
+}

@@ -185,6 +185,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	interestMenuList: any[] = [];
 	nationalityList: { id: number, nationality_name: string }[] = [];
 	notifications: any[] = [];
+	unreadcount: number = 0;
 
 	constructor(
 		private router: Router,
@@ -205,9 +206,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private commonService: CommonService,
 		private userSubscriptionService: UserSubscriptionService
 	) {
-         this.dashboardService.getUserNotification().subscribe((data: any) => {
-              this.notifications = data;
-         });
+		this.getNotificationList();
 		this.dataService.openReportWindowSource.subscribe({
 			next: (data) => {
 				console.log('othermodule')
@@ -1684,49 +1683,58 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		});
 	}
 
-markAsRead(notification: any) {
-  if (notification.is_read) return;
-  this.dashboardService.userNotificationread(notification.id).subscribe(() => {
-    notification.is_read = 1;
-  });
-}
+	getNotificationList() {
+		this.dashboardService.getUserNotification().subscribe((data: any) => {
+			this.notifications = data.notifications;
+			this.unreadcount = data.unreadcount
+		});
+	}
 
-markAllRead(event: Event) {
-  event.preventDefault();
-  this.dashboardService.userNotificationread(undefined, 'read_all').subscribe(() => {
-    this.notifications.forEach((n) => {
-      if (
-        n.title === 'Document Request' &&
-        n.is_accepted === 0 &&
-        n.is_rejected === 0
-      ) {
-        return;
-      }
-      n.is_read = 1;
-    });
-  });
-}
+	markAsRead(notification: any) {
+		if (notification.is_read) return;
+		this.dashboardService.userNotificationread(notification.id).subscribe(() => {
+			notification.is_read = 1;
+			this.getNotificationList();
+		});
+	}
+
+	markAllRead(event: Event) {
+		event.preventDefault();
+		this.dashboardService.userNotificationread(undefined, 'read_all').subscribe(() => {
+			this.notifications.forEach((n) => {
+				if (
+					n.title === 'Document Request' &&
+					n.is_accepted === 0 &&
+					n.is_rejected === 0
+				) {
+					return;
+				}
+				n.is_read = 1;
+			});
+			this.getNotificationList();
+		});
+	}
 
 
-updateDocsStatus(id: number, type: string, event: MouseEvent) {
-  event.stopPropagation(); 
-  this.dashboardService.docsWalletStatus(id, type).subscribe({
-    next: (res: any) => {
-      console.log(`${type} successful`, res);
-      const notification = this.notifications.find((n) => n.id === id);
-        if (notification) {
-        notification.is_accepted = type === 'Accepted' ? 1 : 0;
-        notification.is_rejected = type === 'Rejected' ? 1 : 0;
-        if (!notification.is_read) {
-          this.dashboardService.userNotificationread(notification.id).subscribe(() => {
-            notification.is_read = 1;
-          });
-        }
-      }
-    },
-    error: (err) => {
-      console.error('Error updating document status', err);
-    },
-  });
-}
+	updateDocsStatus(id: number, type: string, event: MouseEvent) {
+		event.stopPropagation();
+		this.dashboardService.docsWalletStatus(id, type).subscribe({
+			next: (res: any) => {
+				console.log(`${type} successful`, res);
+				const notification = this.notifications.find((n) => n.id === id);
+				if (notification) {
+					notification.is_accepted = type === 'Accepted' ? 1 : 0;
+					notification.is_rejected = type === 'Rejected' ? 1 : 0;
+					if (!notification.is_read) {
+						this.dashboardService.userNotificationread(notification.id).subscribe(() => {
+							notification.is_read = 1;
+						});
+					}
+				}
+			},
+			error: (err) => {
+				console.error('Error updating document status', err);
+			},
+		});
+	}
 }

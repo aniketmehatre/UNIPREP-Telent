@@ -104,11 +104,16 @@
 						</a>
 						}
 						<!-- @if (false) { -->
+					<div class="notification-wrapper">
 						<a (click)="np.toggle($event)" class="me-3" aria-label="Notifications">
-							<p-avatar class="" label="" role="button">
+							<p-avatar class="" label="" role="button" size="large">
 								<i class="fa-solid fa-bell" aria-hidden="true"></i>
 							</p-avatar>
+							<span class="notification-badge" *ngIf="unreadcount > 0">
+								{{ unreadcount }}
+							</span>
 						</a>
+					</div>
 						<!-- } -->
 						<div class="dropdown profile-dropdown">
 							<button class="button" data-bs-toggle="dropdown" aria-expanded="false"
@@ -174,6 +179,16 @@
 								<i class="fa-solid fa-bell" aria-hidden="true"></i>
 							</p-avatar>
 						</a> -->
+						<!-- <div class="notification-wrapper">
+						<a (click)="np.toggle($event)" class="me-3" aria-label="Notifications">
+							<p-avatar class="" label="" role="button" size="large">
+								<i class="fa-solid fa-bell" aria-hidden="true"></i>
+							</p-avatar>
+							<span class="notification-badge" *ngIf="unreadcount > 0">
+								{{ unreadcount }}
+							</span>
+						</a>
+					</div> -->
 						<a (click)="openchat()" title="Chat" aria-label="Open chat">
 							<p-avatar class="" label="" role="button" style="padding: 19px">
 								<i class="fa-solid fa-comments"></i>
@@ -682,7 +697,7 @@
 		<div class="card-body">
 			<p-tabs>
 				<!-- Overall Tab -->
-				<p-tabpanel header="Overall">
+				<p-tabpanel header="">
 					<!-- <div class="list-group">
 						<div class="list-group-item d-flex justify-content-between align-items-center">
 							<i class="pi pi-lock"></i>
