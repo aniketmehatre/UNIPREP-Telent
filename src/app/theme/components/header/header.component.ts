@@ -101,7 +101,9 @@ import { UserSubscriptionService } from 'src/app/services/user-subscription.serv
 })
 export class HeaderComponent implements OnInit, OnDestroy {
     @ViewChild('op') op!: Popover;
-    @ViewChild('np') np!: Popover;
+    @ViewChild('np') np!: any;
+    @ViewChild('npIcon', { read: ElementRef })
+    npIcon!: ElementRef;
 
     // Inputs & Outputs
     @Input() breadcrumb: MenuItem[] = [{ label: 'Categories' }, { label: 'Sports' }];
@@ -204,6 +206,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     nationalityList: { id: number; nationality_name: string }[] = [];
     notifications: any[] = [];
     unreadCount = 0;
+    @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+    displayedNotifications: any[] = [];
+    isNotificationLoading = false;
+    hasMoreData = true;
+    itemsPerLoad = 10;
+    currentIndex = 0;
     educationImage = '';
     imageWhiteLabelDomainName: any;
     orgNameWhiteLabel: any;
@@ -251,6 +259,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.initializeStartupData();
         this.checkNewUserLogin();
         this.setupTimersAndTrial();
+    }
+
+    ngAfterViewInit() {
+        this.route.queryParams.subscribe(params => {
+            const isNotification = params['is_notification'];
+
+            if (isNotification === 'true') {
+                setTimeout(() => {
+                    const fakeEvent = {
+                        target: this.npIcon.nativeElement,
+                        currentTarget: this.npIcon.nativeElement,
+                        preventDefault: () => { },
+                        stopPropagation: () => { }
+                    };
+                    this.np.toggle(fakeEvent);
+                }, 300);
+            }
+        });
     }
 
     ngOnDestroy(): void {
@@ -1260,22 +1286,58 @@ export class HeaderComponent implements OnInit, OnDestroy {
                     });
                 }
             },
-            error: () => {},
+            error: () => { },
         });
     }
 
     getNationalityList() {
         this.locationService.getNationality().subscribe({
             next: (res) => (this.nationalityList = res),
-            error: () => {},
+            error: () => { },
         });
     }
 
     getNotificationList() {
-        this.dashboardService.getUserNotification().subscribe((data: any) => {
-            this.notifications = data.notifications;
-            this.unreadCount = data.unreadcount;
+        this.isNotificationLoading = true;
+        this.dashboardService.getUserNotification().subscribe({
+            next: (response) => {
+                if (response.status && response.data.notifications) {
+                    this.notifications = response.data.notifications;
+                    this.unreadCount = response.data.unreadcount;
+                    this.loadMoreItems();
+                }
+                this.isNotificationLoading = false;
+            },
+            error: (error) => {
+                console.error('Error loading notifications:', error);
+                this.isNotificationLoading = false;
+            }
         });
+    }
+
+    loadMoreItems() {
+        if (this.currentIndex >= this.notifications.length) {
+            this.hasMoreData = false;
+            return;
+        }
+        const nextBatch = this.notifications.slice(
+            this.currentIndex,
+            this.currentIndex + this.itemsPerLoad
+        );
+        this.displayedNotifications = [...this.displayedNotifications, ...nextBatch];
+        this.currentIndex += this.itemsPerLoad;
+        if (this.currentIndex >= this.notifications.length) {
+            this.hasMoreData = false;
+        }
+    }
+
+    onScroll(event: any) {
+        const element = event.target;
+        const threshold = 50;
+        const atBottom = element.scrollHeight - element.scrollTop - element.clientHeight < threshold;
+        if (atBottom && this.hasMoreData && !this.isLoading) {
+            this.loadMoreItems();
+        }
     }
 
     getAICreditCount() {
@@ -1377,8 +1439,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         event.preventDefault();
         this.dashboardService.userNotificationread(undefined, 'read_all').subscribe(() => {
             this.notifications.forEach((n) => {
-                // Skip unresolved doc requests
-                if (n.title === 'Document Request' && n.is_accepted === 0 && n.is_rejected === 0) return;
+                // if (n.title === 'Document Request' && n.is_accepted === 0 && n.is_rejected === 0) return;
                 n.is_read = 1;
             });
             this.getNotificationList();

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "@env/environment";
 import { BehaviorSubject, Observable, of, throwError, timer } from "rxjs";
 import { catchError, timeout, tap, map, shareReplay, retryWhen, delay, take, finalize } from "rxjs/operators";
-import {StorageService} from "../../services/storage.service";
+import { StorageService } from "../../services/storage.service";
 import { LocationService } from "src/app/services/location.service";
 
 @Injectable({
@@ -18,7 +18,7 @@ export class DashboardService {
   private readonly API_TIMEOUT = 10000; // 10 seconds timeout
   private activeRequest$: Observable<any> | null = null;
 
-  constructor(private http: HttpClient, private storage: StorageService, private locationService:LocationService) {
+  constructor(private http: HttpClient, private storage: StorageService, private locationService: LocationService) {
     // Initialize with stored country if available
     const storedCountryId = this.storage.get('selectedCountryId');
     if (storedCountryId) {
@@ -40,7 +40,7 @@ export class DashboardService {
   getDashboardCounts(): Observable<any> {
     const countryId = this.storage.get('countryId') || '0';
     const cacheKey = `dashboard_count_${countryId}`;
-    
+
     // Check cache first
     const cachedData = this.dashboardCountCache[cacheKey];
     if (cachedData && (Date.now() - cachedData.timestamp) < this.CACHE_DURATION) {
@@ -59,10 +59,10 @@ export class DashboardService {
       .set('Pragma', 'no-cache');
 
     const url = `${environment.ApiUrl}/getdashboardcount?country_id=${countryId}`;
-    
+
     this.activeRequest$ = this.http.get(url, { headers }).pipe(
       timeout(this.API_TIMEOUT),
-      retryWhen(errors => 
+      retryWhen(errors =>
         errors.pipe(
           tap(error => {
             if (error.name === 'TimeoutError') {
@@ -88,17 +88,17 @@ export class DashboardService {
       }),
       catchError(error => {
         console.error('Dashboard count API error:', error);
-        
+
         // Return cached data if available
         if (cachedData) {
           console.log('Returning cached data due to error');
           return of(cachedData.data);
         }
-        
+
         if (error.name === 'TimeoutError') {
           return throwError(() => new Error('Request timed out after multiple retries'));
         }
-        
+
         return throwError(() => error);
       }),
       // Share the same response with multiple subscribers
@@ -183,67 +183,67 @@ export class DashboardService {
   checkModuleQuizCompletion(data: any) {
     const headers = new HttpHeaders().set("Accept", "application/json");
     return this.http.post<any>(environment.ApiUrl + "/checkmodulequizcompletion", data, {
-        headers: headers,
+      headers: headers,
     });
-}
-checkModuleQuizProgressbar(data: any) {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getquizcompletion", data, {
+  }
+  checkModuleQuizProgressbar(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getquizcompletion", data, {
       headers: headers,
-  });
-}
-getUserTracking(){
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/getdashboardmonthlyusage", {
+    });
+  }
+  getUserTracking() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/getdashboardmonthlyusage", {
       headers: headers,
-  });
-}
-sentEmailForInviteUniPrep(data:any){
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.post<any>(environment.ApiUrl + "/sendDashboardemail",data, {
+    });
+  }
+  sentEmailForInviteUniPrep(data: any) {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.post<any>(environment.ApiUrl + "/sendDashboardemail", data, {
       headers: headers,
-  });
-}
-profileCompletion(){
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.get<any>(environment.ApiUrl + "/getpercentagecompletion", {
+    });
+  }
+  profileCompletion() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/getpercentagecompletion", {
       headers: headers,
-  });
-}
-RecentJobApplication(){
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.get<any>(environment.ApiUrl + "/getdashboardapplyjob", {
+    });
+  }
+  RecentJobApplication() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/getdashboardapplyjob", {
       headers: headers,
-  });
-}
-RecentCompanies(){
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.get<any>(environment.ApiUrl + "/getdashboardcompanieslist", {
+    });
+  }
+  RecentCompanies() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/getdashboardcompanieslist", {
       headers: headers,
-  });
-}
+    });
+  }
 
-getUserNotification(){
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  return this.http.get<any>(environment.ApiUrl + "/getusersNotifications", {
+  getUserNotification() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/user-notifications", {
       headers: headers,
-  });
-}
-userNotificationread(id?: number, mode: 'single' | 'read_all' = 'single') {
-  const headers = new HttpHeaders().set("Accept", "application/json");
-  
-  const body =
-    mode === 'read_all'
-      ? { mode: 'read_all' }
-      : { id: id, mode: 'single' };
+    });
+  }
+  userNotificationread(id?: number, mode: 'single' | 'read_all' = 'single') {
+    const headers = new HttpHeaders().set("Accept", "application/json");
 
-  return this.http.post<any>(environment.ApiUrl + "/userNotificationread", body, {
-    headers: headers,
-  });
-}
+    const body =
+      mode === 'read_all'
+        ? { mode: 'read_all' }
+        : { id: id, mode: 'single' };
 
-      docsWalletStatus(id:number,type:string) {
-        return this.http.post(`${environment.ApiUrl}/docaccepted`, {id,type});
-    }
+    return this.http.post<any>(environment.ApiUrl + "/read-user-notification", body, {
+      headers: headers,
+    });
+  }
+
+  docsWalletStatus(id: number, type: string) {
+    return this.http.post(`${environment.ApiUrl}/doc-request-accept`, { id, type });
+  }
 
 }

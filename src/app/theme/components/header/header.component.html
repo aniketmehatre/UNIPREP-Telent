@@ -5,33 +5,20 @@
                 <div class="d-flex gap-2 justify-content-between">
                     <div class="d-flex align-items-center gap-2">
                         <div class="d-lg-none d-md-block d-sm-block d-block">
-                            <a
-                                    class="text-decoration-none uniprep-primary"
-                                    data-bs-toggle="offcanvas"
-                                    href="#offcanvasWithBothOptions"
-                                    role="button"
-                                    aria-controls="offcanvasWithBothOptions"
-                                    aria-label="Open menu"
-                            >
+                            <a class="text-decoration-none uniprep-primary" data-bs-toggle="offcanvas"
+                                href="#offcanvasWithBothOptions" role="button" aria-controls="offcanvasWithBothOptions"
+                                aria-label="Open menu">
                                 <i class="fa-solid fa-bars fa-2xl" aria-hidden="true"></i>
                             </a>
                         </div>
                     </div>
                     <div class="d-md-none gap-2 d-flex align-items-center">
-                        <button
-                                class="btn btn-secondary py-2"
-                                (click)="openReportModal(op, $event)"
-                                aria-label="Open reports"
-                        >
+                        <button class="btn btn-secondary py-2" (click)="openReportModal(op, $event)"
+                            aria-label="Open reports">
                             <i class="fa-regular fa-bullhorn" style="font-size: 16px" aria-hidden="true"></i>
                         </button>
-                        <p-avatar
-                                routerLink="/pages/usermanagement"
-                                aria-expanded="false"
-                                role="button"
-                                size="large"
-                                aria-label="User profile"
-                        >
+                        <p-avatar routerLink="/pages/usermanagement" aria-expanded="false" role="button" size="large"
+                            aria-label="User profile">
                             <span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
                         </p-avatar>
                         <p-avatar (click)="logout()" label="" size="large" role="button" aria-label="Logout">
@@ -42,148 +29,113 @@
             </div>
 
             @if(userLoginTimeLeftCount) {
-                <div class="col-lg-6 col-md-6 col-12 d-md-block d-none">
-                    <div class="d-flex justify-content-end align-items-center mt-3 mt-md-0 gap-3">
-                        <div class="d-none d-md-flex gap-2">
-                            <button
-                                    class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center"
-                                    (click)="openReportModal(op, $event)"
-                                    aria-label="Open reports"
-                                    style="width: 90px; height: 40px; padding: 0"
-                            >
-                                <i class="fa-regular fa-bullhorn" style="font-size: 16px" aria-hidden="true"></i>
-                                Report
-                            </button>
-                            <div
-                                    label=""
-                                    role="button"
-                                    class="headerHomeCountry"
-                                    [title]="homeCountryName"
-                                    aria-label="Selected country: {{ homeCountryName }}"
-                            >
-                                <img
-                                    #openCountryPopup
-                                    (error)="$event.target.src = '../../uniprep-assets/icons/india.png'"
-                                    [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'"
-                                    alt="{{ homeCountryName }} flag"
-                                    height="auto"
-                                    width="auto"
-                                />
-                            </div>
-                        </div>
-
-                        <div class="d-flex gap-2 d-md-none align-items-center">
-                            <button
-                                    class="btn btn-secondary p-3 m-0"
-                                    (click)="openReportModal(op, $event)"
-                                    aria-label="Open reports"
-                            >
-                                <i class="fa-regular fa-bullhorn" aria-hidden="true"></i>
-                            </button>
-                        </div>
-
-                        <div class="d-none d-md-flex align-items-center">
-                            <div class="notification-wrapper">
-                                <a (click)="np.toggle($event)" class="me-3" aria-label="Notifications">
-                                    <p-avatar class="" label="" role="button" size="large">
-                                        <i class="fa-solid fa-bell" aria-hidden="true"></i>
-                                    </p-avatar>
-                                    <span class="notification-badge" *ngIf="unreadCount > 0">
-                  {{ unreadCount }}
-                </span>
-                                </a>
-                            </div>
-                            <div class="dropdown profile-dropdown">
-                                <button
-                                        class="button"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                        aria-label="User profile menu"
-                                >
-                                    <span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu" aria-label="User profile menu">
-                                    <li role="none">
-                                        <a
-                                                class="dropdown-item pt-2 pb-2"
-                                                routerLink="/pages/usermanagement"
-                                                role="menuitem"
-                                        >
-                                            <div class="d-flex justify-content-top">
-                                                <i class="fa-solid fa-user me-2 mt-1" aria-hidden="true"></i>
-                                                <div>
-                                                    <p class="fw-semibold mb-1">{{ userName }}</p>
-                                                    <p class="mb-0">{{ userName }}</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li role="none">
-                                        <a class="dropdown-item pt-2 pb-2" (click)="logout()" role="menuitem">
-                                            <i class="fa-solid fa-power-off me-2" aria-hidden="true"></i>Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+            <div class="col-lg-6 col-md-6 col-12 d-md-block d-none">
+                <div class="d-flex justify-content-end align-items-center mt-3 mt-md-0 gap-3">
+                    <div class="d-none d-md-flex gap-2">
+                        <button class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center"
+                            (click)="openReportModal(op, $event)" aria-label="Open reports"
+                            style="width: 90px; height: 40px; padding: 0">
+                            <i class="fa-regular fa-bullhorn" style="font-size: 16px" aria-hidden="true"></i>
+                            Report
+                        </button>
+                        <div label="" role="button" class="headerHomeCountry" [title]="homeCountryName"
+                            aria-label="Selected country: {{ homeCountryName }}">
+                            <img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'"
+                                [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'"
+                                alt="{{ homeCountryName }} flag" height="auto" width="auto" />
                         </div>
                     </div>
-                </div>
-            } @else {
-                <div class="col-md-6 col-12">
-                    <div
-                            class="d-flex align-items-center justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0"
-                    >
-                        <div class="d-none d-md-flex align-items-center gap-3">
-                            <button
-                                    class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center"
-                                    (click)="openReportModal(op, $event)"
-                                    aria-label="Open reports"
-                                    style="width: 90px; height: 40px; padding: 0"
-                            >
-                                <i class="fa-regular fa-bullhorn" style="font-size: 16px" aria-hidden="true"></i>
-                                Report
-                            </button>
-                            <a (click)="openchat()" title="Chat" aria-label="Open chat">
-                                <p-avatar class="" label="" role="button" style="padding: 19px">
-                                    <i class="fa-solid fa-comments"></i>
+
+                    <div class="d-flex gap-2 d-md-none align-items-center">
+                        <button class="btn btn-secondary p-3 m-0" (click)="openReportModal(op, $event)"
+                            aria-label="Open reports">
+                            <i class="fa-regular fa-bullhorn" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
+                    <div class="d-none d-md-flex align-items-center">
+                        <div class="notification-wrapper" #npIcon>
+                            <a (click)="np.toggle($event)" class="me-3" aria-label="Notifications">
+                                <p-avatar class="" label="" role="button" size="large">
+                                    <i class="fa-solid fa-bell" aria-hidden="true"></i>
                                 </p-avatar>
+                                <span class="notification-badge" *ngIf="unreadCount > 0">
+                                    {{ unreadCount }}
+                                </span>
                             </a>
-                            <div class="dropdown profile-dropdown">
-                                <button
-                                        class="button d-flex align-items-center"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                        title="My Profile"
-                                        aria-label="User profile menu"
-                                >
-                                    <span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu" aria-label="User profile menu">
-                                    <li role="none">
-                                        <a
-                                                class="dropdown-item pt-2 pb-2"
-                                                routerLink="/pages/usermanagement"
-                                                role="menuitem"
-                                        >
-                                            <div class="d-flex align-items-start">
-                                                <i class="fa-solid fa-user me-2 mt-1" aria-hidden="true"></i>
-                                                <div>
-                                                    <p class="fw-semibold mb-1">{{ userName }}</p>
-                                                    <p class="mb-0">{{ userName }}</p>
-                                                </div>
+                        </div>
+                        <div class="dropdown profile-dropdown">
+                            <button class="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                aria-label="User profile menu">
+                                <span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-label="User profile menu">
+                                <li role="none">
+                                    <a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement"
+                                        role="menuitem">
+                                        <div class="d-flex justify-content-top">
+                                            <i class="fa-solid fa-user me-2 mt-1" aria-hidden="true"></i>
+                                            <div>
+                                                <p class="fw-semibold mb-1">{{ userName }}</p>
+                                                <p class="mb-0">{{ userName }}</p>
                                             </div>
-                                        </a>
-                                    </li>
-                                    <li role="none">
-                                        <a class="dropdown-item pt-2 pb-2" (click)="logout()" role="menuitem">
-                                            <i class="fa-solid fa-power-off me-2" aria-hidden="true"></i> Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <a class="dropdown-item pt-2 pb-2" (click)="logout()" role="menuitem">
+                                        <i class="fa-solid fa-power-off me-2" aria-hidden="true"></i>Logout
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+            </div>
+            } @else {
+            <div class="col-md-6 col-12">
+                <div
+                    class="d-flex align-items-center justify-content-md-end justify-content-between align-items-center mt-3 mt-md-0">
+                    <div class="d-none d-md-flex align-items-center gap-3">
+                        <button class="btn btn-secondary d-flex gap-2 justify-content-center align-items-center"
+                            (click)="openReportModal(op, $event)" aria-label="Open reports"
+                            style="width: 90px; height: 40px; padding: 0">
+                            <i class="fa-regular fa-bullhorn" style="font-size: 16px" aria-hidden="true"></i>
+                            Report
+                        </button>
+                        <a (click)="openchat()" title="Chat" aria-label="Open chat">
+                            <p-avatar class="" label="" role="button" style="padding: 19px">
+                                <i class="fa-solid fa-comments"></i>
+                            </p-avatar>
+                        </a>
+                        <div class="dropdown profile-dropdown">
+                            <button class="button d-flex align-items-center" data-bs-toggle="dropdown"
+                                aria-expanded="false" title="My Profile" aria-label="User profile menu">
+                                <span class="nme">{{ (firstChar || "")?.charAt(0) }}</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-label="User profile menu">
+                                <li role="none">
+                                    <a class="dropdown-item pt-2 pb-2" routerLink="/pages/usermanagement"
+                                        role="menuitem">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fa-solid fa-user me-2 mt-1" aria-hidden="true"></i>
+                                            <div>
+                                                <p class="fw-semibold mb-1">{{ userName }}</p>
+                                                <p class="mb-0">{{ userName }}</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <a class="dropdown-item pt-2 pb-2" (click)="logout()" role="menuitem">
+                                        <i class="fa-solid fa-power-off me-2" aria-hidden="true"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
             }
         </div>
     </div>
@@ -192,147 +144,90 @@
 <p-popover #op styleClass="reportwidthfix" appendTo="body" aria-label="Report form">
     <ng-template pTemplate="content">
         <div class="container px-0">
-            <form
-                    [formGroup]="reportSubmitForm"
-                    (ngSubmit)="onSubmit(op)"
-                    role="form"
-                    aria-label="Report submission form"
-            >
+            <form [formGroup]="reportSubmitForm" (ngSubmit)="onSubmit(op)" role="form"
+                aria-label="Report submission form">
                 <div class="row report">
                     @if(isVisibleModulesMenu) {
-                        <div>
-                            @if(isQuestionVisible) {
-                                <p class="report-label text-left mb-0">Modules</p>
-                                <span class="report-modal">
-              <p-select
-                      [options]="moduleList"
-                      (onChange)="onChangeModuleList($event.value)"
-                      formControlName="moduleId"
-                      [(ngModel)]="moduleNgModel"
-                      optionValue="id"
-                      class="w-100"
-                      id="moduleId"
-                      optionLabel="module_name"
-                      aria-label="Select module"
-              ></p-select>
-            </span>
-                                <p class="report-label text-left mb-0">Categories</p>
-                                <span class="report-modal">
-              <p-select
-                      [options]="subModuleList"
-                      [(ngModel)]="subModuleNgModel"
-                      formControlName="submoduleId"
-                      optionValue="id"
-                      (onChange)="onChangeSubModuleList($event.value)"
-                      class="w-100"
-                      id="submoduleId"
-                      optionLabel="submodule_name"
-                      aria-label="Select category"
-              ></p-select>
-            </span>
-                                <p class="report-label text-left mb-0">Question Number</p>
-                                <span class="report-modal">
-              <p-select
-                      [options]="questionList"
-                      [(ngModel)]="questionIdNgModel"
-                      optionValue="id"
-                      formControlName="questionId"
-                      class="w-100"
-                      id="questionId"
-                      optionLabel="index"
-                      aria-label="Select question number"
-              ></p-select>
-            </span>
-                            }
-                        </div>
+                    <div>
+                        @if(isQuestionVisible) {
+                        <p class="report-label text-left mb-0">Modules</p>
+                        <span class="report-modal">
+                            <p-select [options]="moduleList" (onChange)="onChangeModuleList($event.value)"
+                                formControlName="moduleId" [(ngModel)]="moduleNgModel" optionValue="id" class="w-100"
+                                id="moduleId" optionLabel="module_name" aria-label="Select module"></p-select>
+                        </span>
+                        <p class="report-label text-left mb-0">Categories</p>
+                        <span class="report-modal">
+                            <p-select [options]="subModuleList" [(ngModel)]="subModuleNgModel"
+                                formControlName="submoduleId" optionValue="id"
+                                (onChange)="onChangeSubModuleList($event.value)" class="w-100" id="submoduleId"
+                                optionLabel="submodule_name" aria-label="Select category"></p-select>
+                        </span>
+                        <p class="report-label text-left mb-0">Question Number</p>
+                        <span class="report-modal">
+                            <p-select [options]="questionList" [(ngModel)]="questionIdNgModel" optionValue="id"
+                                formControlName="questionId" class="w-100" id="questionId" optionLabel="index"
+                                aria-label="Select question number"></p-select>
+                        </span>
+                        }
+                    </div>
                     }
                     <p class="report-label text-left mb-0">Issue Type</p>
                     <span class="report-modal">
-            <p-select
-                    [options]="reportOptionList"
-                    [(ngModel)]="reportOptionNgModel"
-                    optionValue="id"
-                    formControlName="reportOption"
-                    class="w-100"
-                    id="reportOption"
-                    placeholder="Select issue type"
-                    optionLabel="reportoption_name"
-                    aria-label="Select issue type"
-            ></p-select>
-          </span>
+                        <p-select [options]="reportOptionList" [(ngModel)]="reportOptionNgModel" optionValue="id"
+                            formControlName="reportOption" class="w-100" id="reportOption"
+                            placeholder="Select issue type" optionLabel="reportoption_name"
+                            aria-label="Select issue type"></p-select>
+                    </span>
                     <p class="report-label text-left mb-0">Comment</p>
                     <span class="report-modal">
-            <textarea
-                    formControlName="comment"
-                    fluid
-                    pTextarea
-                    id="comment"
-                    aria-label="Enter your comment"
-                    placeholder="Enter your comment"
-            ></textarea>
-          </span>
+                        <textarea formControlName="comment" fluid pTextarea id="comment" aria-label="Enter your comment"
+                            placeholder="Enter your comment"></textarea>
+                    </span>
                     <span>
-            <button pButton class="btn btn-primary w-100 m-0" aria-label="Submit report">
-              Submit
-            </button>
-          </span>
+                        <button pButton class="btn btn-primary w-100 m-0" aria-label="Submit report">
+                            Submit
+                        </button>
+                    </span>
                 </div>
             </form>
         </div>
     </ng-template>
 </p-popover>
 
-<p-popover
-    #totalCountryList
-    [style]="{ width: '100%', 'max-width': 'fit-content' }"
-    aria-label="Country selection"
->
+<p-popover #totalCountryList [style]="{ width: '100%', 'max-width': 'fit-content' }" aria-label="Country selection">
     <ng-template pTemplate="content">
         @if(isLondon) {
-            <div class="mega-menu">
-                <div class="row">
-                    @for (column of [0, 1, 2]; track $index) {
-                        <div class="col">
-                            <ul class="px-0" role="list">
-                                @for (v of countryLists.slice(column * 10, (column + 1) * 10); track $index; let i =
-                                    $index) {
-                                    <li
-                                            class="list-group-item my-2 d-flex align-items-center gap-2"
-                                            role="button"
-                                            (click)="selectCountryInHeader(v, totalCountryList)"
-                                            tabindex="0"
-                                            aria-label="Select {{ v.country }}"
-                                    >
-                                        <img
-                                                (error)="$event.target.src = '/uniprep-assets/images/location.webp'"
-                                                alt="{{ v.country }} flag"
-                                                class="countryicon mr-2"
-                                                [src]="v.flag || '../../uniprep-assets/images/location.webp'"
-                                                width="25"
-                                        />
-                                        <span class="text-nowrap">{{ v.country }}</span>
-                                    </li>
-                                } @if(column === 2 && countryLists.length < 30) { @for (_ of [].constructor(30 -
-                                countryLists.length); track $index) {
-                                <li class="list-group-item"></li>
+        <div class="mega-menu">
+            <div class="row">
+                @for (column of [0, 1, 2]; track $index) {
+                <div class="col">
+                    <ul class="px-0" role="list">
+                        @for (v of countryLists.slice(column * 10, (column + 1) * 10); track $index; let i =
+                        $index) {
+                        <li class="list-group-item my-2 d-flex align-items-center gap-2" role="button"
+                            (click)="selectCountryInHeader(v, totalCountryList)" tabindex="0"
+                            aria-label="Select {{ v.country }}">
+                            <img (error)="$event.target.src = '/uniprep-assets/images/location.webp'"
+                                alt="{{ v.country }} flag" class="countryicon mr-2"
+                                [src]="v.flag || '../../uniprep-assets/images/location.webp'" width="25" />
+                            <span class="text-nowrap">{{ v.country }}</span>
+                        </li>
+                        } @if(column === 2 && countryLists.length < 30) { @for (_ of [].constructor(30 -
+                            countryLists.length); track $index) { <li class="list-group-item">
+                            </li>
                             } }
-                            </ul>
-                        </div>
-                    }
+                    </ul>
                 </div>
+                }
             </div>
+        </div>
         }
     </ng-template>
 </p-popover>
 
-<p-dialog
-        [(visible)]="visible"
-        [closable]="true"
-        [style]="{ width: 'auto' }"
-        class="timerpopup p-0 m-0 bg-white"
-        [draggable]="false"
-        [resizable]="false"
->
+<p-dialog [(visible)]="visible" [closable]="true" [style]="{ width: 'auto' }" class="timerpopup p-0 m-0 bg-white"
+    [draggable]="false" [resizable]="false">
     <div class="px-5 pb-5 pt-3">
         <div class="justify-content-center text-center pb-5 px-2">
             <h5 class="text-center mb-2">Your 1 Hour Free Trial has<br />Exhausted</h5>
@@ -346,17 +241,10 @@
     </div>
 </p-dialog>
 
-<p-dialog
-        [(visible)]="whatsappVerification"
-        [modal]="true"
-        [closable]="false"
-        [closeOnEscape]="false"
-        [dismissableMask]="false"
-        styleClass="whatsappVerification"
-        aria-label="WhatsApp verification"
-        [breakpoints]="{ '1200px': '30vw', '992px': '40vw', '768px': '60vw', '576px': '80vw', '400px': '95vw' }"
-        [style]="{ width: '30vw' }"
->
+<p-dialog [(visible)]="whatsappVerification" [modal]="true" [closable]="false" [closeOnEscape]="false"
+    [dismissableMask]="false" styleClass="whatsappVerification" aria-label="WhatsApp verification"
+    [breakpoints]="{ '1200px': '30vw', '992px': '40vw', '768px': '60vw', '576px': '80vw', '400px': '95vw' }"
+    [style]="{ width: '30vw' }">
     <div class="container">
         <div class="row mb-2">
             <div class="col-md-12 px-4">
@@ -366,85 +254,55 @@
                             <p class="m-2">
                                 Enter Your {{ haveWhatsapp }} Number to get a call about your application
                             </p>
-                            <ngx-intl-tel-input
-                                    class="intel-input w-100"
-                                    [cssClass]="'custom-less-padding'"
-                                    [preferredCountries]="['in', 'gb']"
-                                    [enableAutoCountrySelect]="true"
-                                    appendTo="body"
-                                    [enablePlaceholder]="true"
-                                    [searchCountryFlag]="true"
-                                    [maxLength]="15"
-                                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                    [phoneValidation]="true"
-                                    [selectedCountryISO]="preferredCountry"
-                                    customPlaceholder="Enter {{ haveWhatsapp }} Number"
-                                    formControlName="verification_phone"
-                                    [attr.disabled]="isSendingOTP"
-                                    aria-label="Enter WhatsApp number"
-                            ></ngx-intl-tel-input>
+                            <ngx-intl-tel-input class="intel-input w-100" [cssClass]="'custom-less-padding'"
+                                [preferredCountries]="['in', 'gb']" [enableAutoCountrySelect]="true" appendTo="body"
+                                [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15"
+                                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                [phoneValidation]="true" [selectedCountryISO]="preferredCountry"
+                                customPlaceholder="Enter {{ haveWhatsapp }} Number" formControlName="verification_phone"
+                                [attr.disabled]="isSendingOTP" aria-label="Enter WhatsApp number"></ngx-intl-tel-input>
                             <div class="d-flex align-items-center justify-content-between mt-2">
                                 <div class="d-flex align-items-center">
-                                    <input
-                                            type="checkbox"
-                                            formControlName="choice"
-                                            class="form-check-input mt-0"
-                                            (change)="onCheckHaveWhatsappOrPhone($event)"
-                                            id="noWhatsapp"
-                                    />
+                                    <input type="checkbox" formControlName="choice" class="form-check-input mt-0"
+                                        (change)="onCheckHaveWhatsappOrPhone($event)" id="noWhatsapp" />
                                     <label for="noWhatsapp">I don't have a {{ haveWhatsapp }} Number</label>
                                 </div>
                                 @if (isSendingOTP) {
-                                    <div class="text-primary" role="button" (click)="onEditNumber()">Edit Number</div>
+                                <div class="text-primary" role="button" (click)="onEditNumber()">Edit Number</div>
                                 }
                             </div>
                         </div>
                         <div class="d-flex justify-content-end mt-2">
-                            <a
-                                    class="fw-medium text-primary text-decoration-underline"
-                                    [class.disabled]="phoneVerification.invalid"
-                                    role="button"
-                                    style="cursor: pointer"
-                                    (click)="sendOTP()"
-                            >
+                            <a class="fw-medium text-primary text-decoration-underline"
+                                [class.disabled]="phoneVerification.invalid" role="button" style="cursor: pointer"
+                                (click)="sendOTP()">
                                 Send OTP
                             </a>
                         </div>
                         @if (isSendingOTP) {
-                            <div>
-                                <p class="centertitle mt-2">
-                                    Enter the OTP sent your {{ haveWhatsapp }} number to continue
-                                </p>
-                                <div class="otp-container m-4" role="group" aria-label="OTP input">
-                                    <p-inputotp formControlName="otp"></p-inputotp>
+                        <div>
+                            <p class="centertitle mt-2">
+                                Enter the OTP sent your {{ haveWhatsapp }} number to continue
+                            </p>
+                            <div class="otp-container m-4" role="group" aria-label="OTP input">
+                                <p-inputotp formControlName="otp"></p-inputotp>
 
-                                </div>
-                                <div class="d-flex justify-content-center m-3 gap-3">
-                                    @if (isResendOTP) {
-                                        <button
-                                                pButton
-                                                [disabled]="phoneVerification.invalid"
-                                                style="padding: 8px 20px"
-                                                class="btn btn-primary"
-                                                (click)="sendOTP()"
-                                                aria-label="Resend OTP"
-                                        >
-                                            <span class="fw-medium px-3">Resend OTP</span>
-                                        </button>
-                                    }
-                                    <button
-                                            pButton
-                                            [disabled]="phoneVerification.invalid || isSubmittingOTP"
-                                            style="padding: 8px 20px"
-                                            class="btn btn-primary"
-                                            (click)="submitPhoneVerification()"
-                                            aria-label="Submit verification"
-                                    >
-                                        @if (!isSubmittingOTP) {<span class="fw-medium px-3">Submit</span> } @if
-                                    (isSubmittingOTP) {<span class="fw-medium px-3">Submitting...</span>}
-                                    </button>
-                                </div>
                             </div>
+                            <div class="d-flex justify-content-center m-3 gap-3">
+                                @if (isResendOTP) {
+                                <button pButton [disabled]="phoneVerification.invalid" style="padding: 8px 20px"
+                                    class="btn btn-primary" (click)="sendOTP()" aria-label="Resend OTP">
+                                    <span class="fw-medium px-3">Resend OTP</span>
+                                </button>
+                                }
+                                <button pButton [disabled]="phoneVerification.invalid || isSubmittingOTP"
+                                    style="padding: 8px 20px" class="btn btn-primary"
+                                    (click)="submitPhoneVerification()" aria-label="Submit verification">
+                                    @if (!isSubmittingOTP) {<span class="fw-medium px-3">Submit</span> } @if
+                                    (isSubmittingOTP) {<span class="fw-medium px-3">Submitting...</span>}
+                                </button>
+                            </div>
+                        </div>
                         }
                     </form>
                 </div>
@@ -453,74 +311,49 @@
     </div>
 </p-dialog>
 
-<p-dialog
-        [(visible)]="freeTrial"
-        [modal]="true"
-        [modal]="true"
-        [closable]="false"
-        [closeOnEscape]="false"
-        [dismissableMask]="false"
-        styleClass="FirstLoginPopup"
->
+<p-dialog [(visible)]="freeTrial" [modal]="true" [modal]="true" [closable]="false" [closeOnEscape]="false"
+    [dismissableMask]="false" styleClass="FirstLoginPopup">
     <div class="container">
         <div class="row mb-2 p-2">
             <div class="col-md-12 px-4">
                 <div class="d-flex flex-column">
                     @if (!userTypeId) {
-                        <div class="mt-1 text-center">
-            <span>
-              <strong class="firsttimelogin">
-                <h2 style="color: var(--p-secondary-500); margin-bottom: 0">
-                  Enjoy exclusive UNIPREP Features!
-                </h2>
-              </strong>
-            </span>
-                        </div>
+                    <div class="mt-1 text-center">
+                        <span>
+                            <strong class="firsttimelogin">
+                                <h2 style="color: var(--p-secondary-500); margin-bottom: 0">
+                                    Enjoy exclusive UNIPREP Features!
+                                </h2>
+                            </strong>
+                        </span>
+                    </div>
                     }
                     <form [formGroup]="mobileForm">
                         @if (formVisibility) {
-                            <div class="w-100 phonenumberblock mt-2">
-                                <p class="m-1">Select Your Nationality</p>
-                                <p-select
-                                        class="w-100"
-                                        formControlName="nationality_id"
-                                        appendTo="body"
-                                        [options]="nationalityList"
-                                        [filter]="true"
-                                        placeholder="Nationality"
-                                        [autofocus]="true"
-                                        optionLabel="nationality_name"
-                                        optionValue="id"
-                                        [autoDisplayFirst]="false"
-                                        styleClass="custom-dropdown"
-                                ></p-select>
-                            </div>
-                            <div class="w-100 phonenumberblock mt-2">
-                                <p class="m-1">Choose the stage that best describes you</p>
-                                <p-select
-                                        class="w-100"
-                                        formControlName="study_level"
-                                        appendTo="body"
-                                        [options]="programLevelList"
-                                        placeholder="Select Your Current Status"
-                                        optionLabel="programlevel"
-                                        optionValue="id"
-                                        [autoDisplayFirst]="false"
-                                        styleClass="custom-dropdown"
-                                ></p-select>
-                            </div>
+                        <div class="w-100 phonenumberblock mt-2">
+                            <p class="m-1">Select Your Nationality</p>
+                            <p-select class="w-100" formControlName="nationality_id" appendTo="body"
+                                [options]="nationalityList" [filter]="true" placeholder="Nationality" [autofocus]="true"
+                                optionLabel="nationality_name" optionValue="id" [autoDisplayFirst]="false"
+                                styleClass="custom-dropdown"></p-select>
+                        </div>
+                        <div class="w-100 phonenumberblock mt-2">
+                            <p class="m-1">Choose the stage that best describes you</p>
+                            <p-select class="w-100" formControlName="study_level" appendTo="body"
+                                [options]="programLevelList" placeholder="Select Your Current Status"
+                                optionLabel="programlevel" optionValue="id" [autoDisplayFirst]="false"
+                                styleClass="custom-dropdown"></p-select>
+                        </div>
                         } @if (freeTrialErrorMsg) {
                         <div class="text-danger text-center">{{ freeTrialErrorMsg }}</div>
-                    }
+                        }
                         <div class="d-flex justify-content-center mt-4">
                             <button
-                                    [disabled]="!mobileForm.get('nationality_id')?.value || !mobileForm.get('study_level')?.value"
-                                    class="btn btn-secondary btn-rounded me-2 ms-0 my-0"
-                                    alt="reports"
-                            >
-                <span class="text-small fw-normal px-2" (click)="continueTrial()">
-                  Submit your Application
-                </span>
+                                [disabled]="!mobileForm.get('nationality_id')?.value || !mobileForm.get('study_level')?.value"
+                                class="btn btn-secondary btn-rounded me-2 ms-0 my-0" alt="reports">
+                                <span class="text-small fw-normal px-2" (click)="continueTrial()">
+                                    Submit your Application
+                                </span>
                             </button>
                         </div>
                     </form>
@@ -541,20 +374,15 @@
         <div class="card-body">
             <p-tabs>
                 <p-tabpanel header="">
-                    <div style="max-height: 350px; overflow-y: auto">
+                    <div style="max-height: 350px; overflow-y: auto" #scrollContainer (scroll)="onScroll($event)">
                         <div class="list-group">
-                            <div
-                                    class="list-group-item d-flex justify-content-between align-items-center position-relative"
-                                    *ngFor="let n of notifications"
-                                    [ngClass]="{ 'isread': n.is_read == 1 }"
-                                    (click)="markAsRead(n)"
-                            >
+                            <div class="list-group-item d-flex justify-content-between align-items-center position-relative"
+                                *ngFor="let n of displayedNotifications" [ngClass]="{ 'isread': n.is_read == 1 }"
+                                (click)="markAsRead(n)">
                                 <div>
                                     <h5>{{ n.title }}</h5>
-                                    <p
-                                            class="mb-1"
-                                            *ngIf="n.message==='The company has requested to view your documents.'"
-                                    >
+                                    <p class="mb-1"
+                                        *ngIf="n.message==='The company has requested to view your documents.'">
                                         {{ n.company_name }} has requested to view your documents.
                                     </p>
                                     <p class="mb-1" *ngIf="n.message==='Your profile was viewed by a company.'">
@@ -562,36 +390,29 @@
                                     </p>
                                     <small>{{ n.company_name }} — {{ n.created_at | date: 'medium' }}</small>
 
-                                    <div
-                                            *ngIf="n.title === 'Document Request' && !n.is_accepted && !n.is_rejected"
-                                            class="mt-2"
-                                    >
-                                        <button
-                                                pButton
-                                                label="Accept"
-                                                type="button"
-                                                class="p-button-sm p-button-success me-2 text-white"
-                                                (click)="updateDocsStatus(n.id, 'Accepted', $event)"
-                                        ></button>
+                                    <div *ngIf="n.title === 'Document Request' && !n.is_accepted && !n.is_rejected"
+                                        class="mt-2">
+                                        <button pButton label="Accept" type="button"
+                                            class="p-button-sm p-button-success me-2 text-white"
+                                            (click)="updateDocsStatus(n.id, 'Accepted', $event)"></button>
 
-                                        <button
-                                                pButton
-                                                label="Reject"
-                                                type="button"
-                                                class="p-button-sm p-button-danger text-white"
-                                                (click)="updateDocsStatus(n.id, 'Rejected', $event)"
-                                        ></button>
+                                        <button pButton label="Reject" type="button"
+                                            class="p-button-sm p-button-danger text-white"
+                                            (click)="updateDocsStatus(n.id, 'Rejected', $event)"></button>
                                     </div>
                                 </div>
 
-                                <div
-                                        *ngIf="n.is_read == 0"
-                                        class="dot position-absolute"
-                                        style="right: 10px; top: 12px; width: 10px; height: 10px; border-radius: 50%; background-color: #3f4c83;"
-                                ></div>
+                                <div *ngIf="n.is_read == 0" class="dot position-absolute"
+                                    style="right: 10px; top: 12px; width: 10px; height: 10px; border-radius: 50%; background-color: #3f4c83;">
+                                </div>
                             </div>
                         </div>
-                        <div *ngIf="notifications.length===0" class="text-center">No Notifications found</div>
+                        <div *ngIf="isNotificationLoading" class="text-center p-3">
+                            <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+                        </div>
+                        <div *ngIf="displayedNotifications.length===0 && !isNotificationLoading" class="text-center">
+                            No Notifications found
+                        </div>
                     </div>
                 </p-tabpanel>
             </p-tabs>
@@ -599,13 +420,8 @@
     </div>
 </p-popover>
 
-<p-dialog
-        [(visible)]="isUpgradePlanVisible"
-        [closable]="false"
-        [draggable]="false"
-        [resizable]="false"
-        styleClass="assessment-popup upgrade-plan position-relative"
->
+<p-dialog [(visible)]="isUpgradePlanVisible" [closable]="false" [draggable]="false" [resizable]="false"
+    styleClass="assessment-popup upgrade-plan position-relative">
     <div class="popup-close" (click)="isUpgradePlanVisible = !isUpgradePlanVisible">
         <i style="color: var(--p-neutral-50)" class="fa fa-close"></i>
     </div>
