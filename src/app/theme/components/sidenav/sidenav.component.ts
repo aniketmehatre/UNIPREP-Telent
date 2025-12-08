@@ -92,6 +92,12 @@ export class SidenavComponent {
       subMenuBy: "Job Board",
     },
     {
+      title: "Docs Wallet",
+      url: "/pages/talent-connect/docs-wallet",
+      image: "fa-regular fa-folders",
+      subMenuBy: "Job Board",
+    },
+    {
       title: "Talent Support",
       url: "/pages/talent-support",
       image: "fa-regular fa-headset",
@@ -105,12 +111,7 @@ export class SidenavComponent {
       subMenuBy: "Job Board",
       popular: true,
     },
-    {
-      title: "Docs Wallet",
-      url: "/pages/talent-connect/docs-wallet",
-      image: "fa-regular fa-folders",
-      subMenuBy: "Job Board",
-    },
+
     {
       title: "Job Tracker",
       url: "/pages/talent-connect/job-tracker",
@@ -124,18 +125,18 @@ export class SidenavComponent {
       subMenuBy: "Job Board",
       popular: true,
     },
-    {
-      title: "Company Search",
-      url: "/pages/talent-connect/company-connect",
-      image: "fa-regular fa-building-magnifying-glass",
-      subMenuBy: "Job Board",
-    },
-    {
-      title: "Company Tracker",
-      url: "/pages/talent-connect/company-tracker",
-      image: "fa-regular fa-industry",
-      subMenuBy: "Job Board",
-    },
+    // {
+    //   title: "Company Search",
+    //   url: "/pages/talent-connect/company-connect",
+    //   image: "fa-regular fa-building-magnifying-glass",
+    //   subMenuBy: "Job Board",
+    // },
+    // {
+    //   title: "Company Tracker",
+    //   url: "/pages/talent-connect/company-tracker",
+    //   image: "fa-regular fa-industry",
+    //   subMenuBy: "Job Board",
+    // },
     {
       title: "Career Coach",
       url: "/pages/talent-connect/career-coach",
