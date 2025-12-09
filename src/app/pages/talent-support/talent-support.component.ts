@@ -114,7 +114,7 @@ export class TalentSupportComponent implements OnInit {
   form = this.fb.group({
     requirements: this.fb.array([] as FormGroup[]),
   });
-  totalAmount: number = 0;
+  totalAmount: string;
   minDate: Date;
 
   // PrimeNG dropdown options
@@ -254,27 +254,27 @@ export class TalentSupportComponent implements OnInit {
   }
 
   // UPDATED: Uses 'requirementType'
-  onValueChange(event: any) {
-    const selectedType = event.value;
-    const price =
-      selectedType && this.priceMap[selectedType]
-        ? this.priceMap[selectedType]
-        : 0;
-    this.totalAmount = price;
-    this.recalculateTotal();
-  }
+  // onValueChange(event: any) {
+  //   const selectedType = event.value;
+  //   const price =
+  //     selectedType && this.priceMap[selectedType]
+  //       ? this.priceMap[selectedType]
+  //       : 0;
+  //   this.totalAmount = price;
+  //   this.recalculateTotal();
+  // }
 
   // UPDATED: Calculates total based on requirementType
   private recalculateTotal(): void {
-    let total = 0;
-    this.requirements.controls.forEach((grp) => {
-      // Changed from 'talent_requirement_plan' to 'requirementType'
-      const type = grp.get("requirementType")?.value as string | null;
-      const profiles = 1;
-      const price = type ? this.priceMap[type] ?? 0 : 0;
-      total += profiles * price;
-    });
-    this.totalAmount = total;
+    // let total = 0;
+    // this.requirements.controls.forEach((grp) => {
+    //   // Changed from 'talent_requirement_plan' to 'requirementType'
+    //   const type = grp.get("requirementType")?.value as string | null;
+    //   const profiles = 1;
+    //   const price = type ? this.priceMap[type] ?? 0 : 0;
+    //   total += profiles * price;
+    // });
+    // this.totalAmount = total;
   }
 
   postRequirement(): void {
