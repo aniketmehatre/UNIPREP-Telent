@@ -500,7 +500,9 @@
                                         {{ n.company_name }} has requested to view your documents.
                                     </p>
                                     <p class="mb-1" *ngIf="n.message==='Your profile was viewed by a company.'">
-                                        Your profile was viewed by a {{n.company_name}}.
+                                        <a [href]="n.company_url" target="_blank" class="no-link-style">
+                                            Your profile was viewed by a {{n.company_name}}.
+                                        </a>
                                     </p>
                                     <small>{{ n.company_name }} — {{ n.created_at | date: 'medium' }}</small>
 
