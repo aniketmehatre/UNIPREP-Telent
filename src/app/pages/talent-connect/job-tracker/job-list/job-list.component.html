@@ -141,7 +141,7 @@
 					placeholder="Select your currency"> </p-select>
 			</div>
 
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<label class="form-label fw-bold">Salary range offered per month</label>
 				<div class="d-flex w-100 gap-2">
 					<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code"
@@ -156,39 +156,36 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<label class="form-label fw-bold">Experience Level </label>
 				<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel"
 					placeholder="Enter your experience level" optionLabel="experienceLevel" optionValue="experienceLevel"
 					display="chip" class="w-100" appendTo="body"> </p-multiSelect>
 			</div>
 			@if(activeIndex == 0) {
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<label class="form-label fw-bold">Status</label>
 				<p-multiSelect [options]="jobStatusList" appendTo="body" [filter]="true" formControlName="status" display="chip"
 					placeholder="Select your status" optionLabel="hiringstage" optionValue="id" class="w-100"> </p-multiSelect>
 			</div>
 			}
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<label class="form-label fw-bold">Hiring Status </label>
 				<p-select [options]="hiringStatuses" formControlName="hiringStatus" placeholder="Select hiring type"
 					optionLabel="name" optionValue="id" display="chip" class="w-100" appendTo="body"> </p-select>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<label class="form-label fw-bold">Hiring Type </label>
 				<p-multiSelect [options]="hiringTypes" formControlName="hiring_type" optionLabel="name"
 					placeholder="Select the Hiring Type" optionValue="id" appendTo="body" display="chip" class="w-100">
 				</p-multiSelect>
 			</div>
-			<div class="col-md-4 h-full mt-auto">
-				<button pButton label="Apply Filter" (click)="applyFilter()" class="btn-primary w-100"></button>
-			</div>
+
 		</div>
 	</form>
 
-	<div class="dialog-footer p-3 d-flex justify-content-center w-100">
-		<div class="col-md-4 h-full mt-auto w-100">
-			<button pButton label="Reset Filter" (click)="resetFilter()" class="p-button-text text-primary"></button>
-		</div>
+	<div class="dialog-footer p-3 d-flex justify-content-center">
+		&nbsp;&nbsp;<button pButton label="Reset Filter" (click)="resetFilter()" class="p-button-text text-danger"></button>
+		&nbsp;&nbsp;<button pButton label="Apply Filter" (click)="applyFilter()" class="btn-primary"></button>
 	</div>
 </p-dialog>

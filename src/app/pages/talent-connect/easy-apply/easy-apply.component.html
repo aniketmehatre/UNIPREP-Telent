@@ -347,47 +347,47 @@
 					optionValue="currency_code" appendTo="body" [filter]="true" filterBy="currency_code" class="w-100"
 					placeholder="Select Currency"> </p-select>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<label class="form-label fw-bold">Salary range offered per month</label>
-				<div class="d-flex w-100 gap-2">
+				<div class="d-flex w-100 gap-1">
 					<p-select [options]="currencies" styleClass="p-select p-component" optionLabel="currency_code"
 						optionValue="currency_code" placeholder="Select Currency" formControlName="salary_currency" [filter]="true"
-						filterBy="currency_code" [style]="{ width: '150px' }" appendTo="body">
+						filterBy="currency_code" [style]="{ width: '150px' }" appendTo="body" fluid>
 					</p-select>
 					<div class="d-flex gap-2 align-items-center flex-grow-1">
 						<p-inputNumber placeholder="Min" styleClass="w-100" [showButtons]="false" class="w-100"
-							formControlName="min_salary"></p-inputNumber>
+							formControlName="min_salary" fluid></p-inputNumber>
 						<div>To</div>
 						<p-inputNumber placeholder="Max" styleClass="w-100" [showButtons]="false" class="w-100"
-							formControlName="max_salary"></p-inputNumber>
+							formControlName="max_salary" fluid></p-inputNumber>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<label class="form-label fw-bold">Experience Level </label>
 				<p-multiSelect [options]="experienceLevels" formControlName="experienceLevel" optionLabel="experienceLevel"
 					placeholder="Select the Experience Level" optionValue="id" appendTo="body" display="chip" class="w-100">
 				</p-multiSelect>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<label class="form-label fw-bold">Hiring Status</label>
 				<p-select [options]="hiringStatuses" formControlName="hiringStatus" optionLabel="name"
 					placeholder="Select the Hiring Status" optionValue="id" appendTo="body" display="chip" class="w-100">
 				</p-select>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<label class="form-label fw-bold">Hiring Type </label>
 				<p-multiSelect [options]="hiringTypes" formControlName="hiring_type" optionLabel="name"
 					placeholder="Select the Hiring Type" optionValue="id" appendTo="body" display="chip" class="w-100">
 				</p-multiSelect>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<label class="form-label fw-bold">Introduction Video </label>
 				<p-select [options]="introductionVideoTypes" formControlName="intro" optionLabel="name"
 					placeholder="Select the Introduction video" optionValue="id" appendTo="body" display="chip" class="w-100">
 				</p-select>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<label class="form-label fw-bold">Job Type</label>
 				<p-select [options]="jobTypes" formControlName="job_type" optionLabel="name" placeholder="Standard/Premium"
 					optionValue="id" appendTo="body" display="chip" class="w-100" [showClear]="true"> </p-select>
