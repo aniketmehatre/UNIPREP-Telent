@@ -34,6 +34,7 @@ import { AuthTokenService } from "./services/auth-token.service"
 import { StorageService } from "./services/storage.service"
 import { LocationService } from "./services/location.service"
 import { DataService } from "./services/data.service"
+import { provideNgxStripe } from "ngx-stripe"
 
 // Assuming ngxLocalstorageConfiguration is properly defined elsewhere in your code
 const ngxLocalstorageConfiguration = NGX_LOCAL_STORAGE_CONFIG as unknown as {
@@ -121,6 +122,7 @@ export function tokenGetter(): string {
 export let appConfig: ApplicationConfig;
 appConfig = {
   providers: [
+    provideNgxStripe(environment.domain != "api.uniprep.ai"?'pk_live_51RatH904tgKnorO6oeJ6OkKBH8HS1XetBEv1piIezO2hwW2jqhABXJakopLKvBymyuOxgsztPXljh0TD2SK2xFyq00zEp7B1Dn':'pk_test_51RatH904tgKnorO6qAStN7DYjc0QvdazlEapxUmPKDqmnZAtBpl9FvfmrszVJakrk3SP6lcX7TYVY2BqTesxkW3k00e3SHimNK'),
     provideHttpClient(),
     {
       provide: 'SocialAuthServiceConfig',

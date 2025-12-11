@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  NgZone,
   OnInit,
   Output,
   ViewChild,
@@ -45,6 +46,9 @@ import { environment } from "@env/environment";
 import { ScrollTopModule } from "primeng/scrolltop";
 import { TableModule } from "primeng/table";
 import { AuthService } from "src/app/Auth/auth.service";
+import { StripeCardElementOptions, StripeElementsOptions } from "@stripe/stripe-js";
+import { NgxStripeModule, StripePaymentElementComponent, StripeService } from "ngx-stripe";
+import { sub } from "date-fns";
 
 @Component({
   selector: "app-talent-support",
@@ -70,6 +74,7 @@ import { AuthService } from "src/app/Auth/auth.service";
     ConfirmPopupModule,
     ScrollTopModule,
     TableModule,
+    NgxStripeModule,
   ],
   providers: [ConfirmationService],
   styleUrls: ["./talent-support.component.scss"],
@@ -80,7 +85,6 @@ export class TalentSupportComponent implements OnInit {
 
   positions = [];
   currencies: any;
-  employerDetails: any;
   workLocation: worklocation[];
   dropdownData: DropdownListData = {
     hiringtypes: [],
@@ -139,6 +143,28 @@ export class TalentSupportComponent implements OnInit {
   selectedRequirement: any[] = [];
   showInfoDialog: boolean = false;
   currency: string = "";
+  paymentType: string = "";
+  @ViewChild(StripePaymentElementComponent) card!: StripePaymentElementComponent;
+  cardOptions: StripeCardElementOptions = {
+    iconStyle: "solid",
+    style: {
+      base: {
+        color: "#000000",
+      },
+      invalid: {
+        color: "red",
+      },
+    },
+  };
+  elementsOptions: StripeElementsOptions = {
+    locale: "en",
+  };
+  stripeData: any;
+  cardVisibility = false;
+  subscriptionId: number = 0
+  country: any
+  userName: any
+  finalPayload: any
 
   constructor(
     private fb: FormBuilder,
@@ -147,7 +173,9 @@ export class TalentSupportComponent implements OnInit {
     private toast: MessageService,
     private winRef: WindowRefService,
     private confirmationService: ConfirmationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private stripeService: StripeService,
+    private ngZone: NgZone
   ) {
     this.addRequirement();
   }
@@ -156,7 +184,6 @@ export class TalentSupportComponent implements OnInit {
     let data = {};
     this.loadPositionTitleData(data);
     this.loadWorkLocationData();
-    this.getUserDetails();
     this.getCurrencySumbol();
     this.dropdownDataService.getAll$().subscribe((d) => {
       this.dropdownData = d;
@@ -195,7 +222,8 @@ export class TalentSupportComponent implements OnInit {
     });
 
     this.authService.getMe().subscribe((res) => {
-      this.employerDetails = res.userdetails[0].country_code;
+      this.country = res.userdetails[0].home_country_name;
+      this.userName = res.userdetails[0].name;
     });
   }
 
@@ -313,9 +341,9 @@ export class TalentSupportComponent implements OnInit {
           // Ensure we use the new key 'employment_type'
           const employmentTypes = requirement.employment_type
             ? (Array.isArray(requirement.employment_type)
-                ? requirement.employment_type
-                : [requirement.employment_type]
-              ).map(String)
+              ? requirement.employment_type
+              : [requirement.employment_type]
+            ).map(String)
             : null;
 
           return {
@@ -328,35 +356,40 @@ export class TalentSupportComponent implements OnInit {
         }
       );
     }
-
+    const requirements = this.form.get("requirements")?.value ?? [];
+    const req = requirements.find((r) => r?.["requirementType"]);
     // Add total amount to the form value
-    const finalPayload = {
+    this.finalPayload = {
       ...formValue,
       totalAmount: this.totalAmount,
       currency: this.currency,
+      subscriptionId: this.subscriptionId,
+      planType: req?.["requirementType"],
     };
 
-    this.talentSupportService.talentSupportPayLink(finalPayload).subscribe({
-      next: (response: any) => {
-        if (response.success) {
-          this.payWithRazorPay(response.orderid);
+    this.checkout(this.paymentType);
 
-          this.form.reset();
-          // Re-add one empty requirement after reset
-          this.requirements.clear();
-          this.addRequirement();
+    // this.talentSupportService.talentSupportPayLink(finalPayload).subscribe({
+    //   next: (response: any) => {
+    //     if (response.success) {
+    //       this.payWithRazorpay(response.orderid);
 
-          this.toast.add({
-            severity: "success",
-            summary: "Submitted",
-            detail: "Our team will get back to you soon.",
-          });
-        }
-      },
-      error: (err: any) => {
-        console.log(err.error.message);
-      },
-    });
+          // this.form.reset();
+          // // Re-add one empty requirement after reset
+          // this.requirements.clear();
+          // this.addRequirement();
+
+    //       this.toast.add({
+    //         severity: "success",
+    //         summary: "Submitted",
+    //         detail: "Our team will get back to you soon.",
+    //       });
+    //     }
+    //   },
+    //   error: (err: any) => {
+    //     console.log(err.error.message);
+    //   },
+    // });
   }
 
   isFieldInvalid(index: number, fieldName: string): boolean {
@@ -391,85 +424,222 @@ export class TalentSupportComponent implements OnInit {
       });
   }
 
-  payWithRazorPay(orderid: any) {
-    let razorKey = "rzp_live_YErYQVqDIrZn1D";
-    if (environment.domain == "api.uniprep.ai") {
-      razorKey = "rzp_test_Crpr7YkjPaCLEr";
+  checkout(type: any) {
+    let data = {
+      type: this.paymentType,
+    };
+    data.type = type;
+    this.pay(data);
+  }
+
+  pay(value: any) {
+    if (value.type == "Razorpay") {
+      this.talentSupportService
+        .talentSupportPlaceOrder(this.finalPayload)
+        .subscribe((data) => {
+          this.payWithRazorpay(data.orderid);
+          this.currency;
+          if (data.success == false) {
+            this.toast.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: data.message,
+            });
+            return;
+          }
+        });
+    } else {
+      this.payUsingStripe(value);
+    }
+  }
+
+  payWithRazorpay(orderid: any) {
+    let razorKey = 'rzp_live_YErYQVqDIrZn1D';
+    if (environment.domain === 'api.uniprep.ai') {
+      razorKey = 'rzp_test_Crpr7YkjPaCLEr';
     }
 
-    let phone = localStorage.getItem("phone"); // Added safe navigation
     const options: any = {
       key: razorKey,
-      amount: this.totalAmount,
+      amount: Number(this.totalAmount) * 100,
       currency: this.currency,
-      name: "UNIPREP",
-      description: "UNIPREP Subscription",
-      image: "https://uniprep.ai/uniprep-assets/images/icon-light.svg",
+      name: 'UNIPREP',
+      description: 'UNIPREP Subscription',
+      image: 'https://uniprep.ai/uniprep-assets/images/icon-light.svg',
       order_id: orderid,
-
-      prefill: {
-        name: localStorage.getItem("Name"),
-        email: localStorage.getItem("email"),
-        contact: phone === null || phone === "" ? "9876543210" : phone,
-      },
       notes: {
         address:
-          "165/1,Opp Brahmasthana Kalyana Mantapa Sahukar Chenniah Road, TK Layout, Mysuru - 570023 ",
+          '165/1, Opp Brahmasthana Kalyana Mantapa Sahukar Chenniah Road, TK Layout, Mysuru - 570023',
       },
       modal: {
         escape: false,
       },
       theme: {
-        color: "var(--p-primary-500)",
+        color: '#3f4c83',
       },
     };
 
-    options.handler = (response: any, error: any) => {
-      options.response = response;
-      var paymentdata = {
-        razorpay_order_id: response?.razorpay_order_id,
-        razorpay_payment_id: response?.razorpay_payment_id,
+    options.handler = (response: any) => {
+      const paymentData = {
+        order_id: response?.data?.order_id,
+        payment_id: response?.data?.payment_id,
       };
-      this.talentSupportService
-        .talentSupportCompleteTransaction(paymentdata)
-        .subscribe({
-          next: (data: any) => {
+
+      this.talentSupportService.talentSupportCompletePayment(paymentData).subscribe(
+        (res: any) => {
+          if (res.status === false) {
             this.toast.add({
-              severity: "success",
-              summary: "Success",
-              detail: "You will receive invoice in mail",
+              severity: 'error',
+              summary: 'Error',
+              detail: res.message,
             });
-          },
-          error: (err: any) => {
-            console.log(err?.error?.message);
-            this.toast.add({
-              severity: "error",
-              summary: "Error",
-              detail: err?.error?.message,
+          } else {
+            this.ngZone.run(() => {
+              this.toast.add({
+                severity: 'success',
+                summary: 'Payment Successful',
+                detail: 'Your transaction has been completed.',
+              });
             });
-          },
-        });
+          }
+        },
+        () => {
+          this.toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Payment verification failed.',
+          });
+        }
+      );
     };
+
     options.modal.ondismiss = () => {
-      console.log("Transaction cancelled");
       this.toast.add({
-        severity: "error",
-        summary: "Error",
-        detail: "Transaction cancelled",
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Transaction cancelled',
       });
     };
+
     const rzp = new this.winRef.nativeWindow.Razorpay(options);
     rzp.open();
   }
 
-  getUserDetails() {
-    // this.getUserDetailsService.getData().subscribe((response: any) => {
-    //   if (response == null) {
-    //     return;
-    //   }
-    //   this.employerDetails = response;
-    // });
+  payUsingStripe(value: any) {
+    this.stripeData = value;
+    this.stripeData.finalPrice = this.totalAmount;
+    this.stripeData.subscriptionId = this.subscriptionId;
+    this.totalAmount = this.stripeData.finalPrice;
+    this.talentSupportService
+      .talentSupportPlaceOrderStripe(this.stripeData)
+      .subscribe({
+        next: (pi: any) => {
+          this.currency = pi.data.currency;
+          this.stripeData.clientSecret = pi.data.client_secret as string;
+          this.elementsOptions.clientSecret = pi.data.client_secret as string;
+          setTimeout(() => {
+            this.cardVisibility = true;
+          }, 100);
+        },
+        error: (error) => {
+          console.error('Error creating payment intent:', error);
+          this.toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to initialize payment. Please try again.'
+          });
+        }
+      });
   }
+
+  payWithStripe() {
+    if (!this.stripeData || !this.card) {
+      this.toast.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Payment form is not ready. Please try again.'
+      });
+      return;
+    }
+
+    this.stripeService
+      .confirmPayment({
+        elements: this.card.elements,
+        confirmParams: {
+          payment_method_data: {
+            billing_details: {
+              name: this.userName || 'Customer',
+            },
+          },
+        },
+        redirect: 'if_required',
+      })
+      .subscribe({
+        next: (result: any) => {
+          if (result.error) {
+            this.toast.add({
+              severity: 'error',
+              summary: 'Payment Failed',
+              detail: result.error.message,
+            });
+            return;
+          }
+
+          if (result.paymentIntent?.status === 'succeeded') {
+            this.toast.add({
+              severity: 'success',
+              summary: 'Payment Successful',
+              detail: 'Your payment has been processed successfully.',
+            });
+
+            const payload = {
+              order_id: this.stripeData.order_id,
+              payment_id: result.paymentIntent.id,
+            };
+
+            this.talentSupportService.talentSupportCompletePaymentStripe(payload)
+              .subscribe({
+                next: (res: any) => {
+                  if (res.status === true) {
+                    this.toast.add({
+                      severity: 'success',
+                      summary: 'Credits Added',
+                      detail: 'Your credits have been updated.',
+                    });
+
+                    this.cardVisibility = false;
+
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 1000);
+                  } else {
+                    this.toast.add({
+                      severity: 'error',
+                      summary: 'Error',
+                      detail: res.message,
+                    });
+                  }
+                },
+                error: () => {
+                  this.toast.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Unable to update credits.',
+                  });
+                }
+              });
+          }
+        },
+        error: (err) => {
+          this.toast.add({
+            severity: 'error',
+            summary: 'Stripe Error',
+            detail: err?.message || 'Something went wrong.',
+          });
+        },
+      });
+  }
+
 
   openGuideLines() {
     const guideLink = "https://shorturl.at/EPa6A";
@@ -603,14 +773,14 @@ export class TalentSupportComponent implements OnInit {
 
   prepareTalentSupportPayload() {
     const requirements = this.form.get("requirements")?.value ?? [];
-    const country = (this.employerDetails || "").replace("+", "");
+    const country = (localStorage.getItem("currentCountryByGEOLocation") || this.country);
     const req = requirements.find((r) => r?.["requirementType"]);
 
     return req
       ? {
-          plantype: req["requirementType"],
-          country_code: country,
-        }
+        plantype: req["requirementType"],
+        country: country,
+      }
       : {};
   }
 
@@ -619,8 +789,10 @@ export class TalentSupportComponent implements OnInit {
     this.talentSupportService
       .talentSupportCalculateAmount(payload)
       .subscribe((res: any) => {
-        this.totalAmount = res.total_amount;
-        this.currency = res.currency;
+        this.totalAmount = res.data.total_amount;
+        this.currency = res.data.currency;
+        this.paymentType = res.data.payment_gateway;
+        this.subscriptionId = res.data.subscription_id;
       });
   }
 }

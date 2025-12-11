@@ -48,16 +48,30 @@ export class TalentSupportService {
     );
   }
 
-  talentSupportPayLink(req: any) {
-    return this.http.post(
-      `${environment.ApiUrl}/talent-support-transaction-request`,
+  talentSupportPlaceOrder(req: any) {
+    return this.http.post<any>(
+      `${environment.ApiUrl}/talent-support-placeorder`,
       req
     );
   }
 
-  talentSupportCompleteTransaction(req: any) {
+    talentSupportPlaceOrderStripe(req: any) {
+    return this.http.post<any>(
+      `${environment.ApiUrl}/talent-support-stripe-placeorder`,
+      req
+    );
+  }
+
+  talentSupportCompletePayment(req: any) {
     return this.http.post(
-      `${environment.ApiUrl}/talent-support-complete-transaction`,
+      `${environment.ApiUrl}/talent-support-complete-payment`,
+      req
+    );
+  }
+
+  talentSupportCompletePaymentStripe(req: any) {
+    return this.http.post(
+      `${environment.ApiUrl}/talent-support-stripe-payment`,
       req
     );
   }
@@ -96,7 +110,7 @@ export class TalentSupportService {
 
    talentSupportCalculateAmount(data: any) {
     return this.http.post<any>(
-      `${environment.ApiUrl}/talent-support-calculateAmount`,
+      `${environment.ApiUrl}/talent-support-calculation`,
       data
     );
   }
