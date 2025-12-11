@@ -220,6 +220,7 @@ export class AuthService {
     logout() {
         this.store.dispatch(AuthActions.loginFailure({error: undefined}));
         this.resetGetMeCache(); // Reset cache on logout
+        this.router.navigateByUrl("/");
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.get<any>(environment.ApiUrl + "/logout", {headers});
     }
