@@ -309,3 +309,15 @@
     <p class="text-center text-muted m-3">No requirements found for this talent.</p>
     }
 </p-dialog>
+
+<p-dialog [modal]="true" [(visible)]="cardVisibility" [style]="{ width: '40rem', height: 'auto' }">
+	<div style="padding: 2rem !important">
+		@if (elementsOptions.clientSecret) {
+		<ngx-stripe-payment [elementsOptions]="elementsOptions"></ngx-stripe-payment>
+		}
+		<button pButton class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" (click)="payWithStripe()">
+			<i class="fa-solid fa-lock mx-2"></i>
+			Pay {{ totalAmount | currency : currency }}
+		</button>
+	</div>
+</p-dialog>
