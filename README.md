@@ -1,4 +1,6 @@
-# UNIPREP Web Application
+# uniprep
+
+> uniprep web application version 1.0.0
 
 An Angular 20, standalone-based web application for the Uniprep platform. The app uses PrimeNG/Material UI components, NgRx for state management, and is configured for SSR and optional PWA capabilities.
 
@@ -36,17 +38,18 @@ Optional (global):
   - Equivalent to ng serve
 
 3) Build for production
-- npm run build
-  - Output path: dist/UNIPREP (see angular.json)
+- npm run build:prod
+  - Output path: dist/uniprep (see angular.json)
 
 4) Watch build (development)
 - npm run watch
 
 ## Scripts (from package.json)
-- start: ng serve
-- build: ng build
-- watch: ng build --watch --configuration development
-- test: ng test
+- `start`: `ng serve`
+- `build`: `ng build`
+- `watch`: `ng build --watch --configuration development`
+- `test`: `ng test`
+- `build:prod`: `ng build --configuration=production`
 
 Note: There are no e2e or lint scripts configured in package.json in this repository.
 
@@ -144,8 +147,8 @@ No e2e tests are configured in this repo.
 - State management via NgRx is set up with store, effects, and devtools
 
 ## Deployment
-- Build: npm run build
-- Serve the contents of dist/UNIPREP with a static web server or your hosting provider.
+- Build: npm run build:prod
+- Serve the contents of dist/uniprep with a static web server or your hosting provider.
 - If using PWA, ensure HTTPS and proper headers for service workers.
 - TODO: Provide deployment steps for the target hosting environment(s) (e.g., Nginx, Firebase Hosting, Vercel, etc.).
 
@@ -155,3 +158,100 @@ No e2e tests are configured in this repo.
 - Node version issues: ensure Node 18 or 20 LTS.
 - Port conflicts on 4200: ng serve --port 4300
 
+## Dependencies
+- @abacritt/angularx-social-login: ~2.3.0
+- @angular/animations: ^20.1.6
+- @angular/cdk: ^20.1.5
+- @angular/common: ^20.1.6
+- @angular/compiler: ^20.1.6
+- @angular/core: ^20.1.6
+- @angular/forms: ^20.1.6
+- @angular/material: ^20.1.5
+- @angular/platform-browser: ^20.1.6
+- @angular/platform-browser-dynamic: ^20.1.6
+- @angular/platform-server: ^20.1.7
+- @angular/pwa: ^20.1.5
+- @angular/router: ^20.1.6
+- @angular/service-worker: ^20.1.6
+- @angular/ssr: ^20.1.5
+- @auth0/angular-jwt: ^5.2.0
+- @fortawesome/angular-fontawesome: ^1.0.0
+- @ngrx/component-store: ^20.0.0
+- @ngrx/effects: ^20.0.0
+- @ngrx/entity: ^20.0.0
+- @ngrx/store: ^20.0.0
+- @ngrx/store-devtools: ^20.0.0
+- @primeng/themes: ^20.0.1
+- @primeuix/themes: ^1.2.3
+- @stripe/stripe-js: ^7.8.0
+- angular-socialshare: ^2.3.11
+- angularx-social-login: ^4.1.0
+- bootstrap: ^5.3.7
+- bootstrap-icons: ^1.13.1
+- chart.js: ^4.5.0
+- chroma-js: ^3.1.2
+- date-fns: ^4.1.0
+- dayjs: ^1.11.13
+- express: ^4.21.2
+- file-saver: ^2.0.5
+- google-libphonenumber: ^3.2.42
+- html2canvas: ^1.4.1
+- html2pdf.js: ^0.10.3
+- intl-tel-input: ^25.3.2
+- jquery: ^3.7.1
+- jw-angular-social-buttons: ^1.0.0
+- jwt-decode: ^4.0.0
+- laravel-echo: ^2.2.0
+- marked: ^16.1.2
+- ng2-charts: ^8.0.0
+- ng2-pdf-viewer: ^10.4.0
+- ngx-audio-player: ^12.0.2
+- ngx-autosize: ^2.0.4
+- ngx-bootstrap: ^20.0.0
+- ngx-countdown: ^20.0.0
+- ngx-device-detector: ^10.0.2
+- ngx-intl-tel-input: ^17.0.0
+- ngx-localstorage: ^6.0.0
+- ngx-markdown: ^20.0.0
+- ngx-slick-carousel: ^19.0.0
+- ngx-stripe: ^20.7.0
+- ngx-ui-loader: ^19.0.0
+- primeicons: ^7.0.0
+- primeng: ^20.0.1
+- pusher-js: ^8.4.0
+- quill: ^2.0.3
+- rxjs: ^7.8.2
+- screenfull: ^6.0.2
+- slick-carousel: ^1.8.1
+- speak-tts: ^2.0.8
+- subsink: ^1.0.2
+- swiper: ^11.2.10
+- transliteration: ^2.3.5
+- tslib: ^2.8.1
+- vite: ^7.1.1
+- web-push: ^3.6.7
+- word-diff: ^1.0.1
+- zone.js: ^0.15.1
+
+## Dev Dependencies
+- @angular/build: ^20.1.5
+- @angular/cli: ^20.1.5
+- @angular/compiler-cli: ^20.1.6
+- @fullhuman/postcss-purgecss: ^5.0.0
+- @types/express: ^5.0.3
+- @types/file-saver: ^2.0.7
+- @types/jasmine: ^5.1.8
+- @types/jwt-decode: ^3.1.0
+- @types/node: ^24.2.0
+- @types/pusher-js: ^5.1.0
+- autoprefixer: ^10.4.21
+- cssnano: ^6.1.2
+- jasmine-core: ^5.9.0
+- karma: ^6.4.4
+- karma-chrome-launcher: ^3.2.0
+- karma-coverage: ^2.2.1
+- karma-jasmine: ^5.1.0
+- karma-jasmine-html-reporter: ^2.1.0
+- postcss: ^8.5.6
+- typescript: ~5.8.0
+- webpack: ^5.101.0
