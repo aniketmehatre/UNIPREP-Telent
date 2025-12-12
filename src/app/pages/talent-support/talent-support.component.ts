@@ -48,7 +48,7 @@ import { TableModule } from "primeng/table";
 import { AuthService } from "src/app/Auth/auth.service";
 import { StripeCardElementOptions, StripeElementsOptions } from "@stripe/stripe-js";
 import { NgxStripeModule, StripePaymentElementComponent, StripeService } from "ngx-stripe";
-import { sub } from "date-fns";
+import { LocationService } from "src/app/services/location.service";
 
 @Component({
   selector: "app-talent-support",
@@ -161,10 +161,12 @@ export class TalentSupportComponent implements OnInit {
   };
   stripeData: any;
   cardVisibility = false;
-  subscriptionId: number = 0
-  country: any
-  userName: any
-  finalPayload: any
+  subscriptionId: number = 0;
+  country: any;
+  userName: any;
+  finalPayload: any;
+  nationalityId: any;
+  userCountry: any;
 
   constructor(
     private fb: FormBuilder,
@@ -175,7 +177,8 @@ export class TalentSupportComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private authService: AuthService,
     private stripeService: StripeService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private locationService: LocationService,
   ) {
     this.addRequirement();
   }
@@ -220,10 +223,18 @@ export class TalentSupportComponent implements OnInit {
         this.talentSupportAmount();
       }
     });
-
+   const geoData = JSON.parse(
+      localStorage.getItem("currentCountryByGEOLocation") || "{}"
+    );
+    const country = geoData.country || this.country;
     this.authService.getMe().subscribe((res) => {
-      this.country = res.userdetails[0].home_country_name;
+      const cityName = res.userdetails[0].city_name;
       this.userName = res.userdetails[0].name;
+      this.nationalityId = res.userdetails[0].nationality_id;
+      this.locationService.getUserCountry(this.nationalityId,cityName.split(",")[1]?.trim()).subscribe((locRes) => {
+        this.userCountry = locRes.data.country[0].country;
+        this.country = country || this.userCountry;
+      });
     });
   }
 
@@ -374,10 +385,10 @@ export class TalentSupportComponent implements OnInit {
     //     if (response.success) {
     //       this.payWithRazorpay(response.orderid);
 
-          // this.form.reset();
-          // // Re-add one empty requirement after reset
-          // this.requirements.clear();
-          // this.addRequirement();
+    // this.form.reset();
+    // // Re-add one empty requirement after reset
+    // this.requirements.clear();
+    // this.addRequirement();
 
     //       this.toast.add({
     //         severity: "success",
@@ -486,31 +497,31 @@ export class TalentSupportComponent implements OnInit {
       };
 
       this.talentSupportService.talentSupportCompletePayment(paymentData).subscribe(
-        (res: any) => {
-          if (res.status === false) {
-            this.toast.add({
+          (res: any) => {
+            if (res.status === false) {
+              this.toast.add({
               severity: 'error',
               summary: 'Error',
-              detail: res.message,
-            });
-          } else {
-            this.ngZone.run(() => {
-              this.toast.add({
+                detail: res.message,
+              });
+            } else {
+              this.ngZone.run(() => {
+                this.toast.add({
                 severity: 'success',
                 summary: 'Payment Successful',
                 detail: 'Your transaction has been completed.',
+                });
               });
-            });
-          }
-        },
-        () => {
-          this.toast.add({
+            }
+          },
+          () => {
+            this.toast.add({
             severity: 'error',
             summary: 'Error',
             detail: 'Payment verification failed.',
-          });
-        }
-      );
+            });
+          }
+        );
     };
 
     options.modal.ondismiss = () => {
@@ -530,6 +541,8 @@ export class TalentSupportComponent implements OnInit {
     this.stripeData.finalPrice = this.totalAmount;
     this.stripeData.subscriptionId = this.subscriptionId;
     this.totalAmount = this.stripeData.finalPrice;
+    this.stripeData.requirements=this.finalPayload.requirements
+    this.stripeData.planType = this.finalPayload.planType
     this.talentSupportService
       .talentSupportPlaceOrderStripe(this.stripeData)
       .subscribe({
@@ -773,13 +786,12 @@ export class TalentSupportComponent implements OnInit {
 
   prepareTalentSupportPayload() {
     const requirements = this.form.get("requirements")?.value ?? [];
-    const country = (localStorage.getItem("currentCountryByGEOLocation") || this.country);
     const req = requirements.find((r) => r?.["requirementType"]);
 
     return req
       ? {
         plantype: req["requirementType"],
-        country: country,
+        country: this.country,
       }
       : {};
   }

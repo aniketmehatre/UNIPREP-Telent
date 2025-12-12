@@ -184,6 +184,19 @@ export class LocationService {
             headers: headers,
         });
     }
+    
+    getUserCountry(nationality_id: number | null, country?: string) {
+        let payload: any = {};
+        if (nationality_id) {
+            payload.nationality_id = nationality_id;
+        } else if (country) {
+            payload.country = country;
+        }
+        return this.http.post<any>(
+            `${environment.ApiUrl}/user-country-flag`,
+            payload
+        );
+    }
 
     sendSessionData(userInfo: any, status: any) {
         let userId = userInfo.userId;

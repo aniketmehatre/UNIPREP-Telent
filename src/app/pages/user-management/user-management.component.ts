@@ -96,8 +96,8 @@ export class UserManagementComponent implements OnInit {
 			name: [""],
 			// location_id: [""],
 			phone: [""],
-			home_country: [""],
-			last_degree_passing_year: [""],
+			home_country: ["", [Validators.required]],
+			last_degree_passing_year: ["", [Validators.required]],
 			email: [""],
 			current_education: [""],
 			interest_type: []
