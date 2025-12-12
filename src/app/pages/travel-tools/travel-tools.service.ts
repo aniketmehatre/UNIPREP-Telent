@@ -6,7 +6,6 @@ import { Countries } from 'src/app/@Models/country.model';
 import { CountryandCurrency } from 'src/app/@Models/currency.model';
 import { map } from 'rxjs';
 import { removeExtraResponse } from '../../@Supports/prompt';
-// import html2pdf from 'html2pdf.js';
 
 @Injectable({
   providedIn: 'root'

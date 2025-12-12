@@ -71,7 +71,6 @@
             "allowedCommonJsDependencies": [
               "pusher-js",
               "quill-delta",
-              "google-libphonenumber",
               "speak-tts",
               "transliteration",
               "file-saver"

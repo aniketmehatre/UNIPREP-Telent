@@ -225,9 +225,15 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.service.getMe().subscribe({
             next: (userData) => {
               if (userData.userdetails[0].last_url) {
-                this.storage.clear();
-                localStorage.clear();
-                window.location.href = `${response.domain}${userData.userdetails[0].last_url}?token=${response.token}`;
+                if (userData.userdetails[0].last_url == "/") {
+                  this.storage.clear();
+                  localStorage.clear();
+                  window.location.href = `${response.domain}/pages/dashboard?token=${response.token}`;
+                } else {
+                  this.storage.clear();
+                  localStorage.clear();
+                  window.location.href = `${response.domain}${userData.userdetails[0].last_url}?token=${response.token}`;
+                }
               } else {
                 if (this.jobId) {
                   window.location.href = `${response.domain}/pages/talent-connect/easy-apply/${this.jobId}/?token=${response.token}`;

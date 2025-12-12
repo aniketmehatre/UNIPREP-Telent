@@ -141,7 +141,7 @@ No e2e tests are configured in this repo.
 - TODO: Document how to build and run SSR in this repo if/when server entry points and scripts are added (e.g., ng run UNIPREP:serve-ssr). No SSR scripts are currently defined in package.json.
 
 ## Development Notes
-- Allowed CommonJS deps (angular.json): pusher-js, quill-delta, google-libphonenumber, speak-tts, transliteration, file-saver
+- Allowed CommonJS deps (angular.json): pusher-js, quill-delta, speak-tts, transliteration, file-saver
 - Global styles and scripts are configured in angular.json (e.g., Quill, Bootstrap, Slick Carousel)
 - Third-party UI: PrimeNG and Angular Material are both listed; PrimeNG theming configured in app.config.ts via providePrimeNG
 - State management via NgRx is set up with store, effects, and devtools
@@ -184,7 +184,7 @@ No e2e tests are configured in this repo.
 - @primeng/themes: ^20.0.1
 - @primeuix/themes: ^1.2.3
 - @stripe/stripe-js: ^7.8.0
-- angular-socialshare: ^2.3.11
+
 - angularx-social-login: ^4.1.0
 - bootstrap: ^5.3.7
 - bootstrap-icons: ^1.13.1
@@ -194,12 +194,9 @@ No e2e tests are configured in this repo.
 - dayjs: ^1.11.13
 - express: ^4.21.2
 - file-saver: ^2.0.5
-- google-libphonenumber: ^3.2.42
 - html2canvas: ^1.4.1
-- html2pdf.js: ^0.10.3
 - intl-tel-input: ^25.3.2
 - jquery: ^3.7.1
-- jw-angular-social-buttons: ^1.0.0
 - jwt-decode: ^4.0.0
 - laravel-echo: ^2.2.0
 - marked: ^16.1.2
