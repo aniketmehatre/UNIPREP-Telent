@@ -239,6 +239,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   phone = "";
   isPhoneDisabled = true;
   enterpriseSubscriptionLink: any;
+  nationalityId: any;
+  userCountry: any;
+  userCountryFlag: any;
 
   private subs = new SubSink();
 
@@ -259,7 +262,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private countryLocationService: CountryLocationService,
     private commonService: CommonService,
-    private userSubscriptionService: UserSubscriptionService
+    private userSubscriptionService: UserSubscriptionService,
   ) {
     this.initializeForms();
   }
@@ -270,6 +273,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.initializeStartupData();
     this.checkNewUserLogin();
     this.setupTimersAndTrial();
+    this.authService.getMe().subscribe((res) => {
+      const cityName = res.userdetails[0].city_name;
+      this.nationalityId = res.userdetails[0].nationality_id;
+      this.locationService.getUserCountry(this.nationalityId,cityName.split(",")[1]?.trim()).subscribe((res) => {
+        this.userCountry = res.data.country[0].country;
+        this.userCountryFlag = res.data.country[0].flag
+      })
+    });
   }
 
   ngAfterViewInit() {

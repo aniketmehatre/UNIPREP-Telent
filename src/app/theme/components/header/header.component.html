@@ -122,11 +122,11 @@
                             <i class="fa-regular fa-bullhorn" style="font-size: 16px" aria-hidden="true"></i>
                             Report
                         </button>
-                        <div label="" role="button" class="headerHomeCountry" [title]="homeCountryName"
-                            aria-label="Selected country: {{ homeCountryName }}">
+                        <div label="" role="button" class="headerHomeCountry" [title]="userCountry"
+                            aria-label="Selected country: {{ userCountry }}">
                             <img #openCountryPopup (error)="$event.target.src = '../../uniprep-assets/icons/india.png'"
-                                [src]="headerHomeFlag ? headerHomeFlag : '../../uniprep-assets/icons/india.png'"
-                                alt="{{ homeCountryName }} flag" height="auto" width="auto" />
+                                [src]="userCountryFlag ? userCountryFlag : '../../uniprep-assets/icons/india.png'"
+                                alt="{{ userCountry }} flag" height="auto" width="auto" />
                         </div>
                     </div>
 

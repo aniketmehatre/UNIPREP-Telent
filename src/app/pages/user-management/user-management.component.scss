@@ -351,3 +351,8 @@ body {
     width: 100%;
   }
 }
+
+:host ::ng-deep input.p-datepicker-input {
+  width: 100% !important;
+}
+
