@@ -196,7 +196,7 @@ export class AuthService {
                 if (!userData?.userdetails?.[0]) {
                     throw new Error('Invalid user details');
                 }
-                this.router.navigate(['/pages/dashboard'], {replaceUrl: true});
+               // this.router.navigate(['/pages/dashboard'], {replaceUrl: true});
             })
         );
     }
@@ -393,51 +393,54 @@ export class AuthService {
         return this.http.post<any>(environment.ApiUrl + "/validateWhatsappOtp", val, {headers: headers});
     }
 
-    saveToken(token: string): void {
-        if (!token) {
-            console.warn('SaveToken - Attempted to save empty token');
-            return;
-        }
-
-        try {
-            // Clean and validate the token
-            const cleanToken = token.replace(/['"]+/g, '').trim();
-            if (!cleanToken) {
-                throw new Error('Token is empty after cleaning');
-            }
-
-            // Verify token format
-            if (!this.isTokenValid(cleanToken)) {
-                throw new Error('Token validation failed');
-            }
-
-            const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-            this.storage.set(tokenKey, cleanToken);
-
-            // Verify token was saved correctly
-            const savedToken = this.storage.get(tokenKey);
-            if (savedToken !== cleanToken) {
-                throw new Error('Token verification failed after save');
-            }
-
-            console.debug('SaveToken - Token saved and verified successfully');
-        } catch (error) {
-            console.error('SaveToken - Error:', error);
-            this.clearToken();
-        }
+  saveToken(token: string): void {
+    if (!token) {
+        console.warn('SaveToken - Attempted to save empty token');
+        return;
     }
 
-    private clearToken(): void {
-        try {
-            const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
-            this.storage.remove(tokenKey);
+    try {
+        // Clean and validate the token
+        const cleanToken = token.replace(/['"]+/g, '').trim();
+        if (!cleanToken) {
+            throw new Error('Token is empty after cleaning');
+        }
+
+        // Verify token format
+        if (!this.isTokenValid(cleanToken)) {
+            throw new Error('Token validation failed');
+        }
+
+        this.authTokenService.setToken(cleanToken);
+        const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+        this.storage.set(tokenKey, cleanToken);
+
+        // Verify token was saved correctly
+        const savedToken = this.authTokenService.getToken();
+        if (savedToken !== cleanToken) {
+            throw new Error('Token verification failed after save');
+        }
+
+        console.debug('SaveToken - Token saved and verified successfully');
+    } catch (error) {
+        console.error('SaveToken - Error:', error);
+        this.clearToken();
+        throw error;
+    }
+}
+
+   private clearToken(): void {
+    try {
+        this.authTokenService.clearToken(false);
+        const tokenKey = `${ngxLocalstorageConfiguration.prefix}${ngxLocalstorageConfiguration.delimiter}${environment.tokenKey}`;
+        this.storage.remove(tokenKey);
             this.storage.remove(environment.tokenKey); // Clear both possible locations
             this.resetGetMeCache(true); // Force cache reset
-            console.debug('Token cleared successfully');
-        } catch (error) {
-            console.error('Error clearing token:', error);
-        }
+        console.debug('Token cleared successfully');
+    } catch (error) {
+        console.error('Error clearing token:', error);
     }
+}
 
     public isTokenValid(token?: string): boolean {
         try {

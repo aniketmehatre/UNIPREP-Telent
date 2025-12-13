@@ -17,10 +17,10 @@
           </div>
         </div>
         <div class="d-flex flex-wrap justify-content-start gap-2">
-          <button pButton class="btn btn-outline-light theme-blue flex-grow-1" style="min-width: 120px;"
+          <!-- <button pButton class="btn btn-outline-light theme-blue flex-grow-1" style="min-width: 120px;"
             *ngIf="this.isValidHost(this.hostDetail)" (click)="setActiveButton(1)" [ngStyle]="button1Style">
             Monthly
-          </button>
+          </button> -->
           <button pButton class="btn btn-outline-light theme-blue flex-grow-1" style="min-width: 120px;"
             (click)="setActiveButton(2)" [ngStyle]="button2Style">
             Half Yearly
@@ -143,7 +143,11 @@
               <div class="columns col-lg-4 col-md-4 p-0" *ngFor="let subscription of subscriptionList"
                 [ngClass]="{'br-1':subscription}">
                 <ul class="price text-center list-unstyled ">
-                  <!-- add this to hide career and entrepreneur for k10 -->
+                  <!-- Current Plan Badge -->
+                  <li style="background-color: #9b9b9b; color: white; margin-top:5px; font-weight: bold;"
+                    *ngIf="subscription.isCurrentPlan">
+                    <i class="fa-solid fa-star me-1"></i>Current Active Plan
+                  </li>
                   <li style="background-color: var(--p-primary-500); color: white;margin-top:5px;"
                     *ngIf="subscription.popular == 1">Most Popular Plan
                   </li>
@@ -153,7 +157,7 @@
                   }">
                     <h4 class="mb-0 fw-bold" style="margin-top:2px;">{{ subscription.subscription_plan }}</h4>
                     <h2 class="amount orange">
-                      {{ subscription.givenprice | number : ".0" }}
+                      {{ subscription.price | number : ".0" }}
                       {{ subscription.currency }}
                     </h2>
                     <!-- <div *ngIf="studentType!=2" class="d-flex" style="justify-content: space-evenly">
@@ -178,7 +182,17 @@
                     <!-- <h5 class="fw-semibold mb-0">{{ subscription.validity }} Months Validity</h5> -->
                   </li>
                   <li class="mt-0">
-                    <div class="getstartedbtn flex pb-0" *ngIf="planstage==0">
+                    <!-- Current Plan Button -->
+                    <div class="getstartedbtn pb-0" *ngIf="subscription.isCurrentPlan">
+                      <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity</h6>
+                      <button pButton class="px-5 py-1 btn btn-success m-0" [disabled]="true"
+                        style="color: white; background-color: #9b9b9b; border-color: #9b9b9b; cursor: not-allowed;">
+                        <i class="fa-solid fa-check me-2"></i>Current Plan
+                      </button>
+                      <p class="mt-2 mb-0 text-muted small">Active subscription</p>
+                    </div>
+
+                    <div class="getstartedbtn flex pb-0" *ngIf="!subscription.isCurrentPlan">
                       <div class="col-6">
                         <h6 class="fw-semibold text-small mb-0">60 Minutes Validity</h6>
                         <button pButton class="px-4 py-1 btn btn-basic w-100 m-0"
@@ -195,14 +209,14 @@
                           Plan</button>
                       </div>
                     </div>
-                    <div class="getstartedbtn pb-0" *ngIf="planstage==1">
+                    <div class="getstartedbtn pb-0" *ngIf="!subscription.isCurrentPlan">
                       <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity</h6>
                       <button pButton class="px-5 py-1 btn btn-primary m-0 text-white" *ngIf="subscription.selected"
                         (click)="selectedSubscriptionPlan(subscription)">Selected</button>
                       <button pButton class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50)"
                         *ngIf="!subscription.selected" (click)="selectedSubscriptionPlan(subscription)">Upgrade</button>
                     </div>
-                    <div class="getstartedbtn pb-0" *ngIf="planstage==2">
+                    <div class="getstartedbtn pb-0" *ngIf="!subscription.isCurrentPlan">
                       <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity</h6>
                       <button *ngIf="planstatus?.current_plan_validity == subscription.validity" pButton
                         class="px-5 py-1 btn btn-dark m-0" style="color:var(--p-neutral-50);background:black">Current
@@ -219,18 +233,21 @@
                           (click)="selectedSubscriptionPlan(subscription)">Upgrade</button>
                       </ng-container>
                     </div>
-                    <div class="getstartedbtn pb-0" *ngIf="planstage==3">
+                    <div class="getstartedbtn pb-0" *ngIf="!subscription.isCurrentPlan">
                       <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity</h6>
                       <button pButton class="px-5 py-1 btn btn-basic m-0"
                         (click)="selectedSubscriptionPlan(subscription)" style="color:var(--p-neutral-50)">Purchase
                         Again</button>
                     </div>
                   </li>
-                  <p class="orange fw-bolder" *ngIf="subscription.validity == 1">That's only {{ subscription.currency }}
-                    {{ getWholePricePerDay(subscription.givenprice, subscription.validity) | number : ".2" }} a day </p>
-                  <p class="orange fw-bolder" *ngIf="subscription.validity != 1">That's only {{ subscription.currency }}
-                    {{ getWholePricePerMonth(subscription.givenprice, subscription.validity) | number : "1.1-2" }} a
-                    month </p>
+                  <p class="orange fw-bolder" *ngIf="!subscription.isCurrentPlan && subscription.validity == 1">
+                    That's only {{ subscription.currency }}
+                    {{ getWholePricePerDay(subscription.price, subscription.validity) | number : ".2" }} a day
+                  </p>
+                  <p class="orange fw-bolder" *ngIf="!subscription.isCurrentPlan && subscription.validity != 1">
+                    That's only {{ subscription.currency }}
+                    {{ getWholePricePerMonth(subscription.price, subscription.validity) | number : "1.1-2" }} a month
+                  </p>
                 </ul>
               </div>
 
@@ -247,7 +264,6 @@
                           <div class="mt-4">
                             <h6 class="plan_type">Standard Plan</h6>
                             <h6 class="plan_type uniprep-orange">Free</h6>
-                            <!-- <h3 class="amount">0 {{ currency }}</h3> -->
                           </div>
                         </div>
                       </div>
@@ -352,24 +368,29 @@
                   <div class="container-fluid mt-3">
                     <div class="row gap-5 d-flex">
                       <div class="card card-bg subscriptioncard col px-0" [ngClass]="{ active: subscription.isActive }">
-                        <div class="mostpopular subscription_list" *ngIf="subscription.popular == 1">Most Popular Plan
+                        <!-- Current Plan Badge -->
+                        <div class="currentplan subscription_list" *ngIf="subscription.isCurrentPlan"
+                          style="background-color: #9b9b9b; color: white; padding: 8px 15px; text-align: center; font-weight: bold;">
+                          <i class="fa-solid fa-star me-1"></i>Current Active Plan
                         </div>
+                        <div class="mostpopular subscription_list" *ngIf="subscription.popular == 1">Most Popular Plan</div>
                         <div class="card-header py-2 px-4">
                           <div class="d-flex justify-content-between">
                             <div class="mt-4">
                               <h6 class="plan_type">
                                 {{ subscription.subscription_plan }}
                               </h6>
-                              <h3 class="amount" *ngIf="subscription.popular != 1">
-                                {{ subscription.givenprice | number : ".2" }}
+                              <h3 class="amount" *ngIf="subscription.popular != 1 && !subscription.isCurrentPlan">
+                                {{ subscription.price | number : ".2" }}
                                 {{ subscription.currency }}
                               </h3>
-                              <h3 class="amount orange" *ngIf="subscription.popular == 1">
-                                {{ subscription.givenprice | number : ".2" }}
+                              <h3 class="amount orange"
+                                *ngIf="subscription.popular == 1 || subscription.isCurrentPlan">
+                                {{ subscription.price | number : ".2" }}
                                 {{ subscription.currency }}
                               </h3>
                             </div>
-                            <div class="mt-4">
+                            <div class="mt-4" *ngIf="!subscription.isCurrentPlan">
                               <p>
                                 <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
                               </p>
@@ -422,8 +443,20 @@
                                   class="fa-solid fa-arrow-up-right"></i></a></p>
                           </div>
                         </div>
-                        <div class="card-footer py-2 px-4" [ngClass]="subscription.popular != 1 ? 'mb-5' : ''">
-                          <div class="getstartedbtn flex pb-0" *ngIf="planstage==0">
+                        <div class="card-footer py-2 px-4"
+                          [ngClass]="subscription.popular != 1 && !subscription.isCurrentPlan ? 'mb-5' : ''">
+                          <div *ngIf="subscription.isCurrentPlan" class="text-center">
+                            <h6 class="fw-semibold text-small w-100 mb-2">
+                              {{ subscription.validity }} Months Validity
+                            </h6>
+                            <button pButton class="px-5 py-1 btn btn-success m-0 w-100" [disabled]="true"
+                              style="color: white; background-color: #9b9b9b; border-color: #9b9b9b;">
+                              <i class="fa-solid fa-check me-2"></i>Current Plan
+                            </button>
+                            <p class="mt-2 mb-1 text-muted small">Your active subscription</p>
+                          </div>
+
+                          <div class="getstartedbtn flex pb-0" *ngIf="!subscription.isCurrentPlan">
                             <div class="col-6">
                               <h6 class="fw-semibold text-small mb-0">60 Minutes Validity</h6>
                               <button pButton class="px-4 py-1 btn btn-basic w-100 m-0"
@@ -441,7 +474,7 @@
                                 Plan</button>
                             </div>
                           </div>
-                          <div class="getstartedbtn pb-0" *ngIf="planstage==1">
+                          <div class="getstartedbtn pb-0" *ngIf="!subscription.isCurrentPlan">
                             <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity
                             </h6>
                             <button pButton class="px-5 py-1 btn btn-primary m-0 text-white"
@@ -451,7 +484,7 @@
                               *ngIf="!subscription.selected"
                               (click)="selectedSubscriptionPlan(subscription)">Upgrade</button>
                           </div>
-                          <div class="getstartedbtn pb-0" *ngIf="planstage==2">
+                          <div class="getstartedbtn pb-0" *ngIf="!subscription.isCurrentPlan">
                             <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity
                             </h6>
                             <button *ngIf="planstatus?.current_plan_validity == subscription?.validity" pButton
@@ -470,7 +503,7 @@
                                 (click)="selectedSubscriptionPlan(subscription)">Upgrade</button>
                             </ng-container>
                           </div>
-                          <div class="getstartedbtn pb-0" *ngIf="planstage==3">
+                          <div class="getstartedbtn pb-0" *ngIf="!subscription.isCurrentPlan">
                             <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity
                             </h6>
                             <button pButton class="px-5 py-1 btn btn-basic m-0"
@@ -478,8 +511,10 @@
                               style="color:var(--p-neutral-50)">Purchase
                               Again</button>
                           </div>
-                          <p class="orange fw-bolder mt-1">That's only {{ subscription.currency }} {{
-                            getWholePricePerMonth(subscription.givenprice, subscription.validity) }} a month </p>
+                          <p class="orange fw-bolder mt-1" *ngIf="!subscription.isCurrentPlan">
+                            That's only {{ subscription.currency }}
+                            {{ getWholePricePerMonth(subscription.price, subscription.validity) }} a month
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -767,12 +802,12 @@
                   </button> -->
                   @if(currencyValue != 'INR'){
                   <button pButton [disabled]="showCheckout" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
-                    (click)="checkout('stripe')" aria-label="Checkout">
+                    (click)="checkout('Stripe')" aria-label="Checkout">
                     Checkout
                   </button>
                   }@else if(currencyValue == 'INR'){
                   <button pButton [disabled]="showCheckout" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
-                    (click)="checkout('razorpay')" aria-label="Checkout">
+                    (click)="checkout('Razorpay')" aria-label="Checkout">
                     Checkout
                   </button>
                   }

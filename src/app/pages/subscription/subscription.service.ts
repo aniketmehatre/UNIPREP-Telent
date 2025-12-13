@@ -287,4 +287,24 @@ export class SubscriptionService {
     saveLogforSubscription(data: any) {
         return this.http.post<any>(environment.ApiUrl + "/savelogforsub", data);
     }
+
+    userSubscriptions(country: string,studentType: number) {
+        return this.http.post<any>(environment.ApiUrl + "/user-subscription-list",{country,studentType});
+    }
+
+    userSubscriptionPlaceOrder(data: any) {
+        return this.http.post<any>(environment.ApiUrl + "/user-subscription-placeorder",data);
+    }
+
+     userSubscriptionPayment(data: any) {
+        return this.http.post<any>(environment.ApiUrl + "/user-subscription-payment",data);
+    }
+
+     userSubscriptionPlaceOrderStripe(data: any) {
+        return this.http.post<any>(environment.ApiUrl + "/user-stripe-subscription-placeorder",data);
+    }
+
+     userSubscriptionPaymentStripe(data: any) {
+        return this.http.post<any>(environment.ApiUrl + "/user-stripe-subscription-payment",data);
+    }
 }

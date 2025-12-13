@@ -100,44 +100,56 @@
             </ul>
           </div>
 
-          <div class="columns col-lg-2 col-md-2 p-0 bl-1 br-1">
-            <ul class="price text-center list-unstyled ">
-              <li class="header mt-15" >
-                <h4 class="mb-0 fw-bold" style="margin-top:2px;">Free</h4>
-                <h2 class="amount orange">0 {{ currency }}</h2>
-              </li>
-              <li class="mt-18"><i class="fa-solid fa-check green"></i></li>
-              <li><i class="fa-solid fa-check green"></i></li>
-              <li><i class="fa-solid fa-check green"></i></li>
-              <!-- <li *ngIf="education_level==='K10'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
-              <li *ngIf="education_level==='K10'||education_level==='K12'"><i class="fa-solid fa-check"></i></li> -->
-              <li><i class="fa-solid fa-check green "></i></li>
-              <li><i class="fa-solid fa-check green "></i></li>
-              <li><i class="fa-solid fa-check green "></i></li>
-              <li><i class="fa-solid fa-check green "></i></li>
-              <li><i class="fa-solid fa-check green "></i></li>
-              <li><i class="fa-solid fa-check green "></i></li>
-              <li><i class="fa-solid fa-check green "></i></li>
-              <li><i class="fa-solid fa-check green "></i></li>
-              <li><i class="fa-solid fa-check green "></i></li>
-              <li><i class="fa-solid fa-check green "></i></li>
-              <!--- <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
-              <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
-              <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
-              <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
-              <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
-              <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
-              <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li> -->
-              <li class="mt-0 pb-0">
-                <h5 class="fw-semibold mb-0">{{ timeLeftInfoCard }} Validity</h5>
-              </li>
-              <li class="mt-0">
-                <div class="getstartedbtn pb-0">
-                  <button pButton  class="pt-3 pb-3 btn btn-basic w-100 m-0" style="color:var(--p-neutral-50);background:black">Current</button>
-                </div>
-              </li>
-            </ul>
-          </div>
+         <div class="columns col-lg-2 col-md-2 p-0 bl-1 br-1">
+    <ul class="price text-center list-unstyled">
+      <li class="header mt-15">
+        <h4 class="mb-0 fw-bold" style="margin-top:2px;">
+          {{ currentPlanStatus?.current_plan || 'Free' }}
+        </h4>
+        <h2 class="amount orange">
+          {{ currentPlanStatus?.price || '0' }} {{ subscriptionCurrency }}
+        </h2>
+      </li>
+      <li class="mt-18"><i class="fa-solid fa-check green"></i></li>
+      <li><i class="fa-solid fa-check green"></i></li>
+      <li><i class="fa-solid fa-check green"></i></li>
+      <!-- <li *ngIf="education_level==='K10'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
+                  <li *ngIf="education_level==='K10'||education_level==='K12'"><i class="fa-solid fa-check"></i></li> -->
+      <li><i class="fa-solid fa-check green "></i></li>
+      <li><i class="fa-solid fa-check green "></i></li>
+      <li><i class="fa-solid fa-check green "></i></li>
+      <li><i class="fa-solid fa-check green "></i></li>
+      <li><i class="fa-solid fa-check green "></i></li>
+      <li><i class="fa-solid fa-check green "></i></li>
+      <li><i class="fa-solid fa-check green "></i></li>
+      <li><i class="fa-solid fa-check green "></i></li>
+      <li><i class="fa-solid fa-check green "></i></li>
+      <li><i class="fa-solid fa-check green "></i></li>
+      <!--- <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
+                  <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
+                  <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
+                  <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
+                  <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
+                  <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li>
+                  <li *ngIf="education_level==='HigherEducation'||education_level==='K12'"><i class="fa-solid fa-check"></i></li> -->
+      <li class="mt-0 pb-0">
+        <h5 class="fw-semibold mb-0">
+          {{ currentPlanStatus?.current_plan_validity
+          ? (currentPlanStatus.current_plan_validity + ' ' +
+          (currentPlanStatus.current_plan_validity > 1 ? 'Months' : 'Month'))
+          : timeLeftInfoCard }} Validity
+        </h5>
+      </li>
+      <li class="mt-0">
+        <div class="getstartedbtn pb-0">
+          <button pButton class="pt-3 pb-3 btn btn-basic w-100 m-0" style="color:var(--p-neutral-50);background:black"
+            disabled>
+            {{ currentPlanStatus?.account_status || 'Current' }}
+          </button>
+        </div>
+      </li>
+    </ul>
+</div>
 
           <div class="columns col-lg-2 col-md-2 p-0" *ngFor="let subscription of subscriptionList"
             [ngClass]="{'br-1':subscription}">
@@ -151,7 +163,7 @@
                   }">
                 <h4 class="plan_type mb-0">{{ subscription.subscription_plan }}</h4>
                 <h2 class="amount orange">
-                  {{ subscription.givenprice | number : ".0" }}
+                  {{ subscription.price | number : ".0" }}
                   {{ subscription.currency }}
                 </h2>
                 <div  *ngIf="studentType!=2" class="d-flex" style="justify-content: space-evenly">
@@ -245,15 +257,27 @@
               <li class="pb-0">
                 <h5 class="fw-semibold mb-0">{{ subscription.validity }} Months Validity</h5>
               </li>
-              <li class="mt-0">
-                <div class="getstartedbtn pb-0">
-                  <button pButton  class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected"
-                    (click)="selectedSubscriptionPlan(subscription)">Selected</button>
-                  <button pButton  class="pt-3 pb-3 btn btn-basic w-100 m-0"  style="color:var(--p-neutral-50)" *ngIf="!subscription.selected"
-                    (click)="selectedSubscriptionPlan(subscription)">Select Plan</button>
-                </div>
-              </li>
-              <p class="orange fw-bolder" *ngIf="subscription.validity != 1">That's only {{ subscription.currency }} {{ getWholePricePerMonth(subscription.givenprice, subscription.validity)  }} a month </p>
+             <li class="mt-0">
+    <div class="getstartedbtn pb-0">
+        <!-- Show "Current Plan" if this is the active subscription -->
+        <button pButton 
+                class="pt-3 pb-3 btn w-100 m-0" 
+                [ngClass]="{
+                    'btn-basic text-white': subscription.isCurrentPlan,
+                    'btn-primary text-white': !subscription.isCurrentPlan && subscription.selected,
+                    'btn-grey text-white': !subscription.isCurrentPlan && !subscription.selected
+                }"
+                [style.color]="!subscription.isCurrentPlan && !subscription.selected ? 'var(--p-neutral-50)' : ''"
+                [style.background]="subscription.isCurrentPlan ? 'black' : ''"
+                [disabled]="subscription.isCurrentPlan"
+                (click)="selectedSubscriptionPlan(subscription)">
+            <span *ngIf="subscription.isCurrentPlan">Current Plan</span>
+            <span *ngIf="!subscription.isCurrentPlan && subscription.selected">Selected</span>
+            <span *ngIf="!subscription.isCurrentPlan && !subscription.selected">Select Plan</span>
+        </button>
+    </div>
+</li>
+              <p class="orange fw-bolder" *ngIf="subscription.validity != 1">That's only {{ subscription.currency }} {{ getWholePricePerMonth(subscription.price, subscription.validity)  }} a month </p>
             </ul>
           </div>
 
@@ -330,11 +354,11 @@
                               {{ subscription.subscription_plan }}
                             </h6>
                             <h3 class="amount" *ngIf="subscription.popular != 1">
-                              {{ subscription.givenprice | number : ".2" }}
+                              {{ subscription.price | number : ".2" }}
                               {{ subscription.currency }}
                             </h3>
-                            <h3 class="amount orange" *ngIf="subscription.popular == 1">
-                              {{ subscription.givenprice | number : ".2" }}
+                            <h3 class="amount orange">
+                              {{ subscription.price  }}
                               {{ subscription.currency }}
                             </h3>
                           </div>
@@ -396,12 +420,20 @@
                       </div>
                       <div class="card-footer py-2 px-4" [ngClass]="subscription.popular != 1 ? 'mb-5' : ''">
                         <h5 class="fw-semibold">{{ subscription.validity }} Month Validity</h5>
-                        <div class="getstartedbtn pb-2">
-                          <button pButton  class="pt-3 pb-3 btn btn-primary w-100 m-0 text-white" *ngIf="subscription.selected"
-                            (click)="selectedSubscriptionPlan(subscription)">Selected</button>
-                          <button pButton  class="pt-3 pb-3 btn btn-grey w-100 m-0 text-white" *ngIf="!subscription.selected"
-                            (click)="selectedSubscriptionPlan(subscription)">Select Plan</button>
-                        </div>
+                       <div class="getstartedbtn pb-2">
+        <button pButton class="pt-3 pb-3 btn w-100 m-0" [ngClass]="{
+                                    'btn-basic text-white': subscription.isCurrentPlan,
+                                    'btn-primary text-white': !subscription.isCurrentPlan && subscription.selected,
+                                    'btn-grey text-white': !subscription.isCurrentPlan && !subscription.selected
+                                }"
+          [style.color]="!subscription.isCurrentPlan && !subscription.selected ? 'var(--p-neutral-50)' : ''"
+          [style.background]="subscription.isCurrentPlan ? 'black' : ''" [disabled]="subscription.isCurrentPlan"
+          (click)="selectedSubscriptionPlan(subscription)">
+          <span *ngIf="subscription.isCurrentPlan">Current Plan</span>
+          <span *ngIf="!subscription.isCurrentPlan && subscription.selected">Selected</span>
+          <span *ngIf="!subscription.isCurrentPlan && !subscription.selected">Select Plan</span>
+        </button>
+        </div>
                       </div>
                     </div>
                   </div>
@@ -645,7 +677,7 @@
           <h6>Apply your coupon code here</h6>
           <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">View Offers</a>
         </div>
-        <p-inputgroup class=" inputheight mt-1">
+        <p-inputgroup class=" inputheight mt-1 gap-2">
           <input [(ngModel)]="couponInput" (keyup)="onInput($event)" pInputText
             placeholder="Enter Your coupon code Here" type="text" [readonly]="iscouponReadonly" />
           <i class="fa-solid fa-xmark-large" *ngIf="showCross" (click)="clearCoupon()"></i>
@@ -695,12 +727,12 @@
               <button pButton  *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder" (click)="checkout('razorpay')">
                 <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="40px" />
               </button> -->
-              <button pButton  [disabled]="showCheckout" *ngIf="currentCountry && currentCountry !== 'India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
-                (click)="checkout('stripe')">
+              <button pButton  [disabled]="showCheckout" *ngIf="paymentType != 'Razorpay'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                (click)="checkout('Stripe')">
                 Checkout
               </button>
-              <button pButton  [disabled]="showCheckout" *ngIf="currentCountry=='India'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
-                (click)="checkout('razorpay')">
+              <button pButton  [disabled]="showCheckout" *ngIf="paymentType == 'Razorpay'" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
+                (click)="checkout('Razorpay')">
                 Checkout
               </button>
             </div>

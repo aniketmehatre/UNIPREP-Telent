@@ -91,6 +91,17 @@ export class SubscriptionComponent implements OnInit {
 		"📩 Personalized Job Alerts via Whatsapp & Email",
 		"🌟 70+ Premium features for career growth"
 	];
+	subscriptionCurrency: string = '';
+	subscriptionPrice: string = '';
+	subscriptionPaymentGateway: string = '';
+
+
+	onSubscriptionDataLoaded(data: { currency: string, price: string, paymentGateway: string }) {
+		this.subscriptionCurrency = data.currency;
+		this.subscriptionPrice = data.price;
+		this.subscriptionPaymentGateway = data.paymentGateway;
+	}
+	
 	constructor(private subscriptionService: SubscriptionService, private winRef: WindowRefService,
 		private authService: AuthService, private toastr: MessageService,
 		private dataService: DataService, private dashboardService: DashboardService,
@@ -269,11 +280,12 @@ export class SubscriptionComponent implements OnInit {
 	}
 	payusingstripe(value: any) {
 		this.stripdata = value
-		this.selectedcost = this.stripdata.finalPrice 
-		this.subscriptionService.createPaymentIntent(this.stripdata).subscribe((pi) => {
-			this.currencyType = pi.currency
-			this.elementsOptions.clientSecret = pi.client_secret as string
-			this.stripdata.clientSecret = pi.client_secret as string
+		this.subscriptionPrice= this.stripdata.finalPrice 
+		this.stripdata= this.subscriptionDetails
+		this.subscriptionService.userSubscriptionPlaceOrderStripe(this.stripdata).subscribe((pi) => {
+			this.subscriptionCurrency;
+			this.elementsOptions.clientSecret = pi.data.client_secret as string
+			this.stripdata.clientSecret = pi.data.client_secret as string
 			this.cardvisibility = true
 		})
 	}
@@ -283,8 +295,8 @@ export class SubscriptionComponent implements OnInit {
 		this.subscriptionDetails = value
 		this.showPayLoading = true
 		if (value.subscriptionId) {
-			if (value.type == "razorpay") {
-				this.subscriptionService.placeSubscriptionOrder(value).subscribe((data) => {
+			if (value.type == "Razorpay") {
+				this.subscriptionService.userSubscriptionPlaceOrder(value).subscribe((data) => {
 					this.payWithRazor(data.orderid)
 					this.currencyType = data.currency
 					if (data.success == false) {
@@ -337,8 +349,8 @@ export class SubscriptionComponent implements OnInit {
 		// }
 		const options: any = {
 			key: razorKey,
-			amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
-			currency: "INR",
+			amount: Number(this.subscriptionPrice) * 100, // amount should be in paise format to display Rs 1255 without decimal point
+			currency: this.subscriptionCurrency,
 			name: "UNIPREP", // company name or product name
 			description: "UNIPREP Subscription", // product description
 			image: "https://uniprep.ai/uniprep-assets/images/icon-light.svg", // company logo or product image
@@ -364,13 +376,13 @@ export class SubscriptionComponent implements OnInit {
 		options.handler = (response: any, error: any) => {
 			options.response = response
 			var paymentdata = {
-				orderid: response?.razorpay_order_id,
-				paymentid: response?.razorpay_payment_id,
+				order_id: response?.data.order_id,
+				payment_id: response?.data.payment_id,
 			}
 			setTimeout(() => {
 				this.authService.updateSubscriptionName(this.selectedSubscription?.subscription || "")
 				if (this.subscriptionDetails?.subscriptionId) {
-					this.subscriptionService.PaymentComplete(paymentdata).subscribe(
+					this.subscriptionService.userSubscriptionPayment(paymentdata).subscribe(
 						(res: any) => {
 							this.success = res
 							this.subscriptionService.doneLoading()
@@ -410,8 +422,8 @@ export class SubscriptionComponent implements OnInit {
 					)
 				} else {
 					let data = {
-						order_id: response?.razorpay_order_id,
-						payment_reference_id: response?.razorpay_payment_id,
+						order_id: response?.data.order_id,
+						payment_id: response?.data.payment_id,
 					}
 					this.subscriptionService.topupPaymentComplete(data).subscribe(
 						(res: any) => {
@@ -552,8 +564,19 @@ export class SubscriptionComponent implements OnInit {
 			})
 			.subscribe((result: any) => {
 				if (result.error) {
-					this.subscriptionService.updateCheckOutBehaviour().subscribe({
+					const payload = {
+						order_id: this.stripdata.order_id,
+						payment_id: result.paymentIntent.id,
+					};
+					this.subscriptionService.userSubscriptionPaymentStripe(payload).subscribe({
 						next: (response) => {
+							if (response.status === true) {
+								this.toastr.add({
+									severity: 'success',
+									summary: 'Payment Successful',
+									detail: 'Your payment has been processed successfully.',
+								});
+							}
 							this.toastr.add({
 								severity: "error",
 								summary: "Error",
