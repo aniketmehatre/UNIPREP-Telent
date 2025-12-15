@@ -56,7 +56,7 @@ export class JobChatUiComponent implements OnInit, OnChanges {
   private toast = inject(MessageService);
   private pageFacade = inject(PageFacadeService);
   constructor(public talentConnectService: TalentConnectService, private authService: AuthService,
-    private router: Router, private storage: LocalStorageService) { }
+    private router: Router, private storage: LocalStorageService,private toastService: MessageService,) { }
 
   ngOnInit(): void {
     this.profileData = this.talentConnectService._employerProfileData;
@@ -164,9 +164,31 @@ export class JobChatUiComponent implements OnInit, OnChanges {
 
     this.talentConnectService.applyJob(this.jobDetails?.id).subscribe({
       next: (response) => {
+         if (response.success === true) {
         this.jobId = response.id;
         this.isJobApplied = true;
         this.sendMessage(message);
+            this.toastService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Job applied successfully'
+          });
+          this.router.navigate(['/pages/talent-connect/easy-apply']);
+        }
+          else {
+          this.toastService.add({
+            severity: 'warn',
+            summary: 'Already Applied',
+            detail: response.message
+          });
+        }
+      },
+       error: () => {
+        this.toastService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Something went wrong'
+        });
       }
     });
   }
