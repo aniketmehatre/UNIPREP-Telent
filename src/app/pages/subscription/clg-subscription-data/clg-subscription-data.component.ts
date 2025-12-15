@@ -108,6 +108,14 @@ export class CollegeSubscriptionDataComponent implements OnInit {
   couponTab: boolean = false;
   currentLocationCountry: any;
   hostDetail: any;
+  country: any;
+  nationalityId: any;
+  userCountry: any;
+  allSubscriptions: any[] = [];
+  paymentType: any
+  @Output() subscriptionDataLoaded = new EventEmitter<{ currency: string }>();
+  currentPlanStatus: any = null;
+  subscriptionCurrency: string = '';
   constructor(
     private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -171,14 +179,12 @@ export class CollegeSubscriptionDataComponent implements OnInit {
             let host = this.isValidHost(this.hostDetail);
             if (host) {
               validityMap = {
-                1: 1,
-                6: 2,
-                12: 3,
+                6: 1,
+                12: 2,
               };
             } else {
               validityMap = {
-                6: 2,
-                12: 3,
+                12: 2,
               };
             }
             const validity =
@@ -201,6 +207,20 @@ export class CollegeSubscriptionDataComponent implements OnInit {
       this.currentCountry = "";
       this.ngxService.stopBackground();
     }
+
+    const geoData = JSON.parse(
+      localStorage.getItem("currentCountryByGEOLocation") || "{}"
+    );
+    const country = geoData.country || this.country;
+    this.authService.getMe().subscribe((res) => {
+      const cityName = res.userdetails[0].city_name;
+      this.nationalityId = res.userdetails[0].nationality_id;
+      this.locationService.getUserCountry(this.nationalityId,cityName.split(",")[1]?.trim()).subscribe((locRes) => {
+        this.userCountry = locRes.data.country[0].country;
+        this.country = country || this.userCountry;
+        this.getSubscriptionList();
+      });
+    });
   }
 
   isValidHost(host: string): boolean {
@@ -257,79 +277,79 @@ export class CollegeSubscriptionDataComponent implements OnInit {
   planstage = 0;
   talent_profile_id = "";
   planstatus: any;
-  async getSubscriptionList() {
-    this.showCheckout;
-    await this.getCurrentLoction();
-    this.subscriptionAmt = "0.00";
-    this.subscriptionTotal = this.subscriptionAmt;
-    if (this.activeButton == 1) {
-      this.monthlyPlan = 1;
-    } else if (this.activeButton == 2) {
-      this.monthlyPlan = 6;
-    } else {
-      this.monthlyPlan = 12;
-    }
-    let data = {
-      page: 1,
-      perpage: 1000,
-      studenttype: this.studentType,
-      country: this.currentCountry,
-      continent: this.continent,
-      monthly_plan: this.monthlyPlan,
-      study_level: this.user?.education_level,
-    };
-    this.subscriptionService.getSubscriptions(data).subscribe((response) => {
-      this.planstatus = response.plan_status;
-      this.talent_profile_id = response.talent_profile_id;
-      switch (this.planstatus?.account_status) {
-        case "Free Trial Started":
-          this.planstage = 0;
-          break;
-        case "Free Trial Expired":
-          this.planstage = 1;
-          break;
-        case "Subscription Active":
-          this.planstage = 2;
-          break;
-        case "Subscription Expired":
-          this.planstage = 3;
-          break;
-        default:
-          this.planstage = 1;
-          break;
-      }
-      const mostPopularOnes = response.subscriptions.filter(
-        (item: any) => item.popular === 1
-      );
-      const filteredData = response.subscriptions.filter(
-        (item: any) => item.popular !== 1
-      );
-      filteredData.splice(1, 0, ...mostPopularOnes);
-      this.currencyValue = response.subscriptions[0].currency;
-      this.subscriptionList = filteredData;
-      this.subscriptionList.forEach((item: any) => {
-        item.country = item.country?.split(",").map(Number);
-        let filteredCountryIds = item.country;
-        item.selected = true;
-        item.selectedCountry = {};
-        // item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
-        item.filteredCountryList = this.countryList;
-        item.selectedCountry = this.countryList.find(
-          (country: any) =>
-            country.id === Number(this.user?.interested_country_id)
-        );
-        item.isActive = item.popular == 1 ? true : false;
-        this.currency = item.currency;
+  // async getSubscriptionList() {
+  //   this.showCheckout;
+  //   await this.getCurrentLoction();
+  //   this.subscriptionAmt = "0.00";
+  //   this.subscriptionTotal = this.subscriptionAmt;
+  //   if (this.activeButton == 1) {
+  //     this.monthlyPlan = 1;
+  //   } else if (this.activeButton == 2) {
+  //     this.monthlyPlan = 6;
+  //   } else {
+  //     this.monthlyPlan = 12;
+  //   }
+  //   let data = {
+  //     page: 1,
+  //     perpage: 1000,
+  //     studenttype: this.studentType,
+  //     country: this.currentCountry,
+  //     continent: this.continent,
+  //     monthly_plan: this.monthlyPlan,
+  //     study_level: this.user?.education_level,
+  //   };
+  //   this.subscriptionService.getSubscriptions(data).subscribe((response) => {
+  //     this.planstatus = response.plan_status;
+  //     this.talent_profile_id = response.talent_profile_id;
+  //     switch (this.planstatus?.account_status) {
+  //       case "Free Trial Started":
+  //         this.planstage = 0;
+  //         break;
+  //       case "Free Trial Expired":
+  //         this.planstage = 1;
+  //         break;
+  //       case "Subscription Active":
+  //         this.planstage = 2;
+  //         break;
+  //       case "Subscription Expired":
+  //         this.planstage = 3;
+  //         break;
+  //       default:
+  //         this.planstage = 1;
+  //         break;
+  //     }
+  //     const mostPopularOnes = response.subscriptions.filter(
+  //       (item: any) => item.popular === 1
+  //     );
+  //     const filteredData = response.subscriptions.filter(
+  //       (item: any) => item.popular !== 1
+  //     );
+  //     filteredData.splice(1, 0, ...mostPopularOnes);
+  //     this.currencyValue = response.subscriptions[0].currency;
+  //     this.subscriptionList = filteredData;
+  //     this.subscriptionList.forEach((item: any) => {
+  //       item.country = item.country?.split(",").map(Number);
+  //       let filteredCountryIds = item.country;
+  //       item.selected = true;
+  //       item.selectedCountry = {};
+  //       // item.filteredCountryList = this.countryList.filter((data: any) => filteredCountryIds.includes(data.id));
+  //       item.filteredCountryList = this.countryList;
+  //       item.selectedCountry = this.countryList.find(
+  //         (country: any) =>
+  //           country.id === Number(this.user?.interested_country_id)
+  //       );
+  //       item.isActive = item.popular == 1 ? true : false;
+  //       this.currency = item.currency;
 
-        this.showCheckout =
-          this.planstage == 2 &&
-          this.planstatus?.current_plan_validity >= item.validity
-            ? true
-            : false;
-        this.selectedSubscriptionPlan(item);
-      });
-    });
-  }
+  //       this.showCheckout =
+  //         this.planstage == 2 &&
+  //         this.planstatus?.current_plan_validity >= item.validity
+  //           ? true
+  //           : false;
+  //       this.selectedSubscriptionPlan(item);
+  //     });
+  //   });
+  // }
 
   getSubscriptionTopupList() {
     this.subscriptionService.getSubscriptionTopups().subscribe((response) => {
@@ -359,18 +379,27 @@ export class CollegeSubscriptionDataComponent implements OnInit {
   }
 
   selectedSubscriptionPlan(sub: any) {
-    //this.showCheckout = false
+    if (sub.isCurrentPlan) {
+      this.toast.add({
+        severity: "info",
+        summary: "Info",
+        detail: "This is your current active plan",
+      });
+      return;
+    }
+
+    this.showCheckout = false;
     this.checkoutTotal = "";
     this.subscriptionList.forEach((item: any) => {
       item.selected = false;
       item.isActive = false;
-      if (sub.id == item.id) {
+      if (sub.id == item.id && !item.isCurrentPlan) {
         item.selected = true;
         item.isActive = true;
       }
     });
     this.selectedSubscriptionDetails = sub;
-    this.subscriptionAmt = sub.givenprice;
+    this.subscriptionAmt = sub.price;
     this.subscriptionTotal = this.subscriptionAmt;
   }
 
@@ -434,19 +463,19 @@ export class CollegeSubscriptionDataComponent implements OnInit {
         couponCode: this.couponInput,
         checkoutTotal: this.subscriptionTotal,
         subscriptioncouponstatus: this.selectedSubscriptionDetails?.couponcode,
-        subscription_id: this.selectedSubscriptionDetails?.id,
+        subscription_id: this.selectedSubscriptionDetails?.subscription_id,
         subscription_plan_id:
-          this.selectedSubscriptionDetails?.subscription_plan_id,
+          this.selectedSubscriptionDetails?.id,
       };
 
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
-        if (response.success) {
+        if (response.status === true) {
           this.checkoutTotal =
-            Number(this.subscriptionTotal) - response.discountPrice;
-          this.discountAmount = response.discountPrice;
-          this.discountPercentage = response.discountPercentage;
+            Number(this.subscriptionTotal) - response.data.discountPrice;
+          this.discountAmount = response.data.discountPrice;
+          this.discountPercentage = response.data.discountPercentage;
           this.discountAmountEnable = true;
-          this.usedCouponId = response.coupon_id;
+          this.usedCouponId = response.data.coupon_id;
           this.toast.add({
             severity: "success",
             summary: "Success",
@@ -481,9 +510,9 @@ export class CollegeSubscriptionDataComponent implements OnInit {
     this.showCheckout = false;
     if (type === "why-premium-type") {
       if (this.currencyValue == "INR") {
-        type = "razorpay";
+        type = "Razorpay";
       } else if (this.currencyValue != "INR") {
-        type = "stripe";
+        type = "Stripe";
       }
     }
     this.confirmModal = false;
@@ -494,14 +523,14 @@ export class CollegeSubscriptionDataComponent implements OnInit {
         }
         if (this.basesubscription && this.selectedSubscriptionDetails) {
           let data = {
-            subscriptionId: this.selectedSubscriptionDetails.id,
+            subscriptionId: this.selectedSubscriptionDetails.subscription_id,
             countryId: this.selectedSubscriptionDetails?.selectedCountry?.id,
             finalPrice: this.checkoutTotal,
             couponApplied: this.iscouponReadonly ? 1 : 0,
             coupon: this.iscouponReadonly ? this.couponInput : "",
             coupon_id: this.usedCouponId,
             subscription_plan_id:
-              this.selectedSubscriptionDetails?.subscription_plan_id,
+              this.selectedSubscriptionDetails?.id,
             type: "",
             currency: this.currencyValue,
           };
@@ -513,7 +542,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
         } else {
           if (this.selectedTopupCountryDetails) {
             let data = {
-              topupid: this.selectedTopupCountryDetails.id,
+              topupid: this.selectedTopupCountryDetails.subscription_id,
               countryId: this.selectedTopupCountryDetails.selectedCoutriesList
                 .map((item: any) => item.id)
                 .toString(),
@@ -521,7 +550,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
               couponApplied: this.couponInput ? 1 : 0,
               coupon: this.couponInput,
               subscription_plan_id:
-                this.selectedSubscriptionDetails?.subscription_plan_id,
+                this.selectedSubscriptionDetails?.id,
               type: "",
               currency: this.currencyValue,
             };
@@ -540,13 +569,13 @@ export class CollegeSubscriptionDataComponent implements OnInit {
       (error) => {
         if (this.basesubscription && this.selectedSubscriptionDetails) {
           let data = {
-            subscriptionId: this.selectedSubscriptionDetails.id,
+            subscriptionId: this.selectedSubscriptionDetails.subscription_id,
             countryId: this.selectedSubscriptionDetails.selectedCountry.id,
             finalPrice: this.checkoutTotal,
             couponApplied: this.couponInput ? 1 : 0,
             coupon: this.couponInput,
             subscription_plan_id:
-              this.selectedSubscriptionDetails?.subscription_plan_id,
+              this.selectedSubscriptionDetails?.id,
             currency: this.currencyValue,
           };
           if (this.checkoutTotal == "") {
@@ -564,7 +593,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
               couponApplied: this.couponInput ? 1 : 0,
               coupon: this.couponInput,
               subscription_plan_id:
-                this.selectedSubscriptionDetails?.subscription_plan_id,
+                this.selectedSubscriptionDetails?.subscription_id,
               currency: this.currencyValue,
             };
             this.subscriptionPlan.emit(data);
@@ -695,11 +724,11 @@ export class CollegeSubscriptionDataComponent implements OnInit {
       border: "1px solid var(--p-primary-500)",
       color: "var(--p-neutral-950)",
     };
-    this.button3Style = {
-      "background-color": "#FFFFFF",
-      border: "1px solid var(--p-primary-500)",
-      color: "var(--p-neutral-950)",
-    };
+    // this.button3Style = {
+    //   "background-color": "#FFFFFF",
+    //   border: "1px solid var(--p-primary-500)",
+    //   color: "var(--p-neutral-950)",
+    // };
     this.couponTab = false;
     // Set styles for the clicked button
     if (buttonNumber === 1) {
@@ -717,15 +746,18 @@ export class CollegeSubscriptionDataComponent implements OnInit {
         border: "1px solid var(--p-primary-500)",
         color: "#FFFFFF",
       };
-    } else if (buttonNumber === 3) {
-      this.activeButton = 3;
-      this.button3Style = {
-        "background-color": "var(--p-primary-500)",
-        border: "1px solid var(--p-primary-500)",
-        color: "#FFFFFF",
-      };
     }
-    this.getSubscriptionList();
+    // else if (buttonNumber === 3) {
+    //   this.activeButton = 3;
+    //   this.button3Style = {
+    //     "background-color": "var(--p-primary-500)",
+    //     border: "1px solid var(--p-primary-500)",
+    //     color: "#FFFFFF",
+    //   };
+    // }
+    //this.getSubscriptionList();
+    this.activeButton = buttonNumber;
+    this.filterByPlan();
   }
 
   openHowItWorksVideoPopup() {
@@ -742,5 +774,83 @@ export class CollegeSubscriptionDataComponent implements OnInit {
   showInfo: boolean = false;
   toggleInfo() {
     this.showInfo = !this.showInfo;
+  }
+
+  getSubscriptionList() {
+    this.subscriptionService
+      .userSubscriptions(this.country, this.studentType)
+      .subscribe(res => {
+        this.allSubscriptions = res.data.subscriptions;
+        this.paymentType = res.data.subscriptions[0]?.payment_gateway;
+
+        // Store current plan status
+        this.currentPlanStatus = res.data.plan_status;
+        switch (this.planstatus?.account_status) {
+          case "Free Trial Started":
+            this.planstage = 0;
+            break;
+          case "Free Trial Expired":
+            this.planstage = 1;
+            break;
+          case "Subscription Active":
+            this.planstage = 2;
+            break;
+          case "Subscription Expired":
+            this.planstage = 3;
+            break;
+          default:
+            this.planstage = 1;
+            break;
+        }
+
+        if (this.allSubscriptions && this.allSubscriptions.length > 0) {
+          this.subscriptionCurrency = this.allSubscriptions[0].currency;
+          this.currency = this.subscriptionCurrency; // Update the existing currency property
+        }
+
+        // Emit currency and price data to parent
+				if (this.allSubscriptions && this.allSubscriptions.length > 0) {
+					const firstSubscription = this.allSubscriptions[0];
+					this.subscriptionDataLoaded.emit({
+						currency: firstSubscription.currency
+					});
+				}
+
+        this.filterByPlan();
+      });
+  }
+
+  filterByPlan() {
+    let validity = 6;
+
+    if (this.activeButton === 1) {
+      validity = 6;      // Half-Yearly
+    } else if (this.activeButton === 2) {
+      validity = 12;     // Annual
+    }
+
+    this.subscriptionList = this.allSubscriptions.filter(
+      sub => sub.validity === validity
+    );
+
+    // Mark the current plan after filtering
+    this.markCurrentPlan();
+  }
+
+  // Add new method to mark current plan
+  markCurrentPlan() {
+    if (!this.currentPlanStatus) return;
+
+    this.subscriptionList = this.subscriptionList.map((sub: { validity: any; }) => {
+      const isCurrentPlan =
+        this.currentPlanStatus.current_plan_status === 1 &&
+        sub.validity === this.currentPlanStatus.current_plan_validity;
+
+      return {
+        ...sub,
+        isCurrentPlan,
+        selected: false
+      };
+    });
   }
 }

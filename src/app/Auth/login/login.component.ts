@@ -201,6 +201,60 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
+  // onSubmit(): void {
+  //   this.submitted.set(true);
+  //   if (this.loginForm.invalid) return;
+
+  //   this.isLoading.set(true);
+  //   this.cdr.markForCheck();
+  //   this.service.canDisableSignIn.next(true);
+
+  //   this.service
+  //     .validateSignIn(this.loginForm.value)
+  //     .pipe(
+  //       finalize(() => {
+  //         this.isLoading.set(false);
+  //         this.cdr.markForCheck();
+  //       })
+  //     )
+  //     .subscribe({
+  //       next: (response) => {
+  //         this.service.saveToken(response.token);
+  //         this.authTokenService.setToken(response.token);
+  //         this.storage.set(environment.tokenKey, response.token);
+  //         this.service.getMe().subscribe({
+  //           next: (userData) => {
+  //             if (userData.userdetails[0].last_url) {
+  //               this.storage.clear();
+  //               localStorage.clear();
+  //               window.location.href = `${response.domain}${userData.userdetails[0].last_url}?token=${response.token}`;
+  //             } else {
+  //               if (this.jobId) {
+  //                 window.location.href = `${response.domain}/pages/talent-connect/easy-apply/${this.jobId}/?token=${response.token}`;
+  //               } else {
+  //                 window.location.href = `${response.domain}/pages/talent-connect/easy-apply?token=${response.token}`;
+  //               }
+  //             }
+  //           },
+  //           error: (error) => {
+  //             this.toast.add({
+  //               severity: "error",
+  //               summary: "Error",
+  //               detail: error.message || "Failed to load user data",
+  //             });
+  //           },
+  //         });
+  //       },
+  //       error: (error) => {
+  //         this.toast.add({
+  //           severity: "error",
+  //           summary: "Error",
+  //           detail: error?.error?.message || "Login failed",
+  //         });
+  //       },
+  //     });
+  // }
+
   onSubmit(): void {
     this.submitted.set(true);
     if (this.loginForm.invalid) return;
@@ -220,8 +274,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response) => {
           this.service.saveToken(response.token);
-          this.authTokenService.setToken(response.token);
-          this.storage.set(environment.tokenKey, response.token);
+
           this.service.getMe().subscribe({
             next: (userData) => {
               if (userData.userdetails[0].last_url) {
@@ -241,6 +294,29 @@ export class LoginComponent implements OnInit, OnDestroy {
                   window.location.href = `${response.domain}/pages/talent-connect/easy-apply?token=${response.token}`;
                 }
               }
+              this.toast.add({
+                severity: "success",
+                summary: "Success",
+                detail: "Login Successful",
+              });
+              let navigationPath: string;
+              const lastUrl = userData.userdetails[0].last_url;
+              const isValidLastUrl =
+                lastUrl &&
+                lastUrl !== "/" &&
+                lastUrl !== "/login" &&
+                lastUrl !== "/register" &&
+                !lastUrl.includes("login") &&
+                !lastUrl.includes("register");
+
+              if (isValidLastUrl) {
+                navigationPath = lastUrl;
+              } else if (this.jobId) {
+                navigationPath = `/pages/talent-connect/easy-apply/${this.jobId}`;
+              } else {
+                navigationPath = "/pages/dashboard";
+              }
+              this.route.navigate([navigationPath], { replaceUrl: true });
             },
             error: (error) => {
               this.toast.add({

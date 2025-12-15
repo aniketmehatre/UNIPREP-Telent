@@ -392,12 +392,12 @@ export class UpgradeSubscriptionComponent implements OnInit {
 			}
 
 			this.subscriptionService.applyCoupon(data).subscribe((response) => {
-				if (response.success) {
-					this.checkoutTotal = Number(this.subscriptionTotal) - response.discountPrice
-					this.discountAmount = response.discountPrice
-					this.discountPercentage = response.discountPercentage
+				if (response.status === true) {
+					this.checkoutTotal = Number(this.subscriptionTotal) - response.data.discountPrice
+					this.discountAmount = response.data.discountPrice
+					this.discountPercentage = response.data.discountPercentage
 					this.discountAmountEnable = true
-					this.usedCouponId = response.coupon_id
+					this.usedCouponId = response.data.coupon_id
 					this.toast.add({
 						severity: "success",
 						summary: "Success",

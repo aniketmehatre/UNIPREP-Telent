@@ -1,15 +1,15 @@
 <ng-container [ngSwitch]="stage">
 	<ng-container *ngSwitchCase="1">
-		<ng-container *ngIf="!isCollegeStudent">
+		<ng-container *ngIf="studentType===1">
 			<uni-subscription-data #applyTarget (upgrade)="start()" [history]="(orderHistory$ | async) || []" [billing]="user"
 				[subscriptions]="subscriptionDetail$ | async" (subscriptionPlan)="pay($event)"
-				[showHistoryBtn]="showHistoryBtn" (showHistory)="showHistory($event)">
+				[showHistoryBtn]="showHistoryBtn" (showHistory)="showHistory($event)" (subscriptionDataLoaded)="onSubscriptionDataLoaded($event)">
 			</uni-subscription-data>
 		</ng-container>
-		<ng-container *ngIf="isCollegeStudent">
+		<ng-container *ngIf="studentType===2">
 			<uni-clg-subscription-data #applyTarget (upgrade)="start()" [history]="(orderHistory$ | async) || []" [billing]="user"
 				[subscriptions]="subscriptionDetail$ | async" (subscriptionPlan)="pay($event)"
-				[showHistoryBtn]="showHistoryBtn" (showHistory)="showHistory($event)">
+				[showHistoryBtn]="showHistoryBtn" (showHistory)="showHistory($event)" (subscriptionDataLoaded)="onSubscriptionDataLoaded($event)">
 			</uni-clg-subscription-data>
 		</ng-container>
 	</ng-container>
@@ -47,7 +47,7 @@
 			}
 			<button pButton class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" (click)="paywithstripe()">
 				<i class="fa-solid fa-lock mx-2"></i>
-				Pay {{ selectedcost | currency : currencyType }}
+				Pay {{ subscriptionCurrency }} {{ subscriptionDetails?.finalPrice }} 
 			</button>
 		</div>
 	</p-dialog>

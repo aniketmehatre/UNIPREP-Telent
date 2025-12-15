@@ -16,6 +16,7 @@ import { Meta } from "@angular/platform-browser";
 import { environment } from "@env/environment";
 import { LocalStorageService } from "ngx-localstorage";
 import { AuthService } from "src/app/Auth/auth.service";
+import { ToastModule } from "primeng/toast";
 
 @Component({
   selector: "uni-job-view",
@@ -32,6 +33,7 @@ import { AuthService } from "src/app/Auth/auth.service";
     RouterLink,
     RatingModule,
     CardModule,
+    ToastModule,
   ],
 })
 export class JobViewComponent implements OnInit {
@@ -158,24 +160,34 @@ export class JobViewComponent implements OnInit {
   applyJob(id: number) {
     this.talentConnectService.applyJob(id).subscribe({
       next: (response) => {
-        if (response.success) {
+        if (response.success === true) {
           this.isShowApplyChat = true;
           this.isApplied = true;
           this.appliedId = response.id;
+          this.message.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Job applied successfully'
+          });
+          this.router.navigate(['/pages/talent-connect/easy-apply']);
         } else {
           this.message.add({
-            severity: "error",
-            summary: "Error",
-            detail: response.message,
+            severity: 'warn',
+            summary: 'Already Applied',
+            detail: response.message
           });
         }
         if (response.job && response.job[0]) {
           this.jobDetails = response.job[0];
         }
       },
-      error: (error) => {
-        console.log(error);
-      },
+      error: () => {
+        this.message.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Something went wrong'
+        });
+      }
     });
   }
 
