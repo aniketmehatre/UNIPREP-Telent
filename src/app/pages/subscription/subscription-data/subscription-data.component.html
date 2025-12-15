@@ -170,7 +170,7 @@
                   <p style="font-size: 12px; font-weight: 500" class="mb-0 mt-2">
                     <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
                   </p>
-                  <div class="btn discountbutton-o btnCurser">Save {{ subscription.discountpercentage }}%</div>
+                  <div class="btn discountbutton-o btnCurser">Save {{ discountPercentage }}%</div>
                 </div>
               </li>
               <li><i class="fa-solid fa-check green"></i></li>
@@ -367,9 +367,9 @@
                               <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
                             </p>
                             <div  class="btn discountbutton-o btnCurser" *ngIf="subscription.popular == 1">Save {{
-                              subscription.discountpercentage }}%</div>
+                              discountPercentage }}%</div>
                             <div class="btn discountbutton btnCurser" *ngIf="subscription.popular != 1">Save {{
-                              subscription.discountpercentage }}%</div>
+                              discountPercentage }}%</div>
                           </div>
                         </div>
                       </div>
@@ -465,7 +465,7 @@
                       <h4 class="mb-0">
                         <s>INR {{ subscription.price | number : ".2-2" }}</s>
                       </h4>
-                      <div class="btn discountbutton">Save {{ subscription.discountPercentage }} %</div>
+                      <div class="btn discountbutton">Save {{ discountPercentage }} %</div>
                     </div>
                   </div>
                 </div>

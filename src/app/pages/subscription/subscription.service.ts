@@ -231,7 +231,7 @@ export class SubscriptionService {
         this.storage.get("loginToken");
         const headers = new HttpHeaders().set("Accept", "application/json");
         return this.http.post<any>(
-            environment.ApiUrl + "/applycoupondiscount",
+            environment.ApiUrl + "/user-coupon-discount",
             data,
             { headers: headers }
         );

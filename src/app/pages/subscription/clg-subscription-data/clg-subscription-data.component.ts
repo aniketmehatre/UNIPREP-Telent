@@ -113,9 +113,9 @@ export class CollegeSubscriptionDataComponent implements OnInit {
   userCountry: any;
   allSubscriptions: any[] = [];
   paymentType: any
-	@Output() subscriptionDataLoaded = new EventEmitter<{ currency: string, price: string, paymentGateway: string }>();
+  @Output() subscriptionDataLoaded = new EventEmitter<{ currency: string }>();
   currentPlanStatus: any = null;
-	subscriptionCurrency: string = '';
+  subscriptionCurrency: string = '';
   constructor(
     private authService: AuthService,
     private subscriptionService: SubscriptionService,
@@ -179,14 +179,12 @@ export class CollegeSubscriptionDataComponent implements OnInit {
             let host = this.isValidHost(this.hostDetail);
             if (host) {
               validityMap = {
-                1: 1,
-                6: 2,
-                12: 3,
+                6: 1,
+                12: 2,
               };
             } else {
               validityMap = {
-                6: 2,
-                12: 3,
+                12: 2,
               };
             }
             const validity =
@@ -220,6 +218,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
       this.locationService.getUserCountry(this.nationalityId,cityName.split(",")[1]?.trim()).subscribe((locRes) => {
         this.userCountry = locRes.data.country[0].country;
         this.country = country || this.userCountry;
+        this.getSubscriptionList();
       });
     });
   }
@@ -379,30 +378,30 @@ export class CollegeSubscriptionDataComponent implements OnInit {
     });
   }
 
- selectedSubscriptionPlan(sub: any) {
-		if (sub.isCurrentPlan) {
-			this.toast.add({
-				severity: "info",
-				summary: "Info",
-				detail: "This is your current active plan",
-			});
-			return;
-		}
+  selectedSubscriptionPlan(sub: any) {
+    if (sub.isCurrentPlan) {
+      this.toast.add({
+        severity: "info",
+        summary: "Info",
+        detail: "This is your current active plan",
+      });
+      return;
+    }
 
-		this.showCheckout = false;
-		this.checkoutTotal = "";
-		this.subscriptionList.forEach((item: any) => {
-			item.selected = false;
-			item.isActive = false;
-			if (sub.id == item.id && !item.isCurrentPlan) {
-				item.selected = true;
-				item.isActive = true;
-			}
-		});
-		this.selectedSubscriptionDetails = sub;
-		this.subscriptionAmt = sub.price;
-		this.subscriptionTotal = this.subscriptionAmt;
-	}
+    this.showCheckout = false;
+    this.checkoutTotal = "";
+    this.subscriptionList.forEach((item: any) => {
+      item.selected = false;
+      item.isActive = false;
+      if (sub.id == item.id && !item.isCurrentPlan) {
+        item.selected = true;
+        item.isActive = true;
+      }
+    });
+    this.selectedSubscriptionDetails = sub;
+    this.subscriptionAmt = sub.price;
+    this.subscriptionTotal = this.subscriptionAmt;
+  }
 
   getWholePricePerMonth(price: number, months: number): number {
     return Math.floor(price / months);
@@ -470,13 +469,13 @@ export class CollegeSubscriptionDataComponent implements OnInit {
       };
 
       this.subscriptionService.applyCoupon(data).subscribe((response) => {
-        if (response.success) {
+        if (response.status === true) {
           this.checkoutTotal =
-            Number(this.subscriptionTotal) - response.discountPrice;
-          this.discountAmount = response.discountPrice;
-          this.discountPercentage = response.discountPercentage;
+            Number(this.subscriptionTotal) - response.data.discountPrice;
+          this.discountAmount = response.data.discountPrice;
+          this.discountPercentage = response.data.discountPercentage;
           this.discountAmountEnable = true;
-          this.usedCouponId = response.coupon_id;
+          this.usedCouponId = response.data.coupon_id;
           this.toast.add({
             severity: "success",
             summary: "Success",
@@ -725,11 +724,11 @@ export class CollegeSubscriptionDataComponent implements OnInit {
       border: "1px solid var(--p-primary-500)",
       color: "var(--p-neutral-950)",
     };
-    this.button3Style = {
-      "background-color": "#FFFFFF",
-      border: "1px solid var(--p-primary-500)",
-      color: "var(--p-neutral-950)",
-    };
+    // this.button3Style = {
+    //   "background-color": "#FFFFFF",
+    //   border: "1px solid var(--p-primary-500)",
+    //   color: "var(--p-neutral-950)",
+    // };
     this.couponTab = false;
     // Set styles for the clicked button
     if (buttonNumber === 1) {
@@ -747,14 +746,15 @@ export class CollegeSubscriptionDataComponent implements OnInit {
         border: "1px solid var(--p-primary-500)",
         color: "#FFFFFF",
       };
-    } else if (buttonNumber === 3) {
-      this.activeButton = 3;
-      this.button3Style = {
-        "background-color": "var(--p-primary-500)",
-        border: "1px solid var(--p-primary-500)",
-        color: "#FFFFFF",
-      };
     }
+    // else if (buttonNumber === 3) {
+    //   this.activeButton = 3;
+    //   this.button3Style = {
+    //     "background-color": "var(--p-primary-500)",
+    //     border: "1px solid var(--p-primary-500)",
+    //     color: "#FFFFFF",
+    //   };
+    // }
     //this.getSubscriptionList();
     this.activeButton = buttonNumber;
     this.filterByPlan();
@@ -777,69 +777,80 @@ export class CollegeSubscriptionDataComponent implements OnInit {
   }
 
   getSubscriptionList() {
-		this.subscriptionService
-			.userSubscriptions(this.country, this.studentType)
-			.subscribe(res => {
-				this.allSubscriptions = res.data.subscriptions;
-				this.paymentType = res.data.subscriptions[0]?.payment_gateway;
+    this.subscriptionService
+      .userSubscriptions(this.country, this.studentType)
+      .subscribe(res => {
+        this.allSubscriptions = res.data.subscriptions;
+        this.paymentType = res.data.subscriptions[0]?.payment_gateway;
 
-				// Store current plan status
-				this.currentPlanStatus = res.data.plan_status;
+        // Store current plan status
+        this.currentPlanStatus = res.data.plan_status;
+        switch (this.planstatus?.account_status) {
+          case "Free Trial Started":
+            this.planstage = 0;
+            break;
+          case "Free Trial Expired":
+            this.planstage = 1;
+            break;
+          case "Subscription Active":
+            this.planstage = 2;
+            break;
+          case "Subscription Expired":
+            this.planstage = 3;
+            break;
+          default:
+            this.planstage = 1;
+            break;
+        }
 
-				// Set currency from subscriptions
-				if (this.allSubscriptions && this.allSubscriptions.length > 0) {
-					this.subscriptionCurrency = this.allSubscriptions[0].currency;
-					this.currency = this.subscriptionCurrency; // Update the existing currency property
-				}
+        if (this.allSubscriptions && this.allSubscriptions.length > 0) {
+          this.subscriptionCurrency = this.allSubscriptions[0].currency;
+          this.currency = this.subscriptionCurrency; // Update the existing currency property
+        }
 
-				// Emit currency and price data to parent
+        // Emit currency and price data to parent
 				if (this.allSubscriptions && this.allSubscriptions.length > 0) {
 					const firstSubscription = this.allSubscriptions[0];
 					this.subscriptionDataLoaded.emit({
-						currency: firstSubscription.currency,
-						price: firstSubscription.price,
-						paymentGateway: firstSubscription.payment_gateway
+						currency: firstSubscription.currency
 					});
 				}
 
-				this.filterByPlan();
-			});
-	}
+        this.filterByPlan();
+      });
+  }
 
-	filterByPlan() {
-		let validity = 1;
+  filterByPlan() {
+    let validity = 6;
 
-		if (this.activeButton === 1) {
-			validity = 1;      // Monthly
-		} else if (this.activeButton === 2) {
-			validity = 6;      // Half-Yearly
-		} else if (this.activeButton === 3) {
-			validity = 12;     // Annual
-		}
+    if (this.activeButton === 1) {
+      validity = 6;      // Half-Yearly
+    } else if (this.activeButton === 2) {
+      validity = 12;     // Annual
+    }
 
-		this.subscriptionList = this.allSubscriptions.filter(
-			sub => sub.validity === validity
-		);
+    this.subscriptionList = this.allSubscriptions.filter(
+      sub => sub.validity === validity
+    );
 
-		// Mark the current plan after filtering
-		this.markCurrentPlan();
-	}
+    // Mark the current plan after filtering
+    this.markCurrentPlan();
+  }
 
-	// Add new method to mark current plan
-	markCurrentPlan() {
-		if (!this.currentPlanStatus) return;
+  // Add new method to mark current plan
+  markCurrentPlan() {
+    if (!this.currentPlanStatus) return;
 
-		this.subscriptionList = this.subscriptionList.map((sub: { plan_name: any; validity: any }) => {
-			// Check if this subscription matches the current plan
-			const isCurrentPlan =
-				sub.plan_name === this.currentPlanStatus.current_plan &&
-				sub.validity === this.currentPlanStatus.current_plan_validity;
+    this.subscriptionList = this.subscriptionList.map((sub: { validity: any; }) => {
+      const isCurrentPlan =
+        this.currentPlanStatus.current_plan_status === 1 &&
+        sub.validity === this.currentPlanStatus.current_plan_validity;
 
-			return {
-				...sub,
-				isCurrentPlan: isCurrentPlan,
-				selected: false // Reset selection state
-			};
-		});
-	}
+      return {
+        ...sub,
+        isCurrentPlan,
+        selected: false
+      };
+    });
+  }
 }

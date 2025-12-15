@@ -92,14 +92,9 @@ export class SubscriptionComponent implements OnInit {
 		"🌟 70+ Premium features for career growth"
 	];
 	subscriptionCurrency: string = '';
-	subscriptionPrice: string = '';
-	subscriptionPaymentGateway: string = '';
-
 
 	onSubscriptionDataLoaded(data: { currency: string, price: string, paymentGateway: string }) {
 		this.subscriptionCurrency = data.currency;
-		this.subscriptionPrice = data.price;
-		this.subscriptionPaymentGateway = data.paymentGateway;
 	}
 	
 	constructor(private subscriptionService: SubscriptionService, private winRef: WindowRefService,
@@ -280,7 +275,7 @@ export class SubscriptionComponent implements OnInit {
 	}
 	payusingstripe(value: any) {
 		this.stripdata = value
-		this.subscriptionPrice= this.stripdata.finalPrice 
+		this.subscriptionDetails.finalPrice = this.stripdata.finalPrice 
 		this.stripdata= this.subscriptionDetails
 		this.subscriptionService.userSubscriptionPlaceOrderStripe(this.stripdata).subscribe((pi) => {
 			this.subscriptionCurrency;
@@ -349,8 +344,8 @@ export class SubscriptionComponent implements OnInit {
 		// }
 		const options: any = {
 			key: razorKey,
-			amount: Number(this.subscriptionPrice) * 100, // amount should be in paise format to display Rs 1255 without decimal point
-			currency: this.subscriptionCurrency,
+			amount: this.subscriptionDetails?.finalPrice * 100, // amount should be in paise format to display Rs 1255 without decimal point
+			currency: "INR",
 			name: "UNIPREP", // company name or product name
 			description: "UNIPREP Subscription", // product description
 			image: "https://uniprep.ai/uniprep-assets/images/icon-light.svg", // company logo or product image

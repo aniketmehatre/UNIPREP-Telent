@@ -22,11 +22,11 @@
             Monthly
           </button> -->
           <button pButton class="btn btn-outline-light theme-blue flex-grow-1" style="min-width: 120px;"
-            (click)="setActiveButton(2)" [ngStyle]="button2Style">
+            (click)="setActiveButton(1)" [ngStyle]="button1Style">
             Half Yearly
           </button>
           <button pButton class="btn btn-outline-light theme-blue flex-grow-1" style="min-width: 120px;"
-            (click)="setActiveButton(3)" [ngStyle]="button3Style">
+            (click)="setActiveButton(2)" [ngStyle]="button2Style">
             Annualy
           </button>
         </div>
@@ -164,7 +164,7 @@
                       <p style="font-size: 12px; font-weight: 500" class="mb-0 mt-2">
                         <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
                       </p>
-                      <div class="btn discountbutton-o btnCurser">Save {{ subscription.discountpercentage }}%</div>
+                      <div class="btn discountbutton-o btnCurser">Save {{ discountPercentage }}%</div>
                     </div> -->
                   </li>
                   <li class="mt-18"><i class="fa-solid fa-check green"></i></li>
@@ -209,13 +209,13 @@
                           Plan</button>
                       </div>
                     </div>
-                    <div class="getstartedbtn pb-0" *ngIf="!subscription.isCurrentPlan">
+                    <!-- <div class="getstartedbtn pb-0" *ngIf="!subscription.isCurrentPlan">
                       <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity</h6>
                       <button pButton class="px-5 py-1 btn btn-primary m-0 text-white" *ngIf="subscription.selected"
                         (click)="selectedSubscriptionPlan(subscription)">Selected</button>
                       <button pButton class="px-5 py-1 btn btn-basic m-0" style="color:var(--p-neutral-50)"
                         *ngIf="!subscription.selected" (click)="selectedSubscriptionPlan(subscription)">Upgrade</button>
-                    </div>
+                    </div> -->
                     <div class="getstartedbtn pb-0" *ngIf="!subscription.isCurrentPlan">
                       <h6 class="fw-semibold text-small w-100 mb-2">{{ subscription.validity }} Months Validity</h6>
                       <button *ngIf="planstatus?.current_plan_validity == subscription.validity" pButton
@@ -395,9 +395,9 @@
                                 <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
                               </p>
                               <div class="btn discountbutton-o btnCurser" *ngIf="subscription.popular == 1">Save {{
-                                subscription.discountpercentage }}%</div>
+                                discountPercentage }}%</div>
                               <div class="btn discountbutton btnCurser" *ngIf="subscription.popular != 1">Save {{
-                                subscription.discountpercentage }}%</div>
+                                discountPercentage }}%</div>
                             </div>
                           </div>
                         </div>
@@ -546,7 +546,7 @@
                           <h4 class="mb-0">
                             <s>INR {{ subscription.price | number : ".2-2" }}</s>
                           </h4>
-                          <div class="btn discountbutton">Save {{ subscription.discountPercentage }} %</div>
+                          <div class="btn discountbutton">Save {{ discountPercentage }} %</div>
                         </div>
                       </div>
                     </div>
@@ -745,7 +745,7 @@
               <h6>Apply your coupon code here</h6>
               <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">View Offers</a>
             </div>
-            <p-inputgroup class=" inputheight mt-1">
+            <p-inputgroup class=" inputheight mt-1 gap-2">
               <input [(ngModel)]="couponInput" (keyup)="onInput($event)" pInputText
                 placeholder="Enter Your coupon code Here" type="text" [readonly]="iscouponReadonly" />
               <i class="fa-solid fa-xmark-large" *ngIf="showCross" (click)="clearCoupon()"></i>

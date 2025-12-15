@@ -169,7 +169,7 @@
                       <div class="btn discountbutton-o btnCurser" [class]="!subscription.available ? 'greyButton' : ''">
                         Save
                         {{
-                        subscription.discountpercentage }}%</div>
+                        discountPercentage }}%</div>
                     </div>
                   </li>
                   <li><i class="fa-solid fa-check" [ngClass]="!subscription.available ? ['grey', 'smallIcon'] : []"></i>
@@ -375,9 +375,9 @@
                                 <s>{{ subscription.currency }} {{ subscription.actualprice | number : ".2-2" }}</s>
                               </p>
                               <div class="btn discountbutton-o btnCurser" *ngIf="subscription.popular == 1">Save {{
-                                subscription.discountpercentage }}%</div>
+                                discountPercentage }}%</div>
                               <div class="btn discountbutton btnCurser" *ngIf="subscription.popular != 1">Save {{
-                                subscription.discountpercentage }}%</div>
+                                discountPercentage }}%</div>
                             </div>
                           </div>
                         </div>
