@@ -9,12 +9,10 @@ import {
   ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  ElementRef,
   inject,
   OnDestroy,
   OnInit,
   signal,
-  ViewChild,
 } from "@angular/core";
 import {
   FormBuilder,
@@ -35,7 +33,6 @@ import { InputGroupAddonModule } from "primeng/inputgroupaddon";
 import { InputIconModule } from "primeng/inputicon";
 import { InputTextModule } from "primeng/inputtext";
 import { PasswordModule } from "primeng/password";
-import { SkeletonModule } from "primeng/skeleton";
 import { finalize } from "rxjs/operators";
 import { AuthTokenService } from "src/app/services/auth-token.service";
 import { BrandColorService } from "src/app/services/brand-color.service";
@@ -46,8 +43,6 @@ import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.serv
 import { SubSink } from "subsink";
 import { LocationService } from "../../services/location.service";
 import { AuthService } from "../auth.service";
-
-declare var google: any;
 
 @Component({
   selector: "app-login",
@@ -69,29 +64,23 @@ declare var google: any;
     SocialLoginModule,
     GoogleSigninButtonModule,
     Image,
-    SkeletonModule,
     ButtonModule,
     HowItWorksComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  @ViewChild("button2") button2!: ElementRef;
   loginForm: FormGroup;
   domainNameCondition: string;
   ipURL: string = "https://api.ipify.org?format=json";
   fallbackImage = "../../../uniprep-assets/images/uniprep-light.svg";
   locationData: any;
-  isInstitute = signal(false);
   submitted = signal(false);
-  show = signal(true);
   isLoading = signal(false);
   coBrandedImageUrl = signal<string>(
     "../../../uniprep-assets/images/uniprep-light.svg"
   );
   domainName = signal("main");
-  password = signal("password");
-  countryLists: any;
   // inject Services
   private service = inject(AuthService);
   private formBuilder = inject(FormBuilder);
@@ -201,60 +190,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
-  // onSubmit(): void {
-  //   this.submitted.set(true);
-  //   if (this.loginForm.invalid) return;
-
-  //   this.isLoading.set(true);
-  //   this.cdr.markForCheck();
-  //   this.service.canDisableSignIn.next(true);
-
-  //   this.service
-  //     .validateSignIn(this.loginForm.value)
-  //     .pipe(
-  //       finalize(() => {
-  //         this.isLoading.set(false);
-  //         this.cdr.markForCheck();
-  //       })
-  //     )
-  //     .subscribe({
-  //       next: (response) => {
-  //         this.service.saveToken(response.token);
-  //         this.authTokenService.setToken(response.token);
-  //         this.storage.set(environment.tokenKey, response.token);
-  //         this.service.getMe().subscribe({
-  //           next: (userData) => {
-  //             if (userData.userdetails[0].last_url) {
-  //               this.storage.clear();
-  //               localStorage.clear();
-  //               window.location.href = `${response.domain}${userData.userdetails[0].last_url}?token=${response.token}`;
-  //             } else {
-  //               if (this.jobId) {
-  //                 window.location.href = `${response.domain}/pages/talent-connect/easy-apply/${this.jobId}/?token=${response.token}`;
-  //               } else {
-  //                 window.location.href = `${response.domain}/pages/talent-connect/easy-apply?token=${response.token}`;
-  //               }
-  //             }
-  //           },
-  //           error: (error) => {
-  //             this.toast.add({
-  //               severity: "error",
-  //               summary: "Error",
-  //               detail: error.message || "Failed to load user data",
-  //             });
-  //           },
-  //         });
-  //       },
-  //       error: (error) => {
-  //         this.toast.add({
-  //           severity: "error",
-  //           summary: "Error",
-  //           detail: error?.error?.message || "Login failed",
-  //         });
-  //       },
-  //     });
-  // }
-
   onSubmit(): void {
     this.submitted.set(true);
     if (this.loginForm.invalid) return;
@@ -340,11 +275,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   apiToCheckPartnerOrInstitute() {
     this.locationService
       .getSourceByDomain(window.location.hostname)
-      .subscribe((response) => {
-        if (response.source == "Institute") {
-          this.isInstitute.set(true);
-        }
-      });
+      .subscribe();
   }
 
   private isDomainMain(): boolean {
@@ -455,9 +386,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           }, 3000); //because of the token is not set. so i added the timeout
         }
 
-        // if (this.jobId) {
-        //     this.route.navigate([this.jobId], { replaceUrl: true })
-        // }
         if (userData.userdetails[0].last_url) {
           this.route.navigate([userData.userdetails[0].last_url], {
             replaceUrl: true,
@@ -490,26 +418,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  // private getCountryFromIP() {
-  //     const url = 'https://ipapi.co/json/';
-  //     return this.http.get<any>(url);
-  // }
-
   async updateCurrentLocation() {
     let userLocation: { country: string; city: string } =
       await this.countryLocationService.getUserCountry();
     return userLocation;
-    // try {
-    //     const ipData = await firstValueFrom(this.getCountryFromIP());
-    //     return {
-    //         country: ipData.country_name || 'Unknown',
-    //         city: ipData.city || 'Unknown'
-    //     };
-    // } catch {
-    //     return {
-    //         country: 'Unknown',
-    //         city: 'Unknown'
-    //     };
-    // }
   }
 }
