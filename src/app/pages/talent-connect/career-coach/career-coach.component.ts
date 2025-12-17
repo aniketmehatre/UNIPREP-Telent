@@ -200,8 +200,8 @@ export class CareerCoachComponent {
 
     options.handler = (response: any) => {
       const paymentData = {
-        orderId: response?.data?.order_id,
-        paymentId: response?.data?.payment_id,
+        orderId: response?.razorpay_order_id,
+        paymentId: response?.razorpay_payment_id,
       };
 
       this.talentConnectService.completeCareerCoachPayment(paymentData).subscribe({
