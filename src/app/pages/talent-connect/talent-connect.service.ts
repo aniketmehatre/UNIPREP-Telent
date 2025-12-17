@@ -499,27 +499,41 @@ export class TalentConnectService {
   }
 
   placeCareerCoachOrder(req: any) {
-    return this.http.post(
-      `${environment.ApiUrl}/place-career-coach-order`,
-      req
-    );
-  }
-
-  completeCareerCoachTransaction(req: any) {
-    return this.http.post(
-      `${environment.ApiUrl}/complete-career-coach-transaction`,
-      req
-    );
-  }
-
-  getCareerCoach(data: any) {
     return this.http.post<any>(
-      `${environment.ApiUrl}/career-coach-transaction-histories`,
+      `${environment.ApiUrl}/career-coach-place-order`,
+      req
+    );
+  }
+
+  placeCareerCoachOrderStripe(req: any) {
+    return this.http.post<any>(
+      `${environment.ApiUrl}/career-coach-stripe-order`,
+      req
+    );
+  }
+
+  completeCareerCoachPayment(req: any) {
+    return this.http.post(
+      `${environment.ApiUrl}/career-coach-complete-payment`,
+      req
+    );
+  }
+
+   completeCareerCoachPaymentStripe(req: any) {
+    return this.http.post(
+      `${environment.ApiUrl}/stripe-career-coach-transaction`,
+      req
+    );
+  }
+
+  careerCoachhistories(data: any) {
+    return this.http.post<any>(
+      `${environment.ApiUrl}/career-coach-histories`,
       data
     );
   }
   supportDropdown(): Observable<any> {
-    return this.http.get(environment.ApiUrl + `/place-career-coach-dropdowns`);
+    return this.http.get(environment.ApiUrl + `/career-coach-dropdowns`);
   }
 
   postJobShareData(req: any) {
@@ -529,10 +543,10 @@ export class TalentConnectService {
   getJobShareData(req: any) {
     return this.http.post<any>(`${environment.ApiUrl}/get-job-share-url`, req);
   }
-    getCareerCoachCal(data: any) {
+    careerCoachCal(data: any,country: any) {
       return this.http.post<any>(
-          `${environment.ApiUrl}/career-coach-amount-cal`,
-          { data }
+          `${environment.ApiUrl}/career-coach-cal-amount`,
+          { data,country }
       );
   }
 
