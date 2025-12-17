@@ -448,7 +448,7 @@ export class TalentSupportComponent implements OnInit {
       this.talentSupportService
         .talentSupportPlaceOrder(this.finalPayload)
         .subscribe((data) => {
-          this.payWithRazorpay(data.orderid);
+          this.payWithRazorpay(data.data.order_id);
           this.currency;
           if (data.success == false) {
             this.toast.add({
@@ -492,8 +492,8 @@ export class TalentSupportComponent implements OnInit {
 
     options.handler = (response: any) => {
       const paymentData = {
-        order_id: response?.data?.order_id,
-        payment_id: response?.data?.payment_id,
+        order_id: response?.razorpay_order_id,
+        payment_id: response?.razorpay_payment_id,
       };
 
       this.talentSupportService.talentSupportCompletePayment(paymentData).subscribe(

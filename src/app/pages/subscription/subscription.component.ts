@@ -292,7 +292,7 @@ export class SubscriptionComponent implements OnInit {
 		if (value.subscriptionId) {
 			if (value.type == "Razorpay") {
 				this.subscriptionService.userSubscriptionPlaceOrder(value).subscribe((data) => {
-					this.payWithRazor(data.orderid)
+					this.payWithRazor(data.data.order_id)
 					this.currencyType = data.currency
 					if (data.success == false) {
 						this.toastr.add({
@@ -371,14 +371,14 @@ export class SubscriptionComponent implements OnInit {
 		options.handler = (response: any, error: any) => {
 			options.response = response
 			var paymentdata = {
-				order_id: response?.data.order_id,
-				payment_id: response?.data.payment_id,
+				order_id: response?.razorpay_order_id,
+				payment_id: response?.razorpay_payment_id,
 			}
-			setTimeout(() => {
+  setTimeout(() => {
 				this.authService.updateSubscriptionName(this.selectedSubscription?.subscription || "")
-				if (this.subscriptionDetails?.subscriptionId) {
-					this.subscriptionService.userSubscriptionPayment(paymentdata).subscribe(
-						(res: any) => {
+    if (this.subscriptionDetails?.subscriptionId) {
+      this.subscriptionService.userSubscriptionPayment(paymentdata).subscribe(
+        (res: any) => {
 							this.success = res
 							this.subscriptionService.doneLoading()
 							this.subscriptionService.completePayment().subscribe({
@@ -403,7 +403,7 @@ export class SubscriptionComponent implements OnInit {
 							let jobId = this.storage.get('jobId');
 							if (jobId) {
 								this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
-							} else {
+    } else {
 								this.loadSubData()
 								window.location.reload()
 							}
@@ -421,7 +421,7 @@ export class SubscriptionComponent implements OnInit {
 						payment_id: response?.data.payment_id,
 					}
 					this.subscriptionService.topupPaymentComplete(data).subscribe(
-						(res: any) => {
+        (res: any) => {
 							this.success = res
 							this.subscriptionService.doneLoading()
 
@@ -441,9 +441,9 @@ export class SubscriptionComponent implements OnInit {
 							this.subscriptionService.doneLoading()
 							this.loadSubData()
 							window.location.reload()
-						}
+        }
 					)
-				}
+    }
 			}, 0)
 		}
 		options.modal.ondismiss = () => {
