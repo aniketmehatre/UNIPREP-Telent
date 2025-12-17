@@ -46,7 +46,7 @@
       <div class="d-flex align-items-center justify-content-between mt-4 p-3 rounded cost-block">
         <div>
           <div class="text-muted small">Total</div>
-          <div class="h5 mb-0">INR {{ this.amount.toFixed(2) }}</div>
+          <div class="h5 mb-0">{{this.currency}} {{ this.amount }}</div>
         </div>
         <button pButton type="submit" label="Book a Session" icon="fa-regular fa-arrow-right" iconPos="right" class="p-button-success"></button>
       </div>
@@ -118,3 +118,15 @@
       [rowsPerPageOptions]="[10, 50, 100]"></p-paginator>
   </div>
 </div>
+
+<p-dialog [modal]="true" [(visible)]="cardVisibility" [style]="{ width: '40rem', height: 'auto' }">
+	<div style="padding: 2rem !important">
+		@if (elementsOptions.clientSecret) {
+		<ngx-stripe-payment [elementsOptions]="elementsOptions"></ngx-stripe-payment>
+		}
+		<button pButton class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" (click)="payWithStripe()">
+			<i class="fa-solid fa-lock mx-2"></i>
+			Pay {{ amount | currency : currency }}
+		</button>
+	</div>
+</p-dialog>

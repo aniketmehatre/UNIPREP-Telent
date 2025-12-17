@@ -496,8 +496,8 @@ export class TalentSupportComponent implements OnInit {
         payment_id: response?.razorpay_payment_id,
       };
 
-      this.talentSupportService.talentSupportCompletePayment(paymentData).subscribe(
-          (res: any) => {
+      this.talentSupportService.talentSupportCompletePayment(paymentData).subscribe({
+          next:(res: any) => {
             if (res.status === false) {
               this.toast.add({
               severity: 'error',
@@ -514,14 +514,14 @@ export class TalentSupportComponent implements OnInit {
               });
             }
           },
-          () => {
+          error: () => {
             this.toast.add({
             severity: 'error',
             summary: 'Error',
             detail: 'Payment verification failed.',
             });
           }
-        );
+        });  
     };
 
     options.modal.ondismiss = () => {
