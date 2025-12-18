@@ -459,8 +459,10 @@ export class TalentSupportComponent implements OnInit {
             return;
           }
         });
+      this.form.reset();
     } else {
       this.payUsingStripe(value);
+      this.form.reset();
     }
   }
 
@@ -616,8 +618,8 @@ export class TalentSupportComponent implements OnInit {
                   if (res.status === true) {
                     this.toast.add({
                       severity: 'success',
-                      summary: 'Credits Added',
-                      detail: 'Your credits have been updated.',
+                      summary: 'Your Talent Support Added',
+                      detail: 'Your Talent Support have been updated.',
                     });
 
                     this.cardVisibility = false;
@@ -637,7 +639,7 @@ export class TalentSupportComponent implements OnInit {
                   this.toast.add({
                     severity: 'error',
                     summary: 'Error',
-                    detail: 'Unable to update credits.',
+                    detail: 'Unable to update.',
                   });
                 }
               });

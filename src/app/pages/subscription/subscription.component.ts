@@ -281,6 +281,7 @@ export class SubscriptionComponent implements OnInit {
 			this.subscriptionCurrency;
 			this.elementsOptions.clientSecret = pi.data.client_secret as string
 			this.stripdata.clientSecret = pi.data.client_secret as string
+			this.stripdata.order_id = pi.data.order_id
 			this.cardvisibility = true
 		})
 	}
@@ -294,7 +295,7 @@ export class SubscriptionComponent implements OnInit {
 				this.subscriptionService.userSubscriptionPlaceOrder(value).subscribe((data) => {
 					this.payWithRazor(data.data.order_id)
 					this.currencyType = data.currency
-					if (data.success == false) {
+					if (data.status == false) {
 						this.toastr.add({
 							severity: "error",
 							summary: "Error",
@@ -377,29 +378,29 @@ export class SubscriptionComponent implements OnInit {
   setTimeout(() => {
 				this.authService.updateSubscriptionName(this.selectedSubscription?.subscription || "")
     if (this.subscriptionDetails?.subscriptionId) {
-      this.subscriptionService.userSubscriptionPayment(paymentdata).subscribe(
-        (res: any) => {
+      this.subscriptionService.userSubscriptionPayment(paymentdata).subscribe({
+       next: (res: any) => {
 							this.success = res
 							this.subscriptionService.doneLoading()
-							this.subscriptionService.completePayment().subscribe({
-								next: (response) => {
-									this.toastr.add({
-										severity: "error",
-										summary: "Error",
-										detail: "Payment Failed",
-									})
-									// Re-enable checkout on cancel
-									if (this.applyTarget) {
-										this.applyTarget.showCheckout = false;
-									}
-								},
-								error: () => {
-									// Even if API errors, ensure checkout is re-enabled for the user
-									if (this.applyTarget) {
-										this.applyTarget.showCheckout = false;
-									}
-								}
-							})
+							// this.subscriptionService.completePayment().subscribe({
+							// 	next: (response) => {
+							// 		this.toastr.add({
+							// 			severity: "error",
+							// 			summary: "Error",
+							// 			detail: "Payment Failed",
+							// 		})
+							// 		// Re-enable checkout on cancel
+							// 		if (this.applyTarget) {
+							// 			this.applyTarget.showCheckout = false;
+							// 		}
+							// 	},
+							// 	error: () => {
+							// 		// Even if API errors, ensure checkout is re-enabled for the user
+							// 		if (this.applyTarget) {
+							// 			this.applyTarget.showCheckout = false;
+							// 		}
+							// 	}
+							// })
 							let jobId = this.storage.get('jobId');
 							if (jobId) {
 								this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
@@ -408,13 +409,13 @@ export class SubscriptionComponent implements OnInit {
 								window.location.reload()
 							}
 						},
-						(error: any) => {
+						error: (error: any) => {
 							// this.toastr.warning(error.error.message);
 							this.subscriptionService.doneLoading()
 							this.loadSubData()
 							window.location.reload()
-						}
-					)
+					}
+	})
 				} else {
 					let data = {
 						order_id: response?.data.order_id,
@@ -541,74 +542,98 @@ export class SubscriptionComponent implements OnInit {
 	cardvisibility = false
 	stripdata: any
 	selectedcost = 0
-	paywithstripe() {
-		if (!this.stripdata) {
-			return
-		}
-		this.stripeService
-			.confirmPayment({
-				elements: this.card.elements,
-				confirmParams: {
-					payment_method_data: {
-						billing_details: {
-							name: this.userName,
-						},
-					},
-				},
-				redirect: "if_required",
-			})
-			.subscribe((result: any) => {
-				if (result.error) {
-					const payload = {
-						order_id: this.stripdata.order_id,
-						payment_id: result.paymentIntent.id,
-					};
-					this.subscriptionService.userSubscriptionPaymentStripe(payload).subscribe({
-						next: (response) => {
-							if (response.status === true) {
-								this.toastr.add({
-									severity: 'success',
-									summary: 'Payment Successful',
-									detail: 'Your payment has been processed successfully.',
-								});
-							}
-							this.toastr.add({
-								severity: "error",
-								summary: "Error",
-								detail: "Transaction cancelled",
-							})
-							// Re-enable checkout on cancel
-							if (this.applyTarget) {
-								this.applyTarget.showCheckout = false;
-							}
-						},
-						error: () => {
-							// Even if API errors, ensure checkout is re-enabled for the user
-							if (this.applyTarget) {
-								this.applyTarget.showCheckout = false;
-							}
-						}
-					})
-				} else {
-					if (result.paymentIntent.status === "succeeded") {
-						this.subscriptionService.doneLoading()
-						this.cardvisibility = false
-						this.toastr.add({
-							severity: "success",
-							summary: "Success",
-							detail: "Purchase Completed",
-						})
-						let jobId = this.storage.get('jobId');
-						if (jobId) {
-							this.router.navigate([`/pages/talent-connect/easy-apply/${jobId}`])
-						} else {
-							window.location.reload()
-						}
-						// window.location.reload()
-					}
-				}
-			})
-	}
+	paymentSuccessful = false;
+
+	 paywithstripe() {
+    if (!this.stripdata || !this.card) {
+      this.toastr.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Payment form is not ready. Please try again.'
+      });
+      return;
+    }
+
+    this.stripeService
+      .confirmPayment({
+        elements: this.card.elements,
+        confirmParams: {
+          payment_method_data: {
+            billing_details: {
+              name: this.userName || 'Customer',
+            },
+          },
+        },
+        redirect: 'if_required',
+      })
+      .subscribe({
+        next: (result: any) => {
+          if (result.status === false) {
+            this.toastr.add({
+              severity: 'error',
+              summary: 'Payment Failed',
+              detail: result.message,
+            });
+            return;
+          }
+
+          if (result.paymentIntent?.status === 'succeeded') {
+			this.paymentSuccessful = true;
+            this.toastr.add({
+              severity: 'success',
+              summary: 'Payment Successful',
+              detail: 'Your payment has been processed successfully.',
+            });
+
+            const payload = {
+              order_id: this.stripdata.order_id,
+              payment_id: result.paymentIntent.id,
+            };
+
+            this.subscriptionService.userSubscriptionPaymentStripe(payload)
+              .subscribe({
+                next: (res: any) => {
+                
+                  if (res.status === true) {
+                    this.toastr.add({
+                      severity: 'success',
+                      summary: 'Your Supscription Added',
+                      detail: 'Your subscription have been updated.',
+                    });
+
+                    this.cardvisibility = false;
+
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 1000);
+                  } else {
+                    this.toastr.add({
+                      severity: 'error',
+                      summary: 'Error',
+                      detail: res.message,
+                    });
+                  }
+                },
+                error: () => {
+                  this.toastr.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Unable to update.',
+                  });
+                }
+              });
+          }
+        },
+        error: (err) => {
+          this.toastr.add({
+            severity: 'error',
+            summary: 'Stripe Error',
+            detail: err?.message || 'Something went wrong.',
+          });
+        },
+      });
+  }
+
 
 	getSubscriptionList() {
 		// This method should be implemented based on your requirements
@@ -626,7 +651,15 @@ export class SubscriptionComponent implements OnInit {
 	}
 
 	onCloseStripe() {
-		this.toastr.add({severity: "error",summary: "Error",detail: "Transaction cancelled"});
+		if (!this.paymentSuccessful) {
+			this.toastr.add({
+				severity: 'error',
+				summary: 'Error',
+				detail: 'Transaction cancelled',
+			});
+		}
+		// Reset for next payment attempt
+		this.paymentSuccessful = false;
 		// Re-enable checkout on cancel
 		if (this.applyTarget) {
 			this.applyTarget.showCheckout = false;

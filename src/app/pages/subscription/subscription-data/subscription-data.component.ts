@@ -549,8 +549,18 @@ export class SubscriptionDataComponent implements OnInit {
   }
 
   copyCoupon() {
-    let offerDiv: any = document.getElementById("offerId");
-    navigator.clipboard.writeText(offerDiv?.textContent);
+    let offerDiv: any = document.getElementById("couponCode");
+    let code = offerDiv?.textContent?.trim();
+
+    if (code) {
+      navigator.clipboard.writeText(code).then(() => {
+        this.toast.add({
+          severity: "success",
+          summary: "Copied!",
+          detail: `${code} copied to clipboard`,
+        });
+      });
+    }
   }
   getLocation(): void {
     if (navigator.geolocation) {

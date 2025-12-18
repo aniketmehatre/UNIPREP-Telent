@@ -168,8 +168,10 @@ export class CareerCoachComponent {
             return;
           }
         });
+        this.form.reset();
     } else {
       this.payUsingStripe(value);
+      this.form.reset();
     }
   }
  payWithRazorpay(orderid: any) {
@@ -206,7 +208,7 @@ export class CareerCoachComponent {
 
       this.talentConnectService.completeCareerCoachPayment(paymentData).subscribe({
           next:(res: any) => {
-            this.form.reset();
+            
             if (res.status === false) {
               this.toast.add({
               severity: 'error',
@@ -312,7 +314,7 @@ export class CareerCoachComponent {
               summary: 'Payment Successful',
               detail: 'Your payment has been processed successfully.',
             });
-
+            
             const payload = {
               order_id: this.stripeData.order_id,
               payment_id: result.paymentIntent.id,
@@ -321,7 +323,7 @@ export class CareerCoachComponent {
             this.talentConnectService.completeCareerCoachPaymentStripe(payload)
               .subscribe({
                 next: (res: any) => {
-                  this.form.reset();
+                  
                   if (res.status === true) {
                     this.toast.add({
                       severity: 'success',
@@ -346,7 +348,7 @@ export class CareerCoachComponent {
                   this.toast.add({
                     severity: 'error',
                     summary: 'Error',
-                    detail: 'Unable to update credits.',
+                    detail: 'Unable to update.',
                   });
                 }
               });

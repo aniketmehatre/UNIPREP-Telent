@@ -812,12 +812,12 @@
                   <button pButton  *ngIf="currentCountry=='India'" [disabled]="showCheckout" class="btn btn-basic razorpayborder" (click)="checkout('razorpay')">
                     <img class="img-fluid" src="../../../../uniprep-assets/razorpay.png" width="40px" />
                   </button> -->
-                  @if(currencyValue != 'INR'){
+                  @if(currency != 'INR'){
                   <button pButton [disabled]="showCheckout" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
                     (click)="checkout('Stripe')" aria-label="Checkout">
                     Checkout
                   </button>
-                  }@else if(currencyValue == 'INR'){
+                  }@else if(currency == 'INR'){
                   <button pButton [disabled]="showCheckout" class="pt-3 pb-3 btn btn-basic w-100 btn btn-primary"
                     (click)="checkout('Razorpay')" aria-label="Checkout">
                     Checkout
