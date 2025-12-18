@@ -126,7 +126,7 @@
 		}
 		<button pButton class="mt-5 pt-3 pb-3 btn btn-basic w-100 m-0 btn btn-primary" (click)="payWithStripe()">
 			<i class="fa-solid fa-lock mx-2"></i>
-			Pay {{ amount | currency : currency }}
+			Pay {{currency}} {{ amount }}
 		</button>
 	</div>
 </p-dialog>

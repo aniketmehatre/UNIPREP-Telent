@@ -521,7 +521,7 @@ export class TalentConnectService {
 
    completeCareerCoachPaymentStripe(req: any) {
     return this.http.post(
-      `${environment.ApiUrl}/stripe-career-coach-transaction`,
+      `${environment.ApiUrl}/career-coach-stripe-payment`,
       req
     );
   }

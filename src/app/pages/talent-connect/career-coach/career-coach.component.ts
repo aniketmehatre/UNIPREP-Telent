@@ -200,12 +200,13 @@ export class CareerCoachComponent {
 
     options.handler = (response: any) => {
       const paymentData = {
-        orderId: response?.razorpay_order_id,
-        paymentId: response?.razorpay_payment_id,
+        order_id: response?.razorpay_order_id,
+        payment_id: response?.razorpay_payment_id,
       };
 
       this.talentConnectService.completeCareerCoachPayment(paymentData).subscribe({
           next:(res: any) => {
+            this.form.reset();
             if (res.status === false) {
               this.toast.add({
               severity: 'error',
@@ -256,6 +257,7 @@ export class CareerCoachComponent {
           this.currency;
           this.stripeData.clientSecret = pi.data.client_secret as string;
           this.elementsOptions.clientSecret = pi.data.client_secret as string;
+          this.stripeData.order_id = pi.data.order_id;
           setTimeout(() => {
             this.cardVisibility = true;
           }, 100);
@@ -319,11 +321,12 @@ export class CareerCoachComponent {
             this.talentConnectService.completeCareerCoachPaymentStripe(payload)
               .subscribe({
                 next: (res: any) => {
+                  this.form.reset();
                   if (res.status === true) {
                     this.toast.add({
                       severity: 'success',
-                      summary: 'Credits Added',
-                      detail: 'Your credits have been updated.',
+                      summary: 'Your Support Added',
+                      detail: 'Your Career Coach Support have been updated.',
                     });
 
                     this.cardVisibility = false;
