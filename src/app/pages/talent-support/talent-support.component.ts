@@ -765,12 +765,12 @@ export class TalentSupportComponent implements OnInit {
     this.talentSupportService
       .getTalentSupportHistory(data)
       .subscribe((response) => {
+        this.supportView = true;
         this.employeesList = response.data.map((item: any) => ({
           ...item.transaction,
           requirements: item.requirements,
         }));
         this.totalEmployeeCount = response.total;
-        this.supportView = true;
       });
   }
 
