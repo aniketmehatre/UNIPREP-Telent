@@ -38,7 +38,7 @@
                     <ng-container *ngIf="recommendation.id == 1">
                       <p-multiSelect styleClass="w-100" placeholder="Industry Type" [options]="industryInterested"
                         display="chip" optionLabel="industry_name" optionValue="id"
-                        [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'"></p-multiSelect>
+                        [(ngModel)]="selectedData[recommendation.id]" [appendTo]="'body'" [virtualScroll]="true" [virtualScrollItemSize]="36"></p-multiSelect>
                       <p class="text-center" [ngClass]="{ 'd-none': invalidClass === false }" style="color: red">Please
                         Choose Any one option</p>
                     </ng-container>

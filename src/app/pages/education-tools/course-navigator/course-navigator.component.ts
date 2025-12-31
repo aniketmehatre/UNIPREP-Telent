@@ -21,6 +21,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { SocialShareService } from 'src/app/services/social-share.service';
 import { PageFacadeService } from '../../page-facade.service';
 import { CourseSubmodules } from './course-navigator.data';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'uni-course-navigator',
@@ -65,7 +66,8 @@ export class CourseNavigatorComponent implements OnInit {
     private toast: MessageService,
     private route: ActivatedRoute,
     private socialShareService: SocialShareService,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
+    private dataService: DataService,
   ) { }
 
   ngOnInit(): void {
@@ -250,6 +252,10 @@ export class CourseNavigatorComponent implements OnInit {
   }
 
   openReport() {
-
+   const data = {
+      isVisible: true,
+      questionId: this.selectedQuestionData?.id,
+    };
+    this.dataService.openReportWindow(data);
   }
 }
