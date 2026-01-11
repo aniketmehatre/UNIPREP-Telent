@@ -830,7 +830,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
         this.softSkills = response.soft_skills;
         this.fieldsOfStudy = response.fields_of_study;
         this.preferredWorkplaceType = response.preferred_workplace_type;
-        this.preferredEmploymentType = response.preferred_employment_type;
+        this.preferredEmploymentType = response.preferred_employment_type_new;
         this.totalYearExperienceList = response.total_years_experience;
         this.careerStatus = response.career_status;
         this.graduationYears = response.graduation_years;
@@ -1979,16 +1979,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
   }
 
   onRemoveCertificateFile(index: number, event: any) {
-  event.stopPropagation();
-  const certificateGroup = this.certifications.at(index) as FormGroup;
-  const fileControl = certificateGroup.get('certifications_certificate_file');
-  fileControl?.setValue(null);
-  const fileKey = `${FileType.CERTIFICATIONS}_${index}`;
-  if (this.uploadedFiles[fileKey]) {
-    delete this.uploadedFiles[fileKey];
+    event.stopPropagation();
+    const certificateGroup = this.certifications.at(index) as FormGroup;
+    const fileControl = certificateGroup.get("certifications_certificate_file");
+    fileControl?.setValue(null);
+    const fileKey = `${FileType.CERTIFICATIONS}_${index}`;
+    if (this.uploadedFiles[fileKey]) {
+      delete this.uploadedFiles[fileKey];
+    }
+    this.onSubmitCertificationsForm(true);
   }
-  this.onSubmitCertificationsForm(true);
-}
 
   getPreviousIndexValue() {
     const previousIndexValueList: { [key: number]: string } = {

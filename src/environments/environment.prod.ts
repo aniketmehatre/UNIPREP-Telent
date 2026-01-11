@@ -49,4 +49,9 @@ export const environment = {
   uniApplyUrl: prod_uni_apply_b2c_url,
   uniapplyAPI: prod_uni_apply_student,
   imagePath: `https://${prod_domain}/uniprepapi/storage/app/public/`,
+  adzuna: {
+    apiUrl: "https://api.adzuna.com/v1/api/jobs",
+    appId: "53dd2d27",
+    appKey: "e27fbcbe3d392dd2f84896a0dde45680",
+  },
 };

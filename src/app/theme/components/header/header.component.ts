@@ -197,7 +197,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   hrs$: Observable<any> | any;
   min$: Observable<any> | any;
   sec$: Observable<any> | any;
-  month$: Observable<any> | undefined;
+  month$: Observable<any> | any;
   timerInterval: any;
   timeLeftSecs: any;
   timeLeftMins: any;
@@ -1281,42 +1281,51 @@ export class HeaderComponent implements OnInit, OnDestroy {
   // ==========================================================================
 
   getTimer(minute: any, sec: any, hours: any, days: any, months: any): void {
-    let totalSeconds: number = hours * 3600 + minute * 60 + sec;
+    // Calculate total seconds including days and months
+    let totalSeconds: number = (months * 30 * 24 * 3600) + (days * 24 * 3600) + (hours * 3600) + (minute * 60) + sec;
 
     this.timerInterval = setInterval(() => {
-      totalSeconds--;
-      const hoursLeft = Math.floor(totalSeconds / 3600);
-      const minutesLeft = Math.floor((totalSeconds % 3600) / 60);
-      const secondsLeft = totalSeconds % 60;
-
-      this.min$ =
-        minutesLeft < 10 && minutesLeft > 0
-          ? "0" + minutesLeft
-          : minutesLeft.toString();
-      this.sec$ =
-        secondsLeft < 10 && secondsLeft > 0
-          ? "0" + secondsLeft
-          : secondsLeft.toString();
-      this.hrs$ = hoursLeft;
-      this.month$ = months;
-      this.day$ = days;
-
-      if (minute <= 0 && hours <= 0 && sec <= 0) {
+      // Check if timer has expired before decrementing
+      if (totalSeconds <= 0) {
         this.hrs$ = 0;
-        this.min$ = 0;
-        this.sec$ = 0;
-      }
-
-      if (
-        minutesLeft <= 0 &&
-        hoursLeft <= 0 &&
-        days <= 0 &&
-        secondsLeft <= 0 &&
-        months <= 0
-      ) {
+        this.min$ = "00";
+        this.sec$ = "00";
+        this.month$ = 0;
+        this.day$ = 0;
         this.visibleExhasted = true;
         clearInterval(this.timerInterval);
+        return;
       }
+
+      totalSeconds--;
+      
+      // Calculate remaining time components
+      const totalDays = Math.floor(totalSeconds / (24 * 3600));
+      const remainingSeconds = totalSeconds % (24 * 3600);
+      const hoursLeft = Math.floor(remainingSeconds / 3600);
+      const minutesLeft = Math.floor((remainingSeconds % 3600) / 60);
+      const secondsLeft = remainingSeconds % 60;
+      
+      // Calculate months and days
+      const monthsLeft = Math.floor(totalDays / 30);
+      const daysLeft = totalDays % 30;
+
+      // Ensure values are never negative using Math.max
+      this.month$ = Math.max(0, monthsLeft);
+      this.day$ = Math.max(0, daysLeft);
+      this.hrs$ = Math.max(0, hoursLeft);
+      
+      // Format minutes with leading zero if needed
+      const safeMinutes = Math.max(0, minutesLeft);
+      this.min$ = safeMinutes < 10 && safeMinutes >= 0
+        ? "0" + safeMinutes
+        : safeMinutes.toString();
+      
+      // Format seconds with leading zero if needed
+      const safeSeconds = Math.max(0, secondsLeft);
+      this.sec$ = safeSeconds < 10 && safeSeconds >= 0
+        ? "0" + safeSeconds
+        : safeSeconds.toString();
     }, 1000);
   }
 
@@ -1324,26 +1333,46 @@ export class HeaderComponent implements OnInit, OnDestroy {
     let totalSeconds: number = hours * 3600 + minute * 60 + sec;
 
     this.timerInterval = setInterval(() => {
+      // Check if timer has expired before decrementing
+      if (totalSeconds <= 0) {
+        this.timeHours = 0;
+        this.timeLeftMins = "00";
+        this.timeLeftSecs = "00";
+        this.min$ = 0;
+        this.sec$ = 0;
+        this.hrs$ = 0;
+        this.locationService.trialEnds().subscribe();
+        clearInterval(this.timerInterval);
+        // Expire session
+        this.authService.getMe().subscribe({
+          next: () =>
+            this.userSubscriptionService.freeTrailExpiredStatus$.next(true),
+          error: () =>
+            this.userSubscriptionService.freeTrailExpiredStatus$.next(true),
+        });
+        return;
+      }
+
       totalSeconds--;
 
-      const hoursLeft = Math.floor(totalSeconds / 3600);
-      const minutesLeft = Math.floor((totalSeconds % 3600) / 60);
-      const secondsLeft = totalSeconds % 60;
+      const hoursLeft = Math.max(0, Math.floor(totalSeconds / 3600));
+      const minutesLeft = Math.max(0, Math.floor((totalSeconds % 3600) / 60));
+      const secondsLeft = Math.max(0, totalSeconds % 60);
 
       this.timeHours = hoursLeft;
       this.timeLeftMins =
-        minutesLeft < 10 && minutesLeft > 0
+        minutesLeft < 10 && minutesLeft >= 0
           ? "0" + minutesLeft
           : minutesLeft.toString();
       this.timeLeftSecs =
-        secondsLeft < 10 && secondsLeft > 0
+        secondsLeft < 10 && secondsLeft >= 0
           ? "0" + secondsLeft
           : secondsLeft.toString();
 
       if (this.timeLeftMins == "00") this.timeLeftMins = 0;
       if (this.timeLeftSecs == "00") this.timeLeftSecs = 0;
 
-      if (minutesLeft <= 0 && this.timeHours <= 0 && secondsLeft <= 0) {
+      if (minutesLeft <= 0 && hoursLeft <= 0 && secondsLeft <= 0) {
         this.locationService.trialEnds().subscribe();
         clearInterval(this.timerInterval);
 

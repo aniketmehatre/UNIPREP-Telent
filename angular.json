@@ -73,7 +73,8 @@
               "quill-delta",
               "speak-tts",
               "transliteration",
-              "file-saver"
+              "file-saver",
+              "google-libphonenumber"
             ]
           },
           "configurations": {
@@ -165,6 +166,27 @@
                   "with": "src/environments/environment.ts"
                 }
               ]
+            },
+            "dev": {
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": false
+              },
+              "sourceMap": true,
+              "namedChunks": true,
+              "aot": true,
+              "extractLicenses": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.ts"
+                }
+              ],
+              "outputHashing": "all"
             }
           },
           "defaultConfiguration": "production"
