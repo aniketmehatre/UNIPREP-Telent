@@ -76,9 +76,9 @@ export class StartupglossaryComponent implements OnInit {
     this.getStartUpGlossary(id);
   }
   getStartUpGlossary(data: any) {
-    if (!data) {
-      return;
-    }
+    // if (!data) {
+    //   return;
+    // }
     var val = {
       alphabet: data
     }

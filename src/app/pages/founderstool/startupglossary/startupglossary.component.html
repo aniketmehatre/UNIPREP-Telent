@@ -56,27 +56,30 @@
 						<hr />
 					</div>
 				</div> -->
-				<div class="col-12 mt-1" *ngFor="let alphabet of groupedTerms | keyvalue">
-					<h2 *ngIf="alphabet.key" class="uniprep-secondary">{{ alphabet.key }}</h2>
-					<hr />
-					<div *ngFor="let term of alphabet.value">
-						<h5 style="color: var(--p-primary-500)">
-							<ng-container *ngFor="let part of term.glossarytermParts">
-								<span [ngClass]="{ 'highlight': part.highlight }">{{ part.word }}</span>
-							</ng-container>
-						</h5>
-						<h6 style="font-size: 0.9rem">
-							<ng-container *ngFor="let part of term.summaryParts">
-								<span [ngClass]="{ 'highlight': part.highlight }">{{ part.word }}</span>
-							</ng-container>
-						</h6>
+				<div *ngIf="!isObjectEmpty(groupedTerms); else noResults">
+					<div class="col-12 mt-1" *ngFor="let alphabet of groupedTerms | keyvalue">
+						<h2 *ngIf="alphabet.key" class="uniprep-secondary">{{ alphabet.key }}</h2>
 						<hr />
+						<div *ngFor="let term of alphabet.value">
+							<h5 style="color: var(--p-primary-500)">
+								<ng-container *ngFor="let part of term.glossarytermParts">
+									<span [ngClass]="{ 'highlight': part.highlight }">{{ part.word }}</span>
+								</ng-container>
+							</h5>
+							<h6 style="font-size: 0.9rem">
+								<ng-container *ngFor="let part of term.summaryParts">
+									<span [ngClass]="{ 'highlight': part.highlight }">{{ part.word }}</span>
+								</ng-container>
+							</h6>
+							<hr />
+						</div>
 					</div>
 				</div>
-				<div *ngIf="startupglossarylists && startupglossarylists.length > 0 && isObjectEmpty(groupedTerms)"
-					class="d-flex justify-content-center centerDiv">
-					<h3>No results found</h3>
-				</div>
+				<ng-template #noResults>
+					<div class="d-flex justify-content-center centerDiv">
+						<h3>No results found</h3>
+					</div>
+				</ng-template>
 			</div>
 		</div>
 	</div>

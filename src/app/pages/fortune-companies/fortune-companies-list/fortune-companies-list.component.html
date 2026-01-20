@@ -183,7 +183,7 @@
 						<div class="mb-3">
 							<p-multiSelect styleClass="w-100" placeholder="Select the type of Industry "
 								formControlName="industry_interested" [options]="industryInterested" display="chip"
-								optionLabel="industry_name" optionValue="id" [appendTo]="'body'"></p-multiSelect>
+								optionLabel="industry_name" optionValue="id" [appendTo]="'body'" [virtualScroll]="true" [virtualScrollItemSize]="36"></p-multiSelect>
 						</div>
 					</div>
 				</div>
@@ -210,7 +210,7 @@
 							<p-select styleClass="w-100" (onChange)="loadHeadQuartersData($event)"
 								[options]="countryLists" formControlName="country" optionLabel="country"
 								optionValue="id" [filter]="true" filterBy="country" placeholder="Select a Country"
-								[appendTo]="'body'">
+								[appendTo]="'body'" [virtualScroll]="true" [virtualScrollItemSize]="36">
 								<ng-template #selectedItem let-selectedOption>
 									<div class="flex items-center gap-2">
 										<img [src]="selectedOption.flag" style="width: 18px" />
@@ -234,7 +234,7 @@
 						<div class="mb-3">
 							<p-select styleClass="w-100" placeholder="Selcet a Location" [options]="headQuartersList"
 								display="chip" optionLabel="head_quarters_name" optionValue="id"
-								formControlName="location" [appendTo]="'body'"></p-select>
+								formControlName="location" [appendTo]="'body'" [virtualScroll]="true" [virtualScrollItemSize]="36"></p-select>
 						</div>
 					</div>
 				</div>
