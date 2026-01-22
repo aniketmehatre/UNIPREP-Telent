@@ -242,6 +242,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   nationalityId: any;
   userCountry: any;
   userCountryFlag: any;
+  talentId: any;
 
   private subs = new SubSink();
 
@@ -276,10 +277,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.getMe().subscribe((res) => {
       const cityName = res.userdetails[0].city_name;
       this.nationalityId = res.userdetails[0].nationality_id;
-      this.locationService.getUserCountry(this.nationalityId,cityName.split(",")[1]?.trim()).subscribe((res) => {
+      this.locationService.getUserCountry(this.nationalityId, cityName.split(",")[1]?.trim()).subscribe((res) => {
         this.userCountry = res.data.country[0].country;
         this.userCountryFlag = res.data.country[0].flag
       })
+    });
+    this.dashboardService.getTalentId().subscribe((res) => {
+      this.talentId = res.data.talent_id;
     });
   }
 
@@ -292,8 +296,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           const fakeEvent = {
             target: this.npIcon.nativeElement,
             currentTarget: this.npIcon.nativeElement,
-            preventDefault: () => {},
-            stopPropagation: () => {},
+            preventDefault: () => { },
+            stopPropagation: () => { },
           };
           this.np.toggle(fakeEvent);
         }, 300);
@@ -709,7 +713,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         const selected = storedHomeId
           ? res.find((d: any) => d.id === Number(storedHomeId))
           : res.find((d: any) => d.id === this.homeCountryId) ||
-            res.find((d: any) => d.id === 122);
+          res.find((d: any) => d.id === 122);
 
         this.updateHomeCountryState(selected);
       },
@@ -998,8 +1002,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       type_of_report: [4, 5, 6, 7].includes(this.reportType)
         ? this.reportType
         : this.reportLearnLanguageType === 8
-        ? 8
-        : undefined,
+          ? 8
+          : undefined,
     };
 
     // Specific Module Logic overriding country
@@ -1298,14 +1302,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
 
       totalSeconds--;
-      
+
       // Calculate remaining time components
       const totalDays = Math.floor(totalSeconds / (24 * 3600));
       const remainingSeconds = totalSeconds % (24 * 3600);
       const hoursLeft = Math.floor(remainingSeconds / 3600);
       const minutesLeft = Math.floor((remainingSeconds % 3600) / 60);
       const secondsLeft = remainingSeconds % 60;
-      
+
       // Calculate months and days
       const monthsLeft = Math.floor(totalDays / 30);
       const daysLeft = totalDays % 30;
@@ -1314,13 +1318,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.month$ = Math.max(0, monthsLeft);
       this.day$ = Math.max(0, daysLeft);
       this.hrs$ = Math.max(0, hoursLeft);
-      
+
       // Format minutes with leading zero if needed
       const safeMinutes = Math.max(0, minutesLeft);
       this.min$ = safeMinutes < 10 && safeMinutes >= 0
         ? "0" + safeMinutes
         : safeMinutes.toString();
-      
+
       // Format seconds with leading zero if needed
       const safeSeconds = Math.max(0, secondsLeft);
       this.sec$ = safeSeconds < 10 && safeSeconds >= 0
@@ -1497,14 +1501,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
           });
         }
       },
-      error: () => {},
+      error: () => { },
     });
   }
 
   getNationalityList() {
     this.locationService.getNationality().subscribe({
       next: (res) => (this.nationalityList = res),
-      error: () => {},
+      error: () => { },
     });
   }
 

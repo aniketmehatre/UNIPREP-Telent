@@ -246,4 +246,11 @@ export class DashboardService {
     return this.http.post(`${environment.ApiUrl}/doc-request-accept`, { id, type });
   }
 
+  getTalentId() {
+    const headers = new HttpHeaders().set("Accept", "application/json");
+    return this.http.get<any>(environment.ApiUrl + "/get-talent-id", {
+      headers: headers,
+    });
+  }
+
 }
