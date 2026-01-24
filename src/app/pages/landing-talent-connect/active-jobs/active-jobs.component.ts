@@ -13,7 +13,7 @@ import { JobListing } from "src/app/@Models/employee-connect-job.model";
 import { PopoverModule } from "primeng/popover";
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { SelectModule } from "primeng/select";
-import { MultiSelectModule } from "primeng/multiselect";
+import { MultiSelectModule, MultiSelectChangeEvent } from "primeng/multiselect";
 import { InputNumberModule } from "primeng/inputnumber";
 import { InputTextModule } from "primeng/inputtext";
 import { TalentConnectService } from "../../talent-connect/talent-connect.service";
@@ -328,15 +328,28 @@ export class ActiveJobsComponent implements OnInit {
     });
   }
 
-  onChangeLocation(event: any, type: string) {
-    if (type == "location") {
-      const contryCtrl = this.filterForm.get("country");
-      event?.value?.length > 0 ? contryCtrl?.disable() : contryCtrl?.enable();
-    } else {
-      const locationCtrl = this.filterForm.get("worklocation");
-      event?.value?.length > 0
-        ? locationCtrl?.disable()
-        : locationCtrl?.enable();
+  onChangeLocation(event: MultiSelectChangeEvent, type: string) {
+    const countryCtrl = this.filterForm.get("country");
+    const locationCtrl = this.filterForm.get("worklocation");
+    
+    if (type === "location") {
+      // If work location is selected, disable and clear country
+      if (event?.value?.length > 0) {
+        countryCtrl?.setValue(null, { emitEvent: false });
+        countryCtrl?.disable({ emitEvent: false });
+      } else {
+        // If work location is cleared, enable country
+        countryCtrl?.enable({ emitEvent: false });
+      }
+    } else if (type === "country") {
+      // If country is selected, disable and clear work location
+      if (event?.value?.length > 0) {
+        locationCtrl?.setValue(null, { emitEvent: false });
+        locationCtrl?.disable({ emitEvent: false });
+      } else {
+        // If country is cleared, enable work location
+        locationCtrl?.enable({ emitEvent: false });
+      }
     }
   }
 }

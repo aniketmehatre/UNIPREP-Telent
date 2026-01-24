@@ -112,7 +112,8 @@
 				<p-multiSelect [options]="countries" formControlName="country" [virtualScroll]="true"
 					[virtualScrollItemSize]="50" placeholder="Select Country" optionLabel="country" optionValue="id"
 					display="chip" appendTo="body" class="w-100" (onChange)="onChangeLocation($event, 'country')"
-					(onClear)="onChangeLocation($event, 'country')"> </p-multiSelect>
+					(onClear)="onChangeLocation($event, 'country')">
+				</p-multiSelect>
 			</div>
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Work Location </label>

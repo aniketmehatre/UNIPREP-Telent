@@ -42,56 +42,56 @@ export const landingRoutes: Routes = [
         path: "job/:uuid",
         loadComponent: () =>
           import("./landing-content/landing-content.component").then(
-            (m) => m.LandingContentComponent
+            (m) => m.LandingContentComponent,
           ),
       },
       {
         path: "company/:uuid",
         loadComponent: () =>
           import("./landing-content/landing-content.component").then(
-            (m) => m.LandingContentComponent
+            (m) => m.LandingContentComponent,
           ),
       },
       {
         path: "",
         loadComponent: () =>
           import("./landing-content/landing-content.component").then(
-            (m) => m.LandingContentComponent
+            (m) => m.LandingContentComponent,
           ),
       },
       {
         path: "about",
         loadComponent: () =>
           import("./about-us/about-us.component").then(
-            (m) => m.AboutUsComponent
+            (m) => m.AboutUsComponent,
           ),
       },
       {
         path: "international-sub",
         loadComponent: () =>
-          import(
-            "../international-subscription/international-subscription.component"
-          ).then((c) => c.InternationalSubscriptionComponent),
+          import("../international-subscription/international-subscription.component").then(
+            (c) => c.InternationalSubscriptionComponent,
+          ),
       },
       {
         path: "contact-us",
         loadComponent: () =>
           import("./contact-us/contact-us.component").then(
-            (c) => c.ContactUsComponent
+            (c) => c.ContactUsComponent,
           ),
       },
       {
         path: "employer-pay-link",
         loadComponent: () =>
           import("./employer-details/employer-details.component").then(
-            (c) => c.EmployerDetailsComponent
+            (c) => c.EmployerDetailsComponent,
           ),
       },
       {
         path: "institute-pay-link",
         loadComponent: () =>
           import("./institute-pay-link/institute-pay-link.component").then(
-            (c) => c.InstitutePayLinkComponent
+            (c) => c.InstitutePayLinkComponent,
           ),
       },
       {
@@ -103,28 +103,28 @@ export const landingRoutes: Routes = [
         path: "management-team",
         loadComponent: () =>
           import("./management-team/management-team.component").then(
-            (m) => m.ManagementTeamComponent
+            (m) => m.ManagementTeamComponent,
           ),
       },
       {
         path: "digital-job-fair",
         loadComponent: () =>
           import("./digital-job-fair/digital-job-fair.component").then(
-            (c) => c.DigitalJobFairComponent
+            (c) => c.DigitalJobFairComponent,
           ),
       },
       {
         path: "blogs",
         loadComponent: () =>
           import("./bloglist/bloglist.component").then(
-            (m) => m.BloglistComponent
+            (m) => m.BloglistComponent,
           ),
       },
       {
         path: "blogs/:slug",
         loadComponent: () =>
           import("./blogdetail/blogdetail.component").then(
-            (m) => m.BlogdetailComponent
+            (m) => m.BlogdetailComponent,
           ),
       },
       {
@@ -136,35 +136,35 @@ export const landingRoutes: Routes = [
         path: "success-story",
         loadComponent: () =>
           import("./success-story/success-story.component").then(
-            (c) => c.SuccessStoryComponent
+            (c) => c.SuccessStoryComponent,
           ),
       },
       {
         path: "training-program",
         loadComponent: () =>
           import("./training-program/training-program.component").then(
-            (c) => c.TrainingProgramComponent
+            (c) => c.TrainingProgramComponent,
           ),
       },
       {
         path: "success-story/:id",
         loadComponent: () =>
           import("./success-story/success-story.component").then(
-            (c) => c.SuccessStoryComponent
+            (c) => c.SuccessStoryComponent,
           ),
       },
       {
         path: ":category",
         loadComponent: () =>
           import("./job-seekers-landing/job-seekers-landing.component").then(
-            (m) => m.JobSeekersLandingComponent
+            (m) => m.JobSeekersLandingComponent,
           ),
       },
       {
         path: ":category/:slug",
         loadComponent: () =>
           import("./landing-language-hub/landing-language-hub.component").then(
-            (m) => m.LandingLanguageHubComponent
+            (m) => m.LandingLanguageHubComponent,
           ),
         pathMatch: "full",
       },

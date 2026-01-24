@@ -38,7 +38,7 @@
 			<div class="col-md-6 col-sm-6 col-4 text-end ">
 				<p-select [options]="currencies" optionLabel="currency_code" dataKey="currency_code" [virtualScroll]="true"
 					[virtualScrollItemSize]="40" [filter]="true" filterBy="currency_code" placeholder="Currency" appendTo="body"
-					class="w-auto" (onChange)="onCurrencyExchange($event)" (onClear)="onClearCurrency($event)">
+					[showClear]="true" class="w-auto" (onChange)="onCurrencyExchange($event)" (onClear)="onClearCurrency($event)">
 					<ng-template #selectedItem let-selectedOption>
 						@if(selectedOption) {
 						<div>
@@ -320,7 +320,8 @@
 				<p-multiSelect [options]="countries" formControlName="country" [virtualScroll]="true"
 					[virtualScrollItemSize]="50" placeholder="Select Country" optionLabel="country" optionValue="id"
 					display="chip" appendTo="body" class="w-100" (onChange)="onChangeLocation($event, 'country')"
-					(onClear)="onChangeLocation($event, 'country')"> </p-multiSelect>
+					(onClear)="onChangeLocation($event, 'country')">
+				</p-multiSelect>
 			</div>
 			<div class="col-md-4">
 				<label class="form-label fw-bold">Work Location </label>
@@ -345,7 +346,7 @@
 				<label class="form-label fw-bold">Currency display for salaries</label>
 				<p-select [options]="currencies" formControlName="currency" optionLabel="currency_code"
 					optionValue="currency_code" appendTo="body" [filter]="true" filterBy="currency_code" class="w-100"
-					placeholder="Select Currency"> </p-select>
+					[showClear]="true" placeholder="Select Currency"> </p-select>
 			</div>
 			<div class="col-md-6">
 				<label class="form-label fw-bold">Salary range offered per month</label>
@@ -354,12 +355,23 @@
 						optionValue="currency_code" placeholder="Select Currency" formControlName="salary_currency" [filter]="true"
 						filterBy="currency_code" [style]="{ width: '150px' }" appendTo="body" fluid>
 					</p-select>
-					<div class="d-flex gap-2 align-items-center flex-grow-1">
-						<p-inputNumber placeholder="Min" styleClass="w-100" [showButtons]="false" class="w-100"
-							formControlName="min_salary" fluid></p-inputNumber>
-						<div>To</div>
-						<p-inputNumber placeholder="Max" styleClass="w-100" [showButtons]="false" class="w-100"
-							formControlName="max_salary" fluid></p-inputNumber>
+					<div class="d-flex gap-2 align-items-center flex-grow-1 flex-column">
+						<div class="d-flex gap-2 align-items-center w-100">
+							<p-inputNumber placeholder="Min" styleClass="w-100" [showButtons]="false" class="w-100"
+								formControlName="min_salary" 
+								[ngClass]="{'is-invalid': filterForm.errors?.['salaryRangeInvalid']}"
+								fluid></p-inputNumber>
+							<div>To</div>
+							<p-inputNumber placeholder="Max" styleClass="w-100" [showButtons]="false" class="w-100"
+								formControlName="max_salary"
+								[ngClass]="{'is-invalid': filterForm.errors?.['salaryRangeInvalid']}"
+								fluid></p-inputNumber>
+						</div>
+						@if (filterForm.errors?.['salaryRangeInvalid']) {
+							<div class="text-danger small w-100">
+								Minimum salary cannot be greater than maximum salary
+							</div>
+						}
 					</div>
 				</div>
 			</div>

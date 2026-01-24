@@ -1,5 +1,5 @@
 import { Component, inject, signal } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from "@angular/forms";
 import { TalentConnectService } from "../talent-connect.service";
 import { MessageService } from "primeng/api";
 import { ActivatedRoute } from "@angular/router";
@@ -13,6 +13,8 @@ import { JobListing } from "src/app/@Models/employee-connect-job.model";
 import { environment } from "@env/environment";
 import { LocalStorageService } from "ngx-localstorage";
 import { error } from "jquery";
+import { forkJoin, of } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 
 @Component({
   selector: "uni-easy-apply",
@@ -23,6 +25,7 @@ import { error } from "jquery";
 export class EasyApplyComponent {
   totalVacancies: string = "0";
   jobListings: JobListing[] = [];
+  originalJobListings: JobListing[] = []; // Store original data for currency conversion
   locations: any[] = [];
   workModes: any[] = [];
   employmentTypes: any[] = [];
@@ -70,7 +73,7 @@ export class EasyApplyComponent {
     private pageFacade: PageFacadeService,
     private authService: AuthService,
     private storage: LocalStorageService,
-    private locationService: LocationService
+    private locationService: LocationService,
   ) {}
 
   ngOnInit(): void {
@@ -106,7 +109,32 @@ export class EasyApplyComponent {
       intro: [null],
       job_type: [null],
       hiring_type: [null],
+    }, { validators: this.salaryRangeValidator });
+
+    // Listen to changes in salary fields to update validation
+    this.filterForm.get('min_salary')?.valueChanges.subscribe(() => {
+      this.filterForm.updateValueAndValidity({ emitEvent: false });
     });
+    this.filterForm.get('max_salary')?.valueChanges.subscribe(() => {
+      this.filterForm.updateValueAndValidity({ emitEvent: false });
+    });
+  }
+
+  private salaryRangeValidator(control: AbstractControl): ValidationErrors | null {
+    const minSalary = control.get('min_salary')?.value;
+    const maxSalary = control.get('max_salary')?.value;
+
+    // Only validate if both values are provided and are numbers
+    if (minSalary !== null && minSalary !== "" && maxSalary !== null && maxSalary !== "") {
+      const min = parseFloat(minSalary);
+      const max = parseFloat(maxSalary);
+
+      if (!isNaN(min) && !isNaN(max) && min > max) {
+        return { salaryRangeInvalid: true };
+      }
+    }
+
+    return null;
   }
 
   getCountries() {
@@ -149,6 +177,9 @@ export class EasyApplyComponent {
             ?.replace(/\/Month/i, "")
             .trim(),
         }));
+
+        // Store original job listings for currency conversion
+        this.originalJobListings = JSON.parse(JSON.stringify(this.jobListings));
 
         this.currencyList = response.jobs
           .filter((job: any) => job.salary_per_month) // optional: skip if salary is null/undefined
@@ -198,12 +229,32 @@ export class EasyApplyComponent {
   }
 
   applyFilter(): void {
+    // Check if form has validation errors
+    if (this.filterForm.errors?.['salaryRangeInvalid']) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Validation Error",
+        detail: "Minimum salary cannot be greater than maximum salary",
+      });
+      return;
+    }
+
     this.getList(this.filterForm.value);
     this.displayModal = false;
     this.isAppliedFilter = true;
   }
 
   shareJobs() {
+    // Check if form has validation errors
+    if (this.filterForm.errors?.['salaryRangeInvalid']) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Validation Error",
+        detail: "Minimum salary cannot be greater than maximum salary",
+      });
+      return;
+    }
+
     this.getList(this.filterForm.value);
     this.displayModal = false;
     this.isAppliedFilter = true;
@@ -224,73 +275,120 @@ export class EasyApplyComponent {
     const convertTo = event.value.currency_code;
     this.selectedCurrency = convertTo;
 
+    // Always use original job listings for conversion
+    if (this.originalJobListings.length === 0) {
+      this.originalJobListings = JSON.parse(JSON.stringify(this.jobListings));
+    }
+
     const endDate = new Date(); // today
     const formattedEnd = endDate.toISOString().split("T")[0]; // 'YYYY-MM-DD'
 
-    // Collect unique currencies to convert **from**
+    // Collect unique currencies to convert **from** using original data
     const uniqueCurrencies = [
       ...new Set(
-        this.currencyList
+        this.originalJobListings
           .map((job: any) => {
-            const match = job.salary_per_month.match(/^([A-Z]{3})\s([\d,.]+)/);
+            const salaryStr = job?.salary_per_month || "";
+            const match = salaryStr.match(/^([A-Z]{3})\s([\d,.]+)/);
             return match ? match[1] : null;
           })
-          .filter(Boolean)
+          .filter(Boolean),
       ),
-    ];
+    ].filter((currency) => currency !== convertTo); // Skip if same currency
 
-    uniqueCurrencies.forEach((convertFrom: any) => {
+    // Reset to original before converting
+    this.jobListings = JSON.parse(JSON.stringify(this.originalJobListings));
+
+    if (uniqueCurrencies.length === 0) {
+      // No conversion needed (all jobs already in target currency)
+      return;
+    }
+
+    // Create conversion requests for all unique currencies
+    const conversionRequests = uniqueCurrencies.map((convertFrom: any) =>
       this.talentConnectService
         .getCurrencyConverter(
           convertFrom,
           convertTo,
           formattedEnd,
-          formattedEnd
+          formattedEnd,
         )
-        .subscribe({
-          next: (data: any) => {
-            this.jobListings = this.jobListings.map((job: any) => {
-              const salaryStr = job?.salary_per_month || "";
-              const match = salaryStr.match(/^([A-Z]{3})\s([\d,.]+)/);
-
-              if (match) {
-                const currencyCode = match[1]; // e.g., "INR"
-                const amount = parseFloat(match[2].replace(/,/g, "")); // e.g., 30000.00
-                const today = new Date().toISOString().slice(0, 10); // '2025-05-12'
-                const ratesForToday = data.rates[today]; // { AED: 0.04157 }
-
-                const currency = Object.keys(ratesForToday)[0]; // 'AED'
-                const rate = ratesForToday[currency]; // 0.04157
-                if (currencyCode === convertFrom) {
-                  const convertedAmount = (rate * amount).toFixed(2);
-                  return {
-                    ...job,
-                    salary_per_month: `${convertTo} ${convertedAmount}`, // set at root
-                  };
-                }
-              }
-              // Return original job if no match or doesn't match convertFrom
-              return job;
-            });
-          },
-          error: (err) =>
+        .pipe(
+          map((data: any) => ({ convertFrom, data })),
+          catchError((err) => {
             console.error(
               `Error fetching rate for ${convertFrom} → ${convertTo}:`,
-              err
-            ),
+              err,
+            );
+            return of({ convertFrom, data: null });
+          }),
+        ),
+    );
+
+    // Wait for all conversions to complete
+    forkJoin(conversionRequests).subscribe({
+      next: (results) => {
+        // Create a map of conversion rates
+        const rateMap = new Map<string, number>();
+        results.forEach((result) => {
+          if (result.data?.rates) {
+            const today = new Date().toISOString().slice(0, 10);
+            const ratesForToday = result.data.rates[today];
+            if (ratesForToday) {
+              const rate = Object.values(ratesForToday)[0] as number;
+              rateMap.set(result.convertFrom, rate);
+            }
+          }
         });
+
+        // Apply conversions to all jobs
+        this.jobListings = this.jobListings.map((job: any, index: number) => {
+          const originalJob = this.originalJobListings[index];
+          const salaryStr = originalJob?.salary_per_month || "";
+          const match = salaryStr.match(/^([A-Z]{3})\s([\d,.]+)/);
+
+          if (match) {
+            const currencyCode = match[1];
+            const amount = parseFloat(match[2].replace(/,/g, ""));
+
+            // If same currency, no conversion needed
+            if (currencyCode === convertTo) {
+              return job;
+            }
+
+            // Get conversion rate
+            const rate = rateMap.get(currencyCode);
+            if (rate && !isNaN(amount)) {
+              const convertedAmount = (rate * amount).toFixed(2);
+              return {
+                ...job,
+                salary_per_month: `${convertTo} ${convertedAmount}`,
+              };
+            }
+          }
+          return job;
+        });
+      },
+      error: (err) => {
+        console.error("Error in currency conversion:", err);
+      },
     });
   }
 
   onClearCurrency(event: Event) {
     this.selectedCurrency = "";
-    this.getList({});
+    // Reset to original job listings when currency is cleared
+    if (this.originalJobListings.length > 0) {
+      this.jobListings = JSON.parse(JSON.stringify(this.originalJobListings));
+    } else {
+      this.getList({});
+    }
   }
 
   showSocialSharingList(event: any, index: number) {
     event.stopPropagation();
     let socialShare: any = document.getElementById(
-      "socialSharingList-" + index
+      "socialSharingList-" + index,
     );
     if (socialShare.style.display == "") {
       socialShare.style.display = "block";
@@ -308,7 +406,7 @@ export class EasyApplyComponent {
     let domainName = this.storage.get("domainname");
     if (domainName) {
       url = encodeURI(
-        environment.jobDomain + `/view/${job.uuid}/${domainName}`
+        environment.jobDomain + `/view/${job.uuid}/${domainName}`,
       );
     } else {
       url = encodeURI(environment.jobDomain + `/view/${job.uuid}`);
@@ -317,7 +415,7 @@ export class EasyApplyComponent {
     //const url = environment.jobDomain + '/view/' + job.uuid;
     //const encodedUrl = encodeURIComponent(url);
     const title = encodeURIComponent(
-      "UNIPREP | " + job?.position + " | " + job.company_name
+      "UNIPREP | " + job?.position + " | " + job.company_name,
     );
 
     this.meta.updateTag({ property: "og:url", content: url });
@@ -354,27 +452,40 @@ export class EasyApplyComponent {
     let domainName = this.storage.get("domainname");
     if (domainName) {
       textToCopy = encodeURI(
-        environment.jobDomain + `/view/${job.uuid}/${domainName}`
+        environment.jobDomain + `/view/${job.uuid}/${domainName}`,
       );
     } else {
       textToCopy = encodeURI(environment.jobDomain + `/view/${job.uuid}`);
     }
     this.socialShareService.copyQuestion(
       textToCopy,
-      "Job Link copied successfully"
+      "Job Link copied successfully",
     );
   }
 
   onChangeLocation(event: MultiSelectChangeEvent, type: string) {
-    if (type == "location") {
-      const contryCtrl = this.filterForm.get("country");
-      event?.value?.length > 0 ? contryCtrl?.disable() : contryCtrl?.enable();
-    } else {
-      const locationCtrl = this.filterForm.get("worklocation");
-      event?.value?.length > 0
-        ? locationCtrl?.disable()
-        : locationCtrl?.enable();
-    }
+    const countryCtrl = this.filterForm.get("country");
+    const locationCtrl = this.filterForm.get("worklocation");
+
+    // if (type === "location") {
+    //   // If work location is selected, disable and clear country
+    //   if (event?.value?.length > 0) {
+    //     countryCtrl?.setValue(null, { emitEvent: false });
+    //     countryCtrl?.disable({ emitEvent: false });
+    //   } else {
+    //     // If work location is cleared, enable country
+    //     countryCtrl?.enable({ emitEvent: false });
+    //   }
+    // } else if (type === "country") {
+    //   // If country is selected, disable and clear work location
+    //   if (event?.value?.length > 0) {
+    //     locationCtrl?.setValue(null, { emitEvent: false });
+    //     locationCtrl?.disable({ emitEvent: false });
+    //   } else {
+    //     // If country is cleared, enable work location
+    //     locationCtrl?.enable({ emitEvent: false });
+    //   }
+    // }
   }
 
   shareQuestionFromFilter(event: any, type: string) {
@@ -442,7 +553,7 @@ export class EasyApplyComponent {
       .subscribe({
         next: (res: any) => {
           const textToCopy = encodeURI(
-            "https://job.uniprep.ai" + "/jobs/" + res.data
+            "https://job.uniprep.ai" + "/jobs/" + res.data,
           );
           navigator.clipboard
             .writeText(textToCopy)
