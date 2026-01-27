@@ -1,35 +1,63 @@
-import { GoogleSigninButtonModule, SocialAuthService, SocialLoginModule } from '@abacritt/angularx-social-login';
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LocalStorageService } from 'ngx-localstorage';
-import { MessageService } from 'primeng/api';
-import { matchValidator } from 'src/app/@Supports/matchvalidator';
-import { AuthService } from 'src/app/Auth/auth.service';
-import { LocationService } from 'src/app/services/location.service';
-import { SubSink } from 'subsink';
-import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
-import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import { FluidModule } from 'primeng/fluid';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputOtpModule } from 'primeng/inputotp';
-import { InputTextModule } from 'primeng/inputtext';
-import { SelectModule } from 'primeng/select';
-import { ToastModule } from 'primeng/toast';
-import { LandingInstituteService } from '../landing-institute.service';
+import {
+  GoogleSigninButtonModule,
+  SocialAuthService,
+  SocialLoginModule,
+} from "@abacritt/angularx-social-login";
+import { Component, ElementRef, ViewChild } from "@angular/core";
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+} from "@angular/forms";
+import { LocalStorageService } from "ngx-localstorage";
+import { MessageService } from "primeng/api";
+import { matchValidator } from "src/app/@Supports/matchvalidator";
+import { AuthService } from "src/app/Auth/auth.service";
+import { LocationService } from "src/app/services/location.service";
+import { SubSink } from "subsink";
+import { CommonModule } from "@angular/common";
+import { Router, RouterModule } from "@angular/router";
+import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
+import { FluidModule } from "primeng/fluid";
+import { InputGroupModule } from "primeng/inputgroup";
+import { InputGroupAddonModule } from "primeng/inputgroupaddon";
+import { InputIconModule } from "primeng/inputicon";
+import { InputOtpModule } from "primeng/inputotp";
+import { InputTextModule } from "primeng/inputtext";
+import { SelectModule } from "primeng/select";
+import { ToastModule } from "primeng/toast";
+import { LandingInstituteService } from "../landing-institute.service";
 import { PasswordModule } from "primeng/password";
-import { ButtonModule } from 'primeng/button';
-import { HowItWorksService } from 'src/app/shared/how-it-works/how-it-works.service';
-import { HowItWorksComponent } from 'src/app/shared/how-it-works/how-it-works.component';
+import { ButtonModule } from "primeng/button";
+import { HowItWorksService } from "src/app/shared/how-it-works/how-it-works.service";
+import { HowItWorksComponent } from "src/app/shared/how-it-works/how-it-works.component";
 @Component({
-  selector: 'uni-institute-register',
-  imports: [CommonModule, GoogleSigninButtonModule, InputOtpModule, FluidModule, PasswordModule,
-    RouterModule, InputTextModule, InputIconModule, InputGroupModule, InputGroupAddonModule, ButtonModule, SocialLoginModule, FormsModule, ReactiveFormsModule, ToastModule, SelectModule, NgxIntlTelInputModule, HowItWorksComponent],
+  selector: "uni-institute-register",
+  imports: [
+    CommonModule,
+    GoogleSigninButtonModule,
+    InputOtpModule,
+    FluidModule,
+    PasswordModule,
+    RouterModule,
+    InputTextModule,
+    InputIconModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    ButtonModule,
+    SocialLoginModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ToastModule,
+    SelectModule,
+    NgxIntlTelInputModule,
+    HowItWorksComponent,
+  ],
   standalone: true,
-  templateUrl: './institute-register.component.html',
-  styleUrl: './institute-register.component.scss'
+  templateUrl: "./institute-register.component.html",
+  styleUrl: "./institute-register.component.scss",
 })
 export class InstituteRegisterComponent {
   @ViewChild("otp1") otp1!: ElementRef;
@@ -65,20 +93,32 @@ export class InstituteRegisterComponent {
   otpError: boolean = false;
   submitted = false;
   isShowConfirmationResponse: boolean = false;
-  genderOptions: any[] = []
+  genderOptions: any[] = [];
   afterRegisterAwaitingConfirmation: boolean = false;
-  constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder, private locationService: LocationService, private toast: MessageService, private authService: SocialAuthService, private storage: LocalStorageService, private landingService: LandingInstituteService, private howItWorkService: HowItWorksService) { }
+  constructor(
+    private service: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private locationService: LocationService,
+    private toast: MessageService,
+    private authService: SocialAuthService,
+    private storage: LocalStorageService,
+    private landingService: LandingInstituteService,
+    private howItWorkService: HowItWorksService,
+  ) {}
 
   dateTime = new Date();
   private subs = new SubSink();
   ngOnInit() {
-    this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
-      this.imageUrlWhiteLabel = data.logo
-    })
+    this.locationService
+      .getSourceByDomain(window.location.hostname)
+      .subscribe((data: any) => {
+        this.imageUrlWhiteLabel = data.logo;
+      });
     this.genderOptions = [
-      { id: 'M', name: 'Male' },
-      { id: 'F', name: 'Female' },
-      { id: 'O', name: 'Others' }
+      { id: "M", name: "Male" },
+      { id: "F", name: "Female" },
+      { id: "O", name: "Others" },
     ];
     this.dateTime.setDate(this.dateTime.getDate());
 
@@ -86,18 +126,32 @@ export class InstituteRegisterComponent {
     this.registrationForm = this.formBuilder.group({
       full_name: ["", [Validators.required]],
       emailAddress: ["", [Validators.required, Validators.email]],
-      mobileNumber: ["", [Validators.required, Validators.pattern("^[0-9]{10}$")]],
+      mobileNumber: [
+        "",
+        [Validators.required, Validators.pattern("^[0-9]{10}$")],
+      ],
       home_country: ["", [Validators.required]],
       location: ["", [Validators.required]],
-      password: ["", [Validators.required, Validators.minLength(8), matchValidator("confirmPassword", true)]],
+      password: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(8),
+          matchValidator("confirmPassword", true),
+        ],
+      ],
       confirmPassword: ["", [Validators.required, matchValidator("password")]],
       companyName: ["", [Validators.required]],
-      companyWebsite: ["", [Validators.required], Validators.pattern(
-        '^(https?:\\/\\/)?' + // optional protocol
-        '(([\\da-z.-]+)\\.([a-z.]{2,6}))' + // domain
-        '(\\:[0-9]{1,5})?' + // optional port
-        '(\\/[^\\s]*)?$' // optional path
-      )],
+      companyWebsite: [
+        "",
+        [Validators.required],
+        Validators.pattern(
+          "^(https?:\\/\\/)?" + // optional protocol
+            "(([\\da-z.-]+)\\.([a-z.]{2,6}))" + // domain
+            "(\\:[0-9]{1,5})?" + // optional port
+            "(\\/[^\\s]*)?$", // optional path
+        ),
+      ],
       designation: ["", [Validators.required]],
       gender: ["", [Validators.required]],
     });
@@ -109,13 +163,15 @@ export class InstituteRegisterComponent {
       otp4: ["", [Validators.required]],
     });
     this.emailOTPForm = this.formBuilder.group({
-      otp: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
+      otp: [
+        "",
+        [Validators.required, Validators.minLength(4), Validators.maxLength(4)],
+      ],
     });
     this.initializePhoneNumber();
     this.fetchCountryList();
     // this.getUserLocation() //while registering the user needs to get the location based city, state, region, country.
   }
-
 
   initializePhoneNumber() {
     fetch("https://ipapi.co/json/")
@@ -128,8 +184,8 @@ export class InstituteRegisterComponent {
   GetLocationList() {
     this.locationList = [];
     var data = {
-      country_id: this.registrationForm.get('home_country').value
-    }
+      country_id: this.registrationForm.get("home_country").value,
+    };
     this.locationService.getAllCountryLocation(data).subscribe(
       (res: any) => {
         this.locationList = res.data;
@@ -140,7 +196,7 @@ export class InstituteRegisterComponent {
           summary: "Warning",
           detail: error.error.message,
         });
-      }
+      },
     );
   }
 
@@ -155,7 +211,7 @@ export class InstituteRegisterComponent {
           summary: "Warning",
           detail: error.error.message,
         });
-      }
+      },
     );
   }
   onChangeCountry(event: any) {
@@ -166,7 +222,10 @@ export class InstituteRegisterComponent {
   }
 
   onSubmit() {
-    if (this.registrationForm.value.password != this.registrationForm.value.confirmPassword) {
+    if (
+      this.registrationForm.value.password !=
+      this.registrationForm.value.confirmPassword
+    ) {
       this.toast.add({
         severity: "error",
         summary: "Error",
@@ -187,7 +246,7 @@ export class InstituteRegisterComponent {
       organization_website: this.registrationForm.value.companyWebsite,
       designation: this.registrationForm.value.designation,
       phone: this.registrationForm.value.mobileNumber,
-      gender: this.registrationForm.value.gender
+      gender: this.registrationForm.value.gender,
     };
     this.landingService.registerInstitute(data).subscribe({
       next: (res: any) => {
@@ -200,7 +259,10 @@ export class InstituteRegisterComponent {
         this.afterRegisterAwaitingConfirmation = true;
       },
       error: (error) => {
-        const message = error.error?.message != undefined ? error.error?.message : error?.message;
+        const message =
+          error.error?.message != undefined
+            ? error.error?.message
+            : error?.message;
         this.toast.add({
           severity: "error",
           summary: "Failed",
@@ -217,7 +279,9 @@ export class InstituteRegisterComponent {
         (position) => {
           const longitude = position.coords.longitude;
           const latitude = position.coords.latitude;
-          fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
+          fetch(
+            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
+          )
             .then((response) => response.json())
             .then((data) => {
               this.currentLocationCountry = data.address.country;
@@ -234,7 +298,7 @@ export class InstituteRegisterComponent {
               this.currentLocationCity = data.city;
               this.currentLocationState = data.region;
             });
-        }
+        },
       );
     } else {
       console.log("No support for geolocation");
@@ -255,23 +319,35 @@ export class InstituteRegisterComponent {
   }
 
   sendEmailOTP() {
-    this.landingService.sendEmailOTP(this.registrationForm.value.emailAddress, this.registrationForm.value.full_name || '', this.registrationForm.value.mobileNumber?.number || '').subscribe({
-      next: (response) => {
-        this.isEmailOTPSend = true;
-        this.toast.add({ severity: "success", summary: "Sent", detail: "OTP sent successfully." });
-      },
-      error: (error) => {
-        const messages = error.error.message;
-        const errorMessage = Array.isArray(messages) ? messages.join('\n') : messages;
+    this.landingService
+      .sendEmailOTP(
+        this.registrationForm.value.emailAddress,
+        this.registrationForm.value.full_name || "",
+        this.registrationForm.value.mobileNumber?.number || "",
+      )
+      .subscribe({
+        next: (response) => {
+          this.isEmailOTPSend = true;
+          this.toast.add({
+            severity: "success",
+            summary: "Sent",
+            detail: "OTP sent successfully.",
+          });
+        },
+        error: (error) => {
+          const messages = error.error.message;
+          const errorMessage = Array.isArray(messages)
+            ? messages.join("\n")
+            : messages;
 
-        this.toast.add({
-          severity: "error",
-          summary: "Email sending failed",
-          detail: errorMessage,
-          life: 5000
-        });
-      },
-    });
+          this.toast.add({
+            severity: "error",
+            summary: "Email sending failed",
+            detail: errorMessage,
+            life: 5000,
+          });
+        },
+      });
   }
 
   onValidateEmailOTP() {
@@ -279,7 +355,11 @@ export class InstituteRegisterComponent {
     const otpValue = otpControl?.value;
 
     if (!otpValue || otpValue.length !== 4) {
-      this.toast.add({ severity: "error", summary: "Error", detail: "Please enter a valid 4-digit OTP." });
+      this.toast.add({
+        severity: "error",
+        summary: "Error",
+        detail: "Please enter a valid 4-digit OTP.",
+      });
       return;
     }
 
@@ -296,18 +376,28 @@ export class InstituteRegisterComponent {
           this.isEmailOTPSend = false;
           this.isEmailOTPValidated = true;
           this.isRemainingFieldVisible = true;
-          this.toast.add({ severity: "success", summary: "Success", detail: "OTP verified successfully." });
+          this.toast.add({
+            severity: "success",
+            summary: "Success",
+            detail: "OTP verified successfully.",
+          });
         }
       },
       error: (error) => {
-        this.toast.add({ severity: "error", summary: "Verify Otp Failed", detail: "please check your otp" });
+        this.toast.add({
+          severity: "error",
+          summary: "Verify Otp Failed",
+          detail: "please check your otp",
+        });
         console.error("Verify OTP failed", error);
       },
     });
   }
 
   focusNextInput(event: KeyboardEvent | TouchEvent, num: number) {
-    const isBackspace = event instanceof KeyboardEvent && (event as KeyboardEvent).key.toLowerCase() === "backspace";
+    const isBackspace =
+      event instanceof KeyboardEvent &&
+      (event as KeyboardEvent).key.toLowerCase() === "backspace";
 
     if (isBackspace) {
       switch (num) {
@@ -392,7 +482,7 @@ export class InstituteRegisterComponent {
     }
   }
 
-  openVideoPopup(){
-    this.howItWorkService.open('institute-register');
+  openVideoPopup() {
+    this.howItWorkService.open("institute-register");
   }
 }
