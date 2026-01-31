@@ -43,6 +43,7 @@ import { LocationService } from "src/app/services/location.service";
 import { TalentConnectService } from "../talent-connect/talent-connect.service";
 import { LocalStorageService } from "ngx-localstorage";
 import { FavouriteList, FeatureFavourite } from "./favourites-data";
+import { ToastModule } from "primeng/toast";
 
 const CHUNK_SIZE = 4;
 const MIN_PROFILE_COMPLETION = 60;
@@ -114,6 +115,7 @@ const CAROUSEL_RESPONSIVE_OPTIONS_2 = [
     ReactiveFormsModule,
     PopoverModule,
     TextareaModule,
+    ToastModule,
   ],
   providers: [DashboardService, DataService, LocationService],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -316,31 +318,51 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
     this.router.navigate(route);
   }
 
-  sendInviteMail(): void {
-    if (!this.sendInvite.trim()) {
-      return;
-    }
+ sendInviteMail(): void {
+  if (!this.sendInvite.trim()) {
+    return;
+  }
 
-    this.subs.sink = this.dashboardService
-      .sentEmailForInviteUniPrep({ email: this.sendInvite })
-      .subscribe({
-        next: (response: any) => {
+  this.subs.sink = this.dashboardService
+    .sentEmailForInviteUniPrep({ email: this.sendInvite })
+    .subscribe({
+      next: (response: any) => {
+        if (response.status === true) {
           this.toaster.add({
             severity: "success",
             summary: "Success",
             detail: response.message || "Invitation sent successfully",
           });
-          this.sendInvite = "";
-        },
-        error: () => {
+        } 
+        else if (response.status === false) {
+          console.log('Error case triggered - status is false');
           this.toaster.add({
             severity: "error",
             summary: "Error",
-            detail: "Failed to send invitation",
+            detail: response.message || "Failed to send invitation",
           });
-        },
-      });
-  }
+        }
+        else {
+          this.toaster.add({
+            severity: "error",
+            summary: "Error",
+            detail: response.message || "Unexpected response",
+          });
+        }
+        this.sendInvite = "";
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        this.toaster.add({
+          severity: "error",
+          summary: "Error",
+          detail: error?.error?.message || "Failed to send invitation",
+        });
+        this.sendInvite = "";
+        this.cdr.detectChanges();
+      },
+    });
+}
 
   private profileCompletion(): void {
     this.subs.sink = this.dashboardService.profileCompletion().subscribe({
@@ -351,7 +373,7 @@ export class DashboardComponent implements OnInit, OnChanges, OnDestroy {
           (this.cvBuilderPercentage +
             this.talentConnectPercentage +
             this.progress) /
-            3
+          3
         );
         this.isShowingCompletion =
           this.totalPercentage >= MIN_PROFILE_COMPLETION &&
