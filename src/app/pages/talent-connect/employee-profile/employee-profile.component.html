@@ -1034,7 +1034,7 @@
                                                                     <label class="mb-1"> Language known<span
                                                                             class="text-danger">*</span></label>
                                                                     <p-select formControlName="languages_language_id"
-                                                                        [options]="languageList"
+                                                                        [options]="getAvailableLanguages(i)"
                                                                         placeholder="Enter know language"
                                                                         styleClass="w-100" optionLabel="language"
                                                                         optionValue="id" [filter]="true"

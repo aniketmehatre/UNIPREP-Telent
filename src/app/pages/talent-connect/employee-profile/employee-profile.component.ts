@@ -2125,7 +2125,7 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
     formData.append(
       "profile_image",
       this.uploadedFiles["profile_image"] ??
-        this.originalProfileData?.profile_image
+      this.originalProfileData?.profile_image
     );
     formData.append("full_name", formDataValue.full_name);
     formData.append(
@@ -2909,6 +2909,16 @@ export class EmployeeProfileComponent implements OnInit, OnDestroy {
       Native: 5,
     };
     return proficiencyList[proficiency] || 0;
+  }
+
+  getAvailableLanguages(index: number) {
+    const selectedIds = this.languages.controls
+      .map((ctrl, i) => i !== index ? ctrl.get('languages_language_id')?.value : null)
+      .filter(val => val !== null);
+
+    return this.languageList.filter(lang =>
+      !selectedIds.includes(lang.id)
+    );
   }
 
   ngOnDestroy(): void {
