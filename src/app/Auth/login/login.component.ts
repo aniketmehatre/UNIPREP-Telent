@@ -99,6 +99,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loading = true;
   jobId: any;
   isSourceInstitute: boolean = true;
+  isSocialLoginEnabled: boolean = false;
   get canSubmit() {
     return this.loginForm.valid && !this.isLoading();
   }
@@ -120,7 +121,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       localStorage.clear();
     }
     this.initializeComponent();
-    this.setupSocialAuth();
+    if (this.isSocialLoginEnabled) {
+      this.setupSocialAuth();
+    }
     this.apiToCheckPartnerOrInstitute();
   }
 
@@ -142,6 +145,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private initializeComponent() {
     this.domainNameCondition = window.location.hostname;
+    this.isSocialLoginEnabled = this.domainNameCondition === "uniprep.ai";
     this.domainName.set(this.isDomainMain() ? "main" : "sub");
     this.dataService.loggedInAnotherDevice("none");
     fetch(this.ipURL)

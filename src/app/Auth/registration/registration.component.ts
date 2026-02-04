@@ -51,6 +51,7 @@ export class RegistrationComponent implements OnInit {
     isEmailOTPValidated: boolean = false
     isRemainingFieldVisible: boolean = false
     isSourceInstitute: boolean = true
+    isSocialLoginEnabled: boolean = false
 
     // Password field visibility toggles
     password: 'password' | 'text' = 'password'
@@ -92,6 +93,7 @@ export class RegistrationComponent implements OnInit {
     jobId: number
 
     ngOnInit() {
+        this.isSocialLoginEnabled = window.location.hostname === "uniprep.ai";
         // this.isRemainingFieldVisible = true
         // Handle referral/easy-apply query params and persist for later flows
         this.route.queryParams.subscribe(params => {
@@ -123,12 +125,14 @@ export class RegistrationComponent implements OnInit {
             this.whiteLabelImage = data.logo
         })
 
-        // Google Sign-in: when auth state changes, attempt backend signup and redirect accordingly
-        this.authService.authState.subscribe((user) => {
-            this.googleResponse = user
-            this.googleResponse = { ...this.googleResponse, position: this.storage.get('position'), job_id: this.storage.get('jobId') }
+        // Google Sign-in: when auth state changes, attempt backend signup and redirect accordingly (only on uniprep.ai)
+        if (this.isSocialLoginEnabled) {
+            this.authService.authState.subscribe((user) => {
+                if (!user) return;
+                this.googleResponse = user
+                this.googleResponse = { ...this.googleResponse, position: this.storage.get('position'), job_id: this.storage.get('jobId') }
 
-            this.service.googlesignUp(this.googleResponse).subscribe({
+                this.service.googlesignUp(this.googleResponse).subscribe({
                 next: (data) => {
                     // Save token and redirect to easy-apply or dashboard
                     this.storage.set(environment.tokenKey, data?.authorisation?.token);
@@ -150,7 +154,8 @@ export class RegistrationComponent implements OnInit {
                     })
                 }
             })
-        })
+            });
+        }
 
         // Build registration and OTP forms with validation
         this.registrationForm = this.formBuilder.group({
