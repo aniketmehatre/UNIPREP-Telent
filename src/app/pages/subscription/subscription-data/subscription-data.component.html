@@ -145,8 +145,8 @@
                 <ul class="price text-center list-unstyled ">
                   <!-- Current Plan Badge -->
                   <li style="background-color: #9b9b9b; color: white; margin-top:5px; font-weight: bold;"
-                    *ngIf="subscription.isCurrentPlan">
-                    <i class="fa-solid fa-star me-1"></i>Current Active Plan
+                    *ngIf="subscription.plan_status">
+                    <i class="fa-solid fa-star me-1"></i>{{subscription.plan_status.account_status}}
                   </li>
                   <li style="background-color: var(--p-primary-500); color: white;margin-top:5px;"
                     *ngIf="subscription.popular == 1">Most Popular Plan
@@ -189,11 +189,13 @@
                         style="color: white; background-color: #9b9b9b; border-color: #9b9b9b; cursor: not-allowed;">
                         <i class="fa-solid fa-check me-2"></i>Current Plan
                       </button>
-                      <p class="mt-2 mb-0 text-muted small">Active subscription</p>
+                      <p class="mt-2 mb-0 text-muted small">{{ getPlanStatusHint() || (isCurrentPlanActive() ? 'Active
+                        subscription' : 'Subscription expired') }}</p>
                     </div>
 
                     <div class="getstartedbtn flex pb-0" *ngIf="!subscription.isCurrentPlan">
-                      @if (currentPlanStatus.account_status == 'Free Trial Started' || currentPlanStatus.account_status
+                      @if (currentPlanStatus?.account_status == 'Free Trial Started' ||
+                      currentPlanStatus?.account_status
                       == 'Free Trial Expired') {
                       <div class="col-6">
                         <h6 class="fw-semibold text-small mb-0">60 Minutes Validity</h6>
@@ -204,10 +206,11 @@
                       }
                       @else {
                       <div class="col-6">
-                        <h6 class="fw-semibold text-small mb-0">{{ currentPlanStatus.current_plan_validity }} Months
+                        <h6 class="fw-semibold text-small mb-0">{{ currentPlanStatus?.current_plan_validity }} Months
                           Validity</h6>
                         <button pButton class="px-4 py-1 btn btn-basic w-100 m-0" [disabled]="true"
-                          style="color:var(--p-neutral-50);background:black">Current Plan</button>
+                          style="color:var(--p-neutral-50);background:black">Current Plan <br>
+                          ({{currentPlanStatus?.account_status}})</button>
                       </div>
                       }
 
@@ -380,10 +383,11 @@
                   <div class="container-fluid mt-3">
                     <div class="row gap-5 d-flex">
                       <div class="card card-bg subscriptioncard col px-0" [ngClass]="{ active: subscription.isActive }">
-                        <!-- Current Plan Badge -->
-                        <div class="currentplan subscription_list" *ngIf="subscription.isCurrentPlan"
+                        <!-- Current Plan Badge: show account_status (Subscription Active / Subscription Expired / etc.) -->
+                        <div class="currentplan subscription_list"
+                          *ngIf="subscription.isCurrentPlan && subscription.plan_status"
                           style="background-color: #9b9b9b; color: white; padding: 8px 15px; text-align: center; font-weight: bold;">
-                          <i class="fa-solid fa-star me-1"></i>Current Active Plan
+                          <i class="fa-solid fa-star me-1"></i>{{ subscription.plan_status.account_status }}
                         </div>
                         <div class="mostpopular subscription_list" *ngIf="subscription.popular == 1">Most Popular Plan
                         </div>
@@ -465,7 +469,8 @@
                               style="color: white; background-color: #9b9b9b; border-color: #9b9b9b;">
                               <i class="fa-solid fa-check me-2"></i>Current Plan
                             </button>
-                            <p class="mt-2 mb-1 text-muted small">Your active subscription</p>
+                            <p class="mt-2 mb-1 text-muted small">{{ getPlanStatusHint() || (isCurrentPlanActive() ?
+                              'Active subscription' : 'Subscription expired') }}</p>
                           </div>
 
                           <div class="getstartedbtn flex pb-0" *ngIf="!subscription.isCurrentPlan">

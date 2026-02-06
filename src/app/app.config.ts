@@ -12,7 +12,10 @@ import { EnterpriseSubscriptionService } from "./components/enterprise-subscript
 import { HttpErrorInterceptor } from "./interceptors/http-error.interceptor"
 import { NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage"
 import { ModalService } from "./components/modal/modal.service"
-import { SocialAuthServiceConfig, GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import {
+  SocialAuthServiceConfig,
+  GoogleLoginProvider,
+} from "@abacritt/angularx-social-login";
 import { pagesReducer } from "./pages/store/pages.reducer"
 import { JwtModule } from "@auth0/angular-jwt"
 import { environment } from "@env/environment"
@@ -124,22 +127,30 @@ appConfig = {
   providers: [
     provideNgxStripe(environment.domain != "api.uniprep.ai"?'pk_live_51RatH904tgKnorO6oeJ6OkKBH8HS1XetBEv1piIezO2hwW2jqhABXJakopLKvBymyuOxgsztPXljh0TD2SK2xFyq00zEp7B1Dn':'pk_test_51RatH904tgKnorO6qAStN7DYjc0QvdazlEapxUmPKDqmnZAtBpl9FvfmrszVJakrk3SP6lcX7TYVY2BqTesxkW3k00e3SHimNK'),
     provideHttpClient(),
+    // Google SSO only on uniprep.ai – no provider on other domains to avoid sign-in popup
     {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              '750560403636-pd8q2gts7v35t7opukgohhtkspf9ftgo.apps.googleusercontent.com'
-            )
-          }
-        ],
-        onError: (error) => {
-          console.error(error);
-        }
-      } as SocialAuthServiceConfig,
+      provide: "SocialAuthServiceConfig",
+      useFactory: (): SocialAuthServiceConfig => {
+        const isUniprepAi =
+          typeof window !== "undefined" &&
+          window.location?.hostname === "uniprep.ai";
+        return {
+          autoLogin: false,
+          providers: isUniprepAi
+            ? [
+                {
+                  id: GoogleLoginProvider.PROVIDER_ID,
+                  provider: new GoogleLoginProvider(
+                    "750560403636-pd8q2gts7v35t7opukgohhtkspf9ftgo.apps.googleusercontent.com"
+                  ),
+                },
+              ]
+            : [],
+          onError: (error) => {
+            console.error(error);
+          },
+        } as SocialAuthServiceConfig;
+      },
     },
     // Store configuration
     importProvidersFrom(

@@ -52,24 +52,35 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
 		SocialLoginModule, InputGroupModule, InputGroupAddonModule],
 	providers: [
 		MessageService,
+		// Google SSO only on uniprep.ai – no provider / no One Tap on other domains
 		{
 			provide: "SocialAuthServiceConfig",
-			useValue: {
-				autoLogin: false,
-				lang: "en",
-				providers: [
-					{
-						id: GoogleLoginProvider.PROVIDER_ID,
-						provider: new GoogleLoginProvider("750560403636-pd8q2gts7v35t7opukgohhtkspf9ftgo.apps.googleusercontent.com", {
-							scopes: ["email", "profile", "openid"], // 🔹 Use "scopes" (not "scope")
-							oneTapEnabled: true,
-						}), // Replace with actual Client ID
+			useFactory: (): SocialAuthServiceConfig => {
+				const isUniprepAi =
+					typeof window !== "undefined" &&
+					window.location?.hostname === "uniprep.ai";
+				return {
+					autoLogin: false,
+					lang: "en",
+					providers: isUniprepAi
+						? [
+								{
+									id: GoogleLoginProvider.PROVIDER_ID,
+									provider: new GoogleLoginProvider(
+										"750560403636-pd8q2gts7v35t7opukgohhtkspf9ftgo.apps.googleusercontent.com",
+										{
+											scopes: ["email", "profile", "openid"],
+											oneTapEnabled: true,
+										}
+									),
+								},
+							]
+						: [],
+					onError: (err) => {
+						console.error(err);
 					},
-				],
-				onError: (err) => {
-					console.error(err)
-				},
-			} as SocialAuthServiceConfig,
+				} as SocialAuthServiceConfig;
+			},
 		},
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],

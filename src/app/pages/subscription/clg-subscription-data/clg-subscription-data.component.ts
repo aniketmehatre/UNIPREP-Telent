@@ -768,6 +768,26 @@ export class CollegeSubscriptionDataComponent implements OnInit {
     this.pageFacade.openHowitWorksVideoPopup("subscription");
   }
 
+  /**
+   * Status codes: 1 = Subscription Active, 2 = Free Trial Started, 3 = Subscription Expired,
+   * 4 = Not Logged In, 5 = Free Trial Expired
+   */
+  getPlanStatusHint(): string {
+    if (!this.currentPlanStatus?.current_plan_status) return "";
+    const status = this.currentPlanStatus.current_plan_status;
+    if (status === 1) return "Subscription Active";
+    if (status === 2) return "Free Trial Started";
+    if (status === 3) return "Subscription Expired";
+    if (status === 4) return "Not Logged In";
+    if (status === 5) return "Free Trial Expired";
+    return this.currentPlanStatus.account_status || "";
+  }
+
+  /** True when current plan is active (status 1); false when expired (3) or trial (2,5). */
+  isCurrentPlanActive(): boolean {
+    return this.currentPlanStatus?.current_plan_status === 1;
+  }
+
   copied = false;
   copyCoupon1(code: string) {
     navigator.clipboard.writeText(code).then(() => {
@@ -789,7 +809,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
 
         // Store current plan status
         this.currentPlanStatus = res.data.plan_status;
-        switch (this.planstatus?.account_status) {
+        switch (this.currentPlanStatus?.account_status) {
           case "Free Trial Started":
             this.planstage = 0;
             break;
@@ -860,17 +880,18 @@ export class CollegeSubscriptionDataComponent implements OnInit {
         const isCurrentPlan =
           sub.plan_name === this.currentPlanStatus.current_plan &&
           sub.validity === this.currentPlanStatus.current_plan_validity;
-        console.log(this.currentPlanStatus);
         if (isCurrentPlan) {
           return {
             ...sub,
             isCurrentPlan: isCurrentPlan,
+            plan_status: this.currentPlanStatus, // so template can show account_status badge
             selected: false, // Reset selection state
           };
         } else {
           return {
             ...sub,
             isCurrentPlan: isCurrentPlan,
+            plan_status: null,
             selected: false, // Reset selection state - will be set by selectedSubscriptionPlan
           };
         }
