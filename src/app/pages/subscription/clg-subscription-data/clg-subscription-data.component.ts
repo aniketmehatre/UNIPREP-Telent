@@ -125,7 +125,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
     private http: HttpClient,
     private landingPageService: landingServices,
     private locationService: LocationService,
-    private pageFacade: PageFacadeService
+    private pageFacade: PageFacadeService,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -179,7 +179,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
             let host = this.isValidHost(this.hostDetail);
             if (host) {
               validityMap = {
-                6: 1,
+                // 6: 1,
                 12: 2,
               };
             } else {
@@ -209,7 +209,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
     }
 
     const geoData = JSON.parse(
-      localStorage.getItem("currentCountryByGEOLocation") || "{}"
+      localStorage.getItem("currentCountryByGEOLocation") || "{}",
     );
     const country = geoData.country || this.country;
     this.authService.getMe().subscribe((res) => {
@@ -363,7 +363,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
         item.selected = false;
         item.selectedCoutriesList = [];
         item.filteredCountryList = this.countryList.filter((data: any) =>
-          filteredCountryIds.includes(data.id)
+          filteredCountryIds.includes(data.id),
         );
         item.isActive = item.popular == 1 ? true : false;
       });
@@ -374,7 +374,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
     this.subscriptionTopupList.forEach((item: any) => {
       if (subId == item.id) {
         item.selectedCoutriesList = item.selectedCoutriesList.filter(
-          (data: any) => data.id !== selectedId
+          (data: any) => data.id !== selectedId,
         );
       }
     });
@@ -610,7 +610,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
           }
         }
         this.showCheckout = true;
-      }
+      },
     );
   }
 
@@ -670,7 +670,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
       },
       (error: any) => {
         console.log("Error fetching location:", error);
-      }
+      },
     );
   }
   findContinent(countryName: string) {
@@ -687,7 +687,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
         (error) => {
           console.error("Error:", error);
           this.continent = "Error";
-        }
+        },
       );
   }
   // changeMonthlyPlan(event: any) {
@@ -834,7 +834,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
     }
 
     this.subscriptionList = this.allSubscriptions.filter(
-      (sub) => sub.validity === validity
+      (sub) => sub.validity === validity,
     );
 
     // Mark the current plan after filtering
@@ -874,12 +874,12 @@ export class CollegeSubscriptionDataComponent implements OnInit {
             selected: false, // Reset selection state - will be set by selectedSubscriptionPlan
           };
         }
-      }
+      },
     );
 
     // Auto-select the first non-current plan (prefer most popular if available)
     const nonCurrentPlans = this.subscriptionList.filter(
-      (sub: any) => !sub.isCurrentPlan
+      (sub: any) => !sub.isCurrentPlan,
     );
 
     if (nonCurrentPlans.length > 0) {
@@ -890,7 +890,7 @@ export class CollegeSubscriptionDataComponent implements OnInit {
     } else {
       // If only current plan(s) exist, set subscriptionTotal to 0 and disable checkout
       const currentPlan = this.subscriptionList.find(
-        (sub: any) => sub.isCurrentPlan
+        (sub: any) => sub.isCurrentPlan,
       );
       if (currentPlan) {
         this.subscriptionTotal = "0.00";
