@@ -3,7 +3,8 @@
         <div class="row h-100 align-items-center justify-content-center">
             <div class="card text-center p-5 shadow rounded align-items-center justify-content-center"
                 style="max-width: 600px;">
-                <img src="{{ imageUrlWhitelabel }}" width="150" class="mb-4" alt="University Logo" />
+                <img [src]="imageUrlWhitelabel || fallbackImage" width="150" class="mb-4" alt="University Logo"
+                    (error)="onImageError()" />
                 <h5 class="fw-bold mb-4">Welcome, Please Login to your account.</h5>
 
                 <div class="d-flex justify-content-between gap-3">
@@ -20,7 +21,7 @@
                         <img src="/uniprep-assets/images/settings.svg" width="60" height="60" class="mb-4"
                             alt="University Logo" />
                         <br>
-                        Franchise Partners
+                        Partners
                     </button>
                     <button class="btn btn-outline-primary w-100 py-2 px-5  ms-4 me-4" style="width: 200px !important;"
                         (click)="navigateTo('institutions')" *ngIf="!isPartner()">

@@ -48,6 +48,8 @@ export class CoBrandedComponent implements OnInit, OnDestroy {
     isDisabled: boolean = false
     locationData: any
     imageUrlWhitelabel: string | null = null
+    /** Fallback when API returns no logo or image fails to load */
+    fallbackImage = "/uniprep-assets/images/growth_partner.png"
     domainname: string = 'main'
     domainNameCondition: string
     countryLists: any
@@ -79,9 +81,15 @@ export class CoBrandedComponent implements OnInit, OnDestroy {
             .then((data) => {
                 this.locationData = data
             })
-        this.locationService.getSourceByDomain(window.location.hostname).subscribe((data: any) => {
-            this.imageUrlWhitelabel = data.logo
-            this.cdr.markForCheck()
+        this.locationService.getSourceByDomain(window.location.hostname).subscribe({
+            next: (data: any) => {
+                this.imageUrlWhitelabel = data?.logo || this.fallbackImage
+                this.cdr.markForCheck()
+            },
+            error: () => {
+                this.imageUrlWhitelabel = this.fallbackImage
+                this.cdr.markForCheck()
+            }
         })
         this.loginForm = this.formBuilder.group({
             email: ["", [Validators.required, Validators.email]],
@@ -118,6 +126,11 @@ export class CoBrandedComponent implements OnInit, OnDestroy {
 
     get f() {
         return this.loginForm.controls
+    }
+
+    onImageError() {
+        this.imageUrlWhitelabel = this.fallbackImage
+        this.cdr.markForCheck()
     }
 
 }
