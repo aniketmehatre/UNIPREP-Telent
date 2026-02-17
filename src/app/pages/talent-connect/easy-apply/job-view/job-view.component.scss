@@ -182,3 +182,84 @@
     pointer-events: none;
     opacity: 0.6;
   }
+
+  // Info Section Card Styles (matching snapshot)
+  .info-section-card {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: none;
+    box-shadow: none;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a237e;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .subsection-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #3f51b5;
+    margin-bottom: 0.75rem;
+    margin-top: 0;
+  }
+
+  .section-content {
+    font-weight: 500;
+    color: #212529;
+    line-height: 1.6;
+    
+    p {
+      margin-bottom: 0.5rem;
+    }
+    
+    ul, ol {
+      margin-bottom: 0;
+      padding-left: 1.5rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .info-tag {
+    display: inline-block;
+    background-color: #ffe0b2;
+    color: #212529;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: none;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .language-name {
+    font-weight: 500;
+    color: #212529;
+    min-width: 80px;
+  }
+
+  .language-rating {
+    ::ng-deep .p-rating-icon {
+      font-size: 1.2rem;
+      color: #ff9800;
+    }
+    
+    ::ng-deep .p-rating-icon.p-rating-icon-active {
+      color: #ff9800;
+    }
+  }
+
+  .hiring-timeframe {
+    font-weight: 500;
+    color: #212529;
+    margin-bottom: 1rem;
+  }

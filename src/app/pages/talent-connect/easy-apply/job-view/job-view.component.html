@@ -45,7 +45,7 @@
 											<span class="me-2 text-muted">{{ jobDetails.company_name }}</span>
 											@if(jobDetails) {
 											<span class="ms-1 text-primary">
-												<i class="fas fa-check-circle"></i>
+												<i class="fa-solid fa-circle-check" style="color: #0d6efd; font-size: 18px;"></i>
 											</span>
 											}
 										</div>
@@ -338,15 +338,15 @@
 
 						<!-- Job Overview -->
 						@if(jobDetails?.job_overview) {
-						<div class="row mb-2">
+						<div class="row mb-4">
 							<div class="col-md-12">
-								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
-									<div class="row">
+								<div class="info-section-card">
+									<div class="row align-items-start">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Job Overview</h2>
+											<h2 class="section-title">Job Overview</h2>
 										</div>
-										<div class="col-12 col-md-9 font-bold">
-											<p class="mb-0" [innerHTML]="jobDetails.job_overview"></p>
+										<div class="col-12 col-md-9">
+											<div class="section-content" [innerHTML]="jobDetails.job_overview"></div>
 										</div>
 									</div>
 								</div>
@@ -358,14 +358,13 @@
 						@if(jobDetails?.key_responsibilities) {
 						<div class="row mb-4">
 							<div class="col-md-12">
-								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
-									<div class="row">
+								<div class="info-section-card">
+									<div class="row align-items-start">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Key<br class="d-none d-md-block" />Responsibilities
-											</h2>
+											<h2 class="section-title">Key Responsibilities</h2>
 										</div>
-										<div class="col-12 col-md-9 font-bold">
-											<div [innerHTML]="jobDetails?.key_responsibilities"></div>
+										<div class="col-12 col-md-9">
+											<div class="section-content" [innerHTML]="jobDetails?.key_responsibilities"></div>
 										</div>
 									</div>
 								</div>
@@ -376,23 +375,20 @@
 						@if(jobDetails?.languages?.length > 0) {
 						<div class="row mb-4">
 							<div class="col-md-12">
-								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
-									<div class="row">
+								<div class="info-section-card">
+									<div class="row align-items-start">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Language<br class="d-none d-md-block" />Proficiency
-											</h2>
+											<h2 class="section-title">Language Proficiency</h2>
 										</div>
 										<div class="col-12 col-md-9">
-											<ul class="list-unstyled font-bold">
+											<ul class="list-unstyled mb-0">
 												@for (lang of jobDetails?.languages; track lang.lang) {
-												<li class="mb-3">
-													<div class="d-flex align-items-center gap-2">
-														<span class="me-2">{{ lang.lang }}</span>
-														@if(lang.level){
-														<p-rating style="font-size: large" [ngModel]="getProficiencyRating(lang.level)"
-															[readonly]="true"></p-rating>
-														}
-													</div>
+												<li class="mb-3 d-flex align-items-center gap-3">
+													<span class="language-name">{{ lang.lang }}</span>
+													@if(lang.level){
+													<p-rating class="language-rating" [ngModel]="getProficiencyRating(lang.level)"
+														[readonly]="true" [cancel]="false"></p-rating>
+													}
 												</li>
 												}
 											</ul>
@@ -407,16 +403,15 @@
 						@if(jobDetails?.compensation_structure?.length > 0) {
 						<div class="row mb-4">
 							<div class="col-md-12">
-								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
-									<div class="row">
+								<div class="info-section-card">
+									<div class="row align-items-start">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Compensation<br class="d-none d-md-block" />Structure</h2>
+											<h2 class="section-title">Compensation Structure</h2>
 										</div>
-										<div class="col-12 col-md-9 font-bold">
+										<div class="col-12 col-md-9">
 											<div class="d-flex flex-wrap gap-2">
 												@for (comp of jobDetails.compensation_structure; track comp) {
-												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ comp
-													}}</span>
+												<span class="info-tag">{{ comp }}</span>
 												}
 											</div>
 										</div>
@@ -430,16 +425,15 @@
 						@if(jobDetails?.benefits_perks?.length > 0) {
 						<div class="row mb-4">
 							<div class="col-md-12">
-								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
-									<div class="row">
+								<div class="info-section-card">
+									<div class="row align-items-start">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Additional Benefits<br class="d-none d-md-block" />& Perks</h2>
+											<h2 class="section-title">Additional Benefits & Perks</h2>
 										</div>
-										<div class="col-12 col-md-9 font-bold">
+										<div class="col-12 col-md-9">
 											<div class="d-flex flex-wrap gap-2">
 												@for (benefit of jobDetails.benefits_perks; track benefit) {
-												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
-													benefit }}</span>
+												<span class="info-tag">{{ benefit }}</span>
 												}
 											</div>
 										</div>
@@ -453,16 +447,15 @@
 						@if(jobDetails?.soft_skills?.length > 0) {
 						<div class="row mb-4">
 							<div class="col-md-12">
-								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
-									<div class="row">
+								<div class="info-section-card">
+									<div class="row align-items-start">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Essential Soft Skills</h2>
+											<h2 class="section-title">Essential Soft Skills</h2>
 										</div>
-										<div class="col-12 col-md-9 font-bold">
+										<div class="col-12 col-md-9">
 											<div class="d-flex flex-wrap gap-2">
 												@for (skill of jobDetails?.soft_skills; track skill) {
-												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ skill
-													}}</span>
+												<span class="info-tag">{{ skill }}</span>
 												}
 											</div>
 										</div>
@@ -476,46 +469,43 @@
 						@if(jobDetails?.hiring_stages) {
 						<div class="row mb-4">
 							<div class="col-md-12">
-								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
-									<div class="row">
+								<div class="info-section-card">
+									<div class="row align-items-start">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Hiring & Recruitment</h2>
+											<h2 class="section-title">Hiring & Recruitment</h2>
 										</div>
-										<div class="col-12 col-md-9 font-bold">
-											<h6 class="mb-2 text-primary">Hiring Process Stages</h6>
+										<div class="col-12 col-md-9">
+											<h6 class="subsection-title">Hiring Process Stages</h6>
 											<div class="d-flex flex-wrap gap-2 mb-4">
 												@if(Array.isArray(jobDetails.hiring_stages) &&
 												jobDetails.hiring_stages.length > 0) {
 												@if(jobDetails.hiring_stages[0].id !== undefined) {
 												@for (stage of jobDetails.hiring_stages; track stage.name) {
-												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
-													stage.name }}</span>
+												<span class="info-tag">{{ stage.name }}</span>
 												}
 												}
 												@if(jobDetails.hiring_stages[0].id === undefined) {
 												@for (stage of jobDetails.hiring_stages; track stage) {
-												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ stage
-													}}</span>
+												<span class="info-tag">{{ stage }}</span>
 												}
 												}
 												}
 												@if(!Array.isArray(jobDetails.hiring_stages)) {
-												<span class="badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
-													jobDetails.hiring_stages }}</span>
+												<span class="info-tag">{{ jobDetails.hiring_stages }}</span>
 												}
 											</div>
 
-											<h6 class="mb-2 text-primary">Estimated Hiring Decision Timeframe</h6>
-											<p class="mb-4">{{ jobDetails.hiring_timeframe }}</p>
+											<h6 class="subsection-title">Estimated Hiring Decision Timeframe</h6>
+											<p class="mb-4 hiring-timeframe">{{ jobDetails.hiring_timeframe }}</p>
 
-											<h6 class="mb-2 text-primary">Interview Format</h6>
+											@if(jobDetails.interview_format?.length > 0) {
+											<h6 class="subsection-title">Interview Format</h6>
 											<div class="d-flex flex-wrap gap-2 mb-4">
 												@for (stage of jobDetails.interview_format; track stage) {
-												<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">
-													{{ stage }}
-												</span>
+												<span class="info-tag">{{ stage }}</span>
 												}
 											</div>
+											}
 										</div>
 									</div>
 								</div>
@@ -523,15 +513,15 @@
 						</div>
 						}
 						@if(jobDetails?.additional_notes) {
-						<div class="row">
+						<div class="row mb-4">
 							<div class="col-md-12">
-								<div class="card-body p-3 p-md-4 bg-secondary-subtle rounded-3">
-									<div class="row">
+								<div class="info-section-card">
+									<div class="row align-items-start">
 										<div class="col-12 col-md-3 mb-3 mb-md-0">
-											<h2 class="fs-3 fw-bold">Additional Notes</h2>
+											<h2 class="section-title">Additional Notes</h2>
 										</div>
-										<div class="col-12 col-md-9 font-bold">
-											<div [innerHTML]="jobDetails.additional_notes"></div>
+										<div class="col-12 col-md-9">
+											<div class="section-content" [innerHTML]="jobDetails.additional_notes"></div>
 										</div>
 									</div>
 								</div>
