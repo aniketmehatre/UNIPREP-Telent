@@ -84,6 +84,7 @@ export class SubscriptionComponent implements OnInit {
 	isCollegeStudent: boolean = true;
 
 	showPremimumPopup: boolean = false;
+	showVerificationModal: boolean = false;
 	daysLeftInPremium = signal(0);
 	premiumFeatures: string[] = [
 		"✅ Email & Contact Number of the Recruiter",
@@ -112,6 +113,8 @@ export class SubscriptionComponent implements OnInit {
 	async ngOnInit(): Promise<void> {
 		//why premium whatsapp message trigger
 		this.daysLeftInPremium.set(this.storage.get('daysRemaining') || 0);
+		// Show verification modal automatically when component opens
+		this.showVerificationModal = true;
 		try {
 			let homeCountryName = this.storage.get("home_country_name");
 
@@ -648,6 +651,15 @@ export class SubscriptionComponent implements OnInit {
 	onClosePremiumPopup() {
 		this.showPremimumPopup = false;
 		this.subscriptionService.updateUserBehaviour().subscribe();
+	}
+
+	closeVerificationModal() {
+		this.showVerificationModal = false;
+	}
+
+// get verified
+	onGetVerified() {
+		this.closeVerificationModal();
 	}
 
 	onCloseStripe() {

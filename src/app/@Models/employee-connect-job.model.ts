@@ -71,4 +71,5 @@ export interface JobListing {
   salary_per_month: string;
   uuid: string;
   hiring_status: string;
+  premium_users?: number;
 }

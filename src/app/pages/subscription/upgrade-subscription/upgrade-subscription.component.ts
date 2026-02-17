@@ -142,6 +142,9 @@ export class UpgradeSubscriptionComponent implements OnInit {
 			this.education_level = this.user?.education_level?.replace(/[\s\u00A0]/g, "").trim() || "HigherEducation"
 			this.studentType = this.user?.student_type_id || 0
 
+			// Show verification modal when component loads
+			this.showVerificationModal = true
+
 			// Load existing subscription which will then load the subscription plans
 			this.loadExistingSubscription()
 
@@ -183,6 +186,16 @@ export class UpgradeSubscriptionComponent implements OnInit {
 	closeAllHome() {
 		this.isInstructionVisible = false
 	}
+
+	closeVerificationModal() {
+		this.showVerificationModal = false
+	}
+
+// get verified
+	onGetVerified() {
+		this.closeVerificationModal()
+	}
+
 	moreabout() {
 		this.isInstructionVisible = true
 	}
@@ -779,6 +792,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
 		},
 	}
 	cardvisibility = false
+	showVerificationModal = false
 	stripdata: any
 	selectedcost = 0
 	paywithstripe() {

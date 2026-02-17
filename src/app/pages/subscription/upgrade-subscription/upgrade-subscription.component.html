@@ -39,7 +39,8 @@
           </div> -->
           <div>
             <div class="text-md-end text-center pt-3">
-              <button pButton class="btn btn-secondary btn-rounded" (click)="gotoHistory()">Subscription History</button>
+              <button pButton class="btn btn-secondary btn-rounded" (click)="gotoHistory()">Subscription
+                History</button>
             </div>
           </div>
         </div>
@@ -148,7 +149,8 @@
               <div class="columns col-lg-2 col-md-2 p-0 br-1" *ngFor="let subscription of subscriptionList"
                 [ngClass]="{'br-1':subscription}">
                 <ul class="price text-center list-unstyled">
-                  <li style="background-color: var(--p-primary-500); color: white;margin-top:5px;" *ngIf="subscription.popular == 1">
+                  <li style="background-color: var(--p-primary-500); color: white;margin-top:5px;"
+                    *ngIf="subscription.popular == 1">
                     Most Popular Plan
                   </li>
                   <li class="header" [ngClass]="{
@@ -549,7 +551,8 @@
 <!--  -->
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>
-<p-dialog  [(visible)]="cardvisibility" [style]="{ width: '40rem', height: 'auto' }" [breakpoints]="{ '960px': '50vw', '959px': '80vw', '425px': '90vw' }">
+<p-dialog [(visible)]="cardvisibility" [style]="{ width: '40rem', height: 'auto' }"
+  [breakpoints]="{ '960px': '50vw', '959px': '80vw', '425px': '90vw' }">
   <div style="padding: 2rem !important">
     @if (elementsOptions.clientSecret) {
     <ngx-stripe-payment [elementsOptions]="elementsOptions"></ngx-stripe-payment>
@@ -558,3 +561,7 @@
         class="fa-solid fa-lock mx-2"></i>Pay {{ selectedcost | currency: currencyType }}</button>
   </div>
 </p-dialog>
+
+
+
+

@@ -58,9 +58,9 @@
 		@if(!isSkeletonVisible && jobListings.length > 0) {
 		<div class="row">
 			@for (job of jobListings; track job.id; let i = $index) {
-			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2"
-				[routerLink]="['/pages/talent-connect/easy-apply', job.id]">
-				<div class="card card-inside h-100 text-start position-relative" role="button">
+			<div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
+				<div class="card card-inside h-100 text-start position-relative" role="button" 
+					 style="cursor: pointer;">
 					<button class="btn btn-link text-warning p-0 position-absolute"
 						style="right: 0.5rem; top: 0.5rem; z-index: 999">
 						@if(job.premium_users === 1) {
@@ -86,7 +86,7 @@
 							<li (click)="copyLink($event, job)"><i class="pi pi-link"></i> Copy Link</li>
 						</ul>
 					</p-popover>
-					<div class="card-body pb-0">
+					<div class="card-body pb-0" (click)="onClickJobCard(job, $event)">
 						<div class="d-flex gap-2 align-items-start">
 							<div class="rounded-2 d-flex overflow-hidden bg-white" style="border: 1px solid #e7e7e7; max-width: 70px">
 								<img class="w-100" style="object-fit: contain; aspect-ratio: 1"

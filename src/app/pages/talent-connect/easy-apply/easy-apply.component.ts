@@ -2,7 +2,7 @@ import { Component, inject, signal } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from "@angular/forms";
 import { TalentConnectService } from "../talent-connect.service";
 import { MessageService } from "primeng/api";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { PageFacadeService } from "../../page-facade.service";
 import { Meta } from "@angular/platform-browser";
 import { SocialShareService } from "src/app/services/social-share.service";
@@ -67,6 +67,7 @@ export class EasyApplyComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private fb: FormBuilder,
     private talentConnectService: TalentConnectService,
     private messageService: MessageService,
@@ -461,6 +462,15 @@ export class EasyApplyComponent {
       textToCopy,
       "Job Link copied successfully",
     );
+  }
+
+  onClickJobCard(job: JobListing, event?: Event) {
+    if (job.premium_users === 1) {
+      event?.preventDefault();
+      this.router.navigate(['/pages/subscriptions']);
+    } else {
+      this.router.navigate(['/pages/talent-connect/easy-apply', job.id]);
+    }
   }
 
   onChangeLocation(event: MultiSelectChangeEvent, type: string) {

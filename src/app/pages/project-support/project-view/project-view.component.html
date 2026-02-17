@@ -1,0 +1,623 @@
+<div class="card readingcard">
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center">
+            <div class="col-md-12 d-flex gap-2 text-center">
+                <div class="select-title d-flex justify-content-between align-items-center" style="width: 100%;">
+                    <div>
+                        <h5 class="mb-0 text-white">
+                            <span>Project Support</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body flex-fill overflow-y-auto" *ngIf="!isLoading && project">
+        <div class="container-fluid">
+            <!-- Tabs Navigation -->
+            <div class="tabs-navigation mb-4">
+                <button class="tab-button" [class.active]="activeTab === 'Information'"
+                    (click)="setActiveTab('Information')">
+                    Information
+                </button>
+                <button class="tab-button" [class.active]="activeTab === 'Activity'" (click)="setActiveTab('Activity')">
+                    Activity
+                </button>
+                <button class="tab-button" [class.active]="activeTab === 'Documents'"
+                    (click)="setActiveTab('Documents')">
+                    Documents
+                </button>
+                <button class="tab-button" [class.active]="activeTab === 'Transaction History'"
+                    (click)="setActiveTab('Transaction History')">
+                    Transaction History
+                </button>
+                <button class="tab-button" [class.active]="activeTab === 'Bank Details'"
+                    (click)="setActiveTab('Bank Details')">
+                    Bank Details
+                </button>
+            </div>
+
+            <!-- Project Status Badge -->
+            <div class="d-flex justify-content-end mb-3">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="status-label">Project Status:</span>
+                    <p-tag [value]="getProjectStatus()" [severity]="getStatusSeverity()" styleClass="status-badge">
+                    </p-tag>
+                </div>
+            </div>
+
+            <!-- Project Title with ID -->
+            <h2 class="project-title mb-4">{{ getProjectName() }} ({{ getProjectId() }})</h2>
+
+            <!-- Information Tab Content -->
+            <div *ngIf="activeTab === 'Information'" class="tab-content">
+                <!-- Project Attributes - Single Line Layout -->
+                <div class="project-attributes-row mb-4">
+                    <div class="attribute-item-inline">
+                        <label class="attribute-label">Services Type</label>
+                        <div class="attribute-value">{{ getServiceType() }}</div>
+                    </div>
+                    <div class="attribute-item-inline">
+                        <label class="attribute-label">Budget Range</label>
+                        <div class="attribute-value">{{ getBudgetRange() }}</div>
+                    </div>
+                    <div class="attribute-item-inline">
+                        <label class="attribute-label">Project Priority</label>
+                        <div class="attribute-value">{{ getProjectPriority() }}</div>
+                    </div>
+                    <div class="attribute-item-inline">
+                        <label class="attribute-label">Freelancing Type</label>
+                        <div class="attribute-value">{{ getFreelancingType() }}</div>
+                    </div>
+                    <div class="attribute-item-inline">
+                        <label class="attribute-label">Project Start date</label>
+                        <div class="attribute-value d-flex align-items-center gap-2">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>{{ getProjectStartDate() }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Costed Budget -->
+                <div class="internal-docs-row mb-4">
+                    <div class="label-col">Costed Budget</div>
+                    <div class="value-col">
+                        <div class="budget-value fw-medium">{{ getQuotedBudget() }}</div>
+                    </div>
+                </div>
+
+                <!-- Project Description -->
+                <div class="internal-docs-row mb-4">
+                    <div class="label-col">Project<br>Description</div>
+                    <div class="value-col">
+                        <div class="description-text">
+                            {{ getProjectDescription() || "No description provided." }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Requirement Details -->
+                <div class="internal-docs-row mb-4">
+                    <div class="label-col">Project Requirement<br>Details</div>
+                    <div class="value-col">
+                        <div class="description-text">
+                            {{ getProjectRequirementDetails() || "No requirement details provided." }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Remarks / Additional Notes -->
+                <div class="internal-docs-row mb-4">
+                    <div class="label-col">Project Remarks /<br>Additional Notes</div>
+                    <div class="value-col">
+                        <div class="description-text">
+                            {{ getProjectRemarks() || "No remarks provided." }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Uploaded Image -->
+                <div class="internal-docs-row mb-4">
+                    <div class="label-col">Uploaded Image</div>
+                    <div class="value-col">
+                        <div class="image-gallery d-flex gap-3 flex-wrap" *ngIf="projectImages.length > 0">
+                            <div class="image-item" *ngFor="let image of projectImages; let i = index">
+                                <div class="image-container">
+                                    <img [src]="getImageUrl(image)" [alt]="getImageName(image, i)"
+                                        (error)="handleImageError($event)" class="project-image" loading="lazy" />
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="projectImages.length === 0" class="text-muted">
+                            No images uploaded for this project.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reference Link -->
+                <div class="internal-docs-row mb-4" *ngIf="referenceLinks.length > 0">
+                    <div class="label-col">Reference<br>Link</div>
+                    <div class="value-col">
+                        <div class="internal-docs-list">
+                            <div *ngFor="let link of referenceLinks" class="internal-doc-item">
+                                <div class="doc-icon-wrapper">
+                                    <i class="fas fa-link"></i>
+                                </div>
+                                <div class="doc-info-wrapper">
+                                    <a [href]="link" target="_blank" rel="noopener noreferrer"
+                                        class="internal-doc-link">
+                                        {{ link }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Documents -->
+                <div class="internal-docs-row mb-4" *ngIf="internalDocuments && internalDocuments.length > 0">
+                    <div class="label-col">
+                        Project<br>Documents
+                    </div>
+                    <div class="value-col">
+                        <div class="internal-docs-list">
+                            <div *ngFor="let doc of internalDocuments" class="internal-doc-item">
+                                <div class="doc-icon-wrapper">
+                                    <i class="fas" [ngClass]="getInternalDocIcon(doc)"></i>
+                                </div>
+                                <div class="doc-info-wrapper">
+                                    <a href="javascript:void(0)" (click)="downloadInternalDoc(doc)"
+                                        class="internal-doc-link">
+                                        {{ doc.original_filename || doc.file_name || 'Internal Document' }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Tab Content -->
+            <div *ngIf="activeTab === 'Activity'" class="tab-content activity-tab-content">
+                <!-- Loading State -->
+                <div *ngIf="isLoadingActivities" class="text-center py-5">
+                    <i class="fas fa-spinner fa-spin fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">Loading activities...</p>
+                </div>
+
+                <!-- Activities List -->
+                <div *ngIf="!isLoadingActivities" class="activities-container">
+                    <!-- Activities List -->
+                    <div *ngIf="activities.length > 0" class="activities-list mb-4">
+                        <div *ngFor="let activity of activities"
+                            class="activity-row-item p-2 border rounded bg-white mb-2">
+                            <div class="row align-items-center w-100 g-0">
+                                <!-- Author -->
+                                <div class="col-md-2">
+                                    <div class="activity-author-text px-2" [title]="activity.userName || 'Unknown'">
+                                        <span class="by-label">By:</span> {{ activity.userName || 'User' }}
+                                    </div>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="col-md-2">
+                                    <div class="activity-description-text text-truncate px-2"
+                                        [title]="stripHtml(activity.activityDescription || '')">
+                                        {{ stripHtml(activity.activityDescription || '') }}
+                                    </div>
+                                </div>
+
+                                <!-- Status -->
+                                <div class="col-md-3 px-2">
+                                    <div class="activity-status-info" *ngIf="activity.statusDesc">
+                                        <span class="status-dot-indicator bg-success"></span>
+                                        <span class="status-label-text text-success text-truncate"
+                                            [title]="activity.statusDesc">
+                                            {{ activity.statusDesc }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Payment Status -->
+                                <div class="col-md-3 px-2">
+                                    <div class="activity-payment-info" *ngIf="activity.paymentStatusDesc">
+                                        <span class="status-dot-indicator bg-danger"></span>
+                                        <span class="status-label-text text-danger text-truncate"
+                                            [title]="activity.paymentStatusDesc">
+                                            {{ activity.paymentStatusDesc }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Date & Time -->
+                                <div class="col-md-2 text-end pe-3">
+                                    <div class="activity-timing">
+                                        <div class="timing-date text-nowrap">
+                                            {{ getActivityDate(activity.createdAtFormatted || activity.createdAt) }}
+                                        </div>
+                                        <div class="timing-time">
+                                            {{ getActivityTime(activity.createdAtFormatted || activity.createdAt) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Load More Button -->
+                    <div *ngIf="hasMoreActivities && !isLoadingActivities" class="text-center mt-3">
+                        <button pButton label="Load More" class="p-button-outlined p-button-secondary"
+                            (click)="loadMoreActivities()">
+                            <i class="fas fa-arrow-down me-2"></i>
+                            Load More Activities
+                        </button>
+                    </div>
+
+                    <!-- Loading More Indicator -->
+                    <div *ngIf="isLoadingActivities && activities.length > 0" class="text-center mt-3">
+                        <i class="fas fa-spinner fa-spin text-muted me-2"></i>
+                        <span class="text-muted">Loading more activities...</span>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div *ngIf="activities.length === 0 && !isLoadingActivities" class="empty-state mb-4">
+                        <div class="empty-state-content">
+                            <i class="fas fa-history fa-4x mb-3"></i>
+                            <h4>No Activities Found</h4>
+                            <p>There are no activities or updates recorded for this project yet.</p>
+                            <span class="sub-text">Start the conversation by posting a message below.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Posting Editor -->
+                <div class="activity-editor-section mt-4">
+                    <div class="activity-editor-card border rounded p-3">
+                        <p-editor [(ngModel)]="activityContent" [style]="{'height':'200px'}"
+                            placeholder="Type your message...">
+                        </p-editor>
+
+                        <!-- Attachment Section -->
+                        <div class="activity-attachment-section mt-3">
+                            <input type="file" hidden #activityAttachmentInput multiple
+                                (change)="onActivityAttachmentChange($event)" />
+
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <button type="button" class="btn btn-sm btn-outline-secondary"
+                                    (click)="activityAttachmentInput.click()">
+                                    <i class="fas fa-paperclip me-1"></i>
+                                    Attach Files
+                                </button>
+                                <span *ngIf="activityAttachments.length > 0" class="text-muted small">
+                                    {{ activityAttachments.length }} file(s) selected
+                                </span>
+                            </div>
+
+                            <!-- Selected Attachments List -->
+                            <div *ngIf="activityAttachments.length > 0" class="selected-attachments mb-2">
+                                <div *ngFor="let attachment of activityAttachments; let i = index"
+                                    class="d-flex align-items-center justify-content-between p-2 mb-1 rounded"
+                                    style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
+                                    <div class="d-flex align-items-center flex-fill">
+                                        <i class="fas fa-file-alt text-primary me-2"></i>
+                                        <div class="flex-fill">
+                                            <small class="text-dark d-block" style="word-break: break-word;">
+                                                {{ attachment.name }}
+                                            </small>
+                                            <small class="text-muted">
+                                                {{ (attachment.size / 1024).toFixed(2) }} KB
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-link text-danger p-0 ms-2 flex-shrink-0"
+                                        (click)="removeActivityAttachment(i)" title="Remove attachment">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-3">
+                            <button pButton class="p-button-primary"
+                                [disabled]="isPostingActivity || !activityContent || activityContent.trim() === '' || activityContent === '<p><br></p>'"
+                                (click)="postActivity()">
+                                <i class="fas fa-paper-plane me-2"></i>
+                                {{ isPostingActivity ? 'Posting...' : 'Send' }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents Tab Content -->
+            <div *ngIf="activeTab === 'Documents'" class="tab-content">
+                <!-- Loading State -->
+                <div *ngIf="isLoadingDocuments" class="text-center py-5">
+                    <i class="fas fa-spinner fa-spin fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">Loading documents...</p>
+                </div>
+
+                <!-- Documents List -->
+                <div *ngIf="!isLoadingDocuments && projectDocuments.length > 0" class="documents-container">
+                    <!-- Document Categories -->
+                    <div class="document-categories">
+                        <div *ngFor="let category of projectDocuments" class="document-category-box mb-4">
+                            <!-- Category Header -->
+                            <div class="category-box-header">
+                                <h6 class="mb-0">{{ category.category }}</h6>
+                            </div>
+
+                            <!-- Documents List Body -->
+                            <div class="category-box-body" *ngIf="category.documents && category.documents.length > 0">
+                                <div *ngFor="let document of category.documents" class="doc-row">
+                                    <div class="doc-left">
+                                        <i class="fas fa-file-alt doc-type-icon"></i>
+                                        <span class="doc-name">{{ document.name || 'Untitled Document' }}</span>
+                                    </div>
+                                    <div class="doc-right">
+                                        <span class="doc-size" *ngIf="document.size">{{ document.size }}</span>
+                                        <span class="doc-date" *ngIf="document.date">{{ document.date }}</span>
+                                        <button pButton label="View" class="view-button"
+                                            (click)="downloadDocument(document)">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Empty Category -->
+                            <div *ngIf="!category.documents || category.documents.length === 0"
+                                class="p-3 text-muted text-center">
+                                <small>No documents in this category</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div *ngIf="!isLoadingDocuments && projectDocuments.length === 0" class="empty-state">
+                    <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">No documents available for this project</p>
+                </div>
+            </div>
+
+            <!-- Transaction History Tab Content -->
+            <div *ngIf="activeTab === 'Transaction History'" class="tab-content">
+                <div class="transaction-history-container">
+                    <p-table [value]="transactions" [loading]="isLoading" styleClass="transaction-table"
+                        [tableStyle]="{'min-width': '50rem'}">
+
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Description</th>
+                                <th>Transaction ID</th>
+                                <th>Payment Date</th>
+                                <th>Amount</th>
+                                <th>Invoice</th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-transaction>
+                            <tr>
+                                <td>{{ getTransactionDescription(transaction) }}</td>
+                                <td>{{ getTransactionId(transaction) }}</td>
+                                <td>{{ getPaymentDate(transaction) }}</td>
+                                <td>{{ getTransactionAmount(transaction) }}</td>
+                                <td>
+                                    <button pButton label="View" class="p-button-sm p-button-primary invoice-button"
+                                        (click)="viewInvoice(transaction)">
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td colspan="5" class="text-center p-4">
+                                    <div class="empty-state">
+                                        <i class="fas fa-receipt fa-3x text-muted mb-3"></i>
+                                        <p class="text-muted">No transaction history available</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+
+            <!-- Bank Details Tab Content -->
+            <div *ngIf="activeTab === 'Bank Details'" class="tab-content">
+                <div class="bank-details-container bg-white p-4 rounded shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="mb-0 fw-bold">Bank Details</h4>
+                        <button pButton label="Edit" icon="pi pi-pencil"
+                            class="p-button-primary custom-edit-btn px-4"
+                            (click)="openBankDetailsDialog()"></button>
+                    </div>
+
+                    <div class="bank-details-form mt-4">
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label class="form-label fw-medium mb-2">Account Holder Name</label>
+                                <div class="custom-select-field">
+                                    <span>{{ project?.bank_details?.account_holder_name || '-' }}</span>
+                                    <i class="pi pi-chevron-down text-muted"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label class="form-label fw-medium mb-2">Bank Name</label>
+                                <div class="custom-select-field">
+                                    <span>{{ project?.bank_details?.bank_name || '-' }}</span>
+                                    <i class="pi pi-chevron-down text-muted"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label class="form-label fw-medium mb-2">Account Number</label>
+                                <div class="custom-select-field">
+                                    <span>{{ project?.bank_details?.account_number || '-' }}</span>
+                                    <i class="pi pi-chevron-down text-muted"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label class="form-label fw-medium mb-2">IFSC Code</label>
+                                <div class="custom-select-field">
+                                    <span>{{ project?.bank_details?.ifsc_code || '-' }}</span>
+                                    <i class="pi pi-chevron-down text-muted"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label class="form-label fw-medium mb-2">Account Type</label>
+                                <div class="custom-select-field">
+                                    <span>{{ project?.bank_details?.account_type || '-' }}</span>
+                                    <i class="pi pi-chevron-down text-muted"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label class="form-label fw-medium mb-2">UPI Id <small class="text-muted">(Optional)</small></label>
+                                <div class="custom-select-field">
+                                    <span>{{ project?.bank_details?.upi_id || '-' }}</span>
+                                    <i class="pi pi-chevron-down text-muted"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Bank Details Popup -->
+            <p-dialog
+                header="Edit Bank Details"
+                [(visible)]="isBankEditVisible"
+                [modal]="true"
+                [style]="{ width: '40rem' }"
+                styleClass="bank-details-dialog"
+                (onHide)="onBankEditCancel()">
+
+                <form [formGroup]="bankDetailsForm" class="p-fluid">
+                    <div class="field mb-3">
+                        <label class="form-label fw-medium mb-1">Account Holder Name <span class="text-danger">*</span></label>
+                        <input
+                            pInputText
+                            class="bank-input w-100"
+                            formControlName="account_holder_name"
+                            placeholder="Enter account holder name"
+                            autocomplete="off" />
+                        <small class="p-error" *ngIf="bankDetailsForm.get('account_holder_name')?.touched && bankDetailsForm.get('account_holder_name')?.invalid">
+                            Account holder name is required
+                        </small>
+                    </div>
+
+                    <div class="field mb-3">
+                        <label class="form-label fw-medium mb-1">Bank Name <span class="text-danger">*</span></label>
+                        <input
+                            pInputText
+                            class="bank-input w-100"
+                            formControlName="bank_name"
+                            placeholder="Enter bank name"
+                            autocomplete="off" />
+                        <small class="p-error" *ngIf="bankDetailsForm.get('bank_name')?.touched && bankDetailsForm.get('bank_name')?.invalid">
+                            Bank name is required
+                        </small>
+                    </div>
+
+                    <div class="field mb-3">
+                        <label class="form-label fw-medium mb-1">Account Number <span class="text-danger">*</span></label>
+                        <input
+                            pInputText
+                            class="bank-input w-100"
+                            formControlName="account_number"
+                            placeholder="Enter account number"
+                            inputmode="numeric"
+                            autocomplete="off" />
+                        <small class="p-error" *ngIf="bankDetailsForm.get('account_number')?.touched && bankDetailsForm.get('account_number')?.invalid">
+                            Account number is required
+                        </small>
+                    </div>
+
+                    <div class="field mb-3">
+                        <label class="form-label fw-medium mb-1">IFSC Code <span class="text-danger">*</span></label>
+                        <input
+                            pInputText
+                            class="bank-input w-100 text-uppercase"
+                            formControlName="ifsc_code"
+                            placeholder="Enter IFSC code"
+                            autocomplete="off" />
+                        <small class="p-error" *ngIf="bankDetailsForm.get('ifsc_code')?.touched && bankDetailsForm.get('ifsc_code')?.invalid">
+                            IFSC code is required
+                        </small>
+                    </div>
+
+                    <div class="field mb-3">
+                        <label class="form-label fw-medium mb-1">Account Type <span class="text-danger">*</span></label>
+                        <input
+                            pInputText
+                            class="bank-input w-100"
+                            formControlName="account_type"
+                            placeholder="Eg: Savings / Current"
+                            autocomplete="off" />
+                        <small class="p-error" *ngIf="bankDetailsForm.get('account_type')?.touched && bankDetailsForm.get('account_type')?.invalid">
+                            Account type is required
+                        </small>
+                    </div>
+
+                    <div class="field mb-2">
+                        <label class="form-label fw-medium mb-1">UPI Id <small class="text-muted">(Optional)</small></label>
+                        <input
+                            pInputText
+                            class="bank-input w-100"
+                            formControlName="upi_id"
+                            placeholder="Eg: name@oksbi"
+                            autocomplete="off" />
+                    </div>
+                </form>
+
+                <ng-template pTemplate="footer">
+                    <button pButton class="p-button-text" label="Cancel" (click)="onBankEditCancel()"></button>
+                    <button
+                        pButton
+                        label="Save"
+                        (click)="saveBankDetails()"
+                        [loading]="isSavingBankDetails"
+                        [disabled]="bankDetailsForm.invalid || isSavingBankDetails">
+                    </button>
+                </ng-template>
+            </p-dialog>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="card-body d-flex justify-content-center align-items-center" *ngIf="isLoading"
+        style="min-height: 400px;">
+        <div class="text-center">
+            <i class="fas fa-spinner fa-spin fa-3x text-muted mb-3"></i>
+            <p class="text-muted">Loading project details...</p>
+        </div>
+    </div>
+
+    <!-- Error State -->
+    <div class="card-body d-flex justify-content-center align-items-center" *ngIf="!isLoading && !project"
+        style="min-height: 400px;">
+        <div class="text-center">
+            <i class="fas fa-exclamation-triangle fa-3x text-muted mb-3"></i>
+            <p class="text-muted">Project not found</p>
+            <button pButton label="Back to Project List" class="p-button-primary mt-3"
+                routerLink="/pages/project-support">
+            </button>
+        </div>
+    </div>
+</div>

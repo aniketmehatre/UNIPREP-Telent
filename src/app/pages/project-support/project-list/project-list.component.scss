@@ -1,0 +1,61 @@
+.project-list-container {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+
+  .custom-select {
+    ::ng-deep .p-select {
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+    }
+  }
+
+  .custom-edit-btn {
+    background-color: #435084 !important;
+    border-color: #435084 !important;
+    border-radius: 8px;
+    padding: 0.5rem 2rem;
+  }
+
+  .table-card {
+    border: 1px solid #e9ecef;
+  }
+
+  .custom-search-input {
+    border-radius: 8px;
+    width: 250px;
+  }
+
+  .custom-table {
+    ::ng-deep .p-datatable-thead > tr > th {
+      background-color: #f1f4fb;
+      color: #435084;
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+      border-bottom: 2px solid #e9ecef;
+      padding: 0.75rem;
+    }
+
+    ::ng-deep .p-datatable-tbody > tr > td {
+      font-size: 0.8rem;
+      padding: 0.75rem;
+      border-bottom: 1px solid #f1f1f1;
+      color: #495057;
+      vertical-align: middle;
+    }
+
+    .custom-view-btn {
+      background-color: #435084 !important;
+      border-color: #435084 !important;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+    }
+
+    ::ng-deep .p-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+    }
+  }
+}

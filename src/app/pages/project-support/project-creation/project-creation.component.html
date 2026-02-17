@@ -1,0 +1,504 @@
+<div class="card readingcard">
+    <div class="card-header border-0 bg-transparent">
+        <div class="row justify-content-center">
+            <div class="col-md-12 d-flex gap-2 text-center">
+                <div class="select-title d-flex justify-content-between align-items-center" style="width: 100%">
+                    <div>
+                        <h5 class="mb-0">
+                            <span>Project Creation</span>
+                        </h5>
+                    </div>
+                    <div>
+                        <button pButton (click)="openVideoPopup()" class="how-it-works-button">How it works?<i
+                                class="fa-solid fa-play d-md-block d-none"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body flex-fill overflow-y-auto">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <div class="rounded-top-4 text-start d-flex justify-content-between align-items-center">
+                            <div class="d-flex gap-2 align-items-center">
+                                <h5 class="text-white mb-0 fw-medium">Add your Requirement</h5>
+                                <button class="btn btn-light btn-sm text-small uniprep-primary" 
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#previewProjectModal" 
+                                    (click)="0">
+                                    View Sample
+                                </button>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-warning btn-sm text-small previewbtn" 
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#previewProjectModal" 
+                                    (click)="0">
+                                    Preview
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body bg-white p-4">
+                        <form [formGroup]="projectForm" (ngSubmit)="submit()">
+                                        <div class="row g-4">
+                                            <!-- LEFT COLUMN -->
+                                            <div class="col-md-6">
+                                                <!-- Project Name -->
+                                                <div class="mb-3">
+                                                    <label class="mb-2 info-label">
+                                                        Project Name <span class="text-danger">*</span>
+                                                    </label>
+                                        <input class="form-control form-control-lg w-100" 
+                                            pInputText 
+                                            formControlName="projectName"
+                                                        placeholder="Name your project upto 20 words" />
+                                        <div class="d-flex justify-content-between align-items-center mt-1">
+                                            <small class="text-danger" *ngIf="
+                                                projectForm.get('projectName')?.invalid &&
+                                                projectForm.get('projectName')?.touched
+                                            ">
+                                                <span *ngIf="projectForm.get('projectName')?.errors?.['required']">
+                                                    Project Name is required.
+                                                </span>
+                                                <span *ngIf="projectForm.get('projectName')?.errors?.['maxWords']">
+                                                    Project Name cannot exceed 20 words. 
+                                                    Current: {{ projectForm.get('projectName')?.errors?.['maxWords']?.actual }} words.
+                                                </span>
+                                            </small>
+                                            <small class="text-muted ms-auto" 
+                                                [class.text-danger]="getWordCount(projectForm.get('projectName')?.value) > 20">
+                                                {{ getWordCount(projectForm.get('projectName')?.value) }} / 20 words
+                                            </small>
+                                        </div>
+                                                </div>
+
+                                                <!-- Project Image Upload -->
+                                                <div class="mb-3">
+                                        <label class="mb-2 info-label">
+                                            Upload Photos <small class="text-muted">(Optional)</small>
+                                        </label>
+                                        <!-- Hidden file input - always available -->
+                                                            <input type="file" hidden #projectPhotos accept="image/*"
+                                                                multiple (change)="onImagesChange($event)" />
+                                        
+                                        <div class="photo-upload-container border border-2 border-dashed rounded p-4 text-center" 
+                                             (click)="projectPhotos.click()"
+                                             [class.has-images]="imagePreviews.length > 0">
+                                            
+                                            <!-- Empty State: Custom Icon Design -->
+                                            <div *ngIf="imagePreviews.length === 0" class="photo-upload-empty-state">
+                                                <div class="upload-icon-wrapper mb-3">
+                                                    <svg width="120" height="100" viewBox="0 0 120 100" class="upload-icon-svg">
+                                                        <!-- Sun (orange circle) -->
+                                                        <circle cx="85" cy="25" r="12" fill="#ff9800" />
+                                                        
+                                                        <!-- Left mountain (larger, behind) -->
+                                                        <polygon points="30,70 60,30 90,70" fill="#d3d3d3" />
+                                                        
+                                                        <!-- Right mountain (smaller, in front) -->
+                                                        <polygon points="60,70 75,45 90,70" fill="#b8b8b8" />
+                                                        
+                                                        <!-- Purple rectangle with shadow and plus -->
+                                                        <g>
+                                                            <!-- Shadow -->
+                                                            <rect x="63" y="48" width="24" height="18" rx="3" fill="#d1c4e9" opacity="0.5" transform="translate(2, 2)" />
+                                                            <!-- Purple rectangle -->
+                                                            <rect x="63" y="48" width="24" height="18" rx="3" fill="#9c27b0" />
+                                                            <!-- White plus sign -->
+                                                            <line x1="70" y1="57" x2="80" y2="57" stroke="white" stroke-width="2" stroke-linecap="round" />
+                                                            <line x1="75" y1="52" x2="75" y2="62" stroke="white" stroke-width="2" stroke-linecap="round" />
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <p class="upload-photos-text mb-0">
+                                                    <span class="text-dark">Upload Photos</span> <span class="text-purple">(Optional)</span>
+                                                </p>
+                                            </div>
+                                            
+                                            <!-- Image Gallery -->
+                                            <div *ngIf="imagePreviews.length > 0" class="photo-upload-gallery w-100">
+                                                <div class="row g-2 mb-3">
+                                                    <div class="col-4 col-md-3" *ngFor="let preview of imagePreviews; let i = index">
+                                                        <div class="position-relative">
+                                                            <img [src]="preview"
+                                                                class="rounded w-100"
+                                                                style="height: 100px; object-fit: cover;"
+                                                                [alt]="'Project image ' + (i + 1)" />
+                                                            <button type="button"
+                                                                class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1"
+                                                                style="padding: 2px 6px; z-index: 10;"
+                                                                (click)="removeImage(i); $event.stopPropagation()"
+                                                                title="Remove image">
+                                                                <i class="fas fa-times"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Action Buttons -->
+                                                <div class="d-flex justify-content-center gap-2">
+                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                        (click)="projectPhotos.click(); $event.stopPropagation()">
+                                                        <i class="fas fa-plus me-1"></i>Add More
+                                                    </button>
+                                                    <button type="button"
+                                                        class="btn btn-danger btn-sm"
+                                                        (click)="removeSelectedImages(); $event.stopPropagation()">
+                                                        <i class="fas fa-trash me-1"></i>Remove All
+                                                    </button>
+                                                </div>
+                                                
+                                                <!-- Image Count -->
+                                                <div class="mt-2">
+                                                    <small class="text-muted">
+                                                        {{ selectedImages.length }} photo(s) selected
+                                                    </small>
+                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Service Type -->
+                                                <div class="mb-3">
+                                                    <label class="mb-2 info-label">
+                                                        Service Type <span class="text-danger">*</span>
+                                                    </label>
+                                        <p-select 
+                                            formControlName="servicesType"
+                                            [options]="serviceTypes"
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            placeholder="Select Service Type"
+                                            [disabled]="isLoadingDropdowns"
+                                            [filter]="true"
+                                            filterBy="label"
+                                            [showClear]="true"
+                                            appendTo="body"
+                                            styleClass="w-100"
+                                            [style]="{'width': '100%'}">
+                                        </p-select>
+                                        <small class="text-danger" *ngIf="
+                                            projectForm.get('servicesType')?.invalid &&
+                                            projectForm.get('servicesType')?.touched
+                                        ">
+                                            Service Type is required.
+                                        </small>
+                                                </div>
+
+                                                <!-- Freelance Type -->
+                                                <div class="mb-3">
+                                                    <label class="mb-2 info-label">
+                                                        Freelancing Type <span class="text-danger">*</span>
+                                                    </label>
+                                        <select class="form-select form-select-lg" formControlName="freelancingType" [disabled]="isLoadingDropdowns">
+                                                        <option value="">Select</option>
+                                            <option *ngFor="let freelancingType of freelancingTypes; trackBy: trackByFreelancingType" 
+                                                    [value]="getFreelancingTypeValue(freelancingType)">
+                                                {{ getFreelancingTypeLabel(freelancingType) }}
+                                            </option>
+                                                    </select>
+                                        <small class="text-danger" *ngIf="
+                                            projectForm.get('freelancingType')?.invalid &&
+                                            projectForm.get('freelancingType')?.touched
+                                        ">
+                                            Freelancing Type is required.
+                                        </small>
+                                                </div>
+
+                                                <!-- Budget Range -->
+                                                <div class="mb-3">
+                                                    <label class="mb-2 info-label">
+                                                        Budget Range <span class="text-danger">*</span>
+                                                    </label>
+                                        
+                                        <!-- Success Fee/Outcome: Percentage Input -->
+                                        <div *ngIf="isSuccessFeeType()" class="d-flex gap-2">
+                                            <div class="input-group input-group-lg flex-fill">
+                                                <input 
+                                                    class="form-control form-control-lg" 
+                                                    placeholder="Enter percentage" 
+                                                    type="number"
+                                                    formControlName="budgetPercentage"
+                                                    min="0"
+                                                    max="100"
+                                                    step="0.01" />
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Regular Budget: Currency and Amount Range -->
+                                        <div *ngIf="!isSuccessFeeType()" class="d-flex gap-2">
+                                            <p-select 
+                                                formControlName="budgetCurrency"
+                                                [options]="currencies"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                placeholder="Select Currency"
+                                                [disabled]="isLoadingDropdowns"
+                                                [filter]="true"
+                                                filterBy="label"
+                                                [showClear]="true"
+                                                appendTo="body"
+                                                styleClass="flex-fill"
+                                                [style]="{'width': '100%', 'min-width': '150px'}">
+                                            </p-select>
+                                            <input class="form-control form-control-lg flex-fill" placeholder="Min" type="number"
+                                                            formControlName="budgetMin" />
+                                            <input class="form-control form-control-lg flex-fill" placeholder="Max" type="number"
+                                                            formControlName="budgetMax" />
+                                                    </div>
+                                        
+                                        <!-- Validation Messages for Success Fee/Outcome -->
+                                        <small class="text-danger" *ngIf="isSuccessFeeType() && 
+                                            projectForm.get('budgetPercentage')?.invalid &&
+                                            projectForm.get('budgetPercentage')?.touched">
+                                            <span *ngIf="projectForm.get('budgetPercentage')?.errors?.['required']">
+                                                Budget percentage is required.
+                                            </span>
+                                            <span *ngIf="projectForm.get('budgetPercentage')?.errors?.['min']">
+                                                Percentage must be at least 0%.
+                                            </span>
+                                            <span *ngIf="projectForm.get('budgetPercentage')?.errors?.['max']">
+                                                Percentage cannot exceed 100%.
+                                            </span>
+                                        </small>
+                                        
+                                        <!-- Validation Messages for Regular Budget -->
+                                        <small class="text-danger" *ngIf="!isSuccessFeeType() && 
+                                            (projectForm.get('budgetCurrency')?.invalid ||
+                                             projectForm.get('budgetMin')?.invalid ||
+                                             projectForm.get('budgetMax')?.invalid) &&
+                                            (projectForm.get('budgetCurrency')?.touched ||
+                                             projectForm.get('budgetMin')?.touched ||
+                                             projectForm.get('budgetMax')?.touched)">
+                                            <span *ngIf="projectForm.get('budgetCurrency')?.errors?.['required']">
+                                                Budget Currency is required.
+                                            </span>
+                                            <span *ngIf="projectForm.get('budgetMin')?.errors?.['required']">
+                                                Minimum Budget is required.
+                                            </span>
+                                            <span *ngIf="projectForm.get('budgetMax')?.errors?.['required']">
+                                                Maximum Budget is required.
+                                            </span>
+                                            <span *ngIf="projectForm.get('budgetMax')?.errors?.['minGreaterThanMax']">
+                                                Maximum budget must be greater than minimum budget.
+                                            </span>
+                                        </small>
+                                                </div>
+
+                                                <!-- Project Description -->
+                                                <div class="mb-3">
+                                                    <label class="mb-2 info-label">
+                                                        Project Description <span class="text-danger">*</span>
+                                                    </label>
+                                        <textarea class="form-control form-control-lg w-100" rows="4"
+                                                        formControlName="projectDescription"
+                                            placeholder="Give the short brief of your project (200 words max)"></textarea>
+                                        <div class="d-flex justify-content-between align-items-center mt-1">
+                                            <small class="text-danger" *ngIf="
+                                                projectForm.get('projectDescription')?.invalid &&
+                                                projectForm.get('projectDescription')?.touched
+                                            ">
+                                                <span *ngIf="projectForm.get('projectDescription')?.errors?.['required']">
+                                                    Project Description is required.
+                                                </span>
+                                                <span *ngIf="projectForm.get('projectDescription')?.errors?.['maxWords']">
+                                                    Project Description cannot exceed 200 words. 
+                                                    Current: {{ projectForm.get('projectDescription')?.errors?.['maxWords']?.actual }} words.
+                                                </span>
+                                            </small>
+                                            <small class="text-muted ms-auto" 
+                                                [class.text-danger]="getWordCount(projectForm.get('projectDescription')?.value) > 200">
+                                                {{ getWordCount(projectForm.get('projectDescription')?.value) }} / 200 words
+                                            </small>
+                                        </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- RIGHT COLUMN -->
+                                            <div class="col-md-6">
+                                                <!-- Project Requirement Details -->
+                                                <div class="mb-3">
+                                                    <label class="mb-2 info-label">
+                                                        Project Requirement Details <span class="text-danger">*</span>
+                                                    </label>
+                                        <textarea class="form-control form-control-lg w-100" rows="6"
+                                                        formControlName="projectRequirementDetails"
+                                            placeholder="Give the requirements of your project"></textarea>
+                                        <small class="text-danger" *ngIf="
+                                            projectForm.get('projectRequirementDetails')?.invalid &&
+                                            projectForm.get('projectRequirementDetails')?.touched
+                                        ">
+                                            <span *ngIf="projectForm.get('projectRequirementDetails')?.errors?.['required']">
+                                                Project Requirement Details is required.
+                                            </span>
+                                        </small>
+                                                </div>
+
+                                                <!-- Project Priority -->
+                                                <div class="mb-3">
+                                                    <label class="mb-2 info-label">
+                                                        Project Priority <span class="text-danger">*</span>
+                                                    </label>
+                                        <select class="form-select form-select-lg" formControlName="projectPriority" [disabled]="isLoadingDropdowns">
+                                                        <option value="">Select</option>
+                                            <option *ngFor="let priority of projectPriorities; trackBy: trackByPriority" 
+                                                    [value]="getPriorityValue(priority)">
+                                                {{ getPriorityLabel(priority) }}
+                                            </option>
+                                                    </select>
+                                        <small class="text-danger" *ngIf="
+                                            projectForm.get('projectPriority')?.invalid &&
+                                            projectForm.get('projectPriority')?.touched
+                                        ">
+                                            Project Priority is required.
+                                        </small>
+                                                </div>
+
+                                                <!-- Project Start Date -->
+                                                <div class="mb-3">
+                                                    <label class="mb-2 info-label">
+                                            Project Start date <span class="text-danger">*</span>
+                                                    </label>
+                                        <div class="input-group input-group-lg">
+                                            <p-datepicker 
+                                                formControlName="projectStartDate"
+                                                [showIcon]="true"
+                                                [readonlyInput]="true"
+                                                placeholder="Select date"
+                                                dateFormat="dd/mm/yy"
+                                                [minDate]="minDate"
+                                                styleClass="w-100"
+                                                [style]="{'width': '100%'}"
+                                                appendTo="body"
+                                                inputStyleClass="form-control form-control-lg">
+                                            </p-datepicker>
+                                        </div>
+                                        <small class="text-danger" *ngIf="
+                                            projectForm.get('projectStartDate')?.invalid &&
+                                            projectForm.get('projectStartDate')?.touched
+                                        ">
+                                            Project Start date is required.
+                                        </small>
+                                                </div>
+
+                                                <!-- Project Remarks -->
+                                                <div class="mb-3">
+                                                    <label class="mb-2 info-label">
+                                            Project Remarks / Additional Notes <small class="text-muted">(Optional)</small>
+                                                    </label>
+                                        <textarea class="form-control form-control-lg w-100" rows="3"
+                                                        formControlName="projectRemarks"
+                                            placeholder="Remarks"></textarea>
+                                                </div>
+
+                                    <!-- Reference Links -->
+                                                <div class="mb-3">
+                                                    <label class="mb-2 info-label">
+                                            Reference Links <small class="text-muted">(Optional)</small>
+                                                    </label>
+                                        <div formArrayName="referenceLinks">
+                                            <div *ngFor="let linkControl of referenceLinksFormArray.controls; let i = index" 
+                                                 [formGroupName]="i" 
+                                                 class="mb-2">
+                                                <div class="input-group input-group-lg">
+                                                    <span class="input-group-text">
+                                                        <i class="fas fa-link"></i>
+                                                    </span>
+                                                    <input class="form-control form-control-lg" 
+                                                           formControlName="url"
+                                                           placeholder="Upload your reference link" />
+                                                    <button *ngIf="referenceLinksFormArray.length > 1" 
+                                                            class="btn btn-danger" 
+                                                            type="button"
+                                                            (click)="removeReferenceLink(i)"
+                                                            title="Remove link">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                    <button *ngIf="i === referenceLinksFormArray.length - 1" 
+                                                            class="btn btn-primary" 
+                                                            type="button"
+                                                            (click)="addReferenceLink()"
+                                                            title="Add another link">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                                <small class="text-danger" *ngIf="
+                                                    getReferenceLinkForm(i).get('url')?.invalid &&
+                                                    getReferenceLinkForm(i).get('url')?.touched
+                                                ">
+                                                    Please enter a valid URL.
+                                                </small>
+                                            </div>
+                                        </div>
+                                                </div>
+
+                                                <!-- Project Documents -->
+                                                <div class="mb-3">
+                                                    <label class="mb-2 info-label">
+                                                        Project Documents <small class="text-muted">(Optional)</small>
+                                                    </label>
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-file-alt"></i>
+                                            </span>
+                                            <input type="file" 
+                                                class="form-control form-control-lg" 
+                                                #projectDocuments
+                                                accept=".pdf,.doc,.docx,.txt,.xls,.xlsx,.ppt,.pptx"
+                                                multiple 
+                                                (change)="onDocumentsChange($event)"
+                                                placeholder="Upload your documents" />
+                                                </div>
+
+                                        <!-- Selected Documents List -->
+                                        <div *ngIf="selectedDocuments.length > 0" class="mt-2">
+                                            <div *ngFor="let document of selectedDocuments; let i = index" 
+                                                 class="d-flex align-items-center justify-content-between p-2 mb-2 rounded"
+                                                 style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
+                                                <div class="d-flex align-items-center flex-fill">
+                                                    <i class="fas fa-file-alt text-primary me-2"></i>
+                                                    <div class="flex-fill">
+                                                        <small class="d-block text-dark" style="word-break: break-word;">
+                                                            {{ document.name }}
+                                                        </small>
+                                                        <small class="text-muted">
+                                                            {{ (document.size / 1024).toFixed(2) }} KB
+                                                        </small>
+                                            </div>
+                                        </div>
+                                                <button type="button"
+                                                    class="btn btn-sm btn-danger ms-2"
+                                                    (click)="removeDocument(i)"
+                                                    title="Remove document">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                </div>
+                                            <div class="text-end">
+                                                <button type="button"
+                                                    class="btn btn-sm btn-outline-danger"
+                                                    (click)="removeAllDocuments()">
+                                                    <i class="fas fa-trash me-1"></i>Clear All
+                                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer bg-white border-top">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary px-4" (click)="submit()">Submit</button>
+                        </div>
+        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

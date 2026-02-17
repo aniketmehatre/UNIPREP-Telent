@@ -11,6 +11,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { LocationService } from 'src/app/services/location.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/Auth/auth.service';
 
 @Component({
   selector: 'uni-job-list',
@@ -53,7 +54,7 @@ export class JobListComponent implements OnInit {
   isAppliedFilter: boolean = false;
 
   constructor(private talentConnectService: TalentConnectService, private fb: FormBuilder,
-    private locationService: LocationService, private router: Router) {
+    private locationService: LocationService, private router: Router, private authService: AuthService) {
 
   }
 
@@ -64,7 +65,11 @@ export class JobListComponent implements OnInit {
   }
 
   onClickJobCard(id: number) {
-    this.router.navigate(['/pages/talent-connect/job-tracker', id]);
+    if (this.authService._user?.current_plan_detail?.account_status === "Subscription Active") {
+      this.router.navigate(['/pages/talent-connect/job-tracker', id]);
+    } else {
+      this.router.navigate(['/pages/subscriptions/upgrade-subscription']);
+    }
   }
 
   selectTab(index: number) {
@@ -77,6 +82,7 @@ export class JobListComponent implements OnInit {
     }
     this.page = 1;
   }
+  
   getAppliedJobList(params?: any) {
     let isAppliedFilter = false;
     let data = {

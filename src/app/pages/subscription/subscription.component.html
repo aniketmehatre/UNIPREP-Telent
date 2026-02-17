@@ -82,3 +82,70 @@
 			Now</button>
 	</div>
 </p-dialog>
+
+
+<!-- Get Verified Modal -->
+<p-dialog [(visible)]="showVerificationModal" [modal]="true" [draggable]="false" [resizable]="false" 
+  [style]="{ width: '40rem' }" 
+  [breakpoints]="{ '960px': '50vw', '959px': '80vw', '425px': '90vw' }"
+  [closable]="true"
+  styleClass="verification-modal">
+  <ng-template pTemplate="header">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <h4 class="mb-0 fw-semibold">🚀 Get Verified to Be Shortlisted for This Job</h4>
+      <button class="btn btn-link p-0 text-primary" (click)="closeVerificationModal()" style="font-size: 1.25rem;">
+        <!-- <i class="fa-solid fa-xmark"></i> -->
+      </button>
+    </div>
+  </ng-template>
+  
+  <div class="verification-modal-content">
+    <p class="mb-4 text-secondary">
+      Your profile matches this role. Verification is required before employer shortlisting.
+    </p>
+
+    <div class="mb-4">
+      <h6 class="mb-3 fw-semibold">Benefits of verification:</h6>
+      <div class="d-flex flex-column gap-3">
+        <div class="d-flex align-items-start gap-2">
+          <i class="fa-solid fa-circle-check text-success mt-1" style="font-size: 1.1rem;"></i>
+          <span>Interview opportunity with hiring companies</span>
+        </div>
+        <div class="d-flex align-items-start gap-2">
+          <i class="fa-solid fa-circle-check text-success mt-1" style="font-size: 1.1rem;"></i>
+          <span>1:1 career expert call to review & verify your profile</span>
+        </div>
+        <div class="d-flex align-items-start gap-2">
+          <i class="fa-solid fa-circle-check text-success mt-1" style="font-size: 1.1rem;"></i>
+          <span>Priority access to premium jobs</span>
+        </div>
+        <div class="d-flex align-items-start gap-2">
+          <i class="fa-solid fa-circle-check text-success mt-1" style="font-size: 1.1rem;"></i>
+          <span>70+ career, education & entrepreneur tools</span>
+        </div>
+        <div class="d-flex align-items-start gap-2">
+          <i class="fa-solid fa-circle-check text-success mt-1" style="font-size: 1.1rem;"></i>
+          <span>Faster employer response on verified profiles</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3 d-flex align-items-center gap-2">
+      <i class="fa-solid fa-lock text-primary"></i>
+      <span class="text-secondary">Employers prefer verified profiles during shortlisting.</span>
+    </div>
+
+    <div class="mb-4 d-flex align-items-center gap-2">
+      <i class="fa-solid fa-star text-warning"></i>
+      <span class="text-secondary">20,000+ job seekers get verified every month on UNIPREP</span>
+    </div>
+
+    <div class="text-center">
+      <button pButton class="btn btn-primary px-5 py-3 fw-semibold" [rounded]="true" 
+        type="button" (click)="onGetVerified()" 
+        style="background-color: #ff6b35; border-color: #ff6b35; min-width: 200px;">
+        Get Verified
+      </button>
+    </div>
+  </div>
+</p-dialog>

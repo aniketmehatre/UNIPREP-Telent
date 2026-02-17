@@ -20,7 +20,8 @@
 	<div class="card-body text-start flex-fill overflow-y-auto">
 		<div class="row justify-content-between h-100">
 			@if(showInfo) {
-			<div class="h-100 overflow-hidden" [ngClass]="!showChat ? 'col-sm-12' : 'col-sm-12 col-md-7 col-lg-8 col-xl-9'">
+			<div class="h-100 overflow-hidden"
+				[ngClass]="!showChat ? 'col-sm-12' : 'col-sm-12 col-md-7 col-lg-8 col-xl-9'">
 				<div class="card h-100 overflow-y-auto">
 					<div class="card-header bg-transparent">
 						<div class="row align-items-center">
@@ -65,7 +66,8 @@
 															Chat</button>
 													</div>
 													<div class="col-12 text-md-end text-start">
-														<p class="text-small text-muted">Applied On: {{ jobDetails.created_at | date
+														<p class="text-small text-muted">Applied On: {{
+															jobDetails.created_at | date
 															:
 															"dd-MM-yyyy" }}</p>
 													</div>
@@ -84,7 +86,8 @@
 								<div class="row">
 									<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 mb-3">
 										<div class="d-flex text-left align-items-center">
-											<i class="fa-solid fa-calendar text-primary me-2 mt-1" style="color: purple"></i>
+											<i class="fa-solid fa-calendar text-primary me-2 mt-1"
+												style="color: purple"></i>
 											<div>
 												<p class="text-muted mb-1">Start Date</p>
 												<p class="fw-bold mb-0">{{ jobDetails.start_date }}</p>
@@ -93,7 +96,8 @@
 									</div>
 									<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 mb-3">
 										<div class="d-flex text-left align-items-center">
-											<i class="fa-solid fa-calendar text-primary me-2 mt-1" style="color: purple"></i>
+											<i class="fa-solid fa-calendar text-primary me-2 mt-1"
+												style="color: purple"></i>
 											<div>
 												<p class="text-muted mb-1">Job Application Deadline</p>
 												<p class="fw-bold mb-0">{{ jobDetails.due_date }}</p>
@@ -105,7 +109,8 @@
 											<i class="fa-solid fa-location-dot text-success me-2 mt-1"></i>
 											<div>
 												<p class="text-muted mb-1">Work Location</p>
-												<p class="fw-bold mb-0">{{ jobDetails.worklocation || jobDetails.work_location }}
+												<p class="fw-bold mb-0">{{ jobDetails.worklocation ||
+													jobDetails.work_location }}
 												</p>
 											</div>
 										</div>
@@ -254,15 +259,18 @@
 													<div class="col-md-7 font-bold">
 														<div class="d-flex flex-wrap gap-2">
 															<!-- Handle both string and array formats -->
-															 @if(!array.isArray(jobDetails.compensation_structure)) {
-																<span
-																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
-																	jobDetails.compensation_structure }}</span>
+															@if(!array.isArray(jobDetails.compensation_structure)) {
+															<span
+																class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+																jobDetails.compensation_structure }}</span>
 															}
 															@else {
-																@for (comp of jobDetails.compensation_structure; track comp) {
-																<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ comp }}</span>
-																}
+															@for (comp of jobDetails.compensation_structure; track comp)
+															{
+															<span
+																class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+																comp }}</span>
+															}
 															}
 														</div>
 													</div>
@@ -283,12 +291,16 @@
 														<div class="d-flex flex-wrap gap-2">
 															<!-- Handle both string and array formats -->
 															@if(!array.isArray(jobDetails.benefits_perks)) {
-																<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ jobDetails.benefits_perks }}</span>
+															<span
+																class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+																jobDetails.benefits_perks }}</span>
 															}
 															@else {
-																@for (benefit of jobDetails.benefits_perks; track benefit) {
-																<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ benefit }}</span>
-																}
+															@for (benefit of jobDetails.benefits_perks; track benefit) {
+															<span
+																class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+																benefit }}</span>
+															}
 															}
 														</div>
 													</div>
@@ -309,12 +321,16 @@
 														<div class="d-flex flex-wrap gap-2">
 															<!-- Handle both string and array formats -->
 															@if(!array.isArray(jobDetails.soft_skills)) {
-																<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ jobDetails.soft_skills }}</span>
+															<span
+																class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+																jobDetails.soft_skills }}</span>
 															}
 															@else {
-																@for (skill of jobDetails.soft_skills; track skill) {
-																<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{ skill }}</span>
-																}
+															@for (skill of jobDetails.soft_skills; track skill) {
+															<span
+																class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">{{
+																skill }}</span>
+															}
 															}
 														</div>
 													</div>
@@ -335,27 +351,30 @@
 														<h6 class="mb-2 text-primary">Hiring Process Stages</h6>
 														<div class="d-flex flex-wrap gap-2 mb-4">
 															<!-- Handle different hiring_stages formats -->
-															 @if(!array.isArray(jobDetails.hiring_stages)) {
-																<span
-																	class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6 ">{{
-																	jobDetails.hiring_stages }}</span>
+															@if(!array.isArray(jobDetails.hiring_stages)) {
+															<span
+																class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6 ">{{
+																jobDetails.hiring_stages }}</span>
 															}
 															@else {
-																@for (stage of jobDetails.hiring_stages; track stage) {
-																<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">
-																	{{ stage.name || stage }}
-																</span>
-																}
+															@for (stage of jobDetails.hiring_stages; track stage) {
+															<span
+																class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">
+																{{ stage.name || stage }}
+															</span>
+															}
 															}
 														</div>
-			
-														<h6 class="mb-2 text-primary">Estimated Hiring Decision Timeframe</h6>
+
+														<h6 class="mb-2 text-primary">Estimated Hiring Decision
+															Timeframe</h6>
 														<p class="mb-4">{{ jobDetails.hiring_timeframe }}</p>
-			
+
 														<h6 class="mb-2 text-primary">Interview Format</h6>
 														<div class="d-flex flex-wrap gap-2 mb-4">
 															@for (stage of jobDetails.interview_format; track stage) {
-															<span class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">
+															<span
+																class="border border-secondary badge bg-warning text-dark p-2 rounded mb-2 fs-6">
 																{{ stage }}
 															</span>
 															}
@@ -390,13 +409,15 @@
 			</div>
 			}
 			@if(showChat) {
-			<div class="col-12 d-md-block d-none h-100" [ngClass]="{ 'col-md-5 col-lg-4 col-xl-3 overflow-y-auto': showInfo }">
-				<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails" [jobId]="jobDetails?.id" (closeChat)="showChat = false"></uni-job-chat-ui>
+			<div class="col-12 d-md-block d-none h-100"
+				[ngClass]="{ 'col-md-5 col-lg-4 col-xl-3 overflow-y-auto': showInfo }">
+				<uni-job-chat-ui (openInfo)="showInfo = true" [showInfo]="showInfo" [jobDetails]="jobDetails"
+					[jobId]="jobDetails?.id" (closeChat)="showChat = false"></uni-job-chat-ui>
 			</div>
 			}
 			<p-drawer #drawerRef [(visible)]="visible" position="right" [style]="{ width: '80vw' }">
 				<ng-template #headless>
-						<uni-job-chat-ui class="h-100" (openInfo)="showInfo = true" [showInfo]="showInfo"
+					<uni-job-chat-ui class="h-100" (openInfo)="showInfo = true" [showInfo]="showInfo"
 						[jobDetails]="jobDetails" [jobId]="jobDetails?.id"
 						(closeChat)="showChat = false"></uni-job-chat-ui>
 				</ng-template>

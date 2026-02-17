@@ -224,6 +224,13 @@ const routes: Routes = [
           import("./job-tool/job-tool.module").then((m) => m.JobToolModule),
       },
       {
+        path: "project-support",
+        loadChildren: () =>
+          import("./project-support/project-support.module").then(
+            (m) => m.ProjectSupportModule
+          ),
+      },
+      {
         path: "digital-job-fair",
         component: DigitalJobFairPagesComponent,
       },
